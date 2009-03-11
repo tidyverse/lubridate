@@ -1,0 +1,12 @@
+Package: plyr
+Type: Package
+Title: Tools for splitting, applying and combining data
+Version: 0.1.6
+Author: Hadley Wickham <h.wickham@gmail.com>
+Maintainer: Hadley Wickham <h.wickham@gmail.com>
+Description: plyr is a set of tools that solves a common set of problems: you need to break a big problem down into manageable pieces, operate on each pieces and then put all the pieces back together.
+URL: http://had.co.nz/plyr
+Depends: R (>= 2.8)
+Suggests: RUnit, abind, tcltk
+License: GPL
+LazyData: true
