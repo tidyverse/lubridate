@@ -116,20 +116,17 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
   comb_strings <- cbind(formats[combs$format], sep = seps[combs$sep])
   
   # Create a character vector of the row values pasted together
-  # Note: This does not work on my computer. It returns a character vector that 
-  #  is identical to the first column of comb_strings.
-  # Note: This problem is remedied if we remove "sep =" from comb_strings <- 
-  #   cbind(....
   # Note: Using splat() with mlply() may be redundant. Removing splat() gives 
   #   the same results. 
-  # Note: ymd (and the other functions) make format a list of length 1 with 
+  # Note: This does not work on my computer. It returns a character vector that 
+  #   is identical to the first column of comb_strings.
+  # The reason: ymd (and the other functions) make format a list of length 1 with 
   #   three characters. For example, 
   #   > formats
   #   [[1]]
   #   [1] "%d" "%m" "%y"
-  #   In this case, splat(paste) puts the separator between each entry in the 
-  #     list (i.e. at the end of the first entry), but not between each 
-  #     character (since they're all in the same entry.) We get "%d %m %y /".
+  #   Since there's only one entry in the list (' "%d" %m" "%y" '), paste has 
+  #      nothing to combine with a separator and just returns the entry.
   fmts <- unlist(mlply(comb_strings, splat(paste)))
   
   # For each of the formats, convert x to a POSIXlt date with the given format. 
