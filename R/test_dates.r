@@ -29,7 +29,7 @@ permute <- function(...){
 
 # Splits each row in a matric into n rows, and adds to each a unique element from a 
 # vector of length n
-combine <- function(mat, vec, name){
+combine <- function(mat, vec){
 	combined <- mat[rep(1:nrow(mat), each = length(vec)),]
 	combined <- cbind(unname(combined), sep = rep(vec, nrow(mat)))
 	combined
@@ -96,7 +96,12 @@ misc <- c("the 6th day of August in the year of our Lord 2003",
 "August, 6 2003 AC",
 "August, 6 2003 CE",
 "August, 6 2003 AD",
-"1060146000") # the POSIXct number for Aug 6, 2003
+"1060146000", # the POSIXct number for Aug 6, 2003
+"2003_W33-4", # the Week Date formats
+"2003W334",
+"2003-218", # the Ordinal formats
+"2003218"
+)
 
 
 
