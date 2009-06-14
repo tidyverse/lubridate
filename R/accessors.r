@@ -20,7 +20,7 @@ year <- function(x) as.POSIXlt(x)$year + 1900
 # time zone. On the otherhand, the first entry is often "".
 tz <- function(x) {
   tzs <- attr(as.POSIXlt(x),"tzone")
-  tzs[length(tzs)]
+  tzs[1]
 }
 
 # time must first be converted ot military (24 hour) time
@@ -93,6 +93,6 @@ update.Date <- update.POSIXt <- function(object, ...) {
 # Note: if a user inputs a change that would "rollover" to affect more than one 
 # component, the order in which the desired changes are listed will affect the 
 # answer. 
-# For example, object = 1-01-2000, and changes are year = 2001, month = 12.  
+# For example, object = 1-01-2000, and changes are year = 2001, month = 13.  
 #   If month is listed before year, update.Date will return 1-01-2001. 
 #   If year is listed before month, update.Date will return 1-01-2002.
