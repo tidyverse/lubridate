@@ -51,17 +51,44 @@ d <- days(1)
 w <- weeks(1)
 m <- months(1)
 y <- years(1)
+
 	
-# creating new adding function
-"+.Date" <- function(e1, e2){
-	if inherits(e2, "duration"){
+# adding 
+"+.POSIXt" <- function(e1, e2){
+	if (inherits(e2, "period")){
 		if (e2 %% floor(e2) == 0){ #whole periods
-			seq(e1, by = "month", length.out = e2)[e2]
-			} else{ # partial periods
-				e1 + floor(e2)) + e2 %% floor(e2) * ((e1 + floor(e2)) - (e1 + ceiling(e2)))
+			seq(e1, by = "month", length.out = e2 + 1)[e2 + 1]
+			} else { # partial periods
+				
+				# length in seconds of the last period
+				secs <- as.double(difftime(e1 + ceiling(e2), e1 + floor(e2), units = "secs"))
+				
+				# length in seconds of the partial period
+				part <- as.numeric(e2 %% floor(e2) * secs)
+				e1 + floor(e2) + part
 				}
 		} else {
-			base::'+.Date'(e1, e2)
+			base::'+.POSIXt'(e1, e2)
 			}
 	}
 
+# subtracting
+"-.POSIXt" <- function(e1, e2){
+	if (inherits(e2, "period")){
+		if (e2 %% floor(e2) == 0){ #whole periods
+			seq(e1, by = "-1 month", length.out = e2 + 1)[e2 + 1]
+			} else { # partial periods
+				
+				# length in seconds of the last period
+				secs <- as.double(difftime(e1 - floor(e2), e1 - ceiling(e2), units = "secs"))
+				
+				# length in seconds of the partial period
+				part <- as.numeric(e2 %% floor(e2) * secs)
+				e1 - floor(e2) - part
+				}
+		} else {
+			base::'-.POSIXt'(e1, e2)
+			}
+	}
+	
+	
