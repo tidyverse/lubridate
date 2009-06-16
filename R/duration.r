@@ -9,29 +9,10 @@ seconds <- function(x = 1) {
 	dur
 	}
 	
-minutes <- function(x = 1) {
-	dur <- c(seconds = x * 60, months = 0)
-	class(dur) <- "duration"
-	dur
-	}
-	
-hours <- function(x = 1) {
-	dur <- c(seconds = x * 3600, months = 0)
-	class(dur) <- "duration"
-	dur
-	}
-		
-days <- function(x = 1) {
-	dur <- c(seconds = x * 86400, months = 0)
-	class(dur) <- "duration"
-	dur
-	}
-	
-weeks <- function(x = 1) {
-	dur <- c(seconds = x * 604800, months = 0)
-	class(dur) <- "duration"
-	dur
-	}
+minutes <- function(x = 1) seconds(x * 60)
+hours <- function(x = 1) minutes(x * 60)
+days <- function(x = 1) hours(x * 24)	
+weeks <- function(x = 1) days(x * 7)
 	
 months <- function(x = 1) {
 	dur <- c(seconds = 0, months = x * 1)
@@ -39,11 +20,7 @@ months <- function(x = 1) {
 	dur
 	}
 	
-years <- function(x = 1) {
-	dur <- c(seconds = 0, months = x * 12)
-	class(dur) <- "duration"
-	dur
-	}
+years <- function(x = 1) months(x * 12)
 	
 d <- days(1)
 w <- weeks(1)

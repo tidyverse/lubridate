@@ -3,12 +3,7 @@
 # ---------------------------------------------------------------------------
 
 # New guess_format() tests all permutations of the format entries
-# Removed redundant convenience functions
 # Need to generate some sample data
-
-
-if (attr(x))
-
 
 ymd <- function(...) {
   dates <- unlist(list(...))

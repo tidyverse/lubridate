@@ -2,7 +2,7 @@ Package: lubridate
 Type: Package
 Title: Make dealing with dates a little easier
 Version: 0.1
-Author: Hadley Wickham <h.wickham@gmail.com>
+Author: Hadley Wickham <h.wickham@gmail.com>, Garrett Grolemund <grolemund@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: 
 Depends: R (>= 2.8), plyr

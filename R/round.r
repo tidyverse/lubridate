@@ -1,8 +1,9 @@
 # Rounding for dates
 # ---------------------------------------------------------------------------
 
-floor_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year"), eps=1e-10) {
-
+# d <- strptime("2008-11-13 10:34:17", "%Y-%m-%d %H:%M:%S")
+# 
+floor_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year"), eps = 1e-10) {
   # matching user's input for "unit" to type of unit indicated
   unit <- match.arg(unit)
   
@@ -12,18 +13,13 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 
   # selects appropriate task based on user's input for "unit"
   switch(unit,
-  
-    # R automatically executes
-    # > second(x) <- 0
-    # as
-    # > second<-(x, 0)
-    second = {second(x) <- floor(second(x));},
-    minute = {second(x) <- 0;},
-    hour =   {minute(x) <- 0; second(x) <- 0;},
-    day =    {hour(x) <- 0; minute(x) <- 0; second(x) <- 0},
-    week =   {wday(x) <- 1; hour(x) <- 0; minute(x) <- 0; second(x) <- 0},
-    month =  {mday(x) <- 1; hour(x) <- 0; minute(x) <- 0; second(x) <- 0},
-    year =   {yday(x) <- 1; hour(x) <- 0; minute(x) <- 0; second(x) <- 0}
+    second = update(x, second = floor(second(x))),
+    minute = update(x, second = 0),
+    hour =   update(x, minute = 0, second = 0),
+    day =    update(x, hour = 0, minute = 0, second = 0),
+    week =   update(x, wday = 1, hour = 0, minute = 0, second = 0),
+    month =  update(x, mday = 1, hour = 0, minute = 0, second = 0),
+    year =   update(x, yday = 1, hour = 0, minute = 0, second = 0)
   )
   
   x
@@ -31,7 +27,8 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 
 
 # In almost the same manner as above...
-ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year"), eps=1e-10) {
+# d <- strptime("2008-01-01 00:00:00", "%Y-%m-%d %H:%M:%S")
+ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year"), eps = 1e-10) {
   unit <- match.arg(unit)
   if (unit != "second") second(x) <- second(x) + eps 
   
@@ -55,7 +52,30 @@ round_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
   below <- floor_date(x, unit)
   above <- ceiling_date(x, unit)
 
-  # Returns the closer of above and below and recognizes it as a POSIXct object
-  structure(ifelse(difftime(x, below, "secs") < difftime(above, x, "secs"), below, above), class="POSIXct")
+  # Returns the closer of above and below and forces it to be 
+  # a POSIXct object
+  smaller <- difftime(x, below, "secs") < difftime(above, x, "secs")
+  structure(ifelse(smaller, below, above), class="POSIXct")
 }
 
+# Parse date time unit specification
+# Parse the time unit specification used by \code{\link{cut.Date}} into something useful
+# 
+# @keywords internal
+parse_unit_spec <- function(unitspec) {
+  parts <- strsplit(unitspec, " ")[[1]]
+  if (length(parts) == 1) {
+    mult <- 1
+    unit <- unitspec
+  } else {
+    mult <- as.numeric(parts[[1]])
+    unit <- parts[[2]]
+  }
+  
+  # Match to 
+  unit <- gsub("s$", "", unit)
+  unit <- match.arg(unit, 
+    c("second","minute","hour","day", "week", "month", "year"))
+  
+  list(unit = unit, mult = mult)
+}
