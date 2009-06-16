@@ -20,8 +20,5 @@ PATH <- dirname(FILE)
 # dir( , full.name = T) produces a character vector of all the file names in our 
 #   R directory. Each filename has the directory path appended to it.
 # lapply( , source) tells R to load (i.e. source) each of these files.
-lapply(dir(file.path(PATH, "R"), full.name=T), source)
-
-# Note: this code does not work when I run it on my computer, but I am unsure of 
-#   its intended purpose. My guess is that this is a fragment used to load a 
-#   completed package?
+paths <- dir(file.path(PATH, "R"), pattern = "\\.r$", full.name=T)
+lapply(paths, source)
