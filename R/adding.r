@@ -5,47 +5,14 @@
 
 
 # Dates should first be converted to POSIXct with parse.r
-seconds <- function(x = 1) {
-	dur <- x * 1
-	class(dur) <- "duration"
-	dur
-	}
+seconds <- function(x = 1) structure(x, class = "duration")
+minutes <- function(x = 1) seconds(x * 60)
+hours <- function(x = 1)   minutes(x * 60)
+days <- function(x = 1)    hours(x * 24)
+weeks <- function(x = 1)   days(x * 7)
 	
-minutes <- function(x = 1) {
-	dur <- x * 60
-	class(dur) <- "duration"
-	dur
-	}
-	
-hours <- function(x = 1) {
-	dur <- x * 3600
-	class(dur) <- "duration"
-	dur
-	}
-		
-days <- function(x = 1) {
-	dur <- x * 86400
-	class(dur) <- "duration"
-	dur
-	}
-	
-weeks <- function(x = 1) {
-	dur <- x * 604800
-	class(dur) <- "duration"
-	dur
-	}
-	
-months <- function(x = 1) {
-	per <- x * 1
-	class(per) <- "period"
-	per
-	}
-	
-years <- function(x = 1) {
-	per <- x * 12
-	class(per) <- "period"
-	per
-	}
+months <- function(x = 1)  structure(x, class = "period")
+years <- function(x = 1)   months(x * 12)
 
 d <- days(1)
 w <- weeks(1)
