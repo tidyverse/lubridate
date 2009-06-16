@@ -7,9 +7,6 @@
 # Need to generate some sample data
 
 
-if (attr(x))
-
-
 ymd <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = c("%y", "%m", "%d"))
