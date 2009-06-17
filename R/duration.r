@@ -33,26 +33,21 @@ y <- years(1)
 month_add <- function (a1, a2){
 	if (a2 == 0){
 		return(a1)
-		}
-	else if (a2 > 0){
-			month_seq <- seq(a1, by = "month", length.out = a2 + 1)
-		} else { # adding negative months (subtracting)
-			a2 <- abs(a2)
-			month_seq <- seq(a1, by = "-1 month", length.out = a2 + 1)
-			}
-			
-			
-	if (a2 %% trunc(a2) == 0){ #whole months
-		month_seq[a2 + 1]
-			
-		} else { #partial months
-			secs <- as.double(difftime(month_seq[a2 + 2], month_seq[a2 + 1], 
-				units = "secs"))
-			part <- a2 %% trunc(a2) * secs
-			month_seq[a2 + 1] + part
-			}
+	} else if (a2 > 0){
+		month_seq <- seq(a1, by = "month", length.out = a2 + 1)
+	} else { # adding negative months (subtracting)
+		a2 <- abs(a2)
+		month_seq <- seq(a1, by = "-1 month", length.out = a2 + 1)
 	}
-
+	# remainder partial months in seconds
+	secs <- as.double(difftime(month_seq[ceiling(a2) + 1], 
+		month_seq[floor(a2) + 1], units = "secs"))
+	part <- a2 %% trunc(a2) * secs
+	
+	# integer change in months + remainder
+	month_seq[a2 + 1] + part
+	
+}
 
 # adding 
 "+.POSIXt" <- function(e1, e2){
