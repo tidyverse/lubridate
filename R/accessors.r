@@ -58,6 +58,27 @@ pm <- function(x) !am(x)
     second(x), 
     tz(x))
 }
+
+# note to self: length.out rounds up, [] rounds down
+"month<-" <- function (x, value){
+	a2 <- -(month(x) - value)
+	if (a2 == 0){
+		return(x)
+	} else if (a2 > 0){
+		month_seq <- seq(x, by = "month", length.out = a2 + 1)
+	} else { # adding negative months (subtracting)
+		a2 <- abs(a2)
+		month_seq <- seq(x, by = "-1 month", length.out = a2 + 1)
+	}
+	# partial months
+	secs <- as.double(difftime(month_seq[ceiling(a2) + 1], 
+		month_seq[floor(a2) + 1], units = "secs"))
+	part <- a2 %% trunc(a2) * secs
+	
+	month_seq[a2 + 1] + part
+}
+
+
 "year<-" <- function(x, value) {
   ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x))
 }
