@@ -1,5 +1,26 @@
+difftime <- function(time1, time2){
+	as.duration(base::difftime(time1, time2))
+}
+
+# failed attempt ot prevent z - a from returning a difftime object
+# Ops.difftime.POSIXt <- function(time1, time2){
+#	as.duration(base::Ops.difftime.POSIXt(time1, time2))
+#}
+
 new_duration <- function (months, seconds){
 	structure(data.frame(months, seconds), class = c("duration", "data.frame"))
+}
+
+as.duration <- function (x, ...) UseMethod("as.duration")
+
+as.duration.data.frame <- function(x, ...){
+	stopifnot(dim(x) == c(1,2))
+	x <- structure(x, class = c("duration", "data.frame"))
+	x
+}
+
+as.duration.difftime <- function(x, ...){
+	new_duration(0, as.numeric(x, units = "secs"))
 }
 
 seconds <- function(x = 1) new_duration(0, x)
@@ -11,6 +32,7 @@ months <-  function(x = 1) new_duration(x, 0)
 years <-   function(x = 1) months(x * 12)
 
 is.duration <- function(x) inherits(x, "duration")
+is.POSIXt <- function(x) inherits(x, "POSIXt")
 
 # adding 
 "+.duration" <- "+.POSIXt" <- function(e1, e2){
@@ -53,12 +75,7 @@ multiply_duration_by_numeric <- function(num, dur){
 	as.duration(num * as.data.frame(dur))
 }
 
-as.duration <- function (x, ...) UseMethod("as.duration")
 
-as.duration.data.frame <- function(x, ...){
-	x <- structure(x, class = c("duration", "data.frame"))
-	x
-}
 
 # subtracting 
 "-.duration" <- "-.POSIXt" <- function(e1, e2){
@@ -66,10 +83,13 @@ as.duration.data.frame <- function(x, ...){
   if (missing(e2) && is.duration(e1)) {
     e1$seconds <- -e1$seconds
     e1$months <-  -e1$months
-    return(e1)
+    e1
+  } else if (is.POSIXt(e1) && is.duration(e2)){
+  	e1 + -e2
+  } else {
+	base::'-.POSIXt'(e1,e2)
   }
-  
-	e1 + -e2
+
 }
 
 

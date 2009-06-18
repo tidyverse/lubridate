@@ -71,8 +71,7 @@ pm <- function(x) !am(x)
 		month_seq <- seq(x, by = "-1 month", length.out = a2 + 1)
 	}
 	# partial months
-	secs <- as.double(difftime(month_seq[ceiling(a2) + 1], 
-		month_seq[floor(a2) + 1], units = "secs"))
+	secs <- as.duration(month_seq[ceiling(a2) + 1] -  month_seq[floor(a2) + 1])
 	part <- a2 %% trunc(a2) * secs
 	
 	month_seq[a2 + 1] + part
