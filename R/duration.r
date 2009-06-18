@@ -37,7 +37,28 @@ add_duration_to_duration <- function(dur1, dur2) {
   dur1
 }
 
-# TODO: Need multiplication methods for duration that preserve class.
+"*.duration" <- function(e1, e2){
+	  if (is.duration(e1) && is.duration(e2)) {
+    NA
+  } else if (is.duration(e1)){
+		multiply_duration_by_numeric(e2, e1)
+	} else if (is.duration(e2)) {
+		multiply_duration_by_numeric(e1, e2)
+	} else {
+		base::'*'(e1, e2)
+	}
+}	
+
+multiply_duration_by_numeric <- function(num, dur){
+	as.duration(num * as.data.frame(dur))
+}
+
+as.duration <- function (x, ...) UseMethod("as.duration")
+
+as.duration.data.frame <- function(x, ...){
+	x <- structure(x, class = c("duration", "data.frame"))
+	x
+}
 
 # subtracting 
 "-.duration" <- "-.POSIXt" <- function(e1, e2){
