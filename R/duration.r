@@ -72,8 +72,21 @@ as.duration.data.frame <- function(x, ...){
 	e1 + -e2
 }
 
-# TODO: This function should convert months into years if > 12, and 
-# similarly should convert seconds into weeks, days, hours and minutes.
+
 print.duration <- function(x, ...) {
-  cat("Duration: ", x$months, " months and ", x$seconds, " seconds\n", sep ="")
+	years <- x$months %/% 12
+	months <- x$months %% 12
+	weeks <- x$seconds %/% 604800
+	days <- (x$seconds - weeks * 604800) %/% 86400
+	hours <- (x$seconds - weeks * 604800 - days * 86400) %/% 3600
+	minutes <- (x$seconds - weeks * 604800 - days * 86400 - hours * 3600) %/% 60
+	seconds <- x$seconds - weeks * 604800 - days * 86400 - hours * 3600 - minutes * 60
+  cat("Duration: ", 
+  		years, " years, " ,
+  		months, " months, ", 
+  		weeks, " weeks, " , 
+  		days, " days, " ,
+  		hours, " hours, " ,
+  		minutes, " minutes and ",
+  		seconds, " seconds\n", sep ="")
 }
