@@ -5,7 +5,10 @@
 # New guess_format() tests all permutations of the format entries
 # Need to generate some sample data
 
-ymd <- function(...) {
+should_advise <- function(...){
+	d <- list(...)
+
+ymd <- function(..., advice - should_advise(...)) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = c("%y", "%m", "%d"))
 }

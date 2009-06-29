@@ -15,15 +15,11 @@ year <- function(x) as.POSIXlt(x)$year + 1900
 
 # Extract the last entry in the time zone vector.
 
-# Note: Should this be the first entry? It appears that the last entry will 
-# sometimes be the base timezone and sometimes the daylight savings alternate 
-# time zone. On the otherhand, the first entry is often "".
 tz <- function(x) {
   tzs <- attr(as.POSIXlt(x),"tzone")
   tzs[1]
 }
 
-# time must first be converted ot military (24 hour) time
 am <- function(x) hour(x) < 12
 pm <- function(x) !am(x)
 
