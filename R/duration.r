@@ -73,6 +73,22 @@ multiply_duration_by_numeric <- function(num, dur){
 	as.duration(num * as.data.frame(dur))
 }
 
+"/.duration" <- function(e1, e2){
+	  if (is.duration(e1) && is.duration(e2)) {
+    NA
+  } else if (is.duration(e1)){
+		divide_duration_by_numeric(e2, e1)
+	} else if (is.duration(e2)) {
+		divide_duration_by_numeric(e1, e2)
+	} else {
+		base::'*'(e1, e2)
+	}
+}	
+
+divide_duration_by_numeric <- function(num, dur){
+	as.duration(as.data.frame(dur)/num)
+}
+
 
 
 # subtracting 
