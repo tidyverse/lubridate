@@ -11,6 +11,7 @@ new_duration <- function (months, seconds){
 	structure(data.frame(months, seconds), class = c("duration", "data.frame"))
 }
 
+
 as.duration <- function (x, ...) UseMethod("as.duration")
 
 as.duration.data.frame <- function(x, ...){
@@ -30,6 +31,11 @@ days <-    function(x = 1) hours(x * 24)
 weeks <-   function(x = 1) days(x * 7)
 months <-  function(x = 1) new_duration(x, 0)
 years <-   function(x = 1) months(x * 12)
+
+y <- years(1)
+m <- months(1)
+d <- days(1)
+
 
 is.duration <- function(x) inherits(x, "duration")
 is.POSIXt <- function(x) inherits(x, "POSIXt")
@@ -92,21 +98,29 @@ multiply_duration_by_numeric <- function(num, dur){
 
 }
 
+write_out <- function(e1) {
+ 	if (e1 == 1) return(paste(e1, as.character(substitute(e1)), sep = " "))
+ 	if (e1 != 0) return(paste(e1, paste(as.character(substitute(e1)), "s", sep = "")))
+ 	return(NULL)
+}
+
 
 print.duration <- function(x, ...) {
-	years <- x$months %/% 12
-	months <- x$months %% 12
-	weeks <- x$seconds %/% 604800
-	days <- (x$seconds - weeks * 604800) %/% 86400
-	hours <- (x$seconds - weeks * 604800 - days * 86400) %/% 3600
-	minutes <- (x$seconds - weeks * 604800 - days * 86400 - hours * 3600) %/% 60
-	seconds <- x$seconds - weeks * 604800 - days * 86400 - hours * 3600 - minutes * 60
-  cat("Duration: ", 
-  		years, " years, " ,
-  		months, " months, ", 
-  		weeks, " weeks, " , 
-  		days, " days, " ,
-  		hours, " hours, " ,
-  		minutes, " minutes and ",
-  		seconds, " seconds\n", sep ="")
+	duration <- vector(mode = "character")
+	
+	year <- x$months %/% 12
+	month <- x$months %% 12
+	week <- x$seconds %/% 604800
+	day <- (x$seconds - week * 604800) %/% 86400
+	hour <- (x$seconds - week * 604800 - day * 86400) %/% 3600
+	minute <- (x$seconds - week * 604800 - day * 86400 - hour * 3600) %/% 60
+	second <- x$seconds - week * 604800 - day * 86400 - hour * 3600 - minute * 60
+	
+	duration <- c(write_out(year), write_out(month), write_out(week), write_out(day), write_out(hour), write_out(minute), write_out(second))
+	
+	if(length(duration) > 1)
+	   cat(cat(duration[1:length(duration) - 1], sep = ", "),"and", duration[length(duration)])
+	else
+	  cat(duration)
 }
+

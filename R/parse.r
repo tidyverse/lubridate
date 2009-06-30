@@ -8,7 +8,7 @@
 should_advise <- function(...){
 	d <- list(...)
 
-ymd <- function(..., advice - should_advise(...)) {
+ymd <- function(..., advice = should_advise(...)) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = c("%y", "%m", "%d"))
 }
