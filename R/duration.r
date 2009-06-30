@@ -1,12 +1,3 @@
-# I hesitate to overwrite difftime in case someone wants to specifically call it. '-.POSIXt' will automatically return a duration
-# difftime <- function(time1, time2){
-#	as.duration(base::difftime(time1, time2))
-#}
-
-# failed attempt ot prevent z - a from returning a difftime object
-# Ops.difftime.POSIXt <- function(time1, time2){
-#	as.duration(base::Ops.difftime.POSIXt(time1, time2))
-#}
 
 new_duration <- function (months, seconds){
 	structure(data.frame(months, seconds), class = c("duration", "data.frame"))

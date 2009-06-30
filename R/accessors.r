@@ -43,6 +43,7 @@ pm <- function(x) !am(x)
 
 "month<-" <- function(x, value) {
   # Seconds approach no longer applies: months are not of uniformly long
+  if(x - trunc(x) != 0) stop("Month must be an integer")
   ISOdatetime(
     year(x) + (value - 1) %/% 12,  # New month values > 12 also change the year
     
@@ -56,22 +57,22 @@ pm <- function(x) !am(x)
 }
 
 # note to self: length.out rounds up, [] rounds down
-"month<-" <- function (x, value){
-	a2 <- -(month(x) - value)
-	if (a2 == 0){
-		return(x)
-	} else if (a2 > 0){
-		month_seq <- seq(x, by = "month", length.out = a2 + 1)
-	} else { # adding negative months (subtracting)
-		a2 <- abs(a2)
-		month_seq <- seq(x, by = "-1 month", length.out = a2 + 1)
-	}
+#"month<-" <- function (x, value){
+#	a2 <- -(month(x) - value)
+#	if (a2 == 0){
+#		return(x)
+#	} else if (a2 > 0){
+#		month_seq <- seq(x, by = "month", length.out = a2 + 1)
+#	} else { # adding negative months (subtracting)
+#		a2 <- abs(a2)
+#		month_seq <- seq(x, by = "-1 month", length.out = a2 + 1)
+#	}
 	# partial months
-	secs <- as.duration(month_seq[ceiling(a2) + 1] -  month_seq[floor(a2) + 1])
-	part <- a2 %% trunc(a2) * secs
-	
-	month_seq[a2 + 1] + part
-}
+#	secs <- as.duration(month_seq[ceiling(a2) + 1] -  month_seq[floor(a2) + 1])
+#	part <- a2 %% trunc(a2) * secs
+#	
+#	month_seq[a2 + 1] + part
+#}
 
 
 "year<-" <- function(x, value) {
