@@ -1,6 +1,7 @@
-difftime <- function(time1, time2){
-	as.duration(base::difftime(time1, time2))
-}
+# I hesitate to overwrite difftime in case someone wants to specifically call it. '-.POSIXt' will automatically return a duration
+# difftime <- function(time1, time2){
+#	as.duration(base::difftime(time1, time2))
+#}
 
 # failed attempt ot prevent z - a from returning a difftime object
 # Ops.difftime.POSIXt <- function(time1, time2){
@@ -93,9 +94,23 @@ multiply_duration_by_numeric <- function(num, dur){
   } else if (is.POSIXt(e1) && is.duration(e2)){
   	e1 + -e2
   } else {
-	base::'-.POSIXt'(e1,e2)
+	    coerceTimeUnit <- function(x) {
+        	switch(attr(x, "units"), secs = x, mins = 60 * x, hours = 60 * 
+            	60 * x, days = 60 * 60 * 24 * x, weeks = 60 * 60 * 
+            	24 * 7 * x)
+        }
+        if (!inherits(e1, "POSIXt")) 
+        	stop("Can only subtract from POSIXt objects")
+    	if (nargs() == 1) 
+        	stop("unary '-' is not defined for \"POSIXt\" objects")
+    	if (inherits(e2, "POSIXt")) 
+        	return(as.duration(difftime(e1, e2)))
+    	if (inherits(e2, "difftime")) 
+        	e2 <- unclass(coerceTimeUnit(e2))
+    	if (!is.null(attr(e2, "class"))) 
+        	stop("can only subtract numbers from POSIXt objects")
+    	structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct"))
   }
-
 }
 
 write_out <- function(e1) {
