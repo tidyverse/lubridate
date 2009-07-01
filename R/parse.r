@@ -7,6 +7,8 @@
 
 should_advise <- function(...){
 	d <- list(...)
+}
+
 
 ymd <- function(..., advice = should_advise(...)) {
   dates <- unlist(list(...))

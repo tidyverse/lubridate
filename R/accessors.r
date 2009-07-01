@@ -43,7 +43,7 @@ pm <- function(x) !am(x)
 
 "month<-" <- function(x, value) {
   # Seconds approach no longer applies: months are not of uniformly long
-  if(x - trunc(x) != 0) stop("Month must be an integer")
+  if(value - trunc(value) != 0) stop("Month must be an integer")
   ISOdatetime(
     year(x) + (value - 1) %/% 12,  # New month values > 12 also change the year
     
