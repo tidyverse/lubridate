@@ -100,10 +100,13 @@ update.Date <- update.POSIXt <- function(object, ...) {
   changes <- as.list(c(year = todo$year, 
   	month = todo$month, 
   	week = todo$week, 
-  	day = todo$day, 
+  	yday = todo$yday,
+  	wday = todo$wday,
+  	mday = todo$mday, 
   	hour = todo$hour, 
   	minute = todo$minute, 
-  	second = todo$second))  
+  	second = todo$second,
+  	tz = todo$tz))  
   	
   for(change in names(changes)) {
 
