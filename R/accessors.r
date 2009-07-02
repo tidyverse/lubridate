@@ -94,8 +94,17 @@ pm <- function(x) !am(x)
 update.Date <- update.POSIXt <- function(object, ...) {
 
   # a list of the changes we wish to make
-  changes <- list(...)
+  todo <- list(...)
   
+  # ordering to do list
+  changes <- as.list(c(year = todo$year, 
+  	month = todo$month, 
+  	week = todo$week, 
+  	day = todo$day, 
+  	hour = todo$hour, 
+  	minute = todo$minute, 
+  	second = todo$second))  
+  	
   for(change in names(changes)) {
 
     # for each change, we select the function we will need to use
