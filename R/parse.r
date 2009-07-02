@@ -15,9 +15,36 @@ ymd <- function(..., advice = should_advise(...)) {
   parse_date(num_to_date(dates), formats = list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")))
 }
 
+myd <- function(..., advice = should_advise(...)) {
+  dates <- unlist(list(...))
+  parse_date(num_to_date(dates), formats = list(c("%m", "%y","%d"), c("%m", "%Y", "%d")))
+}
+
+dym <- function(..., advice = should_advise(...)) {
+  dates <- unlist(list(...))
+  parse_date(num_to_date(dates), formats = list(c("%d", "%y", "%m"), c("%d", "%Y", "%m")))
+}
+
+ydm <- function(..., advice = should_advise(...)) {
+  dates <- unlist(list(...))
+  parse_date(num_to_date(dates), formats = list(c("%y", "%d", "%m"), c("%Y", "%d", "%m")))
+}
+
+mdy <- function(..., advice = should_advise(...)) {
+  dates <- unlist(list(...))
+  parse_date(num_to_date(dates), formats = list(c("%m", "%d", "%y"), c("%m", "%d", "%Y")))
+}
+
+
 hm <- function(...) {
   dates <- unlist(list(...))
   formats <- list(c("%H", "%M"))
+  parse_date(dates, formats = formats, seps = c("", ":"))  
+}
+
+hms <- function(...) {
+  dates <- unlist(list(...))
+  formats <- list(c("%H", "%M", "%S"))
   parse_date(dates, formats = formats, seps = c("", ":"))  
 }
 
