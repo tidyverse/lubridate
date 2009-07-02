@@ -12,11 +12,7 @@ should_advise <- function(...){
 
 ymd <- function(..., advice = should_advise(...)) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), formats = c("%y", "%m", "%d"))
-}
-Ymd <- function(...) {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), formats = c("%Y", "%m", "%d"))
+  parse_date(num_to_date(dates), formats = list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")))
 }
 
 hm <- function(...) {
@@ -59,61 +55,43 @@ num_to_date <- function(x) {
 
 
 
-# formats now a character vector (previously a list)
 guess_format <- function(x, formats, seps = c("-", "/", "")) {
 	
-  # Creates grid of all permutations of the format entries.
-  # Note: Is there an R function for this?
-  perm_strings <- permute(formats)
-  
+	if (is.list(formats))
+		formats <- do.call(rbind, formats)
+	else formats <- as.matrix(t(formats))
+		
+	# Combines each permutation with each value of seps
+	with_seps <- combine(formats, seps)
 
-  # Combines each permutation with each value of seps
-  with_seps <- combine(perm_strings, seps)
-
-  # Creates vector of possible format strings
-  fmts <- unlist(mlply(with_seps, paste))
+	# Creates vector of possible format strings
+	fmts <- unlist(mlply(with_seps, paste))
+	
+	# defining last digit of x and fmts with "@" 
+	x <- paste(x, "@", sep = "")
+	fmts2 <- paste(fmts, "@", sep = "")
+	
+	# Returns a list of the POSIXlt objects and NAs. 
+	trials <- llply(fmts2, function(fmt) strptime(x, fmt))
+	# Sums the number of successes (non-NA ouputs) for each format
+	successes <- unlist(llply(trials, function(x) sum(!is.na(x))))
   
-  # Returns a list of the POSIXlt objects and NAs. 
-  trials <- llply(fmts, function(fmt) strptime(x, fmt))
-  # Sums the number of successes (non-NA ouputs) for each format
-  successes <- unlist(llply(trials, function(x) sum(!is.na(x))))
-  
-  # Selects the format that resulted in the highest number of successes
-  bestn <- max(successes)
-  best <- fmts[successes > 0 & successes == bestn]
-  
-  # If no formats succeeded
-  if (length(best) == 0) {
-    stop(paste(fmts, collapse = ", "), " all failed to parse dates", 
-      .call = FALSE)
-      
-  # If multiple formats performed equally well    
-  } else if (length(best) > 1) {
-    message("Multiple format matches with ", bestn, " successes: ", 
-      paste(best, collapse =", "), ".")
-    best <- best[1]
-  }
-  
-  best
+	# Selects the format that resulted in the highest number of successes
+	bestn <- max(successes)
+	best <- fmts[successes > 0 & successes == bestn]
+	
+	# If no formats succeeded
+	if (length(best) == 0) {
+		stop(paste(fmts, collapse = ", "), " All failed to parse dates. Check for incorrect or missing elements.")
+		
+	# If multiple formats performed equally well    
+	} else if (length(best) > 1) {
+		message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
+		best <- best[1]
+	}
+	best
 }
 
-
-# Returns all permutations of elements in a vector. I wrote this to use above.
-permute <- function(...){
-	data <- unlist(list(...))
-
-	# Creates grid of all unique combinations of data elements with 
-	# length = length(data). 	
-	perms <- splat(expand.grid)(rep(list(seq_along(data)), length(data)))
-	
-	# Retains only combinations that use each element once
-	# (These are the permutations)
-	perms <- perms[apply(perms, 1, function(x) nlevels(as.factor(x))) == length(data), ]
-	
-	# Replaces each element with its value from data
-	perm_strings <- sapply(perms, function(x) data[x])
-	perm_strings
-}
 
 
 
