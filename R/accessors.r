@@ -119,9 +119,3 @@ update.Date <- update.POSIXt <- function(object, ...) {
   object
 }
 
-# Note: if a user inputs a change that would "rollover" to affect more than one 
-# component, the order in which the desired changes are listed will affect the 
-# answer. 
-# For example, object = 1-01-2000, and changes are year = 2001, month = 13.  
-#   If month is listed before year, update.Date will return 1-01-2001. 
-#   If year is listed before month, update.Date will return 1-01-2002.
