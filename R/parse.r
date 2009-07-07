@@ -1,36 +1,34 @@
 # Convenience functions for parsing dates
 # Note: fails if input is already in POSIX format
 # ---------------------------------------------------------------------------
+# should_advise <- function(...){
+#	d <- unlist(list(...))
+#	if (length(d) >= 2) return(TRUE)
+#	return(FALSE)
+#}
 
-# New guess_format() tests all permutations of the format entries
-# Need to generate some sample data
-
-should_advise <- function(...){
-	d <- list(...)
-}
-
-
-ymd <- function(..., advice = should_advise(...)) {
+# ymd takes a vector
+ymd <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")))
 }
 
-myd <- function(..., advice = should_advise(...)) {
+myd <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = list(c("%m", "%y","%d"), c("%m", "%Y", "%d")))
 }
 
-dym <- function(..., advice = should_advise(...)) {
+dym <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = list(c("%d", "%y", "%m"), c("%d", "%Y", "%m")))
 }
 
-ydm <- function(..., advice = should_advise(...)) {
+ydm <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = list(c("%y", "%d", "%m"), c("%Y", "%d", "%m")))
 }
 
-mdy <- function(..., advice = should_advise(...)) {
+mdy <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = list(c("%m", "%d", "%y"), c("%m", "%d", "%Y")))
 }
@@ -54,7 +52,7 @@ parse_date <- function(x, formats, seps = c("-", "/", ".", "")) {
   fmt <- guess_format(x, formats, seps)
   parsed <- as.POSIXct(strptime(x, fmt))
 
-  message("Using date format ", fmt, ".")
+  if (length(x) > 1) message("Using date format ", fmt, ".")
 
   failed <- sum(is.na(parsed)) - sum(is.na(x))
   if (failed > 0) {
@@ -116,6 +114,7 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
 		message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
 		best <- best[1]
 	}
+
 	best
 }
 
