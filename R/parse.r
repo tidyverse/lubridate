@@ -1,11 +1,6 @@
 # Convenience functions for parsing dates
 # Note: fails if input is already in POSIX format
 # ---------------------------------------------------------------------------
-# should_advise <- function(...){
-#	d <- unlist(list(...))
-#	if (length(d) >= 2) return(TRUE)
-#	return(FALSE)
-#}
 
 # ymd takes a vector
 ymd <- function(...) {
@@ -52,7 +47,7 @@ parse_date <- function(x, formats, seps = c("-", "/", ".", "")) {
   fmt <- guess_format(x, formats, seps)
   parsed <- as.POSIXct(strptime(x, fmt))
 
-  if (length(x) > 1) message("Using date format ", fmt, ".")
+  if (length(x) > 2) message("Using date format ", fmt, ".")
 
   failed <- sum(is.na(parsed)) - sum(is.na(x))
   if (failed > 0) {

@@ -17,9 +17,11 @@ as.duration.difftime <- function(x, ...){
 }
 
 as.duration.default <- function(x, ...){
-	warning("Numeric coerced to seconds")
+	message("Numeric coerced to seconds")
 	new_duration(0,x)
 }
+
+
 
 seconds <- function(x = 1) new_duration(0, x)
 minutes <- function(x = 1) seconds(x * 60)
@@ -36,9 +38,10 @@ d <- days(1)
 
 is.duration <- function(x) inherits(x, "duration")
 is.POSIXt <- function(x) inherits(x, "POSIXt")
+is.difftime <- function(x) inherits(x, "difftime")
 
 # adding 
-"+.duration" <- "+" <- function(e1, e2){
+"+.duration" <- "+.POSIXt" <- "+.difftime" <- function(e1, e2){
 	if(!is.POSIXt(e1) && is.duration(e2)) e1 <- as.duration(e1)
 	if(!is.POSIXt(e2) && is.duration(e1)) e2 <- as.duration(e2)
 	if (is.duration(e1) && is.duration(e2)) 
@@ -47,9 +50,23 @@ is.POSIXt <- function(x) inherits(x, "POSIXt")
 		add_duration_to_date(e2, e1)
 	else if (is.duration(e2) && is.POSIXt(e1)) 
 		add_duration_to_date(e1, e2)
-	else {
-		base::'+'(e1, e2)
+	else if (is.POSIXt(e1) && is.POSIXt(e2))
+		stop("binary '+' is not defined for \"POSIXt\" objects")
+	else if (is.POSIXt(e1) || is.POSIXt(e2))
+		base::'+.POSIXt'(e1,e2)
+	else if (is.difftime(e1) && is.difftime(e2))
+		make_difftime(as.duration(e1) + as.duration(e2))
+	else if (is.difftime(e1)){
+		e2 <- structure(e2, units = units(e1), class = "difftime")
+		make_difftime(as.duration(e1) + e2)
 	}
+	else if (is.difftime(e2)){
+		e1 <- structure(e1, units = units(e2), class = "difftime")
+		make_difftime(as.duration(e2) + e1)
+	}
+	else 
+		base::'+'(e1, e2)
+	
 }	
 
 add_duration_to_date <- function(date, dur) {
@@ -63,6 +80,25 @@ add_duration_to_duration <- function(dur1, dur2) {
   dur1$months <- dur1$months + dur2$months
   dur1
 }
+
+make_difftime <- function (dur) {
+	if (dur$months != 0)
+		stop("difftime does not support non-uniform durations (months)")
+    if (dur$seconds < 60) 
+        units <- "secs"
+    else if (dur$seconds < 3600)
+        units <- "mins"
+    else if (dur$seconds < 86400)
+        units <- "hours"
+    else units <- "days"
+    
+    switch(units, secs = structure(dur$seconds, units = "secs", class = "difftime"), 
+		mins = structure(dur$seconds/60, units = "mins", class = "difftime"), 
+		hours = structure(dur$seconds/3600, units = "hours", class = "difftime"), 
+		days = structure(dur$seconds/86400, units = "days", class = "difftime"), 
+		weeks = structure(dur$seconds/(7 * 86400), units = "weeks", class = "difftime"))
+}
+
 
 "*.duration" <- function(e1, e2){
 	  if (is.duration(e1) && is.duration(e2)) {
