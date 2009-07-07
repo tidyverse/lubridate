@@ -6,5 +6,5 @@ leap.year <- function(year) {
 }
 
 
-now <- Sys.time()
+now <- function() Sys.time()
 today <- Sys.Date()
