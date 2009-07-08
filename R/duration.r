@@ -177,6 +177,7 @@ divide_duration_by_numeric <- function(num, dur){
 
 # printing durations
 write_out <- function(e1) {
+	if (is.na(e1)) return(paste(e1, paste(as.character(substitute(e1)), "s", sep = "")))
  	if (e1 == 1) return(paste(e1, as.character(substitute(e1)), sep = " "))
  	if (e1 != 0) return(paste(e1, paste(as.character(substitute(e1)), "s", sep = "")))
  	return(NULL)
@@ -184,9 +185,10 @@ write_out <- function(e1) {
 
 
 print.duration <- function(x, ...) {
+	
 	duration <- vector(mode = "character")
 	
-	if (x$months >= 0){
+	if (x$months >= 0 | is.na(x$months)){
 		year <- x$months %/% 12
 		month <- x$months %% 12
 	} else {
@@ -194,7 +196,8 @@ print.duration <- function(x, ...) {
 		month <- -(-x$months %% 12)
 	}
 	
-	if (x$seconds >= 0){
+	
+	if (x$seconds >= 0 | is.na(x$seconds)){
 		week <- (x$seconds %/% 604800)
 		day <- (x$seconds - week * 604800) %/% 86400
 		hour <- (x$seconds - week * 604800 - day * 86400) %/% 3600
@@ -210,8 +213,10 @@ print.duration <- function(x, ...) {
 	
 	duration <- c(write_out(year), write_out(month), write_out(week), write_out(day), write_out(hour), write_out(minute), write_out(second))
 	
-	if(length(duration) > 1)
+	if (length(duration) > 1)
 	   cat(cat(duration[1:length(duration) - 1], sep = ", "),"and", duration[length(duration)],"\n")
+	else if (length(duration) == 0)
+		cat("0 seconds", "\n")
 	else
 	  cat(duration,"\n")
 }
