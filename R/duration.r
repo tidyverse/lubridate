@@ -84,11 +84,15 @@ add_duration_to_duration <- function(dur1, dur2) {
 make_difftime <- function (dur) {
 	if (dur$months != 0)
 		stop("difftime does not support non-uniform durations (months)")
-    if (dur$seconds < 60) 
+		
+	if (dur$seconds >= 0) seconds <- dur$seconds
+	else seconds <- -dur$seconds
+	
+    if (seconds < 60) 
         units <- "secs"
-    else if (dur$seconds < 3600)
+    else if (seconds < 3600)
         units <- "mins"
-    else if (dur$seconds < 86400)
+    else if (seconds < 86400)
         units <- "hours"
     else units <- "days"
     
@@ -135,45 +139,39 @@ divide_duration_by_numeric <- function(num, dur){
 
 
 # subtracting 
-"-.duration" <- "-" <- function(e1, e2){
+"-.duration" <- "-.POSIXt" <- "-.difftime" <- function(e1, e2){
 	# Deal with unary minus, e.g. -hours(1)
 	if (missing(e2) && is.duration(e1)) {
 		e1$seconds <- -e1$seconds
 		e1$months <-  -e1$months
 		return (e1)
 	}
-	#if (missing(e2) && is.POSIXt(e1))
-	#	stop(
+	if (missing(e2) && is.POSIXt(e1))
+		stop("unary '-' is not defined for \"POSIXt\" objects")
+	if (missing(e2) && is.difftime(e1))
+		return(make_difftime(-as.duration(e1)))
 	if (missing(e2)) return(base::'-'(e1))
+	
 	
 	# subtraction
 	if (!is.POSIXt(e1) && is.duration(e2)) e1 <- as.duration(e1)
 	if (!is.POSIXt(e2) && is.duration(e1)) e2 <- as.duration(e2)
-    if (is.duration(e1) && is.POSIXt(e2)) 
-    	stop("Cannot subtract POSIXt from a duration")
-  	if (is.POSIXt(e1) && is.duration(e2)) 
-  		e1 + -e2 
-  	else if (is.duration(e1) && is.duration(e2))
+  	if (is.duration(e1) && is.duration(e2))
   		e1 + -e2
-  	else if (is.POSIXt(e1)){
-	    coerceTimeUnit <- function(x) {
-        	switch(attr(x, "units"), secs = x, mins = 60 * x, hours = 60 * 
-            	60 * x, days = 60 * 60 * 24 * x, weeks = 60 * 60 * 
-            	24 * 7 * x)
-        }
-        if (!inherits(e1, "POSIXt")) 
-        	stop("Can only subtract from POSIXt objects")
-    	if (nargs() == 1) 
-        	stop("unary '-' is not defined for \"POSIXt\" objects")
-    	if (inherits(e2, "POSIXt")) 
-        	return(as.duration(difftime(e1, e2)))
-    	if (inherits(e2, "difftime")) 
-        	e2 <- unclass(coerceTimeUnit(e2))
-    	if (!is.null(attr(e2, "class"))) 
-        	stop("can only subtract numbers from POSIXt objects")
-    	structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct"))
-	} else
-		base::'-'(e1, e2)
+  	else if (is.POSIXt(e1) && is.duration(e2))
+  		e1 + -e2
+  	else if (is.POSIXt(e1) && is.POSIXt(e2))
+  		as.duration(difftime(e1, e2))    
+  	else if (is.POSIXt(e2)) 
+    	stop("Can only subtract from POSIXt objects")
+  	else if (is.POSIXt(e1) && is.difftime(e2))
+  		e1 + -as.numeric(e2, units = "secs")
+  	else if (is.POSIXt(e1))
+  		structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct"))
+  	else if (is.difftime(e1) || is.difftime(e2))
+  		e1 + -e2
+  	else
+  		base::'-'(e1, e2)
 }
 
 
