@@ -21,6 +21,9 @@ as.duration.default <- function(x, ...){
 	new_duration(0,x)
 }
 
+# c.duration <- function(...) structure(list(...), class = c("list", "duration"))
+
+
 
 
 seconds <- function(x = 1) new_duration(0, x)
@@ -37,11 +40,46 @@ d <- days(1)
 
 
 is.duration <- function(x) inherits(x, "duration")
-is.POSIXt <- function(x) inherits(x, "POSIXt")
+is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 is.difftime <- function(x) inherits(x, "difftime")
+
+# for expanding arguments within operations
+duration_length <- function(dur) length(structure(dur, class = "data.frame"))/2
+
+get_length <- function(a1) {
+	if (is.duration(a1))
+		return(duration_length(a1))
+	if(is.data.frame(a1))
+		return(nrow(a1))
+	length(a1)
+}
+	
+expand <- function(obj, num1, num2){
+	if (num2 %% num1 != 0) 
+		stop("longer object length is not a multiple of shorter object length", call. = F)
+	if (is.duration(obj))
+		obj <- list(obj)
+	if (is.data.frame(obj) & !is.duration(obj))
+		return(obj[rep(1:num1, length = num2),])
+	obj[rep(1:num1, length = num2)]
+}
+
+
+
+
+
 
 # adding 
 "+.duration" <- "+.POSIXt" <- "+.difftime" <- function(e1, e2){
+	# accounting for different lengths
+	n1 <- get_length(e1)
+	n2 <- get_length(e2)
+	if (n1 < n2)
+		e1 <- expand(e1, n1, n2)
+	else if (n1 > n2)
+		e2 <- expand(e2, n2, n1)
+	
+	
 	if(!is.POSIXt(e1) && is.duration(e2)) e1 <- as.duration(e1)
 	if(!is.POSIXt(e2) && is.duration(e1)) e2 <- as.duration(e2)
 	if (is.duration(e1) && is.duration(e2)) 
@@ -152,6 +190,14 @@ divide_duration_by_numeric <- function(num, dur){
 		return(make_difftime(-as.duration(e1)))
 	if (missing(e2)) return(base::'-'(e1))
 	
+	
+	# accounting for different lengths
+	n1 <- get_length(e1)
+	n2 <- get_length(e2)
+	if (n1 < n2)
+		e1 <- expand(e1, n1, n2)
+	else if (n1 > n2)
+		e2 <- expand(e2, n2, n1)
 	
 	# subtraction
 	if (!is.POSIXt(e1) && is.duration(e2)) e1 <- as.duration(e1)
