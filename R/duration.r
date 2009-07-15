@@ -4,8 +4,8 @@ new_duration <- function (months, seconds){
 
 as.duration <- function (x, ...) UseMethod("as.duration")
 
-as.duration.data.frame <- function(x, ...){
-  stopifnot(dim(x) == c(1,2))
+as.duration.data.frame <- function(x, ...) {
+  stopifnot(identical(sort(colnames(x)), c("months", "seconds")))
   x <- structure(x, class = c("duration", "data.frame"))
   x
 }
@@ -18,8 +18,14 @@ as.duration.default <- function(x, ...){
   message("Numeric coerced to seconds")
   new_duration(0,x)
 }
+as.duration.duration <- function(x, ...) {
+  x
+}
 
-# c.duration <- function(...) structure(list(...), class = c("list", "duration"))
+
+c.duration <- function(...) {
+  structure(do.call(rbind, list(...)), class = c("list", "duration"))
+}
 
 
 seconds <- function(x = 1) new_duration(0, x)
@@ -32,6 +38,7 @@ years <-   function(x = 1) months(x * 12)
 
 y <- years(1)
 m <- months(1)
+w <- weeks(7)
 d <- days(1)
 
 
@@ -40,30 +47,26 @@ is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 is.difftime <- function(x) inherits(x, "difftime")
 
 # for expanding arguments within operations
-duration_length <- function(dur) length(structure(dur, class = "data.frame"))/2
-
 get_length <- function(a1) {
-  if (is.duration(a1))
-    return(duration_length(a1))
-  if(is.data.frame(a1))
+  if(is.data.frame(a1)) {
     return(nrow(a1))
-  length(a1)
+  } else {
+    length(a1)
+  }
 }
   
-expand <- function(obj, num1, num2){
-  if (num2 %% num1 != 0) 
+expand <- function(obj, sml, big){
+  if (big %% sml != 0) 
     stop("longer object length is not a multiple of shorter object length", call. = F)
-  if (is.duration(obj))
-    obj <- list(obj)
-  if (is.data.frame(obj) & !is.duration(obj))
-    return(obj[rep(1:num1, length = num2),])
-  obj[rep(1:num1, length = num2)]
+  seq <- rep(seq_len(sml), length = big)
+    
+  if (length(dim(obj)) == 2) {
+    obj[seq, , drop = FALSE]
+  } else {
+    obj[seq]
+  }
+    
 }
-
-
-
-
-
 
 # adding 
 "+.duration" <- "+.POSIXt" <- "+.difftime" <- function(e1, e2){
@@ -74,7 +77,6 @@ expand <- function(obj, num1, num2){
     e1 <- expand(e1, n1, n2)
   else if (n1 > n2)
     e2 <- expand(e2, n2, n1)
-  
   
   if(!is.POSIXt(e1) && is.duration(e2)) e1 <- as.duration(e1)
   if(!is.POSIXt(e2) && is.duration(e1)) e2 <- as.duration(e2)
@@ -218,48 +220,42 @@ divide_duration_by_numeric <- function(num, dur){
 
 
 # printing durations
-write_out <- function(e1) {
-  if (is.na(e1)) return(paste(e1, paste(as.character(substitute(e1)), "s", sep = "")))
-   if (e1 == 1) return(paste(e1, as.character(substitute(e1)), sep = " "))
-   if (e1 != 0) return(paste(e1, paste(as.character(substitute(e1)), "s", sep = "")))
-   return(NULL)
-}
+print.duration <- function(x) {
+  format_unit <- function(x, xsign, singular = NULL) {
+    if (is.null(singular)) singular <- deparse(substitute(x))
+    x <- x * sign(xsign)
+    plural <- paste(singular, "s", sep = "")
+    ifelse(x == 0, "", 
+      paste(x, ifelse(!is.na(x) & x == 1, singular, plural)))
+  }
 
+  months <- abs(x$months)
+  seconds <- abs(x$seconds)
 
-print.duration <- function(x, ...) {
+  year <- months %/% 12
+  month <- months %% 12
   
-  duration <- vector(mode = "character")
+  week <- (seconds %/% 604800)
+  day <- (seconds - week * 604800) %/% 86400
+  hour <- (seconds - week * 604800 - day * 86400) %/% 3600
+  minute <- (seconds - week * 604800 - day * 86400 - hour * 3600) %/% 60
+  second <- seconds - week * 604800 - day * 86400 - hour * 3600 - minute * 60
   
-  if (x$months >= 0 | is.na(x$months)){
-    year <- x$months %/% 12
-    month <- x$months %% 12
-  } else {
-    year <- -(-x$months %/% 12)
-    month <- -(-x$months %% 12)
+  duration <- cbind(
+    format_unit(year, x$month), 
+    format_unit(month, x$month), 
+    format_unit(week, x$seconds),
+    format_unit(day, x$seconds),
+    format_unit(hour, x$seconds), 
+    format_unit(minute, x$seconds), 
+    format_unit(second, x$seconds)
+  )
+  
+  collapse <- function(x) {
+    all <- x[x != ""]
+    if (length(all) == 0) return("0 seconds")
+    paste(all, collapse = ", ")
   }
   
-  
-  if (x$seconds >= 0 | is.na(x$seconds)){
-    week <- (x$seconds %/% 604800)
-    day <- (x$seconds - week * 604800) %/% 86400
-    hour <- (x$seconds - week * 604800 - day * 86400) %/% 3600
-    minute <- (x$seconds - week * 604800 - day * 86400 - hour * 3600) %/% 60
-    second <- x$seconds - week * 604800 - day * 86400 - hour * 3600 - minute * 60
-  } else {
-    week <- -(-x$seconds %/% 604800)
-    day <- -(-(x$seconds - week * 604800) %/% 86400)
-    hour <- -(-(x$seconds - week * 604800 - day * 86400) %/% 3600)
-    minute <- -(-(x$seconds - week * 604800 - day * 86400 - hour * 3600) %/% 60)
-    second <- x$seconds - week * 604800 - day * 86400 - hour * 3600 - minute * 60
-  }
-  
-  duration <- c(write_out(year), write_out(month), write_out(week), write_out(day), write_out(hour), write_out(minute), write_out(second))
-  
-  if (length(duration) > 1)
-     cat(cat(duration[1:length(duration) - 1], sep = ", "),"and", duration[length(duration)],"\n")
-  else if (length(duration) == 0)
-    cat("0 seconds", "\n")
-  else
-    cat(duration,"\n")
+  print(paste(aaply(duration, 1, collapse)))
 }
-
