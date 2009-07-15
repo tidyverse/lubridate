@@ -31,6 +31,7 @@ pretty_hours <- function (dates, n) print("hours")
 pretty_days <- function (dates, n) print("days")
 pretty_weeks <- function (dates, n) print("weeks")
 pretty_months <- function (dates, n) print("months")
+
 pretty_years <- function (dates, n) print("years")
 
 
@@ -53,6 +54,5 @@ pretty_years <- function (dates, n) print("years")
 #	class(output) <- "POSIXct"
 #	output
 #}
-	
 	
 
