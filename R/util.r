@@ -32,26 +32,3 @@ pretty_days <- function (dates, n) print("days")
 pretty_weeks <- function (dates, n) print("weeks")
 pretty_months <- function (dates, n) print("months")
 pretty_years <- function (dates, n) print("years")
-
-
-
-    		
-    
-	
-	structure(unlist(list(output)), class = class(output))
-	
-	date1 <- dates[1]
-	date2 <- dates[length(dates)]
-	dur <- (date2 - date1) / n
-	
-	output <- vector(length = n)
-	start <- date1
-	for (i in 1:n){
-		output[i] <- start + dur
-		start <- start + dur
-	}
-	class(output) <- "POSIXct"
-	output
-}
-	
-	
