@@ -22,6 +22,11 @@ as.duration.duration <- function(x, ...) {
   x
 }
 
+as.data.frame.duration <- function(x, optional = TRUE, ...) {
+  stop("Currently, durations can not be stored in a data frame", 
+    call. = FALSE)
+}
+
 
 c.duration <- function(...) {
   structure(do.call(rbind, list(...)), class = c("list", "duration"))
