@@ -10,19 +10,19 @@ now <- function() Sys.time()
 today <- Sys.Date()
 
 pretty_dates <- function(dates, n = 5, by = c("auto", "secs", "mins", "hours", "days", "weeks", "months", "years")){
-	if (!is.POSIXt(dates)) 
-		stop("x must be a POSIXt object")
-	if (length(dates) == 0L) 
-        return(dates)
+  if (!is.POSIXt(dates)) 
+    stop("x must be a POSIXt object")
+  if (length(dates) == 0L) 
+    return(dates)
         
-    by <- match.arg(by)
-    switch(by, secs = pretty_secs(dates, n),
-    		mins = pretty_mins(dates, n),
-    		hours = pretty_hours(dates, n),
-    		days = pretty_days(dates, n),
-    		weeks = pretty_weeks(dates, n),
-    		months = pretty_months(dates, n),
-    		years = pretty_years(dates, n))
+  by <- match.arg(by)
+  switch(by, secs = pretty_secs(dates, n),
+    mins = pretty_mins(dates, n),
+    hours = pretty_hours(dates, n),
+    days = pretty_days(dates, n),
+    weeks = pretty_weeks(dates, n),
+    months = pretty_months(dates, n),
+    years = pretty_years(dates, n))
 }
 
 pretty_secs <- function (dates, n) print("secs")

@@ -57,7 +57,7 @@ num_to_date <- function(x) {
 
 # formats <- c("%Y", "%m", "%d"))
 guess_format <- function(x, formats, seps = c("-", "/", "")) {
-	
+  
   # Creates grid of all permutations of the format entries.
   # Note: Is there an R function for this?
   perms <- splat(expand.grid)(rep(list(seq_along(formats)), length(formats)))

@@ -76,41 +76,41 @@ num_to_date <- function(x) {
 
 
 guess_format <- function(x, formats, seps = c("-", "/", "")) {
-	
-	if (is.list(formats))
-		formats <- do.call(rbind, formats)
-	else formats <- as.matrix(t(formats))
-		
-	# Combines each permutation with each value of seps
-	with_seps <- combine(formats, seps)
-
-	# Creates vector of possible format strings
-	fmts <- unlist(mlply(with_seps, paste))
-	
-	# defining last digit of x and fmts with "@" 
-	x <- paste(x, "@", sep = "")
-	fmts2 <- paste(fmts, "@", sep = "")
-	
-	# Returns a list of the POSIXlt objects and NAs. 
-	trials <- llply(fmts2, function(fmt) strptime(x, fmt))
-	# Sums the number of successes (non-NA ouputs) for each format
-	successes <- unlist(llply(trials, function(x) sum(!is.na(x))))
   
-	# Selects the format that resulted in the highest number of successes
-	bestn <- max(successes)
-	best <- fmts[successes > 0 & successes == bestn]
-	
-	# If no formats succeeded
-	if (length(best) == 0) {
-		stop(paste(fmts, collapse = ", "), " All failed to parse dates. Check for incorrect or missing elements.")
-		
-	# If multiple formats performed equally well    
-	} else if (length(best) > 1) {
-		message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
-		best <- best[1]
-	}
+  if (is.list(formats))
+    formats <- do.call(rbind, formats)
+  else formats <- as.matrix(t(formats))
+    
+  # Combines each permutation with each value of seps
+  with_seps <- combine(formats, seps)
 
-	best
+  # Creates vector of possible format strings
+  fmts <- unlist(mlply(with_seps, paste))
+  
+  # defining last digit of x and fmts with "@" 
+  x <- paste(x, "@", sep = "")
+  fmts2 <- paste(fmts, "@", sep = "")
+  
+  # Returns a list of the POSIXlt objects and NAs. 
+  trials <- llply(fmts2, function(fmt) strptime(x, fmt))
+  # Sums the number of successes (non-NA ouputs) for each format
+  successes <- unlist(llply(trials, function(x) sum(!is.na(x))))
+  
+  # Selects the format that resulted in the highest number of successes
+  bestn <- max(successes)
+  best <- fmts[successes > 0 & successes == bestn]
+  
+  # If no formats succeeded
+  if (length(best) == 0) {
+    stop(paste(fmts, collapse = ", "), " All failed to parse dates. Check for incorrect or missing elements.")
+    
+  # If multiple formats performed equally well    
+  } else if (length(best) > 1) {
+    message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
+    best <- best[1]
+  }
+
+  best
 }
 
 
@@ -119,10 +119,10 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
 # Quickly adds separator values to rows of strings, 
 # which can then be used in mlply(x, paste). 
 combine <- function(mat, vec){
-	
-	# Splits each row in a matrix into n rows and adds to each a different element from a 
-	# vector of length n
-	combined <- mat[rep(1:nrow(mat), each = length(vec)),]
-	combined <- cbind(unname(combined), sep = rep(vec, nrow(mat)))
-	combined
+  
+  # Splits each row in a matrix into n rows and adds to each a different element from a 
+  # vector of length n
+  combined <- mat[rep(1:nrow(mat), each = length(vec)),]
+  combined <- cbind(unname(combined), sep = rep(vec, nrow(mat)))
+  combined
 }
