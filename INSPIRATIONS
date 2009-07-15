@@ -16,14 +16,14 @@ Intelligent date time parsers
 Date time standards
  * http://en.wikipedia.org/wiki/ISO_8601
  * http://tools.ietf.org/html/rfc3339
-	# Year = 4 Digits
-	# Month = 2 Digits
-	# mday = 2 Digits
-	# hour = 2 Digits
-	# minute = 2 Digits
-	# second = 2 Digits
-	# offset that shows difference from UTC
-	
-	# Ordered from least precise to most
-	# 2003-08-06 04:28-02:00
-	# 2003-08-06T04:28Z
+  # Year = 4 Digits
+  # Month = 2 Digits
+  # mday = 2 Digits
+  # hour = 2 Digits
+  # minute = 2 Digits
+  # second = 2 Digits
+  # offset that shows difference from UTC
+  
+  # Ordered from least precise to most
+  # 2003-08-06 04:28-02:00
+  # 2003-08-06T04:28Z
