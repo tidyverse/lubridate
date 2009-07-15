@@ -29,7 +29,7 @@ as.data.frame.duration <- function(x, optional = TRUE, ...) {
 
 
 c.duration <- function(...) {
-  structure(do.call(rbind, list(...)), class = c("list", "duration"))
+  structure(do.call(rbind, list(...)), class = c("duration", "data.frame"))
 }
 
 
@@ -52,11 +52,11 @@ is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 is.difftime <- function(x) inherits(x, "difftime")
 
 # for expanding arguments within operations
-get_length <- function(a1) {
-  if(is.data.frame(a1)) {
-    return(nrow(a1))
+get_length <- function(x) {
+  if(is.data.frame(x)) {
+    nrow(x)
   } else {
-    length(a1)
+    length(x)
   }
 }
   
@@ -78,6 +78,7 @@ expand <- function(obj, sml, big){
   # accounting for different lengths
   n1 <- get_length(e1)
   n2 <- get_length(e2)
+  
   if (n1 < n2)
     e1 <- expand(e1, n1, n2)
   else if (n1 > n2)
