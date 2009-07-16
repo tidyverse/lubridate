@@ -2,6 +2,8 @@
 # divisible by 4 but not 100.
 
 leap.year <- function(year) {
+	if (is.POSIXt(year))
+		year <- year(year)
   (year %% 4 == 0) & ((year %% 100 != 0) | (year %% 400 == 0))
 }
 

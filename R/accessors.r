@@ -2,15 +2,48 @@
 # -----------------------------------------------------------
 
 # Dates should first be converted to POSIXct with parse.r
-second <- function(x) as.POSIXlt(x)$sec
-minute <- function(x) as.POSIXlt(x)$min
-hour <- function(x) as.POSIXlt(x)$hour
-yday <- function(x) as.POSIXlt(x)$yday + 1
-wday <- function(x) as.POSIXlt(x)$wday + 1
-mday <- function(x) as.POSIXlt(x)$mday
-week <- function(x) yday(x) %/% 7 + 1
-month <- function(x) as.POSIXlt(x)$mon + 1
-year <- function(x) as.POSIXlt(x)$year + 1900
+
+#' TITLE
+#' Sub Title
+#' (blank line)
+#' Paragraph explaining stuff
+#' (blank line) 
+#' @param    
+#' @author
+#' @keywords
+#' examples
+#' example1()
+#' example2()
+#example <- function()
+
+#' Second
+#' Add seconds to your time
+#' 
+#' @param x A time object    
+#' @author Garret Gman \email{garretgman@@gmail.com}
+#' @keywords utilities
+#' examples
+#' second(Sys.time())
+second <- function(x) 
+    as.POSIXlt(x)$sec
+
+
+minute <- function(x) 
+    as.POSIXlt(x)$min
+hour <- function(x) 
+    as.POSIXlt(x)$hour
+yday <- function(x) 
+    as.POSIXlt(x)$yday + 1
+wday <- function(x) 
+    as.POSIXlt(x)$wday + 1
+mday <- function(x) 
+    as.POSIXlt(x)$mday
+week <- function(x) 
+    yday(x) %/% 7 + 1
+month <- function(x) 
+    as.POSIXlt(x)$mon + 1
+year <- function(x) 
+    as.POSIXlt(x)$year + 1900
 
 
 # Extract the last entry in the time zone vector.
@@ -100,3 +133,13 @@ update.Date <- update.POSIXt <- function(object, ...) {
   object
 }
 
+decimal_date <- function(date){
+	if (!is.POSIXt(date))
+		stop("date not in POSIXt format")
+	just_year <- update.Date(date, month = 1, week = 1, yday = 1, hour = 1, minute = 1, second = 1)
+	if (leap.year(date))
+		decimal <- (date - just_year)/ 31622400
+	else
+		decimal <- (date - just_year)/ 31536000
+	year(date) + decimal$seconds
+}

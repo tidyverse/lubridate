@@ -54,11 +54,12 @@ is.difftime <- function(x) inherits(x, "difftime")
 # for expanding arguments within operations
 
 get_length <- function(x) {
-  if(is.data.frame(x)) {
-    nrow(x)
-  } else {
-    length(x)
-  }
+	if(is.data.frame(x)) 
+    	nrow(x)
+    else if (inherits(x, "POSIXlt"))
+    	length(x) / 9
+    else
+    	length(x)
 }
   
 expand <- function(obj, sml, big){
@@ -161,8 +162,12 @@ make_difftime <- function (dur) {
   }
 }  
 
+# multiply_duration_by_numeric <- function(num, dur){
+#  as.duration(num * as.data.frame(dur))
+# }
+
 multiply_duration_by_numeric <- function(num, dur){
-  as.duration(num * as.data.frame(dur))
+  as.duration(num * structure(dur, class = "data.frame"))
 }
 
 "/.duration" <- function(e1, e2){
@@ -177,10 +182,12 @@ multiply_duration_by_numeric <- function(num, dur){
   }
 }  
 
+# divide_duration_by_numeric <- function(num, dur){
+#  as.duration(as.data.frame(dur)/num)
+# }
 divide_duration_by_numeric <- function(num, dur){
-  as.duration(as.data.frame(dur)/num)
+  as.duration(structure(dur, class = "data.frame")/num)
 }
-
 
 
 # subtracting 
@@ -195,7 +202,8 @@ divide_duration_by_numeric <- function(num, dur){
     stop("unary '-' is not defined for \"POSIXt\" objects")
   if (missing(e2) && is.difftime(e1))
     return(make_difftime(-as.duration(e1)))
-  if (missing(e2)) return(base::'-'(e1))
+  if (missing(e2)) 
+  	return(base::'-'(e1))
   
   
   # accounting for different lengths
