@@ -409,3 +409,11 @@ decimal_date <- function(date){
 		decimal <- (date - just_year)/ 31536000
 	year(date) + decimal$seconds
 }
+
+just_months <- function(dur){
+	as.numeric(dur) %/% 10^10
+}
+
+just_seconds <- function(dur){
+	as.numeric(dur) %% 10^10
+}
