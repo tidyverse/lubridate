@@ -8,8 +8,8 @@ print.duration <- function(dur){
 	
 	
 	dur <- as.numeric(dur)
-	month_num <- dur %/% (10^10)
-	seconds <- dur - month_num * 10^10
+	month_num <- dur %/% (10^8)
+	seconds <- dur - month_num * 10^8
 	
 	year <- month_num %/% 12
 	month <- month_num %% 12

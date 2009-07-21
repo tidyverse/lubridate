@@ -5,9 +5,10 @@ new_duration <- function(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0, mon
 	
 	dur <- secs + mins * 60 + hours * 3600 + days * 86400 + weeks * 604800 
 	
-	years <- years + 4 * (dur %/% 126230400)
-	dur <- dur - 126230400 * (dur %/% 126230400)
-	dur <- dur + 10 ^ 10 * months + 12* 10 ^ 10 * years
+	if (dur >= 10^8)
+		stop("seconds overflow: see 'duration' documentation")
+	
+	dur <- dur + 10 ^ 8 * months + 12* 10 ^ 8 * years
 	structure(dur, class = "duration")
 }
 

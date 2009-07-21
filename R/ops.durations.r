@@ -35,11 +35,9 @@ add_duration_to_date <- function(date, dur) {
 }
 
 add_duration_to_duration <- function(dur1, dur2) {
-	total_secs <- just_seconds(dur1) + just_seconds(dur2)
-	years <- 4* (total_secs %/% 126230400)
-	seconds <- total_secs %% 126230400
+	seconds <- just_seconds(dur1) + just_seconds(dur2)
 	months <- just_months(dur1) + just_months(dur2)
-	new_duration(secs = seconds, months = months, years = years)
+	new_duration(secs = seconds, months = months)
 }
   
 
@@ -74,12 +72,11 @@ make_difftime <- function (seconds) {
   }
 }  
 
-# multiply_duration_by_numeric <- function(num, dur){
-#  as.duration(num * as.data.frame(dur))
-# }
 
 multiply_duration_by_numeric <- function(num, dur){
-  as.duration(num * structure(dur, class = "data.frame"))
+	seconds <- just_seconds(dur)
+	months <- just_months(dur)
+	new_duration(months = num * months, secs = num * seconds)
 }
 
 "/.duration" <- function(e1, e2){
@@ -94,11 +91,11 @@ multiply_duration_by_numeric <- function(num, dur){
   }
 }  
 
-# divide_duration_by_numeric <- function(num, dur){
-#  as.duration(as.data.frame(dur)/num)
-# }
+
 divide_duration_by_numeric <- function(num, dur){
-  as.duration(structure(dur, class = "data.frame")/num)
+	seconds <- just_seconds(dur)
+	months <- just_months(dur)
+	new_duration(months = months / num, secs = seconds / num)
 }
 
 
