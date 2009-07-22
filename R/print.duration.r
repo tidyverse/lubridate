@@ -1,18 +1,21 @@
 print.duration <- function(dur){
-	format_unit <- function(x, singular = NULL) {
+	format_unit <- function(x, xsign, singular = NULL) {
 	    if (is.null(singular)) singular <- deparse(substitute(x))
+	    x <- x * sign(xsign)
     	plural <- paste(singular, "s", sep = "")
     	ifelse(x == 0, "", 
-      	paste(x, ifelse(!is.na(x) & x == 1, singular, plural)))
+      		paste(x, ifelse(!is.na(x) & x == 1, singular, plural)))
     }
 	
 	
 	dur <- as.numeric(dur)
-	month_num <- dur %/% (10^8)
-	seconds <- dur - month_num * 10^8
+	month_num <- dur %/% (10^9)
+	months <- abs(month_num)
+	sec_num <- dur - month_num * 10^9 - 5 * 10^8
+	seconds <- abs(sec_num)
 	
-	year <- month_num %/% 12
-	month <- month_num %% 12
+	year <- months %/% 12
+	month <- months %% 12
 	
 	week <- (seconds %/% 604800)
 	day <- (seconds - week * 604800) %/% 86400
@@ -21,13 +24,13 @@ print.duration <- function(dur){
 	second <- seconds - week * 604800 - day * 86400 - hour * 3600 - minute * 60
 	
 	duration <- cbind(
-    	format_unit(year), 
-    	format_unit(month), 
-    	format_unit(week),
-    	format_unit(day),
-    	format_unit(hour), 
-    	format_unit(minute), 
-    	format_unit(second)
+    	format_unit(year, dur), 
+    	format_unit(month, dur), 
+    	format_unit(week, sec_num),
+    	format_unit(day, sec_num),
+    	format_unit(hour, sec_num), 
+    	format_unit(minute, sec_num), 
+    	format_unit(second, sec_num)
     )
 	
 	collapse <- function(x) {
@@ -39,5 +42,5 @@ print.duration <- function(dur){
     		all[length(all)], sep = " and ")
   	}
 	
-	print(paste(aaply(duration, 1, collapse)))
+	cat(paste(aaply(duration, 1, collapse)))
 	} 

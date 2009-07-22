@@ -29,7 +29,7 @@ as.data.frame.duration <- function(x, optional = TRUE, ...) {
 
 
 c.duration <- function(...) {
-  structure(do.call(rbind, list(...)), class = c("duration", "data.frame"))
+  structure(do.call(rbind, list(...)), class = "duration")
 }
 
 

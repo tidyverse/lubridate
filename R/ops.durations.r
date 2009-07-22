@@ -41,7 +41,8 @@ add_duration_to_duration <- function(dur1, dur2) {
 }
   
 
-make_difftime <- function (seconds) {  
+make_difftime <- function (diff) {  
+	seconds <- abs(diff)
     if (seconds < 60) 
         units <- "secs"
     else if (seconds < 3600)
@@ -52,11 +53,11 @@ make_difftime <- function (seconds) {
     	units <- "days"
     else units <- "weeks"
     
-    switch(units, secs = structure(seconds, units = "secs", class = "difftime"), 
-    mins = structure(seconds/60, units = "mins", class = "difftime"), 
-    hours = structure(seconds/3600, units = "hours", class = "difftime"), 
-    days = structure(seconds/86400, units = "days", class = "difftime"), 
-    weeks = structure(seconds/(604800), units = "weeks", class = "difftime"))
+    switch(units, secs = structure(diff, units = "secs", class = "difftime"), 
+    mins = structure(diff/60, units = "mins", class = "difftime"), 
+    hours = structure(diff/3600, units = "hours", class = "difftime"), 
+    days = structure(diff/86400, units = "days", class = "difftime"), 
+    weeks = structure(diff/(604800), units = "weeks", class = "difftime"))
 }
 
 
@@ -103,26 +104,18 @@ divide_duration_by_numeric <- function(num, dur){
 "-.duration" <- "-.POSIXt" <- "-.difftime" <- function(e1, e2){
   # Deal with unary minus, e.g. -hours(1)
   if (missing(e2) && is.duration(e1)) {
-    e1$seconds <- -e1$seconds
-    e1$months <-  -e1$months
-    return (e1)
+    seconds <- just_seconds(e1)
+    months <- just_months(e1)
+    return (new_duration(secs = -seconds, months =  -months))
   }
   if (missing(e2) && is.POSIXt(e1))
     stop("unary '-' is not defined for \"POSIXt\" objects")
   if (missing(e2) && is.difftime(e1))
-    return(make_difftime(-as.duration(e1)))
+    return(make_difftime(-as.numeric(e1, units = "secs")))
   if (missing(e2)) 
   	return(base::'-'(e1))
   
-  
-  # accounting for different lengths
-  n1 <- get_length(e1)
-  n2 <- get_length(e2)
-  if (n1 < n2)
-    e1 <- expand(e1, n1, n2)
-  else if (n1 > n2)
-    e2 <- expand(e2, n2, n1)
-  
+
   # subtraction
   if (!is.POSIXt(e1) && is.duration(e2)) e1 <- as.duration(e1)
   if (!is.POSIXt(e2) && is.duration(e1)) e2 <- as.duration(e2)
