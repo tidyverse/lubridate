@@ -42,5 +42,5 @@ print.duration <- function(dur){
     		all[length(all)], sep = " and ")
   	}
 	
-	cat(paste(aaply(duration, 1, collapse)))
+	cat(paste(aaply(duration, 1, collapse), "  "), "\n")
 	} 

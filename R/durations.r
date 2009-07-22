@@ -1,11 +1,13 @@
 new_duration <- function(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0, months = 0, years = 0){
 	
-	if( months - trunc(months) != 0 || years - trunc(years) != 0)
-		stop("months and years must be in integer values", call. = F)
+	if( any(months - trunc(months) != 0))
+		stop(paste("durations do not support partial months. Rewrite element(s)", paste(which(months - trunc(months) != 0), collapse = ", "), "in seconds. See 'duration' documentation.", sep = " "))
+	if(any(years/12 - trunc(years/12) != 0))
+		stop(paste("durations do not support partial months. Rewrite element(s)", paste(which(years/12 - trunc(years/12) != 0), collapse = ", "), "in seconds. See 'duration' documentation.", sep = " "))
 	
 	dur <- 500000000 + secs + mins * 60 + hours * 3600 + days * 86400 + weeks * 604800 
 	
-	if (dur >= 10^9 | dur < 0)
+	if (dur >= 10^9 || dur < 0)
 		stop("seconds overflow: see 'duration' documentation")
 	
 	dur <- dur + 10 ^ 9 * months + 12* 10 ^ 9 * years

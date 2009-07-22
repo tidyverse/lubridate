@@ -94,9 +94,9 @@ multiply_duration_by_numeric <- function(num, dur){
 
 
 divide_duration_by_numeric <- function(num, dur){
-	seconds <- just_seconds(dur)
-	months <- just_months(dur)
-	new_duration(months = months / num, secs = seconds / num)
+	seconds <- just_seconds(dur)/num
+	months <- just_months(dur)/num
+	new_duration(months = months, secs = seconds)
 }
 
 
