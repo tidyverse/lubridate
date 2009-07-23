@@ -405,6 +405,7 @@ update.Date <- update.POSIXt <- function(object, ...) {
 
   # a list of the changes we wish to make
   todo <- list(...)
+  names(todo) <- standardise_date_names(names(todo))
   
   # ordering to do list
   changes <- as.list(c(year = todo$year, 
@@ -417,7 +418,7 @@ update.Date <- update.POSIXt <- function(object, ...) {
     minute = todo$minute, 
     second = todo$second,
     tz = todo$tz))  
-    
+  
   for(change in names(changes)) {
 
     # for each change, we select the function we will need to use
@@ -429,6 +430,16 @@ update.Date <- update.POSIXt <- function(object, ...) {
   object
 }
 
+standardise_date_names <- function(x) {
+  dates <- c("second", "minute", "hour", "day", "week", "month", "year")
+  x <- gsub("s$", "", x)
+  res <- dates[pmatch(x, dates)]
+  if (any(is.na(res))) {
+    stop("Invalid date name: ", paste(x[is.na(res)], collapse = ", "), 
+      call. = FALSE)
+  }
+  res
+}
 
 #' Decimal Date
 #'

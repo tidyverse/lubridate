@@ -1,4 +1,4 @@
-print.duration <- function(dur){
+format.duration <- function(dur, ...){
 	format_unit <- function(x, xsign, singular = NULL) {
 	    if (is.null(singular)) singular <- deparse(substitute(x))
 	    x <- x * sign(xsign)
@@ -41,6 +41,10 @@ print.duration <- function(dur){
     		paste(all[1:length(all) - 1], collapse = ", "),
     		all[length(all)], sep = " and ")
   	}
-	
-	cat(paste(aaply(duration, 1, collapse), "  "), "\n")
-	} 
+
+	aaply(duration, 1, collapse)
+} 
+
+print.duration <- function(x, ...) {
+  print(format(x), ..., quote = FALSE)
+}
