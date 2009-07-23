@@ -13,16 +13,14 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 
   # selects appropriate task based on user's input for "unit"
   switch(unit,
-    second = update(x, second = floor(second(x))),
-    minute = update(x, second = 0),
-    hour =   update(x, minute = 0, second = 0),
-    day =    update(x, hour = 0, minute = 0, second = 0),
-    week =   update(x, wday = 1, hour = 0, minute = 0, second = 0),
-    month =  update(x, mday = 1, hour = 0, minute = 0, second = 0),
-    year =   update(x, yday = 1, hour = 0, minute = 0, second = 0)
+    second = update.Date(x, second = floor(second(x))),
+    minute = update.Date(x, second = 0),
+    hour =   update.Date(x, minute = 0, second = 0),
+    day =    update.Date(x, hour = 0, minute = 0, second = 0),
+    week =   update.Date(x, wday = 1, hour = 0, minute = 0, second = 0),
+    month =  update.Date(x, mday = 1, hour = 0, minute = 0, second = 0),
+    year =   update.Date(x, yday = 1, hour = 0, minute = 0, second = 0)
   )
-  
-  x
 }
 
 
@@ -55,7 +53,7 @@ round_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
   # Returns the closer of above and below and forces it to be 
   # a POSIXct object
   smaller <- difftime(x, below, "secs") < difftime(above, x, "secs")
-  structure(ifelse(smaller, below, above), class="POSIXct")
+  structure(ifelse(smaller, below, above), class= class(x))
 }
 
 # Parse date time unit specification

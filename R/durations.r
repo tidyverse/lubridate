@@ -2,7 +2,7 @@ new_duration <- function(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0, mon
 	
 	if( any(months - trunc(months) != 0))
 		stop(paste("durations do not support partial months. Rewrite element(s)", paste(which(months - trunc(months) != 0), collapse = ", "), "in seconds. See 'duration' documentation.", sep = " "))
-	if(any(years/12 - trunc(years/12) != 0))
+	if(any(years*12 - trunc(years*12) != 0))
 		stop(paste("durations do not support partial months. Rewrite element(s)", paste(which(years/12 - trunc(years/12) != 0), collapse = ", "), "in seconds. See 'duration' documentation.", sep = " "))
 	
 	dur <- 500000000 + secs + mins * 60 + hours * 3600 + days * 86400 + weeks * 604800 
@@ -46,9 +46,12 @@ m <- months(1)
 w <- weeks(1)
 d <- days(1)
 
+is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
+is.timeperiod <- function(x) inherits(x, c("duration", "difftime"))
 is.duration <- function(x) inherits(x, "duration")
 is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 is.difftime <- function(x) inherits(x, "difftime")
+is.Date <- function(x) inherits(x, "Date")
 
 as.data.frame.duration <- function (x, row.names = NULL, optional = FALSE, ..., nm = paste(deparse(substitute(x), 
     width.cutoff = 500L), collapse = " ")) 
