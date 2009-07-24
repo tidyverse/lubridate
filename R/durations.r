@@ -1,45 +1,46 @@
-new_duration <- function(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0, months = 0, years = 0){
+new_duration <- function(second = 0, minute = 0, hour = 0, day = 0, week = 0, month = 0, year = 0){
+		
+	dur1 <- 500000000 + second + minute * 60 + hour * 3600 + day * 86400 + week * 604800 
 	
-	if( any(months - trunc(months) != 0))
-		stop(paste("durations do not support partial months. Rewrite element(s)", paste(which(months - trunc(months) != 0), collapse = ", "), "in seconds. See 'duration' documentation.", sep = " "))
-	if(any(years*12 - trunc(years*12) != 0))
-		stop(paste("durations do not support partial months. Rewrite element(s)", paste(which(years/12 - trunc(years/12) != 0), collapse = ", "), "in seconds. See 'duration' documentation.", sep = " "))
-	
-	dur <- 500000000 + secs + mins * 60 + hours * 3600 + days * 86400 + weeks * 604800 
-	
-	if (dur >= 10^9 || dur < 0)
+	if (any(dur1 >= 10^9) || any(dur1 < 0))
 		stop("seconds overflow: see 'duration' documentation")
 	
-	dur <- dur + 10 ^ 9 * months + 12* 10 ^ 9 * years
-	structure(dur, class = "duration")
+	dur2 <- 10 ^ 9 * month + 12* 10 ^ 9 * year
+	
+	if (any(dur2 %% 10^9 != 0))
+		stop("durations do not support partial months")
+	
+	structure(dur1 + dur2, class = "duration")
 }
 
 as.duration <- function (x, ...) UseMethod("as.duration")
 
 as.duration.difftime <- function(x, ...){
-  new_duration(secs = as.numeric(x, units = "secs"))
+  new_duration(second = as.numeric(x, units = "secs"))
 }
 
 as.duration.default <- function(x, ...){
   message("Numeric coerced to seconds")
-  new_duration(secs = x)
+  new_duration(second = x)
 }
 
 as.duration.duration <- function(x, ...) {
   x
 }
 
+as.POSIXt <- function(x) as.POSIXlt(x)
+
 c.duration <- function(...) {
   structure(do.call(rbind, list(...)), class = "duration")
 }
 
 seconds <- function(x = 1) new_duration(x)
-minutes <- function(x = 1) new_duration(mins = x)
-hours <-   function(x = 1) new_duration(hours = x)
-days <-    function(x = 1) new_duration(days = x)  
-weeks <-   function(x = 1) new_duration(weeks = x)
-months <-  function(x = 1) new_duration(months = x)
-years <-   function(x = 1) new_duration(years = x)
+minutes <- function(x = 1) new_duration(minute = x)
+hours <-   function(x = 1) new_duration(hour = x)
+days <-    function(x = 1) new_duration(day = x)  
+weeks <-   function(x = 1) new_duration(week = x)
+months <-  function(x = 1) new_duration(month = x)
+years <-   function(x = 1) new_duration(year = x)
 
 y <- years(1)
 m <- months(1)

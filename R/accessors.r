@@ -204,11 +204,12 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's seconds component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"second<-" <- function(x, value) {
-	date <- as.POSIXlt(x) - (second(x) - value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
-}
+"second<-" <- function(x, value) 
+	UseMethod("second<-")
+
+"second<-.default" <- function(x, value)
+	as.POSIXlt(x) - (second(x) - value)
+
 
 #' Minute<-
 #'
@@ -218,11 +219,11 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's minutes component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"minute<-" <- function(x, value) {
-	date <- as.POSIXlt(x) - (minute(x) - value) * 60
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
-}
+"minute<-" <- function(x, value) 
+	UseMethod("minute<-")
+
+"minute<-.default" <- function(x, value)
+	as.POSIXlt(x) - (minute(x) - value) * 60
 
 
 #' Hour<-
@@ -233,11 +234,12 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's hours component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"hour<-" <- function(x, value) {
-	date <- as.POSIXlt(x) - (hour(x) - value) * 3600
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
-}
+"hour<-" <- function(x, value) 
+	UseMethod("hour<-")
+
+"hour<-.default" <- function(x, value)
+	as.POSIXlt(x) - (hour(x) - value) * 3600
+
 
 
 #' Yday<-
@@ -249,12 +251,17 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{yday}}
-"yday<-" <- function(x, value) {
-	date <- as.POSIXlt(x) - (yday(x) - value) * 3600 * 24
+"yday<-" <- function(x, value)
+	UseMethod("yday<-")
+
+"yday<-.default" <- function(x, value)
+	as.POSIXlt(x) - (yday(x) - value) * 3600 * 24
+
+"yday<-.Date" <- function(x, value){
+	date <- "yday<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
-
 
 #' Wday<-
 #'
@@ -265,8 +272,14 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{wday}}
-"wday<-" <- function(x, value) {
-	date <- as.POSIXlt(x) - (wday(x) - value) * 3600 * 24
+"wday<-" <- function(x, value)
+	UseMethod("wday<-")
+
+"wday<-.default" <- function(x, value) 
+	as.POSIXlt(x) - (wday(x) - value) * 3600 * 24
+
+"wday<-.Date" <- function(x, value){
+	date <- "wday<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
@@ -281,8 +294,14 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{mday}}
-"mday<-" <- function(x, value) {
-	date <- as.POSIXlt(x) - (mday(x) - value) * 3600 * 24
+"mday<-" <- function(x, value)
+	UseMethod("mday<-")
+
+"mday<-.default" <- function(x, value) 
+	as.POSIXlt(x) - (mday(x) - value) * 3600 * 24
+
+"mday<-.Date" <- function(x, value){
+	date <- "mday<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
@@ -296,8 +315,14 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{week}}
-"week<-" <- function(x, value) {
-	date <- as.POSIXlt(x) - (week(x) - value) * 3600 * 24 * 7
+"week<-" <- function(x, value)
+	UseMethod("week<-")
+
+"week<-.default" <- function(x, value) 
+	as.POSIXlt(x) - (week(x) - value) * 3600 * 24 * 7
+
+"week<-.Date" <- function(x, value){
+	date <- "week<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
@@ -310,19 +335,22 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's months component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"month<-" <- function(x, value) {
-  # Seconds approach no longer applies: months are not uniformly long
+"month<-" <- function(x, value) 
+	UseMethod("month<-")
 
+"month<-.default" <- function(x, value) {
   date <- ISOdatetime(
-    year(x) + (value - 1) %/% 12,  # New month values > 12 also change the year
-    
-    # %% is the modulo operator in R
+    year(x) + (value - 1) %/% 12,  
     (value - 1) %% 12 + 1, 
     mday(x), 
     hour(x), 
     minute(x), 
     second(x), 
     tz(x))
+}
+
+"month<-.Date" <- function(x, value){
+	date <- "month<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
@@ -337,12 +365,17 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's years component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"year<-" <- function(x, value) {
-  date <- ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x))
+"year<-" <- function(x, value) 
+	UseMethod("year<-")
+
+"year<-.default" <- function(x, value)
+	ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x))
+
+"year<-.Date" <- function(x, value){
+	date <- "year<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
-
 
 #' Tz<-
 #'
@@ -353,12 +386,17 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{tz}}
-"tz<-" <- function(x, value) {
-    date <- ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
+"tz<-" <- function(x, value) 
+	UseMethod("tz<-")
+	
+"tz<-.default" <- function(x, value)
+	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
+
+"tz<-.Date" <- function(x, value){
+	date <- "tz<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
-
 
 # Modify a date and return changed value. A wrapper for the functions above. 
 # ---------------------------------------------------------------------------
@@ -432,8 +470,8 @@ update.Date <- update.POSIXt <- function(object, ...) {
 
 standardise_date_names <- function(x) {
   dates <- c("second", "minute", "hour", "day", "week", "month", "year")
-  x <- gsub("s$", "", x)
-  res <- dates[pmatch(x, dates)]
+  y <- gsub("s$", "", x)
+  res <- dates[pmatch(y, dates)]
   if (any(is.na(res))) {
     stop("Invalid date name: ", paste(x[is.na(res)], collapse = ", "), 
       call. = FALSE)
@@ -464,6 +502,5 @@ just_months <- function(dur){
 	as.numeric(dur) %/% 10^9
 }
 
-just_seconds <- function(dur){
+just_seconds <- function(dur)
 	as.numeric(dur) %% 10^9 - 500000000
-}
