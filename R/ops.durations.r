@@ -29,8 +29,12 @@
 
 add_duration_to_date <- function(date, timeperiod) {
 	dur <- as.duration(timeperiod)
-	if (any(just_seconds(dur) != 0))
-		second(date) <- second(date) + just_seconds(dur)
+	
+	days <- just_seconds(dur) %/% 86400
+	seconds <- just_seconds(dur) %% 86400
+	
+	second(date) <- second(date) + seconds
+	yday(date) <- yday(date) + days
 	month(date) <- month(date) + just_months(dur)
 	date
 }
@@ -115,21 +119,6 @@ divide_duration_by_numeric <- function(num, dur){
 	new_duration(month = months, second = seconds)
 }
 
-
-# subtracting 
-"-.duration" <- "-.POSIXt" <- "-.difftime" <- function(e1, e2){
-  # Deal with unary minus, e.g. -hours(1)
-  if (missing(e2) && is.duration(e1)) {
-    seconds <- just_seconds(e1)
-    months <- just_months(e1)
-    return (new_duration(secs = -seconds, months =  -months))
-  }
-  if (missing(e2) && is.POSIXt(e1))
-    stop("unary '-' is not defined for \"POSIXt\" objects")
-  if (missing(e2) && is.difftime(e1))
-    return(make_difftime(-as.numeric(e1, units = "secs")))
-  if (missing(e2)) 
-  	return(base::'-'(e1))
   
 
   # subtraction

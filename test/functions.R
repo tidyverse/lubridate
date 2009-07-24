@@ -23,9 +23,12 @@ class('yday<-'(z,3))
 'year<-'(z,3)
 update.Date(z, year = 2000, month = 1, mday = 31, hour = 12, minute = 30, second = 30)
 class(update.Date(z, year = 2000, month = 1, mday = 31, hour = 12, minute = 30, second = 30))
+update.Date(z, year = 2000, month = 1, day = 31)
+class(update.Date(z, year = 2000, month = 1, day = 31))
 decimal_date(z)
 leap.year(z)
-does it have an is.Object identifier?
+#does it have an is.Object identifier?
+do.call(paste("is", class(z)[1], sep = "."), list(z))
 ymd(z)
 floor_date(z, "second")
 floor_date(z, "minute")
@@ -35,6 +38,7 @@ floor_date(z, "week")
 floor_date(z, "month")
 floor_date(z, "year")
 class(floor_date(z, "second"))
+class(floor_date(z, "year"))
 ceiling_date(z, "second")
 ceiling_date(z, "minute")
 ceiling_date(z, "hour")
@@ -55,5 +59,6 @@ z + years(1)
 class(z + years(1))
 z - days(1)
 class(z - days(1))
-Sys.time() - z #should be a duration object
-(z + 3600) - z #should be a duration object
+class(Sys.time() - z) #should be a duration object
+class((z + 3600) - z) #should be a duration object
+z - z

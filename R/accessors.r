@@ -93,7 +93,7 @@ wday <- function(x)
 #' @examples
 #' date <- as.POSIXlt("2009-02-10")
 #' mday(date)  # 10
-mday <- function(x) 
+mday <- day <- function(x) 
     as.POSIXlt(x)$mday
 
 #' Week of the Year
@@ -207,8 +207,13 @@ pm <- function(x) !am(x)
 "second<-" <- function(x, value) 
 	UseMethod("second<-")
 
-"second<-.default" <- function(x, value)
+"second<-.default" <- function(x, value){
+	if (value == second(x))
+		return(x)
 	as.POSIXlt(x) - (second(x) - value)
+}
+
+
 
 
 #' Minute<-
@@ -222,8 +227,12 @@ pm <- function(x) !am(x)
 "minute<-" <- function(x, value) 
 	UseMethod("minute<-")
 
-"minute<-.default" <- function(x, value)
+"minute<-.default" <- function(x, value){
+	if (value == minute(x))
+		return(x)
 	as.POSIXlt(x) - (minute(x) - value) * 60
+}
+
 
 
 #' Hour<-
@@ -237,8 +246,11 @@ pm <- function(x) !am(x)
 "hour<-" <- function(x, value) 
 	UseMethod("hour<-")
 
-"hour<-.default" <- function(x, value)
+"hour<-.default" <- function(x, value){
+	if (value == hour(x))
+		return(x)
 	as.POSIXlt(x) - (hour(x) - value) * 3600
+}
 
 
 
@@ -254,8 +266,12 @@ pm <- function(x) !am(x)
 "yday<-" <- function(x, value)
 	UseMethod("yday<-")
 
-"yday<-.default" <- function(x, value)
+"yday<-.default" <- function(x, value){
+	if (value == yday(x))
+		return(x)
 	as.POSIXlt(x) - (yday(x) - value) * 3600 * 24
+}
+
 
 "yday<-.Date" <- function(x, value){
 	date <- "yday<-.default"(x,value)
@@ -275,8 +291,11 @@ pm <- function(x) !am(x)
 "wday<-" <- function(x, value)
 	UseMethod("wday<-")
 
-"wday<-.default" <- function(x, value) 
+"wday<-.default" <- function(x, value){
+	if (value == wday(x))
+		return(x)
 	as.POSIXlt(x) - (wday(x) - value) * 3600 * 24
+}
 
 "wday<-.Date" <- function(x, value){
 	date <- "wday<-.default"(x,value)
@@ -294,11 +313,15 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{mday}}
-"mday<-" <- function(x, value)
+"mday<-" <- "day<-" <- function(x, value)
 	UseMethod("mday<-")
 
-"mday<-.default" <- function(x, value) 
+"mday<-.default" <- function(x, value){
+	if (value == mday(x))
+		return(x)
 	as.POSIXlt(x) - (mday(x) - value) * 3600 * 24
+}
+
 
 "mday<-.Date" <- function(x, value){
 	date <- "mday<-.default"(x,value)
@@ -318,8 +341,12 @@ pm <- function(x) !am(x)
 "week<-" <- function(x, value)
 	UseMethod("week<-")
 
-"week<-.default" <- function(x, value) 
+"week<-.default" <- function(x, value){
+	if (value == week(x))
+		return(x)
 	as.POSIXlt(x) - (week(x) - value) * 3600 * 24 * 7
+}
+
 
 "week<-.Date" <- function(x, value){
 	date <- "week<-.default"(x,value)
@@ -338,15 +365,17 @@ pm <- function(x) !am(x)
 "month<-" <- function(x, value) 
 	UseMethod("month<-")
 
-"month<-.default" <- function(x, value) {
-  date <- ISOdatetime(
-    year(x) + (value - 1) %/% 12,  
-    (value - 1) %% 12 + 1, 
-    mday(x), 
-    hour(x), 
-    minute(x), 
-    second(x), 
-    tz(x))
+"month<-.default" <- function(x, value){
+	if (value == month(x))
+		return(x)
+	date <- ISOdatetime(
+		year(x) + (value - 1) %/% 12,  
+		(value - 1) %% 12 + 1, 
+		mday(x), 
+		hour(x), 
+		minute(x), 
+		second(x), 
+		tz(x))
 }
 
 "month<-.Date" <- function(x, value){
@@ -368,8 +397,12 @@ pm <- function(x) !am(x)
 "year<-" <- function(x, value) 
 	UseMethod("year<-")
 
-"year<-.default" <- function(x, value)
+"year<-.default" <- function(x, value){
+	if (value == year(x))
+		return(x)
 	ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x))
+}
+
 
 "year<-.Date" <- function(x, value){
 	date <- "year<-.default"(x,value)
@@ -389,8 +422,11 @@ pm <- function(x) !am(x)
 "tz<-" <- function(x, value) 
 	UseMethod("tz<-")
 	
-"tz<-.default" <- function(x, value)
+"tz<-.default" <- function(x, value){
+	if (value == tz(x))
+		return(x)
 	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
+}
 
 "tz<-.Date" <- function(x, value){
 	date <- "tz<-.default"(x,value)
@@ -448,7 +484,8 @@ update.Date <- update.POSIXt <- function(object, ...) {
   # ordering to do list
   changes <- as.list(c(year = todo$year, 
     month = todo$month, 
-    week = todo$week, 
+    week = todo$week,
+    day = todo$day, 
     yday = todo$yday,
     wday = todo$wday,
     mday = todo$mday, 
@@ -469,7 +506,7 @@ update.Date <- update.POSIXt <- function(object, ...) {
 }
 
 standardise_date_names <- function(x) {
-  dates <- c("second", "minute", "hour", "day", "week", "month", "year")
+  dates <- c("second", "minute", "hour", "day", "mday", "wday", "yday", "week", "month", "year")
   y <- gsub("s$", "", x)
   res <- dates[pmatch(y, dates)]
   if (any(is.na(res))) {

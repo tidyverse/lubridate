@@ -3,13 +3,13 @@
 
 # d <- strptime("2008-11-13 10:34:17", "%Y-%m-%d %H:%M:%S")
 # 
-floor_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year"), eps = 1e-10) {
+floor_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
   # matching user's input for "unit" to type of unit indicated
   unit <- match.arg(unit)
   
   # Note: Is this so a time less than 1e-10 below an integer is floored to 
   # the integer below it and not recognized as equal to the integer above it? 
-  if (unit != "second") second(x) <- second(x) - eps 
+
 
   # selects appropriate task based on user's input for "unit"
   switch(unit,
@@ -26,9 +26,8 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 
 # In almost the same manner as above...
 # d <- strptime("2008-01-01 00:00:00", "%Y-%m-%d %H:%M:%S")
-ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year"), eps = 1e-10) {
-  unit <- match.arg(unit)
-  if (unit != "second") second(x) <- second(x) + eps 
+ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
+  unit <- match.arg(unit) 
   
   # we now add 1 to the desired unit and then floor it
   switch(unit,
@@ -42,7 +41,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
   )
   
   # Note: Why is the eps now 0?
-  floor_date(x, unit, eps=0)
+  floor_date(x, unit)
 }
 
 # Rounds the date to whichever is closer: its floored value or ceiling value
