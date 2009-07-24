@@ -133,22 +133,14 @@ divide_duration_by_numeric <- function(num, dur){
   
 
   # subtraction
-  if (!is.POSIXt(e1) && is.duration(e2)) e1 <- as.duration(e1)
-  if (!is.POSIXt(e2) && is.duration(e1)) e2 <- as.duration(e2)
-    if (is.duration(e1) && is.duration(e2))
-      e1 + -e2
-    else if (is.POSIXt(e1) && is.duration(e2))
-      e1 + -e2
-    else if (is.POSIXt(e1) && is.POSIXt(e2))
-      as.duration(difftime(e1, e2))    
-    else if (is.POSIXt(e2)) 
-      stop("Can only subtract from POSIXt objects")
-    else if (is.POSIXt(e1) && is.difftime(e2))
-      e1 + -as.numeric(e2, units = "secs")
-    else if (is.POSIXt(e1))
-      structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct"))
-    else if (is.difftime(e1) || is.difftime(e2))
-      e1 + -e2
-    else
-      base::'-'(e1, e2)
+"-.duration" <- "-.POSIXt" <- "-.difftime" <- "-.Date" <- function(e1, e2){
+	if (missing(e2))
+		-1 * e1
+	else if(is.timepoint(e1) && is.timepoint(e2))
+		as.duration(difftime(e1, e2))
+	else if (is.POSIXt(e1) && !is.timeperiod(e2))
+		structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct"))
+	else		
+		e1  + (-1 * e2)
 }
+
