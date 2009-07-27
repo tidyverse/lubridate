@@ -46,6 +46,8 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 
 # Rounds the date to whichever is closer: its floored value or ceiling value
 round_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
+  unit <- match.arg(unit)
+  
   below <- floor_date(x, unit)
   above <- ceiling_date(x, unit)
 

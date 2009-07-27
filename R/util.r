@@ -10,31 +10,35 @@ leap.year <- function(date) {
 now <- function() Sys.time()
 today <- Sys.Date()
 
-pretty.dates <- function(dates, n, tol  = 10){
+pretty.dates <- function(dates, n){
+	Sys.setenv(TZ = tz(dates[1]))
 	rng <- range(dates)
 	diff <- rng[2] - rng[1]
-	binunits <- pretty.unit(diff/n, tol)
+	diff <- just_seconds(diff)
 	
-	binlength <- pretty.length(just_seconds(diff), binunits, n)
+	binunits <- pretty.unit(diff/n)
+	
+	f <- match.fun(paste("pretty", binunits, sep = "."))
+	binlength <- f(diff, n)
+	
+	browser()
 	
 	start <- pretty.point(min(rng), binunits, binlength)
 	end <- pretty.point(max(rng), binunits, binlength)
 	
-	seq.POSIXt(start, end, paste(binlength, binunits)) 
+	breaks <- seq.POSIXt(start, end, paste(binlength, binunits)) 
+	Sys.unsetenv("TZ")
+	breaks
 }
+	
+	
 
+pretty.unit <- function(interval){
 	
-	
-	
-pretty.unit <- function(interval, tol){
-	interval <- just_seconds(interval)
-	interval <- interval + interval * tol/100
 	if (interval > 3600*24*365)
 		return("year")
 	if (interval > 3600*24*30)
 		return("month")
-	if (interval > 3600*24*7)
-		return("week")
 	if (interval > 3600*24)
 		return("day")
 	if (interval > 3600)
@@ -44,28 +48,63 @@ pretty.unit <- function(interval, tol){
 	else
 		return("sec")
 }
-		
-pretty.length <- function(span, units, n){
-	switch(units, 
-		sec = pretty(1:span, n = n)[2],
-		min = pretty(1:(span / 60), n = n)[2],
-		hour = pretty(1:(span / 3600), n = n)[2],
-		day = pretty(1:(span / (3600 * 24)), n = n)[2],
-		week = pretty(1:(span / (3600 * 24 * 7)), n = n)[2],
-		month = pretty(1:(span / (3600 * 24 * 30)), n = n)[2],
-		year= pretty(1:(span / (3600 * 24 * 365)), n = n)[2])
+
+pretty.sec <- function(span, n){
+	lengths <- c(1,2,5,10,15,30,60)
+	fit <- abs(span - lengths*n)
+	lengths[which.min(fit)]
 }
 
-pretty.point <- function(x, units, length){
-	floors <- c("sec", "min", "hour", "day", "week", "month", "year")
-	floorto <- floors[which(floors == units) + 1]
-	below <- floor_date(x, floorto)
-	
-	names(length) <- units
-	above <- below + do.call("new_duration", as.list(length))
+pretty.min <- function(span, n){
+	span <- span/60
+	lengths <- c(1,2,5,10,15,30,60)
+	fit <- abs(span - lengths*n)
+	lengths[which.min(fit)]
+}
 
-	smaller <- difftime(x, below, "secs") < difftime(above, x, "secs")
+pretty.hour <- function(span, n){
+	span <- span / 3600
+	lengths <- c(1,2,3,4,6,8,12,24)
+	fit <- abs(span - lengths*n)
+	lengths[which.min(fit)]
+}
+
+pretty.day <- function(span, n){
+	span <- span / (3600 * 24)
+	pretty(1:span, n = n)[2]
+}
+
+pretty.month <- function(span, n){
+	span <- span / (3600 * 24 * 30)
+	lengths <- c(1,2,3,4,6,12)
+	fit <- abs(span - lengths*n)
+	lengths[which.min(fit)]
+}
 	
-	point <- structure(ifelse(smaller, below, above), class= class(x))
-	as.POSIXct(point)
+pretty.year <- function(span, n){
+	span <- span / (3600 * 24 * 365)
+	pretty(1:span, n = n)[2]
+}
+
+pretty.point <- function(x, units, length, start = TRUE){
+	x <- as.POSIXct(x)
+	
+	floors <- c("sec", "min", "hour", "day", "d", "month", "year")
+	floorto <- floors[which(floors == units) + 1]
+	lower <- floor_date(x, floorto)
+	upper <- ceiling_date(x, floorto)
+	
+	points <- seq.POSIXt(lower, upper, paste(length, units))
+	
+	fit <- just_seconds(x - points)
+	
+	if (start){
+		fit <- fit[fit >= 0]
+		return(points[which.min(fit)])
+	}
+	
+	if (!start){
+		fit <- fit[fit <=0]
+		return(points[which.max(fit)])
+	}
 }
