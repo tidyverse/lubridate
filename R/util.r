@@ -15,10 +15,10 @@ pretty.dates <- function(dates, n, tol  = 10){
 	diff <- rng[2] - rng[1]
 	binunits <- pretty.unit(diff/n, tol)
 	
-	start <- as.POSIXct(round_date(min(rng), binunits))
-	end <- as.POSIXct(round_date(max(rng), binunits))
+	binlength <- pretty.length(just_seconds(diff), binunits, n)
 	
-	binlength <- pretty.length(just_seconds(end - start), binunits, n)
+	start <- pretty.point(min(rng), binunits, binlength)
+	end <- pretty.point(max(rng), binunits, binlength)
 	
 	seq.POSIXt(start, end, paste(binlength, binunits)) 
 }
@@ -40,18 +40,32 @@ pretty.unit <- function(interval, tol){
 	if (interval > 3600)
 		return("hour")
 	if (interval > 60)
-		return("minute")
+		return("min")
 	else
-		return("second")
+		return("sec")
 }
 		
 pretty.length <- function(span, units, n){
 	switch(units, 
-		second = pretty(1:span, n = n)[2],
-		minute = pretty(1:(span / 60), n = n)[2],
+		sec = pretty(1:span, n = n)[2],
+		min = pretty(1:(span / 60), n = n)[2],
 		hour = pretty(1:(span / 3600), n = n)[2],
 		day = pretty(1:(span / (3600 * 24)), n = n)[2],
 		week = pretty(1:(span / (3600 * 24 * 7)), n = n)[2],
 		month = pretty(1:(span / (3600 * 24 * 30)), n = n)[2],
 		year= pretty(1:(span / (3600 * 24 * 365)), n = n)[2])
+}
+
+pretty.point <- function(x, units, length){
+	floors <- c("sec", "min", "hour", "day", "week", "month", "year")
+	floorto <- floors[which(floors == units) + 1]
+	below <- floor_date(x, floorto)
+	
+	names(length) <- units
+	above <- below + do.call("new_duration", as.list(length))
+
+	smaller <- difftime(x, below, "secs") < difftime(above, x, "secs")
+	
+	point <- structure(ifelse(smaller, below, above), class= class(x))
+	as.POSIXct(point)
 }
