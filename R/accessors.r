@@ -210,7 +210,7 @@ pm <- function(x) !am(x)
 "second<-.default" <- function(x, value){
 	if (value == second(x))
 		return(x)
-	as.POSIXlt(x) - (second(x) - value)
+	as.POSIXct(x) - (second(x) - value)
 }
 
 
@@ -230,7 +230,7 @@ pm <- function(x) !am(x)
 "minute<-.default" <- function(x, value){
 	if (value == minute(x))
 		return(x)
-	as.POSIXlt(x) - (minute(x) - value) * 60
+	as.POSIXct(x) - (minute(x) - value) * 60
 }
 
 
@@ -249,7 +249,7 @@ pm <- function(x) !am(x)
 "hour<-.default" <- function(x, value){
 	if (value == hour(x))
 		return(x)
-	as.POSIXlt(x) - (hour(x) - value) * 3600
+	as.POSIXct(x) - (hour(x) - value) * 3600
 }
 
 
@@ -269,7 +269,7 @@ pm <- function(x) !am(x)
 "yday<-.default" <- function(x, value){
 	if (value == yday(x))
 		return(x)
-	as.POSIXlt(x) - (yday(x) - value) * 3600 * 24
+	as.POSIXct(x) - (yday(x) - value) * 3600 * 24
 }
 
 
@@ -294,7 +294,7 @@ pm <- function(x) !am(x)
 "wday<-.default" <- function(x, value){
 	if (value == wday(x))
 		return(x)
-	as.POSIXlt(x) - (wday(x) - value) * 3600 * 24
+	as.POSIXct(x) - (wday(x) - value) * 3600 * 24
 }
 
 "wday<-.Date" <- function(x, value){
@@ -319,7 +319,7 @@ pm <- function(x) !am(x)
 "mday<-.default" <- function(x, value){
 	if (value == mday(x))
 		return(x)
-	as.POSIXlt(x) - (mday(x) - value) * 3600 * 24
+	as.POSIXct(x) - (mday(x) - value) * 3600 * 24
 }
 
 
@@ -344,7 +344,7 @@ pm <- function(x) !am(x)
 "week<-.default" <- function(x, value){
 	if (value == week(x))
 		return(x)
-	as.POSIXlt(x) - (week(x) - value) * 3600 * 24 * 7
+	as.POSIXct(x) - (week(x) - value) * 3600 * 24 * 7
 }
 
 

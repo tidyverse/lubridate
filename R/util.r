@@ -10,50 +10,48 @@ leap.year <- function(date) {
 now <- function() Sys.time()
 today <- Sys.Date()
 
-pretty_dates <- function(dates, n = 5, by = c("auto", "secs", "mins", "hours", "days", "weeks", "months", "years")){
-  if (!is.POSIXt(dates)) 
-    stop("x must be a POSIXt object")
-  if (length(dates) == 0L) 
-    return(dates)
-        
-  by <- match.arg(by)
-  switch(by, secs = pretty_secs(dates, n),
-    mins = pretty_mins(dates, n),
-    hours = pretty_hours(dates, n),
-    days = pretty_days(dates, n),
-    weeks = pretty_weeks(dates, n),
-    months = pretty_months(dates, n),
-    years = pretty_years(dates, n))
+pretty.dates <- function(dates, n, tol  = 10){
+	rng <- range(dates)
+	diff <- rng[2] - rng[1]
+	binunits <- pretty.unit(diff/n, tol)
+	
+	start <- as.POSIXct(round_date(min(rng), binunits))
+	end <- as.POSIXct(round_date(max(rng), binunits))
+	
+	binlength <- pretty.length(just_seconds(end - start), binunits, n)
+	
+	seq.POSIXt(start, end, paste(binlength, binunits)) 
 }
 
-pretty_secs <- function (dates, n) print("secs")
-pretty_mins <- function (dates, n) print("mins")
-pretty_hours <- function (dates, n) print("hours")
-pretty_days <- function (dates, n) print("days")
-pretty_weeks <- function (dates, n) print("weeks")
-pretty_months <- function (dates, n) print("months")
-
-pretty_years <- function (dates, n) print("years")
-
-
-
-    		
-    
 	
-#	structure(unlist(list(output)), class = class(output))
 	
-#	date1 <- dates[1]
-#	date2 <- dates[length(dates)]
-#	dur <- (date2 - date1) / n
 	
-#	output <- vector(length = n)
-#	start <- date1
-#	for (i in 1:n){
-#		output[i] <- start + dur
-#		start <- start + dur
-#	}
-#	class(output) <- "POSIXct"
-#	output
-#}
-	
-
+pretty.unit <- function(interval, tol){
+	interval <- just_seconds(interval)
+	interval <- interval + interval * tol/100
+	if (interval > 3600*24*365)
+		return("year")
+	if (interval > 3600*24*30)
+		return("month")
+	if (interval > 3600*24*7)
+		return("week")
+	if (interval > 3600*24)
+		return("day")
+	if (interval > 3600)
+		return("hour")
+	if (interval > 60)
+		return("minute")
+	else
+		return("second")
+}
+		
+pretty.length <- function(span, units, n){
+	switch(units, 
+		second = pretty(1:span, n = n)[2],
+		minute = pretty(1:(span / 60), n = n)[2],
+		hour = pretty(1:(span / 3600), n = n)[2],
+		day = pretty(1:(span / (3600 * 24)), n = n)[2],
+		week = pretty(1:(span / (3600 * 24 * 7)), n = n)[2],
+		month = pretty(1:(span / (3600 * 24 * 30)), n = n)[2],
+		year= pretty(1:(span / (3600 * 24 * 365)), n = n)[2])
+}
