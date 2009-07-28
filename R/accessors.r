@@ -280,9 +280,14 @@ pm <- function(x) !am(x)
 }
 
 "second<-.zoo" <- function(x, value){
-	if (all(value == second(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, index(x) - (second(x) - value))
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "second<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 #' Minute<-
@@ -309,9 +314,14 @@ pm <- function(x) !am(x)
 }
 
 "minute<-.zoo" <- function(x, value){
-	if (all(value == minute(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, index(x) - (minute(x) - value)*60)
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "minute<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 #' Hour<-
@@ -338,11 +348,15 @@ pm <- function(x) !am(x)
 }
 
 "hour<-.zoo" <- function(x, value){
-	if (all(value == hour(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, index(x) - (hour(x) - value) * 3600)
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "hour<-"(index(x), value)
+	'index<-'(x, new)
 }
-
 
 #' Yday<-
 #'
@@ -370,9 +384,14 @@ pm <- function(x) !am(x)
 }
 
 "yday<-.zoo" <- function(x, value){
-	if (all(value == yday(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, index(x) - (yday(x) - value) * 3600 * 24)
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "yday<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 
@@ -401,9 +420,14 @@ pm <- function(x) !am(x)
 }
 
 "wday<-.zoo" <- function(x, value){
-	if (all(value == wday(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, index(x) - (wday(x) - value) * 3600 * 24)
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "wday<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 #' Mday<-
@@ -434,7 +458,12 @@ pm <- function(x) !am(x)
 "mday<-.zoo" <- function(x, value){
 	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, index(x) - (mday(x) - value) * 3600 * 24)
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "mday<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 
@@ -465,9 +494,14 @@ pm <- function(x) !am(x)
 }
 
 "week<-.zoo" <- function(x, value){
-	if (all(value == week(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, index(x) - (week(x) - value) * 3600 * 24 * 7)
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "week<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 
@@ -485,7 +519,7 @@ pm <- function(x) !am(x)
 "month<-.default" <- function(x, value){
 	if (all(value == month(x)))
 		return(x)
-	date <- ISOdatetime(
+	ISOdatetime(
 		year(x) + (value - 1) %/% 12,  
 		(value - 1) %% 12 + 1, 
 		mday(x), 
@@ -495,23 +529,21 @@ pm <- function(x) !am(x)
 		tz(x))
 }
 
-"month<-.Date" <- "month<-.chron" <- function(x, value){
+"month<-.Date" <- "month<-.chron" <- "month<-.yearmon" <- function(x, value){
 	date <- "month<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
 
 "month<-.zoo" <- function(x, value){
-	if (all(value == month(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, ISOdatetime(
-		year(x) + (value - 1) %/% 12,  
-		(value - 1) %% 12 + 1, 
-		mday(x), 
-		hour(x), 
-		minute(x), 
-		second(x), 
-		tz(x)))
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "month<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 #' Year<-
@@ -533,16 +565,21 @@ pm <- function(x) !am(x)
 }
 
 
-"year<-.Date" <- "year<-.chron" <- function(x, value){
+"year<-.Date" <- "year<-.chron" <- "year<-.yearmon" <- "year<-.yearqtr" <- function(x, value){
 	date <- "year<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
 
 "year<-.zoo" <- function(x, value){
-	if (all(value == year(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x)))
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "year<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 
@@ -571,9 +608,14 @@ pm <- function(x) !am(x)
 }
 
 "tz<-.zoo" <- function(x, value){
-	if (all(value == tz(x)))
+	if (all(value == mday(x)))
 		return(x)
-	'index<-'(x, ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value))
+	compatible <- recognize(index(x))
+	if(!compatible)
+		stop("series uses unrecognized date format")
+		 
+	new <- "tz<-"(index(x), value)
+	'index<-'(x, new)
 }
 
 # Modify a date and return changed value. A wrapper for the functions above. 
@@ -685,3 +727,12 @@ just_months <- function(dur)
 
 just_seconds <- function(dur)
 	as.numeric(dur) %% 10^11 - 50000000000
+
+
+recognize <- function(x){
+	recognized <- c("POSIXt", "POSIXlt", "POSIXct", "yearmon", "yearqtr", "Date")
+	
+	if (class(x) %in% recognized)
+		return(TRUE)
+	return(FALSE)
+}
