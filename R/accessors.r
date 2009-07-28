@@ -27,7 +27,13 @@
 #' @examples
 #' second(Sys.time())
 second <- function(x) 
+	UseMethod("second")
+	
+second.default <- function(x)
     as.POSIXlt(x)$sec
+    
+second.zoo <- function(x)
+	as.POSIXlt(index(x))$sec
 
 #' Minute
 #'
@@ -39,7 +45,13 @@ second <- function(x)
 #' @examples
 #' hour(Sys.time())
 minute <- function(x) 
+	UseMethod("minute")
+	
+minute.default <- function(x)
     as.POSIXlt(x)$min
+    
+minute.zoo <- function(x)
+	as.POSIXlt(index(x))$min
 
 #' Hour
 #'
@@ -51,7 +63,13 @@ minute <- function(x)
 #' @examples
 #' hour(Sys.time())
 hour <- function(x) 
-	as.POSIXlt(x, tz = tz(x))$hour
+	UseMethod("hour")
+	
+hour.default <- function(x)
+    as.POSIXlt(x, tz = tz(x))$hour
+    
+hour.zoo <- function(x)
+	as.POSIXlt(index(x), tz = tz(x))$hour
 
 #' Day of the Year
 #'
@@ -65,7 +83,13 @@ hour <- function(x)
 #' date <- as.POSIXlt("2009-02-10")
 #' yday(date)  # 41
 yday <- function(x) 
+	UseMethod("yday")
+	
+yday.default <- function(x)
     as.POSIXlt(x)$yday + 1
+    
+yday.zoo <- function(x)
+	as.POSIXlt(index(x))$yday + 1
 
 #' Day of the Week
 #'
@@ -79,7 +103,13 @@ yday <- function(x)
 #' date <- as.POSIXlt("2009-02-10") # a tuesday
 #' wday(date)  # 3
 wday <- function(x) 
+	UseMethod("wday")
+	
+wday.default <- function(x)
     as.POSIXlt(x)$wday + 1
+    
+wday.zoo <- function(x)
+	as.POSIXlt(index(x))$wday + 1
 
 #' Day of the Month
 #'
@@ -92,8 +122,14 @@ wday <- function(x)
 #' @examples
 #' date <- as.POSIXlt("2009-02-10")
 #' mday(date)  # 10
-mday <- day <- function(x) 
+mday <- function(x) 
+	UseMethod("mday")
+	
+mday.default <- function(x)
     as.POSIXlt(x)$mday
+    
+mday.zoo <- function(x)
+	as.POSIXlt(index(x))$mday
 
 #' Week of the Year
 #'
@@ -110,6 +146,7 @@ mday <- day <- function(x)
 week <- function(x) 
     yday(x) %/% 7 + 1
 
+
 #' Month
 #'
 #' Returns the month of a POSIXt date. 
@@ -123,6 +160,16 @@ week <- function(x)
 month <- function(x) 
     as.POSIXlt(x)$mon + 1
 
+month <- function(x) 
+	UseMethod("month")
+	
+month.default <- function(x)
+    as.POSIXlt(x)$mon + 1
+    
+month.zoo <- function(x)
+	as.POSIXlt(index(x))$mon + 1
+	
+	
 #' Year
 #'
 #' Returns the year of a POSIXt date. 
@@ -134,8 +181,13 @@ month <- function(x)
 #' date <- as.POSIXlt("2009-01-01")
 #' year(date)  # 2009
 year <- function(x) 
+	UseMethod("year")
+	
+year.default <- function(x)
     as.POSIXlt(x)$year + 1900
-
+    
+year.zoo <- function(x)
+	as.POSIXlt(index(x))$year + 1900
 
 # Extract the first entry in the time zone vector.
 
@@ -150,7 +202,10 @@ year <- function(x)
 #' @keywords utilities, accessors
 #' @examples
 #' tz(Sys.time())
-tz <- function(x, supply = T) {
+tz <- function (x, supply = T) 
+	UseMethod("tz")
+
+tz.default <- function(x, supply = T) {
     if (supply){
         if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
             return("GMT")
@@ -158,6 +213,14 @@ tz <- function(x, supply = T) {
   tzs <- attr(as.POSIXlt(x),"tzone")
   tzs[1]
 }
+
+tz.zoo <- function(x, supply = T){
+	tzs <- attr(as.POSIXlt(index(x)), "tzone")
+	tzs[1]
+}
+
+
+
 
 #' AM/PM
 #'
@@ -205,7 +268,7 @@ pm <- function(x) !am(x)
 	UseMethod("second<-")
 
 "second<-.default" <- function(x, value){
-	if (value == second(x))
+	if (all(value == second(x)))
 		return(x)
 	as.POSIXct(x) - (second(x) - value)
 }
@@ -216,7 +279,11 @@ pm <- function(x) !am(x)
 	f(date)
 }
 
-
+"second<-.zoo" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	'index<-'(x, index(x) - (second(x) - value))
+}
 
 #' Minute<-
 #'
@@ -230,7 +297,7 @@ pm <- function(x) !am(x)
 	UseMethod("minute<-")
 
 "minute<-.default" <- function(x, value){
-	if (value == minute(x))
+	if (all(value == minute(x)))
 		return(x)
 	as.POSIXct(x) - (minute(x) - value) * 60
 }
@@ -241,6 +308,11 @@ pm <- function(x) !am(x)
 	f(date)
 }
 
+"minute<-.zoo" <- function(x, value){
+	if (all(value == minute(x)))
+		return(x)
+	'index<-'(x, index(x) - (minute(x) - value)*60)
+}
 
 #' Hour<-
 #'
@@ -254,9 +326,9 @@ pm <- function(x) !am(x)
 	UseMethod("hour<-")
 
 "hour<-.default" <- function(x, value){
-	if (value == hour(x))
+	if (all(value == hour(x)))
 		return(x)
-	as.POSIXct(x) - (hour(x) - value) * 3600
+	as.POSIXct(x, tz = tz(x)) - (hour(x) - value) * 3600
 }
 
 "hour<-.chron" <- function(x, value){
@@ -264,6 +336,13 @@ pm <- function(x) !am(x)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
+
+"hour<-.zoo" <- function(x, value){
+	if (all(value == hour(x)))
+		return(x)
+	'index<-'(x, index(x) - (hour(x) - value) * 3600)
+}
+
 
 #' Yday<-
 #'
@@ -278,7 +357,7 @@ pm <- function(x) !am(x)
 	UseMethod("yday<-")
 
 "yday<-.default" <- function(x, value){
-	if (value == yday(x))
+	if (all(value == yday(x)))
 		return(x)
 	as.POSIXct(x) - (yday(x) - value) * 3600 * 24
 }
@@ -289,6 +368,13 @@ pm <- function(x) !am(x)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
+
+"yday<-.zoo" <- function(x, value){
+	if (all(value == yday(x)))
+		return(x)
+	'index<-'(x, index(x) - (yday(x) - value) * 3600 * 24)
+}
+
 
 #' Wday<-
 #'
@@ -303,7 +389,7 @@ pm <- function(x) !am(x)
 	UseMethod("wday<-")
 
 "wday<-.default" <- function(x, value){
-	if (value == wday(x))
+	if (all(value == wday(x)))
 		return(x)
 	as.POSIXct(x) - (wday(x) - value) * 3600 * 24
 }
@@ -314,6 +400,11 @@ pm <- function(x) !am(x)
 	f(date)
 }
 
+"wday<-.zoo" <- function(x, value){
+	if (all(value == wday(x)))
+		return(x)
+	'index<-'(x, index(x) - (wday(x) - value) * 3600 * 24)
+}
 
 #' Mday<-
 #'
@@ -328,7 +419,7 @@ pm <- function(x) !am(x)
 	UseMethod("mday<-")
 
 "mday<-.default" <- function(x, value){
-	if (value == mday(x))
+	if (all(value == mday(x)))
 		return(x)
 	as.POSIXct(x) - (mday(x) - value) * 3600 * 24
 }
@@ -339,6 +430,14 @@ pm <- function(x) !am(x)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
+
+"mday<-.zoo" <- function(x, value){
+	if (all(value == mday(x)))
+		return(x)
+	'index<-'(x, index(x) - (mday(x) - value) * 3600 * 24)
+}
+
+
 
 #' Week<-
 #'
@@ -353,7 +452,7 @@ pm <- function(x) !am(x)
 	UseMethod("week<-")
 
 "week<-.default" <- function(x, value){
-	if (value == week(x))
+	if (all(value == week(x)))
 		return(x)
 	as.POSIXct(x) - (week(x) - value) * 3600 * 24 * 7
 }
@@ -364,6 +463,13 @@ pm <- function(x) !am(x)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
+
+"week<-.zoo" <- function(x, value){
+	if (all(value == week(x)))
+		return(x)
+	'index<-'(x, index(x) - (week(x) - value) * 3600 * 24 * 7)
+}
+
 
 #' Month<-
 #'
@@ -377,7 +483,7 @@ pm <- function(x) !am(x)
 	UseMethod("month<-")
 
 "month<-.default" <- function(x, value){
-	if (value == month(x))
+	if (all(value == month(x)))
 		return(x)
 	date <- ISOdatetime(
 		year(x) + (value - 1) %/% 12,  
@@ -395,6 +501,18 @@ pm <- function(x) !am(x)
 	f(date)
 }
 
+"month<-.zoo" <- function(x, value){
+	if (all(value == month(x)))
+		return(x)
+	'index<-'(x, ISOdatetime(
+		year(x) + (value - 1) %/% 12,  
+		(value - 1) %% 12 + 1, 
+		mday(x), 
+		hour(x), 
+		minute(x), 
+		second(x), 
+		tz(x)))
+}
 
 #' Year<-
 #'
@@ -409,7 +527,7 @@ pm <- function(x) !am(x)
 	UseMethod("year<-")
 
 "year<-.default" <- function(x, value){
-	if (value == year(x))
+	if (all(value == year(x)))
 		return(x)
 	ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x))
 }
@@ -420,6 +538,13 @@ pm <- function(x) !am(x)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
 }
+
+"year<-.zoo" <- function(x, value){
+	if (all(value == year(x)))
+		return(x)
+	'index<-'(x, ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x)))
+}
+
 
 #' Tz<-
 #'
@@ -434,7 +559,7 @@ pm <- function(x) !am(x)
 	UseMethod("tz<-")
 	
 "tz<-.default" <- function(x, value){
-	if (value == tz(x))
+	if (all(value == tz(x)))
 		return(x)
 	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
 }
@@ -443,6 +568,12 @@ pm <- function(x) !am(x)
 	date <- "tz<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
+}
+
+"tz<-.zoo" <- function(x, value){
+	if (all(value == tz(x)))
+		return(x)
+	'index<-'(x, ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value))
 }
 
 # Modify a date and return changed value. A wrapper for the functions above. 
