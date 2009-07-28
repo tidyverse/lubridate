@@ -1,13 +1,13 @@
 new_duration <- function(second = 0, minute = 0, hour = 0, day = 0, week = 0, month = 0, year = 0){
 		
-	dur1 <- 500000000 + second + minute * 60 + hour * 3600 + day * 86400 + week * 604800 
+	dur1 <- 50000000000 + second + minute * 60 + hour * 3600 + day * 86400 + week * 604800 
 	
-	if (any(dur1 >= 10^9) || any(dur1 < 0))
+	if (any(dur1 >= 10^11) || any(dur1 < 0))
 		stop("seconds overflow: see 'duration' documentation")
 	
-	dur2 <- 10 ^ 9 * month + 12* 10 ^ 9 * year
+	dur2 <- 10 ^ 11 * month + 12* 10 ^ 11 * year
 	
-	if (any(dur2 %% 10^9 != 0))
+	if (any(dur2 %% 10^11 != 0))
 		stop("durations do not support partial months")
 	
 	structure(dur1 + dur2, class = "duration")

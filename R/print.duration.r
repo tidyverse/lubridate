@@ -9,9 +9,9 @@ format.duration <- function(dur, ...){
 	
 	
 	dur <- as.numeric(dur)
-	month_num <- dur %/% (10^9)
+	month_num <- dur %/% (10^11)
 	months <- abs(month_num)
-	sec_num <- dur - month_num * 10^9 - 5 * 10^8
+	sec_num <- dur - month_num * 10^11 - 5 * 10^10
 	seconds <- abs(sec_num)
 	
 	year <- months %/% 12
