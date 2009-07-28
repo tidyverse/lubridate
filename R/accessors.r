@@ -51,8 +51,7 @@ minute <- function(x)
 #' @examples
 #' hour(Sys.time())
 hour <- function(x) 
-    as.POSIXlt(x)$hour
-
+	as.POSIXlt(x, tz = tz(x))$hour
 
 #' Day of the Year
 #'
@@ -153,10 +152,8 @@ year <- function(x)
 #' tz(Sys.time())
 tz <- function(x, supply = T) {
     if (supply){
-        if (is.null(attr(as.POSIXlt(x),"tzone")))
-            return("")
-        if (is.na(attr(as.POSIXlt(x),"tzone")[1]))
-            return("")
+        if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
+            return("GMT")
     }
   tzs <- attr(as.POSIXlt(x),"tzone")
   tzs[1]
@@ -213,6 +210,11 @@ pm <- function(x) !am(x)
 	as.POSIXct(x) - (second(x) - value)
 }
 
+"second<-.chron" <- function(x, value){
+	date <- "second<-.default"(x,value)
+	f <- match.fun(paste("as", class(x)[1], sep = "."))
+	f(date)
+}
 
 
 
@@ -233,6 +235,11 @@ pm <- function(x) !am(x)
 	as.POSIXct(x) - (minute(x) - value) * 60
 }
 
+"minute<-.chron" <- function(x, value){
+	date <- "minute<-.default"(x,value)
+	f <- match.fun(paste("as", class(x)[1], sep = "."))
+	f(date)
+}
 
 
 #' Hour<-
@@ -252,7 +259,11 @@ pm <- function(x) !am(x)
 	as.POSIXct(x) - (hour(x) - value) * 3600
 }
 
-
+"hour<-.chron" <- function(x, value){
+	date <- "hour<-.default"(x,value)
+	f <- match.fun(paste("as", class(x)[1], sep = "."))
+	f(date)
+}
 
 #' Yday<-
 #'
@@ -273,7 +284,7 @@ pm <- function(x) !am(x)
 }
 
 
-"yday<-.Date" <- function(x, value){
+"yday<-.Date" <- "yday<-.chron" <- function(x, value){
 	date <- "yday<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
@@ -297,7 +308,7 @@ pm <- function(x) !am(x)
 	as.POSIXct(x) - (wday(x) - value) * 3600 * 24
 }
 
-"wday<-.Date" <- function(x, value){
+"wday<-.Date" <- "wday<-.chron" <- function(x, value){
 	date <- "wday<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
@@ -323,7 +334,7 @@ pm <- function(x) !am(x)
 }
 
 
-"mday<-.Date" <- function(x, value){
+"mday<-.Date" <- "mday<-.chron" <-function(x, value){
 	date <- "mday<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
@@ -348,7 +359,7 @@ pm <- function(x) !am(x)
 }
 
 
-"week<-.Date" <- function(x, value){
+"week<-.Date" <- "week<-.chron" <- function(x, value){
 	date <- "week<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
@@ -378,7 +389,7 @@ pm <- function(x) !am(x)
 		tz(x))
 }
 
-"month<-.Date" <- function(x, value){
+"month<-.Date" <- "month<-.chron" <- function(x, value){
 	date <- "month<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
@@ -404,7 +415,7 @@ pm <- function(x) !am(x)
 }
 
 
-"year<-.Date" <- function(x, value){
+"year<-.Date" <- "year<-.chron" <- function(x, value){
 	date <- "year<-.default"(x,value)
 	f <- match.fun(paste("as", class(x)[1], sep = "."))
 	f(date)
@@ -527,17 +538,19 @@ standardise_date_names <- function(x) {
 #' date <- as.POSIXlt("2009-02-10")
 #' decimal_date(date)  # 2009.109
 decimal_date <- function(date){
+	if(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date")))
+		stop("date not in POSIXt or Date format")
 	just_year <- floor_date(date, "year")
 	if (leap.year(date))
-		decimal <- just_seconds(date - just_year)/ 31622400
+		decimal <- just_seconds(date - just_year)/ (3600*24*366)
 	else
-		decimal <- just_seconds(as.POSIXlt(date) - just_year)/ 31536000
+		decimal <- just_seconds(date - just_year)/ (3600*24*365)
 	year(date) + decimal
 }
 
-just_months <- function(dur){
+just_months <- function(dur)
 	as.numeric(dur) %/% 10^11
-}
+
 
 just_seconds <- function(dur)
-	as.numeric(dur) %% 10^11 - 500000000
+	as.numeric(dur) %% 10^11 - 50000000000
