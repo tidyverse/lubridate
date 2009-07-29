@@ -280,7 +280,7 @@ pm <- function(x) !am(x)
 }
 
 "second<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == second(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -314,7 +314,7 @@ pm <- function(x) !am(x)
 }
 
 "minute<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == minute(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -348,7 +348,7 @@ pm <- function(x) !am(x)
 }
 
 "hour<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == hour(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -384,7 +384,7 @@ pm <- function(x) !am(x)
 }
 
 "yday<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == yday(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -420,7 +420,7 @@ pm <- function(x) !am(x)
 }
 
 "wday<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == wday(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -494,7 +494,7 @@ pm <- function(x) !am(x)
 }
 
 "week<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == week(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -536,7 +536,7 @@ pm <- function(x) !am(x)
 }
 
 "month<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == month(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -572,7 +572,7 @@ pm <- function(x) !am(x)
 }
 
 "year<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == year(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -608,7 +608,7 @@ pm <- function(x) !am(x)
 }
 
 "tz<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
+	if (all(value == tz(x)))
 		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
@@ -710,16 +710,27 @@ standardise_date_names <- function(x) {
 #' @examples
 #' date <- as.POSIXlt("2009-02-10")
 #' decimal_date(date)  # 2009.109
-decimal_date <- function(date){
+decimal_date <- function(date)
+	UseMethod("decimal_date")
+	
+decimal_date.default <- function(date){
 	if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
 		stop("date(s) not in POSIXt or Date format")
 	just_year <- floor_date(date, "year")
-	if (leap.year(date))
-		decimal <- just_seconds(date - just_year)/ (3600*24*366)
-	else
-		decimal <- just_seconds(date - just_year)/ (3600*24*365)
+	
+	decimal <- just_seconds(date - just_year)/ (3600*24*365)
+	
+	leap_years <- which(leap.year(date))
+	decimal[leap_years] <- just_seconds(date - just_year)/ (3600*24*366)
+
 	year(date) + decimal
 }
+
+decimal_date.zoo <- function(date)
+	decimal_date(index(date))
+
+
+
 
 just_months <- function(dur)
 	as.numeric(dur) %/% 10^11
@@ -732,7 +743,7 @@ just_seconds <- function(dur)
 recognize <- function(x){
 	recognized <- c("POSIXt", "POSIXlt", "POSIXct", "yearmon", "yearqtr", "Date")
 	
-	if (class(x) %in% recognized)
+	if (all(class(x) %in% recognized))
 		return(TRUE)
 	return(FALSE)
 }
