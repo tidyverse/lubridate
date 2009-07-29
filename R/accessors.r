@@ -34,6 +34,9 @@ second.default <- function(x)
     
 second.zoo <- function(x)
 	as.POSIXlt(index(x))$sec
+	
+second.its <- function(x)
+	second.default(attr(x, "dates"))
 
 #' Minute
 #'
@@ -53,6 +56,9 @@ minute.default <- function(x)
 minute.zoo <- function(x)
 	as.POSIXlt(index(x))$min
 
+minute.its <- function(x)
+	minute.default(attr(x, "dates"))
+
 #' Hour
 #'
 #' Extract hours component of a POSIXt date object.
@@ -70,6 +76,9 @@ hour.default <- function(x)
     
 hour.zoo <- function(x)
 	as.POSIXlt(index(x), tz = tz(x))$hour
+
+hour.its <- function(x)
+	hour.default(attr(x, "dates"))
 
 #' Day of the Year
 #'
@@ -91,6 +100,9 @@ yday.default <- function(x)
 yday.zoo <- function(x)
 	as.POSIXlt(index(x))$yday + 1
 
+yday.its <- function(x)
+	yday.default(attr(x, "dates"))
+
 #' Day of the Week
 #'
 #' Returns the day of the week of a POSIXt date. A weekday of 1 corresponds to Sunday. 
@@ -111,6 +123,9 @@ wday.default <- function(x)
 wday.zoo <- function(x)
 	as.POSIXlt(index(x))$wday + 1
 
+wday.its <- function(x)
+	wday.default(attr(x, "dates"))
+	
 #' Day of the Month
 #'
 #' Returns the day of the month of a POSIXt date 
@@ -131,6 +146,9 @@ mday.default <- function(x)
 mday.zoo <- function(x)
 	as.POSIXlt(index(x))$mday
 
+mday.its <- function(x)
+	mday.default(attr(x, "dates"))
+
 #' Week of the Year
 #'
 #' Returns the week number for the year of a POSIXt date. 
@@ -143,7 +161,7 @@ mday.zoo <- function(x)
 #' week(date)  # 1
 #' date <- as.POSIXlt("2009-12-25")
 #' week(date)  # 52
-week <- function(x) 
+week <- function(x)
     yday(x) %/% 7 + 1
 
 
@@ -168,7 +186,9 @@ month.default <- function(x)
     
 month.zoo <- function(x)
 	as.POSIXlt(index(x))$mon + 1
-	
+
+month.its <- function(x)
+	month.default(attr(x, "dates"))	
 	
 #' Year
 #'
@@ -188,6 +208,9 @@ year.default <- function(x)
     
 year.zoo <- function(x)
 	as.POSIXlt(index(x))$year + 1900
+
+year.its <- function(x)
+	year.default(attr(x, "dates"))
 
 # Extract the first entry in the time zone vector.
 
@@ -219,7 +242,8 @@ tz.zoo <- function(x, supply = T){
 	tzs[1]
 }
 
-
+tz.its <- function(x)
+	tz.default(attr(x, "dates"))
 
 
 #' AM/PM
@@ -290,6 +314,15 @@ pm <- function(x) !am(x)
 	'index<-'(x, new)
 }
 
+
+"second<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "second<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
+}
+
 #' Minute<-
 #'
 #' Internal function. Replaces the minutes element of a POSIXt date with a specified value.
@@ -322,6 +355,14 @@ pm <- function(x) !am(x)
 		 
 	new <- "minute<-"(index(x), value)
 	'index<-'(x, new)
+}
+
+"minute<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "minute<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
 }
 
 #' Hour<-
@@ -357,6 +398,15 @@ pm <- function(x) !am(x)
 	new <- "hour<-"(index(x), value)
 	'index<-'(x, new)
 }
+
+"hour<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "hour<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
+}
+
 
 #' Yday<-
 #'
@@ -394,6 +444,13 @@ pm <- function(x) !am(x)
 	'index<-'(x, new)
 }
 
+"yday<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "yday<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
+}
 
 #' Wday<-
 #'
@@ -428,6 +485,15 @@ pm <- function(x) !am(x)
 		 
 	new <- "wday<-"(index(x), value)
 	'index<-'(x, new)
+}
+
+
+"wday<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "wday<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
 }
 
 #' Mday<-
@@ -466,7 +532,13 @@ pm <- function(x) !am(x)
 	'index<-'(x, new)
 }
 
-
+"mday<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "mday<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
+}
 
 #' Week<-
 #'
@@ -504,6 +576,13 @@ pm <- function(x) !am(x)
 	'index<-'(x, new)
 }
 
+"week<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "week<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
+}
 
 #' Month<-
 #'
@@ -546,6 +625,14 @@ pm <- function(x) !am(x)
 	'index<-'(x, new)
 }
 
+"month<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "month<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
+}
+
 #' Year<-
 #'
 #' Internal function. Replaces the years element of a POSIXt date with a specified value. If x is missing a time zone attribute, year<- will coerce the time zone to the system time zone.
@@ -582,6 +669,13 @@ pm <- function(x) !am(x)
 	'index<-'(x, new)
 }
 
+"year<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "year<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
+}
 
 #' Tz<-
 #'
@@ -616,6 +710,14 @@ pm <- function(x) !am(x)
 		 
 	new <- "tz<-"(index(x), value)
 	'index<-'(x, new)
+}
+
+"tz<-.its" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	dates <- "second<-.default"(attr(x,"dates"), value)
+	attr(x, "dates") <- dates
+	its(x, dates, format = "%Y-%m-%d %X")
 }
 
 # Modify a date and return changed value. A wrapper for the functions above. 
@@ -721,7 +823,7 @@ decimal_date.default <- function(date){
 	decimal <- just_seconds(date - just_year)/ (3600*24*365)
 	
 	leap_years <- which(leap.year(date))
-	decimal[leap_years] <- just_seconds(date - just_year)/ (3600*24*366)
+	decimal[leap_years] <- just_seconds(date - just_year)[leap_years]/ (3600*24*366)
 
 	year(date) + decimal
 }
@@ -729,7 +831,8 @@ decimal_date.default <- function(date){
 decimal_date.zoo <- function(date)
 	decimal_date(index(date))
 
-
+decimal_date.its <- function(x)
+	decimal_date.default(attr(x,"dates"))
 
 
 just_months <- function(dur)
