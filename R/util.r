@@ -14,17 +14,16 @@ pretty.dates <- function(dates, n){
 	Sys.setenv(TZ = tz(dates[1]))
 	rng <- range(dates)
 	diff <- rng[2] - rng[1]
-	diff <- just_seconds(diff)
+	diff <- just_seconds(diff) 
 	
 	binunits <- pretty.unit(diff/n)
 	
 	f <- match.fun(paste("pretty", binunits, sep = "."))
 	binlength <- f(diff, n)
 	
-	browser()
-	
 	start <- pretty.point(min(rng), binunits, binlength)
-	end <- pretty.point(max(rng), binunits, binlength)
+	end <- pretty.point(max(rng), binunits, binlength, start = F)
+	
 	
 	breaks <- seq.POSIXt(start, end, paste(binlength, binunits)) 
 	Sys.unsetenv("TZ")
@@ -96,15 +95,14 @@ pretty.point <- function(x, units, length, start = TRUE){
 	
 	points <- seq.POSIXt(lower, upper, paste(length, units))
 	
-	fit <- just_seconds(x - points)
+	if (start)
+		points <- points[points <= x]
+
+	else
+		points <- points[points >= x]
+		
+	fit <- x - points	
+	fit <- abs(just_seconds(fit))
+	return(points[which.min(fit)])
 	
-	if (start){
-		fit <- fit[fit >= 0]
-		return(points[which.min(fit)])
-	}
-	
-	if (!start){
-		fit <- fit[fit <=0]
-		return(points[which.max(fit)])
-	}
 }

@@ -121,7 +121,6 @@ divide_duration_by_numeric <- function(num, dur){
 
   
 
-  # subtraction
 "-.duration" <- "-.POSIXt" <- "-.difftime" <- "-.Date" <- function(e1, e2){
 	if (missing(e2))
 		-1 * e1
@@ -132,4 +131,16 @@ divide_duration_by_numeric <- function(num, dur){
 	else		
 		e1  + (-1 * e2)
 }
+
+get_duration <- function(date1, date2) {
+	months1 <- year(date1) * 12 + month(date1)
+	months2 <- year(date2) * 12 + month(date2)
+	
+	secs1 <- mday(date1)*3600*24 + hour(date1)*3600 + minute(date1)*60 + second(date1)
+	secs2 <- mday(date2)*3600*24 + hour(date2)*3600 + minute(date2)*60 + second(date2)
+	
+	new_duration(month = months1 - months2, second = secs1 - secs2)
+
+}
+
 
