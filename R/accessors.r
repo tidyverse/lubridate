@@ -37,6 +37,9 @@ second.zoo <- function(x)
 	
 second.its <- function(x)
 	second.default(attr(x, "dates"))
+	
+second.ti <- function(x)
+	second.default(as.Date(x))
 
 #' Minute
 #'
@@ -58,6 +61,9 @@ minute.zoo <- function(x)
 
 minute.its <- function(x)
 	minute.default(attr(x, "dates"))
+	
+minute.ti <- function(x)
+	minute.default(as.Date(x))
 
 #' Hour
 #'
@@ -79,6 +85,9 @@ hour.zoo <- function(x)
 
 hour.its <- function(x)
 	hour.default(attr(x, "dates"))
+	
+hour.ti <- function(x)
+	hour.default(as.Date(x))
 
 #' Day of the Year
 #'
@@ -102,6 +111,9 @@ yday.zoo <- function(x)
 
 yday.its <- function(x)
 	yday.default(attr(x, "dates"))
+	
+yday.ti <- function(x)
+	yday.default(as.Date(x))
 
 #' Day of the Week
 #'
@@ -126,6 +138,9 @@ wday.zoo <- function(x)
 wday.its <- function(x)
 	wday.default(attr(x, "dates"))
 	
+wday.ti <- function(x)
+	wday.default(as.Date(x))
+	
 #' Day of the Month
 #'
 #' Returns the day of the month of a POSIXt date 
@@ -148,6 +163,9 @@ mday.zoo <- function(x)
 
 mday.its <- function(x)
 	mday.default(attr(x, "dates"))
+	
+mday.ti <- function(x)
+	mday.default(as.Date(x))
 
 #' Week of the Year
 #'
@@ -176,9 +194,6 @@ week <- function(x)
 #' date <- as.POSIXlt("2009-01-01")
 #' month(date)  # 2
 month <- function(x) 
-    as.POSIXlt(x)$mon + 1
-
-month <- function(x) 
 	UseMethod("month")
 	
 month.default <- function(x)
@@ -189,6 +204,9 @@ month.zoo <- function(x)
 
 month.its <- function(x)
 	month.default(attr(x, "dates"))	
+
+month.ti <- function(x)
+	month.default(as.Date(x))
 	
 #' Year
 #'
@@ -211,6 +229,9 @@ year.zoo <- function(x)
 
 year.its <- function(x)
 	year.default(attr(x, "dates"))
+	
+year.ti <- function(x)
+	year.default(as.Date(x))
 
 # Extract the first entry in the time zone vector.
 
@@ -244,6 +265,9 @@ tz.zoo <- function(x, supply = T){
 
 tz.its <- function(x)
 	tz.default(attr(x, "dates"))
+
+tz.ti <- function(x)
+	tz.default(as.Date(x))
 
 
 #' AM/PM
@@ -323,6 +347,13 @@ pm <- function(x) !am(x)
 	its(x, dates, format = "%Y-%m-%d %X")
 }
 
+"second<-.ti" <- function(x, value){
+	if (all(value == second(x)))
+		return(x)
+	ti(x + value/86400, tifName(x))
+}
+
+
 #' Minute<-
 #'
 #' Internal function. Replaces the minutes element of a POSIXt date with a specified value.
@@ -358,12 +389,19 @@ pm <- function(x) !am(x)
 }
 
 "minute<-.its" <- function(x, value){
-	if (all(value == second(x)))
+	if (all(value == minute(x)))
 		return(x)
 	dates <- "minute<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
 }
+
+"minute<-.ti" <- function(x, value){
+	if (all(value == minute(x)))
+		return(x)
+	ti(x + (value*60)/86400, tifName(x))
+}
+
 
 #' Hour<-
 #'
@@ -400,13 +438,18 @@ pm <- function(x) !am(x)
 }
 
 "hour<-.its" <- function(x, value){
-	if (all(value == second(x)))
+	if (all(value == hour(x)))
 		return(x)
 	dates <- "hour<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
 }
 
+"hour<-.ti" <- function(x, value){
+	if (all(value == hour(x)))
+		return(x)
+	ti(x + (value*3600)/86400, tifName(x))
+}
 
 #' Yday<-
 #'
@@ -452,6 +495,14 @@ pm <- function(x) !am(x)
 	its(x, dates, format = "%Y-%m-%d %X")
 }
 
+"yday<-.ti" <- function(x, value){
+	if (all(value == yday(x)))
+		return(x)
+	date <- "yday<-.default"(as.Date(x), value)
+	ti(date, tifName(x))
+}
+
+
 #' Wday<-
 #'
 #' Internal function. Replaces the wdays element of a POSIXt date with a specified value.
@@ -489,11 +540,18 @@ pm <- function(x) !am(x)
 
 
 "wday<-.its" <- function(x, value){
-	if (all(value == second(x)))
+	if (all(value == wday(x)))
 		return(x)
 	dates <- "wday<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
+}
+
+"wday<-.ti" <- function(x, value){
+	if (all(value == wday(x)))
+		return(x)
+	date <- "wday<-.default"(as.Date(x), value)
+	ti(date, tifName(x))
 }
 
 #' Mday<-
@@ -533,12 +591,21 @@ pm <- function(x) !am(x)
 }
 
 "mday<-.its" <- function(x, value){
-	if (all(value == second(x)))
+	if (all(value == mday(x)))
 		return(x)
 	dates <- "mday<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
 }
+
+"mday<-.ti" <- function(x, value){
+	if (all(value == mday(x)))
+		return(x)
+	date <- "mday<-.default"(as.Date(x), value)
+	ti(date, tifName(x))
+}
+
+
 
 #' Week<-
 #'
@@ -577,11 +644,18 @@ pm <- function(x) !am(x)
 }
 
 "week<-.its" <- function(x, value){
-	if (all(value == second(x)))
+	if (all(value == week(x)))
 		return(x)
 	dates <- "week<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
+}
+
+"week<-.ti" <- function(x, value){
+	if (all(value == week(x)))
+		return(x)
+	date <- "week<-.default"(as.Date(x), value)
+	ti(date, tifName(x))
 }
 
 #' Month<-
@@ -633,6 +707,14 @@ pm <- function(x) !am(x)
 	its(x, dates, format = "%Y-%m-%d %X")
 }
 
+"month<-.ti" <- function(x, value){
+	if (all(value == month(x)))
+		return(x)
+	date <- "month<-.default"(as.Date(x), value)
+	ti(date, tifName(x))
+}
+
+
 #' Year<-
 #'
 #' Internal function. Replaces the years element of a POSIXt date with a specified value. If x is missing a time zone attribute, year<- will coerce the time zone to the system time zone.
@@ -677,6 +759,14 @@ pm <- function(x) !am(x)
 	its(x, dates, format = "%Y-%m-%d %X")
 }
 
+"year<-.ti" <- function(x, value){
+	if (all(value == year(x)))
+		return(x)
+	date <- "year<-.default"(as.Date(x), value)
+	ti(date, tifName(x))
+}
+
+
 #' Tz<-
 #'
 #' Internal function. Replaces the time zone element of a POSIXt date with a specified value.
@@ -719,6 +809,14 @@ pm <- function(x) !am(x)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
 }
+
+"tz<-.ti" <- function(x, value){
+	if (all(value == tz(x)))
+		return(x)
+	date <- "tz<-.default"(as.Date(x), value)
+	ti(date, tifName(x))
+}
+
 
 # Modify a date and return changed value. A wrapper for the functions above. 
 # ---------------------------------------------------------------------------
