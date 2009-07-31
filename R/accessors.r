@@ -46,6 +46,9 @@ second.timeSeries <- function(x)
 
 second.fts <- function(x)
 	second.default(dates(x))
+	
+second.irts <- function(x)
+	second.default(x$time)
 
 
 #' Minute
@@ -78,6 +81,9 @@ minute.timeSeries <- function(x)
 minute.fts <- function(x)
 	minute.default(dates(x))
 
+minute.irts <- function(x)
+	minute.default(x$time)
+
 
 #' Hour
 #'
@@ -95,8 +101,8 @@ hour.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$hour
     
 hour.zoo <- function(x)
-	as.POSIXlt(index(x), tz = tz(x))$hour
-
+	hour.default(index(x))
+	
 hour.its <- function(x)
 	hour.default(attr(x, "dates"))
 	
@@ -108,6 +114,9 @@ hour.timeSeries <- function(x)
 	
 hour.fts <- function(x)
 	hour.default(dates(x))
+	
+hour.irts <- function(x)
+	as.POSIXlt(x$time, tz = "GMT")$hour
 
 #' Day of the Year
 #'
@@ -124,10 +133,10 @@ yday <- function(x)
 	UseMethod("yday")
 	
 yday.default <- function(x)
-    as.POSIXlt(x)$yday + 1
+    as.POSIXlt(x, tz = tz(x))$yday + 1
     
 yday.zoo <- function(x)
-	as.POSIXlt(index(x))$yday + 1
+	yday.default(index(x))
 
 yday.its <- function(x)
 	yday.default(attr(x, "dates"))
@@ -140,6 +149,9 @@ yday.timeSeries <- function(x)
 	
 yday.fts <- function(x)
 	yday.default(dates(x))
+	
+yday.irts <- function(x)
+	as.POSIXlt(x$time, tz = "GMT")$yday + 1
 
 #' Day of the Week
 #'
@@ -156,10 +168,10 @@ wday <- function(x)
 	UseMethod("wday")
 	
 wday.default <- function(x)
-    as.POSIXlt(x)$wday + 1
+    as.POSIXlt(x, tz = tz(x))$wday + 1
     
 wday.zoo <- function(x)
-	as.POSIXlt(index(x))$wday + 1
+	wday.default(index(x))
 
 wday.its <- function(x)
 	wday.default(attr(x, "dates"))
@@ -172,6 +184,9 @@ wday.timeSeries <- function(x)
 	
 wday.fts <- function(x)
 	wday.default(dates(x))
+	
+wday.irts <- function(x)
+	as.POSIXlt(x$time, tz = "GMT")$wday + 1
 	
 #' Day of the Month
 #'
@@ -188,10 +203,10 @@ mday <- function(x)
 	UseMethod("mday")
 	
 mday.default <- function(x)
-    as.POSIXlt(x)$mday
+    as.POSIXlt(x, tz = tz(x))$mday
     
 mday.zoo <- function(x)
-	as.POSIXlt(index(x))$mday
+	mday.default(index(x))
 
 mday.its <- function(x)
 	mday.default(attr(x, "dates"))
@@ -204,6 +219,9 @@ mday.timeSeries <- function(x)
 	
 mday.fts <- function(x)
 	mday.default(dates(x))
+	
+mday.irts <- function(x)
+	as.POSIXlt(x$time, tz = "GMT")$mday
 
 #' Week of the Year
 #'
@@ -235,10 +253,10 @@ month <- function(x)
 	UseMethod("month")
 	
 month.default <- function(x)
-    as.POSIXlt(x)$mon + 1
+    as.POSIXlt(x, tz = tz(x))$mon + 1
     
 month.zoo <- function(x)
-	as.POSIXlt(index(x))$mon + 1
+	month.default(index(x))
 
 month.its <- function(x)
 	month.default(attr(x, "dates"))	
@@ -251,6 +269,9 @@ month.timeSeries <- function(x)
 	
 month.fts <- function(x)
 	month.default(dates(x))
+	
+month.irts <- function(x)
+	as.POSIXlt(x$time, tz = "GMT")$mon + 1
 	
 #' Year
 #'
@@ -266,10 +287,10 @@ year <- function(x)
 	UseMethod("year")
 	
 year.default <- function(x)
-    as.POSIXlt(x)$year + 1900
+    as.POSIXlt(x, tz = tz(x))$year + 1900
     
 year.zoo <- function(x)
-	as.POSIXlt(index(x))$year + 1900
+	year.default(index(x))
 
 year.its <- function(x)
 	year.default(attr(x, "dates"))
@@ -282,6 +303,9 @@ year.timeSeries <- function(x)
 	
 year.fts <- function(x)
 	year.default(dates(x))
+	
+year.irts <- function(x)
+	as.POSIXlt(x$time, tz = "GMT")$year + 1900
 
 # Extract the first entry in the time zone vector.
 
@@ -324,6 +348,9 @@ tz.timeSeries <- function(x)
 
 tz.fts <- function(x)
 	tz.default(dates(x))
+	
+tz.irts <- function(x)
+	return("GMT")
 
 
 #' AM/PM
@@ -419,6 +446,11 @@ pm <- function(x) !am(x)
 	fts(x, date)
 }
 
+"second<-.irts" <- function(x, value){
+	x$time <- "second<-.default"(x$time, value)
+	x
+}
+
 #' Minute<-
 #'
 #' Internal function. Replaces the minutes element of a POSIXt date with a specified value.
@@ -476,6 +508,11 @@ pm <- function(x) !am(x)
 	fts(x, date)
 }
 
+"minute<-.irts" <- function(x, value){
+	x$time <- "minute<-.default"(x$time, value)
+	x
+}
+
 #' Hour<-
 #'
 #' Internal function. Replaces the hours element of a POSIXt date with a specified value.
@@ -531,6 +568,11 @@ pm <- function(x) !am(x)
 "hour<-.fts" <- function(x, value){
 	date <- "hour<-.default"(dates(x), value)
 	fts(x, date)
+}
+
+"hour<-.irts" <- function(x, value){
+	x$time <- as.POSIXlt(x$time, tz = "GMT") - (hour(x) - value) * 3600
+	x
 }
 
 #' Yday<-
@@ -592,6 +634,11 @@ pm <- function(x) !am(x)
 	fts(x, date)
 }
 
+"yday<-.irts" <- function(x, value){
+	x$time <- as.POSIXlt(x$time, tz = "GMT") - (yday(x) - value) * 3600 * 24
+	x
+}
+
 #' Wday<-
 #'
 #' Internal function. Replaces the wdays element of a POSIXt date with a specified value.
@@ -649,6 +696,11 @@ pm <- function(x) !am(x)
 "wday<-.fts" <- function(x, value){
 	date <- "wday<-.default"(dates(x), value)
 	fts(x, date)
+}
+
+"wday<-.irts" <- function(x, value){
+	x$time <- as.POSIXlt(x$time, tz = "GMT") - (wday(x) - value) * 3600 * 24
+	x
 }
 
 
@@ -709,6 +761,11 @@ pm <- function(x) !am(x)
 	fts(x, date)
 }
 
+"mday<-.irts" <- function(x, value){
+	x$time <- as.POSIXlt(x$time, tz = "GMT") - (mday(x) - value) * 3600 * 24	
+	x
+}
+
 #' Week<-
 #'
 #' Internal function. Replaces the weeks element of a POSIXt date with a specified value.
@@ -765,6 +822,11 @@ pm <- function(x) !am(x)
 "week<-.fts" <- function(x, value){
 	date <- "week<-.default"(dates(x), value)
 	fts(x, date)
+}
+
+"week<-.irts" <- function(x, value){
+	x$time <- as.POSIXlt(x$time, tz = "GMT") - (week(x) - value) * 3600 * 24 * 7
+	x
 }
 
 #' Month<-
@@ -834,6 +896,11 @@ pm <- function(x) !am(x)
 	fts(x, date)
 }
 
+"month<-.irts" <- function(x, value){
+	x$time <- "month<-.default"(x, value)
+	x
+}
+
 #' Year<-
 #'
 #' Internal function. Replaces the years element of a POSIXt date with a specified value. If x is missing a time zone attribute, year<- will coerce the time zone to the system time zone.
@@ -895,6 +962,11 @@ pm <- function(x) !am(x)
 	fts(x, date)
 }
 
+"year<-.irts" <- function(x, value){
+	x$time <- "year<-.default"(x, value)
+	x
+}
+
 #' Tz<-
 #'
 #' Internal function. Replaces the time zone element of a POSIXt date with a specified value.
@@ -954,6 +1026,12 @@ pm <- function(x) !am(x)
 "tz<-.fts" <- function(x, value){
 	date <- "tz<-.default"(dates(x), value)
 	fts(x, date)
+}
+
+"tz<-.irts" <- function(x, value){
+	warning("irts dates will always display with GMT timezone")
+	x$time <- x$time - ("tz<-.default"(x, value) - x$time)
+	x
 }
 
 # Modify a date and return changed value. A wrapper for the functions above. 
