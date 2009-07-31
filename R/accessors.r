@@ -44,6 +44,8 @@ second.ti <- second.jul <- function(x)
 second.timeSeries <- function(x)
 	second.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
+second.fts <- function(x)
+	second.default(dates(x))
 
 
 #' Minute
@@ -72,6 +74,9 @@ minute.ti <- minute.jul <- function(x)
 
 minute.timeSeries <- function(x)
 	minute.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+	
+minute.fts <- function(x)
+	minute.default(dates(x))
 
 
 #' Hour
@@ -100,6 +105,9 @@ hour.ti <- hour.jul <- function(x)
 	
 hour.timeSeries <- function(x)
 	hour.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+	
+hour.fts <- function(x)
+	hour.default(dates(x))
 
 #' Day of the Year
 #'
@@ -129,6 +137,9 @@ yday.ti <- yday.jul <- function(x)
 	
 yday.timeSeries <- function(x)
 	yday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+	
+yday.fts <- function(x)
+	yday.default(dates(x))
 
 #' Day of the Week
 #'
@@ -159,6 +170,9 @@ wday.ti <- wday.jul <- function(x)
 wday.timeSeries <- function(x)
 	wday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 	
+wday.fts <- function(x)
+	wday.default(dates(x))
+	
 #' Day of the Month
 #'
 #' Returns the day of the month of a POSIXt date 
@@ -187,6 +201,9 @@ mday.ti <- mday.jul <- function(x)
 	
 mday.timeSeries <- function(x)
 	mday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+	
+mday.fts <- function(x)
+	mday.default(dates(x))
 
 #' Week of the Year
 #'
@@ -232,6 +249,9 @@ month.ti <- month.jul <- function(x)
 month.timeSeries <- function(x)
 	month.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 	
+month.fts <- function(x)
+	month.default(dates(x))
+	
 #' Year
 #'
 #' Returns the year of a POSIXt date. 
@@ -259,6 +279,9 @@ year.ti <- year.jul <- function(x)
 
 year.timeSeries <- function(x)
 	year.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+	
+year.fts <- function(x)
+	year.default(dates(x))
 
 # Extract the first entry in the time zone vector.
 
@@ -296,8 +319,11 @@ tz.its <- function(x)
 tz.ti <- tz.jul <- function(x)
 	tz.default(as.Date(x))
 	
-ti.timeSeries <- function(x)
+tz.timeSeries <- function(x)
 	x@FinCenter
+
+tz.fts <- function(x)
+	tz.default(dates(x))
 
 
 #' AM/PM
@@ -387,7 +413,11 @@ pm <- function(x) !am(x)
 	positions <- "second<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
 	timeSeries(series(x), positions)
 }
-	
+
+"second<-.fts" <- function(x, value){
+	date <- "second<-.default"(dates(x), value)
+	fts(x, date)
+}
 
 #' Minute<-
 #'
@@ -441,6 +471,11 @@ pm <- function(x) !am(x)
 	timeSeries(series(x), positions)
 }
 
+"minute<-.fts" <- function(x, value){
+	date <- "minute<-.default"(dates(x), value)
+	fts(x, date)
+}
+
 #' Hour<-
 #'
 #' Internal function. Replaces the hours element of a POSIXt date with a specified value.
@@ -491,6 +526,11 @@ pm <- function(x) !am(x)
 "hour<-.timeSeries" <- function(x, value){
 	positions <- "hour<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
 	timeSeries(series(x), positions)
+}
+
+"hour<-.fts" <- function(x, value){
+	date <- "hour<-.default"(dates(x), value)
+	fts(x, date)
 }
 
 #' Yday<-
@@ -547,6 +587,10 @@ pm <- function(x) !am(x)
 	timeSeries(series(x), positions)
 }
 
+"yday<-.fts" <- function(x, value){
+	date <- "yday<-.default"(dates(x), value)
+	fts(x, date)
+}
 
 #' Wday<-
 #'
@@ -602,6 +646,12 @@ pm <- function(x) !am(x)
 	timeSeries(series(x), positions)
 }
 
+"wday<-.fts" <- function(x, value){
+	date <- "wday<-.default"(dates(x), value)
+	fts(x, date)
+}
+
+
 #' Mday<-
 #'
 #' Internal function. Replaces the mdays element of a POSIXt date with a specified value.
@@ -652,6 +702,11 @@ pm <- function(x) !am(x)
 "mday<-.timeSeries" <- function(x, value){
 	positions <- "mday<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
 	timeSeries(series(x), positions)
+}
+
+"mday<-.fts" <- function(x, value){
+	date <- "mday<-.default"(dates(x), value)
+	fts(x, date)
 }
 
 #' Week<-
@@ -705,6 +760,11 @@ pm <- function(x) !am(x)
 "week<-.timeSeries" <- function(x, value){
 	positions <- "week<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
 	timeSeries(series(x), positions)
+}
+
+"week<-.fts" <- function(x, value){
+	date <- "week<-.default"(dates(x), value)
+	fts(x, date)
 }
 
 #' Month<-
@@ -769,6 +829,10 @@ pm <- function(x) !am(x)
 	timeSeries(series(x), positions)
 }
 
+"month<-.fts" <- function(x, value){
+	date <- "month<-.default"(dates(x), value)
+	fts(x, date)
+}
 
 #' Year<-
 #'
@@ -824,6 +888,11 @@ pm <- function(x) !am(x)
 "year<-.timeSeries" <- function(x, value){
 	positions <- "year<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
 	timeSeries(series(x), positions)
+}
+
+"year<-.fts" <- function(x, value){
+	date <- "year<-.default"(dates(x), value)
+	fts(x, date)
 }
 
 #' Tz<-
@@ -882,6 +951,10 @@ pm <- function(x) !am(x)
 	timeSeries(series(x), positions)
 }
 
+"tz<-.fts" <- function(x, value){
+	date <- "tz<-.default"(dates(x), value)
+	fts(x, date)
+}
 
 # Modify a date and return changed value. A wrapper for the functions above. 
 # ---------------------------------------------------------------------------
