@@ -41,6 +41,11 @@ second.its <- function(x)
 second.ti <- second.jul <- function(x)
 	tis::hms(x)$sec
 
+second.timeSeries <- function(x)
+	second.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+
+
+
 #' Minute
 #'
 #' Extract minutes component of a POSIXt date object.
@@ -65,6 +70,10 @@ minute.its <- function(x)
 minute.ti <- minute.jul <- function(x)
 	tis::hms(x)$min
 
+minute.timeSeries <- function(x)
+	minute.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+
+
 #' Hour
 #'
 #' Extract hours component of a POSIXt date object.
@@ -88,6 +97,9 @@ hour.its <- function(x)
 	
 hour.ti <- hour.jul <- function(x)
 	tis::hms(x)$hour
+	
+hour.timeSeries <- function(x)
+	hour.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
 #' Day of the Year
 #'
@@ -114,6 +126,9 @@ yday.its <- function(x)
 	
 yday.ti <- yday.jul <- function(x)
 	yday.default(as.Date(x))
+	
+yday.timeSeries <- function(x)
+	yday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
 #' Day of the Week
 #'
@@ -141,6 +156,9 @@ wday.its <- function(x)
 wday.ti <- wday.jul <- function(x)
 	wday.default(as.Date(x))
 	
+wday.timeSeries <- function(x)
+	wday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+	
 #' Day of the Month
 #'
 #' Returns the day of the month of a POSIXt date 
@@ -166,6 +184,9 @@ mday.its <- function(x)
 	
 mday.ti <- mday.jul <- function(x)
 	mday.default(as.Date(x))
+	
+mday.timeSeries <- function(x)
+	mday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
 #' Week of the Year
 #'
@@ -208,6 +229,9 @@ month.its <- function(x)
 month.ti <- month.jul <- function(x)
 	month.default(as.Date(x))
 	
+month.timeSeries <- function(x)
+	month.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+	
 #' Year
 #'
 #' Returns the year of a POSIXt date. 
@@ -232,6 +256,9 @@ year.its <- function(x)
 	
 year.ti <- year.jul <- function(x)
 	year.default(as.Date(x))
+
+year.timeSeries <- function(x)
+	year.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
 # Extract the first entry in the time zone vector.
 
@@ -268,6 +295,9 @@ tz.its <- function(x)
 
 tz.ti <- tz.jul <- function(x)
 	tz.default(as.Date(x))
+	
+ti.timeSeries <- function(x)
+	x@FinCenter
 
 
 #' AM/PM
@@ -312,12 +342,13 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's seconds component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"second<-" <- function(x, value) 
-	UseMethod("second<-")
-
-"second<-.default" <- function(x, value){
+"second<-" <- function(x, value){
 	if (all(value == second(x)))
 		return(x)
+	UseMethod("second<-")
+}
+
+"second<-.default" <- function(x, value){
 	as.POSIXct(x) - (second(x) - value)
 }
 
@@ -328,8 +359,6 @@ pm <- function(x) !am(x)
 }
 
 "second<-.zoo" <- function(x, value){
-	if (all(value == second(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -340,8 +369,6 @@ pm <- function(x) !am(x)
 
 
 "second<-.its" <- function(x, value){
-	if (all(value == second(x)))
-		return(x)
 	dates <- "second<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -351,11 +378,16 @@ pm <- function(x) !am(x)
 	date <- "second<-.default"(as.Date(x),value)
 	as.ti(date, tifName(x))
 }
-"second<-.jul" <- function(x, value){
-	if (all(value == second(x)))
-		return(x)
+
+"second<-.jul" <- function(x, value)
 	x - (second(x) - value)/86400
+
+
+"second<-.timeSeries" <- function(x, value){
+	positions <- "second<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
 }
+	
 
 #' Minute<-
 #'
@@ -365,14 +397,15 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's minutes component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"minute<-" <- function(x, value) 
-	UseMethod("minute<-")
-
-"minute<-.default" <- function(x, value){
+"minute<-" <- function(x, value){
 	if (all(value == minute(x)))
 		return(x)
-	as.POSIXct(x) - (minute(x) - value) * 60
+	UseMethod("minute<-")
 }
+
+"minute<-.default" <- function(x, value)
+	as.POSIXct(x) - (minute(x) - value) * 60
+
 
 "minute<-.chron" <- "minute<-.timeDate" <- function(x, value){
 	date <- "minute<-.default"(x,value)
@@ -381,8 +414,6 @@ pm <- function(x) !am(x)
 }
 
 "minute<-.zoo" <- function(x, value){
-	if (all(value == minute(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -392,8 +423,6 @@ pm <- function(x) !am(x)
 }
 
 "minute<-.its" <- function(x, value){
-	if (all(value == minute(x)))
-		return(x)
 	dates <- "minute<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -404,10 +433,12 @@ pm <- function(x) !am(x)
 	as.ti(date, tifName(x))
 }
 
-"minute<-.jul" <- function(x, value){
-	if (all(value == minute(x)))
-		return(x)
+"minute<-.jul" <- function(x, value)
 	x - (minute(x) - value)*60/86400
+
+"minute<-.timeSeries" <- function(x, value){
+	positions <- "minute<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
 }
 
 #' Hour<-
@@ -418,14 +449,15 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's hours component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"hour<-" <- function(x, value) 
-	UseMethod("hour<-")
-
-"hour<-.default" <- function(x, value){
+"hour<-" <- function(x, value) {
 	if (all(value == hour(x)))
 		return(x)
-	as.POSIXct(x, tz = tz(x)) - (hour(x) - value) * 3600
+	UseMethod("hour<-")
 }
+
+"hour<-.default" <- function(x, value)
+	as.POSIXct(x, tz = tz(x)) - (hour(x) - value) * 3600
+
 
 "hour<-.chron" <- "hour<-.timeDate" <- function(x, value){
 	date <- "hour<-.default"(x,value)
@@ -434,8 +466,6 @@ pm <- function(x) !am(x)
 }
 
 "hour<-.zoo" <- function(x, value){
-	if (all(value == hour(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -445,8 +475,6 @@ pm <- function(x) !am(x)
 }
 
 "hour<-.its" <- function(x, value){
-	if (all(value == hour(x)))
-		return(x)
 	dates <- "hour<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -457,10 +485,12 @@ pm <- function(x) !am(x)
 	as.ti(date, tifName(x))
 }
 
-"hour<-.jul" <- function(x, value){
-	if (all(value == hour(x)))
-		return(x)
+"hour<-.jul" <- function(x, value)
 	x - (hour(x) - value)*3600/86400
+
+"hour<-.timeSeries" <- function(x, value){
+	positions <- "hour<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
 }
 
 #' Yday<-
@@ -472,14 +502,15 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{yday}}
-"yday<-" <- function(x, value)
-	UseMethod("yday<-")
-
-"yday<-.default" <- function(x, value){
+"yday<-" <- function(x, value){
 	if (all(value == yday(x)))
 		return(x)
-	as.POSIXct(x) - (yday(x) - value) * 3600 * 24
+	UseMethod("yday<-")
 }
+
+"yday<-.default" <- function(x, value)
+	as.POSIXct(x) - (yday(x) - value) * 3600 * 24
+
 
 
 "yday<-.Date" <- "yday<-.chron" <- "yday<-.timeDate" <- function(x, value){
@@ -489,8 +520,6 @@ pm <- function(x) !am(x)
 }
 
 "yday<-.zoo" <- function(x, value){
-	if (all(value == yday(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -500,8 +529,6 @@ pm <- function(x) !am(x)
 }
 
 "yday<-.its" <- function(x, value){
-	if (all(value == second(x)))
-		return(x)
 	dates <- "yday<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -511,12 +538,14 @@ pm <- function(x) !am(x)
 	date <- "yday<-.default"(as.Date(x),value)
 	as.ti(date, tifName(x))
 }
-"yday<-.jul" <- function(x, value){
-	if (all(value == yday(x)))
-		return(x)
-	x - (yday(x) - value)*3600*24/86400
-}
 
+"yday<-.jul" <- function(x, value)
+	x - (yday(x) - value)*3600*24/86400
+
+"yday<-.timeSeries" <- function(x, value){
+	positions <- "yday<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
+}
 
 
 #' Wday<-
@@ -528,14 +557,15 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{wday}}
-"wday<-" <- function(x, value)
-	UseMethod("wday<-")
-
-"wday<-.default" <- function(x, value){
+"wday<-" <- function(x, value){
 	if (all(value == wday(x)))
 		return(x)
-	as.POSIXct(x) - (wday(x) - value) * 3600 * 24
+	UseMethod("wday<-")
 }
+
+"wday<-.default" <- function(x, value)
+	as.POSIXct(x) - (wday(x) - value) * 3600 * 24
+
 
 "wday<-.Date" <- "wday<-.chron" <- "wday<-.timeDate" <- function(x, value){
 	date <- "wday<-.default"(x,value)
@@ -544,8 +574,6 @@ pm <- function(x) !am(x)
 }
 
 "wday<-.zoo" <- function(x, value){
-	if (all(value == wday(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -556,8 +584,6 @@ pm <- function(x) !am(x)
 
 
 "wday<-.its" <- function(x, value){
-	if (all(value == wday(x)))
-		return(x)
 	dates <- "wday<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -567,12 +593,14 @@ pm <- function(x) !am(x)
 	date <- "wday<-.default"(as.Date(x),value)
 	as.ti(date, tifName(x))
 }
-"wday<-.jul" <- function(x, value){
-	if (all(value == wday(x)))
-		return(x)
-	x - (wday(x) - value)*3600*24/86400
-}
 
+"wday<-.jul" <- function(x, value)
+	x - (wday(x) - value)*3600*24/86400
+
+"wday<-.timeSeries" <- function(x, value){
+	positions <- "wday-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
+}
 
 #' Mday<-
 #'
@@ -583,15 +611,14 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{mday}}
-"mday<-" <- "day<-" <- function(x, value)
-	UseMethod("mday<-")
-
-"mday<-.default" <- function(x, value){
+"mday<-" <- "day<-" <- function(x, value){
 	if (all(value == mday(x)))
 		return(x)
-	as.POSIXct(x) - (mday(x) - value) * 3600 * 24
+	UseMethod("mday<-")
 }
 
+"mday<-.default" <- function(x, value)
+	as.POSIXct(x) - (mday(x) - value) * 3600 * 24
 
 "mday<-.Date" <- "mday<-.chron" <- "mday<-.timeDate" <-function(x, value){
 	date <- "mday<-.default"(x,value)
@@ -600,8 +627,6 @@ pm <- function(x) !am(x)
 }
 
 "mday<-.zoo" <- function(x, value){
-	if (all(value == mday(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -611,8 +636,6 @@ pm <- function(x) !am(x)
 }
 
 "mday<-.its" <- function(x, value){
-	if (all(value == mday(x)))
-		return(x)
 	dates <- "mday<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -623,12 +646,13 @@ pm <- function(x) !am(x)
 	as.ti(date, tifName(x))
 }
 
-"mday<-.jul" <- function(x, value){
-	if (all(value == mday(x)))
-		return(x)
+"mday<-.jul" <- function(x, value)
 	x - (mday(x) - value)*3600*24/86400
-}
 
+"mday<-.timeSeries" <- function(x, value){
+	positions <- "mday<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
+}
 
 #' Week<-
 #'
@@ -639,14 +663,14 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{week}}
-"week<-" <- function(x, value)
-	UseMethod("week<-")
-
-"week<-.default" <- function(x, value){
+"week<-" <- function(x, value){
 	if (all(value == week(x)))
 		return(x)
-	as.POSIXct(x) - (week(x) - value) * 3600 * 24 * 7
+	UseMethod("week<-")
 }
+
+"week<-.default" <- function(x, value)
+	as.POSIXct(x) - (week(x) - value) * 3600 * 24 * 7
 
 
 "week<-.Date" <- "week<-.chron" <- "week<-.timeDate" <- function(x, value){
@@ -656,8 +680,6 @@ pm <- function(x) !am(x)
 }
 
 "week<-.zoo" <- function(x, value){
-	if (all(value == week(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -667,8 +689,6 @@ pm <- function(x) !am(x)
 }
 
 "week<-.its" <- function(x, value){
-	if (all(value == week(x)))
-		return(x)
 	dates <- "week<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -678,12 +698,14 @@ pm <- function(x) !am(x)
 	date <- "week<-.default"(as.Date(x),value)
 	as.ti(date, tifName(x))
 }
-"week<-.jul" <- function(x, value){
-	if (all(value == week(x)))
-		return(x)
-	x - (week(x) - value)*3600*24*7/86400
-}
 
+"week<-.jul" <- function(x, value)
+	x - (week(x) - value)*3600*24*7/86400
+
+"week<-.timeSeries" <- function(x, value){
+	positions <- "week<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
+}
 
 #' Month<-
 #'
@@ -693,12 +715,13 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's months component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"month<-" <- function(x, value) 
-	UseMethod("month<-")
-
-"month<-.default" <- function(x, value){
+"month<-" <- function(x, value) {
 	if (all(value == month(x)))
 		return(x)
+	UseMethod("month<-")
+}
+
+"month<-.default" <- function(x, value){
 	ISOdatetime(
 		year(x) + (value - 1) %/% 12,  
 		(value - 1) %% 12 + 1, 
@@ -716,8 +739,6 @@ pm <- function(x) !am(x)
 }
 
 "month<-.zoo" <- function(x, value){
-	if (all(value == month(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -727,8 +748,6 @@ pm <- function(x) !am(x)
 }
 
 "month<-.its" <- function(x, value){
-	if (all(value == second(x)))
-		return(x)
 	dates <- "month<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -741,10 +760,13 @@ pm <- function(x) !am(x)
 
 
 "month<-.jul" <- function(x, value){
-	if (all(value == month(x)))
-		return(x)
 	date <- "month<-.default"(x,value)
 	as.jul(date)
+}
+
+"month<-.timeSeries" <- function(x, value){
+	positions <- "month<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
 }
 
 
@@ -757,14 +779,15 @@ pm <- function(x) !am(x)
 #' @param value a number that will be substituted for the date's years component.    
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
-"year<-" <- function(x, value) 
-	UseMethod("year<-")
-
-"year<-.default" <- function(x, value){
+"year<-" <- function(x, value) {
 	if (all(value == year(x)))
 		return(x)
-	ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x))
+	UseMethod("year<-")
 }
+
+"year<-.default" <- function(x, value)	
+	ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x))
+
 
 
 "year<-.Date" <- "year<-.chron" <- "year<-.yearmon" <- "year<-.yearqtr" <- "year<-.timeDate" <- function(x, value){
@@ -774,8 +797,6 @@ pm <- function(x) !am(x)
 }
 
 "year<-.zoo" <- function(x, value){
-	if (all(value == year(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -785,8 +806,6 @@ pm <- function(x) !am(x)
 }
 
 "year<-.its" <- function(x, value){
-	if (all(value == second(x)))
-		return(x)
 	dates <- "year<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -798,12 +817,14 @@ pm <- function(x) !am(x)
 }
 
 "year<-.jul" <- function(x, value){
-	if (all(value == year(x)))
-		return(x)
 	date <- "year<-.default"(x,value)
 	as.jul(date)
 }
 
+"year<-.timeSeries" <- function(x, value){
+	positions <- "year<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
+}
 
 #' Tz<-
 #'
@@ -814,14 +835,15 @@ pm <- function(x) !am(x)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}, Garrett Grolemund \email{garrettgrolemund@@rice.edu}
 #' @keywords internal, accessors
 #' @seealso \code{\link{tz}}
-"tz<-" <- function(x, value) 
-	UseMethod("tz<-")
-	
-"tz<-.default" <- function(x, value){
+"tz<-" <- function(x, value) {
 	if (all(value == tz(x)))
 		return(x)
-	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
+	UseMethod("tz<-")
 }
+	
+"tz<-.default" <- function(x, value)
+	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
+
 
 "tz<-.Date" <- "tz<-.timeDate" <- function(x, value){
 	date <- "tz<-.default"(x,value)
@@ -830,8 +852,6 @@ pm <- function(x) !am(x)
 }
 
 "tz<-.zoo" <- function(x, value){
-	if (all(value == tz(x)))
-		return(x)
 	compatible <- recognize(index(x))
 	if(!compatible)
 		stop("series uses unrecognized date format")
@@ -841,8 +861,6 @@ pm <- function(x) !am(x)
 }
 
 "tz<-.its" <- function(x, value){
-	if (all(value == second(x)))
-		return(x)
 	dates <- "second<-.default"(attr(x,"dates"), value)
 	attr(x, "dates") <- dates
 	its(x, dates, format = "%Y-%m-%d %X")
@@ -855,10 +873,13 @@ pm <- function(x) !am(x)
 
 
 "tz<-.jul" <- function(x, value){
-	if (all(value == month(x)))
-		return(x)
 	date <- "tz<-.default"(x,value)
 	as.jul(date)
+}
+
+"tz<-.timeSeries" <- function(x, value){
+	positions <- "tz<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+	timeSeries(series(x), positions)
 }
 
 
