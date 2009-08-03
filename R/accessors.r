@@ -16,8 +16,9 @@
 
 #' Get/set seconds component of a date.
 #'
-#' second returns or sets the seconds component of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. #'
-#' @param x a date object   
+#' second returns or sets the seconds component of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#'
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- Sys.time()
@@ -54,7 +55,7 @@ second.irts <- function(x)
 #'
 #' minute returns or sets the minutes component of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @param x a date object   
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- Sys.time()
@@ -91,7 +92,7 @@ minute.irts <- function(x)
 #'
 #' hour returns or sets the hours component of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @param x a date object   
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- Sys.time()
@@ -127,7 +128,7 @@ hour.irts <- function(x)
 #'
 #' yday, mday, and wday return or set the days component of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. yday returns the day of the year as a decimal number (01-366). mday returns the day of the month as a decimal number (01-31). wday returns the day of the week as a decimal number (01-07, Sunday is 1). 
 #'
-#' @param x a date object   
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- as.Date("2009-09-02")
@@ -215,7 +216,7 @@ mday.irts <- function(x)
 #'
 #' week returns or sets the weeks component of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. Weeks is the number of complete seven day periods that have occured between the date and  January 1st, plus one. 
 #'
-#' @param x a date object   
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- Sys.time()
@@ -231,7 +232,7 @@ week <- function(x)
 #'
 #' month returns or sets the months component of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @param x a date object   
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- Sys.time()
@@ -267,7 +268,7 @@ month.irts <- function(x)
 #'
 #' week returns or sets the weeks component of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. year does not yet support years before 0 C.E.
 #'
-#' @param x a date object   
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- Sys.time()
@@ -301,10 +302,9 @@ year.irts <- function(x)
 	
 #' Get/set time zone component of a date.
 #'
-#' tz returns the first element of the time zone attribute vector of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
+#' tz returns the first element of the time zone attribute vector of POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. If no time zone attribute exists, tz returns "GMT". For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
 #'
-#' @param x a date object   
-#' @param supply logical. Should "GMT" be returned for dates that do not have a time zone attribute?
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- Sys.time()
@@ -317,34 +317,32 @@ year.irts <- function(x)
 #' x
 #' tz(x)
 #' Sys.unsetenv("TZ")
-tz <- function (x, supply = T) 
+tz <- function (x) 
 	UseMethod("tz")
 
-tz.default <- function(x, supply) {
-    if (supply){
-        if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
-            return("GMT")
-    }
+tz.default <- function(x) {
+	if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
+		return("GMT")
   tzs <- attr(as.POSIXlt(x),"tzone")
   tzs[1]
 }
 
-tz.zoo <- function(x, supply){
+tz.zoo <- function(x){
 	tzs <- attr(as.POSIXlt(index(x)), "tzone")
 	tzs[1]
 }
 
-tz.its <- function(x, supply)
-	tz.default(attr(x, "dates"), supply)
+tz.its <- function(x)
+	tz.default(attr(x, "dates"))
 
-tz.ti <- tz.jul <- function(x, supply)
-	tz.default(as.Date(x), supply)
+tz.ti <- tz.jul <- function(x)
+	tz.default(as.Date(x))
 	
 tz.timeSeries <- function(x)
 	x@FinCenter
 
-tz.fts <- function(x, supply)
-	tz.default(dates(x), supply)
+tz.fts <- function(x)
+	tz.default(dates(x))
 	
 tz.irts <- function(x)
 	return("GMT")
@@ -352,7 +350,7 @@ tz.irts <- function(x)
 
 #' Does date time occur in the am or pm?
 #'
-#' @param x a date object   
+#' @param x a date-time object   
 #' @keywords utilities, accessors
 #' @examples
 #' x <- Sys.time()
@@ -367,7 +365,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the seconds element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's seconds component.   
 #' @seealso \code{\link{second}}  
 #' @keywords internal, accessors
@@ -429,7 +427,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the minutes element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's minutes component.    
 #' @seealso \code{\link{minute}} 
 #' @keywords internal, accessors
@@ -489,7 +487,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the hours element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's hours component.  
 #' @seealso \code{\link{hour}}   
 #' @keywords internal, accessors
@@ -549,7 +547,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the ydays element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's ydays component.   
 #' @seealso \code{\link{yday}} 
 #' @keywords internal, accessors
@@ -610,7 +608,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the wdays element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's wdays component.   
 #' @seealso \code{\link{wday}} 
 #' @keywords internal, accessors
@@ -671,7 +669,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the mdays element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's mdays component.   
 #' @seealso \code{\link{mday}} 
 #' @keywords internal, accessors
@@ -730,7 +728,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the weeks element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's weeks component.   
 #' @seealso \code{\link{week}} 
 #' @keywords internal, accessors
@@ -790,7 +788,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the months element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's months component.   
 #' @seealso \code{\link{month}} 
 #' @keywords internal, accessors
@@ -860,7 +858,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the years element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's years component.   
 #' @seealso \code{\link{year}} 
 #' @keywords internal, accessors
@@ -923,7 +921,7 @@ pm <- function(x) !am(x)
 
 #' Internal function. Replaces the time zone element of a date with a specified value.
 #' 
-#' @param x a date object
+#' @param x a date-time object
 #' @param value a number that will be substituted for the date's time zone component.   
 #' @seealso \code{\link{tz}} 
 #' @keywords internal, accessors
@@ -992,7 +990,7 @@ pm <- function(x) !am(x)
 #' update.Date implements changes in the order year, month, week, yday, wday, mday, hour, minute, second, tz.  If conflicting requests are set, requests that occur later in the order will overwrite those that occur earlier.  If a request causes spillover to another component (such as 13 months) this spillover will be added to any requests inputed for the first category (see examples).
 #' If the format of x does not support a requested change, it will be returned in a format that does.
 #' 
-#' @param object a POSIXt date object  
+#' @param object a date-time object  
 #' @param year a value to substitute for the date's year component
 #' @param month a value to substitute for the date's month component
 #' @param week a value to substitute for the date's week component
@@ -1052,7 +1050,7 @@ update.Date <- update.POSIXt <- function(object, ...) {
 #'
 #' @keywords internal
 standardise_date_names <- function(x) {
-  dates <- c("second", "minute", "hour", "day", "mday", "wday", "yday", "week", "month", "year")
+  dates <- c("second", "minute", "hour", "day", "mday", "wday", "yday", "week", "month", "year", "tz")
   y <- gsub("s$", "", x)
   res <- dates[pmatch(y, dates)]
   if (any(is.na(res))) {

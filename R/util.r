@@ -1,15 +1,56 @@
-# A year is a leap year if it is evenly divisible by 400 or evenly 
-# divisible by 4 but not 100.
-
+#' Is a year a leap year?
+#'
+#' If x is a recognized date-time object, leap.year will return whether x occurs during a leap year. If x is a number, leap.year returns whether it would be a leap year under the Gregorian calendar. 
+#'
+#' @param date a date-time object or a year 
+#' @examples
+#' x <- as.Date("2009-08-02")
+#' leap.year(x) # FALSE
+#' leap.year(2009) # FALSE
+#' leap.year(2008) # TRUE
+#' leap.year(1900) # FALSE
+#' leap.year(2000) # TRUE
 leap.year <- function(date) {
+	recognized <- recognize(date)
+	if (recognized)
 		year <- year(date)
+	else if (all(is.numeric(date)))
+		year <- date
+	else
+		stop("unrecognized date format")
   (year %% 4 == 0) & ((year %% 100 != 0) | (year %% 400 == 0))
 }
 
-
+#' The current time 
+#'
+#' @examples
+#' x <- now()
+#' x
+#' now() < now() # TRUE
+#' now() > now() # FALSE
 now <- function() Sys.time()
-today <- Sys.Date()
 
+#' The current date 
+#'
+#' @examples
+#' x <- today()
+#' x
+#' today() < as.Date("2999-01-01") # TRUE  (so far)
+today <- function() Sys.Date()
+
+
+
+#' Computes attractive axis breaks for date-time data
+#'
+#' pretty.dates indentifies which unit of time the sub-intervals should be measured in to provide approximately n breaks. It then chooses a "pretty" length for the sub-intervals and sets start and endpoints that 1) span the entire range of the data, and 2) allow the breaks to occur on important date-times (i.e. on the hour, on the first of the month, etc.)
+#'
+#' @param dates a vector of date-time objects 
+#' @param n integer value of the desired number of breaks
+#' @examples
+#' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
+#' # "2009-08-02" "2010-08-02"
+#' pretty.dates(x, 12)
+#' #"2009-08-01 GMT" "2009-09-01 GMT" "2009-10-01 GMT" "2009-11-01 GMT" "2009-12-01 GMT" "2010-01-01 GMT" "2010-02-01 GMT" "2010-03-01 GMT" "2010-04-01 GMT" "2010-05-01 GMT" "2010-06-01 GMT" "2010-07-01 GMT" "2010-08-01 GMT" "2010-09-01 GMT"
 pretty.dates <- function(dates, n){
 	Sys.setenv(TZ = tz(dates[1]))
 	rng <- range(dates)
