@@ -1,3 +1,7 @@
+
+#' Internal function. Formats duration objects.
+#'
+#' keywords internal
 format.duration <- function(dur, ...){
 	format_unit <- function(x, xsign, singular = NULL) {
 	    if (is.null(singular)) singular <- deparse(substitute(x))
@@ -45,6 +49,9 @@ format.duration <- function(dur, ...){
 	aaply(duration, 1, collapse)
 } 
 
+#' Internal function for printing duration objects.
+#'
+#' keywords internal
 print.duration <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }
