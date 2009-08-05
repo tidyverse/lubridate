@@ -4,7 +4,9 @@
 #'
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
+#' @return x with the appropriate units floored
 #' @seealso \code{link{ceiling_date}, link{round_date}}
+#' @keywords manip chron
 #' @examples
 #' x <- as.POSIXct("2009-08-03 12:01:59.23")
 #' floor_date(x, "second")
@@ -42,7 +44,9 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 #'
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
+#' @return x with the appropriate units rounded up
 #' @seealso \code{link{floor_date}, link{round_date}}
+#' @keywords manip chron
 #' @examples
 #' x <- as.POSIXct("2009-08-03 12:01:59.23")
 #' ceiling_date(x, "second")
@@ -85,7 +89,9 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 #'
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
-#' @seealso \code{link{floor_date}, link{round_date}}
+#' @return x with the appropriate units rounded
+#' @seealso \code{link{floor_date}, link{ceiling_date}}
+#' @keywords manip chron
 #' @examples
 #' x <- as.POSIXct("2009-08-03 12:01:59.23")
 #' round_date(x, "second")

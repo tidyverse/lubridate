@@ -3,6 +3,7 @@
 #' @param e1 a duration, difftime, POSIXt, or Date object
 #' @param e2 a duration, difftime, POSIXt, or Date object
 #' @seealso \code{link{"-.duration"}, link{"*.duration"}, link{"/.duration"}}
+#' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
 #' x + Sys.time()
@@ -33,7 +34,7 @@
 		else if (is.timeperiod(e2))
 			add_number_to_duration(e2, e1)
 		else stop("Unknown object class")
-		}
+	}
 }
 
 # shares documentation with "+.duration"
@@ -103,6 +104,7 @@ make_difftime <- function (diff) {
 #' @param e1 a duration or numeric object
 #' @param e2 a duration or numeric object
 #' @seealso \code{link{"+.duration"}, link{"-.duration"}, link{"/.duration"}}
+#' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
 #' x * 3
@@ -132,6 +134,7 @@ multiply_duration_by_numeric <- function(num, dur){
 #' @param e1 a duration or numeric object
 #' @param e2 a duration or numeric object
 #' @seealso \code{link{"+.duration"}, link{"-.duration"}, link{"*.duration"}}
+#' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
 #' x / 2
@@ -163,6 +166,7 @@ divide_duration_by_numeric <- function(num, dur){
 #' @param e1 a duration, difftime, POSIXt, or Date object
 #' @param e2 a duration, difftime, POSIXt, or Date object
 #' @seealso \code{link{"+.duration"}, link{"*.duration"}, link{"/.duration"}}
+#' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
 #' Sys.time() - x

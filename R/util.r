@@ -2,7 +2,10 @@
 #'
 #' If x is a recognized date-time object, leap.year will return whether x occurs during a leap year. If x is a number, leap.year returns whether it would be a leap year under the Gregorian calendar. 
 #'
+#' aliases leap.year leap_year leapyear
 #' @param date a date-time object or a year 
+#' @return TRUE if x is a leap year, FALSE otherwise
+#' @keywords logic chron
 #' @examples
 #' x <- as.Date("2009-08-02")
 #' leap.year(x) # FALSE
@@ -23,6 +26,9 @@ leap.year <- function(date) {
 
 #' The current time 
 #'
+#' @return the current date and time as a POSIXct object
+#'
+#' @keywords chron utilities
 #' @examples
 #' x <- now()
 #' x
@@ -32,6 +38,9 @@ now <- function() Sys.time()
 
 #' The current date 
 #'
+#' @return the current date as a Date object
+#'
+#' @keywords chron utilities
 #' @examples
 #' x <- today()
 #' x
@@ -46,6 +55,8 @@ today <- function() Sys.Date()
 #'
 #' @param dates a vector of date-time objects 
 #' @param n integer value of the desired number of breaks
+#' @return a vector of date-times that can be used as axis tick marks or bin breaks
+#' @keywords dplot utilities chron
 #' @examples
 #' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
 #' # "2009-08-02" "2010-08-02"
@@ -72,7 +83,11 @@ pretty.dates <- function(dates, n){
 }
 	
 	
-
+#' Internal function 
+#'
+#' For use with \code{link{pretty.dates}}
+#'
+#' @keywords internal
 pretty.unit <- function(interval){
 	
 	if (interval > 3600*24*365)
@@ -89,12 +104,23 @@ pretty.unit <- function(interval){
 		return("sec")
 }
 
+#' Internal function 
+#'
+#' For use with \code{link{pretty.dates}}
+#'
+#' @keywords internal
+
 pretty.sec <- function(span, n){
 	lengths <- c(1,2,5,10,15,30,60)
 	fit <- abs(span - lengths*n)
 	lengths[which.min(fit)]
 }
 
+#' Internal function 
+#'
+#' For use with \code{link{pretty.dates}}
+#'
+#' @keywords internal
 pretty.min <- function(span, n){
 	span <- span/60
 	lengths <- c(1,2,5,10,15,30,60)
@@ -102,6 +128,11 @@ pretty.min <- function(span, n){
 	lengths[which.min(fit)]
 }
 
+#' Internal function 
+#'
+#' For use with \code{link{pretty.dates}}
+#'
+#' @keywords internal
 pretty.hour <- function(span, n){
 	span <- span / 3600
 	lengths <- c(1,2,3,4,6,8,12,24)
@@ -109,11 +140,21 @@ pretty.hour <- function(span, n){
 	lengths[which.min(fit)]
 }
 
+#' Internal function 
+#'
+#' For use with \code{link{pretty.dates}}
+#'
+#' @keywords internal
 pretty.day <- function(span, n){
 	span <- span / (3600 * 24)
 	pretty(1:span, n = n)[2]
 }
 
+#' Internal function 
+#'
+#' For use with \code{link{pretty.dates}}
+#'
+#' @keywords internal
 pretty.month <- function(span, n){
 	span <- span / (3600 * 24 * 30)
 	lengths <- c(1,2,3,4,6,12)
@@ -121,11 +162,21 @@ pretty.month <- function(span, n){
 	lengths[which.min(fit)]
 }
 	
+#' Internal function 
+#'
+#' For use with \code{link{pretty.dates}}
+#'
+#' @keywords internal
 pretty.year <- function(span, n){
 	span <- span / (3600 * 24 * 365)
 	pretty(1:span, n = n)[2]
 }
 
+#' Internal function 
+#'
+#' For use with \code{link{pretty.dates}}
+#'
+#' @keywords internal
 pretty.point <- function(x, units, length, start = TRUE){
 	x <- as.POSIXct(x)
 	
