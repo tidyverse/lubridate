@@ -1,17 +1,29 @@
-# Rounding for dates
-# ---------------------------------------------------------------------------
-
-# d <- strptime("2008-11-13 10:34:17", "%Y-%m-%d %H:%M:%S")
-# 
+#' Round date-times down.
+#'
+#' floor_date takes a date-time object and rounds it down to the nearest integer value of the specified time unit. Users can specify whether to round down to the nearest second, minute, hour, day, week, month, or year.
+#'
+#' @param x a vector of date-time objects 
+#' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
+#' @seealso \code{link{ceiling_date}, link{round_date}}
+#' @examples
+#' x <- as.POSIXct("2009-08-03 12:01:59.23")
+#' floor_date(x, "second")
+#' # "2009-08-03 12:01:59 CDT"
+#' floor_date(x, "minute")
+#' # "2009-08-03 12:01:00 CDT"
+#' floor_date(x, "hour")
+#' # "2009-08-03 12:00:00 CDT"
+#' floor_date(x, "day")
+#' # "2009-08-03 CDT"
+#' floor_date(x, "week")
+#' # "2009-08-02 CDT"
+#' floor_date(x, "month")
+#' # "2009-08-01 CDT"
+#' floor_date(x, "year")
+#' # "2009-01-01 CST"
 floor_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
-  # matching user's input for "unit" to type of unit indicated
   unit <- match.arg(unit)
   
-  # Note: Is this so a time less than 1e-10 below an integer is floored to 
-  # the integer below it and not recognized as equal to the integer above it? 
-
-
-  # selects appropriate task based on user's input for "unit"
   switch(unit,
     second = update.Date(x, second = floor(second(x))),
     minute = update.Date(x, second = 0),
@@ -24,12 +36,32 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 }
 
 
-# In almost the same manner as above...
-# d <- strptime("2008-01-01 00:00:00", "%Y-%m-%d %H:%M:%S")
+#' Round date-times up.
+#'
+#' ceiling_date takes a date-time object and rounds it up to the nearest integer value of the specified time unit. Users can specify whether to round up to the nearest second, minute, hour, day, week, month, or year.
+#'
+#' @param x a vector of date-time objects 
+#' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
+#' @seealso \code{link{floor_date}, link{round_date}}
+#' @examples
+#' x <- as.POSIXct("2009-08-03 12:01:59.23")
+#' ceiling_date(x, "second")
+#' # "2009-08-03 12:02:00 CDT"
+#' ceiling_date(x, "minute")
+#' # "2009-08-03 12:02:00 CDT"
+#' ceiling_date(x, "hour")
+#' # "2009-08-03 13:00:00 CDT"
+#' ceiling_date(x, "day")
+#' # "2009-08-04 CDT"
+#' ceiling_date(x, "week")
+#' # "2009-08-09 CDT"
+#' ceiling_date(x, "month")
+#' # "2009-09-01 CDT"
+#' ceiling_date(x, "year")
+#' # "2010-01-01 CST"
 ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
   unit <- match.arg(unit) 
   
-  # we now add 1 to the desired unit and then floor it
   switch(unit,
     second = second(x) <- ceiling(second(x)),
     minute = minute(x) <- minute(x) + 1,
@@ -40,11 +72,36 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
     year =   year(x) <- year(x) + 1
   )
   
-  # Note: Why is the eps now 0?
   floor_date(x, unit)
 }
 
-# Rounds the date to whichever is closer: its floored value or ceiling value
+
+
+
+
+#' Rounding for date-times.
+#'
+#' round_date takes a date-time object and rounds it to the nearest integer value of the specified time unit. Users can specify whether to round to the nearest second, minute, hour, day, week, month, or year.
+#'
+#' @param x a vector of date-time objects 
+#' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
+#' @seealso \code{link{floor_date}, link{round_date}}
+#' @examples
+#' x <- as.POSIXct("2009-08-03 12:01:59.23")
+#' round_date(x, "second")
+#' # "2009-08-03 12:01:59 CDT"
+#' round_date(x, "minute")
+#' # "2009-08-03 12:02:00 CDT"
+#' round_date(x, "hour")
+#' # "2009-08-03 12:00:00 CDT"
+#' round_date(x, "day")
+#' # "2009-08-04 CDT"
+#' round_date(x, "week")
+#' # "2009-08-02 CDT"
+#' round_date(x, "month")
+#' # "2009-08-01 CDT"
+#' round_date(x, "year")
+#' # "2010-01-01 CST"
 round_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
   unit <- match.arg(unit)
   
@@ -57,10 +114,11 @@ round_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
   structure(ifelse(smaller, below, above), class= class(x))
 }
 
-# Parse date time unit specification
-# Parse the time unit specification used by \code{\link{cut.Date}} into something useful
-# 
-# @keywords internal
+#' Internal function. Parse date time unit specification
+#'
+#' Parse the time unit specification used by \code{\link{cut.Date}} into something useful
+#' 
+#' @keywords internal
 parse_unit_spec <- function(unitspec) {
   parts <- strsplit(unitspec, " ")[[1]]
   if (length(parts) == 1) {
