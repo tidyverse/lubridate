@@ -1,3 +1,42 @@
+#' Description of the class "duration" representing time intervals.
+#'
+#' Durations record intervals of time.  Like real time intervals, they can be measured in either specific or relative time units. Seconds, minutes, hours, days, and weeks are all specific time units. They each last a set number of seconds no matter what time point they are measured from. Months and years are relative time units.  A month may last 28, 29, 30, or 31 days depending on the date it is measured from. A year may last 365 or 366 days. 
+#'
+#' Leap seconds provide an exception to these general rules.  They are announced randomly and expand every time interval they occur in. Lubridate does not handle leap seconds. 
+#'
+#' Duration objects can also combine both relative and specific time units. When added or subtracted to a date-time, a duration chooses the correct time length for its relative time units.  
+#'
+#' The internal structure of durations do not handle specific time intervals greater than 49999999999 seconds or less than -49999999999 seconds.  This is the equivalent of 578703 days, 16 hours, 53 minutes and 19 seconds. Time intervals longer than this should be approximated with relative time units. 126230400 seconds is frequently equal to 4 years, and 12622780800 seconds is more frequently equal to 400 years.
+#'
+#' Divisions less than a month in length should be precisely specified by using a specific time unit. Durations do not support partial months or fractions of a year that would result in partial months.
+#'
+#' The helper functions \code{link{years}, link{months}, link{weeks}, link{days}, link{hours}, link{minutes}, link{seconds}} create durations of standard lengths. These functions greatly simplify working with date-times by letting R behave like an object oriented programming language. 
+#'
+#' @seealso \code{link{new_duration}} for creating duration objects
+#' @seealso \code{link{years}, link{months}, link{weeks}, link{days}, link{hours}, link{minutes}, link{seconds}} for easy methods of manipulating date-time objects with durations.
+#' @seealso \code{link{as.duration}} for converting objects into durations
+#' @seealso \code{link{is.duration}} for testing whether an object is of the "duration" class
+#' @examples
+#' new_duration(second = 90)
+#' # 1 minute and 30 seconds
+#' new_duration(minute = 1.5)
+#' # 1 minute and 30 seconds
+#' new_duration(second = 3, minute = 1.5, hour = -2, day = 6, week = 1, month = 3, year = 2)
+#' # 2 years, 3 months, 1 week, 5 days, 22 hours, 1 minute and 33 seconds
+#'
+#' date <- as.POSIXct("2009-01-01 00:00:00")
+#' date
+#' # "2009-01-01 GMT"
+#' date + years(1)
+#' # "2010-01-01 GMT"
+#' date - days(3) + hours(6)
+#' # "2008-12-29 06:00:00 GMT"
+#' date + 3 * seconds(10)
+#' # "2009-01-01 00:00:30 GMT"
+#'
+#' months(6) + days(1)
+#' # 6 months and 1 day
+roxygen()
 
 #' Create a duration object.
 #'
