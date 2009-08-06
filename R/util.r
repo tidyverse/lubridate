@@ -26,12 +26,14 @@ leap.year <- function(date) {
 
 #' The current time 
 #'
+#' @param tzone a character vector specifying which time zone you would like the current time in. tzone defaults to the system time zone set on your computer.
 #' @return the current date and time as a POSIXct object
 #'
 #' @keywords chron utilities
 #' @examples
-#' x <- now()
-#' x
+#' now()
+#' now("GMT")
+#' now() == now("GMT") # would be true if computer processed both at the same instant
 #' now() < now() # TRUE
 #' now() > now() # FALSE
 now <- function(tzone = "") 
@@ -40,15 +42,20 @@ now <- function(tzone = "")
 
 #' The current date 
 #'
+#' @param tzone a character vector specifying which time zone you would like to find the current date of. tzone defaults to the system time zone set on your computer.
 #' @return the current date as a Date object
 #'
 #' @keywords chron utilities
 #' @examples
-#' x <- today()
-#' x
+#' today("")
+#' today("GMT")
+#' today("") == today("GMT") # not always true
 #' today() < as.Date("2999-01-01") # TRUE  (so far)
-today <- function() Sys.Date()
-
+today <- function(tzone ="") {
+	timethere <- with_tz(Sys.time(),tzone)
+	daythere <- floor_date(timethere, "day")
+	as.Date(daythere)
+}
 
 
 #' Computes attractive axis breaks for date-time data
