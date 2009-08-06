@@ -362,7 +362,7 @@ year.irts <- function(x)
 #'
 #' For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
 #'
-#' @aliases tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts
+#' @aliases tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts set_tz
 #' @method tz default 
 #' @method tz zoo 
 #' @method tz its 
@@ -413,6 +413,8 @@ tz.fts <- function(x)
 	
 tz.irts <- function(x)
 	return("GMT")
+
+set_tz <- function(x, value) "tz<-"(x, value)
 
 
 #' Does date time occur in the am or pm?
@@ -1160,6 +1162,7 @@ pm <- function(x) !am(x)
 	x$time <- x$time - ("tz<-.default"(x, value) - x$time)
 	x
 }
+
 
 
 #' Changes the components of a date object
