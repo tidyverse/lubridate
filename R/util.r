@@ -34,7 +34,9 @@ leap.year <- function(date) {
 #' x
 #' now() < now() # TRUE
 #' now() > now() # FALSE
-now <- function() Sys.time()
+now <- function(tzone = "") 
+	with_tz(Sys.time(),tzone)
+
 
 #' The current date 
 #'
@@ -53,7 +55,7 @@ today <- function() Sys.Date()
 #'
 #' pretty.dates indentifies which unit of time the sub-intervals should be measured in to provide approximately n breaks. It then chooses a "pretty" length for the sub-intervals and sets start and endpoints that 1) span the entire range of the data, and 2) allow the breaks to occur on important date-times (i.e. on the hour, on the first of the month, etc.)
 #'
-#' @param dates a vector of date-time objects 
+#' @param dates a vector of POSIXct, POSIXlt, Date, or chron date-time objects
 #' @param n integer value of the desired number of breaks
 #' @return a vector of date-times that can be used as axis tick marks or bin breaks
 #' @keywords dplot utilities chron
@@ -63,6 +65,9 @@ today <- function() Sys.Date()
 #' pretty.dates(x, 12)
 #' #"2009-08-01 GMT" "2009-09-01 GMT" "2009-10-01 GMT" "2009-11-01 GMT" "2009-12-01 GMT" "2010-01-01 GMT" "2010-02-01 GMT" "2010-03-01 GMT" "2010-04-01 GMT" "2010-05-01 GMT" "2010-06-01 GMT" "2010-07-01 GMT" "2010-08-01 GMT" "2010-09-01 GMT"
 pretty.dates <- function(dates, n){
+	remember <- Sys.getenv("TZ") 
+	if (Sys.getenv("TZ") == "")
+		remember <- "unset"
 	Sys.setenv(TZ = tz(dates[1]))
 	rng <- range(dates)
 	diff <- rng[2] - rng[1]
@@ -78,7 +83,10 @@ pretty.dates <- function(dates, n){
 	
 	
 	breaks <- seq.POSIXt(start, end, paste(binlength, binunits)) 
-	Sys.unsetenv("TZ")
+	if (remember == "unset")
+		Sys.unsetenv("TZ")
+	else 
+		Sys.setenv(TZ = remember)
 	breaks
 }
 	
@@ -198,3 +206,19 @@ pretty.point <- function(x, units, length, start = TRUE){
 	return(points[which.min(fit)])
 	
 }
+
+#' Get date-time in a different time zone
+#' 
+#' with_tz returns a date-time as it would appear in a different time zone.  The actual moment of time measured does not change, just the time zone it is measured in.
+#'
+#' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
+#' @param tzone a character string containing the time zone to convert to. R must recognize the name contained in the string as a time zone on your system.
+#' @return a POSIXct object in the updated time zone
+#' @keywords chron manip
+#' @seealso \code{link{tz}}
+#' @examples
+#' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
+#' with_tz(x, "GMT")
+#' # "2009-08-07 05:00:00 GMT"
+with_tz <- function (time, tzone = "") 
+	as.POSIXct(format(as.POSIXct(time), tz = tzone), tz = tzone)
