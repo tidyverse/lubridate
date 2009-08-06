@@ -1,7 +1,13 @@
 #' Addition for the duration class. 
 #'
+#' @aliases +.duration add_duration_to_date add_duration_to_duration add_number_to_duration +.POSIXt +.difftime +.Date
+#' @method + duration
+#' @method + POSIXt
+#' @method + difftime
+#' @method + Date
 #' @param e1 a duration, difftime, POSIXt, or Date object
 #' @param e2 a duration, difftime, POSIXt, or Date object
+#' @return a new date-time or duration object, depending on e1 and e2 
 #' @seealso \code{link{"-.duration"}, link{"*.duration"}, link{"/.duration"}}
 #' @keywords arith chron methods
 #' @ examples
@@ -37,7 +43,7 @@
 	}
 }
 
-# shares documentation with "+.duration"
+
 add_duration_to_date <- function(date, timeperiod) {
 	dur <- as.duration(timeperiod)
 	
@@ -50,7 +56,7 @@ add_duration_to_date <- function(date, timeperiod) {
 	date
 }
 
-# shares documentation with "+.duration"
+
 add_duration_to_duration <- function(period1, period2) {
 	dur1 <- as.duration(period1)
 	dur2 <- as.duration(period2)
@@ -61,7 +67,7 @@ add_duration_to_duration <- function(period1, period2) {
 	new_duration(second = seconds, month = months)
 }
 
-# shares documentation with "+.duration"
+
 add_number_to_duration <- function(dur, num){
 	if (is.difftime(dur)){
 		num <- structure(num, units = units(dur), class = "difftime")
@@ -75,13 +81,15 @@ add_number_to_duration <- function(dur, num){
 
 #' Makes a difftime object from given number of seconds 
 #'
-#' @param diff number value of seconds to be transformed into a difftime object
+#' @param x number value of seconds to be transformed into a difftime object
+#' @return a difftime object corresponding to x seconds
+#' @keywords chron
 #' @ examples
 #' make_difftime(1)
 #' make_difftime(60)
 #' make_difftime(3600)
-make_difftime <- function (diff) {  
-	seconds <- abs(diff)
+make_difftime <- function (x) {  
+	seconds <- abs(x)
     if (seconds < 60) 
         units <- "secs"
     else if (seconds < 3600)
@@ -92,17 +100,20 @@ make_difftime <- function (diff) {
     	units <- "days"
     else units <- "weeks"
     
-    switch(units, secs = structure(diff, units = "secs", class = "difftime"), 
-    mins = structure(diff/60, units = "mins", class = "difftime"), 
-    hours = structure(diff/3600, units = "hours", class = "difftime"), 
-    days = structure(diff/86400, units = "days", class = "difftime"), 
-    weeks = structure(diff/(604800), units = "weeks", class = "difftime"))
+    switch(units, secs = structure(x, units = "secs", class = "difftime"), 
+    mins = structure(x/60, units = "mins", class = "difftime"), 
+    hours = structure(x/3600, units = "hours", class = "difftime"), 
+    days = structure(x/86400, units = "days", class = "difftime"), 
+    weeks = structure(x/(604800), units = "weeks", class = "difftime"))
 }
 
 #' Multiplication for the duration class. 
 #'
+#' @aliases *.duration multiply_duration_by_numeric 
+#' @method * duration
 #' @param e1 a duration or numeric object
 #' @param e2 a duration or numeric object
+#' @return a duration object
 #' @seealso \code{link{"+.duration"}, link{"-.duration"}, link{"/.duration"}}
 #' @keywords arith chron methods
 #' @ examples
@@ -121,7 +132,6 @@ make_difftime <- function (diff) {
   }
 }  
 
-# shares documentation with "*.duration"
 multiply_duration_by_numeric <- function(num, dur){
 	seconds <- just_seconds(dur)
 	months <- just_months(dur)
@@ -131,8 +141,11 @@ multiply_duration_by_numeric <- function(num, dur){
 
 #' Division for the duration class. 
 #'
+#' @aliases /.duration divide_duration_by_numeric 
+#' @method / duration
 #' @param e1 a duration or numeric object
 #' @param e2 a duration or numeric object
+#' @return a duration object
 #' @seealso \code{link{"+.duration"}, link{"-.duration"}, link{"*.duration"}}
 #' @keywords arith chron methods
 #' @ examples
@@ -151,7 +164,6 @@ multiply_duration_by_numeric <- function(num, dur){
   }
 }  
 
-# shares documentation with "/.duration"
 divide_duration_by_numeric <- function(num, dur){
 	seconds <- just_seconds(dur)/num
 	months <- just_months(dur)/num
@@ -161,10 +173,18 @@ divide_duration_by_numeric <- function(num, dur){
   
 #' Subtraction for the duration class. 
 #'
-#' The subtraction methods also return a duration object when a POSIXt or Date object is subtracted from another POSIXt or Date object. To retrieve this difference as a difftime, use \code{link{as.difftime}}. Since a specific number of seconds exists between two dates, the duration returned will not include unspecific time units such as years and months. To get a nonspecific duration use \code{link{get_duration}}. See \code{link{duration}} for more details.
+#' The subtraction methods also return a duration object when a POSIXt or Date object is subtracted from another POSIXt or Date object. To retrieve this difference as a difftime, use \code{link{as.difftime}}. 
 #'
+#' Since a specific number of seconds exists between two dates, the duration returned will not include unspecific time units such as years and months. To get a nonspecific duration use \code{link{get_duration}}. See \code{link{duration}} for more details.
+#'
+#' @aliases -.duration -.POSIXt -.difftime -.Date
+#' @method - duration
+#' @method - POSIXt
+#' @method - difftime
+#' @method - Date
 #' @param e1 a duration, difftime, POSIXt, or Date object
 #' @param e2 a duration, difftime, POSIXt, or Date object
+#' @return a new date-time or duration object, depending on e1 and e2 
 #' @seealso \code{link{"+.duration"}, link{"*.duration"}, link{"/.duration"}}
 #' @keywords arith chron methods
 #' @ examples
@@ -186,11 +206,13 @@ divide_duration_by_numeric <- function(num, dur){
 
 #' returns the duration between two date-times. 
 #'
-#' get_duration returns the duration between two date-times, as measured by years, months, weeks, days, hours, minutes, and seconds. Because years and months both have nonspecific numbers of seconds (e.g, the number of seconds in a month depends on which month it is) the get_duration output is also nonspecific. To obtain a specific duration, use regular subtraction methods. See \code{link{duration}} for more details. 
+#' get_duration returns the duration between two date-times, as measured by years, months, weeks, days, hours, minutes, and seconds. Because years and months are both relative units (e.g, the number of seconds in a month depends on which month it is) the get_duration output is also relative. To obtain a duration that uses only units with specific values, use regular subtraction methods. See \code{link{duration}} for more details. 
 #'
 #' @param e1 a date-time object
 #' @param e2 a date-time object
+#' @return a duration object
 #' @seealso \code{link{"+.duration"}, link{"*.duration"}, link{"/.duration"}}
+#' @keywords chron
 #' @ examples
 #' x <- as.Date("2009-08-02")  
 #' y <- as.Date("2008-11-25")
