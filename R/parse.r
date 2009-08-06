@@ -1,9 +1,14 @@
 #' Parse dates according to the order year, month, and day appears
 #'
-#' Transforms dates stored in character and numeric vectors to POSIXct objects. These functions automatically recognize the following separators: "-", "/", ".", and "" (i.e., no separators). Users should choose the function that models the order in which year(y), month(m), and date(d) appear in the dates. All inputed dates are considered to have the same order and the same separators.
+#' Transforms dates stored in character and numeric vectors to POSIXct objects. These functions automatically recognize the following separators: "-", "/", ".", and "" (i.e., no separators). 
 #'
+#' Users should choose the function that models the order in which year(y), month(m), and date(d) appear in the dates. All inputed dates are considered to have the same order and the same separators.
+#'
+#' @aliases ymd myd dym ydm mdy yearmonthdate
 #' @param ... a character or numeric vector of suspected dates 
+#' @return a vector of POSIXct date-time objects
 #' @seealso \code{link{parse_date}, link{guess_format}}
+#' @keywords chron 
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
 #' ymd(x)
@@ -47,8 +52,10 @@ mdy <- function(...) {
 #'
 #' Transforms a numeric or character string into a POSIXct object with the current date and the specified number of hours and minutes. hm recognizes ":" and "" (i.e., no separator) as separators. Hours should be written as a two digit integer (00-23). Minutes should be written as a two digit integer (00-59).
 #'
-#' @param ... a numeric or character string 
+#' @param ... a character or numeric vector of hour minute pairs
+#' @return a vector of POSIXct date-time objects
 #' @seealso \code{link{hms}}
+#' @keywords chron
 #' @examples
 #' x <- c("09:01", "09:02", "09:03")
 #' hm(x)
@@ -65,8 +72,10 @@ hm <- function(...) {
 #'
 #' Transforms a numeric or character string into a POSIXct object with the current date and the specified number of hours, minutes, and seconds. hms recognizes ":" and "" (i.e., no separator) as separators. Hours, minutes, and seconds should be written as a two digit integers (00-23)(00-59)(00-59).
 #'
-#' @param ... a numeric or character string 
+#' @param ... a character or numeric vector of hour minute pairs
+#' @return a vector of POSIXct date-time objects
 #' @seealso \code{link{hm}}
+#' @keywords chron
 #' @examples
 #' x <- c("09:10:01", "09:10:02", "09:10:03")
 #' hms(x)
@@ -84,13 +93,14 @@ hms <- function(...) {
 
 #' Change dates into a POSIXct format
 #'
-#' parse_date is an internal function for the \code{link{ymd}} family of functions. Its recommended to use these functions instead. It transforms dates stored in character and numeric vectors to POSIXct objects. All inputed dates are considered to have the same order and the same separators. 
+#' parse_date is an internal function for the \code{link{ymd}} family of functions. Its recommended to use these functions instead. It transforms dates stored in character and numeric vectors to POSIXct objects. All inputed dates are considered to have the same order and to use the same separator. 
 #'
 #' @param x a character or numeric vector of suspected dates 
 #' @param formats a vector of date-time format elements in the order they occur within the dates. See \code{link[base]{strptime}} for format elements.
 #' @param seps a vector of possible characters used to separate elements within the dates.
+#' @return a vector of POSIXct date-time objects
 #' @seealso \code{link{ymd}, link{guess_format}}
-#' @keywords internal
+#' @keywords chron
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
 #' parse_date(x, c("%y", "%m", "%d"), seps = "-")
@@ -118,6 +128,8 @@ parse_date <- function(x, formats, seps = c("-", "/", ".", "")) {
 #' Letters and numbers are assumed not to be separators
 #'
 #' @param x a character string 
+#' @return a table of possible separators and the number of times they occur in x 
+#' @keywords chron
 #' examples
 #' find_separator("2009-08-03 09:07:03")
 find_separator <- function(x) {
@@ -140,12 +152,14 @@ num_to_date <- function(x) {
 
 #' Guess the format of dates in a character or numeric vector
 #'
-#' Returns the format that successfully parses the most dates within a character or umeric vector to POSIXct objects. If multiple formats are equally successful, guess format will display  the formats in a message and select the first format by default. guess_format assumes that each date only uses one type of separator and that all dates use the same separator.
+#' Returns the format that successfully parses the most dates within a character or numeric vector to POSIXct objects. If multiple formats are equally successful, guess format will display the successful formats in a message and select the first format by default. guess_format assumes that each date only uses one type of separator and that all dates use the same separator.
 #'
 #' @param x a character or numeric vector of suspected dates 
 #' @param formats a list of formats to test. Each format should be a vector of date-time format elements. To test an alternative order of elements, the alternative order should be entered as an additional format. See \code{link[base]{strptime}} for format elements.
 #' @param seps a vector of possible characters used to separate elements within the dates. 
+#' @return a character string of the most likely date-time format
 #' @seealso \code{link{find_separator}}
+#' @keywords chron
 #' @examples
 #' x <- c("2009/01/01", "2009/01/02", "2009/01/03")
 #' guess_format(x, list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")), seps = c("-", "", "/"))
@@ -164,32 +178,25 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
     formats <- do.call(rbind, formats)
   else formats <- as.matrix(t(formats))
     
-  # Combines each permutation with each value of seps
   with_seps <- combine(formats, seps)
 
-  # Creates vector of possible format strings
   fmts <- unlist(mlply(with_seps, paste))
   
-  # defining last digit of x and fmts with "@" 
   x <- paste(x, "@", sep = "")
   fmts2 <- paste(fmts, "@", sep = "")
   
-  # Returns a list of the POSIXlt objects and NAs. 
   trials <- llply(fmts2, function(fmt) strptime(x, fmt))
-  # Sums the number of successes (non-NA ouputs) for each format
+
   successes <- unlist(llply(trials, function(x) sum(!is.na(x))))
   
-  # Selects the format that resulted in the highest number of successes
   bestn <- max(successes)
   best <- fmts[successes > 0 & successes == bestn]
   
-  # If no formats succeeded
   if (length(best) == 0) {
     stop(paste(fmts, collapse = ", "), " All failed to parse dates. Check for incorrect or missing elements.")
-    
-  # If multiple formats performed equally well    
-  } else if (length(best) > 1) {
-    message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
+  } 
+  else if (length(best) > 1) {
+  	message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
     best <- best[1]
   }
 
