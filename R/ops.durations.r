@@ -1,6 +1,36 @@
-#' Addition for the duration class. 
+#' Daylight Savings Time
 #'
-#' If options(DST = "relative") has been set, adding across Daylight Savings Time changes will add or subtract an hour to retain a consistent clock time (the numbers that would appear on the face of a clock). If options(DST = "exact") is set, the clock time of the new date-time will be one hour ahead or behind to maintain the exact length of time units.
+#' Daylight Savings Time complicates mainpulating date-times. Time intervals that occur during a change in daylight savings time are not the same length as time intervals that occur on other dates. The Lubridate package supports two ways to resolve changes related to daylight savings time:
+#'
+#' If options(DST = "relative") has been set, adding across Daylight Savings Time changes will add or subtract an hour to retain a consistent clock time (the numbers that would appear on the face of a clock). This method is the default method of the lubridate package. 
+#'
+#' If options(DST = "exact") is set, the clock time of the new date-time will be one hour ahead or behind to maintain the exact length of time units. 
+#'
+#' The value of options("DST") determines which date-time lubridate returns when adding, subtracting, or setting elements of date-times.
+#'
+#' Adding, subtracting, or setting month and year values is handled the same by moth methods. Months and years are never exact lengths. The length of a month or year depends on the date-time on which it starts.  See \code{link{duration}} for more details. 
+#'
+#' @aliases daylightsavings DaylightSavings DaylightSavingsTime daylightSavings daylightsavingstime isdst daylightSavingsTime
+#' @seealso \code{link{dst}}
+#' @keywords utilities chron arith
+#' @examples
+#' date <- as.POSIXct("2009-03-08 01:59:00")
+#' # "2009-03-08 01:59:00 CST"
+#' 
+#' ## relative - consistent clock time
+#' options(DST = "relative")
+#' date + days(1)
+#' # "2009-03-09 01:59:00 CDT"
+#' 
+#' ## exact - consistent time lengths
+#' options(DST = "exact")
+#' date + days(1)
+#' # "2009-03-09 02:59:00 CDT"
+NULL
+
+
+
+#' Addition for the duration class. 
 #'
 #' @aliases +.duration add_duration_to_date add_duration_to_duration add_number_to_duration +.POSIXt +.difftime +.Date
 #' @method + duration

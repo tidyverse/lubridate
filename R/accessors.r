@@ -2,7 +2,7 @@
 #'
 #' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases .default second.zoo second.its second.ti second.timeseries second.fts second.irts
+#' @aliases .default second.zoo second.its second.ti second.timeseries second.fts second.irts second
 #' @method second default 
 #' @method second zoo 
 #' @method second its 
@@ -48,7 +48,7 @@ second.irts <- function(x)
 #'
 #' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases minute.default minute.zoo minute.its minute.ti minute.timeseries minute.fts minute.irts
+#' @aliases minute.default minute.zoo minute.its minute.ti minute.timeseries minute.fts minute.irts minute
 #' @method minute default 
 #' @method minute zoo 
 #' @method minute its 
@@ -94,7 +94,7 @@ minute.irts <- function(x)
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases hour.default hour.zoo hour.its hour.ti hour.timeseries hour.fts hour.irts
+#' @aliases hour.default hour.zoo hour.its hour.ti hour.timeseries hour.fts hour.irts hour
 #' @method hour default 
 #' @method hour zoo 
 #' @method hour its 
@@ -139,7 +139,7 @@ hour.irts <- function(x)
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases yday.default yday.zoo yday.its yday.ti yday.timeseries yday.fts yday.irts wday.default wday.zoo wday.its wday.ti wday.timeseries wday.fts wday.irts mday.default mday.zoo mday.its mday.ti mday.timeseries mday.fts mday.irts
+#' @aliases yday.default yday.zoo yday.its yday.ti yday.timeseries yday.fts yday.irts wday.default wday.zoo wday.its wday.ti wday.timeseries wday.fts wday.irts mday.default mday.zoo mday.its mday.ti mday.timeseries mday.fts mday.irts yday mday wday
 #' @method yday default 
 #' @method yday zoo 
 #' @method yday its 
@@ -264,7 +264,7 @@ week <- function(x)
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases month.default month.zoo month.its month.ti month.timeseries month.fts month.irts
+#' @aliases month.default month.zoo month.its month.ti month.timeseries month.fts month.irts month
 #' @method month default 
 #' @method month zoo 
 #' @method month its 
@@ -311,7 +311,7 @@ month.irts <- function(x)
 #'
 #' year does not yet support years before 0 C.E.
 #'
-#' @aliases year.default year.zoo year.its year.ti year.timeseries year.fts year.irts
+#' @aliases year year.default year.zoo year.its year.ti year.timeseries year.fts year.irts
 #' @method year default 
 #' @method year zoo 
 #' @method year its 
@@ -362,7 +362,7 @@ year.irts <- function(x)
 #'
 #' For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
 #'
-#' @aliases tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts replace_tz
+#' @aliases tz tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts replace_tz
 #' @method tz default 
 #' @method tz zoo 
 #' @method tz its 
@@ -417,13 +417,50 @@ tz.irts <- function(x)
 replace_tz <- function(x, value) "tz<-"(x, value)
 
 
-
+#' Get Daylight Savings Time indicator of a date-time.
+#'
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#'
+#' A date-time's daylight savings flag can not be set because it depends on the date-time's year, month, day, and hour values.
+#'
+#' @aliases dst dst.default dst.zoo dst.its dst.ti dst.timeseries dst.fts dst.irts
+#' @method dst default 
+#' @method dst zoo 
+#' @method dst its 
+#' @method dst ti 
+#' @method dst timeseries 
+#' @method dst fts 
+#' @method dst irts 
+#' @param x a date-time object   
+#' @return Daylight savings time flag. Positive if in force, zero if not, negative if unknown.
+#' @seealso \code{\link{DaylightSavingsTime}}
+#' @keywords utilities chron methods
+#' @examples
+#' x <- Sys.time()
+#' dst(x) 
 dst <- function(x)
 	UseMethod("dst")
 	
 dst.default <- function(x)
 	as.POSIXlt(x)$isdst
+    
+dst.zoo <- function(x)
+	as.POSIXlt(index(x))$isdst
 	
+dst.its <- function(x)
+	dst.default(attr(x, "dates"))
+	
+dst.ti <- dst.jul <- function(x)
+	tis::hms(x)$isdst
+
+dst.timeSeries <- function(x)
+	dst.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+
+dst.fts <- function(x)
+	dst.default(dates(x))
+	
+dst.irts <- function(x)
+	dst.default(x$time)
 
 #' Does date time occur in the am or pm?
 #'
@@ -465,7 +502,8 @@ pm <- function(x) !am(x)
 }
 
 "second<-.default" <- function(x, value){
-	as.POSIXct(x) - (second(x) - value)
+	new <- as.POSIXct(x) - (second(x) - value)
+	DST(x, new)
 }
 
 "second<-.chron" <- "second<-.timeDate" <- function(x, value){
@@ -536,8 +574,10 @@ pm <- function(x) !am(x)
 	UseMethod("minute<-")
 }
 
-"minute<-.default" <- function(x, value)
-	as.POSIXct(x) - (minute(x) - value) * 60
+"minute<-.default" <- function(x, value){
+	new <- as.POSIXct(x) - (minute(x) - value) * 60
+	DST(x, new)
+}
 
 
 "minute<-.chron" <- "minute<-.timeDate" <- function(x, value){
@@ -606,8 +646,10 @@ pm <- function(x) !am(x)
 	UseMethod("hour<-")
 }
 
-"hour<-.default" <- function(x, value)
-	as.POSIXct(x, tz = tz(x)) - (hour(x) - value) * 3600
+"hour<-.default" <- function(x, value){
+	new <- as.POSIXct(x, tz = tz(x)) - (hour(x) - value) * 3600
+	DST(x, new)
+}
 
 
 "hour<-.chron" <- "hour<-.timeDate" <- function(x, value){
@@ -677,9 +719,10 @@ pm <- function(x) !am(x)
 	UseMethod("yday<-")
 }
 
-"yday<-.default" <- function(x, value)
-	as.POSIXct(x) - (yday(x) - value) * 3600 * 24
-
+"yday<-.default" <- function(x, value){
+	new <- as.POSIXct(x) - (yday(x) - value) * 3600 * 24
+	DST(x, new)
+}
 
 
 "yday<-.Date" <- "yday<-.chron" <- "yday<-.timeDate" <- function(x, value){
@@ -749,9 +792,10 @@ pm <- function(x) !am(x)
 	UseMethod("wday<-")
 }
 
-"wday<-.default" <- function(x, value)
-	as.POSIXct(x) - (wday(x) - value) * 3600 * 24
-
+"wday<-.default" <- function(x, value){
+	new <- as.POSIXct(x) - (wday(x) - value) * 3600 * 24
+	DST(x, new)
+}
 
 "wday<-.Date" <- "wday<-.chron" <- "wday<-.timeDate" <- function(x, value){
 	date <- "wday<-.default"(x,value)
@@ -821,8 +865,10 @@ pm <- function(x) !am(x)
 	UseMethod("mday<-")
 }
 
-"mday<-.default" <- function(x, value)
-	as.POSIXct(x) - (mday(x) - value) * 3600 * 24
+"mday<-.default" <- function(x, value){
+	new <- as.POSIXct(x) - (mday(x) - value) * 3600 * 24
+	DST(x, new)
+}
 
 "mday<-.Date" <- "mday<-.chron" <- "mday<-.timeDate" <-function(x, value){
 	date <- "mday<-.default"(x,value)
@@ -891,9 +937,10 @@ pm <- function(x) !am(x)
 	UseMethod("week<-")
 }
 
-"week<-.default" <- function(x, value)
-	as.POSIXct(x) - (week(x) - value) * 3600 * 24 * 7
-
+"week<-.default" <- function(x, value){
+	new <- as.POSIXct(x) - (week(x) - value) * 3600 * 24 * 7
+	DST(x, new)
+}
 
 "week<-.Date" <- "week<-.chron" <- "week<-.timeDate" <- function(x, value){
 	date <- "week<-.default"(x,value)
@@ -1318,4 +1365,22 @@ recognize <- function(x){
 	if (all(class(x) %in% recognized))
 		return(TRUE)
 	return(FALSE)
+}
+
+
+#' Internal function for Daylight Savings Time changes.
+#'
+#' Determines how to handle time changes resulting from Daylight Savings time based on options("DST"). See \code{link{DaylightSavingsTime}}.
+#'
+#' @keywords internal
+DST <- function(date1, date2){
+	date1 <- as.POSIXlt(date1)
+	date2 <- as.POSIXlt(date2)
+	if(getOption("DST") == "exact")
+		return(date2)
+	if(dst(date1) < 0 || dst(date2) < 0)
+		return(date2)
+	if(is.Date(date2))
+		return(date2)
+	date2 - (dst(date2) - dst(date1))*3600
 }
