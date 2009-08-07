@@ -1,5 +1,7 @@
 #' Addition for the duration class. 
 #'
+#' If options(DST = "relative") has been set, adding across Daylight Savings Time changes will add or subtract an hour to retain a consistent clock time (the numbers that would appear on the face of a clock). If options(DST = "exact") is set, the clock time of the new date-time will be one hour ahead or behind to maintain the exact length of time units.
+#'
 #' @aliases +.duration add_duration_to_date add_duration_to_duration add_number_to_duration +.POSIXt +.difftime +.Date
 #' @method + duration
 #' @method + POSIXt

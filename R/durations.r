@@ -38,7 +38,7 @@
 #'
 #' months(6) + days(1)
 #' # 6 months and 1 day
-roxygen()
+NULL
 
 #' Create a duration object.
 #'

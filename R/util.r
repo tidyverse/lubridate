@@ -58,6 +58,8 @@ today <- function(tzone ="") {
 }
 
 
+
+
 #' Computes attractive axis breaks for date-time data
 #'
 #' pretty.dates indentifies which unit of time the sub-intervals should be measured in to provide approximately n breaks. It then chooses a "pretty" length for the sub-intervals and sets start and endpoints that 1) span the entire range of the data, and 2) allow the breaks to occur on important date-times (i.e. on the hour, on the first of the month, etc.)
@@ -222,10 +224,20 @@ pretty.point <- function(x, units, length, start = TRUE){
 #' @param tzone a character string containing the time zone to convert to. R must recognize the name contained in the string as a time zone on your system.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
-#' @seealso \code{link{set_tz}}
+#' @seealso \code{link{replace_tz}}
 #' @examples
 #' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
 #' with_tz(x, "GMT")
 #' # "2009-08-07 05:00:00 GMT"
 with_tz <- function (time, tzone = "") 
 	as.POSIXct(format(as.POSIXct(time), tz = tzone), tz = tzone)
+
+#' 1970-01-01 GMT
+#'
+#' Origin is the date-time for 1970-01-01 GMT in POSIXct format. This date-time is the origin for the numbering system used by POSIXct, POSIXlt, chron, and Date classes.
+#'
+#' @keywords data chron
+#' @examples
+#' origin
+#' # "1970-01-01 GMT"
+origin <- with_tz(structure(0, class = c("POSIXt", "POSIXct")), "GMT")
