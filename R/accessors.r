@@ -1011,14 +1011,14 @@ pm <- function(x) !am(x)
 }
 
 "month<-.default" <- function(x, value){
-	ISOdatetime(
+	DST.months(x, ISOdatetime(
 		year(x) + (value - 1) %/% 12,  
 		(value - 1) %% 12 + 1, 
 		mday(x), 
 		hour(x), 
 		minute(x), 
 		second(x), 
-		tz(x))
+		tz(x)))
 }
 
 "month<-.Date" <- "month<-.chron" <- "month<-.yearmon" <- "month<-.timeDate" <- function(x, value){
@@ -1094,7 +1094,7 @@ pm <- function(x) !am(x)
 }
 
 "year<-.default" <- function(x, value)	
-	ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x))
+	DST.months(x, ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x)))
 
 
 
@@ -1372,6 +1372,7 @@ recognize <- function(x){
 #'
 #' Determines how to handle time changes resulting from Daylight Savings time based on options("DST"). See \code{link{DaylightSavingsTime}}.
 #'
+#' @aliases DST DST.months 
 #' @keywords internal
 DST <- function(date1, date2){
 	date1 <- as.POSIXlt(date1)
@@ -1383,4 +1384,16 @@ DST <- function(date1, date2){
 	if(is.Date(date2))
 		return(date2)
 	date2 - (dst(date2) - dst(date1))*3600
+}
+
+DST.months <- function(date1, date2){
+	date1 <- as.POSIXlt(date1)
+	date2 <- as.POSIXlt(date2)
+	if(getOption("DST") != "exact")
+		return(date2)
+	if(dst(date1) < 0 || dst(date2) < 0)
+		return(date2)
+	if(is.Date(date2))
+		return(date2)
+	suppressMessages(date2 + (dst(date2) - dst(date1))*3600)
 }
