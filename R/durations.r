@@ -67,14 +67,28 @@ NULL
 #' # -1 years
 #' new_duration(year = 0.5)
 #' # 6 months
-new_duration <- function(second = 0, minute = 0, hour = 0, day = 0, week = 0, month = 0, year = 0){
-		
-	dur1 <- 50000000000 + second + minute * 60 + hour * 3600 + day * 86400 + week * 604800 
+new_duration <- function(...) {
+  pieces <- list(...)
+  names(pieces) <- standardise_date_names(names(pieces))
+
+  defaults <- list(
+    second = 0, minute = 0, hour = 0, day = 0, week = 0, 
+    month = 0, year = 0
+  )
+  
+  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
+	
+	dur1 <- 50000000000 + 
+	  pieces$second + 
+	  pieces$minute * 60 + 
+	  pieces$hour * 3600 + 
+	  pieces$day * 86400 + 
+	  pieces$week * 604800 
 	
 	if (any(dur1 >= 10^11) || any(dur1 < 0))
 		stop("seconds overflow: see 'duration' documentation")
 	
-	dur2 <- 10 ^ 11 * month + 12* 10 ^ 11 * year
+	dur2 <- 10 ^ 11 * pieces$month + 12 * 10 ^ 11 * pieces$year
 	
 	if (any(dur2 %% 10^11 != 0))
 		stop("durations do not support partial months")
