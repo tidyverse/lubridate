@@ -39,7 +39,7 @@ x days since date & & & \\
 \hspace{6mm} (day exactly 24 hours) & options(DST=``exact"); date + days(x) & & seq(date, length=2, by=paste(x, ``day"))[2]\\
 \hspace{6mm} (allowing for DST) & options(DST=``relative"); date + days(x) & date + floor(x) & seq(date, length=2, by=paste(x,``DSTday"))[2]\\
 display date in new time zone & with\_tz(date, ``TZ") & & as.POSIXct(format(as.POSIXct(date), tz = ``TZ"), tz = ``TZ")\\
-keep clock time, replace time zone & replace\_tz(date,``TZ") & &\\
+keep clock time, replace time zone & update(date, tz=``TZ") & &\\
 \hline
 Exploring & & & \\
 \hline
