@@ -362,7 +362,7 @@ year.irts <- function(x)
 #'
 #' For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
 #'
-#' @aliases tz tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts replace_tz
+#' @aliases tz tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts 
 #' @method tz default 
 #' @method tz zoo 
 #' @method tz its 
@@ -413,8 +413,6 @@ tz.fts <- function(x)
 	
 tz.irts <- function(x)
 	return("GMT")
-
-replace_tz <- function(x, value) "tz<-"(x, value)
 
 
 #' Get Daylight Savings Time indicator of a date-time.
@@ -1222,9 +1220,22 @@ pm <- function(x) !am(x)
 
 #' Changes the components of a date object
 #'
-#' Update.Date is a wrapper function for \code{\link{year}, \link{month}, \link{week}, \link{yday}, \link{wday}, \link{mday}, \link{hour}, \link{minute}, \link{second}} and \code{\link{tz}}. It returns a date with the specified elements updated. Elements not specified will be left unaltered. Update.Date does not add the specified values to the existing date, it substitutes them for the appropriate parts of the existing date. 
-#' update.Date implements changes in the order year, month, week, yday, wday, mday, hour, minute, second, tz.  If conflicting requests are set, requests that occur later in the order will overwrite those that occur earlier.  If a request causes spillover to another component (such as 13 months) this spillover will be added to any requests inputed for the first category (see examples).
-#' If the format of x does not support a requested change, it will be returned in a format that does.
+#' Update.Date is a wrapper function for \code{\link{year}, \link{month},
+#' \link{week}, \link{yday}, \link{wday}, \link{mday}, \link{hour},
+#' \link{minute}, \link{second}} and \code{\link{tz}}. It returns a date with
+#' the specified elements updated. Elements not specified will be left
+#' unaltered. Update.Date does not add the specified values to the existing
+#'  date, it substitutes them for the appropriate parts of the existing date. 
+#'
+#' update.Date implements changes in the order year, month, week, yday, wday,
+#' mday, hour, minute, second, tz.  If conflicting requests are set, requests
+#' that occur later in the order will overwrite those that occur earlier.  If
+#' a request causes spillover to another component (such as 13 months) this
+#' spillover will be added to any requests inputed for the first category (see
+#' examples).
+#'
+#' If the format of x does not support a requested change, it will be returned
+#' in a format that does.
 #' 
 #' @param object a date-time object  
 #' @param year a value to substitute for the date's year component
@@ -1241,16 +1252,16 @@ pm <- function(x) !am(x)
 #' @keywords manip chron 
 #' @examples
 #' date <- as.POSIXlt("2009-02-10") 
-#' update.Date(date, year = 2010, month = 1, mday = 1)
+#' update(date, year = 2010, month = 1, mday = 1)
 #' # "2010-01-01 CST"
 #'
-#' update.Date(date, year =2010, month = 13, mday = 1)
+#' update(date, year =2010, month = 13, mday = 1)
 #' # "2011-01-01 CST"
 #'
-#' update.Date(date, yday = 35, wday = 4, mday = 3) 
+#' update(date, yday = 35, wday = 4, mday = 3) 
 #' # "2009-02-03 CST"
 #'
-#' update.Date(date, minute = 10, second = 3)
+#' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
 update.Date <- update.POSIXt <- function(object, ...) {
 
