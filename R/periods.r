@@ -59,7 +59,7 @@ add_period_to_date <- function(date, period) {
 			"second" = update(date, second = second(date) + period$second),
 			"minute" = update(date, minute = minute(date) + period$minute),
 			"hour" = update(date, hour = hour(date) + period$hour),
-			"day" = update(date, day = day(date) + period$day),
+			"day" = update(date, yday = yday(date) + period$day),
 			"week" = update(date, week = week(date) + period$week),
 			"month" = update(date, month = month(date) + period$month),
 			"year" = update(date, year = year(date) + period$year)
@@ -158,10 +158,12 @@ add_duration_to_duration <- function(dur1, dur2)
 }  
 
 multiply_period_by_numeric <- function(num, per){
-	for(i in 1:length(per))
-		per[i] <- num * as.numeric(per[i])
-	per
+	keep <- names(per)
+	products <- unlist(per) * num
+	products <- as.list(products)
+	structure(products, class = "period", names = keep)
 }
+
 
 "/.period" <- function(e1, e2){
 	if (is.period(e1) && is.period(e2))
@@ -175,11 +177,13 @@ multiply_period_by_numeric <- function(num, per){
 }  
 
 divide_period_by_numeric <- function(num, per){
-	for(i in 1:length(per))
-		per[i] <- as.numeric(per[i]) / num
-	if(trunc(as.numeric(per)) - as.numeric(per) != 0)	
-		stop("period objects must retain integer values", call. = F)
-	per
+	keep <- names(per)
+	products <- unlist(per) / num
+	
+	if(any(trunc(products) - products != 0))	
+		stop("all period objects must retain integer values", call. = F)
+	products <- as.list(products)
+	structure(products, class = "period", names = keep)
 }
 
 "-.period" <- "-.POSIXt" <- "-.difftime" <- "-.Date" <- function(e1, e2){
