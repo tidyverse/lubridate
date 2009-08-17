@@ -864,8 +864,29 @@ pm <- function(x) !am(x)
 }
 
 "mday<-.default" <- function(x, value){
-	new <- as.POSIXct(x) - (mday(x) - value) * 3600 * 24
-	DST(x, new)
+	new <- ISOdatetime(
+		year(x),  
+		month(x), 
+		value, 
+		hour(x), 
+		minute(x), 
+		second(x), 
+		tz(x))
+	
+	while (is.na(new)){
+		lubridate.warn <<- TRUE
+		value <- value - 1
+		new <- ISOdatetime(
+			year(x),  
+			month(x), 
+			value, 
+			hour(x), 
+			minute(x), 
+			second(x), 
+			tz(x))
+	}
+	
+	DST.months(x, new)
 }
 
 "mday<-.Date" <- "mday<-.chron" <- "mday<-.timeDate" <-function(x, value){
@@ -1021,12 +1042,9 @@ pm <- function(x) !am(x)
 	warn <- FALSE
 	
 	while (is.na(new)){
-		warn <- TRUE
+		lubridate.warn <<- TRUE
 		new <- "month<-.default"(x - days(1), value)
 	}
-	
-	if(warn)
-		warning("Non-existant date. Defaulting to previous day.", call. = F)
 		
 	DST.months(x, new)
 }
@@ -1103,8 +1121,31 @@ pm <- function(x) !am(x)
 	UseMethod("year<-")
 }
 
-"year<-.default" <- function(x, value)	
-	DST.months(x, ISOdatetime(value,  month(x), mday(x), hour(x), minute(x), second(x), tz(x)))
+"year<-.default" <- function(x, value){
+	new <- ISOdatetime(
+		value,  
+		month(x), 
+		mday(x), 
+		hour(x), 
+		minute(x), 
+		second(x), 
+		tz(x))
+	
+	while (is.na(new)){
+		lubridate.warn <<- TRUE
+		x <- x - days(1)
+		new <- ISOdatetime(
+			value,  
+			month(x), 
+			mday(x), 
+			hour(x), 
+			minute(x), 
+			second(x), 
+			tz(x))
+	}
+		
+	DST.months(x, new)
+}
 
 
 
@@ -1291,6 +1332,7 @@ pm <- function(x) !am(x)
 #' # "2009-02-10 00:10:03 CST"
 update.POSIXt <- function(object, ...) {
   object <- as.POSIXct(object)
+  lubridate.warn <<- FALSE
 
   todo <- list(...)
   names(todo) <- standardise_date_names(names(todo))
@@ -1319,6 +1361,9 @@ update.POSIXt <- function(object, ...) {
 		object <- new
 	}
   }
+  
+  	if(lubridate.warn)
+		warning("Non-existant date. Defaulting to last previous real date.", call. = F)
   object
 }
 
