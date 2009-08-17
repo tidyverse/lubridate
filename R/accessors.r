@@ -1022,7 +1022,7 @@ pm <- function(x) !am(x)
 	
 	while (is.na(new)){
 		warn <- TRUE
-		new <- Recall(x - days(1), value)
+		new <- "month<-.default"(x - days(1), value)
 	}
 	
 	if(warn)
