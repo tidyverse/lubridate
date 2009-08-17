@@ -1220,23 +1220,37 @@ pm <- function(x) !am(x)
 
 #' Changes the components of a date object
 #'
-#' Update.Date is a wrapper function for \code{\link{year}, \link{month},
+#' update is a wrapper function for \code{\link{year}, \link{month},
 #' \link{week}, \link{yday}, \link{wday}, \link{mday}, \link{hour},
 #' \link{minute}, \link{second}} and \code{\link{tz}}. It returns a date with
 #' the specified elements updated. Elements not specified will be left
 #' unaltered. Update.Date does not add the specified values to the existing
 #'  date, it substitutes them for the appropriate parts of the existing date. 
 #'
-#' update.Date implements changes in the order year, month, week, yday, wday,
+#' update implements changes in the order year, month, week, yday, wday,
 #' mday, hour, minute, second, tz.  If conflicting requests are set, requests
 #' that occur later in the order will overwrite those that occur earlier.  If
-#' a request causes spillover to another component (such as 13 months) this
-#' spillover will be added to any requests inputed for the first category (see
-#' examples).
+#' a request causes spillover to another component (such as 13 months, which 
+#' spills over to 1 year and 1 month) this spillover will be added to any 
+#' requests inputed for the first category (see examples).
 #'
-#' If the format of x does not support a requested change, it will be returned
-#' in a format that does.
+#' If the seconds, minutes, or hours element is updated, a POSIXt object will 
+#' be returned, even when object is a Date object.  Date objects do not support
+#' seconds, minutes, or hours. R recognizes Date objects as having an initial 
+#' value of zero for hours, minutes, and seconds in the "UTC" time zone. Since 
+#' Date objects are displayed in the "UTC" time zone and as.POSIXt objects are 
+#' displayed in the preset system time zone of your computer, a change in clock
+#' time will normlly occur when the class of the object switches. Both clock times 
+#' will still refer to the same instant of time, but in different time zones.
 #' 
+#' A date-time element may be updated to a vector of numbers. update will 
+#' return a vector of updated times, one for each element. If multiple elements
+#' are updated to vectors of numbers, update will return a vector of dates that
+#' reflects all combinations of the updated elements.
+#' 
+#' @aliases update.Date update.POSIXt update.POSIXct update.POSIXlt
+#' @methods update Date
+#' @methods update POSIXt
 #' @param object a date-time object  
 #' @param year a value to substitute for the date's year component
 #' @param month a value to substitute for the date's month component
@@ -1263,12 +1277,13 @@ pm <- function(x) !am(x)
 #'
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
-update.Date <- update.POSIXt <- function(object, ...) {
+update.POSIXt <- function(object, ...) {
+  object <- as.POSIXct(object)
 
   todo <- list(...)
   names(todo) <- standardise_date_names(names(todo))
   
-  changes <- as.list(c(year = todo$year, 
+  changes <- as.list(list(year = todo$year, 
     month = todo$month, 
     week = todo$week,
     day = todo$day, 
@@ -1281,10 +1296,50 @@ update.Date <- update.POSIXt <- function(object, ...) {
     tz = todo$tz))  
   
   for(change in names(changes)) {
-
-    f <- match.fun(paste(change, "<-", sep = ""))
+  	if(!is.null(changes[[change]])){
+   		f <- match.fun(paste(change, "<-", sep = ""))
+    	new <- vector()
     
-    object <- f(object, changes[[change]])
+    	for(i in 1:length(object))
+    		new <- c(new, as.POSIXct(f(object[i], changes[[change]])))
+    
+		class(new) <- c("POSIXt", "POSIXct")
+		object <- new
+	}
+  }
+  object
+}
+
+
+update.Date <- function(object, ...) {
+	todo <- list(...)
+	names(todo) <- standardise_date_names(names(todo))
+	
+	if ("hour" %in% names(todo) | 
+		"minute" %in% names(todo) | 
+		"second" %in% names(todo))
+			return(update.POSIXt(object,...))
+
+	changes <- as.list(list(year = todo$year, 
+    	month = todo$month, 
+    	week = todo$week,
+    	day = todo$day, 
+    	yday = todo$yday,
+    	wday = todo$wday,
+    	mday = todo$mday, 
+    	tz = todo$tz))  
+  
+  for(change in names(changes)) {
+  	if(!is.null(changes[[change]])){
+   		f <- match.fun(paste(change, "<-", sep = ""))
+    	new <- vector()
+    
+    	for(i in 1:length(object))
+    		new <- c(new, f(object[i], changes[[change]]))
+    
+		class(new) <- c("Date")
+		object <- new
+	}
   }
   object
 }
