@@ -187,7 +187,7 @@ add_number_to_interval <-function(int, num){
 			add_duration_to_date(e2, new_duration(secs = e1))
 		else if (is.period(e2))
 			add_number_to_period(e2, e1)
-		else if (is.duration(e2))
+		else if (is.difftime(e2))
 			add_number_to_duration(e2, e1)
 		else if (is.interval(e2))
 			add_number_to_interval(e2, e1)	
