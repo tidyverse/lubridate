@@ -1,5 +1,8 @@
 new_period <- function(...) {
   pieces <- data.frame(...)
+  if(any(trunc(pieces) - pieces != 0))
+  	stop("periods must have integer values", call. = F)
+  	
   names(pieces) <- standardise_date_names(names(pieces))
   defaults <- data.frame(
     second = 0, minute = 0, hour = 0, day = 0, week = 0, 
@@ -8,6 +11,9 @@ new_period <- function(...) {
   
   pieces <- cbind(pieces, defaults[setdiff(names(defaults), names(pieces))])
   pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")] 
+  
+  pieces$day <- pieces$day + pieces$week * 7
+  pieces <- pieces[,-3]
   
   structure(pieces, class = c("period", "data.frame"))
 }
@@ -21,6 +27,8 @@ months <-  function(x = 1) new_period(month = x)
 years <-   function(x = 1) new_period(year = x)
 
 format.period <- function(per, ...){
+	per <- per[which(per != 0)]
+	if (length(per) == 0) return("0 seconds")
 	singular <- names(per)
     plural <- paste(singular, "s", sep = "")
     
@@ -66,18 +74,18 @@ add_period_to_date <- function(date, period){
 	sums <- data.frame(
 		year = year(date) + period$year,
 		month = month(date) + period$month,
-		day = yday(date) + period$day,
+		mday = mday(date) + period$day,
 		hour = hour(date) + period$hour,
 		minute = minute(date) + period$minute,
 		second = second(date) + period$second
 	)
-	
+		
 	sums <- cbind(date, sums)
 	names(sums)[1] <- ""
 	
 	newdate <- mlply(sums, update)
 	attributes(newdate) <- NULL
-	newdate
+	structure(unlist(newdate), class = class(newdate[[1]]))
 }
 
 add_duration_to_date <- function(date, duration) {
@@ -112,12 +120,12 @@ add_duration_to_interval <- function(int, dur){
 	int
 }
 	
-add_period_to_interval <- function(int, per)
+add_period_to_interval <- function(int, per){
 	int$end <- int$end + per
 	int
 }
 
-add_number_to_interval <-function(int, num)
+add_number_to_interval <-function(int, num){
 	message("numeric coerced to duration in seconds")
 	int$end <- int$end + as.duration(num)
 	int
@@ -173,7 +181,7 @@ add_number_to_interval <-function(int, num)
 			add_duration_to_interval(e1, e2)	
 		else
 			add_number_to_interval(e1, e2)
-	
+	}
 	else if (is.numeric(e1)) {
 		if (is.instant(e2))
 			add_duration_to_date(e2, new_duration(secs = e1))
@@ -188,17 +196,61 @@ add_number_to_interval <-function(int, num)
 	else stop("Unknown object class")
 }
 
-"*.period" <- "*.duration" <- "*.interval" <- function(e1, e2){
+"*.period" <- "*.interval" <- function(e1, e2){
     if (is.timespan(e1) && is.timespan(e2)) 
     	stop("cannot multiply time span by time span")
-    base::'*'(e1, e2)
+    else if (is.period(e1))
+    	multiply_period_by_number(e1, e2)
+    else if (is.period(e2))
+    	multiply_period_by_number(e2, e1)
+    else if (is.interval(e1))
+    	multiply_interval_by_number(e1, e2)
+    else if (is.interval(e2))
+    	multiply_interval_by_number(e2, e1)
+    else base::'*'(e1, e2)
 }  
 
-"/.period" <- "/.duration" <- "/.interval" <- function(e1, e2){
+multiply_period_by_number <- function(per, num){
+	new_period(
+		year = per$year * num,
+		month = per$month * num,
+		day = per$day * num,
+		hour = per$hour * num,
+		minute = per$minute * num,
+		second = per$second * num
+	)
+}
+
+multiply_interval_by_number <- function(int, num){
+	diff <- difftime(int$end, int$start) * diff
+    new_interval(int$start, int$start + diff)
+}
+
+"/.period" <- "/.interval" <- function(e1, e2){
  	if (is.timespan(e2)) 
-  		stop( 'second argument of / cannot be a timespan)
-  	base::'*'(e1, e2)
+  		stop( "second argument of / cannot be a timespan")
+  	else if (is.period(e1)){
+    	divide_period_by_number(e1, e2)
+    else if (is.interval(e1)){
+    	divide_interval_by_number(e1, e2)
+    else base::'/'(e1, e2)
 }  
+
+divide_period_by_number <- function(per, num){
+	new_period(
+		year = per$year / num,
+		month = per$month / num,
+		day = per$day / num,
+		hour = per$hour / num,
+		minute = per$minute / num,
+		second = per$second / num
+	)
+}
+
+divide_interval_by_number <- function(int, num){
+	diff <- difftime(int$end, int$start) / num
+    new_interval(int$start, int$start + diff)
+}
 
 
 "-.period" <- "-.POSIXt" <- "-.difftime" <- "-.interval" <- "-.Date" <- function(e1, e2){
