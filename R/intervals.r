@@ -36,9 +36,22 @@ newper
 }
 
 as.period.difftime <- function(x, periods)
-	stop("no unique mapping exists between difftimes and periods", call. = F)
+	stop("no unique mapping exists between durations (difftimes) and periods", call. = F)
 	
 as.interval <- function(x, origin){
 	origin <- as.POSIXct(origin)
 	new_interval(origin, origin + x)
 }
+
+as.duration <- function(x)
+	UseMethod(as.duration)
+	
+as.duration.period <- function(x)
+	stop("no unique mapping exists between durations and periods.", call. = F)
+	
+as.duration.interval <- function(x)
+	difftime(x$end, x$start)
+
+as.duration.default <- function(x)
+	make_difftime(x)
+	
