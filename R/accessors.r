@@ -1009,14 +1009,26 @@ pm <- function(x) !am(x)
 }
 
 "month<-.default" <- function(x, value){
-	DST.months(x, ISOdatetime(
+	new <- ISOdatetime(
 		year(x) + (value - 1) %/% 12,  
 		(value - 1) %% 12 + 1, 
 		mday(x), 
 		hour(x), 
 		minute(x), 
 		second(x), 
-		tz(x)))
+		tz(x))
+	
+	warn <- FALSE
+	
+	while (is.na(new)){
+		warn <- TRUE
+		new <- Recall(x - days(1), value)
+	}
+	
+	if(warn)
+		warning("Non-existant date. Defaulting to previous day.", call. = F)
+		
+	DST.months(x, new)
 }
 
 "month<-.Date" <- "month<-.chron" <- "month<-.yearmon" <- "month<-.timeDate" <- function(x, value){
