@@ -26,15 +26,25 @@ weeks <-   function(x = 1) new_period(week = x)
 months <-  function(x = 1) new_period(month = x)
 years <-   function(x = 1) new_period(year = x)
 
-format.period <- function(per, ...){
-	per <- per[which(per != 0)]
-	if (length(per) == 0) return("0 seconds")
-	singular <- names(per)
-    plural <- paste(singular, "s", sep = "")
+format.period <- function(period, ...){
+	show <- vector(mode = "character")
+	for (i in 1:nrow(period)){
+		per <- period[i,]
+	
+		per <- per[which(per != 0)]
+		if (length(per) == 0) show[i] <- "0 seconds"
+		
+		else{
+			singular <- names(per)
+	   		plural <- paste(singular, "s", sep = "")
     
-    IDs <-paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
-    if(length(IDs) == 1) return(IDs)
-    paste(paste(IDs[-length(IDs)], collapse = ", "), IDs[length(IDs)],sep = " and ")
+	    	IDs <-paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
+ 		   	if(length(IDs) == 1) show[i] <- IDs
+    		else
+    			show[i] <- paste(paste(IDs[-length(IDs)], collapse = ", "), IDs[length(IDs)],sep = " and ")
+    	}
+    }
+    paste(show, collapse = "   ")
 }
 
 print.period <- function(x, ...) {
