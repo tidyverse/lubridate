@@ -51,11 +51,20 @@ new_duration <- function(...){
 	names(pieces) <- standardise_difftime_names(names(pieces))
 	dur <- structure(as.numeric(pieces[1]), class = "difftime", units = names(pieces)[1])
 	
-	for( i in 2:length(pieces))
-		dur <- dur + structure(as.numeric(pieces[i]), class = "difftime", units = names(pieces)[i])
+	if(length(pieces) > 1){
+		for( i in 2:length(pieces))
+			dur <- dur + structure(as.numeric(pieces[i]), class = "difftime", units = names(pieces)[i])
+	}
 	
 	make_difftime(as.double(dur, "secs"))
 }
+
+eseconds <- function(x = 1) new_duration(second = x)
+eminutes <- function(x = 1) new_duration(minute = x)
+ehours <-   function(x = 1) new_duration(hour = x)
+edays <-    function(x = 1) new_duration(day = x)  
+eweeks <-   function(x = 1) new_duration(week = x)
+
 
 standardise_difftime_names <- function(x) {
   dates <- c("secs", "mins", "hours", "days", "weeks")
@@ -90,8 +99,7 @@ add_period_to_date <- function(date, period){
 
 add_duration_to_date <- function(date, duration) {
 	if(is.Date(date))
-		stop("duration does not support date class")
-		#return(date + as.double(duration, "days"))
+		return(date + as.double(duration, "days"))
 	base::'+.POSIXt'(date, duration)
 }
 
@@ -140,8 +148,14 @@ add_number_to_interval <-function(int, num){
 			stop("binary '+' not defined for adding dates together")
 		if (is.period(e2))
 			add_period_to_date(e1, e2)
-		else 
+		else if (is.difftime(e2)) 
 			add_duration_to_date(e1, e2)
+		else if (is.POSIXt(e1))
+			structure(unclass(as.POSIXct(e1)) + e2, class = c("POSIXt", "POSIXct"))
+		else if (is.Date(e1))
+			structure(unclass(e1) + e2, class = "Date")
+		else
+			base::'+'(e1,e2)
 	}
 
 	else if (is.period(e1)) {
@@ -183,8 +197,10 @@ add_number_to_interval <-function(int, num){
 			add_number_to_interval(e1, e2)
 	}
 	else if (is.numeric(e1)) {
-		if (is.instant(e2))
-			add_duration_to_date(e2, new_duration(secs = e1))
+		if (is.POSIXt(e2))
+			structure(unclass(as.POSIXct(e2)) + e1, class = c("POSIXt", "POSIXct"))
+		else if (is.Date(e1))
+			structure(unclass(e2) + e1, class = "Date")
 		else if (is.period(e2))
 			add_number_to_period(e2, e1)
 		else if (is.difftime(e2))
@@ -229,9 +245,9 @@ multiply_interval_by_number <- function(int, num){
 "/.period" <- "/.interval" <- function(e1, e2){
  	if (is.timespan(e2)) 
   		stop( "second argument of / cannot be a timespan")
-  	else if (is.period(e1)){
+  	else if (is.period(e1))
     	divide_period_by_number(e1, e2)
-    else if (is.interval(e1)){
+    else if (is.interval(e1))
     	divide_interval_by_number(e1, e2)
     else base::'/'(e1, e2)
 }  

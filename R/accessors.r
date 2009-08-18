@@ -219,7 +219,7 @@ wday.fts <- function(x)
 wday.irts <- function(x)
 	as.POSIXlt(x$time, tz = "GMT")$wday + 1
 	
-mday <- function(x) 
+mday <- day <- function(x) 
 	UseMethod("mday")
 	
 mday.default <- function(x)
@@ -872,22 +872,30 @@ pm <- function(x) !am(x)
 		minute(x), 
 		second(x), 
 		tz(x))
+		
+	warn <- FALSE
 	
-	while (is.na(new)){
-		lubridate.warn <<- TRUE
-		value <- value - 1
-		new <- ISOdatetime(
-			year(x),  
-			month(x), 
-			value, 
-			hour(x), 
-			minute(x), 
-			second(x), 
-			tz(x))
+	for (i in 1:length(new)){
+		while (is.na(new[i])){
+			warn <- TRUE
+			value <- value - 1
+			new[i] <- ISOdatetime(
+				year(x),  
+				month(x), 
+				value, 
+				hour(x), 
+				minute(x), 
+				second(x), 
+				tz(x))
+		}
 	}
 	
-	DST.months(x, new)
+	if (warn)
+		message("Undefined date-time. Defaulting to last previous real date-time.")
+		
+	new
 }
+
 
 "mday<-.Date" <- "mday<-.chron" <- "mday<-.timeDate" <-function(x, value){
 	date <- "mday<-.default"(x,value)
@@ -1041,13 +1049,19 @@ pm <- function(x) !am(x)
 	
 	warn <- FALSE
 	
-	while (is.na(new)){
-		lubridate.warn <<- TRUE
-		new <- "month<-.default"(x - days(1), value)
+	for (i in 1:length(new)){
+		while (is.na(new[i])){
+			warn <- TRUE
+			new[i] <- "month<-.default"(x - days(1), value)
+		}
 	}
 		
-	DST.months(x, new)
+	if (warn)
+		message("Undefined date-time. Defaulting to last previous real date-time.")
+		
+	new
 }
+
 
 "month<-.Date" <- "month<-.chron" <- "month<-.yearmon" <- "month<-.timeDate" <- function(x, value){
 	date <- "month<-.default"(x,value)
@@ -1131,20 +1145,27 @@ pm <- function(x) !am(x)
 		second(x), 
 		tz(x))
 	
-	while (is.na(new)){
-		lubridate.warn <<- TRUE
-		x <- x - days(1)
-		new <- ISOdatetime(
-			value,  
-			month(x), 
-			mday(x), 
-			hour(x), 
-			minute(x), 
-			second(x), 
-			tz(x))
+	warn <- FALSE
+	
+	for (i in 1:length(new)){
+		while (is.na(new[i])){
+			warn <- TRUE
+			x <- x - days(1)
+			new[i] <- ISOdatetime(
+				value,  
+				month(x), 
+				mday(x), 
+				hour(x), 
+				minute(x), 
+				second(x), 
+				tz(x))
+		}
 	}
 		
-	DST.months(x, new)
+	if (warn)
+		message("Undefined date-time. Defaulting to last previous real date-time.")
+		
+	new
 }
 
 
@@ -1330,9 +1351,8 @@ pm <- function(x) !am(x)
 #'
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
-update.POSIXt <- function(object, ...) {
+update.Date <- update.POSIXt <- function(object, ...) {
   object <- as.POSIXct(object)
-  lubridate.warn <<- FALSE
 
   todo <- list(...)
   names(todo) <- standardise_date_names(names(todo))
@@ -1349,55 +1369,30 @@ update.POSIXt <- function(object, ...) {
     second = todo$second,
     tz = todo$tz))  
   
+  which.null <- function(x){
+	nulls <- rep(FALSE, length(x))
+	for (i in 1:length(x))
+		if( is.null(x[[i]]) ) nulls[i] <- TRUE
+	nulls
+  }
+  
+  changes <- changes[!which.null(changes)]
+  
   for(change in names(changes)) {
-  	if(!is.null(changes[[change]])){
-   		f <- match.fun(paste(change, "<-", sep = ""))
+  	f1 <- match.fun(change)
+  	
+  	if(any(changes[[change]] != f1(object))){
+   		f2 <- match.fun(paste(change, "<-", sep = ""))
     	new <- vector()
     
     	for(i in 1:length(object))
-    		new <- c(new, as.POSIXct(f(object[i], changes[[change]])))
+    		new <- c(new, f2(object[i], changes[[change]]))
     
 		class(new) <- c("POSIXt", "POSIXct")
 		object <- new
 	}
   }
   
-  	if(lubridate.warn)
-		warning("Non-existant date. Defaulting to last previous real date.", call. = F)
-  object
-}
-
-
-update.Date <- function(object, ...) {
-	todo <- list(...)
-	names(todo) <- standardise_date_names(names(todo))
-	
-	if ("hour" %in% names(todo) | 
-		"minute" %in% names(todo) | 
-		"second" %in% names(todo))
-			return(update.POSIXt(object,...))
-
-	changes <- as.list(list(year = todo$year, 
-    	month = todo$month, 
-    	week = todo$week,
-    	day = todo$day, 
-    	yday = todo$yday,
-    	wday = todo$wday,
-    	mday = todo$mday, 
-    	tz = todo$tz))  
-  
-  for(change in names(changes)) {
-  	if(!is.null(changes[[change]])){
-   		f <- match.fun(paste(change, "<-", sep = ""))
-    	new <- vector()
-    
-    	for(i in 1:length(object))
-    		new <- c(new, f(object[i], changes[[change]]))
-    
-		class(new) <- c("Date")
-		object <- new
-	}
-  }
   object
 }
 
@@ -1500,8 +1495,7 @@ recognize <- function(x){
 DST <- function(date1, date2){
 	date1 <- as.POSIXlt(date1)
 	date2 <- as.POSIXlt(date2)
-	if(getOption("DST") == "exact")
-		return(date2)
+
 	if(dst(date1) < 0 || dst(date2) < 0)
 		return(date2)
 	if(is.Date(date2))
@@ -1512,8 +1506,7 @@ DST <- function(date1, date2){
 DST.months <- function(date1, date2){
 	date1 <- as.POSIXlt(date1)
 	date2 <- as.POSIXlt(date2)
-	if(getOption("DST") != "exact")
-		return(date2)
+
 	if(dst(date1) < 0 || dst(date2) < 0)
 		return(date2)
 	if(is.Date(date2))
