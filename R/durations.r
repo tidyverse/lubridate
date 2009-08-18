@@ -38,7 +38,7 @@
 #'
 #' months(6) + days(1)
 #' # 6 months and 1 day
-NULL
+NULL - REWRITE
 
 #' Create a duration object.
 #'
@@ -67,33 +67,17 @@ NULL
 #' # -1 years
 #' new_duration(year = 0.5)
 #' # 6 months
-new_duration <- function(...) {
-  pieces <- list(...)
-  names(pieces) <- standardise_date_names(names(pieces))
-
-  defaults <- list(
-    second = 0, minute = 0, hour = 0, day = 0, week = 0, 
-    month = 0, year = 0
-  )
-  
-  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
+new_duration <- function(...){
+	pieces <- list(...)
+	names(pieces) <- standardise_difftime_names(names(pieces))
+	dur <- structure(as.numeric(pieces[1]), class = "difftime", units = names(pieces)[1])
 	
-	dur1 <- 50000000000 + 
-	  pieces$second + 
-	  pieces$minute * 60 + 
-	  pieces$hour * 3600 + 
-	  pieces$day * 86400 + 
-	  pieces$week * 604800 
+	if(length(pieces) > 1){
+		for( i in 2:length(pieces))
+			dur <- dur + structure(as.numeric(pieces[i]), class = "difftime", units = names(pieces)[i])
+	}
 	
-	if (any(dur1 >= 10^11) || any(dur1 < 0))
-		stop("seconds overflow: see 'duration' documentation")
-	
-	dur2 <- 10 ^ 11 * pieces$month + 12 * 10 ^ 11 * pieces$year
-	
-	if (any(dur2 %% 10^11 != 0))
-		stop("durations do not support partial months")
-	
-	structure(dur1 + dur2, class = "duration")
+	make_difftime(as.double(dur, "secs"))
 }
 
 #' Change an object to a duration class.
@@ -119,32 +103,22 @@ new_duration <- function(...) {
 #' # 1 hour, 1 minute and 10 seconds
 #' as.duration(60*60*24*366)
 #' # 52 weeks and 2 days
-as.duration <- function (x, ...) UseMethod("as.duration")
+as.duration <- function(x)
+	UseMethod(as.duration)
+	
+as.duration.period <- function(x)
+	stop("no unique mapping exists between durations and periods.", call. = F)
+	
+as.duration.interval <- function(x)
+	difftime(x$end, x$start)
 
-as.duration.difftime <- function(x, ...){
-  new_duration(second = as.numeric(x, units = "secs"))
-}
-
-as.duration.default <- function(x, ...){
-  message("Numeric coerced to seconds")
-  new_duration(second = x)
-}
-
-as.duration.duration <- function(x, ...) {
-  x
-}
+as.duration.default <- function(x)
+	make_difftime(x)
 
 #' Internal function.
 #'
 #' @keyword internal manip classes
 as.POSIXt <- function(x) as.POSIXlt(x)
-
-#' Internal function. Concatenates durations.
-#'
-#' @keywords internal list
-c.duration <- function(...) {
-  structure(do.call(rbind, list(...)), class = "duration")
-}
 
 #' Quickly create duration objects.
 #'
@@ -186,17 +160,11 @@ c.duration <- function(...) {
 #' # "2012-08-04"
 #' y - m
 #' # 11 months
-seconds <- function(x = 1) new_duration(x)
-minutes <- function(x = 1) new_duration(minute = x)
-hours <-   function(x = 1) new_duration(hour = x)
-days <-    function(x = 1) new_duration(day = x)  
-weeks <-   function(x = 1) new_duration(week = x)
-months <-  function(x = 1) new_duration(month = x)
-years <-   function(x = 1) new_duration(year = x)
-y <- years(1)
-m <- months(1)
-w <- weeks(1)
-d <- days(1)
+eseconds <- function(x = 1) new_duration(second = x)
+eminutes <- function(x = 1) new_duration(minute = x)
+ehours <-   function(x = 1) new_duration(hour = x)
+edays <-    function(x = 1) new_duration(day = x)  
+eweeks <-   function(x = 1) new_duration(week = x)
 
 #' Is x a date-time object?
 #'
@@ -220,18 +188,9 @@ is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"
 #' @examples
 #' is.timeperiod(as.Date("2009-08-03")) # FALSE
 #' is.timeperiod(new_duration(second = 1)) # TRUE
-is.timeperiod <- function(x) inherits(x, c("duration", "difftime"))
+is.timespan <- function(x) inherits(x,c("period", "difftime", "interval"))
 
-#' Is x a duration object?
-#'
-#' @param x an R object   
-#' @return TRUE if x is a duration object, FALSE otherwise.
-#' @seealso \code{link{is.timepoint}, link{is.timeperiod}, link{is.difftime}, link{is.POSIXt}, link{is.Date}}
-#' @keywords logic chron
-#' @examples
-#' is.duration(as.Date("2009-08-03")) # FALSE
-#' is.duration(new_duration(second = 1)) # TRUE
-is.duration <- function(x) inherits(x, "duration")
+
 
 #' Is x a POSIXct or POSIXlt object?
 #'
@@ -245,7 +204,7 @@ is.duration <- function(x) inherits(x, "duration")
 #' is.POSIXt(as.POSIXct("2009-08-03")) # TRUE
 is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 
-#' Is x a difftime object?
+#' Is x a duration (difftime) object?
 #'
 #' @param x an R object   
 #' @return TRUE if x is a difftime object, FALSE otherwise.
@@ -254,7 +213,7 @@ is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 #' @keywords logic chron
 #' is.difftime(as.Date("2009-08-03")) # FALSE
 #' is.difftime(difftime(Sys.time() + 5, Sys.time())) # TRUE
-is.difftime <- function(x) inherits(x, "difftime")
+is.difftime <- is.duration <- function(x) inherits(x, "difftime")
 
 #' Is x a Date object?
 #'
@@ -267,28 +226,21 @@ is.difftime <- function(x) inherits(x, "difftime")
 #' is.Date(difftime(Sys.time() + 5, Sys.time())) # FALSE
 is.Date <- function(x) inherits(x, "Date")
 
-#' Internal function. 
-#'
-#' @keywords internal utilities
-as.data.frame.duration <- function (x, row.names = NULL, optional = FALSE, ..., nm = paste(deparse(substitute(x), 
-    width.cutoff = 500L), collapse = " ")) 
-{
-    force(nm)
-    nrows <- length(x)
-    if (is.null(row.names)) {
-        if (nrows == 0L) 
-            row.names <- character(0L)
-        else if (length(row.names <- names(x)) == nrows && !any(duplicated(row.names))) {
-        }
-        else row.names <- .set_row_names(nrows)
-    }
-    names(x) <- NULL
-    value <- list(x)
-    if (!optional) 
-        names(value) <- nm
-    attr(value, "row.names") <- row.names
-    class(value) <- "data.frame"
-    value
+is.period <- function(x) inherits(x,"period")
+is.instant <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
+is.interval <- function(x) inherits(x, c("interval"))
+
+
+standardise_difftime_names <- function(x) {
+  dates <- c("secs", "mins", "hours", "days", "weeks")
+  y <- gsub("(.)s$", "\\1", x)
+  y <- substr(y, 1, 3)
+  res <- dates[pmatch(y, dates)]
+  if (any(is.na(res))) {
+    stop("Invalid difftime name: ", paste(x[is.na(res)], collapse = ", "), 
+      call. = FALSE)
+  }
+  res
 }
 
-	
+

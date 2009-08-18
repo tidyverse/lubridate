@@ -48,68 +48,137 @@ NULL
 #' Sys.Date + x
 #' x + difftime(Sys.time() + 3600, Sys.time())
 #' x + x
-"+.duration" <- "+.POSIXt" <- "+.difftime" <- "+.Date" <- function(e1, e2){
-	
-	if (is.timepoint(e1)) {
-		if (is.timepoint(e2))
-			stop("binary '+' not defined for adding dates together")
-		else
-			add_duration_to_date(e1, e2)
-	}
-
-	else if (is.timeperiod(e1)) {
-		if (is.timepoint(e2))
-			add_duration_to_date(e2, e1)
-		else if (is.timeperiod(e2))
-			add_duration_to_duration(e1, e2)
-		else
-			add_number_to_duration(e1, e2)
-	}
-
-	else if (is.numeric(e1)) {
-		if (is.timepoint(e2))
-			add_duration_to_date(e2, e1)
-		else if (is.timeperiod(e2))
-			add_number_to_duration(e2, e1)
-		else stop("Unknown object class")
-	}
-}
 
 
-add_duration_to_date <- function(date, timeperiod) {
-	dur <- as.duration(timeperiod)
-	
-	days <- just_seconds(dur) %/% 86400
-	seconds <- just_seconds(dur) %% 86400
-	
-	second(date) <- second(date) + seconds
-	yday(date) <- yday(date) + days
-	month(date) <- month(date) + just_months(dur)
+
+add_period_to_date <- function(date, period){
+
+	year(date) <- year(date) + period$year
+	month(date) <- month(date) + period$month
+	mday(date) <- mday(date) + period$day
+	hour(date) <- hour(date) + period$hour
+	minute(date) <- minute(date) + period$minute
+	second(date) <- second(date) + period$second
+
 	date
 }
 
-
-add_duration_to_duration <- function(period1, period2) {
-	dur1 <- as.duration(period1)
-	dur2 <- as.duration(period2)
-	
-	seconds <- just_seconds(dur1) + just_seconds(dur2)
-	months <- just_months(dur1) + just_months(dur2)
-	
-	new_duration(second = seconds, month = months)
+add_duration_to_date <- function(date, duration) {
+	if(is.Date(date))
+		return(date + as.double(duration, "days"))
+	base::'+.POSIXt'(date, duration)
 }
 
+add_number_to_duration <- function(dur, num)
+	make_difftime(num + as.double(dur, "secs"))
 
-add_number_to_duration <- function(dur, num){
-	if (is.difftime(dur)){
-		num <- structure(num, units = units(dur), class = "difftime")
-		make_difftime( as.numeric(num, units = "secs") +  as.numeric(dur, units = "secs"))
+add_number_to_period <- function(per, num){
+	message("numeric coerced to seconds")
+	per$second <- per$second + num
+	per
+}
+	
+add_period_to_period <- function(per1, per2)
+	per1 + per2
+	
+add_duration_to_period <- function(dur, per){
+	stop("incompatible time spans. See 'interval' documentation.")
+	# per + seconds(as.double(dur, "secs"))
+}
+	
+add_duration_to_duration <- function(dur1, dur2)
+	make_difftime(as.double(dur1, "secs") + as.double(dur2, "secs"))
+
+add_duration_to_interval <- function(int, dur){
+	int$end <- int$end + dur
+	int
+}
+	
+add_period_to_interval <- function(int, per){
+	int$end <- int$end + per
+	int
+}
+
+add_number_to_interval <-function(int, num){
+	message("numeric coerced to duration in seconds")
+	int$end <- int$end + as.duration(num)
+	int
+}
+
+"+.period" <- "+.POSIXt" <- "+.difftime" <- "+.interval" <- "+.Date" <- function(e1, e2){
+	
+	if (is.instant(e1)) {
+		if (is.instant(e2))
+			stop("binary '+' not defined for adding dates together")
+		if (is.interval(e2))
+			stop("binary '+' not defined for adding dates together")
+		if (is.period(e2))
+			add_period_to_date(e1, e2)
+		else if (is.difftime(e2)) 
+			add_duration_to_date(e1, e2)
+		else if (is.POSIXt(e1))
+			structure(unclass(as.POSIXct(e1)) + e2, class = c("POSIXt", "POSIXct"))
+		else if (is.Date(e1))
+			structure(unclass(e1) + e2, class = "Date")
+		else
+			base::'+'(e1,e2)
 	}
-	else if (is.duration(dur))
-		add_duration_to_duration(dur, num)
-	else
-		stop("unrecognized time period class")
+
+	else if (is.period(e1)) {
+		if (is.instant(e2))
+			add_period_to_date(e2, e1)
+		else if (is.period(e2))
+			add_period_to_period(e1, e2)
+		else if (is.difftime(e2))
+			add_duration_to_period(e1, e2)
+		else if (is.interval(e2))
+			add_period_to_interval(e2, e1)
+		else
+			add_number_to_period(e1, e2)
+	}
+
+	else if (is.difftime(e1)) {
+		if (is.instant(e2))
+			add_duration_to_date(e2, e1)
+		else if (is.period(e2))
+			add_duration_to_period(e2, e1)
+		else if (is.difftime(e2))
+			add_duration_to_duration(e1, e2)
+		else if (is.interval(e2))
+			add_duration_to_interval(e2, e1)
+		else
+			add_number_to_duration(e1, e2)
+	}
+	
+	else if (is.interval(e1)){
+		if (is.instant(e2))
+			stop("binary '+' not defined for adding dates together")
+		if (is.interval(e2))
+			stop("binary '+' not defined for adding dates together")
+		else if (is.period(e2))
+			add_period_to_interval(e1, e2)
+		else if (is.duration(e2))
+			add_duration_to_interval(e1, e2)	
+		else
+			add_number_to_interval(e1, e2)
+	}
+	else if (is.numeric(e1)) {
+		if (is.POSIXt(e2))
+			structure(unclass(as.POSIXct(e2)) + e1, class = c("POSIXt", "POSIXct"))
+		else if (is.Date(e1))
+			structure(unclass(e2) + e1, class = "Date")
+		else if (is.period(e2))
+			add_number_to_period(e2, e1)
+		else if (is.difftime(e2))
+			add_number_to_duration(e2, e1)
+		else if (is.interval(e2))
+			add_number_to_interval(e2, e1)	
+		else stop("Unknown object class")
+	}
+	else stop("Unknown object class")
 }
+
+
 
 #' Makes a difftime object from given number of seconds 
 #'
@@ -152,22 +221,34 @@ make_difftime <- function (x) {
 #' x <- new_duration(day = 1)
 #' x * 3
 #' 3 * x
-"*.duration" <- function(e1, e2){
-    if (is.duration(e1) && is.duration(e2)) {
-    NA
-  } else if (is.duration(e1)){
-    multiply_duration_by_numeric(e2, e1)
-  } else if (is.duration(e2)) {
-    multiply_duration_by_numeric(e1, e2)
-  } else {
-    base::'*'(e1, e2)
-  }
+"*.period" <- "*.interval" <- function(e1, e2){
+    if (is.timespan(e1) && is.timespan(e2)) 
+    	stop("cannot multiply time span by time span")
+    else if (is.period(e1))
+    	multiply_period_by_number(e1, e2)
+    else if (is.period(e2))
+    	multiply_period_by_number(e2, e1)
+    else if (is.interval(e1))
+    	multiply_interval_by_number(e1, e2)
+    else if (is.interval(e2))
+    	multiply_interval_by_number(e2, e1)
+    else base::'*'(e1, e2)
 }  
 
-multiply_duration_by_numeric <- function(num, dur){
-	seconds <- just_seconds(dur)
-	months <- just_months(dur)
-	new_duration(month = num * months, second = num * seconds)
+multiply_period_by_number <- function(per, num){
+	new_period(
+		year = per$year * num,
+		month = per$month * num,
+		day = per$day * num,
+		hour = per$hour * num,
+		minute = per$minute * num,
+		second = per$second * num
+	)
+}
+
+multiply_interval_by_number <- function(int, num){
+	diff <- difftime(int$end, int$start) * num
+	new_interval(int$start, int$start + diff)
 }
 
 
@@ -184,22 +265,30 @@ multiply_duration_by_numeric <- function(num, dur){
 #' x <- new_duration(day = 1)
 #' x / 2
 #' 2 / x
-"/.duration" <- function(e1, e2){
-    if (is.duration(e1) && is.duration(e2)) {
-    NA
-  } else if (is.duration(e1)){
-    divide_duration_by_numeric(e2, e1)
-  } else if (is.duration(e2)) {
-    divide_duration_by_numeric(e1, e2)
-  } else {
-    base::'*'(e1, e2)
-  }
+"/.period" <- "/.interval" <- function(e1, e2){
+ 	if (is.timespan(e2)) 
+  		stop( "second argument of / cannot be a timespan")
+  	else if (is.period(e1))
+    	divide_period_by_number(e1, e2)
+    else if (is.interval(e1))
+    	divide_interval_by_number(e1, e2)
+    else base::'/'(e1, e2)
 }  
 
-divide_duration_by_numeric <- function(num, dur){
-	seconds <- just_seconds(dur)/num
-	months <- just_months(dur)/num
-	new_duration(month = months, second = seconds)
+divide_period_by_number <- function(per, num){
+	new_period(
+		year = per$year / num,
+		month = per$month / num,
+		day = per$day / num,
+		hour = per$hour / num,
+		minute = per$minute / num,
+		second = per$second / num
+	)
+}
+
+divide_interval_by_number <- function(int, num){
+	diff <- difftime(int$end, int$start) / num
+    new_interval(int$start, int$start + diff)
 }
 
   
@@ -225,40 +314,17 @@ divide_duration_by_numeric <- function(num, dur){
 #' -x
 #' x - x
 #' as.Date("2009-08-02") - as.Date("2008-11-25")
-"-.duration" <- "-.POSIXt" <- "-.difftime" <- "-.Date" <- function(e1, e2){
+"-.period" <- "-.POSIXt" <- "-.difftime" <- "-.interval" <- "-.Date" <- function(e1, e2){
 	if (missing(e2))
 		-1 * e1
-	else if(is.timepoint(e1) && is.timepoint(e2))
-		as.duration(difftime(e1, e2))
-	else if (is.POSIXt(e1) && !is.timeperiod(e2))
+	else if(is.instant(e1) && is.instant(e2))
+		new_interval(e1, e2)
+	else if (is.POSIXt(e1) && !is.timespan(e2))
 		structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct"))
 	else		
 		e1  + (-1 * e2)
 }
 
-#' returns the duration between two date-times. 
-#'
-#' get_duration returns the duration between two date-times, as measured by years, months, weeks, days, hours, minutes, and seconds. Because years and months are both relative units (e.g, the number of seconds in a month depends on which month it is) the get_duration output is also relative. To obtain a duration that uses only units with specific values, use regular subtraction methods. See \code{link{duration}} for more details. 
-#'
-#' @param e1 a date-time object
-#' @param e2 a date-time object
-#' @return a duration object
-#' @seealso \code{link{"+.duration"}, link{"*.duration"}, link{"/.duration"}}
-#' @keywords chron
-#' @ examples
-#' x <- as.Date("2009-08-02")  
-#' y <- as.Date("2008-11-25")
-#' get_duration(x,y)
-#' x - y
-get_duration <- function(date1, date2) {
-	months1 <- year(date1) * 12 + month(date1)
-	months2 <- year(date2) * 12 + month(date2)
-	
-	secs1 <- mday(date1)*3600*24 + hour(date1)*3600 + minute(date1)*60 + second(date1)
-	secs2 <- mday(date2)*3600*24 + hour(date2)*3600 + minute(date2)*60 + second(date2)
-	
-	new_duration(month = months1 - months2, second = secs1 - secs2)
 
-}
 
 
