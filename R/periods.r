@@ -80,21 +80,15 @@ standardise_difftime_names <- function(x) {
 
 
 add_period_to_date <- function(date, period){
-	sums <- data.frame(
-		year = year(date) + period$year,
-		month = month(date) + period$month,
-		mday = mday(date) + period$day,
-		hour = hour(date) + period$hour,
-		minute = minute(date) + period$minute,
-		second = second(date) + period$second
-	)
-		
-	sums <- cbind(date, sums)
-	names(sums)[1] <- ""
-	
-	newdate <- mlply(sums, update)
-	attributes(newdate) <- NULL
-	structure(unlist(newdate), class = class(newdate[[1]]))
+
+	year(date) <- year(date) + period$year
+	month(date) <- month(date) + period$month
+	mday(date) <- mday(date) + period$day
+	hour(date) <- hour(date) + period$hour
+	minute(date) <- minute(date) + period$minute
+	second(date) <- second(date) + period$second
+
+	date
 }
 
 add_duration_to_date <- function(date, duration) {

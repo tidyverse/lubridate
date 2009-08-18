@@ -864,38 +864,9 @@ pm <- function(x) !am(x)
 }
 
 "mday<-.default" <- function(x, value){
-	new <- ISOdatetime(
-		year(x),  
-		month(x), 
-		value, 
-		hour(x), 
-		minute(x), 
-		second(x), 
-		tz(x))
-		
-	warn <- FALSE
-	
-	for (i in 1:length(new)){
-		while (is.na(new[i])){
-			warn <- TRUE
-			value <- value - 1
-			new[i] <- ISOdatetime(
-				year(x),  
-				month(x), 
-				value, 
-				hour(x), 
-				minute(x), 
-				second(x), 
-				tz(x))
-		}
-	}
-	
-	if (warn)
-		message("Undefined date-time. Defaulting to last previous real date-time.")
-		
-	new
+	new <- as.POSIXct(x) - (mday(x) - value) * 3600 * 24
+	DST(x, new)
 }
-
 
 "mday<-.Date" <- "mday<-.chron" <- "mday<-.timeDate" <-function(x, value){
 	date <- "mday<-.default"(x,value)
@@ -1050,14 +1021,23 @@ pm <- function(x) !am(x)
 	warn <- FALSE
 	
 	for (i in 1:length(new)){
+		n <- 1
 		while (is.na(new[i])){
 			warn <- TRUE
-			new[i] <- "month<-.default"(x - days(1), value)
+			new[i] <- ISOdatetime(
+				year(x) + (value - 1) %/% 12,  
+				(value - 1) %% 12 + 1, 
+				mday(x) - n, 
+				hour(x), 
+				minute(x), 
+				second(x), 
+				tz(x))[i]
+			n <- n + 1
 		}
 	}
 		
 	if (warn)
-		message("Undefined date-time. Defaulting to last previous real date-time.")
+		message("Undefined date. Defaulting to last previous real day.")
 		
 	new
 }
@@ -1148,22 +1128,23 @@ pm <- function(x) !am(x)
 	warn <- FALSE
 	
 	for (i in 1:length(new)){
+		n <- 1
 		while (is.na(new[i])){
 			warn <- TRUE
-			x <- x - days(1)
 			new[i] <- ISOdatetime(
 				value,  
 				month(x), 
-				mday(x), 
+				mday(x) - n, 
 				hour(x), 
 				minute(x), 
 				second(x), 
-				tz(x))
+				tz(x))[i]
+			n <- n + 1
 		}
 	}
 		
 	if (warn)
-		message("Undefined date-time. Defaulting to last previous real date-time.")
+		message("Undefined date. Defaulting to last previous real day.")
 		
 	new
 }
