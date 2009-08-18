@@ -9,6 +9,16 @@ new_interval <- function(date1, date2){
 	structure(interval, class = c("interval", "data.frame"))
 }
 
+format.interval <- function(int,...){
+	x <- difftime(int$end, int$start)
+	paste(format(unclass(x),...), units(x), "beginning at", int$start)
+}
+
+
+print.interval <- function(x, ...) {
+  print(format(x), ..., quote = FALSE)
+}
+
 as.period <- function(x, periods)
 	UseMethod("as.period")
 	
