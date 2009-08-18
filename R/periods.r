@@ -242,8 +242,8 @@ multiply_period_by_number <- function(per, num){
 }
 
 multiply_interval_by_number <- function(int, num){
-	diff <- difftime(int$end, int$start) * diff
-    new_interval(int$start, int$start + diff)
+	diff <- difftime(int$end, int$start) * num
+	new_interval(int$start, int$start + diff)
 }
 
 "/.period" <- "/.interval" <- function(e1, e2){
