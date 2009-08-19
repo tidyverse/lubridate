@@ -11,7 +11,7 @@
 #'
 #' Period objects can be easily created with the helper functions \code{link{years}}, \code{link{months}}, \code{link{weeks}}, \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming.
 #'
-#' Intervals are time spans bound by two real date-times.  Intervals can be accurately converted to periods and durations. Since an interval is anchored to a fixed history of time, both the number of seconds that passed as well as the length of common time units during that history can be calculated. To accurately convert between periods and durations, a period or duration should first be converted to an interval. Subtracting two date times automatically creates an interval object. Intervals as the difftime between the two dates paired with the earlier, or beginning date. 
+#' Intervals are time spans bound by two real date-times.  Intervals can be accurately converted to periods and durations. Since an interval is anchored to a fixed history of time, both the number of seconds that passed as well as the length of common time units during that history can be calculated. To accurately convert between periods and durations, a period or duration should first be converted to an interval. Subtracting two date times automatically creates an interval object. Intervals display as the difftime between the two dates paired with the earlier, or beginning date. 
 #'
 #' @alias timespan timespans duration durations dur periods period interval intervals
 #' @seealso \code{link{new_duration}} for creating duration objects and \code{link{as.duration}} for converting objects into durations
@@ -114,7 +114,7 @@ new_duration <- function(...){
 
 #' Change an object to a duration (difftime).
 #'
-#' as.duration changes interval, period and numeric objects to duration objects, which are difftime objects. Numeric objects are changes to duration objects with the seconds unit equal to the numeric value. 
+#' as.duration changes interval, period and numeric objects to duration objects, which are difftime objects. Numeric objects are changed to duration objects with the seconds unit equal to the numeric value. 
 #'
 #' Durations are exact time measurements, but periods are relative time measurements. See \code{link{periods}}. The length of a period depends on when it occurs. Hence, a one to one mapping does not exist between durations and periods. When used with a period object, as.duration provides an inexact estimate of the length of the period; each time unit is assigned its most common number of seconds. Periods with a months unit cannot be coerced to durations because of the variability of month lengths. For an exact transformation, first transform the period to an interval with \code{link{as.interval}}.
 #'
@@ -122,7 +122,7 @@ new_duration <- function(...){
 #' @method as.duration default
 #' @method as.duration interval
 #' @aliases as.duration as.duration.default as.duration.period as.duration.interval
-#' @param x a interval, period, or numeric object   
+#' @param x an interval, period, or numeric object   
 #' @return a duration object
 #' @seealso \code{link{duration}, link{new_duration}}
 #' @keywords classes manip methods chron
@@ -133,10 +133,6 @@ new_duration <- function(...){
 #' # Time difference of 211.9583 days
 #' as.duration(10) # numeric
 #' # Time difference of 10 secs
-#' as.duration(3670)
-#' # 1 hour, 1 minute and 10 seconds
-#' as.duration(60*60*24*366)
-#' # 52 weeks and 2 days
 as.duration <- function(x)
 	UseMethod("as.duration")
 	
