@@ -202,10 +202,10 @@ make_difftime <- function (x) {
     else units <- "weeks"
     
     switch(units, secs = structure(x, units = "secs", class = "difftime"), 
-    mins = structure(x/60, units = "mins", class = "difftime"), 
-    hours = structure(x/3600, units = "hours", class = "difftime"), 
-    days = structure(x/86400, units = "days", class = "difftime"), 
-    weeks = structure(x/(604800), units = "weeks", class = "difftime"))
+    	mins = structure(x/60, units = "mins", class = "difftime"), 
+    	hours = structure(x/3600, units = "hours", class = "difftime"), 
+    	days = structure(x/86400, units = "days", class = "difftime"), 
+    	weeks = structure(x/(604800), units = "weeks", class = "difftime"))
 }
 
 #' Multiplication for the duration class. 

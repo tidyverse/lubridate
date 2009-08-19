@@ -75,33 +75,42 @@ NULL
 
 #' Create a duration object.
 #'
-#' new_duration creates a duration object with the specified values. Entries for different units are cumulative. The duration class supports decimal entries for all units except month and year.  Months must be in integer values. Years are collections of twelve months and only support numbers that are integers when multiplied by 12. See \code{link{duration}}.
+#' new_duration creates a difftime object with the specified values. Entries for different units are cumulative. difftime displays durations in various units, but these units are estimates given for convenience. The underlying object is always recorded as a fixed number of seconds. For display and creation purposes, units are converted to seconds using their most common lengths in seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units larger than weeks are not used due to their variability.
 #'
-#' @param second number value of seconds to include in the duration  
-#' @param minute number value of minutess to include in the duration 
-#' @param hour number value of hours to include in the duration 
-#' @param day number value of days to include in the duration 
-#' @param week number value of weeks to include in the duration 
-#' @param month integer value of seconds to include in the duration 
-#' @param year number value of years to include in the duration 
+#' difftime objects are durations. Durations record the exact number of seconds in a time span. They measure the exact passage of time and are not affected by conventions such as leap years and Daylight Savings Time. 
+#'
+#' duration objects can be easily created with the helper functions \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}}, \code{link{eseconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming. 
+#'
+#' @param ... a list of time units to be included in the duration and their amounts. Seconds, minutes, hours, days, and weeks are supported. See \code{link{standardise_difftime_names}}.
 #' @return a duration object
 #' @seealso \code{link{duration}, link{as.duration}}
 #' @keywords chron classes
 #' @examples
 #' new_duration(second = 90)
-#' # 1 minute and 30 seconds
+#' # Time difference of 1.5 mins
 #' new_duration(minute = 1.5)
-#' # 1 minute and 30 seconds
-#' new_duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1, month = 3, year = 2)
-#' # 2 years, 3 months, 1 week, 6 days, 2 hours, 1 minute and 33 seconds
+#' # Time difference of 1.5 mins
+#' new_duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
+#' # Time difference of 1.869201 weeks
 #' new_duration(hour = 1, minute = -60)
-#' # 0 seconds
-#' new_duration(year = -1)
-#' # -1 years
-#' new_duration(year = 0.5)
-#' # 6 months
-new_duration <- function(...)
-	as.duration(new_period(...))
+#' # Time difference of 0 secs
+#' new_duration(day = -1)
+#' # Time difference of -1 days
+new_duration <- function(...){
+	pieces <- list(...)
+	names(pieces) <- standardise_difftime_names(names(pieces))
+	
+	defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)
+	pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
+	
+	x <- pieces$secs +
+		pieces$mins * 60 +
+		pieces$hours * 3600 +
+		pieces$days * 86400 +
+		pieces$weeks * 604800
+	
+	make_difftime(x)
+}
 
 #' Change an object to a duration class.
 #'
