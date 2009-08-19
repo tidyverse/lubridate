@@ -59,17 +59,17 @@ print.period <- function(x, ...) {
 
 
 
-as.period <- function(x, periods)
+as.period <- function(x, periods, ...)
 	UseMethod("as.period")
 	
-as.period.default <- function(x, periods){
+as.period.default <- function(x, periods, ...){
 	x <- as.numeric(x)
 	unit <- standardise_date_names(periods[1])
 	f <- match.fun(paste(unit, "s", sep = ""))
 	f(x)
 }
 
-as.period.interval <- function(x, periods){
+as.period.interval <- function(x, periods = c("year", "month", "day", "hour", "minute", "seconds"), ...){
 	periods <- standardise_date_names(periods)
 	newper <- new_period(second = 0)
 	
@@ -85,9 +85,28 @@ as.period.interval <- function(x, periods){
 newper
 }
 
-as.period.difftime <- function(x, periods)
-	stop("no unique mapping exists between durations (difftimes) and periods", call. = F)
-
+as.period.difftime <- function(x, periods){
+	periods <- standardise_date_names(periods)
+	span <- as.double(x, "secs")
+	remainder <- abs(span)
+	newper <- new_period(second = 0)
+	denominator <- c(second = 1, minute = 60, hour = 3600, day = (3600 * 24), year =  (3600 * 24 * 7 * 365))
+	
+	for (i in 1:length(periods)){
+		bite <- switch(periods[i], 
+			"second" = span, 
+			"minute" = span %/% 60 * 60, 
+			"hour" = span %/% 3600 * 3600, 
+			"day" = span %/% (3600 * 24) * (3600 * 24), 
+			"month" = stop("month length cannot be estimated from durtions", call. = F),
+			"year" = span %/% (3600 * 24 * 7 * 365) * (3600 * 24 * 7 * 365))
+		remainder <- remainder - bite
+		newper[periods[i]] <- bite / denominator[[periods[i]]]
+	}
+	
+	newper$second <- newper$second + remainder
+	newper * sign(span)
+}
 
 
 

@@ -67,18 +67,8 @@ NULL
 #' # -1 years
 #' new_duration(year = 0.5)
 #' # 6 months
-new_duration <- function(...){
-	pieces <- list(...)
-	names(pieces) <- standardise_difftime_names(names(pieces))
-	dur <- structure(as.numeric(pieces[1]), class = "difftime", units = names(pieces)[1])
-	
-	if(length(pieces) > 1){
-		for( i in 2:length(pieces))
-			dur <- dur + structure(as.numeric(pieces[i]), class = "difftime", units = names(pieces)[i])
-	}
-	
-	make_difftime(as.double(dur, "secs"))
-}
+new_duration <- function(...)
+	as.duration(new_period(...))
 
 #' Change an object to a duration class.
 #'
@@ -106,8 +96,18 @@ new_duration <- function(...){
 as.duration <- function(x)
 	UseMethod(as.duration)
 	
-as.duration.period <- function(x)
-	stop("no unique mapping exists between durations and periods.", call. = F)
+	
+as.duration.period <- function(per){
+	if (per$months != 0)
+		stop("durations cannot estimate month length")
+	all <- per$second +
+		per$minute * 60 +
+		per$hour * 3600 + 
+		per$day * 3600 * 24 + 
+		per$year * 3600 * 24 * 365
+	
+	make_difftime(all)
+}
 	
 as.duration.interval <- function(x)
 	difftime(x$end, x$start)
