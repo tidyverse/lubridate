@@ -112,25 +112,27 @@ new_duration <- function(...){
 	make_difftime(x)
 }
 
-#' Change an object to a duration class.
+#' Change an object to a duration (difftime).
 #'
-#' as.duration changes numeric and difftime objects to duration objects. Numeric objects are changes to duration objects with the seconds unit equal to the numeric value. Because both numeric and difftime objects are exact measurements, as.duration will not use months or years units to create the new duration.  Months and years are not exact, but relative measurements.
-#' @method as.duration difftime
+#' as.duration changes interval, period and numeric objects to duration objects, which are difftime objects. Numeric objects are changes to duration objects with the seconds unit equal to the numeric value. 
+#'
+#' Durations are exact time measurements, but periods are relative time measurements. See \code{link{periods}}. The length of a period depends on when it occurs. Hence, a one to one mapping does not exist between durations and periods. When used with a period object, as.duration provides an inexact estimate of the length of the period; each time unit is assigned its most common number of seconds. Periods with a months unit cannot be coerced to durations because of the variability of month lengths. For an exact transformation, first transform the period to an interval with \code{link{as.interval}}.
+#'
+#' @method as.duration period
 #' @method as.duration default
-#' @method as.duration duration
-#' @aliases as.duration as.duration.default as.duration.difftime as.duration.duration
-#' @param x a difftime or numeric object   
+#' @method as.duration interval
+#' @aliases as.duration as.duration.default as.duration.period as.duration.interval
+#' @param x a interval, period, or numeric object   
 #' @return a duration object
 #' @seealso \code{link{duration}, link{new_duration}}
 #' @keywords classes manip methods chron
 #' @examples
-#' y <- Sys.time()
-#' (x <- difftime(y + 3655, y))
-#' # Time difference of 1.015278 hours
-#' as.duration(x)
-#' # 1 hour and 55 seconds
-#' as.duration(10)
-#' # 10 seconds
+#' span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2009-08-01")) #interval
+#' # 211.9583 days beginning at 2009-01-01
+#' as.duration(span)
+#' # Time difference of 211.9583 days
+#' as.duration(10) # numeric
+#' # Time difference of 10 secs
 #' as.duration(3670)
 #' # 1 hour, 1 minute and 10 seconds
 #' as.duration(60*60*24*366)
@@ -162,46 +164,41 @@ as.duration.default <- function(x)
 #' @keyword internal manip classes
 as.POSIXt <- function(x) as.POSIXlt(x)
 
-#' Quickly create duration objects.
+#' Quickly create exact time spans.
 #'
-#' Quick create duration objects for easy date-time manipulation. The units of the duration created depend on the name of the function called.
+#' Quickly create duration objects for easy date-time manipulation. The units of the duration created depend on the name of the function called. For duration objects, units are equal to their most common lengths in seconds (i.e. minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800).
 #'
-#' @aliases seconds minutes hours days weeks months years y m d w
-#' @param x numeric value of the number of units to be contained in the duration. For months(), x must be an integer value. For years(), x * 12 must be an integer value.
+#' @aliases eseconds eminutes ehours edays eweeks
+#' @param x numeric value of the number of units to be contained in the duration. 
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{new_duration}}
 #' @keywords chron 
 #' @examples
-#' seconds(1) 
-#' # 1 second
-#' minutes(3.5) 
-#' # 3 minutes and 30 seconds
-#' x <- as.Date("2009-08-03") 
-#' # "2009-08-03"
-#' x + years(1) + months(1) + days(1)
-#' # "2010-09-04"
-#' x + days(100) - years(1) 
-#' # "2008-11-11" 
-#' class(x + days(100) - years(1)) 
-#' # retains Date class
-#' x + hours(12) 
-#' # "2009-08-03 12:00:00 GMT"
-#' class(x + hours(12)) 
-#' # converts to POSIXt class to accomodate time units
-#' months(1) + days(15) 
-#' # 1 month, 2 weeks and 1 day
-#' weeks(1) - days(7) 
-#' # 0 seconds
-#' 3 * hours(1) 
-#' # 3 hours
-#' hours(1) / 60  
-#' # 1 minute
+#' eseconds(1) 
+#' # Time difference of 1 secs
+#' eminutes(3.5) 
+#' # Time difference of 3.5 mins
+#'
+#' x <- as.POSIXct("2009-08-03") 
+#' # "2009-08-03 CDT"
+#' x + edays(1) + ehours(6) + eminutes(30)
+#' # "2009-08-04 06:30:00 CDT"
+#' x + edays(100) - ehours(8) 
+#' # "2009-11-10 15:00:00 CST"
 #' 
-#' # Using default variables
-#' x + 3*y + d
-#' # "2012-08-04"
-#' y - m
-#' # 11 months
+#' class(as.Date("2009-08-09") + edays(1)) # retains Date class
+#' # "Date"
+#' as.Date("2009-08-09") + ehours(12) 
+#' # "2009-08-09 12:00:00 UTC"
+#' class(as.Date("2009-08-09") + ehours(12)) 
+#' # "POSIXt"  "POSIXct"
+#' # converts to POSIXt class to accomodate time units
+#' 
+#' eweeks(1) - edays(7) 
+#' # Time difference of 0 secs
+#' c(1:3) * ehours(1) 
+#' # Time differences in hours
+#' # [1] 1 2 3
 eseconds <- function(x = 1) new_duration(second = x)
 eminutes <- function(x = 1) new_duration(minute = x)
 ehours <-   function(x = 1) new_duration(hour = x)
@@ -210,26 +207,28 @@ eweeks <-   function(x = 1) new_duration(week = x)
 
 #' Is x a date-time object?
 #'
-#' @aliases is.timepoint timepoint
+#' date-time object denote instants in time.
+#'
+#' @aliases is.timepoint timepoint is.instant instant
 #' @param x an R object   
 #' @return TRUE if x is a POSIXct, POSIXlt, or Date object, FALSE otherwise.
-#' @seealso \code{link{is.timeperiod}, link{is.duration}, link{is.difftime}, link{is.POSIXt}, link{is.Date}}
+#' @seealso \code{link{is.timespan}, link{is.POSIXt}, link{is.Date}}
 #' @keywords logic chron
 #' @examples
-#' is.timepoint(as.Date("2009-08-03")) # TRUE
+#' is.instant(as.Date("2009-08-03")) # TRUE
 #' is.timepoint(5) # FALSE
-is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
+is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
 
-#' Is x a measure of a time length?
+#' Is x a length of time?
 #'
-#' @aliases is.timeperiod timeperiod
+#' @aliases is.timespan timespan
 #' @param x an R object   
-#' @return TRUE if x is a duration or difftime object, FALSE otherwise.
-#' @seealso \code{link{is.timepoint}, link{is.duration}, link{is.difftime}, link{is.POSIXt}, link{is.Date}}
+#' @return TRUE if x is a period, interval, or difftime object, FALSE otherwise.
+#' @seealso \code{link{is.instant}, link{is.duration}, link{is.difftime}, link{is.period}, link{is.interval}}
 #' @keywords logic chron
 #' @examples
-#' is.timeperiod(as.Date("2009-08-03")) # FALSE
-#' is.timeperiod(new_duration(second = 1)) # TRUE
+#' is.timespan(as.Date("2009-08-03")) # FALSE
+#' is.timespan(new_duration(second = 1)) # TRUE
 is.timespan <- function(x) inherits(x,c("period", "difftime", "interval"))
 
 
@@ -239,7 +238,7 @@ is.timespan <- function(x) inherits(x,c("period", "difftime", "interval"))
 #' @aliases is.POSIXt is.POSIXlt is.POSIXct
 #' @param x an R object   
 #' @return TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.
-#' @seealso \code{link{is.timepoint}, link{is.timeperiod}, link{is.difftime}, link{is.duration}, link{is.Date}}
+#' @seealso \code{link{is.instant}, link{is.timespan}, link{is.Date}}
 #' @keywords logic chron
 #' @examples
 #' is.POSIXt(as.Date("2009-08-03")) # FALSE
@@ -248,31 +247,56 @@ is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 
 #' Is x a duration (difftime) object?
 #'
+#' @aliases is.difftime is.duration
 #' @param x an R object   
 #' @return TRUE if x is a difftime object, FALSE otherwise.
-#' @seealso \code{link{is.timepoint}, link{is.timeperiod}, link{is.duration}, link{is.POSIXt}, link{is.Date}}
+#' @seealso \code{link{is.instant}, link{is.timespan}, link{is.interval}, link{is.period}, link{duration}}
 #' @examples
 #' @keywords logic chron
 #' is.difftime(as.Date("2009-08-03")) # FALSE
-#' is.difftime(difftime(Sys.time() + 5, Sys.time())) # TRUE
+#' is.difftime(new_duration(days = 12.4)) # TRUE
 is.difftime <- is.duration <- function(x) inherits(x, "difftime")
 
 #' Is x a Date object?
 #'
 #' @param x an R object   
 #' @return TRUE if x is a Date object, FALSE otherwise.
-#' @seealso \code{link{is.timepoint}, link{is.timeperiod}, link{is.duration}, link{is.POSIXt}, link{is.difftime}}
+#' @seealso \code{link{is.instant}, link{is.timespan}, link{is.POSIXt}}
 #' @examples
 #' @keywords logic chron
 #' is.Date(as.Date("2009-08-03")) # TRUE
 #' is.Date(difftime(Sys.time() + 5, Sys.time())) # FALSE
 is.Date <- function(x) inherits(x, "Date")
 
+
+#' Is x a period object?
+#'
+#' @param x an R object   
+#' @return TRUE if x is a period object, FALSE otherwise.
+#' @seealso \code{link{is.instant}, link{is.timespan}, link{is.interval}, link{is.duration}, link{period}}
+#' @examples
+#' @keywords logic chron
+#' is.period(as.Date("2009-08-03")) # FALSE
+#' is.period(new_period(months= 1, days = 15)) # TRUE
 is.period <- function(x) inherits(x,"period")
-is.instant <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
+
+#' Is x an interval object?
+#'
+#' @param x an R object   
+#' @return TRUE if x is an interval object, FALSE otherwise.
+#' @seealso \code{link{is.instant}, link{is.timespan}, link{is.period}, link{is.duration}, link{interval}}
+#' @examples
+#' @keywords logic chron
+#' is.interval(new_period(months= 1, days = 15)) # FALSE
+#' is.interval(new_interval(ymd(20090801), ymd(20090809)) # TRUE
 is.interval <- function(x) inherits(x, c("interval"))
 
-
+#' Internal function. Matches input with recognized difftime unit names (i.e. "secs", "mins", "hours", "days", and "weeks").
+#'
+#' @keywords internal
+#' @examples
+#' standardise_difftime_names(c("seconds", "minute"))
+#' # "secs" "mins"
 standardise_difftime_names <- function(x) {
   dates <- c("secs", "mins", "hours", "days", "weeks")
   y <- gsub("(.)s$", "\\1", x)
