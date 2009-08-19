@@ -38,7 +38,7 @@
 #'
 #' months(6) + days(1)
 #' # 6 months and 1 day
-NULL - REWRITE
+NULL
 
 #' Create a duration object.
 #'
