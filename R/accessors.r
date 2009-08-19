@@ -1474,23 +1474,26 @@ recognize <- function(x){
 #' @aliases DST DST.months 
 #' @keywords internal
 DST <- function(date1, date2){
+	if(is.Date(date2))
+		return(date2)
+		
 	date1 <- as.POSIXlt(date1)
 	date2 <- as.POSIXlt(date2)
 
 	if(dst(date1) < 0 || dst(date2) < 0)
 		return(date2)
-	if(is.Date(date2))
-		return(date2)
-	date2 - (dst(date2) - dst(date1))*3600
+
+	date2 - (dst(date2) - dst(with_tz(date1, tz(date2))))*3600
 }
 
 DST.months <- function(date1, date2){
+	if(is.Date(date2))
+		return(date2)
 	date1 <- as.POSIXlt(date1)
 	date2 <- as.POSIXlt(date2)
 
 	if(dst(date1) < 0 || dst(date2) < 0)
 		return(date2)
-	if(is.Date(date2))
-		return(date2)
-	suppressMessages(date2 + (dst(date2) - dst(date1))*3600)
+
+	suppressMessages(date2 + (dst(date2) - with_tz(date1, tz(date2)))*3600)
 }
