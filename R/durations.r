@@ -1,33 +1,66 @@
-#' Description of the class "duration" representing time intervals.
+#' Description of time span classes in lubridate.
 #'
-#' Durations record intervals of time.  Like real time intervals, they can be measured in either specific or relative time units. Seconds, minutes, hours, days, and weeks are all specific time units. They each last a set number of seconds no matter what time point they are measured from. Months and years are relative time units.  A month may last 28, 29, 30, or 31 days depending on the date it is measured from. A year may last 365 or 366 days. 
+#' A time span can be measured in three ways: as a duration, an interval, or a period. 
 #'
-#' Leap seconds provide an exception to these general rules.  They are announced randomly and expand every time interval they occur in. Lubridate does not handle leap seconds. 
+#' Durations record the exact number of seconds in a time span. They measure the exact passage of time and are not affected by conventions such as leap years and Daylight Savings Time. lubridate uses the difftime class from base::R for durations. Additional difftime methods have been created to facilitate this. #'
+#' difftime displays durations in various units, but these units are estimates given for convenience. The underlying object is always recorded as a fixed number of seconds. For display and creation purposes, units are converted to seconds using their most common lengths in seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units larger than weeks are not used due to their variability.
+#' 
+#' duration objects can be easily created with the helper functions \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}}, \code{link{eseconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming.
 #'
-#' Duration objects can also combine both relative and specific time units. When added or subtracted to a date-time, a duration chooses the correct time length for its relative time units.  
+#' Periods record the change in the clock time between two date-times. They are measured in common time related units: years, months, days, hours, minutes, and seconds. Each unit except for seconds must be expressed in integer values. With the exception of seconds, none of these units have a fixed length. Leap years, leap seconds, and Daylight Savings Time can expand or contract a time unit depending on when it occurs.  For this reason, periods do not have a fixed length until they are paired with a start date. Periods can be used to track changes in clock time. Because they do not have a fixed length, they can not be accurately converted to and from durations.
 #'
-#' The internal structure of durations do not handle specific time intervals greater than 49999999999 seconds or less than -49999999999 seconds.  This is the equivalent of 578703 days, 16 hours, 53 minutes and 19 seconds. Time intervals longer than this should be approximated with relative time units. 126230400 seconds is frequently equal to 4 years, and 12622780800 seconds is more frequently equal to 400 years.
+#' Period objects can be easily created with the helper functions \code{link{years}}, \code{link{months}}, \code{link{weeks}}, \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming.
 #'
-#' Divisions less than a month in length should be precisely specified by using a specific time unit. Durations do not support partial months or fractions of a year that would result in partial months.
+#' Intervals are time spans bound by two real date-times.  Intervals can be accurately converted to periods and durations. Since an interval is anchored to a fixed history of time, both the number of seconds that passed as well as the length of common time units during that history can be calculated. To accurately convert between periods and durations, a period or duration should first be converted to an interval. Subtracting two date times automatically creates an interval object. Intervals as the difftime between the two dates paired with the earlier, or beginning date. 
 #'
-#' The helper functions \code{link{years}, link{months}, link{weeks}, link{days}, link{hours}, link{minutes}, link{seconds}} create durations of standard lengths. These functions greatly simplify working with date-times by letting R behave like an object oriented programming language. 
-#'
-#' @alias duration durations dur 
-#' @seealso \code{link{new_duration}} for creating duration objects
-#' @seealso \code{link{years}, link{months}, link{weeks}, link{days}, link{hours}, link{minutes}, link{seconds}} for easy methods of manipulating date-time objects with durations.
-#' @seealso \code{link{as.duration}} for converting objects into durations
-#' @seealso \code{link{is.duration}} for testing whether an object is of the "duration" class
+#' @alias timespan timespans duration durations dur periods period interval intervals
+#' @seealso \code{link{new_duration}} for creating duration objects and \code{link{as.duration}} for converting objects into durations
+#' @seealso \code{link{new_period}} for creating period objects and \code{link{as_period}} for converting objects to periods
+#' @seealso \code{link{new_interval}} for creating interval objects and \code{link{as_interval}} for converting objects to intervals
 #' @keywords classes chron
 #' @examples
-#' new_duration(second = 90)
-#' # 1 minute and 30 seconds
-#' new_duration(minute = 1.5)
-#' # 1 minute and 30 seconds
-#' new_duration(second = 3, minute = 1.5, hour = -2, day = 6, week = 1, month = 3, year = 2)
-#' # 2 years, 3 months, 1 week, 5 days, 22 hours, 1 minute and 33 seconds
+#' new_duration(second = 3690)
+#' # Time difference of 1.025 hours
+#' new_period(second = 3690)
+#' # 3690 seconds
+#' new_period(second = 30, minute = 1, hour = 1)
+#' 1 hour, 1 minute and 30 seconds
+#' new_interval(as.POSIXct("2009-08-09 12:00:00"), as.POSIXct("2009-08-09 13:01:30"))
+#' [1] 1.025 hours beginning at 2009-08-09 12:00:00
 #'
-#' date <- as.POSIXct("2009-01-01 00:00:00")
-#' date
+#' date <- as.POSIXct("2009-03-08 01:59:59") # DST boundary
+#' # "2009-03-08 01:59:59 CST"
+#' date + days(1)
+#' # "2009-03-09 01:59:59 CDT" periods preserve clock time
+#' date + edays(1)
+#' # "2009-03-09 02:59:59 CDT" durations preserve exact passage of time
+#'
+#' date2 <- as.POSIXct("2000-02-29 12:00:00")
+#' date2 + years(1)
+#' # "2001-02-28 12:00:00 CST" 
+#' # self corrects to most recent real day
+#'
+#' date3 <- as.POSIXct("2009-01-31 01:00:00")
+#' date3 + c(0:11) * months(1)
+#' # [1] "2009-01-31 01:00:00 CST" "2009-02-28 01:00:00 CST"
+#' # [3] "2009-03-31 01:00:00 CDT" "2009-04-30 01:00:00 CDT"
+#' # [5] "2009-05-31 01:00:00 CDT" "2009-06-30 01:00:00 CDT"
+#' # [7] "2009-07-31 01:00:00 CDT" "2009-08-31 01:00:00 CDT"
+#' # [9] "2009-09-30 01:00:00 CDT" "2009-10-31 01:00:00 CDT"
+#' #[11] "2009-11-30 01:00:00 CST" "2009-12-31 01:00:00 CST"
+#'
+#' span <- date - date2  #creates interval 
+#' # 3294.583 days beginning at 2000-02-29 12:00:00 
+#' span - days(294)
+#' # 3000.542 days beginning at 2000-02-29 12:00:00
+#' span - edays(294.542)
+#' # 3000 days beginning at 2000-02-29 12:00:00
+#' span * 3
+#' # 9883.75 days beginning at 2000-02-29 12:00:00
+#' span / 2
+#' # 1647.292 days beginning at 2000-02-29 12:00:00
+#'
+#' date <- as.POSIXct("2009-01-01 00:00:00") 
 #' # "2009-01-01 GMT"
 #' date + years(1)
 #' # "2010-01-01 GMT"
@@ -94,11 +127,11 @@ new_duration <- function(...)
 #' as.duration(60*60*24*366)
 #' # 52 weeks and 2 days
 as.duration <- function(x)
-	UseMethod(as.duration)
+	UseMethod("as.duration")
 	
 	
 as.duration.period <- function(per){
-	if (per$months != 0)
+	if (per$month != 0)
 		stop("durations cannot estimate month length")
 	all <- per$second +
 		per$minute * 60 +
