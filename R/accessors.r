@@ -161,6 +161,9 @@ hour.irts <- function(x)
 #' @method mday timeseries 
 #' @method mday fts 
 #' @method mday irts 
+#' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, or fts object. 
+#' @param label logical. Only available for wday. TRUE will display the day of the week as a character string label such as "Sunday." FALSE will display the day of the week as a number.
+#' @param abbr logical. Only available for wday. FALSE will display the day of the week as a character string label such as "Sunday." TRUE will display an abbreviated version of the label, such as "Sun". abbr is disregarded if label = FALSE.
 #' @return yday returns the day of the year as a decimal number (01-366). mday returns the day of the month as a decimal number (01-31). wday returns the day of the week as a decimal number (01-07, Sunday is 1).
 #' @keywords utilities manip chron methods
 #' @examples
@@ -290,8 +293,10 @@ week <- function(x)
 #' @method month timeseries 
 #' @method month fts 
 #' @method month irts 
-#' @param x a date-time object   
-#' @return the months element of x as a decimal number
+#' @param x a date-time object  
+#' @param label logical. TRUE will display the month as a character string such as "January." FALSE will display the month as a number.
+#' @param abbr logical. FALSE will display the month as a character string label, such as "January". TRUE will display an abbreviated version of the label, such as "Jan". abbr is disregarded if label = FALSE. 
+#' @return the months element of x as a number (1-12) or character string. 1 = January.
 #' @keywords utilities manip chron methods
 #' @examples
 #' x <- Sys.time()
