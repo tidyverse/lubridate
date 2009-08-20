@@ -1,18 +1,51 @@
 #' Description of time span classes in lubridate.
 #'
-#' A time span can be measured in three ways: as a duration, an interval, or a period. 
+#' A time span can be measured in three ways: as a duration, an interval, or a 
+#' period. 
 #'
-#' Durations record the exact number of seconds in a time span. They measure the exact passage of time and are not affected by conventions such as leap years and Daylight Savings Time. lubridate uses the difftime class from base::R for durations. Additional difftime methods have been created to facilitate this. #'
-#' difftime displays durations in various units, but these units are estimates given for convenience. The underlying object is always recorded as a fixed number of seconds. For display and creation purposes, units are converted to seconds using their most common lengths in seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units larger than weeks are not used due to their variability.
+#' Durations record the exact number of seconds in a time span. They measure the 
+#' exact passage of time and are not affected by conventions such as leap years 
+#' and Daylight Savings Time. lubridate uses the difftime class from base::R for 
+#' durations. Additional difftime methods have been created to facilitate this. 
+#'
+#' difftime displays durations in various units, but these units are estimates 
+#' given for convenience. The underlying object is always recorded as a fixed 
+#' number of seconds. For display and creation purposes, units are converted to 
+#' seconds using their most common lengths in seconds. Minutes = 60 seconds, 
+#' hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units larger than 
+#' weeks are not used due to their variability.
 #' 
-#' duration objects can be easily created with the helper functions \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}}, \code{link{eseconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming. Duration objects can be added to Date, POSIXt, and Interval objects.
-
+#' duration objects can be easily created with the helper functions 
+#' \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}}, 
+#' \code{link{eseconds}}. These objects can be added to and subtracted to date-
+#' times to create a user interface similar to object oriented programming. 
+#' Duration objects can be added to Date, POSIXt, and Interval objects.
 #'
-#' Periods record the change in the clock time between two date-times. They are measured in common time related units: years, months, days, hours, minutes, and seconds. Each unit except for seconds must be expressed in integer values. With the exception of seconds, none of these units have a fixed length. Leap years, leap seconds, and Daylight Savings Time can expand or contract a time unit depending on when it occurs.  For this reason, periods do not have a fixed length until they are paired with a start date. Periods can be used to track changes in clock time. Because they do not have a fixed length, they can not be accurately converted to and from durations.
+#' Periods record the change in the clock time between two date-times. They are 
+#' measured in common time related units: years, months, days, hours, minutes, 
+#' and seconds. Each unit except for seconds must be expressed in integer 
+#' values. With the exception of seconds, none of these units have a fixed 
+#' length. Leap years, leap seconds, and Daylight Savings Time can expand or 
+#' contract a time unit depending on when it occurs.  For this reason, periods 
+#' do not have a fixed length until they are paired with a start date. Periods 
+#' can be used to track changes in clock time. Because they do not have a fixed 
+#' length, they can not be accurately converted to and from durations.
 #'
-#' Period objects can be easily created with the helper functions \code{link{years}}, \code{link{months}}, \code{link{weeks}}, \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming. Period objects can be added to Date, POSIXt, and Interval objects.
+#' Period objects can be easily created with the helper functions 
+#' \code{link{years}}, \code{link{months}}, \code{link{weeks}}, 
+#' \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects 
+#' can be added to and subtracted to date-times to create a user interface 
+#' similar to object oriented programming. Period objects can be added to Date, 
+#' POSIXt, and Interval objects.
 #'
-#' Intervals are time spans bound by two real date-times.  Intervals can be accurately converted to periods and durations. Since an interval is anchored to a fixed history of time, both the number of seconds that passed as well as the length of common time units during that history can be calculated. To accurately convert between periods and durations, a period or duration should first be converted to an interval. Subtracting two date times automatically creates an interval object. Intervals display as the difftime between the two dates paired with the earlier, or beginning date. 
+#' Intervals are time spans bound by two real date-times.  Intervals can be 
+#' accurately converted to periods and durations. Since an interval is anchored 
+#' to a fixed history of time, both the number of seconds that passed as well as 
+#' the length of common time units during that history can be calculated. To 
+#' accurately convert between periods and durations, a period or duration should 
+#' first be converted to an interval. Subtracting two date times automatically 
+#' creates an interval object. Intervals display as the difftime between the two 
+#' dates paired with the earlier, or beginning date. 
 #'
 #' @alias timespan timespans duration durations dur periods period interval intervals
 #' @seealso \code{link{new_duration}} for creating duration objects and \code{link{as.duration}} for converting objects into durations
@@ -76,11 +109,23 @@ NULL
 
 #' Create a duration object.
 #'
-#' new_duration creates a difftime object with the specified values. Entries for different units are cumulative. difftime displays durations in various units, but these units are estimates given for convenience. The underlying object is always recorded as a fixed number of seconds. For display and creation purposes, units are converted to seconds using their most common lengths in seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units larger than weeks are not used due to their variability.
+#' new_duration creates a difftime object with the specified values. Entries for 
+#' different units are cumulative. difftime displays durations in various units, 
+#' but these units are estimates given for convenience. The underlying object is 
+#' always recorded as a fixed number of seconds. For display and creation 
+#' purposes, units are converted to seconds using their most common lengths in 
+#' seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, 
+#' weeks = 604800. Units larger than weeks are not used due to their 
+#' variability.
 #'
-#' difftime objects are durations. Durations record the exact number of seconds in a time span. They measure the exact passage of time and are not affected by conventions such as leap years and Daylight Savings Time. 
+#' difftime objects are durations. Durations record the exact number of seconds 
+#' in a time span. They measure the exact passage of time and are not affected 
+#' by conventions such as leap years and Daylight Savings Time. 
 #'
-#' duration objects can be easily created with the helper functions \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}}, \code{link{eseconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming. 
+#' duration objects can be easily created with the helper functions 
+#' \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}}, 
+#' \code{link{eseconds}}. These objects can be added to and subtracted to date-
+#' times to create a user interface similar to object oriented programming. 
 #'
 #' @param ... a list of time units to be included in the duration and their amounts. Seconds, minutes, hours, days, and weeks are supported. See \code{link{standardise_difftime_names}}.
 #' @return a duration object
@@ -115,9 +160,19 @@ new_duration <- function(...){
 
 #' Change an object to a duration (difftime).
 #'
-#' as.duration changes interval, period and numeric objects to duration objects, which are difftime objects. Numeric objects are changed to duration objects with the seconds unit equal to the numeric value. 
+#' as.duration changes interval, period and numeric objects to duration objects, 
+#' which are difftime objects. Numeric objects are changed to duration objects 
+#' with the seconds unit equal to the numeric value. 
 #'
-#' Durations are exact time measurements, but periods are relative time measurements. See \code{link{periods}}. The length of a period depends on when it occurs. Hence, a one to one mapping does not exist between durations and periods. When used with a period object, as.duration provides an inexact estimate of the length of the period; each time unit is assigned its most common number of seconds. Periods with a months unit cannot be coerced to durations because of the variability of month lengths. For an exact transformation, first transform the period to an interval with \code{link{as.interval}}.
+#' Durations are exact time measurements, but periods are relative time 
+#' measurements. See \code{link{periods}}. The length of a period depends on 
+#' when it occurs. Hence, a one to one mapping does not exist between durations 
+#' and periods. When used with a period object, as.duration provides an inexact 
+#' estimate of the length of the period; each time unit is assigned its most 
+#' common number of seconds. Periods with a months unit cannot be coerced to 
+#' durations because of the variability of month lengths. For an exact 
+#' transformation, first transform the period to an interval with 
+#' \code{link{as.interval}}.
 #'
 #' @method as.duration period
 #' @method as.duration default
@@ -163,9 +218,15 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 
 #' Quickly create exact time spans.
 #'
-#' Quickly create duration objects for easy date-time manipulation. The units of the duration created depend on the name of the function called. For duration objects, units are equal to their most common lengths in seconds (i.e. minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800).
+#' Quickly create duration objects for easy date-time manipulation. The units of 
+#' the duration created depend on the name of the function called. For duration 
+#' objects, units are equal to their most common lengths in seconds (i.e. 
+#' minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 
+#' 604800).
 #'
-#' When paired with date-times, these functions allow date-times to be manipulated in a method similar to object oriented programming. Duration objects can be added to Date, POSIXt, and Interval objects.
+#' When paired with date-times, these functions allow date-times to be 
+#' manipulated in a method similar to object oriented programming. Duration 
+#' objects can be added to Date, POSIXt, and Interval objects.
 #'
 #' @aliases eseconds eminutes ehours edays eweeks
 #' @param x numeric value of the number of units to be contained in the duration. 
@@ -298,7 +359,8 @@ is.period <- function(x) inherits(x,"period")
 #' is.interval(new_interval(ymd(20090801), ymd(20090809)) # TRUE
 is.interval <- function(x) inherits(x, c("interval"))
 
-#' Internal function. Matches input with recognized difftime unit names (i.e. "secs", "mins", "hours", "days", and "weeks").
+#' Internal function. Matches input with recognized difftime unit names (i.e. 
+#' "secs", "mins", "hours", "days", and "weeks").
 #'
 #' @keywords internal
 #' @examples

@@ -1,6 +1,7 @@
 #' Get/set seconds component of a date-time.
 #'
-#' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @aliases .default second.zoo second.its second.ti second.timeseries second.fts second.irts second
 #' @method second default 
@@ -46,7 +47,8 @@ second.irts <- function(x)
 
 #' Get/set minutes component of a date-time.
 #'
-#' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @aliases minute.default minute.zoo minute.its minute.ti minute.timeseries minute.fts minute.irts minute
 #' @method minute default 
@@ -92,7 +94,8 @@ minute.irts <- function(x)
 
 #' Get/set hours component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @aliases hour.default hour.zoo hour.its hour.ti hour.timeseries hour.fts hour.irts hour
 #' @method hour default 
@@ -137,7 +140,8 @@ hour.irts <- function(x)
 
 #' Get/set days component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @aliases yday.default yday.zoo yday.its yday.ti yday.timeseries yday.fts yday.irts wday.default wday.zoo wday.its wday.ti wday.timeseries wday.fts wday.irts mday.default mday.zoo mday.its mday.ti mday.timeseries mday.fts mday.irts yday mday wday
 #' @method yday default 
@@ -275,7 +279,10 @@ mday.irts <- function(x)
 
 #' Get/set weeks component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. Weeks is the number of complete seven day periods that have occured between the date and  January 1st, plus one. 
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. Weeks is 
+#' the number of complete seven day periods that have occured between the date 
+#' and  January 1st, plus one. 
 #'
 #' @param x a date-time object   
 #' @return the weeks element of x as an integer number
@@ -292,7 +299,8 @@ week <- function(x)
 
 #' Get/set months component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @aliases month.default month.zoo month.its month.ti month.timeseries month.fts month.irts month
 #' @method month default 
@@ -368,7 +376,8 @@ month.irts <- function(x, label = FALSE, abbr = FALSE){
 	
 #' Get/set years component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' year does not yet support years before 0 C.E.
 #'
@@ -415,11 +424,18 @@ year.irts <- function(x)
 	
 #' Get/set time zone component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 #'
-#' Setting tz does not update a date-time to display the same moment as measured at a different time zone. See \code{link{with_tz}}. Setting a new time zone creates a new date-time. The numerical value of the hours element stays the same, only the time zone attribute is replaced.  This creates a new date-time that occurs an integer value of hours before or after the original date-time.  
+#' Setting tz does not update a date-time to display the same moment as measured 
+#' at a different time zone. See \code{link{with_tz}}. Setting a new time zone 
+#' creates a new date-time. The numerical value of the hours element stays the 
+#' same, only the time zone attribute is replaced.  This creates a new date-time 
+#' that occurs an integer value of hours before or after the original date-time.  
 #'
-#' If x is of a class that displays all date-times in the GMT timezone, such as chron, then R will update the number in the hours element to display the new date-time in the GMT timezone. 
+#' If x is of a class that displays all date-times in the GMT timezone, such as 
+#' chron, then R will update the number in the hours element to display the new 
+#' date-time in the GMT timezone. 
 #'
 #' For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
 #'
@@ -478,9 +494,11 @@ tz.irts <- function(x)
 
 #' Get Daylight Savings Time indicator of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' A date-time's daylight savings flag can not be set because it depends on the date-time's year, month, day, and hour values.
+#' A date-time's daylight savings flag can not be set because it depends on the 
+#' date-time's year, month, day, and hour values.
 #'
 #' @aliases dst dst.default dst.zoo dst.its dst.ti dst.timeseries dst.fts dst.irts
 #' @method dst default 
@@ -538,7 +556,8 @@ am <- function(x) hour(x) < 12
 pm <- function(x) !am(x)
 
 
-#' Internal function. Replaces the seconds element of a date with a specified value.
+#' Internal function. Replaces the seconds element of a date with a specified 
+#' value.
 #' 
 #' @method second<- default
 #' @method second<- chron
@@ -611,7 +630,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the minutes element of a date with a specified value.
+#' Internal function. Replaces the minutes element of a date with a specified 
+#' value.
 #' 
 #' @method minute<- default
 #' @method minute<- chron
@@ -683,7 +703,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the hours element of a date with a specified value.
+#' Internal function. Replaces the hours element of a date with a specified 
+#' value.
 #' 
 #' @method hour<- default
 #' @method hour<- chron
@@ -755,7 +776,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the ydays element of a date with a specified value.
+#' Internal function. Replaces the ydays element of a date with a specified 
+#' value.
 #' 
 #' @method yday<- default
 #' @method yday<- Date
@@ -828,7 +850,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the wdays element of a date with a specified value.
+#' Internal function. Replaces the wdays element of a date with a specified 
+#' value.
 #' 
 #' @method wday<- default
 #' @method wday<- Date
@@ -901,7 +924,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the mdays element of a date with a specified value.
+#' Internal function. Replaces the mdays element of a date with a specified 
+#' value.
 #' 
 #' @method mday<- default
 #' @method mday<- Date
@@ -973,7 +997,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the weeks element of a date with a specified value.
+#' Internal function. Replaces the weeks element of a date with a specified 
+#' value.
 #' 
 #' @method week<- default
 #' @method week<- Date
@@ -1045,7 +1070,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the months element of a date with a specified value.
+#' Internal function. Replaces the months element of a date with a specified 
+#' value.
 #' 
 #' @method month<- default
 #' @method month<- Date
@@ -1151,7 +1177,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the years element of a date with a specified value.
+#' Internal function. Replaces the years element of a date with a specified 
+#' value.
 #' 
 #' @method year<- default
 #' @method year<- Date
@@ -1258,7 +1285,8 @@ pm <- function(x) !am(x)
 	x
 }
 
-#' Internal function. Replaces the time zone element of a date with a specified value.
+#' Internal function. Replaces the time zone element of a date with a specified 
+#' value.
 #' 
 #' @method tz<- default
 #' @method tz<- chron
@@ -1530,7 +1558,8 @@ recognize <- function(x){
 
 #' Internal function for Daylight Savings Time changes.
 #'
-#' Determines how to handle time changes resulting from Daylight Savings time based on options("DST"). See \code{link{DaylightSavingsTime}}.
+#' Determines how to handle time changes resulting from Daylight Savings time 
+#' based on options("DST"). See \code{link{DaylightSavingsTime}}.
 #'
 #' @aliases DST DST.months 
 #' @keywords internal

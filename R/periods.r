@@ -1,10 +1,25 @@
 #' Create a period object.
 #'
-#' new_period creates a period object with the specified values. Within a period object, time units do not have a fixed length (except for seconds) until they are added to a date-time. The length of each time unit will depend on the date-time to which it is added. For example, a year that begins on 2009-01-01 will be 365 days long.  A year that begins on 2012-01-01 will be 366 days long. When math is performed with a period object, each unit is applied separately. How a period is distributed among the time units is non-trivial. For example, when leap seconds occur 1 minute is longer than 60 seconds.
+#' new_period creates a period object with the specified values. Within a 
+#' period object, time units do not have a fixed length (except for seconds) 
+#' until they are added to a date-time. The length of each time unit will 
+#' depend on the date-time to which it is added. For example, a year that 
+#' begins on 2009-01-01 will be 365 days long.  A year that begins on 
+#' 2012-01-01 will be 366 days long. When math is performed with a period 
+#' object, each unit is applied separately. How a period is distributed among 
+#' the time units is non-trivial. For example, when leap seconds occur 1 minute 
+#' is longer than 60 seconds.
 #'
-#' Periods track the change in the "clock time" between two date-times. They are measured in common time related units: years, months, days, hours, minutes, and seconds. Each unit except for seconds must be expressed in integer values. 
+#' Periods track the change in the "clock time" between two date-times. They 
+#' are measured in common time related units: years, months, days, hours, 
+#' minutes, and seconds. Each unit except for seconds must be expressed in 
+#' integer values. 
 #'
-#' Period objects can be easily created with the helper functions \code{link{years}}, \code{link{months}}, \code{link{weeks}}, \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming.
+#' Period objects can be easily created with the helper functions 
+#' \code{link{years}}, \code{link{months}}, \code{link{weeks}}, 
+#' \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects 
+#' can be added to and subtracted to date-times to create a user interface 
+#' similar to object oriented programming.
 #'
 #' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, hours, days, weeks, months, and years are supported. See \code{link{standardise_date_names}} for more details.
 #' @return a period object
@@ -43,9 +58,17 @@ new_period <- function(...) {
 
 #' Quickly create relative timespans.
 #'
-#' Quickly create period objects for easy date-time manipulation. The units of the period created depend on the name of the function called. For period objects, units do not have a fixed length until they are added to a specific date time, contrast this with \code{link{durations}}. This makes periods useful for manipulations with clock times because units expand or contract in length to accomodate conventions such as leap years, leap seconds, and Daylight Savings Time. 
+#' Quickly create period objects for easy date-time manipulation. The units of 
+#' the period created depend on the name of the function called. For period 
+#' objects, units do not have a fixed length until they are added to a specific 
+#' date time, contrast this with \code{link{durations}}. This makes periods 
+#' useful for manipulations with clock times because units expand or contract 
+#' in length to accomodate conventions such as leap years, leap seconds, and 
+#' Daylight Savings Time. 
 #'
-#' When paired with date-times, these functions allow date-times to be manipulated in a method similar to object oriented programming. Period objects can be added to Date, POSIXt, and Interval objects.
+#' When paired with date-times, these functions allow date-times to be 
+#' manipulated in a method similar to object oriented programming. Period 
+#' objects can be added to Date, POSIXt, and Interval objects.
 #' 
 #' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
@@ -149,11 +172,26 @@ print.period <- function(x, ...) {
 
 #' Change an object to a period.
 #'
-#' as.period changes interval, duration (i.e., difftime)  and numeric objects to period objects with the specified units.
+#' as.period changes interval, duration (i.e., difftime)  and numeric objects 
+#' to period objects with the specified units.
 #'
-#' Users must specify which time units to measure the period in. The length of each time unit in a period depends on when it occurs. See \code{link{periods}}. The choice of units is not trivial; units that are normally equal may differ in length depending on when the time period occurs. For example, when a leap second occurs one minute is longer than 60 seconds.
+#' Users must specify which time units to measure the period in. The length of 
+#' each time unit in a period depends on when it occurs. See 
+#' \code{link{periods}}. The choice of units is not trivial; units that are 
+#' normally equal may differ in length depending on when the time period 
+#' occurs. For example, when a leap second occurs one minute is longer than 60 
+#' seconds.
 #'
-#' Because periods do not have a fixed length, they can not be accurately converted to and from duration objects. Duration objects measure time spans in exact numbers of seconds, see \code{link{duration}}. Hence, a one to one mapping does not exist between durations and periods. When used with a duration object, as.period provides an inexact estimate; the duration is broken into time units based on the most common lengths of time units, in seconds. Because the length of months are particularly variable, a period with a months unit can not be coerced from a duration object. For an exact transformation, first transform the duration to an interval with \code{link{as.interval}}.
+#' Because periods do not have a fixed length, they can not be accurately 
+#' converted to and from duration objects. Duration objects measure time spans 
+#' in exact numbers of seconds, see \code{link{duration}}. Hence, a one to one 
+#' mapping does not exist between durations and periods. When used with a 
+#' duration object, as.period provides an inexact estimate; the duration is 
+#' broken into time units based on the most common lengths of time units, in 
+#' seconds. Because the length of months are particularly variable, a period 
+#' with a months unit can not be coerced from a duration object. For an exact 
+#' transformation, first transform the duration to an interval with 
+#' \code{link{as.interval}}.
 #'
 #' @method as.period difftime
 #' @method as.period default

@@ -1,8 +1,17 @@
 #' Create an interval object.
 #'
-#' new_interval creates an interval object with the specified start and end dates. new_interval automatically assigns the date that occurs first as the start date and the date that occurs second as the end date.
+#' new_interval creates an interval object with the specified start and end 
+#' dates. new_interval automatically assigns the date that occurs first as the 
+#' start date and the date that occurs second as the end date.
 #'
-#' Intervals are time spans bound by two real date-times.  Intervals can be accurately converted to either period or duration objects using \code{link{as.period},link{as.duration}. Since an interval is anchored to a fixed history of time, both the number of seconds that passed as well as the length of common time units during that history can be calculated. Subtracting two date times automatically creates an interval object. Intervals display as the difftime between the two dates paired with the earlier, or beginning date. 
+#' Intervals are time spans bound by two real date-times.  Intervals can be 
+#' accurately converted to either period or duration objects using 
+#' \code{link{as.period},link{as.duration}. Since an interval is anchored to a 
+#' fixed history of time, both the number of seconds that passed as well as the 
+#' length of common time units during that history can be calculated. 
+#' Subtracting two date times automatically creates an interval object. 
+#' Intervals display as the difftime between the two dates paired with the 
+#' earlier, or beginning date. 
 #'
 #' @param date1 a POSIXt or Date date-time object
 #' @param date2 a POSIXt or Date date-time object
@@ -61,9 +70,15 @@ print.interval <- function(x, ...) {
 
 #' Change an object to an interval.
 #'
-#' as.interval changes duration (i.e. difftime), period and numeric objects to intervals that begin at the specified date-time. Numeric objects are first coerced to time spans equal to the numeric value in seconds. 
+#' as.interval changes duration (i.e. difftime), period and numeric objects to 
+#' intervals that begin at the specified date-time. Numeric objects are first 
+#' coerced to time spans equal to the numeric value in seconds. 
 #'
-#' as.interval can be used to create accurate transformations between period objects, which describe time spans in relative units, and duration objects, which describe timespans in exact units. To do this, however, an origin date-time must be supplied from which to measure the period. See \code{link{as.duration}, link{as.period}}.
+#' as.interval can be used to create accurate transformations between period 
+#' objects, which describe time spans in relative units, and duration objects, 
+#' which describe timespans in exact units. To do this, however, an origin date-
+#' time must be supplied from which to measure the period. See 
+#' \code{link{as.duration}, link{as.period}}.
 #'
 #' @param x a duration (i.e. difftime), period, or numeric object that describes the length of the interval
 #' @param origin a POSIXt or Date object that describes when the interval begins   

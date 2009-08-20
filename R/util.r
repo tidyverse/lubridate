@@ -1,8 +1,8 @@
-options(DST = "relative")
-
 #' Is a year a leap year?
 #'
-#' If x is a recognized date-time object, leap.year will return whether x occurs during a leap year. If x is a number, leap.year returns whether it would be a leap year under the Gregorian calendar. 
+#' If x is a recognized date-time object, leap.year will return whether x 
+#' occurs during a leap year. If x is a number, leap.year returns whether it 
+#' would be a leap year under the Gregorian calendar. 
 #'
 #' aliases leap.year leap_year leapyear
 #' @param date a date-time object or a year 
@@ -28,7 +28,9 @@ leap.year <- function(date) {
 
 #' The current time 
 #'
-#' @param tzone a character vector specifying which time zone you would like the current time in. tzone defaults to the system time zone set on your computer.
+#' @param tzone a character vector specifying which time zone you would like 
+#' the current time in. tzone defaults to the system time zone set on your 
+#' computer.
 #' @return the current date and time as a POSIXct object
 #'
 #' @keywords chron utilities
@@ -44,7 +46,9 @@ now <- function(tzone = "")
 
 #' The current date 
 #'
-#' @param tzone a character vector specifying which time zone you would like to find the current date of. tzone defaults to the system time zone set on your computer.
+#' @param tzone a character vector specifying which time zone you would like to 
+#' find the current date of. tzone defaults to the system time zone set on your 
+#' computer.
 #' @return the current date as a Date object
 #'
 #' @keywords chron utilities
@@ -64,7 +68,11 @@ today <- function(tzone ="") {
 
 #' Computes attractive axis breaks for date-time data
 #'
-#' pretty.dates indentifies which unit of time the sub-intervals should be measured in to provide approximately n breaks. It then chooses a "pretty" length for the sub-intervals and sets start and endpoints that 1) span the entire range of the data, and 2) allow the breaks to occur on important date-times (i.e. on the hour, on the first of the month, etc.)
+#' pretty.dates indentifies which unit of time the sub-intervals should be 
+#' measured in to provide approximately n breaks. It then chooses a "pretty" 
+#' length for the sub-intervals and sets start and endpoints that 1) span the 
+#' entire range of the data, and 2) allow the breaks to occur on important 
+#' date-times (i.e. on the hour, on the first of the month, etc.)
 #'
 #' @param dates a vector of POSIXct, POSIXlt, Date, or chron date-time objects
 #' @param n integer value of the desired number of breaks
@@ -81,8 +89,8 @@ pretty.dates <- function(dates, n){
 		remember <- "unset"
 	Sys.setenv(TZ = tz(dates[1]))
 	rng <- range(dates)
-	diff <- rng[2] - rng[1]
-	diff <- just_seconds(diff) 
+	diff <- as.duration(rng[2] - rng[1])
+	diff <- as.double(diff, "secs") 
 	
 	binunits <- pretty.unit(diff/n)
 	
@@ -199,7 +207,7 @@ pretty.year <- function(span, n){
 pretty.point <- function(x, units, length, start = TRUE){
 	x <- as.POSIXct(x)
 	
-	floors <- c("sec", "min", "hour", "day", "d", "month", "year")
+	floors <- c("sec", "min", "hour", "day", "d", "month", "year", "y")
 	floorto <- floors[which(floors == units) + 1]
 	lower <- floor_date(x, floorto)
 	upper <- ceiling_date(x, floorto)
@@ -212,15 +220,17 @@ pretty.point <- function(x, units, length, start = TRUE){
 	else
 		points <- points[points >= x]
 		
-	fit <- x - points	
-	fit <- abs(just_seconds(fit))
+	fit <- as.duration(x - points)	
+	fit <- abs(as.double(fit, "secs"))
 	return(points[which.min(fit)])
 	
 }
 
 #' Get date-time in a different time zone
 #' 
-#' with_tz returns a date-time as it would appear in a different time zone.  The actual moment of time measured does not change, just the time zone it is measured in.
+#' with_tz returns a date-time as it would appear in a different time zone.  
+#' The actual moment of time measured does not change, just the time zone it is 
+#' measured in.
 #'
 #' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
 #' @param tzone a character string containing the time zone to convert to. R must recognize the name contained in the string as a time zone on your system.
@@ -236,7 +246,9 @@ with_tz <- function (time, tzone = "")
 
 #' 1970-01-01 GMT
 #'
-#' Origin is the date-time for 1970-01-01 GMT in POSIXct format. This date-time is the origin for the numbering system used by POSIXct, POSIXlt, chron, and Date classes.
+#' Origin is the date-time for 1970-01-01 GMT in POSIXct format. This date-time 
+#' is the origin for the numbering system used by POSIXct, POSIXlt, chron, and 
+#' Date classes.
 #'
 #' @keywords data chron
 #' @examples

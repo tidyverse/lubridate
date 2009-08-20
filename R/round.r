@@ -1,6 +1,8 @@
 #' Round date-times down.
 #'
-#' floor_date takes a date-time object and rounds it down to the nearest integer value of the specified time unit. Users can specify whether to round down to the nearest second, minute, hour, day, week, month, or year.
+#' floor_date takes a date-time object and rounds it down to the nearest integer 
+#' value of the specified time unit. Users can specify whether to round down to 
+#' the nearest second, minute, hour, day, week, month, or year.
 #'
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
@@ -44,7 +46,9 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 
 #' Round date-times up.
 #'
-#' ceiling_date takes a date-time object and rounds it up to the nearest integer value of the specified time unit. Users can specify whether to round up to the nearest second, minute, hour, day, week, month, or year.
+#' ceiling_date takes a date-time object and rounds it up to the nearest integer 
+#' value of the specified time unit. Users can specify whether to round up to 
+#' the nearest second, minute, hour, day, week, month, or year.
 #'
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
@@ -89,7 +93,9 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 
 #' Rounding for date-times.
 #'
-#' round_date takes a date-time object and rounds it to the nearest integer value of the specified time unit. Users can specify whether to round to the nearest second, minute, hour, day, week, month, or year.
+#' round_date takes a date-time object and rounds it to the nearest integer 
+#' value of the specified time unit. Users can specify whether to round to the 
+#' nearest second, minute, hour, day, week, month, or year.
 #'
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."
@@ -118,15 +124,14 @@ round_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
   below <- floor_date(x, unit)
   above <- ceiling_date(x, unit)
 
-  # Returns the closer of above and below and forces it to be 
-  # a POSIXct object
   smaller <- difftime(x, below, "secs") < difftime(above, x, "secs")
   structure(ifelse(smaller, below, above), class= class(x))
 }
 
 #' Internal function. Parse date time unit specification
 #'
-#' Parse the time unit specification used by \code{\link{cut.Date}} into something useful
+#' Parse the time unit specification used by \code{\link{cut.Date}} into 
+#' something useful
 #' 
 #' @keywords internal
 parse_unit_spec <- function(unitspec) {
@@ -139,7 +144,6 @@ parse_unit_spec <- function(unitspec) {
     unit <- parts[[2]]
   }
   
-  # Match to 
   unit <- gsub("s$", "", unit)
   unit <- match.arg(unit, 
     c("second","minute","hour","day", "week", "month", "year"))

@@ -1,46 +1,14 @@
-#' Daylight Savings Time
+#' Addition for the duration (i.e, difftime), period, and interval classes. 
 #'
-#' Daylight Savings Time complicates mainpulating date-times. Time intervals that occur during a change in daylight savings time are not the same length as time intervals that occur on other dates. The Lubridate package supports two ways to resolve changes related to daylight savings time:
-#'
-#' If options(DST = "relative") has been set, adding across Daylight Savings Time changes will add or subtract an hour to retain a consistent clock time (the numbers that would appear on the face of a clock). This method is the default method of the lubridate package. 
-#'
-#' If options(DST = "exact") is set, the clock time of the new date-time will be one hour ahead or behind to maintain the exact length of time units. 
-#'
-#' The value of options("DST") determines which date-time lubridate returns when adding, subtracting, or setting elements of date-times.
-#'
-#' Adding, subtracting, or setting month and year values is handled the same by moth methods. Months and years are never exact lengths. The length of a month or year depends on the date-time on which it starts.  See \code{link{duration}} for more details. 
-#'
-#' @aliases daylightsavings DaylightSavings DaylightSavingsTime daylightSavings daylightsavingstime isdst daylightSavingsTime
-#' @seealso \code{link{dst}}
-#' @keywords utilities chron arith
-#' @examples
-#' date <- as.POSIXct("2009-03-08 01:59:00")
-#' # "2009-03-08 01:59:00 CST"
-#' 
-#' ## relative - consistent clock time
-#' options(DST = "relative")
-#' date + days(1)
-#' # "2009-03-09 01:59:00 CDT"
-#' 
-#' ## exact - consistent time lengths
-#' options(DST = "exact")
-#' date + days(1)
-#' # "2009-03-09 02:59:00 CDT"
-NULL
-
-
-
-#' Addition for the duration class. 
-#'
-#' @aliases +.duration add_duration_to_date add_duration_to_duration add_number_to_duration +.POSIXt +.difftime +.Date
-#' @method + duration
+#' @aliases +.duration +.interval +.period +.POSIXt +.difftime +.Date add_period_to_date add_duration_to_date add_number_to_duration add_number_to_period add_period_to_period add_duration_to_period add_duration_to_duration add_duration_to_interval add_period_to_interval add_number_to_interval
+#' @method + period
 #' @method + POSIXt
 #' @method + difftime
 #' @method + Date
-#' @param e1 a duration, difftime, POSIXt, or Date object
-#' @param e2 a duration, difftime, POSIXt, or Date object
-#' @return a new date-time or duration object, depending on e1 and e2 
-#' @seealso \code{link{"-.duration"}, link{"*.duration"}, link{"/.duration"}}
+#' @method + interval
+#' @param e1 a duration(i.e. difftime), period, interval, POSIXt, or Date object
+#' @param e2 a duration(i.e. difftime), period, interval, POSIXt, or Date object
+#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2 
 #' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
@@ -48,9 +16,6 @@ NULL
 #' Sys.Date + x
 #' x + difftime(Sys.time() + 3600, Sys.time())
 #' x + x
-
-
-
 add_period_to_date <- function(date, period){
 	datetest <- date
 
@@ -219,17 +184,18 @@ make_difftime <- function (x) {
     	weeks = structure(x/(604800), units = "weeks", class = "difftime"))
 }
 
-#' Multiplication for the duration class. 
+#' Multiplication for period and interval classes. 
 #'
-#' @aliases *.duration multiply_duration_by_numeric 
-#' @method * duration
-#' @param e1 a duration or numeric object
-#' @param e2 a duration or numeric object
-#' @return a duration object
-#' @seealso \code{link{"+.duration"}, link{"-.duration"}, link{"/.duration"}}
+#' @aliases *.period *.interval multiply_period_by_number multiply_interval_by_number 
+#' @method * period
+#' @method * interval
+#' @param e1 a period, interval or numeric object
+#' @param e2 a period, interval or numeric object
+#' @return a period or interval object
+#' @seealso \code{link{"+.period"}, link{"+.interval"}, link{"-.period"}, link{"-.interval"}, link{"/.interval"}, link{"/.period"}}
 #' @keywords arith chron methods
 #' @ examples
-#' x <- new_duration(day = 1)
+#' x <- new_period(day = 1)
 #' x * 3
 #' 3 * x
 "*.period" <- "*.interval" <- function(e1, e2){
@@ -263,17 +229,18 @@ multiply_interval_by_number <- function(int, num){
 }
 
 
-#' Division for the duration class. 
+#' Division for period, and interval classes. 
 #'
-#' @aliases /.duration divide_duration_by_numeric 
-#' @method / duration
-#' @param e1 a duration or numeric object
-#' @param e2 a duration or numeric object
-#' @return a duration object
-#' @seealso \code{link{"+.duration"}, link{"-.duration"}, link{"*.duration"}}
+#' @aliases /.period /.interval divide_period_by_number divide_interval_by_number 
+#' @method / period
+#' @method / interval
+#' @param e1 a period, interval or numeric object
+#' @param e2 a period, interval or numeric object
+#' @return a period or interval object
+#' @seealso \code{link{"+.period"}, link{"+.interval"}, link{"-.period"}, link{"-.interval"}, link{"*.interval"}, link{"*.period"}}
 #' @keywords arith chron methods
 #' @ examples
-#' x <- new_duration(day = 1)
+#' x <- new_period(day = 1)
 #' x / 2
 #' 2 / x
 "/.period" <- "/.interval" <- function(e1, e2){
@@ -303,21 +270,27 @@ divide_interval_by_number <- function(int, num){
 }
 
   
-#' Subtraction for the duration class. 
+#' Subtraction for the duration (i.e, difftime), period, and interval classes. 
 #'
-#' The subtraction methods also return a duration object when a POSIXt or Date object is subtracted from another POSIXt or Date object. To retrieve this difference as a difftime, use \code{link{as.difftime}}. 
+#' The subtraction methods returns an interval object when a POSIXt or Date 
+#' object is subtracted from another POSIXt or Date object. To retrieve this 
+#' difference as a difftime, use \code{link{as.duration}}. To retrieve it as a 
+#' period use \code{link{as.period}}.
 #'
-#' Since a specific number of seconds exists between two dates, the duration returned will not include unspecific time units such as years and months. To get a nonspecific duration use \code{link{get_duration}}. See \code{link{duration}} for more details.
+#' Since a specific number of seconds exists between two dates, the duration 
+#' returned will not include unspecific time units such as years and months. To 
+#' get a nonspecific duration use \code{link{get_duration}}. See 
+#' \code{link{duration}} for more details.
 #'
-#' @aliases -.duration -.POSIXt -.difftime -.Date
-#' @method - duration
+#' @aliases -.period -.POSIXt -.difftime -.Date -.interval
+#' @method - period
 #' @method - POSIXt
 #' @method - difftime
 #' @method - Date
-#' @param e1 a duration, difftime, POSIXt, or Date object
-#' @param e2 a duration, difftime, POSIXt, or Date object
-#' @return a new date-time or duration object, depending on e1 and e2 
-#' @seealso \code{link{"+.duration"}, link{"*.duration"}, link{"/.duration"}}
+#' @method - interval
+#' @param e1 a duration(i.e. difftime), period, interval, POSIXt, or Date object
+#' @param e2 a duration(i.e. difftime), period, interval, POSIXt, or Date object
+#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2 
 #' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)

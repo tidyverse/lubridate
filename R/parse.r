@@ -1,8 +1,12 @@
 #' Parse dates according to the order year, month, and day appears
 #'
-#' Transforms dates stored in character and numeric vectors to POSIXct objects. These functions automatically recognize the following separators: "-", "/", ".", and "" (i.e., no separators). 
+#' Transforms dates stored in character and numeric vectors to POSIXct objects. 
+#' These functions automatically recognize the following separators: "-", "/", 
+#' ".", and "" (i.e., no separators). 
 #'
-#' Users should choose the function that models the order in which year(y), month(m), and date(d) appear in the dates. All inputed dates are considered to have the same order and the same separators.
+#' Users should choose the function that models the order in which year(y), 
+#' month(m), and date(d) appear in the dates. All inputed dates are considered 
+#' to have the same order and the same separators.
 #'
 #' @aliases ymd myd dym ydm mdy yearmonthdate
 #' @param ... a character or numeric vector of suspected dates 
@@ -50,7 +54,11 @@ mdy <- function(...) {
 
 #' Create a date-time with the specified hours and minutes
 #'
-#' Transforms a numeric or character string into a POSIXct object with the current date and the specified number of hours and minutes. hm recognizes ":" and "" (i.e., no separator) as separators. Hours should be written as a two digit integer (00-23). Minutes should be written as a two digit integer (00-59).
+#' Transforms a numeric or character string into a POSIXct object with the 
+#' current date and the specified number of hours and minutes. hm recognizes 
+#' ":" and "" (i.e., no separator) as separators. Hours should be written as a 
+#' two digit integer (00-23). Minutes should be written as a two digit integer 
+#' (00-59).
 #'
 #' @param ... a character or numeric vector of hour minute pairs
 #' @return a vector of POSIXct date-time objects
@@ -70,7 +78,10 @@ hm <- function(...) {
 
 #' Create a date-time with the specified hours, minutes, and seconds
 #'
-#' Transforms a numeric or character string into a POSIXct object with the current date and the specified number of hours, minutes, and seconds. hms recognizes ":" and "" (i.e., no separator) as separators. Hours, minutes, and seconds should be written as a two digit integers (00-23)(00-59)(00-59).
+#' Transforms a numeric or character string into a POSIXct object with the 
+#' current date and the specified number of hours, minutes, and seconds. hms 
+#' recognizes ":" and "" (i.e., no separator) as separators. Hours, minutes, 
+#' and seconds should be written as a two digit integers (00-23)(00-59)(00-59).
 #'
 #' @param ... a character or numeric vector of hour minute pairs
 #' @return a vector of POSIXct date-time objects
@@ -93,7 +104,11 @@ hms <- function(...) {
 
 #' Change dates into a POSIXct format
 #'
-#' parse_date is an internal function for the \code{link{ymd}} family of functions. Its recommended to use these functions instead. It transforms dates stored in character and numeric vectors to POSIXct objects. All inputed dates are considered to have the same order and to use the same separator. 
+#' parse_date is an internal function for the \code{link{ymd}} family of 
+#' functions. Its recommended to use these functions instead. It transforms 
+#' dates stored in character and numeric vectors to POSIXct objects. All 
+#' inputed dates are considered to have the same order and to use the same 
+#' separator. 
 #'
 #' @param x a character or numeric vector of suspected dates 
 #' @param formats a vector of date-time format elements in the order they occur within the dates. See \code{link[base]{strptime}} for format elements.
@@ -152,7 +167,12 @@ num_to_date <- function(x) {
 
 #' Guess the format of dates in a character or numeric vector
 #'
-#' Returns the format that successfully parses the most dates within a character or numeric vector to POSIXct objects. If multiple formats are equally successful, guess format will display the successful formats in a message and select the first format by default. guess_format assumes that each date only uses one type of separator and that all dates use the same separator.
+#' Returns the format that successfully parses the most dates within a 
+#' character or numeric vector to POSIXct objects. If multiple formats are 
+#' equally successful, guess format will display the successful formats in a 
+#' message and select the first format by default. guess_format assumes that 
+#' each date only uses one type of separator and that all dates use the same 
+#' separator.
 #'
 #' @param x a character or numeric vector of suspected dates 
 #' @param formats a list of formats to test. Each format should be a vector of date-time format elements. To test an alternative order of elements, the alternative order should be entered as an additional format. See \code{link[base]{strptime}} for format elements.
@@ -207,13 +227,11 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
 
 #' Internal function.
 #'
-# Quickly adds separator values to rows of strings for \code{link{guess_format}}
+#' Quickly adds separator values to rows of strings for \code{link{guess_format}}
 #'
 #' @keywords internal
 combine <- function(mat, vec){
   
-  # Splits each row in a matrix into n rows and adds to each a different element from a 
-  # vector of length n
   combined <- mat[rep(1:nrow(mat), each = length(vec)),]
   if (nrow(mat) == 1)
   	combined <- cbind(t(unname(combined)), sep = rep(vec, nrow(mat)))
