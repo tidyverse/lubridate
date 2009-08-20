@@ -195,29 +195,47 @@ yday.fts <- function(x)
 yday.irts <- function(x)
 	as.POSIXlt(x$time, tz = "GMT")$yday + 1
 
-wday <- function(x) 
+wday <- function(x, label = FALSE, abbr = FALSE) 
 	UseMethod("wday")
 	
-wday.default <- function(x)
+wday.default <- function(x, label = FALSE, abbr = FALSE){
+	if(label){
+		days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+		
+		if(abbr)
+			days <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
+			
+		return(days[as.POSIXlt(x, tz = tz(x))$wday + 1])
+	}		
     as.POSIXlt(x, tz = tz(x))$wday + 1
+}
     
-wday.zoo <- function(x)
-	wday.default(index(x))
+wday.zoo <- function(x, label = FALSE, abbr = FALSE)
+	wday.default(index(x), label, abbr)
 
-wday.its <- function(x)
-	wday.default(attr(x, "dates"))
+wday.its <- function(x, label = FALSE, abbr = FALSE)
+	wday.default(attr(x, "dates"), label, abbr)
 	
-wday.ti <- wday.jul <- function(x)
-	wday.default(as.Date(x))
+wday.ti <- wday.jul <- function(x, label = FALSE, abbr = FALSE)
+	wday.default(as.Date(x), label, abbr)
 	
-wday.timeSeries <- function(x)
-	wday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+wday.timeSeries <- function(x, label = FALSE, abbr = FALSE)
+	wday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
 	
-wday.fts <- function(x)
-	wday.default(dates(x))
+wday.fts <- function(x, label = FALSE, abbr = FALSE)
+	wday.default(dates(x), label, abbr)
 	
-wday.irts <- function(x)
+wday.irts <- function(x, label = FALSE, abbr = FALSE){
+	if(label){
+		days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+		
+		if(abbr)
+			days <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
+			
+		return(days[as.POSIXlt(x$time, tz = "GMT")$wday + 1])
+	}
 	as.POSIXlt(x$time, tz = "GMT")$wday + 1
+}
 	
 mday <- day <- function(x) 
 	UseMethod("mday")
@@ -281,29 +299,49 @@ week <- function(x)
 #' month(x) <- 1  
 #' month(x) <- 13
 #' month(x) > 3
-month <- function(x) 
+month <- function(x, label = FALSE, abbr = FALSE) 
 	UseMethod("month")
 	
-month.default <- function(x)
+month.default <- function(x, label = FALSE, abbr = FALSE){
+	
+	if (label){
+		months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+		
+		if (abbr)
+			months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+			
+		return(months[as.POSIXlt(x, tz = tz(x))$mon + 1])
+	}
     as.POSIXlt(x, tz = tz(x))$mon + 1
+}
     
-month.zoo <- function(x)
-	month.default(index(x))
+month.zoo <- function(x, label = FALSE, abbr = FALSE)
+	month.default(index(x), label, abbr)
 
-month.its <- function(x)
-	month.default(attr(x, "dates"))	
+month.its <- function(x, label = FALSE, abbr = FALSE)
+	month.default(attr(x, "dates"), label, abbr)	
 
-month.ti <- month.jul <- function(x)
-	month.default(as.Date(x))
+month.ti <- month.jul <- function(x, label = FALSE, abbr = FALSE)
+	month.default(as.Date(x), label, abbr)
 	
-month.timeSeries <- function(x)
-	month.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+month.timeSeries <- function(x, label = FALSE, abbr = FALSE)
+	month.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
 	
-month.fts <- function(x)
-	month.default(dates(x))
+month.fts <- function(x, label = FALSE, abbr = FALSE)
+	month.default(dates(x), label, abbr)
 	
-month.irts <- function(x)
+month.irts <- function(x, label = FALSE, abbr = FALSE){
+	months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+		if (label){
+		months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+		
+		if (abbr)
+			months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+			
+		return(months[as.POSIXlt(x$time, tz = "GMT")$mon + 1])
+	}
 	as.POSIXlt(x$time, tz = "GMT")$mon + 1
+}
 	
 #' Get/set years component of a date-time.
 #'
