@@ -5,11 +5,12 @@
 #' Durations record the exact number of seconds in a time span. They measure the exact passage of time and are not affected by conventions such as leap years and Daylight Savings Time. lubridate uses the difftime class from base::R for durations. Additional difftime methods have been created to facilitate this. #'
 #' difftime displays durations in various units, but these units are estimates given for convenience. The underlying object is always recorded as a fixed number of seconds. For display and creation purposes, units are converted to seconds using their most common lengths in seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units larger than weeks are not used due to their variability.
 #' 
-#' duration objects can be easily created with the helper functions \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}}, \code{link{eseconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming.
+#' duration objects can be easily created with the helper functions \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}}, \code{link{eseconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming. Duration objects can be added to Date, POSIXt, and Interval objects.
+
 #'
 #' Periods record the change in the clock time between two date-times. They are measured in common time related units: years, months, days, hours, minutes, and seconds. Each unit except for seconds must be expressed in integer values. With the exception of seconds, none of these units have a fixed length. Leap years, leap seconds, and Daylight Savings Time can expand or contract a time unit depending on when it occurs.  For this reason, periods do not have a fixed length until they are paired with a start date. Periods can be used to track changes in clock time. Because they do not have a fixed length, they can not be accurately converted to and from durations.
 #'
-#' Period objects can be easily created with the helper functions \code{link{years}}, \code{link{months}}, \code{link{weeks}}, \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming.
+#' Period objects can be easily created with the helper functions \code{link{years}}, \code{link{months}}, \code{link{weeks}}, \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects can be added to and subtracted to date-times to create a user interface similar to object oriented programming. Period objects can be added to Date, POSIXt, and Interval objects.
 #'
 #' Intervals are time spans bound by two real date-times.  Intervals can be accurately converted to periods and durations. Since an interval is anchored to a fixed history of time, both the number of seconds that passed as well as the length of common time units during that history can be calculated. To accurately convert between periods and durations, a period or duration should first be converted to an interval. Subtracting two date times automatically creates an interval object. Intervals display as the difftime between the two dates paired with the earlier, or beginning date. 
 #'
@@ -164,11 +165,13 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #'
 #' Quickly create duration objects for easy date-time manipulation. The units of the duration created depend on the name of the function called. For duration objects, units are equal to their most common lengths in seconds (i.e. minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800).
 #'
+#' When paired with date-times, these functions allow date-times to be manipulated in a method similar to object oriented programming. Duration objects can be added to Date, POSIXt, and Interval objects.
+#'
 #' @aliases eseconds eminutes ehours edays eweeks
 #' @param x numeric value of the number of units to be contained in the duration. 
 #' @return a duration object
-#' @seealso \code{\link{duration}}, \code{\link{new_duration}}
-#' @keywords chron 
+#' @seealso \code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
+#' @keywords chron manip
 #' @examples
 #' eseconds(1) 
 #' # Time difference of 1 secs
@@ -195,6 +198,14 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' c(1:3) * ehours(1) 
 #' # Time differences in hours
 #' # [1] 1 2 3
+#' #
+#' # compare DST handling to durations
+#' boundary <- as.POSIXct("2009-03-08 01:59:59")
+#' # "2009-03-08 01:59:59 CST"
+#' boundary + days(1) # period
+#' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
+#' boundary + edays(1) # duration
+#' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
 eseconds <- function(x = 1) new_duration(second = x)
 eminutes <- function(x = 1) new_duration(minute = x)
 ehours <-   function(x = 1) new_duration(hour = x)

@@ -174,6 +174,15 @@ hour.irts <- function(x)
 #' yday(x) <- 1  #"2009-01-01"
 #' yday(x) <- 366 #"2010-01-01"
 #' mday(x) > 3
+#'
+#' wday(ymd(080101))
+#' # 3
+#' wday(ymd(080101), label = T)
+#' # "Tuesday"
+#' wday(ymd(080101), label = T, abbr = T)
+#' # "Tues"
+#' wday(ymd(080101) + days(-2:4), label = T, abbr = T)
+#' # "Sun"   "Mon"   "Tues"  "Wed"   "Thurs" "Fri"   "Sat" 
 yday <- function(x) 
 	UseMethod("yday")
 	
@@ -304,6 +313,15 @@ week <- function(x)
 #' month(x) <- 1  
 #' month(x) <- 13
 #' month(x) > 3
+#'
+#' month(ymd(080101))
+#' # 1
+#' month(ymd(080101), label = T)
+#' # "January"
+#' month(ymd(080101), label = T, abbr = T)
+#' # "Jan"
+#' month(ymd(080101) + months(0:11), label = T, abbr = T)
+#' # "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 month <- function(x, label = FALSE, abbr = FALSE) 
 	UseMethod("month")
 	

@@ -52,6 +52,7 @@ NULL
 
 
 add_period_to_date <- function(date, period){
+	datetest <- date
 
 	year(date) <- year(date) + period$year
 	month(date) <- month(date) + period$month
@@ -60,6 +61,8 @@ add_period_to_date <- function(date, period){
 	minute(date) <- minute(date) + period$minute
 	second(date) <- second(date) + period$second
 
+	if(is.Date(datetest))
+		return(with_tz(date, "UTC"))
 	date
 }
 
@@ -83,8 +86,11 @@ add_number_to_period <- function(per, num){
 	per
 }
 	
-add_period_to_period <- function(per1, per2)
-	per1 + per2
+add_period_to_period <- function(per1, per2){
+	class(per1) <- "data.frame" 
+	class(per2) <- "data.frame"
+	structure(per1 + per2, class = c("period", "data.frame"))
+}
 	
 add_duration_to_period <- function(dur, per){
 	stop("incompatible time spans. See 'interval' documentation.")
