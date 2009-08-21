@@ -39,8 +39,8 @@
 new_period <- function(...) {
   pieces <- data.frame(...)
   if(any(trunc(pieces) - pieces != 0))
-  	stop("periods must have integer values", call. = F)
-  	
+    stop("periods must have integer values", call. = F)
+    
   names(pieces) <- standardise_date_names(names(pieces))
   defaults <- data.frame(
     second = 0, minute = 0, hour = 0, day = 0, week = 0, 
@@ -143,22 +143,22 @@ d <- days(1)
 #'
 #' keywords internal print chron
 format.period <- function(period, ...){
-	show <- vector(mode = "character")
-	for (i in 1:nrow(period)){
-		per <- period[i,]
-	
-		per <- per[which(per != 0)]
-		if (length(per) == 0) show[i] <- "0 seconds"
-		
-		else{
-			singular <- names(per)
-	   		plural <- paste(singular, "s", sep = "")
+  show <- vector(mode = "character")
+  for (i in 1:nrow(period)){
+    per <- period[i,]
+  
+    per <- per[which(per != 0)]
+    if (length(per) == 0) show[i] <- "0 seconds"
     
-	    	IDs <-paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
- 		   	if(length(IDs) == 1) show[i] <- IDs
-    		else
-    			show[i] <- paste(paste(IDs[-length(IDs)], collapse = ", "), IDs[length(IDs)],sep = " and ")
-    	}
+    else{
+      singular <- names(per)
+         plural <- paste(singular, "s", sep = "")
+    
+        IDs <-paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
+          if(length(IDs) == 1) show[i] <- IDs
+        else
+          show[i] <- paste(paste(IDs[-length(IDs)], collapse = ", "), IDs[length(IDs)],sep = " and ")
+      }
     }
     paste(show, collapse = "   ")
 }
@@ -212,52 +212,52 @@ print.period <- function(x, ...) {
 #' as.period(span, units = c("day", "minute")) 
 #' # 1 day, 1 minute and 34218001 seconds
 as.period <- function(x, units, ...)
-	UseMethod("as.period")
-	
+  UseMethod("as.period")
+  
 as.period.default <- function(x, units = c("seconds"), ...){
-	x <- as.numeric(x)
-	unit <- standardise_date_names(units[1])
-	f <- match.fun(paste(unit, "s", sep = ""))
-	f(x)
+  x <- as.numeric(x)
+  unit <- standardise_date_names(units[1])
+  f <- match.fun(paste(unit, "s", sep = ""))
+  f(x)
 }
 
 as.period.interval <- function(x, units = c("year", "month", "day", "hour", "minute", "seconds"), ...){
-	units <- standardise_date_names(units)
-	newper <- new_period(second = 0)
-	
-	for(i in 1:length(units)){
-		start <- x$start + newper
-		name <- match(units[i], names(newper))
-		f <- match.fun(units[i])
-		newper[1,name] <- f(x$end) - f(start)
-	}
+  units <- standardise_date_names(units)
+  newper <- new_period(second = 0)
+  
+  for(i in 1:length(units)){
+    start <- x$start + newper
+    name <- match(units[i], names(newper))
+    f <- match.fun(units[i])
+    newper[1,name] <- f(x$end) - f(start)
+  }
 
-	remainder <- as.double(difftime(x$end, x$start + newper), "secs")
-	newper$second <- newper$second + remainder
+  remainder <- as.double(difftime(x$end, x$start + newper), "secs")
+  newper$second <- newper$second + remainder
 newper
 }
 
 as.period.difftime <- function(x, units= c("year", "month", "day", "hour", "minute", "seconds")){
-	units <- standardise_date_names(units)
-	span <- as.double(x, "secs")
-	remainder <- abs(span)
-	newper <- new_period(second = 0)
-	denominator <- c(second = 1, minute = 60, hour = 3600, day = (3600 * 24), year =  (3600 * 24 * 7 * 365))
-	
-	for (i in 1:length(units)){
-		bite <- switch(units[i], 
-			"second" = span, 
-			"minute" = span %/% 60 * 60, 
-			"hour" = span %/% 3600 * 3600, 
-			"day" = span %/% (3600 * 24) * (3600 * 24), 
-			"month" = stop("month length cannot be estimated from durtions", call. = F),
-			"year" = span %/% (3600 * 24 * 7 * 365) * (3600 * 24 * 7 * 365))
-		remainder <- remainder - bite
-		newper[units[i]] <- bite / denominator[[units[i]]]
-	}
-	
-	newper$second <- newper$second + remainder
-	newper * sign(span)
+  units <- standardise_date_names(units)
+  span <- as.double(x, "secs")
+  remainder <- abs(span)
+  newper <- new_period(second = 0)
+  denominator <- c(second = 1, minute = 60, hour = 3600, day = (3600 * 24), year =  (3600 * 24 * 7 * 365))
+  
+  for (i in 1:length(units)){
+    bite <- switch(units[i], 
+      "second" = span, 
+      "minute" = span %/% 60 * 60, 
+      "hour" = span %/% 3600 * 3600, 
+      "day" = span %/% (3600 * 24) * (3600 * 24), 
+      "month" = stop("month length cannot be estimated from durtions", call. = F),
+      "year" = span %/% (3600 * 24 * 7 * 365) * (3600 * 24 * 7 * 365))
+    remainder <- remainder - bite
+    newper[units[i]] <- bite / denominator[[units[i]]]
+  }
+  
+  newper$second <- newper$second + remainder
+  newper * sign(span)
 }
 
 

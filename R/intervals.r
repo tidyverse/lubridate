@@ -45,19 +45,19 @@
 #' span$end
 #' # "2009-02-01 CST"
 new_interval <- function(date1, date2){
-	date1 <- as.POSIXct(date1)
-	date2 <- as.POSIXct(date2)
-		
-	interval <- data.frame(start = pmin(date1, date2), end = pmax(date1, date2))
-	structure(interval, class = c("interval", "data.frame"))
+  date1 <- as.POSIXct(date1)
+  date2 <- as.POSIXct(date2)
+    
+  interval <- data.frame(start = pmin(date1, date2), end = pmax(date1, date2))
+  structure(interval, class = c("interval", "data.frame"))
 }
 
 #' Internal function. Formats interval objects.
 #'
 #' keywords internal print chron
 format.interval <- function(int,...){
-	x <- difftime(int$end, int$start)
-	paste(format(unclass(x),...), units(x), "beginning at", int$start)
+  x <- difftime(int$end, int$start)
+  paste(format(unclass(x),...), units(x), "beginning at", int$start)
 }
 
 #' Internal function for printing interval objects.
@@ -101,8 +101,8 @@ print.interval <- function(x, ...) {
 #' as.interval(3600, as.POSIXct("2009-01-01")) #numeric
 #' # 1 hours beginning at 2009-01-01
 as.interval <- function(x, origin){
-	origin <- as.POSIXct(origin)
-	new_interval(origin, origin + x)
+  origin <- as.POSIXct(origin)
+  new_interval(origin, origin + x)
 }
 
-	
+  
