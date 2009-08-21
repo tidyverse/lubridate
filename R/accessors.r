@@ -191,7 +191,7 @@ yday <- function(x)
 	UseMethod("yday")
 	
 yday.default <- function(x)
-    as.POSIXlt(x, tz = tz(x))$yday + 1
+  as.POSIXlt(x, tz = tz(x))$yday + 1
     
 yday.zoo <- function(x)
 	yday.default(index(x))
@@ -215,17 +215,21 @@ wday <- function(x, label = FALSE, abbr = FALSE)
 	UseMethod("wday")
 	
 wday.default <- function(x, label = FALSE, abbr = FALSE){
-	if(label){
-		days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-		
-		if(abbr)
-			days <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
-			
-		return(days[as.POSIXlt(x, tz = tz(x))$wday + 1])
-	}		
-    as.POSIXlt(x, tz = tz(x))$wday + 1
+  wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr)
 }
-    
+
+wday.numeric <- function(x, label = FALSE, abbr = FALSE) {
+  if (!label) return(x)
+  
+  if (abbr) {
+    labels <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
+  } else {
+    labels <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
+                "Friday", "Saturday")
+  }
+  ordered(x, labels = labels)  
+}
+
 wday.zoo <- function(x, label = FALSE, abbr = FALSE)
 	wday.default(index(x), label, abbr)
 
@@ -242,22 +246,14 @@ wday.fts <- function(x, label = FALSE, abbr = FALSE)
 	wday.default(dates(x), label, abbr)
 	
 wday.irts <- function(x, label = FALSE, abbr = FALSE){
-	if(label){
-		days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-		
-		if(abbr)
-			days <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
-			
-		return(days[as.POSIXlt(x$time, tz = "GMT")$wday + 1])
-	}
-	as.POSIXlt(x$time, tz = "GMT")$wday + 1
+  wday(x$time, label, abbr)
 }
 	
 mday <- day <- function(x) 
 	UseMethod("mday")
 	
 mday.default <- function(x)
-    as.POSIXlt(x, tz = tz(x))$mday
+  as.POSIXlt(x, tz = tz(x))$mday
     
 mday.zoo <- function(x)
 	mday.default(index(x))
@@ -294,7 +290,7 @@ mday.irts <- function(x)
 #' week(x) <- 54
 #' week(x) > 3
 week <- function(x)
-    yday(x) %/% 7 + 1
+  yday(x) %/% 7 + 1
 
 
 #' Get/set months component of a date-time.
@@ -333,17 +329,22 @@ week <- function(x)
 month <- function(x, label = FALSE, abbr = FALSE) 
 	UseMethod("month")
 	
-month.default <- function(x, label = FALSE, abbr = FALSE){
-	
-	if (label){
-		months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-		
-		if (abbr)
-			months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-			
-		return(months[as.POSIXlt(x, tz = tz(x))$mon + 1])
-	}
-    as.POSIXlt(x, tz = tz(x))$mon + 1
+month.default <- function(x, label = FALSE, abbr = FALSE)
+  month(as.POSIXlt(x, tz = "GMT")$mon + 1, label, abbr)
+  
+month.numeric <- function(x, label = FALSE, abbr = FALSE) {
+  if (!label) return(x)
+  
+  if (abbr) {
+    labels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+                "Oct", "Nov", "Dec")
+  } else {
+    labels <- c("January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November",
+                "December")
+  }
+  
+  ordered(x, labels = labels)
 }
     
 month.zoo <- function(x, label = FALSE, abbr = FALSE)
@@ -361,18 +362,8 @@ month.timeSeries <- function(x, label = FALSE, abbr = FALSE)
 month.fts <- function(x, label = FALSE, abbr = FALSE)
 	month.default(dates(x), label, abbr)
 	
-month.irts <- function(x, label = FALSE, abbr = FALSE){
-	months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-		if (label){
-		months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-		
-		if (abbr)
-			months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-			
-		return(months[as.POSIXlt(x$time, tz = "GMT")$mon + 1])
-	}
-	as.POSIXlt(x$time, tz = "GMT")$mon + 1
-}
+month.irts <- function(x, label = FALSE, abbr = FALSE)
+  month(x$time)
 	
 #' Get/set years component of a date-time.
 #'
