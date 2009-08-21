@@ -143,19 +143,19 @@ NULL
 #' new_duration(day = -1)
 #' # Time difference of -1 days
 new_duration <- function(...){
-	pieces <- list(...)
-	names(pieces) <- standardise_difftime_names(names(pieces))
-	
-	defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)
-	pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
-	
-	x <- pieces$secs +
-		pieces$mins * 60 +
-		pieces$hours * 3600 +
-		pieces$days * 86400 +
-		pieces$weeks * 604800
-	
-	make_difftime(x)
+  pieces <- list(...)
+  names(pieces) <- standardise_difftime_names(names(pieces))
+  
+  defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)
+  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
+  
+  x <- pieces$secs +
+    pieces$mins * 60 +
+    pieces$hours * 3600 +
+    pieces$days * 86400 +
+    pieces$weeks * 604800
+  
+  make_difftime(x)
 }
 
 #' Change an object to a duration (difftime).
@@ -190,26 +190,26 @@ new_duration <- function(...){
 #' as.duration(10) # numeric
 #' # Time difference of 10 secs
 as.duration <- function(x)
-	UseMethod("as.duration")
-	
-	
+  UseMethod("as.duration")
+  
+  
 as.duration.period <- function(per){
-	if (per$month != 0)
-		stop("durations cannot estimate month length")
-	all <- per$second +
-		per$minute * 60 +
-		per$hour * 3600 + 
-		per$day * 3600 * 24 + 
-		per$year * 3600 * 24 * 365
-	
-	make_difftime(all)
+  if (per$month != 0)
+    stop("durations cannot estimate month length")
+  all <- per$second +
+    per$minute * 60 +
+    per$hour * 3600 + 
+    per$day * 3600 * 24 + 
+    per$year * 3600 * 24 * 365
+  
+  make_difftime(all)
 }
-	
+  
 as.duration.interval <- function(x)
-	difftime(x$end, x$start)
+  difftime(x$end, x$start)
 
 as.duration.default <- function(x)
-	make_difftime(x)
+  make_difftime(x)
 
 #' Internal function.
 #'

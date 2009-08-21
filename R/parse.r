@@ -216,7 +216,7 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
     stop(paste(fmts, collapse = ", "), " All failed to parse dates. Check for incorrect or missing elements.")
   } 
   else if (length(best) > 1) {
-  	message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
+    message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
     best <- best[1]
   }
 
@@ -234,8 +234,8 @@ combine <- function(mat, vec){
   
   combined <- mat[rep(1:nrow(mat), each = length(vec)),]
   if (nrow(mat) == 1)
-  	combined <- cbind(t(unname(combined)), sep = rep(vec, nrow(mat)))
+    combined <- cbind(t(unname(combined)), sep = rep(vec, nrow(mat)))
   else
-  	combined <- cbind(unname(combined), sep = rep(vec, nrow(mat)))
+    combined <- cbind(unname(combined), sep = rep(vec, nrow(mat)))
   combined
 }

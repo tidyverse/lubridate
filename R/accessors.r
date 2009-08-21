@@ -21,28 +21,28 @@
 #' second(x) <- 61 
 #' second(x) > 2
 second <- function(x) 
-	UseMethod("second")
-	
+  UseMethod("second")
+  
 second.default <- function(x)
     as.POSIXlt(x)$sec
     
 second.zoo <- function(x)
-	as.POSIXlt(index(x))$sec
-	
+  as.POSIXlt(index(x))$sec
+  
 second.its <- function(x)
-	second.default(attr(x, "dates"))
-	
+  second.default(attr(x, "dates"))
+  
 second.ti <- second.jul <- function(x)
-	tis::hms(x)$sec
+  tis::hms(x)$sec
 
 second.timeSeries <- function(x)
-	second.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+  second.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
 second.fts <- function(x)
-	second.default(dates(x))
-	
+  second.default(dates(x))
+  
 second.irts <- function(x)
-	second.default(x$time)
+  second.default(x$time)
 
 
 #' Get/set minutes component of a date-time.
@@ -68,28 +68,28 @@ second.irts <- function(x)
 #' minute(x) <- 61 
 #' minute(x) > 2
 minute <- function(x) 
-	UseMethod("minute")
-	
+  UseMethod("minute")
+  
 minute.default <- function(x)
     as.POSIXlt(x)$min
     
 minute.zoo <- function(x)
-	as.POSIXlt(index(x))$min
+  as.POSIXlt(index(x))$min
 
 minute.its <- function(x)
-	minute.default(attr(x, "dates"))
-	
+  minute.default(attr(x, "dates"))
+  
 minute.ti <- minute.jul <- function(x)
-	tis::hms(x)$min
+  tis::hms(x)$min
 
 minute.timeSeries <- function(x)
-	minute.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-	
+  minute.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+  
 minute.fts <- function(x)
-	minute.default(dates(x))
+  minute.default(dates(x))
 
 minute.irts <- function(x)
-	minute.default(x$time)
+  minute.default(x$time)
 
 
 #' Get/set hours component of a date-time.
@@ -115,28 +115,28 @@ minute.irts <- function(x)
 #' hour(x) <- 61 
 #' hour(x) > 2
 hour <- function(x) 
-	UseMethod("hour")
-	
+  UseMethod("hour")
+  
 hour.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$hour
     
 hour.zoo <- function(x)
-	hour.default(index(x))
-	
+  hour.default(index(x))
+  
 hour.its <- function(x)
-	hour.default(attr(x, "dates"))
-	
+  hour.default(attr(x, "dates"))
+  
 hour.ti <- hour.jul <- function(x)
-	tis::hms(x)$hour
-	
+  tis::hms(x)$hour
+  
 hour.timeSeries <- function(x)
-	hour.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-	
+  hour.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+  
 hour.fts <- function(x)
-	hour.default(dates(x))
-	
+  hour.default(dates(x))
+  
 hour.irts <- function(x)
-	as.POSIXlt(x$time, tz = "GMT")$hour
+  as.POSIXlt(x$time, tz = "GMT")$hour
 
 #' Get/set days component of a date-time.
 #'
@@ -188,94 +188,90 @@ hour.irts <- function(x)
 #' wday(ymd(080101) + days(-2:4), label = T, abbr = T)
 #' # "Sun"   "Mon"   "Tues"  "Wed"   "Thurs" "Fri"   "Sat" 
 yday <- function(x) 
-	UseMethod("yday")
-	
+  UseMethod("yday")
+  
 yday.default <- function(x)
-    as.POSIXlt(x, tz = tz(x))$yday + 1
+  as.POSIXlt(x, tz = tz(x))$yday + 1
     
 yday.zoo <- function(x)
-	yday.default(index(x))
+  yday.default(index(x))
 
 yday.its <- function(x)
-	yday.default(attr(x, "dates"))
-	
+  yday.default(attr(x, "dates"))
+  
 yday.ti <- yday.jul <- function(x)
-	yday.default(as.Date(x))
-	
+  yday.default(as.Date(x))
+  
 yday.timeSeries <- function(x)
-	yday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-	
+  yday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+  
 yday.fts <- function(x)
-	yday.default(dates(x))
-	
+  yday.default(dates(x))
+  
 yday.irts <- function(x)
-	as.POSIXlt(x$time, tz = "GMT")$yday + 1
+  as.POSIXlt(x$time, tz = "GMT")$yday + 1
 
 wday <- function(x, label = FALSE, abbr = FALSE) 
-	UseMethod("wday")
-	
+  UseMethod("wday")
+  
 wday.default <- function(x, label = FALSE, abbr = FALSE){
-	if(label){
-		days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-		
-		if(abbr)
-			days <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
-			
-		return(days[as.POSIXlt(x, tz = tz(x))$wday + 1])
-	}		
-    as.POSIXlt(x, tz = tz(x))$wday + 1
+  wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr)
 }
-    
+
+wday.numeric <- function(x, label = FALSE, abbr = FALSE) {
+  if (!label) return(x)
+  
+  if (abbr) {
+    labels <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
+  } else {
+    labels <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
+                "Friday", "Saturday")
+  }
+  ordered(x, labels = labels)  
+}
+
 wday.zoo <- function(x, label = FALSE, abbr = FALSE)
-	wday.default(index(x), label, abbr)
+  wday.default(index(x), label, abbr)
 
 wday.its <- function(x, label = FALSE, abbr = FALSE)
-	wday.default(attr(x, "dates"), label, abbr)
-	
+  wday.default(attr(x, "dates"), label, abbr)
+  
 wday.ti <- wday.jul <- function(x, label = FALSE, abbr = FALSE)
-	wday.default(as.Date(x), label, abbr)
-	
+  wday.default(as.Date(x), label, abbr)
+  
 wday.timeSeries <- function(x, label = FALSE, abbr = FALSE)
-	wday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
-	
+  wday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
+  
 wday.fts <- function(x, label = FALSE, abbr = FALSE)
-	wday.default(dates(x), label, abbr)
-	
+  wday.default(dates(x), label, abbr)
+  
 wday.irts <- function(x, label = FALSE, abbr = FALSE){
-	if(label){
-		days <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-		
-		if(abbr)
-			days <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
-			
-		return(days[as.POSIXlt(x$time, tz = "GMT")$wday + 1])
-	}
-	as.POSIXlt(x$time, tz = "GMT")$wday + 1
+  wday(x$time, label, abbr)
 }
-	
+  
 mday <- day <- function(x) 
-	UseMethod("mday")
-	
+  UseMethod("mday")
+  
 mday.default <- function(x)
-    as.POSIXlt(x, tz = tz(x))$mday
+  as.POSIXlt(x, tz = tz(x))$mday
     
 mday.zoo <- function(x)
-	mday.default(index(x))
+  mday.default(index(x))
 
 mday.its <- function(x)
-	mday.default(attr(x, "dates"))
-	
+  mday.default(attr(x, "dates"))
+  
 mday.ti <- mday.jul <- function(x)
-	mday.default(as.Date(x))
-	
+  mday.default(as.Date(x))
+  
 mday.timeSeries <- function(x)
-	mday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-	
+  mday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+  
 mday.fts <- function(x)
-	mday.default(dates(x))
-	
+  mday.default(dates(x))
+  
 mday.irts <- function(x)
-	as.POSIXlt(x$time, tz = "GMT")$mday
+  as.POSIXlt(x$time, tz = "GMT")$mday
 
 #' Get/set weeks component of a date-time.
 #'
@@ -294,7 +290,7 @@ mday.irts <- function(x)
 #' week(x) <- 54
 #' week(x) > 3
 week <- function(x)
-    yday(x) %/% 7 + 1
+  yday(x) %/% 7 + 1
 
 
 #' Get/set months component of a date-time.
@@ -331,49 +327,44 @@ week <- function(x)
 #' month(ymd(080101) + months(0:11), label = T, abbr = T)
 #' # "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 month <- function(x, label = FALSE, abbr = FALSE) 
-	UseMethod("month")
-	
-month.default <- function(x, label = FALSE, abbr = FALSE){
-	
-	if (label){
-		months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-		
-		if (abbr)
-			months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-			
-		return(months[as.POSIXlt(x, tz = tz(x))$mon + 1])
-	}
-    as.POSIXlt(x, tz = tz(x))$mon + 1
+  UseMethod("month")
+  
+month.default <- function(x, label = FALSE, abbr = FALSE)
+  month(as.POSIXlt(x, tz = "GMT")$mon + 1, label, abbr)
+  
+month.numeric <- function(x, label = FALSE, abbr = FALSE) {
+  if (!label) return(x)
+  
+  if (abbr) {
+    labels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+                "Oct", "Nov", "Dec")
+  } else {
+    labels <- c("January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November",
+                "December")
+  }
+  
+  ordered(x, labels = labels)
 }
     
 month.zoo <- function(x, label = FALSE, abbr = FALSE)
-	month.default(index(x), label, abbr)
+  month.default(index(x), label, abbr)
 
 month.its <- function(x, label = FALSE, abbr = FALSE)
-	month.default(attr(x, "dates"), label, abbr)	
+  month.default(attr(x, "dates"), label, abbr)  
 
 month.ti <- month.jul <- function(x, label = FALSE, abbr = FALSE)
-	month.default(as.Date(x), label, abbr)
-	
+  month.default(as.Date(x), label, abbr)
+  
 month.timeSeries <- function(x, label = FALSE, abbr = FALSE)
-	month.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
-	
+  month.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
+  
 month.fts <- function(x, label = FALSE, abbr = FALSE)
-	month.default(dates(x), label, abbr)
-	
-month.irts <- function(x, label = FALSE, abbr = FALSE){
-	months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-		if (label){
-		months <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-		
-		if (abbr)
-			months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-			
-		return(months[as.POSIXlt(x$time, tz = "GMT")$mon + 1])
-	}
-	as.POSIXlt(x$time, tz = "GMT")$mon + 1
-}
-	
+  month.default(dates(x), label, abbr)
+  
+month.irts <- function(x, label = FALSE, abbr = FALSE)
+  month(x$time)
+  
 #' Get/set years component of a date-time.
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
@@ -398,30 +389,30 @@ month.irts <- function(x, label = FALSE, abbr = FALSE){
 #' year(x) <- 2001  
 #' year(x) > 1995
 year <- function(x) 
-	UseMethod("year")
-	
+  UseMethod("year")
+  
 year.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$year + 1900
     
 year.zoo <- function(x)
-	year.default(index(x))
+  year.default(index(x))
 
 year.its <- function(x)
-	year.default(attr(x, "dates"))
-	
+  year.default(attr(x, "dates"))
+  
 year.ti <- year.jul <- function(x)
-	year.default(as.Date(x))
+  year.default(as.Date(x))
 
 year.timeSeries <- function(x)
-	year.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-	
+  year.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+  
 year.fts <- function(x)
-	year.default(dates(x))
-	
+  year.default(dates(x))
+  
 year.irts <- function(x)
-	as.POSIXlt(x$time, tz = "GMT")$year + 1900
-	
-	
+  as.POSIXlt(x$time, tz = "GMT")$year + 1900
+  
+  
 #' Get/set time zone component of a date-time.
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
@@ -462,34 +453,34 @@ year.irts <- function(x)
 #' tz(x)
 #' Sys.unsetenv("TZ")
 tz <- function (x) 
-	UseMethod("tz")
+  UseMethod("tz")
 
 tz.default <- function(x) {
-	if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
-		return("GMT")
+  if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
+    return("GMT")
   tzs <- attr(as.POSIXlt(x),"tzone")
   tzs[1]
 }
 
 tz.zoo <- function(x){
-	tzs <- attr(as.POSIXlt(index(x)), "tzone")
-	tzs[1]
+  tzs <- attr(as.POSIXlt(index(x)), "tzone")
+  tzs[1]
 }
 
 tz.its <- function(x)
-	tz.default(attr(x, "dates"))
+  tz.default(attr(x, "dates"))
 
 tz.ti <- tz.jul <- function(x)
-	tz.default(as.Date(x))
-	
+  tz.default(as.Date(x))
+  
 tz.timeSeries <- function(x)
-	x@FinCenter
+  x@FinCenter
 
 tz.fts <- function(x)
-	tz.default(dates(x))
-	
+  tz.default(dates(x))
+  
 tz.irts <- function(x)
-	return("GMT")
+  return("GMT")
 
 
 #' Get Daylight Savings Time indicator of a date-time.
@@ -516,45 +507,28 @@ tz.irts <- function(x)
 #' x <- Sys.time()
 #' dst(x) 
 dst <- function(x)
-	UseMethod("dst")
-	
+  UseMethod("dst")
+  
 dst.default <- function(x)
-	as.POSIXlt(x)$isdst
+  as.POSIXlt(x)$isdst
     
 dst.zoo <- function(x)
-	as.POSIXlt(index(x))$isdst
-	
+  as.POSIXlt(index(x))$isdst
+  
 dst.its <- function(x)
-	dst.default(attr(x, "dates"))
-	
+  dst.default(attr(x, "dates"))
+  
 dst.ti <- dst.jul <- function(x)
-	tis::hms(x)$isdst
+  tis::hms(x)$isdst
 
 dst.timeSeries <- function(x)
-	dst.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
+  dst.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
 dst.fts <- function(x)
-	dst.default(dates(x))
-	
+  dst.default(dates(x))
+  
 dst.irts <- function(x)
-	dst.default(x$time)
-
-#' Does date time occur in the am or pm?
-#'
-#' @aliases am pm
-#' @param x a date-time object  
-#' @return TRUE or FALSE depending on whethe x occurs in the am or pm 
-#' @keywords chron 
-#' @examples
-#' x <- Sys.time()
-#' am(x) 
-#' pm(x) 
-
-am <- function(x) hour(x) < 12
-
-# should share documentation with am
-pm <- function(x) !am(x)
-
+  dst.default(x$time)
 
 #' Internal function. Replaces the seconds element of a date with a specified 
 #' value.
@@ -574,60 +548,60 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{second}}  
 #' @keywords internal methods chron manip
 "second<-" <- function(x, value){
-	if (all(value == second(x)))
-		return(x)
-	UseMethod("second<-")
+  if (all(value == second(x)))
+    return(x)
+  UseMethod("second<-")
 }
 
 "second<-.default" <- function(x, value){
-	new <- as.POSIXct(x) - (second(x) - value)
-	DST(x, new)
+  new <- as.POSIXct(x) - (second(x) - value)
+  DST(x, new)
 }
 
 "second<-.chron" <- "second<-.timeDate" <- function(x, value){
-	date <- "second<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "second<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "second<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "second<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "second<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 
 "second<-.its" <- function(x, value){
-	dates <- "second<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "second<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "second<-.ti" <- function(x, value){
-	date <- "second<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "second<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 "second<-.jul" <- function(x, value)
-	x - (second(x) - value)/86400
+  x - (second(x) - value)/86400
 
 
 "second<-.timeSeries" <- function(x, value){
-	positions <- "second<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "second<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "second<-.fts" <- function(x, value){
-	date <- "second<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "second<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "second<-.irts" <- function(x, value){
-	x$time <- "second<-.default"(x$time, value)
-	x
+  x$time <- "second<-.default"(x$time, value)
+  x
 }
 
 #' Internal function. Replaces the minutes element of a date with a specified 
@@ -648,59 +622,59 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{minute}} 
 #' @keywords internal methods chron manip
 "minute<-" <- function(x, value){
-	if (all(value == minute(x)))
-		return(x)
-	UseMethod("minute<-")
+  if (all(value == minute(x)))
+    return(x)
+  UseMethod("minute<-")
 }
 
 "minute<-.default" <- function(x, value){
-	new <- as.POSIXct(x) - (minute(x) - value) * 60
-	DST(x, new)
+  new <- as.POSIXct(x) - (minute(x) - value) * 60
+  DST(x, new)
 }
 
 
 "minute<-.chron" <- "minute<-.timeDate" <- function(x, value){
-	date <- "minute<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "minute<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "minute<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "minute<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "minute<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 "minute<-.its" <- function(x, value){
-	dates <- "minute<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "minute<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "minute<-.ti" <- function(x, value){
-	date <- "minute<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "minute<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 "minute<-.jul" <- function(x, value)
-	x - (minute(x) - value)*60/86400
+  x - (minute(x) - value)*60/86400
 
 "minute<-.timeSeries" <- function(x, value){
-	positions <- "minute<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "minute<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "minute<-.fts" <- function(x, value){
-	date <- "minute<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "minute<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "minute<-.irts" <- function(x, value){
-	x$time <- "minute<-.default"(x$time, value)
-	x
+  x$time <- "minute<-.default"(x$time, value)
+  x
 }
 
 #' Internal function. Replaces the hours element of a date with a specified 
@@ -721,59 +695,59 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{hour}}   
 #' @keywords internal methods chron manip
 "hour<-" <- function(x, value) {
-	if (all(value == hour(x)))
-		return(x)
-	UseMethod("hour<-")
+  if (all(value == hour(x)))
+    return(x)
+  UseMethod("hour<-")
 }
 
 "hour<-.default" <- function(x, value){
-	new <- as.POSIXct(x, tz = tz(x)) - (hour(x) - value) * 3600
-	DST(x, new)
+  new <- as.POSIXct(x, tz = tz(x)) - (hour(x) - value) * 3600
+  DST(x, new)
 }
 
 
 "hour<-.chron" <- "hour<-.timeDate" <- function(x, value){
-	date <- "hour<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "hour<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "hour<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "hour<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "hour<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 "hour<-.its" <- function(x, value){
-	dates <- "hour<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "hour<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "hour<-.ti" <- function(x, value){
-	date <- "hour<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "hour<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 "hour<-.jul" <- function(x, value)
-	x - (hour(x) - value)*3600/86400
+  x - (hour(x) - value)*3600/86400
 
 "hour<-.timeSeries" <- function(x, value){
-	positions <- "hour<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "hour<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "hour<-.fts" <- function(x, value){
-	date <- "hour<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "hour<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "hour<-.irts" <- function(x, value){
-	x$time <- as.POSIXlt(x$time, tz = "GMT") - (hour(x) - value) * 3600
-	x
+  x$time <- as.POSIXlt(x$time, tz = "GMT") - (hour(x) - value) * 3600
+  x
 }
 
 #' Internal function. Replaces the ydays element of a date with a specified 
@@ -795,59 +769,59 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{yday}} 
 #' @keywords internal methods chron manip
 "yday<-" <- function(x, value){
-	if (all(value == yday(x)))
-		return(x)
-	UseMethod("yday<-")
+  if (all(value == yday(x)))
+    return(x)
+  UseMethod("yday<-")
 }
 
 "yday<-.default" <- function(x, value){
-	new <- as.POSIXct(x) - (yday(x) - value) * 3600 * 24
-	DST(x, new)
+  new <- as.POSIXct(x) - (yday(x) - value) * 3600 * 24
+  DST(x, new)
 }
 
 
 "yday<-.Date" <- "yday<-.chron" <- "yday<-.timeDate" <- function(x, value){
-	date <- "yday<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "yday<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "yday<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "yday<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "yday<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 "yday<-.its" <- function(x, value){
-	dates <- "yday<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "yday<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "yday<-.ti" <- function(x, value){
-	date <- "yday<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "yday<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 "yday<-.jul" <- function(x, value)
-	x - (yday(x) - value)*3600*24/86400
+  x - (yday(x) - value)*3600*24/86400
 
 "yday<-.timeSeries" <- function(x, value){
-	positions <- "yday<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "yday<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "yday<-.fts" <- function(x, value){
-	date <- "yday<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "yday<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "yday<-.irts" <- function(x, value){
-	x$time <- as.POSIXlt(x$time, tz = "GMT") - (yday(x) - value) * 3600 * 24
-	x
+  x$time <- as.POSIXlt(x$time, tz = "GMT") - (yday(x) - value) * 3600 * 24
+  x
 }
 
 #' Internal function. Replaces the wdays element of a date with a specified 
@@ -869,59 +843,59 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{wday}} 
 #' @keywords internal methods chron manip
 "wday<-" <- function(x, value){
-	if (all(value == wday(x)))
-		return(x)
-	UseMethod("wday<-")
+  if (all(value == wday(x)))
+    return(x)
+  UseMethod("wday<-")
 }
 
 "wday<-.default" <- function(x, value){
-	new <- as.POSIXct(x) - (wday(x) - value) * 3600 * 24
-	DST(x, new)
+  new <- as.POSIXct(x) - (wday(x) - value) * 3600 * 24
+  DST(x, new)
 }
 
 "wday<-.Date" <- "wday<-.chron" <- "wday<-.timeDate" <- function(x, value){
-	date <- "wday<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "wday<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "wday<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "wday<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "wday<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 
 "wday<-.its" <- function(x, value){
-	dates <- "wday<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "wday<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "wday<-.ti" <- function(x, value){
-	date <- "wday<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "wday<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 "wday<-.jul" <- function(x, value)
-	x - (wday(x) - value)*3600*24/86400
+  x - (wday(x) - value)*3600*24/86400
 
 "wday<-.timeSeries" <- function(x, value){
-	positions <- "wday-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "wday-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "wday<-.fts" <- function(x, value){
-	date <- "wday<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "wday<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "wday<-.irts" <- function(x, value){
-	x$time <- as.POSIXlt(x$time, tz = "GMT") - (wday(x) - value) * 3600 * 24
-	x
+  x$time <- as.POSIXlt(x$time, tz = "GMT") - (wday(x) - value) * 3600 * 24
+  x
 }
 
 #' Internal function. Replaces the mdays element of a date with a specified 
@@ -943,58 +917,58 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{mday}} 
 #' @keywords internal methods chron manip
 "mday<-" <- "day<-" <- function(x, value){
-	if (all(value == mday(x)))
-		return(x)
-	UseMethod("mday<-")
+  if (all(value == mday(x)))
+    return(x)
+  UseMethod("mday<-")
 }
 
 "mday<-.default" <- function(x, value){
-	new <- as.POSIXct(x) - (mday(x) - value) * 3600 * 24
-	DST(x, new)
+  new <- as.POSIXct(x) - (mday(x) - value) * 3600 * 24
+  DST(x, new)
 }
 
 "mday<-.Date" <- "mday<-.chron" <- "mday<-.timeDate" <-function(x, value){
-	date <- "mday<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "mday<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "mday<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "mday<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "mday<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 "mday<-.its" <- function(x, value){
-	dates <- "mday<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "mday<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "mday<-.ti" <- function(x, value){
-	date <- "mday<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "mday<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 "mday<-.jul" <- function(x, value)
-	x - (mday(x) - value)*3600*24/86400
+  x - (mday(x) - value)*3600*24/86400
 
 "mday<-.timeSeries" <- function(x, value){
-	positions <- "mday<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "mday<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "mday<-.fts" <- function(x, value){
-	date <- "mday<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "mday<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "mday<-.irts" <- function(x, value){
-	x$time <- as.POSIXlt(x$time, tz = "GMT") - (mday(x) - value) * 3600 * 24	
-	x
+  x$time <- as.POSIXlt(x$time, tz = "GMT") - (mday(x) - value) * 3600 * 24  
+  x
 }
 
 #' Internal function. Replaces the weeks element of a date with a specified 
@@ -1016,58 +990,58 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{week}} 
 #' @keywords internal methods chron manip
 "week<-" <- function(x, value){
-	if (all(value == week(x)))
-		return(x)
-	UseMethod("week<-")
+  if (all(value == week(x)))
+    return(x)
+  UseMethod("week<-")
 }
 
 "week<-.default" <- function(x, value){
-	new <- as.POSIXct(x) - (week(x) - value) * 3600 * 24 * 7
-	DST(x, new)
+  new <- as.POSIXct(x) - (week(x) - value) * 3600 * 24 * 7
+  DST(x, new)
 }
 
 "week<-.Date" <- "week<-.chron" <- "week<-.timeDate" <- function(x, value){
-	date <- "week<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "week<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "week<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "week<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "week<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 "week<-.its" <- function(x, value){
-	dates <- "week<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "week<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "week<-.ti" <- function(x, value){
-	date <- "week<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "week<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 "week<-.jul" <- function(x, value)
-	x - (week(x) - value)*3600*24*7/86400
+  x - (week(x) - value)*3600*24*7/86400
 
 "week<-.timeSeries" <- function(x, value){
-	positions <- "week<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "week<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "week<-.fts" <- function(x, value){
-	date <- "week<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "week<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "week<-.irts" <- function(x, value){
-	x$time <- as.POSIXlt(x$time, tz = "GMT") - (week(x) - value) * 3600 * 24 * 7
-	x
+  x$time <- as.POSIXlt(x$time, tz = "GMT") - (week(x) - value) * 3600 * 24 * 7
+  x
 }
 
 #' Internal function. Replaces the months element of a date with a specified 
@@ -1090,91 +1064,91 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{month}} 
 #' @keywords internal methods chron manip
 "month<-" <- function(x, value) {
-	if (all(value == month(x)))
-		return(x)
-	UseMethod("month<-")
+  if (all(value == month(x)))
+    return(x)
+  UseMethod("month<-")
 }
 
 "month<-.default" <- function(x, value){
-	new <- ISOdatetime(
-		year(x) + (value - 1) %/% 12,  
-		(value - 1) %% 12 + 1, 
-		mday(x), 
-		hour(x), 
-		minute(x), 
-		second(x), 
-		tz(x))
-	
-	warn <- FALSE
-	
-	for (i in 1:length(new)){
-		n <- 1
-		while (is.na(new[i])){
-			warn <- TRUE
-			new[i] <- ISOdatetime(
-				year(x) + (value - 1) %/% 12,  
-				(value - 1) %% 12 + 1, 
-				mday(x) - n, 
-				hour(x), 
-				minute(x), 
-				second(x), 
-				tz(x))[i]
-			n <- n + 1
-		}
-	}
-		
-	if (warn)
-		message("Undefined date. Defaulting to last previous real day.")
-		
-	new
+  new <- ISOdatetime(
+    year(x) + (value - 1) %/% 12,  
+    (value - 1) %% 12 + 1, 
+    mday(x), 
+    hour(x), 
+    minute(x), 
+    second(x), 
+    tz(x))
+  
+  warn <- FALSE
+  
+  for (i in 1:length(new)){
+    n <- 1
+    while (is.na(new[i])){
+      warn <- TRUE
+      new[i] <- ISOdatetime(
+        year(x) + (value - 1) %/% 12,  
+        (value - 1) %% 12 + 1, 
+        mday(x) - n, 
+        hour(x), 
+        minute(x), 
+        second(x), 
+        tz(x))[i]
+      n <- n + 1
+    }
+  }
+    
+  if (warn)
+    message("Undefined date. Defaulting to last previous real day.")
+    
+  new
 }
 
 
 "month<-.Date" <- "month<-.chron" <- "month<-.yearmon" <- "month<-.timeDate" <- function(x, value){
-	date <- "month<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "month<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "month<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "month<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "month<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 "month<-.its" <- function(x, value){
-	dates <- "month<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "month<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "month<-.ti" <- function(x, value){
-	date <- "month<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "month<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 
 "month<-.jul" <- function(x, value){
-	date <- "month<-.default"(x,value)
-	as.jul(date)
+  date <- "month<-.default"(x,value)
+  as.jul(date)
 }
 
 "month<-.timeSeries" <- function(x, value){
-	positions <- "month<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "month<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "month<-.fts" <- function(x, value){
-	date <- "month<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "month<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "month<-.irts" <- function(x, value){
-	x$time <- "month<-.default"(x, value)
-	x
+  x$time <- "month<-.default"(x, value)
+  x
 }
 
 #' Internal function. Replaces the years element of a date with a specified 
@@ -1198,91 +1172,91 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{year}} 
 #' @keywords internal methods chron manip
 "year<-" <- function(x, value) {
-	if (all(value == year(x)))
-		return(x)
-	UseMethod("year<-")
+  if (all(value == year(x)))
+    return(x)
+  UseMethod("year<-")
 }
 
 "year<-.default" <- function(x, value){
-	new <- ISOdatetime(
-		value,  
-		month(x), 
-		mday(x), 
-		hour(x), 
-		minute(x), 
-		second(x), 
-		tz(x))
-	
-	warn <- FALSE
-	
-	for (i in 1:length(new)){
-		n <- 1
-		while (is.na(new[i])){
-			warn <- TRUE
-			new[i] <- ISOdatetime(
-				value,  
-				month(x), 
-				mday(x) - n, 
-				hour(x), 
-				minute(x), 
-				second(x), 
-				tz(x))[i]
-			n <- n + 1
-		}
-	}
-		
-	if (warn)
-		message("Undefined date. Defaulting to last previous real day.")
-		
-	new
+  new <- ISOdatetime(
+    value,  
+    month(x), 
+    mday(x), 
+    hour(x), 
+    minute(x), 
+    second(x), 
+    tz(x))
+  
+  warn <- FALSE
+  
+  for (i in 1:length(new)){
+    n <- 1
+    while (is.na(new[i])){
+      warn <- TRUE
+      new[i] <- ISOdatetime(
+        value,  
+        month(x), 
+        mday(x) - n, 
+        hour(x), 
+        minute(x), 
+        second(x), 
+        tz(x))[i]
+      n <- n + 1
+    }
+  }
+    
+  if (warn)
+    message("Undefined date. Defaulting to last previous real day.")
+    
+  new
 }
 
 
 
 "year<-.Date" <- "year<-.chron" <- "year<-.yearmon" <- "year<-.yearqtr" <- "year<-.timeDate" <- function(x, value){
-	date <- "year<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "year<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "year<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "year<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "year<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 "year<-.its" <- function(x, value){
-	dates <- "year<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "year<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "year<-.ti" <- function(x, value){
-	date <- "year<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "year<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 "year<-.jul" <- function(x, value){
-	date <- "year<-.default"(x,value)
-	as.jul(date)
+  date <- "year<-.default"(x,value)
+  as.jul(date)
 }
 
 "year<-.timeSeries" <- function(x, value){
-	positions <- "year<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "year<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "year<-.fts" <- function(x, value){
-	date <- "year<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "year<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "year<-.irts" <- function(x, value){
-	x$time <- "year<-.default"(x, value)
-	x
+  x$time <- "year<-.default"(x, value)
+  x
 }
 
 #' Internal function. Replaces the time zone element of a date with a specified 
@@ -1303,61 +1277,61 @@ pm <- function(x) !am(x)
 #' @seealso \code{\link{tz}} 
 #' @keywords internal methods chron manip
 "tz<-" <- function(x, value) {
-	if (all(value == tz(x)))
-		return(x)
-	UseMethod("tz<-")
+  if (all(value == tz(x)))
+    return(x)
+  UseMethod("tz<-")
 }
-	
+  
 "tz<-.default" <- function(x, value)
-	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
+  ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
 
 
 "tz<-.Date" <- "tz<-.timeDate" <- function(x, value){
-	date <- "tz<-.default"(x,value)
-	f <- match.fun(paste("as", class(x)[1], sep = "."))
-	f(date)
+  date <- "tz<-.default"(x,value)
+  f <- match.fun(paste("as", class(x)[1], sep = "."))
+  f(date)
 }
 
 "tz<-.zoo" <- function(x, value){
-	compatible <- recognize(index(x))
-	if(!compatible)
-		stop("series uses unrecognized date format")
-		 
-	new <- "tz<-"(index(x), value)
-	'index<-'(x, new)
+  compatible <- recognize(index(x))
+  if(!compatible)
+    stop("series uses unrecognized date format")
+     
+  new <- "tz<-"(index(x), value)
+  'index<-'(x, new)
 }
 
 "tz<-.its" <- function(x, value){
-	dates <- "second<-.default"(attr(x,"dates"), value)
-	attr(x, "dates") <- dates
-	its(x, dates, format = "%Y-%m-%d %X")
+  dates <- "second<-.default"(attr(x,"dates"), value)
+  attr(x, "dates") <- dates
+  its(x, dates, format = "%Y-%m-%d %X")
 }
 
 "tz<-.ti" <- function(x, value){
-	date <- "tz<-.default"(as.Date(x),value)
-	as.ti(date, tifName(x))
+  date <- "tz<-.default"(as.Date(x),value)
+  as.ti(date, tifName(x))
 }
 
 
 "tz<-.jul" <- function(x, value){
-	date <- "tz<-.default"(x,value)
-	as.jul(date)
+  date <- "tz<-.default"(x,value)
+  as.jul(date)
 }
 
 "tz<-.timeSeries" <- function(x, value){
-	positions <- "tz<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-	timeSeries(series(x), positions)
+  positions <- "tz<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
+  timeSeries(series(x), positions)
 }
 
 "tz<-.fts" <- function(x, value){
-	date <- "tz<-.default"(dates(x), value)
-	fts(x, date)
+  date <- "tz<-.default"(dates(x), value)
+  fts(x, date)
 }
 
 "tz<-.irts" <- function(x, value){
-	warning("irts dates will always display with GMT timezone")
-	x$time <- x$time - ("tz<-.default"(x, value) - x$time)
-	x
+  warning("irts dates will always display with GMT timezone")
+  x$time <- x$time - ("tz<-.default"(x, value) - x$time)
+  x
 }
 
 
@@ -1440,27 +1414,27 @@ update.Date <- update.POSIXt <- function(object, ...) {
     tz = todo$tz))  
   
   which.null <- function(x){
-	nulls <- rep(FALSE, length(x))
-	for (i in 1:length(x))
-		if( is.null(x[[i]]) ) nulls[i] <- TRUE
-	nulls
+  nulls <- rep(FALSE, length(x))
+  for (i in 1:length(x))
+    if( is.null(x[[i]]) ) nulls[i] <- TRUE
+  nulls
   }
   
   changes <- changes[!which.null(changes)]
   
   for(change in names(changes)) {
-  	f1 <- match.fun(change)
-  	
-  	if(any(changes[[change]] != f1(object))){
-   		f2 <- match.fun(paste(change, "<-", sep = ""))
-    	new <- vector()
+    f1 <- match.fun(change)
     
-    	for(i in 1:length(object))
-    		new <- c(new, f2(object[i], changes[[change]]))
+    if(any(changes[[change]] != f1(object))){
+       f2 <- match.fun(paste(change, "<-", sep = ""))
+      new <- vector()
     
-		class(new) <- c("POSIXt", "POSIXct")
-		object <- new
-	}
+      for(i in 1:length(object))
+        new <- c(new, f2(object[i], changes[[change]]))
+    
+    class(new) <- c("POSIXt", "POSIXct")
+    object <- new
+  }
   }
   
   object
@@ -1495,26 +1469,26 @@ standardise_date_names <- function(x) {
 #' date <- as.POSIXlt("2009-02-10")
 #' decimal_date(date)  # 2009.109
 decimal_date <- function(date)
-	UseMethod("decimal_date")
-	
+  UseMethod("decimal_date")
+  
 decimal_date.default <- function(date){
-	if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
-		stop("date(s) not in POSIXt or Date format")
-	just_year <- floor_date(date, "year")
-	
-	decimal <- just_seconds(date - just_year)/ (3600*24*365)
-	
-	leap_years <- which(leap.year(date))
-	decimal[leap_years] <- just_seconds(date - just_year)[leap_years]/ (3600*24*366)
+  if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
+    stop("date(s) not in POSIXt or Date format")
+  just_year <- floor_date(date, "year")
+  
+  decimal <- just_seconds(date - just_year)/ (3600*24*365)
+  
+  leap_years <- which(leap.year(date))
+  decimal[leap_years] <- just_seconds(date - just_year)[leap_years]/ (3600*24*366)
 
-	year(date) + decimal
+  year(date) + decimal
 }
 
 decimal_date.zoo <- function(date)
-	decimal_date(index(date))
+  decimal_date(index(date))
 
 decimal_date.its <- function(x)
-	decimal_date.default(attr(x,"dates"))
+  decimal_date.default(attr(x,"dates"))
 
 #' Returns just the months component of a duration. 
 #'
@@ -1527,7 +1501,7 @@ decimal_date.its <- function(x)
 #' x # 1 year, 4 months, 4 weeks, 2 days, 2 hours and 1 second
 #' just_months(x)  # 16
 just_months <- function(dur)
-	as.numeric(dur) %/% 10^11
+  as.numeric(dur) %/% 10^11
 
 #' Returns just the seconds component of a duration. 
 #'
@@ -1540,7 +1514,7 @@ just_months <- function(dur)
 #' x # 1 year, 4 months, 4 weeks, 2 days, 2 hours and 1 second
 #' just_seconds(x)  # 2599201
 just_seconds <- function(dur)
-	as.numeric(dur) %% 10^11 - 50000000000
+  as.numeric(dur) %% 10^11 - 50000000000
 
 #' Internal function. Is an object in a recognized date format?
 #'
@@ -1548,11 +1522,11 @@ just_seconds <- function(dur)
 #' @return TRUE if x is a POSIXlt, POSIXct, yearmon, yearqtr, or Date object, FALSE otherwise.
 #' @keywords internal
 recognize <- function(x){
-	recognized <- c("POSIXt", "POSIXlt", "POSIXct", "yearmon", "yearqtr", "Date")
-	
-	if (all(class(x) %in% recognized))
-		return(TRUE)
-	return(FALSE)
+  recognized <- c("POSIXt", "POSIXlt", "POSIXct", "yearmon", "yearqtr", "Date")
+  
+  if (all(class(x) %in% recognized))
+    return(TRUE)
+  return(FALSE)
 }
 
 
@@ -1564,26 +1538,26 @@ recognize <- function(x){
 #' @aliases DST DST.months 
 #' @keywords internal
 DST <- function(date1, date2){
-	if(is.Date(date2))
-		return(date2)
-		
-	date1 <- as.POSIXlt(date1)
-	date2 <- as.POSIXlt(date2)
+  if(is.Date(date2))
+    return(date2)
+    
+  date1 <- as.POSIXlt(date1)
+  date2 <- as.POSIXlt(date2)
 
-	if(dst(date1) < 0 || dst(date2) < 0)
-		return(date2)
+  if(dst(date1) < 0 || dst(date2) < 0)
+    return(date2)
 
-	date2 - (dst(date2) - dst(with_tz(date1, tz(date2))))*3600
+  date2 - (dst(date2) - dst(with_tz(date1, tz(date2))))*3600
 }
 
 DST.months <- function(date1, date2){
-	if(is.Date(date2))
-		return(date2)
-	date1 <- as.POSIXlt(date1)
-	date2 <- as.POSIXlt(date2)
+  if(is.Date(date2))
+    return(date2)
+  date1 <- as.POSIXlt(date1)
+  date2 <- as.POSIXlt(date2)
 
-	if(dst(date1) < 0 || dst(date2) < 0)
-		return(date2)
+  if(dst(date1) < 0 || dst(date2) < 0)
+    return(date2)
 
-	suppressMessages(date2 + (dst(date2) - with_tz(date1, tz(date2)))*3600)
+  suppressMessages(date2 + (dst(date2) - with_tz(date1, tz(date2)))*3600)
 }
