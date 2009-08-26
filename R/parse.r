@@ -24,41 +24,41 @@
 #' # "2009-01-01 GMT"
 #' ymd(90101)
 #' # "2009-01-01 GMT"
-#' myd(090101)
-#' # "2001-09-01 GMT"
-#' dym(090101)
-#' # "2001-01-09 GMT"
 #' Sys.time() > ymd(20090101) 
 #' # TRUE
+#' dmy(010210)
+#' mdy(010210)
 ymd <- function(...) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), formats = list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")))
-}
-myd <- function(...) {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), formats = list(c("%m", "%y","%d"), c("%m", "%Y", "%d")))
-}
-dym <- function(...) {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), formats = list(c("%d", "%y", "%m"), c("%d", "%Y", "%m")))
+  parse_date(num_to_date(dates), make_format("ymd"))
 }
 ydm <- function(...) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), formats = list(c("%y", "%d", "%m"), c("%Y", "%d", "%m")))
+  parse_date(num_to_date(dates), make_format("ydm"))
 }
 mdy <- function(...) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), formats = list(c("%m", "%d", "%y"), c("%m", "%d", "%Y")))
+  parse_date(num_to_date(dates), make_format("mdy"))
 }
 dmy <- function(...) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), formats = list(
-    c("%d", "%m", "%y"), 
-    c("%d", "%m", "%Y"), 
-    c("%d", "%b", "%y"), 
-    c("%d", "%b", "%Y")
-  ))
+  parse_date(num_to_date(dates), make_format("dmy"))
 }
+
+make_format <- function(order) {
+  order <- strsplit(order, "")[[1]]
+  
+  formats <- list(
+    d = "%d",
+    m = c("%m", "%b"),
+    y = c("%y", "%Y")
+  )[order]
+  
+  grid <- expand.grid(formats, 
+    KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
+  lapply(1:nrow(grid), function(i) unname(unlist(grid[i, ])))
+}
+
 
 #' Create a date-time with the specified hours and minutes
 #'
@@ -160,7 +160,7 @@ find_separator <- function(x) {
   chars <- unlist(strsplit(x, ""))
   
   alpha <- c(LETTERS, letters, 0:9)
-  setdiff(chars, alpha)
+  c(setdiff(chars, alpha), "")
 }
 
 #' Internal function
