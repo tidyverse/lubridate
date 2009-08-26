@@ -50,7 +50,15 @@ mdy <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), formats = list(c("%m", "%d", "%y"), c("%m", "%d", "%Y")))
 }
-
+dmy <- function(...) {
+  dates <- unlist(list(...))
+  parse_date(num_to_date(dates), formats = list(
+    c("%d", "%m", "%y"), 
+    c("%d", "%m", "%Y"), 
+    c("%d", "%b", "%y"), 
+    c("%d", "%b", "%Y")
+  ))
+}
 
 #' Create a date-time with the specified hours and minutes
 #'
@@ -122,7 +130,7 @@ hms <- function(...) {
 #' #  "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
 #' ymd(x)
 #' #  "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
-parse_date <- function(x, formats, seps = c("-", "/", ".", "")) {
+parse_date <- function(x, formats, seps = find_separator(x)) {
   fmt <- guess_format(x, formats, seps)
   parsed <- as.POSIXct(strptime(x, fmt))
 
@@ -143,14 +151,16 @@ parse_date <- function(x, formats, seps = c("-", "/", ".", "")) {
 #' Letters and numbers are assumed not to be separators
 #'
 #' @param x a character string 
-#' @return a table of possible separators and the number of times they occur in x 
+#' @return a list of possible separators
 #' @keywords chron
 #' examples
 #' find_separator("2009-08-03 09:07:03")
 find_separator <- function(x) {
+  x <- as.character(x)
   chars <- unlist(strsplit(x, ""))
-  nonalpha <- setdiff(chars, c(LETTERS, letters, 0:9))
-  as.data.frame(table(nonalpha))
+  
+  alpha <- c(LETTERS, letters, 0:9)
+  setdiff(chars, alpha)
 }
 
 #' Internal function
@@ -202,8 +212,8 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
 
   fmts <- unlist(mlply(with_seps, paste))
   
-  x <- paste(x, "@", sep = "")
-  fmts2 <- paste(fmts, "@", sep = "")
+  x <- paste("@", x, "@", sep = "")
+  fmts2 <- paste("@", fmts, "@", sep = "")
   
   trials <- llply(fmts2, function(fmt) strptime(x, fmt))
 
