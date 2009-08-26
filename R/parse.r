@@ -225,7 +225,9 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
   best <- fmts[successes > 0 & successes == bestn]
   
   if (length(best) == 0) {
-    stop(paste(fmts, collapse = ", "), " All failed to parse dates. Check for incorrect or missing elements.")
+    stop("Date did not match any of the guessed formats: ", 
+      paste(fmts, collapse = ", "), ". ",
+      "Check for incorrect or missing elements.", call. = FALSE)
   } 
   else if (length(best) > 1) {
     message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
