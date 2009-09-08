@@ -2,9 +2,13 @@ Package: lubridate
 Type: Package
 Title: Make dealing with dates a little easier
 Version: 0.1
-Author: Hadley Wickham <h.wickham@gmail.com>, Garrett Grolemund <grolemund@rice.edu>
+Author: Hadley Wickham <h.wickham@gmail.com>, Garrett Grolemund
+    <grolemund@rice.edu>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
-Description: 
+Description:
 Depends: R (>= 2.8), plyr
 License: GPL
 LazyData: true
+Collate: 'accessors.r' 'durations.r' 'intervals.r' 'ops.durations.r'
+    'parse.r' 'periods.r' 'pretty.r' 'print.duration.r' 'round.r'
+    'util.r'
