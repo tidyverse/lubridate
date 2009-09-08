@@ -1367,8 +1367,8 @@ dst.irts <- function(x)
 #' reflects all combinations of the updated elements.
 #' 
 #' @aliases update.Date update.POSIXt update.POSIXct update.POSIXlt
-#' @methods update Date
-#' @methods update POSIXt
+#' @method update Date
+#' @method update POSIXt
 #' @param object a date-time object  
 #' @param year a value to substitute for the date's year component
 #' @param month a value to substitute for the date's month component

@@ -47,7 +47,7 @@
 #' creates an interval object. Intervals display as the difftime between the two 
 #' dates paired with the earlier, or beginning date. 
 #'
-#' @alias timespan timespans duration durations dur periods period interval intervals
+#' @aliases timespan timespans duration durations dur periods period interval intervals
 #' @seealso \code{link{new_duration}} for creating duration objects and \code{link{as.duration}} for converting objects into durations
 #' @seealso \code{link{new_period}} for creating period objects and \code{link{as_period}} for converting objects to periods
 #' @seealso \code{link{new_interval}} for creating interval objects and \code{link{as_interval}} for converting objects to intervals
@@ -213,7 +213,7 @@ as.duration.default <- function(x)
 
 #' Internal function.
 #'
-#' @keyword internal manip classes
+#' @keywords internal manip classes
 as.POSIXt <- function(x) as.POSIXlt(x)
 
 #' Quickly create exact time spans.
@@ -319,8 +319,8 @@ is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 #' @param x an R object   
 #' @return TRUE if x is a difftime object, FALSE otherwise.
 #' @seealso \code{link{is.instant}, link{is.timespan}, link{is.interval}, link{is.period}, link{duration}}
-#' @examples
 #' @keywords logic chron
+#' @examples
 #' is.difftime(as.Date("2009-08-03")) # FALSE
 #' is.difftime(new_duration(days = 12.4)) # TRUE
 is.difftime <- is.duration <- function(x) inherits(x, "difftime")
@@ -330,8 +330,8 @@ is.difftime <- is.duration <- function(x) inherits(x, "difftime")
 #' @param x an R object   
 #' @return TRUE if x is a Date object, FALSE otherwise.
 #' @seealso \code{link{is.instant}, link{is.timespan}, link{is.POSIXt}}
-#' @examples
 #' @keywords logic chron
+#' @examples
 #' is.Date(as.Date("2009-08-03")) # TRUE
 #' is.Date(difftime(Sys.time() + 5, Sys.time())) # FALSE
 is.Date <- function(x) inherits(x, "Date")
@@ -342,8 +342,8 @@ is.Date <- function(x) inherits(x, "Date")
 #' @param x an R object   
 #' @return TRUE if x is a period object, FALSE otherwise.
 #' @seealso \code{link{is.instant}, link{is.timespan}, link{is.interval}, link{is.duration}, link{period}}
-#' @examples
 #' @keywords logic chron
+#' @examples
 #' is.period(as.Date("2009-08-03")) # FALSE
 #' is.period(new_period(months= 1, days = 15)) # TRUE
 is.period <- function(x) inherits(x,"period")
@@ -353,8 +353,8 @@ is.period <- function(x) inherits(x,"period")
 #' @param x an R object   
 #' @return TRUE if x is an interval object, FALSE otherwise.
 #' @seealso \code{link{is.instant}, link{is.timespan}, link{is.period}, link{is.duration}, link{interval}}
-#' @examples
 #' @keywords logic chron
+#' @examples
 #' is.interval(new_period(months= 1, days = 15)) # FALSE
 #' is.interval(new_interval(ymd(20090801), ymd(20090809)) # TRUE
 is.interval <- function(x) inherits(x, c("interval"))
