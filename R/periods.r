@@ -198,7 +198,16 @@ print.period <- function(x, ...) {
 #' @method as.period interval
 #' @aliases as.period as.period.default as.period.difftime as.period.interval
 #' @param x an interval, difftime, or numeric object   
-#' @param units a character vector. The names of the units to divide the period among. Years, months, days, hours, minutes, and seconds are supported, see \code{link{standardise_date_names}} for more details. The largest units should be listed first. As much of the period as possible will be assigned to the first unit. As much of the remainder as possible will be assigned to the second unit and so on until all listed units have been handled. After the period has been distributed across all listed units, any remaining time will be added to the period in seconds units. If no units are provided, as.period will use all available units by default.
+#' @param units a character vector. The names of the units to divide the
+#'   period among. Years, months, days, hours, minutes, and seconds are
+#'   supported, see \code{link{standardise_date_names}} for more details. The
+#'   largest units should be listed first. As much of the period as possible
+#'   will be assigned to the first unit. As much of the remainder as possible
+#'   will be assigned to the second unit and so on until all listed units have
+#'   been handled. After the period has been distributed across all listed
+#'   units, any remaining time will be added to the period in seconds units.
+#'   If no units are provided, as.period will use all available units by
+#'   default.
 #' @return a period object
 #' @seealso \code{link{period}, link{new_period}}
 #' @keywords classes manip methods chron

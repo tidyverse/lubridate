@@ -97,7 +97,6 @@ print.interval <- function(x, ...) {
 #' # 31 days beginning at 2009-01-01
 #' as.interval(per, as.POSIXct("2009-02-01"))
 #' # 28 days beginning at 2009-02-01
-
 #' as.interval(3600, as.POSIXct("2009-01-01")) #numeric
 #' # 1 hours beginning at 2009-01-01
 as.interval <- function(x, origin){

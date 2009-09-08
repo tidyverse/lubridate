@@ -1,6 +1,10 @@
 #' Addition for the duration (i.e, difftime), period, and interval classes. 
 #'
-#' @aliases +.duration +.interval +.period +.POSIXt +.difftime +.Date add_period_to_date add_duration_to_date add_number_to_duration add_number_to_period add_period_to_period add_duration_to_period add_duration_to_duration add_duration_to_interval add_period_to_interval add_number_to_interval
+#' @aliases +.duration +.interval +.period +.POSIXt +.difftime +.Date
+#'  add_period_to_date add_duration_to_date add_number_to_duration
+#'  add_number_to_period add_period_to_period add_duration_to_period
+#'  add_duration_to_duration add_duration_to_interval add_period_to_interval
+#'  add_number_to_interval
 #' @method + period
 #' @method + POSIXt
 #' @method + difftime
