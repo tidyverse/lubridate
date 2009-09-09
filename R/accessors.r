@@ -1463,9 +1463,6 @@ standardise_date_names <- function(x) {
 #' Converts a date to a decimal of its year. 
 #'
 #' @aliases decimal_date decimal.date decimal_date.default decimal_date.zoo decimal_date.its
-#' methods decimal_date default
-#' methods decimal_date zoo
-#' methods decimal_date its
 #' @param date a POSIXt or Date object   
 #' @return a numeric object where the date is expressed as a fraction of its year
 #' @keywords manip chron methods
