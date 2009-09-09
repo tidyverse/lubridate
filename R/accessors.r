@@ -23,31 +23,24 @@
 second <- function(x) 
   UseMethod("second")
   
-#' @nord
 second.default <- function(x)
     as.POSIXlt(x)$sec
     
-#' @nord
 second.zoo <- function(x)
   as.POSIXlt(index(x))$sec
   
-#' @nord
 second.its <- function(x)
   second.default(attr(x, "dates"))
   
-#' @nord
 second.ti <- second.jul <- function(x)
   tis::hms(x)$sec
 
-#' @nord
 second.timeSeries <- function(x)
   second.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
-#' @nord
 second.fts <- function(x)
   second.default(dates(x))
   
-#' @nord
 second.irts <- function(x)
   second.default(x$time)
 
@@ -77,32 +70,25 @@ second.irts <- function(x)
 minute <- function(x) 
   UseMethod("minute")
   
-#' @nord
 minute.default <- function(x)
     as.POSIXlt(x)$min
     
-#' @nord
 minute.zoo <- function(x)
   as.POSIXlt(index(x))$min
 
-#' @nord
 minute.its <- function(x)
   minute.default(attr(x, "dates"))
   
-#' @nord
 minute.ti <- minute.jul <- function(x)
   tis::hms(x)$min
 
-#' @nord
 minute.timeSeries <- function(x)
   minute.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
   
-#' @nord
 minute.fts <- function(x)
   minute.default(dates(x))
 
- #' @nord
-minute.irts <- function(x)
+ minute.irts <- function(x)
   minute.default(x$time)
 
 
@@ -131,32 +117,25 @@ minute.irts <- function(x)
 hour <- function(x) 
   UseMethod("hour")
   
-#' @nord
 hour.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$hour
     
-#' @nord
 hour.zoo <- function(x)
   hour.default(index(x))
   
 
-#' @nord
 hour.its <- function(x)
   hour.default(attr(x, "dates"))
   
-#' @nord
 hour.ti <- hour.jul <- function(x)
   tis::hms(x)$hour
   
-#' @nord
 hour.timeSeries <- function(x)
   hour.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
   
-#' @nord
 hour.fts <- function(x)
   hour.default(dates(x))
   
-#' @nord
 hour.irts <- function(x)
   as.POSIXlt(x$time, tz = "GMT")$hour
 
@@ -212,44 +191,34 @@ hour.irts <- function(x)
 yday <- function(x) 
   UseMethod("yday")
   
-#' @nord
 yday.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$yday + 1
 
-#' @nord
 yday.zoo <- function(x)
   yday.default(index(x))
 
-#' @nord
 yday.its <- function(x)
   yday.default(attr(x, "dates"))
 
-#' @nord
 yday.ti <- yday.jul <- function(x)
   yday.default(as.Date(x))
 
-#' @nord
 yday.timeSeries <- function(x)
   yday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
-#' @nord
 yday.fts <- function(x)
   yday.default(dates(x))
 
-#' @nord
 yday.irts <- function(x)
   as.POSIXlt(x$time, tz = "GMT")$yday + 1
 
-#' @nord
 wday <- function(x, label = FALSE, abbr = FALSE) 
   UseMethod("wday")
 
-#' @nord
 wday.default <- function(x, label = FALSE, abbr = FALSE){
   wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr)
 }
 
-#' @nord
 wday.numeric <- function(x, label = FALSE, abbr = FALSE) {
   if (!label) return(x)
   
@@ -262,60 +231,46 @@ wday.numeric <- function(x, label = FALSE, abbr = FALSE) {
   ordered(x, labels = labels)  
 }
 
-#' @nord
 wday.zoo <- function(x, label = FALSE, abbr = FALSE)
   wday.default(index(x), label, abbr)
 
-#' @nord
 wday.its <- function(x, label = FALSE, abbr = FALSE)
   wday.default(attr(x, "dates"), label, abbr)
   
-#' @nord
 wday.ti <- wday.jul <- function(x, label = FALSE, abbr = FALSE)
   wday.default(as.Date(x), label, abbr)
   
-#' @nord
 wday.timeSeries <- function(x, label = FALSE, abbr = FALSE)
   wday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
   
-#' @nord
 wday.fts <- function(x, label = FALSE, abbr = FALSE)
   wday.default(dates(x), label, abbr)
   
-#' @nord
 wday.irts <- function(x, label = FALSE, abbr = FALSE){
   wday(x$time, label, abbr)
 }
   
-#' @nord
 mday <- day <- function(x) 
   UseMethod("mday")
   
-#' @nord
 mday.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$mday
     
-#' @nord
 mday.zoo <- function(x)
   mday.default(index(x))
 
-#' @nord
 mday.its <- function(x)
   mday.default(attr(x, "dates"))
   
-#' @nord
 mday.ti <- mday.jul <- function(x)
   mday.default(as.Date(x))
   
-#' @nord
 mday.timeSeries <- function(x)
   mday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
   
-#' @nord
 mday.fts <- function(x)
   mday.default(dates(x))
   
-#' @nord
 mday.irts <- function(x)
   as.POSIXlt(x$time, tz = "GMT")$mday
 
@@ -375,11 +330,9 @@ week <- function(x)
 month <- function(x, label = FALSE, abbr = FALSE) 
   UseMethod("month")
   
-#' @nord
 month.default <- function(x, label = FALSE, abbr = FALSE)
   month(as.POSIXlt(x, tz = "GMT")$mon + 1, label, abbr)
   
-#' @nord
 month.numeric <- function(x, label = FALSE, abbr = FALSE) {
   if (!label) return(x)
   
@@ -395,27 +348,21 @@ month.numeric <- function(x, label = FALSE, abbr = FALSE) {
   ordered(x, labels = labels)
 }
     
-#' @nord
 month.zoo <- function(x, label = FALSE, abbr = FALSE)
   month.default(index(x), label, abbr)
 
-#' @nord
 month.its <- function(x, label = FALSE, abbr = FALSE)
   month.default(attr(x, "dates"), label, abbr)  
 
-#' @nord
 month.ti <- month.jul <- function(x, label = FALSE, abbr = FALSE)
   month.default(as.Date(x), label, abbr)
   
-#' @nord
 month.timeSeries <- function(x, label = FALSE, abbr = FALSE)
   month.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
   
-#' @nord
 month.fts <- function(x, label = FALSE, abbr = FALSE)
   month.default(dates(x), label, abbr)
   
-#' @nord
 month.irts <- function(x, label = FALSE, abbr = FALSE)
   month(x$time)
   
@@ -445,31 +392,24 @@ month.irts <- function(x, label = FALSE, abbr = FALSE)
 year <- function(x) 
   UseMethod("year")
   
-#' @nord
 year.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$year + 1900
     
-#' @nord
 year.zoo <- function(x)
   year.default(index(x))
 
-#' @nord
 year.its <- function(x)
   year.default(attr(x, "dates"))
   
-#' @nord
 year.ti <- year.jul <- function(x)
   year.default(as.Date(x))
 
-#' @nord
 year.timeSeries <- function(x)
   year.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
   
-#' @nord
 year.fts <- function(x)
   year.default(dates(x))
   
-#' @nord
 year.irts <- function(x)
   as.POSIXlt(x$time, tz = "GMT")$year + 1900
   
@@ -516,7 +456,6 @@ year.irts <- function(x)
 tz <- function (x) 
   UseMethod("tz")
 
-#' @nord
 tz.default <- function(x) {
   if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
     return("GMT")
@@ -524,29 +463,23 @@ tz.default <- function(x) {
   tzs[1]
 }
 
-#' @nord
 tz.zoo <- function(x){
   tzs <- attr(as.POSIXlt(index(x)), "tzone")
   tzs[1]
 }
 
-#' @nord
 tz.its <- function(x)
   tz.default(attr(x, "dates"))
 
-#' @nord
 tz.ti <- tz.jul <- function(x)
   tz.default(as.Date(x))
   
-#' @nord
 tz.timeSeries <- function(x)
   x@FinCenter
 
-#' @nord
 tz.fts <- function(x)
   tz.default(dates(x))
   
-#' @nord
 tz.irts <- function(x)
   return("GMT")
 
@@ -577,31 +510,24 @@ tz.irts <- function(x)
 dst <- function(x)
   UseMethod("dst")
   
-#' @nord
 dst.default <- function(x)
   as.POSIXlt(x)$isdst
     
-#' @nord
 dst.zoo <- function(x)
   as.POSIXlt(index(x))$isdst
   
-#' @nord
 dst.its <- function(x)
   dst.default(attr(x, "dates"))
   
-#' @nord
 dst.ti <- dst.jul <- function(x)
   tis::hms(x)$isdst
 
-#' @nord
 dst.timeSeries <- function(x)
   dst.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
 
-#' @nord
 dst.fts <- function(x)
   dst.default(dates(x))
   
-#' @nord
 dst.irts <- function(x)
   dst.default(x$time)
 
@@ -628,20 +554,17 @@ dst.irts <- function(x)
   UseMethod("second<-")
 }
 
-#' @nord
 "second<-.default" <- function(x, value){
   new <- as.POSIXct(x) - (second(x) - value)
   DST(x, new)
 }
 
-#' @nord
 "second<-.chron" <- "second<-.timeDate" <- function(x, value){
   date <- "second<-.default"(x,value)
   f <- match.fun(paste("as", class(x)[1], sep = "."))
   f(date)
 }
 
-#' @nord
 "second<-.zoo" <- function(x, value){
   compatible <- recognize(index(x))
   if(!compatible)
@@ -652,37 +575,31 @@ dst.irts <- function(x)
 }
 
 
-#' @nord
 "second<-.its" <- function(x, value){
   dates <- "second<-.default"(attr(x,"dates"), value)
   attr(x, "dates") <- dates
   its(x, dates, format = "%Y-%m-%d %X")
 }
 
-#' @nord
 "second<-.ti" <- function(x, value){
   date <- "second<-.default"(as.Date(x),value)
   as.ti(date, tifName(x))
 }
 
-#' @nord
 "second<-.jul" <- function(x, value)
   x - (second(x) - value)/86400
 
 
-#' @nord
 "second<-.timeSeries" <- function(x, value){
   positions <- "second<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
   timeSeries(series(x), positions)
 }
 
-#' @nord
 "second<-.fts" <- function(x, value){
   date <- "second<-.default"(dates(x), value)
   fts(x, date)
 }
 
-#' @nord
 "second<-.irts" <- function(x, value){
   x$time <- "second<-.default"(x$time, value)
   x
@@ -711,21 +628,18 @@ dst.irts <- function(x)
   UseMethod("minute<-")
 }
 
-#' @nord
 "minute<-.default" <- function(x, value){
   new <- as.POSIXct(x) - (minute(x) - value) * 60
   DST(x, new)
 }
 
 
-#' @nord
 "minute<-.chron" <- "minute<-.timeDate" <- function(x, value){
   date <- "minute<-.default"(x,value)
   f <- match.fun(paste("as", class(x)[1], sep = "."))
   f(date)
 }
 
-#' @nord
 "minute<-.zoo" <- function(x, value){
   compatible <- recognize(index(x))
   if(!compatible)
@@ -735,36 +649,30 @@ dst.irts <- function(x)
   'index<-'(x, new)
 }
 
-#' @nord
 "minute<-.its" <- function(x, value){
   dates <- "minute<-.default"(attr(x,"dates"), value)
   attr(x, "dates") <- dates
   its(x, dates, format = "%Y-%m-%d %X")
 }
 
-#' @nord
 "minute<-.ti" <- function(x, value){
   date <- "minute<-.default"(as.Date(x),value)
   as.ti(date, tifName(x))
 }
 
-#' @nord
 "minute<-.jul" <- function(x, value)
   x - (minute(x) - value)*60/86400
 
-#' @nord
 "minute<-.timeSeries" <- function(x, value){
   positions <- "minute<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
   timeSeries(series(x), positions)
 }
 
-#' @nord
 "minute<-.fts" <- function(x, value){
   date <- "minute<-.default"(dates(x), value)
   fts(x, date)
 }
 
-#' @nord
 "minute<-.irts" <- function(x, value){
   x$time <- "minute<-.default"(x$time, value)
   x
@@ -793,21 +701,18 @@ dst.irts <- function(x)
   UseMethod("hour<-")
 }
 
-#' @nord
 "hour<-.default" <- function(x, value){
   new <- as.POSIXct(x, tz = tz(x)) - (hour(x) - value) * 3600
   DST(x, new)
 }
 
 
-#' @nord
 "hour<-.chron" <- "hour<-.timeDate" <- function(x, value){
   date <- "hour<-.default"(x,value)
   f <- match.fun(paste("as", class(x)[1], sep = "."))
   f(date)
 }
 
-#' @nord
 "hour<-.zoo" <- function(x, value){
   compatible <- recognize(index(x))
   if(!compatible)
@@ -817,36 +722,30 @@ dst.irts <- function(x)
   'index<-'(x, new)
 }
 
-#' @nord
 "hour<-.its" <- function(x, value){
   dates <- "hour<-.default"(attr(x,"dates"), value)
   attr(x, "dates") <- dates
   its(x, dates, format = "%Y-%m-%d %X")
 }
 
-#' @nord
 "hour<-.ti" <- function(x, value){
   date <- "hour<-.default"(as.Date(x),value)
   as.ti(date, tifName(x))
 }
 
-#' @nord
 "hour<-.jul" <- function(x, value)
   x - (hour(x) - value)*3600/86400
 
-#' @nord
 "hour<-.timeSeries" <- function(x, value){
   positions <- "hour<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
   timeSeries(series(x), positions)
 }
 
-#' @nord
 "hour<-.fts" <- function(x, value){
   date <- "hour<-.default"(dates(x), value)
   fts(x, date)
 }
 
-#' @nord
 "hour<-.irts" <- function(x, value){
   x$time <- as.POSIXlt(x$time, tz = "GMT") - (hour(x) - value) * 3600
   x
