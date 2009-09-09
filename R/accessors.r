@@ -610,16 +610,9 @@ dst.irts <- function(x)
 #' value.
 #' 
 #' @name minute-set
-#' @method minute<- default
-#' @method minute<- chron
-#' @method minute<- zoo
-#' @method minute<- its
-#' @method minute<- ti
-#' @method minute<- timeDate
-#' @method minute<- jul
-#' @method minute<- timeSeries
-#' @method minute<- fts
-#' @method minute<- irts
+#' @aliases minute<-.default  minute<-.chron minute<-.zoo minute<-.its
+#'   minute<-.ti minute<-.timeDate minute<-.jul minute<-.timeSeries
+#'   minute<-.fts minute<-.irts 
 #' @param x a date-time object
 #' @param value a number that will be substituted for the date's minutes component.    
 #' @seealso \code{\link{minute}} 
