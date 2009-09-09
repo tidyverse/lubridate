@@ -54,7 +54,8 @@ new_interval <- function(date1, date2){
 
 #' Internal function. Formats interval objects.
 #'
-#' keywords internal print chron
+#' @keywords internal print chron
+#' @method format interval
 format.interval <- function(int,...){
   x <- difftime(int$end, int$start)
   paste(format(unclass(x),...), units(x), "beginning at", int$start)
@@ -62,7 +63,8 @@ format.interval <- function(int,...){
 
 #' Internal function for printing interval objects.
 #'
-#' keywords internal print chron
+#' @keywords internal print chron
+#' @method print interval
 print.interval <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }

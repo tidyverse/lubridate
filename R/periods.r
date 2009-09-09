@@ -136,7 +136,8 @@ years <-   function(x = 1) new_period(year = x)
 
 #' Internal function. Formats period objects.
 #'
-#' keywords internal print chron
+#' @keywords internal print chron
+#' @method format period
 format.period <- function(period, ...){
   show <- vector(mode = "character")
   for (i in 1:nrow(period)){
@@ -161,6 +162,7 @@ format.period <- function(period, ...){
 #' Internal function for printing interval objects.
 #'
 #' keywords internal print chron
+#' @method print period
 print.period <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }
