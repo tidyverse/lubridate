@@ -10,8 +10,8 @@
 #' @method + difftime
 #' @method + Date
 #' @method + interval
-#' @param e1 a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @param e2 a duration(i.e. difftime), period, interval, POSIXt, or Date object
+#' @param date a duration(i.e. difftime), period, interval, POSIXt, or Date object
+#' @param period a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2 
 #' @keywords arith chron methods
 #' @ examples

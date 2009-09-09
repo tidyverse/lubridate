@@ -6,17 +6,17 @@
 #'
 #' Intervals are time spans bound by two real date-times.  Intervals can be 
 #' accurately converted to either period or duration objects using 
-#' \code{link{as.period},link{as.duration}. Since an interval is anchored to a 
-#' fixed history of time, both the number of seconds that passed as well as the 
-#' length of common time units during that history can be calculated. 
-#' Subtracting two date times automatically creates an interval object. 
-#' Intervals display as the difftime between the two dates paired with the 
-#' earlier, or beginning date. 
+#' \code{\link{as.period}}, \code{\link{as.duration}}. Since an interval is
+#' anchored to a fixed history of time, both the number of seconds that passed
+#' as well as the length of common time units during that history can be
+#' calculated.  Subtracting two date times automatically creates an interval
+#' object. Intervals display as the difftime between the two dates paired 
+#' with the earlier, or beginning date. 
 #'
 #' @param date1 a POSIXt or Date date-time object
 #' @param date2 a POSIXt or Date date-time object
 #' @return an interval object
-#' @seealso \code{link{interval}, link{as.interval}}
+#' @seealso \code{link{interval}}, \code{\link{as.interval}}
 #' @keywords chron classes
 #' @examples
 #' new_interval(ymd(20090101), ymd(20090201))
