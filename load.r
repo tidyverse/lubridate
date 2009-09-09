@@ -1,6 +1,6 @@
 # The first thing we do is load the plyr package so we can use the function 
 #   lapply.
-# warn.conflicts = F tells R not to notify us if plyr loads an object that has a 
+# warn.conflicts = FALSE tells R not to notify us if plyr loads an object that has a 
 #   name that is already in use.
 library(plyr, warn.conflicts = FALSE)
 

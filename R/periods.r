@@ -39,7 +39,7 @@
 new_period <- function(...) {
   pieces <- data.frame(...)
   if(any(trunc(pieces) - pieces != 0))
-    stop("periods must have integer values", call. = F)
+    stop("periods must have integer values", call. = FALSE)
     
   names(pieces) <- standardise_date_names(names(pieces))
   defaults <- data.frame(
@@ -253,7 +253,7 @@ as.period.difftime <- function(x, units= c("year", "month", "day", "hour", "minu
       "minute" = span %/% 60 * 60, 
       "hour" = span %/% 3600 * 3600, 
       "day" = span %/% (3600 * 24) * (3600 * 24), 
-      "month" = stop("month length cannot be estimated from durtions", call. = F),
+      "month" = stop("month length cannot be estimated from durtions", call. = FALSE),
       "year" = span %/% (3600 * 24 * 7 * 365) * (3600 * 24 * 7 * 365))
     remainder <- remainder - bite
     newper[units[i]] <- bite / denominator[[units[i]]]

@@ -30,7 +30,7 @@ pretty.dates <- function(dates, n){
   binlength <- f(diff, n)
   
   start <- pretty.point(min(rng), binunits, binlength)
-  end <- pretty.point(max(rng), binunits, binlength, start = F)
+  end <- pretty.point(max(rng), binunits, binlength, start = FALSE)
   
   
   breaks <- seq.POSIXt(start, end, paste(binlength, binunits)) 
