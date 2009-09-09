@@ -175,9 +175,6 @@ new_duration <- function(...){
 #' transformation, first transform the period to an interval with 
 #' \code{link{as.interval}}.
 #'
-#' @method as.duration period
-#' @method as.duration default
-#' @method as.duration interval
 #' @aliases as.duration as.duration.default as.duration.period as.duration.interval
 #' @param x an interval, period, or numeric object   
 #' @return a duration object

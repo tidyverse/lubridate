@@ -5,11 +5,6 @@
 #'  add_number_to_period add_period_to_period add_duration_to_period
 #'  add_duration_to_duration add_duration_to_interval add_period_to_interval
 #'  add_number_to_interval
-#' @method + period
-#' @method + POSIXt
-#' @method + difftime
-#' @method + Date
-#' @method + interval
 #' @param date a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @param period a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2 

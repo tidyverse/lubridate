@@ -190,9 +190,6 @@ print.period <- function(x, ...) {
 #' transformation, first transform the duration to an interval with 
 #' \code{link{as.interval}}.
 #'
-#' @method as.period difftime
-#' @method as.period default
-#' @method as.period interval
 #' @aliases as.period as.period.default as.period.difftime as.period.interval
 #' @param x an interval, difftime, or numeric object   
 #' @param units a character vector. The names of the units to divide the
