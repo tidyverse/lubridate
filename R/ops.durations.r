@@ -11,9 +11,9 @@
 #' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
-#' x + Sys.time()
-#' Sys.Date + x
-#' x + difftime(Sys.time() + 3600, Sys.time())
+#' x + now()
+#' today() + x
+#' x + difftime(now() + 3600, now())
 #' x + x
 add_period_to_date <- function(date, period){
   datetest <- date
@@ -296,7 +296,7 @@ divide_interval_by_number <- function(int, num){
 #' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
-#' Sys.time() - x
+#' now() - x
 #' -x
 #' x - x
 #' as.Date("2009-08-02") - as.Date("2008-11-25")

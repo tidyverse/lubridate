@@ -15,7 +15,7 @@
 #' @return the seconds element of x as a decimal number
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- Sys.time()
+#' x <- now()
 #' second(x)
 #' second(x) <- 1
 #' second(x) <- 61 
@@ -62,7 +62,7 @@ second.irts <- function(x)
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number
 #' @examples
-#' x <- Sys.time()
+#' x <- now()
 #' minute(x)
 #' minute(x) <- 1
 #' minute(x) <- 61 
@@ -109,7 +109,7 @@ minute.fts <- function(x)
 #' @keywords utilities manip chron methods
 #' @return the hours element of x as a decimal number
 #' @examples
-#' x <- Sys.time()
+#' x <- now()
 #' hour(x)
 #' hour(x) <- 1
 #' hour(x) <- 61 
@@ -285,7 +285,7 @@ mday.irts <- function(x)
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron
 #' @examples
-#' x <- Sys.time()
+#' x <- now()
 #' week(x) 
 #' week(x) <- 1  
 #' week(x) <- 54
@@ -313,7 +313,7 @@ week <- function(x)
 #' @return the months element of x as a number (1-12) or character string. 1 = January.
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- Sys.time()
+#' x <- now()
 #' month(x) 
 #' month(x) <- 1  
 #' month(x) <- 13
@@ -385,7 +385,7 @@ month.irts <- function(x, label = FALSE, abbr = FALSE)
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- Sys.time()
+#' x <- now()
 #' year(x) 
 #' year(x) <- 2001  
 #' year(x) > 1995
@@ -443,7 +443,7 @@ year.irts <- function(x)
 #' @return the first element of x's tzone attribute vector as a character string. If no tzone attribute exists, tz returns "GMT".
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- Sys.time()
+#' x <- now()
 #' tz(x) 
 #' tz(x) <- "GMT"  
 #' x
@@ -505,7 +505,7 @@ tz.irts <- function(x)
 #' @seealso \code{\link{DaylightSavingsTime}}
 #' @keywords utilities chron methods
 #' @examples
-#' x <- Sys.time()
+#' x <- now()
 #' dst(x) 
 dst <- function(x)
   UseMethod("dst")

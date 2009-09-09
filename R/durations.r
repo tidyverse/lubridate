@@ -329,7 +329,7 @@ is.difftime <- is.duration <- function(x) inherits(x, "difftime")
 #' @keywords logic chron
 #' @examples
 #' is.Date(as.Date("2009-08-03")) # TRUE
-#' is.Date(difftime(Sys.time() + 5, Sys.time())) # FALSE
+#' is.Date(difftime(now() + 5, now())) # FALSE
 is.Date <- function(x) inherits(x, "Date")
 
 
