@@ -134,11 +134,6 @@ weeks <-   function(x = 1) new_period(week = x)
 months <-  function(x = 1) new_period(month = x)
 years <-   function(x = 1) new_period(year = x)
 
-y <- years(1)
-m <- months(1)
-w <- weeks(1)
-d <- days(1)
-
 #' Internal function. Formats period objects.
 #'
 #' keywords internal print chron
@@ -268,13 +263,3 @@ as.period.difftime <- function(x, units= c("year", "month", "day", "hour", "minu
   newper$second <- newper$second + remainder
   newper * sign(span)
 }
-
-
-
-
-
-
-
-
-
-

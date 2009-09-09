@@ -192,7 +192,7 @@ new_duration <- function(...){
 as.duration <- function(x)
   UseMethod("as.duration")
   
-  
+
 as.duration.period <- function(per){
   if (per$month != 0)
     stop("durations cannot estimate month length")
@@ -298,8 +298,6 @@ is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "PO
 #' is.timespan(as.Date("2009-08-03")) # FALSE
 #' is.timespan(new_duration(second = 1)) # TRUE
 is.timespan <- function(x) inherits(x,c("period", "difftime", "interval"))
-
-
 
 #' Is x a POSIXct or POSIXlt object?
 #'
