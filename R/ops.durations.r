@@ -190,6 +190,7 @@ make_difftime <- function (x) {
 
 #' Multiplication for period and interval classes. 
 #'
+#' @name multiply
 #' @aliases *.period *.interval multiply_period_by_number multiply_interval_by_number 
 #' @method * period
 #' @method * interval
@@ -235,6 +236,7 @@ multiply_interval_by_number <- function(int, num){
 
 #' Division for period, and interval classes. 
 #'
+#' @name division
 #' @aliases /.period /.interval divide_period_by_number divide_interval_by_number 
 #' @method / period
 #' @method / interval
@@ -287,6 +289,7 @@ divide_interval_by_number <- function(int, num){
 #' \code{link{duration}} for more details.
 #'
 #' @aliases -.period -.POSIXt -.difftime -.Date -.interval
+#' @name subtraction
 #' @method - period
 #' @method - POSIXt
 #' @method - difftime

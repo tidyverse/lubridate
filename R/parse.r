@@ -153,7 +153,7 @@ parse_date <- function(x, formats, seps = find_separator(x)) {
 #' @param x a character string 
 #' @return a list of possible separators
 #' @keywords chron
-#' examples
+#' @examples
 #' find_separator("2009-08-03 09:07:03")
 find_separator <- function(x) {
   x <- as.character(x)

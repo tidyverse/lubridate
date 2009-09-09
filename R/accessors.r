@@ -534,6 +534,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the seconds element of a date with a specified 
 #' value.
 #' 
+#' @name second-set
 #' @method second<- default
 #' @method second<- chron
 #' @method second<- zoo
@@ -608,6 +609,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the minutes element of a date with a specified 
 #' value.
 #' 
+#' @name minute-set
 #' @method minute<- default
 #' @method minute<- chron
 #' @method minute<- zoo
@@ -681,6 +683,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the hours element of a date with a specified 
 #' value.
 #' 
+#' @name hour-set
 #' @method hour<- default
 #' @method hour<- chron
 #' @method hour<- zoo
@@ -754,6 +757,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the ydays element of a date with a specified 
 #' value.
 #' 
+#' @name yday-set
 #' @method yday<- default
 #' @method yday<- Date
 #' @method yday<- chron
@@ -828,6 +832,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the wdays element of a date with a specified 
 #' value.
 #' 
+#' @name wday-set
 #' @method wday<- default
 #' @method wday<- Date
 #' @method wday<- chron
@@ -902,6 +907,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the mdays element of a date with a specified 
 #' value.
 #' 
+#' @name mday-set
 #' @method mday<- default
 #' @method mday<- Date
 #' @method mday<- chron
@@ -975,6 +981,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the weeks element of a date with a specified 
 #' value.
 #' 
+#' @name week-set
 #' @method week<- default
 #' @method week<- Date
 #' @method week<- chron
@@ -1048,6 +1055,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the months element of a date with a specified 
 #' value.
 #' 
+#' @name month-set
 #' @method month<- default
 #' @method month<- Date
 #' @method month<- chron
@@ -1155,6 +1163,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the years element of a date with a specified 
 #' value.
 #' 
+#' @name year-set
 #' @method year<- default
 #' @method year<- Date
 #' @method year<- chron
@@ -1263,6 +1272,7 @@ dst.irts <- function(x)
 #' Internal function. Replaces the time zone element of a date with a specified 
 #' value.
 #' 
+#' @name tz-set
 #' @method tz<- default
 #' @method tz<- chron
 #' @method tz<- zoo
