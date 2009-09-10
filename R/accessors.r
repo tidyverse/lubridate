@@ -32,8 +32,9 @@ second.zoo <- function(x)
 second.its <- function(x)
   second.default(attr(x, "dates"))
   
-second.ti <- second.jul <- function(x)
+second.ti <- function(x)
   tis::hms(x)$sec
+second.jul <- second.ti
 
 second.timeSeries <- function(x)
   second.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
@@ -70,27 +71,19 @@ second.irts <- function(x)
 minute <- function(x) 
   UseMethod("minute")
   
+extract_date <- function(x)  UseMethod("minute")
+extract_date.POSIXt <- function(x) x
+extract_date.zoo <- function(x) index(x)
+extract_date.its <- function(x) attr(x, "dates")
+extract_date.timeSeries <- function(x)  timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter)
+extract_date.fts <- function(x) dates(x)
+extract_date.irts <- function(x) x$time
+  
 minute.default <- function(x)
-    as.POSIXlt(x)$min
-    
-minute.zoo <- function(x)
-  as.POSIXlt(index(x))$min
+    as.POSIXlt(extract_date(x))$min
 
-minute.its <- function(x)
-  minute.default(attr(x, "dates"))
-  
-minute.ti <- minute.jul <- function(x)
-  tis::hms(x)$min
-
-minute.timeSeries <- function(x)
-  minute.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-  
-minute.fts <- function(x)
-  minute.default(dates(x))
-
- minute.irts <- function(x)
-  minute.default(x$time)
-
+minute.jul <- function(x) tis::hms(x)$min
+minute.ti <- minute.jul
 
 #' Get/set hours component of a date-time.
 #'
@@ -556,14 +549,32 @@ dst.irts <- function(x)
 }
 
 "second<-.default" <- function(x, value){
-  new <- as.POSIXct(x) - (second(x) - value)
+  date <- extract_date(x)
+  new <- as.POSIXct(date) - (second(date) - value)
+  reclass_date(date, x)
   DST(x, new)
 }
 
 "second<-.chron" <- "second<-.timeDate" <- function(x, value){
+  
+  
   date <- "second<-.default"(x,value)
   f <- match.fun(paste("as", class(x)[1], sep = "."))
   f(date)
+}
+
+reclass_date <- function(new, orig) UseMethod("reclass_date", orig)
+reclass_date.chron <- function(new, orig) {
+  as.chron(new)
+}
+reclass_date.timeDate <- function(new, orig) {
+  as.timeDate(new)
+}
+reclass_date.its <- function(new, orig) {
+  its(x, dates, format = "%Y-%m-%d %X")
+}
+reclass_date.ti <- function(new, orig) {
+  as.ti(new, tifName(orig))
 }
 
 "second<-.zoo" <- function(x, value){
