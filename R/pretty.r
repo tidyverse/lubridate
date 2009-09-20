@@ -44,7 +44,7 @@ pretty.dates <- function(dates, n){
   
 #' Internal function 
 #'
-#' For use with \code{link{pretty.dates}}
+#' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
 pretty.unit <- function(interval){
@@ -64,7 +64,7 @@ pretty.unit <- function(interval){
 
 #' Internal function 
 #'
-#' For use with \code{link{pretty.dates}}
+#' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
 
@@ -76,7 +76,7 @@ pretty.sec <- function(span, n){
 
 #' Internal function 
 #'
-#' For use with \code{link{pretty.dates}}
+#' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
 pretty.min <- function(span, n){
@@ -88,7 +88,7 @@ pretty.min <- function(span, n){
 
 #' Internal function 
 #'
-#' For use with \code{link{pretty.dates}}
+#' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
 pretty.hour <- function(span, n){
@@ -100,7 +100,7 @@ pretty.hour <- function(span, n){
 
 #' Internal function 
 #'
-#' For use with \code{link{pretty.dates}}
+#' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
 pretty.day <- function(span, n){
@@ -110,7 +110,7 @@ pretty.day <- function(span, n){
 
 #' Internal function 
 #'
-#' For use with \code{link{pretty.dates}}
+#' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
 pretty.month <- function(span, n){
@@ -122,7 +122,7 @@ pretty.month <- function(span, n){
   
 #' Internal function 
 #'
-#' For use with \code{link{pretty.dates}}
+#' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
 pretty.year <- function(span, n){
@@ -132,7 +132,7 @@ pretty.year <- function(span, n){
 
 #' Internal function 
 #'
-#' For use with \code{link{pretty.dates}}
+#' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
 pretty.point <- function(x, units, length, start = TRUE){

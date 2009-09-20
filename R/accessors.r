@@ -413,7 +413,7 @@ year.irts <- function(x)
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 #'
 #' Setting tz does not update a date-time to display the same moment as measured 
-#' at a different time zone. See \code{link{with_tz}}. Setting a new time zone 
+#' at a different time zone. See \code{\link{with_tz}}. Setting a new time zone 
 #' creates a new date-time. The numerical value of the hours element stays the 
 #' same, only the time zone attribute is replaced.  This creates a new date-time 
 #' that occurs an integer value of hours before or after the original date-time.  
@@ -1353,9 +1353,10 @@ reclass_date.ti <- function(new, orig) {
 
 #' Changes the components of a date object
 #'
-#' update is a wrapper function for \code{\link{year}, \link{month},
-#' \link{week}, \link{yday}, \link{wday}, \link{mday}, \link{hour},
-#' \link{minute}, \link{second}} and \code{\link{tz}}. It returns a date with
+#' update is a wrapper function for \code{\link{year}}, \code{\link{month}},
+#' \code{\link{week}}, \code{\link{yday}}, \code{\link{wday}}, \code{\link{mday}},
+#' \code{\link{hour}},
+#' \code{\link{minute}}, \code{\link{second}} and \code{\link{tz}}. It returns a date with
 #' the specified elements updated. Elements not specified will be left
 #' unaltered. Update.Date does not add the specified values to the existing
 #'  date, it substitutes them for the appropriate parts of the existing date. 
@@ -1506,7 +1507,7 @@ decimal_date.its <- function(x)
 #'
 #' @param dur a duration object 
 #' @return the number of months as well as the number of years (as months) contained in a duration. See \code{link{duration}} for further details.   
-#' @seealso \code{link{just_seconds}}
+#' @seealso \code{\link{just_seconds}}
 #' @keywords utilities chron
 #' @examples
 #' x <- new_duration(year = 1, month = 4, day = 30, hour = 2, second = 1)
@@ -1518,8 +1519,8 @@ just_months <- function(dur)
 #' Returns just the seconds component of a duration. 
 #'
 #' @param dur a duration object  
-#' @return the number of weeks, days, hours, minutes, and seconds in a duration as seconds. See \code{link{duration}} for further details.
-#' @seealso \code{link{just_months}}
+#' @return the number of weeks, days, hours, minutes, and seconds in a duration as seconds. See \code{\link{duration}} for further details.
+#' @seealso \code{\link{just_months}}
 #' @keywords utilities chron
 #' @examples
 #' x <- new_duration(year = 1, month = 4, day = 30, hour = 2, second = 1)
@@ -1545,7 +1546,7 @@ recognize <- function(x){
 #' Internal function for Daylight Savings Time changes.
 #'
 #' Determines how to handle time changes resulting from Daylight Savings time 
-#' based on options("DST"). See \code{link{DaylightSavingsTime}}.
+#' based on options("DST"). See \code{\link{DaylightSavingsTime}}.
 #'
 #' @aliases DST DST.months 
 #' @keywords internal

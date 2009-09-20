@@ -192,7 +192,8 @@ make_difftime <- function (x) {
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{link{"+.period"}, link{"+.interval"}, link{"-.period"}, link{"-.interval"}, link{"/.interval"}, link{"/.period"}}
+#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
+#' \code{\link{"-.interval"}}, \code{\link{"/.interval"}}, \code{\link{"/.period"}}
 #' @keywords arith chron methods
 #' @ examples
 #' x <- new_period(day = 1)
@@ -238,7 +239,7 @@ multiply_interval_by_number <- function(int, num){
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{link{"+.period"}, link{"+.interval"}, link{"-.period"}, link{"-.interval"}, link{"*.interval"}, link{"*.period"}}
+#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, \code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}
 #' @keywords arith chron methods
 #' @ examples
 #' x <- new_period(day = 1)
@@ -275,13 +276,13 @@ divide_interval_by_number <- function(int, num){
 #'
 #' The subtraction methods returns an interval object when a POSIXt or Date 
 #' object is subtracted from another POSIXt or Date object. To retrieve this 
-#' difference as a difftime, use \code{link{as.duration}}. To retrieve it as a 
-#' period use \code{link{as.period}}.
+#' difference as a difftime, use \code{\link{as.duration}}. To retrieve it as a 
+#' period use \code{\link{as.period}}.
 #'
 #' Since a specific number of seconds exists between two dates, the duration 
 #' returned will not include unspecific time units such as years and months. To 
-#' get a nonspecific duration use \code{link{get_duration}}. See 
-#' \code{link{duration}} for more details.
+#' get a nonspecific duration use \code{\link{get_duration}}. See 
+#' \code{\link{duration}} for more details.
 #'
 #' @aliases -.period -.POSIXt -.difftime -.Date -.interval
 #' @name subtraction

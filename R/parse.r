@@ -11,7 +11,7 @@
 #' @aliases ymd myd dym ydm mdy yearmonthdate
 #' @param ... a character or numeric vector of suspected dates 
 #' @return a vector of POSIXct date-time objects
-#' @seealso \code{link{parse_date}, link{guess_format}}
+#' @seealso \code{\link{parse_date}}, \code{\link{guess_format}}
 #' @keywords chron 
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -70,7 +70,7 @@ make_format <- function(order) {
 #'
 #' @param ... a character or numeric vector of hour minute pairs
 #' @return a vector of POSIXct date-time objects
-#' @seealso \code{link{hms}}
+#' @seealso \code{\link{hms}}
 #' @keywords chron
 #' @examples
 #' x <- c("09:01", "09:02", "09:03")
@@ -93,7 +93,7 @@ hm <- function(...) {
 #'
 #' @param ... a character or numeric vector of hour minute pairs
 #' @return a vector of POSIXct date-time objects
-#' @seealso \code{link{hm}}
+#' @seealso \code{\link{hm}}
 #' @keywords chron
 #' @examples
 #' x <- c("09:10:01", "09:10:02", "09:10:03")
@@ -112,17 +112,17 @@ hms <- function(...) {
 
 #' Change dates into a POSIXct format
 #'
-#' parse_date is an internal function for the \code{link{ymd}} family of 
+#' parse_date is an internal function for the \code{\link{ymd}} family of 
 #' functions. Its recommended to use these functions instead. It transforms 
 #' dates stored in character and numeric vectors to POSIXct objects. All 
 #' inputed dates are considered to have the same order and to use the same 
 #' separator. 
 #'
 #' @param x a character or numeric vector of suspected dates 
-#' @param formats a vector of date-time format elements in the order they occur within the dates. See \code{link[base]{strptime}} for format elements.
+#' @param formats a vector of date-time format elements in the order they occur within the dates. See \code{\link[base]{strptime}} for format elements.
 #' @param seps a vector of possible characters used to separate elements within the dates.
 #' @return a vector of POSIXct date-time objects
-#' @seealso \code{link{ymd}, link{guess_format}}
+#' @seealso \code{\link{ymd}}, \code{\link{guess_format}}
 #' @keywords chron
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -194,7 +194,7 @@ num_to_date <- function(x) {
 #' @param seps a vector of possible characters used to separate elements
 #'   within the dates. 
 #' @return a character string of the most likely date-time format
-#' @seealso \code{link{find_separator}}
+#' @seealso \code{\link{find_separator}}
 #' @keywords chron
 #' @examples
 #' x <- c("2009/01/01", "2009/01/02", "2009/01/03")
@@ -245,7 +245,7 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
 
 #' Internal function.
 #'
-#' Quickly adds separator values to rows of strings for \code{link{guess_format}}
+#' Quickly adds separator values to rows of strings for \code{\link{guess_format}}
 #'
 #' @keywords internal
 combine <- function(mat, vec){
