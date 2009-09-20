@@ -80,7 +80,8 @@ add_number_to_interval <-function(int, num){
   int
 }
 
-"+.period" <- "+.POSIXt" <- "+.difftime" <- "+.interval" <- "+.Date" <- function(e1, e2){
+
+add_dates <- function(e1, e2){
   
   if (is.instant(e1)) {
     if (is.instant(e2))
@@ -152,7 +153,7 @@ add_number_to_interval <-function(int, num){
   }
   else stop("Unknown object class")
 }
-
+"+.period" <- "+.difftime" <- "+.interval" <- add_dates
 
 
 #' Makes a difftime object from given number of seconds 
