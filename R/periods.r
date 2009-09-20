@@ -16,14 +16,16 @@
 #' integer values. 
 #'
 #' Period objects can be easily created with the helper functions 
-#' \code{link{years}}, \code{link{months}}, \code{link{weeks}}, 
-#' \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These objects 
+#' \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}}, 
+#' \code{\link{days}}, \code{\link{minutes}}, \code{\link{seconds}}. These objects 
 #' can be added to and subtracted to date-times to create a user interface 
 #' similar to object oriented programming.
 #'
-#' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, hours, days, weeks, months, and years are supported. See \code{link{standardise_date_names}} for more details.
+#' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, 
+#'   hours, days, weeks, months, and years are supported. See \code{\link{standardise_date_names}} 
+#'   for more details.
 #' @return a period object
-#' @seealso \code{link{period}, link{as.period}}
+#' @seealso \code{\link{period}}, \code{\link{as.period}}
 #' @keywords chron classes
 #' @examples
 #' new_period (second = 90, minute = 5)
@@ -61,7 +63,7 @@ new_period <- function(...) {
 #' Quickly create period objects for easy date-time manipulation. The units of 
 #' the period created depend on the name of the function called. For period 
 #' objects, units do not have a fixed length until they are added to a specific 
-#' date time, contrast this with \code{link{durations}}. This makes periods 
+#' date time, contrast this with \code{\link{durations}}. This makes periods 
 #' useful for manipulations with clock times because units expand or contract 
 #' in length to accomodate conventions such as leap years, leap seconds, and 
 #' Daylight Savings Time. 
@@ -73,7 +75,8 @@ new_period <- function(...) {
 #' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
 #' @aliases seconds minutes hours days weeks months years y m w d
-#' @param x numeric value of the number of units to be contained in the period. With the exception of seconds(), x must be an integer. 
+#' @param x numeric value of the number of units to be contained in the period. With the exception 
+#'   of seconds(), x must be an integer. 
 #' @return a period object
 #' @seealso \code{\link{period}}, \code{\link{new_period}}, \code{\link{edays}}
 #' @keywords chron manip
@@ -137,7 +140,6 @@ years <-   function(x = 1) new_period(year = x)
 #' Internal function. Formats period objects.
 #'
 #' @keywords internal print chron
-#' @method format period
 format.period <- function(period, ...){
   show <- vector(mode = "character")
   for (i in 1:nrow(period)){
@@ -162,7 +164,6 @@ format.period <- function(period, ...){
 #' Internal function for printing interval objects.
 #'
 #' keywords internal print chron
-#' @method print period
 print.period <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }
@@ -174,27 +175,27 @@ print.period <- function(x, ...) {
 #'
 #' Users must specify which time units to measure the period in. The length of 
 #' each time unit in a period depends on when it occurs. See 
-#' \code{link{periods}}. The choice of units is not trivial; units that are 
+#' \code{\link{periods}}. The choice of units is not trivial; units that are 
 #' normally equal may differ in length depending on when the time period 
 #' occurs. For example, when a leap second occurs one minute is longer than 60 
 #' seconds.
 #'
 #' Because periods do not have a fixed length, they can not be accurately 
 #' converted to and from duration objects. Duration objects measure time spans 
-#' in exact numbers of seconds, see \code{link{duration}}. Hence, a one to one 
+#' in exact numbers of seconds, see \code{\link{duration}}. Hence, a one to one 
 #' mapping does not exist between durations and periods. When used with a 
 #' duration object, as.period provides an inexact estimate; the duration is 
 #' broken into time units based on the most common lengths of time units, in 
 #' seconds. Because the length of months are particularly variable, a period 
 #' with a months unit can not be coerced from a duration object. For an exact 
 #' transformation, first transform the duration to an interval with 
-#' \code{link{as.interval}}.
+#' \code{\link{as.interval}}.
 #'
 #' @aliases as.period as.period.default as.period.difftime as.period.interval
 #' @param x an interval, difftime, or numeric object   
 #' @param units a character vector. The names of the units to divide the
 #'   period among. Years, months, days, hours, minutes, and seconds are
-#'   supported, see \code{link{standardise_date_names}} for more details. The
+#'   supported, see \code{\link{standardise_date_names}} for more details. The
 #'   largest units should be listed first. As much of the period as possible
 #'   will be assigned to the first unit. As much of the remainder as possible
 #'   will be assigned to the second unit and so on until all listed units have
@@ -203,7 +204,7 @@ print.period <- function(x, ...) {
 #'   If no units are provided, as.period will use all available units by
 #'   default.
 #' @return a period object
-#' @seealso \code{link{period}, link{new_period}}
+#' @seealso \code{\link{period}}, \code{\link{new_period}}
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval

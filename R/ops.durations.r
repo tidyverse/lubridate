@@ -7,7 +7,8 @@
 #'  add_number_to_interval
 #' @param date a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @param period a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2 
+#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
+#'   and e2 
 #' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
@@ -161,7 +162,7 @@ add_dates <- function(e1, e2){
 #' @param x number value of seconds to be transformed into a difftime object
 #' @return a difftime object corresponding to x seconds
 #' @keywords chron
-#' @ examples
+#' @examples
 #' make_difftime(1)
 #' make_difftime(60)
 #' make_difftime(3600)
@@ -188,14 +189,13 @@ make_difftime <- function (x) {
 #'
 #' @name multiply
 #' @aliases *.period *.interval multiply_period_by_number multiply_interval_by_number 
-#' @method * period
-#' @method * interval
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{link{"+.period"}, link{"+.interval"}, link{"-.period"}, link{"-.interval"}, link{"/.interval"}, link{"/.period"}}
+#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
+#'   \code{\link{"-.interval"}}, \code{\link{"/.interval"}}, \code{\link{"/.period"}}
 #' @keywords arith chron methods
-#' @ examples
+#' @examples
 #' x <- new_period(day = 1)
 #' x * 3
 #' 3 * x
@@ -234,14 +234,13 @@ multiply_interval_by_number <- function(int, num){
 #'
 #' @name division
 #' @aliases /.period /.interval divide_period_by_number divide_interval_by_number 
-#' @method / period
-#' @method / interval
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{link{"+.period"}, link{"+.interval"}, link{"-.period"}, link{"-.interval"}, link{"*.interval"}, link{"*.period"}}
+#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
+#'   \code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}
 #' @keywords arith chron methods
-#' @ examples
+#' @examples
 #' x <- new_period(day = 1)
 #' x / 2
 #' 2 / x
@@ -276,26 +275,22 @@ divide_interval_by_number <- function(int, num){
 #'
 #' The subtraction methods returns an interval object when a POSIXt or Date 
 #' object is subtracted from another POSIXt or Date object. To retrieve this 
-#' difference as a difftime, use \code{link{as.duration}}. To retrieve it as a 
-#' period use \code{link{as.period}}.
+#' difference as a difftime, use \code{\link{as.duration}}. To retrieve it as a 
+#' period use \code{\link{as.period}}.
 #'
 #' Since a specific number of seconds exists between two dates, the duration 
 #' returned will not include unspecific time units such as years and months. To 
-#' get a nonspecific duration use \code{link{get_duration}}. See 
-#' \code{link{duration}} for more details.
+#' get a nonspecific duration use \code{\link{get_duration}}. See 
+#' \code{\link{duration}} for more details.
 #'
 #' @aliases -.period -.POSIXt -.difftime -.Date -.interval
 #' @name subtraction
-#' @method - period
-#' @method - POSIXt
-#' @method - difftime
-#' @method - Date
-#' @method - interval
 #' @param e1 a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @param e2 a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2 
+#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
+#'   and e2 
 #' @keywords arith chron methods
-#' @ examples
+#' @examples
 #' x <- new_duration(day = 1)
 #' now() - x
 #' -x

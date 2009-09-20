@@ -29,8 +29,8 @@ leap.year <- function(date) {
 #' The current time 
 #'
 #' @param tzone a character vector specifying which time zone you would like 
-#' the current time in. tzone defaults to the system time zone set on your 
-#' computer.
+#'   the current time in. tzone defaults to the system time zone set on your 
+#'   computer.
 #' @return the current date and time as a POSIXct object
 #'
 #' @keywords chron utilities
@@ -47,8 +47,8 @@ now <- function(tzone = "")
 #' The current date 
 #'
 #' @param tzone a character vector specifying which time zone you would like to 
-#' find the current date of. tzone defaults to the system time zone set on your 
-#' computer.
+#'   find the current date of. tzone defaults to the system time zone set on your 
+#'   computer.
 #' @return the current date as a Date object
 #'
 #' @keywords chron utilities
@@ -84,10 +84,11 @@ pm <- function(x) !am(x)
 #' measured in.
 #'
 #' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
-#' @param tzone a character string containing the time zone to convert to. R must recognize the name contained in the string as a time zone on your system.
+#' @param tzone a character string containing the time zone to convert to. R must recognize the name 
+#'   contained in the string as a time zone on your system.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
-#' @seealso \code{link{replace_tz}}
+#' @seealso \code{\link{replace_tz}}
 #' @examples
 #' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
 #' with_tz(x, "GMT")

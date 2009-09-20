@@ -1,7 +1,6 @@
 #' Internal function. Formats duration objects.
 #'
 #' @keywords internal print chron
-#' @method format duration
 format.duration <- function(dur, ...){
   format_unit <- function(x, xsign, singular = NULL) {
       if (is.null(singular)) singular <- deparse(substitute(x))
@@ -52,7 +51,6 @@ format.duration <- function(dur, ...){
 #' Internal function for printing duration objects.
 #'
 #' @keywords internal print chron
-#' @method print duration
 print.duration <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }
