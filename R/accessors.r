@@ -4,7 +4,8 @@
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @aliases second.default second.zoo second.its second.ti second.timeseries second.fts second.irts 
-#'    second
+#'   second second<- second<-.default second<-.chron second<-.zoo second<-.its second<-.ti 
+#'   second<-.timeDate second<-.jul second<-.timeSeries second<-.fts second<-.irts
 #' @param x a date-time object   
 #' @return the seconds element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -45,7 +46,9 @@ second.irts <- function(x)
 #' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases minute.default minute.zoo minute.its minute.ti minute.timeseries minute.fts minute.irts #'   minute
+#' @aliases minute.default minute.zoo minute.its minute.ti minute.timeseries minute.fts minute.irts #'   minute minute<- minute<-.default  minute<-.chron minute<-.zoo minute<-.its
+#'   minute<-.ti minute<-.timeDate minute<-.jul minute<-.timeSeries
+#'   minute<-.fts minute<-.irts 
 #' @param x a date-time object   
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number
@@ -77,7 +80,9 @@ minute.ti <- minute.jul
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases hour.default hour.zoo hour.its hour.ti hour.timeseries hour.fts hour.irts hour
+#' @aliases hour.default hour.zoo hour.its hour.ti hour.timeseries hour.fts hour.irts hour hour<- 
+#'   hour<-.default hour<-.chron hour<-.zoo hour<-.its hour<-.ti hour<-.timeDate hour<-.jul 
+#'   hour<-.timeSeries hour<-.fts hour<-.irts
 #' @param x a date-time object   
 #' @keywords utilities manip chron methods
 #' @return the hours element of x as a decimal number
@@ -119,7 +124,12 @@ hour.irts <- function(x)
 #'
 #' @aliases yday.default yday.zoo yday.its yday.ti yday.timeseries yday.fts yday.irts wday.default 
 #'   wday.zoo wday.its wday.ti wday.timeseries wday.fts wday.irts mday.default mday.zoo mday.its 
-#'   mday.ti mday.timeseries mday.fts mday.irts yday mday wday
+#'   mday.ti mday.timeseries mday.fts mday.irts yday mday wday day<- yday<-.default yday<-.Date 
+#'   yday<-.chron yday<-.zoo yday<-.its yday<-.ti yday<-.timeDate yday<-.jul yday<-.timeSeries 
+#'   yday<-.fts yday<-.irts wday<- wday<-.default wday<-.Date wday<-.chron wday<-.zoo wday<-.its 
+#'   wday<-.ti wday<-.timeDate wday<-.jul wday<-.timeSeries wday<-.fts wday<-.irts mday<- 
+#'   mday<-.default mday<-.Date mday<-.chron mday<-.zoo mday<-.its mday<-.ti mday<-.timeDate 
+#'   mday<-.jul mday<-.timeSeries mday<-.fts mday<-.irts
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
 #'   jul, timeSeries, or fts object. 
 #' @param label logical. Only available for wday. TRUE will display the day of the week as a 
@@ -241,6 +251,8 @@ mday.irts <- function(x)
 #' the number of complete seven day periods that have occured between the date 
 #' and  January 1st, plus one. 
 #'
+#' @aliases week<- week<-.default week<-.Date week<-.chron week<-.zoo week<-.its week<-.ti 
+#'   week<-.timeDate week<-.jul week<-.timeSeries week<-.fts week<-.irts week
 #' @param x a date-time object   
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron
@@ -259,7 +271,9 @@ week <- function(x)
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases month.default month.zoo month.its month.ti month.timeseries month.fts month.irts month
+#' @aliases month.default month.zoo month.its month.ti month.timeseries month.fts month.irts month 
+#'   month<- month<-.default month<-.Date month<-.chron month<-.zoo month<-.its month<-.ti 
+#'   month<-.timeDate month<-.jul month<-.timeSeries month<-.fts month<-.irts month<-.yearmon
 #' @param x a date-time object  
 #' @param label logical. TRUE will display the month as a character string such as "January." FALSE 
 #'   will display the month as a number.
@@ -329,7 +343,9 @@ month.irts <- function(x, label = FALSE, abbr = FALSE)
 #'
 #' year does not yet support years before 0 C.E.
 #'
-#' @aliases year year.default year.zoo year.its year.ti year.timeseries year.fts year.irts
+#' @aliases year year.default year.zoo year.its year.ti year.timeseries year.fts year.irts year<- 
+#'   year<- default year<-.Date year<-.chron year<-.zoo year<-.its year<-.ti year<-.timeDate 
+#'   year<-.jul year<-.timeSeries year<-.fts year<-.irts year<-.yearmon year<-.yearqtr
 #' @param x a date-time object   
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -380,7 +396,8 @@ year.irts <- function(x)
 #'
 #' For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
 #'
-#' @aliases tz tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts 
+#' @aliases tz tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts tz<- tz<-.default 
+#'   tz<-.chron tz<-.zoo tz<-.its tz<-.ti tz<-.timeDate tz<-.jul tz<-.timeSeries tz<-.fts tz<-.irts
 #' @param x a date-time object   
 #' @return the first element of x's tzone attribute vector as a character string. If no tzone 
 #'   attribute exists, tz returns "GMT".
@@ -467,16 +484,9 @@ dst.fts <- function(x)
 dst.irts <- function(x)
   dst.default(x$time)
 
-#' Internal function. Replaces the seconds element of a date with a specified 
-#' value.
-#' 
-#' @name second-set
-#' @aliases second<- second<-.default second<-.chron second<-.zoo second<-.its second<-.ti 
-#'   second<-.timeDate second<-.jul second<-.timeSeries second<-.fts second<-.irts
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's seconds component.   
-#' @seealso \code{\link{second}}  
-#' @keywords internal methods chron manip
+
+
+
 "second<-" <- function(x, value){
   if (all(value == second(x)))
     return(x)
@@ -552,17 +562,8 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the minutes element of a date with a specified 
-#' value.
-#' 
-#' @name minute-set
-#' @aliases minute<- minute<-.default  minute<-.chron minute<-.zoo minute<-.its
-#'   minute<-.ti minute<-.timeDate minute<-.jul minute<-.timeSeries
-#'   minute<-.fts minute<-.irts 
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's minutes component.    
-#' @seealso \code{\link{minute}} 
-#' @keywords internal methods chron manip
+
+
 "minute<-" <- function(x, value){
   if (all(value == minute(x)))
     return(x)
@@ -619,16 +620,7 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the hours element of a date with a specified 
-#' value.
-#' 
-#' @name hour-set
-#' @aliases hour<- hour<-.default hour<-.chron hour<-.zoo hour<-.its hour<-.ti hour<-.timeDate 
-#'   hour<-.jul hour<-.timeSeries hour<-.fts hour<-.irts
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's hours component.  
-#' @seealso \code{\link{hour}}   
-#' @keywords internal methods chron manip
+
 "hour<-" <- function(x, value) {
   if (all(value == hour(x)))
     return(x)
@@ -685,16 +677,8 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the ydays element of a date with a specified 
-#' value.
-#' 
-#' @name yday-set
-#' @aliases yday<- yday<-.default yday<-.Date yday<-.chron yday<-.zoo yday<-.its yday<-.ti 
-#'   yday<-.timeDate yday<-.jul yday<-.timeSeries yday<-.fts yday<-.irts
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's ydays component.   
-#' @seealso \code{\link{yday}} 
-#' @keywords internal methods chron manip
+
+
 "yday<-" <- function(x, value){
   if (all(value == yday(x)))
     return(x)
@@ -751,16 +735,7 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the wdays element of a date with a specified 
-#' value.
-#' 
-#' @name wday-set
-#' @aliases wday<- wday<-.default wday<-.Date wday<-.chron wday<-.zoo wday<-.its wday<-.ti 
-#'   wday<-.timeDate wday<-.jul wday<-.timeSeries wday<-.fts wday<-.irts
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's wdays component.   
-#' @seealso \code{\link{wday}} 
-#' @keywords internal methods chron manip
+
 "wday<-" <- function(x, value){
   if (all(value == wday(x)))
     return(x)
@@ -817,16 +792,8 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the mdays element of a date with a specified 
-#' value.
-#' 
-#' @name mday-set
-#' @aliases mday<- mday<-.default mday<-.Date mday<-.chron mday<-.zoo mday<-.its mday<-.ti 
-#'   mday<-.timeDate mday<-.jul mday<-.timeSeries mday<-.fts mday<-.irts
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's mdays component.   
-#' @seealso \code{\link{mday}} 
-#' @keywords internal methods chron manip
+
+
 "mday<-" <- "day<-" <- function(x, value){
   if (all(value == mday(x)))
     return(x)
@@ -882,16 +849,6 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the weeks element of a date with a specified 
-#' value.
-#' 
-#' @name week-set
-#' @aliases week<- week<-.default week<-.Date week<-.chron week<-.zoo week<-.its week<-.ti 
-#'   week<-.timeDate week<-.jul week<-.timeSeries week<-.fts week<-.irts
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's weeks component.   
-#' @seealso \code{\link{week}} 
-#' @keywords internal methods chron manip
 "week<-" <- function(x, value){
   if (all(value == week(x)))
     return(x)
@@ -947,16 +904,8 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the months element of a date with a specified 
-#' value.
-#' 
-#' @name month-set
-#' @aliases month<- month<-.default month<-.Date month<-.chron month<-.zoo month<-.its month<-.ti 
-#'   month<-.timeDate month<-.jul month<-.timeSeries month<-.fts month<-.irts month<-.yearmon
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's months component.   
-#' @seealso \code{\link{month}} 
-#' @keywords internal methods chron manip
+
+
 "month<-" <- function(x, value) {
   if (all(value == month(x)))
     return(x)
@@ -1045,17 +994,6 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the years element of a date with a specified 
-#' value.
-#' 
-#' @name year-set
-#' @aliases year<- year<- default year<-.Date year<-.chron year<-.zoo year<-.its year<-.ti 
-#'   year<-.timeDate year<-.jul year<-.timeSeries year<-.fts year<-.irts year<-.yearmon 
-#'   year<-.yearqtr
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's years component.   
-#' @seealso \code{\link{year}} 
-#' @keywords internal methods chron manip
 "year<-" <- function(x, value) {
   if (all(value == year(x)))
     return(x)
@@ -1144,16 +1082,7 @@ reclass_date.ti <- function(new, orig) {
   x
 }
 
-#' Internal function. Replaces the time zone element of a date with a specified 
-#' value.
-#' 
-#' @name tz-set
-#' @aliases tz<- tz<-.default tz<-.chron tz<-.zoo tz<-.its tz<-.ti tz<-.timeDate tz<-.jul 
-#'   tz<-.timeSeries tz<-.fts tz<-.irts
-#' @param x a date-time object
-#' @param value a number that will be substituted for the date's time zone component.   
-#' @seealso \code{\link{tz}} 
-#' @keywords internal methods chron manip
+
 "tz<-" <- function(x, value) {
   if (all(value == tz(x)))
     return(x)
