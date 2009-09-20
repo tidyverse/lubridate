@@ -7,7 +7,8 @@
 #'  add_number_to_interval
 #' @param date a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @param period a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2 
+#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
+#'   and e2 
 #' @keywords arith chron methods
 #' @ examples
 #' x <- new_duration(day = 1)
@@ -160,7 +161,7 @@ add_number_to_interval <-function(int, num){
 #' @param x number value of seconds to be transformed into a difftime object
 #' @return a difftime object corresponding to x seconds
 #' @keywords chron
-#' @ examples
+#' @examples
 #' make_difftime(1)
 #' make_difftime(60)
 #' make_difftime(3600)
@@ -187,15 +188,13 @@ make_difftime <- function (x) {
 #'
 #' @name multiply
 #' @aliases *.period *.interval multiply_period_by_number multiply_interval_by_number 
-#' @method * period
-#' @method * interval
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
 #' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
-#' \code{\link{"-.interval"}}, \code{\link{"/.interval"}}, \code{\link{"/.period"}}
+#'   \code{\link{"-.interval"}}, \code{\link{"/.interval"}}, \code{\link{"/.period"}}
 #' @keywords arith chron methods
-#' @ examples
+#' @examples
 #' x <- new_period(day = 1)
 #' x * 3
 #' 3 * x
@@ -234,14 +233,13 @@ multiply_interval_by_number <- function(int, num){
 #'
 #' @name division
 #' @aliases /.period /.interval divide_period_by_number divide_interval_by_number 
-#' @method / period
-#' @method / interval
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, \code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}
+#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
+#'   \code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}
 #' @keywords arith chron methods
-#' @ examples
+#' @examples
 #' x <- new_period(day = 1)
 #' x / 2
 #' 2 / x
@@ -286,16 +284,12 @@ divide_interval_by_number <- function(int, num){
 #'
 #' @aliases -.period -.POSIXt -.difftime -.Date -.interval
 #' @name subtraction
-#' @method - period
-#' @method - POSIXt
-#' @method - difftime
-#' @method - Date
-#' @method - interval
 #' @param e1 a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @param e2 a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2 
+#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
+#'   and e2 
 #' @keywords arith chron methods
-#' @ examples
+#' @examples
 #' x <- new_duration(day = 1)
 #' now() - x
 #' -x

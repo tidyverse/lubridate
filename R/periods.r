@@ -21,7 +21,9 @@
 #' can be added to and subtracted to date-times to create a user interface 
 #' similar to object oriented programming.
 #'
-#' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, hours, days, weeks, months, and years are supported. See \code{\link{standardise_date_names}} for more details.
+#' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, 
+#'   hours, days, weeks, months, and years are supported. See \code{\link{standardise_date_names}} 
+#'   for more details.
 #' @return a period object
 #' @seealso \code{\link{period}}, \code{\link{as.period}}
 #' @keywords chron classes
@@ -73,7 +75,8 @@ new_period <- function(...) {
 #' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
 #' @aliases seconds minutes hours days weeks months years y m w d
-#' @param x numeric value of the number of units to be contained in the period. With the exception of seconds(), x must be an integer. 
+#' @param x numeric value of the number of units to be contained in the period. With the exception 
+#'   of seconds(), x must be an integer. 
 #' @return a period object
 #' @seealso \code{\link{period}}, \code{\link{new_period}}, \code{\link{edays}}
 #' @keywords chron manip
@@ -137,7 +140,6 @@ years <-   function(x = 1) new_period(year = x)
 #' Internal function. Formats period objects.
 #'
 #' @keywords internal print chron
-#' @method format period
 format.period <- function(period, ...){
   show <- vector(mode = "character")
   for (i in 1:nrow(period)){
@@ -162,7 +164,6 @@ format.period <- function(period, ...){
 #' Internal function for printing interval objects.
 #'
 #' keywords internal print chron
-#' @method print period
 print.period <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }

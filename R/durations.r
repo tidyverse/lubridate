@@ -49,9 +49,12 @@
 #'
 #' @aliases timespan timespans duration durations dur periods period interval intervals
 #' @name duration
-#' @seealso \code{\link{new_duration}} for creating duration objects and \code{\link{as.duration}} for converting objects into durations
-#' @seealso \code{\link{new_period}} for creating period objects and \code{\link{as_period}} for converting objects to periods
-#' @seealso \code{\link{new_interval}} for creating interval objects and \code{\link{as_interval}} for converting objects to intervals
+#' @seealso \code{\link{new_duration}} for creating duration objects and \code{\link{as.duration}} 
+#'   for converting objects into durations
+#' @seealso \code{\link{new_period}} for creating period objects and \code{\link{as_period}} for 
+#'   converting objects to periods
+#' @seealso \code{\link{new_interval}} for creating interval objects and \code{\link{as_interval}} 
+#'   for converting objects to intervals
 #' @keywords classes chron
 #' @examples
 #' new_duration(second = 3690)
@@ -128,7 +131,8 @@ NULL
 #' \code{\link{eseconds}}. These objects can be added to and subtracted to date-
 #' times to create a user interface similar to object oriented programming. 
 #'
-#' @param ... a list of time units to be included in the duration and their amounts. Seconds, minutes, hours, days, and weeks are supported. See \code{\link{standardise_difftime_names}}.
+#' @param ... a list of time units to be included in the duration and their amounts. Seconds, 
+#'   minutes, hours, days, and weeks are supported. See \code{\link{standardise_difftime_names}}.
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
@@ -315,7 +319,7 @@ is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
 #' @param x an R object   
 #' @return TRUE if x is a difftime object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
-#' \code{\link{is.period}}, \code{\link{duration}}
+#'   \code{\link{is.period}}, \code{\link{duration}}
 #' @keywords logic chron
 #' @examples
 #' is.difftime(as.Date("2009-08-03")) # FALSE
@@ -339,7 +343,7 @@ is.Date <- function(x) inherits(x, "Date")
 #' @param x an R object   
 #' @return TRUE if x is a period object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
-#' \code{\link{is.duration}}, \code{\link{period}}
+#'   \code{\link{is.duration}}, \code{\link{period}}
 #' @keywords logic chron
 #' @examples
 #' is.period(as.Date("2009-08-03")) # FALSE
@@ -350,7 +354,8 @@ is.period <- function(x) inherits(x,"period")
 #'
 #' @param x an R object   
 #' @return TRUE if x is an interval object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.period}}, \code{\link{is.duration}}, \code{\link{interval}}
+#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.period}}, 
+#'   \code{\link{is.duration}}, \code{\link{interval}}
 #' @keywords logic chron
 #' @examples
 #' is.interval(new_period(months= 1, days = 15)) # FALSE

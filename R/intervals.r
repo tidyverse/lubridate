@@ -82,7 +82,8 @@ print.interval <- function(x, ...) {
 #' time must be supplied from which to measure the period. See 
 #' \code{\link{as.duration}}, \code{\link{as.period}}.
 #'
-#' @param x a duration (i.e. difftime), period, or numeric object that describes the length of the interval
+#' @param x a duration (i.e. difftime), period, or numeric object that describes the length of the 
+#'   interval
 #' @param origin a POSIXt or Date object that describes when the interval begins   
 #' @return an interval object
 #' @seealso \code{\link{interval}}, \code{\link{new_interval}}

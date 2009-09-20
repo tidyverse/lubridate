@@ -119,7 +119,8 @@ hms <- function(...) {
 #' separator. 
 #'
 #' @param x a character or numeric vector of suspected dates 
-#' @param formats a vector of date-time format elements in the order they occur within the dates. See \code{\link[base]{strptime}} for format elements.
+#' @param formats a vector of date-time format elements in the order they occur within the dates. 
+#'   See \code{\link[base]{strptime}} for format elements.
 #' @param seps a vector of possible characters used to separate elements within the dates.
 #' @return a vector of POSIXct date-time objects
 #' @seealso \code{\link{ymd}}, \code{\link{guess_format}}
