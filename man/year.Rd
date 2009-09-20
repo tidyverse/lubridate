@@ -1,6 +1,6 @@
 \name{year}
 \title{Get/set years component of a date-time.}
-\usage{\method{year}{default} (x)}
+\usage{year(x)}
 
 \description{
   Get/set years component of a date-time.
@@ -21,6 +21,21 @@
 \alias{year.timeseries}
 \alias{year.fts}
 \alias{year.irts}
+\alias{year<-}
+\alias{year<-}
+\alias{default}
+\alias{year<-.Date}
+\alias{year<-.chron}
+\alias{year<-.zoo}
+\alias{year<-.its}
+\alias{year<-.ti}
+\alias{year<-.timeDate}
+\alias{year<-.jul}
+\alias{year<-.timeSeries}
+\alias{year<-.fts}
+\alias{year<-.irts}
+\alias{year<-.yearmon}
+\alias{year<-.yearqtr}
 \value{the years element of x as a decimal number}
 \keyword{utilities}
 \keyword{manip}

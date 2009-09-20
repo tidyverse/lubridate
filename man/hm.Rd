@@ -15,7 +15,7 @@
   written as a two digit integer (00-59).
 }
 \value{a vector of POSIXct date-time objects}
-\seealso{\code{link{hms}}}
+\seealso{\code{\link{hms}}}
 \keyword{chron}
 \arguments{
   \item{...}{a character or numeric vector of hour minute pairs}

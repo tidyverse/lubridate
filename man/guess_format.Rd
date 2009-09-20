@@ -16,7 +16,7 @@
   and that all dates use the same separator.
 }
 \value{a character string of the most likely date-time format}
-\seealso{\code{link{find_separator}}}
+\seealso{\code{\link{find_separator}}}
 \keyword{chron}
 \arguments{
   \item{x}{a character or numeric vector of suspected dates}

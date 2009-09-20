@@ -24,17 +24,18 @@
   Savings Time.
 
   duration objects can be easily created with the helper functions
-  \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}},
-  \code{link{eseconds}}. These objects can be added to and subtracted
+  \code{\link{eweeks}}, \code{\link{edays}}, \code{\link{eminutes}},
+  \code{\link{eseconds}}. These objects can be added to and subtracted
   to date- times to create a user interface similar to object oriented
   programming.
 }
 \value{a duration object}
-\seealso{\code{link{duration}, link{as.duration}}}
+\seealso{\code{\link{duration}}, \code{\link{as.duration}}}
 \keyword{chron}
 \keyword{classes}
 \arguments{
-  \item{...}{a list of time units to be included in the duration and their amounts. Seconds, minutes, hours, days, and weeks are supported. See \code{link{standardise_difftime_names}}.}
+  \item{...}{a list of time units to be included in the duration and their amounts. Seconds, 
+minutes, hours, days, and weeks are supported. See \code{\link{standardise_difftime_names}}.}
 }
 \examples{new_duration(second = 90)
 # Time difference of 1.5 mins

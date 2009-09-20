@@ -1,6 +1,6 @@
 \name{division}
 \title{Division for period, and interval classes.}
-\usage{\method{/}{period} (e1, e2)}
+\usage{/.period(e1, e2)}
 
 \description{
   Division for period, and interval classes.
@@ -10,7 +10,8 @@
 \alias{divide_period_by_number}
 \alias{divide_interval_by_number}
 \value{a period or interval object}
-\seealso{\code{link{"+.period"}, link{"+.interval"}, link{"-.period"}, link{"-.interval"}, link{"*.interval"}, link{"*.period"}}}
+\seealso{\code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
+\code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}}
 \keyword{arith}
 \keyword{chron}
 \keyword{methods}

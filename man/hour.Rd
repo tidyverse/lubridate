@@ -1,6 +1,6 @@
 \name{hour}
 \title{Get/set hours component of a date-time.}
-\usage{\method{hour}{default} (x)}
+\usage{hour(x)}
 
 \description{
   Get/set hours component of a date-time.
@@ -19,6 +19,17 @@
 \alias{hour.fts}
 \alias{hour.irts}
 \alias{hour}
+\alias{hour<-}
+\alias{hour<-.default}
+\alias{hour<-.chron}
+\alias{hour<-.zoo}
+\alias{hour<-.its}
+\alias{hour<-.ti}
+\alias{hour<-.timeDate}
+\alias{hour<-.jul}
+\alias{hour<-.timeSeries}
+\alias{hour<-.fts}
+\alias{hour<-.irts}
 \keyword{utilities}
 \keyword{manip}
 \keyword{chron}

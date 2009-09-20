@@ -24,8 +24,8 @@
   due to their variability.
 
   duration objects can be easily created with the helper functions
-  \code{link{eweeks}}, \code{link{edays}}, \code{link{eminutes}},
-  \code{link{eseconds}}. These objects can be added to and subtracted
+  \code{\link{eweeks}}, \code{\link{edays}}, \code{\link{eminutes}},
+  \code{\link{eseconds}}. These objects can be added to and subtracted
   to date- times to create a user interface similar to object oriented
   programming.  Duration objects can be added to Date, POSIXt, and
   Interval objects.
@@ -42,11 +42,11 @@
   can not be accurately converted to and from durations.
 
   Period objects can be easily created with the helper functions
-  \code{link{years}}, \code{link{months}}, \code{link{weeks}},
-  \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These
-  objects can be added to and subtracted to date-times to create a user
-  interface similar to object oriented programming. Period objects can
-  be added to Date, POSIXt, and Interval objects.
+  \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}},
+  \code{\link{days}}, \code{\link{minutes}}, \code{\link{seconds}}.
+  These objects can be added to and subtracted to date-times to create
+  a user interface similar to object oriented programming. Period
+  objects can be added to Date, POSIXt, and Interval objects.
 
   Intervals are time spans bound by two real date-times.  Intervals can
   be accurately converted to periods and durations. Since an interval
@@ -67,9 +67,12 @@
 \alias{period}
 \alias{interval}
 \alias{intervals}
-\seealso{\code{link{new_duration}} for creating duration objects and \code{link{as.duration}} for converting objects into durations}
-\seealso{\code{link{new_period}} for creating period objects and \code{link{as_period}} for converting objects to periods}
-\seealso{\code{link{new_interval}} for creating interval objects and \code{link{as_interval}} for converting objects to intervals}
+\seealso{\code{\link{new_duration}} for creating duration objects and \code{\link{as.duration}} 
+for converting objects into durations}
+\seealso{\code{\link{new_period}} for creating period objects and \code{\link{as_period}} for 
+converting objects to periods}
+\seealso{\code{\link{new_interval}} for creating interval objects and \code{\link{as_interval}} 
+for converting objects to intervals}
 \keyword{classes}
 \keyword{chron}
 \examples{new_duration(second = 3690)

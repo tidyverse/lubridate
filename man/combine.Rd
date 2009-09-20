@@ -9,6 +9,6 @@
 
 \details{
   Quickly adds separator values to rows of strings for
-  \code{link{guess_format}}
+  \code{\link{guess_format}}
 }
 \keyword{internal}

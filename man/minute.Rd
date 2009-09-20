@@ -1,6 +1,6 @@
 \name{minute}
 \title{Get/set minutes component of a date-time.}
-\usage{\method{minute}{default} (x)}
+\usage{minute(x)}
 
 \description{
   Get/set minutes component of a date-time.
@@ -18,7 +18,19 @@
 \alias{minute.timeseries}
 \alias{minute.fts}
 \alias{minute.irts}
+\alias{#'}
 \alias{minute}
+\alias{minute<-}
+\alias{minute<-.default}
+\alias{minute<-.chron}
+\alias{minute<-.zoo}
+\alias{minute<-.its}
+\alias{minute<-.ti}
+\alias{minute<-.timeDate}
+\alias{minute<-.jul}
+\alias{minute<-.timeSeries}
+\alias{minute<-.fts}
+\alias{minute<-.irts}
 \keyword{utilities}
 \keyword{manip}
 \keyword{chron}

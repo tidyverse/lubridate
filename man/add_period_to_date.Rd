@@ -22,7 +22,8 @@
 \alias{add_duration_to_interval}
 \alias{add_period_to_interval}
 \alias{add_number_to_interval}
-\value{a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 and e2}
+\value{a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
+and e2}
 \keyword{arith}
 \keyword{chron}
 \keyword{methods}

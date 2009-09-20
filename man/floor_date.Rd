@@ -15,12 +15,13 @@
   or year.
 }
 \value{x with the appropriate units floored}
-\seealso{\code{link{ceiling_date}, link{round_date}}}
+\seealso{\code{\link{ceiling_date}}, \code{\link{round_date}}}
 \keyword{manip}
 \keyword{chron}
 \arguments{
   \item{x}{a vector of date-time objects}
-  \item{unit}{a character string specifying the time unit to be rounded to. Should be one of "second","minute","hour","day", "week", "month", or "year."}
+  \item{unit}{a character string specifying the time unit to be rounded to. Should be one of 
+"second","minute","hour","day", "week", "month", or "year."}
 }
 \examples{x <- as.POSIXct("2009-08-03 12:01:59.23")
 floor_date(x, "second")

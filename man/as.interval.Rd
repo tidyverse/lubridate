@@ -17,16 +17,18 @@
   period objects, which describe time spans in relative units, and
   duration objects, which describe timespans in exact units. To do
   this, however, an origin date- time must be supplied from which to
-  measure the period. See \code{link{as.duration}, link{as.period}}.
+  measure the period. See \code{\link{as.duration}},
+  \code{\link{as.period}}.
 }
 \value{an interval object}
-\seealso{\code{link{interval}, link{new_interval}}}
+\seealso{\code{\link{interval}}, \code{\link{new_interval}}}
 \keyword{classes}
 \keyword{manip}
 \keyword{methods}
 \keyword{chron}
 \arguments{
-  \item{x}{a duration (i.e. difftime), period, or numeric object that describes the length of the interval}
+  \item{x}{a duration (i.e. difftime), period, or numeric object that describes the length of the 
+interval}
   \item{origin}{a POSIXt or Date object that describes when the interval begins}
 }
 \examples{diff <- new_duration(days = 31) #duration

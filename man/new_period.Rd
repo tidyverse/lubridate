@@ -24,17 +24,19 @@
   expressed in integer values.
 
   Period objects can be easily created with the helper functions
-  \code{link{years}}, \code{link{months}}, \code{link{weeks}},
-  \code{link{days}}, \code{link{minutes}}, \code{link{seconds}}. These
-  objects can be added to and subtracted to date-times to create a user
-  interface similar to object oriented programming.
+  \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}},
+  \code{\link{days}}, \code{\link{minutes}}, \code{\link{seconds}}.
+  These objects can be added to and subtracted to date-times to create
+  a user interface similar to object oriented programming.
 }
 \value{a period object}
-\seealso{\code{link{period}, link{as.period}}}
+\seealso{\code{\link{period}}, \code{\link{as.period}}}
 \keyword{chron}
 \keyword{classes}
 \arguments{
-  \item{...}{a list of time units to be included in the period and their amounts. Seconds, minutes, hours, days, weeks, months, and years are supported. See \code{link{standardise_date_names}} for more details.}
+  \item{...}{a list of time units to be included in the period and their amounts. Seconds, minutes, 
+hours, days, weeks, months, and years are supported. See \code{\link{standardise_date_names}} 
+for more details.}
 }
 \examples{new_period (second = 90, minute = 5)
 #  5 minutes and 90 seconds

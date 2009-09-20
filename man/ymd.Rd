@@ -22,7 +22,7 @@
 \alias{mdy}
 \alias{yearmonthdate}
 \value{a vector of POSIXct date-time objects}
-\seealso{\code{link{parse_date}, link{guess_format}}}
+\seealso{\code{\link{parse_date}}, \code{\link{guess_format}}}
 \keyword{chron}
 \arguments{
   \item{...}{a character or numeric vector of suspected dates}

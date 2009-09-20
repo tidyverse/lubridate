@@ -1,6 +1,6 @@
 \name{tz}
 \title{Get/set time zone component of a date-time.}
-\usage{\method{tz}{default} (x)}
+\usage{tz(x)}
 
 \description{
   Get/set time zone component of a date-time.
@@ -12,7 +12,7 @@
   objects.
 
   Setting tz does not update a date-time to display the same moment as
-  measured at a different time zone. See \code{link{with_tz}}. Setting
+  measured at a different time zone. See \code{\link{with_tz}}. Setting
   a new time zone creates a new date-time. The numerical value of the
   hours element stays the same, only the time zone attribute is
   replaced.  This creates a new date-time that occurs an integer value
@@ -33,7 +33,19 @@
 \alias{tz.timeseries}
 \alias{tz.fts}
 \alias{tz.irts}
-\value{the first element of x's tzone attribute vector as a character string. If no tzone attribute exists, tz returns "GMT".}
+\alias{tz<-}
+\alias{tz<-.default}
+\alias{tz<-.chron}
+\alias{tz<-.zoo}
+\alias{tz<-.its}
+\alias{tz<-.ti}
+\alias{tz<-.timeDate}
+\alias{tz<-.jul}
+\alias{tz<-.timeSeries}
+\alias{tz<-.fts}
+\alias{tz<-.irts}
+\value{the first element of x's tzone attribute vector as a character string. If no tzone 
+attribute exists, tz returns "GMT".}
 \keyword{utilities}
 \keyword{manip}
 \keyword{chron}

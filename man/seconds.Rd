@@ -11,7 +11,7 @@
   units of the period created depend on the name of the function
   called. For period objects, units do not have a fixed length until
   they are added to a specific date time, contrast this with
-  \code{link{durations}}. This makes periods useful for manipulations
+  \code{\link{durations}}. This makes periods useful for manipulations
   with clock times because units expand or contract in length to
   accomodate conventions such as leap years, leap seconds, and Daylight
   Savings Time.
@@ -39,7 +39,8 @@
 \keyword{chron}
 \keyword{manip}
 \arguments{
-  \item{x}{numeric value of the number of units to be contained in the period. With the exception of seconds(), x must be an integer.}
+  \item{x}{numeric value of the number of units to be contained in the period. With the exception 
+of seconds(), x must be an integer.}
 }
 \examples{eseconds(1) 
 # Time difference of 1 secs

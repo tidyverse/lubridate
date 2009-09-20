@@ -8,6 +8,6 @@
 }
 
 \details{
-  For use with \code{link{pretty.dates}}
+  For use with \code{\link{pretty.dates}}
 }
 \keyword{internal}

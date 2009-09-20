@@ -14,7 +14,7 @@
 \alias{is.instant}
 \alias{instant}
 \value{TRUE if x is a POSIXct, POSIXlt, or Date object, FALSE otherwise.}
-\seealso{\code{link{is.timespan}, link{is.POSIXt}, link{is.Date}}}
+\seealso{\code{\link{is.timespan}}, \code{\link{is.POSIXt}}, \code{\link{is.Date}}}
 \keyword{logic}
 \keyword{chron}
 \arguments{

@@ -1,6 +1,6 @@
 \name{month}
 \title{Get/set months component of a date-time.}
-\usage{\method{month}{default} (x, label=FALSE, abbr=FALSE)}
+\usage{month(x, label=FALSE, abbr=FALSE)}
 
 \description{
   Get/set months component of a date-time.
@@ -19,6 +19,19 @@
 \alias{month.fts}
 \alias{month.irts}
 \alias{month}
+\alias{month<-}
+\alias{month<-.default}
+\alias{month<-.Date}
+\alias{month<-.chron}
+\alias{month<-.zoo}
+\alias{month<-.its}
+\alias{month<-.ti}
+\alias{month<-.timeDate}
+\alias{month<-.jul}
+\alias{month<-.timeSeries}
+\alias{month<-.fts}
+\alias{month<-.irts}
+\alias{month<-.yearmon}
 \value{the months element of x as a number (1-12) or character string. 1 = January.}
 \keyword{utilities}
 \keyword{manip}
@@ -26,8 +39,11 @@
 \keyword{methods}
 \arguments{
   \item{x}{a date-time object}
-  \item{label}{logical. TRUE will display the month as a character string such as "January." FALSE will display the month as a number.}
-  \item{abbr}{logical. FALSE will display the month as a character string label, such as "January". TRUE will display an abbreviated version of the label, such as "Jan". abbr is disregarded if label = FALSE.}
+  \item{label}{logical. TRUE will display the month as a character string such as "January." FALSE 
+will display the month as a number.}
+  \item{abbr}{logical. FALSE will display the month as a character string label, such as 
+"January". TRUE will display an abbreviated version of the label, such as "Jan". abbr is 
+disregarded if label = FALSE.}
 }
 \examples{x <- now()
 month(x) 

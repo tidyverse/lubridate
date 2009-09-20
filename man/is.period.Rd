@@ -7,7 +7,8 @@
   Is x a period object?
 }
 \value{TRUE if x is a period object, FALSE otherwise.}
-\seealso{\code{link{is.instant}, link{is.timespan}, link{is.interval}, link{is.duration}, link{period}}}
+\seealso{\code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
+\code{\link{is.duration}}, \code{\link{period}}}
 \keyword{logic}
 \keyword{chron}
 \arguments{

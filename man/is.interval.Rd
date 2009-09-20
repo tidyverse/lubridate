@@ -7,7 +7,8 @@
   Is x an interval object?
 }
 \value{TRUE if x is an interval object, FALSE otherwise.}
-\seealso{\code{link{is.instant}, link{is.timespan}, link{is.period}, link{is.duration}, link{interval}}}
+\seealso{\code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.period}}, 
+\code{\link{is.duration}}, \code{\link{interval}}}
 \keyword{logic}
 \keyword{chron}
 \arguments{

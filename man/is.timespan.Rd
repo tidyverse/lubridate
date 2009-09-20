@@ -8,7 +8,7 @@
 \alias{is.timespan}
 \alias{timespan}
 \value{TRUE if x is a period, interval, or difftime object, FALSE otherwise.}
-\seealso{\code{link{is.instant}, link{is.duration}, link{is.difftime}, link{is.period}, link{is.interval}}}
+\seealso{\code{\link{is.instant}}, \code{\link{is.duration}}, \code{\link{is.difftime}}, \code{\link{is.period}}, \code{\link{is.interval}}}
 \keyword{logic}
 \keyword{chron}
 \arguments{

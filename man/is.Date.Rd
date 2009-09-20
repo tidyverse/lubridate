@@ -7,7 +7,7 @@
   Is x a Date object?
 }
 \value{TRUE if x is a Date object, FALSE otherwise.}
-\seealso{\code{link{is.instant}, link{is.timespan}, link{is.POSIXt}}}
+\seealso{\code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.POSIXt}}}
 \keyword{logic}
 \keyword{chron}
 \arguments{

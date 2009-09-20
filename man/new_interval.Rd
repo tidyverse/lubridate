@@ -23,7 +23,7 @@
   the two dates paired with the earlier, or beginning date.
 }
 \value{an interval object}
-\seealso{\code{link{interval}}, \code{\link{as.interval}}}
+\seealso{\code{\link{interval}}, \code{\link{as.interval}}}
 \keyword{chron}
 \keyword{classes}
 \arguments{

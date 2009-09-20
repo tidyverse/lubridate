@@ -1,6 +1,6 @@
 \name{second}
 \title{Get/set seconds component of a date-time.}
-\usage{\method{second}{default} (x)}
+\usage{second(x)}
 
 \description{
   Get/set seconds component of a date-time.
@@ -11,7 +11,7 @@
   zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts
   objects.
 }
-\alias{.default}
+\alias{second.default}
 \alias{second.zoo}
 \alias{second.its}
 \alias{second.ti}
@@ -19,6 +19,17 @@
 \alias{second.fts}
 \alias{second.irts}
 \alias{second}
+\alias{second<-}
+\alias{second<-.default}
+\alias{second<-.chron}
+\alias{second<-.zoo}
+\alias{second<-.its}
+\alias{second<-.ti}
+\alias{second<-.timeDate}
+\alias{second<-.jul}
+\alias{second<-.timeSeries}
+\alias{second<-.fts}
+\alias{second<-.irts}
 \value{the seconds element of x as a decimal number}
 \keyword{utilities}
 \keyword{manip}

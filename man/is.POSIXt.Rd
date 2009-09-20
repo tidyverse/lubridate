@@ -9,7 +9,7 @@
 \alias{is.POSIXlt}
 \alias{is.POSIXct}
 \value{TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.}
-\seealso{\code{link{is.instant}, link{is.timespan}, link{is.Date}}}
+\seealso{\code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.Date}}}
 \keyword{logic}
 \keyword{chron}
 \arguments{
