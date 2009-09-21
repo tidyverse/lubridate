@@ -1,5 +1,6 @@
 #' Internal function. Formats duration objects.
 #'
+#' @method format duration
 #' @keywords internal print chron
 format.duration <- function(dur, ...){
   format_unit <- function(x, xsign, singular = NULL) {
@@ -50,6 +51,7 @@ format.duration <- function(dur, ...){
 
 #' Internal function for printing duration objects.
 #'
+#' @method print duration
 #' @keywords internal print chron
 print.duration <- function(x, ...) {
   print(format(x), ..., quote = FALSE)

@@ -75,7 +75,10 @@ dst.irts <- function(x)
 #' are updated to vectors of numbers, update will return a vector of dates that
 #' reflects all combinations of the updated elements.
 #' 
-#' @aliases update.Date update.POSIXt update.POSIXct update.POSIXlt
+#' @method update Date
+#' @method update POSIXt
+#' @method update POSIXct
+#' @method update POSIXlt
 #' @param object a date-time object  
 #' @param year a value to substitute for the date's year component
 #' @param month a value to substitute for the date's month component
