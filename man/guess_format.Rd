@@ -28,13 +28,13 @@ alternative order should be entered as an additional format. See
 within the dates.}
 }
 \examples{x <- c("2009/01/01", "2009/01/02", "2009/01/03")
-guess_format(x, list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")), seps = c("-", "", "/"))
-# "%Y/%m/%d"
+guess_format(x, list(c("\%y", "\%m", "\%d"), c("\%Y", "\%m", "\%d")), seps = c("-", "", "/"))
+# "\%Y/\%m/\%d"
 x <- c("20090101", "20090102", "20090103")
-guess_format(x, list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")), seps = c("-", "", "/"))
-#  "%Y%m%d" 
+guess_format(x, list(c("\%y", "\%m", "\%d"), c("\%Y", "\%m", "\%d")), seps = c("-", "", "/"))
+#  "\%Y\%m\%d" 
 x <- c("09-01-01", "09-01-02", "09-01-03")
-guess_format(x, list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")), seps = c("-", "", "/"))
-#  Multiple format matches with 3 successes: %y-%m-%d, %Y-%m-%d.
+guess_format(x, list(c("\%y", "\%m", "\%d"), c("\%Y", "\%m", "\%d")), seps = c("-", "", "/"))
+#  Multiple format matches with 3 successes: \%y-\%m-\%d, \%Y-\%m-\%d.
 #         1 
-# "%y-%m-%d"}
+# "\%y-\%m-\%d"}

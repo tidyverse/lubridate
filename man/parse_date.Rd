@@ -24,7 +24,7 @@ See \code{\link[base]{strptime}} for format elements.}
   \item{seps}{a vector of possible characters used to separate elements within the dates.}
 }
 \examples{x <- c("09-01-01", "09-01-02", "09-01-03")
-parse_date(x, c("%y", "%m", "%d"), seps = "-")
+parse_date(x, c("\%y", "\%m", "\%d"), seps = "-")
 #  "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
 ymd(x)
 #  "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"}

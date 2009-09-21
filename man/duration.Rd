@@ -58,8 +58,6 @@
   interval object. Intervals display as the difftime between the two
   dates paired with the earlier, or beginning date.
 }
-\alias{timespan}
-\alias{timespans}
 \alias{duration}
 \alias{durations}
 \alias{dur}
@@ -69,8 +67,6 @@
 \alias{intervals}
 \seealso{\code{\link{new_duration}} for creating duration objects and \code{\link{as.duration}} 
 for converting objects into durations}
-\seealso{\code{\link{new_period}} for creating period objects and \code{\link{as_period}} for 
-converting objects to periods}
 \seealso{\code{\link{new_interval}} for creating interval objects and \code{\link{as_interval}} 
 for converting objects to intervals}
 \keyword{classes}
