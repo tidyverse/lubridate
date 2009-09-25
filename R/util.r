@@ -58,9 +58,7 @@ now <- function(tzone = "")
 #' today("") == today("GMT") # not always true
 #' today() < as.Date("2999-01-01") # TRUE  (so far)
 today <- function(tzone ="") {
-  timethere <- with_tz(Sys.time(),tzone)
-  daythere <- floor_date(timethere, "day")
-  as.Date(daythere)
+  as.Date(floor_date(now(tzone), "day"))
 }
 
 #' Does date time occur in the am or pm?
