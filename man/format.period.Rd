@@ -1,7 +1,7 @@
 \name{format.period}
 \alias{format.period}
 \title{Internal function.}
-\usage{format.period(period, ...)}
+\usage{\method{format}{period} (period, ...)}
 
 \description{
   Internal function. Formats period objects.

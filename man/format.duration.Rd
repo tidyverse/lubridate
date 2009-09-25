@@ -1,7 +1,7 @@
 \name{format.duration}
 \alias{format.duration}
 \title{Internal function.}
-\usage{format.duration(dur, ...)}
+\usage{\method{format}{duration} (dur, ...)}
 
 \description{
   Internal function. Formats duration objects.
