@@ -18,7 +18,7 @@
 minute <- function(x) 
   UseMethod("minute")
   
-extract_date <- function(x)  UseMethod("minute")
+extract_date <- function(x)  UseMethod("extract_date")
 extract_date.POSIXt <- function(x) x
 extract_date.zoo <- function(x) index(x)
 extract_date.its <- function(x) attr(x, "dates")
