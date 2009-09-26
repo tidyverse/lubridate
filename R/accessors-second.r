@@ -18,6 +18,8 @@
 second <- function(x) 
   UseMethod("second")
   
+second.default <- function(x)
+  as.POSIXlt(x)$sec
 
 "second<-" <- function(x, value){
   if (all(value == second(x)))
