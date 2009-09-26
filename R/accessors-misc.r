@@ -91,40 +91,14 @@ update.Date <- update.POSIXt <- function(object, ...) {
   todo <- list(...)
   names(todo) <- standardise_date_names(names(todo))
   
-  changes <- as.list(list(year = todo$year, 
-    month = todo$month, 
-    week = todo$week,
-    day = todo$day, 
-    yday = todo$yday,
-    wday = todo$wday,
-    mday = todo$mday, 
-    hour = todo$hour, 
-    minute = todo$minute, 
-    second = todo$second,
-    tz = todo$tz))  
+  operation_order <- c("year", "month", "week", "yday", "mday", "wday",
+    "hour", "minute", "second", "tz")
   
-  which.null <- function(x){
-  nulls <- rep(FALSE, length(x))
-  for (i in 1:length(x))
-    if( is.null(x[[i]]) ) nulls[i] <- TRUE
-  nulls
-  }
-  
-  changes <- changes[!which.null(changes)]
-  
-  for(change in names(changes)) {
-    f1 <- match.fun(change)
-    
-    if(any(changes[[change]] != f1(object))){
-       f2 <- match.fun(paste(change, "<-", sep = ""))
-      new <- vector()
-    
-      for(i in 1:length(object))
-        new <- c(new, f2(object[i], changes[[change]]))
-    
-    class(new) <- c("POSIXt", "POSIXct")
-    object <- new
-  }
+  todo <- todo[intersect(operation_order, names(todo))]
+
+  for(component in names(todo)) {
+    settor <- match.fun(paste(component, "<-", sep = ""))
+    object <- settor(object, todo[[component]])
   }
   
   object
