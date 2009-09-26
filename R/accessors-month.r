@@ -50,23 +50,7 @@ month.numeric <- function(x, label = FALSE, abbr = FALSE) {
   ordered(x, labels = labels)
 }
     
-month.zoo <- function(x, label = FALSE, abbr = FALSE)
-  month.default(index(x), label, abbr)
 
-month.its <- function(x, label = FALSE, abbr = FALSE)
-  month.default(attr(x, "dates"), label, abbr)  
-
-month.ti <- month.jul <- function(x, label = FALSE, abbr = FALSE)
-  month.default(as.Date(x), label, abbr)
-  
-month.timeSeries <- function(x, label = FALSE, abbr = FALSE)
-  month.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
-  
-month.fts <- function(x, label = FALSE, abbr = FALSE)
-  month.default(dates(x), label, abbr)
-  
-month.irts <- function(x, label = FALSE, abbr = FALSE)
-  month(x$time)
 
 "month<-" <- function(x, value) {
   if (all(value == month(x)))

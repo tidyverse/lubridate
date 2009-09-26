@@ -47,18 +47,9 @@ tz.zoo <- function(x){
   tzs[1]
 }
 
-tz.its <- function(x)
-  tz.default(attr(x, "dates"))
-
-tz.ti <- tz.jul <- function(x)
-  tz.default(as.Date(x))
-  
 tz.timeSeries <- function(x)
   x@FinCenter
 
-tz.fts <- function(x)
-  tz.default(dates(x))
-  
 tz.irts <- function(x)
   return("GMT")
 

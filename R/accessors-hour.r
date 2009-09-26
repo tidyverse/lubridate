@@ -21,24 +21,6 @@ hour <- function(x)
 hour.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$hour
     
-hour.zoo <- function(x)
-  hour.default(index(x))
-  
-
-hour.its <- function(x)
-  hour.default(attr(x, "dates"))
-  
-hour.ti <- hour.jul <- function(x)
-  tis::hms(x)$hour
-  
-hour.timeSeries <- function(x)
-  hour.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-  
-hour.fts <- function(x)
-  hour.default(dates(x))
-  
-hour.irts <- function(x)
-  as.POSIXlt(x$time, tz = "GMT")$hour
 
 "hour<-" <- function(x, value) {
   if (all(value == hour(x)))

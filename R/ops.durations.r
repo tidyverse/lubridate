@@ -154,7 +154,7 @@ add_dates <- function(e1, e2){
   }
   else stop("Unknown object class")
 }
-"+.period" <- "+.difftime" <- "+.interval" <- add_dates
+"+.POSIXt" <- "+.period" <- "+.difftime" <- "+.interval" <- add_dates
 
 
 #' Makes a difftime object from given number of seconds 

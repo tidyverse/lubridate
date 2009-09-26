@@ -20,26 +20,6 @@ dst <- function(x)
   
 dst.default <- function(x)
   as.POSIXlt(x)$isdst
-    
-dst.zoo <- function(x)
-  as.POSIXlt(index(x))$isdst
-  
-dst.its <- function(x)
-  dst.default(attr(x, "dates"))
-  
-dst.ti <- dst.jul <- function(x)
-  tis::hms(x)$isdst
-
-dst.timeSeries <- function(x)
-  dst.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-
-dst.fts <- function(x)
-  dst.default(dates(x))
-  
-dst.irts <- function(x)
-  dst.default(x$time)
-
-
 
 
 

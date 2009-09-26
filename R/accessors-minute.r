@@ -18,19 +18,11 @@
 minute <- function(x) 
   UseMethod("minute")
   
-extract_date <- function(x)  UseMethod("extract_date")
-extract_date.POSIXt <- function(x) x
-extract_date.zoo <- function(x) index(x)
-extract_date.its <- function(x) attr(x, "dates")
-extract_date.timeSeries <- function(x)  timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter)
-extract_date.fts <- function(x) dates(x)
-extract_date.irts <- function(x) x$time
-  
 minute.default <- function(x)
-    as.POSIXlt(extract_date(x))$min
+  as.POSIXlt(x)$min
 
-minute.jul <- function(x) tis::hms(x)$min
-minute.ti <- minute.jul
+
+
 "minute<-" <- function(x, value){
   if (all(value == minute(x)))
     return(x)

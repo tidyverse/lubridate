@@ -21,24 +21,6 @@ year <- function(x)
   
 year.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$year + 1900
-    
-year.zoo <- function(x)
-  year.default(index(x))
-
-year.its <- function(x)
-  year.default(attr(x, "dates"))
-  
-year.ti <- year.jul <- function(x)
-  year.default(as.Date(x))
-
-year.timeSeries <- function(x)
-  year.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-  
-year.fts <- function(x)
-  year.default(dates(x))
-  
-year.irts <- function(x)
-  as.POSIXlt(x$time, tz = "GMT")$year + 1900
 
 "year<-" <- function(x, value) {
   if (all(value == year(x)))

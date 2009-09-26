@@ -45,23 +45,6 @@ yday <- function(x)
 yday.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$yday + 1
 
-yday.zoo <- function(x)
-  yday.default(index(x))
-
-yday.its <- function(x)
-  yday.default(attr(x, "dates"))
-
-yday.ti <- yday.jul <- function(x)
-  yday.default(as.Date(x))
-
-yday.timeSeries <- function(x)
-  yday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-
-yday.fts <- function(x)
-  yday.default(dates(x))
-
-yday.irts <- function(x)
-  as.POSIXlt(x$time, tz = "GMT")$yday + 1
 
 wday <- function(x, label = FALSE, abbr = FALSE) 
   UseMethod("wday")
@@ -82,48 +65,13 @@ wday.numeric <- function(x, label = FALSE, abbr = FALSE) {
   ordered(x, labels = labels)  
 }
 
-wday.zoo <- function(x, label = FALSE, abbr = FALSE)
-  wday.default(index(x), label, abbr)
-
-wday.its <- function(x, label = FALSE, abbr = FALSE)
-  wday.default(attr(x, "dates"), label, abbr)
-  
-wday.ti <- wday.jul <- function(x, label = FALSE, abbr = FALSE)
-  wday.default(as.Date(x), label, abbr)
-  
-wday.timeSeries <- function(x, label = FALSE, abbr = FALSE)
-  wday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), label, abbr)
-  
-wday.fts <- function(x, label = FALSE, abbr = FALSE)
-  wday.default(dates(x), label, abbr)
-  
-wday.irts <- function(x, label = FALSE, abbr = FALSE){
-  wday(x$time, label, abbr)
-}
   
 mday <- day <- function(x) 
   UseMethod("mday")
   
 mday.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$mday
-    
-mday.zoo <- function(x)
-  mday.default(index(x))
 
-mday.its <- function(x)
-  mday.default(attr(x, "dates"))
-  
-mday.ti <- mday.jul <- function(x)
-  mday.default(as.Date(x))
-  
-mday.timeSeries <- function(x)
-  mday.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-  
-mday.fts <- function(x)
-  mday.default(dates(x))
-  
-mday.irts <- function(x)
-  as.POSIXlt(x$time, tz = "GMT")$mday
 
 "yday<-" <- function(x, value){
   if (all(value == yday(x)))

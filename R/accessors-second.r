@@ -18,27 +18,6 @@
 second <- function(x) 
   UseMethod("second")
   
-second.default <- function(x)
-    as.POSIXlt(x)$sec
-    
-second.zoo <- function(x)
-  as.POSIXlt(index(x))$sec
-  
-second.its <- function(x)
-  second.default(attr(x, "dates"))
-  
-second.ti <- function(x)
-  tis::hms(x)$sec
-second.jul <- second.ti
-
-second.timeSeries <- function(x)
-  second.default(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter))
-
-second.fts <- function(x)
-  second.default(dates(x))
-  
-second.irts <- function(x)
-  second.default(x$time)
 
 "second<-" <- function(x, value){
   if (all(value == second(x)))
