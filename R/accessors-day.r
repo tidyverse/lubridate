@@ -46,14 +46,14 @@ yday.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$yday + 1
 
 
-wday <- function(x, label = FALSE, abbr = FALSE) 
+wday <- function(x, label = FALSE, abbr = TRUE) 
   UseMethod("wday")
 
-wday.default <- function(x, label = FALSE, abbr = FALSE){
+wday.default <- function(x, label = FALSE, abbr = TRUE){
   wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr)
 }
 
-wday.numeric <- function(x, label = FALSE, abbr = FALSE) {
+wday.numeric <- function(x, label = FALSE, abbr = TRUE) {
   if (!label) return(x)
   
   if (abbr) {
@@ -62,7 +62,7 @@ wday.numeric <- function(x, label = FALSE, abbr = FALSE) {
     labels <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
                 "Friday", "Saturday")
   }
-  ordered(x, labels = labels)  
+  ordered(x, levels = 1:7, labels = labels)  
 }
 
   

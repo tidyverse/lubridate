@@ -29,13 +29,13 @@
 #' # "Jan"
 #' month(ymd(080101) + months(0:11), label = TRUE, abbr = TRUE)
 #' # "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
-month <- function(x, label = FALSE, abbr = FALSE) 
+month <- function(x, label = FALSE, abbr = TRUE) 
   UseMethod("month")
   
-month.default <- function(x, label = FALSE, abbr = FALSE)
+month.default <- function(x, label = FALSE, abbr = TRUE)
   month(as.POSIXlt(x, tz = "GMT")$mon + 1, label, abbr)
   
-month.numeric <- function(x, label = FALSE, abbr = FALSE) {
+month.numeric <- function(x, label = FALSE, abbr = TRUE) {
   if (!label) return(x)
   
   if (abbr) {
@@ -47,7 +47,7 @@ month.numeric <- function(x, label = FALSE, abbr = FALSE) {
                 "December")
   }
   
-  ordered(x, labels = labels)
+  ordered(x, levels = 1:12, labels = labels)
 }
     
 
