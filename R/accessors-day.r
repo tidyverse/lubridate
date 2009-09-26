@@ -66,7 +66,7 @@ wday.numeric <- function(x, label = FALSE, abbr = TRUE) {
 }
 
   
-mday <- day <- function(x) 
+mday <- function(x) 
   UseMethod("mday")
   
 mday.default <- function(x)

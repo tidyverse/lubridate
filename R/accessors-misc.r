@@ -109,7 +109,7 @@ update.Date <- update.POSIXt <- function(object, ...) {
 #'
 #' @keywords internal
 standardise_date_names <- function(x) {
-  dates <- c("second", "minute", "hour", "day", "mday", "wday", "yday", "week", "month", "year", "tz")
+  dates <- c("second", "minute", "hour", "mday", "wday", "yday", "week", "month", "year", "tz")
   y <- gsub("(.)s$", "\\1", x)
   res <- dates[pmatch(y, dates)]
   if (any(is.na(res))) {
