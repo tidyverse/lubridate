@@ -1,6 +1,6 @@
 \name{month}
 \title{Get/set months component of a date-time.}
-\usage{month(x, label=FALSE, abbr=FALSE)}
+\usage{month(x, label=FALSE, abbr=TRUE)}
 
 \description{
   Get/set months component of a date-time.

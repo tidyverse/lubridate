@@ -1,7 +1,6 @@
 \name{origin}
 \alias{origin}
 \title{1970-01-01 GMT...}
-\usage{origin(=structure, =0, class=c("POSIXt", "POSIXct"))}
 
 \description{
   1970-01-01 GMT
