@@ -28,32 +28,14 @@ second.default <- function(x)
 }
 
 "second<-.default" <- function(x, value){
-  date <- extract_date(x)
-  new <- as.POSIXct(date) - (second(date) - value)
-  reclass_date(date, x)
-  DST(x, new)
+  new <- as.POSIXct(x) - (second(x) - value)
+  DST(reclass_date(new, x), new)
 }
 
 "second<-.chron" <- "second<-.timeDate" <- function(x, value){
-  
-  
   date <- "second<-.default"(x,value)
   f <- match.fun(paste("as", class(x)[1], sep = "."))
   f(date)
-}
-
-reclass_date <- function(new, orig) UseMethod("reclass_date", orig)
-reclass_date.chron <- function(new, orig) {
-  as.chron(new)
-}
-reclass_date.timeDate <- function(new, orig) {
-  as.timeDate(new)
-}
-reclass_date.its <- function(new, orig) {
-  its(x, dates, format = "%Y-%m-%d %X")
-}
-reclass_date.ti <- function(new, orig) {
-  as.ti(new, tifName(orig))
 }
 
 "second<-.zoo" <- function(x, value){
@@ -64,7 +46,6 @@ reclass_date.ti <- function(new, orig) {
   new <- "second<-"(index(x), value)
   'index<-'(x, new)
 }
-
 
 "second<-.its" <- function(x, value){
   dates <- "second<-.default"(attr(x,"dates"), value)
@@ -80,7 +61,6 @@ reclass_date.ti <- function(new, orig) {
 "second<-.jul" <- function(x, value)
   x - (second(x) - value)/86400
 
-
 "second<-.timeSeries" <- function(x, value){
   positions <- "second<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
   timeSeries(series(x), positions)
@@ -95,4 +75,3 @@ reclass_date.ti <- function(new, orig) {
   x$time <- "second<-.default"(x$time, value)
   x
 }
-

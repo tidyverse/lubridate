@@ -29,3 +29,24 @@ as.POSIXlt.zoo <- function(x, tz = "", ...) as.POSIXlt(zoo::index(x))
 as.POSIXct.zoo <- function(x, tz = "", ...) as.POSIXct(zoo::index(x))
 
 as.POSIXlt.tis <- function(x, tz = "", ...) as.Date(x)
+
+
+reclass_date <- function(new, orig) UseMethod("reclass_date", orig)
+reclass_date.POSIXlt <- function(new, orig) {
+  as.POSIXlt(new)
+}
+reclass_date.POSIXct <- function(new, orig) {
+  as.POSIXct(new)
+}
+reclass_date.chron <- function(new, orig) {
+  as.chron(new)
+}
+reclass_date.timeDate <- function(new, orig) {
+  as.timeDate(new)
+}
+reclass_date.its <- function(new, orig) {
+  its(x, dates, format = "%Y-%m-%d %X")
+}
+reclass_date.ti <- function(new, orig) {
+  as.ti(new, tifName(orig))
+}
