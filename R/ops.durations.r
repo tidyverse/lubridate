@@ -154,7 +154,6 @@ add_dates <- function(e1, e2){
   }
   else stop("Unknown object class")
 }
-"+.POSIXt" <- "+.period" <- "+.difftime" <- "+.interval" <- add_dates
 
 
 #' Makes a difftime object from given number of seconds 
@@ -296,7 +295,7 @@ divide_interval_by_number <- function(int, num){
 #' -x
 #' x - x
 #' as.Date("2009-08-02") - as.Date("2008-11-25")
-"-.period" <- "-.POSIXt" <- "-.difftime" <- "-.interval" <- "-.Date" <- function(e1, e2){
+subtract_dates <- function(e1, e2){
   if (missing(e2))
     -1 * e1
   else if(is.instant(e1) && is.instant(e2))
