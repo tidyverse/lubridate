@@ -38,7 +38,7 @@
 
 \section{Introduction}
 
-Many data sets have a time component, which can create complications for researchers. Unlike other measures, units of time are sometimes exact and sometimes relative.  Seconds have a precise and consistent length, but the length of months, years, and even minutes depends on when the unit begins. Variations in Daylight Savings Time and time zones further complicate time data.
+Many data sets have a time component, which creates complications for researchers. Unlike other measures, units of time are sometimes exact and sometimes relative.  Seconds have a precise and consistent length, but the length of months, years, and even minutes depends on when they begin. Variations in Daylight Savings Time and time zones further complicate time data.
 
 Many \proglang{R} methods address these idiosyncrasies by creating new types of time objects.  But this approach makes research more complicated, not less. Moreover, the proliferation of time formats further complicates recognizing and accurately parsing time data.  \pkg{lubridate} recognises this problem, and provides methods that work with all common date time classes.
 
@@ -46,18 +46,19 @@ Many \proglang{R} methods address these idiosyncrasies by creating new types of 
 
 % Bullets are easier to scan when describing the main features of the package
 \begin{itemize}
-  \item extract and modify components of a date (years, months, days, hours, minutes, seconds), Section~\ref{sec:accessors},
+  \item extract and modify components of a date (years, months, days, hours, minutes, seconds), Section~\ref{sec:accessors}
   
-  \item work with exact vs. relative time units by clarifying the multiple relationships that exist between two time points, Section~\ref{sec:types},
+  \item work with exact vs. relative time by clarifying the relationships that can exist between two points of time, Section~\ref{sec:types}
   
   \item automatically identify and parse date time data, Section~\ref{sec:parsing} and
   
-  \item handle time zones and Daylight Savings Time, Section~\ref{sec:accessors} 
+  \item handle time zones and Daylight Savings Time, Section~\ref{sec:DST} 
   
 \end{itemize}
 
-\pkg{lubridate} also provides other useful utility functions, like \code{pretty.date}, which creates pretty sequences of tick marks for graphs that involve time data,  Section\ref{sec:utils}. Moreover, \pkg{lubridate} creates an improved user interface similar to object oriented programming languages.
+\pkg{lubridate} also provides other useful utility functions, like \code{pretty.date}, which creates pretty sequences of tick marks for graphs that involve time data,  Section~\ref{sec:utils}. Moreover, \pkg{lubridate} creates an improved user interface similar to object oriented programming languages.
 
+The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project, which first proposed them. \pkg{lubridate} provides methods for using these JODA time concepts in \proglang{R}.
 ???\pkg{lubridate} was inspired by \proglang{JODA time}???.
 % JODA and other inspirations.
 
@@ -75,12 +76,54 @@ This paper introduces the dual nature of time measurement, which will help you t
 \label{sec:accessors}
 
 \subsection{Motivating Example}
+The commands for accessing and modifying components of a time in base \proglang{R} are unintuitive. In some cases, the methods differ depending on what class of time object you use, which further adds to the confusion. For example, two standard time classes in \proglang{R} are  \code{Date} objects and \code{POSIXct} objects. If we wish to examine the current system time, calculate the system time one day ago, extract the year component of that time, and then change the year component to 2000, we'd use the following commands.
 
-PUT FIRST EXAMPLE HERE - GG
+
+\begin{center}
+\begin{tabular}{l|l}
+  For \proglang{Date}  objects & For \proglang{POSIXct}  objects\\
+  \hline
+  \code{time <- Sys.Date()}  & \code{time <- Sys.time()} \\
+  \code{[1] "2010-02-17"}  & \code{[1] "2010-02-17 10:09:34 CST"} \\
+  & \\
+  \code{yesterday <- time - 1}  & \code{yesterday <- seq(time, length = 2, by = "-1 day")[2]} \\
+ \code{[1] "2010-02-16"} & \code{[1] "2010-02-16 10:09:34 CST"}   \\
+  & \\
+  \code{as.numeric(format(yesterday, "\%Y"))}  & \code{as.numeric(format(yesterday, "\%Y"))}  \\
+  \code{[1] 2010}  & \code{[1] 2010} \\
+  & \\
+  \code{as.Date(format(yesterday, "2000-\%m-\%d"))} & \code{as.POSIXct(format(yesterday, "2000-\%m-\%d"))} \\
+  \code{[1] "2000-02-16"} & \code{[1] "2000-02-16 CST"} \\
+  \bottomrule
+    
+\end{tabular}
+\end{center}
+
+\pkg{lubridate} offers a more intuitive set of commands for performing these basic operations. Moreover, the \pkg{lubridate} commands work the same for all common time object classes, which further simplifies working with time objects. For example, to complete the above operations with both \code{Date} and \code{POSIXct} objects, a \pkg{lubridate} user would use the following commands.
+
+\code{time <- now()}  \\
+\code{[1] "2010-02-17 10:09:34 CST"}  \\
+\\
+\code{yesterday <- time - days(1)}  \\
+\code{[1] "2010-02-16 10:09:34 CST"}  \\
+\\
+\code{year(yesterday)}  \\
+\code{[1] 2010}  \\
+\\
+\code{year(yesterday) <- 2000}  \\
+\code{[1] "2000-02-16 CST"}  \\
 
 \subsection{usage}
 
-Table~\ref{tbl:accessors} lists the accessors that lubridate supports.
+Each element of a date time can be extracted using an intuitively named accessor function. Table~\ref{tbl:accessors} lists these functions and the elements they extract. To illustrate this, let's first construct a vector of dates. 
+
+\code{dates <- now() + days(1:10)}
+
+We can then extract the day element of each date in the list with\\
+
+\code{day(dates)}
+
+Notice that \code{day()} and \code{days()} do different things. \code{day()} (singular) is an accessor function. \code{days()} (plural) is a \code{period} object. Period objects can be added and subtracted from date times to create new date times. Period objects are discussed in Section~\ref{sec:periods}.
 
 \begin{table}
   \begin{center}
@@ -106,9 +149,39 @@ Table~\ref{tbl:accessors} lists the accessors that lubridate supports.
   \label{tbl:accessors}
 \end{table}
 
+We can also use any of the accessor functions as a settor. Each function accesses a variable contained within our date time object. These variables can be updated and manipulated like any \proglang{R} object. For example, we could use \code{day()} to set the value we wish our date to have in its days element.
+
+\code{day(dates) <- 5}
+
+or
+
+\code{day(dates) <- mean(day(dates))}
+
 Lubridate also provides a generic update method for dates, \code{update.Date}.  This is useful if you want to change multiple attributes simultaneously, or want to create a modified copy, rather than transforming in place.
 
-\subsection{Relative time vs. specific time}
+\code{update(dates, year = 2010, month = 1, day = 1)}
+
+Finally, we can also manipulate dates by adding or subtracting units of time from them. \pkg{lubridate} makes it easy to do this by using an object oriented programming model. For example to add one day to a date, we use
+
+\code{time <- now()}
+\code{time + days(1)}
+
+To add two days, three hours, and 59 seconds, we use
+
+\code{time + days(2) + hours(3) + seconds(59)}
+
+These methods work with all of the common time classes. However, if an object's time class does not support the units of time being manipulated, \pkg{lubridate} will return the new object as a \code{POSIXct} object, which can handle all units of time.
+
+In addition, these period functions can be used to create \code{period} objects, which exist independent of a date time.
+
+\code{days(2) + hours(3) + seconds(59)}
+
+!!!!!!!!!FIX BUG IN PRINT.DURATION HERE!!!!!!!!!! - GG
+
+These methods also make it easy to see and work around a problematic feature of time data that is ignored by base \proglang{R}: the difference between relative and exact time.
+
+
+\subsection{Relative time vs. exact time}
 
 MOTIVATE THIS SECTION WITH AN EXAMPLE HERE - GG
 
@@ -201,6 +274,7 @@ This ensures that operations like \code{mday(x) <- mday(x) + 1} work reliably.  
 ADD EXAMPLE OF HERE - GG
 
 \subsection{Daylight Savings Time}
+\label{sec:DST}
 
 ADD EXAMPLE OF HERE - GG
 
