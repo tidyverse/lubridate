@@ -185,9 +185,19 @@ These methods also make it easy to see and work around a problematic feature of 
 
 MOTIVATE THIS SECTION WITH AN EXAMPLE HERE - GG
 
-Time seems like an obvious example of an interval scale. Each moment of time, referred to as a date-time, is unique.  These moments occur in order, and each second represents the same amount of time no matter when it occurs.  Why then is working with time scale frustrating? To answer this question, it is helpful to recognize that time is an attempt to make two different measures coexist on the same scale. 
+Time is measured on an interval scale. Each moment of time, referred to as a date-time, is unique.  These moments occur in order, and each second represents the same amount of time no matter when it occurs.  Larger units of time, however, do not have an exact length. For example consider the length of two separate years,
 
-In addition to measuring the passage of time, time also tracks both the rotation of the Earth and its revolution about the sun.  A day is meant to be the time length of one rotation of the Earth, and a year one revolution about the sun.  Further association is hinted at by the dual use of minutes and seconds as units of longitude.  These astronomical conditions are often more important than the exact time, but they rarely align with each other and do not occur with the precision of an interval scale.  The exact time has to be periodically re-calibrated to retain information about the Earth's astronomical position.  The leap year system is one example of this re-calibration. Many man made conventions, such as Daylight Savings Time, have also been invented in attempts to better align astronomical events and the passage of interval time.
+\code{length(2010, days)} WRITE THIS CODE\\
+\code{[1] 365 days}
+
+\code{length(2012, days)} WRITE THIS CODE\\
+\code{[1] 366 days}
+
+Why have we adopted such frustrating conventions? The time scale attempts to make two different measures coexist on the same scale. 
+
+Although time is measured on an interval scale, units of time are mapped to astronomical events. A day approximates the time length of one rotation of the Earth, and a year approximates one revolution about the sun.  Further astronomical association is hinted at by the dual use of minutes and seconds as units of longitude.  These astronomical associations are helpful, but they introduce problems. The rotation of the Earth on its axis does not align with the revolution of the Earth about the sun. And neither event repeats itself with the precision of an interval scale; they are both slowly decreasing. Hence, the official time must be periodically re-calibrated to retain information about the Earth's astronomical position. 
+
+Man made conventions, such as Daylight Savings Time, time zones, the leap year system, and the leap second system, are attempts to better align astronomical events with the passage of interval time. By aperiodically changing the officially recognized time, these systems disrupt the length of time units, which causes phenomena like the one above where a year sometimes lasts 365 days and sometimes lasts 366 days. As a result, the length of any unit of time must be measured relative to when it begins. \pkg{lubridate} refers to this type of time measurement as relative time. By using these relative lengths we can perform operations with date-times that correctly match the officially recognized date-times. Relative time allows researchers to work with events that depend on the official date-time, such as the opening time of stock markets, the end of the business week, and some holidays.
 
 In this way, two types of time coexist with each other: ``exact'' time that measures the interval progression of time, and ``relative'' time that measures the time relative to astronomical conditions and man-made conventions. Research involving time data may be interested in exact time, relative time, or both. The speed of a physical object is most precisely stated in exact time. The opening bids on most stock markets occur at the same relative time each day.  Wind speed, which is measured with exact time, may change depending on the time of the day, which is relative. 
 
