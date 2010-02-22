@@ -58,8 +58,7 @@ Many \proglang{R} methods address these idiosyncrasies by creating new types of 
 
 \pkg{lubridate} also provides other useful utility functions, like \code{pretty.date}, which creates pretty sequences of tick marks for graphs that involve time data,  Section~\ref{sec:utils}. Moreover, \pkg{lubridate} creates an improved user interface similar to object oriented programming languages.
 
-The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project, which first proposed them. \pkg{lubridate} provides methods for using these JODA time concepts in \proglang{R}.
-???\pkg{lubridate} was inspired by \proglang{JODA time}???.
+The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project, \url{http://joda-time.sourceforge.net/} , which first proposed them. \pkg{lubridate} provides methods for using these JODA time concepts in \proglang{R}.
 % JODA and other inspirations.
 
 This paper introduces the dual nature of time measurement, which will help you think about time related research problems, and demonstrates how \pkg{lubridate} can help you overcome those problems. The paper also demonstrates other convenient tools provided in the \pkg{lubridate} package and ends with a case study, using \pkg{lubridate} in a real life example.
@@ -185,9 +184,30 @@ These methods also make it easy to see and work around a problematic feature of 
 
 MOTIVATE THIS SECTION WITH AN EXAMPLE HERE - GG
 
-There are two different but common ways of measuring time: an ``exact" way and a ``relative" way.  Failure to consider which you are using may result in unintentional errors. \pkg{lubridate} simplifies measuring time by explicitly specifying exact and relative operations.
+There are two different but common ways of measuring time: an ``exact" way and a ``relative" way.  Errors arise when we fail to consider which way we a re using time.  \pkg{lubridate} simplifies measuring time by explicitly specifying exact and relative operations.
 
 Time is measured on an interval scale. Each moment of time, referred to as a date-time, is unique.  These moments occur in order, and each second represents the same amount of time no matter when it occurs.  Since each unit of time corresponds to a specific number of seconds, we can create an exact measurement system of time (see Table~\ref{tbl:exact}). Here each minute is 60 seconds, each hour is 60 minutes, etc. Such a scale would be useful for directly comparing lengths of time, speeds, and rates. \pkg{lubridate} refers to this type of measurement as ``exact time."
+
+\begin{table}
+  \caption{Lengths of exact time units}
+  \begin{center}
+  \begin{tabular}{l|rrrrrrr}
+  \multicolumn{1}{r}{} & years & months & weeks & days & hours & minutes & seconds\\
+  \hline
+  year & 1 & & & & & & \\
+  month & & 1 & &&&& \\
+  week  & & & 1 & 7 & 168 & 10080 & 604800 \\
+  day & & & &1 & 24 & 1440 & 86400\\
+  hour  & & & & & 1 & 60 & 3600\\
+  minute & & & & & & 1 & 60\\
+  second  & & & & & & & 1\\
+  \hline
+    
+  \end{tabular}
+  \end{center}
+  \label{tbl:exact}
+\end{table}
+
 
 More commonly, larger units of time do not have an exact length. For example consider the length of two separate years,
 
