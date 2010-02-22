@@ -91,7 +91,7 @@ update.Date <- update.POSIXt <- function(object, ...) {
   todo <- list(...)
   names(todo) <- standardise_date_names(names(todo))
   
-  operation_order <- c("year", "month", "week", "yday", "mday", "wday",
+  operation_order <- c("year", "month", "week", "yday", "mday", "day", "wday",
     "hour", "minute", "second", "tz")
   
   todo <- todo[intersect(operation_order, names(todo))]

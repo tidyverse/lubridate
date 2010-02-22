@@ -1,2 +1,6 @@
 .Rhistory
 *.pdf
+*.aux
+*.log
+*.out
+*.synctex.gz

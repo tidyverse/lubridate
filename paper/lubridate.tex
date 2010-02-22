@@ -2,6 +2,7 @@
 \usepackage{rotating}
 \usepackage{pdfpages}
 \usepackage{booktabs}
+\usepackage{setspace}
 
 \author{Garrett Grolemund\\Rice University \And 
         Hadley Wickham\\Rice University}
@@ -32,32 +33,36 @@
   facilitates working with dates and times.   
 }
 
+\setstretch{3}
 \begin{document}
 
 \section{Introduction}
 
-Many data sets have a time component, which creates complicated problems for researchers. Unlike other measures, time is both exact and relative.  It is measured in units that have a precise length, such as seconds, as well as units whose length constantly changes, such as months. Variations in Daylight Savings Time and time zones further complicate time data.
+Many data sets have a time component, which creates complications for researchers. Unlike other measures, units of time are sometimes exact and sometimes relative.  Seconds have a precise and consistent length, but the length of months, years, and even minutes depends on when they begin. Variations in Daylight Savings Time and time zones further complicate time data.
 
-Many \proglang{R} methods address these idiosyncrasies by creating new types of time objects.  But this approach makes research more complicated, not less. Moreover, the proliferation of time formats further complicates recognizing and accurately parsing time data.  \pkg{lubridate} recognises that this is a problem, and provides methods that work with all date time classes.
+Many \proglang{R} methods address these idiosyncrasies by creating new types of time objects.  But this approach makes research more complicated, not less. Moreover, the proliferation of time formats further complicates recognizing and accurately parsing time data.  \pkg{lubridate} recognises this problem, and provides methods that work with all common date time classes.
 
 \pkg{lubridate} simplifies working with time data in \proglang{R} by making it easier to:
 
 % Bullets are easier to scan when describing the main features of the package
 \begin{itemize}
-  \item extract and modify components of a date (years, months, days, hours, minutes, seconds), Section~\ref{sec:accessors},
+  \item extract and modify components of a date (years, months, days, hours, minutes, seconds), Section~\ref{sec:accessors}
   
-  \item work with absolute vs. relative time by clarifying the differences between durations, periods and instances, Section~\ref{sec:types},
+  \item work with exact vs. relative time by clarifying the relationships that can exist between two points of time, Section~\ref{sec:types}
   
-  \item parse dates automatically, Section~\ref{sec:parsing} and
+  \item automatically identify and parse date time data, Section~\ref{sec:parsing} and
+  
+  \item handle time zones and Daylight Savings Time, Section~\ref{sec:DST} 
+  
 \end{itemize}
 
-Lubridate also provides other generally useful utility function, like creating pretty sequences of tick marks for graphs, as described in Section\ref{sec:utils}.
+\pkg{lubridate} also provides other useful utility functions, like \code{pretty.date}, which creates pretty sequences of tick marks for graphs that involve time data,  Section~\ref{sec:utils}. Moreover, \pkg{lubridate} creates an improved user interface similar to object oriented programming languages.
 
-The package recognizes the dual nature of time and allows users to work with time as an exact measurement, a relative measurement, or both simultaneously. \pkg{lubridate} also offers simple methods for handling time zones and Daylight Savings Time(DST) and creates an improved user interface similar to object oriented programming languages.
-
+The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project, \url{http://joda-time.sourceforge.net/} , which first proposed them. \pkg{lubridate} provides methods for using these JODA time concepts in \proglang{R}.
 % JODA and other inspirations.
 
 This paper introduces the dual nature of time measurement, which will help you think about time related research problems, and demonstrates how \pkg{lubridate} can help you overcome those problems. The paper also demonstrates other convenient tools provided in the \pkg{lubridate} package and ends with a case study, using \pkg{lubridate} in a real life example.
+
 
 \section{Comparison table}
 
@@ -66,62 +71,58 @@ This paper introduces the dual nature of time measurement, which will help you t
 
 \includepdf[angle=90]{comparison-table}
 
-\section{Relative time vs. specific time}
+\section{Manipulating date-times} 
+\label{sec:accessors}
 
-Time seems like an obvious example of an interval scale. Each moment of time, referred to as a date-time, is unique.  These moments occur in order, and each second represents the same amount of time no matter when it occurs.  Why then is working with time scale frustrating? To answer this question, it is helpful to recognize that time is an attempt to make two different measures coexist on the same scale. 
+\subsection{Motivating Example}
+The commands for accessing and modifying components of a time in base \proglang{R} are unintuitive. In some cases, the methods differ depending on what class of time object you use, which further adds to the confusion. For example, two standard time classes in \proglang{R} are  \code{Date} objects and \code{POSIXct} objects. If we wish to examine the current system time, calculate the system time one day ago, extract the year component of that time, and then change the year component to 2000, we'd use the following commands.
 
-In addition to measuring the passage of time, time also tracks both the rotation of the Earth and its revolution about the sun.  A day is meant to be the time length of one rotation of the Earth, and a year one revolution about the sun.  Further association is hinted at by the dual use of minutes and seconds as units of longitude.  These astronomical conditions are often more important than the exact time, but they rarely align with each other and do not occur with the precision of an interval scale.  The exact time has to be periodically re-calibrated to retain information about the Earth's astronomical position.  The leap year system is one example of this re-calibration. Many man made conventions, such as Daylight Savings Time, have also been invented in attempts to better align astronomical events and the passage of interval time.
 
-In this way, two types of time coexist with each other: ``exact'' time that measures the interval progression of time, and ``relative'' time that measures the time relative to astronomical conditions and man-made conventions. Research involving time data may be interested in exact time, relative time, or both. The speed of a physical object is most precisely stated in exact time. The opening bids on most stock markets occur at the same relative time each day.  Wind speed, which is measured with exact time, may change depending on the time of the day, which is relative. 
+\begin{center}
+\begin{tabular}{l|l}
+  For \proglang{Date}  objects & For \proglang{POSIXct}  objects\\
+  \hline
+  \code{time <- Sys.Date()}  & \code{time <- Sys.time()} \\
+  \code{[1] "2010-02-17"}  & \code{[1] "2010-02-17 10:09:34 CST"} \\
+  & \\
+  \code{yesterday <- time - 1}  & \code{yesterday <- seq(time, length = 2, by = "-1 day")[2]} \\
+ \code{[1] "2010-02-16"} & \code{[1] "2010-02-16 10:09:34 CST"}   \\
+  & \\
+  \code{as.numeric(format(yesterday, "\%Y"))}  & \code{as.numeric(format(yesterday, "\%Y"))}  \\
+  \code{[1] 2010}  & \code{[1] 2010} \\
+  & \\
+  \code{as.Date(format(yesterday, "2000-\%m-\%d"))} & \code{as.POSIXct(format(yesterday, "2000-\%m-\%d"))} \\
+  \code{[1] "2000-02-16"} & \code{[1] "2000-02-16 CST"} \\
+  \bottomrule
+    
+\end{tabular}
+\end{center}
 
-The coexistence of exact time and relative time creates many problems. Since, the Earth's angle of rotation appears different from one place to another, our labeling of time in different places varies accordingly. In other words, the same date-time will be given different labels at different locations on the globe. Alternatively, the same time label will correspond to different moments of date-time on different parts of the globe.  This a problem of identity.
+\pkg{lubridate} offers a more intuitive set of commands for performing these basic operations. Moreover, the \pkg{lubridate} commands work the same for all common time object classes, which further simplifies working with time objects. For example, to complete the above operations with both \code{Date} and \code{POSIXct} objects, a \pkg{lubridate} user would use the following commands.
 
-Next, the re-calibrations and conventions made to pair relative time with exact time disrupt the consistency of many units of time.  A year beginning on January 1st, 2000 is 366 days long or 31622400 seconds, but a year beginning on January 1st, 2001 is only 365 days long or 31536000 seconds.  The length of a month can range from 28 days to 31 days depending on when the month begins. This presents a problem of duration, but it also poses a problem when we wish to convert between time units. How many hours does one day equal? What if that day is March 8th, 2009, the day when Daylight Savings Time goes into effect for parts of the world?
+\code{time <- now()}  \\
+\code{[1] "2010-02-17 10:09:34 CST"}  \\
+\\
+\code{yesterday <- time - days(1)}  \\
+\code{[1] "2010-02-16 10:09:34 CST"}  \\
+\\
+\code{year(yesterday)}  \\
+\code{[1] 2010}  \\
+\\
+\code{year(yesterday) <- 2000}  \\
+\code{[1] "2000-02-16 CST"}  \\
 
-And this is another problem, how do we handle conventions like Daylight Savings Time that would affect relative time durations, such as the time from the market's close today until the opening tomorrow, but not exact durations such as the life of a lightbulb?
+\subsection{usage}
 
-\section{Instants, Intervals, Durations, and Periods}
-\label{sec:types}
+Each element of a date time can be extracted using an intuitively named accessor function. Table~\ref{tbl:accessors} lists these functions and the elements they extract. To illustrate this, let's first construct a vector of dates. 
 
-Instants are specific moments in exact time. Each instant lasts a millisecond, and instants occur in order. The uniform occurrence of instants creates the interval scale of time which we refer to as exact time. A single instant can be, and is, labeled in many different ways.  The most popular of these is clock time.
+\code{dates <- now() + days(1:10)}
 
-Clock time refers to the time that would be recorded on a clock at a given instant in a given place. Usually clock time is only an approximation of when a specific instance occurs. For example, most digital clocks do not display dates and round time down to the nearest minute.
+We can then extract the day element of each date in the list with\\
 
-Clock times vary from place to place, which makes them very consistent for measuring relative time.  7:00 am indicates one of the first hours of daylight no matter where you are on the planet. This also makes them poor indicators of instants. A single clock time could refer to many different instants depending on where it was measured.
+\code{day(dates)}
 
-The time zone system attempts to fix this.  By pairing a clock time with the time zone it occurred in, we can calculate the exact instant that clock time represents. When discussing exact time, it is standard to give the clock times that appear in the GMT or UTC time zones.  This saves calculations, but can be annoying if your computer insists on translating times to your current time zone.  It may also be inconvenient to discuss clock times that occur in a place unrelated to the data.
-
-Even with the time zone system, clock time cannot accurately measure both exact time and relative time. The astronomical cycles measured by relative time do not perfectly align with each other, which is why we have a leap day almost every four years. Astronomical cycles also do not unfold as consistently as exact time. Aperiodic leap seconds are necessary to reconcile the rotation of the Earth, which is decelerating, with the progression of exact time, which is not.
-
-In addition, clock time is sometimes adjusted to create a more convenient indication of relative time, such as when Daylight Savings Time occurs.  These adjustments are usually location specific. Months, which originally modeled lunar cycles, have also been adopted but with inconsistent lengths.
-
-Because of all of this, the number of instants that have passed does not reliably tell us what changes have occurred in relative time. And likewise, a change in clock time does not reliably tell us how many instants have elapsed. In both cases we are missing a piece of information: when the change occurs. Since we know when inconsistencies between exact and relative time happen, we can use a starting time to calculate the instant and clock time that will result from elapsed time. This is similar to using a time zone to calculate what instant is being referred to by a given clock time.
-
-\proglang{Joda-Time} defines such time span, instant pairs as intervals. Intervals differ from other time spans in that they are anchored by two known instants. Both intervals and non-interval time spans can be measured in exact time or relative time. Is the researcher interested in the exact number of 24 hour periods that occurred between 5:00 p.m. on Monday and 5:00 p.m. on Friday, or is she interested in the number of business days that transpired? These answers would be different if Daylight Savings Time changed in the interim.
-
-We can evaluate an interval in either exact time or real time because it has been anchored to its starting time point. However, we must choose whether to define a floating time span in exact time or relative time.
-
-\section{Parsing date-times}
-\label{sec:parsing}
-
-There are three ways that dates are commonly arranged: day-month-year, month-day-year, or year-day-month. In general, it is impossible to distinguish between automatically because (e.g.) 01-02-03 could be Feb 1 2003, Jan 2 2003, or Feb 03 2001.  However, we can automatically figure out the separator between fields.  So lubridate provides three functions for parsing dates: \code{ymd()}, \code{dmy()} and \code{ymd()}.  The function names give the component order, and the separators are worked out automatically.  
-
-The process isn't 100\% perfect (give examples of problems with centuries), so the default output tells you the date format that was used so you can correct, or use it as is for future parsing steps (recommended).
-
-For creating dates for interactive use, lubridate provides one other feature to reduce typing.  If you provide a number, eg. \code{ymd(090611)} it will be converted to a string \code{"090611"} and then parsed to a date, June 11 2009.  
-
-% Insert a few examples here
-% 
-% One example should show the reduction in typing when using the ymd(090611) 
-% compared to as.Date("2009-06-11") for interactive use
-
-\section{Manipulating date-times} \label{sec:accessors}
-
-So you don't need to worry about manually converting back-and-forth between whatever date time package you are using for analysis, lubridate recognises the date time formats from all of the following packages, and will preserve if possible: chron, fCalendar, zoo, xts, its, tis, timeSeries, fts, tseries.
-
-It is not possible to preserve the class if the new date has more precision than the old class can handle.  For example, if you set the minutes of a Date object, it will be converted to POSIXct.  We use POSIXct by default because it is the format most amenable to storing in data frames.
-
-Table~\ref{tbl:accessors} lists the accessors that lubridate supports.
+Notice that \code{day()} and \code{days()} do different things. \code{day()} (singular) is an accessor function. \code{days()} (plural) is a \code{period} object. Period objects can be added and subtracted from date times to create new date times. Period objects are discussed in Section~\ref{sec:periods}.
 
 \begin{table}
   \begin{center}
@@ -147,19 +148,120 @@ Table~\ref{tbl:accessors} lists the accessors that lubridate supports.
   \label{tbl:accessors}
 \end{table}
 
+We can also use any of the accessor functions as a settor. Each function accesses a variable contained within our date time object. These variables can be updated and manipulated like any \proglang{R} object. For example, we could use \code{day()} to set the value we wish our date to have in its days element.
+
+\code{day(dates) <- 5}
+
+or
+
+\code{day(dates) <- mean(day(dates))}
+
 Lubridate also provides a generic update method for dates, \code{update.Date}.  This is useful if you want to change multiple attributes simultaneously, or want to create a modified copy, rather than transforming in place.
 
-\subsection{Roll over}
+\code{update(dates, year = 2010, month = 1, day = 1)}
 
-If you set an attribute to a value it doesn't support, it will rollover to the next higher component.  60 seconds = 1 hour, 24 hours = 1 day, 28-31 days = month, 12 months = year, 52 weeks = year.  
+Finally, we can also manipulate dates by adding or subtracting units of time from them. \pkg{lubridate} makes it easy to do this by using an object oriented programming model. For example to add one day to a date, we use
 
-This ensures that operations like \code{mday(x) <- mday(x) + 1} work reliably.  However, note that it's probably easier to use periods to add a day: \code{x <- x + months(1)}.  See Section~\ref{sec:periods} for more details.
+\code{time <- now()}
+\code{time + days(1)}
 
-\subsection{Time zones}
-\subsection{Daylight Savings Time}
+To add two days, three hours, and 59 seconds, we use
 
-\section{Periods}
+\code{time + days(2) + hours(3) + seconds(59)}
+
+These methods work with all of the common time classes. However, if an object's time class does not support the units of time being manipulated, \pkg{lubridate} will return the new object as a \code{POSIXct} object, which can handle all units of time.
+
+In addition, these period functions can be used to create \code{period} objects, which exist independent of a date time.
+
+\code{days(2) + hours(3) + seconds(59)}
+
+!!!!!!!!!FIX BUG IN PRINT.DURATION HERE!!!!!!!!!! - GG
+
+These methods also make it easy to see and work around a problematic feature of time data that is ignored by base \proglang{R}: the difference between relative and exact time.
+
+
+\subsection{Relative time vs. exact time}
+
+MOTIVATE THIS SECTION WITH AN EXAMPLE HERE - GG
+
+There are two different but common ways of measuring time: an ``exact" way and a ``relative" way.  Errors arise when we fail to consider which way we a re using time.  \pkg{lubridate} simplifies measuring time by explicitly specifying exact and relative operations.
+
+Time is measured on an interval scale. Each moment of time, referred to as a date-time, is unique.  These moments occur in order, and each second represents the same amount of time no matter when it occurs.  Since each unit of time corresponds to a specific number of seconds, we can create an exact measurement system of time (see Table~\ref{tbl:exact}). Here each minute is 60 seconds, each hour is 60 minutes, etc. Such a scale would be useful for directly comparing lengths of time, speeds, and rates. \pkg{lubridate} refers to this type of measurement as ``exact time."
+
+\begin{table}
+  \caption{Lengths of exact time units}
+  \begin{center}
+  \begin{tabular}{l|rrrrrrr}
+  \multicolumn{1}{r}{} & years & months & weeks & days & hours & minutes & seconds\\
+  \hline
+  year & 1 & & & & & & \\
+  month & & 1 & &&&& \\
+  week  & & & 1 & 7 & 168 & 10080 & 604800 \\
+  day & & & &1 & 24 & 1440 & 86400\\
+  hour  & & & & & 1 & 60 & 3600\\
+  minute & & & & & & 1 & 60\\
+  second  & & & & & & & 1\\
+  \hline
+    
+  \end{tabular}
+  \end{center}
+  \label{tbl:exact}
+\end{table}
+
+
+More commonly, larger units of time do not have an exact length. For example consider the length of two separate years,
+
+\code{length(2010, days)} WRITE THIS CODE\\
+\code{[1] 365 days}
+
+\code{length(2012, days)} WRITE THIS CODE\\
+\code{[1] 366 days}
+
+What explains this? Although time is measured on an interval scale, units of time are mapped to astronomical events. A day approximates the time length of one rotation of the Earth. A year approximates one revolution about the sun.  Further astronomical association is hinted at by the dual use of minutes and seconds as units of longitude.  These astronomical associations are helpful, but they create problems. The rotation of the Earth on its axis does not align with the revolution of the Earth about the sun. And neither event repeats itself with the precision of an interval scale; both are slowly decreasing. As a result, the official time is periodically re-calibrated to retain information about the Earth's astronomical position. Daylight Savings Time, time zones, the leap year system, and the leap second system are all methods of re-calibration. 
+
+Each manipulation of the official time disrupts the length of time units that occur near the change. This causes phenomena like the one above where a year sometimes lasts 365 days and sometimes lasts 366 days. To accurately identify the length of a time unit, we can examine when it begins. This will alert us as to whether a re-calibration occurred that affected its length. In other words, each unit of time must be measured relative to hen it occurs. \pkg{lubridate} refers to this type of time measurement as ``relative time.'' Relative time is useful when working with events that depend on the official time, such as the start of the business week, the close of market hours, and the occurrence of certain holidays.
+
+In summary, two types of time coexist with each other: ``exact'' time that measures the interval progression of time, and ``relative'' time that measures the time relative to astronomical conditions and man-made conventions. Research involving time data may be interested in exact time, relative time, or both. The speed of a physical object is most precisely stated in exact time. The opening bids on most stock markets occur at the same relative time each day.  
+
+HOW BASE R HAPHAZARDLY ALTERNATES BETWEEN RELATIVE AND EXACT TIMES
+
+HOW TO USE RELATIVE AND EXACT TIMES IN LUBRIDATE 
+
+\subsection{Instants, Intervals, Durations, and Periods}
+\label{sec:types}
+
+\subsubsection{Instants}
+
+ADD EXAMPLES OF INSTANTS - GG
+
+Instants are specific moments in exact time. Each instant lasts a millisecond, and instants occur in order. The uniform occurrence of instants creates the interval scale of time which we refer to as exact time. A single instant can be, and is, labeled in many different ways.  The most popular of these is clock time.
+
+Clock time refers to the time that would be recorded on a clock at a given instant in a given place. Usually clock time is only an approximation of when a specific instance occurs. For example, most digital clocks do not display dates and round time down to the nearest minute.
+
+Clock times vary from place to place, which makes them very consistent for measuring relative time.  7:00 am indicates one of the first hours of daylight no matter where you are on the planet. This also makes them poor indicators of instants. A single clock time could refer to many different instants depending on where it was measured.
+
+The time zone system attempts to fix this.  By pairing a clock time with the time zone it occurred in, we can calculate the exact instant that clock time represents. When discussing exact time, it is standard to give the clock times that appear in the GMT or UTC time zones.  This saves calculations, but can be annoying if your computer insists on translating times to your current time zone.  It may also be inconvenient to discuss clock times that occur in a place unrelated to the data.
+
+Even with the time zone system, clock time cannot accurately measure both exact time and relative time. The astronomical cycles measured by relative time do not perfectly align with each other, which is why we have a leap day almost every four years. Astronomical cycles also do not unfold as consistently as exact time. Aperiodic leap seconds are necessary to reconcile the rotation of the Earth, which is decelerating, with the progression of exact time, which is not.
+
+In addition, clock time is sometimes adjusted to create a more convenient indication of relative time, such as when Daylight Savings Time occurs.  These adjustments are usually location specific. Months, which originally modeled lunar cycles, have also been adopted but with inconsistent lengths.
+
+Because of all of this, the number of instants that have passed does not reliably tell us what changes have occurred in relative time. And likewise, a change in clock time does not reliably tell us how many instants have elapsed. In both cases we are missing a piece of information: when the change occurs. Since we know when inconsistencies between exact and relative time happen, we can use a starting time to calculate the instant and clock time that will result from elapsed time. This is similar to using a time zone to calculate what instant is being referred to by a given clock time.
+
+\subsubsection{Intervals}
+
+ADD EXAMPLE OF INTERVALS HERE - GG
+
+\proglang{Joda-Time} defines such time span, instant pairs as intervals. Intervals differ from other time spans in that they are anchored by two known instants. Both intervals and non-interval time spans can be measured in exact time or relative time. Is the researcher interested in the exact number of 24 hour periods that occurred between 5:00 p.m. on Monday and 5:00 p.m. on Friday, or is she interested in the number of business days that transpired? These answers would be different if Daylight Savings Time changed in the interim.
+
+We can evaluate an interval in either exact time or real time because it has been anchored to its starting time point. However, we must choose whether to define a floating time span in exact time or relative time.
+
+
+
+\subsubsection{Periods}
 \label{sec:periods}
+
+ADD EXAMPLE OF PERIODS HERE - GG
 
 Creating periods.  
 
@@ -175,8 +277,10 @@ x <- x - days(1) + months(1)
 \end{verbatim}
 
 
-\section{Durations}
+\subsubsection{Durations}
 \label{sec:durations}
+
+ADD EXAMPLE OF DURATIONS HERE - GG
 
 Compared to periods, durations represent an exact number of seconds.  Convenience methods for creating durations allow you to specify them in terms of convenient units (60 second minutes, 30 day months, 365 day years).  
 
@@ -185,6 +289,52 @@ Comparison of duration and period with a leap second and non-30 day month.
 Creating durations.
 
 Basic algebra.
+
+
+\subsection{Roll over}
+
+ADD EXAMPLE HERE - GG
+
+If you set an attribute to a value it doesn't support, it will rollover to the next higher component.  60 seconds = 1 hour, 24 hours = 1 day, 28-31 days = month, 12 months = year, 52 weeks = year.  
+
+This ensures that operations like \code{mday(x) <- mday(x) + 1} work reliably.  However, note that it's probably easier to use periods to add a day: \code{x <- x + months(1)}.  See Section~\ref{sec:periods} for more details.
+
+\subsection{Time zones}
+
+ADD EXAMPLE OF HERE - GG
+
+\subsection{Daylight Savings Time}
+\label{sec:DST}
+
+ADD EXAMPLE OF HERE - GG
+
+
+\subsection{Date time classes}
+
+So you don't need to worry about manually converting back-and-forth between whatever date time package you are using for analysis, lubridate recognises the date time formats from all of the following packages, and will preserve if possible: chron, fCalendar, zoo, xts, its, tis, timeSeries, fts, tseries.
+
+It is not possible to preserve the class if the new date has more precision than the old class can handle.  For example, if you set the minutes of a Date object, it will be converted to POSIXct.  We use POSIXct by default because it is the format most amenable to storing in data frames.
+
+SHOW EXAMPLE OF THIS - GG
+
+\section{Parsing date-times}
+\label{sec:parsing}
+
+There are three ways that dates are commonly arranged: day-month-year, month-day-year, or year-day-month. In general, it is impossible to distinguish between automatically because (e.g.) 01-02-03 could be Feb 1 2003, Jan 2 2003, or Feb 03 2001.  However, we can automatically figure out the separator between fields.  So lubridate provides three functions for parsing dates: \code{ymd()}, \code{dmy()} and \code{ymd()}.  The function names give the component order, and the separators are worked out automatically.  
+
+The process isn't 100\% perfect (give examples of problems with centuries), so the default output tells you the date format that was used so you can correct, or use it as is for future parsing steps (recommended).
+
+For creating dates for interactive use, lubridate provides one other feature to reduce typing.  If you provide a number, eg. \code{ymd(090611)} it will be converted to a string \code{"090611"} and then parsed to a date, June 11 2009.  
+
+INSERT A FEW EXAMPLES HERE
+
+ONE EXAMPLE SHOULD SHOW THE REDUCTION IN TYPING WHEN USING THE ymd(090611) COMPARED TO as.Date("2009-06-11") FOR INTERACTIVE USE - HW
+
+
+% Insert a few examples here
+% 
+% One example should show the reduction in typing when using the ymd(090611) 
+% compared to as.Date("2009-06-11") for interactive use
 
 \section{Other convenience functions}
 \label{sec:utils}
@@ -204,6 +354,7 @@ Lubridate also provides other handy utility functions, for
 
 \section*{Acknowledgements}
 
+ACKNOWLEDGE NSF GRANT HERE, SINCE IT PAID FOR YOUR SUMMER - HW
 % Acknowledge NSF grant here, since it paid for your summer.
 
 \section*{References}
