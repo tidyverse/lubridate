@@ -209,7 +209,7 @@ Time is measured on an interval scale. Each moment of time, referred to as a dat
 \end{table}
 
 
-More commonly, larger units of time do not have an exact length. For example consider the length of two separate years,
+More commonly, larger units of time do not have an exact length. For example, consider the length of two separate years,
 
 \code{length(2010, days)} WRITE THIS CODE\\
 \code{[1] 365 days}
@@ -219,7 +219,7 @@ More commonly, larger units of time do not have an exact length. For example con
 
 What explains this? Although time is measured on an interval scale, units of time are mapped to astronomical events. A day approximates the time length of one rotation of the Earth. A year approximates one revolution about the sun.  Further astronomical association is hinted at by the dual use of minutes and seconds as units of longitude.  These astronomical associations are helpful, but they create problems. The rotation of the Earth on its axis does not align with the revolution of the Earth about the sun. And neither event repeats itself with the precision of an interval scale; both are slowly decreasing. As a result, the official time is periodically re-calibrated to retain information about the Earth's astronomical position. Daylight Savings Time, time zones, the leap year system, and the leap second system are all methods of re-calibration. 
 
-Each manipulation of the official time disrupts the length of time units that occur near the change. This causes phenomena like the one above where a year sometimes lasts 365 days and sometimes lasts 366 days. To accurately identify the length of a time unit, we can examine when it begins. This will alert us as to whether a re-calibration occurred that affected its length. In other words, each unit of time must be measured relative to hen it occurs. \pkg{lubridate} refers to this type of time measurement as ``relative time.'' Relative time is useful when working with events that depend on the official time, such as the start of the business week, the close of market hours, and the occurrence of certain holidays.
+Each manipulation of the official time disrupts the length of units of time that occur near the change. This causes phenomena like the one above where a year sometimes lasts 365 days and sometimes lasts 366 days. To accurately identify the length of a time unit, we can examine when it begins. This will alert us as to whether a re-calibration occurred that affected its length. In other words, each unit of time must be measured relative to when it occurs. \pkg{lubridate} refers to this type of time measurement as ``relative time.'' Relative time is useful when working with events that depend on the official time, such as the start of the business week, the close of market hours, and the occurrence of certain holidays.
 
 In summary, two types of time coexist with each other: ``exact'' time that measures the interval progression of time, and ``relative'' time that measures the time relative to astronomical conditions and man-made conventions. Research involving time data may be interested in exact time, relative time, or both. The speed of a physical object is most precisely stated in exact time. The opening bids on most stock markets occur at the same relative time each day.  
 
