@@ -243,21 +243,23 @@ as.period.interval <- function(x, units = c("year", "month", "day", "hour", "min
 newper
 }
 
-as.period.difftime <- function(x, units= c("year", "month", "day", "hour", "minute", "seconds")){
+as.period.difftime <- function(x, units= c("year", "day", "hour", "minute", "seconds")){
   units <- standardise_date_names(units)
   span <- as.double(x, "secs")
   remainder <- abs(span)
   newper <- new_period(second = 0)
   denominator <- c(second = 1, minute = 60, hour = 3600, day = (3600 * 24), year =  (3600 * 24 * 7 * 365))
   
+  if ("month" %in% units) 
+    stop("month length cannot be estimated from durations", call. = FALSE)
+  
   for (i in 1:length(units)){
     bite <- switch(units[i], 
-      "second" = span, 
-      "minute" = span %/% 60 * 60, 
-      "hour" = span %/% 3600 * 3600, 
-      "day" = span %/% (3600 * 24) * (3600 * 24), 
-      "month" = stop("month length cannot be estimated from durtions", call. = FALSE),
-      "year" = span %/% (3600 * 24 * 7 * 365) * (3600 * 24 * 7 * 365))
+      "second" = remainder, 
+      "minute" = remainder %/% 60 * 60, 
+      "hour" = remainder %/% 3600 * 3600, 
+      "day" = remainder %/% (3600 * 24) * (3600 * 24), 
+      "year" = remainder %/% (3600 * 24 * 7 * 365) * (3600 * 24 * 7 * 365))
     remainder <- remainder - bite
     newper[units[i]] <- bite / denominator[[units[i]]]
   }
