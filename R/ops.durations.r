@@ -34,12 +34,12 @@ add_period_to_date <- function(date, period){
 add_duration_to_date <- function(date, duration) {
   if(is.Date(date)){
     date <- as.POSIXct(date)
-    ans <- with_tz(base::'+.POSIXt'(date, duration), "UTC")
+    ans <- with_tz(base_add_POSIXt(date, duration), "UTC")
     if (hour(ans) == 0 && minute(ans) == 0 && second(ans) == 0)
       return(as.Date(ans))
     return(ans)
   }
-  base::'+.POSIXt'(date, duration)
+  base_add_POSIXt(date, duration)
 }
 
 add_number_to_duration <- function(dur, num)

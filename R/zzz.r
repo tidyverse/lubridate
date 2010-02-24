@@ -1,3 +1,5 @@
+base_add_POSIXt <- base::'+.POSIXt'
+
 .onLoad <- function(...) {
   packageStartupMessage(
     "Overriding + and - methods for POSIXt, Date and difftime")
