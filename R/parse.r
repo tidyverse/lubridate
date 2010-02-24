@@ -1,4 +1,4 @@
-#' Parse dates according to the order year, month, and day appears
+#' Parse dates according to the order that year, month, and day elements appear
 #'
 #' Transforms dates stored in character and numeric vectors to POSIXct objects. 
 #' These functions automatically recognize the following separators: "-", "/", 
