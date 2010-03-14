@@ -113,7 +113,7 @@ standardise_date_names <- function(x) {
   y <- gsub("(.)s$", "\\1", x)
   res <- dates[pmatch(y, dates)]
   if (any(is.na(res))) {
-    stop("Invalid date name: ", paste(x[is.na(res)], collapse = ", "), 
+    stop("Invalid unit name: ", paste(x[is.na(res)], collapse = ", "), 
       call. = FALSE)
   }
   res

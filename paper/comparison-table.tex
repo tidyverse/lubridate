@@ -9,11 +9,11 @@
 
 
 \begin{table}[htdp]
-\caption{Comparison Table}
+\caption{Comparison Table (adapted from R News Volume 4/1, June 2004)}
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
 \hline
-Task & Lubridate & Date  & POSIXct \\
+\bf{Task} & \bf{Lubridate} & \bf{Date}  & \bf{POSIXct} \\
 \hline
 now (system time zone)  & now() & & Sys.time()\\
 now (GMT)  & now(``GMT'') & Sys.Date() &\\
@@ -22,7 +22,7 @@ x days since origin  & origin + days(x) & structure(floor(x), class=``Date") & s
 next day  & date + days(1) & date + 1 & seq(date, length=2, by=``day")[2]\\
 previous day  & date - days(1) & date - 1 & seq(date, length = 2, by =``-1 day")[2]\\
 \hline
-DST and Time Zones & & &\\
+\bf{DST and Time Zones} & & &\\
 \hline
 x days since date & & & \\
 \hspace{6mm} (day exactly 24 hours) & options(DST=``exact"); date + days(x) & & seq(date, length=2, by=paste(x, ``day"))[2]\\
@@ -30,7 +30,7 @@ x days since date & & & \\
 display date in new time zone & with\_tz(date, ``TZ") & & as.POSIXct(format(as.POSIXct(date), tz = ``TZ"), tz = ``TZ")\\
 keep clock time, replace time zone & update(date, tz=``TZ") & &\\
 \hline
-Exploring & & & \\
+\bf{Exploring} & & & \\
 \hline
 sequence & date + c(0:9) * days(1) & seq(date, length=10, by = ``day") & seq(date, length = 10, by = ``DSTday") \\ 
 every 2nd week & date + c(0:2) * weeks(2) & seq(date, length = 3, by = ``2 week") & seq(date, length = 3, by = ``2 week"\\
@@ -42,23 +42,18 @@ day of week & wday(date) \#Sun = 1 & as.numeric(format(date,``\%w")) \#Sun = 0 &
 day of year & yday(date) & as.numeric(format(date,``\%j")) & as.numeric(format(date,``\%j"))\\
 express as decimal of year & decimal\_date(date) & & \\
 \hline
-Input & & &\\
+\bf{Parse} & & &\\
 \hline
 ``1970-10-15" & ymd(z) & as.Date(z) & as.POSIXct(z)\\
 ``10/15/1970" & mdy(z) & as.Date(z, ``\%m/\%d/\%Y") & as.POSIXct(strptime(z, ``\%m/\%d/\%Y"))\\
 15101970  & dym(z) & as.Date(as.character(z),format=``\%d\%m\%Y'') & as.POSIXct(as.character(z),tz=``GMT",format=``\%d\%m\%Y")\\ 
 identify date format & guess\_format(dates) & &\\
 \hline
-Plotting &&&\\
-\hline
-create pretty date breaks & pretty.dates(z) &&\\
-(for axis or binning)&&&\\
-\hline
 \multicolumn{4}{c}{    } \\
 \multicolumn{4}{c}{    } \\
 \multicolumn{4}{c}{Durations Comparison}\\
 \hline
-Duration & Lubridate & \multicolumn{2}{|l|}{base::R}\\
+\bf{Duration} & \bf{Lubridate} & \multicolumn{2}{|l|}{\bf{base::R}}\\
 \hline
 1 second & seconds(1) & \multicolumn{2}{|l|}{as.difftime(1, unit = ``secs")}\\
 5 days, 3 hours and - 1 minute & new\_duration(day = 5, hour = 3, minute = -1)  & \multicolumn{2}{|l|}{as.difftime(60*24*5 + 60*3 - 1, unit = ``mins")}\\
