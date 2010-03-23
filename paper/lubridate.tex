@@ -61,32 +61,27 @@ The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Ja
 
 \section{Motivation}
 
-To see how \pkg{lubridate} simplifies things, consider a common scenario. We have a character string and we'd like to read it in as a date-time, examine its various parts, and modify it accordingly. On the left are common base \proglang{R} methods for these tasks.  On the right are the lubridate methods.
+To see how \pkg{lubridate} simplifies things, consider a common scenario. We have a character string and we'd like to read it in as a date-time, examine its various parts, and modify it accordingly. On the left are the base \proglang{R} methods we'd use for these tasks.  On the right are the lubridate methods.
 
 \begin{center}
-\begin{tabular}{l|l}
-\multicolumn{2}{l}{To read in a character string}\\
- \multicolumn{2}{l}{}\\
-\code{date <- as.POSIXct("01-01-2010", format = "\%d-\%m-\%Y")} & \code{dmy("01-01-2010")}\\
- \multicolumn{2}{l}{}\\
- \multicolumn{2}{l}{To get the month value}\\
-  \multicolumn{2}{l}{}\\
-   \code{as.numeric(format(date, "\%m"))} or
-  & \code{month(date)}\\
-     \code{as.posixlt(date)$month + 1} 
-  &\\
- \multicolumn{2}{l}{}\\
- \multicolumn{2}{l}{To change month value }\\
-  \multicolumn{2}{l}{}\\
- \code{date <- as.POSIXct(format(date, "\%Y-2-\%d"))} & \code{month(date) <- 2} \\
- \multicolumn{2}{l}{}\\
- \multicolumn{2}{l}{To subtract a day }\\
-  \multicolumn{2}{l}{}\\
- \code{seq(date, length = 2, by = "-1 day")[2]}  & \code{date - days(1)} \\
- \multicolumn{2}{l}{}\\
- \multicolumn{2}{l}{To display the date in a new time zone}\\
-  \multicolumn{2}{l}{}\\
-\code{as.POSIXct(format(as.POSIXct(date), tz = "UTC"), tz = "UTC")}  & \code{with_tz(date, "UTC")}\\
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Task & \proglang{base R} & \pkg{lubridate}\\
+    \hline
+    read in date & \code{date <- as.POSIXct("01-01-2010", } & \code{dmy("01-01-2010")}\\
+    &\code{    format = "\%d-\%m-\%Y")} & \\
+    && \\
+    get month & \code{as.numeric(format(date, "\%m"))} or  & \code{month(date)}\\
+   & \code{as.posixlt(date)$month + 1} &\\
+    && \\
+    change month & \code{date <- as.POSIXct(format(date, } & \code{month(date) <- 2} \\
+   &  \code{    "\%Y-2-\%d"))} & \\
+    && \\
+    get previous day & \code{seq(date, length = 2, by = "-1 day")[2]}  & \code{date - days(1)} \\
+    && \\
+    display in new &\code{as.POSIXct(format(as.POSIXct(date),}  & \code{with_tz(date, "UTC")}\\
+    time zone & \code{    tz = "UTC"), tz = "UTC")} &\\
+    \hline
 \end{tabular}
 \end{center}
 
@@ -94,6 +89,7 @@ Note that the correct base \proglang{R} methods will change if we start with a t
 
 \section{Comparison table}
 
+The following table shows how \pkg{lubridate} can simplify each of the common date time tasks presented in RNews Volume 4/1, June 2004.
 % Always a good idea to show some examples right off the bat.  This helps
 % people understand why they should bother reading the paper
 
@@ -114,7 +110,7 @@ or
 \code{[1] "2010-12-31 CST"}\\
 
 
-These functions create a POSIXct date-time object that matches the date described by the character string.  The functions automatically recognize the following separators: ``-", ``/", ``.", and ``" (i.e., no separators). If a \code{ymd()} function is applied to a vector of dates, all of the dates are considered to have the same order and the same separators. Functions also exist for times recorded in hours, minutes, and seconds. The \code{ymd()} functions work with any date-time object that can be converted to a character string. Table~\ref{tbl:parsers} lists all of the \code{ymd()} series parsing functions.
+These functions create a POSIXct date-time object that matches the date described by the character string.  The functions automatically recognize the following separators: ``-", ``/", ``.", and ``" (i.e., no separators). If a \code{ymd()} function is applied to a vector of dates, all of the dates are considered to have the same order and the same separators. Functions also exist for times recorded in hours, minutes, and seconds. The \code{ymd()} functions work with any date-time object that can be converted to a character string. When applied to a vector of dates, a \code{ymd()} function will also return a message that shows which format was used to parse the dates. Table~\ref{tbl:parsers} lists all of the \code{ymd()} series parsing functions.
 
 Sometimes we are given a vector of dates of an unknown format. \code{guess_format()} scans the vector and returns the format, including separators, that successfully parses the most dates within the vector. \\
 
