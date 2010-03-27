@@ -49,13 +49,13 @@ Date-time data can be frustrating to work with. It comes in many different forma
   
   \item perform accurate math on date-times, Section~\ref{sec:types}
     
-  \item handle time zones and Daylight Savings Time, Sections~\ref{sec:DST}, and ~\ref{sec:tz}, and
+  \item handle time zones and Daylight Savings Time, Sections~\ref{sec:tz}, and ~\ref{sec:DST}, and
   
    \item construct pretty graphs with date-time data, Section~\ref{sec:pretty}, 
   
 \end{itemize}
 
-Moreover, \pkg{lubridate} uses an intuitive user interface similar to object oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, chron, fCalendar, zoo, xts, its, tis, timeSeries, fts, and tseries objects.\\
+Moreover, \pkg{lubridate} uses an intuitive user interface similar to object oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, chron, fCalendar, zoo, xts, its, tis, timeSeries, fts, and tseries objects. Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}.\\
 
 The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project, \url{http://joda-time.sourceforge.net/}. This paper demonstrates the convenient tools provided in the \pkg{lubridate} package and ends with a case study, which uses \pkg{lubridate} in a real life example.
 
@@ -239,36 +239,160 @@ Alternatively, we could add 365 to the days element of our date because a year i
 
 January 1st, 2010 + 365 days = January 1st, 2011\\
 
-Troubles arise if we try the same for January 1st, 2012. Since 2012 is a leap year, it includes an extra day. Our two approaches above now give us two different answers, so we must be specific about how we wish to define a year.\\
+Troubles arise if we try the same for January 1st, 2012. 2012 is a leap year, which means it has an extra day. Our two approaches above now give us different answers because the length of a year has changed.\\ 
 
 January 1st, 2012 + 1 year = January 1st, 2013\\
 January 1st, 2012 + 365 days = December 31st,  2012\\
 
-At different moments in time, the lengths of months, weeks, days, and even minutes will also vary. Hence, we can consider these to be \emph{relative} units; their length is relative to when they occur. Seconds, on the other hand, always have a consistent length. Hence, seconds are \emph{exact} units.
+At different moments in time, the lengths of months, weeks, days, and even minutes will also vary. We can consider these to be \emph{relative} time units; their length is relative to when they occur. In contrast, seconds always have a consistent length. Hence, seconds are \emph{exact} time units.
 
-Researchers may be interested in exact lengths, relative lengths, or both. For example, the speed of a physical object is most precisely measured in exact lengths. The opening bids on most stock markets are more easily modeled with relative lengths.
+Researchers may be interested in exact lengths, relative lengths, or both. For example, the speed of a physical object is most precisely measured in exact lengths. The opening bell of the stock market is more easily modeled with relative lengths.
 
 \pkg{lubridate} allows math with both relative and exact units by introducing four new time related objects. These are \emph{instants}, \emph{intervals}, \emph{durations}, and \emph{periods}.  \pkg{lubridate} borrows these concepts from the \proglang{JODA} time project. For more information about instants, intervals, durations, and periods please visit the \proglang{JODA} time project at  \url{http://joda-time.sourceforge.net/}. 
 
 \subsection{Instants}
 \label{sec:instants}
 
-Instants are specific moments in time.  \pkg{lubridate} does not create instant class objects. Instead, it recognizes any date-time object that refers to a moment of time as an instant. We can test if an object is an instant by using \code{is.instant()}. For example,\\
+Instants are specific moments in time.  For example, in the expression\\
+
+January 1st, 2012 + 1 year = ?\\
+
+January 1st, 2012 is an instant. ``1 year" is not an instant because it does not refer to a specific moment of time. Instead, ``1 year" is a time span. We'll discuss how to model time spans in the next 3 subsections.
+
+To create an instant, we can just use one of our \code{ymd()} parsing functions.\\ 
+
+\code{R> start_2012 <- ymd.hms("2012-01-01 12:00:00")}\\
+
+\pkg{lubridate} does not create instant class objects. Instead, it recognizes any date-time object that refers to a moment of time as an instant. We can test if an object is an instant by using \code{is.instant()}. For example,\\
 
 \code{R> is.instant(364)}\\
 \code{[1] FALSE}\\
 
-\code{R> is.instant(now())}\\
+\code{R> is.instant(start_2012)}\\
 \code{[1] TRUE}\\
 
 We can easily round instants to the nearest minute, hour, month, etc. using \code{floor_date()}, \code{ceiling_date()}, and \code{round_date()}. For example,
 
-\code{R> round_date(date, "minute")}
-\code{[1] "2010-02-25 09:52:00 CST"}
+\code{R> round_date(date, "day")}
+\code{[1] "2012-01-02 00:00:00 CST"}
 
-We can also always capture the current time as an instant with the function \code{now()}.
+We can also capture the current time as an instant with the function \code{now()}.
 
-\subsubsection{Time zones}
+
+
+\subsection{Intervals}
+\label{sec:intervals}
+
+Intervals, durations, and periods are all ways of recording time spans. Of these, intervals are the most simple. An interval is a period of time that occurs between two specific instants. The length of an interval is never ambiguous. Moreover, we can calculate the exact lengths of any time unit that occurs in the interval. Recall that the lengths of years, months, days, hours, and minutes are relative to when they occur. Intervals make working with such units easy, because they tell us exactly when the unit occurs. 
+
+We can create interval objects by subtracting two instants or by using the command \code{new_interval()}.\\
+
+\code{R> start_2011 <- ymd.hms("2011-01-01 12:00:00")}\\
+\code{R> start_2010 <- ymd.hms("2010-01-01 12:00:00")}\\
+\code{R> span <- start_2011 - start_2010}\\
+\code{[1] 365 days beginning at 2010-01-01}\\
+
+Unfortunately, since intervals are anchored to their start and end dates, they are not very useful for date-time math. It only makes sense to add an interval to its start date or to subtract it from its end date.\\
+
+\code{R> start_2010 + span}\\
+\code{[1] "2011-01-01 12:00 CST"}\\
+
+
+\subsection{Durations}
+\label{sec:durations}
+
+If we remove the start and end dates from an interval, we will have a generic time span that we can add to any date. But how would we measure the length of this time span? There are two options. Recall that seconds always have the same length, but the length of larger units of time may vary depending on when they occur. If we record the time span in seconds, it will have an exact length. We call such time spans durations. Alternatively, we can record the time span in larger units, such as minutes or years. Since the length of these units varies over time, the length of the time span will depend on when it begins. These non-exact time spans are called periods and will be discussed in the next subsection.
+
+The length of a duration is invariant to leap years, leap seconds, and daylight savings time because durations are measured in seconds, which are also invariant to such phenomena. Hence, durations have consistent lengths and can be easily compared to other durations. Durations are the appropriate object to use when comparing time based attributes, such as speeds, rates, and lifetimes.
+
+\pkg{lubridate} uses the \code{difftime} class from base \proglang{R} for durations. Additional \code{difftime} methods have been created to facilitate this. 
+
+For large durations, it becomes inconvenient to describe the length in seconds. For example, not many people would recognize 31536000 seconds as the length of a standard year. For this reason, \pkg{lubridate} uses standard time units to display durations. However, these units are only estimates given for convenience. The underlying object is always recorded as a fixed number of seconds. Estimated units are created using the following relationships. A minute is 60 seconds, an hour 3600 seconds, a day 86400, a week 604800, and a year 31536000. Months units are not used because they are so variable.
+
+Duration objects can be easily created with the helper functions 
+\code{eyears()}, \code{eweeks()}, \code{edays()}, \code{eminutes()}, and  \code{eseconds()}. The e in the title stands for estimated. Each object creates a duration in seconds using the estimated relationships given above. The argument of each function is the number of estimated units we wish to include in the duration. For example,\\
+
+\code{R> eminutes(1)}\\
+\code{Duration of 1 mins}\\
+
+\code{R> eseconds(60)}\\
+\code{Duration of 1 mins} \# 60 seconds = 1 estimated minute\\
+
+\code{R> eminutes(2)}\\
+\code{Duration of 2 mins}\\
+
+\code{R> c(1:3) * ehours(1) }\\
+\code{Durations in hours}\\
+\code{[1] 1 2 3}\\
+
+Unlike intervals, durations can be added and subtracted to any instant object. For example,\\
+
+\code{R> start_2011 + eyears(1)}\\
+\code{[1] "2012-01-01 12:00:00 CST"}\\
+
+\code{R> start_2012 + eyears(1)}\\
+\code{[1] "2012-12-31 12:00:00 CST"}\\
+
+Durations can also be added to or subtracted from intervals and other durations. For example,\\
+
+\code{R> eweeks(1) + edays(6) + ehours(2) + eminutes(1.5) + eseconds(3)}\\
+\code{Duration of 1.869201 weeks}\\
+
+We can also create durations from intervals using \code{as.duration()}. 
+
+\code{R> as.duration(span)}
+\code{Duration of 1 year}
+
+
+\subsection{Periods}
+\label{sec:periods}
+
+Unlike durations, periods have a relative length. Periods record a time span in units larger than seconds, such as years, months, weeks, days, hours, minutes, or a combination of these. For convenience, we can also create a period that only uses seconds, but such a period would have the same properties as a duration. We construct periods with the helper functions \code{years()}, \code{months()}, \code{weeks()}, \code{days()}, \code{minutes()}, and  \code{seconds()}.\\
+
+\code{R> months(3)}\\
+\code{[1] 3 months}\\
+
+\code{R> months(3) + days(2)}\\
+\code{[1] 3 months and 2 days}\\
+
+These functions do not contain an e in their name, because they are no longer estimates. For example, \code{months(2)} always has the length of two months even though the length of two months will change depending on when the period begins. For this reason, we can not compute exactly how long a period will be in seconds until we know when it occurs. However, we can still do date-time math with periods. When we add or subtract a period to an instant, the period becomes anchored to the instant. tells us when the period occurs, which allows us to calculate its exact length in seconds. 
+
+In other words, we can use periods to accurately model clock times without knowing when events such as leap seconds, leap days, and DST changes occur.
+
+\code{R> start_2011 + years(1)}\\
+\code{[1] "2012-01-01 12:00:00 CST"}\\
+
+\code{R> start_2012 + years(1)}\\
+\code{[1] "2013-01-01 12:00:00 CST"}\\
+
+We can also convert intervals to period objects with the function \code{as.period()}.\\
+
+\code{R> as.period(span)}\\
+\code{[1] 1 year}\\
+
+Periods can be added to instants, intervals, and other periods, but not to durations.
+
+
+In summary, math with date-times involves four types of objects: instants, intervals, durations, and periods. Table~\ref{tab:date-math} describes which objects can be added to each other and what type of object will result.
+
+\begin{table}
+  \begin{center}
+  \begin{tabular}{l|llll}
+  & instant & interval & duration & period\\
+  \hline
+  instant & N/A & instant & instant & instant\\
+  interval & instant & N/A & interval & interval\\
+  duration & instant & interval & duration & N/A\\
+  period & instant & interval & N/A & period\\
+  \hline
+    
+  \end{tabular}
+  \end{center}
+  \caption{Object that results from adding two date-time objects}
+  \label{tbl:date-math}
+\end{table}
+
+\section{Time zones}
 \label{sec:tz}
 
 Time zones are a way to give multiple names to the same instant. For example, ``2010-03-26 11:53:24 CDT" and ``2010-03-26 12:53:24 EDT" both describe the same instant. The first shows how the instant is labeled in the United States' central time zone (CDT). The second shows how the same instant is labelled in the United States' eastern time zone (EDT). Time zones complicate date-time data, but are useful for mapping clock time to local daylight conditions. When working with instants, it is standard to give the clock time as it appears in the Coordinated Universal time zone (UTC).  This saves calculations, but can be annoying if your computer insists on translating times to your current time zone.  It may also be inconvenient to discuss clock times that occur in a place unrelated to the data.
@@ -287,112 +411,24 @@ Occasionally, it is useful to keep the same clock time and change the time zone 
 \code{R> force_tz(date, "UTC")}\\
 \code{[1] "2010-01-01 09:51:48 UTC"}\\
 
-CONTINUE JAN 1ST EXAMPLE
 
-
-
-\subsection{Intervals}
-\label{sec:intervals}
-
-Intervals, durations, and periods are all ways of recording time spans. Of these, intervals are the most simple. An interval is a period of time that occurs between two specific instants. The length of an interval is never ambiguous. We can also calculate the exact lengths of any time unit that occurs in the interval. Recall that the lengths of years, months, days, hours, and minutes are relative to when they occur. When we are working with an interval we know when they occur. 
-
-We can create interval objects by subtracting two instants or by using the command \code{new_interval()}.
-
-\code{R> date - DSTdate}\\
-\code{[1] 299.3277 days beginning at 2009-03-08 01:59:59}\\
-
-\code{R> new_interval(DSTdate, date)}\\
-\code{[1] 299.3277 days beginning at 2009-03-08 01:59:59}\\
-
-Unfortunately, since intervals are anchored to their start date and end date, they are not very useful for date-time math. It only makes sense to add an interval to its start date or to subtract it from its end date.\\
-
-
-CONTINUE JAN 1ST EXAMPLE
-
-\subsection{Durations}
-\label{sec:durations}
-
-When we remove the start and end dates from an interval, we must decide how to measure the time span that remains. We can do this in two ways. First, we can measure the time span in seconds, which would provide an exact length for the entire span. Second, we can measure the time span in larger units such as days or years, which would provide a relative length for the time span. A duration is a way of measuring time spans that takes the first approach. Periods take the second approach and will be discussed in the next section.
-
-A duration is a time span measured in seconds. This makes a duration invariant to leap years, leap seconds, and DST. Hence, they always have a consistent length and can be easily compared to other durations. Durations are the appropriate object to use when comparing time based attributes, such as speeds, rates, and lifetimes.
-
-\pkg{lubridate} uses the \code{difftime} class from base \proglang{R} for durations. Additional \code{difftime} methods have been created to facilitate this. 
-
-For large durations, it becomes inconvenient to describe durations in seconds. For example, few people would recognize 31536000 seconds as the length of a standard year. For this reason, \pkg{lubridate} uses standard time units to display durations. However, these units are only estimates given for convenience. The underlying object is always recorded as a fixed number of seconds. Estimated units are created using the following relationships. A minute is 60 seconds, an hour 3600 seconds, a day 86400, and a week 604800. Units larger than weeks are not used because they are so variable.
-
-Duration objects can be easily created with the helper functions 
-\code{eweeks()}, \code{edays()}, \code{eminutes()}, and  \code{eseconds()}. The e in the title stands for estimated. Each object creates a duration in seconds using the estimated relationships given above. The argument for each function is the number of estimated units you wish to include in the duration. For example,\\
-
-\code{R> eseconds(60)}\\
-\code{Duration of 1 mins} \# 60 seconds = 1 estimated minute\\
-
-\code{R> eminutes(1)}\\
-\code{Duration of 1 mins}\\
-
-\code{R> eweeks(1) + edays(6) + ehours(2) + eminutes(1.5) + eseconds(3)}\\
-\code{Duration of 1.869201 weeks}\\
-
-\code{R> c(1:3) * ehours(1) }\\
-\code{Durations in hours}\\
-\code{[1] 1 2 3}\\
-
-Unlike intervals, durations can be added and subtracted to any instant object. They can also be added to or subtracted from intervals and other durations. For example,\\
-
-\code{R> date}\\
-\code{[1] "2010-01-01 09:51:48 CST"}\\
-\code{R> date + eweeks(10)}\\
-\code{[1] "2010-03-12 09:51:48 CST"}\\
-
-We can also create durations from intervals using \code{as.duration()}. 
-
-CONTINUE JAN 1ST EXAMPLE
-
-\subsection{Periods}
-\label{sec:periods}
-
-Unlike durations, periods have a relative length. Periods record a time span in units larger than seconds, such as years, months, weeks, days, hours, minutes, or a combination of these. For convenience, we can also create a period that only uses seconds, but such a period would have the same properties as a duration. We construct periods with the helper functions \code{years()}, \code{months()}, \code{weeks()}, \code{days()}, \code{minutes()}, and  \code{seconds()}.\\
-
-\code{R> months(3)}\\
-\code{[1] 3 months}\\
-
-\code{R> months(3) + days(2)}\\
-\code{[1] 3 months and 2 days}\\
-
-These functions do not contain an e in their name, because they are no longer estimates. For example, \code{months(2)} always has the length of two months even though the length of two months will change depending on when the period begins. For this reason, we can not compute exactly how long a period will be in seconds until we know when it occurs. However, we can still do date-time math with periods. When we add or subtract a period to an instant, the instant tells us when the period occurs, which allows us to calculate its exact length in seconds. 
-
-In other words, we can use periods to accurately model clock times without knowing when events such as leap seconds, leap days, and DST changes occur.
-
-\code{R> date}\\
-\code{[1] "2010-01-01 09:51:48 CST"}\\
-\code{R> date + days(3) - hours(2)}\\
-\code{[1] "2010-01-04 07:51:48 CST"}\\
-
-We can also convert intervals to period objects with the function \code{as.period()}.
-
-
-
-Periods can be added to instants, intervals, and other periods, but not to durations.
-
-CONTINUE JAN 1ST EXAMPLE
-
-
-\subsection{Daylight Savings Time}
+\section{Daylight Savings Time}
 \label{sec:DST}
 
-In many parts of the world, the official clock time springs forward by one hour in the spring and falls back one hour in the fall. For example, in Houston, Texas a change in daylight savings time occurred on March 14, 2010. The last instant before this change went into effect occurred at 2010-03-14 01:59:59 CST.\\
+In many parts of the world, the official clock time springs forward by one hour in the spring and falls back one hour in the fall. For example, in Houston, Texas a change in daylight savings time occurred at 2:00AM on March 14, 2010. The last instant before this change was 2010-03-14 01:59:59 CST.\\
 
 \code{R> dst_time <- ymd.hms("2010-03-14  01:59:59")}\\
 \code{[1] "2010-03-14 01:59:59 CST"}\\
 
-One second later, the Houston time read\\
+One second later, Houston clock times read\\
 
 \code{R> dst_time + eseconds(1)}\\
 \code{[1] "2010-03-14 03:00:00 CDT"}\\
 
-It seems that we gained an extra hour during that second, which is how daylight savings time works. We can avoid dealing with daylight savings times by working with periods instead of durations. If we inadvertently try to create an instant that occurs in the one hour ``gap" between 2010-03-14 01:59:59 CST  and 2010-03-14 03:00:00 CDT, \pkg{lubridate} will return \code{NA} since such times are not available.
+It seems that we gained an extra hour during that second, which is how daylight savings time works. We can completely avoid the changes in clock tim caused by daylight savings times by working with periods instead of durations. If we ever inadvertently try to create an instant that occurs in the one hour ``gap" between 2010-03-14 01:59:59 CST  and 2010-03-14 03:00:00 CDT, \pkg{lubridate} will return \code{NA} since such times are not available.
 
 \section{Graphing time data}
-\label{sec:utils}
+\label{sec:pretty}
 
 Plotting date-time data also creates a challenge. We want our tick marks to occur in sensible places on any graph we make. With numerical data, \proglang{R} uses \code{pretty()} to automatically choose where to put tick marks. \code{pretty()} selects tick marks that occur near multiples of 1, 2, 5, or 10 because such patterns are easy to understand. When this method is applied to date-times, the results are not as pretty.\\
 
