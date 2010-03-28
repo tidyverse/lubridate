@@ -47,11 +47,11 @@ add_epoch_to_date <- function(date, epoch){
 		
 	start_day <- wday(date)
 	
-	if (weekday >= weekday){
+	if (start_day >= weekday){
 		return(date + days(7 + weekday - start_day) + 
-			weeks(number - 1))
+			weeks(epoch$number - 1))
 	}else{
-		return(date <- date + days(weekday - start_day) + 
-			weeks(number - 1))
+		return(date + days(weekday - start_day) + 
+			weeks(epoch$number - 1))
 	}
 }
