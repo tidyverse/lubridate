@@ -244,11 +244,11 @@ Troubles arise if we try the same for January 1st, 2012. 2012 is a leap year, wh
 January 1st, 2012 + 1 year = January 1st, 2013\\
 January 1st, 2012 + 365 days = December 31st,  2012\\
 
-At different moments in time, the lengths of months, weeks, days, and even minutes will also vary. We can consider these to be \emph{relative} time units; their length is relative to when they occur. In contrast, seconds always have a consistent length. Hence, seconds are \emph{exact} time units.
+At different moments in time, the lengths of months, weeks, days, and even minutes will also vary. We can consider these to be \emph{relative} units of time; their length is relative to when they occur. In contrast, seconds always have a consistent length. Hence, seconds are \emph{exact} units of time.
 
 Researchers may be interested in exact lengths, relative lengths, or both. For example, the speed of a physical object is most precisely measured in exact lengths. The opening bell of the stock market is more easily modeled with relative lengths.
 
-\pkg{lubridate} allows math with both relative and exact units by introducing four new time related objects. These are \emph{instants}, \emph{intervals}, \emph{durations}, and \emph{periods}.  \pkg{lubridate} borrows these concepts from the \proglang{JODA} time project. For more information about instants, intervals, durations, and periods please visit the \proglang{JODA} time project at  \url{http://joda-time.sourceforge.net/}. 
+\pkg{lubridate} allows math with both relative and exact units by introducing five \emph{(?)} new time related objects. These are \emph{instants}, \emph{intervals}, \emph{durations}, \emph{periods}, and \emph{epochs}.  \pkg{lubridate} borrows instants, intervals, durations, and periods from the \proglang{JODA} time project. For more information about these concepts please visit the \proglang{JODA} time project at  \url{http://joda-time.sourceforge.net/}. 
 
 \subsection{Instants}
 \label{sec:instants}
@@ -392,6 +392,53 @@ In summary, math with date-times involves four types of objects: instants, inter
   \label{tbl:date-math}
 \end{table}
 
+\subsection{Epochs (Events?)}
+\emph{Note to Hadley: epochs are a new class of date time object that I created to do the holiday case study at the end of the paper.  As our code was, it was very complicated to determine when a holiday occurs. Epochs are not fully implemented in the code, but I think they'd be easy to create. They just rely on pulling information with our accessors and then adding the appropriate number of periods. I posted an example code of adding an epoch to a date on github. Epochs will make one more frustrating type date-time operation very simple. See description below.}
+
+\emph{Since it would be hard for users to define their own epochs, they'd be limited to using the helper functions that lubridate provides. I'm guessing the list would be something like the table I added for this section. We could skip a discussion of the class and just illustrate how these functions work.}
+
+Historians often divide time into eras that are separated by specific instants. These instants are known as epochs and are usually of particular interest. An everyday example of an epoch is midnight on Sunday morning, which designates the beginning of a new week. The new week will last until another epoch, i.e. midnight on Sunday morning, occurs. 
+
+We often wish to find when a previous epoch occurred or to calculate when a future epoch will take place. \pkg{lubridate} makes these tasks easy. For example, to find when the third Monday of 2010 occurs we could run\\
+
+\code{R> ymd("2010-01-01") + mondays(3)}\\
+\code{[1] "2010-01-18 CST"}\\
+
+This is the third Monday to occur on or after January 1st, 2010. Alternatively, we could look for the last Tuesday before 2010, with\\
+
+\code{R> ymd("2009-12-31") - tuesdays(1)}\\
+\code{[1] "2009-12-28 CST"}\\
+
+This is the last tuesday to occur on or before December 31, 2009. See Table~\ref{tab:epochs} for a list of \pkg{lubridate}'s helper functions related to common epochs. Each function locates the even it names. In the argument of the function enter the which occurrence of the event you would like \pkg{lubridate} to return. For example, the first (1), the second (2), the third (3) and so on.
+
+\begin{table}
+  \begin{center}
+  \begin{tabular}{ll}
+  \toprule
+  Event & Helper function\\
+  \midrule
+  Sunday & \code{sundays()}\\
+  Monday & \code{mondays()} \\
+  Tuesday  &\code{tuesdays()} \\
+  Wednesday & \code{wednesdays()} \\
+  Thursday & \code{thursdays()}\\
+  Friday & \code{fridays()}\\
+  Saturday & \code{saturdays()}\\
+  weekday & \code{business_days()}\\
+  12:00 pm & \code{noon()}\\
+  12:00 am & \code{midnight()}\\
+  9:00 am & \code{market_open()}\\
+  5:00 am & \code{market_close()}\\
+  \bottomrule
+    
+  \end{tabular}
+  \end{center}
+  \caption{Epoch functions used by lubridate.}
+  \label{tbl:epochs}
+\end{table}
+
+
+
 \section{Time zones}
 \label{sec:tz}
 
@@ -434,10 +481,77 @@ Plotting date-time data also creates a challenge. We want our tick marks to occu
 
 \pkg{lubridate} remedies the problem by supplying a \code{pretty.date()} method which chooses beautiful tick marks for graphs that use date-time data. 
 
+\section{Case Study 1}
+
+The next two sections will work through some techniques using \pkg{lubridate}. First, we will use \pkg{lubridate} to calculate the dates of  holidays. Then we'll use \pkg{lubridate} to explore an example data set (\code{basketball}).
+
+\subsection{Thanksgiving}
+Some holidays, such as Thanksgiving (U.S.) and Memorial Day (U.S.) do not occur on fixed dates. Instead, they are celebrated according to a common rule. For example, Thanksgiving is celebrated on the fourth thursday of November. To calculate when Thanksgiving will be held in 2010, we can start with the first day of 2010.\\
+
+\code{R> date <- ymd("2010-01-01")}\\
+\code{[1] "2010-01-01 CST"}\\
+
+We can then add months, until we get to November.\\
+
+\code{R> date + months(10)}\\
+\code{[1] "2010-11-01 CDT"}\\
+
+Next, we add thursdays until we get to the fourth thursday in November.\\
+
+\code{R> date + months(10) + thursdays(4)}\\
+\code{[1] "2010-11-25 CST"}\\
+
+If we wanted the dates of thanksgiving for the next four years, we could do that too.\\
+
+\code{R> date + years(c(0:3)) + months(10) + thursdays(4)}\\
+\code{[1] "2010-11-25 CST" "2011-11-24 CST" "2012-11-22 CST" "2013-11-28 CST"}\\
+
+This would also work if we reversed the order of \code{years(c(0:3))} and \code{months(10)}, but we'd get a trivial result if we placed \code{months(10)} or \code{years(c(0:3))} after \code{thursdays(4)}, i.e.\\
+
+\code{R> date + months(10) + thursdays(4) + years(c(0:3))}\\
+\code{[1] "2010-11-25 CST" "2011-11-25 CST" "2012-11-25 CST" "2013-11-25 CST"}\\
+
+Here we're asking \pkg{lubridate} to find one epoch and then calculate a sequence of years from that point. Before we constructed a sequence of years and then asked \pkg{lubridate} to find an epoch for each year.
+
+\subsection{Memorial Day}
+Memorial day also occurs according to a rule; it always occurs on the last monday of May. To calculate the date of Memorial day, we can again start with the first of the year.\\
+
+\code{R> date <- ymd("2010-01-01")}\\
+\code{[1] "2010-01-01 CST"}\\
+
+Now, however, our holiday occurs in relation to the last day of the month instead of the first. So we add months until we get to June, and then subtract a day to get the last day of May.\\
+
+\code{R> date + months(5) - days(1)}\\
+\code{[1] "2010-05-31 CDT"}\\
+
+To find the last monday of May, we subtract days until we get to the first monday, which happens to be May 31st.\\
+
+\code{R> date + months(5) - days(1) - mondays(1)}\\
+\code{[1] "2010-05-31 CDT"}\\
 
 
+\section{Case Study 2}
+Now let's explore the \code{basketball} data set. The \code{basketball} data set contains play by play statistics of every major league basketball game played in the 2008-2009 season. This data is from \url{http://www.basketballgeek.com/downloads/2009-2010/}. \\
 
-\section{Case Study}
+\code{R> head(basketball)}\\
+
+First we'll examine when during the year basketball games are held. We choose to use the \pkg{ggplot2} package to create our graphs. Please see \url{http://had.co.nz/ggplot2/} for more information about \pkg{ggplot2}.\\
+
+\code{R> qplot(date, data = basketball, geom = "histogram")}\\
+
+Describe results. if we look at the day of the week games are played on, we see...\\
+
+\code{R> qplot(wday(date), data = basketball, geom = "histogram")}\\
+\emph{Note: this is better accomplished with the non-lubridate function qplot(weekdays(date), data = basketball, geom = ``histogram")}\\
+
+Next we'll examine the lengths of basketball games.\\
+
+\code{R> within(basketball, length <- end_time - start_time)}\\
+\code{R> qplot(length, data = basketball, geom = "histogram")}\\
+
+Discuss results.
+
+We can also examine the average time until the first score.
 
 \section*{Acknowledgements}
 I'd like to thank the National Science Foundation. This work was supported by the NSF under Grant WHAT GRANT NUMBER? 
