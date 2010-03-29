@@ -537,21 +537,49 @@ Now let's explore the \code{basketball} data set. The \code{basketball} data set
 
 First we'll examine when during the year basketball games are held. We choose to use the \pkg{ggplot2} package to create our graphs. Please see \url{http://had.co.nz/ggplot2/} for more information about \pkg{ggplot2}.\\
 
-\code{R> qplot(date, data = basketball, geom = "histogram")}\\
+\code{R> qplot(date, data = basketball, geom = "histogram", binwidth = 86400)}\\
 
-Describe results. if we look at the day of the week games are played on, we see...\\
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=.5\textwidth]{game-dates-histogram.png}        
+  \caption{Number of games played per date}
+  \label{fig:games-date}
+\end{figure}
+
+Figure~\ref{fig:games-date} shows that games are played continuously throughout the season with one short break and a few one day breaks, which may be holidays. The histogram also reveals a cyclic pattern to the data. We can investigate this pattern by looking at the weekdays on which each game is played. \\
 
 \code{R> qplot(wday(date), data = basketball, geom = "histogram")}\\
-\emph{Note: this is better accomplished with the non-lubridate function qplot(weekdays(date), data = basketball, geom = ``histogram")}\\
 
-Next we'll examine the lengths of basketball games.\\
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=.49\textwidth]{game-days-histogram.png}    
+    \includegraphics[width=.49\textwidth]{weekdays-histogram.png}     
+  \caption{Number of games played per weekday}
+  \label{fig:games-days}
+\end{figure}
 
-\code{R> within(basketball, length <- end_time - start_time)}\\
-\code{R> qplot(length, data = basketball, geom = "histogram")}\\
 
-Discuss results.
+\emph{Note: this is better accomplished with the non-lubridate function qplot(weekdays(date), data = basketball, geom = ``histogram"), shown on right}\\
 
-We can also examine the average time until the first score.
+The frequency of basketball games appears to vary throughout the week, figure~\ref{fig:games-days}. Surprisingly, the most games are played on Fridays and on Wednesdays.\\
+
+Now let's look at the games themselves. In particular, let's look at the time until the first score is made. 
+
+\emph{Note this required manipulating the data set so much with plyr, that it would appear rather complicated if I listed all of the script here.}
+
+
+\code{R> qplot(time, data = first_play, geom = "histogram", binwidth = 2)}\\
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=.5\textwidth]{seconds-til-first-score.png}        
+  \caption{Seconds until first score of game}
+  \label{fig:first-score}
+\end{figure}
+
+We see that the first points of each game are usually made within the first 30 seconds, figure~\ref{fig:first-score}. The longest time until the first score was 50 seconds. Moreover, the distribution of time until the first score is bimodal. Perhaps the first mode shows games where the first team to control the ball scored and the second mode shows games where the first team to control the ball missed and the second team scored.
+
+
 
 \section*{Acknowledgements}
 I'd like to thank the National Science Foundation. This work was supported by the NSF under Grant WHAT GRANT NUMBER? 
