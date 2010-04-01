@@ -155,12 +155,22 @@ we can extract each of its elements.\\
 \code{R> year(date)}\\
 \code{[1] 2010}\\
 
-\code{R> month(date)}\\
-\code{[1] 2}\\
-
 \code{R> minute(date)}\\
 \code{[1]  51}\\
 
+For the month and weekday elements (wday), we can also specify whether we want to extract the numerical value of the element, an abbreviation of the name of the month or weekday, or the full name. For example,
+
+\code{R> month(date)}\\
+\code{[1] 2}\\
+
+\code{R> month(date, label = TRUE)}\\
+\code{[1] Feb}\\
+
+\code{R> month(date, label = TRUE, abbr = FALSE)}\\
+\code{[1] February}\\
+
+\code{R> wday(date, label = TRUE, abbr = FALSE)}\\
+\code{[1] Thursday}\\
 
 \begin{table}
   \begin{center}
