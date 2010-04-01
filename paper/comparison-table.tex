@@ -25,10 +25,10 @@ previous day  & date - days(1) & date - 1 & seq(date, length = 2, by =``-1 day")
 \bf{DST and Time Zones} & & &\\
 \hline
 x days since date & & & \\
-\hspace{6mm} (day exactly 24 hours) & options(DST=``exact"); date + days(x) & & seq(date, length=2, by=paste(x, ``day"))[2]\\
-\hspace{6mm} (allowing for DST) & options(DST=``relative"); date + days(x) & date + floor(x) & seq(date, length=2, by=paste(x,``DSTday"))[2]\\
+\hspace{6mm} (day exactly 24 hours) & date + edays(x) & & seq(date, length=2, by=paste(x, ``day"))[2]\\
+\hspace{6mm} (allowing for DST) & date + days(x) & date + floor(x) & seq(date, length=2, by=paste(x,``DSTday"))[2]\\
 display date in new time zone & with\_tz(date, ``TZ") & & as.POSIXct(format(as.POSIXct(date), tz = ``TZ"), tz = ``TZ")\\
-keep clock time, replace time zone & update(date, tz=``TZ") & &\\
+keep clock time, replace time zone & force\_tz(date, tz=``TZ") & &\\
 \hline
 \bf{Exploring} & & & \\
 \hline
@@ -38,7 +38,7 @@ first day of month & floor\_date(date, ``month") & as.Date(format(date, ``\&Y-\%
 round to nearest first of month & round\_date(date, ``month") & & \\
 year value & year(date) & as.numeric(format(date,``\%Y")) & as.numeric(format(date,``\%Y"))\\
 change year value & year(date) \textless- z & as.Date(format(date, ``z-\%m-\%d")) & as.POSIXct(format(date, ``z-\%m-\%d"))\\
-day of week & wday(date) \#Sun = 1 & as.numeric(format(date,``\%w")) \#Sun = 0 & as.numeric(format(date,``\%w")) \#Sun = 0\\
+day of week & wday(date) \# Sun = 1 & as.numeric(format(date,``\%w")) \# Sun = 0 & as.numeric(format(date,``\%w")) \# Sun = 0\\
 day of year & yday(date) & as.numeric(format(date,``\%j")) & as.numeric(format(date,``\%j"))\\
 express as decimal of year & decimal\_date(date) & & \\
 \hline
@@ -46,7 +46,7 @@ express as decimal of year & decimal\_date(date) & & \\
 \hline
 ``1970-10-15" & ymd(z) & as.Date(z) & as.POSIXct(z)\\
 ``10/15/1970" & mdy(z) & as.Date(z, ``\%m/\%d/\%Y") & as.POSIXct(strptime(z, ``\%m/\%d/\%Y"))\\
-15101970  & dym(z) & as.Date(as.character(z),format=``\%d\%m\%Y'') & as.POSIXct(as.character(z),tz=``GMT",format=``\%d\%m\%Y")\\ 
+15101970  & dmy(z) & as.Date(as.character(z),format=``\%d\%m\%Y'') & as.POSIXct(as.character(z),tz=``GMT",format=``\%d\%m\%Y")\\ 
 identify date format & guess\_format(dates) & &\\
 \hline
 \multicolumn{4}{c}{    } \\
