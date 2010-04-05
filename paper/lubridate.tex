@@ -437,25 +437,25 @@ Some holidays, such as Thanksgiving (U.S.) and Memorial Day (U.S.) do not occur 
 
 We can then add months, until we get to November.\\
 
-\code{R> date + months(10)}\\
+\code{R> date <- date + months(10)}\\
 \code{[1] "2010-11-01 CDT"}\\
 
-Next, we add thursdays until we get to the fourth thursday in November.\\
+We check which day of the week November 1st is.\\
 
-\code{R> date + months(10) + thursdays(4)}\\
+\code{R> wday(date, label = T, abbr = F)}\\
+\code{[1] Monday}\\
+
+This implies November 4th will be the first thursday of November.\\
+
+\code{R> date <- date + days(3)}\\
+\code{[1] "2010-11-04 CDT"}\\
+\code{R> wday(date, label = T, abbr = F)}\\
+\code{[1] Thursday}\\
+
+Next, we add three weeks to get to the fourth thursday in November.\\
+
+\code{R> date + weeks(3)}\\
 \code{[1] "2010-11-25 CST"}\\
-
-If we wanted the dates of thanksgiving for the next four years, we could do that too.\\
-
-\code{R> date + years(c(0:3)) + months(10) + thursdays(4)}\\
-\code{[1] "2010-11-25 CST" "2011-11-24 CST" "2012-11-22 CST" "2013-11-28 CST"}\\
-
-This would also work if we reversed the order of \code{years(c(0:3))} and \code{months(10)}, but we'd get a trivial result if we placed \code{months(10)} or \code{years(c(0:3))} after \code{thursdays(4)}, i.e.\\
-
-\code{R> date + months(10) + thursdays(4) + years(c(0:3))}\\
-\code{[1] "2010-11-25 CST" "2011-11-25 CST" "2012-11-25 CST" "2013-11-25 CST"}\\
-
-Here we're asking \pkg{lubridate} to find one epoch and then calculate a sequence of years from that point. Before we constructed a sequence of years and then asked \pkg{lubridate} to find an epoch for each year.
 
 \subsection{Memorial Day}
 Memorial day also occurs according to a rule; it always occurs on the last monday of May. To calculate the date of Memorial day, we can again start with the first of the year.\\
@@ -465,13 +465,13 @@ Memorial day also occurs according to a rule; it always occurs on the last monda
 
 Now, however, our holiday occurs in relation to the last day of the month instead of the first. So we add months until we get to June, and then subtract a day to get the last day of May.\\
 
-\code{R> date + months(5) - days(1)}\\
+\code{R> date <- date + months(5) - days(1)}\\
 \code{[1] "2010-05-31 CDT"}\\
 
-To find the last monday of May, we subtract days until we get to the first monday, which happens to be May 31st.\\
+We can then check which day of the week May 31st falls on. It happens to be a Monday, so we are done. If May 31st had been another day of the week, we could've subtract an appropriate number of days to get the last monday of May.\\
 
-\code{R> date + months(5) - days(1) - mondays(1)}\\
-\code{[1] "2010-05-31 CDT"}\\
+\code{R> wday(date, label = T, abbr = F)}\\
+\code{[1] Monday}\\
 
 
 \section{Case Study 2}
@@ -523,7 +523,12 @@ Now let's look at the games themselves. In particular, let's look at the time un
 
 We see that the first points of each game are usually made within the first 30 seconds, figure~\ref{fig:first-score}. The longest time until the first score was 50 seconds. Moreover, the distribution of time until the first score is bimodal. Perhaps the first mode shows games where the first team to control the ball scored and the second mode shows games where the first team to control the ball missed and the second team scored.
 
+\section{Conclusion}
+Date-times create technical difficulties that other types of data do not. They must be specifically identified as date-time data, which can be difficult due to the overabundance of date-time classes. It can also be difficult to access and manipulate the individual pieces of data contained within a date time. Math with date-times is often appropriate, but must follow different rules than math with ordinal numbers. Finally, date related conventions such as daylight savings time and time zones make it difficult to compare and recognize different moments of time.
 
+Base \proglang{R} handles many of these difficulties, but not all. Moreover, base \proglang{R}'s date-time methods are often complicated, confusing, and prone to change for different date-time classes. \pkg{lubridate} makes it to easier to work with date-time data in \proglang{R}. The package provides a set of standard methods for most common date-time classes. These methods make it simple to parse, manipulate, and perform math on date-time objects. By implementing the time concepts pioneered by the \proglang{java} based JODA time project, \pkg{lubridate} helps researchers perform precise calculations as well as model tricky time related processes. \pkg{lubridate} also makes it simple to switch date-times between time zones and to advantageously use or ignore daylight savings time.
+
+Future work on the \pkg{lubridate} package will develop methods for handling partial dates and for modeling re-occuring events, such as stock market opening times, business days, or street cleaning hours. In particular, we hope to implement a method of defining reoccurring temporal patterns by extending the ideas created by the \proglang{Ruby} based \proglang{runt} project to the \proglang{R} programming language.
 
 \section*{Acknowledgements}
 I'd like to thank the National Science Foundation. This work was supported by the NSF under Grant WHAT GRANT NUMBER? 
