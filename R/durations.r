@@ -222,13 +222,13 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' the duration created depend on the name of the function called. For duration 
 #' objects, units are equal to their most common lengths in seconds (i.e. 
 #' minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 
-#' 604800).
+#' 604800, years = 31536000).
 #'
 #' When paired with date-times, these functions allow date-times to be 
 #' manipulated in a method similar to object oriented programming. Duration 
 #' objects can be added to Date, POSIXt, and Interval objects.
 #'
-#' @aliases eseconds eminutes ehours edays eweeks
+#' @aliases eseconds eminutes ehours edays eweeks eyears
 #' @param x numeric value of the number of units to be contained in the duration. 
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
@@ -272,6 +272,8 @@ eminutes <- function(x = 1) new_duration(minute = x)
 ehours <-   function(x = 1) new_duration(hour = x)
 edays <-    function(x = 1) new_duration(day = x)  
 eweeks <-   function(x = 1) new_duration(week = x)
+eyears <- function(x = 1) new_duration(second = x * 31536000)
+
 
 #' Is x a date-time object?
 #'
