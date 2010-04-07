@@ -167,13 +167,13 @@ add_dates <- function(e1, e2){
 #' make_difftime(3600)
 make_difftime <- function (x) {  
   seconds <- abs(x)
-    if (all(seconds < 60)) 
+    if (any(seconds < 60)) 
         units <- "secs"
-    else if (all(seconds < 3600))
+    else if (any(seconds < 3600))
         units <- "mins"
-    else if (all(seconds < 86400))
+    else if (any(seconds < 86400))
         units <- "hours"
-    else if (all(seconds < 604800))
+    else if (any(seconds < 604800))
       units <- "days"
     else units <- "weeks"
     
