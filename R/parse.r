@@ -60,53 +60,87 @@ make_format <- function(order) {
 }
 
 
-#' Create a date-time with the specified hours and minutes
+#' Create a period with the specified number of minutes and seconds
 #'
-#' Transforms a numeric or character string into a POSIXct object with the 
-#' current date and the specified number of hours and minutes. hm recognizes 
-#' ":" and "" (i.e., no separator) as separators. Hours should be written as a 
-#' two digit integer (00-23). Minutes should be written as a two digit integer 
-#' (00-59).
+#' Transforms a character string into a period object with the 
+#' specified number of minutes and seconds. ms() 
+#' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
 #'
-#' @param ... a character or numeric vector of hour minute pairs
-#' @return a vector of POSIXct date-time objects
-#' @seealso \code{\link{hms}}
-#' @keywords chron
+#' @param ... a character vector of minute second pairs
+#' @return a vector of period objects
+#' @seealso \code{\link{hms}, \link{hm}}
+#' @keywords period
 #' @examples
-#' x <- c("09:01", "09:02", "09:03")
-#' hm(x)
-#' # "2009-08-04 09:01:00 GMT" "2009-08-04 09:02:00 GMT" "2009-08-04 09:03:00 GMT"
-#' hm(0802)
-#' # "2009-08-04 08:02:00 GMT"
-hm <- function(...) {
-  dates <- unlist(list(...))
-  formats <- list(c("%H", "%M"))
-  parse_date(num_to_date(dates), formats = formats, seps = c("", ":"))  
+#' x <- c("09:10", "09:02", "1:10")
+#' ms(x)
+#' # [1] 9 minutes and 10 seconds   9 minutes and 2 seconds   1 minute and 10 seconds
+#' ms("7 6")
+#' # [1] 7 minutes and 6 seconds
+#' ms("6,5")
+#' # 6 minutes and 5 seconds
+ms <- function(...) {
+	dates <- unlist(list(...))
+	sep <- find_separator(dates)
+	
+	parts <- as.data.frame(str_split(dates, sep), stringsAsFactors = F)
+	new_period(minute = as.numeric(parts[1,]), 
+		second = as.numeric(parts[2,]))
 }
 
-#' Create a date-time with the specified hours, minutes, and seconds
+
+#' Create a period with the specified number of hours and minutes
 #'
-#' Transforms a numeric or character string into a POSIXct object with the 
-#' current date and the specified number of hours, minutes, and seconds. hms 
-#' recognizes ":" and "" (i.e., no separator) as separators. Hours, minutes, 
-#' and seconds should be written as a two digit integers (00-23)(00-59)(00-59).
+#' Transforms a character string into a period object with the 
+#' specified number of hours and minutes. hm() 
+#' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
 #'
-#' @param ... a character or numeric vector of hour minute pairs
-#' @return a vector of POSIXct date-time objects
-#' @seealso \code{\link{hm}}
-#' @keywords chron
+#' @param ... a character vector of hour minute pairs
+#' @return a vector of period objects
+#' @seealso \code{\link{hms}, \link{ms}}
+#' @keywords period
+#' @examples
+#' x <- c("09:10", "09:02", "1:10")
+#' hm(x)
+#' # [1] 9 hours and 10 minutes   9 hours and 2 minutes   1 hour and 10 minutes
+#' hm("7 6")
+#' # [1] 7 hours and 6 minutes
+#' hm("6,5")
+#' # [1] 6 hours and 5 minutes
+hm <- function(...) {
+	dates <- unlist(list(...))
+	sep <- find_separator(dates)
+	
+	parts <- as.data.frame(str_split(dates, sep), stringsAsFactors = F)
+	new_period(hour = as.numeric(parts[1,]), 
+		minute = as.numeric(parts[2,]))
+}
+
+#' Create a period with the specified hours, minutes, and seconds
+#'
+#' Transforms a character string into a period object with the 
+#' specified number of hours, minutes, and seconds. hms() 
+#' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
+#'
+#' @param ... a character vector of hour minute second triples
+#' @return a vector of period objects
+#' @seealso \code{\link{hm}, \link{ms}}
+#' @keywords period
 #' @examples
 #' x <- c("09:10:01", "09:10:02", "09:10:03")
 #' hms(x)
-#' # "2009-08-04 09:10:01 GMT" "2009-08-04 09:10:02 GMT" "2009-08-04 09:10:03 GMT"
-#' hms("070605")
-#' # "2009-08-04 07:06:05 GMT"
-#' hms(070605)
-#' # "2009-08-04 07:06:05 GMT"
+#' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
+#' hms("7 6 5")
+#' # [1] 7 hours, 6 minutes and 5 seconds
+#' hms("7,6,5")
+#' # [1] 7 hours, 6 minutes and 5 seconds
 hms <- function(...) {
-  dates <- unlist(list(...))
-  formats <- list(c("%H", "%M", "%S"))
-  parse_date(num_to_date(dates), formats = formats, seps = c("", ":"))  
+	dates <- unlist(list(...))
+	sep <- find_separator(dates)
+	
+	parts <- as.data.frame(str_split(dates, sep), stringsAsFactors = F)
+	new_period(hour = as.numeric(parts[1,]), 
+		minute = as.numeric(parts[2,]), 
+		second = as.numeric(parts[3,]))
 }
 
 
