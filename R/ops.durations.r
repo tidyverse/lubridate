@@ -17,18 +17,15 @@
 #' x + difftime(now() + 3600, now())
 #' x + x
 add_period_to_date <- function(date, period){
-  datetest <- date
-
-  year(date) <- year(date) + period$year
-  month(date) <- month(date) + period$month
-  mday(date) <- mday(date) + period$day
-  hour(date) <- hour(date) + period$hour
-  minute(date) <- minute(date) + period$minute
-  second(date) <- second(date) + period$second
-
-  if(is.Date(datetest))
-    return(with_tz(date, "UTC"))
-  date
+	new <- update(as.POSIXlt(date), 
+			years = year(date) + period$year,
+			months = month(date) + period$month,
+			days = mday(date) + period$day,
+			hour = hour(date) + period$hour,
+			minutes = minute(date) + period$minute,
+			seconds = second(date) + period$second
+			)
+	reclass_date(new, date)
 }
 
 add_duration_to_date <- function(date, duration) {

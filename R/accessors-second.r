@@ -21,57 +21,5 @@ second <- function(x)
 second.default <- function(x)
   as.POSIXlt(x)$sec
 
-"second<-" <- function(x, value){
-  if (all(value == second(x)))
-    return(x)
-  UseMethod("second<-")
-}
-
-"second<-.default" <- function(x, value){
-  new <- as.POSIXct(x) - (second(x) - value)
-  DST(reclass_date(new, x), new)
-}
-
-"second<-.chron" <- "second<-.timeDate" <- function(x, value){
-  date <- "second<-.default"(x,value)
-  f <- match.fun(paste("as", class(x)[1], sep = "."))
-  f(date)
-}
-
-"second<-.zoo" <- function(x, value){
-  compatible <- recognize(index(x))
-  if(!compatible)
-    stop("series uses unrecognized date format")
-     
-  new <- "second<-"(index(x), value)
-  'index<-'(x, new)
-}
-
-"second<-.its" <- function(x, value){
-  dates <- "second<-.default"(attr(x,"dates"), value)
-  attr(x, "dates") <- dates
-  its(x, dates, format = "%Y-%m-%d %X")
-}
-
-"second<-.ti" <- function(x, value){
-  date <- "second<-.default"(as.Date(x),value)
-  as.ti(date, tifName(x))
-}
-
-"second<-.jul" <- function(x, value)
-  x - (second(x) - value)/86400
-
-"second<-.timeSeries" <- function(x, value){
-  positions <- "second<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-  timeSeries(series(x), positions)
-}
-
-"second<-.fts" <- function(x, value){
-  date <- "second<-.default"(dates(x), value)
-  fts(x, date)
-}
-
-"second<-.irts" <- function(x, value){
-  x$time <- "second<-.default"(x$time, value)
-  x
-}
+"second<-" <- function(x, value)
+	x <- x + seconds(value - second(x))

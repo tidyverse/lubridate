@@ -94,6 +94,29 @@ pm <- function(x) !am(x)
 with_tz <- function (time, tzone = "") 
   as.POSIXct(format(as.POSIXct(time), tz = tzone), tz = tzone)
 
+#' Replace time zone to create new date-time
+#' 
+#' force_tz returns a the date-time that has the same clock time as x in the new time zone.  
+#' Although the new date-time has the same clock time (e.g. the 
+#' same values in the year, month, days, etc. elements) it is a 
+#' different moment of time than the input date-time. 
+#'
+#' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
+#' @param tzone a character string containing the time zone to convert to. R must recognize the name 
+#' contained in the string as a time zone on your system.
+#' @return a POSIXct object in the updated time zone
+#' @keywords chron manip
+#' @seealso \code{\link{force_tz}}
+#' @examples
+#' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
+#' force_tz(x, "GMT")
+#' # "2009-08-07 00:00:00 GMT"
+force_tz <- function(x, tz = ""){
+	x <- as.POSIXlt(x)
+	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), 		second(x), tz)
+}
+
+
 #' 1970-01-01 GMT
 #'
 #' Origin is the date-time for 1970-01-01 GMT in POSIXct format. This date-time 

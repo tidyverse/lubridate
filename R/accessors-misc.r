@@ -26,34 +26,11 @@ dst.default <- function(x)
 
 #' Changes the components of a date object
 #'
-#' update is a wrapper function for \code{\link{year}}, \code{\link{month}},
-#' \code{\link{week}}, \code{\link{yday}}, \code{\link{wday}}, \code{\link{mday}},
-#' \code{\link{hour}},
-#' \code{\link{minute}}, \code{\link{second}} and \code{\link{tz}}. It returns a date with
-#' the specified elements updated. Elements not specified will be left
-#' unaltered. Update.Date does not add the specified values to the existing
-#'  date, it substitutes them for the appropriate parts of the existing date. 
+#' update.Date and update.POSIXt return a date with the specified elements updated. 
+#' Elements not specified will be left unaltered. update.Date and update.POSIXt do not 
+#' add the specified values to the existing date, they substitute them for the 
+#' appropriate parts of the existing date. 
 #'
-#' update implements changes in the order year, month, week, yday, wday,
-#' mday, hour, minute, second, tz.  If conflicting requests are set, requests
-#' that occur later in the order will overwrite those that occur earlier.  If
-#' a request causes spillover to another component (such as 13 months, which 
-#' spills over to 1 year and 1 month) this spillover will be added to any 
-#' requests inputed for the first category (see examples).
-#'
-#' If the seconds, minutes, or hours element is updated, a POSIXt object will 
-#' be returned, even when object is a Date object.  Date objects do not support
-#' seconds, minutes, or hours. R recognizes Date objects as having an initial 
-#' value of zero for hours, minutes, and seconds in the "UTC" time zone. Since 
-#' Date objects are displayed in the "UTC" time zone and as.POSIXt objects are 
-#' displayed in the preset system time zone of your computer, a change in clock
-#' time will normlly occur when the class of the object switches. Both clock times 
-#' will still refer to the same instant of time, but in different time zones.
-#' 
-#' A date-time element may be updated to a vector of numbers. update will 
-#' return a vector of updated times, one for each element. If multiple elements
-#' are updated to vectors of numbers, update will return a vector of dates that
-#' reflects all combinations of the updated elements.
 #' 
 #' @method update Date
 #' @method update POSIXt
@@ -85,23 +62,23 @@ dst.default <- function(x)
 #'
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
-update.Date <- update.POSIXt <- function(object, ...) {
-  object <- as.POSIXct(object)
+update.Date <- update.POSIXt <- function(x, years = year(x), 
+	months = month(x), days = mday(x), hours = hour(x), minutes = 
+	minute(x), seconds = second(x), tzs = attr(as.POSIXlt(x), 	"tzone")){
+		
+	parts <- data.frame(years, months, days, hours, minutes, seconds)
+	
 
-  todo <- list(...)
-  names(todo) <- standardise_date_names(names(todo))
-  
-  operation_order <- c("year", "month", "week", "yday", "mday", "day", "wday",
-    "hour", "minute", "second", "tz")
-  
-  todo <- todo[intersect(operation_order, names(todo))]
+	utc <- as.POSIXlt(force_tz(x, tz = "UTC"))
+	
+	utc$year <- parts$years - 1900
+	utc$mon <- parts$months - 1
+	utc$mday <- parts$days
+	utc$hour <- parts$hours
+	utc$min <- parts$minutes
+	utc$sec <- parts$seconds
 
-  for(component in names(todo)) {
-    settor <- match.fun(paste(component, "<-", sep = ""))
-    object <- settor(object, todo[[component]])
-  }
-  
-  object
+	force_tz(utc, tz = tz(x))
 }
 
 
@@ -192,35 +169,3 @@ recognize <- function(x){
   return(FALSE)
 }
 
-
-#' Internal function for Daylight Savings Time changes.
-#'
-#' Determines how to handle time changes resulting from Daylight Savings time 
-#' based on options("DST"). See \code{\link{DaylightSavingsTime}}.
-#'
-#' @aliases DST DST.months 
-#' @keywords internal
-DST <- function(date1, date2){
-  if(is.Date(date2))
-    return(date2)
-    
-  date1 <- as.POSIXlt(date1)
-  date2 <- as.POSIXlt(date2)
-
-  if(dst(date1) < 0 || dst(date2) < 0)
-    return(date2)
-
-  date2 - (dst(date2) - dst(with_tz(date1, tz(date2))))*3600
-}
-
-DST.months <- function(date1, date2){
-  if(is.Date(date2))
-    return(date2)
-  date1 <- as.POSIXlt(date1)
-  date2 <- as.POSIXlt(date2)
-
-  if(dst(date1) < 0 || dst(date2) < 0)
-    return(date2)
-
-  suppressMessages(date2 + (dst(date2) - with_tz(date1, tz(date2)))*3600)
-}

@@ -53,60 +53,7 @@ tz.timeSeries <- function(x)
 tz.irts <- function(x)
   return("GMT")
 
-"tz<-" <- function(x, value) {
-  if (all(value == tz(x)))
-    return(x)
-  UseMethod("tz<-")
-}
-  
-"tz<-.default" <- function(x, value)
-  ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), second(x), value)
-
-
-"tz<-.Date" <- "tz<-.timeDate" <- function(x, value){
-  date <- "tz<-.default"(x,value)
-  f <- match.fun(paste("as", class(x)[1], sep = "."))
-  f(date)
-}
-
-"tz<-.zoo" <- function(x, value){
-  compatible <- recognize(index(x))
-  if(!compatible)
-    stop("series uses unrecognized date format")
-     
-  new <- "tz<-"(index(x), value)
-  'index<-'(x, new)
-}
-
-"tz<-.its" <- function(x, value){
-  dates <- "second<-.default"(attr(x,"dates"), value)
-  attr(x, "dates") <- dates
-  its(x, dates, format = "%Y-%m-%d %X")
-}
-
-"tz<-.ti" <- function(x, value){
-  date <- "tz<-.default"(as.Date(x),value)
-  as.ti(date, tifName(x))
-}
-
-
-"tz<-.jul" <- function(x, value){
-  date <- "tz<-.default"(x,value)
-  as.jul(date)
-}
-
-"tz<-.timeSeries" <- function(x, value){
-  positions <- "tz<-.default"(timeDate(x@positions, zone = x@FinCenter, FinCenter = x@FinCenter), value)
-  timeSeries(series(x), positions)
-}
-
-"tz<-.fts" <- function(x, value){
-  date <- "tz<-.default"(dates(x), value)
-  fts(x, date)
-}
-
-"tz<-.irts" <- function(x, value){
-  warning("irts dates will always display with GMT timezone")
-  x$time <- x$time - ("tz<-.default"(x, value) - x$time)
-  x
+"tz<-" <- function(x, value){
+  new <- force_tz(x, value)
+  reclass_date(new, x)
 }

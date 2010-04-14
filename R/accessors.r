@@ -50,3 +50,6 @@ reclass_date.its <- function(new, orig) {
 reclass_date.ti <- function(new, orig) {
   as.ti(new, tifName(orig))
 }
+reclass_date.Date <- function(new, orig) {
+  as.Date(new)
+}
