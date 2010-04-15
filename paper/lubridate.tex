@@ -71,7 +71,7 @@ To see how \pkg{lubridate} simplifies things, consider a common scenario. We hav
     \proglang{base R} & \pkg{lubridate}\\
     \hline
     \code{date <- as.POSIXct("01-01-2010", } & \code{date <- dmy("01-01-2010")}\\
-    \indent \code{   format = "\%d-\%m-\%Y")} & \\
+    \indent \code{   format = "\%d-\%m-\%Y", tz = "UTC")} & \\
     & \\
     \code{as.numeric(format(date, "\%m"))} \# or  & \code{month(date)}\\
    \code{as.posixlt(date)$month + 1} &\\
@@ -82,7 +82,7 @@ To see how \pkg{lubridate} simplifies things, consider a common scenario. We hav
 \end{tabular}
 \end{center}
 
-Now we'll go a step further. We'll go back a day in time and display our new date in the Coordinated Universal time zone (UTC).
+Now we'll go a step further. We'll go back a day in time and display our new date in the Greenwich Meridian time zone (GMT).
 
 \begin{center}
   \begin{tabular}{|p{7cm}|p{7cm}|}
@@ -92,8 +92,8 @@ Now we'll go a step further. We'll go back a day in time and display our new dat
     \code{seq(date, length = 2, by =}  & \code{date - days(1)} \\
     \indent \code{   "-1 day")[2]} & \\
    & \\
-   \code{as.POSIXct(format(as.POSIXct(date),}  & \code{with_tz(date, "UTC")}\\
-  \indent \code{    tz = "UTC"), tz = "UTC")} &\\
+   \code{as.POSIXct(format(as.POSIXct(date),}  & \code{with_tz(date, "GMT")}\\
+  \indent \code{    tz = "UTC"), tz = "GMT")} &\\
     \hline
 \end{tabular}
 \end{center}
@@ -124,12 +124,12 @@ Figure~\ref{fig:comparison} provides a more complete comparison between \pkg{lub
 We can read dates into R using the \code{ymd()} series of functions provided by \pkg{lubridate}. The letters y, m, and d correspond to the year, month, and day elements of a date-time. To read in a date, choose the function name that matches the order of elements in your date-time object. For example,\\
 
 \code{R> ydm("2010-31-12")}\\
-\code{[1] "2010-12-31 CST"}\\
+\code{[1] "2010-12-31 UTC"}\\
 
 or
 
 \code{R> ymd(c("2010.12.31", "2011.01.01"))}\\
-\code{[1] "2010-12-31 CST"}\\
+\code{[1] "2010-12-31 UTC"}\\
 
 
 These functions create a POSIXct date-time object that matches the date described by the character string.  The functions automatically recognize the following separators: ``-", ``/", ``.", and ``" (i.e., no separators). When a \code{ymd()} function is applied to a vector of dates, \pkg{lubridate} will assume that all of the dates have the same order and the same separators. It will also print a message that tells the user which format was used to parse the dates. \code{ymd()} type functions also exist for times recorded with hours, minutes, and seconds. These functions make it simple to parse any date-time object that can be converted to a character string. See Table~\ref{tbl:parsers} for a complete list of \code{ymd()} type parsing functions. 
@@ -306,7 +306,7 @@ We can create interval objects by subtracting two instants or by using the comma
 Unfortunately, since intervals are anchored to their start and end dates, they are not very useful for date-time math. It only makes sense to add an interval to its start date or to subtract it from its end date.\\
 
 \code{R> start_2010 + span}\\
-\code{[1] "2011-01-01 12:00 CST"}\\
+\code{[1] "2011-01-01 12:00 UTC"}\\
 
 
 \subsection{Durations}
@@ -339,10 +339,10 @@ Duration objects can be easily created with the helper functions
 Unlike intervals, durations can be added and subtracted to any instant object. For example,\\
 
 \code{R> start_2011 + eyears(1)}\\
-\code{[1] "2012-01-01 12:00:00 CST"}\\
+\code{[1] "2012-01-01 12:00:00 UTC"}\\
 
 \code{R> start_2012 + eyears(1)}\\
-\code{[1] "2012-12-31 12:00:00 CST"}\\
+\code{[1] "2012-12-31 12:00:00 UTC"}\\
 
 Durations can also be added to or subtracted from intervals and other durations. For example,\\
 
@@ -371,10 +371,10 @@ These functions do not contain an e in their name, because they are no longer es
 In other words, we can use periods to accurately model clock times without knowing when events such as leap seconds, leap days, and DST changes occur.
 
 \code{R> start_2011 + years(1)}\\
-\code{[1] "2012-01-01 12:00:00 CST"}\\
+\code{[1] "2012-01-01 12:00:00 UTC"}\\
 
 \code{R> start_2012 + years(1)}\\
-\code{[1] "2013-01-01 12:00:00 CST"}\\
+\code{[1] "2013-01-01 12:00:00 UTC"}\\
 
 We can also convert intervals to period objects with the function \code{as.period()}.\\
 
@@ -429,6 +429,7 @@ Occasionally, it is useful to keep the same clock time and change the time zone 
 In many parts of the world, the official clock time springs forward by one hour in the spring and falls back one hour in the fall. For example, in Houston, Texas a change in daylight savings time occurred at 2:00AM on March 14, 2010. The last instant before this change was 2010-03-14 01:59:59 CST.\\
 
 \code{R> dst_time <- ymd.hms("2010-03-14  01:59:59")}\\
+\code{R> dst_time <- force_tz(date, "CST")}\\
 \code{[1] "2010-03-14 01:59:59 CST"}\\
 
 One second later, Houston clock times read\\
@@ -446,12 +447,12 @@ The next two sections will work through some techniques using \pkg{lubridate}. F
 Some holidays, such as Thanksgiving (U.S.) and Memorial Day (U.S.) do not occur on fixed dates. Instead, they are celebrated according to a common rule. For example, Thanksgiving is celebrated on the fourth thursday of November. To calculate when Thanksgiving will be held in 2010, we can start with the first day of 2010.\\
 
 \code{R> date <- ymd("2010-01-01")}\\
-\code{[1] "2010-01-01 CST"}\\
+\code{[1] "2010-01-01 UTC"}\\
 
 We can then add months, until we get to November.\\
 
 \code{R> date <- date + months(10)}\\
-\code{[1] "2010-11-01 CDT"}\\
+\code{[1] "2010-11-01 UTC"}\\
 
 We check which day of the week November 1st is.\\
 
@@ -461,25 +462,25 @@ We check which day of the week November 1st is.\\
 This implies November 4th will be the first thursday of November.\\
 
 \code{R> date <- date + days(3)}\\
-\code{[1] "2010-11-04 CDT"}\\
+\code{[1] "2010-11-04 UTC"}\\
 \code{R> wday(date, label = T, abbr = F)}\\
 \code{[1] Thursday}\\
 
 Next, we add three weeks to get to the fourth thursday in November.\\
 
 \code{R> date + weeks(3)}\\
-\code{[1] "2010-11-25 CST"}\\
+\code{[1] "2010-11-25 UTC"}\\
 
 \subsection{Memorial Day}
 Memorial day also occurs according to a rule; it always occurs on the last monday of May. To calculate the date of Memorial day, we can again start with the first of the year.\\
 
 \code{R> date <- ymd("2010-01-01")}\\
-\code{[1] "2010-01-01 CST"}\\
+\code{[1] "2010-01-01 UTC"}\\
 
 Now, however, our holiday occurs in relation to the last day of the month instead of the first. So we add months until we get to June, and then subtract a day to get the last day of May.\\
 
 \code{R> date <- date + months(5) - days(1)}\\
-\code{[1] "2010-05-31 CDT"}\\
+\code{[1] "2010-05-31 UTC"}\\
 
 We can then check which day of the week May 31st falls on. It happens to be a Monday, so we are done. If May 31st had been another day of the week, we could've subtract an appropriate number of days to get the last monday of May.\\
 
@@ -525,14 +526,16 @@ The frequency of basketball games appears to vary throughout the week, figure~\r
 
 Now let's look at the games themselves. In particular, let's look at the distribution of plays throughout the game. The \code{lakers} data set lists the time that appeared on the game clock for each play. These times begin at 12:00 at the beginning of each period and then count down to 00:00, which marks the end of the period. The first two digits refer to the number of minutes left in the period. The second two digits refer to the number of seconds.
 
-The times have not been parsed as date-time data to \proglang{R}, but we can collect the minutes and seconds information using simple regular expression commands. This extracts the information as a character string, which we then convert to a number.\\
+The times have not been parsed as date-time data to \proglang{R}. In fact, it would be difficult to record the time data as a date-time object because the data is incomplete: a minutes and seconds element are not sufficient to identify a unique date-time. However, we can store the minutes and seconds information as a \emph{period} object, as defined in Section~\ref{sec:periods}, using the \code{ms()} parse function.\\
 
-\code{R> time_min <- as.numeric(substr(lakers$time, 1 , 2))}\\
-\code{R> time_sec <- as.numeric(substr(lakers$time, 4 , 5))}\\
+\code{R> lakers$time <- ms(lakers$time)}\\
 
-It would be difficult to record the time data as a date-time object because the data is incomplete: a minutes and seconds element are not sufficient to identify a unique date-time. We can instead capture this information as a \emph{duration} object as defined in Section~\ref{sec:durations}. This allows us to directly compare different durations. It would also allow us to determine exactly when each play occurred by adding the duration to the \emph{instant} the game began. (Unfortunately, the starting time for each game is not available in the data set). We can now use our time information to create a \emph{duration} object whose minutes and seconds are equal to the original time data. We can then subtract this from a duration of 12, 24, 36, or 48 minutes (depending on the period of play) to create a new duration that records exactly how far into the game each play occurred.\\
+Recall that periods have relative lengths. Since we'd like to compare times against each other, we should first convert our periods to \emph{durations}, which have exact lengths.\\
 
-\code{lakers$time <- eminutes(time_min) + eseconds(time_sec)}\\
+\code{R> lakers$time <- as.duration(lakers$time)}\\
+
+This allows us to directly compare different durations. It would also allow us to determine exactly when each play occurred by adding the duration to the \emph{instant} the game began. (Unfortunately, the starting time for each game is not available in the data set). We can now subtract our time information from a duration of 12, 24, 36, or 48 minutes (depending on the period of play) to create a new duration that records exactly how far into the game each play occurred.\\
+
 \code{lakers$time <- eminutes(12) * lakers$period - lakers$time}\\
 
 Unfortunately, \pkg{ggplot2} does not support plotting durations, or difftimes the object class used by durations. To plot our data, we can extract the integer value of our durations, which will equal the number of seconds that occurred in each duration.\\
