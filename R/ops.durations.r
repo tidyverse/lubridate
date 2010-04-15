@@ -39,6 +39,13 @@ add_duration_to_date <- function(date, duration) {
   base_add_POSIXt(date, duration)
 }
 
+add_interval_to_date <- function(date, interval){
+	if(all(as.POSIXct(interval$start) == as.POSIXct(date)))
+		interval$end
+	else
+		stop("interval$start does not match date")
+}
+
 add_number_to_duration <- function(dur, num)
   make_difftime(num + as.double(dur, "secs"))
 
@@ -78,24 +85,39 @@ add_number_to_interval <-function(int, num){
   int
 }
 
+add_interval_to_interval <- function(interval1, interval2){
+	if(all(interval1$start == interval2$end))
+		return(new_interval(interval2$start, interval1$end))
+	else if (all(interval2$start == interval1$end))
+		return(new_interval(interval1$start, interval2$end))
+	else if (all(interval2$start == interval1$start)){
+		return(new_interval(interval1$start, 
+			pmax(as.POSIXct(interval1$end),
+			as.POSIXct(interval2$end))))
+	}
+	else
+		stop("Intervals do not align")
+}
+
 
 add_dates <- function(e1, e2){
   
   if (is.instant(e1)) {
     if (is.instant(e2))
       stop("binary '+' not defined for adding dates together")
-    if (is.interval(e2))
-      stop("binary '+' not defined for adding dates together")
     if (is.period(e2))
       add_period_to_date(e1, e2)
+    else if (is.interval(e2))
+      add_interval_to_date(e1, e2)
     else if (is.difftime(e2)) 
       add_duration_to_date(e1, e2)
     else if (is.POSIXt(e1))
       structure(unclass(as.POSIXct(e1)) + e2, class = c("POSIXt", "POSIXct"))
     else if (is.Date(e1))
       structure(unclass(e1) + e2, class = "Date")
-    else
+    else{
       base::'+'(e1,e2)
+      }
   }
 
   else if (is.period(e1)) {
@@ -126,9 +148,9 @@ add_dates <- function(e1, e2){
   
   else if (is.interval(e1)){
     if (is.instant(e2))
-      stop("binary '+' not defined for adding dates together")
-    if (is.interval(e2))
-      stop("binary '+' not defined for adding dates together")
+      add_interval_to_date(e2, e1)
+    else if (is.interval(e2))
+      add_interval_to_interval(e1, e2)
     else if (is.period(e2))
       add_period_to_interval(e1, e2)
     else if (is.duration(e2))
@@ -221,8 +243,10 @@ multiply_period_by_number <- function(per, num){
 }
 
 multiply_interval_by_number <- function(int, num){
-  diff <- difftime(int$end, int$start) * num
-  new_interval(int$start, int$start + diff)
+	if (all(num == -1))
+	  new_interval(int$end, int$start)
+	else
+	  stop("multiplication incompatible with intervals")
 }
 
 
