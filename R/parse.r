@@ -60,6 +60,44 @@ make_format <- function(order) {
 }
 
 
+#' Parse dates that appear in standard POSIXt order 
+#'
+#' Transforms dates stored as character vectors in year, month, day, hour, minute, 
+#' second format to POSIXct objects. ymd.hms() recognizes all non-alphanumeric 
+#' separators of length 1 with the exception of ".".
+#' @param ... a character vector of dates in year, month, day, hour, minute, 
+#'   second format 
+#' @return a vector of POSIXct date-time objects
+#' @seealso \code{\link{ymd}}, \code{\link{hms}}
+#' @keywords POSIXt parse 
+#' @examples
+#' x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
+#' ymd.hms(x)
+#' # [1] "2010-04-14 04:35:59 CDT" "2010-04-01 12:00:00 CDT"
+#' y <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
+#' ymd.hms(y)
+#' # [1] "2011-12-31 12:59:59 CST" "2010-01-01 12:00:00 CST"
+ymd.hms <- function(...){
+	dates <- unlist(list(...))
+	seps <- find_separator(dates)
+	
+	if(length(seps) >= 2){
+		parts <- as.data.frame(str_split(dates, seps[2]),
+			stringsAsFactors = F)
+		date <- ymd(parts[1,])
+		time <- hms(parts[2,])
+	}
+	
+	else{
+		breaks <- as.data.frame(gregexpr(seps, dates))
+		breaks <- as.numeric(breaks[3,])
+		date <- ymd(substr(dates, 1, breaks-1))
+		time <- hms(substr(dates, breaks + 1, nchar(dates)))
+	}
+	date + time
+}
+
+
 #' Create a period with the specified number of minutes and seconds
 #'
 #' Transforms a character string into a period object with the 
