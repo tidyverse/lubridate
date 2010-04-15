@@ -8,6 +8,10 @@
 #' month(m), and date(d) appear in the dates. All inputed dates are considered 
 #' to have the same order and the same separators.
 #'
+#' ymd() type functions automatically assign the Universal Coordinated Time Zone 
+#' (UTC) to the parsed dates. This time zone can be changed with
+#' \code{\link{force_tz}}.
+#'
 #' @aliases ymd myd dym ydm mdy yearmonthdate
 #' @param ... a character or numeric vector of suspected dates 
 #' @return a vector of POSIXct date-time objects
@@ -16,14 +20,14 @@
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
 #' ymd(x)
-#' # "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
+#' # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 #' z <- c("2009-01-01", "2009-01-02", "2009-01-03")
 #' ymd(z)
-#' # "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
+#' # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 #' ymd(090101)
-#' # "2009-01-01 GMT"
+#' # "2009-01-01 UTC"
 #' ymd(90101)
-#' # "2009-01-01 GMT"
+#' # "2009-01-01 UTC"
 #' now() > ymd(20090101) 
 #' # TRUE
 #' dmy(010210)
@@ -64,7 +68,9 @@ make_format <- function(order) {
 #'
 #' Transforms dates stored as character vectors in year, month, day, hour, minute, 
 #' second format to POSIXct objects. ymd.hms() recognizes all non-alphanumeric 
-#' separators of length 1 with the exception of ".".
+#' separators of length 1 with the exception of ".". ymd.hms() automatically
+#' assigns the Universal Coordinated Time Zone (UTC) to the parsed date. This time 
+#' zone can be changed with \code{\link{force_tz}}.
 #' @param ... a character vector of dates in year, month, day, hour, minute, 
 #'   second format 
 #' @return a vector of POSIXct date-time objects
@@ -73,10 +79,10 @@ make_format <- function(order) {
 #' @examples
 #' x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
 #' ymd.hms(x)
-#' # [1] "2010-04-14 04:35:59 CDT" "2010-04-01 12:00:00 CDT"
+#' # [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
 #' y <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
 #' ymd.hms(y)
-#' # [1] "2011-12-31 12:59:59 CST" "2010-01-01 12:00:00 CST"
+#' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
 ymd.hms <- function(...){
 	dates <- unlist(list(...))
 	seps <- find_separator(dates)
@@ -200,12 +206,12 @@ hms <- function(...) {
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
 #' parse_date(x, c("%y", "%m", "%d"), seps = "-")
-#' #  "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
+#' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 #' ymd(x)
-#' #  "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
+#' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 parse_date <- function(x, formats, seps = find_separator(x)) {
   fmt <- guess_format(x, formats, seps)
-  parsed <- as.POSIXct(strptime(x, fmt))
+  parsed <- as.POSIXct(strptime(x, fmt, tz = "UTC"))
 
   if (length(x) > 2) message("Using date format ", fmt, ".")
 
