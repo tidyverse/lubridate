@@ -21,7 +21,7 @@ add_period_to_date <- function(date, period){
 			years = year(date) + period$year,
 			months = month(date) + period$month,
 			days = mday(date) + period$day,
-			hour = hour(date) + period$hour,
+			hours = hour(date) + period$hour,
 			minutes = minute(date) + period$minute,
 			seconds = second(date) + period$second
 			)
@@ -320,7 +320,7 @@ subtract_dates <- function(e1, e2){
   if (missing(e2))
     -1 * e1
   else if(is.instant(e1) && is.instant(e2))
-    new_interval(e1, e2)
+    new_interval(e2, e1)
   else if (is.POSIXt(e1) && !is.timespan(e2))
     structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct"))
   else    

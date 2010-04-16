@@ -64,7 +64,7 @@ dst.default <- function(x)
 #' # "2009-02-10 00:10:03 CST"
 update.Date <- update.POSIXt <- function(x, years = year(x), 
 	months = month(x), days = mday(x), hours = hour(x), minutes = 
-	minute(x), seconds = second(x), tzs = attr(as.POSIXlt(x), 	"tzone")){
+	minute(x), seconds = second(x), tzs = attr(as.POSIXlt(x), 	"tzone")[1]){
 		
 	parts <- data.frame(years, months, days, hours, minutes, seconds)
 	
@@ -78,7 +78,8 @@ update.Date <- update.POSIXt <- function(x, years = year(x),
 	utc$min <- parts$minutes
 	utc$sec <- parts$seconds
 
-	force_tz(utc, tz = tz(x))
+	utc <- as.POSIXct(utc)
+	force_tz(utc, tz = tzs)
 }
 
 
