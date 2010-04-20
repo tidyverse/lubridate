@@ -38,28 +38,26 @@
 
 \section{Introduction}
 
-Date-time data can be frustrating to work with. It comes in many different formats, which makes recognizing and parsing it a challenge. Will our program handle the format that we have? If it does, we still face a slew of problems specific to date-times. How can we easily extract components of the date-times, such as years, months, or seconds? How can we effortlessly switch between time zones, or compare times from places that use daylight savings time (DST) with times from those that do not? Date-times create even more complications when we try to do math with them. Conventions such as leap years and DST make it unclear what we mean by ``one day from now" or ``exactly two years away."  Even leap seconds can disrupt a seemingly straight forward calculation.  This complexity affects other tasks too, such as constructing sensible tick marks for plotting date-time data.
+Date-time data can be frustrating to work with. It comes in many different formats, which makes recognizing and parsing it a challenge. Will our program handle the format that we have? If it does, we still face a slew of problems specific to date-times. How can we easily extract components of the date-times, such as years, months, or seconds? How can we switch between time zones, or compare times from places that use daylight savings time (DST) with times from places that do not? Date-times create even more complications when we try to do math with them. Conventions such as leap years and DST make it unclear what we mean by ``one day from now" or ``exactly two years away."  Even leap seconds can disrupt a seemingly straight forward calculation.  This complexity affects other tasks too, such as constructing sensible tick marks for plotting date-time data.
 
-While base \proglang{R} handles some of these problems, the syntax it uses is often confusing, uninviting, and difficult to remember. Moreover, the correct \proglang{R} code often changes depending on the class of date-time object being used. \pkg{lubridate} acknowledges these problems and makes it easier to work with date-time data in \proglang{R}. Specifically, \pkg{lubridate} helps users:
+While base \proglang{R} handles some of these problems, the syntax it uses is uninviting, often confusing, and difficult to remember. Moreover, the correct \proglang{R} code often changes depending on the class of date-time object being used. \pkg{lubridate} acknowledges these problems and makes it easier to work with date-time data in \proglang{R}. Specifically, \pkg{lubridate} helps users:
 
 \begin{itemize}
-   \item identify and parse date-time data, Section~\ref{sec:parsing} 
+   \item Identify and parse date-time data, Section~\ref{sec:parsing} 
    
-    \item extract and modify components of a date-time, such as years, months, days, hours, minutes, and seconds, Section~\ref{sec:accessors}
+    \item Extract and modify components of a date-time, such as years, months, days, hours, minutes, and seconds, Section~\ref{sec:accessors}.
   
-  \item perform accurate math on date-times, Section~\ref{sec:types}
+  \item Perform accurate math on date-times, Section~\ref{sec:types}.
     
-  \item handle time zones and Daylight Savings Time, Sections~\ref{sec:tz}, and~\ref{sec:DST}, and
-  
-   \item construct pretty graphs with date-time data, Section~\ref{sec:pretty}, 
+  \item Handle time zones and Daylight Savings Time, Sections~\ref{sec:tz}, and~\ref{sec:DST}.
   
 \end{itemize}
 
-\pkg{lubridate} uses an intuitive user interface inspired by the date libraries of object oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, chron, fCalendar, zoo, xts, its, tis, timeSeries, fts, and tseries objects. Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}.\\
+\pkg{lubridate} uses an intuitive user interface inspired by the date libraries of object oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, chron, fCalendar, zoo, xts, its, tis, timeSeries, fts, and tseries objects. Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}.
 
 The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project, \url{http://joda-time.sourceforge.net/}. This paper demonstrates the convenient tools provided in the \pkg{lubridate} package and ends with a case study, which uses \pkg{lubridate} in a real life example.
 
-\pkg{lubridate} can be downloaded at \url{http://cran.r-project.org/}. Its development site is \url{http://github.com/hadley/lubridate}.
+\pkg{lubridate} can be downloaded at \url{http://cran.r-project.org/}, and its development site is \url{http://github.com/hadley/lubridate}.
 
 \section{Motivation}
 
@@ -74,7 +72,7 @@ To see how \pkg{lubridate} simplifies things, consider a common scenario. We hav
     \indent \code{   format = "\%d-\%m-\%Y", tz = "UTC")} & \\
     & \\
     \code{as.numeric(format(date, "\%m"))} \# or  & \code{month(date)}\\
-   \code{as.posixlt(date)$month + 1} &\\
+   \code{as.POSIXlt(date)$month + 1} &\\
     & \\
      \code{date <- as.POSIXct(format(date, } & \code{month(date) <- 2} \\
  \indent \code{   "\%Y-2-\%d"))} & \\
@@ -98,7 +96,7 @@ Now we'll go a step further. We'll go back a day in time and display our new dat
 \end{tabular}
 \end{center}
 
-\pkg{lubridate} makes basic date-time manipulations much more straight forward. Plus, the same \pkg{lubridate} methods work for all of the popular date-time object classes (\code{Date}, \code{POSIXt}, \code{chron} ... ).
+\pkg{lubridate} makes basic date-time manipulations much more straight forward. Plus, the same \pkg{lubridate} methods work for all of the popular date-time object classes (\code{Date}, \code{POSIXt}, \code{chron} ...).
 
 Figure~\ref{fig:comparison} provides a more complete comparison between \pkg{lubridate} methods and base \proglang{R} methods. It shows how \pkg{lubridate} can simplify each of the common date time tasks presented in RNews Volume 4/1, June 2004. It also provides a useful summary of \pkg{lubridate} methods.
 % Always a good idea to show some examples right off the bat.  This helps
@@ -123,16 +121,21 @@ Figure~\ref{fig:comparison} provides a more complete comparison between \pkg{lub
 
 We can read dates into R using the \code{ymd()} series of functions provided by \pkg{lubridate}. The letters y, m, and d correspond to the year, month, and day elements of a date-time. To read in a date, choose the function name that matches the order of elements in your date-time object. For example,\\
 
-\code{R> ydm("2010-31-12")}\\
-\code{[1] "2010-12-31 UTC"}\\
+\code{R> mdy("12-01-2010")}\\
+\code{[1] "2010-12-01 UTC"}\\
 
 or
 
-\code{R> ymd(c("2010.12.31", "2011.01.01"))}\\
-\code{[1] "2010-12-31 UTC"}\\
+\code{R> dmy("12-01-2010")}\\
+\code{[1] "2010-01-12 UTC"}\\
+
+or
+
+\code{R> dmy(c("31.12.2010", "01.01.2011"))}\\
+\code{[1] "2010-12-31 UTC" "2011-01-01 UTC"}\\
 
 
-These functions create a POSIXct date-time object that matches the date described by the character string.  The functions automatically recognize the following separators: ``-", ``/", ``.", and ``" (i.e., no separators). When a \code{ymd()} function is applied to a vector of dates, \pkg{lubridate} will assume that all of the dates have the same order and the same separators. It will also print a message that tells the user which format was used to parse the dates. \code{ymd()} type functions also exist for times recorded with hours, minutes, and seconds. These functions make it simple to parse any date-time object that can be converted to a character string. See Table~\ref{tbl:parsers} for a complete list of \code{ymd()} type parsing functions. 
+These functions create a POSIXct date-time object that matches the date described by the character string.  The functions automatically recognize the following separators: ``-", ``/", ``.", and ``" (i.e., no separator). When a \code{ymd()} function is applied to a vector of dates, \pkg{lubridate} will assume that all of the dates have the same order and the same separators. It will also print a message that tells the user which format was used to parse the dates. \code{ymd()} type functions also exist for times recorded with hours, minutes, and seconds. These functions make it simple to parse any date-time object that can be converted to a character string. See Table~\ref{tbl:parsers} for a complete list of \code{ymd()} type parsing functions. 
 
 \begin{table}
   \begin{center}
@@ -218,7 +221,7 @@ changes our date to the fifth day of the month. We can also set the elements to 
 
 \code{R> minute(dates) <- mean(minute(dates))}\\
 
-Note that if we set an element to a larger value than it supports, the difference will correctly roll over into the next higher element. For example,\\
+Note that if we set an element to a larger value than it supports, the difference will roll over into the next higher element. For example,\\
 
 \code{R> day(date) <- 30}\\
 \code{[1] "2010-03-02 09:51:48 CST"}\\
@@ -265,12 +268,12 @@ At different moments in time, the lengths of months, weeks, days, hours, and eve
 
 Researchers may be interested in exact lengths, relative lengths, or both. For example, the speed of a physical object is most precisely measured in exact lengths. The opening bell of the stock market is more easily modeled with relative lengths.
 
-\pkg{lubridate} allows math with both relative and exact units by introducing four new time related objects. These are \emph{instants}, \emph{intervals}, \emph{durations}, and \emph{periods}.  \pkg{lubridate} borrows instants, intervals, durations, and periods from the \proglang{JODA} time project. For more information about these concepts please visit the \proglang{JODA} time project at  \url{http://joda-time.sourceforge.net/}. 
+\pkg{lubridate} allows math with both relative and exact units by introducing four new time related objects. These are \emph{instants}, \emph{intervals}, \emph{durations}, and \emph{periods}, terminology borrowed from the \proglang{JODA} time project. 
 
 \subsection{Instants}
 \label{sec:instants}
 
-An instants is a specific moments in time, such as January 1st, 2012. We create an instant, each time we parse a date into \proglang{R}. \\
+An instants is a specific moment in time, such as January 1st, 2012. We create an instant each time we parse a date into \proglang{R}. \\
 
 \code{R> start_2012 <- ymd.hms("2012-01-01 12:00:00")}\\
 
@@ -287,7 +290,7 @@ We can easily round instants to the nearest minute, hour, month, etc. using \cod
 \code{R> round_date(date, "day")}\\
 \code{[1] "2012-01-02 00:00:00 CST"}\\
 
-We can also capture the current time as an instant with the function \code{now()}, and the current day with the function \code{today()}.
+We can also capture the current time as an instant with \code{now()}, and the current day with \code{today()}.
 
 
 
@@ -314,7 +317,7 @@ Unfortunately, since intervals are anchored to their start and end dates, they a
 
 If we remove the start and end dates from an interval, we will have a generic time span that we can add to any date. But how should we measure this length of time? If we record the time span in seconds, it will have an exact length since seconds always have the same length. We call such time spans \emph{durations}. Alternatively, we can record the time span in larger units, such as minutes or years. Since the length of these units varies over time, the exact length of the time span will depend on when it begins. These non-exact time spans are called \emph{periods} and will be discussed in the next section.
 
-The length of a duration is invariant to leap years, leap seconds, and daylight savings time because durations are measured in seconds, which are also invariant to such phenomena. Hence, durations have consistent lengths and can be easily compared to other durations. Durations are the appropriate object to use when comparing time based attributes, such as speeds, rates, and lifetimes.
+The length of a duration is invariant to leap years, leap seconds, and daylight savings time because durations are measured in seconds. Hence, durations have consistent lengths and can be easily compared to other durations. Durations are the appropriate object to use when comparing time based attributes, such as speeds, rates, and lifetimes.
 
 \pkg{lubridate} uses the \code{difftime} class from base \proglang{R} for durations. Additional \code{difftime} methods have been created to facilitate this. 
 
@@ -336,7 +339,7 @@ Duration objects can be easily created with the helper functions
 \code{Durations in hours}\\
 \code{[1] 1 2 3}\\
 
-Unlike intervals, durations can be added and subtracted to any instant object. For example,\\
+Durations can be added and subtracted to any instant object. For example,\\
 
 \code{R> start_2011 + eyears(1)}\\
 \code{[1] "2012-01-01 12:00:00 UTC"}\\
@@ -358,7 +361,7 @@ We can also create durations from intervals using \code{as.duration()}.
 \subsection{Periods}
 \label{sec:periods}
 
-Unlike durations, periods have a relative length. Periods record a time span in units larger than seconds, such as years, months, weeks, days, hours, minutes, or a combination of these. For convenience, we can also create a period that only uses seconds, but such a period would have the same properties as a duration. We construct periods with the helper functions \code{years()}, \code{months()}, \code{weeks()}, \code{days()}, \code{minutes()}, and  \code{seconds()}.\\
+Periods record a time span in units larger than seconds, such as years, months, weeks, days, hours, and minutes. For convenience, we can also create a period that only uses seconds, but such a period would have the same properties as a duration. We construct periods with the helper functions \code{years()}, \code{months()}, \code{weeks()}, \code{days()}, \code{minutes()}, and  \code{seconds()}.\\
 
 \code{R> months(3)}\\
 \code{[1] 3 months}\\
@@ -370,11 +373,13 @@ These functions do not contain an e in their name, because they are no longer es
 
 In other words, we can use periods to accurately model clock times without knowing when events such as leap seconds, leap days, and DST changes occur.
 
-\code{R> start_2011 + years(1)}\\
+\code{R> start_2012 + years(1)}\\
 \code{[1] "2012-01-01 12:00:00 UTC"}\\
 
-\code{R> start_2012 + years(1)}\\
-\code{[1] "2013-01-01 12:00:00 UTC"}\\
+vs.
+
+\code{R> start_2012 + eyears(1)}\\
+\code{[1] "2012-12-31 12:00:00 UTC"}\\
 
 We can also convert intervals to period objects with the function \code{as.period()}.\\
 
@@ -406,7 +411,7 @@ In summary, math with date-times involves four types of objects: instants, inter
 \section{Time zones}
 \label{sec:tz}
 
-Time zones are a way to give multiple names to the same instant. For example, ``2010-03-26 11:53:24 CDT" and ``2010-03-26 12:53:24 EDT" both describe the same instant. The first shows how the instant is labeled in the United States' central time zone (CDT). The second shows how the same instant is labelled in the United States' eastern time zone (EDT). Time zones complicate date-time data, but are useful for mapping clock time to local daylight conditions. When working with instants, it is standard to give the clock time as it appears in the Coordinated Universal time zone (UTC).  This saves calculations, but can be annoying if your computer insists on translating times to your current time zone.  It may also be inconvenient to discuss clock times that occur in a place unrelated to the data.
+Time zones give multiple names to the same instant. For example, ``2010-03-26 11:53:24 CDT" and ``2010-03-26 12:53:24 EDT" both describe the same instant. The first shows how the instant is labeled in the United States' central time zone (CDT). The second shows how the same instant is labelled in the United States' eastern time zone (EDT). Time zones complicate date-time data, but are useful for mapping clock time to local daylight conditions. When working with instants, it is standard to give the clock time as it appears in the Coordinated Universal time zone (UTC).  This saves calculations, but can be annoying if your computer insists on translating times to your current time zone.  It may also be inconvenient to discuss clock times that occur in a place unrelated to the data.
 
 \pkg{lubridate} eases the frustration caused by time zones in two ways. We can change the the time zone in which an instant is displayed by using the function \code{with_tz()}. This changes how the clock time is displayed, but not the instant that is referred to. For example,\\
 
@@ -437,7 +442,19 @@ One second later, Houston clock times read\\
 \code{R> dst_time + eseconds(1)}\\
 \code{[1] "2010-03-14 03:00:00 CDT"}\\
 
-It seems that we gained an extra hour during that second, which is how daylight savings time works. We can completely avoid the changes in clock tim caused by daylight savings times by working with periods instead of durations. If we ever inadvertently try to create an instant that occurs in the one hour ``gap" between 2010-03-14 01:59:59 CST  and 2010-03-14 03:00:00 CDT, \pkg{lubridate} will return \code{NA} since such times are not available.
+It seems that we gained an extra hour during that second, which is how daylight savings time works. We can completely avoid the changes in clock time caused by daylight savings times by working with periods instead of durations. For example,\
+
+\code{R> dst_time + hours(2)}\\
+\code{[1] "2010-03-14 03:59:59 CDT"}\\
+
+displays the clock time that usually occurs two hours after 1:59:59 AM. When using periods, we do not have to track dst changes because they will not affect our calculations. Adding a duration would give us the actual clock time that appeared two hours later on March 14, 2010.
+
+\code{R> dst_time + ehours(2)}\\
+\code{[1] "2010-03-14 04:59:59 CDT"}\\
+
+If we ever inadvertently try to create an instant that occurs in the one hour ``gap" between 2010-03-14 01:59:59 CST  and 2010-03-14 03:00:00 CDT, \pkg{lubridate} will return \code{NA} since such times are not available.
+
+We can also avoid the complications created by daylight savings time by keeping our date-times in a time zone such as ``UTC", which does not adopt daylight savings hours.
 
 \section{Case Study 1}
 
@@ -449,9 +466,9 @@ Some holidays, such as Thanksgiving (U.S.) and Memorial Day (U.S.) do not occur 
 \code{R> date <- ymd("2010-01-01")}\\
 \code{[1] "2010-01-01 UTC"}\\
 
-We can then add months, until we get to November.\\
+We can then add 10 months to our date, or directly set the date to November.\\
 
-\code{R> date <- date + months(10)}\\
+\code{R> month(date) <- 11}\\
 \code{[1] "2010-11-01 UTC"}\\
 
 We check which day of the week November 1st is.\\
@@ -493,7 +510,7 @@ Now let's explore the \code{lakers} data set. The \code{lakers} data set contain
 
 \code{R> head(lakers)}\\
 
-First we'll examine when during the year the Lakers have games. We choose to use the \pkg{ggplot2} package to create our graphs. Please see \url{http://had.co.nz/ggplot2/} for more information about \pkg{ggplot2}. \\
+First we'll examine when during the year the Lakers have games. We choose to use the \pkg{ggplot2} package to create our graphs.\\
 
 \code{str(lakers$date[1])}\\
 \code{int 20081028}\\
@@ -510,9 +527,11 @@ First we'll examine when during the year the Lakers have games. We choose to use
   \label{fig:games-date}
 \end{figure}
 
-Figure~\ref{fig:games-date} shows that games are played continuously throughout the season with a few short breaks. The frequency of games seems lower at the start of the season and games appear to be grouped into clusters of home games and away games. Notice the tick marks on the x axis; the labels and breaks are automatically generated by \code{pretty.date()}, which is in the \pkg{lubridate} package. Next we'll examine how Lakers games are distributed throughout the week.\\
+Figure~\ref{fig:games-date} shows that games are played continuously throughout the season with a few short breaks. The frequency of games seems lower at the start of the season and games appear to be grouped into clusters of home games and away games. Notice the tick marks on the x axis; the labels and breaks are automatically generated by \code{pretty.date()}, which is in the \pkg{lubridate} package. 
 
-\code{R> qplot(wday(date, label = T, abbr = F), data = lakers, geom = "histogram")}\\
+Next we'll examine how Lakers games are distributed throughout the week.\\
+
+\code{R> qplot(wday(date, label = T), data = lakers, geom = "histogram")}\\
 
 \begin{figure}[htpb]
   \centering    
@@ -538,7 +557,7 @@ This allows us to directly compare different durations. It would also allow us t
 
 \code{lakers$time <- eminutes(12) * lakers$period - lakers$time}\\
 
-Unfortunately, \pkg{ggplot2} does not support plotting durations, or difftimes the object class used by durations. To plot our data, we can extract the integer value of our durations, which will equal the number of seconds that occurred in each duration.\\
+Unfortunately, \pkg{ggplot2} does not support plotting durations, or difftimes, the class used by durations. To plot our data, we can extract the integer value of our durations, which will equal the number of seconds that occurred in each duration.\\
 
 \code{R> qplot(as.integer(time), data = lakers, geom = "histogram", binwidth = 60)}\\
 
@@ -562,16 +581,16 @@ Alternatively, we can create date-times, which \pkg{ggplot2} does support, by ad
 \end{figure}
 
 
-We see that the number of plays peaks within each of the four periods and then plummets at the beginning of the next period, figure~\ref{fig:first-score}. Observations that occur after 48 minutes suggest games that were decided in overtime.
+We see that the number of plays peaks within each of the four periods and then plummets at the beginning of the next period, figure~\ref{fig:plays}. We also see a small number of plays that occur in overtime. Observations that occur after 48 minutes suggest games that were decided in overtime.
 
 Now lets look more closely at just one basketball game: the first game of the season. This game was played on October 28, 2008. For this game, we can easily model the amounts of time that occurred between each shot attempt.\\
 
 \code{R> game1 <- lakers[lakers$date == ymd("20081028"),]}\\
 \code{R> attempts <- game1[game1$etype == "shot",]}\\
 
-The waiting times between shots will just be the time span that occurs between each shot attempt. Since we've recorded the time of each shot attempts as a duration (above), we can record the differences by subtracting the two durations. This automatically creates a new duration whose length is equal to the difference between the first two durations.\\
+The waiting times between shots will be the time span that occurs between each shot attempt. Since we've recorded the time of each shot attempt as a duration (above), we can record the differences by subtracting the two durations. This automatically creates a new duration whose length is equal to the difference between the first two durations.\\
 
-\code{R> attempts$wait <- attempts$time - c(eseconds(0), attempts$time[-nrow(attempts)])}\\
+\code{R> attempts$wait <-  c(attempts$time[1], diff(attempts$time))}\\
 \code{R> qplot(as.integer(wait), data = attempts, geom = "histogram", binwidth = 2)}\\
 
 \begin{figure}[htpb]
@@ -583,7 +602,7 @@ The waiting times between shots will just be the time span that occurs between e
 
 We plot this information in Figure~\ref{fig:waits}. We see that 30 seconds rarely go by without at least one shot attempt, but on occasion up to 60 seconds will pass without an attempt.
 
-We can also examine changes in the score throughout the game. This reveals that the first game of the season was uneventful: the Lakers maintained a lead for the entire game, Figure~\ref{fig:scores}. Note: the necessary calculations are made simpler by the \code{ddply()} function from the \pkg{plyr} package, which \pkg{lubridate} automatically loads.  For more information about \pkg{plyr} see \url{http://had.co.nz/plyr/}.\\
+We can also examine changes in the score throughout the game. This reveals that the first game of the season was uneventful: the Lakers maintained a lead for the entire game, Figure~\ref{fig:scores}. Note: the necessary calculations are made simpler by the \code{ddply()} function from the \pkg{plyr} package, which \pkg{lubridate} automatically loads. \\
 
 \code{R> game1_scores <- ddply(game1, "team", transform, score = cumsum(points))}\\
 \code{R> game1_scores <- game1_scores[game1_scores$team != "OFF",]}\\
