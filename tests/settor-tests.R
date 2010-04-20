@@ -1008,3 +1008,91 @@ test_that("time zone settor retains object class",{
 })
 
 
+test_that("settors handle vectors",{ 
+	poslt <- c(as.POSIXlt("2010-02-14 01:59:59", tz = "UTC", format =
+		"%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-15 01:59:59", tz = 
+		"UTC", format = "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-16 
+		01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
+	posct <- as.POSIXct(poslt)
+	date <- as.Date(poslt)
+	
+	second(poslt) <- 1
+	second(posct) <- 1
+	second(date) <- 1
+	
+	expect_that(second(poslt), equals(c(1,1,1)))
+	expect_that(second(posct), equals(c(1,1,1)))
+	expect_that(second(date), equals(c(1,1,1)))
+	
+	minute(poslt) <- 1
+	minute(posct) <- 1
+	minute(date) <- 1
+	
+	expect_that(minute(poslt), equals(c(1,1,1)))
+	expect_that(minute(posct), equals(c(1,1,1)))
+	expect_that(minute(date), equals(c(1,1,1)))
+	
+	hour(poslt) <- 1
+	hour(posct) <- 1
+	hour(date) <- 1
+	
+	expect_that(hour(poslt), equals(c(1,1,1)))
+	expect_that(hour(posct), equals(c(1,1,1)))
+	expect_that(hour(date), equals(c(1,1,1)))
+	
+	mday(poslt) <- 1
+	mday(posct) <- 1
+	mday(date) <- 1
+	
+	expect_that(mday(poslt), equals(c(1,1,1)))
+	expect_that(mday(posct), equals(c(1,1,1)))
+	expect_that(mday(date), equals(c(1,1,1)))
+	
+	wday(poslt) <- 1
+	wday(posct) <- 1
+	wday(date) <- 1
+	
+	expect_that(wday(poslt), equals(c(1,1,1)))
+	expect_that(wday(posct), equals(c(1,1,1)))
+	expect_that(wday(date), equals(c(1,1,1)))
+	
+	yday(poslt) <- 1
+	yday(posct) <- 1
+	yday(date) <- 1
+	
+	expect_that(yday(poslt), equals(c(1,1,1)))
+	expect_that(yday(posct), equals(c(1,1,1)))
+	expect_that(yday(date), equals(c(1,1,1)))
+	
+	week(poslt) <- 2
+	week(posct) <- 2
+	week(date) <- 2
+	
+	expect_that(week(poslt), equals(c(2,2,2)))
+	expect_that(week(posct), equals(c(2,2,2)))
+	expect_that(week(date), equals(c(2,2,2)))
+	
+	month(poslt) <- 10
+	month(posct) <- 10
+	month(date) <- 10
+	
+	expect_that(month(poslt), equals(c(10,10,10)))
+	expect_that(month(posct), equals(c(10,10,10)))
+	expect_that(month(date), equals(c(10,10,10)))
+	
+	year(poslt) <- 2001
+	year(posct) <- 2001
+	year(date) <- 2001
+	
+	expect_that(year(poslt), equals(c(2001,2001,2001)))
+	expect_that(year(posct), equals(c(2001,2001,2001)))
+	expect_that(year(date), equals(c(2001,2001,2001)))
+	
+	tz(poslt) <- "GMT"
+	tz(posct) <- "GMT"
+	tz(date) <- "GMT"
+	
+	expect_that(tz(poslt), matches("GMT"))
+	expect_that(tz(posct), matches("GMT"))
+	expect_that(tz(date), matches("GMT"))
+	})
