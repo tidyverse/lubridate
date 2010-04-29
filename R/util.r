@@ -162,34 +162,6 @@ decimal_date.zoo <- function(date)
 decimal_date.its <- function(x)
   decimal_date.default(attr(x,"dates"))
 
-#' Returns just the months component of a duration. 
-#'
-#' @param dur a duration object 
-#' @return the number of months as well as the number of years (as months) contained in a duration. 
-#'   See \code{link{duration}} for further details.   
-#' @seealso \code{\link{just_seconds}}
-#' @keywords utilities chron
-#' @examples
-#' x <- new_duration(year = 1, month = 4, day = 30, hour = 2, second = 1)
-#' x # 1 year, 4 months, 4 weeks, 2 days, 2 hours and 1 second
-#' just_months(x)  # 16
-just_months <- function(dur)
-  as.numeric(dur) %/% 10^11
-
-#' Returns just the seconds component of a duration. 
-#'
-#' @param dur a duration object  
-#' @return the number of weeks, days, hours, minutes, and seconds in a duration as seconds. See 
-#'   \code{\link{duration}} for further details.
-#' @seealso \code{\link{just_months}}
-#' @keywords utilities chron
-#' @examples
-#' x <- new_duration(year = 1, month = 4, day = 30, hour = 2, second = 1)
-#' x # 1 year, 4 months, 4 weeks, 2 days, 2 hours and 1 second
-#' just_seconds(x)  # 2599201
-just_seconds <- function(dur)
-  as.numeric(dur) %% 10^11 - 50000000000
-
 #' Internal function. Is an object in a recognized date format?
 #'
 #' @param x an R object
