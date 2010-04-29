@@ -116,6 +116,8 @@ force_tz <- function(x, tz = ""){
 	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), 		second(x), tz)
 }
 
+# Note: alternative method? as.POSIXlt(format(as.POSIXct(x)), tz = tz)
+
 
 #' 1970-01-01 GMT
 #'
@@ -148,11 +150,8 @@ decimal_date.default <- function(date){
     stop("date(s) not in POSIXt or Date format")
   just_year <- floor_date(date, "year")
   
-  decimal <- just_seconds(date - just_year)/ (3600*24*365)
+  decimal <- as.duration(date - just_year)
   
-  leap_years <- which(leap.year(date))
-  decimal[leap_years] <- just_seconds(date - just_year)[leap_years]/ (3600*24*366)
-
   year(date) + decimal
 }
 
