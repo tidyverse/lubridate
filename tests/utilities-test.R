@@ -124,4 +124,16 @@ test_that("force_tz handles various date-time classes", {
 })
 
 
-###### Note fix decimal.date #########
+test_that("decimal_date works as expected",{
+	x <- as.POSIXct("2008-08-03 10:01:59")
+	
+	expect_that(decimal_date(x), equals(2008.58846))
+})
+
+test_that("decimal_date works handles vectors",{
+	x <- c(as.POSIXct("2008-08-03 13:01:59"), 
+		as.POSIXct("2009-08-03 10:01:59"))
+	
+	expect_that(decimal_date(x), equals(c(2008.58846, 2009.5873325))
+	
+})
