@@ -149,11 +149,11 @@ decimal_date.default <- function(date){
   if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
     stop("date(s) not in POSIXt or Date format")
   
-  decimal <- difftime(date, floor_date(date, "year"), units = 
-  	"secs")/difftime(date, ceiling_date(date, "year"), units = 
-  	"secs")
+decimal <- as.numeric(difftime(date, floor_date(date, "year"), 
+	units = "secs"))/as.numeric(difftime(ceiling_date(date, 
+	"year"), floor_date(date, "year"), units = "secs"))
   
-  year(date) + decimal
+  	year(date) + decimal
 }
 
 decimal_date.zoo <- function(date)
