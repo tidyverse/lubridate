@@ -135,6 +135,9 @@ ms <- function(...) {
 	sep <- find_separator(dates)
 	
 	parts <- as.data.frame(str_split(dates, sep), stringsAsFactors = F)
+	
+	if(nrow(parts != 2)) stop("incorrect number of elements")
+	
 	new_period(minute = as.numeric(parts[1,]), 
 		second = as.numeric(parts[2,]))
 }
@@ -163,6 +166,9 @@ hm <- function(...) {
 	sep <- find_separator(dates)
 	
 	parts <- as.data.frame(str_split(dates, sep), stringsAsFactors = F)
+	
+	if(nrow(parts != 2)) stop("incorrect number of elements")
+	
 	new_period(hour = as.numeric(parts[1,]), 
 		minute = as.numeric(parts[2,]))
 }
@@ -190,6 +196,9 @@ hms <- function(...) {
 	sep <- find_separator(dates)
 	
 	parts <- as.data.frame(str_split(dates, sep), stringsAsFactors = F)
+	
+	if(nrow(parts != 3)) stop("incorrect number of elements")
+	
 	new_period(hour = as.numeric(parts[1,]), 
 		minute = as.numeric(parts[2,]), 
 		second = as.numeric(parts[3,]))
