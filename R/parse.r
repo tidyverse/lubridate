@@ -44,9 +44,17 @@ mdy <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), make_format("mdy"))
 }
+myd <- function(...) {
+  dates <- unlist(list(...))
+  parse_date(num_to_date(dates), make_format("myd"))
+}
 dmy <- function(...) {
   dates <- unlist(list(...))
   parse_date(num_to_date(dates), make_format("dmy"))
+}
+dym <- function(...) {
+  dates <- unlist(list(...))
+  parse_date(num_to_date(dates), make_format("dym"))
 }
 
 make_format <- function(order) {
