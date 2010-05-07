@@ -62,9 +62,20 @@ dst.default <- function(x)
 #'
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
-update.Date <- update.POSIXt <- function(x, years = year(x), 
-	months = month(x), days = mday(x), hours = hour(x), minutes = 
-	minute(x), seconds = second(x), tzs = attr(as.POSIXlt(x), 	"tzone")[1]){
+update.POSIXct <- function(x, years = year(x), 
+	months = month(x), days = mday(x), mdays = mday(x), ydays = 
+	yday(x), wdays = wday(x), hours = hour(x), minutes = 
+	minute(x), seconds = second(x), tzs = attr(as.POSIXlt(x), 
+	"tzone")[1]){
+		
+	day.change <- c(days - mday(x), mdays - mday(x), 
+		wdays - wday(x), ydays - yday(x))
+	
+	if(length(unique(day.change)) > 2) 
+		stop("conflicting days input")
+	
+	days <- sum(mday(x), unique(day.change)[unique(day.change) != 0], na.rm = T)
+	
 		
 	parts <- data.frame(years, months, days, hours, minutes, seconds)
 	
@@ -80,6 +91,37 @@ update.Date <- update.POSIXt <- function(x, years = year(x),
 
 	utc <- as.POSIXct(utc)
 	force_tz(utc, tz = tzs)
+}
+
+update.Date <- function(x, years = year(x), months = month(x), 
+	days = mday(x), mdays = mday(x), ydays = yday(x), wdays = 
+	wday(x), hours = hour(x), minutes = minute(x), seconds = 
+	second(x), tzs = attr(as.POSIXlt(x), "tzone")[1]){
+		
+	time.change <- c(hours - hour(x), minutes - minute(x), 
+		seconds - second(x))	
+		
+	if(sum(time.change) != 0){
+		return(update(with_tz(as.POSIXct(x), "UTC"), years = 
+		years, months = months, days = days, mdays = mdays, ydays 
+		= ydays, wdays = wdays, hours = hours, minutes = minutes, 
+		seconds = seconds, tzs = tzs))
+	}
+		
+	as.Date(update(with_tz(as.POSIXct(x), "UTC"), years = years, 
+		months = months, days = days, mdays = mdays, ydays = 
+		ydays, wdays = wdays, hours = hours, minutes = minutes, 
+		seconds = seconds, tzs = tzs))
+}
+
+update.POSIXlt <- function(x, years = year(x), months = month(x), 
+	days = mday(x), mdays = mday(x), ydays = yday(x), wdays = 
+	wday(x), hours = hour(x), minutes = minute(x), seconds = 
+	second(x), tzs = attr(as.POSIXlt(x), "tzone")[1]){		
+	as.POSIXlt(update(as.POSIXct(x), years = years, months = 
+		months, days = days, mdays = mdays, ydays = ydays, wdays = 
+		wdays, hours = hours, minutes = minutes, seconds = 
+		seconds, tzs = tzs))
 }
 
 

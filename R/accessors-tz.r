@@ -37,7 +37,7 @@ tz <- function (x)
 
 tz.default <- function(x) {
   if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
-    return("GMT")
+    return("UTC")
   tzs <- attr(as.POSIXlt(x),"tzone")
   tzs[1]
 }
