@@ -91,8 +91,11 @@ pm <- function(x) !am(x)
 #' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
 #' with_tz(x, "GMT")
 #' # "2009-08-07 05:00:00 GMT"
-with_tz <- function (time, tzone = "") 
-  as.POSIXct(format(as.POSIXct(time), tz = tzone), tz = tzone)
+with_tz <- function (time, tzone = ""){
+  new <- as.POSIXct(format(as.POSIXct(time), tz = tzone), 
+  	tz = tzone)
+  reclass_date(new, time)
+}
 
 #' Replace time zone to create new date-time
 #' 
@@ -111,10 +114,13 @@ with_tz <- function (time, tzone = "")
 #' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
 #' force_tz(x, "GMT")
 #' # "2009-08-07 00:00:00 GMT"
-force_tz <- function(x, tz = ""){
-	x <- as.POSIXlt(x)
-	ISOdatetime(year(x),  month(x), mday(x), hour(x), minute(x), 		second(x), tz)
+force_tz <- function(time, tz = ""){
+	x <- as.POSIXlt(time)
+	new <- ISOdatetime(year(x),  month(x), mday(x), hour(x),
+		minute(x), second(x), tz)
+	 reclass_date(new, time)
 }
+
 
 # Note: alternative method? as.POSIXlt(format(as.POSIXct(x)), tz = tz)
 

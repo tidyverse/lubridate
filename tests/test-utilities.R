@@ -21,22 +21,24 @@ test_that("leap.year handles vectors",{
 	x <- c(as.POSIXct("2008-08-03 12:01:59"), 
 		as.POSIXct("2009-08-03 12:01:59"))
 	
-	expect_that(leap.year(x), is_true_false())
-	expect_that(leap.year(as.Date(x)), is_true_false())
+	expect_that(leap.year(x)[1], is_true())
+	expect_that(leap.year(x)[2], is_false())
+	expect_that(leap.year(as.Date(x))[1], is_true())
+	expect_that(leap.year(as.Date(x))[2], is_false())
 })
 
 test_that("leap.year handles various classes of date-time object",{
 	x <- c(as.POSIXct("2008-08-03 12:01:59"), 
 		as.POSIXct("2009-08-03 12:01:59"))
 	
-	expect_that(leap.year(x), is_true_false())
-	expect_that(leap.year(as.Date(x)), is_true_false())
-	expect_that(leap.year(as.POSIXlt(x)), is_true_false())
+	expect_that(leap.year(x)[1], is_true())
+	expect_that(leap.year(x)[2], is_false())
+	expect_that(leap.year(as.Date(x))[1], is_true())
+	expect_that(leap.year(as.Date(x))[2], is_false())
+	expect_that(leap.year(as.POSIXlt(x))[1], is_true())
+	expect_that(leap.year(as.POSIXlt(x))[2], is_false())
 })
 
-test_that("now() works correctly",{
-	expect_that(now(), equals(Sys.time()))
-})
 
 test_that("now() handles time zone input correctly",{
 	expect_that(now("UTC"), equals(as.POSIXct(format(
@@ -64,17 +66,21 @@ test_that("am and pm handle vectors",{
 	y <- c(as.POSIXct("2009-08-03 10:01:59"), 
 		as.POSIXct("2008-08-03 13:01:59"))
 	
-	expect_that(pm(x), is_true_false())
-	expect_that(am(y), is_true_false())
+	expect_that(pm(x)[1], is_true())
+	expect_that(pm(x)[2], is_false())
+	expect_that(am(y)[1], is_true())
+	expect_that(am(y)[2], is_false())
 })
 
 test_that("am and pm handle various classes of date-time object",{
 	x <- c(as.POSIXct("2008-08-03 13:01:59"), 
 		as.POSIXct("2009-08-03 10:01:59"))
 	
-	expect_that(pm(x), is_true_false())
-	expect_that(pm(as.Date(x[1])), is_false())
-	expect_that(pm(as.POSIXlt(x)), is_true_false())
+	expect_that(pm(x)[1], is_true())
+	expect_that(pm(x)[2], is_false())
+	expect_that(pm(as.Date(x))[1], is_false())
+	expect_that(pm(as.POSIXlt(x))[1], is_true())
+	expect_that(pm(as.POSIXlt(x))[2], is_false())
 })
 
 
@@ -134,6 +140,6 @@ test_that("decimal_date works handles vectors",{
 	x <- c(as.POSIXct("2008-08-03 13:01:59"), 
 		as.POSIXct("2009-08-03 10:01:59"))
 	
-	expect_that(decimal_date(x), equals(c(2008.58846, 2009.5873325)))
+	expect_that(decimal_date(x), equals(c(2008.5888016, 2009.5873325)))
 	
 })
