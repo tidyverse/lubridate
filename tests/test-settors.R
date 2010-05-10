@@ -47,13 +47,13 @@ test_that("seconds settor rolls over as expected",{
 	expect_that(tz(posct), equals("UTC"))
 	
 	expect_that(second(date), equals(9))
-	expect_that(minute(date), equals(0))
+	expect_that(minute(date), equals(1))
 	expect_that(hour(date), equals(0))
-	expect_that(mday(date), equals(1))
-	expect_that(wday(date), equals(7))
-	expect_that(yday(date), equals(1))
-	expect_that(month(date), equals(1))
-	expect_that(year(date), equals(2011))
+	expect_that(mday(date), equals(31))
+	expect_that(wday(date), equals(6))
+	expect_that(yday(date), equals(365))
+	expect_that(month(date), equals(12))
+	expect_that(year(date), equals(2010))
 	expect_that(tz(date), equals("UTC"))
 
 })
@@ -70,7 +70,7 @@ test_that("seconds settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 	
 	second(poslt) <- 69
 	second(posct) <- 69
@@ -78,7 +78,7 @@ test_that("seconds settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -107,7 +107,7 @@ test_that("seconds settor retains object class",{
 	
 	second(poslt) <- 10
 	second(posct) <- 10
-	second(date) <- 10
+	day(date) <- 10
 	
 	expect_that(poslt, is_a("POSIXlt"))
 	expect_that(posct, is_a("POSIXct"))
@@ -115,7 +115,7 @@ test_that("seconds settor retains object class",{
 	
 	second(poslt) <- 70
 	second(posct) <- 70
-	second(date) <- 70
+	day(date) <- 32
 	
 	expect_that(poslt, is_a("POSIXlt"))
 	expect_that(posct, is_a("POSIXct"))
@@ -171,14 +171,14 @@ test_that("minutes settor rolls over as expected",{
 	expect_that(year(posct), equals(2011))
 	expect_that(tz(posct), equals("UTC"))
 	
-	expect_that(second(date), equals(59))
+	expect_that(second(date), equals(0))
 	expect_that(minute(date), equals(9))
-	expect_that(hour(date), equals(0))
-	expect_that(mday(date), equals(1))
-	expect_that(wday(date), equals(7))
-	expect_that(yday(date), equals(1))
-	expect_that(month(date), equals(1))
-	expect_that(year(date), equals(2011))
+	expect_that(hour(date), equals(1))
+	expect_that(mday(date), equals(31))
+	expect_that(wday(date), equals(6))
+	expect_that(yday(date), equals(365))
+	expect_that(month(date), equals(12))
+	expect_that(year(date), equals(2010))
 	expect_that(tz(date), equals("UTC"))
 
 })
@@ -195,7 +195,7 @@ test_that("minutes settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 	
 	minute(poslt) <- 70
 	minute(posct) <- 70
@@ -203,7 +203,7 @@ test_that("minutes settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -236,7 +236,7 @@ test_that("minutes settor retains object class",{
 	
 	expect_that("minute<-"(poslt, 1), is_a("POSIXlt"))
 	expect_that("minute<-"(posct, 1), is_a("POSIXct"))
-	expect_that("minute<-"(date, 1), is_a("Date"))
+	expect_that("minute<-"(date, 1), is_a("POSIXlt"))
 	
 	minute(poslt) <- 70
 	minute(posct) <- 70
@@ -244,7 +244,7 @@ test_that("minutes settor retains object class",{
 	
 	expect_that("minute<-"(poslt, 70), is_a("POSIXlt"))
 	expect_that("minute<-"(posct, 70), is_a("POSIXct"))
-	expect_that("minute<-"(date, 70), is_a("Date"))
+	expect_that("minute<-"(date, 70), is_a("POSIXlt"))
 
 })
 
@@ -294,13 +294,13 @@ test_that("hours settor rolls over as expected",{
 	expect_that(year(posct), equals(2011))
 	expect_that(tz(posct), equals("UTC"))
 	
-	expect_that(second(date), equals(59))
-	expect_that(minute(date), equals(59))
+	expect_that(second(date), equals(0))
+	expect_that(minute(date), equals(0))
 	expect_that(hour(date), equals(1))
 	expect_that(mday(date), equals(1))
 	expect_that(wday(date), equals(7))
 	expect_that(yday(date), equals(1))
-	expect_that(month(date), equals(1))
+	expect_that(month(date), equals(01))
 	expect_that(year(date), equals(2011))
 	expect_that(tz(date), equals("UTC"))
 
@@ -318,7 +318,7 @@ test_that("hours settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 	
 	hour(poslt) <- 70
 	hour(posct) <- 70
@@ -326,7 +326,7 @@ test_that("hours settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -359,7 +359,7 @@ test_that("hours settor retains object class",{
 	
 	expect_that(poslt, is_a("POSIXlt"))
 	expect_that(posct, is_a("POSIXct"))
-	expect_that(date, is_a("Date"))
+	expect_that(date, is_a("POSIXlt"))
 	
 	hour(poslt) <- 25
 	hour(posct) <- 25
@@ -367,7 +367,7 @@ test_that("hours settor retains object class",{
 	
 	expect_that(poslt, is_a("POSIXlt"))
 	expect_that(posct, is_a("POSIXct"))
-	expect_that(date, is_a("Date"))
+	expect_that(date, is_a("POSIXlt"))
 
 })
 
@@ -427,9 +427,9 @@ test_that("mdays settor rolls over as expected",{
 	expect_that(year(posct), equals(2011))
 	expect_that(tz(posct), equals("UTC"))
 	
-	expect_that(second(date), equals(59))
-	expect_that(minute(date), equals(59))
-	expect_that(hour(date), equals(23))
+	expect_that(second(date), equals(0))
+	expect_that(minute(date), equals(0))
+	expect_that(hour(date), equals(0))
 	expect_that(mday(date), equals(1))
 	expect_that(wday(date), equals(7))
 	expect_that(yday(date), equals(1))
@@ -451,7 +451,7 @@ test_that("mdays settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 	
 	mday(poslt) <- 32
 	mday(posct) <- 32
@@ -459,7 +459,7 @@ test_that("mdays settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -559,9 +559,9 @@ test_that("ydays settor rolls over as expected",{
 	expect_that(year(posct), equals(2011))
 	expect_that(tz(posct), equals("UTC"))
 	
-	expect_that(second(date), equals(59))
-	expect_that(minute(date), equals(59))
-	expect_that(hour(date), equals(23))
+	expect_that(second(date), equals(0))
+	expect_that(minute(date), equals(0))
+	expect_that(hour(date), equals(0))
 	expect_that(mday(date), equals(1))
 	expect_that(wday(date), equals(7))
 	expect_that(yday(date), equals(1))
@@ -583,7 +583,7 @@ test_that("ydays settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 	
 	yday(poslt) <- 366
 	yday(posct) <- 366
@@ -591,7 +591,7 @@ test_that("ydays settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -656,9 +656,9 @@ test_that("wdays settor correctly performs simple updates",{
 	expect_that(mday(posct), equals(4))
 	expect_that(mday(date), equals(4))
 	
-	expect_that(mday(poslt), equals(35))
-	expect_that(mday(posct), equals(35))
-	expect_that(mday(date), equals(35))
+	expect_that(mday(poslt), equals(4))
+	expect_that(mday(posct), equals(4))
+	expect_that(mday(date), equals(4))
 
 })
 
@@ -692,9 +692,9 @@ test_that("wdays settor rolls over as expected",{
 	expect_that(year(posct), equals(2011))
 	expect_that(tz(posct), equals("UTC"))
 	
-	expect_that(second(date), equals(59))
-	expect_that(minute(date), equals(59))
-	expect_that(hour(date), equals(23))
+	expect_that(second(date), equals(0))
+	expect_that(minute(date), equals(0))
+	expect_that(hour(date), equals(0))
 	expect_that(mday(date), equals(2))
 	expect_that(wday(date), equals(1))
 	expect_that(yday(date), equals(2))
@@ -716,7 +716,7 @@ test_that("wdays settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 	
 	wday(poslt) <- 8
 	wday(posct) <- 8
@@ -724,7 +724,7 @@ test_that("wdays settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -815,9 +815,9 @@ test_that("months settor rolls over as expected",{
 	expect_that(year(posct), equals(2011))
 	expect_that(tz(posct), equals("UTC"))
 	
-	expect_that(second(date), equals(59))
-	expect_that(minute(date), equals(59))
-	expect_that(hour(date), equals(23))
+	expect_that(second(date), equals(0))
+	expect_that(minute(date), equals(0))
+	expect_that(hour(date), equals(0))
 	expect_that(mday(date), equals(31))
 	expect_that(wday(date), equals(2))
 	expect_that(yday(date), equals(31))
@@ -839,7 +839,7 @@ test_that("months settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 	
     month(poslt) <- 13
 	month(posct) <- 13
@@ -847,7 +847,7 @@ test_that("months settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -903,9 +903,9 @@ test_that("years settor correctly performs simple updates",{
 	year(posct) <- 2000
 	year(date) <- 2000
 	
-	expect_that(month(poslt), equals(2000))
-	expect_that(month(posct), equals(2000))
-	expect_that(month(date), equals(2000))
+	expect_that(year(poslt), equals(2000))
+	expect_that(year(posct), equals(2000))
+	expect_that(year(date), equals(2000))
 })
 
 
@@ -921,7 +921,7 @@ test_that("years settor does not change time zone",{
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))
-	expect_that(tz(date), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -968,11 +968,11 @@ test_that("time zone settor correctly performs simple updates",{
 	
 	tz(poslt) <- "GMT"
 	tz(posct) <- "GMT"
-	tz(date) <- "GMT"
+	tz(date) <- "GMT" # dates do not have a tz attribute
 	
-	expect_that(month(poslt), matches("GMT"))
-	expect_that(month(posct), matches("GMT"))
-	expect_that(month(date), matches("GMT"))
+	expect_that(tz(poslt), matches("GMT"))
+	expect_that(tz(posct), matches("GMT"))
+	expect_that(tz(date), matches("UTC"))
 })
 	
 
@@ -1090,7 +1090,7 @@ test_that("settors handle vectors",{
 	
 	tz(poslt) <- "GMT"
 	tz(posct) <- "GMT"
-	tz(date) <- "GMT"
+	tz(date) <- "GMT" # date has been made POSIXlt with sec, etc
 	
 	expect_that(tz(poslt), matches("GMT"))
 	expect_that(tz(posct), matches("GMT"))

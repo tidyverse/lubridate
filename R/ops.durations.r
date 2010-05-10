@@ -25,6 +25,9 @@ add_period_to_date <- function(date, period){
 			minutes = minute(date) + period$minute,
 			seconds = second(date) + period$second
 			)
+	if (is.Date(date) & sum(new$sec, new$min, new$hour, na.rm = T) != 0)
+	return(new)	
+	
 	reclass_date(new, date)
 }
 
