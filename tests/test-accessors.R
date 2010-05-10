@@ -8,7 +8,7 @@ test_that("seconds accessor extracts correct second",{
 	
 	expect_that(second(poslt), equals(59))
 	expect_that(second(posct), equals(59))
-	expect_that(second(date), equals(59))
+	expect_that(second(date), equals(0))
 
 })
 
@@ -20,7 +20,7 @@ test_that("minutes accessor extracts correct minute",{
 	
 	expect_that(minute(poslt), equals(45))
 	expect_that(minute(posct), equals(45))
-	expect_that(minute(date), equals(45))
+	expect_that(minute(date), equals(0))
 
 })
 
@@ -32,7 +32,7 @@ test_that("hours accessor extracts correct hour",{
 	
 	expect_that(hour(poslt), equals(13))
 	expect_that(hour(posct), equals(13))
-	expect_that(hour(date), equals(13))
+	expect_that(hour(date), equals(0))
 
 })
 
@@ -109,32 +109,31 @@ test_that("timezone accessor extracts correct timezone",{
 
 
 test_that("accessors handle vectors",{ 
-	poslt <- c(as.POSIXlt("2001-01-01 01:01:01", tz = "UTC", format =
-		"%Y-%m-%d %H:%M:%S"), as.POSIXlt("2002-02-02 02:02:02", tz = 
-		"UTC", format = "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2003-03-03 
-		03:03:03", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
+	poslt <- as.POSIXlt(c("2001-01-01 01:01:01", 
+		"2002-02-02 02:02:02", "2003-03-03 03:03:03"), 
+		tz = "UTC", format = "%Y-%m-%d %H:%M:%S") 
 	posct <- as.POSIXct(poslt)
 	date <- as.Date(poslt)
 	
 	expect_that(second(poslt), equals(c(1,2,3)))
 	expect_that(second(posct), equals(c(1,2,3)))
-	expect_that(second(date), equals(c(1,2,3)))
+	expect_that(second(date), equals(c(0,0,0)))
 	
 	expect_that(minute(poslt), equals(c(1,2,3)))
 	expect_that(minute(posct), equals(c(1,2,3)))
-	expect_that(minute(date), equals(c(1,2,3)))
+	expect_that(minute(date), equals(c(0,0,0)))
 	
 	expect_that(hour(poslt), equals(c(1,2,3)))
 	expect_that(hour(posct), equals(c(1,2,3)))
-	expect_that(hour(date), equals(c(1,2,3)))
+	expect_that(hour(date), equals(c(0,0,0)))
 	
 	expect_that(mday(poslt), equals(c(1,2,3)))
 	expect_that(mday(posct), equals(c(1,2,3)))
 	expect_that(mday(date), equals(c(1,2,3)))
 	
-	expect_that(wday(poslt), equals(c(1,6,1)))
-	expect_that(wday(posct), equals(c(1,6,1)))
-	expect_that(wday(date), equals(c(1,6,1)))
+	expect_that(wday(poslt), equals(c(2,7,2)))
+	expect_that(wday(posct), equals(c(2,7,2)))
+	expect_that(wday(date), equals(c(2,7,2)))
 	
 	expect_that(yday(poslt), equals(c(1,33,62)))
 	expect_that(yday(posct), equals(c(1,33,62)))
