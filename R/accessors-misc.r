@@ -68,13 +68,20 @@ update.POSIXct <- function(x, years = year(x),
 	minute(x), seconds = second(x), tzs = attr(as.POSIXlt(x), 
 	"tzone")[1]){
 		
-	day.change <- c(days - mday(x), mdays - mday(x), 
-		wdays - wday(x), ydays - yday(x))
+	d.length <- max(length(days), length(mdays), length(ydays), length(wdays), length(mday(x)))
+	d.length2 <- min(length(days), length(mdays), length(ydays), length(wdays), length(mday(x)))
 	
-	if(length(unique(day.change)) > 2) 
+	if(d.length %% d.length2 != 0){
+		stop(paste("arguments imply differing day lengths: ", 
+			d.length, ", ", d.length2, sep = ""))
+	}
+		
+	day.change <- rbind(days - mday(x), mdays - mday(x), wdays - wday(x), ydays - yday(x))
+	
+	if(nrow(unique(day.change)) > 2) 
 		stop("conflicting days input")
 	
-	days <- sum(mday(x), unique(day.change)[unique(day.change) != 0], na.rm = T)
+	days <- colSums(rbind(mday(x), unique(day.change)[unique(day.change) != 0]), na.rm = T)
 	
 		
 	parts <- data.frame(years, months, days, hours, minutes, seconds)
