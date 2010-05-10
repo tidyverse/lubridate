@@ -6,6 +6,7 @@ test_that("new_interval works as expected", {
 	test.list <- structure(list(start = as.POSIXct("2008-08-03 
 		13:01:59"), end = as.POSIXct("2009-08-03 13:01:59")),
 		class = c("interval", "data.frame"))
+	attr(test.list, "row.names") <- 1L
 		
 	expect_that(int, equals(test.list))
 	expect_that(class(int)[1], matches("interval"))
@@ -51,6 +52,5 @@ test_that("as.interval handles vector input", {
 		equals(new_interval(c(a,b), c(a,b) + days(1:2))))
 	expect_that(as.interval(days(1), c(a,b)), 
 		equals(new_interval(c(a,b), c(a,b) + days(1))))
-	expect_that(as.interval(c(days(1), minutes(1)), a), 
-		equals(new_interval(a, a + c(days(1), minutes(1)))))
+
 })
