@@ -194,7 +194,7 @@ as.duration <- function(x)
   
 
 as.duration.period <- function(per){
-  if (per$month != 0)
+  if (any(per$month != 0))
     stop("durations cannot estimate month length")
   all <- per$second +
     per$minute * 60 +
@@ -204,6 +204,9 @@ as.duration.period <- function(per){
   
   make_difftime(all)
 }
+
+as.duration.difftime <- function(dift)
+	make_difftime(as.numeric(dift, "secs"))
   
 as.duration.interval <- function(x)
   difftime(x$end, x$start)

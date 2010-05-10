@@ -2,24 +2,30 @@ context("durations tests")
 
 test_that("new_duration works as expected",{
 	x <- as.POSIXct("2008-08-03 13:01:59")
+	y <- difftime(x + 5 + 30*60 + 60*60 + 14*24*60*60, x, tz = "UTC", units = "weeks")
+	attr(y, "tzone") <- NULL
 	
-	expect_that(new_duration(seconds = 5, minutes = 30, days = 0, hour = 1, weeks = 2),
-		equals(difftime(x + 5 + 30*60 + 60*60 + 14*24*60*60, x)))
+	expect_that(new_duration(seconds = 5, minutes = 30, days = 0, 
+		hour = 1, weeks = 2), equals(y))
 })
 
 test_that("new_duration handles vectors",{
 	x <- c(as.POSIXct("2008-08-03 13:01:59"), 
 		as.POSIXct("2008-08-03 13:01:59"))
+	y <- difftime(x + c(5 + 30*60 + 60*60 + 14*24*60*60, 
+		1 + 3*24*60*60 + 60*60), x, tz = "UTC")
+	attr(y, "tzone") <- NULL
+	z <- difftime(x + c(5 + 30*60 + 60*60 + 14*24*60*60, 5 + 
+		30*60 + 60*60 + 14*24*60*60 + 3*24*60*60), x, tz = "UTC", units = "weeks")
+	attr(z, "tzone") <- NULL
+		
 	
 	expect_that(new_duration(seconds = c(5, 1), minutes = c(30,
 		0), days = c(0, 3), hour = c(1,1), weeks = c(2, 0)),
-		equals(difftime(x + c(5 + 30*60 + 60*60 + 14*24*60*60, 
-		1 + 3*24*60*60 + 60*60), x)))
+		equals(y))
 		
 	expect_that(new_duration(seconds = 5, minutes = 30, days = 
-		c(0, 3), hour = 1, weeks = 2), equals(difftime(x + 
-		c(5 + 30*60 + 60*60 + 14*24*60*60, 5 + 30*60 + 60*60 + 
-		14*24*60*60 + 3*24*60*60), x)))
+		c(0, 3), hour = 1, weeks = 2), equals(z))
 
 })
 
@@ -36,7 +42,7 @@ test_that("as.duration handles periods",{
 	expect_that(as.duration(hours(3)), equals(ehours(3)))
 	expect_that(as.duration(days(4)), equals(edays(4)))
 	expect_that(as.duration(weeks(5)), equals(eweeks(5)))
-	expect_that(as.duration(years(1)), equals(weeks(52.14286)))
+	expect_that(as.duration(years(1)), equals(eseconds(60*60*24*365)))
 	expect_that(as.duration(seconds(1) + minutes(4)), equals(eseconds(1) + eminutes(4)))
 })
 
@@ -53,11 +59,12 @@ test_that("as.duration handles intervals",{
 })
 
 test_that("as.duration handles difftimes",{
-	expect_that(as.duration(difftime(
-		as.POSIXct("2010-02-03 14:31:42"), 
-		as.POSIXct("2009-01-02 12:24:03"))), 
-		equals(difftime(as.POSIXct("2010-02-03 14:31:42"),
-		as.POSIXct("2009-01-02 12:24:03"))))
+	x <- difftime(as.POSIXct("2010-02-03 14:31:42"),
+		as.POSIXct("2009-01-02 12:24:03"), tz = "UTC", units = 
+		"weeks" )
+	attr(x, "tzone") <- NULL
+	
+	expect_that(as.duration(x), equals(x))
 })
 
 
@@ -78,7 +85,7 @@ test_that("is.instant/is.timepoint works as expected",{
 	expect_that(is.instant(minutes(1)), is_false())
 	expect_that(is.timespan(new_interval(
 		as.POSIXct("2008-08-03 13:01:59"), 
-		as.POSIXct("2009-08-03 13:01:59") )), is_false())
+		as.POSIXct("2009-08-03 13:01:59") )), is_true())
 })
 
 test_that("is.instant/is.timepoint handle vectors",{
