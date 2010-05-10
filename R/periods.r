@@ -40,8 +40,6 @@
 #' # 0 seconds
 new_period <- function(...) {
   pieces <- data.frame(...)
-  if(any(trunc(pieces) - pieces != 0))
-    stop("periods must have integer values", call. = FALSE)
     
   names(pieces) <- standardise_date_names(names(pieces))
   defaults <- data.frame(
@@ -54,6 +52,9 @@ new_period <- function(...) {
   
   pieces$day <- pieces$day + pieces$week * 7
   pieces <- pieces[,-3]
+  
+  if(any(trunc(pieces[,1:5]) - pieces[,1:5] != 0))
+    stop("periods must have integer values", call. = FALSE)
   
   structure(pieces, class = c("period", "data.frame"))
 }

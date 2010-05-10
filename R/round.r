@@ -32,13 +32,13 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
   options(DST = "relative")
   
   new <- switch(unit,
-    second = update.Date(x, second = floor(second(x))),
-    minute = update.Date(x, second = 0),
-    hour =   update.Date(x, minute = 0, second = 0),
-    day =    update.Date(x, hour = 0, minute = 0, second = 0),
-    week =   update.Date(x, wday = 1, hour = 0, minute = 0, second = 0),
-    month =  update.Date(x, mday = 1, hour = 0, minute = 0, second = 0),
-    year =   update.Date(x, yday = 1, hour = 0, minute = 0, second = 0)
+    second = update(x, second = floor(second(x))),
+    minute = update(x, second = 0),
+    hour =   update(x, minute = 0, second = 0),
+    day =    update(x, hour = 0, minute = 0, second = 0),
+    week =   update(x, wday = 1, hour = 0, minute = 0, second = 0),
+    month =  update(x, mday = 1, hour = 0, minute = 0, second = 0),
+    year =   update(x, yday = 1, hour = 0, minute = 0, second = 0)
   )
   options(DST = keep)
   new
@@ -124,11 +124,15 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 round_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
   unit <- match.arg(unit)
   
-  below <- floor_date(x, unit)
-  above <- ceiling_date(x, unit)
+  below <- as.POSIXct(floor_date(x, unit))
+  above <- as.POSIXct(ceiling_date(x, unit))
 
   smaller <- difftime(x, below, "secs") < difftime(above, x, "secs")
-  structure(ifelse(smaller, below, above), class= class(x))
+  new <- structure(ifelse(smaller, below, above), class = class(below))
+  
+  attr(new, "tzone") <- tz(x)
+  
+  reclass_date(new, x)
 }
 
 #' Internal function. Parse date time unit specification
