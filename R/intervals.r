@@ -41,7 +41,7 @@
 #' # 211.9583 days beginning at 2009-01-01
 #'
 #' span$start
-#' # "2009-01-01 CST"
+#' # "2009-01-01 CST"make
 #' span$end
 #' # "2009-02-01 CST"
 new_interval <- function(date1, date2){
