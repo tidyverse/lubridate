@@ -54,7 +54,7 @@ test_that("as.period handles vectors", {
 		
 	dur <- new_duration(seconds = 5, minutes = c(30,59))
 		
-	expect_that(as.period(int, units = "seconds"), equals(years(1:2)))
+	expect_that(as.period(int), equals(years(1:2)))
 	expect_that(as.period(dur), equals(seconds(5) + 
 		minutes(c(30,59))))
 })

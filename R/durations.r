@@ -209,7 +209,7 @@ as.duration.difftime <- function(dift)
 	make_difftime(as.numeric(dift, "secs"))
   
 as.duration.interval <- function(x)
-  difftime(x$end, x$start)
+  make_difftime(as.numeric(x$end) - as.numeric(x$start))
 
 as.duration.default <- function(x)
   make_difftime(x)

@@ -53,9 +53,12 @@ test_that("as.duration gives error for months",{
 test_that("as.duration handles intervals",{
 	int <- new_interval(as.POSIXct("2009-01-02 12:24:03"), 
 		as.POSIXct("2010-02-03 14:31:42"))
-	expect_that(as.duration(int), 
-		equals(difftime(as.POSIXct("2010-02-03 14:31:42"),
-		as.POSIXct("2009-01-02 12:24:03"))))
+	y <- difftime(as.POSIXct("2010-02-03 14:31:42"),
+		as.POSIXct("2009-01-02 12:24:03"), tz = "UTC", units = 
+		"weeks")
+	attr(y, "tzone") <- NULL
+	
+	expect_that(as.duration(int), equals(y))
 })
 
 test_that("as.duration handles difftimes",{

@@ -228,27 +228,23 @@ as.period.default <- function(x, units = c("seconds"), ...){
   f(x)
 }
 
-as.period.interval <- function(x, units = c("year", "month", "day", "hour", "minute", "seconds"), ...){
-  units <- standardise_date_names(units)
-  newper <- new_period(second = 0)
-  
-  for(i in 1:length(units)){
-    start <- x$start + newper
-    name <- match(units[i], names(newper))
-    f <- match.fun(units[i])
-    newper[1,name] <- f(x$end) - f(start)
-  }
+as.period.interval <- function(x){
+	start <- as.POSIXlt(x$start)
+	end <- as.POSIXlt(x$end)
 
-  remainder <- as.double(difftime(x$end, x$start + newper), "secs")
-  newper$second <- newper$second + remainder
-newper
+	to.per <- as.data.frame(unclass(end)) - 
+		as.data.frame(unclass(start))
+		
+	names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
+	
+	new_period(to.per[,1:6])
 }
 
 as.period.difftime <- function(x, units= c("year", "day", "hour", "minute", "seconds")){
   units <- standardise_date_names(units)
   span <- as.double(x, "secs")
   remainder <- abs(span)
-  newper <- new_period(second = 0)
+  newper <- new_period(second = rep(0, length(x)))
   denominator <- c(second = 1, minute = 60, hour = 3600, day = (3600 * 24), year =  (3600 * 24 * 7 * 365))
   
   if ("month" %in% units) 
