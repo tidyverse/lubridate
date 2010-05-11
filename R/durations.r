@@ -315,6 +315,8 @@ is.timespan <- function(x) inherits(x,c("period", "difftime", "interval"))
 #' is.POSIXt(as.Date("2009-08-03")) # FALSE
 #' is.POSIXt(as.POSIXct("2009-08-03")) # TRUE
 is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
+is.POSIXlt <- function(x) inherits(x, "POSIXlt")
+is.POSIXct <- function(x) inherits(x, "POSIXct")
 
 #' Is x a duration (difftime) object?
 #'

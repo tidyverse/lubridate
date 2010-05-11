@@ -39,14 +39,16 @@ add_duration_to_date <- function(date, duration) {
       return(as.Date(ans))
     return(ans)
   }
-  base_add_POSIXt(date, duration)
+  new <- base_add_POSIXt(date, duration)
+  attr(new, "tzone") <- tz(date)
+  reclass_date(new, date)
 }
 
 add_interval_to_date <- function(date, interval){
-	if(all(as.POSIXct(interval$start) == as.POSIXct(date)))
-		interval$end
+	if(all(interval$start == with_tz(as.POSIXct(date), tz(interval$start))))
+		reclass_date(interval$end, date)
 	else
-		stop("interval$start does not match date")
+		stop("interval$start does not match date", call. = F)
 }
 
 add_number_to_duration <- function(dur, num)
@@ -64,9 +66,9 @@ add_period_to_period <- function(per1, per2){
   structure(per1 + per2, class = c("period", "data.frame"))
 }
   
-add_duration_to_period <- function(dur, per){
-  stop("incompatible time spans. See 'interval' documentation.")
-  # per + seconds(as.double(dur, "secs"))
+add_duration_to_period <- function(per, dur){
+	print("duration converted to seconds")
+	per + seconds(as.numeric(dur, "secs"))
 }
   
 add_duration_to_duration <- function(dur1, dur2)
@@ -103,6 +105,18 @@ add_interval_to_interval <- function(interval1, interval2){
 }
 
 
+add_number_to_posix <- function(e1, e2){
+      if(is.POSIXct(e1)){
+      	return(structure(unclass(as.POSIXct(e1)) + e2, class = 
+      		c("POSIXt", "POSIXct")))
+      }
+      as.POSIXlt(structure(unclass(as.POSIXct(e1)) + e2, class = 		c("POSIXt", "POSIXct")))
+}
+
+add_number_to_date <- function(e1, e2)
+      structure(unclass(e1) + e2, class = "Date")
+
+
 add_dates <- function(e1, e2){
   
   if (is.instant(e1)) {
@@ -115,9 +129,9 @@ add_dates <- function(e1, e2){
     else if (is.difftime(e2)) 
       add_duration_to_date(e1, e2)
     else if (is.POSIXt(e1))
-      structure(unclass(as.POSIXct(e1)) + e2, class = c("POSIXt", "POSIXct"))
+      add_number_to_posix(e1, e2)
     else if (is.Date(e1))
-      structure(unclass(e1) + e2, class = "Date")
+      add_number_to_date(e1, e2)
     else{
       base::'+'(e1,e2)
       }
@@ -163,9 +177,9 @@ add_dates <- function(e1, e2){
   }
   else if (is.numeric(e1)) {
     if (is.POSIXt(e2))
-      structure(unclass(as.POSIXct(e2)) + e1, class = c("POSIXt", "POSIXct"))
+      add_number_to_posix(e2, e1)
     else if (is.Date(e1))
-      structure(unclass(e2) + e1, class = "Date")
+      add_number_to_date(e2, e1)
     else if (is.period(e2))
       add_number_to_period(e2, e1)
     else if (is.difftime(e2))
