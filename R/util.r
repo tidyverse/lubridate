@@ -116,10 +116,13 @@ with_tz <- function (time, tzone = ""){
 #' # "2009-08-07 00:00:00 GMT"
 force_tz <- function(time, tz = ""){
 	x <- as.POSIXlt(time)
+	
 	if(is.null(tz)) tz <- ""
 	new <- ISOdatetime(year(x),  month(x), mday(x), hour(x),
 		minute(x), second(x), tz)
-	 reclass_date(new, time)
+	new[hour(with_tz(new, tz)) != hour(time)] <- NA
+		
+	reclass_date(new, time)
 }
 
 
