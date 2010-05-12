@@ -61,9 +61,8 @@ add_number_to_period <- function(per, num){
 }
   
 add_period_to_period <- function(per1, per2){
-  class(per1) <- "data.frame" 
-  class(per2) <- "data.frame"
-  structure(per1 + per2, class = c("period", "data.frame"))
+  to.add <- suppressWarnings(cbind(per1,per2))
+  structure(to.add[,1:6] + to.add[,7:12], class = c("period", "data.frame"))
 }
   
 add_duration_to_period <- function(per, dur){
@@ -75,19 +74,16 @@ add_duration_to_duration <- function(dur1, dur2)
   make_difftime(as.double(dur1, "secs") + as.double(dur2, "secs"))
 
 add_duration_to_interval <- function(int, dur){
-  int$end <- int$end + dur
-  int
+  new_interval(int$start, int$end + dur)
 }
   
 add_period_to_interval <- function(int, per){
-  int$end <- int$end + per
-  int
+  new_interval(int$start, int$end + per)
 }
 
 add_number_to_interval <-function(int, num){
   message("numeric coerced to duration in seconds")
-  int$end <- int$end + as.duration(num)
-  int
+  new_interval(int$start, int$end + as.duration(num))
 }
 
 add_interval_to_interval <- function(interval1, interval2){
@@ -338,8 +334,14 @@ subtract_dates <- function(e1, e2){
     -1 * e1
   else if(is.instant(e1) && is.instant(e2))
     new_interval(e2, e1)
-  else if (is.POSIXt(e1) && !is.timespan(e2))
-    structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct"))
+  else if (is.POSIXct(e1) && !is.timespan(e2))
+    structure(unclass(e1) - e2, class = c("POSIXt", "POSIXct"))
+  else if (is.POSIXlt(e1) && !is.timespan(e2))
+    as.POSIXlt(structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct")))
+  else if (is.period(e1) && is.interval(e2))
+    stop("cannot subtract intervals from periods")
+  else if (is.duration(e1) && is.interval(e2))
+    stop("cannot subtract intervals from durations")
   else    
     e1  + (-1 * e2)
 }
