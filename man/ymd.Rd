@@ -1,9 +1,10 @@
 \name{ymd}
-\title{Parse dates according to the order year, month, and day appears...}
+\title{Parse dates according to the order that year, month, and day elements appear...}
 \usage{ymd(...)}
 
 \description{
-  Parse dates according to the order year, month, and day appears
+  Parse dates according to the order that year, month, and day elements
+  appear
 }
 
 \details{
@@ -14,6 +15,10 @@
   Users should choose the function that models the order in which
   year(y), month(m), and date(d) appear in the dates. All inputed dates
   are considered to have the same order and the same separators.
+
+  ymd() type functions automatically assign the Universal Coordinated
+  Time Zone (UTC) to the parsed dates. This time zone can be changed
+  with \code{\link{force_tz}}.
 }
 \alias{ymd}
 \alias{myd}
@@ -29,14 +34,14 @@
 }
 \examples{x <- c("09-01-01", "09-01-02", "09-01-03")
 ymd(x)
-# "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
+# "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 z <- c("2009-01-01", "2009-01-02", "2009-01-03")
 ymd(z)
-# "2009-01-01 GMT" "2009-01-02 GMT" "2009-01-03 GMT"
+# "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 ymd(090101)
-# "2009-01-01 GMT"
+# "2009-01-01 UTC"
 ymd(90101)
-# "2009-01-01 GMT"
+# "2009-01-01 UTC"
 now() > ymd(20090101) 
 # TRUE
 dmy(010210)

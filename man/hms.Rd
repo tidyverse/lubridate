@@ -1,29 +1,27 @@
 \name{hms}
 \alias{hms}
-\title{Create a date-time with the specified hours, minutes, and seconds...}
+\title{Create a period with the specified hours, minutes, and seconds...}
 \usage{hms(...)}
 
 \description{
-  Create a date-time with the specified hours, minutes, and seconds
+  Create a period with the specified hours, minutes, and seconds
 }
 
 \details{
-  Transforms a numeric or character string into a POSIXct object with
-  the current date and the specified number of hours, minutes, and
-  seconds. hms recognizes ":" and "" (i.e., no separator) as
-  separators. Hours, minutes, and seconds should be written as a two
-  digit integers (00-23)(00-59)(00-59).
+  Transforms a character string into a period object with the specified
+  number of hours, minutes, and seconds. hms() recognizes all
+  non-alphanumeric separators of length 1 with the exception of ".".
 }
-\value{a vector of POSIXct date-time objects}
-\seealso{\code{\link{hm}}}
-\keyword{chron}
+\value{a vector of period objects}
+\seealso{\code{\link{hm}, \link{ms}}}
+\keyword{period}
 \arguments{
-  \item{...}{a character or numeric vector of hour minute pairs}
+  \item{...}{a character vector of hour minute second triples}
 }
 \examples{x <- c("09:10:01", "09:10:02", "09:10:03")
 hms(x)
-# "2009-08-04 09:10:01 GMT" "2009-08-04 09:10:02 GMT" "2009-08-04 09:10:03 GMT"
-hms("070605")
-# "2009-08-04 07:06:05 GMT"
-hms(070605)
-# "2009-08-04 07:06:05 GMT"}
+# [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
+hms("7 6 5")
+# [1] 7 hours, 6 minutes and 5 seconds
+hms("7,6,5")
+# [1] 7 hours, 6 minutes and 5 seconds}

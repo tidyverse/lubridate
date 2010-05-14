@@ -1,7 +1,6 @@
 \name{today}
 \alias{today}
 \title{The current date...}
-\usage{today(tzone="")}
 
 \description{
   The current date

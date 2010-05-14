@@ -1,6 +1,6 @@
 \name{subtraction}
 \title{Subtraction for the duration (i...}
-\usage{-.period(e1, e2)}
+\usage{subtract_dates(e1, e2)}
 
 \description{
   Subtraction for the duration (i.e, difftime), period, and interval
