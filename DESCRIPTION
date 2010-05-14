@@ -6,7 +6,7 @@ Author: Hadley Wickham <h.wickham@gmail.com>, Garrett Grolemund
     <grolemund@rice.edu>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description:
-Depends: R (>= 2.8), plyr
+Depends: R (>= 2.8), plyr, stringr
 Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries, fts, tseries
 License: GPL
 LazyData: true
