@@ -1,4 +1,4 @@
-context("parse tests")
+context("Parsing")
 
 test_that("ymd functions correctly parse dates separated by -", {
 

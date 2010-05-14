@@ -1,4 +1,4 @@
-context("durations tests")
+context("Durations")
 
 test_that("new_duration works as expected",{
 	x <- as.POSIXct("2008-08-03 13:01:59")

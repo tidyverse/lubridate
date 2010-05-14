@@ -1,4 +1,4 @@
-context("Daylight savings times tests")
+context("Daylight savings times")
 
 test_that("force_tz returns NA for a time that falls in the spring gap",{
 	x <- as.POSIXct("2010-03-14 02:05:05", tz = "UTC")

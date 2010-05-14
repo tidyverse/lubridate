@@ -1,4 +1,4 @@
-context("periods tests")
+context("Periods")
 
 test_that("new_period works as expected", {
 	per <- new_period(second = 90, minute = 5)

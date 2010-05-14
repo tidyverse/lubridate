@@ -1,4 +1,4 @@
-context("utilities tests")
+context("Utilities")
 
 test_that("leap.year correctly identifies leap years",{
 	x <- as.POSIXct("2009-08-03 12:01:59")

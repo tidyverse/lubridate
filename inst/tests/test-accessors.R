@@ -1,4 +1,4 @@
-context("accessor tests")
+context("Accessors")
 
 test_that("seconds accessor extracts correct second",{
 	poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format

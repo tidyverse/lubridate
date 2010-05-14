@@ -1,4 +1,4 @@
-context("rounding tests")
+context("Rounding")
 
 test_that("floor_date works for each time element",{
 	x <- as.POSIXct("2009-08-03 12:01:59.23")

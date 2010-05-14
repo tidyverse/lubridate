@@ -1,4 +1,4 @@
-context("intervals tests")
+context("Intervals")
 
 test_that("new_interval works as expected", {
 	int <- new_interval(as.POSIXct("2008-08-03 13:01:59"), 

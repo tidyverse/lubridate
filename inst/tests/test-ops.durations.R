@@ -1,4 +1,4 @@
-context("ops.durations tests")
+context("Duration operators")
 
 test_that("addition handles daylight savings time", {
 	x <- as.POSIXct("2010-03-14 00:00:00")
