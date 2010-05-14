@@ -4,18 +4,18 @@ base_add_POSIXt <- base::'+.POSIXt'
   packageStartupMessage(
     "Overriding + and - methods for POSIXt, Date and difftime")
 
-  assignInNamespace("+.Date",     add_dates, "base")
-  assignInNamespace("+.POSIXt",   add_dates, "base")
-  assignInNamespace("+.difftime", add_dates, "base")
-  assignInNamespace("-.Date",     subtract_dates, "base")
-  assignInNamespace("-.POSIXt",   subtract_dates, "base")
-  assignInNamespace("-.difftime", subtract_dates, "base")
+  utils::assignInNamespace("+.Date",     add_dates, "base")
+  utils::assignInNamespace("+.POSIXt",   add_dates, "base")
+  utils::assignInNamespace("+.difftime", add_dates, "base")
+  utils::assignInNamespace("-.Date",     subtract_dates, "base")
+  utils::assignInNamespace("-.POSIXt",   subtract_dates, "base")
+  utils::assignInNamespace("-.difftime", subtract_dates, "base")
 
   # Needed so that environment matches environment of add_dates above
-  assignInNamespace("+.period",   add_dates, "base")
-  assignInNamespace("+.interval", add_dates, "base")
-  assignInNamespace("-.period",   subtract_dates, "base")
-  assignInNamespace("-.interval", subtract_dates, "base")
+  utils::assignInNamespace("+.period",   add_dates, "base")
+  utils::assignInNamespace("+.interval", add_dates, "base")
+  utils::assignInNamespace("-.period",   subtract_dates, "base")
+  utils::assignInNamespace("-.interval", subtract_dates, "base")
 }
 
 "+.period" <- "+.interval" <- add_dates
