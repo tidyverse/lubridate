@@ -1,0 +1,82 @@
+\begin{thebibliography}{11}
+\newcommand{\enquote}[1]{``#1''}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{Armstrong(2009)}]{fts}
+Armstrong W (2009).
+\newblock \emph{fts: R interface to tslib (a time series library in c++)}.
+\newblock R package version 0.7.6,
+  \urlprefix\url{http://CRAN.R-project.org/package=fts}.
+
+\bibitem[{Group and Securities(2009)}]{its}
+Group PRA, Securities C (2009).
+\newblock \emph{its: Irregular Time Series}.
+\newblock R package version 1.1.8,
+  \urlprefix\url{http://CRAN.R-project.org/package=its}.
+
+\bibitem[{Hallman(2010)}]{tis}
+Hallman J (2010).
+\newblock \emph{tis: Time Indexes and Time Indexed Series}.
+\newblock R package version 1.12,
+  \urlprefix\url{http://CRAN.R-project.org/package=tis}.
+
+\bibitem[{James and Hornik(2010)}]{chron}
+James D, Hornik K (2010).
+\newblock \emph{chron: Chronological Objects which Can Handle Dates and Times}.
+\newblock R package version 2.3-35. S original by David James, R port by Kurt
+  Hornik., \urlprefix\url{http://CRAN.R-project.org/package=chron}.
+
+\bibitem[{{R Development Core Team}(2010)}]{R}
+{R Development Core Team} (2010).
+\newblock \emph{R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+\newblock {ISBN} 3-900051-07-0, \urlprefix\url{http://www.R-project.org}.
+
+\bibitem[{Ryan and Ulrich(2010)}]{xts}
+Ryan JA, Ulrich JM (2010).
+\newblock \emph{xts: Extensible Time Series}.
+\newblock R package version 0.7-1,
+  \urlprefix\url{http://CRAN.R-project.org/package=xts}.
+
+\bibitem[{Trapletti and Hornik(2009)}]{tseries}
+Trapletti A, Hornik K (2009).
+\newblock \emph{tseries: Time Series Analysis and Computational Finance}.
+\newblock R package version 0.10-22.,
+  \urlprefix\url{http://CRAN.R-project.org/package=tseries}.
+
+\bibitem[{Wickham(2009)}]{ggplot2}
+Wickham H (2009).
+\newblock \emph{ggplot2: elegant graphics for data analysis}.
+\newblock Springer New York.
+\newblock ISBN 978-0-387-98140-6.
+\newblock \urlprefix\url{http://had.co.nz/ggplot2/book}.
+
+\bibitem[{Wuertz and Chalabi(2010)}]{timeSeries}
+Wuertz D, Chalabi Y (2010).
+\newblock \emph{timeSeries: Rmetrics - Financial Time Series Objects}.
+\newblock R package version 2110.87,
+  \urlprefix\url{http://CRAN.R-project.org/package=timeSeries}.
+
+\bibitem[{Wuertz \emph{et~al.}(2010)Wuertz, with contributions~from
+  Martin~Maechler, Byers,  \emph{et~al.}}]{fCalendar}
+Wuertz D, with contributions~from Martin~Maechler YC, Byers JW, , \emph{et~al.}
+  (2010).
+\newblock \emph{timeDate: Rmetrics - Chronological and Calendarical Objects}.
+\newblock R package version 2110.88,
+  \urlprefix\url{http://CRAN.R-project.org/package=timeDate}.
+
+\bibitem[{Zeileis and Grothendieck(2005)}]{zoo}
+Zeileis A, Grothendieck G (2005).
+\newblock \enquote{zoo: S3 Infrastructure for Regular and Irregular Time
+  Series.}
+\newblock \emph{Journal of Statistical Software}, \textbf{14}(6), 1--27.
+\newblock \urlprefix\url{http://www.jstatsoft.org/v14/i06/}.
+
+\end{thebibliography}

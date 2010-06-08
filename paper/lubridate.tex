@@ -40,7 +40,7 @@
 
 Date-time data can be frustrating to work with. It comes in many different formats, which makes recognizing and parsing it a challenge. Will our program handle the format that we have? If it does, we still face a slew of problems specific to date-times. How can we easily extract components of the date-times, such as years, months, or seconds? How can we switch between time zones, or compare times from places that use daylight savings time (DST) with times from places that do not? Date-times create even more complications when we try to do math with them. Conventions such as leap years and DST make it unclear what we mean by ``one day from now" or ``exactly two years away."  Even leap seconds can disrupt a seemingly straight forward calculation.  This complexity affects other tasks too, such as constructing sensible tick marks for plotting date-time data.
 
-While base \proglang{R} handles some of these problems, the syntax it uses is uninviting, often confusing, and difficult to remember. Moreover, the correct \proglang{R} code often changes depending on the class of date-time object being used. \pkg{lubridate} acknowledges these problems and makes it easier to work with date-time data in \proglang{R}. Specifically, \pkg{lubridate} helps users:
+While base \proglang{R} ~\cite{R} handles some of these problems, the syntax it uses is uninviting, often confusing, and difficult to remember. Moreover, the correct \proglang{R} code often changes depending on the class of date-time object being used. \pkg{lubridate} acknowledges these problems and makes it easier to work with date-time data in \proglang{R}. Specifically, \pkg{lubridate} helps users:
 
 \begin{itemize}
    \item Identify and parse date-time data, Section~\ref{sec:parsing} 
@@ -53,7 +53,7 @@ While base \proglang{R} handles some of these problems, the syntax it uses is un
   
 \end{itemize}
 
-\pkg{lubridate} uses an intuitive user interface inspired by the date libraries of object oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, chron, fCalendar, zoo, xts, its, tis, timeSeries, fts, and tseries objects. Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}.
+\pkg{lubridate} uses an intuitive user interface inspired by the date libraries of object oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, chron ~\cite{chron}, fCalendar ~\cite{fCalendar}, zoo ~\cite{zoo}, xts ~\cite{xts}, its ~\cite{its}, tis ~\cite{tis}, timeSeries ~\cite{timeSeries}, fts ~\cite{fts}, and tseries ~\cite{tseries} objects. Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}.
 
 The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project, \url{http://joda-time.sourceforge.net/}. This paper demonstrates the convenient tools provided in the \pkg{lubridate} package and ends with a case study, which uses \pkg{lubridate} in a real life example.
 
@@ -510,7 +510,7 @@ Now let's explore the \code{lakers} data set. The \code{lakers} data set contain
 
 \code{R> head(lakers)}\\
 
-First we'll examine when during the year the Lakers have games. We choose to use the \pkg{ggplot2} package to create our graphs.\\
+First we'll examine when during the year the Lakers have games. We choose to use the \pkg{ggplot2} ~\cite{ggplot2} package to create our graphs.\\
 
 \code{str(lakers$date[1])}\\
 \code{int 20081028}\\
@@ -627,6 +627,7 @@ Future work on the \pkg{lubridate} package will develop methods for handling par
 I'd like to thank the National Science Foundation. This work was supported by the NSF under Grant WHAT GRANT NUMBER? 
 % Acknowledge NSF grant here, since it paid for your summer.
 
-\section*{References}
+\bibliography{lubridate}
+
 
 \end{document}
