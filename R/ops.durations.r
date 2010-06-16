@@ -66,7 +66,7 @@ add_period_to_period <- function(per1, per2){
 }
   
 add_duration_to_period <- function(per, dur){
-	print("duration converted to seconds")
+  # message("duration converted to seconds")
 	per + seconds(as.numeric(dur, "secs"))
 }
   

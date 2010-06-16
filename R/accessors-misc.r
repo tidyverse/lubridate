@@ -10,7 +10,6 @@
 #' @aliases dst dst.default dst.zoo dst.its dst.ti dst.timeseries dst.fts dst.irts
 #' @param x a date-time object   
 #' @return Daylight savings time flag. Positive if in force, zero if not, negative if unknown.
-#' @seealso \code{\link{DaylightSavingsTime}}
 #' @keywords utilities chron methods
 #' @examples
 #' x <- now()
@@ -47,7 +46,10 @@ dst.default <- function(x)
 #' @param minute a value to substitute for the date's minute component
 #' @param second a value to substitute for the date's second component
 #' @param tz a value to substitute for the date's tz component
-#' @return a date object with the requested elements updated. The object will retain its original class unless an element is updated which the original class does not support. In this case, the date returned will be a POSIXlt date object.
+#' @return a date object with the requested elements updated. The object will
+#'   retain its original class unless an element is updated which the original
+#'   class does not support. In this case, the date returned will be a POSIXlt
+#'   date object.
 #' @keywords manip chron 
 #' @examples
 #' date <- as.POSIXlt("2009-02-10") 
@@ -65,8 +67,7 @@ dst.default <- function(x)
 update.POSIXct <- function(x, years = year(x), 
 	months = month(x), days = mday(x), mdays = mday(x), ydays = 
 	yday(x), wdays = wday(x), hours = hour(x), minutes = 
-	minute(x), seconds = second(x), tzs = attr(as.POSIXlt(x), 
-	"tzone")[1]){
+	minute(x), seconds = second(x), tzs = tz(x)){
 		
 	d.length <- max(length(days), length(mdays), length(ydays), length(wdays), length(mday(x)))
 	d.length2 <- min(length(days), length(mdays), length(ydays), length(wdays), length(mday(x)))
@@ -76,7 +77,8 @@ update.POSIXct <- function(x, years = year(x),
 			d.length, ", ", d.length2, sep = ""))
 	}
 		
-	day.change <- rbind(days - mday(x), mdays - mday(x), wdays - wday(x), ydays - yday(x))
+	day.change <- rbind(
+	  days - mday(x), mdays - mday(x), wdays - wday(x), ydays - yday(x))
 	
 	if(nrow(unique(day.change)) > 2) 
 		stop("conflicting days input")
@@ -103,7 +105,7 @@ update.POSIXct <- function(x, years = year(x),
 update.Date <- function(x, years = year(x), months = month(x), 
 	days = mday(x), mdays = mday(x), ydays = yday(x), wdays = 
 	wday(x), hours = hour(x), minutes = minute(x), seconds = 
-	second(x), tzs = attr(as.POSIXlt(x), "tzone")[1]){
+	second(x), tzs = tz(x)){
 		
 	time.change <- c(hours - hour(x), minutes - minute(x), 
 		seconds - second(x))	
@@ -124,7 +126,7 @@ update.Date <- function(x, years = year(x), months = month(x),
 update.POSIXlt <- function(x, years = year(x), months = month(x), 
 	days = mday(x), mdays = mday(x), ydays = yday(x), wdays = 
 	wday(x), hours = hour(x), minutes = minute(x), seconds = 
-	second(x), tzs = attr(as.POSIXlt(x), "tzone")[1]){		
+	second(x), tzs = tz(x)){
 	as.POSIXlt(update(as.POSIXct(x), years = years, months = 
 		months, days = days, mdays = mdays, ydays = ydays, wdays = 
 		wdays, hours = hours, minutes = minutes, seconds = 
@@ -145,5 +147,4 @@ standardise_date_names <- function(x) {
   }
   res
 }
-
 
