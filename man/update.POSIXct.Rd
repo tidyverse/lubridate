@@ -1,9 +1,11 @@
 \name{update.POSIXct}
 \alias{update.POSIXct}
 \title{Changes the components of a date object...}
-\usage{\method{update}{Date} (x, years=year(x), months=month(x), days=mday(x),
-    mdays=mday(x), ydays=yday(x), wdays=wday(x), hours=hour(x),
-    minutes=minute(x), seconds=second(x), tzs=tz(x))}
+\usage{\method{update}{Date} (object, years=year(object),
+    months=month(object), days=mday(object), mdays=mday(object),
+    ydays=yday(object), wdays=wday(object), hours=hour(object),
+    minutes=minute(object), seconds=second(object), tzs=tz(object),
+    ...)}
 
 \description{
   Changes the components of a date object
