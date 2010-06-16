@@ -83,7 +83,7 @@ update.POSIXct <- function(object, years = year(object),
 	if(nrow(unique(day.change)) > 2) 
 		stop("conflicting days input")
 	
-	days <- colSums(rbind(mday(object), unique(day.change)[unique(day.change) != 0]), na.rm = T)
+	days <- colSums(rbind(mday(object), unique(day.change)[unique(day.change) != 0]), na.rm = TRUE)
 	
 		
 	parts <- data.frame(years, months, days, hours, minutes, seconds)

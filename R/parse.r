@@ -97,7 +97,7 @@ ymd.hms <- function(...){
 	
 	if(length(seps) >= 2){
 		parts <- as.data.frame(str_split(dates, seps[2]),
-			stringsAsFactors = F)
+			stringsAsFactors = FALSE)
 		date <- ymd(parts[1,])
 		time <- hms(parts[2,])
 	}
@@ -134,7 +134,8 @@ ms <- function(...) {
 	dates <- unlist(list(...))
 	sep <- find_separator(dates)
 	
-	parts <- as.data.frame(str_split(dates, fixed(sep)), stringsAsFactors = F)
+	parts <- as.data.frame(str_split(dates, fixed(sep)), 
+	  stringsAsFactors = FALSE)
 	
 	if(nrow(parts) != 2) stop("incorrect number of elements")
 	
@@ -165,7 +166,8 @@ hm <- function(...) {
 	dates <- unlist(list(...))
 	sep <- find_separator(dates)
 	
-	parts <- as.data.frame(str_split(dates, fixed(sep)), stringsAsFactors = F)
+	parts <- as.data.frame(str_split(dates, fixed(sep)), 
+	  stringsAsFactors = FALSE)
 	
 	if(nrow(parts) != 2) stop("incorrect number of elements")
 	
@@ -195,7 +197,8 @@ hms <- function(...) {
 	dates <- unlist(list(...))
 	sep <- find_separator(dates)
 	
-	parts <- as.data.frame(str_split(dates, fixed(sep)), stringsAsFactors = F)
+	parts <- as.data.frame(str_split(dates, fixed(sep)), 
+	  stringsAsFactors = FALSE)
 	
 	if(nrow(parts) != 3) stop("incorrect number of elements")
 	
