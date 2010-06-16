@@ -67,7 +67,7 @@
 \alias{intervals}
 \seealso{\code{\link{new_duration}} for creating duration objects and \code{\link{as.duration}} 
 for converting objects into durations}
-\seealso{\code{\link{new_interval}} for creating interval objects and \code{\link{as_interval}} 
+\seealso{\code{\link{new_interval}} for creating interval objects and \code{\link[lubridate]{as_interval}} 
 for converting objects to intervals}
 \keyword{classes}
 \keyword{chron}
