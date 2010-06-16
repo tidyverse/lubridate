@@ -15,7 +15,7 @@
 \value{a POSIXct object in the updated time zone}
 \keyword{chron}
 \keyword{manip}
-\seealso{\code{\link{replace_tz}}}
+\seealso{\code{\link{force_tz}}}
 \arguments{
   \item{time}{a POSIXct, POSIXlt, Date, or chron date-time object.}
   \item{tzone}{a character string containing the time zone to convert to. R must recognize the name 

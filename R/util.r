@@ -86,7 +86,7 @@ pm <- function(x) !am(x)
 #'   contained in the string as a time zone on your system.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
-#' @seealso \code{\link{replace_tz}}
+#' @seealso \code{\link{force_tz}}
 #' @examples
 #' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
 #' with_tz(x, "GMT")
