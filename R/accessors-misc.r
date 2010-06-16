@@ -65,72 +65,72 @@ dst.default <- function(x)
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
 update.POSIXct <- function(object, years = year(object), 
-	months = month(object), days = mday(object), mdays = mday(object), ydays = 
-	yday(object), wdays = wday(object), hours = hour(object), minutes = 
-	minute(object), seconds = second(object), tzs = tz(object), ...){
-		
-	d.length <- max(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
-	d.length2 <- min(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
-	
-	if(d.length %% d.length2 != 0){
-		stop(paste("arguments imply differing day lengths: ", 
-			d.length, ", ", d.length2, sep = ""))
-	}
-		
-	day.change <- rbind(
-	  days - mday(object), mdays - mday(object), wdays - wday(object), ydays - yday(object))
-	
-	if(nrow(unique(day.change)) > 2) 
-		stop("conflicting days input")
-	
-	days <- colSums(rbind(mday(object), unique(day.change)[unique(day.change) != 0]), na.rm = TRUE)
-	
-		
-	parts <- data.frame(years, months, days, hours, minutes, seconds)
-	
+  months = month(object), days = mday(object), mdays = mday(object), ydays = 
+  yday(object), wdays = wday(object), hours = hour(object), minutes = 
+  minute(object), seconds = second(object), tzs = tz(object), ...){
+    
+  d.length <- max(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
+  d.length2 <- min(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
+  
+  if(d.length %% d.length2 != 0){
+    stop(paste("arguments imply differing day lengths: ", 
+      d.length, ", ", d.length2, sep = ""))
+  }
+    
+  day.change <- rbind(
+    days - mday(object), mdays - mday(object), wdays - wday(object), ydays - yday(object))
+  
+  if(nrow(unique(day.change)) > 2) 
+    stop("conflicting days input")
+  
+  days <- colSums(rbind(mday(object), unique(day.change)[unique(day.change) != 0]), na.rm = TRUE)
+  
+    
+  parts <- data.frame(years, months, days, hours, minutes, seconds)
+  
 
-	utc <- as.POSIXlt(force_tz(object, tz = "UTC"))
-	
-	utc$year <- parts$years - 1900
-	utc$mon <- parts$months - 1
-	utc$mday <- parts$days
-	utc$hour <- parts$hours
-	utc$min <- parts$minutes
-	utc$sec <- parts$seconds
+  utc <- as.POSIXlt(force_tz(object, tz = "UTC"))
+  
+  utc$year <- parts$years - 1900
+  utc$mon <- parts$months - 1
+  utc$mday <- parts$days
+  utc$hour <- parts$hours
+  utc$min <- parts$minutes
+  utc$sec <- parts$seconds
 
-	utc <- as.POSIXct(utc)
-	force_tz(utc, tz = tzs)
+  utc <- as.POSIXct(utc)
+  force_tz(utc, tz = tzs)
 }
 
 update.Date <- function(object, years = year(object), months = month(object), 
-	days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
-	wday(object), hours = hour(object), minutes = minute(object), seconds = 
-	second(object), tzs = tz(object), ...){
-		
-	time.change <- c(hours - hour(object), minutes - minute(object), 
-		seconds - second(object))	
-		
-	if(sum(time.change) != 0){
-		return(update(with_tz(as.POSIXct(object), "UTC"), years = 
-		years, months = months, days = days, mdays = mdays, ydays 
-		= ydays, wdays = wdays, hours = hours, minutes = minutes, 
-		seconds = seconds, tzs = tzs))
-	}
-		
-	as.Date(update(with_tz(as.POSIXct(object), "UTC"), years = years, 
-		months = months, days = days, mdays = mdays, ydays = 
-		ydays, wdays = wdays, hours = hours, minutes = minutes, 
-		seconds = seconds, tzs = tzs))
+  days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
+  wday(object), hours = hour(object), minutes = minute(object), seconds = 
+  second(object), tzs = tz(object), ...){
+    
+  time.change <- c(hours - hour(object), minutes - minute(object), 
+    seconds - second(object))  
+    
+  if(sum(time.change) != 0){
+    return(update(with_tz(as.POSIXct(object), "UTC"), years = 
+    years, months = months, days = days, mdays = mdays, ydays 
+    = ydays, wdays = wdays, hours = hours, minutes = minutes, 
+    seconds = seconds, tzs = tzs))
+  }
+    
+  as.Date(update(with_tz(as.POSIXct(object), "UTC"), years = years, 
+    months = months, days = days, mdays = mdays, ydays = 
+    ydays, wdays = wdays, hours = hours, minutes = minutes, 
+    seconds = seconds, tzs = tzs))
 }
 
 update.POSIXlt <- function(object, years = year(object), months = month(object), 
-	days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
-	wday(object), hours = hour(object), minutes = minute(object), seconds = 
-	second(object), tzs = tz(object), ...){
-	as.POSIXlt(update(as.POSIXct(object), years = years, months = 
-		months, days = days, mdays = mdays, ydays = ydays, wdays = 
-		wdays, hours = hours, minutes = minutes, seconds = 
-		seconds, tzs = tzs))
+  days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
+  wday(object), hours = hour(object), minutes = minute(object), seconds = 
+  second(object), tzs = tz(object), ...){
+  as.POSIXlt(update(as.POSIXct(object), years = years, months = 
+    months, days = days, mdays = mdays, ydays = ydays, wdays = 
+    wdays, hours = hours, minutes = minutes, seconds = 
+    seconds, tzs = tzs))
 }
 
 

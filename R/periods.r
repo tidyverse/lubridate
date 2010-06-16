@@ -229,15 +229,15 @@ as.period.default <- function(x, units = c("seconds")){
 }
 
 as.period.interval <- function(x, units = NULL){
-	start <- as.POSIXlt(x$start)
-	end <- as.POSIXlt(x$end)
+  start <- as.POSIXlt(x$start)
+  end <- as.POSIXlt(x$end)
 
-	to.per <- as.data.frame(unclass(end)) - 
-		as.data.frame(unclass(start))
-		
-	names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
-	
-	new_period(to.per[,1:6])
+  to.per <- as.data.frame(unclass(end)) - 
+    as.data.frame(unclass(start))
+    
+  names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
+  
+  new_period(to.per[,1:6])
 }
 
 as.period.difftime <- function(x, units = c("year", "day", "hour", "minute", "seconds")){

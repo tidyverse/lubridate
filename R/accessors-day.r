@@ -74,10 +74,10 @@ mday.default <- function(x)
 
 
 "yday<-" <- function(x, value)
-	x <- x + days(value - yday(x))
+  x <- x + days(value - yday(x))
 
 "wday<-" <- function(x, value)
-	x <- x + days(value - wday(x))
+  x <- x + days(value - wday(x))
 
 "day<-" <- "mday<-" <- function(x, value)
-	x <- x + days(value - mday(x))
+  x <- x + days(value - mday(x))

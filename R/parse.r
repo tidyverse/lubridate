@@ -92,23 +92,23 @@ make_format <- function(order) {
 #' ymd.hms(y)
 #' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
 ymd.hms <- function(...){
-	dates <- unlist(list(...))
-	seps <- find_separator(dates)
-	
-	if(length(seps) >= 2){
-		parts <- as.data.frame(str_split(dates, seps[2]),
-			stringsAsFactors = FALSE)
-		date <- ymd(parts[1,])
-		time <- hms(parts[2,])
-	}
-	
-	else{
-		breaks <- as.data.frame(gregexpr(seps, dates))
-		breaks <- as.numeric(breaks[3,])
-		date <- ymd(substr(dates, 1, breaks-1))
-		time <- hms(substr(dates, breaks + 1, nchar(dates)))
-	}
-	date + time
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- ymd(parts[1,])
+    time <- hms(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- ymd(substr(dates, 1, breaks-1))
+    time <- hms(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
 }
 
 
@@ -131,16 +131,16 @@ ymd.hms <- function(...){
 #' ms("6,5")
 #' # 6 minutes and 5 seconds
 ms <- function(...) {
-	dates <- unlist(list(...))
-	sep <- find_separator(dates)
-	
-	parts <- as.data.frame(str_split(dates, fixed(sep)), 
-	  stringsAsFactors = FALSE)
-	
-	if(nrow(parts) != 2) stop("incorrect number of elements")
-	
-	new_period(minute = as.numeric(parts[1,]), 
-		second = as.numeric(parts[2,]))
+  dates <- unlist(list(...))
+  sep <- find_separator(dates)
+  
+  parts <- as.data.frame(str_split(dates, fixed(sep)), 
+    stringsAsFactors = FALSE)
+  
+  if(nrow(parts) != 2) stop("incorrect number of elements")
+  
+  new_period(minute = as.numeric(parts[1,]), 
+    second = as.numeric(parts[2,]))
 }
 
 
@@ -163,16 +163,16 @@ ms <- function(...) {
 #' hm("6,5")
 #' # [1] 6 hours and 5 minutes
 hm <- function(...) {
-	dates <- unlist(list(...))
-	sep <- find_separator(dates)
-	
-	parts <- as.data.frame(str_split(dates, fixed(sep)), 
-	  stringsAsFactors = FALSE)
-	
-	if(nrow(parts) != 2) stop("incorrect number of elements")
-	
-	new_period(hour = as.numeric(parts[1,]), 
-		minute = as.numeric(parts[2,]))
+  dates <- unlist(list(...))
+  sep <- find_separator(dates)
+  
+  parts <- as.data.frame(str_split(dates, fixed(sep)), 
+    stringsAsFactors = FALSE)
+  
+  if(nrow(parts) != 2) stop("incorrect number of elements")
+  
+  new_period(hour = as.numeric(parts[1,]), 
+    minute = as.numeric(parts[2,]))
 }
 
 #' Create a period with the specified hours, minutes, and seconds
@@ -194,17 +194,17 @@ hm <- function(...) {
 #' hms("7,6,5")
 #' # [1] 7 hours, 6 minutes and 5 seconds
 hms <- function(...) {
-	dates <- unlist(list(...))
-	sep <- find_separator(dates)
-	
-	parts <- as.data.frame(str_split(dates, fixed(sep)), 
-	  stringsAsFactors = FALSE)
-	
-	if(nrow(parts) != 3) stop("incorrect number of elements")
-	
-	new_period(hour = as.numeric(parts[1,]), 
-		minute = as.numeric(parts[2,]), 
-		second = as.numeric(parts[3,]))
+  dates <- unlist(list(...))
+  sep <- find_separator(dates)
+  
+  parts <- as.data.frame(str_split(dates, fixed(sep)), 
+    stringsAsFactors = FALSE)
+  
+  if(nrow(parts) != 3) stop("incorrect number of elements")
+  
+  new_period(hour = as.numeric(parts[1,]), 
+    minute = as.numeric(parts[2,]), 
+    second = as.numeric(parts[3,]))
 }
 
 

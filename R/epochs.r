@@ -19,42 +19,42 @@
 
 
 sundays <- function(x = 1) 
-	new_epoch(weekday = "sunday", number = x)
+  new_epoch(weekday = "sunday", number = x)
 mondays <- function(x = 1) 
-	new_epoch(weekday = "monday", number = x)
+  new_epoch(weekday = "monday", number = x)
 tuesdays <- function(x = 1) 
-	new_epoch(weekday = "tuesday", number = x)
+  new_epoch(weekday = "tuesday", number = x)
 wednesdays <- function(x = 1) 
-	new_epoch(weekday = "wednesday", number = x)
+  new_epoch(weekday = "wednesday", number = x)
 thursdays <- function(x = 1) 
-	new_epoch(weekday = "thursday", number = x)
+  new_epoch(weekday = "thursday", number = x)
 fridays <- function(x = 1) 
-	new_epoch(weekday = "friday", number = x)
+  new_epoch(weekday = "friday", number = x)
 saturdays <- function(x = 1) 
-	new_epoch(weekday = "saturday", number = x)
+  new_epoch(weekday = "saturday", number = x)
 
 
 new_epoch <- function(weekday, number){
-	epoch <- list(weekday = weekday, number = number)
-	structure(epoch, class = c("epoch", "list"))
+  epoch <- list(weekday = weekday, number = number)
+  structure(epoch, class = c("epoch", "list"))
 }
-	
-	
+  
+  
 add_epoch_to_date <- function(date, epoch){
-	weekday <- switch(epoch$weekday, sunday = 1, monday = 2, 
-		tuesday = 3, wednesday = 4, thursday = 5, friday = 6, 
-		saturday = 7)
-		
-	start_day <- wday(date)
-	
-	over <- which(start_day > weekday)
-	under <- which(start_day <= weekday)
-	
-	date[over] <- (date + days(7 + weekday - 
-		start_day) + weeks(epoch$number - 1))[over]
-	
-	date[under] <- (date + days(weekday - 
-		start_day) + weeks(epoch$number - 1))[under]
-		
-	date
+  weekday <- switch(epoch$weekday, sunday = 1, monday = 2, 
+    tuesday = 3, wednesday = 4, thursday = 5, friday = 6, 
+    saturday = 7)
+    
+  start_day <- wday(date)
+  
+  over <- which(start_day > weekday)
+  under <- which(start_day <= weekday)
+  
+  date[over] <- (date + days(7 + weekday - 
+    start_day) + weeks(epoch$number - 1))[over]
+  
+  date[under] <- (date + days(weekday - 
+    start_day) + weeks(epoch$number - 1))[under]
+    
+  date
 }
