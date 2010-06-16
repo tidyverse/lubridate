@@ -23,7 +23,6 @@
 \alias{dst.fts}
 \alias{dst.irts}
 \value{Daylight savings time flag. Positive if in force, zero if not, negative if unknown.}
-\seealso{\code{\link{DaylightSavingsTime}}}
 \keyword{utilities}
 \keyword{chron}
 \keyword{methods}

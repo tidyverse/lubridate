@@ -3,8 +3,7 @@
 \title{Changes the components of a date object...}
 \usage{\method{update}{Date} (x, years=year(x), months=month(x), days=mday(x),
     mdays=mday(x), ydays=yday(x), wdays=wday(x), hours=hour(x),
-    minutes=minute(x), seconds=second(x), tzs=attr(as.POSIXlt(x),
-    "tzone")[1])}
+    minutes=minute(x), seconds=second(x), tzs=tz(x))}
 
 \description{
   Changes the components of a date object
@@ -17,7 +16,10 @@
   existing date, they substitute them for the appropriate parts of the
   existing date.
 }
-\value{a date object with the requested elements updated. The object will retain its original class unless an element is updated which the original class does not support. In this case, the date returned will be a POSIXlt date object.}
+\value{a date object with the requested elements updated. The object will
+retain its original class unless an element is updated which the original
+class does not support. In this case, the date returned will be a POSIXlt
+date object.}
 \keyword{manip}
 \keyword{chron}
 \arguments{
