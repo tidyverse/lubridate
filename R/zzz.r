@@ -1,4 +1,6 @@
-base_add_POSIXt <- base::'+.POSIXt'
+if (!exists("base_add_POSIXt")) {  
+  base_add_POSIXt <- base::'+.POSIXt'
+}
 
 .onLoad <- function(...) {
   packageStartupMessage(
