@@ -22,4 +22,4 @@ second.default <- function(x)
   as.POSIXlt(x)$sec
 
 "second<-" <- function(x, value)
-	x <- x + seconds(value - second(x))
+  x <- x + seconds(value - second(x))

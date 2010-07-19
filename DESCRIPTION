@@ -6,13 +6,12 @@ Author: Hadley Wickham <h.wickham@gmail.com>, Garrett Grolemund
     <grolemund@rice.edu>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description:
-Depends: R (>= 2.8), plyr
+Depends: R (>= 2.8), plyr, stringr
 Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries, fts, tseries
 License: GPL
 LazyData: true
 Collate: 'accessors-day.r' 'accessors-hour.r' 'accessors-minute.r'
     'accessors-misc.r' 'accessors-month.r' 'accessors-second.r'
-    'accessors-tz.r' 'accessors-week.r' 'accessors-year.r'
-    'accessors.r' 'durations.r' 'intervals.r' 'ops.durations.r'
-    'parse.r' 'periods.r' 'pretty.r' 'print.duration.r' 'round.r'
-    'util.r' 'zzz.r'
+    'accessors-tz.r' 'accessors-week.r' 'accessors-year.r' 'coercion.r'
+    'durations.r' 'epochs.r' 'intervals.r' 'ops.durations.r' 'parse.r'
+    'periods.r' 'pretty.r' 'round.r' 'util.r' 'zzz.r'

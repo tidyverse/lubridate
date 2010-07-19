@@ -51,7 +51,7 @@
 #' @name duration
 #' @seealso \code{\link{new_duration}} for creating duration objects and \code{\link{as.duration}} 
 #'   for converting objects into durations
-#' @seealso \code{\link{new_interval}} for creating interval objects and \code{\link{as_interval}} 
+#' @seealso \code{\link{new_interval}} for creating interval objects and \code{\link[lubridate]{as.interval}} 
 #'   for converting objects to intervals
 #' @keywords classes chron
 #' @examples
@@ -193,20 +193,20 @@ as.duration <- function(x)
   UseMethod("as.duration")
   
 
-as.duration.period <- function(per){
-  if (any(per$month != 0))
+as.duration.period <- function(x){
+  if (any(x$month != 0))
     stop("durations cannot estimate month length")
-  all <- per$second +
-    per$minute * 60 +
-    per$hour * 3600 + 
-    per$day * 3600 * 24 + 
-    per$year * 3600 * 24 * 365
+  all <- x$second +
+    x$minute * 60 +
+    x$hour * 3600 + 
+    x$day * 3600 * 24 + 
+    x$year * 3600 * 24 * 365
   
   make_difftime(all)
 }
 
-as.duration.difftime <- function(dift)
-	make_difftime(as.numeric(dift, "secs"))
+as.duration.difftime <- function(x)
+  make_difftime(as.numeric(x, "secs"))
   
 as.duration.interval <- function(x)
   make_difftime(as.numeric(x$end) - as.numeric(x$start))

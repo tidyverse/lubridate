@@ -10,25 +10,25 @@
 #' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
 #'   and e2 
 #' @keywords arith chron methods
-#' @ examples
+#' @examples
 #' x <- new_duration(day = 1)
 #' x + now()
 #' today() + x
 #' x + difftime(now() + 3600, now())
 #' x + x
 add_period_to_date <- function(date, period){
-	new <- update(as.POSIXlt(date), 
-			years = year(date) + period$year,
-			months = month(date) + period$month,
-			days = mday(date) + period$day,
-			hours = hour(date) + period$hour,
-			minutes = minute(date) + period$minute,
-			seconds = second(date) + period$second
-			)
-	if (is.Date(date) & sum(new$sec, new$min, new$hour, na.rm = T) != 0)
-	return(new)	
-	
-	reclass_date(new, date)
+  new <- update(as.POSIXlt(date), 
+      years = year(date) + period$year,
+      months = month(date) + period$month,
+      days = mday(date) + period$day,
+      hours = hour(date) + period$hour,
+      minutes = minute(date) + period$minute,
+      seconds = second(date) + period$second
+      )
+  if (is.Date(date) & sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
+  return(new)  
+  
+  reclass_date(new, date)
 }
 
 add_duration_to_date <- function(date, duration) {
@@ -45,10 +45,10 @@ add_duration_to_date <- function(date, duration) {
 }
 
 add_interval_to_date <- function(date, interval){
-	if(all(interval$start == with_tz(as.POSIXct(date), tz(interval$start))))
-		reclass_date(interval$end, date)
-	else
-		stop("interval$start does not match date", call. = F)
+  if(all(interval$start == with_tz(as.POSIXct(date), tz(interval$start))))
+    reclass_date(interval$end, date)
+  else
+    stop("interval$start does not match date", call. = FALSE)
 }
 
 add_number_to_duration <- function(dur, num)
@@ -66,8 +66,8 @@ add_period_to_period <- function(per1, per2){
 }
   
 add_duration_to_period <- function(per, dur){
-	print("duration converted to seconds")
-	per + seconds(as.numeric(dur, "secs"))
+  # message("duration converted to seconds")
+  per + seconds(as.numeric(dur, "secs"))
 }
   
 add_duration_to_duration <- function(dur1, dur2)
@@ -87,26 +87,26 @@ add_number_to_interval <-function(int, num){
 }
 
 add_interval_to_interval <- function(interval1, interval2){
-	if(all(interval1$start == interval2$end))
-		return(new_interval(interval2$start, interval1$end))
-	else if (all(interval2$start == interval1$end))
-		return(new_interval(interval1$start, interval2$end))
-	else if (all(interval2$start == interval1$start)){
-		return(new_interval(interval1$start, 
-			pmax(as.POSIXct(interval1$end),
-			as.POSIXct(interval2$end))))
-	}
-	else
-		stop("Intervals do not align")
+  if(all(interval1$start == interval2$end))
+    return(new_interval(interval2$start, interval1$end))
+  else if (all(interval2$start == interval1$end))
+    return(new_interval(interval1$start, interval2$end))
+  else if (all(interval2$start == interval1$start)){
+    return(new_interval(interval1$start, 
+      pmax(as.POSIXct(interval1$end),
+      as.POSIXct(interval2$end))))
+  }
+  else
+    stop("Intervals do not align")
 }
 
 
 add_number_to_posix <- function(e1, e2){
       if(is.POSIXct(e1)){
-      	return(structure(unclass(as.POSIXct(e1)) + e2, class = 
-      		c("POSIXt", "POSIXct")))
+        return(structure(unclass(as.POSIXct(e1)) + e2, class = 
+          c("POSIXt", "POSIXct")))
       }
-      as.POSIXlt(structure(unclass(as.POSIXct(e1)) + e2, class = 		c("POSIXt", "POSIXct")))
+      as.POSIXlt(structure(unclass(as.POSIXct(e1)) + e2, class =     c("POSIXt", "POSIXct")))
 }
 
 add_number_to_date <- function(e1, e2)
@@ -223,8 +223,8 @@ make_difftime <- function (x) {
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
-#'   \code{\link{"-.interval"}}, \code{\link{"/.interval"}}, \code{\link{"/.period"}}
+#' @seealso \code{\link{+.period}}, \code{\link{+.interval}}, \code{\link{-.period}}, 
+#'   \code{\link{-.interval}}, \code{\link{/.interval}}, \code{\link{/.period}}
 #' @keywords arith chron methods
 #' @examples
 #' x <- new_period(day = 1)
@@ -256,10 +256,10 @@ multiply_period_by_number <- function(per, num){
 }
 
 multiply_interval_by_number <- function(int, num){
-	if (all(num == -1))
-	  new_interval(int$end, int$start)
-	else
-	  stop("multiplication incompatible with intervals")
+  if (all(num == -1))
+    new_interval(int$end, int$start)
+  else
+    stop("multiplication incompatible with intervals")
 }
 
 
@@ -270,8 +270,8 @@ multiply_interval_by_number <- function(int, num){
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
-#'   \code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}
+#' @seealso \code{\link{+.period}}, \code{\link{+.interval}}, \code{\link{-.period}}, 
+#'   \code{\link{-.interval}}, \code{\link{*.interval}}, \code{\link{*.period}}
 #' @keywords arith chron methods
 #' @examples
 #' x <- new_period(day = 1)
@@ -312,9 +312,7 @@ divide_interval_by_number <- function(int, num){
 #' period use \code{\link{as.period}}.
 #'
 #' Since a specific number of seconds exists between two dates, the duration 
-#' returned will not include unspecific time units such as years and months. To 
-#' get a nonspecific duration use \code{\link{get_duration}}. See 
-#' \code{\link{duration}} for more details.
+#' returned will not include non-specific time units such as years and months. #' See \code{\link{duration}} for more details.
 #'
 #' @aliases -.period -.POSIXt -.difftime -.Date -.interval
 #' @name subtraction

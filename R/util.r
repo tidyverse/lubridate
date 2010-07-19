@@ -86,14 +86,14 @@ pm <- function(x) !am(x)
 #'   contained in the string as a time zone on your system.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
-#' @seealso \code{\link{replace_tz}}
+#' @seealso \code{\link{force_tz}}
 #' @examples
 #' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
 #' with_tz(x, "GMT")
 #' # "2009-08-07 05:00:00 GMT"
 with_tz <- function (time, tzone = ""){
   new <- as.POSIXct(format(as.POSIXct(time), tz = tzone), 
-  	tz = tzone)
+    tz = tzone)
   reclass_date(new, time)
 }
 
@@ -115,14 +115,14 @@ with_tz <- function (time, tzone = ""){
 #' force_tz(x, "GMT")
 #' # "2009-08-07 00:00:00 GMT"
 force_tz <- function(time, tz = ""){
-	x <- as.POSIXlt(time)
-	
-	if(is.null(tz)) tz <- ""
-	new <- ISOdatetime(year(x),  month(x), mday(x), hour(x),
-		minute(x), second(x), tz)
-	new[hour(with_tz(new, tz)) != hour(time)] <- NA
-		
-	reclass_date(new, time)
+  x <- as.POSIXlt(time)
+  
+  if(is.null(tz)) tz <- ""
+  new <- ISOdatetime(year(x),  month(x), mday(x), hour(x),
+    minute(x), second(x), tz)
+  new[hour(with_tz(new, tz)) != hour(time)] <- NA
+    
+  reclass_date(new, time)
 }
 
 
@@ -160,17 +160,17 @@ decimal_date.default <- function(date){
     stop("date(s) not in POSIXt or Date format")
   
 decimal <- as.numeric(difftime(date, floor_date(date, "year"), 
-	units = "secs"))/as.numeric(difftime(ceiling_date(date, 
-	"year"), floor_date(date, "year"), units = "secs"))
+  units = "secs"))/as.numeric(difftime(ceiling_date(date, 
+  "year"), floor_date(date, "year"), units = "secs"))
   
-  	year(date) + decimal
+    year(date) + decimal
 }
 
 decimal_date.zoo <- function(date)
   decimal_date(index(date))
 
-decimal_date.its <- function(x)
-  decimal_date.default(attr(x,"dates"))
+decimal_date.its <- function(date)
+  decimal_date.default(attr(date, "dates"))
 
 #' Internal function. Is an object in a recognized date format?
 #'

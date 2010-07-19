@@ -20,6 +20,6 @@
 week <- function(x)
   yday(x) %/% 7 + 1
 
-	
+  
 "week<-" <- function(x, value)
-	x <- x + days((value - week(x)) * 7)
+  x <- x + days((value - week(x)) * 7)

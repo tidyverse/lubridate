@@ -7,15 +7,15 @@ options(stringsAsFactors = F)
 
 data <- list()
 for (i in 1:length(file.names2)){
-	data[[i]]<- read.csv(file.names2[i])
-	data[[i]]$date <- rep(substr(file.names2[i], 1, 8), nrow(data[[i]]))
-	data[[i]]$home <- rep(substr(file.names2[i], 13, 15), nrow(data[[i]]))
-	data[[i]]$away <- rep(substr(file.names2[i], 10, 12), nrow(data[[i]]))
+  data[[i]]<- read.csv(file.names2[i])
+  data[[i]]$date <- rep(substr(file.names2[i], 1, 8), nrow(data[[i]]))
+  data[[i]]$home <- rep(substr(file.names2[i], 13, 15), nrow(data[[i]]))
+  data[[i]]$away <- rep(substr(file.names2[i], 10, 12), nrow(data[[i]]))
 }
 
 lal <- data[[1]]
 for(j in 2:length(file.names2))
-	lal <- rbind(lal, data[[j]])
+  lal <- rbind(lal, data[[j]])
 
 lakers <- lal[,c(33, 19, 16, 12, 11, 14, 13, 24, 28, 25, 30, 31, 32)]
 

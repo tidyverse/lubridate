@@ -3,15 +3,16 @@
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases month.default month.zoo month.its month.ti month.timeseries month.fts month.irts month 
-#'   month<- month<-.default month<-.Date month<-.chron month<-.zoo month<-.its month<-.ti 
-#'   month<-.timeDate month<-.jul month<-.timeSeries month<-.fts month<-.irts month<-.yearmon
+#' @aliases month.default month.zoo month.its month.ti month.timeseries
+#'   month.fts month.irts month month<- month<-.default month<-.Date
+#'   month<-.chron month<-.zoo month<-.its month<-.ti month<-.timeDate
+#'   month<-.jul month<-.timeSeries month<-.fts month<-.irts month<-.yearmon
 #' @param x a date-time object  
-#' @param label logical. TRUE will display the month as a character string such as "January." FALSE 
-#'   will display the month as a number.
-#' @param abbr logical. FALSE will display the month as a character string label, such as 
-#'   "January". TRUE will display an abbreviated version of the label, such as "Jan". abbr is 
-#'   disregarded if label = FALSE. 
+#' @param label logical. TRUE will display the month as a character string
+#'   such as "January." FALSE will display the month as a number.
+#' @param abbr logical. FALSE will display the month as a character string #'
+#'   label, such as #' "January". TRUE will display an abbreviated version of
+#'   the label, such as "Jan". abbr is #' disregarded if label = FALSE.
 #' @return the months element of x as a number (1-12) or character string. 1 = January.
 #' @keywords utilities manip chron methods
 #' @examples
@@ -53,4 +54,4 @@ month.numeric <- function(x, label = FALSE, abbr = TRUE) {
 
 
 "month<-" <- function(x, value)
-	x <- x + months(value - month(x))
+  x <- x + months(value - month(x))

@@ -142,10 +142,10 @@ years <-   function(x = 1) new_period(year = x)
 #'
 #' @method format period
 #' @keywords internal print chron
-format.period <- function(period, ...){
+format.period <- function(x, ...){
   show <- vector(mode = "character")
-  for (i in 1:nrow(period)){
-    per <- period[i,]
+  for (i in 1:nrow(x)){
+    per <- x[i,]
   
     per <- per[which(per != 0)]
     if (length(per) == 0) show[i] <- "0 seconds"
@@ -218,29 +218,29 @@ print.period <- function(x, ...) {
 #' # 1 year and 2768461 seconds
 #' as.period(span, units = c("day", "minute")) 
 #' # 1 day, 1 minute and 34218001 seconds
-as.period <- function(x, units, ...)
+as.period <- function(x, units)
   UseMethod("as.period")
   
-as.period.default <- function(x, units = c("seconds"), ...){
+as.period.default <- function(x, units = c("seconds")){
   x <- as.numeric(x)
   unit <- standardise_date_names(units[1])
   f <- match.fun(paste(unit, "s", sep = ""))
   f(x)
 }
 
-as.period.interval <- function(x){
-	start <- as.POSIXlt(x$start)
-	end <- as.POSIXlt(x$end)
+as.period.interval <- function(x, units = NULL){
+  start <- as.POSIXlt(x$start)
+  end <- as.POSIXlt(x$end)
 
-	to.per <- as.data.frame(unclass(end)) - 
-		as.data.frame(unclass(start))
-		
-	names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
-	
-	new_period(to.per[,1:6])
+  to.per <- as.data.frame(unclass(end)) - 
+    as.data.frame(unclass(start))
+    
+  names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
+  
+  new_period(to.per[,1:6])
 }
 
-as.period.difftime <- function(x, units= c("year", "day", "hour", "minute", "seconds")){
+as.period.difftime <- function(x, units = c("year", "day", "hour", "minute", "seconds")){
   units <- standardise_date_names(units)
   span <- as.double(x, "secs")
   remainder <- abs(span)

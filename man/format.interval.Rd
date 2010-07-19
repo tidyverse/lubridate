@@ -1,7 +1,7 @@
 \name{format.interval}
 \alias{format.interval}
 \title{Internal function.}
-\usage{\method{format}{interval} (int, ...)}
+\usage{\method{format}{interval} (x, ...)}
 
 \description{
   Internal function. Formats interval objects.

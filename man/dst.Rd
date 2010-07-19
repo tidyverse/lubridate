@@ -1,15 +1,33 @@
-\name{DST}
-\title{Internal function for Daylight Savings Time changes.}
-\usage{DST(date1, date2)}
+\name{dst}
+\title{Get Daylight Savings Time indicator of a date-time.}
+\usage{dst(x)}
 
 \description{
-  Internal function for Daylight Savings Time changes.
+  Get Daylight Savings Time indicator of a date-time.
 }
 
 \details{
-  Determines how to handle time changes resulting from Daylight Savings
-  time based on options("DST"). See \code{\link{DaylightSavingsTime}}.
+  Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr,
+  zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts
+  objects.
+
+  A date-time's daylight savings flag can not be set because it depends
+  on the date-time's year, month, day, and hour values.
 }
-\alias{DST}
-\alias{DST.months}
-\keyword{internal}
+\alias{dst}
+\alias{dst.default}
+\alias{dst.zoo}
+\alias{dst.its}
+\alias{dst.ti}
+\alias{dst.timeseries}
+\alias{dst.fts}
+\alias{dst.irts}
+\value{Daylight savings time flag. Positive if in force, zero if not, negative if unknown.}
+\keyword{utilities}
+\keyword{chron}
+\keyword{methods}
+\arguments{
+  \item{x}{a date-time object}
+}
+\examples{x <- now()
+dst(x)}

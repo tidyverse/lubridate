@@ -11,7 +11,7 @@
   units of the duration created depend on the name of the function
   called. For duration objects, units are equal to their most common
   lengths in seconds (i.e.  minutes = 60 seconds, hours = 3600 seconds,
-  days = 86400 seconds, weeks = 604800).
+  days = 86400 seconds, weeks = 604800, years = 31536000).
 
   When paired with date-times, these functions allow date-times to be
   manipulated in a method similar to object oriented programming.
@@ -22,6 +22,7 @@
 \alias{ehours}
 \alias{edays}
 \alias{eweeks}
+\alias{eyears}
 \value{a duration object}
 \seealso{\code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}}
 \keyword{chron}

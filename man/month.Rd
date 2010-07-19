@@ -39,11 +39,11 @@
 \keyword{methods}
 \arguments{
   \item{x}{a date-time object}
-  \item{label}{logical. TRUE will display the month as a character string such as "January." FALSE 
-will display the month as a number.}
-  \item{abbr}{logical. FALSE will display the month as a character string label, such as 
-"January". TRUE will display an abbreviated version of the label, such as "Jan". abbr is 
-disregarded if label = FALSE.}
+  \item{label}{logical. TRUE will display the month as a character string
+such as "January." FALSE will display the month as a number.}
+  \item{abbr}{logical. FALSE will display the month as a character string #'
+label, such as #' "January". TRUE will display an abbreviated version of
+the label, such as "Jan". abbr is #' disregarded if label = FALSE.}
 }
 \examples{x <- now()
 month(x) 

@@ -1,6 +1,6 @@
 \name{as.period}
 \title{Change an object to a period.}
-\usage{as.period(x, units, ...)}
+\usage{as.period(x, units)}
 
 \description{
   Change an object to a period.
