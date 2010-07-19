@@ -1,51 +1,46 @@
 This is BibTeX, Version 0.99c (TeX Live 2009)
 The top-level auxiliary file: lubridate.aux
 The style file: jss.bst
-Illegal, another \bibstyle command---line 15 of file lubridate.aux
- : \bibstyle
- :          {plain}
-I'm skipping whatever remains of this command
 Database file #1: lubridate.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 11 entries,
+You've used 10 entries,
             3179 wiz_defined-function locations,
-            701 strings with 6876 characters,
-and the built_in function-call counts, 7867 in all, are:
-= -- 670
-> -- 196
-< -- 10
-+ -- 74
-- -- 63
-* -- 610
-:= -- 1108
-add.period$ -- 38
-call.type$ -- 11
-change.case$ -- 72
-chr.to.int$ -- 11
-cite$ -- 11
-duplicate$ -- 731
-empty$ -- 707
-format.name$ -- 100
-if$ -- 1587
+            693 strings with 6697 characters,
+and the built_in function-call counts, 7184 in all, are:
+= -- 608
+> -- 186
+< -- 9
++ -- 70
+- -- 60
+* -- 561
+:= -- 1011
+add.period$ -- 34
+call.type$ -- 10
+change.case$ -- 67
+chr.to.int$ -- 10
+cite$ -- 10
+duplicate$ -- 663
+empty$ -- 641
+format.name$ -- 96
+if$ -- 1446
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 102
-newline$ -- 70
-num.names$ -- 44
-pop$ -- 248
+missing$ -- 94
+newline$ -- 64
+num.names$ -- 40
+pop$ -- 231
 preamble$ -- 1
-purify$ -- 64
+purify$ -- 59
 quote$ -- 0
-skip$ -- 198
+skip$ -- 181
 stack$ -- 0
-substring$ -- 613
-swap$ -- 213
+substring$ -- 550
+swap$ -- 196
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 96
+type$ -- 87
 warning$ -- 0
-while$ -- 56
+while$ -- 52
 width$ -- 0
-write$ -- 161
-(There was 1 error message)
+write$ -- 145

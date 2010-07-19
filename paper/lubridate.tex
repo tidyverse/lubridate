@@ -40,7 +40,7 @@
 
 Date-time data can be frustrating to work with. It comes in many different formats, which makes recognizing and parsing it a challenge. Will our program handle the format that we have? If it does, we still face a slew of problems specific to date-times. How can we easily extract components of the date-times, such as years, months, or seconds? How can we switch between time zones, or compare times from places that use daylight savings time (DST) with times from places that do not? Date-times create even more complications when we try to do math with them. Conventions such as leap years and DST make it unclear what we mean by ``one day from now" or ``exactly two years away."  Even leap seconds can disrupt a seemingly straight forward calculation.  This complexity affects other tasks too, such as constructing sensible tick marks for plotting date-time data.
 
-While base \proglang{R} ~\cite{R} handles some of these problems, the syntax it uses is uninviting, often confusing, and difficult to remember. Moreover, the correct \proglang{R} code often changes depending on the class of date-time object being used. \pkg{lubridate} acknowledges these problems and makes it easier to work with date-time data in \proglang{R}. Specifically, \pkg{lubridate} helps users:
+While base \proglang{R} chandles some of these problems, the syntax it uses is uninviting, often confusing, and difficult to remember. Moreover, the correct \proglang{R} code often changes depending on the class of date-time object being used. \pkg{lubridate} acknowledges these problems and makes it easier to work with date-time data in \proglang{R}. Specifically, \pkg{lubridate} helps users:
 
 \begin{itemize}
    \item Identify and parse date-time data, Section~\ref{sec:parsing} 

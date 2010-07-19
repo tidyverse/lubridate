@@ -1,4 +1,4 @@
-\begin{thebibliography}{11}
+\begin{thebibliography}{10}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -32,12 +32,6 @@ James D, Hornik K (2010).
 \newblock \emph{chron: Chronological Objects which Can Handle Dates and Times}.
 \newblock R package version 2.3-35. S original by David James, R port by Kurt
   Hornik., \urlprefix\url{http://CRAN.R-project.org/package=chron}.
-
-\bibitem[{{R Development Core Team}(2010)}]{R}
-{R Development Core Team} (2010).
-\newblock \emph{R: A Language and Environment for Statistical Computing}.
-\newblock R Foundation for Statistical Computing, Vienna, Austria.
-\newblock {ISBN} 3-900051-07-0, \urlprefix\url{http://www.R-project.org}.
 
 \bibitem[{Ryan and Ulrich(2010)}]{xts}
 Ryan JA, Ulrich JM (2010).
