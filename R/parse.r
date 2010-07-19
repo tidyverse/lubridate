@@ -12,7 +12,7 @@
 #' (UTC) to the parsed dates. This time zone can be changed with
 #' \code{\link{force_tz}}.
 #'
-#' @aliases ymd myd dym ydm mdy yearmonthdate
+#' @aliases ymd myd dym ydm mdy yearmonthdate dmy
 #' @param ... a character or numeric vector of suspected dates 
 #' @return a vector of POSIXct date-time objects
 #' @seealso \code{\link{parse_date}}, \code{\link{guess_format}}

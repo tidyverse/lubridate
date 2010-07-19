@@ -4,7 +4,7 @@
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @aliases yday.default yday.zoo yday.its yday.ti yday.timeseries yday.fts yday.irts wday.default 
-#'   wday.zoo wday.its wday.ti wday.timeseries wday.fts wday.irts mday.default mday.zoo mday.its 
+#'   wday.zoo wday.its wday.ti wday.timeseries wday.fts wday.irts mday.default mday.zoo mday.its day
 #'   mday.ti mday.timeseries mday.fts mday.irts yday mday wday day<- yday<-.default yday<-.Date 
 #'   yday<-.chron yday<-.zoo yday<-.its yday<-.ti yday<-.timeDate yday<-.jul yday<-.timeSeries 
 #'   yday<-.fts yday<-.irts wday<- wday<-.default wday<-.Date wday<-.chron wday<-.zoo wday<-.its 
