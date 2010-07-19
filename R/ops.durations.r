@@ -316,8 +316,7 @@ divide_interval_by_number <- function(int, num){
 #' get a nonspecific duration use \code{\link{get_duration}}. See 
 #' \code{\link{duration}} for more details.
 #'
-#' @aliases -.period -.POSIXt -.difftime -.Date -.interval
-#' @name subtraction
+#' @aliases -.period -.POSIXt -.difftime -.Date -.interval subtract_dates
 #' @param e1 a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @param e2 a duration(i.e. difftime), period, interval, POSIXt, or Date object
 #' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 

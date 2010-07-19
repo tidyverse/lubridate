@@ -3,7 +3,7 @@
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases month.default month.zoo month.its month.ti month.timeseries
+#' @aliases month.default month.zoo month.its month.ti month.timeseries month.numeric
 #'   month.fts month.irts month month<- month<-.default month<-.Date
 #'   month<-.chron month<-.zoo month<-.its month<-.ti month<-.timeDate
 #'   month<-.jul month<-.timeSeries month<-.fts month<-.irts month<-.yearmon

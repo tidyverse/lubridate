@@ -57,6 +57,9 @@ dym <- function(...) {
   parse_date(num_to_date(dates), make_format("dym"))
 }
 
+#' Make format
+#'
+#' Internal function used by parse functions.
 make_format <- function(order) {
   order <- strsplit(order, "")[[1]]
   

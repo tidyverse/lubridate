@@ -163,10 +163,9 @@ format.period <- function(x, ...){
     paste(show, collapse = "   ")
 }
 
-#' Internal function for printing interval objects.
+#' Internal method for printing interval objects.
 #'
-#' @method print period
-#' keywords internal print chron
+#' @keywords internal print chron
 print.period <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }

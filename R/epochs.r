@@ -18,6 +18,11 @@
 #  incorporate both into ops.durations.r
 
 
+#' Quickly create common epoch objects
+#'
+#' Creates an epoch object that uses the functions name as the reference epoch event. Implementation for epochs will be implemented in future versions of lubridate.
+#' 
+#' @aliases sundays mondays tuesdays wednesdays thursdays fridays saturdays
 sundays <- function(x = 1) 
   new_epoch(weekday = "sunday", number = x)
 mondays <- function(x = 1) 
@@ -33,13 +38,22 @@ fridays <- function(x = 1)
 saturdays <- function(x = 1) 
   new_epoch(weekday = "saturday", number = x)
 
-
+#' Create an epoch object
+#'
+#' new_epoch creates an epoch object with the specified values. Implementation for epochs will be implemented in future versions of lubridate.
+#' 
+#' @param weekday name of weekday to use as epoch
+#' @param number number of epochs to include
+#' return and epoch object
+#' @seealso \code{\link{saturdays}}
 new_epoch <- function(weekday, number){
   epoch <- list(weekday = weekday, number = number)
   structure(epoch, class = c("epoch", "list"))
 }
   
-  
+#' Add epochs to dates
+#' 
+#' Method for adding epochs to dates. Epochs will be implemented in a later version of lubridate.  
 add_epoch_to_date <- function(date, epoch){
   weekday <- switch(epoch$weekday, sunday = 1, monday = 2, 
     tuesday = 3, wednesday = 4, thursday = 5, friday = 6, 

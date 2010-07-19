@@ -15,7 +15,7 @@
 #'
 #' For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
 #'
-#' @aliases tz tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts tz<- tz<-.default 
+#' @aliases tz tz.default tz.zoo tz.its tz.ti tz.timeseries tz.fts tz.irts tz<- tz<-.default tz.timeSeries
 #'   tz<-.chron tz<-.zoo tz<-.its tz<-.ti tz<-.timeDate tz<-.jul tz<-.timeSeries tz<-.fts tz<-.irts
 #' @param x a date-time object   
 #' @return the first element of x's tzone attribute vector as a character string. If no tzone 

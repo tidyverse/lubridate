@@ -35,17 +35,19 @@ dst.default <- function(x)
 #' @method update POSIXt
 #' @method update POSIXct
 #' @method update POSIXlt
+#' @aliases update.POSIXct update.POSIXlt update.Date
 #' @param object a date-time object  
-#' @param year a value to substitute for the date's year component
-#' @param month a value to substitute for the date's month component
-#' @param week a value to substitute for the date's week component
-#' @param yday a value to substitute for the date's yday component
-#' @param wday a value to substitute for the date's wday component
-#' @param mday a value to substitute for the date's mday component
-#' @param hour a value to substitute for the date's hour component
-#' @param minute a value to substitute for the date's minute component
-#' @param second a value to substitute for the date's second component
-#' @param tz a value to substitute for the date's tz component
+#' @param years a value to substitute for the date's year component
+#' @param months a value to substitute for the date's month component
+#' @param ydays a value to substitute for the date's yday component
+#' @param wdays a value to substitute for the date's wday component
+#' @param mdays a value to substitute for the date's mday component
+#' @param days a value to substitute for the date's mday component
+#' @param hours a value to substitute for the date's hour component
+#' @param minutes a value to substitute for the date's minute component
+#' @param seconds a value to substitute for the date's second component
+#' @param tzs a value to substitute for the date's tz component
+#' @param ... ...
 #' @return a date object with the requested elements updated. The object will
 #'   retain its original class unless an element is updated which the original
 #'   class does not support. In this case, the date returned will be a POSIXlt
