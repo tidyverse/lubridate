@@ -61,15 +61,14 @@ dst.default <- function(x)
 #' update(date, year =2010, month = 13, mday = 1)
 #' # "2011-01-01 CST"
 #'
-#' update(date, yday = 35, wday = 4, mday = 3) 
-#' # "2009-02-03 CST"
-#'
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
 update.POSIXct <- function(object, years = year(object), 
-  months = month(object), days = mday(object), mdays = mday(object), ydays = 
-  yday(object), wdays = wday(object), hours = hour(object), minutes = 
-  minute(object), seconds = second(object), tzs = tz(object), ...){
+	months = month(object), days = mday(object), 
+	mdays = mday(object), ydays = yday(object), 
+	wdays = wday(object), hours = hour(object), 
+	minutes = minute(object), seconds = second(object), 
+	tzs = tz(object), ...){
     
   d.length <- max(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
   d.length2 <- min(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
@@ -80,12 +79,20 @@ update.POSIXct <- function(object, years = year(object),
   }
     
   day.change <- rbind(
-    days - mday(object), mdays - mday(object), wdays - wday(object), ydays - yday(object))
+    days - mday(object), 
+    mdays - mday(object), 
+    wdays - wday(object), 
+    ydays - yday(object))
   
-  if(nrow(unique(day.change)) > 2) 
-    stop("conflicting days input")
+  blank.rows <- rowSums(day.change)
+  new.days <- unique(day.change[which(blank.rows != 0),])
   
-  days <- colSums(rbind(mday(object), unique(day.change)[unique(day.change) != 0]), na.rm = TRUE)
+  if(is.matrix(new.days)){
+  	if(nrow(new.days) > 0) 
+    	stop("conflicting days input")
+  }
+
+  days <- colSums(rbind(mday(object), new.days), na.rm = TRUE)
   
     
   parts <- data.frame(years, months, days, hours, minutes, seconds)
