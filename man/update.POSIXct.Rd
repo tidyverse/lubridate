@@ -44,8 +44,5 @@ update(date, year = 2010, month = 1, mday = 1)
 update(date, year =2010, month = 13, mday = 1)
 # "2011-01-01 CST"
 
-update(date, yday = 35, wday = 4, mday = 3) 
-# "2009-02-03 CST"
-
 update(date, minute = 10, second = 3)
 # "2009-02-10 00:10:03 CST"}

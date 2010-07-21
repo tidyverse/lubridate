@@ -259,7 +259,7 @@ multiply_interval_by_number <- function(int, num){
 	if (all(num == -1))
 	  new_interval(int$end, int$start)
 	else
-	  stop("multiplication incompatible with intervals")
+	  stop("multiplication incompatible with intervals: change to duration or period first")
 }
 
 
@@ -274,9 +274,8 @@ multiply_interval_by_number <- function(int, num){
 #'   \code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}
 #' @keywords arith chron methods
 #' @examples
-#' x <- new_period(day = 1)
+#' x <- new_period(day = 2)
 #' x / 2
-#' 2 / x
 "/.period" <- "/.interval" <- function(e1, e2){
    if (is.timespan(e2)) 
       stop( "second argument of / cannot be a timespan")

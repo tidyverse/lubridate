@@ -67,7 +67,7 @@ years(1) - months(7)
 c(1:3) * hours(1) 
 # 1 hour   2 hours   3 hours
 hours(1:3)
-1 hour   2 hours   3 hours
+# 1 hour   2 hours   3 hours
 
 #sequencing
 y <- ymd(090101) # "2009-01-01 CST"

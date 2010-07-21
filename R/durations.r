@@ -60,9 +60,9 @@
 #' new_period(second = 3690)
 #' # 3690 seconds
 #' new_period(second = 30, minute = 1, hour = 1)
-#' 1 hour, 1 minute and 30 seconds
+#' # 1 hour, 1 minute and 30 seconds
 #' new_interval(as.POSIXct("2009-08-09 12:00:00"), as.POSIXct("2009-08-09 13:01:30"))
-#' [1] 1.025 hours beginning at 2009-08-09 12:00:00
+#' # [1] 1.025 hours beginning at 2009-08-09 12:00:00
 #'
 #' date <- as.POSIXct("2009-03-08 01:59:59") # DST boundary
 #' # "2009-03-08 01:59:59 CST"
@@ -91,10 +91,6 @@
 #' # 3000.542 days beginning at 2000-02-29 12:00:00
 #' span - edays(294.542)
 #' # 3000 days beginning at 2000-02-29 12:00:00
-#' span * 3
-#' # 9883.75 days beginning at 2000-02-29 12:00:00
-#' span / 2
-#' # 1647.292 days beginning at 2000-02-29 12:00:00
 #'
 #' date <- as.POSIXct("2009-01-01 00:00:00") 
 #' # "2009-01-01 GMT"
@@ -364,7 +360,7 @@ is.period <- function(x) inherits(x,"period")
 #' @keywords logic chron
 #' @examples
 #' is.interval(new_period(months= 1, days = 15)) # FALSE
-#' is.interval(new_interval(ymd(20090801), ymd(20090809)) # TRUE
+#' is.interval(new_interval(ymd(20090801), ymd(20090809))) # TRUE
 is.interval <- function(x) inherits(x, c("interval"))
 
 #' Internal function. Matches input with recognized difftime unit names (i.e. 

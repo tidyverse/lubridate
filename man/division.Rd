@@ -19,6 +19,6 @@
   \item{e1}{a period, interval or numeric object}
   \item{e2}{a period, interval or numeric object}
 }
-\examples{x <- new_period(day = 1)
+\examples{x <- new_period(day = 2)
 x / 2
-2 / x}
+}

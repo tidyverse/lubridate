@@ -53,12 +53,12 @@ now <- function(tzone = "")
 #'
 #' @keywords chron utilities
 #' @examples
-#' today("")
+#' today()
 #' today("GMT")
-#' today("") == today("GMT") # not always true
+#' today() == today("GMT") # not always true
 #' today() < as.Date("2999-01-01") # TRUE  (so far)
-today <- function() {
-  as.Date(floor_date(now(), "day"))
+today <- function(tzone = "") {
+  as.Date(floor_date(now(tzone), "day"))
 }
 
 #' Does date time occur in the am or pm?

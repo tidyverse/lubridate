@@ -15,4 +15,4 @@
   \item{x}{an R object}
 }
 \examples{is.interval(new_period(months= 1, days = 15)) # FALSE
-is.interval(new_interval(ymd(20090801), ymd(20090809)) # TRUE}
+is.interval(new_interval(ymd(20090801), ymd(20090809))) # TRUE}

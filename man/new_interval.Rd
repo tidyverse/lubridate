@@ -42,10 +42,6 @@ new_interval(date2, date1)
 
 span <- new_interval(ymd(20090101), ymd(20090201))
 # 31 days beginning at 2009-01-01
-span * 2
-# 62 days beginning at 2009-01-01
-span / 2
-# 15.5 days beginning at 2009-01-01
 span - days(30)
 # 1 days beginning at 2009-01-01
 span + months(6)

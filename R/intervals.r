@@ -31,10 +31,6 @@
 #' 
 #' span <- new_interval(ymd(20090101), ymd(20090201))
 #' # 31 days beginning at 2009-01-01
-#' span * 2
-#' # 62 days beginning at 2009-01-01
-#' span / 2
-#' # 15.5 days beginning at 2009-01-01
 #' span - days(30)
 #' # 1 days beginning at 2009-01-01
 #' span + months(6)
@@ -57,8 +53,8 @@ new_interval <- function(date1, date2){
 #' @keywords internal print chron
 #' @method format interval
 format.interval <- function(x, ...){
-  x <- difftime(x$end, x$start)
-  paste(format(unclass(x),...), units(x), "beginning at", x$start)
+  y <- difftime(x$end, x$start)
+  paste(format(unclass(y),...), units(y), "beginning at", x$start)
 }
 
 #' Internal function for printing interval objects.

@@ -76,9 +76,9 @@ for converting objects to intervals}
 new_period(second = 3690)
 # 3690 seconds
 new_period(second = 30, minute = 1, hour = 1)
-1 hour, 1 minute and 30 seconds
+# 1 hour, 1 minute and 30 seconds
 new_interval(as.POSIXct("2009-08-09 12:00:00"), as.POSIXct("2009-08-09 13:01:30"))
-[1] 1.025 hours beginning at 2009-08-09 12:00:00
+# [1] 1.025 hours beginning at 2009-08-09 12:00:00
 
 date <- as.POSIXct("2009-03-08 01:59:59") # DST boundary
 # "2009-03-08 01:59:59 CST"
@@ -107,10 +107,6 @@ span - days(294)
 # 3000.542 days beginning at 2000-02-29 12:00:00
 span - edays(294.542)
 # 3000 days beginning at 2000-02-29 12:00:00
-span * 3
-# 9883.75 days beginning at 2000-02-29 12:00:00
-span / 2
-# 1647.292 days beginning at 2000-02-29 12:00:00
 
 date <- as.POSIXct("2009-01-01 00:00:00") 
 # "2009-01-01 GMT"

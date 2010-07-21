@@ -13,7 +13,7 @@
 find the current date of. tzone defaults to the system time zone set on your 
 computer.}
 }
-\examples{today("")
+\examples{today()
 today("GMT")
-today("") == today("GMT") # not always true
+today() == today("GMT") # not always true
 today() < as.Date("2999-01-01") # TRUE  (so far)}
