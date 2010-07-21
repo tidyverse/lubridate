@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{15}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -14,6 +14,16 @@ Armstrong W (2009).
 \newblock \emph{fts: R interface to tslib (a time series library in c++)}.
 \newblock R package version 0.7.6,
   \urlprefix\url{http://CRAN.R-project.org/package=fts}.
+
+\bibitem[{Colebourne and O'Neill(2006)}]{jodatime}
+Colebourne S, O'Neill BS (2006).
+\newblock \enquote{Joda-Time.}
+\newblock \urlprefix\url{http://joda-time.sourceforge.net/}.
+
+\bibitem[{Grothendieck and Petzoldt(2004)}]{Rnews}
+Grothendieck G, Petzoldt T (2004).
+\newblock \enquote{Date and Time Classes in R.}
+\newblock \emph{R News}, \textbf{4}(1), 32.
 
 \bibitem[{Group and Securities(2009)}]{its}
 Group PRA, Securities C (2009).
@@ -32,6 +42,22 @@ James D, Hornik K (2010).
 \newblock \emph{chron: Chronological Objects which Can Handle Dates and Times}.
 \newblock R package version 2.3-35. S original by David James, R port by Kurt
   Hornik., \urlprefix\url{http://CRAN.R-project.org/package=chron}.
+
+\bibitem[{Lipper(2008)}]{runts}
+Lipper M (2008).
+\newblock \enquote{runt.}
+\newblock \urlprefix\url{http://runt.rubyforge.org/}.
+
+\bibitem[{Parker(2010)}]{bball}
+Parker RJ (2010).
+\newblock \enquote{Basketball Geek.}
+\newblock \urlprefix\url{http://www.basketballgeek.com/data/}.
+
+\bibitem[{{R Development Core Team}(2010)}]{R}
+{R Development Core Team} (2010).
+\newblock \emph{R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+\newblock {ISBN} 3-900051-07-0, \urlprefix\url{http://www.R-project.org}.
 
 \bibitem[{Ryan and Ulrich(2010)}]{xts}
 Ryan JA, Ulrich JM (2010).

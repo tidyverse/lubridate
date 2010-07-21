@@ -2,45 +2,52 @@ This is BibTeX, Version 0.99c (TeX Live 2009)
 The top-level auxiliary file: lubridate.aux
 The style file: jss.bst
 Database file #1: lubridate.bib
+Warning--entry type for "bball" isn't style-file defined
+--line 24 of file lubridate.bib
+Warning--entry type for "runts" isn't style-file defined
+--line 33 of file lubridate.bib
+Warning--entry type for "jodatime" isn't style-file defined
+--line 43 of file lubridate.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 10 entries,
+You've used 15 entries,
             3179 wiz_defined-function locations,
-            693 strings with 6697 characters,
-and the built_in function-call counts, 7184 in all, are:
-= -- 608
-> -- 186
-< -- 9
-+ -- 70
-- -- 60
-* -- 561
-:= -- 1011
-add.period$ -- 34
-call.type$ -- 10
-change.case$ -- 67
-chr.to.int$ -- 10
-cite$ -- 10
-duplicate$ -- 663
-empty$ -- 641
-format.name$ -- 96
-if$ -- 1446
+            722 strings with 7176 characters,
+and the built_in function-call counts, 10295 in all, are:
+= -- 878
+> -- 254
+< -- 14
++ -- 96
+- -- 81
+* -- 793
+:= -- 1466
+add.period$ -- 54
+call.type$ -- 15
+change.case$ -- 94
+chr.to.int$ -- 15
+cite$ -- 15
+duplicate$ -- 953
+empty$ -- 921
+format.name$ -- 130
+if$ -- 2072
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 94
-newline$ -- 64
-num.names$ -- 40
-pop$ -- 231
+missing$ -- 133
+newline$ -- 90
+num.names$ -- 60
+pop$ -- 325
 preamble$ -- 1
-purify$ -- 59
+purify$ -- 86
 quote$ -- 0
-skip$ -- 181
+skip$ -- 261
 stack$ -- 0
-substring$ -- 550
-swap$ -- 196
+substring$ -- 789
+swap$ -- 280
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 87
+type$ -- 132
 warning$ -- 0
-while$ -- 52
+while$ -- 75
 width$ -- 0
-write$ -- 145
+write$ -- 210
+(There were 3 warnings)
