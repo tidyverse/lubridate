@@ -1,4 +1,4 @@
-\name{subtraction}
+\name{subtract_dates}
 \title{Subtraction for the duration (i...}
 \usage{subtract_dates(e1, e2)}
 
@@ -15,14 +15,17 @@
   \code{\link{as.period}}.
 
   Since a specific number of seconds exists between two dates, the
-  duration returned will not include non-specific time units such as
-  years and months. #' See \code{\link{duration}} for more details.
+  duration returned will not include unspecific time units such as
+  years and months. To get a nonspecific duration use
+  \code{\link{get_duration}}. See \code{\link{duration}} for more
+  details.
 }
 \alias{-.period}
 \alias{-.POSIXt}
 \alias{-.difftime}
 \alias{-.Date}
 \alias{-.interval}
+\alias{subtract_dates}
 \value{a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
 and e2}
 \keyword{arith}
