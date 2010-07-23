@@ -220,8 +220,8 @@ make_difftime <- function (x) {
 #'
 #' @name multiply
 #' @aliases *.period *.interval multiply_period_by_number multiply_interval_by_number 
-#' @param e1 a period, interval or numeric object
-#' @param e2 a period, interval or numeric object
+#' @param per a period, interval or numeric object
+#' @param num a period, interval or numeric object
 #' @return a period or interval object
 #' @seealso \code{\link{+.period}}, \code{\link{+.interval}},
 #'   \code{\link{-.period}}, \code{\link{-.interval}},
@@ -270,8 +270,8 @@ multiply_interval_by_number <- function(int, num){
 #'
 #' @name division
 #' @aliases /.period /.interval divide_period_by_number divide_interval_by_number 
-#' @param e1 a period, interval or numeric object
-#' @param e2 a period, interval or numeric object
+#' @param per a period, interval or numeric object
+#' @param num a period, interval or numeric object
 #' @return a period or interval object
 #' @seealso \code{\link{+.period}}, \code{\link{+.interval}},
 #'   \code{\link{-.period}}, \code{\link{-.interval}}, 
