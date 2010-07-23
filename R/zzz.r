@@ -1,16 +1,13 @@
-#' Preserve addition function from base R
-#'
-#' lubridate overwrites the addition method for POSIXt objects in base R to allow mathematics with date time objects. 
-#' base_add_POSIXt preserves the base R addition method for POSIXt objects so it can be referenced within the new addition operations.
-#'
-#' @aliases base_add_POSIXt
-NULL
+# lubridate overwrites the addition method for POSIXt objects in base R to
+# allow mathematics with date time objects.  .base_add_POSIXt preserves the 
+# base R addition method for POSIXt objects so it can be referenced within the
+# new addition operations.
 
-base_add_POSIXt <- NULL
+.base_add_POSIXt <- NULL
 
 .onLoad <- function(...) {
-  if (is.null(base_add_POSIXt)) {
-    base_add_POSIXt <<- base::'+.POSIXt'    
+  if (is.null(.base_add_POSIXt)) {
+    .base_add_POSIXt <<- base::'+.POSIXt'    
   }
   
   packageStartupMessage(
@@ -32,3 +29,4 @@ base_add_POSIXt <- NULL
 
 "+.period" <- "+.interval" <- add_dates
 "-.period" <- "-.interval" <- subtract_dates
+
