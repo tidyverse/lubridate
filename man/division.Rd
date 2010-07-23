@@ -10,8 +10,9 @@
 \alias{divide_period_by_number}
 \alias{divide_interval_by_number}
 \value{a period or interval object}
-\seealso{\code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
-\code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}}
+\seealso{\code{\link{+.period}}, \code{\link{+.interval}},
+\code{\link{-.period}}, \code{\link{-.interval}}, 
+\code{\link{*.interval}}, \code{\link{*.period}}}
 \keyword{arith}
 \keyword{chron}
 \keyword{methods}

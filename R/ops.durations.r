@@ -34,12 +34,12 @@ add_period_to_date <- function(date, period){
 add_duration_to_date <- function(date, duration) {
   if(is.Date(date)){
     date <- as.POSIXct(date)
-    ans <- with_tz(base_add_POSIXt(date, duration), "UTC")
+    ans <- with_tz(.base_add_POSIXt(date, duration), "UTC")
     if (hour(ans) == 0 && minute(ans) == 0 && second(ans) == 0)
       return(as.Date(ans))
     return(ans)
   }
-  new <- base_add_POSIXt(date, duration)
+  new <- .base_add_POSIXt(date, duration)
   attr(new, "tzone") <- tz(date)
   reclass_date(new, date)
 }
@@ -223,8 +223,9 @@ make_difftime <- function (x) {
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
-#'   \code{\link{"-.interval"}}, \code{\link{"/.interval"}}, \code{\link{"/.period"}}
+#' @seealso \code{\link{+.period}}, \code{\link{+.interval}},
+#'   \code{\link{-.period}}, \code{\link{-.interval}},
+#'   \code{\link{/.interval}}, \code{\link{/.period}}
 #' @keywords arith chron methods
 #' @examples
 #' x <- new_period(day = 1)
@@ -270,8 +271,9 @@ multiply_interval_by_number <- function(int, num){
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{\link{"+.period"}}, \code{\link{"+.interval"}}, \code{\link{"-.period"}}, 
-#'   \code{\link{"-.interval"}}, \code{\link{"*.interval"}}, \code{\link{"*.period"}}
+#' @seealso \code{\link{+.period}}, \code{\link{+.interval}},
+#'   \code{\link{-.period}}, \code{\link{-.interval}}, 
+#'   \code{\link{*.interval}}, \code{\link{*.period}}
 #' @keywords arith chron methods
 #' @examples
 #' x <- new_period(day = 2)
