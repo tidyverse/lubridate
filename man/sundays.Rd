@@ -18,3 +18,6 @@
 \alias{thursdays}
 \alias{fridays}
 \alias{saturdays}
+\arguments{
+  \item{x}{number of epochs to be included}
+}
