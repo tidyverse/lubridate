@@ -25,6 +25,7 @@
 \alias{as.duration.default}
 \alias{as.duration.period}
 \alias{as.duration.interval}
+\alias{as.duration.difftime}
 \value{a duration object}
 \seealso{\code{\link{duration}}, \code{\link{new_duration}}}
 \keyword{classes}

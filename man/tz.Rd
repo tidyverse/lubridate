@@ -35,6 +35,7 @@
 \alias{tz.irts}
 \alias{tz<-}
 \alias{tz<-.default}
+\alias{tz.timeSeries}
 \alias{tz<-.chron}
 \alias{tz<-.zoo}
 \alias{tz<-.its}

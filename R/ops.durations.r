@@ -34,12 +34,12 @@ add_period_to_date <- function(date, period){
 add_duration_to_date <- function(date, duration) {
   if(is.Date(date)){
     date <- as.POSIXct(date)
-    ans <- with_tz(base_add_POSIXt(date, duration), "UTC")
+    ans <- with_tz(.base_add_POSIXt(date, duration), "UTC")
     if (hour(ans) == 0 && minute(ans) == 0 && second(ans) == 0)
       return(as.Date(ans))
     return(ans)
   }
-  new <- base_add_POSIXt(date, duration)
+  new <- .base_add_POSIXt(date, duration)
   attr(new, "tzone") <- tz(date)
   reclass_date(new, date)
 }
@@ -223,27 +223,14 @@ make_difftime <- function (x) {
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{\link{+.period}}, \code{\link{+.interval}}, \code{\link{-.period}}, 
-#'   \code{\link{-.interval}}, \code{\link{/.interval}}, \code{\link{/.period}}
+#' @seealso \code{\link{+.period}}, \code{\link{+.interval}},
+#'   \code{\link{-.period}}, \code{\link{-.interval}},
+#'   \code{\link{/.interval}}, \code{\link{/.period}}
 #' @keywords arith chron methods
 #' @examples
 #' x <- new_period(day = 1)
 #' x * 3
 #' 3 * x
-"*.period" <- "*.interval" <- function(e1, e2){
-    if (is.timespan(e1) && is.timespan(e2)) 
-      stop("cannot multiply time span by time span")
-    else if (is.period(e1))
-      multiply_period_by_number(e1, e2)
-    else if (is.period(e2))
-      multiply_period_by_number(e2, e1)
-    else if (is.interval(e1))
-      multiply_interval_by_number(e1, e2)
-    else if (is.interval(e2))
-      multiply_interval_by_number(e2, e1)
-    else base::'*'(e1, e2)
-}  
-
 multiply_period_by_number <- function(per, num){
   new_period(
     year = per$year * num,
@@ -262,6 +249,22 @@ multiply_interval_by_number <- function(int, num){
 	  stop("multiplication incompatible with intervals: change to duration or period first")
 }
 
+"*.period" <- "*.interval" <- function(e1, e2){
+    if (is.timespan(e1) && is.timespan(e2)) 
+      stop("cannot multiply time span by time span")
+    else if (is.period(e1))
+      multiply_period_by_number(e1, e2)
+    else if (is.period(e2))
+      multiply_period_by_number(e2, e1)
+    else if (is.interval(e1))
+      multiply_interval_by_number(e1, e2)
+    else if (is.interval(e2))
+      multiply_interval_by_number(e2, e1)
+    else base::'*'(e1, e2)
+}  
+
+
+
 
 #' Division for period, and interval classes. 
 #'
@@ -270,22 +273,13 @@ multiply_interval_by_number <- function(int, num){
 #' @param e1 a period, interval or numeric object
 #' @param e2 a period, interval or numeric object
 #' @return a period or interval object
-#' @seealso \code{\link{+.period}}, \code{\link{+.interval}}, \code{\link{-.period}}, 
-#'   \code{\link{-.interval}}, \code{\link{*.interval}}, \code{\link{*.period}}
+#' @seealso \code{\link{+.period}}, \code{\link{+.interval}},
+#'   \code{\link{-.period}}, \code{\link{-.interval}}, 
+#'   \code{\link{*.interval}}, \code{\link{*.period}}
 #' @keywords arith chron methods
 #' @examples
 #' x <- new_period(day = 2)
 #' x / 2
-"/.period" <- "/.interval" <- function(e1, e2){
-   if (is.timespan(e2)) 
-      stop( "second argument of / cannot be a timespan")
-    else if (is.period(e1))
-      divide_period_by_number(e1, e2)
-    else if (is.interval(e1))
-      divide_interval_by_number(e1, e2)
-    else base::'/'(e1, e2)
-}  
-
 divide_period_by_number <- function(per, num){
   new_period(
     year = per$year / num,
@@ -301,6 +295,18 @@ divide_interval_by_number <- function(int, num){
   diff <- difftime(int$end, int$start) / num
     new_interval(int$start, int$start + diff)
 }
+
+"/.period" <- "/.interval" <- function(e1, e2){
+   if (is.timespan(e2)) 
+      stop( "second argument of / cannot be a timespan")
+    else if (is.period(e1))
+      divide_period_by_number(e1, e2)
+    else if (is.interval(e1))
+      divide_interval_by_number(e1, e2)
+    else base::'/'(e1, e2)
+}  
+
+
 
   
 #' Subtraction for the duration (i.e, difftime), period, and interval classes. 

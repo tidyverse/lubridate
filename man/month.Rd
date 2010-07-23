@@ -16,6 +16,7 @@
 \alias{month.its}
 \alias{month.ti}
 \alias{month.timeseries}
+\alias{month.numeric}
 \alias{month.fts}
 \alias{month.irts}
 \alias{month}

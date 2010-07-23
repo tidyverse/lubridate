@@ -1,5 +1,4 @@
 \name{update.POSIXct}
-\alias{update.POSIXct}
 \title{Changes the components of a date object...}
 \usage{\method{update}{Date} (object, years=year(object),
     months=month(object), days=mday(object), mdays=mday(object),
@@ -18,6 +17,9 @@
   existing date, they substitute them for the appropriate parts of the
   existing date.
 }
+\alias{update.POSIXct}
+\alias{update.POSIXlt}
+\alias{update.Date}
 \value{a date object with the requested elements updated. The object will
 retain its original class unless an element is updated which the original
 class does not support. In this case, the date returned will be a POSIXlt
@@ -26,16 +28,17 @@ date object.}
 \keyword{chron}
 \arguments{
   \item{object}{a date-time object}
-  \item{year}{a value to substitute for the date's year component}
-  \item{month}{a value to substitute for the date's month component}
-  \item{week}{a value to substitute for the date's week component}
-  \item{yday}{a value to substitute for the date's yday component}
-  \item{wday}{a value to substitute for the date's wday component}
-  \item{mday}{a value to substitute for the date's mday component}
-  \item{hour}{a value to substitute for the date's hour component}
-  \item{minute}{a value to substitute for the date's minute component}
-  \item{second}{a value to substitute for the date's second component}
-  \item{tz}{a value to substitute for the date's tz component}
+  \item{years}{a value to substitute for the date's year component}
+  \item{months}{a value to substitute for the date's month component}
+  \item{ydays}{a value to substitute for the date's yday component}
+  \item{wdays}{a value to substitute for the date's wday component}
+  \item{mdays}{a value to substitute for the date's mday component}
+  \item{days}{a value to substitute for the date's mday component}
+  \item{hours}{a value to substitute for the date's hour component}
+  \item{minutes}{a value to substitute for the date's minute component}
+  \item{seconds}{a value to substitute for the date's second component}
+  \item{tzs}{a value to substitute for the date's tz component}
+  \item{...}{...}
 }
 \examples{date <- as.POSIXlt("2009-02-10") 
 update(date, year = 2010, month = 1, mday = 1)

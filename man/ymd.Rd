@@ -26,6 +26,7 @@
 \alias{ydm}
 \alias{mdy}
 \alias{yearmonthdate}
+\alias{dmy}
 \value{a vector of POSIXct date-time objects}
 \seealso{\code{\link{parse_date}}, \code{\link{guess_format}}}
 \keyword{chron}

@@ -12,6 +12,11 @@
 \alias{+.POSIXt}
 \alias{+.difftime}
 \alias{+.Date}
+\alias{add_dates}
+\alias{add_interval_to_date}
+\alias{add_interval_to_interval}
+\alias{add_number_to_date}
+\alias{add_number_to_posix}
 \alias{add_period_to_date}
 \alias{add_duration_to_date}
 \alias{add_number_to_duration}
