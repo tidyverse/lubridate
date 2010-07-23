@@ -60,6 +60,8 @@ dym <- function(...) {
 #' Make format
 #'
 #' Internal function used by parse functions.
+#' 
+#' @param order a character string that includes the letters y, m, and d in the preferred order of years, months, and dates
 make_format <- function(order) {
   order <- strsplit(order, "")[[1]]
   

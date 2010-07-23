@@ -5,7 +5,7 @@
 #'
 #' @aliases yday.default yday.zoo yday.its yday.ti yday.timeseries yday.fts yday.irts 
 #'   mday.default mday.zoo mday.its day
-#'   mday.ti mday.timeseries mday.fts mday.irts yday mday wday day<- yday<-.default yday<-.Date 
+#'   mday.ti mday.timeseries mday.fts mday.irts yday mday day<- yday<-.default yday<-.Date 
 #'   yday<-.chron yday<-.zoo yday<-.its yday<-.ti yday<-.timeDate yday<-.jul yday<-.timeSeries yday<-
 #'   yday<-.fts yday<-.irts 
 #'   mday<-.default mday<-.Date mday<-.chron mday<-.zoo mday<-.its mday<-.ti mday<-.timeDate 
