@@ -1,6 +1,6 @@
 \name{multiply}
 \title{Multiplication for period and interval classes.}
-\usage{*.period(e1, e2)}
+\usage{multiply_period_by_number(per, num)}
 
 \description{
   Multiplication for period and interval classes.
@@ -17,8 +17,8 @@
 \keyword{chron}
 \keyword{methods}
 \arguments{
-  \item{e1}{a period, interval or numeric object}
-  \item{e2}{a period, interval or numeric object}
+  \item{per}{a period, interval or numeric object}
+  \item{num}{a period, interval or numeric object}
 }
 \examples{x <- new_period(day = 1)
 x * 3

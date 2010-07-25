@@ -1,8 +1,7 @@
-
-#' lubridate overwrites the addition method for POSIXt objects in base R to
-#' allow mathematics with date time objects.  .base_add_POSIXt preserves the 
-#' base R addition method for POSIXt objects so it can be referenced within the
-#' new addition operations.
+# lubridate overwrites the addition method for POSIXt objects in base R to
+# allow mathematics with date time objects.  .base_add_POSIXt preserves the 
+# base R addition method for POSIXt objects so it can be referenced within the
+# new addition operations.
 .base_add_POSIXt <- NULL
 
 .onLoad <- function(...) {

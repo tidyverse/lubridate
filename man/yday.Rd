@@ -28,7 +28,6 @@
 \alias{mday.irts}
 \alias{yday}
 \alias{mday}
-\alias{wday}
 \alias{day<-}
 \alias{yday<-.default}
 \alias{yday<-.Date}

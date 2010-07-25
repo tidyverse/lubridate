@@ -12,9 +12,9 @@
   Implementation for epochs will be implemented in future versions of
   lubridate.
 }
+\value{an epoch object}
 \seealso{\code{\link{saturdays}}}
 \arguments{
   \item{weekday}{name of weekday to use as epoch}
-  \item{number}{number of epochs to include
-return and epoch object}
+  \item{number}{number of epochs to include}
 }

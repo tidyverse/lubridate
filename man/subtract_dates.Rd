@@ -16,9 +16,7 @@
 
   Since a specific number of seconds exists between two dates, the
   duration returned will not include unspecific time units such as
-  years and months. To get a nonspecific duration use
-  \code{\link{get_duration}}. See \code{\link{duration}} for more
-  details.
+  years and months. See \code{\link{duration}} for more details.
 }
 \alias{-.period}
 \alias{-.POSIXt}
