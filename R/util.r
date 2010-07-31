@@ -88,9 +88,9 @@ pm <- function(x) !am(x)
 #' @keywords chron manip
 #' @seealso \code{\link{force_tz}}
 #' @examples
-#' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
+#' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_york")
 #' with_tz(x, "GMT")
-#' # "2009-08-07 05:00:00 GMT"
+#' # "2009-08-07 04:00:01 GMT"
 with_tz <- function (time, tzone = ""){
   new <- as.POSIXct(format(as.POSIXct(time), tz = tzone), 
     tz = tzone)
@@ -111,9 +111,9 @@ with_tz <- function (time, tzone = ""){
 #' @keywords chron manip
 #' @seealso \code{\link{force_tz}}
 #' @examples
-#' x <- as.POSIXct("2009-08-07 00:00:00 CDT")
+#' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_york")
 #' force_tz(x, "GMT")
-#' # "2009-08-07 00:00:00 GMT"
+#' # "2009-08-07 00:00:01 GMT"
 force_tz <- function(time, tz = ""){
   x <- as.POSIXlt(time)
   
