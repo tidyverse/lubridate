@@ -295,7 +295,7 @@ test_that("update performs consecutive roll overs correctly for POSIXct objects"
 test_that("update returns NA for date-times in the spring dst gap",{ 
   poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, "")
+  poslt <- force_tz(poslt, tz = "America/New_York")
      
   expect_that(is.na(update(poslt, seconds = 61)), is_true())
   expect_that(is.na(update(poslt, minutes = 61)), is_true())
@@ -303,7 +303,7 @@ test_that("update returns NA for date-times in the spring dst gap",{
   
   poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, "")
+  poslt <- force_tz(poslt, tz = "America/New_York")
   
   expect_that(is.na(update(poslt, mday = 14)), is_true())
   expect_that(is.na(update(poslt, wday = 8)), is_true())
@@ -311,20 +311,20 @@ test_that("update returns NA for date-times in the spring dst gap",{
   
   poslt <- as.POSIXlt("2010-02-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, "")
+  poslt <- force_tz(poslt, tz = "America/New_York")
   
   expect_that(is.na(update(poslt, months = 3)), is_true())
   
   poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, "")
+  poslt <- force_tz(poslt, tz = "America/New_York")
   
   expect_that(is.na(update(poslt, years = 2010)), is_true())
   
   poslt <- as.POSIXlt("2010-03-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   
-  expect_that(is.na(update(poslt, tz = "")), is_true())
+  expect_that(is.na(update(poslt, tz = "America/New_York")), is_true())
 })
 
 

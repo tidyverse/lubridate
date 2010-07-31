@@ -28,8 +28,6 @@
 #' # "2009-01-01 CST"
 floor_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
   unit <- match.arg(unit)
-  keep <- getOption("DST")
-  options(DST = "relative")
   
   new <- switch(unit,
     second = update(x, second = floor(second(x))),
@@ -40,7 +38,6 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
     month =  update(x, mday = 1, hour = 0, minute = 0, second = 0),
     year =   update(x, yday = 1, hour = 0, minute = 0, second = 0)
   )
-  options(DST = keep)
   new
 }
 

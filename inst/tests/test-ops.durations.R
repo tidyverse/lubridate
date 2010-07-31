@@ -1,22 +1,22 @@
 context("Duration operators")
 
 test_that("addition handles daylight savings time", {
-  x <- as.POSIXct("2010-03-14 00:00:00")
-  y <- as.POSIXct("2010-03-15 01:00:00")
+  x <- as.POSIXct("2010-03-14 00:00:00", tz = "America/New_York")
+  y <- as.POSIXct("2010-03-15 01:00:00", tz = "America/New_York")
   
   expect_that(x + days(1), equals(as.POSIXct(
-    "2010-03-15 00:00:00")))
+    "2010-03-15 00:00:00", tz = "America/New_York")))
   expect_that(x + edays(1), equals(y))  
     
 })  
 
 
 test_that("subtraction handles daylight savings time", {
-  x <- as.POSIXct("2010-03-15 00:00:00")
-  y <- as.POSIXct("2010-03-13 23:00:00")
+  x <- as.POSIXct("2010-03-15 00:00:00", tz = "America/New_York")
+  y <- as.POSIXct("2010-03-13 23:00:00", tz = "America/New_York")
   
   expect_that(x - days(1), equals(as.POSIXct(
-    "2010-03-14 00:00:00")))
+    "2010-03-14 00:00:00", tz = "America/New_York")))
   expect_that(x - edays(1), equals(y))  
     
 })  
