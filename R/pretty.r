@@ -6,7 +6,7 @@
 #' entire range of the data, and 2) allow the breaks to occur on important 
 #' date-times (i.e. on the hour, on the first of the month, etc.)
 #'
-#' @param dates a vector of POSIXct, POSIXlt, Date, or chron date-time objects
+#' @param x a vector of POSIXct, POSIXlt, Date, or chron date-time objects
 #' @param n integer value of the desired number of breaks
 #' @return a vector of date-times that can be used as axis tick marks or bin breaks
 #' @keywords dplot utilities chron
@@ -15,12 +15,12 @@
 #' # "2009-08-02" "2010-08-02"
 #' pretty.dates(x, 12)
 #' #"2009-08-01 GMT" "2009-09-01 GMT" "2009-10-01 GMT" "2009-11-01 GMT" "2009-12-01 GMT" "2010-01-01 GMT" "2010-02-01 GMT" "2010-03-01 GMT" "2010-04-01 GMT" "2010-05-01 GMT" "2010-06-01 GMT" "2010-07-01 GMT" "2010-08-01 GMT" "2010-09-01 GMT"
-pretty.dates <- function(dates, n){
+pretty.dates <- function(x, n, ...){
   remember <- Sys.getenv("TZ") 
   if (Sys.getenv("TZ") == "")
     remember <- "unset"
-  Sys.setenv(TZ = tz(dates[1]))
-  rng <- range(dates)
+  Sys.setenv(TZ = tz(x[1]))
+  rng <- range(x)
   diff <- as.duration(rng[2] - rng[1])
   diff <- as.double(diff, "secs") 
   
@@ -47,16 +47,16 @@ pretty.dates <- function(dates, n){
 #' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
-pretty.unit <- function(interval){
-  if (interval > 3600*24*365)
+pretty.unit <- function(x, ...){
+  if (x > 3600*24*365)
     return("year")
-  if (interval > 3600*24*30)
+  if (x > 3600*24*30)
     return("month")
-  if (interval > 3600*24)
+  if (x > 3600*24)
     return("day")
-  if (interval > 3600)
+  if (x > 3600)
     return("hour")
-  if (interval > 60)
+  if (x > 60)
     return("min")
   else
     return("sec")
@@ -68,7 +68,19 @@ pretty.unit <- function(interval){
 #'
 #' @keywords internal
 
-pretty.sec <- function(span, n){
+pretty.sec <- function(x, n, ...){
+  lengths <- c(1,2,5,10,15,30,60)
+  fit <- abs(x - lengths*n)
+  lengths[which.min(fit)]
+}
+
+#' Internal function 
+#'
+#' For use with \code{\link{pretty.dates}}
+#'
+#' @keywords internal
+pretty.min <- function(x, n, ...){
+  span <- x/60
   lengths <- c(1,2,5,10,15,30,60)
   fit <- abs(span - lengths*n)
   lengths[which.min(fit)]
@@ -79,20 +91,8 @@ pretty.sec <- function(span, n){
 #' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
-pretty.min <- function(span, n){
-  span <- span/60
-  lengths <- c(1,2,5,10,15,30,60)
-  fit <- abs(span - lengths*n)
-  lengths[which.min(fit)]
-}
-
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
-pretty.hour <- function(span, n){
-  span <- span / 3600
+pretty.hour <- function(x, n, ...){
+  span <- x / 3600
   lengths <- c(1,2,3,4,6,8,12,24)
   fit <- abs(span - lengths*n)
   lengths[which.min(fit)]
@@ -103,8 +103,8 @@ pretty.hour <- function(span, n){
 #' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
-pretty.day <- function(span, n){
-  span <- span / (3600 * 24)
+pretty.day <- function(x, n, ...){
+  span <- x / (3600 * 24)
   pretty(1:span, n = n)[2]
 }
 
@@ -113,8 +113,8 @@ pretty.day <- function(span, n){
 #' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
-pretty.month <- function(span, n){
-  span <- span / (3600 * 24 * 30)
+pretty.month <- function(x, n, ...){
+  span <- x / (3600 * 24 * 30)
   lengths <- c(1,2,3,4,6,12)
   fit <- abs(span - lengths*n)
   lengths[which.min(fit)]
@@ -125,8 +125,8 @@ pretty.month <- function(span, n){
 #' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
-pretty.year <- function(span, n){
-  span <- span / (3600 * 24 * 365)
+pretty.year <- function(x, n, ...){
+  span <- x / (3600 * 24 * 365)
   pretty(1:span, n = n)[2]
 }
 
@@ -135,7 +135,7 @@ pretty.year <- function(span, n){
 #' For use with \code{\link{pretty.dates}}
 #'
 #' @keywords internal
-pretty.point <- function(x, units, length, start = TRUE){
+pretty.point <- function(x, units, length, start = TRUE, ...){
   x <- as.POSIXct(x)
   
   floors <- c("sec", "min", "hour", "day", "d", "month", "year", "y")
