@@ -19,7 +19,7 @@ minute <- function(x)
   UseMethod("minute")
   
 minute.default <- function(x)
-  as.POSIXlt(x)$min
+  as.POSIXlt(x, tz = tz(x))$min
 
 
 "minute<-" <- function(x, value)

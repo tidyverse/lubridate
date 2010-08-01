@@ -34,7 +34,7 @@ month <- function(x, label = FALSE, abbr = TRUE)
   UseMethod("month")
   
 month.default <- function(x, label = FALSE, abbr = TRUE)
-  month(as.POSIXlt(x, tz = "GMT")$mon + 1, label, abbr)
+  month(as.POSIXlt(x, tz = tz(x))$mon + 1, label, abbr)
   
 month.numeric <- function(x, label = FALSE, abbr = TRUE) {
   if (!label) return(x)

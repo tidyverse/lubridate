@@ -19,7 +19,7 @@ second <- function(x)
   UseMethod("second")
   
 second.default <- function(x)
-  as.POSIXlt(x)$sec
+  as.POSIXlt(x, tz = tz(x))$sec
 
 "second<-" <- function(x, value)
   x <- x + seconds(value - second(x))

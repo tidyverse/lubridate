@@ -30,13 +30,13 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
   unit <- match.arg(unit)
   
   new <- switch(unit,
-    second = update(x, second = floor(second(x))),
-    minute = update(x, second = 0),
-    hour =   update(x, minute = 0, second = 0),
-    day =    update(x, hour = 0, minute = 0, second = 0),
-    week =   update(x, wday = 1, hour = 0, minute = 0, second = 0),
-    month =  update(x, mday = 1, hour = 0, minute = 0, second = 0),
-    year =   update(x, yday = 1, hour = 0, minute = 0, second = 0)
+    second = update(x, seconds = floor(second(x))),
+    minute = update(x, seconds = 0),
+    hour =   update(x, minutes = 0, seconds = 0),
+    day =    update(x, hours = 0, minutes = 0, seconds = 0),
+    week =   update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
+    month =  update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0),
+    year =   update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0)
   )
   new
 }
