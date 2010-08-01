@@ -1,7 +1,7 @@
 \name{pretty.min}
 \alias{pretty.min}
 \title{Internal function...}
-\usage{pretty.min(span, n)}
+\usage{pretty.min(x, n, ...)}
 
 \description{
   Internal function

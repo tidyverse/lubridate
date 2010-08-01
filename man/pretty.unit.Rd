@@ -1,7 +1,7 @@
 \name{pretty.unit}
 \alias{pretty.unit}
 \title{Internal function...}
-\usage{pretty.unit(interval)}
+\usage{pretty.unit(x, ...)}
 
 \description{
   Internal function

@@ -1,7 +1,7 @@
 \name{pretty.day}
 \alias{pretty.day}
 \title{Internal function...}
-\usage{pretty.day(span, n)}
+\usage{pretty.day(x, n, ...)}
 
 \description{
   Internal function

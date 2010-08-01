@@ -1,7 +1,7 @@
 \name{pretty.year}
 \alias{pretty.year}
 \title{Internal function...}
-\usage{pretty.year(span, n)}
+\usage{pretty.year(x, n, ...)}
 
 \description{
   Internal function

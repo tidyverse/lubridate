@@ -1,7 +1,7 @@
 \name{pretty.sec}
 \alias{pretty.sec}
 \title{Internal function...}
-\usage{pretty.sec(span, n)}
+\usage{pretty.sec(x, n, ...)}
 
 \description{
   Internal function

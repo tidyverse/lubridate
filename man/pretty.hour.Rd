@@ -1,7 +1,7 @@
 \name{pretty.hour}
 \alias{pretty.hour}
 \title{Internal function...}
-\usage{pretty.hour(span, n)}
+\usage{pretty.hour(x, n, ...)}
 
 \description{
   Internal function

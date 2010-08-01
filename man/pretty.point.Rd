@@ -1,7 +1,7 @@
 \name{pretty.point}
 \alias{pretty.point}
 \title{Internal function...}
-\usage{pretty.point(x, units, length, start=TRUE)}
+\usage{pretty.point(x, units, length, start=TRUE, ...)}
 
 \description{
   Internal function

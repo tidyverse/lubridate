@@ -1,7 +1,7 @@
 \name{pretty.month}
 \alias{pretty.month}
 \title{Internal function...}
-\usage{pretty.month(span, n)}
+\usage{pretty.month(x, n, ...)}
 
 \description{
   Internal function
