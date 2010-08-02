@@ -1,5 +1,8 @@
 context("Duration operators")
 
+sysTZ <- Sys.getenv("TZ")
+Sys.setenv(TZ = "America/Chicago")
+
 test_that("addition handles daylight savings time", {
   x <- as.POSIXct("2010-03-14 00:00:00", tz = "America/New_York")
   y <- as.POSIXct("2010-03-15 01:00:00", tz = "America/New_York")
@@ -24,6 +27,7 @@ test_that("subtraction handles daylight savings time", {
 
 
 test_that("addition works as expected for instants",{
+
   x <- as.POSIXct("2008-01-01 00:00:00")
   y <- as.POSIXlt("2008-01-01 06:00:00", tz = "UTC")
   z <- as.Date("2008-01-01")
@@ -37,13 +41,13 @@ test_that("addition works as expected for instants",{
   expect_that(y + z, throws_error())
   expect_that(z + x, throws_error())
 
-  expect_that(x + years(1), equals(as.POSIXct("2009-01-01 
+  expect_that(x + years(1), matches(as.POSIXct("2009-01-01 
     00:00:00")))
   expect_that(y + years(1), equals(as.POSIXlt("2009-01-01 
     06:00:00", tz = "UTC")))
   expect_that(z + years(1), equals(as.Date("2009-01-01")))
   
-  expect_that(x + eyears(1), equals(as.POSIXct("2008-12-31 00:00:00")))
+  expect_that(x + eyears(1), matches(as.POSIXct("2008-12-31 00:00:00")))
   expect_that(y + eyears(1), equals(as.POSIXlt("2008-12-31 06:00:00", tz = "UTC")))
   expect_that(z + eyears(1), equals(as.Date("2008-12-31")))
   
@@ -54,18 +58,20 @@ test_that("addition works as expected for instants",{
   expect_that(y + int, throws_error())
   expect_that(z + int, throws_error())
     
-  int2 <- new_interval(as.POSIXct("2008-01-01 00:00:00"), 
-    as.POSIXct("2009-08-03 00:00:00"))
-  yy <- as.POSIXlt("2009-08-03 00:00:00")
-  attr(yy, "tzone") <- c("", "CST", "CDT")
+  int2 <- new_interval(as.POSIXct("2008-01-01 00:00:00", tz = 
+  	"America/Chicago"), as.POSIXct("2009-08-03 00:00:00", tz = 
+  	"America/Chicago"))
+  yy <- as.POSIXlt(as.POSIXct("2009-08-03 00:00:00", tz = "America/Chicago"))
     
-  expect_that(x + int2, equals(as.POSIXct("2009-08-03 00:00:00")))
+  expect_that(x + int2, matches(as.POSIXct("2009-08-03 00:00:00")))
   expect_that(y + int2, equals(yy))
   
   int3 <- new_interval(as.POSIXct("2007-12-31 18:00:00"), 
     as.POSIXct("2009-08-03 00:00:00"))
   
   expect_that(z + int3, equals(as.Date("2009-08-03")))
+  
+
 
 })
 
@@ -89,8 +95,8 @@ test_that("addition with instants returns correct class",{
   int2 <- new_interval(as.POSIXct("2008-01-02 00:00:00"), 
     as.POSIXct("2009-08-03 00:00:00"))
     
-  int3 <- new_interval(as.POSIXct("2007-12-31 18:00:00"), 
-    as.POSIXct("2009-08-03 00:00:00"))
+  int3 <- new_interval(as.POSIXct("2008-01-01 00:00:00", tz = 
+  	"UTC"), as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
     
   expect_that(class(x + int2)[2], matches("POSIXct"))
   expect_that(class(y + int2)[2], matches("POSIXlt"))
@@ -104,10 +110,10 @@ test_that("addition works as expected for periods",{
     years = 1)))
 
   expect_that(years(1) + as.POSIXct("2008-01-01 00:00:00"),
-    equals(as.POSIXct("2009-01-01 00:00:00")))
+    matches(as.POSIXct("2009-01-01 00:00:00")))
     
-  expect_that(years(1) + as.POSIXct("2008-01-01 00:00:00"),
-    equals(as.POSIXct("2009-01-01 00:00:00")))
+  expect_that(years(1) + as.POSIXlt("2008-01-01 00:00:00"),
+    equals(as.POSIXlt("2009-01-01 00:00:00")))
 
   expect_that(years(1) + minutes(3),equals(new_period(minutes = 3, 
     years = 1)))
@@ -120,7 +126,7 @@ test_that("addition works as expected for periods",{
     
   expect_that(years(1) + int2, equals(new_interval(as.POSIXct(
     "2008-01-02 00:00:00"), as.POSIXct(
-    "2010-08-03 00:00:00"))))
+    "2010-08-03 00:00:00", tz = "America/Chicago"))))
 
 })
 
@@ -149,7 +155,7 @@ test_that("addition works as expected for durations",{
   expect_that(eyears(1) + 1, equals(make_difftime(31536001)))
 
   expect_that(eyears(1) + as.POSIXct("2008-01-01 00:00:00"),
-    equals(as.POSIXct("2008-12-31 00:00:00")))
+    matches(as.POSIXct("2008-12-31 00:00:00")))
 
 
   expect_that(eyears(1) + minutes(3), equals(new_period(
@@ -162,7 +168,7 @@ test_that("addition works as expected for durations",{
     
   expect_that(eyears(1) + int2, equals(new_interval(as.POSIXct(
     "2008-01-02 00:00:00"), as.POSIXct(
-    "2010-08-03 00:00:00"))))
+    "2010-08-03 00:00:00", tz = "America/Chicago"))))
 
 })
 
@@ -195,7 +201,7 @@ test_that("addition works as expected for intervals",{
   
   expect_that(int + 1, equals(new_interval(
     as.POSIXct("2008-08-03 13:01:59"), 
-    as.POSIXct("2009-08-03 13:02:00"))))
+    as.POSIXct("2009-08-03 13:02:00", tz = "America/Chicago"))))
 
   expect_that(int + as.POSIXct("2008-01-01 00:00:00"),
     throws_error())
@@ -205,11 +211,11 @@ test_that("addition works as expected for intervals",{
 
   expect_that(int + minutes(3), equals(new_interval(
     as.POSIXct("2008-08-03 13:01:59"), 
-    as.POSIXct("2009-08-03 13:04:59"))))
+    as.POSIXct("2009-08-03 13:04:59", tz = "America/Chicago"))))
   
   expect_that(int + eyears(1), equals(new_interval(
     as.POSIXct("2008-08-03 13:01:59"), 
-    as.POSIXct("2010-08-03 13:01:59"))))
+    as.POSIXct("2010-08-03 13:01:59", tz = "America/Chicago"))))
     
   int2 <- new_interval(as.POSIXct("2008-01-02 00:00:00"), 
     as.POSIXct("2009-08-03 00:00:00"))
@@ -276,7 +282,8 @@ test_that("adding vectors works as expected for instants",{
   expect_that(z + x, throws_error())
 
   expect_that(x + years(1), equals(as.POSIXct(c(
-    "2009-01-01 00:00:00","2010-01-01 00:00:00"))))
+    "2009-01-01 00:00:00","2010-01-01 00:00:00"), tz = 
+    "America/Chicago")))
   expect_that(y + years(1), equals(as.POSIXlt(c(
     "2009-01-01 00:00:00", "2010-01-01 00:00:00"), 
     tz = "UTC")))
@@ -284,7 +291,8 @@ test_that("adding vectors works as expected for instants",{
     "2009-01-10"))))
   
   expect_that(x + eyears(1), equals(as.POSIXct(c(
-    "2008-12-31 00:00:00", "2010-01-01 00:00:00"))))
+    "2008-12-31 00:00:00", "2010-01-01 00:00:00"), tz = 
+    "America/Chicago")))
   expect_that(y + eyears(1), equals(as.POSIXlt(c(
     "2008-12-31 00:00:00", "2010-01-01 00:00:00"), 
     tz = "UTC")))
@@ -307,7 +315,7 @@ test_that("adding vectors works as expected for periods",{
 
   expect_that(years(1:2) + as.POSIXct("2008-01-01 00:00:00"),
     equals(as.POSIXct(c("2009-01-01 00:00:00", 
-    "2010-01-01 00:00:00"))))
+    "2010-01-01 00:00:00"), tz = "America/Chicago")))
     
   expect_that(years(1:2) + as.POSIXlt("2008-01-01 00:00:00", 
     tz = "UTC"), equals(as.POSIXlt(c("2009-01-01 00:00:00", 
@@ -324,8 +332,8 @@ test_that("adding vectors works as expected for periods",{
     as.POSIXct("2009-08-03 00:00:00"))
     
   expect_that(years(1:2) + int2, equals(new_interval(as.POSIXct(
-    "2008-01-02 00:00:00"), as.POSIXct(c(
-    "2010-08-03 00:00:00", "2011-08-03 00:00:00")))))
+    "2008-01-02 00:00:00"), as.POSIXct(c("2010-08-03 00:00:00", 
+    "2011-08-03 00:00:00"), tz = "America/Chicago"))))
 
 })
 
@@ -338,7 +346,7 @@ test_that("adding vectors works as expected for durations",{
 
   expect_that(eyears(1:2) + as.POSIXct("2007-01-01 00:00:00"),
     equals(as.POSIXct(c("2008-01-01 00:00:00", 
-    "2008-12-31 00:00:00"))))
+    "2008-12-31 00:00:00"), tz = "America/Chicago")))
     
   expect_that(eyears(1:2) + as.POSIXlt("2007-01-01 00:00:00", 
     tz = "UTC"), equals(as.POSIXlt(c("2008-01-01 00:00:00", 
@@ -355,7 +363,8 @@ test_that("adding vectors works as expected for durations",{
     
   expect_that(eyears(1:2) + int2, equals(new_interval(
   as.POSIXct("2008-01-02 00:00:00"), as.POSIXct(c(
-    "2010-08-03 00:00:00", "2011-08-03 00:00:00")))))
+    "2010-08-03 00:00:00", "2011-08-03 00:00:00"), 
+    tz = "America/Chicago"))))
 
 })
 
@@ -367,18 +376,18 @@ test_that("additing vectors works as expected for intervals",{
   
   expect_that(int + 1, equals(new_interval(as.POSIXct(c(
     "2008-08-03 00:00:00", "2009-08-03 00:00:00")),
-     as.POSIXct("2010-08-03 00:00:01"))))
+     as.POSIXct("2010-08-03 00:00:01", tz = "America/Chicago"))))
 
   expect_that(int + as.POSIXct("2008-01-01 00:00:00"),
     throws_error())
 
   expect_that(int + minutes(3), equals(new_interval(as.POSIXct(
     c("2008-08-03 00:00:00","2009-08-03 00:00:00")),
-     as.POSIXct("2010-08-03 00:03:00"))))
+     as.POSIXct("2010-08-03 00:03:00", tz = "America/Chicago"))))
   
   expect_that(int + eyears(1), equals(new_interval(as.POSIXct(c(
     "2008-08-03 00:00:00", "2009-08-03 00:00:00")),
-     as.POSIXct("2011-08-03 00:00:00"))))
+     as.POSIXct("2011-08-03 00:00:00", tz = "America/Chicago"))))
     
   int2 <- new_interval(as.POSIXct("2010-08-03 00:00:00"), 
     as.POSIXct("2011-08-03 00:00:00"))
@@ -414,14 +423,14 @@ test_that("subtraction works as expected for instants",{
   expect_that(y - z, equals(new_interval(z,y)))
   expect_that(z - x, equals(new_interval(x,z)))
 
-  expect_that(x - years(1), equals(as.POSIXct(
+  expect_that(x - years(1), matches(as.POSIXct(
     "2007-01-01 00:00:02")))
   expect_that(y - years(1), equals(as.POSIXlt(
     "2007-01-01 00:00:02", tz = "UTC")))
   expect_that(z - years(1), equals(as.Date("2007-01-03")))
   
   
-  expect_that(x - eyears(1), equals(as.POSIXct(
+  expect_that(x - eyears(1), matches(as.POSIXct(
     "2007-01-01 00:00:02")))
   expect_that(y - eyears(1), equals(as.POSIXlt(
     "2007-01-01 00:00:02", tz = "UTC")))
@@ -441,7 +450,6 @@ test_that("subtraction works as expected for instants",{
   int4 <- new_interval(as.POSIXct("2007-08-03 00:00:00"), 
     as.POSIXct("2008-01-02 18:00:00"))
   yy <- as.POSIXlt("2007-08-03 00:00:00")
-  attr(yy, "tzone") <- c("", "CST", "CDT")
   
   expect_that(x - int2, equals(as.POSIXct(
     "2007-08-03 00:00:00")))
@@ -554,18 +562,18 @@ test_that("subtraction works as expected for intervals",{
     
   expect_that(int - 1, equals(new_interval(
     as.POSIXct("2008-08-03 00:00:00"), 
-    as.POSIXct("2009-08-02 23:59:59"))))
+    as.POSIXct("2009-08-02 23:59:59", tz = "America/Chicago"))))
 
   expect_that(int - as.POSIXct("2008-01-01 00:00:00"),
     throws_error())
 
   expect_that(int - minutes(3), equals(new_interval(
     as.POSIXct("2008-08-03 00:00:00"), 
-    as.POSIXct("2009-08-02 23:57:00"))))
+    as.POSIXct("2009-08-02 23:57:00", tz = "America/Chicago"))))
   
   expect_that(int - eminutes(3), equals(new_interval(
     as.POSIXct("2008-08-03 00:00:00"), 
-    as.POSIXct("2009-08-02 23:57:00"))))
+    as.POSIXct("2009-08-02 23:57:00", tz = "America/Chicago"))))
     
   int2 <- new_interval(as.POSIXct("2008-11-02 00:00:00"), 
     as.POSIXct("2009-08-03 00:00:01"))
@@ -738,3 +746,6 @@ test_that("make_difftime handles vector input",{
   expect_that(make_difftime(c(3600, 900)), is_a("difftime"))
   
 })
+
+Sys.setenv(TZ = sysTZ)
+if (sysTZ == "") Sys.unsetenv("TZ")
