@@ -329,10 +329,8 @@ test_that("update returns NA for date-times in the spring dst gap",{
 
 
 test_that("update handles vectors of dates",{ 
-  poslt <- c(as.POSIXlt("2010-02-14 01:59:59", tz = "UTC", format =
-  "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-15 01:59:59", tz = 
-    "UTC", format = "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-16 
-    01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
+  poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 
+    01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
   
@@ -343,10 +341,8 @@ test_that("update handles vectors of dates",{
 })
 
 test_that("update handles vectors of dates and conformable vector of inputs",{ 
-  poslt <- c(as.POSIXlt("2010-02-14 01:59:59", tz = "UTC", format =
-  "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-15 01:59:59", tz = 
-    "UTC", format = "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-16 
-    01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
+  poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 
+    01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
   
@@ -359,10 +355,8 @@ test_that("update handles vectors of dates and conformable vector of inputs",{
 })
 
 test_that("update handles gives error for non-comformable date and input vectors",{ 
-  poslt <- c(as.POSIXlt("2010-02-14 01:59:59", tz = "UTC", format =
-  "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-15 01:59:59", tz = 
-    "UTC", format = "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-16 
-    01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
+  poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 
+    01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
   

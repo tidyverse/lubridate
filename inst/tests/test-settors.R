@@ -83,7 +83,7 @@ test_that("seconds settor does not change time zone",{
   
 
 test_that("seconds settor returns NA for spring dst gap",{
-  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "", format
+  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
@@ -205,7 +205,7 @@ test_that("minutes settor does not change time zone",{
   
 
 test_that("minutes settor returns NA for spring dst gap",{
-  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "", format
+  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
@@ -325,7 +325,7 @@ test_that("hours settor does not change time zone",{
   
 
 test_that("hours settor returns NA for spring dst gap",{
-  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "", format
+  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
@@ -455,7 +455,7 @@ test_that("mdays settor does not change time zone",{
   
 
 test_that("mdays settor returns NA for spring dst gap",{
-  poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "", format
+  poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
@@ -584,7 +584,7 @@ test_that("ydays settor does not change time zone",{
   
 
 test_that("ydays settor returns NA for spring dst gap",{
-  poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "", format
+  poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
@@ -714,7 +714,7 @@ test_that("wdays settor does not change time zone",{
   
 
 test_that("wdays settor returns NA for spring dst gap",{
-  poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "", format
+  poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
@@ -834,7 +834,7 @@ test_that("months settor does not change time zone",{
   
 
 test_that("months settor returns NA for spring dst gap",{
-  poslt <- as.POSIXlt("2010-02-14 02:59:59", tz = "", format
+  poslt <- as.POSIXlt("2010-02-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
@@ -904,7 +904,7 @@ test_that("years settor does not change time zone",{
   
 
 test_that("years settor returns NA for spring dst gap",{
-  poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "", format
+  poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
@@ -981,10 +981,8 @@ test_that("time zone settor retains object class",{
 
 
 test_that("settors handle vectors",{ 
-  poslt <- c(as.POSIXlt("2010-02-14 01:59:59", tz = "UTC", format =
-    "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-15 01:59:59", tz = 
-    "UTC", format = "%Y-%m-%d %H:%M:%S"), as.POSIXlt("2010-02-16 
-    01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
+  poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 
+    01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
   

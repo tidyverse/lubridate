@@ -30,7 +30,7 @@ test_that("new_period handles vector input", {
 
 
 test_that("period objects handle vector input", {
-  x <- as.POSIXct("2008-08-03 13:01:59")
+  x <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   expect_that(as.numeric(x + minutes(c(1,3,4))), equals(as.numeric(x + c(60,180,240))))
 })
 
@@ -41,16 +41,15 @@ test_that("print.period works as expected", {
 })
 
 test_that("as.period handles interval objects", {
-  int <- new_interval(as.POSIXct("2008-08-03 13:01:59"), 
-    as.POSIXct("2009-08-03 13:01:59"))
+  int <- new_interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))
     
   expect_that(as.period(int), equals(years(1)))
 })
 
 test_that("as.period handles vectors", {
-  int <- new_interval(as.POSIXct("2008-08-03 13:01:59"), 
-    c(as.POSIXct("2009-08-03 13:01:59"), 
-    as.POSIXct("2010-08-03 13:01:59")))
+  int <- new_interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
+    as.POSIXct(c("2009-08-03 13:01:59","2010-08-03 13:01:59"), tz = "UTC"))
     
   dur <- new_duration(seconds = 5, minutes = c(30,59))
     
