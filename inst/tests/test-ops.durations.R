@@ -742,6 +742,3 @@ test_that("make_difftime handles vector input",{
   expect_that(make_difftime(c(3600, 900)), is_a("difftime"))
   
 })
-
-Sys.setenv(TZ = sysTZ)
-if (sysTZ == "") Sys.unsetenv("TZ")
