@@ -14,6 +14,7 @@ Description: Lubridate makes it easier to work with dates and times by
     frustrating.
 Depends: R (>= 2.8), plyr, stringr
 Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries, fts, tseries
+Suggests: lubridate
 License: GPL
 LazyData: true
 Collate: 'accessors-day.r' 'accessors-hour.r' 'accessors-minute.r'
