@@ -5,49 +5,49 @@ Database file #1: lubridate.bib
 Warning--entry type for "bball" isn't style-file defined
 --line 24 of file lubridate.bib
 Warning--entry type for "runts" isn't style-file defined
---line 33 of file lubridate.bib
+--line 34 of file lubridate.bib
 Warning--entry type for "jodatime" isn't style-file defined
---line 43 of file lubridate.bib
+--line 45 of file lubridate.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 You've used 15 entries,
             3179 wiz_defined-function locations,
-            722 strings with 7176 characters,
-and the built_in function-call counts, 10295 in all, are:
-= -- 878
-> -- 254
+            722 strings with 7283 characters,
+and the built_in function-call counts, 10238 in all, are:
+= -- 876
+> -- 246
 < -- 14
-+ -- 96
-- -- 81
-* -- 793
-:= -- 1466
++ -- 93
+- -- 78
+* -- 787
+:= -- 1456
 add.period$ -- 54
 call.type$ -- 15
-change.case$ -- 94
+change.case$ -- 93
 chr.to.int$ -- 15
 cite$ -- 15
-duplicate$ -- 953
-empty$ -- 921
-format.name$ -- 130
-if$ -- 2072
+duplicate$ -- 951
+empty$ -- 919
+format.name$ -- 127
+if$ -- 2062
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 133
+missing$ -- 132
 newline$ -- 90
 num.names$ -- 60
-pop$ -- 325
+pop$ -- 323
 preamble$ -- 1
-purify$ -- 86
+purify$ -- 85
 quote$ -- 0
 skip$ -- 261
 stack$ -- 0
 substring$ -- 789
-swap$ -- 280
+swap$ -- 278
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 132
 warning$ -- 0
-while$ -- 75
+while$ -- 74
 width$ -- 0
 write$ -- 210
 (There were 3 warnings)

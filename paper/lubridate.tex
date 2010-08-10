@@ -20,7 +20,7 @@
 %% \Issue{9}
 %% \Month{September}
 %% \Year{2004}
-%% \Submitdate{2004-09-29}
+\Submitdate{2010-07-23}
 %% \Acceptdate{2004-09-29}
 
 \Address{
@@ -395,17 +395,17 @@ In summary, math with date-times involves four types of objects: instants, inter
 \begin{table}
   \begin{center}
   \begin{tabular}{l|llll}
-  & instant & interval & duration & period\\
+  & Instant & Interval & Duration & Period\\
   \hline
-  instant & N/A & instant & instant & instant\\
-  interval & instant & N/A & interval & interval\\
-  duration & instant & interval & duration & N/A\\
-  period & instant & interval & N/A & period\\
+  Instant & N/A & instant & instant & instant\\
+  Interval & instant & N/A & interval & interval\\
+  Duration & instant & interval & duration & N/A\\
+  Period & instant & interval & N/A & period\\
   \hline
     
   \end{tabular}
   \end{center}
-  \caption{Object that results from adding two date-time objects}
+  \caption{Object that results from adding two date-time objects.}
   \label{tbl:date-math}
 \end{table}
 
@@ -524,7 +524,7 @@ First we'll examine when during the year the Lakers have games. We choose to use
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{dates-points.png}        
-  \caption{Dates of Lakers games for 2008-2009 season}
+  \caption{Dates of Lakers games for 2008-2009 season.}
   \label{fig:games-date}
 \end{figure}
 
@@ -537,7 +537,7 @@ Next we'll examine how Lakers games are distributed throughout the week.\\
 \begin{figure}[htpb]
   \centering    
     \includegraphics[width=\textwidth]{weekdays-histogram.png}     
-  \caption{Number of games played per weekday}
+  \caption{Number of games played per weekday.}
   \label{fig:games-days}
 \end{figure}
 
@@ -565,7 +565,7 @@ Unfortunately, \pkg{ggplot2} does not support plotting durations, or difftimes, 
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{play-time-histogram.png}        
-  \caption{Distribution of plays within game}
+  \caption{Distribution of plays within game.}
   \label{fig:plays}
 \end{figure}
 
@@ -577,7 +577,7 @@ Alternatively, we can create date-times, which \pkg{ggplot2} does support, by ad
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{play-time-histogram2.png}        
-  \caption{Distribution of plays within game}
+  \caption{Distribution of plays within game.}
   \label{fig:plays}
 \end{figure}
 
@@ -597,7 +597,7 @@ The waiting times between shots will be the time span that occurs between each s
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{wait-histogram.png}        
-  \caption{Distribution of wait times between shot attempts}
+  \caption{Distribution of wait times between shot attempts.}
   \label{fig:waits}
 \end{figure}
 
@@ -612,7 +612,7 @@ We can also examine changes in the score throughout the game. This reveals that 
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{score-comparison.png}        
-  \caption{Scores over time for first game of season}
+  \caption{Scores over time for first game of season.}
   \label{fig:scores}
 \end{figure}
 

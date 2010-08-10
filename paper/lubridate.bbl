@@ -11,41 +11,43 @@
 
 \bibitem[{Armstrong(2009)}]{fts}
 Armstrong W (2009).
-\newblock \emph{fts: R interface to tslib (a time series library in c++)}.
+\newblock \emph{\pkg{fts}: \proglang{R} Interface to \pkg{tslib} (A Time Series
+  Library in C++)}.
 \newblock R package version 0.7.6,
   \urlprefix\url{http://CRAN.R-project.org/package=fts}.
 
 \bibitem[{Colebourne and O'Neill(2006)}]{jodatime}
 Colebourne S, O'Neill BS (2006).
-\newblock \enquote{Joda-Time.}
+\newblock \enquote{\pkg{Joda-Time}.}
 \newblock \urlprefix\url{http://joda-time.sourceforge.net/}.
 
 \bibitem[{Grothendieck and Petzoldt(2004)}]{Rnews}
 Grothendieck G, Petzoldt T (2004).
-\newblock \enquote{Date and Time Classes in R.}
+\newblock \enquote{Date and Time Classes in \proglang{R}.}
 \newblock \emph{R News}, \textbf{4}(1), 32.
 
 \bibitem[{Group and Securities(2009)}]{its}
 Group PRA, Securities C (2009).
-\newblock \emph{its: Irregular Time Series}.
+\newblock \emph{\pkg{its}: Irregular Time Series}.
 \newblock R package version 1.1.8,
   \urlprefix\url{http://CRAN.R-project.org/package=its}.
 
 \bibitem[{Hallman(2010)}]{tis}
 Hallman J (2010).
-\newblock \emph{tis: Time Indexes and Time Indexed Series}.
+\newblock \emph{\pkg{tis}: Time Indexes and Time Indexed Series}.
 \newblock R package version 1.12,
   \urlprefix\url{http://CRAN.R-project.org/package=tis}.
 
 \bibitem[{James and Hornik(2010)}]{chron}
 James D, Hornik K (2010).
-\newblock \emph{chron: Chronological Objects which Can Handle Dates and Times}.
+\newblock \emph{\pkg{chron}: Chronological Objects which Can Handle Dates and
+  Times}.
 \newblock R package version 2.3-35. S original by David James, R port by Kurt
   Hornik., \urlprefix\url{http://CRAN.R-project.org/package=chron}.
 
 \bibitem[{Lipper(2008)}]{runts}
 Lipper M (2008).
-\newblock \enquote{runt.}
+\newblock \enquote{\pkg{runt}.}
 \newblock \urlprefix\url{http://runt.rubyforge.org/}.
 
 \bibitem[{Parker(2010)}]{bball}
@@ -55,46 +57,48 @@ Parker RJ (2010).
 
 \bibitem[{{R Development Core Team}(2010)}]{R}
 {R Development Core Team} (2010).
-\newblock \emph{R: A Language and Environment for Statistical Computing}.
+\newblock \emph{\proglang{R}: A Language and Environment for Statistical
+  Computing}.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 \newblock {ISBN} 3-900051-07-0, \urlprefix\url{http://www.R-project.org}.
 
 \bibitem[{Ryan and Ulrich(2010)}]{xts}
 Ryan JA, Ulrich JM (2010).
-\newblock \emph{xts: Extensible Time Series}.
+\newblock \emph{\pkg{xts}: Extensible Time Series}.
 \newblock R package version 0.7-1,
   \urlprefix\url{http://CRAN.R-project.org/package=xts}.
 
 \bibitem[{Trapletti and Hornik(2009)}]{tseries}
 Trapletti A, Hornik K (2009).
-\newblock \emph{tseries: Time Series Analysis and Computational Finance}.
+\newblock \emph{\pkg{tseries}: Time Series Analysis and Computational Finance}.
 \newblock R package version 0.10-22.,
   \urlprefix\url{http://CRAN.R-project.org/package=tseries}.
 
 \bibitem[{Wickham(2009)}]{ggplot2}
 Wickham H (2009).
-\newblock \emph{ggplot2: elegant graphics for data analysis}.
+\newblock \emph{\pkg{ggplot2}: Elegant Graphics for Data Analysis}.
 \newblock Springer New York.
 \newblock ISBN 978-0-387-98140-6.
 \newblock \urlprefix\url{http://had.co.nz/ggplot2/book}.
 
 \bibitem[{Wuertz and Chalabi(2010)}]{timeSeries}
 Wuertz D, Chalabi Y (2010).
-\newblock \emph{timeSeries: Rmetrics - Financial Time Series Objects}.
+\newblock \emph{\pkg{timeSeries}: Rmetrics - Financial Time Series Objects}.
 \newblock R package version 2110.87,
   \urlprefix\url{http://CRAN.R-project.org/package=timeSeries}.
 
 \bibitem[{Wuertz \emph{et~al.}(2010)Wuertz, with contributions~from
-  Martin~Maechler, Byers,  \emph{et~al.}}]{fCalendar}
-Wuertz D, with contributions~from Martin~Maechler YC, Byers JW, , \emph{et~al.}
+  Martin~Maechler, Byers \emph{et~al.}}]{fCalendar}
+Wuertz D, with contributions~from Martin~Maechler YC, Byers JW, \emph{et~al.}
   (2010).
-\newblock \emph{timeDate: Rmetrics - Chronological and Calendarical Objects}.
+\newblock \emph{\pkg{timeDate}: Rmetrics - Chronological and Calendarical
+  Objects}.
 \newblock R package version 2110.88,
   \urlprefix\url{http://CRAN.R-project.org/package=timeDate}.
 
 \bibitem[{Zeileis and Grothendieck(2005)}]{zoo}
 Zeileis A, Grothendieck G (2005).
-\newblock \enquote{zoo: S3 Infrastructure for Regular and Irregular Time
+\newblock \enquote{\pkg{zoo}: S3 Infrastructure for Regular and Irregular Time
   Series.}
 \newblock \emph{Journal of Statistical Software}, \textbf{14}(6), 1--27.
 \newblock \urlprefix\url{http://www.jstatsoft.org/v14/i06/}.
