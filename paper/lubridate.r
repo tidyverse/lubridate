@@ -5,6 +5,7 @@
 # 1. Introduction
 # _______________________________________________________________
 # no code, but please load the lubridate package
+install.packages("lubridate")
 library(lubridate)
 
 
@@ -28,6 +29,8 @@ as.POSIXct(format(as.POSIXct(date). tz = "UTC"), tz = "GMT")
 # additional lubridate examples
 date - days(1)
 with_tz(date, "GMT")
+
+
 
 # Table 1 
 # (Primarily for reference and comparison. Please see remainder 
@@ -177,7 +180,135 @@ years(1)
 
 
 # 3. Parsing date-times
-# ______________________
-mdy("12-01
+# _______________________________________________________________
+mdy("12-01-2010")
+dmy("12-01-2010")
+dmy(c("31.12.2010", "01.01.2011"))
 
 
+# 4. Manipulating date-times
+# _______________________________________________________________
+date <- now() # will show as your system time
+year(date)
+minute(date)
+month(date)
+month(date, label = TRUE)
+month(date, label = TRUE, abbr = FALSE)
+wday(date, label = TRUE, abbr = FALSE)
+
+day(date) <- 5
+dates <- ymd_hms("2010-01-01 01:00:00", "2010-01-01- 01:30:00")
+minute(dates) <- mean(minute(dates))
+day(date) <- 30
+day(date) <- 1
+month(date) <- month(date) + 1
+day(date) <- day(date) - 1
+update(date, year = 2010, month = 1, day = 1)
+hour(date) <- 12
+
+date + hours(3)
+
+
+# 5. Math with date-times
+# ________________________________________________________________
+
+# 5.1 Instants
+start_2012 <- ymd_hms("2012-01-01 12:00:00")
+is.instant(364)
+is.instant(start_2012)
+round_date(date, "day")
+now()
+today()
+
+# 5.2 Intervals
+start_2011 <- ymd_hms("2011-01-01 12:00:00")
+start_2010 <- ymd_hms("2010-01-01 12:00:00")
+span <- start_2011 - start_2010
+start_2010 + span
+
+# 5.3 Durations
+eminutes(1)
+eseconds(60)
+eminutes(2)
+c(1:3) * ehours(1)
+start_2011 + eyears(1)
+start_2012 + eyears(1)
+eweeks(1) + edays(6) + ehours(2) + eminutes(1.5) + eseconds(3)
+as.duration(span)
+
+# 5.4 Periods
+months(3)
+months(3) + days(2)
+start_2012 + years(1)
+start_2012 + eyears(1)
+as.period(span)
+
+
+
+# 6. Time zones
+# _______________________________________________________________
+date
+with_tz(date, "UTC")
+
+date
+force_tz(date, "UTC")
+
+
+# 7. Daylight savings time
+# _______________________________________________________________
+dst_time <- ymd_hms("2010-03-14 01:59:59")
+dst_time <- force_tz(date, "America/Chicago") # Note: Time zone 
+# names are operating system dependent and are not standard across 
+# all operating systems. See ?timezone for details.
+
+dst_time + eseconds(1)
+dst_time + hours(2)
+dst_time + ehours(2)
+
+
+# 8. Case study 1
+# _______________________________________________________________
+# 8.1 Thanksgiving
+date <- ymd("2010-01-01")
+month(date) <- 11
+wday(date, label = T, abbr = F)
+date <- date + days(3)
+wday(date, label = T, abbr = F)
+date + weeks(3)
+
+# 8.2 Memorial Day
+date <- ymd("2010-01-01")
+date <- date + months(5) - days(1)
+wday(date, label = T, abbr = F)
+
+
+# 9. Case study 2
+# _______________________________________________________________
+head(lakers)
+str(lakers$date[1])
+lakers$date <- ymd(lakers$date)
+
+# to use qplot we must first install and load the ggplot2 package
+install.packages("ggplot2")
+library(ggplot2)
+qplot(date, 0, data = lakers, colour = lakers$home == "LAL") +
+	scale_colour_discrete(name= "Venue", labels = c("home game",
+	"away game"))
+qplot(wday(date, label = T), data = lakers, geom = "histogram")
+lakers$time <- ms(lakers$time)
+lakers$time <- as.duration(lakers$time)
+lakers$time <- eminutes(12) * lakers$period - lakers$time
+qplot(as.integer(time), data = lakers, geom = "histogram", 
+	binwidth = 60)
+lakers$demo <- ymd("2008-01-01") + lakers$time
+qplot(demo, data = lakers, geom = "histogram", binwidth = 60)
+game1 <- lakers[lakers$date == ymd("20081028"),]
+attempts <- game1[game1$etype == "shot",]
+attempts$wait <- c(attempts$time[1], diff(attempts$time))
+qplot(as.integer(wait), data = attempts, geom = "histogram", 
+	binwidth = 2)
+game1_scores <- ddply(game1, "team", transform, score = 
+	cumsum(points))
+game1_scores <- game1_scores[game1_scores$team != "OFF",]
+qplot(ymd("2008-01-01") + time, score, data = game1_scores, geom = 
+	"line", colour = team)
