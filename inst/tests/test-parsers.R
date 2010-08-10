@@ -164,28 +164,28 @@ test_that("ymd functions correctly throw errors", {
 
 
 
-test_that("ymd.hms correctly throw errors", {
+test_that("ymd_hms correctly throw errors", {
   
-  expect_that(ymd.hms(20100102235959), throws_error())
-  expect_that(ymd.hms("2010-01-023 23:59:59"), throws_error())
+  expect_that(ymd_hms(20100102235959), throws_error())
+  expect_that(ymd_hms("2010-01-023 23:59:59"), throws_error())
 })
 
-test_that("ymd.hms correctly handles a variety of formats", {
-  expect_that(ymd.hms("2010-01-02 23:59:59"), equals(as.POSIXct(
+test_that("ymd_hms correctly handles a variety of formats", {
+  expect_that(ymd_hms("2010-01-02 23:59:59"), equals(as.POSIXct(
     "2010-01-02 23:59:59", tz = "UTC")))
-  expect_that(ymd.hms("2010,01,02 23.59.59"), equals(as.POSIXct(
+  expect_that(ymd_hms("2010,01,02 23.59.59"), equals(as.POSIXct(
     "2010-01-02 23:59:59", tz = "UTC")))
-  expect_that(ymd.hms("2010/01/02 23/59/59"), equals(as.POSIXct(
+  expect_that(ymd_hms("2010/01/02 23/59/59"), equals(as.POSIXct(
     "2010-01-02 23:59:59", tz = "UTC")))
-  expect_that(ymd.hms("2010:01:02-23:59:59"), equals(as.POSIXct(
+  expect_that(ymd_hms("2010:01:02-23:59:59"), equals(as.POSIXct(
     "2010-01-02 23:59:59", tz = "UTC")))
-  expect_that(ymd.hms("2010-01-02 23:59:61"), equals(as.POSIXct(
+  expect_that(ymd_hms("2010-01-02 23:59:61"), equals(as.POSIXct(
     "2010-01-03 00:00:01", tz = "UTC")))
-  expect_that(ymd.hms(c("2010-01-02 23:59:61", 
+  expect_that(ymd_hms(c("2010-01-02 23:59:61", 
     "2010-01-02 00:00:00")), equals(as.POSIXct(
     c("2010-01-03 00:00:01", "2010-01-02 00:00:00"), tz = 
     "UTC")))
-  expect_that(ymd.hms("10-01-02 23:59:59"), equals(as.POSIXct(
+  expect_that(ymd_hms("10-01-02 23:59:59"), equals(as.POSIXct(
     "2010-01-02 23:59:59", tz = "UTC")))
 
 })
