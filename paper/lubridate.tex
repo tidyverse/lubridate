@@ -62,13 +62,11 @@ This paper describes \pkg{lubridate} 0.1, which can be downloaded from {\sc cran
 
 \section{Motivation}
 
-To see how \pkg{lubridate} simplifies things, consider a common scenario. We have a character string. We'd like to read it in as a date-time, extract the month, and change it to February (i.e. 2). On the left are the base \proglang{R} methods we'd use for these three tasks.  On the right are the \pkg{lubridate} methods.
+To see how \pkg{lubridate} simplifies things, consider a common scenario. Given a character string, we'd like to read it in as a date-time, extract the month, and change it to February (i.e. 2). On the left are the base \proglang{R} methods we'd use for these three tasks.  On the right are the \pkg{lubridate} methods.
 
 \begin{center}
-  \begin{tabular}{|p{7cm}|p{7cm}|}
-    \hline
-    \proglang{base R} & \pkg{lubridate}\\
-    \hline
+  \begin{tabular}{p{7cm}|p{7cm}}
+    %\proglang{base R} & \pkg{lubridate}\\
     \code{date <- as.POSIXct("01-01-2010", } & \code{date <- dmy("01-01-2010")}\\
     \indent \code{   format = "\%d-\%m-\%Y", tz = "UTC")} & \\
     & \\
@@ -77,27 +75,27 @@ To see how \pkg{lubridate} simplifies things, consider a common scenario. We hav
     & \\
      \code{date <- as.POSIXct(format(date, } & \code{month(date) <- 2} \\
  \indent \code{   "\%Y-2-\%d"))} & \\
- \hline
+
 \end{tabular}
 \end{center}
 
-Now we'll go a step further. We'll go back a day in time and display our new date in the Greenwich Meridian time zone (GMT).
+Now let's go a step further. We'll go back in time one day and display our new date in the Greenwich Meridian time zone (GMT). Again, base \proglang{R} methods are shown on the left, \pkg{lubridate} methods on the right.
 
 \begin{center}
-  \begin{tabular}{|p{7cm}|p{7cm}|}
-    \hline
-     \proglang{base R} & \pkg{lubridate}\\
-    \hline
-    \code{seq(date, length = 2, by =}  & \code{date - days(1)} \\
+  \begin{tabular}{p{7cm}|p{7cm}}
+    %\hline
+     %\proglang{base R} & \pkg{lubridate}\\
+    %\hline
+    \code{date <- seq(date, length = 2, by =}  & \code{date <- date - days(1)} \\
     \indent \code{   "-1 day")[2]} & \\
    & \\
    \code{as.POSIXct(format(as.POSIXct(date),}  & \code{with_tz(date, "GMT")}\\
   \indent \code{    tz = "UTC"), tz = "GMT")} &\\
-    \hline
+   % \hline
 \end{tabular}
 \end{center}
 
-\pkg{lubridate} makes basic date-time manipulations much more straight forward. Plus, the same \pkg{lubridate} methods work for all of the popular date-time object classes (\code{Date}, \code{POSIXt}, \code{chron} ...).
+\pkg{lubridate} makes basic date-time manipulations much more straight forward. Plus, the same \pkg{lubridate} methods work for most of the popular date-time object classes (\code{Date}, \code{POSIXt}, \code{chron}, etc.).
 
 Figure~\ref{fig:comparison} provides a more complete comparison between \pkg{lubridate} methods and base \proglang{R} methods. It shows how \pkg{lubridate} can simplify each of the common date time tasks presented in RNews Volume 4/1, June 2004 \citep{Rnews}. It also provides a useful summary of \pkg{lubridate} methods.
 % Always a good idea to show some examples right off the bat.  This helps
@@ -144,18 +142,18 @@ These functions create a POSIXct date-time object that matches the date describe
   \toprule
   Order of elements in date-time & Parse function\\
   \midrule
-  year, month, day & \code{ymd}\\
-  year, day, month  & \code{ydm}\\
-  month, day, year & \code{mdy}\\
-  day, month, year & \code{dmy}\\
-  hour, minute & \code{hm}\\
-  hour, minute, second & \code{hms}\\
-  year, month, day, hour, minute, second & \code{ymd.hms}\\
+  year, month, day & \code{ymd()}\\
+  year, day, month  & \code{ydm()}\\
+  month, day, year & \code{mdy()}\\
+  day, month, year & \code{dmy()}\\
+  hour, minute & \code{hm()}\\
+  hour, minute, second & \code{hms()}\\
+  year, month, day, hour, minute, second & \code{ymd_hms()}\\
   \bottomrule
     
   \end{tabular}
   \end{center}
-  \caption{Parse functions based on order of date-time elements.}
+  \caption{Parse function names are based on the order that years, months, and days appear within the dates to be parsed.}
   \label{tbl:parsers}
 \end{table}
 
@@ -209,7 +207,7 @@ For the month and weekday elements (wday), we can also specify whether we want t
     
   \end{tabular}
   \end{center}
-  \caption{Date-time accessors used by lubridate.}
+  \caption{Each date-time element can be extracted with its own accessor function.}
   \label{tbl:accessors}
 \end{table}
 
@@ -220,7 +218,9 @@ We can also use any of the accessor functions to set the value of an element. Th
 
 changes our date to the fifth day of the month. We can also set the elements to more complicated values, e.g.\\
 
+\code{R> dates <- ymd_hms("2010-01-01 01:00:00", "2010-01-01- 01:30:00")}\\
 \code{R> minute(dates) <- mean(minute(dates))}\\
+\code{[1] "2010-01-01 01:15:00 UTC" "2010-01-01 01:15:00 UTC"}\\
 
 Note that if we set an element to a larger value than it supports, the difference will roll over into the next higher element. For example,\\
 
@@ -276,7 +276,7 @@ Researchers may be interested in exact lengths, relative lengths, or both. For e
 
 An instants is a specific moment in time, such as January 1st, 2012. We create an instant each time we parse a date into \proglang{R}. \\
 
-\code{R> start_2012 <- ymd.hms("2012-01-01 12:00:00")}\\
+\code{R> start_2012 <- ymd_hms("2012-01-01 12:00:00")}\\
 
 \pkg{lubridate} does not create instant class objects. Instead, it recognizes any date-time object that refers to a moment of time as an instant. We can test if an object is an instant by using \code{is.instant()}. For example,\\
 
@@ -302,8 +302,8 @@ Intervals, durations, and periods are all ways of recording time spans. Of these
 
 We can create interval objects by subtracting two instants or by using the command \code{new_interval()}.\\
 
-\code{R> start_2011 <- ymd.hms("2011-01-01 12:00:00")}\\
-\code{R> start_2010 <- ymd.hms("2010-01-01 12:00:00")}\\
+\code{R> start_2011 <- ymd_hms("2011-01-01 12:00:00")}\\
+\code{R> start_2010 <- ymd_hms("2010-01-01 12:00:00")}\\
 \code{R> span <- start_2011 - start_2010}\\
 \code{[1] 365 days beginning at 2010-01-01}\\
 
