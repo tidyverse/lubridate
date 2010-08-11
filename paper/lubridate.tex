@@ -74,7 +74,7 @@ To see how \pkg{lubridate} simplifies things, consider a common scenario. Given 
    \code{as.POSIXlt(date)$month + 1} &\\
     & \\
      \code{date <- as.POSIXct(format(date, } & \code{month(date) <- 2} \\
- \indent \code{   "\%Y-2-\%d"))} & \\
+ \indent \code{   "\%Y-2-\%d"), tz = "UTC")} & \\
 
 \end{tabular}
 \end{center}
@@ -118,23 +118,23 @@ Figure~\ref{fig:comparison} provides a more complete comparison between \pkg{lub
 \section{Parsing date-times}
 \label{sec:parsing}
 
-We can read dates into R using the \code{ymd()} series of functions provided by \pkg{lubridate}. The letters y, m, and d correspond to the year, month, and day elements of a date-time. To read in a date, choose the function name that matches the order of elements in your date-time object. For example,\\
+We can read dates into R using the \code{ymd()} series of functions provided by \pkg{lubridate}. The letters y, m, and d correspond to the year, month, and day elements of a date-time. To read in a date, choose the function name that matches the order of elements in your date-time object. For example, in the following date the month element comes first, followed by the day and then the year. So we'd use the \code{mdy()} function:\\
 
 \code{R> mdy("12-01-2010")}\\
 \code{[1] "2010-12-01 UTC"}\\
 
-or
+The same character string can be parsed as January 12, 2001 by reversing the month and day element with \code{dmy()}.\\
 
 \code{R> dmy("12-01-2010")}\\
 \code{[1] "2010-01-12 UTC"}\\
 
-or
+The \code{ydm()} series of functions can also parse vectors of dates.\\
 
 \code{R> dmy(c("31.12.2010", "01.01.2011"))}\\
 \code{[1] "2010-12-31 UTC" "2011-01-01 UTC"}\\
 
 
-These functions create a POSIXct date-time object that matches the date described by the character string.  The functions automatically recognize the following separators: ``-", ``/", ``.", and ``" (i.e., no separator). When a \code{ymd()} function is applied to a vector of dates, \pkg{lubridate} will assume that all of the dates have the same order and the same separators. It will also print a message that tells the user which format was used to parse the dates. \code{ymd()} type functions also exist for times recorded with hours, minutes, and seconds. These functions make it simple to parse any date-time object that can be converted to a character string. See Table~\ref{tbl:parsers} for a complete list of \code{ymd()} type parsing functions. 
+These functions create a POSIXct date-time object that matches the date described by the character string.  The functions automatically recognize the separators commonly used to record dates. These include: ``-", ``/", ``.", and ``" (i.e., no separator).  When a \code{ymd()} function is applied to a vector of dates, \pkg{lubridate} will assume that all of the dates have the same order and the same separators. \code{ymd()} type functions also exist for times recorded with hours, minutes, and seconds. These functions make it simple to parse any date-time object that can be converted to a character string. See Table~\ref{tbl:parsers} for a complete list of \code{ymd()} type parsing functions. 
 
 \begin{table}
   \begin{center}
@@ -160,12 +160,12 @@ These functions create a POSIXct date-time object that matches the date describe
 \section{Manipulating date-times} 
 \label{sec:accessors}
 
-Every date-time is a combination of different elements, each with its own value. For example, most date-times include a year value, a month value, a day value, etc. Together, these elements specify the exact moment that the date-time refers to. We can easily extract each element of a date-time with the accessor function that has its name, as shown in Table~\ref{tbl:accessors}. For example,  if we save the current system time\\
+Every date-time is a combination of different elements, each with its own value. For example, most date-times include a year value, a month value, a day value and so on. Together these elements specify the exact moment that the date-time refers to. We can easily extract each element of a date-time with the accessor function that has its name, as shown in Table~\ref{tbl:accessors}. For example,  if we save the current system time\\
 
 \code{R> date <- now()}\\
 \code{[1] "2010-02-25 09:51:48 CST"}\\
 
-we can extract each of its elements.\\
+we can extract each of its elements. Note that this was the system time when this example was written. \code{now()} will return a different date-time each time it is used.\\
 
 \code{R> year(date)}\\
 \code{[1] 2010}\\
@@ -218,7 +218,7 @@ We can also use any of the accessor functions to set the value of an element. Th
 
 changes our date to the fifth day of the month. We can also set the elements to more complicated values, e.g.\\
 
-\code{R> dates <- ymd_hms("2010-01-01 01:00:00", "2010-01-01- 01:30:00")}\\
+\code{R> dates <- ymd_hms("2010-01-01 01:00:00", "2010-01-01 01:30:00")}\\
 \code{R> minute(dates) <- mean(minute(dates))}\\
 \code{[1] "2010-01-01 01:15:00 UTC" "2010-01-01 01:15:00 UTC"}\\
 
@@ -288,8 +288,8 @@ An instants is a specific moment in time, such as January 1st, 2012. We create a
 
 We can easily round instants to the nearest minute, hour, month, etc. using \code{floor_date()}, \code{ceiling_date()}, and \code{round_date()}. For example,
 
-\code{R> round_date(date, "day")}\\
-\code{[1] "2012-01-02 00:00:00 CST"}\\
+\code{R> round_date(start_2012, "day")}\\
+\code{[1] "2012-01-02 UTC"}\\
 
 We can also capture the current time as an instant with \code{now()}, and the current day with \code{today()}.
 
@@ -305,12 +305,12 @@ We can create interval objects by subtracting two instants or by using the comma
 \code{R> start_2011 <- ymd_hms("2011-01-01 12:00:00")}\\
 \code{R> start_2010 <- ymd_hms("2010-01-01 12:00:00")}\\
 \code{R> span <- start_2011 - start_2010}\\
-\code{[1] 365 days beginning at 2010-01-01}\\
+\code{[1] 365 days beginning at 2010-01-01 12:00:00}\\
 
 Unfortunately, since intervals are anchored to their start and end dates, they are not very useful for date-time math. It only makes sense to add an interval to its start date or to subtract it from its end date.\\
 
 \code{R> start_2010 + span}\\
-\code{[1] "2011-01-01 12:00 UTC"}\\
+\code{[1] "2011-01-01 12:00:00 UTC"}\\
 
 
 \subsection{Durations}
@@ -328,16 +328,16 @@ Duration objects can be easily created with the helper functions
 \code{eyears()}, \code{eweeks()}, \code{edays()}, \code{eminutes()}, and  \code{eseconds()}. The e in the title stands for estimated. Each object creates a duration in seconds using the estimated relationships given above. The argument of each function is the number of estimated units we wish to include in the duration. For example,\\
 
 \code{R> eminutes(1)}\\
-\code{Duration of 1 mins}\\
+\code{Time difference of 1 mins}\\
 
 \code{R> eseconds(60)}\\
-\code{Duration of 1 mins \# 60 seconds = 1 estimated minute}\\
+\code{Time difference of 1 mins \# 60 seconds = 1 estimated minute}\\
 
 \code{R> eminutes(2)}\\
-\code{Duration of 2 mins}\\
+\code{Time difference of 2 mins}\\
 
 \code{R> c(1:3) * ehours(1) }\\
-\code{Durations in hours}\\
+\code{Time difference in hours}\\
 \code{[1] 1 2 3}\\
 
 Durations can be added and subtracted to any instant object. For example,\\
@@ -351,12 +351,12 @@ Durations can be added and subtracted to any instant object. For example,\\
 Durations can also be added to or subtracted from intervals and other durations. For example,\\
 
 \code{R> eweeks(1) + edays(6) + ehours(2) + eminutes(1.5) + eseconds(3)}\\
-\code{Duration of 1.869201 weeks}\\
+\code{Time difference of 1.869201 weeks}\\
 
 We can also create durations from intervals using \code{as.duration()}. 
 
 \code{R> as.duration(span)}\\
-\code{Duration of 1 year}\\
+\code{Time difference of 52.14286 weeks \# 1 year}\\
 
 
 \subsection{Periods}
@@ -405,23 +405,23 @@ In summary, math with date-times involves four types of objects: instants, inter
     
   \end{tabular}
   \end{center}
-  \caption{Object that results from adding two date-time objects.}
+  \caption{Adding two date-time objects will create the above type of object.}
   \label{tbl:date-math}
 \end{table}
 
 \section{Time zones}
 \label{sec:tz}
 
-Time zones give multiple names to the same instant. For example, ``2010-03-26 11:53:24 CDT" and ``2010-03-26 12:53:24 EDT" both describe the same instant. The first shows how the instant is labeled in the United States' central time zone (CDT). The second shows how the same instant is labelled in the United States' eastern time zone (EDT). Time zones complicate date-time data, but are useful for mapping clock time to local daylight conditions. When working with instants, it is standard to give the clock time as it appears in the Coordinated Universal time zone (UTC).  This saves calculations, but can be annoying if your computer insists on translating times to your current time zone.  It may also be inconvenient to discuss clock times that occur in a place unrelated to the data.
+Time zones give multiple names to the same instant. For example, ``2010-03-26 11:53:24 CDT" and ``2010-03-26 12:53:24 EDT" both describe the same instant. The first shows how the instant is labeled in the United States' central time zone (CDT). The second shows how the same instant is labelled in the United States' eastern time zone (EDT). Time zones complicate date-time data but are useful for mapping clock time to local daylight conditions. When working with instants, it is standard to give the clock time as it appears in the Coordinated Universal time zone (UTC).  This saves calculations but can be annoying if your computer insists on translating times to your current time zone.  It may also be inconvenient to discuss clock times that occur in a place unrelated to the data.
 
-\pkg{lubridate} eases the frustration caused by time zones in two ways. We can change the the time zone in which an instant is displayed by using the function \code{with_tz()}. This changes how the clock time is displayed, but not the instant that is referred to. For example,\\
+\pkg{lubridate} eases the frustration caused by time zones in two ways. We can change the time zone in which an instant is displayed by using the function \code{with_tz()}. This changes how the clock time is displayed, but not the instant that is referred to. For example,\\
 
 \code{R> date}\\
 \code{[1] "2010-01-01 09:51:48 CST"}\\
 \code{R> with_tz(date, "UTC")}\\
 \code{[1] "2010-01-01 15:51:48 UTC"}\\
 
-Occasionally, it is useful to keep the same clock time and change the time zone it is assigned to. This switch is accomplished with the \code{force_tz()} function. \code{force_tz()} does the opposite of \code{with_tz()}: it changes the instant that is displayed, but the clock time remains the same. For example, the code below moves us to a new instant that occurs 6 hours earlier.\\
+\code{force_tz()} does the opposite of \code{with_tz()}: it changes the instant that is displayed, but the clock time remains the same. For example, the code below moves us to a new instant that occurs 6 hours earlier.\\
 
 \code{R> date}\\
 \code{[1] "2010-01-01 09:51:48 CST"}\\
@@ -429,16 +429,16 @@ Occasionally, it is useful to keep the same clock time and change the time zone 
 \code{[1] "2010-01-01 09:51:48 UTC"}\\
 
 
-\section{Daylight Savings Time}
+\section{Daylight savings time}
 \label{sec:DST}
 
-In many parts of the world, the official clock time springs forward by one hour in the spring and falls back one hour in the fall. For example, in Houston, Texas a change in daylight savings time occurred at 2:00AM on March 14, 2010. The last instant before this change was 2010-03-14 01:59:59 CST.\\
+In many parts of the world, the official clock time springs forward by one hour in the spring and falls back one hour in the fall. For example, in Chicago, Illinois a change in daylight savings time occurred at 2:00AM on March 14, 2010. The last instant to occur before this change was 2010-03-14 01:59:59 CST.\\
 
-\code{R> dst_time <- ymd.hms("2010-03-14  01:59:59")}\\
-\code{R> dst_time <- force_tz(date, "CST")}\\
+\code{R> dst_time <- ymd_hms("2010-03-14 01:59:59")}\\
+\code{R> dst_time <- force_tz(dst_time, "America/Chicago")}\\
 \code{[1] "2010-03-14 01:59:59 CST"}\\
 
-One second later, Houston clock times read\\
+One second later, Chicago clock times read\\
 
 \code{R> dst_time + eseconds(1)}\\
 \code{[1] "2010-03-14 03:00:00 CDT"}\\
@@ -448,7 +448,7 @@ It seems that we gained an extra hour during that second, which is how daylight 
 \code{R> dst_time + hours(2)}\\
 \code{[1] "2010-03-14 03:59:59 CDT"}\\
 
-displays the clock time that usually occurs two hours after 1:59:59 AM. When using periods, we do not have to track dst changes because they will not affect our calculations. Adding a duration would give us the actual clock time that appeared two hours later on March 14, 2010.
+displays the clock time that usually occurs two hours after 1:59:59 AM. When using periods, we do not have to track dst changes because they will not affect our calculations. Adding a duration would give us the actual clock time that appeared exactly two hours later on March 14, 2010.
 
 \code{R> dst_time + ehours(2)}\\
 \code{[1] "2010-03-14 04:59:59 CDT"}\\
@@ -457,7 +457,7 @@ If we ever inadvertently try to create an instant that occurs in the one hour ``
 
 We can also avoid the complications created by daylight savings time by keeping our date-times in a time zone such as ``UTC", which does not adopt daylight savings hours.
 
-\section{Case Study 1}
+\section{Case study 1}
 
 The next two sections will work through some techniques using \pkg{lubridate}. First, we will use \pkg{lubridate} to calculate the dates of  holidays. Then we'll use \pkg{lubridate} to explore an example data set (\code{lakers}).
 
@@ -500,89 +500,96 @@ Now, however, our holiday occurs in relation to the last day of the month instea
 \code{R> date <- date + months(5) - days(1)}\\
 \code{[1] "2010-05-31 UTC"}\\
 
-We can then check which day of the week May 31st falls on. It happens to be a Monday, so we are done. If May 31st had been another day of the week, we could've subtract an appropriate number of days to get the last monday of May.\\
+We can then check which day of the week May 31st falls on. It happens to be a Monday, so we are done. If May 31st had been another day of the week, we could've subtracted an appropriate number of days to get the last monday of May.\\
 
 \code{R> wday(date, label = T, abbr = F)}\\
 \code{[1] Monday}\\
 
 
-\section{Case Study 2}
-Now let's explore the \code{lakers} data set. The \code{lakers} data set contains play by play statistics of every major league basketball game played by the Los Angeles Lakers during the 2008-2009 season. This data is from \url{http://www.basketballgeek.com/downloads/} \citep{bball}. \\
+\section{Case study 2}
+The \code{lakers} data set contains play by play statistics of every major league basketball game played by the Los Angeles Lakers during the 2008-2009 season. This data is from \url{http://www.basketballgeek.com/downloads/} \citep{bball} and comes with the \pkg{lubridate} package. We will explore the distribution of Lakers' games throughout the year as well as the distribution of plays within Lakers' games. We choose to use the \pkg{ggplot2} ~\citep{ggplot2} package to create our graphs.\\
 
-\code{R> head(lakers)}\\
+The lakers data set comes with a \code{date} variable which records the date of each game. Using the \code{str()} command, we see that \proglang{R} recognizes the dates as integers.\\
 
-First we'll examine when during the year the Lakers have games. We choose to use the \pkg{ggplot2} ~\citep{ggplot2} package to create our graphs.\\
+\code{str(lakers$date)}\\
+\code{int [1:34624] 20081028 20081028 20081028 ...}\\
 
-\code{str(lakers$date[1])}\\
-\code{int 20081028}\\
-
-\proglang{R} recognizes the dates in the \code{lakers} data set as integers. So our first task is to parse the dates, or read them into \proglang{R} as date-time objects. We recognize that the dates include the year element first, followed by the month element, and then the day element. Hence, we should use the \code{ymd()} parsing function.\\
+Before we can work with them as dates, we must parse them into \proglang{R} as date-time objects. The dates appear to be arranged with their year element first, followed by the month element, and then the day element. Hence, we should use the \code{ymd()} parsing function.\\
 
 \code{R> lakers$date <- ymd(lakers$date)}\\
-\code{R> qplot(date, 0, data = lakers, geom = "point", colour = lakers$home == "LAL") + scale_colour_discrete(name = "Venue", labels = c("home game", "away game"))}\\
+\code{str(lakers$date)}\\
+\code{POSIXct[1:34624], format: "2008-10-28" "2008-10-28" ...}\\
+
+\proglang{R} now recognizes the dates as POSIXct date-time objects. It will now treat them as date-times in any functions that have POSIXct specific methods. For example, if we plot the occurrences of home and away games throughout the season, our x axis will display date-time information for the tick marks (Figure \ref{fig:games-date}).\\
+
+\code{R> qplot(date, 0, data = lakers, colour = game_type)}\\
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{dates-points.png}        
-  \caption{Dates of Lakers games for 2008-2009 season.}
+  \caption{Occurrences of home and away games for the 2008-2009 season.}
   \label{fig:games-date}
 \end{figure}
 
-Figure~\ref{fig:games-date} shows that games are played continuously throughout the season with a few short breaks. The frequency of games seems lower at the start of the season and games appear to be grouped into clusters of home games and away games. Notice the tick marks on the x axis; the labels and breaks are automatically generated by \code{pretty.date()}, which is in the \pkg{lubridate} package. 
+Figure~\ref{fig:games-date} shows that games are played continuously throughout the season with a few short breaks. The frequency of games seems lower at the start of the season and games appear to be grouped into clusters of home games and away games. The tick marks and breaks on the x axis are automatically generated by the \pkg{lubridate} method \code{pretty.date()}.\\
 
-Next we'll examine how Lakers games are distributed throughout the week.\\
+Next we'll examine how Lakers games are distributed throughout the week. We use the \code{wday()} command to extract the day of the week of each date.\\
 
 \code{R> qplot(wday(date, label = T), data = lakers, geom = "histogram")}\\
 
 \begin{figure}[htpb]
   \centering    
     \includegraphics[width=\textwidth]{weekdays-histogram.png}     
-  \caption{Number of games played per weekday.}
+  \caption{The number of games played per weekday varies.}
   \label{fig:games-days}
 \end{figure}
 
 
-The frequency of basketball games appears to vary throughout the week, figure~\ref{fig:games-days}. Surprisingly, the highest number of games are played on Tuesdays.
+The frequency of basketball games varies throughout the week (Figure~\ref{fig:games-days}). Surprisingly, the highest number of games are played on Tuesdays.
 
 Now let's look at the games themselves. In particular, let's look at the distribution of plays throughout the game. The \code{lakers} data set lists the time that appeared on the game clock for each play. These times begin at 12:00 at the beginning of each period and then count down to 00:00, which marks the end of the period. The first two digits refer to the number of minutes left in the period. The second two digits refer to the number of seconds.
 
-The times have not been parsed as date-time data to \proglang{R}. In fact, it would be difficult to record the time data as a date-time object because the data is incomplete: a minutes and seconds element are not sufficient to identify a unique date-time. However, we can store the minutes and seconds information as a \emph{period} object, as defined in Section~\ref{sec:periods}, using the \code{ms()} parse function.\\
+The times have not been parsed as date-time data to \proglang{R}. It would be difficult to record the time data as a date-time object because the data is incomplete: a minutes and seconds element are not sufficient to identify a unique date-time. However, we can store the minutes and seconds information as a \emph{period} object, as defined in Section~\ref{sec:periods}, using the \code{ms()} parse function.\\
 
 \code{R> lakers$time <- ms(lakers$time)}\\
 
-Recall that periods have relative lengths. Since we'd like to compare times against each other, we should first convert our periods to \emph{durations}, which have exact lengths.\\
+Since periods have relative lengths, it is dangerous to compare them to each other. So we should next convert our periods to \emph{durations}, which have exact lengths.\\
 
 \code{R> lakers$time <- as.duration(lakers$time)}\\
 
-This allows us to directly compare different durations. It would also allow us to determine exactly when each play occurred by adding the duration to the \emph{instant} the game began. (Unfortunately, the starting time for each game is not available in the data set). We can now subtract our time information from a duration of 12, 24, 36, or 48 minutes (depending on the period of play) to create a new duration that records exactly how far into the game each play occurred.\\
+This allows us to directly compare different durations. It would also allow us to determine exactly when each play occurred by adding the duration to the \emph{instant} the game began. (Unfortunately, the starting time for each game is not available in the data set). However, we can still calculate when in each game each play occurred. Each period of play is 12 minutes long. At the start of each period, the game clock begins counting down from 12:00. So to calculate how much play time elapses before each play, we subtract the time that appears on the game clock from a duration of 12, 24, 36, or 48 minutes (depending on the period of play). This creates a new duration that records exactly how far into the game each play occurred.\\
 
-\code{lakers$time <- eminutes(12) * lakers$period - lakers$time}\\
+\code{R> lakers$time <- eminutes(12) * lakers$period - lakers$time}\\
 
-Unfortunately, \pkg{ggplot2} does not support plotting durations, or difftimes, the class used by durations. To plot our data, we can extract the integer value of our durations, which will equal the number of seconds that occurred in each duration.\\
+One complication is that some games went into overtime. These games have a fifth period that is only five minutes long. To keep things simple, we will ignore plays that occur in overtime.\\
+
+\code{R> lakers <- subset(lakers, period != 5)}
+
+\pkg{ggplot2} does not support plotting difftimes, which is the class used by durations. To plot our data, we can extract the integer value of our durations, which will equal the number of seconds that occurred in each duration (Figure \ref{fig:plays}).\\
 
 \code{R> qplot(as.integer(time), data = lakers, geom = "histogram", binwidth = 60)}\\
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{play-time-histogram.png}        
-  \caption{Distribution of plays within game.}
+  \caption{By default, the time of each play is recorded in seconds on the x axis.}
   \label{fig:plays}
 \end{figure}
 
-Alternatively, we can create date-times, which \pkg{ggplot2} does support, by adding each of our durations to the same starting instant. This creates a plot whose tick marks are determined by \code{pretty.date()}. This helper function recognizes the most intuitive binning and labeling of date-time data, which further enhances our graph.\\
+Or we can create date-times, which \pkg{ggplot2} does support, by adding each of our durations to the same starting instant. This creates a plot whose tick marks are determined by \code{pretty.date()}. This helper function recognizes the most intuitive binning and labeling of date-time data, which further enhances our graph (Figure \ref{fig:plays2}).\\
 
-\code{R> lakers$demo <- ymd("2008-01-01") + lakers$time}\\
-\code{R> qplot(demo, data = lakers, geom = "histogram", binwidth = 60)}\\
+\code{R> lakers$minutes <- ymd("2008-01-01") + lakers$time}\\
+\code{R> qplot(minutes, data = lakers, geom = "histogram", binwidth = 60)}\\
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{play-time-histogram2.png}        
-  \caption{Distribution of plays within game.}
-  \label{fig:plays}
+  \caption{It makes more sense to show the time of each play in minutes.}
+  \label{fig:plays2}
 \end{figure}
 
 
-We see that the number of plays peaks within each of the four periods and then plummets at the beginning of the next period, figure~\ref{fig:plays}. We also see a small number of plays that occur in overtime. Observations that occur after 48 minutes suggest games that were decided in overtime.
+The number of plays peaks within each of the four periods and then plummets at the beginning of the next period, figure~\ref{fig:plays2}.
 
 Now lets look more closely at just one basketball game: the first game of the season. This game was played on October 28, 2008. For this game, we can easily model the amounts of time that occurred between each shot attempt.\\
 
