@@ -5,8 +5,8 @@
 # 1. Introduction
 # _______________________________________________________________
 # no code, but please load the lubridate package
-install.packages("lubridate")
-library(lubridate)
+# install.packages("lubridate")
+# library(lubridate)
 
 
 # 2. Motivation
@@ -118,9 +118,9 @@ as.numeric(format(date, "%Y"))
 z <- 2000
 year(date) <- z
   date <- as.Date(date)
-as.Date(format(date, "z-%m-%d"))
+as.Date(format(date, "2000-%m-%d"))
   date <- as.POSIXct(date)
-as.POSIXct(format(date, "z-%m-%d"))
+as.POSIXct(format(date, "2000-%m-%d"))
 
 # day of week
 wday(date) # Sun = 1
@@ -285,7 +285,7 @@ lakers$date <- ymd(lakers$date)
 str(lakers$date)
 
 # to use qplot we must first install and load the ggplot2 package
-install.packages("ggplot2")
+# install.packages("ggplot2")
 library(ggplot2)
 qplot(date, 0, data = lakers, colour = game_type)
 
