@@ -101,15 +101,83 @@ Figure~\ref{fig:comparison} provides a more complete comparison between \pkg{lub
 % Always a good idea to show some examples right off the bat.  This helps
 % people understand why they should bother reading the paper
 
-\begin{figure}[htpb]
-  \includegraphics[angle=90, scale = 2]{comparison-table}
 
-%  \caption[angle=90]{\pkg{lubridate} comparison (adapted from R News Volume 4/1, June 2004)} 
-  \clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \label{fig:comparison}
+\begin{sidewaystable}[p]
 
-\end{figure}
+\begin{center}
+\scriptsize
+\begin{tabular}{|l|l|l|l|}
+\hline
+\bf{Task} & \bf{Lubridate} & \bf{Date}  & \bf{POSIXct} \\
+\hline
+now (system time zone)  & now() & & Sys.time()\\
+now (GMT)  & now(``GMT'') & Sys.Date() &\\
+origin  & origin & structure(0, class = ``Date") & structure(0, class = c(``POSIXt", ``POSIXct"))\\
+x days since origin  & origin + days(x) & structure(floor(x), class = ``Date") & structure(x*24*60*60, class=c(``POSIXt",``POSIXct"))\\
+next day  & date + days(1) & date + 1 & seq(date, length = 2, by = ``day")[2]\\
+previous day  & date - days(1) & date - 1 & seq(date, length = 2, by = ``-1 day")[2]\\
+\hline
+\bf{DST and Time Zones} & & &\\
+\hline
+x days since date & & & \\
+\hspace{6mm} (day exactly 24 hours) & date + edays(x) & & seq(date, length = 2, by = paste(x, ``day"))[2]\\
+\hspace{6mm} (allowing for DST) & date + days(x) & date + floor(x) & seq(date, length = 2, by = paste(x,``DSTday"))[2]\\
+display date in new time zone & with\_tz(date, ``TZ") & & as.POSIXct(format(as.POSIXct(date), tz = ``TZ"),\\
+& & & \hspace{3mm}  tz = ``TZ")\\
+keep clock time, replace time zone & force\_tz(date, tz = ``TZ") & &\\
+\hline
+\bf{Exploring} & & & \\
+\hline
+sequence & date + c(0:9) * days(1) & seq(date, length = 10, by = ``day") & seq(date, length = 10, by = ``DSTday") \\ 
+every 2nd week & date + c(0:2) * weeks(2) & seq(date, length = 3, by = ``2 week") & seq(date, length = 3, by = ``2 week"\\
+first day of month & floor\_date(date, ``month") & as.Date(format(date, ``\%Y-\%m-01")) & as.POSIXct(format(date, ``\%Y-\%m-01"))\\
+round to nearest first of month & round\_date(date,``month") & & \\
+extract year value & year(date) & as.numeric(format(date,``\%Y")) & as.numeric(format(date, ``\%Y"))\\
+change year value & year(date) \textless- z & as.Date(format(date, ``z-\%m-\%d")) & as.POSIXct(format(date, ``z-\%m-\%d"))\\
+day of week & wday(date) \# Sun = 1 & as.numeric(format(date,``\%w")) \# Sun = 0 & as.numeric(format(date, ``\%w")) \# Sun = 0\\
+day of year & yday(date) & as.numeric(format(date, ``\%j")) & as.numeric(format(date, ``\%j"))\\
+express as decimal of year & decimal\_date(date) & & \\
+\hline
+\bf{Parse} & & &\\
+\hline
+z = ``1970-10-15" & ymd(z) & as.Date(z) & as.POSIXct(z)\\
+z = ``10/15/1970" & mdy(z) & as.Date(z, ``\%m/\%d/\%Y") & as.POSIXct(strptime(z, ``\%m/\%d/\%Y"))\\
+z = 15101970  & dmy(z) & as.Date(as.character(z), & as.POSIXct(as.character(z),tz =``GMT",\\ 
+& & \hspace{3mm} format =``\%d\%m\%Y") & \hspace{3mm} format =``\%d\%m\%Y")\\
+\hline
+\multicolumn{4}{c}{    } \\
+\multicolumn{4}{c}{    } \\
+\multicolumn{4}{c}{Durations Comparison}\\
+\hline
+\bf{Duration} & \bf{Lubridate} & \multicolumn{2}{|l|}{\bf{base::R}}\\
+\hline
+1 second & seconds(1) & \multicolumn{2}{|l|}{as.difftime(1, unit = ``secs")}\\
+5 days, 3 hours and - 1 minute & new\_duration(day = 5,  & \multicolumn{2}{|l|}{as.difftime(60 * 24 * 5 + 60 * 3 - 1, unit = ``mins")}\\
+& \hspace{2mm} hour = 3, minute = -1) & \multicolumn{2}{|l|}{\# Time difference of 7379 mins}\\
+1 month & months(1) & \multicolumn{2}{|l|}{}\\
+1 year & years(1) & \multicolumn{2}{|l|}{}\\
+\hline
+
+
+
+\end{tabular}
+\caption{Comparison Table (adapted from R News Volume 4/1, June 2004).}
+\end{center}
+\label{default}
+\end{sidewaystable}%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
