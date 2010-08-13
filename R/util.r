@@ -105,7 +105,7 @@ with_tz <- function (time, tzone = ""){
 #' different moment of time than the input date-time. 
 #'
 #' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
-#' @param tz a character string containing the time zone to convert to. R must recognize the name 
+#' @param tzone a character string containing the time zone to convert to. R must recognize the name 
 #' contained in the string as a time zone on your system.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip

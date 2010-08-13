@@ -8,6 +8,7 @@
 #'
 #' @param x a vector of POSIXct, POSIXlt, Date, or chron date-time objects
 #' @param n integer value of the desired number of breaks
+#' @param ... additional arguments to pass to function
 #' @return a vector of date-times that can be used as axis tick marks or bin breaks
 #' @keywords dplot utilities chron
 #' @examples
