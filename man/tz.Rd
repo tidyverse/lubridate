@@ -58,7 +58,7 @@ attribute exists, tz returns "GMT".}
 tz(x) 
 tz(x) <- "GMT"  
 x
-tz(x) <- ""
+tz(x) <- "America/New_York"
 x
 Sys.setenv(TZ = "GMT")
 x

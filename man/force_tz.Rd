@@ -1,7 +1,7 @@
 \name{force_tz}
 \alias{force_tz}
 \title{Replace time zone to create new date-time...}
-\usage{force_tz(time, tz="")}
+\usage{force_tz(time, tzone="")}
 
 \description{
   Replace time zone to create new date-time
@@ -22,6 +22,6 @@
   \item{tz}{a character string containing the time zone to convert to. R must recognize the name 
 contained in the string as a time zone on your system.}
 }
-\examples{x <- as.POSIXct("2009-08-07 00:00:00 CDT")
+\examples{x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_york")
 force_tz(x, "GMT")
-# "2009-08-07 00:00:00 GMT"}
+# "2009-08-07 00:00:01 GMT"}
