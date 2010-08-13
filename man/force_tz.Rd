@@ -19,7 +19,7 @@
 \seealso{\code{\link{force_tz}}}
 \arguments{
   \item{time}{a POSIXct, POSIXlt, Date, or chron date-time object.}
-  \item{tz}{a character string containing the time zone to convert to. R must recognize the name 
+  \item{tzone}{a character string containing the time zone to convert to. R must recognize the name 
 contained in the string as a time zone on your system.}
 }
 \examples{x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_york")

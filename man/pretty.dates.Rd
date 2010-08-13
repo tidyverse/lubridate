@@ -22,6 +22,7 @@
 \arguments{
   \item{x}{a vector of POSIXct, POSIXlt, Date, or chron date-time objects}
   \item{n}{integer value of the desired number of breaks}
+  \item{...}{additional arguments to pass to function}
 }
 \examples{x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
 # "2009-08-02" "2010-08-02"
