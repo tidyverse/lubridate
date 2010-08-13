@@ -25,7 +25,7 @@ add_period_to_date <- function(date, period){
 			minutes = minute(date) + period$minute,
 			seconds = second(date) + period$second
 			)
-	if (is.Date(date) & sum(new$sec, new$min, new$hour, na.rm = T) != 0)
+	if (is.Date(date) & sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
 	return(new)	
 	
 	reclass_date(new, date)
@@ -48,7 +48,7 @@ add_interval_to_date <- function(date, interval){
 	if(all(interval$start == with_tz(as.POSIXct(date), tz(interval$start))))
 		reclass_date(interval$end, date)
 	else
-		stop("interval$start does not match date", call. = F)
+		stop("interval$start does not match date", call. = FALSE)
 }
 
 add_number_to_duration <- function(dur, num)

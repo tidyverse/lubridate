@@ -166,6 +166,7 @@ format.period <- function(x, ...){
 #' Internal method for printing interval objects.
 #'
 #' @keywords internal print chron
+#' @method print period
 print.period <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }
