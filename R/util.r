@@ -114,13 +114,13 @@ with_tz <- function (time, tzone = ""){
 #' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_york")
 #' force_tz(x, "GMT")
 #' # "2009-08-07 00:00:01 GMT"
-force_tz <- function(time, tz = ""){
+force_tz <- function(time, tzone = ""){
   x <- as.POSIXlt(time)
   
-  if(is.null(tz)) tz <- ""
+  if(is.null(tzone)) tzone <- ""
   new <- ISOdatetime(year(x),  month(x), mday(x), hour(x),
-    minute(x), second(x), tz)
-  new[hour(with_tz(new, tz)) != hour(time)] <- NA
+    minute(x), second(x), tzone)
+  new[hour(with_tz(new, tzone)) != hour(time)] <- NA
     
   reclass_date(new, time)
 }
@@ -184,3 +184,21 @@ recognize <- function(x){
     return(TRUE)
   return(FALSE)
 }
+
+
+#' Lakers 2008-2009 basketball data set
+#' 
+#' This data set contains play by play statistics of each Los 
+#' Angeles Lakers basketball game in the 2008-2009 season. Data 
+#' includes the date, opponent, and type of each game (home or 
+#' away). Each play is described by the time on the game clock 
+#' when the play was made, the period in which the play was 
+#' attempted, the type of play, the player and team who made the 
+#' play, the result of the play, and the location on the court 
+#' where each play was made.
+#'  
+#' @name lakers
+#' @docType data
+#' @references \url{http://www.basketballgeek.com/data/}
+#' @keywords data
+NULL
