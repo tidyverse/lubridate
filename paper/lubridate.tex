@@ -97,9 +97,8 @@ Now let's go a step further. We'll go back in time one day and display our new d
 
 \pkg{lubridate} makes basic date-time manipulations much more straight forward. Plus, the same \pkg{lubridate} methods work for most of the popular date-time object classes (\code{Date}, \code{POSIXt}, \code{chron}, etc.).
 
-Figure~\ref{fig:comparison} provides a more complete comparison between \pkg{lubridate} methods and base \proglang{R} methods. It shows how \pkg{lubridate} can simplify each of the common date time tasks presented in RNews Volume 4/1, June 2004 \citep{Rnews}. It also provides a useful summary of \pkg{lubridate} methods.
-% Always a good idea to show some examples right off the bat.  This helps
-% people understand why they should bother reading the paper
+Table \ref{comparison} provides a more complete comparison between \pkg{lubridate} methods and base \proglang{R} methods. It shows how \pkg{lubridate} can simplify each of the common date time tasks presented in RNews Volume 4/1, June 2004 \citep{Rnews}. It also provides a useful summary of \pkg{lubridate} methods.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,8 +166,8 @@ z = 15101970  & dmy(z) & as.Date(as.character(z), & as.POSIXct(as.character(z),t
 
 \end{tabular}
 \caption{Comparison Table (adapted from R News Volume 4/1, June 2004).}
+\label{comparison}
 \end{center}
-\label{default}
 \end{sidewaystable}%
 
 
