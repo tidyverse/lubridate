@@ -2,6 +2,20 @@
 #' @name DateCoercion
 #' @keywords internal 
 #' @aliases as.POSIXlt.fts as.POSIXlt.its as.POSIXlt.timeSeries as.POSIXlt.irts as.POSIXlt.xts as.POSIXlt.zoo as.POSIXlt.tis as.POSIXct.fts as.POSIXct.its as.POSIXct.timeSeries as.POSIXct.irts as.POSIXct.xts as.POSIXct.zoo as.POSIXct.tis
+#' @method as.POSIXlt fts
+#' @method as.POSIXlt its
+#' @method as.POSIXlt timeSeries
+#' @method as.POSIXlt irts
+#' @method as.POSIXlt xts
+#' @method as.POSIXlt zoo
+#' @method as.POSIXlt tis
+#' @method as.POSIXct fts
+#' @method as.POSIXct its
+#' @method as.POSIXct timeSeries
+#' @method as.POSIXct irts
+#' @method as.POSIXct xts
+#' @method as.POSIXct zoo
+#' @method as.POSIXct tis
 as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(fts::dates.fts(x))
 as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(fts::dates.fts(x))
 
