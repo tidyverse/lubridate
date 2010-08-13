@@ -104,9 +104,9 @@ add_interval_to_interval <- function(interval1, interval2){
 add_number_to_posix <- function(e1, e2){
       if(is.POSIXct(e1)){
       	return(structure(unclass(as.POSIXct(e1)) + e2, class = 
-      		c("POSIXt", "POSIXct")))
+      		class(e1)))
       }
-      as.POSIXlt(structure(unclass(as.POSIXct(e1)) + e2, class = 		c("POSIXt", "POSIXct")))
+      as.POSIXlt(structure(unclass(as.POSIXct(e1)) + e2, class = 		class(as.POSIXct(e1))))
 }
 
 add_number_to_date <- function(e1, e2)
@@ -338,9 +338,10 @@ subtract_dates <- function(e1, e2){
   else if(is.instant(e1) && is.instant(e2))
     new_interval(e2, e1)
   else if (is.POSIXct(e1) && !is.timespan(e2))
-    structure(unclass(e1) - e2, class = c("POSIXt", "POSIXct"))
+    structure(unclass(e1) - e2, class = class(e1))
   else if (is.POSIXlt(e1) && !is.timespan(e2))
-    as.POSIXlt(structure(unclass(as.POSIXct(e1)) - e2, class = c("POSIXt", "POSIXct")))
+    as.POSIXlt(structure(unclass(as.POSIXct(e1)) - e2, 
+    	class = class(as.POSIXct(e1))))
   else if (is.period(e1) && is.interval(e2))
     stop("cannot subtract intervals from periods")
   else if (is.duration(e1) && is.interval(e2))

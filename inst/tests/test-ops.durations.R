@@ -77,17 +77,17 @@ test_that("addition with instants returns correct class",{
   y <- as.POSIXlt("2008-01-02 00:00:00", tz = "UTC")
   z <- as.Date("2008-01-01")
   
-  expect_that(class(x + 1)[2], matches("POSIXct"))
-  expect_that(class(y + 1)[2], matches("POSIXlt"))
-  expect_that(class(z + 1), matches("Date"))
+  expect_that(x + 1, is_a("POSIXct"))
+  expect_that(y + 1, is_a("POSIXlt"))
+  expect_that(z + 1, is_a("Date"))
   
-  expect_that(class(x + years(1))[2], matches("POSIXct"))
-  expect_that(class(y + years(1))[2], matches("POSIXlt"))
-  expect_that(class(z + years(1)), matches("Date"))
+  expect_that(x + years(1), is_a("POSIXct"))
+  expect_that(y + years(1), is_a("POSIXlt"))
+  expect_that(z + years(1), is_a("Date"))
   
-  expect_that(class(x + eyears(1))[2], matches("POSIXct"))
-  expect_that(class(y + eyears(1))[2], matches("POSIXlt"))
-  expect_that(class(z + eyears(1)), matches("Date"))
+  expect_that(x + eyears(1), is_a("POSIXct"))
+  expect_that(y + eyears(1), is_a("POSIXlt"))
+  expect_that(z + eyears(1), is_a("Date"))
     
   int2 <- new_interval(as.POSIXct("2008-01-02 00:00:00", tz = "UTC"), 
     as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
@@ -95,9 +95,9 @@ test_that("addition with instants returns correct class",{
   int3 <- new_interval(as.POSIXct("2008-01-01 00:00:00", tz = 
   	"UTC"), as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
     
-  expect_that(class(x + int2)[2], matches("POSIXct"))
-  expect_that(class(y + int2)[2], matches("POSIXlt"))
-  expect_that(class(z + int3), matches("Date"))
+  expect_that(x + int2, is_a("POSIXct"))
+  expect_that(y + int2, is_a("POSIXlt"))
+  expect_that(z + int3, is_a("Date"))
 })
 
 
@@ -129,21 +129,20 @@ test_that("addition works as expected for periods",{
 
 test_that("addition with periods returns correct class",{
   
-  expect_that(class(years(1) + 1)[1], matches("period"))
+  expect_that(years(1) + 1, is_a("period"))
 
-  expect_that(class(years(1) + as.POSIXct(
-    "2008-01-01 00:00:00", tz = "UTC"))[1], matches("POSIXt"))
+  expect_that(years(1) + as.POSIXct(
+    "2008-01-01 00:00:00", tz = "UTC"), is_a("POSIXt"))
 
-  expect_that(class(years(1) + as.POSIXlt(
-    "2008-01-01 00:00:00", tz = "UTC"))[2], matches("POSIXlt"))
+  expect_that(years(1) + as.POSIXlt(
+    "2008-01-01 00:00:00", tz = "UTC"), is_a("POSIXlt"))
 
-  expect_that(class(years(1) + minutes(3))[1], 
-    matches("period"))  
-  expect_that(class(years(1) + eyears(1))[1], matches("period"))    
+  expect_that(years(1) + minutes(3), is_a("period"))  
+  expect_that(years(1) + eyears(1), is_a("period"))    
   int2 <- new_interval(as.POSIXct("2008-01-02 00:00:00", tz = "UTC"), 
     as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
     
-  expect_that(class(years(1) + int2)[1], matches("interval"))
+  expect_that(years(1) + int2, is_a("interval"))
 })
 
 
@@ -171,21 +170,20 @@ test_that("addition works as expected for durations",{
 
 test_that("addition with durations returns correct class",{
   
-  expect_that(class(eyears(1) + 1), matches("difftime"))
+  expect_that(eyears(1) + 1, is_a("difftime"))
 
-  expect_that(class(eyears(1) + as.POSIXct(
-    "2008-01-01 00:00:00", tz = "UTC"))[2], matches("POSIXct"))
+  expect_that(eyears(1) + as.POSIXct(
+    "2008-01-01 00:00:00", tz = "UTC"), is_a("POSIXct"))
   
-  expect_that(class(eyears(1) + as.POSIXlt(
-    "2008-01-01 00:00:00", tz = "UTC"))[2], matches("POSIXlt"))
+  expect_that(eyears(1) + as.POSIXlt(
+    "2008-01-01 00:00:00", tz = "UTC"), is_a("POSIXlt"))
 
-  expect_that(class(eyears(1) + minutes(3))[1],
-     matches("period"))  
-  expect_that(class(eyears(1) + eyears(1)), matches("difftime"))    
+  expect_that(eyears(1) + minutes(3), is_a("period"))  
+  expect_that(eyears(1) + eyears(1), is_a("difftime"))    
   int2 <- new_interval(as.POSIXct("2008-01-02 00:00:00", tz = "UTC"), 
     as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
     
-  expect_that(class(eyears(1) + int2)[1], matches("interval"))
+  expect_that(eyears(1) + int2, is_a("interval"))
 })
 
 
@@ -233,27 +231,27 @@ test_that("addition with intervals returns correct class",{
   int <- new_interval(as.POSIXct("2008-08-01 00:00:00", tz = "UTC"), 
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))
 
-  expect_that(class(int + 1)[1], matches("interval"))
-  expect_that(class(int + 1)[2], matches("data.frame"))
+  expect_that(int + 1, is_a("interval"))
+  expect_that(int + 1, is_a("data.frame"))
 
-  expect_that(class(int + as.POSIXct(
-    "2008-08-01 00:00:00", tz = "UTC"))[2], matches("POSIXct"))
+  expect_that(int + as.POSIXct(
+    "2008-08-01 00:00:00", tz = "UTC"), is_a("POSIXct"))
   
-  expect_that(class(int + as.POSIXlt(
-    "2008-08-01 00:00:00", tz = "UTC"))[2], matches("POSIXlt"))
+  expect_that(int + as.POSIXlt(
+    "2008-08-01 00:00:00", tz = "UTC"), is_a("POSIXlt"))
 
-  expect_that(class(int + minutes(3))[1], matches("interval"))  
-  expect_that(class(int + eyears(1))[1], matches("interval"))    
+  expect_that(int + minutes(3), is_a("interval"))  
+  expect_that(int + eyears(1), is_a("interval"))    
   int3 <- new_interval(as.POSIXct("2009-08-03 13:01:59", tz = "UTC"), 
     as.POSIXct("2010-08-03 00:00:00", tz = "UTC"))
     
-  expect_that(class(int + int3)[1], matches("interval"))
+  expect_that(int + int3, is_a("interval"))
 })
 
 test_that("addition still works for numbers",{
   
   expect_that(1 + 1, equals(2))
-  expect_that(class(1 + 1), matches("numeric"))
+  expect_that(1 + 1, is_a("numeric"))
 })
 
 
@@ -400,7 +398,7 @@ test_that("additing vectors works as expected for intervals",{
 test_that("addition still works for numbers",{
   
   expect_that(c(1,2) + 1, equals(c(2,3)))
-  expect_that(class(c(1,2) + 1), matches("numeric"))
+  expect_that(c(1,2) + 1, is_a("numeric"))
 })
 
 
@@ -460,25 +458,25 @@ test_that("subtraction with instants returns correct class",{
   y <- as.POSIXlt("2008-01-01 12:00:00", tz = "UTC")
   z <- as.Date("2008-01-01")
   
-  expect_that(class(x - 1)[2], matches("POSIXct"))
-  expect_that(class(y - 1)[2], matches("POSIXlt"))
-  expect_that(class(z - 1), matches("Date"))
+  expect_that(x - 1, is_a("POSIXct"))
+  expect_that(y - 1, is_a("POSIXlt"))
+  expect_that(z - 1, is_a("Date"))
   
-  expect_that(class(x - years(1))[2], matches("POSIXct"))
-  expect_that(class(y - years(1))[2], matches("POSIXlt"))
-  expect_that(class(z - years(1)), matches("Date"))
+  expect_that(x - years(1), is_a("POSIXct"))
+  expect_that(y - years(1), is_a("POSIXlt"))
+  expect_that(z - years(1), is_a("Date"))
   
-  expect_that(class(x - eyears(1))[2], matches("POSIXct"))
-  expect_that(class(y - eyears(1))[2], matches("POSIXlt"))
-  expect_that(class(z - eyears(1)), matches("Date"))
+  expect_that(x - eyears(1), is_a("POSIXct"))
+  expect_that(y - eyears(1), is_a("POSIXlt"))
+  expect_that(z - eyears(1), is_a("Date"))
     
   int2 <- new_interval(as.POSIXct("2009-08-03 00:00:00", tz = 	"UTC"), as.POSIXct("2008-01-01 12:00:00", tz = "UTC"))
   int3 <- new_interval(as.POSIXct("2009-08-03 00:00:00", tz = 
   	"UTC"), as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
     
-  expect_that(class(x - int2)[2], matches("POSIXct"))
-  expect_that(class(y - int2)[2], matches("POSIXlt"))
-  expect_that(class(z - int3), matches("Date"))
+  expect_that(x - int2, is_a("POSIXct"))
+  expect_that(y - int2, is_a("POSIXlt"))
+  expect_that(z - int3, is_a("Date"))
 })
 
 
@@ -508,11 +506,10 @@ test_that("subtraction works as expected for periods",{
 
 test_that("subtraction with periods returns correct class",{
   
-  expect_that(class(years(1) - 1)[1], matches("period"))
+  expect_that(years(1) - 1, is_a("period"))
 
-  expect_that(class(years(1) - minutes(3))[1], 
-    matches("period"))  
-  expect_that(class(years(1) - eyears(1))[1], matches("period"))
+  expect_that(years(1) - minutes(3), is_a("period"))  
+  expect_that(years(1) - eyears(1), is_a("period"))
 })
 
 
@@ -538,11 +535,10 @@ test_that("subtraction works as expected for durations",{
 
 test_that("subtraction with durations returns correct class",{
   
-  expect_that(class(eyears(1) - 1), matches("difftime"))
+  expect_that(eyears(1) - 1, is_a("difftime"))
 
-  expect_that(class(eyears(1) - minutes(3))[1],
-     matches("period"))  
-  expect_that(class(eyears(1) - eyears(1)), matches("difftime"))
+  expect_that(eyears(1) - minutes(3), is_a("period"))  
+  expect_that(eyears(1) - eyears(1), is_a("difftime"))
 })
 
 
@@ -590,21 +586,21 @@ test_that("subtraction with intervals returns correct class",{
   int <- new_interval(as.POSIXct("2008-08-03 00:00:00", tz = "UTC"), 
     as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
 
-  expect_that(class(int - 1)[1], matches("interval"))
-  expect_that(class(int - 1)[2], matches("data.frame"))
+  expect_that(int - 1, is_a("interval"))
+  expect_that(int - 1, is_a("data.frame"))
 
-  expect_that(class(int - minutes(3))[1], matches("interval"))  
-  expect_that(class(int - eyears(1))[1], matches("interval"))    
+  expect_that(int - minutes(3), is_a("interval"))  
+  expect_that(int - eyears(1), is_a("interval"))    
   int3 <- new_interval(as.POSIXct("2008-11-02 00:00:00", tz = "UTC"), 
     as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
     
-  expect_that(class(int - int3)[1], matches("interval"))
+  expect_that(int - int3, is_a("interval"))
 })
 
 test_that("subtraction still works for numbers",{
   
   expect_that(1 - 1, equals(0))
-  expect_that(class(1 - 1), matches("numeric"))
+  expect_that(1 - 1, is_a("numeric"))
 })
 
 
@@ -628,35 +624,35 @@ test_that("multiplication throws error for intervals",{
 test_that("multiplication works as expected for periods",{
   
   expect_that(3*months(1), equals(months(3)))
-  expect_that(class(3*months(1))[1], matches("period"))
+  expect_that(3*months(1), is_a("period"))
   
 })
 
 test_that("multiplying vectors works for periods",{
   
   expect_that(c(2,3)*months(1), equals(months(2:3)))
-  expect_that(class(c(2,3)*months(1))[1], matches("period"))
+  expect_that(c(2,3)*months(1), is_a("period"))
   
 })
 
 test_that("multiplication works as expected for durations",{
     
   expect_that(3*ehours(1), equals(ehours(3)))
-  expect_that(class(3*ehours(1)), matches("difftime"))
+  expect_that(3*ehours(1), is_a("difftime"))
   
 })
 
 test_that("multiplying vectors works for durations",{
   
   expect_that(c(2,3)*ehours(1), equals(ehours(2:3)))
-  expect_that(class(c(2,3)*ehours(1)), matches("difftime"))
+  expect_that(c(2,3)*ehours(1), is_a("difftime"))
   
 })
 
 test_that("multiplication still works for numbers",{
   expect_that(3*2, equals(6))
   expect_that(c(4,5)*2, equals(c(8,10)))
-  expect_that(class(3*2), matches("numeric"))
+  expect_that(3*2, is_a("numeric"))
   
 })
 
@@ -686,7 +682,7 @@ test_that("division works as expected for periods",{
   expect_that(months(1)/3, throws_error(
     "periods must have integer values"))
   expect_that(months(9)/3, equals(months(3)))
-  expect_that(class(months(9)/3)[1], matches("period"))
+  expect_that(months(9)/3, is_a("period"))
   
 })
 
@@ -696,7 +692,7 @@ test_that("dividing vectors works for periods",{
   expect_that(months(1)/c(2,3), throws_error(
     "periods must have integer values"))
   expect_that(months(9)/c(3,1), equals(months(c(3,9))))
-  expect_that(class(months(9)/c(3,1))[1], matches("period"))
+  expect_that(months(9)/c(3,1), is_a("period"))
   
 })
 
@@ -704,7 +700,7 @@ test_that("division works as expected for durations",{
     
   expect_that(3/ehours(1), throws_error())
   expect_that(ehours(9)/3, equals(ehours(3)))
-  expect_that(class(ehours(9)/3), matches("difftime"))
+  expect_that(ehours(9)/3, is_a("difftime"))
   
 })
 
@@ -712,14 +708,14 @@ test_that("dividing vectors works for durations",{
   
   expect_that(c(2,3)/ehours(1), throws_error())
   expect_that(ehours(9)/c(3,1), equals(ehours(c(3,9))))
-  expect_that(class(ehours(9)/c(3,1)), matches("difftime"))
+  expect_that(ehours(9)/c(3,1), is_a("difftime"))
   
 })
 
 test_that("division still works for numbers",{
   expect_that(6/2, equals(3))
   expect_that(c(4,6)/2, equals(c(2,3)))
-  expect_that(class(3/2), matches("numeric"))
+  expect_that(3/2, is_a("numeric"))
   
 })
 
