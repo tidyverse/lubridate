@@ -49,10 +49,10 @@
 #'
 #' @aliases duration durations dur periods period interval intervals
 #' @name duration
-#' @seealso \code{\link{new_duration}} for creating duration objects and \code{\link{as.duration}} 
-#'   for converting objects into durations
-#' @seealso \code{\link{new_interval}} for creating interval objects and \code{\link[lubridate]{as.interval}} 
-#'   for converting objects to intervals
+#' @seealso \code{\link{new_duration}} for creating duration objects and
+#'   \code{\link{as.duration}} for converting objects into durations, 
+#'   \code{\link{new_interval}} for creating interval objects and
+#'   \code{\link[lubridate]{as.interval}} for converting objects to intervals
 #' @keywords classes chron
 #' @examples
 #' new_duration(second = 3690)

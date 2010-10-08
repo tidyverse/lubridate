@@ -294,7 +294,7 @@ num_to_date <- function(x) {
 #' @param formats a list of formats to test. Each format should be a vector of
 #'   date-time format elements. To test an alternative order of elements, the
 #'   alternative order should be entered as an additional format. See
-#'   \code{link[base]{strptime}} for format elements.
+#'   \code{\link[base]{strptime}} for format elements.
 #' @param seps a vector of possible characters used to separate elements
 #'   within the dates. 
 #' @return a character string of the most likely date-time format
