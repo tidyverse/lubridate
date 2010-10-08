@@ -266,12 +266,12 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + edays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
-eseconds <- function(x = 1) new_duration(second = x)
-eminutes <- function(x = 1) new_duration(minute = x)
-ehours <-   function(x = 1) new_duration(hour = x)
-edays <-    function(x = 1) new_duration(day = x)  
-eweeks <-   function(x = 1) new_duration(week = x)
-eyears <- function(x = 1) new_duration(second = x * 31536000)
+dseconds <- eseconds <- function(x = 1) new_duration(second = x)
+dminutes <- eminutes <- function(x = 1) new_duration(minute = x)
+dhours <- ehours <-   function(x = 1) new_duration(hour = x)
+ddays <- edays <-    function(x = 1) new_duration(day = x)  
+dweeks <- eweeks <-   function(x = 1) new_duration(week = x)
+dyears <- eyears <- function(x = 1) new_duration(second = x * 31536000)
 
 
 #' Is x a date-time object?
