@@ -56,11 +56,14 @@ While Base \proglang{R} \citep{R} handles some of these problems, the syntax it 
 
 \pkg{lubridate} uses an intuitive user interface inspired by the date libraries of object oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, \pkg{chron} ~\citep{chron}, \pkg{fCalendar} ~\citep{fCalendar}, \pkg{zoo} ~\citep{zoo}, \pkg{xts} ~\citep{xts}, \pkg{its} ~\citep{its}, \pkg{tis} ~\citep{tis}, \pkg{timeSeries} ~\citep{timeSeries}, \pkg{fts} ~\citep{fts}, and \pkg{tseries} ~\citep{tseries} objects. 
 
-Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}. This allows users to perform simple arithmetic on date-time objects with the new time span classes introduced by \pkg{lubridate}, but does not alter the way \proglang{R} implements addition and subtraction for non-\pkg{lubridate} objects.
+Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}. This allows users to perform simple arithmetic on date-time objects with the new time span classes introduced by \pkg{lubridate}, but it does not alter the way \proglang{R} implements addition and subtraction for non-\pkg{lubridate} objects.
 
-The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project \citep{jodatime}. This paper demonstrates the convenient tools provided in the \pkg{lubridate} package and ends with a case study, which uses \pkg{lubridate} in a real life example.
+\pkg{lubridate} introduces four new object classes based on the \proglang{Java} based JODA time project \citep{jodatime}. JODA time introduces a conceptual model of the different ways to measure time spans. Section~\ref{sec:types} describes this model and explains how \pkg{lubridate} uses it to perform easy and accurate arithmetic with dates. 
 
-This paper describes \pkg{lubridate} 0.1, which can be downloaded from {\sc cran}. Development versions can be found at \url{http://github.com/hadley/lubridate}.
+
+% The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based JODA time project \citep{jodatime}. This paper demonstrates the convenient tools provided in the \pkg{lubridate} package and ends with a case study, which uses \pkg{lubridate} in a real life example.
+
+This paper demonstrates the convenient tools provided in the \pkg{lubridate} package and ends with a case study, which uses \pkg{lubridate} in a real life example. This paper describes \pkg{lubridate} 0.1, which can be downloaded from {\sc cran}. Development versions can be found at \url{http://github.com/hadley/lubridate}.
 
 \section{Motivation}
 
@@ -725,7 +728,7 @@ Date-times create technical difficulties that other types of data do not. They m
 
 Base \proglang{R} handles many of these difficulties, but not all. Moreover, base \proglang{R}'s date-time methods are often complicated, confusing, and prone to change for different date-time classes. \pkg{lubridate} makes it to easier to work with date-time data in \proglang{R}. The package provides a set of standard methods for most common date-time classes. These methods make it simple to parse, manipulate, and perform math on date-time objects. By implementing the time concepts pioneered by the \proglang{Java} based JODA time project, \pkg{lubridate} helps researchers perform precise calculations as well as model tricky time-related processes. \pkg{lubridate} also makes it simple to switch date-times between time zones and to advantageously use or ignore daylight savings time.
 
-Future work on the \pkg{lubridate} package will develop methods for handling partial dates and for modeling re-occuring events, such as stock market opening times, business days, or street cleaning hours. In particular, we hope to implement a method of defining reoccurring temporal patterns by extending the ideas created by the \proglang{Ruby} based \proglang{runt} project \citep{runts} to the \proglang{R} programming language.
+Future work on the \pkg{lubridate} package will develop methods for handling partial dates and for modeling re-occuring events, such as stock market opening times, business days, or street cleaning hours. In particular, we hope to create methods for R that work with reoccurring temporal date patterns, which were introduced by Martin Fowler \citep{fowler} and have been implemented in \proglang{Ruby} by the \proglang{runt} project \citep{runts}.
 
 \section*{Acknowledgements}
 We'd like to thank the National Science Foundation. This work was supported by the NSF VIGRE Grant, number  DMS-0739420.

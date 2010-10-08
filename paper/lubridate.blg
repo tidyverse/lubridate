@@ -3,51 +3,51 @@ The top-level auxiliary file: lubridate.aux
 The style file: jss.bst
 Database file #1: lubridate.bib
 Warning--entry type for "bball" isn't style-file defined
---line 24 of file lubridate.bib
-Warning--entry type for "runts" isn't style-file defined
 --line 34 of file lubridate.bib
+Warning--entry type for "runts" isn't style-file defined
+--line 44 of file lubridate.bib
 Warning--entry type for "jodatime" isn't style-file defined
---line 45 of file lubridate.bib
+--line 55 of file lubridate.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 15 entries,
+You've used 16 entries,
             3179 wiz_defined-function locations,
-            722 strings with 7283 characters,
-and the built_in function-call counts, 10238 in all, are:
-= -- 876
-> -- 246
-< -- 14
-+ -- 93
+            729 strings with 7363 characters,
+and the built_in function-call counts, 11157 in all, are:
+= -- 963
+> -- 247
+< -- 16
++ -- 94
 - -- 78
-* -- 787
-:= -- 1456
-add.period$ -- 54
-call.type$ -- 15
-change.case$ -- 93
-chr.to.int$ -- 15
-cite$ -- 15
-duplicate$ -- 951
-empty$ -- 919
-format.name$ -- 127
-if$ -- 2062
+* -- 851
+:= -- 1574
+add.period$ -- 58
+call.type$ -- 16
+change.case$ -- 97
+chr.to.int$ -- 16
+cite$ -- 16
+duplicate$ -- 1048
+empty$ -- 1018
+format.name$ -- 124
+if$ -- 2262
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 132
-newline$ -- 90
-num.names$ -- 60
-pop$ -- 323
+missing$ -- 141
+newline$ -- 95
+num.names$ -- 64
+pop$ -- 344
 preamble$ -- 1
-purify$ -- 85
+purify$ -- 89
 quote$ -- 0
-skip$ -- 261
+skip$ -- 286
 stack$ -- 0
-substring$ -- 789
-swap$ -- 278
-text.length$ -- 0
+substring$ -- 914
+swap$ -- 298
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 132
+type$ -- 141
 warning$ -- 0
-while$ -- 74
+while$ -- 80
 width$ -- 0
-write$ -- 210
+write$ -- 223
 (There were 3 warnings)

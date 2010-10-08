@@ -1,4 +1,4 @@
-\begin{thebibliography}{15}
+\begin{thebibliography}{16}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -21,16 +21,15 @@ Colebourne S, O'Neill BS (2006).
 \newblock \enquote{\pkg{Joda-Time}.}
 \newblock \urlprefix\url{http://joda-time.sourceforge.net/}.
 
+\bibitem[{Fowler(1997)}]{fowler}
+Fowler M (1997).
+\newblock \enquote{Recurring events for calendars.}
+\newblock \emph{n. pub., n. pag}, pp. 0--201.
+
 \bibitem[{Grothendieck and Petzoldt(2004)}]{Rnews}
 Grothendieck G, Petzoldt T (2004).
 \newblock \enquote{Date and Time Classes in \proglang{R}.}
 \newblock \emph{R News}, \textbf{4}(1), 32.
-
-\bibitem[{Group and Securities(2009)}]{its}
-Group PRA, Securities C (2009).
-\newblock \emph{\pkg{its}: Irregular Time Series}.
-\newblock R package version 1.1.8,
-  \urlprefix\url{http://CRAN.R-project.org/package=its}.
 
 \bibitem[{Hallman(2010)}]{tis}
 Hallman J (2010).
@@ -54,6 +53,13 @@ Lipper M (2008).
 Parker RJ (2010).
 \newblock \enquote{Basketball Geek.}
 \newblock \urlprefix\url{http://www.basketballgeek.com/data/}.
+
+\bibitem[{{Portfolio and Risk Advisory Group, Commerzbank
+  Securities}(2009)}]{its}
+{Portfolio and Risk Advisory Group, Commerzbank Securities} (2009).
+\newblock \emph{\pkg{its}: Irregular Time Series}.
+\newblock R package version 1.1.8,
+  \urlprefix\url{http://CRAN.R-project.org/package=its}.
 
 \bibitem[{{R Development Core Team}(2010)}]{R}
 {R Development Core Team} (2010).
