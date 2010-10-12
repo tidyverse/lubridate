@@ -3,15 +3,37 @@
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases yday.default yday.zoo yday.its yday.ti yday.timeseries yday.fts yday.irts 
-#'   mday.default mday.zoo mday.its day
-#'   mday.ti mday.timeseries mday.fts mday.irts yday mday day<- yday<-.default yday<-.Date 
-#'   yday<-.chron yday<-.zoo yday<-.its yday<-.ti yday<-.timeDate yday<-.jul yday<-.timeSeries yday<-
-#'   yday<-.fts yday<-.irts 
-#'   mday<-.default mday<-.Date mday<-.chron mday<-.zoo mday<-.its mday<-.ti mday<-.timeDate 
-#'   mday<-.jul mday<-.timeSeries mday<-.fts mday<-.irts
-#' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
-#'   jul, timeSeries, or fts object. 
+#' @export day yday mday wday
+#' @S3method yday default
+#' @S3method yday zoo
+#' @S3method yday its 
+#' @S3method yday ti
+#' @S3method yday timeseries
+#' @S3method yday fts
+#' @S3method yday irts 
+#' @S3method mday default
+#' @S3method mday zoo
+#' @S3method mday its 
+#' @S3method mday ti
+#' @S3method mday timeseries
+#' @S3method mday fts
+#' @S3method mday irts 
+#' @S3method yday default
+#' @S3method "yday<-" zoo
+#' @S3method "yday<-" its 
+#' @S3method "yday<-" ti
+#' @S3method "yday<-" timeseries
+#' @S3method "yday<-" fts
+#' @S3method "yday<-" irts 
+#' @S3method "mday<-" default
+#' @S3method "mday<-" zoo
+#' @S3method "mday<-" its 
+#' @S3method "mday<-" ti
+#' @S3method "mday<-" timeseries
+#' @S3method "mday<-" fts
+#' @S3method "mday<-" irts 
+#' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
+#'    timeDate, xts, its, ti, jul, timeSeries, or fts object. 
 #' @return yday returns the day of the year as a decimal number (01-366). mday returns the day of 
 #'   the month as a decimal number (01-31). 
 #' @seealso \code{\link{wday}}
@@ -36,10 +58,20 @@ yday.default <- function(x)
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases wday.default 
-#'   wday.zoo wday.its wday.ti wday.timeseries wday.fts wday.irts wday 
-#'   wday<- wday<-.default wday<-.Date wday<-.chron wday<-.zoo wday<-.its 
-#'   wday<-.ti wday<-.timeDate wday<-.jul wday<-.timeSeries wday<-.fts wday<-.irts mday<- wday.numeric
+#' @S3method wday default
+#' @S3method wday zoo
+#' @S3method wday its 
+#' @S3method wday ti
+#' @S3method wday timeseries
+#' @S3method wday fts
+#' @S3method wday irts
+#' @S3method "wday<-" default
+#' @S3method "wday<-" zoo
+#' @S3method "wday<-" its 
+#' @S3method "wday<-" ti
+#' @S3method "wday<-" timeseries
+#' @S3method "wday<-" fts
+#' @S3method "wday<-" irts
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
 #'   jul, timeSeries, or fts object. 
 #' @param label logical. Only available for wday. TRUE will display the day of the week as a 
