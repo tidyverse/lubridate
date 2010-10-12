@@ -47,7 +47,7 @@
 #' creates an interval object. Intervals display as the difftime between the two 
 #' dates paired with the earlier, or beginning date. 
 #'
-#' @aliases duration durations dur periods period interval intervals
+#' @aliases duration durations dur periods period interval intervals timespans
 #' @name duration
 #' @seealso \code{\link{new_duration}} for creating duration objects and
 #'   \code{\link{as.duration}} for converting objects into durations, 
@@ -227,7 +227,7 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' manipulated in a method similar to object oriented programming. Duration 
 #' objects can be added to Date, POSIXt, and Interval objects.
 #'
-#' @aliases eseconds eminutes ehours edays eweeks eyears
+#' @aliases eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears
 #' @param x numeric value of the number of units to be contained in the duration. 
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
@@ -266,19 +266,20 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + edays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
-eseconds <- function(x = 1) new_duration(second = x)
-eminutes <- function(x = 1) new_duration(minute = x)
-ehours <-   function(x = 1) new_duration(hour = x)
-edays <-    function(x = 1) new_duration(day = x)  
-eweeks <-   function(x = 1) new_duration(week = x)
-eyears <- function(x = 1) new_duration(second = x * 31536000)
+dseconds <- eseconds <- function(x = 1) new_duration(second = x)
+dminutes <- eminutes <- function(x = 1) new_duration(minute = x)
+dhours <- ehours <-   function(x = 1) new_duration(hour = x)
+ddays <- edays <-    function(x = 1) new_duration(day = x)  
+dweeks <- eweeks <-   function(x = 1) new_duration(week = x)
+dyears <- eyears <- function(x = 1) new_duration(second = x * 31536000)
 
 
 #' Is x a date-time object?
 #'
-#' date-time object denote instants in time.
+#' An instant is a specific moment in time. Most common date-time 
+#' objects (e.g, POSIXct, POSIXlt, and Date objects) are instants.
 #'
-#' @aliases is.timepoint timepoint is.instant instant
+#' @aliases is.timepoint timepoint is.instant instant instants
 #' @param x an R object   
 #' @return TRUE if x is a POSIXct, POSIXlt, or Date object, FALSE otherwise.
 #' @seealso \code{\link{is.timespan}}, \code{\link{is.POSIXt}}, \code{\link{is.Date}}

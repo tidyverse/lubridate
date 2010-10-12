@@ -75,7 +75,8 @@ new_period <- function(...) {
 #' 
 #' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
-#' @aliases seconds minutes hours days weeks months years y m w d
+#' @aliases picoseconds nanoseconds microseconds milliseconds 
+#' seconds minutes hours days weeks months years y m w d
 #' @param x numeric value of the number of units to be contained in the period. With the exception 
 #'   of seconds(), x must be an integer. 
 #' @return a period object
@@ -130,6 +131,10 @@ new_period <- function(...) {
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + edays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
+picoseconds <- function(x = 1) new_period(second = x * 10^(-12))
+nanoseconds <- function(x = 1) new_period(second = x * 10^(-9))
+microseconds <- function(x = 1) new_period(second = x * 10^(-6))
+milliseconds <- function(x = 1) new_period(second = x * 10^(-3))
 seconds <- function(x = 1) new_period(second = x)
 minutes <- function(x = 1) new_period(minute = x)
 hours <-   function(x = 1) new_period(hour = x)

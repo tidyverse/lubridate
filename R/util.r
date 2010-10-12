@@ -1,7 +1,7 @@
 #' Is a year a leap year?
 #'
-#' If x is a recognized date-time object, leap.year will return whether x 
-#' occurs during a leap year. If x is a number, leap.year returns whether it 
+#' If x is a recognized date-time object, leap_year will return whether x 
+#' occurs during a leap year. If x is a number, leap_year returns whether it 
 #' would be a leap year under the Gregorian calendar. 
 #'
 #' aliases leap.year leap_year leapyear
@@ -10,12 +10,12 @@
 #' @keywords logic chron
 #' @examples
 #' x <- as.Date("2009-08-02")
-#' leap.year(x) # FALSE
-#' leap.year(2009) # FALSE
-#' leap.year(2008) # TRUE
-#' leap.year(1900) # FALSE
-#' leap.year(2000) # TRUE
-leap.year <- function(date) {
+#' leap_year(x) # FALSE
+#' leap_year(2009) # FALSE
+#' leap_year(2008) # TRUE
+#' leap_year(1900) # FALSE
+#' leap_year(2000) # TRUE
+leap_year <- function(date) {
   recognized <- recognize(date)
   if (recognized)
     year <- year(date)
@@ -139,7 +139,7 @@ force_tz <- function(time, tzone = ""){
 #' @examples
 #' origin
 #' # "1970-01-01 GMT"
-origin <- with_tz(structure(0, class = c("POSIXt", "POSIXct")), "GMT")
+origin <- with_tz(structure(0, class = c("POSIXt", "POSIXct")), "UTC")
 
 
 
