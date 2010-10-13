@@ -204,8 +204,11 @@ as.duration.period <- function(x){
 as.duration.difftime <- function(x)
   make_difftime(as.numeric(x, "secs"))
   
-as.duration.interval <- function(x)
-  make_difftime(as.numeric(x$end) - as.numeric(x$start))
+as.duration.interval <- function(x){
+  attr(x, "start") <- NULL
+  class(x) <- c("difftime")
+  x
+}
 
 as.duration.default <- function(x)
   make_difftime(x)

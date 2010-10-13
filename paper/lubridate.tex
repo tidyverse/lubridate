@@ -35,7 +35,7 @@
   This paper presents the lubridate package for \proglang{R} \citep{R}, which facilitates working with dates and times.  Date-times create various technical problems for the data analyst. The paper highlights these problems and offers practical advice on how to solve them using \pkg{lubridate}.  The paper also introduces a conceptual framework for arithmetic with date-times.
 }
 
-%\setstretch{2}
+%\setstretch{3}
 \begin{document}
 
 \section{Introduction}
@@ -387,7 +387,7 @@ Finally, we can also change dates by adding or subtracting units of time from th
 \code{R> hour(date) <-  12 }\\
 \code{[1] "2010-02-25 12:51:48 CST"}
 
-\code{R> date + hours(3) }\\
+\code{R> date <- date + hours(3) }\\
 \code{[1] "2010-02-25 12:51:48 CST"}\\
 
 Notice that \code{hours()} (plural) is not the same function as \code{hour()} (singular). \code{hours()} creates a new object that can be added or subtracted to a  date-time. These objects are discussed in the next section. 

@@ -50,12 +50,10 @@ test_that("as.duration gives error for months",{
 })
 
 test_that("as.duration handles intervals",{
-  int <- new_interval(as.POSIXct("2009-01-02 12:24:03", tz = "UTC"), 
-    as.POSIXct("2010-02-03 14:31:42", tz = "UTC"))
-  y <- difftime(as.POSIXct("2010-02-03 14:31:42", tz = "UTC"),
-    as.POSIXct("2009-01-02 12:24:03", tz = "UTC"), units = 
-    "weeks")
-  attr(y, "tzone") <- NULL
+	time1 <- as.POSIXct("2009-01-02 12:24:03", tz = "UTC")
+	time2 <- as.POSIXct("2010-02-03 14:31:42", tz = "UTC")
+	int <- new_interval(time2, time1)
+    y <- difftime(time2, time1)
   
   expect_that(as.duration(int), equals(y))
 })
@@ -138,17 +136,18 @@ test_that("is.POSIXt handles vectors",{
 
 
 test_that("is.difftime/is.duration works as expected",{
+  ct_time <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
+  lt_time <- as.POSIXlt("2009-08-03 13:01:59", tz = "UTC")
+	
   expect_that(is.difftime(234), is_false())
-  expect_that(is.difftime(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
+  expect_that(is.difftime(ct_time),
     is_false())
-  expect_that(is.difftime(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")), 
+  expect_that(is.difftime(lt_time), 
     is_false())
   expect_that(is.difftime(Sys.Date()), is_false())
   expect_that(is.difftime(minutes(1)), is_false())
   expect_that(is.difftime(eminutes(1)), is_true())
-  expect_that(is.difftime(new_interval(
-    as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_false())
+  expect_that(is.difftime(new_interval(lt_time, ct_time)), is_true())
 })
 
 test_that("is.difftime/is.duration handle vectors",{
