@@ -11,6 +11,7 @@
 #' @param ... additional arguments to pass to function
 #' @return a vector of date-times that can be used as axis tick marks or bin breaks
 #' @keywords dplot utilities chron
+#' @export
 #' @examples
 #' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
 #' # "2009-08-02" "2010-08-02"
@@ -63,23 +64,12 @@ pretty.unit <- function(x, ...){
     return("sec")
 }
 
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
-
 pretty.sec <- function(x, n, ...){
   lengths <- c(1,2,5,10,15,30,60)
   fit <- abs(x - lengths*n)
   lengths[which.min(fit)]
 }
 
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
 pretty.min <- function(x, n, ...){
   span <- x/60
   lengths <- c(1,2,5,10,15,30,60)
@@ -87,11 +77,6 @@ pretty.min <- function(x, n, ...){
   lengths[which.min(fit)]
 }
 
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
 pretty.hour <- function(x, n, ...){
   span <- x / 3600
   lengths <- c(1,2,3,4,6,8,12,24)
@@ -99,21 +84,11 @@ pretty.hour <- function(x, n, ...){
   lengths[which.min(fit)]
 }
 
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
 pretty.day <- function(x, n, ...){
   span <- x / (3600 * 24)
   pretty(1:span, n = n)[2]
 }
 
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
 pretty.month <- function(x, n, ...){
   span <- x / (3600 * 24 * 30)
   lengths <- c(1,2,3,4,6,12)
@@ -121,21 +96,11 @@ pretty.month <- function(x, n, ...){
   lengths[which.min(fit)]
 }
   
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
 pretty.year <- function(x, n, ...){
   span <- x / (3600 * 24 * 365)
   pretty(1:span, n = n)[2]
 }
 
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
 pretty.point <- function(x, units, length, start = TRUE, ...){
   x <- as.POSIXct(x)
   

@@ -153,19 +153,21 @@ format.period <- function(x, ...){
     per <- x[i,]
   
     per <- per[which(per != 0)]
-    if (length(per) == 0) show[i] <- "0 seconds"
-    
-    else{
+    if (length(per) == 0) {
+      show[i] <- "0 seconds"
+    } else {
       singular <- names(per)
-         plural <- paste(singular, "s", sep = "")
-    
-        IDs <-paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
-          if(length(IDs) == 1) show[i] <- IDs
-        else
-          show[i] <- paste(paste(IDs[-length(IDs)], collapse = ", "), IDs[length(IDs)],sep = " and ")
+      plural <- paste(singular, "s", sep = "")
+      IDs <- paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
+      if(length(IDs) == 1) {
+        show[i] <- IDs
+      } else {
+        show[i] <- paste(paste(IDs[-length(IDs)], collapse = ", "),
+          IDs[length(IDs)],sep = " and ")  
       }
     }
-    paste(show, collapse = "   ")
+  }
+  show
 }
 
 #' Internal method for printing interval objects.
