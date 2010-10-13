@@ -101,7 +101,7 @@ add_interval_to_interval <- function(int1, int2){
 	else if (all(start1 == start2))
 		return(as.interval(start1, pmax(end1, end2)))
 	
-	warning("Intervals do not align: coercing to durations")
+	message("Intervals do not align: coercing to durations")
 	as.duration(int1) + as.duration(int2)
 }
 
@@ -211,15 +211,13 @@ make_difftime <- function (x) {
         units <- "mins"
     else if (any(seconds < 86400))
         units <- "hours"
-    else if (any(seconds < 604800))
-      units <- "days"
-    else units <- "weeks"
+    else
+        units <- "days"
     
     switch(units, secs = structure(x, units = "secs", class = "difftime"), 
       mins = structure(x/60, units = "mins", class = "difftime"), 
       hours = structure(x/3600, units = "hours", class = "difftime"), 
-      days = structure(x/86400, units = "days", class = "difftime"), 
-      weeks = structure(x/(604800), units = "weeks", class = "difftime"))
+      days = structure(x/86400, units = "days", class = "difftime"))
 }
 
 #' Multiplication for period and interval classes. 
@@ -350,9 +348,25 @@ subtract_dates <- function(e1, e2){
   else if (is.POSIXlt(e1) && !is.timespan(e2)){
     as.POSIXlt(structure(unclass(as.POSIXct(e1)) - e2, 
     	class = class(as.POSIXct(e1))))
-  }
+  } else if (is.interval(e1) && is.interval(e2))
+  	subtract_interval_from_interval(e2, e1)
   else
     e1  + (-1 * e2)
+}
+
+
+subtract_interval_from_interval <- function(int2, int1){
+	start1 <- attr(int1, "start")
+	start2 <- attr(int2, "start")
+	end1 <- start1 + int1
+	end2 <- start2 + int2
+	
+	if(all(end2 == end1))
+		return(new_interval(start2, start1))
+	else 
+	
+	message("Intervals do not align: coercing to durations")
+	as.duration(int1) - as.duration(int2)
 }
 
 

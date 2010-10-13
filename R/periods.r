@@ -236,8 +236,8 @@ as.period.default <- function(x, units = c("seconds")){
 }
 
 as.period.interval <- function(x, units = NULL){
-  start <- as.POSIXlt(x$start)
-  end <- as.POSIXlt(x$end)
+  start <- as.POSIXlt(attr(x, "start"))
+  end <- start + x
 
   to.per <- as.data.frame(unclass(end)) - 
     as.data.frame(unclass(start))

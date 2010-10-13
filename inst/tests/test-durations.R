@@ -2,11 +2,12 @@ context("Durations")
 
 test_that("new_duration works as expected",{
   x <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
-  y <- difftime(x + 5 + 30*60 + 60*60 + 14*24*60*60, x, tz = "UTC", units = "weeks")
+  y <- difftime(x + 5 + 30*60 + 60*60 + 14*24*60*60, x, tz = "UTC")
   attr(y, "tzone") <- NULL
+  diff <- new_duration(seconds = 5, minutes = 30, days = 0, 
+    hour = 1, weeks = 2)
   
-  expect_that(new_duration(seconds = 5, minutes = 30, days = 0, 
-    hour = 1, weeks = 2), equals(y))
+  expect_that(diff, equals(y))
 })
 
 test_that("new_duration handles vectors",{
@@ -15,7 +16,7 @@ test_that("new_duration handles vectors",{
     1 + 3*24*60*60 + 60*60), x, tz = "UTC")
   attr(y, "tzone") <- NULL
   z <- difftime(x + c(5 + 30*60 + 60*60 + 14*24*60*60, 5 + 
-    30*60 + 60*60 + 14*24*60*60 + 3*24*60*60), x, tz = "UTC", units = "weeks")
+    30*60 + 60*60 + 14*24*60*60 + 3*24*60*60), x, tz = "UTC")
   attr(z, "tzone") <- NULL
     
   
@@ -60,8 +61,7 @@ test_that("as.duration handles intervals",{
 
 test_that("as.duration handles difftimes",{
   x <- difftime(as.POSIXct("2010-02-03 14:31:42", tz = "UTC"),
-    as.POSIXct("2009-01-02 12:24:03", tz = "UTC"), units = 
-    "weeks" )
+    as.POSIXct("2009-01-02 12:24:03", tz = "UTC"))
   attr(x, "tzone") <- NULL
   
   expect_that(as.duration(x), equals(x))

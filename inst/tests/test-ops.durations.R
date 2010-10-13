@@ -559,32 +559,28 @@ test_that("subtraction works as expected for intervals",{
   time3 <- as.POSIXct("2008-11-02 00:00:00", tz = "UTC") 
   time4 <- as.POSIXct("2009-08-03 00:00:01", tz = "UTC")
   int2 <- new_interval(time4, time3)
+  diff1 <- difftime(time2, time1)
+  diff2 <- difftime(time4, time3)
     
-  expect_that(int - int2, throws_error(
-    "Intervals do not align"))
-    
-  int3 <- new_interval(as.POSIXct("2009-08-03 00:00:00", tz = "UTC"), 
-    as.POSIXct("2010-11-02 00:00:00", tz = "UTC"))
-    
-  expect_that(int + int3, equals(new_interval(
-    as.POSIXct("2008-08-03 00:00:00", tz = "UTC"), 
-    as.POSIXct("2010-11-02 00:00:00", tz = "UTC"))))    
+  expect_that(int - int2, equals(diff1 - diff2))  
 
 })
 
 test_that("subtraction with intervals returns correct class",{
-  int <- new_interval(as.POSIXct("2008-08-03 00:00:00", tz = "UTC"), 
-    as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
+  time1 <- as.POSIXct("2008-08-03 00:00:00", tz = "UTC")
+  time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
+  int <- new_interval(time2, time1)
 
   expect_that(int - 1, is_a("interval"))
-  expect_that(int - 1, is_a("data.frame"))
+  expect_that(int - 1, is_a("difftime"))
 
   expect_that(int - minutes(3), is_a("interval"))  
-  expect_that(int - eyears(1), is_a("interval"))    
-  int3 <- new_interval(as.POSIXct("2008-11-02 00:00:00", tz = "UTC"), 
-    as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
+  expect_that(int - eyears(1), is_a("interval"))
+      
+  time3 <- as.POSIXct("2008-11-02 00:00:00", tz = "UTC") 
+  int2 <- new_interval(time2, time3)
     
-  expect_that(int - int3, is_a("interval"))
+  expect_that(int - int2, is_a("interval"))
 })
 
 test_that("subtraction still works for numbers",{
@@ -605,10 +601,13 @@ test_that("multiplication throws error for instants",{
 })
 
 test_that("multiplication throws error for intervals",{
-  int <- new_interval(as.POSIXct("2008-08-03 00:00:00", tz = "UTC"), 
-    as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
+  time1 <- as.POSIXct("2008-08-03 00:00:00", tz = "UTC") 
+  time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
+  int <- new_interval(time2, time1)
+  diff <- difftime(time2, time1)
+  int2 <- new_interval(time1 + 2 *diff, time1)
     
-  expect_that(2 * int, throws_error())
+  expect_that(2 * int, equals(int2))
 })
 
 test_that("multiplication works as expected for periods",{
@@ -658,12 +657,13 @@ test_that("division throws error for instants",{
 })
 
 test_that("division throws error for intervals",{
-  int <- new_interval(as.POSIXct("2008-08-03 00:00:00", tz = "UTC"), 
-    as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
+  time1 <- as.POSIXct("2008-08-03 00:00:00", tz = "UTC") 
+  time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
+  int <- new_interval(time2, time1)
+  diff <- difftime(time2, time1)
+  int2 <- new_interval(time1 + diff/2, time1)
     
-  expect_that(2 / int, throws_error())
-  expect_that(int / 2, equals(new_interval(int$start, 
-    int$start + as.duration(int$end - int$start) /2)))
+  expect_that(int / 2, equals(int2))
 })
 
 test_that("division works as expected for periods",{

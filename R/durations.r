@@ -128,6 +128,7 @@ NULL
 #' @param ... a list of time units to be included in the duration and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported. See \code{\link{standardise_difftime_names}}.
 #' @return a duration object
+#' @aliases new_duration new_difftime
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
 #' @examples
@@ -141,7 +142,7 @@ NULL
 #' # Time difference of 0 secs
 #' new_duration(day = -1)
 #' # Time difference of -1 days
-new_duration <- function(...){
+new_duration <- new_difftime <- function(...){
   pieces <- list(...)
   names(pieces) <- standardise_difftime_names(names(pieces))
   

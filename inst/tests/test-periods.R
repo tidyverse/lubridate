@@ -41,15 +41,18 @@ test_that("print.period works as expected", {
 })
 
 test_that("as.period handles interval objects", {
-  int <- new_interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))
+  time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
+  time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
+  int <- new_interval(time2, time1)
     
   expect_that(as.period(int), equals(years(1)))
 })
 
 test_that("as.period handles vectors", {
-  int <- new_interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
-    as.POSIXct(c("2009-08-03 13:01:59","2010-08-03 13:01:59"), tz = "UTC"))
+  time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
+  time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
+  time3 <- as.POSIXct("2010-08-03 13:01:59", tz = "UTC")
+  int <- new_interval(time3, c(time2, time1))
     
   dur <- new_duration(seconds = 5, minutes = c(30,59))
     
