@@ -237,14 +237,38 @@ as.period.default <- function(x, units = c("seconds")){
 
 as.period.interval <- function(x, units = NULL){
   start <- as.POSIXlt(attr(x, "start"))
-  end <- start + x
+  end <- start + unclass(x)
 
   to.per <- as.data.frame(unclass(end)) - 
     as.data.frame(unclass(start))
     
   names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
+  to.per <- to.per[1:6]
   
-  new_period(to.per[,1:6])
+  # remove negative periods
+  nsecs <- to.per$second < 0
+  to.per$second[nsecs] <- 60 + to.per$second[nsecs]
+  to.per$minute[nsecs] <- to.per$minute[nsecs] - 1
+  
+  nmins <- to.per$minute < 0
+  to.per$minute[nmins] <- 60 + to.per$minute[nmins]
+  to.per$hour[nmins] <- to.per$hour[nmins] - 1
+  
+  nhous <- to.per$hour < 0
+  to.per$hour[nhous] <- 24 + to.per$hour[nhous]
+  to.per$day[nhous] <- to.per$day[nhous] - 1
+  
+  nmons <- to.per$month < 0
+  to.per$month[nmons] <- 12 + to.per$month[nmons]
+  to.per$year[nmons] <- to.per$year[nmons] - 1
+  
+  day.no <- floor_date(end, "month") - days(1)
+  day.no <- day.no$mday
+  ndays <- to.per$day < 0
+  to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
+  to.per$month[ndays] <- to.per$month[ndays] - 1
+  
+  structure(to.per[,c(6:1)], class = c("period", "data.frame"))
 }
 
 as.period.difftime <- function(x, units = c("year", "day", "hour", "minute", "seconds")){
