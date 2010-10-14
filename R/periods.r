@@ -162,8 +162,8 @@ format.period <- function(x, ...){
       if(length(IDs) == 1) {
         show[i] <- IDs
       } else {
-        show[i] <- paste(paste(IDs[-length(IDs)], collapse = ", "),
-          IDs[length(IDs)],sep = " and ")  
+        show[i] <- paste(paste(paste(IDs[-length(IDs)], collapse = ", "),
+          IDs[length(IDs)], sep = " and "), "")  
       }
     }
   }

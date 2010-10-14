@@ -108,4 +108,5 @@ expand_interval <- function(int){
 	c(start, end)
 }
 
+c.interval <- function(...)
   

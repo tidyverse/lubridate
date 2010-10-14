@@ -85,11 +85,13 @@ update.POSIXct <- function(object, years = year(object),
     ydays - yday(object))
   
   blank.rows <- rowSums(day.change)
-  new.days <- unique(day.change[which(blank.rows != 0),])
+  new.days <- day.change[which(blank.rows != 0),]
   
   if(is.matrix(new.days)){
-  	if(nrow(new.days) > 0) 
+  	if(nrow(unique(new.days)) > 1) 
     	stop("conflicting days input")
+    else
+    	new.days <- unique(new.days)
   }
 
   days <- colSums(rbind(mday(object), new.days), na.rm = TRUE)
