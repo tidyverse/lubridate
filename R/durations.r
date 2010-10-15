@@ -255,13 +255,15 @@ as.duration <- function(x)
   
 
 as.duration.period <- function(x){
-  if (any(x$month != 0))
-    stop("durations cannot estimate month length")
-  all <- x$second +
-    x$minute * 60 +
-    x$hour * 3600 + 
-    x$day * 3600 * 24 + 
-    x$year * 3600 * 24 * 365
+	message("estimate only: convert periods to intervals for accuracy")
+	dur <- x$second +
+		   60 * x$minute +
+		   60 * 60 * x$hour +
+		   60 * 60 * 24 * x$day +
+		   60 * 60 * 24 * 30 * x$month +
+		   60 * 60 * 24 * 365.25 * x$year
+	structure(dur, class = c("duration", "numeric"))
+}
   
   structure(all, class = c("duration", "numeric"))
 }
@@ -474,3 +476,6 @@ print.duration <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }
 
+rep.duration <- function(x, ...){
+	structure(rep(as.numeric(x), ...), class = c("duration", "numeric"))
+}
