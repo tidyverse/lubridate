@@ -295,3 +295,11 @@ as.period.difftime <- function(x, units = c("year", "day", "hour", "minute", "se
   newper$second <- newper$second + remainder
   newper * sign(span)
 }
+
+rep.period <- function(x, ...){
+	y <- lapply(x, rep, ...)
+	attr(y, "row.names") <- c(1:length(y$year))
+	attr(y, "class") <- attr(x, "class")
+	y
+}
+	

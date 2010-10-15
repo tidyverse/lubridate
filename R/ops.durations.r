@@ -39,7 +39,7 @@ add_duration_to_interval <- function(int, dur){
 }
 
 add_duration_to_period <- function(per, dur){
-	print("duration converted to seconds")
+	message("duration converted to seconds")
 	per + seconds(as.numeric(dur, "secs"))
 }
 
@@ -47,7 +47,7 @@ add_duration_to_period <- function(per, dur){
 
 add_interval_to_date <- function(date, interval){
 	if (any(attr(interval, "start") != date))
-	   print("coercing interval to duration")
+	   message("coercing interval to duration")
 	add_duration_to_date(date, as.duration(interval))
 }
 
@@ -109,7 +109,7 @@ add_period_to_date <- function(date, period){
 			minutes = minute(date) + period$minute,
 			seconds = second(date) + period$second
 			)
-	if (is.Date(date) & sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
+	if (is.Date(date) && sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
 	return(new)	
 	
 	reclass_date(new, date)
@@ -333,14 +333,6 @@ divide_interval_by_number <- function(int, num){
 	new_interval(start + span, start)
 }
 
-est.duration <- function(per){
-	per$second +
-	60 * per$minute +
-	60 * 60 * per$hour +
-	60 * 60 * 24 * per$day +
-	60 * 60 * 24 * 30 * per$month +
-	60 * 60 * 24 * 365.25 * per$year
-}
 
 divide_interval_by_period <- function(int, per){
 	start <- attr(int, "start")
@@ -350,7 +342,8 @@ divide_interval_by_period <- function(int, per){
 	per <- abs(per)
 	
 	# duration division should give good approximation
-	estimate <- trunc(as.numeric(int) / est.duration(per))
+	dur <- supressMessages(as.duration(per))
+	estimate <- trunc(as.numeric(int) / dur)
 	
 	# did we overshoot or undershoot?
 	try1 <- start + per * estimate
@@ -408,8 +401,7 @@ divide_interval_by_period2 <- function(int, per){
 
 
 divide_period_by_duration <- function(per, dur){
-	print("estimate only: make periods intervals for exact fraction")
-	est.duration(per) / dur
+	as.duration(per) / dur
 }
 
 divide_period_by_number <- function(per, num){
@@ -424,8 +416,7 @@ divide_period_by_number <- function(per, num){
 }
 
 divide_period_by_period <- function(per1, per2){
-	print("estimate only: make periods intervals for exact fraction")
-	est.duration(per1) / est.duration(per2)
+	suppressMessages(as.duration(per1)) / as.duration(per2)
 }
 
 
@@ -485,7 +476,7 @@ divide_period_by_period <- function(per1, per2){
 subtract_interval_from_date <- function(date, int){
 	end <- attr(int, "start") + unclass(int)
 	if (any(end != date))
-	   print("interval does not align: coercing to duration")
+	   message("interval does not align: coercing to duration")
 	add_duration_to_date(date, -as.duration(int))
 }
 
