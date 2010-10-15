@@ -12,7 +12,8 @@
 #' (UTC) to the parsed dates. This time zone can be changed with
 #' \code{\link{force_tz}}.
 #'
-#' @aliases ymd myd dym ydm mdy yearmonthdate dmy
+#' @export ymd myd dym ydm mdy dmy
+#' @aliases yearmonthdate
 #' @param ... a character or numeric vector of suspected dates 
 #' @return a vector of POSIXct date-time objects
 #' @seealso \code{\link{parse_date}}, \code{\link{guess_format}}
@@ -57,11 +58,7 @@ dym <- function(...) {
   parse_date(num_to_date(dates), make_format("dym"))
 }
 
-#' Make format
-#'
-#' Internal function used by parse functions.
-#' 
-#' @param order a character string that includes the letters y, m, and d in the preferred order of years, months, and dates
+
 make_format <- function(order) {
   order <- strsplit(order, "")[[1]]
   
@@ -84,6 +81,8 @@ make_format <- function(order) {
 #' separators of length 1 with the exception of ".". ymd_hms() automatically
 #' assigns the Universal Coordinated Time Zone (UTC) to the parsed date. This time 
 #' zone can be changed with \code{\link{force_tz}}.
+#'
+#' @export ymd_hms
 #' @param ... a character vector of dates in year, month, day, hour, minute, 
 #'   second format 
 #' @return a vector of POSIXct date-time objects
@@ -123,6 +122,7 @@ ymd_hms <- function(...){
 #' specified number of minutes and seconds. ms() 
 #' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
 #'
+#' @export ms
 #' @param ... a character vector of minute second pairs
 #' @return a vector of period objects
 #' @seealso \code{\link{hms}, \link{hm}}
@@ -155,6 +155,7 @@ ms <- function(...) {
 #' specified number of hours and minutes. hm() 
 #' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
 #'
+#' @export hm
 #' @param ... a character vector of hour minute pairs
 #' @return a vector of period objects
 #' @seealso \code{\link{hms}, \link{ms}}
@@ -186,6 +187,7 @@ hm <- function(...) {
 #' specified number of hours, minutes, and seconds. hms() 
 #' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
 #'
+#' @export hms
 #' @param ... a character vector of hour minute second triples
 #' @return a vector of period objects
 #' @seealso \code{\link{hm}, \link{ms}}
@@ -221,6 +223,7 @@ hms <- function(...) {
 #' inputed dates are considered to have the same order and to use the same 
 #' separator. 
 #'
+#' @export parse_date
 #' @param x a character or numeric vector of suspected dates 
 #' @param formats a vector of date-time format elements in the order they occur within the dates. 
 #'   See \code{\link[base]{strptime}} for format elements.
@@ -249,16 +252,6 @@ parse_date <- function(x, formats, seps = find_separator(x)) {
 }
 
 
-
-#' Identifies the likely separators of a string.
-#'
-#' Letters and numbers are assumed not to be separators
-#'
-#' @param x a character string 
-#' @return a list of possible separators
-#' @keywords chron
-#' @examples
-#' find_separator("2009-08-03 09:07:03")
 find_separator <- function(x) {
   x <- as.character(x)
   chars <- unlist(strsplit(x, ""))
@@ -269,9 +262,6 @@ find_separator <- function(x) {
   nonalpha
 }
 
-#' Internal function
-#'
-#' @keywords internal
 num_to_date <- function(x) {
   if (is.numeric(x)) {
     x <- as.character(x)
@@ -281,37 +271,6 @@ num_to_date <- function(x) {
 }
 
 
-#' Guess the format of dates in a character or numeric vector
-#'
-#' Returns the format that successfully parses the most dates within a 
-#' character or numeric vector to POSIXct objects. If multiple formats are 
-#' equally successful, guess format will display the successful formats in a 
-#' message and select the first format by default. guess_format assumes that 
-#' each date only uses one type of separator and that all dates use the same 
-#' separator.
-#'
-#' @param x a character or numeric vector of suspected dates 
-#' @param formats a list of formats to test. Each format should be a vector of
-#'   date-time format elements. To test an alternative order of elements, the
-#'   alternative order should be entered as an additional format. See
-#'   \code{\link[base]{strptime}} for format elements.
-#' @param seps a vector of possible characters used to separate elements
-#'   within the dates. 
-#' @return a character string of the most likely date-time format
-#' @seealso \code{\link{find_separator}}
-#' @keywords chron
-#' @examples
-#' x <- c("2009/01/01", "2009/01/02", "2009/01/03")
-#' guess_format(x, list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")), seps = c("-", "", "/"))
-#' # "%Y/%m/%d"
-#' x <- c("20090101", "20090102", "20090103")
-#' guess_format(x, list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")), seps = c("-", "", "/"))
-#' #  "%Y%m%d" 
-#' x <- c("09-01-01", "09-01-02", "09-01-03")
-#' guess_format(x, list(c("%y", "%m", "%d"), c("%Y", "%m", "%d")), seps = c("-", "", "/"))
-#' #  Multiple format matches with 3 successes: %y-%m-%d, %Y-%m-%d.
-#' #         1 
-#' # "%y-%m-%d"
 guess_format <- function(x, formats, seps = c("-", "/", "")) {
   
   if (is.list(formats))
@@ -346,12 +305,6 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
 }
 
 
-
-#' Internal function.
-#'
-#' Quickly adds separator values to rows of strings for \code{\link{guess_format}}
-#'
-#' @keywords internal
 combine <- function(mat, vec){
   
   combined <- mat[rep(1:nrow(mat), each = length(vec)),]

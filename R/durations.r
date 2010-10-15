@@ -137,7 +137,7 @@ NULL
 #' @param ... a list of time units to be included in the duration and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported.
 #' @return a duration object
-#' @aliases new_duration
+#' @export new_duration
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
 #' @examples
@@ -192,7 +192,7 @@ new_duration <- function(num = 0,...){
 #' @param ... a list of time units to be included in the difftime and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported. 
 #' @return a difftime object
-#' @aliases new_duration new_difftime
+#' @export new_difftime
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
 #' @examples
@@ -238,7 +238,11 @@ new_difftime <- function(...){
 #' transformation, first transform the period to an interval with 
 #' \code{\link{as.interval}}.
 #'
-#' @aliases as.duration as.duration.default as.duration.period as.duration.interval as.duration.difftime
+#' @export as.duration 
+#' @S3method as.duration default 
+#' @S3method as.duration period 
+#' @S3method as.duration interval 
+#' @S3method as.duration difftime
 #' @param x an interval, period, or numeric object   
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{new_duration}}
@@ -276,9 +280,7 @@ as.duration.interval <- function(x){
 as.duration.default <- function(x)
   structure(x, class = c("duration", "numeric"))
 
-#' Internal function.
-#'
-#' @keywords internal manip classes
+
 as.POSIXt <- function(x) as.POSIXlt(x)
 
 #' Quickly create exact time spans.
@@ -293,7 +295,7 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' manipulated in a method similar to object oriented programming. Duration 
 #' objects can be added to Date, POSIXt, and Interval objects.
 #'
-#' @aliases eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears
+#' @export eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears
 #' @param x numeric value of the number of units to be contained in the duration. 
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
@@ -344,7 +346,8 @@ dyears <- eyears <- function(x = 1) new_duration(second = x * 31536000)
 #' An instant is a specific moment in time. Most common date-time 
 #' objects (e.g, POSIXct, POSIXlt, and Date objects) are instants.
 #'
-#' @aliases is.timepoint timepoint is.instant instant instants
+#' @export is.instant 
+#' @aliases instant instants
 #' @param x an R object   
 #' @return TRUE if x is a POSIXct, POSIXlt, or Date object, FALSE otherwise.
 #' @seealso \code{\link{is.timespan}}, \code{\link{is.POSIXt}}, \code{\link{is.Date}}
@@ -356,7 +359,8 @@ is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "PO
 
 #' Is x a length of time?
 #'
-#' @aliases is.timespan timespan
+#' @export is.timespan 
+#' @aliases timespan timespans
 #' @param x an R object   
 #' @return TRUE if x is a period, interval, duration, or difftime object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.duration}}, \code{\link{is.difftime}}, \code{\link{is.period}}, \code{\link{is.interval}}
@@ -368,7 +372,7 @@ is.timespan <- function(x) inherits(x,c("period", "difftime", "duration", "inter
 
 #' Is x a POSIXct or POSIXlt object?
 #'
-#' @aliases is.POSIXt is.POSIXlt is.POSIXct
+#' @export is.POSIXt is.POSIXlt is.POSIXct
 #' @param x an R object   
 #' @return TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.Date}}
@@ -382,6 +386,7 @@ is.POSIXct <- function(x) inherits(x, "POSIXct")
 
 #' Is x a duration object?
 #'
+#' @export is.duration
 #' @param x an R object   
 #' @return TRUE if x is a duration object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
@@ -394,6 +399,7 @@ is.duration <- function(x) inherits(x, "duration")
 
 #' Is x a difftime object?
 #'
+#' @export is.difftime
 #' @param x an R object   
 #' @return TRUE if x is a difftime object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
@@ -406,6 +412,7 @@ is.difftime <- function(x) inherits(x, "difftime")
 
 #' Is x a Date object?
 #'
+#' @export is.Date
 #' @param x an R object   
 #' @return TRUE if x is a Date object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.POSIXt}}
@@ -418,6 +425,7 @@ is.Date <- function(x) inherits(x, "Date")
 
 #' Is x a period object?
 #'
+#' @export is.period
 #' @param x an R object   
 #' @return TRUE if x is a period object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
@@ -430,6 +438,7 @@ is.period <- function(x) inherits(x,"period")
 
 #' Is x an interval object?
 #'
+#' @export is.interval
 #' @param x an R object   
 #' @return TRUE if x is an interval object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.period}}, 
@@ -440,13 +449,7 @@ is.period <- function(x) inherits(x,"period")
 #' is.interval(new_interval(ymd(20090801), ymd(20090809))) # TRUE
 is.interval <- function(x) inherits(x, c("interval"))
 
-#' Internal function. Matches input with recognized difftime unit names (i.e. 
-#' "secs", "mins", "hours", "days", and "weeks").
-#'
-#' @keywords internal
-#' @examples
-#' standardise_difftime_names(c("seconds", "minute"))
-#' # "secs" "mins"
+
 standardise_difftime_names <- function(x) {
   dates <- c("secs", "mins", "hours", "days", "weeks")
   y <- gsub("(.)s$", "\\1", x)

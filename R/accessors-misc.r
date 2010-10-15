@@ -7,7 +7,8 @@
 #' A date-time's daylight savings flag can not be set because it depends on the 
 #' date-time's year, month, day, and hour values.
 #'
-#' @aliases dst dst.default dst.zoo dst.its dst.ti dst.timeseries dst.fts dst.irts
+#' @export dst
+#' @S3method dst default
 #' @param x a date-time object   
 #' @return Daylight savings time flag. Positive if in force, zero if not, negative if unknown.
 #' @keywords utilities chron methods
@@ -31,11 +32,9 @@ dst.default <- function(x)
 #' appropriate parts of the existing date. 
 #'
 #' 
-#' @method update Date
-#' @method update POSIXt
-#' @method update POSIXct
-#' @method update POSIXlt
-#' @aliases update.POSIXct update.POSIXlt update.Date
+#' @S3method update Date
+#' @S3method update POSIXct
+#' @S3method update POSIXlt
 #' @param object a date-time object  
 #' @param years a value to substitute for the date's year component
 #' @param months a value to substitute for the date's month component
@@ -145,9 +144,7 @@ update.POSIXlt <- function(object, years = year(object), months = month(object),
 }
 
 
-#' Internal function
-#'
-#' @keywords internal
+
 standardise_date_names <- function(x) {
   dates <- c("second", "minute", "hour", "mday", "wday", "yday", "day", "week", "month", "year", "tz")
   y <- gsub("(.)s$", "\\1", x)

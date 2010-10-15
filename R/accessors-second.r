@@ -3,9 +3,8 @@
 #' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases second.default second.zoo second.its second.ti second.timeseries second.fts second.irts 
-#'   second second<- second<-.default second<-.chron second<-.zoo second<-.its second<-.ti 
-#'   second<-.timeDate second<-.jul second<-.timeSeries second<-.fts second<-.irts
+#' @export second second<-
+#' @S3method second default
 #' @param x a date-time object   
 #' @return the seconds element of x as a decimal number
 #' @keywords utilities manip chron methods

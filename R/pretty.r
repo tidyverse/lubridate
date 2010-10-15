@@ -11,7 +11,7 @@
 #' @param ... additional arguments to pass to function
 #' @return a vector of date-times that can be used as axis tick marks or bin breaks
 #' @keywords dplot utilities chron
-#' @export
+#' @export pretty.dates
 #' @examples
 #' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
 #' # "2009-08-02" "2010-08-02"
@@ -44,11 +44,6 @@ pretty.dates <- function(x, n, ...){
 }
   
   
-#' Internal function 
-#'
-#' For use with \code{\link{pretty.dates}}
-#'
-#' @keywords internal
 pretty.unit <- function(x, ...){
   if (x > 3600*24*365)
     return("year")

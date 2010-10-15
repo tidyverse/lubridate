@@ -3,10 +3,8 @@
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases month.default month.zoo month.its month.ti month.timeseries month.numeric
-#'   month.fts month.irts month month<- month<-.default month<-.Date
-#'   month<-.chron month<-.zoo month<-.its month<-.ti month<-.timeDate
-#'   month<-.jul month<-.timeSeries month<-.fts month<-.irts month<-.yearmon
+#' @export month month<-
+#' @S3method month default
 #' @param x a date-time object  
 #' @param label logical. TRUE will display the month as a character string
 #'   such as "January." FALSE will display the month as a number.

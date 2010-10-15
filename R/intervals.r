@@ -12,6 +12,7 @@
 #' calculated.  Subtracting two date times automatically creates an interval
 #' object. 
 #'
+#' @export new_interval
 #' @param date1 a POSIXt or Date date-time object
 #' @param date2 a POSIXt or Date date-time object
 #' @return an interval object
@@ -39,7 +40,6 @@
 #' # "2009-01-01 UTC"
 #' end <- start + span
 #' # "2009-02-01 UTC"
-#' @export
 new_interval <- function(date2, date1){
   int <- data.frame(date2 = as.POSIXct(date2), 
                     date1 = as.POSIXct(date1))
@@ -72,6 +72,7 @@ print.interval <- function(x, ...) {
 #' described. See 
 #' \code{\link{as.duration}}, \code{\link{as.period}}.
 #'
+#' @export as.interval
 #' @param x a duration (i.e. difftime), period, or numeric object that describes the length of the 
 #'   interval
 #' @param origin a POSIXt or Date object that describes when the interval begins   
@@ -99,7 +100,6 @@ print.interval <- function(x, ...) {
 #'
 #' as.interval(3600, ymd("2009-01-01")) #numeric
 #' # 2009-01-01 -- 2009-01-01 01:00:00
-#' @export
 as.interval <- function(x, start){
 	stopifnot(is.instant(start))
 	if (is.instant(x))
@@ -119,23 +119,64 @@ c.interval <- function(..., recursive = F){
 	structure(unclass(x)[i], start = attr(x, "start")[i], class = c("interval", "numeric"))
 } 
 
+#' Access and change the start date of an interval
+#'
+#' Changing the start date of an interval does not change the length of 
+#' the interval. It shifts when the interval occurs.
+#'
+#' @export start<-
+#' @S3methods start interval
+#' @param x An interval object
+#' @param value A POSIXct date to set the start date to, if setting.
+#' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
+#' @examples
+#' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+#' # 2001-01-01 -- 2002-01-01
+#' start(int)
+#' # "2001-01-01 UTC"
+#' start(int) <- ymd("2001-06-01")
+#' int
+#' # 2001-06-01 -- 2002-06-01
+"start<-" <- function(interval, value){
+	stopifnot(length(value) == length(interval))
+	interval <- structure(as.numeric(interval), start = value, class = c("interval", "numeric"))
+}	
 
 start.interval <- function(x, ...)
 	attr(x, "start")
 	
-end.interval <- function(x, ...)
-	attr(x, "start") + as.numeric(x)
-	
+
+
+
+#' Access and change the end date of an interval
+#'
+#' Changing the end date of an interval does not change the length of 
+#' the interval. It shifts when the interval occurs.
+#'
+#' @export end<-
+#' @S3methods end interval
+#' @param x An interval object
+#' @param value A POSIXct date to set the end date to, if setting.
+#' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
+#' @examples
+#' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+#' # 2001-01-01 -- 2002-01-01
+#' end(int)
+#' # "2002-01-01 UTC"
+#' end(int) <- ymd("2002-06-01")
+#' int
+#' # 2001-06-01 -- 2002-06-01
 "end<-" <- function(interval, value){
 	stopifnot(length(value) == length(interval))
 	dur <- as.numeric(interval)
 	interval <- structure(dur, start = value - dur , class = c("interval", "numeric"))
 }
+
+end.interval <- function(x, ...)
+	attr(x, "start") + as.numeric(x)
 	
-"start<-" <- function(interval, value){
-	stopifnot(length(value) == length(interval))
-	interval <- structure(as.numeric(interval), start = value, class = c("interval", "numeric"))
-}
+	
+
 	
 	
 rep.interval <- function(x, ...){

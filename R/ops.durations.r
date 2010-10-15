@@ -1,21 +1,3 @@
-#' Addition for the duration (i.e, difftime), period, and interval classes. 
-#'
-#' @aliases +.duration +.interval +.period +.POSIXt +.difftime +.Date add_dates add_interval_to_date add_interval_to_interval add_number_to_date add_number_to_posix
-#'  add_period_to_date add_duration_to_date add_number_to_duration
-#'  add_number_to_period add_period_to_period add_duration_to_period
-#'  add_duration_to_duration add_duration_to_interval add_period_to_interval
-#'  add_number_to_interval
-#' @param date a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @param period a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
-#'   and e2 
-#' @keywords arith chron methods
-#' @ examples
-#' x <- new_duration(day = 1)
-#' x + now()
-#' today() + x
-#' x + difftime(now() + 3600, now())
-#' x + x
 add_duration_to_date <- function(date, duration) {
   if(is.Date(date)){
     date <- as.POSIXct(date)
@@ -228,8 +210,9 @@ add_dates <- function(e1, e2){
 }
 
 
-#' Makes a difftime object from given number of seconds 
+#' Makes a difftime object from a given number of seconds 
 #'
+#' @export make_difftime
 #' @param x number value of seconds to be transformed into a difftime object
 #' @return a difftime object corresponding to x seconds
 #' @keywords chron
@@ -257,21 +240,6 @@ make_difftime <- function (x) {
       years = structure(x/31557600, units = "years", class = "difftime"))
 }
 
-#' Multiplication for period and interval classes. 
-#'
-#' @name multiply
-#' @aliases *.period *.interval multiply_period_by_number multiply_interval_by_number 
-#' @param per a period, interval or numeric object
-#' @param num a period, interval or numeric object
-#' @return a period or interval object
-#' @seealso \code{\link{+.period}}, \code{\link{+.interval}},
-#'   \code{\link{-.period}}, \code{\link{-.interval}},
-#'   \code{\link{/.interval}}, \code{\link{/.period}}
-#' @keywords arith chron methods
-#' @examples
-#' x <- new_period(day = 1)
-#' x * 3
-#' 3 * x
 multiply_period_by_number <- function(per, num){
   new_period(
     year = per$year * num,
@@ -305,22 +273,6 @@ multiply_interval_by_number <- function(int, num){
 }  
 
 
-
-
-#' Division for period, and interval classes. 
-#'
-#' @name division
-#' @aliases /.period /.interval divide_period_by_number divide_interval_by_number 
-#' @param per a period, interval or numeric object
-#' @param num a period, interval or numeric object
-#' @return a period or interval object
-#' @seealso \code{\link{+.period}}, \code{\link{+.interval}},
-#'   \code{\link{-.period}}, \code{\link{-.interval}}, 
-#'   \code{\link{*.interval}}, \code{\link{*.period}}
-#' @keywords arith chron methods
-#' @examples
-#' x <- new_period(day = 2)
-#' x / 2
 
 divide_duration_by_difftime <- function(dur, diff)
 	as.numeric(dur) / as.numeric(diff, units = "secs")
@@ -490,33 +442,6 @@ divide_period_by_period <- function(per1, per2){
 }  
 
 
-
-
-
-  
-#' Subtraction for the duration (i.e, difftime), period, and interval classes. 
-#'
-#' The subtraction methods returns an interval object when a POSIXt or Date 
-#' object is subtracted from another POSIXt or Date object. To retrieve this 
-#' difference as a duration, use \code{\link{as.duration}}. To retrieve it as a 
-#' period use \code{\link{as.period}}. To retrieve it as a difftime, use \code{\link{difftime}} instead of subtraction.
-#'
-#' Since a specific number of seconds exists between two dates, the duration 
-#' returned will not include unspecific time units such as years and months. See 
-#' \code{\link{duration}} for more details.
-#'
-#' @aliases -.period -.POSIXt -.difftime -.Date -.interval subtract_dates
-#' @param e1 a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @param e2 a duration(i.e. difftime), period, interval, POSIXt, or Date object
-#' @return a new duration(i.e. difftime), period, interval, POSIXt, or Date object, depending on e1 
-#'   and e2 
-#' @keywords arith chron methods
-#' @examples
-#' x <- new_duration(day = 1)
-#' now() - x
-#' -x
-#' x - x
-#' as.Date("2009-08-02") - as.Date("2008-11-25")
 subtract_interval_from_date <- function(date, int){
 	end <- attr(int, "start") + unclass(int)
 	if (any(end != date))

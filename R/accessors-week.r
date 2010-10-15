@@ -6,8 +6,7 @@
 #' the number of complete seven day periods that have occured between the date 
 #' and  January 1st, plus one. 
 #'
-#' @aliases week<- week<-.default week<-.Date week<-.chron week<-.zoo week<-.its week<-.ti 
-#'   week<-.timeDate week<-.jul week<-.timeSeries week<-.fts week<-.irts week
+#' @export week week<-
 #' @param x a date-time object   
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron

@@ -3,9 +3,8 @@
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @aliases hour.default hour.zoo hour.its hour.ti hour.timeseries hour.fts hour.irts hour hour<- 
-#'   hour<-.default hour<-.chron hour<-.zoo hour<-.its hour<-.ti hour<-.timeDate hour<-.jul 
-#'   hour<-.timeSeries hour<-.fts hour<-.irts
+#' @export hour hour<-
+#' @S3method hour default
 #' @param x a date-time object   
 #' @keywords utilities manip chron methods
 #' @return the hours element of x as a decimal number

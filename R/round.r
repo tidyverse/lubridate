@@ -4,6 +4,7 @@
 #' value of the specified time unit. Users can specify whether to round down to 
 #' the nearest second, minute, hour, day, week, month, or year.
 #'
+#' export floor_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
 #'   "second","minute","hour","day", "week", "month", or "year."
@@ -48,6 +49,7 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 #' value of the specified time unit. Users can specify whether to round up to 
 #' the nearest second, minute, hour, day, week, month, or year.
 #'
+#' export ceiling_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
 #'   "second","minute","hour","day", "week", "month", or "year."
@@ -96,6 +98,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 #' value of the specified time unit. Users can specify whether to round to the 
 #' nearest second, minute, hour, day, week, month, or year.
 #'
+#' export round_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
 #'   "second","minute","hour","day", "week", "month", or "year."
@@ -132,12 +135,7 @@ round_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
   reclass_date(new, x)
 }
 
-#' Internal function. Parse date time unit specification
-#'
-#' Parse the time unit specification used by \code{\link{cut.Date}} into 
-#' something useful
-#' 
-#' @keywords internal
+
 parse_unit_spec <- function(unitspec) {
   parts <- strsplit(unitspec, " ")[[1]]
   if (length(parts) == 1) {

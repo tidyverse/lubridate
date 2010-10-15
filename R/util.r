@@ -4,7 +4,7 @@
 #' occurs during a leap year. If x is a number, leap_year returns whether it 
 #' would be a leap year under the Gregorian calendar. 
 #'
-#' aliases leap.year leap_year leapyear
+#' @export leap_year
 #' @param date a date-time object or a year 
 #' @return TRUE if x is a leap year, FALSE otherwise
 #' @keywords logic chron
@@ -28,6 +28,7 @@ leap_year <- function(date) {
 
 #' The current time 
 #'
+#' @export now
 #' @param tzone a character vector specifying which time zone you would like 
 #'   the current time in. tzone defaults to the system time zone set on your 
 #'   computer.
@@ -46,6 +47,7 @@ now <- function(tzone = "")
 
 #' The current date 
 #'
+#' @export today
 #' @param tzone a character vector specifying which time zone you would like to 
 #'   find the current date of. tzone defaults to the system time zone set on your 
 #'   computer.
@@ -63,7 +65,7 @@ today <- function(tzone = "") {
 
 #' Does date time occur in the am or pm?
 #'
-#' @aliases am pm
+#' @export am pm
 #' @param x a date-time object  
 #' @return TRUE or FALSE depending on whethe x occurs in the am or pm 
 #' @keywords chron 
@@ -79,8 +81,9 @@ pm <- function(x) !am(x)
 #' 
 #' with_tz returns a date-time as it would appear in a different time zone.  
 #' The actual moment of time measured does not change, just the time zone it is 
-#' measured in.
+#' measured in. with_tz defaults to the Universal Coordinated time zone (UTC) when an unrecognized time zone is inputted. See \code{\link{Sys.timezone}} for more information on how R recognizes time zones.
 #'
+#' @export with_tz
 #' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
 #' @param tzone a character string containing the time zone to convert to. R must recognize the name 
 #'   contained in the string as a time zone on your system.
@@ -102,7 +105,9 @@ with_tz <- function (time, tzone = ""){
 #' force_tz returns a the date-time that has the same clock time as x in the new time zone.  
 #' Although the new date-time has the same clock time (e.g. the 
 #' same values in the year, month, days, etc. elements) it is a 
-#' different moment of time than the input date-time. 
+#' different moment of time than the input date-time. force_tz defaults to the Universal Coordinated time zone (UTC) when an unrecognized time zone is inputted. See \code{\link{Sys.timezone}} for more information on how R recognizes time zones.
+#'
+#' @export force_tz
 #'
 #' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
 #' @param tzone a character string containing the time zone to convert to. R must recognize the name 
@@ -135,6 +140,7 @@ force_tz <- function(time, tzone = ""){
 #' is the origin for the numbering system used by POSIXct, POSIXlt, chron, and 
 #' Date classes.
 #'
+#' @export origin
 #' @keywords data chron
 #' @examples
 #' origin
@@ -145,7 +151,10 @@ origin <- with_tz(structure(0, class = c("POSIXt", "POSIXct")), "UTC")
 
 #' Converts a date to a decimal of its year. 
 #'
-#' @aliases decimal_date decimal.date decimal_date.default decimal_date.zoo decimal_date.its
+#' @export decimal_date 
+#' @S3method decimal_date default 
+#' @S3method decimal_date zoo 
+#' @S3method decimal_date its
 #' @param date a POSIXt or Date object   
 #' @return a numeric object where the date is expressed as a fraction of its year
 #' @keywords manip chron methods
@@ -172,11 +181,7 @@ decimal_date.zoo <- function(date)
 decimal_date.its <- function(date)
   decimal_date.default(attr(date, "dates"))
 
-#' Internal function. Is an object in a recognized date format?
-#'
-#' @param x an R object
-#' @return TRUE if x is a POSIXlt, POSIXct, yearmon, yearqtr, or Date object, FALSE otherwise.
-#' @keywords internal
+
 recognize <- function(x){
   recognized <- c("POSIXt", "POSIXlt", "POSIXct", "yearmon", "yearqtr", "Date")
   
@@ -197,6 +202,7 @@ recognize <- function(x){
 #' play, the result of the play, and the location on the court 
 #' where each play was made.
 #'  
+#' @export lakers
 #' @name lakers
 #' @docType data
 #' @references \url{http://www.basketballgeek.com/data/}

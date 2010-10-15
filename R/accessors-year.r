@@ -5,9 +5,8 @@
 #'
 #' year does not yet support years before 0 C.E.
 #'
-#' @aliases year year.default year.zoo year.its year.ti year.timeseries year.fts year.irts year<- 
-#'   year<- default year<-.Date year<-.chron year<-.zoo year<-.its year<-.ti year<-.timeDate 
-#'   year<-.jul year<-.timeSeries year<-.fts year<-.irts year<-.yearmon year<-.yearqtr
+#' @export year year<-
+#' @S3method year default
 #' @param x a date-time object   
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
