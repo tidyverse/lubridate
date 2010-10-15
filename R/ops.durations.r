@@ -318,12 +318,33 @@ multiply_interval_by_number <- function(int, num){
 #' @examples
 #' x <- new_period(day = 2)
 #' x / 2
+
+divide_duration_by_difftime <- function(dur, diff)
+	as.numeric(dur) / as.numeric(diff, units = "secs")
+
+divide_duration_by_duration <- function(dur1, dur2)
+	as.numeric(dur1) / as.numeric(dur2)
+	
+divide_duration_by_interval <- function(dur, int)
+	as.numeric(dur) / as.numeric(int)
+
+divide_duration_by_number <- function(dur, num)
+	new_duration(as.numeric(dur) / num)
+
+divide_duration_by_period <- function(dur, per)
+	as.numeric(dur) / as.numeric(as.duration(per))
+
+
 divide_interval_by_difftime <- function(int, diff){
 	as.numeric(unclass(int) / as.double(diff, units = "secs"))
 }
 
 divide_interval_by_duration <- function(int, dur){
 	as.numeric(unclass(int) / unclass(dur))
+}
+
+divide_interval_by_interval <- function(int, dur){
+	as.numeric(unclass(int) / unclass(int))
 }
 
 divide_interval_by_number <- function(int, num){
@@ -333,75 +354,82 @@ divide_interval_by_number <- function(int, num){
 	new_interval(start + span, start)
 }
 
+equalize_length <- function(x, y){
+	n.x <- length(x)
+	n.y <- nrow(y) 
+	n.max <- max(n.x, n.y)
+	n.min <- min(n.x, n.y)
+	if (n.max %% n.min != 0L){
+		stop("longer object length is not a multiple of shorter object length")
+	} else {
+		if (n.x < n.y) {
+			x <- rep(x, length.out = n.y)
+		} else {
+			y <- rep(y, length.out = n.x)
+		}	
+	}
+	list(x, y)
+}
 
 divide_interval_by_period <- function(int, per){
-	start <- attr(int, "start")
-	end <- start + unclass(int)
 	
-	# sign of period shouldn't affect answer
-	per <- abs(per)
+	equals <- equalize_length(int, per)
+	int <- equals[[1]]
+	per <- equals[[2]]
 	
-	# duration division should give good approximation
-	dur <- supressMessages(as.duration(per))
-	estimate <- trunc(as.numeric(int) / dur)
+	paired.up <- data.frame(interval = int, per, row = seq_along(int))
+
 	
-	# did we overshoot or undershoot?
-	try1 <- start + per * estimate
-	miss <- as.numeric(end) - as.numeric(try1)
+	division_engine <- function(df){
+		int <- df$int
+		per <- structure(df[,2:7], class = c("period", "data.frame"))
 	
-	# adjust estimate until satisfactory
-	n <- 0
-	if (miss >= 0){
-		while (try1 + n * per < end)
-			n <- n + 1
-		# because the last one went too far	
-		return(estimate + (n - 1)) 
-	} else {
-		while (try1 - n * per > end)
-			n <- n + 1
-		# because the last one went too far	
-		return(estimate - (n + 1))
+		start <- attr(int, "start")
+		end <- start + unclass(int)
+	
+		# sign of period shouldn't affect answer
+		per <- abs(per)
+	
+		# duration division should give good approximation
+		dur <- suppressMessages(as.duration(per))
+		estimate <- trunc(as.numeric(int) / as.numeric(dur))
+	
+		# did we overshoot or undershoot?
+		try1 <- start + per * estimate
+		miss <- as.numeric(end) - as.numeric(try1)
+	
+		# adjust estimate until satisfactory
+		n <- 0
+		if (miss == 0) {
+			return(estimate)
+		} else if (miss > 0) {
+			while (try1 + n * per < end)
+				n <- n + 1
+			# because the last one went too far	
+			return(estimate + (n - 1)) 
+		} else {
+			while (try1 - n * per > end)
+				n <- n + 1
+			# because the last one went too far	
+			return(estimate - (n + 1))
+		}
 	}
-		
-}
-
-period_to_seconds <- function(per, start){
-  # how many days in the month and years part?
-  no.months <- 12 * per$year + per$month
-  
-  get_days <- function(num.months, start1)
-  		sum(day(start + months(1:num.months) - days(1)))
-  		
-  # how many days is this?
-  lapply(no.months, get_days, start1 = start)
-  no.days <- unlist(lapply(no.months, get_days, start1 = start))
-  
-  per$second + 60 * per$minute + 60 * 60 * per$hour + 60 * 60 * 24 * (to.per$day + no.days)
-}
-
-divide_interval_by_period2 <- function(int, per){
-  per <- abs(per)
-  start <- as.POSIXlt(attr(int, "start"))
-  end <- start + unclass(int)
-
-  to.per <- as.data.frame(unclass(end)) - 
-    as.data.frame(unclass(start))
-    
-  names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
-  to.per <- to.per[6:1]
-  
-  
-  numerator <- period_to_seconds(to.per, start)
-  denominator <- period_to_seconds(per, start)
- 
-  numerator / denominator
+	
+	unlist(ddply(paired.up, "row", division_engine)[,2])	
 }
 
 
+divide_period_by_difftime <- function(per, diff){
+	as.numeric(as.duration(per)) / as.numeric(diff, units = "secs")
+}
 
 
 divide_period_by_duration <- function(per, dur){
-	as.duration(per) / dur
+	as.numeric(as.duration(per)) / as.numeric(dur)
+}
+
+divide_period_by_interval <- function(per, int){
+	as.numeric(as.duration(per)) / as.numeric(int)
 }
 
 divide_period_by_number <- function(per, num){
@@ -421,28 +449,41 @@ divide_period_by_period <- function(per1, per2){
 
 
 	
-
-
-
-
-
-"/.period" <- "/.interval" <- function(e1, e2){
+"/.period" <- "/.interval" <- "/.duration" <- function(e1, e2){
     if (is.interval(e1)) {
     	if (is.duration(e2))
     		divide_interval_by_duration(e1, e2)
     	else if (is.difftime(e2))
     		divide_interval_by_difftime(e1, e2)
+    	else if (is.interval(e2))
+    		divide_interval_by_interval(e1, e2)
     	else if (is.period(e2))
     		divide_interval_by_period(e1, e2)
     	else if (is.numeric(e2))
     		divide_interval_by_number(e1, e2)
-    }
-   	
-    if (is.timespan(e2)) 
-      stop( "second argument of / cannot be a timespan")
-    else if (is.period(e1))
-      divide_period_by_number(e1, e2)
-    else base::'/'(e1, e2)
+    } else if (is.duration(e1)) {
+    	if (is.duration(e2))
+    		divide_duration_by_duration(e1, e2)
+    	else if (is.difftime(e2))
+    		divide_duration_by_difftime(e1, e2)
+    	else if (is.interval(e2))
+    		divide_duration_by_interval(e1, e2)
+    	else if (is.period(e2))
+    		divide_duration_by_period(e1, e2)
+    	else if (is.numeric(e2))
+    		divide_duration_by_number(e1, e2)
+    } else if (is.period(e1)) {
+    	if (is.duration(e2))
+    		divide_period_by_duration(e1, e2)
+    	else if (is.difftime(e2))
+    		divide_period_by_difftime(e1, e2)
+    	else if (is.interval(e2))
+    		divide_period_by_interval(e1, e2)
+    	else if (is.period(e2))
+    		divide_period_by_period(e1, e2)
+    	else if (is.numeric(e2))
+    		divide_period_by_number(e1, e2)
+    }   else base::'/'(e1, e2)
 }  
 
 
