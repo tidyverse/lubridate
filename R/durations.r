@@ -264,9 +264,7 @@ as.duration.period <- function(x){
 		   60 * 60 * 24 * 365.25 * x$year
 	structure(dur, class = c("duration", "numeric"))
 }
-  
-  structure(all, class = c("duration", "numeric"))
-}
+
 
 as.duration.difftime <- function(x)
   structure(as.numeric(x, "secs"), class = c("duration", "numeric"))
