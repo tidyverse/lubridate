@@ -245,13 +245,16 @@ make_difftime <- function (x) {
         units <- "mins"
     else if (any(seconds < 86400))
         units <- "hours"
-    else
+    else if (any(seconds < 31557600))
         units <- "days"
+    else
+    	units <- "years"
     
     switch(units, secs = structure(x, units = "secs", class = "difftime"), 
       mins = structure(x/60, units = "mins", class = "difftime"), 
       hours = structure(x/3600, units = "hours", class = "difftime"), 
-      days = structure(x/86400, units = "days", class = "difftime"))
+      days = structure(x/86400, units = "days", class = "difftime"),
+      years = structure(x/31557600, units = "years", class = "difftime"))
 }
 
 #' Multiplication for period and interval classes. 
