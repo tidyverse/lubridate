@@ -21,6 +21,7 @@
 #' can be added to and subtracted to date-times to create a user interface 
 #' similar to object oriented programming.
 #'
+#' @export new_period
 #' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, 
 #'   hours, days, weeks, months, and years are supported. See \code{\link{standardise_date_names}} 
 #'   for more details.
@@ -75,8 +76,7 @@ new_period <- function(...) {
 #' 
 #' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
-#' @aliases picoseconds nanoseconds microseconds milliseconds 
-#' seconds minutes hours days weeks months years y m w d
+#' @export seconds minutes hours days weeks months years y m w d
 #' @param x numeric value of the number of units to be contained in the period. With the exception 
 #'   of seconds(), x must be an integer. 
 #' @return a period object
@@ -142,11 +142,12 @@ days <-    function(x = 1) new_period(day = x)
 weeks <-   function(x = 1) new_period(week = x)
 months <-  function(x = 1) new_period(month = x)
 years <-   function(x = 1) new_period(year = x)
+y <- years(1)
+m <- months(1)
+d <- days(1)
+w <- weeks(1)
 
-#' Internal function. Formats period objects.
-#'
-#' @method format period
-#' @keywords internal print chron
+
 format.period <- function(x, ...){
   show <- vector(mode = "character")
   for (i in 1:nrow(x)){
@@ -170,10 +171,7 @@ format.period <- function(x, ...){
   show
 }
 
-#' Internal method for printing interval objects.
-#'
-#' @keywords internal print chron
-#' @method print period
+
 print.period <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }
@@ -201,7 +199,11 @@ print.period <- function(x, ...) {
 #' transformation, first transform the duration to an interval with 
 #' \code{\link{as.interval}}.
 #'
-#' @aliases as.period as.period.default as.period.difftime as.period.interval
+#' @export as.period 
+#' @S3method as.period default 
+#' @S3method as.period difftime 
+#' @S3method as.period interval
+#' @S3method as.period duration
 #' @param x an interval, difftime, or numeric object   
 #' @param units a character vector. The names of the units to divide the
 #'   period among. Years, months, days, hours, minutes, and seconds are
@@ -225,17 +227,17 @@ print.period <- function(x, ...) {
 #' # 1 year and 2768461 seconds
 #' as.period(span, units = c("day", "minute")) 
 #' # 1 day, 1 minute and 34218001 seconds
-as.period <- function(x, units)
+as.period <- function(x)
   UseMethod("as.period")
   
-as.period.default <- function(x, units = c("seconds")){
+as.period.default <- function(x){
   x <- as.numeric(x)
   unit <- standardise_date_names(units[1])
   f <- match.fun(paste(unit, "s", sep = ""))
   f(x)
 }
 
-as.period.interval <- function(x, units = NULL){
+as.period.interval <- function(x){
   start <- as.POSIXlt(attr(x, "start"))
   end <- start + unclass(x)
 
@@ -271,28 +273,45 @@ as.period.interval <- function(x, units = NULL){
   structure(to.per[,c(6:1)], class = c("period", "data.frame"))
 }
 
-as.period.difftime <- function(x, units = c("year", "day", "hour", "minute", "seconds")){
-  units <- standardise_date_names(units)
+as.period.difftime <- function(x){
+  message("estimate only: convert durations to intervals for accuracy")
   span <- as.double(x, "secs")
   remainder <- abs(span)
   newper <- new_period(second = rep(0, length(x)))
-  denominator <- c(second = 1, minute = 60, hour = 3600, day = (3600 * 24), year =  (3600 * 24 * 7 * 365))
   
-  if ("month" %in% units) 
-    stop("month length cannot be estimated from durations", call. = FALSE)
+  newper$year <- remainder %/% (3600 * 24 * 365.25)
+  remainder <- remainder %% (3600 * 24 * 365.25)
   
-  for (i in 1:length(units)){
-    bite <- switch(units[i], 
-      "second" = remainder, 
-      "minute" = remainder %/% 60 * 60, 
-      "hour" = remainder %/% 3600 * 3600, 
-      "day" = remainder %/% (3600 * 24) * (3600 * 24), 
-      "year" = remainder %/% (3600 * 24 * 7 * 365) * (3600 * 24 * 7 * 365))
-    remainder <- remainder - bite
-    newper[units[i]] <- bite / denominator[[units[i]]]
-  }
+  newper$day <- remainder %/% (3600 * 24)
+  remainder <- remainder %% (3600 * 24)
   
-  newper$second <- newper$second + remainder
+  newper$hour <- remainder %/% (3600)
+  remainder <- remainder %% (3600)
+  
+  newper$minute <- remainder %/% (60)
+  newper$second <- remainder %% (60)
+  
+  newper * sign(span)
+}
+
+as.period.duration <- function(x){
+  message("estimate only: convert durations to intervals for accuracy")
+  span <- as.numeric(x)
+  remainder <- abs(span)
+  newper <- new_period(second = rep(0, length(x)))
+  
+  newper$year <- remainder %/% (3600 * 24 * 365.25)
+  remainder <- remainder %% (3600 * 24 * 365.25)
+  
+  newper$day <- remainder %/% (3600 * 24)
+  remainder <- remainder %% (3600 * 24)
+  
+  newper$hour <- remainder %/% (3600)
+  remainder <- remainder %% (3600)
+  
+  newper$minute <- remainder %/% (60)
+  newper$second <- remainder %% (60)
+  
   newper * sign(span)
 }
 
