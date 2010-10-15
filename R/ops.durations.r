@@ -318,6 +318,100 @@ multiply_interval_by_number <- function(int, num){
 #' @examples
 #' x <- new_period(day = 2)
 #' x / 2
+divide_interval_by_difftime <- function(int, diff){
+	as.numeric(unclass(int) / as.double(diff, units = "secs"))
+}
+
+divide_interval_by_duration <- function(int, dur){
+	as.numeric(unclass(int) / unclass(dur))
+}
+
+divide_interval_by_number <- function(int, num){
+	start <- attr(int, "start")
+	span <- as.duration(int) / num
+	
+	new_interval(start + span, start)
+}
+
+est.duration <- function(per){
+	per$second +
+	60 * per$minute +
+	60 * 60 * per$hour +
+	60 * 60 * 24 * per$day +
+	60 * 60 * 24 * 30 * per$month +
+	60 * 60 * 24 * 365.25 * per$year
+}
+
+divide_interval_by_period <- function(int, per){
+	start <- attr(int, "start")
+	end <- start + unclass(int)
+	
+	# sign of period shouldn't affect answer
+	per <- abs(per)
+	
+	# duration division should give good approximation
+	estimate <- trunc(as.numeric(int) / est.duration(per))
+	
+	# did we overshoot or undershoot?
+	try1 <- start + per * estimate
+	miss <- as.numeric(end) - as.numeric(try1)
+	
+	# adjust estimate until satisfactory
+	n <- 0
+	if (miss >= 0){
+		while (try1 + n * per < end)
+			n <- n + 1
+		# because the last one went too far	
+		return(estimate + (n - 1)) 
+	} else {
+		while (try1 - n * per > end)
+			n <- n + 1
+		# because the last one went too far	
+		return(estimate - (n + 1))
+	}
+		
+}
+
+period_to_seconds <- function(per, start){
+  # how many days in the month and years part?
+  no.months <- 12 * per$year + per$month
+  
+  get_days <- function(num.months, start1)
+  		sum(day(start + months(1:num.months) - days(1)))
+  		
+  # how many days is this?
+  lapply(no.months, get_days, start1 = start)
+  no.days <- unlist(lapply(no.months, get_days, start1 = start))
+  
+  per$second + 60 * per$minute + 60 * 60 * per$hour + 60 * 60 * 24 * (to.per$day + no.days)
+}
+
+divide_interval_by_period2 <- function(int, per){
+  per <- abs(per)
+  start <- as.POSIXlt(attr(int, "start"))
+  end <- start + unclass(int)
+
+  to.per <- as.data.frame(unclass(end)) - 
+    as.data.frame(unclass(start))
+    
+  names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
+  to.per <- to.per[6:1]
+  
+  
+  numerator <- period_to_seconds(to.per, start)
+  denominator <- period_to_seconds(per, start)
+ 
+  numerator / denominator
+}
+
+
+
+
+divide_period_by_duration <- function(per, dur){
+	print("estimate only: make periods intervals for exact fraction")
+	est.duration(per) / dur
+}
+
 divide_period_by_number <- function(per, num){
   new_period(
     year = per$year / num,
@@ -329,20 +423,34 @@ divide_period_by_number <- function(per, num){
   )
 }
 
-divide_interval_by_number <- function(int, num){
-	start <- attr(int, "start")
-	span <- as.duration(int) / num
-	
-	new_interval(start + span, start)
+divide_period_by_period <- function(per1, per2){
+	print("estimate only: make periods intervals for exact fraction")
+	est.duration(per1) / est.duration(per2)
 }
 
+
+	
+
+
+
+
+
 "/.period" <- "/.interval" <- function(e1, e2){
-   if (is.timespan(e2)) 
+    if (is.interval(e1)) {
+    	if (is.duration(e2))
+    		divide_interval_by_duration(e1, e2)
+    	else if (is.difftime(e2))
+    		divide_interval_by_difftime(e1, e2)
+    	else if (is.period(e2))
+    		divide_interval_by_period(e1, e2)
+    	else if (is.numeric(e2))
+    		divide_interval_by_number(e1, e2)
+    }
+   	
+    if (is.timespan(e2)) 
       stop( "second argument of / cannot be a timespan")
     else if (is.period(e1))
       divide_period_by_number(e1, e2)
-    else if (is.interval(e1))
-      divide_interval_by_number(e1, e2)
     else base::'/'(e1, e2)
 }  
 
