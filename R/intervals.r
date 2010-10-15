@@ -119,3 +119,7 @@ c.interval <- function(..., recursive = F){
 "[.interval" <- function(x, i, ...){
 	structure(unclass(x)[i], start = attr(x, "start")[i], class = "interval")
 } 
+
+
+start.interval <- function(x, ...)
+	attr(x, "start")
