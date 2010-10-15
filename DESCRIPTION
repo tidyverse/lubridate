@@ -19,10 +19,8 @@ Enhances: chron, timeDate, zoo, xts, its, tis,
 Suggests: testthat
 License: GPL
 LazyData: true
-Collate: 'accessors-day.r' 'accessors-hour.r'
-    'accessors-minute.r' 'accessors-misc.r'
-    'accessors-month.r' 'accessors-second.r'
-    'accessors-tz.r' 'accessors-week.r'
-    'accessors-year.r' 'coercion.r' 'durations.r'
-    'epochs.r' 'help.r' 'intervals.r' 'ops.durations.r' 'parse.r'
-    'periods.r' 'pretty.r' 'round.r' 'util.r' 'zzz.r'
+Collate: 'accessors-day.r' 'accessors-hour.r' 'accessors-minute.r'
+    'accessors-misc.r' 'accessors-month.r' 'accessors-second.r'
+    'accessors-tz.r' 'accessors-week.r' 'accessors-year.r' 'coercion.r'
+    'durations.r' 'epochs.r' 'intervals.r' 'ops.durations.r' 'parse.r'
+    'periods.r' 'pretty.r' 'round.r' 'util.r' 'zzz.r' 'help.r'
