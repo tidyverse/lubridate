@@ -44,12 +44,12 @@ new_interval <- function(date2, date1){
   int <- data.frame(date2 = as.POSIXct(date2), 
                     date1 = as.POSIXct(date1))
   span <- abs(unclass(int$date2) - unclass(int$date1))
-  structure(span, start = pmin(int$date1, int$date2), class = "interval")
+  structure(span, start = pmin(int$date1, int$date2), class = c("interval", "numeric"))
 }
 
 
 format.interval <- function(x, ...){
-  paste(attr(x, "start"), "--", attr(x, "start") + unclass(x), "")
+  paste(attr(x, "start"), "--", attr(x, "start") + as.numeric(x), "")
 }
 
 print.interval <- function(x, ...) {
@@ -110,16 +110,37 @@ as.interval <- function(x, start){
 
 c.interval <- function(..., recursive = F){
 	intervals <- list(...)
-	starts <- unlist(lapply(intervals, attr, "start"))
-	starts <- as.POSIXct(starts, origin = ymd("1970-01-01"))
+	starts <- structure(c(unlist(lapply(intervals, attr, "start"))), class = c("POSIXt", "POSIXct"))
 	durations <- unlist(lapply(intervals, as.vector))
-	structure(durations, start = starts, class = "interval")
+	structure(durations, start = starts, class = c("interval", "numeric"))
 }
 
 "[.interval" <- function(x, i, ...){
-	structure(unclass(x)[i], start = attr(x, "start")[i], class = "interval")
+	structure(unclass(x)[i], start = attr(x, "start")[i], class = c("interval", "numeric"))
 } 
 
 
 start.interval <- function(x, ...)
 	attr(x, "start")
+	
+end.interval <- function(x, ...)
+	attr(x, "start") + as.numeric(x)
+	
+"end<-" <- function(interval, value){
+	stopifnot(length(value) == length(interval))
+	dur <- as.numeric(interval)
+	interval <- structure(dur, start = value - dur , class = c("interval", "numeric"))
+}
+	
+"start<-" <- function(interval, value){
+	stopifnot(length(value) == length(interval))
+	interval <- structure(as.numeric(interval), start = value, class = c("interval", "numeric"))
+}
+	
+	
+rep.interval <- function(x, ...){
+	y <- rep(as.numeric(x), ...)
+	attr(y, "start") <- rep(attr(x, "start"), ...)
+	attr(y, "class") <- attr(x, "class")
+	y
+}
