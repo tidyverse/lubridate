@@ -65,8 +65,6 @@ test_that("addition works as expected for instants",{
   expect_that(y + int2, equals(lt_time3))
   expect_that(z + int2, equals(as.Date("2009-08-03")))
   
-
-
 })
 
 test_that("addition with instants returns correct class",{
@@ -142,17 +140,15 @@ test_that("addition with periods returns correct class",{
 
 
 test_that("addition works as expected for durations",{
+  x <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
+  y <- as.POSIXct("2008-12-31 00:00:00", tz = "UTC")
   
-  expect_that(eyears(1) + 1, equals(make_difftime(31536001)))
-
-  expect_that(eyears(1) + as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
-    matches(as.POSIXct("2008-12-31 00:00:00", tz = "UTC")))
-
-
-  expect_that(eyears(1) + minutes(3), equals(new_period(
+  
+  expect_that(dyears(1) + 1, equals(new_duration(31536001)))
+  expect_that(dyears(1) + x, equals(y))
+  expect_that(dyears(1) + minutes(3), equals(new_period(
     minutes = 3, seconds = 31536000)))
-  
-  expect_that(eyears(1) + eyears(1), equals(eyears(2)))
+  expect_that(dyears(1) + dyears(1), equals(dyears(2)))
     
       
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC") 
@@ -162,26 +158,25 @@ test_that("addition works as expected for durations",{
   int2 <- new_interval(time3, time1)  
 
     
-  expect_that(eyears(1) + int, equals(int2))
+  expect_that(dyears(1) + int, equals(int2))
 
 })
 
 test_that("addition with durations returns correct class",{
+  ct <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
+  lt <- as.POSIXlt("2008-01-01 00:00:00", tz = "UTC")
   
-  expect_that(eyears(1) + 1, is_a("difftime"))
-
-  expect_that(eyears(1) + as.POSIXct(
-    "2008-01-01 00:00:00", tz = "UTC"), is_a("POSIXct"))
+  expect_that(dyears(1) + 1, is_a("duration"))
+  expect_that(dyears(1) + ct, is_a("POSIXct"))
+  expect_that(dyears(1) + lt, is_a("POSIXlt"))
+  expect_that(dyears(1) + minutes(3), is_a("period"))  
+  expect_that(dyears(1) + dyears(1), is_a("duration"))  
   
-  expect_that(eyears(1) + as.POSIXlt(
-    "2008-01-01 00:00:00", tz = "UTC"), is_a("POSIXlt"))
-
-  expect_that(eyears(1) + minutes(3), is_a("period"))  
-  expect_that(eyears(1) + eyears(1), is_a("difftime"))    
-  int2 <- new_interval(as.POSIXct("2008-01-02 00:00:00", tz = "UTC"), 
-    as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
+  time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
+  time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
+  int2 <- new_interval(time2, time1)
     
-  expect_that(eyears(1) + int2, is_a("interval"))
+  expect_that(dyears(1) + int2, is_a("interval"))
 })
 
 
@@ -203,16 +198,16 @@ test_that("addition works as expected for intervals",{
   expect_that(int + eyears(1), equals(add_int(eyears(1))))
     
   time4 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC") 
-  time5 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
+  time5 <- as.POSIXct("2010-08-03 00:00:00", tz = "UTC")
   int2 <- new_interval(time5, time4)
   diff2 <- difftime(time5, time4)
+  dur <- as.duration(diff + diff2)
     
-  expect_that(int + int2, equals(diff + diff2))
+  expect_that(int + int2, equals(dur))
     
   int3 <- new_interval(time5, time2)
-  diff3 <- difftime(time5, time2)
   int4 <- new_interval(time5, time1)
-  diff4 <- difftime(time5, time1)
+
     
   expect_that(int + int3, equals(int4))    
 
@@ -224,7 +219,6 @@ test_that("addition with intervals returns correct class",{
   int <- new_interval(time2, time1)
 
   expect_that(int + 1, is_a("interval"))
-  expect_that(int + 1, is_a("difftime"))
 
   expect_that(int + time1, is_a("POSIXct"))
   
@@ -331,23 +325,17 @@ test_that("adding vectors works as expected for periods",{
 
 
 test_that("adding vectors works as expected for durations",{
+  w <- as.POSIXct("2007-01-01 00:00:00", tz = "UTC") 
   x <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
+  y <- as.POSIXct(c("2008-01-01 00:00:00", "2008-12-31 00:00:00"), tz = "UTC")
+  dur_it <- function(x) structure(x, class = c("duration", "numeric"))
   
-  expect_that(eminutes(1:2) + 1, equals(difftime(x + 1 + 60* c(1,2), x)))
-
-  expect_that(eyears(1:2) + as.POSIXct("2007-01-01 00:00:00", tz = "UTC"),
-    equals(as.POSIXct(c("2008-01-01 00:00:00", 
-    "2008-12-31 00:00:00"), tz = "UTC")))
-    
-  expect_that(eyears(1:2) + as.POSIXlt("2007-01-01 00:00:00", 
-    tz = "UTC"), equals(as.POSIXlt(c("2008-01-01 00:00:00", 
-    "2008-12-31 00:00:00"), tz = "UTC")))
-
-
-  expect_that(eyears(1:2) + minutes(3), equals(new_period(
-    minutes = 3, seconds = c(1, 2)*31536000)))
-  
-  expect_that(eyears(1:2) + eyears(1), equals(eyears(2:3)))
+  expect_that(dminutes(1:2) + 1, equals(dur_it(c(61, 121))))
+  expect_that(dyears(1:2) + w, equals(y))
+  expect_that(dyears(1:2) + as.POSIXlt(w), equals(as.POSIXlt(y)))
+  expect_that(dyears(1:2) + minutes(3), equals(new_period(
+    minutes = 3, seconds = c(1, 2)*31536000)))  
+  expect_that(dyears(1:2) + dyears(1), equals(eyears(2:3)))
     
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
@@ -370,7 +358,7 @@ test_that("additing vectors works as expected for intervals",{
   diff <- difftime(time3, c(time1, time2))
   add_int <- function(x) {
   	result <- new_interval(time3 + x, c(time1, time2))
-    attr(result, "tzone") <- ""
+    attr(result, "tzone") <- NULL
     result
   }
   
@@ -382,7 +370,6 @@ test_that("additing vectors works as expected for intervals",{
   time5 <- as.POSIXct("2011-08-03 00:00:00", tz = "UTC")
   int2 <- new_interval(time5, time3)
   int3 <- new_interval(time5, c(time1, time2))
-  attr(int3, "tzone") <- ""
     
   expect_that(int + int2, equals(int3))
     
@@ -498,7 +485,7 @@ test_that("subtraction works as expected for periods",{
   int <- new_interval(time2, time1)
   int2 <- -new_interval(time3, time1)
     
-  expect_that(years(1) - int, equals(int2))
+  expect_that(years(1) - int, equals(years(1) + seconds(-50025600)))
 
 })
 
@@ -513,7 +500,7 @@ test_that("subtraction with periods returns correct class",{
 
 test_that("subtraction works as expected for durations",{
   
-  expect_that(eyears(1) - 1, equals(make_difftime(31535999)))
+  expect_that(dyears(1) - 1, equals(structure(31535999, class = c("duration", "numeric"))))
 
   expect_that(eyears(1) - as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
     throws_error())
@@ -530,16 +517,16 @@ test_that("subtraction works as expected for durations",{
   int <- new_interval(time2, time1)
   int2 <- -new_interval(time3, time1)
     
-  expect_that(eyears(1) - int, equals(int2))
+  expect_that(dyears(1) - int, equals(dyears(1) + dseconds(-50025600)))
 
 })
 
 test_that("subtraction with durations returns correct class",{
   
-  expect_that(eyears(1) - 1, is_a("difftime"))
-
+  expect_that(eyears(1) - 1, is_a("duration"))
   expect_that(eyears(1) - minutes(3), is_a("period"))  
-  expect_that(eyears(1) - eyears(1), is_a("difftime"))
+  expect_that(dyears(1) - dyears(1), is_a("duration"))
+  
 })
 
 
@@ -561,8 +548,9 @@ test_that("subtraction works as expected for intervals",{
   int2 <- new_interval(time4, time3)
   diff1 <- difftime(time2, time1)
   diff2 <- difftime(time4, time3)
+  dur <- as.duration(diff1 - diff2)
     
-  expect_that(int - int2, equals(diff1 - diff2))  
+  expect_that(int - int2, equals(dur))  
 
 })
 
@@ -572,8 +560,6 @@ test_that("subtraction with intervals returns correct class",{
   int <- new_interval(time2, time1)
 
   expect_that(int - 1, is_a("interval"))
-  expect_that(int - 1, is_a("difftime"))
-
   expect_that(int - minutes(3), is_a("interval"))  
   expect_that(int - eyears(1), is_a("interval"))
       
@@ -627,14 +613,14 @@ test_that("multiplying vectors works for periods",{
 test_that("multiplication works as expected for durations",{
     
   expect_that(3*ehours(1), equals(ehours(3)))
-  expect_that(3*ehours(1), is_a("difftime"))
+  expect_that(3*ehours(1), is_a("duration"))
   
 })
 
 test_that("multiplying vectors works for durations",{
   
-  expect_that(c(2,3)*ehours(1), equals(ehours(2:3)))
-  expect_that(c(2,3)*ehours(1), is_a("difftime"))
+  expect_that(c(2,3)*dhours(1), equals(dhours(2:3)))
+  expect_that(c(2,3)*dhours(1), is_a("duration"))
   
 })
 
@@ -690,7 +676,7 @@ test_that("division works as expected for durations",{
     
   expect_that(3/ehours(1), throws_error())
   expect_that(ehours(9)/3, equals(ehours(3)))
-  expect_that(ehours(9)/3, is_a("difftime"))
+  expect_that(ehours(9)/3, is_a("duration"))
   
 })
 
@@ -698,7 +684,7 @@ test_that("dividing vectors works for durations",{
   
   expect_that(c(2,3)/ehours(1), throws_error())
   expect_that(ehours(9)/c(3,1), equals(ehours(c(3,9))))
-  expect_that(ehours(9)/c(3,1), is_a("difftime"))
+  expect_that(ehours(9)/c(3,1), is_a("duration"))
   
 })
 

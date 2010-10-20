@@ -28,9 +28,11 @@ add_duration_to_period <- function(per, dur){
 
 
 add_interval_to_date <- function(date, interval){
-	if (any(attr(interval, "start") != date))
+	if (any(attr(interval, "start") != as.POSIXct(date)))
 	   message("coercing interval to duration")
-	add_duration_to_date(date, as.duration(interval))
+	   dur <- as.duration(interval)
+	   attr(dur, "start") <- NULL
+	add_duration_to_date(date, dur)
 }
 
 add_interval_to_interval <- function(int1, int2){
@@ -47,7 +49,9 @@ add_interval_to_interval <- function(int1, int2){
 		return(as.interval(start1, pmax(end1, end2)))
 	
 	message("Intervals do not align: coercing to durations")
-	as.duration(int1) + as.duration(int2)
+	dur <- as.duration(int1) + as.duration(int2)
+	attr(dur, "start") <- NULL
+	dur
 }
 
 
@@ -228,17 +232,20 @@ make_difftime <- function (x) {
         units <- "mins"
     else if (any(seconds < 86400))
         units <- "hours"
-    else if (any(seconds < 31557600))
-        units <- "days"
     else
-    	units <- "years"
+        units <- "days"
+
     
     switch(units, secs = structure(x, units = "secs", class = "difftime"), 
       mins = structure(x/60, units = "mins", class = "difftime"), 
       hours = structure(x/3600, units = "hours", class = "difftime"), 
-      days = structure(x/86400, units = "days", class = "difftime"),
-      years = structure(x/31557600, units = "years", class = "difftime"))
+      days = structure(x/86400, units = "days", class = "difftime"))
 }
+
+multiply_duration_by_number <- function(dur, num)
+	structure(as.numeric(dur) * num, class = c("duration", "numeric"))
+
+
 
 multiply_period_by_number <- function(per, num){
   new_period(
@@ -258,7 +265,9 @@ multiply_interval_by_number <- function(int, num){
 	new_interval(start + span, start)
 }
 
-"*.period" <- "*.interval" <- function(e1, e2){
+
+
+"*.period" <- "*.interval" <- "*.duration" <- function(e1, e2){
     if (is.timespan(e1) && is.timespan(e2)) 
       stop("cannot multiply time span by time span")
     else if (is.period(e1))
@@ -269,6 +278,10 @@ multiply_interval_by_number <- function(int, num){
       multiply_interval_by_number(e1, e2)
     else if (is.interval(e2))
       multiply_interval_by_number(e2, e1)
+    else if (is.duration(e1))
+      multiply_duration_by_number(e1, e2)
+    else if (is.duration(e2))
+      multiply_duration_by_number(e2, e1)
     else base::'*'(e1, e2)
 }  
 
@@ -442,11 +455,13 @@ divide_period_by_period <- function(per1, per2){
 }  
 
 
-subtract_interval_from_date <- function(date, int){
+subtract_interval_from_date <- function(int, date){
 	end <- attr(int, "start") + unclass(int)
-	if (any(end != date))
+	if (any(end != as.POSIXct(date)))
 	   message("interval does not align: coercing to duration")
-	add_duration_to_date(date, -as.duration(int))
+	dur <- as.duration(int)
+	attr(dur, "start") <- NULL
+	add_duration_to_date(date, -dur)
 }
 
 subtract_interval_from_interval <- function(int2, int1){
@@ -463,7 +478,9 @@ subtract_interval_from_interval <- function(int2, int1){
 	}
 	
 	message("Intervals do not align: coercing to durations")
-	as.duration(int1) - as.duration(int2)
+	dur <- as.duration(int1) - as.duration(int2)
+	attr(dur, "start") <- NULL
+	dur
 }
 
 subtract_dates <- function(e1, e2){
@@ -480,7 +497,12 @@ subtract_dates <- function(e1, e2){
   	subtract_interval_from_interval(e2, e1)
   else if (is.instant(e1) && is.interval(e2))
   	subtract_interval_from_date(e2, e1)
-  else
+  else if (is.interval(e2)){
+  	message("undefined use of interval: coercing to duration")
+  	e2 <- as.duration(e2)
+  	attr(e2, "start") <- NULL
+  	e1  + (-1 * e2)
+  } else
     e1  + (-1 * e2)
 }
 

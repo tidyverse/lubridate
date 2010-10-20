@@ -462,15 +462,33 @@ standardise_difftime_names <- function(x) {
   res
 }
 
+compute_estimate <- function (x) {  
+  seconds <- abs(x)
+    if (any(seconds < 60)) 
+        units <- "secs"
+    else if (any(seconds < 3600))
+        units <- "mins"
+    else if (any(seconds < 86400))
+        units <- "hours"
+    else if (any(seconds < 31557600))
+        units <- "days"
+    else
+    	units <- "years"
+    
+    switch(units, secs = paste(round(x, 2), "s", sep = ""), 
+      mins = paste(round(x/60, 2), "m", sep = ""), 
+      hours = paste(round(x/3600, 2), "h", sep = ""), 
+      days = paste(round(x/86400, 2), "d", sep = ""), 
+      years = paste(round(x/31557600, 2), "y", sep = ""))
+}
+
+
 
 format.duration <- function(x, ...){
   if (all(abs(unclass(x)) < 3600))
   	return(paste(format(unclass(x),...), "s", sep = ""))
   else
-  	simple <- make_difftime(unclass(x))
-  	num <- round(as.numeric(simple), 2)
-  	units <- substr(attr(simple, "units"),1,1)
-  	paste(format(unclass(x),...), "s", " (", num, units, ") ", sep = "") 
+  	paste(format(unclass(x),...), "s", " (", compute_estimate(x), ") ", sep = "") 
 }
 
 print.duration <- function(x, ...) {
