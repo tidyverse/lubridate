@@ -43,7 +43,7 @@
 new_interval <- function(date2, date1){
   int <- data.frame(date2 = as.POSIXct(date2), 
                     date1 = as.POSIXct(date1))
-  span <- abs(unclass(int$date2) - unclass(int$date1))
+  span <- abs(as.numeric(int$date2) - as.numeric(int$date1))
   structure(span, start = pmin(int$date1, int$date2), class = c("interval", "numeric"))
 }
 
