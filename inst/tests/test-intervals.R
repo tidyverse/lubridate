@@ -5,7 +5,7 @@ test_that("new_interval works as expected", {
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
   int <- new_interval(time2, time1)
   num <- as.numeric(int)
-  diff <- as.numeric(difftime(time2, time1))
+  diff <- as.numeric(difftime(time2, time1), units = "secs")
   start <- attr(int, "start")
     
   expect_that(num, equals(diff))
@@ -20,7 +20,7 @@ test_that("new_interval handles vector input", {
   time3 <- as.POSIXct("2009-08-04 13:01:59", tz = "UTC")
   int <- new_interval(time3, c(time1,time2)) 
   num <- as.numeric(int)
-  diff <- as.numeric(difftime(time3, c(time1, time2)))
+  diff <- as.numeric(difftime(time3, c(time1, time2)), units = "secs")
   start <- attr(int, "start")
 
     
@@ -30,7 +30,7 @@ test_that("new_interval handles vector input", {
   
   int2 <- new_interval(c(time3, time2), time1) 
   num2 <- as.numeric(int2)
-  diff2 <- as.numeric(difftime(c(time3, time2), time1))
+  diff2 <- as.numeric(difftime(c(time3, time2), time1), units = "secs")
   start2 <- c(attr(int2, "start"))
 
     
@@ -46,7 +46,7 @@ test_that("print.interval works as expected", {
   int <- new_interval(time2, time1)
   
   expect_that(print(int), 
-    matches("365 days beginning at 2008-08-03 13:01:59"))
+    matches("2008-08-03 13:01:59 -- 2009-08-03 13:01:59"))
 })
 
 
