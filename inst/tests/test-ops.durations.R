@@ -38,13 +38,13 @@ test_that("addition works as expected for instants",{
   expect_that(y + z, throws_error())
   expect_that(z + x, throws_error())
 
-  expect_that(x + years(1), matches(as.POSIXct("2009-01-01 
+  expect_that(x + years(1), equals(as.POSIXct("2009-01-01 
     00:00:00", tz = "UTC")))
   expect_that(y + years(1), equals(as.POSIXlt("2009-01-01 
     00:00:00", tz = "UTC")))
   expect_that(z + years(1), equals(as.Date("2009-01-01")))
   
-  expect_that(x + eyears(1), matches(as.POSIXct("2008-12-31 00:00:00", tz = "UTC")))
+  expect_that(x + eyears(1), equals(as.POSIXct("2008-12-31 00:00:00", tz = "UTC")))
   expect_that(y + eyears(1), equals(as.POSIXlt("2008-12-31 00:00:00", tz = "UTC")))
   expect_that(z + eyears(1), equals(as.Date("2008-12-31")))
   
@@ -99,7 +99,7 @@ test_that("addition works as expected for periods",{
     years = 1)))
 
   expect_that(years(1) + as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
-    matches(as.POSIXct("2009-01-01 00:00:00", tz = "UTC")))
+    equals(as.POSIXct("2009-01-01 00:00:00", tz = "UTC")))
     
   expect_that(years(1) + as.POSIXlt("2008-01-01 00:00:00", tz = "UTC"),
     equals(as.POSIXlt("2009-01-01 00:00:00", tz = "UTC")))
@@ -400,14 +400,14 @@ test_that("subtraction works as expected for instants",{
   expect_that(y - z, equals(new_interval(z,y)))
   expect_that(z - x, equals(new_interval(x,z)))
 
-  expect_that(x - years(1), matches(as.POSIXct(
+  expect_that(x - years(1), equals(as.POSIXct(
     "2007-01-01 00:00:02", tz = "UTC")))
   expect_that(y - years(1), equals(as.POSIXlt(
     "2007-01-01 00:00:02", tz = "UTC")))
   expect_that(z - years(1), equals(as.Date("2007-01-03")))
   
   
-  expect_that(x - eyears(1), matches(as.POSIXct(
+  expect_that(x - eyears(1), equals(as.POSIXct(
     "2007-01-01 00:00:02", tz = "UTC")))
   expect_that(y - eyears(1), equals(as.POSIXlt(
     "2007-01-01 00:00:02", tz = "UTC")))
