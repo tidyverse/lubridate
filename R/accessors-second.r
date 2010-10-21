@@ -3,7 +3,7 @@
 #' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @export second second<-
+#' @export second "second<-"
 #' @S3method second default
 #' @param x a date-time object   
 #' @return the seconds element of x as a decimal number

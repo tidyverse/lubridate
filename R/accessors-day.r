@@ -3,7 +3,7 @@
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @export day yday mday wday
+#' @export day yday mday wday "day<-" "yday<-" "mday<-"
 #' @S3method yday default
 #' @S3method mday default
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
@@ -32,9 +32,9 @@ yday.default <- function(x)
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
+#' @export wday "wday<-" 
 #' @S3method wday default
 #' @S3method wday numeric
-#' @S3method "wday<-" 
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
 #'   jul, timeSeries, or fts object. 
 #' @param label logical. Only available for wday. TRUE will display the day of the week as a 

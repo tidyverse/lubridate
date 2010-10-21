@@ -6,7 +6,7 @@
 #' the number of complete seven day periods that have occured between the date 
 #' and  January 1st, plus one. 
 #'
-#' @export week week<-
+#' @export week "week<-"
 #' @param x a date-time object   
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron
