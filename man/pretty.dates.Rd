@@ -8,11 +8,13 @@
 }
 
 \details{
-  pretty.dates indentifies which unit of time the sub-intervals should
-  be measured in to provide approximately n breaks. It then chooses a
-  "pretty" length for the sub-intervals and sets start and endpoints
-  that 1) span the entire range of the data, and 2) allow the breaks to
-  occur on important date-times (i.e. on the hour, on the first of the
+  pretty.dates indentifies which unit of time the
+  sub-intervals should be measured in to provide
+  approximately n breaks. It then chooses a "pretty"
+  length for the sub-intervals and sets start and
+  endpoints that 1) span the entire range of the data,
+  and 2) allow the breaks to occur on important
+  date-times (i.e. on the hour, on the first of the
   month, etc.)
 }
 \value{a vector of date-times that can be used as axis tick marks or bin breaks}

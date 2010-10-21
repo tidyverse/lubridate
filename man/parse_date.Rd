@@ -8,11 +8,12 @@
 }
 
 \details{
-  parse_date is an internal function for the \code{\link{ymd}} family
-  of functions. Its recommended to use these functions instead. It
-  transforms dates stored in character and numeric vectors to POSIXct
-  objects. All inputed dates are considered to have the same order and
-  to use the same separator.
+  parse_date is an internal function for the
+  \code{\link{ymd}} family of functions. Its recommended
+  to use these functions instead. It transforms dates
+  stored in character and numeric vectors to POSIXct
+  objects. All inputed dates are considered to have the
+  same order and to use the same separator.
 }
 \value{a vector of POSIXct date-time objects}
 \seealso{\code{\link{ymd}}, \code{\link{guess_format}}}

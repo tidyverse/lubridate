@@ -1,10 +1,10 @@
 \name{make_difftime}
 \alias{make_difftime}
-\title{Makes a difftime object from given number of seconds...}
+\title{Makes a difftime object from a given number of seconds...}
 \usage{make_difftime(x)}
 
 \description{
-  Makes a difftime object from given number of seconds
+  Makes a difftime object from a given number of seconds
 }
 \value{a difftime object corresponding to x seconds}
 \keyword{chron}

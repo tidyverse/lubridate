@@ -1,18 +1,20 @@
 \name{round_date}
 \alias{round_date}
 \title{Rounding for date-times.}
-\usage{round_date(x, unit=c("second", "minute", "hour", "day", "week",
-    "month", "year"))}
+\usage{round_date(x, unit=c("second", "minute", "hour", "day",
+    "week", "month", "year"))}
 
 \description{
   Rounding for date-times.
 }
 
 \details{
-  round_date takes a date-time object and rounds it to the nearest
-  integer value of the specified time unit. Users can specify whether
-  to round to the nearest second, minute, hour, day, week, month, or
-  year.
+  round_date takes a date-time object and rounds it to
+  the nearest integer value of the specified time unit.
+  Users can specify whether to round to the nearest
+  second, minute, hour, day, week, month, or year.
+
+  export round_date
 }
 \value{x with the appropriate units rounded}
 \seealso{\code{\link{floor_date}}, \code{\link{ceiling_date}}}

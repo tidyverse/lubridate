@@ -1,4 +1,5 @@
 \name{wday}
+\alias{wday}
 \title{Get/set days component of a date-time.}
 \usage{wday(x, label=FALSE, abbr=TRUE)}
 
@@ -7,32 +8,10 @@
 }
 
 \details{
-  Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr,
-  zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts
-  objects.
+  Date-time must be a POSIXct, POSIXlt, Date, chron,
+  yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
+  jul, timeSeries, and fts objects.
 }
-\alias{wday.default}
-\alias{wday.zoo}
-\alias{wday.its}
-\alias{wday.ti}
-\alias{wday.timeseries}
-\alias{wday.fts}
-\alias{wday.irts}
-\alias{wday}
-\alias{wday<-}
-\alias{wday<-.default}
-\alias{wday<-.Date}
-\alias{wday<-.chron}
-\alias{wday<-.zoo}
-\alias{wday<-.its}
-\alias{wday<-.ti}
-\alias{wday<-.timeDate}
-\alias{wday<-.jul}
-\alias{wday<-.timeSeries}
-\alias{wday<-.fts}
-\alias{wday<-.irts}
-\alias{mday<-}
-\alias{wday.numeric}
 \value{wday returns the day of the week as a decimal number 
 (01-07, Sunday is 1).}
 \seealso{\code{\link{yday}}, \code{\link{mday}}}

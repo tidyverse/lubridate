@@ -8,8 +8,8 @@
 }
 
 \details{
-  Method for adding epochs to dates. Epochs will be implemented in a
-  later version of lubridate.
+  Method for adding epochs to dates. Epochs will be
+  implemented in a later version of lubridate.
 }
 \value{the date-time that occurs that specified number of epochs after the original date-time}
 \arguments{

@@ -6,57 +6,78 @@
 }
 
 \details{
-  A time span can be measured in three ways: as a duration, an
-  interval, or a period.
+  A time span can be measured in three ways: as a
+  duration, an interval, or a period.
 
-  Durations record the exact number of seconds in a time span. They
-  measure the exact passage of time and are not affected by conventions
-  such as leap years and Daylight Savings Time. lubridate uses the
-  difftime class from base::R for durations. Additional difftime
-  methods have been created to facilitate this.
+  Durations record the exact number of seconds in a time
+  span. They measure the exact passage of time but do not
+  always align with measurements made in larger units of
+  time such as hours, months and years.  This is because
+  the length of larger time units can be affected by
+  conventions such as leap years and Daylight Savings
+  Time. Base R measures durations with the difftime
+  class. lubridate provides an additional class, the
+  duration class, to facilitate working with durations.
 
-  difftime displays durations in various units, but these units are
-  estimates given for convenience. The underlying object is always
-  recorded as a fixed number of seconds. For display and creation
-  purposes, units are converted to seconds using their most common
-  lengths in seconds. Minutes = 60 seconds, hours = 3600 seconds, days
-  = 86400 seconds, weeks = 604800. Units larger than weeks are not used
-  due to their variability.
+  durations display as the number of seconds that occur
+  during a time span. If the number is large, a duration
+  object will also display the length in a more
+  convenient unit, but these measurements are only
+  estimates given for convenience. The underlying object
+  is always recorded as a fixed number of seconds. For
+  display and creation purposes, units are converted to
+  seconds using their most common lengths in seconds.
+  Minutes = 60 seconds, hours = 3600 seconds, days =
+  86400 seconds. Units larger than days are not used due
+  to their variability.
 
-  duration objects can be easily created with the helper functions
-  \code{\link{eweeks}}, \code{\link{edays}}, \code{\link{eminutes}},
-  \code{\link{eseconds}}. These objects can be added to and subtracted
-  to date- times to create a user interface similar to object oriented
-  programming.  Duration objects can be added to Date, POSIXt, and
+  duration objects can be easily created with the helper
+  functions \code{\link{dweeks}}, \code{\link{ddays}},
+  \code{\link{dhours}}, \code{\link{dminutes}} and
+  \code{\link{dseconds}}. These objects can be added to
+  and subtracted from date- times to create a user
+  interface similar to object oriented programming.
+  Duration objects can be added to Date, POSIXt, and
   Interval objects.
 
-  Periods record the change in the clock time between two date-times.
-  They are measured in common time related units: years, months, days,
-  hours, minutes, and seconds. Each unit except for seconds must be
-  expressed in integer values. With the exception of seconds, none of
-  these units have a fixed length. Leap years, leap seconds, and
-  Daylight Savings Time can expand or contract a time unit depending on
-  when it occurs.  For this reason, periods do not have a fixed length
-  until they are paired with a start date. Periods can be used to track
-  changes in clock time. Because they do not have a fixed length, they
-  can not be accurately converted to and from durations.
+  Periods record the change in the clock time between two
+  date-times. They are measured in common time related
+  units: years, months, days, hours, minutes, and
+  seconds. Each unit except for seconds must be expressed
+  in integer values. With the exception of seconds, none
+  of these units have a fixed length. Leap years, leap
+  seconds, and Daylight Savings Time can expand or
+  contract a unit of time depending on when it occurs.
+  For this reason, periods do not have a fixed length
+  until they are paired with a start date. Periods can be
+  used to track changes in clock time. Because periods
+  have a variable length, they must be paired with a
+  start date as an interval (\code{\link{as.interval}})
+  before they can be accurately converted to and from
+  durations.
 
-  Period objects can be easily created with the helper functions
-  \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}},
-  \code{\link{days}}, \code{\link{minutes}}, \code{\link{seconds}}.
-  These objects can be added to and subtracted to date-times to create
-  a user interface similar to object oriented programming. Period
-  objects can be added to Date, POSIXt, and Interval objects.
+  Period objects can be easily created with the helper
+  functions \code{\link{years}}, \code{\link{months}},
+  \code{\link{weeks}}, \code{\link{days}},
+  \code{\link{minutes}}, \code{\link{seconds}}. These
+  objects can be added to and subtracted to date-times to
+  create a user interface similar to object oriented
+  programming. Period objects can be added to Date,
+  POSIXt, and Interval objects.
 
-  Intervals are time spans bound by two real date-times.  Intervals can
-  be accurately converted to periods and durations. Since an interval
-  is anchored to a fixed history of time, both the number of seconds
-  that passed as well as the length of common time units during that
-  history can be calculated. To accurately convert between periods and
-  durations, a period or duration should first be converted to an
-  interval. Subtracting two date times automatically creates an
-  interval object. Intervals display as the difftime between the two
-  dates paired with the earlier, or beginning date.
+  Intervals are time spans bound by two real date-times.
+  Intervals can be accurately converted to periods and
+  durations. Since an interval is anchored to a fixed
+  moment of time, the exact length of all units of time
+  during the interval can be calculated. To accurately
+  convert between periods and durations, a period or
+  duration should first be converted to an interval with
+  \code{\link{as.interval}}. Subtracting two date times
+  automatically creates an interval object. An interval
+  displays as the start and end points of the time span
+  it represents. By default, the #' date-time that occurs
+  first is considered the start point.  Hence, intervals
+  are always positive.
 }
 \alias{duration}
 \alias{durations}
@@ -65,6 +86,7 @@
 \alias{period}
 \alias{interval}
 \alias{intervals}
+\alias{timespans}
 \seealso{\code{\link{new_duration}} for creating duration objects and
 \code{\link{as.duration}} for converting objects into durations, 
 \code{\link{new_interval}} for creating interval objects and
@@ -72,13 +94,13 @@
 \keyword{classes}
 \keyword{chron}
 \examples{new_duration(second = 3690)
-# Time difference of 1.025 hours
+# 3690s (1.02h)
 new_period(second = 3690)
 # 3690 seconds
 new_period(second = 30, minute = 1, hour = 1)
 # 1 hour, 1 minute and 30 seconds
-new_interval(as.POSIXct("2009-08-09 12:00:00"), as.POSIXct("2009-08-09 13:01:30"))
-# [1] 1.025 hours beginning at 2009-08-09 12:00:00
+new_interval(ymd_hms("2009-08-09 13:01:30"), ymd_hms("2009-08-09 12:00:00"))
+# 2009-08-09 12:00:00 -- 2009-08-09 13:01:30
 
 date <- as.POSIXct("2009-03-08 01:59:59") # DST boundary
 # "2009-03-08 01:59:59 CST"
@@ -101,12 +123,12 @@ date3 + c(0:11) * months(1)
 # [9] "2009-09-30 01:00:00 CDT" "2009-10-31 01:00:00 CDT"
 #[11] "2009-11-30 01:00:00 CST" "2009-12-31 01:00:00 CST"
 
-span <- date - date2  #creates interval 
-# 3294.583 days beginning at 2000-02-29 12:00:00 
+span <- date2 - date  #creates interval 
+# 2000-02-29 12:00:00 -- 2009-03-08 01:59:59
 span - days(294)
-# 3000.542 days beginning at 2000-02-29 12:00:00
-span - edays(294.542)
-# 3000 days beginning at 2000-02-29 12:00:00
+# 2000-02-29 12:00:00 -- 2008-05-18 01:59:59
+span - ddays(294)
+# 2000-02-29 12:00:00 -- 2008-05-18 02:59:59
 
 date <- as.POSIXct("2009-01-01 00:00:00") 
 # "2009-01-01 GMT"

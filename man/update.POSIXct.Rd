@@ -1,25 +1,25 @@
 \name{update.POSIXct}
+\alias{update.POSIXct}
 \title{Changes the components of a date object...}
-\usage{\method{update}{Date} (object, years=year(object),
-    months=month(object), days=mday(object), mdays=mday(object),
-    ydays=yday(object), wdays=wday(object), hours=hour(object),
-    minutes=minute(object), seconds=second(object), tzs=tz(object),
-    ...)}
+\usage{update.POSIXct(object, years=year(object),
+    months=month(object), days=mday(object),
+    mdays=mday(object), ydays=yday(object),
+    wdays=wday(object), hours=hour(object),
+    minutes=minute(object), seconds=second(object),
+    tzs=tz(object), ...)}
 
 \description{
   Changes the components of a date object
 }
 
 \details{
-  update.Date and update.POSIXt return a date with the specified
-  elements updated.  Elements not specified will be left unaltered.
-  update.Date and update.POSIXt do not add the specified values to the
-  existing date, they substitute them for the appropriate parts of the
+  update.Date and update.POSIXt return a date with the
+  specified elements updated.  Elements not specified
+  will be left unaltered. update.Date and update.POSIXt
+  do not add the specified values to the existing date,
+  they substitute them for the appropriate parts of the
   existing date.
 }
-\alias{update.POSIXct}
-\alias{update.POSIXlt}
-\alias{update.Date}
 \value{a date object with the requested elements updated. The object will
 retain its original class unless an element is updated which the original
 class does not support. In this case, the date returned will be a POSIXlt

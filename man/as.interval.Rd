@@ -1,24 +1,27 @@
 \name{as.interval}
 \alias{as.interval}
 \title{Change an object to an interval.}
-\usage{as.interval(x, origin)}
+\usage{as.interval(x, start)}
 
 \description{
   Change an object to an interval.
 }
 
 \details{
-  as.interval changes duration (i.e. difftime), period and numeric
-  objects to intervals that begin at the specified date-time. Numeric
-  objects are first coerced to time spans equal to the numeric value in
-  seconds.
+  as.interval changes difftime, duration, period and
+  numeric objects to intervals that begin at the
+  specified date-time. Numeric objects are first coerced
+  to time spans equal to the numeric value in seconds.
 
-  as.interval can be used to create accurate transformations between
-  period objects, which describe time spans in relative units, and
-  duration objects, which describe timespans in exact units. To do
-  this, however, an origin date- time must be supplied from which to
-  measure the period. See \code{\link{as.duration}},
-  \code{\link{as.period}}.
+  as.interval can be used to create accurate
+  transformations between period objects, which measure
+  time spans in variable length units, and difftime
+  objects, which measure timespans as an exact number of
+  seconds. A start date- time must be supplied to make
+  the conversion. Lubridate uses this start date to look
+  up how many seconds each variable length unit (e.g.
+  month, year) lasted for during the time span described.
+  See \code{\link{as.duration}}, \code{\link{as.period}}.
 }
 \value{an interval object}
 \seealso{\code{\link{interval}}, \code{\link{new_interval}}}
@@ -31,16 +34,23 @@
 interval}
   \item{origin}{a POSIXt or Date object that describes when the interval begins}
 }
-\examples{diff <- new_duration(days = 31) #duration
-as.interval(diff, as.POSIXct("2009-01-01"))
-# 31 days beginning at 2009-01-01
-as.interval(diff, as.POSIXct("2009-02-01"))
-# 31 days beginning at 2009-02-01
+\examples{diff <- new_difftime(days = 31) #difftime
+as.interval(diff, ymd("2009-01-01"))
+# 2009-01-01 -- 2009-02-01
+as.interval(diff, ymd("2009-02-01"))
+# 2009-02-01 -- 2009-03-04
+
+dur <- new_duration(days = 31) #duration
+as.interval(dur, ymd("2009-01-01"))
+# 2009-01-01 -- 2009-02-01
+as.interval(dur, ymd("2009-02-01"))
+# 2009-02-01 -- 2009-03-04
 
 per <- new_period(months = 1) #period
-as.interval(per, as.POSIXct("2009-01-01"))
-# 31 days beginning at 2009-01-01
-as.interval(per, as.POSIXct("2009-02-01"))
-# 28 days beginning at 2009-02-01
-as.interval(3600, as.POSIXct("2009-01-01")) #numeric
-# 1 hours beginning at 2009-01-01}
+as.interval(per, ymd("2009-01-01"))
+# 2009-01-01 -- 2009-02-01 
+as.interval(per, ymd("2009-02-01"))
+# 2009-02-01 -- 2009-03-01
+
+as.interval(3600, ymd("2009-01-01")) #numeric
+# 2009-01-01 -- 2009-01-01 01:00:00}

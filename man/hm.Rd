@@ -4,13 +4,15 @@
 \usage{hm(...)}
 
 \description{
-  Create a period with the specified number of hours and minutes
+  Create a period with the specified number of hours and
+  minutes
 }
 
 \details{
-  Transforms a character string into a period object with the specified
-  number of hours and minutes. hm() recognizes all non-alphanumeric
-  separators of length 1 with the exception of ".".
+  Transforms a character string into a period object with
+  the specified number of hours and minutes. hm()
+  recognizes all non-alphanumeric separators of length 1
+  with the exception of ".".
 }
 \value{a vector of period objects}
 \seealso{\code{\link{hms}, \link{ms}}}
