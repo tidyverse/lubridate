@@ -125,7 +125,7 @@ c.interval <- function(..., recursive = F){
 #' the interval. It shifts when the interval occurs.
 #'
 #' @export start<-
-#' @S3methods start interval
+#' @S3method start interval
 #' @param x An interval object
 #' @param value A POSIXct date to set the start date to, if setting.
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
@@ -154,7 +154,7 @@ start.interval <- function(x, ...)
 #' the interval. It shifts when the interval occurs.
 #'
 #' @export end<-
-#' @S3methods end interval
+#' @S3method end interval
 #' @param x An interval object
 #' @param value A POSIXct date to set the end date to, if setting.
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
