@@ -311,8 +311,9 @@ divide_interval_by_duration <- function(int, dur){
 	as.numeric(unclass(int) / unclass(dur))
 }
 
-divide_interval_by_interval <- function(int, dur){
-	as.numeric(unclass(int) / unclass(int))
+divide_interval_by_interval <- function(int, int2){
+	message("interval denominator coerced to duration")
+	as.numeric(unclass(int) / unclass(int2))
 }
 
 divide_interval_by_number <- function(int, num){
@@ -418,13 +419,16 @@ divide_period_by_period <- function(per1, per2){
 
 	
 "/.period" <- "/.interval" <- "/.duration" <- function(e1, e2){
+	if (is.interval(e2)){
+		message("interval denominator coerced to duration")
+		e2 <- as.duration(e2)
+	}
+	
     if (is.interval(e1)) {
     	if (is.duration(e2))
     		divide_interval_by_duration(e1, e2)
     	else if (is.difftime(e2))
     		divide_interval_by_difftime(e1, e2)
-    	else if (is.interval(e2))
-    		divide_interval_by_interval(e1, e2)
     	else if (is.period(e2))
     		divide_interval_by_period(e1, e2)
     	else if (is.numeric(e2))
@@ -434,8 +438,6 @@ divide_period_by_period <- function(per1, per2){
     		divide_duration_by_duration(e1, e2)
     	else if (is.difftime(e2))
     		divide_duration_by_difftime(e1, e2)
-    	else if (is.interval(e2))
-    		divide_duration_by_interval(e1, e2)
     	else if (is.period(e2))
     		divide_duration_by_period(e1, e2)
     	else if (is.numeric(e2))
@@ -445,8 +447,6 @@ divide_period_by_period <- function(per1, per2){
     		divide_period_by_duration(e1, e2)
     	else if (is.difftime(e2))
     		divide_period_by_difftime(e1, e2)
-    	else if (is.interval(e2))
-    		divide_period_by_interval(e1, e2)
     	else if (is.period(e2))
     		divide_period_by_period(e1, e2)
     	else if (is.numeric(e2))
@@ -506,9 +506,31 @@ subtract_dates <- function(e1, e2){
     e1  + (-1 * e2)
 }
 
+'%%.period' <- '%%.interval' <- '%%.duration' <- '%%.difftime' <- function(e1, e2){
+	if (!is.timespan(e1) && !is.timespan(e2))
+		stop("attempt to use an unrecognized timespan object with a timespan") 
+	else if (is.interval(e1) && is.period(e2))
+		remainder_period_into_interval(e2, e1)
+	else
+		get_remainder(e1, e2)
+}
 
+get_remainder <- function(num, den){
+	decimal <- num / den
+	integ <- trunc(decimal)
+	num - den * integ
+}
 
+remainder_period_into_interval <- function(per, int){
+	integ <- int / per
+	int2 <- new_interval(start(int) + integ * per, end(int))
+	as.period(int2)
+}
 
-
+'%/%.period' <- '%/%.interval' <- '%/%.duration' <- '%/%.difftime' <- function(e1, e2){
+	if (!is.timespan(e1) && !is.timespan(e2))
+		stop("attempt to use an unrecognized timespan object with a timespan") 
+	else trunc(e1 / e2)
+}
 
 
