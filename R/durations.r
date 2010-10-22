@@ -137,6 +137,9 @@ NULL
 #' @param ... a list of time units to be included in the duration and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported.
 #' @return a duration object
+#' @S3method format duration
+#' @S3method print duration
+#' @S3method rep duration
 #' @export new_duration
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
@@ -481,7 +484,6 @@ compute_estimate <- function (x) {
       days = paste(round(x/86400, 2), "d", sep = ""), 
       years = paste(round(x/31557600, 2), "y", sep = ""))
 }
-
 
 
 format.duration <- function(x, ...){
