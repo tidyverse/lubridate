@@ -9,10 +9,10 @@
 }
 
 \details{
-  round_date takes a date-time object and rounds it to
-  the nearest integer value of the specified time unit.
-  Users can specify whether to round to the nearest
-  second, minute, hour, day, week, month, or year.
+  round_date takes a date-time object and rounds it to the
+  nearest integer value of the specified time unit. Users
+  can specify whether to round to the nearest second,
+  minute, hour, day, week, month, or year.
 
   export round_date
 }

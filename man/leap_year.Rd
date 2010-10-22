@@ -10,8 +10,8 @@
 \details{
   If x is a recognized date-time object, leap_year will
   return whether x occurs during a leap year. If x is a
-  number, leap_year returns whether it would be a leap
-  year under the Gregorian calendar.
+  number, leap_year returns whether it would be a leap year
+  under the Gregorian calendar.
 }
 \value{TRUE if x is a leap year, FALSE otherwise}
 \keyword{logic}

@@ -12,9 +12,9 @@
   month, day, hour, minute, second format to POSIXct
   objects. ymd_hms() recognizes all non-alphanumeric
   separators of length 1 with the exception of ".".
-  ymd_hms() automatically assigns the Universal
-  Coordinated Time Zone (UTC) to the parsed date. This
-  time zone can be changed with \code{\link{force_tz}}.
+  ymd_hms() automatically assigns the Universal Coordinated
+  Time Zone (UTC) to the parsed date. This time zone can be
+  changed with \code{\link{force_tz}}.
 }
 \value{a vector of POSIXct date-time objects}
 \seealso{\code{\link{ymd}}, \code{\link{hms}}}

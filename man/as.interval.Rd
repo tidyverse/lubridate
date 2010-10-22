@@ -9,19 +9,19 @@
 
 \details{
   as.interval changes difftime, duration, period and
-  numeric objects to intervals that begin at the
-  specified date-time. Numeric objects are first coerced
-  to time spans equal to the numeric value in seconds.
+  numeric objects to intervals that begin at the specified
+  date-time. Numeric objects are first coerced to time
+  spans equal to the numeric value in seconds.
 
   as.interval can be used to create accurate
   transformations between period objects, which measure
   time spans in variable length units, and difftime
   objects, which measure timespans as an exact number of
-  seconds. A start date- time must be supplied to make
-  the conversion. Lubridate uses this start date to look
-  up how many seconds each variable length unit (e.g.
-  month, year) lasted for during the time span described.
-  See \code{\link{as.duration}}, \code{\link{as.period}}.
+  seconds. A start date- time must be supplied to make the
+  conversion. Lubridate uses this start date to look up how
+  many seconds each variable length unit (e.g. month, year)
+  lasted for during the time span described. See
+  \code{\link{as.duration}}, \code{\link{as.period}}.
 }
 \value{an interval object}
 \seealso{\code{\link{interval}}, \code{\link{new_interval}}}

@@ -14,11 +14,11 @@
 
 \details{
   update.Date and update.POSIXt return a date with the
-  specified elements updated.  Elements not specified
-  will be left unaltered. update.Date and update.POSIXt
-  do not add the specified values to the existing date,
-  they substitute them for the appropriate parts of the
-  existing date.
+  specified elements updated.  Elements not specified will
+  be left unaltered. update.Date and update.POSIXt do not
+  add the specified values to the existing date, they
+  substitute them for the appropriate parts of the existing
+  date.
 }
 \value{a date object with the requested elements updated. The object will
 retain its original class unless an element is updated which the original

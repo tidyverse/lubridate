@@ -9,11 +9,10 @@
 }
 
 \details{
-  ceiling_date takes a date-time object and rounds it up
-  to the nearest integer value of the specified time
-  unit. Users can specify whether to round up to the
-  nearest second, minute, hour, day, week, month, or
-  year.
+  ceiling_date takes a date-time object and rounds it up to
+  the nearest integer value of the specified time unit.
+  Users can specify whether to round up to the nearest
+  second, minute, hour, day, week, month, or year.
 
   export ceiling_date
 }

@@ -8,27 +8,25 @@
 }
 
 \details{
-  new_difftime creates a difftime object with the
-  specified number of units. Entries for different units
-  are cumulative. difftime displays durations in various
-  units, but these units are estimates given for
-  convenience. The underlying object is always recorded
-  as a fixed number of seconds. For display and creation
-  purposes, units are converted to seconds using their
-  most common lengths in seconds. Minutes = 60 seconds,
-  hours = 3600 seconds, days = 86400 seconds, weeks =
-  604800. Units larger than weeks are not used due to
-  their variability.
+  new_difftime creates a difftime object with the specified
+  number of units. Entries for different units are
+  cumulative. difftime displays durations in various units,
+  but these units are estimates given for convenience. The
+  underlying object is always recorded as a fixed number of
+  seconds. For display and creation purposes, units are
+  converted to seconds using their most common lengths in
+  seconds. Minutes = 60 seconds, hours = 3600 seconds, days
+  = 86400 seconds, weeks = 604800. Units larger than weeks
+  are not used due to their variability.
 
-  difftime objects are durations. Durations are time
-  spans measured in seconds. They measure the exact
-  passage of time but do not always align with
-  measurements made in larger units of time such as
-  hours, months and years.  This is because the length of
-  larger time units can be affected by conventions such
-  as leap years and Daylight Savings Time. lubridate
-  provides a second class for measuring durations, the
-  duration class.
+  difftime objects are durations. Durations are time spans
+  measured in seconds. They measure the exact passage of
+  time but do not always align with measurements made in
+  larger units of time such as hours, months and years.
+  This is because the length of larger time units can be
+  affected by conventions such as leap years and Daylight
+  Savings Time. lubridate provides a second class for
+  measuring durations, the duration class.
 }
 \value{a difftime object}
 \seealso{\code{\link{duration}}, \code{\link{as.duration}}}

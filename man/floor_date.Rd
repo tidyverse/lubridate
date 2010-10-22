@@ -9,11 +9,10 @@
 }
 
 \details{
-  floor_date takes a date-time object and rounds it down
-  to the nearest integer value of the specified time
-  unit. Users can specify whether to round down to the
-  nearest second, minute, hour, day, week, month, or
-  year.
+  floor_date takes a date-time object and rounds it down to
+  the nearest integer value of the specified time unit.
+  Users can specify whether to round down to the nearest
+  second, minute, hour, day, week, month, or year.
 
   export floor_date
 }

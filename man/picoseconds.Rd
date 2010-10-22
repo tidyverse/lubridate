@@ -11,20 +11,20 @@
   Quickly create period objects for easy date-time
   manipulation. The units of the period created depend on
   the name of the function called. For period objects,
-  units do not have a fixed length until they are added
-  to a specific date time, contrast this with
+  units do not have a fixed length until they are added to
+  a specific date time, contrast this with
   \code{\link{durations}}. This makes periods useful for
   manipulations with clock times because units expand or
-  contract in length to accomodate conventions such as
-  leap years, leap seconds, and Daylight Savings Time.
+  contract in length to accomodate conventions such as leap
+  years, leap seconds, and Daylight Savings Time.
 
   When paired with date-times, these functions allow
   date-times to be manipulated in a method similar to
-  object oriented programming. Period objects can be
-  added to Date, POSIXt, and Interval objects.
+  object oriented programming. Period objects can be added
+  to Date, POSIXt, and Interval objects.
 
-  y, m, w, d are predefined period objects such that y =
-  1 year, m = 1 month, w = 1 week, d = 1 day.
+  y, m, w, d are predefined period objects such that y = 1
+  year, m = 1 month, w = 1 week, d = 1 day.
 }
 \value{a period object}
 \seealso{\code{\link{period}}, \code{\link{new_period}}, \code{\link{edays}}}

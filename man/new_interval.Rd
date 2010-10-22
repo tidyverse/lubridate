@@ -9,21 +9,20 @@
 
 \details{
   new_interval creates an interval object with the
-  specified start and end dates. new_interval
-  automatically assigns the date that occurs first in
-  time as the start date and the date that occurs later
-  as the end date. As a result, intervals are always
-  positive.
+  specified start and end dates. new_interval automatically
+  assigns the date that occurs first in time as the start
+  date and the date that occurs later as the end date. As a
+  result, intervals are always positive.
 
   Intervals are time spans bound by two real date-times.
-  Intervals can be accurately converted to either period
-  or duration objects using \code{\link{as.period}},
-  \code{\link{as.duration}}. Since an interval is
-  anchored to a fixed history of time, both the exact
-  number of seconds that passed and the number of
-  variable length time units that occurred during the
-  interval can be calculated.  Subtracting two date times
-  automatically creates an interval object.
+  Intervals can be accurately converted to either period or
+  duration objects using \code{\link{as.period}},
+  \code{\link{as.duration}}. Since an interval is anchored
+  to a fixed history of time, both the exact number of
+  seconds that passed and the number of variable length
+  time units that occurred during the interval can be
+  calculated.  Subtracting two date times automatically
+  creates an interval object.
 }
 \value{an interval object}
 \seealso{\code{\link{interval}}, \code{\link{as.interval}}}

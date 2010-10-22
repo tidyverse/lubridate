@@ -3,20 +3,20 @@
 \usage{ymd(...)}
 
 \description{
-  Parse dates according to the order that year, month,
-  and day elements appear
+  Parse dates according to the order that year, month, and
+  day elements appear
 }
 
 \details{
-  Transforms dates stored in character and numeric
-  vectors to POSIXct objects.  These functions
-  automatically recognize the following separators: "-",
-  "/", ".", and "" (i.e., no separators).
+  Transforms dates stored in character and numeric vectors
+  to POSIXct objects.  These functions automatically
+  recognize the following separators: "-", "/", ".", and ""
+  (i.e., no separators).
 
-  Users should choose the function that models the order
-  in which year(y), month(m), and date(d) appear in the
-  dates. All inputed dates are considered to have the
-  same order and the same separators.
+  Users should choose the function that models the order in
+  which year(y), month(m), and date(d) appear in the dates.
+  All inputed dates are considered to have the same order
+  and the same separators.
 
   ymd() type functions automatically assign the Universal
   Coordinated Time Zone (UTC) to the parsed dates. This

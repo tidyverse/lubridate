@@ -8,33 +8,32 @@
 }
 
 \details{
-  new_duration creates a duration object with the
-  specified values. Entries for different units are
-  cumulative. durations display as the number of seconds
-  in a time span. When this number is large, durations
-  also display an estimate in larger units,; however, the
-  underlying object is always recorded as a fixed number
-  of seconds. For display and creation purposes, units
-  are converted to seconds using their most common
-  lengths in seconds. Minutes = 60 seconds, hours = 3600
-  seconds, days = 86400 seconds, weeks = 604800. Units
-  larger than weeks are not used due to their
-  variability.
+  new_duration creates a duration object with the specified
+  values. Entries for different units are cumulative.
+  durations display as the number of seconds in a time
+  span. When this number is large, durations also display
+  an estimate in larger units,; however, the underlying
+  object is always recorded as a fixed number of seconds.
+  For display and creation purposes, units are converted to
+  seconds using their most common lengths in seconds.
+  Minutes = 60 seconds, hours = 3600 seconds, days = 86400
+  seconds, weeks = 604800. Units larger than weeks are not
+  used due to their variability.
 
   Durations record the exact number of seconds in a time
   span. They measure the exact passage of time but do not
   always align with measurements made in larger units of
   time such as hours, months and years.  This is because
   the length of larger time units can be affected by
-  conventions such as leap years and Daylight Savings
-  Time. Base R provides a second class for measuring
-  durations, the difftime class.
+  conventions such as leap years and Daylight Savings Time.
+  Base R provides a second class for measuring durations,
+  the difftime class.
 
   duration objects can be easily created with the helper
   functions \code{\link{dweeks}}, \code{\link{ddays}},
   \code{\link{dminutes}}, \code{\link{dseconds}}. These
-  objects can be added to and subtracted to date- times
-  to create a user interface similar to object oriented
+  objects can be added to and subtracted to date- times to
+  create a user interface similar to object oriented
   programming.
 }
 \value{a duration object}

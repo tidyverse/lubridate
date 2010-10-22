@@ -9,8 +9,8 @@
 
 \details{
   new_epoch creates an epoch object with the specified
-  values. Implementation for epochs will be implemented
-  in future versions of lubridate.
+  values. Implementation for epochs will be implemented in
+  future versions of lubridate.
 }
 \value{an epoch object}
 \seealso{\code{\link{saturdays}}}

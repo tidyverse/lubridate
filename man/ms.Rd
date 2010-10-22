@@ -4,8 +4,8 @@
 \usage{ms(...)}
 
 \description{
-  Create a period with the specified number of minutes
-  and seconds
+  Create a period with the specified number of minutes and
+  seconds
 }
 
 \details{

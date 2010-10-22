@@ -10,9 +10,9 @@
 \details{
   Date-time must be a POSIXct, POSIXlt, Date, chron,
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
-  jul, timeSeries, and fts objects. Weeks is the number
-  of complete seven day periods that have occured between
-  the date and January 1st, plus one.
+  jul, timeSeries, and fts objects. Weeks is the number of
+  complete seven day periods that have occured between the
+  date and January 1st, plus one.
 }
 \value{the weeks element of x as an integer number}
 \keyword{utilities}

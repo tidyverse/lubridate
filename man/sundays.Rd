@@ -8,8 +8,8 @@
 
 \details{
   Creates an epoch object that uses the functions name as
-  the reference epoch event. Implementation for epochs
-  will be implemented in future versions of lubridate.
+  the reference epoch event. Implementation for epochs will
+  be implemented in future versions of lubridate.
 }
 \alias{sundays}
 \alias{mondays}

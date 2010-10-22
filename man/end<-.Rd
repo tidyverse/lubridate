@@ -8,8 +8,8 @@
 }
 
 \details{
-  Changing the end date of an interval does not change
-  the length of the interval. It shifts when the interval
+  Changing the end date of an interval does not change the
+  length of the interval. It shifts when the interval
   occurs.
 }
 \value{A POSIXct date object when used as an accessor. Nothing when used as a settor}
