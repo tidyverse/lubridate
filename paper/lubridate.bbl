@@ -1,4 +1,4 @@
-\begin{thebibliography}{16}
+\begin{thebibliography}{17}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -25,6 +25,11 @@ Colebourne S, O'Neill BS (2006).
 Fowler M (1997).
 \newblock \enquote{Recurring events for calendars.}
 \newblock \emph{n. pub., n. pag}, pp. 0--201.
+
+\bibitem[{Garland(2005)}]{boost}
+Garland J (2005).
+\newblock \enquote{\pkg{Boost.Date$\_$Time}.}
+\newblock \urlprefix\url{http://www.boost.org/}.
 
 \bibitem[{Grothendieck and Petzoldt(2004)}]{Rnews}
 Grothendieck G, Petzoldt T (2004).

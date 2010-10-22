@@ -2,52 +2,54 @@ This is BibTeX, Version 0.99c (TeX Live 2009)
 The top-level auxiliary file: lubridate.aux
 The style file: jss.bst
 Database file #1: lubridate.bib
+Warning--entry type for "boost" isn't style-file defined
+--line 12 of file lubridate.bib
 Warning--entry type for "bball" isn't style-file defined
---line 34 of file lubridate.bib
+--line 43 of file lubridate.bib
 Warning--entry type for "runts" isn't style-file defined
---line 44 of file lubridate.bib
+--line 53 of file lubridate.bib
 Warning--entry type for "jodatime" isn't style-file defined
---line 55 of file lubridate.bib
+--line 64 of file lubridate.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 16 entries,
+You've used 17 entries,
             3179 wiz_defined-function locations,
-            729 strings with 7363 characters,
-and the built_in function-call counts, 11157 in all, are:
-= -- 963
-> -- 247
-< -- 16
-+ -- 94
-- -- 78
-* -- 851
-:= -- 1574
-add.period$ -- 58
-call.type$ -- 16
-change.case$ -- 97
-chr.to.int$ -- 16
-cite$ -- 16
-duplicate$ -- 1048
-empty$ -- 1018
-format.name$ -- 124
-if$ -- 2262
+            733 strings with 7425 characters,
+and the built_in function-call counts, 11630 in all, are:
+= -- 1004
+> -- 257
+< -- 17
++ -- 98
+- -- 81
+* -- 881
+:= -- 1650
+add.period$ -- 62
+call.type$ -- 17
+change.case$ -- 102
+chr.to.int$ -- 17
+cite$ -- 17
+duplicate$ -- 1090
+empty$ -- 1059
+format.name$ -- 128
+if$ -- 2355
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 141
-newline$ -- 95
-num.names$ -- 64
-pop$ -- 344
+missing$ -- 147
+newline$ -- 100
+num.names$ -- 68
+pop$ -- 360
 preamble$ -- 1
-purify$ -- 89
+purify$ -- 94
 quote$ -- 0
-skip$ -- 286
+skip$ -- 301
 stack$ -- 0
-substring$ -- 914
-swap$ -- 298
+substring$ -- 943
+swap$ -- 309
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 141
+type$ -- 150
 warning$ -- 0
-while$ -- 80
+while$ -- 84
 width$ -- 0
-write$ -- 223
-(There were 3 warnings)
+write$ -- 235
+(There were 4 warnings)
