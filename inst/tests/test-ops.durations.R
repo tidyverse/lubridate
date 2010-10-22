@@ -349,7 +349,7 @@ test_that("adding vectors works as expected for durations",{
 })
 
 
-test_that("additing vectors works as expected for intervals",{
+test_that("adding vectors works as expected for intervals",{
   time1 <- as.POSIXct("2008-08-03 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   time3 <- as.POSIXct("2010-08-03 00:00:00", tz = "UTC")

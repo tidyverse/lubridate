@@ -22,6 +22,15 @@
 #' similar to object oriented programming.
 #'
 #' @export new_period
+#' @S3method "%/%" period
+#' @S3method "%%" period
+#' @S3method "/" period
+#' @S3method "*" period
+#' @S3method "+" period
+#' @S3method "-" period
+#' @S3method rep period
+#' @S3method print period
+#' @S3method format period
 #' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, 
 #'   hours, days, weeks, months, and years are supported. See \code{\link{standardise_date_names}} 
 #'   for more details.
@@ -314,6 +323,7 @@ as.period.duration <- function(x){
   
   newper * sign(span)
 }
+
 
 rep.period <- function(x, ...){
 	y <- lapply(x, rep, ...)

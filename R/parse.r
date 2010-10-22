@@ -304,7 +304,7 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
   best
 }
 
-
+#' @export combine
 combine <- function(mat, vec){
   
   combined <- mat[rep(1:nrow(mat), each = length(vec)),]

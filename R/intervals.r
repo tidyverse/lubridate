@@ -13,6 +13,17 @@
 #' object. 
 #'
 #' @export new_interval
+#' @S3method "%%" interval
+#' @S3method "%/%" interval
+#' @S3method "/" interval
+#' @S3method "*" interval
+#' @S3method "+" interval
+#' @S3method "-" interval
+#' @S3method rep interval
+#' @S3method "[" interval
+#' @S3method c interval
+#' @S3method format interval
+#' @S3method print interval
 #' @param date1 a POSIXt or Date date-time object
 #' @param date2 a POSIXt or Date date-time object
 #' @return an interval object
@@ -108,12 +119,14 @@ as.interval <- function(x, start){
 		new_interval(start + x, start)
 }
 
+
 c.interval <- function(..., recursive = F){
 	intervals <- list(...)
 	starts <- structure(c(unlist(lapply(intervals, attr, "start"))), class = c("POSIXt", "POSIXct"))
 	durations <- unlist(lapply(intervals, as.vector))
 	structure(durations, start = starts, class = c("interval", "numeric"))
 }
+
 
 "[.interval" <- function(x, i, ...){
 	structure(unclass(x)[i], start = attr(x, "start")[i], class = c("interval", "numeric"))
@@ -178,7 +191,7 @@ end.interval <- function(x, ...)
 	
 
 	
-	
+
 rep.interval <- function(x, ...){
 	y <- rep(as.numeric(x), ...)
 	attr(y, "start") <- rep(attr(x, "start"), ...)

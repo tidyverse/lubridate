@@ -22,14 +22,16 @@
   # Needed so that environment matches environment of add_dates above
   utils::assignInNamespace("+.period",   add_dates, "lubridate")
   utils::assignInNamespace("+.interval", add_dates, "lubridate")
+  utils::assignInNamespace("+.duration", add_dates, "lubridate")
   utils::assignInNamespace("-.period",   subtract_dates, "lubridate")
   utils::assignInNamespace("-.interval", subtract_dates, "lubridate")
+  utils::assignInNamespace("-.duration", subtract_dates, "lubridate")
   # utils::assignInNamespace("+.period",   add_dates, "base")
   # utils::assignInNamespace("+.interval", add_dates, "base")
   # utils::assignInNamespace("-.period",   subtract_dates, "base")
   # utils::assignInNamespace("-.interval", subtract_dates, "base")
 }
 
-"+.period" <- "+.interval" <- add_dates
-"-.period" <- "-.interval" <- subtract_dates
+"+.period" <- "+.interval" <- "+.duration" <- add_dates
+"-.period" <- "-.interval" <- "-.duration" <- subtract_dates
 

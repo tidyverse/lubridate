@@ -4,7 +4,7 @@
 #' value of the specified time unit. Users can specify whether to round down to 
 #' the nearest second, minute, hour, day, week, month, or year.
 #'
-#' export floor_date
+#' @export floor_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
 #'   "second","minute","hour","day", "week", "month", or "year."
@@ -49,7 +49,7 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 #' value of the specified time unit. Users can specify whether to round up to 
 #' the nearest second, minute, hour, day, week, month, or year.
 #'
-#' export ceiling_date
+#' @export ceiling_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
 #'   "second","minute","hour","day", "week", "month", or "year."
@@ -98,7 +98,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 #' value of the specified time unit. Users can specify whether to round to the 
 #' nearest second, minute, hour, day, week, month, or year.
 #'
-#' export round_date
+#' @export round_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
 #'   "second","minute","hour","day", "week", "month", or "year."

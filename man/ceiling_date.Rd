@@ -13,8 +13,6 @@
   the nearest integer value of the specified time unit.
   Users can specify whether to round up to the nearest
   second, minute, hour, day, week, month, or year.
-
-  export ceiling_date
 }
 \value{x with the appropriate units rounded up}
 \seealso{\code{\link{floor_date}}, \code{\link{round_date}}}

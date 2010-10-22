@@ -140,6 +140,17 @@ NULL
 #' @S3method format duration
 #' @S3method print duration
 #' @S3method rep duration
+#' @S3method "%%" duration
+#' @S3method "%/%" duration
+#' @S3method "%%" difftime
+#' @S3method "%/%" difftime
+#' @S3method "/" duration
+#' @S3method "*" duration
+#' @S3method "+" duration
+#' @S3method "-" duration
+#' @S3method format duration
+#' @S3method print duration
+#' @S3method rep duration
 #' @export new_duration
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
@@ -493,9 +504,11 @@ format.duration <- function(x, ...){
   	paste(format(unclass(x),...), "s", " (", compute_estimate(x), ") ", sep = "") 
 }
 
+
 print.duration <- function(x, ...) {
   print(format(x), ..., quote = FALSE)
 }
+
 
 rep.duration <- function(x, ...){
 	structure(rep(as.numeric(x), ...), class = c("duration", "numeric"))
