@@ -202,7 +202,6 @@ recognize <- function(x){
 #' play, the result of the play, and the location on the court 
 #' where each play was made.
 #'  
-#' @export lakers
 #' @name lakers
 #' @docType data
 #' @references \url{http://www.basketballgeek.com/data/}

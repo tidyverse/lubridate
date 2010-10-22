@@ -15,7 +15,6 @@
 #' @S3method as.POSIXct irts
 #' @S3method as.POSIXct xts
 #' @S3method as.POSIXct zoo
-#' @S3method as.POSIXct tis
 as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(fts::dates.fts(x))
 as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(fts::dates.fts(x))
 

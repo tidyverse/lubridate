@@ -59,7 +59,7 @@ While Base \proglang{R} \citep{R} handles some of these problems, the syntax it 
 
 Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}. This allows users to perform simple arithmetic on date-time objects with the new timespan classes introduced by \pkg{lubridate}, but it does not alter the way \proglang{R} implements addition and subtraction for non-\pkg{lubridate} objects.
 
-\pkg{lubridate} introduces four new object classes based on the \proglang{Java} language \pkg{Joda Time} project \citep{jodatime}. joda time introduces a conceptual model of the different ways to measure timespans. Section~\ref{sec:types} describes this model and explains how \pkg{lubridate} uses it to perform easy and accurate arithmetic with dates. 
+\pkg{lubridate} introduces four new object classes based on the \proglang{Java} language \pkg{Joda Time} project \citep{jodatime}. joda time introduces a conceptual model of the different ways to measure timespans. Section~\ref{sec:types} describes this model and explains how \pkg{lubridate} uses it to perform easy and accurate arithmetic with dates in \proglang{R}. 
 
 
 % The time concepts introduced by \pkg{lubridate} are inspired by the \proglang{Java} based joda time project \citep{jodatime}. This paper demonstrates the convenient tools provided in the \pkg{lubridate} package and ends with a case study, which uses \pkg{lubridate} in a real life example.
