@@ -137,6 +137,8 @@ c.interval <- function(..., recursive = F){
 #' Changing the start date of an interval does not change the length of 
 #' the interval. It shifts when the interval occurs.
 #'
+#' @name start.interval
+#' @alias "start<-"
 #' @export "start<-"
 #' @S3method start interval
 #' @param x An interval object
@@ -166,6 +168,8 @@ start.interval <- function(x, ...)
 #' Changing the end date of an interval does not change the length of 
 #' the interval. It shifts when the interval occurs.
 #'
+#' @name end.interval
+#' @alias "end<-"
 #' @export "end<-"
 #' @S3method end interval
 #' @param x An interval object
