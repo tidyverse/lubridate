@@ -4,6 +4,7 @@
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @export month "month<-"
+#' @aliases month month<-
 #' @S3method month default
 #' @param x a date-time object  
 #' @param label logical. TRUE will display the month as a character string

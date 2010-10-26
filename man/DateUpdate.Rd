@@ -1,12 +1,6 @@
-\name{update.POSIXct}
-\alias{update.POSIXct}
+\name{DateUpdate}
+\alias{DateUpdate}
 \title{Changes the components of a date object...}
-\usage{update.POSIXct(object, years=year(object),
-    months=month(object), days=mday(object),
-    mdays=mday(object), ydays=yday(object),
-    wdays=wday(object), hours=hour(object),
-    minutes=minute(object), seconds=second(object),
-    tzs=tz(object), ...)}
 
 \description{
   Changes the components of a date object

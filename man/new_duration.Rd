@@ -41,6 +41,7 @@
 \keyword{chron}
 \keyword{classes}
 \arguments{
+  \item{num}{the number of seconds to be included in the period (if not listing time units).}
   \item{...}{a list of time units to be included in the duration and their amounts. Seconds, 
 minutes, hours, days, and weeks are supported.}
 }

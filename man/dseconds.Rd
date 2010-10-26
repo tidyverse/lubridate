@@ -1,5 +1,4 @@
 \name{dseconds}
-\alias{dseconds}
 \title{Quickly create exact time spans.}
 \usage{dseconds(x=1)}
 
@@ -20,6 +19,18 @@
   object oriented programming. Duration objects can be
   added to Date, POSIXt, and Interval objects.
 }
+\alias{eseconds}
+\alias{eminutes}
+\alias{ehours}
+\alias{edays}
+\alias{eweeks}
+\alias{eyears}
+\alias{dseconds}
+\alias{dminutes}
+\alias{dhours}
+\alias{ddays}
+\alias{dweeks}
+\alias{dyears}
 \value{a duration object}
 \seealso{\code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}}
 \keyword{chron}

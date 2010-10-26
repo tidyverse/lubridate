@@ -1,7 +1,6 @@
-\name{end.interval}
-\alias{end.interval}
+\name{end}
 \title{Access and change the end date of an interval...}
-\usage{end<-(interval, value)}
+\usage{end(x)}
 
 \description{
   Access and change the end date of an interval
@@ -12,10 +11,11 @@
   length of the interval. It shifts when the interval
   occurs.
 }
+\alias{end}
+\alias{end<-}
 \value{A POSIXct date object when used as an accessor. Nothing when used as a settor}
 \arguments{
   \item{x}{An interval object}
-  \item{value}{A POSIXct date to set the end date to, if setting.}
 }
 \examples{int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
 # 2001-01-01 -- 2002-01-01

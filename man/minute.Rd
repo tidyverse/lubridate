@@ -1,5 +1,4 @@
 \name{minute}
-\alias{minute}
 \title{Get/set minutes component of a date-time.}
 \usage{minute(x)}
 
@@ -12,6 +11,8 @@
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
+\alias{minute}
+\alias{minute<-}
 \keyword{utilities}
 \keyword{manip}
 \keyword{chron}

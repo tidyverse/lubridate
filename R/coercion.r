@@ -15,8 +15,10 @@
 #' @S3method as.POSIXct irts
 #' @S3method as.POSIXct xts
 #' @S3method as.POSIXct zoo
-as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(fts::dates.fts(x))
+NULL
+
 as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(fts::dates.fts(x))
+as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(fts::dates.fts(x))
 
 as.POSIXlt.its <- function(x, tz = "", ...) as.POSIXlt(attr(x, "dates"))
 as.POSIXct.its <- function(x, tz = "", ...) as.POSIXct(attr(x, "dates"))

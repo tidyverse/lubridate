@@ -16,6 +16,7 @@
 #' For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
 #'
 #' @export tz "tz<-"
+#' @aliases tz tz<-
 #' @S3method tz default 
 #' @S3method tz zoo 
 #' @S3method tz timeSeries

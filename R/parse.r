@@ -13,10 +13,10 @@
 #' \code{\link{force_tz}}.
 #'
 #' @export ymd myd dym ydm mdy dmy
-#' @aliases yearmonthdate
+#' @aliases yearmonthdate ymd myd dym ydm mdy dmy
 #' @param ... a character or numeric vector of suspected dates 
 #' @return a vector of POSIXct date-time objects
-#' @seealso \code{\link{parse_date}}, \code{\link{guess_format}}
+#' @seealso \code{\link{parse_date}}
 #' @keywords chron 
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -229,7 +229,7 @@ hms <- function(...) {
 #'   See \code{\link[base]{strptime}} for format elements.
 #' @param seps a vector of possible characters used to separate elements within the dates.
 #' @return a vector of POSIXct date-time objects
-#' @seealso \code{\link{ymd}}, \code{\link{guess_format}}
+#' @seealso \code{\link{ymd}}
 #' @keywords chron
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -304,7 +304,6 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
   best
 }
 
-#' @export combine
 combine <- function(mat, vec){
   
   combined <- mat[rep(1:nrow(mat), each = length(vec)),]

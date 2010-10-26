@@ -1,5 +1,4 @@
 \name{yday}
-\alias{yday}
 \title{Get/set days component of a date-time.}
 \usage{yday(x)}
 
@@ -12,6 +11,12 @@
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
+\alias{day}
+\alias{yday}
+\alias{mday}
+\alias{day<-}
+\alias{yday<-}
+\alias{mday<-}
 \value{yday returns the day of the year as a decimal number (01-366). mday returns the day of 
 the month as a decimal number (01-31).}
 \seealso{\code{\link{wday}}}

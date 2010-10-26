@@ -32,6 +32,7 @@ dst.default <- function(x)
 #' appropriate parts of the existing date. 
 #'
 #' 
+#' @name DateUpdate
 #' @S3method update Date
 #' @S3method update POSIXct
 #' @S3method update POSIXlt
@@ -62,6 +63,8 @@ dst.default <- function(x)
 #'
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
+NULL
+
 update.POSIXct <- function(object, years = year(object), 
 	months = month(object), days = mday(object), 
 	mdays = mday(object), ydays = yday(object), 

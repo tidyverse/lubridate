@@ -1,5 +1,4 @@
 \name{tz}
-\alias{tz}
 \title{Get/set time zone component of a date-time.}
 \usage{tz(x)}
 
@@ -28,6 +27,8 @@
   For a description of the time zone attribute, see
   \code{\link[base]{DateTimeClasses}}.
 }
+\alias{tz}
+\alias{tz<-}
 \value{the first element of x's tzone attribute vector as a character string. If no tzone 
 attribute exists, tz returns "GMT".}
 \keyword{utilities}

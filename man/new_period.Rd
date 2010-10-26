@@ -40,8 +40,7 @@
 \keyword{classes}
 \arguments{
   \item{...}{a list of time units to be included in the period and their amounts. Seconds, minutes, 
-hours, days, weeks, months, and years are supported. See \code{\link{standardise_date_names}} 
-for more details.}
+hours, days, weeks, months, and years are supported.}
 }
 \examples{new_period (second = 90, minute = 5)
 #  5 minutes and 90 seconds

@@ -23,8 +23,14 @@
   time zone can be changed with \code{\link{force_tz}}.
 }
 \alias{yearmonthdate}
+\alias{ymd}
+\alias{myd}
+\alias{dym}
+\alias{ydm}
+\alias{mdy}
+\alias{dmy}
 \value{a vector of POSIXct date-time objects}
-\seealso{\code{\link{parse_date}}, \code{\link{guess_format}}}
+\seealso{\code{\link{parse_date}}}
 \keyword{chron}
 \arguments{
   \item{...}{a character or numeric vector of suspected dates}

@@ -1,5 +1,4 @@
 \name{hour}
-\alias{hour}
 \title{Get/set hours component of a date-time.}
 \usage{hour(x)}
 
@@ -12,6 +11,8 @@
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
+\alias{hour}
+\alias{hour<-}
 \keyword{utilities}
 \keyword{manip}
 \keyword{chron}

@@ -1,5 +1,4 @@
 \name{wday}
-\alias{wday}
 \title{Get/set days component of a date-time.}
 \usage{wday(x, label=FALSE, abbr=TRUE)}
 
@@ -12,6 +11,8 @@
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
+\alias{wday}
+\alias{wday<-}
 \value{wday returns the day of the week as a decimal number 
 (01-07, Sunday is 1).}
 \seealso{\code{\link{yday}}, \code{\link{mday}}}

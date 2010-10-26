@@ -3,7 +3,8 @@
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @export day yday mday wday "day<-" "yday<-" "mday<-"
+#' @export day yday mday "day<-" "yday<-" "mday<-"
+#' @aliases day yday mday day<- yday<- mday<-
 #' @S3method yday default
 #' @S3method mday default
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
@@ -32,7 +33,8 @@ yday.default <- function(x)
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @export wday "wday<-" 
+#' @export wday "wday<-"
+#' @aliases wday wday<- 
 #' @S3method wday default
 #' @S3method wday numeric
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 

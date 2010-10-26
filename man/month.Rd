@@ -1,5 +1,4 @@
 \name{month}
-\alias{month}
 \title{Get/set months component of a date-time.}
 \usage{month(x, label=FALSE, abbr=TRUE)}
 
@@ -12,6 +11,8 @@
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
+\alias{month}
+\alias{month<-}
 \value{the months element of x as a number (1-12) or character string. 1 = January.}
 \keyword{utilities}
 \keyword{manip}

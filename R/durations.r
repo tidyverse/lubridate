@@ -134,6 +134,7 @@ NULL
 #' \code{\link{dseconds}}. These objects can be added to and subtracted to date-
 #' times to create a user interface similar to object oriented programming. 
 #'
+#' @param num the number of seconds to be included in the period (if not listing time units).
 #' @param ... a list of time units to be included in the duration and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported.
 #' @return a duration object
@@ -310,6 +311,7 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' objects can be added to Date, POSIXt, and Interval objects.
 #'
 #' @export eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears
+#' @aliases eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears
 #' @param x numeric value of the number of units to be contained in the duration. 
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
@@ -360,8 +362,8 @@ dyears <- eyears <- function(x = 1) new_duration(second = x * 31536000)
 #' An instant is a specific moment in time. Most common date-time 
 #' objects (e.g, POSIXct, POSIXlt, and Date objects) are instants.
 #'
-#' @export is.instant 
-#' @aliases instant instants
+#' @export is.instant is.timepoint
+#' @aliases instant instants is.instant timepoint is.timepoint
 #' @param x an R object   
 #' @return TRUE if x is a POSIXct, POSIXlt, or Date object, FALSE otherwise.
 #' @seealso \code{\link{is.timespan}}, \code{\link{is.POSIXt}}, \code{\link{is.Date}}
@@ -374,7 +376,7 @@ is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "PO
 #' Is x a length of time?
 #'
 #' @export is.timespan 
-#' @aliases timespan timespans
+#' @aliases is.timespan
 #' @param x an R object   
 #' @return TRUE if x is a period, interval, duration, or difftime object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.duration}}, \code{\link{is.difftime}}, \code{\link{is.period}}, \code{\link{is.interval}}
@@ -387,6 +389,7 @@ is.timespan <- function(x) inherits(x,c("period", "difftime", "duration", "inter
 #' Is x a POSIXct or POSIXlt object?
 #'
 #' @export is.POSIXt is.POSIXlt is.POSIXct
+#' @aliases is.POSIXt is.POSIXlt is.POSIXct
 #' @param x an R object   
 #' @return TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.Date}}

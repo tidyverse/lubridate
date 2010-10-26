@@ -6,6 +6,7 @@
 #' year does not yet support years before 0 C.E.
 #'
 #' @export year "year<-"
+#' @aliases year year<-
 #' @S3method year default
 #' @param x a date-time object   
 #' @return the years element of x as a decimal number

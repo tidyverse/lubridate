@@ -1,5 +1,4 @@
 \name{week}
-\alias{week}
 \title{Get/set weeks component of a date-time.}
 \usage{week(x)}
 
@@ -14,6 +13,8 @@
   complete seven day periods that have occured between the
   date and January 1st, plus one.
 }
+\alias{week}
+\alias{week<-}
 \value{the weeks element of x as an integer number}
 \keyword{utilities}
 \keyword{manip}

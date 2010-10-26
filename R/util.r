@@ -66,6 +66,7 @@ today <- function(tzone = "") {
 #' Does date time occur in the am or pm?
 #'
 #' @export am pm
+#' @aliases am pm
 #' @param x a date-time object  
 #' @return TRUE or FALSE depending on whethe x occurs in the am or pm 
 #' @keywords chron 

@@ -1,5 +1,4 @@
 \name{year}
-\alias{year}
 \title{Get/set years component of a date-time.}
 \usage{year(x)}
 
@@ -14,6 +13,8 @@
 
   year does not yet support years before 0 C.E.
 }
+\alias{year}
+\alias{year<-}
 \value{the years element of x as a decimal number}
 \keyword{utilities}
 \keyword{manip}

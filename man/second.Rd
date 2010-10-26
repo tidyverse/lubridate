@@ -1,5 +1,4 @@
 \name{second}
-\alias{second}
 \title{Get/set seconds component of a date-time.}
 \usage{second(x)}
 
@@ -12,6 +11,8 @@
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
+\alias{second}
+\alias{second<-}
 \value{the seconds element of x as a decimal number}
 \keyword{utilities}
 \keyword{manip}

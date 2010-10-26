@@ -4,6 +4,7 @@
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @export minute "minute<-"
+#' @aliases minute minute<-
 #' @S3method minute default
 #' @param x a date-time object   
 #' @keywords utilities manip chron methods

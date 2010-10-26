@@ -134,7 +134,13 @@ add_period_to_period <- function(per1, per2){
   structure(to.add[,1:6] + to.add[,7:12], class = c("period", "data.frame"))
 }
 
-
+#' Adding date-time objects
+#'
+#' add_dates adds two objects, both of which can be date-time 
+#' objects. Lubridate is built so that you don't need to use 
+#' add_dates but can use regular math expressions instead.
+#' @param e1 a numeric or date-time object
+#' @param e2 a numeric or date-time object
 #' @export add_dates
 add_dates <- function(e1, e2){
   
@@ -505,6 +511,13 @@ subtract_interval_from_interval <- function(int2, int1){
 	dur
 }
 
+#' Subtracting date-time objects
+#'
+#' subtract_dates subtracts two objects, both of which can be date-time 
+#' objects. Lubridate is built so that you don't need to use 
+#' subtract_dates but can use regular math expressions instead.
+#' @param e1 a numeric or date-time object
+#' @param e2 a numeric or date-time object
 #' @export subtract_dates
 subtract_dates <- function(e1, e2){
   if (missing(e2))

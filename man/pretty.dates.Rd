@@ -1,5 +1,4 @@
 \name{pretty.dates}
-\alias{pretty.dates}
 \title{Computes attractive axis breaks for date-time data...}
 \usage{pretty.dates(x, n, ...)}
 
@@ -20,6 +19,15 @@
 \keyword{dplot}
 \keyword{utilities}
 \keyword{chron}
+\alias{pretty.dates}
+\alias{pretty.unit}
+\alias{pretty.sec}
+\alias{pretty.min}
+\alias{pretty.hour}
+\alias{pretty.day}
+\alias{pretty.month}
+\alias{pretty.year}
+\alias{pretty.point}
 \arguments{
   \item{x}{a vector of POSIXct, POSIXlt, Date, or chron date-time objects}
   \item{n}{integer value of the desired number of breaks}

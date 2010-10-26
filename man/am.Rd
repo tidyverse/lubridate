@@ -1,11 +1,12 @@
 \name{am}
-\alias{am}
 \title{Does date time occur in the am or pm?}
 \usage{am(x)}
 
 \description{
   Does date time occur in the am or pm?
 }
+\alias{am}
+\alias{pm}
 \value{TRUE or FALSE depending on whethe x occurs in the am or pm}
 \keyword{chron}
 \arguments{

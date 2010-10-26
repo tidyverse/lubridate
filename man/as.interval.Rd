@@ -32,7 +32,7 @@
 \arguments{
   \item{x}{a duration (i.e. difftime), period, or numeric object that describes the length of the 
 interval}
-  \item{origin}{a POSIXt or Date object that describes when the interval begins}
+  \item{start}{a POSIXt or Date object that describes when the interval begins}
 }
 \examples{diff <- new_difftime(days = 31) #difftime
 as.interval(diff, ymd("2009-01-01"))

@@ -16,7 +16,7 @@
   to use the same separator.
 }
 \value{a vector of POSIXct date-time objects}
-\seealso{\code{\link{ymd}}, \code{\link{guess_format}}}
+\seealso{\code{\link{ymd}}}
 \keyword{chron}
 \arguments{
   \item{x}{a character or numeric vector of suspected dates}

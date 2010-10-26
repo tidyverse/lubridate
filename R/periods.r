@@ -32,8 +32,7 @@
 #' @S3method print period
 #' @S3method format period
 #' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, 
-#'   hours, days, weeks, months, and years are supported. See \code{\link{standardise_date_names}} 
-#'   for more details.
+#'   hours, days, weeks, months, and years are supported.
 #' @return a period object
 #' @seealso \code{\link{period}}, \code{\link{as.period}}
 #' @keywords chron classes
@@ -86,6 +85,7 @@ new_period <- function(...) {
 #' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
 #' @export seconds minutes hours days weeks months years y m w d
+#' @aliases seconds minutes hours days weeks months years y m w d
 #' @param x numeric value of the number of units to be contained in the period. With the exception 
 #'   of seconds(), x must be an integer. 
 #' @return a period object
@@ -140,10 +140,6 @@ new_period <- function(...) {
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + edays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
-picoseconds <- function(x = 1) new_period(second = x * 10^(-12))
-nanoseconds <- function(x = 1) new_period(second = x * 10^(-9))
-microseconds <- function(x = 1) new_period(second = x * 10^(-6))
-milliseconds <- function(x = 1) new_period(second = x * 10^(-3))
 seconds <- function(x = 1) new_period(second = x)
 minutes <- function(x = 1) new_period(minute = x)
 hours <-   function(x = 1) new_period(hour = x)
@@ -214,28 +210,14 @@ print.period <- function(x, ...) {
 #' @S3method as.period interval
 #' @S3method as.period duration
 #' @param x an interval, difftime, or numeric object   
-#' @param units a character vector. The names of the units to divide the
-#'   period among. Years, months, days, hours, minutes, and seconds are
-#'   supported, see \code{\link{standardise_date_names}} for more details. The
-#'   largest units should be listed first. As much of the period as possible
-#'   will be assigned to the first unit. As much of the remainder as possible
-#'   will be assigned to the second unit and so on until all listed units have
-#'   been handled. After the period has been distributed across all listed
-#'   units, any remaining time will be added to the period in seconds units.
-#'   If no units are provided, as.period will use all available units by
-#'   default.
 #' @return a period object
 #' @seealso \code{\link{period}}, \code{\link{new_period}}
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
-#' # 397.0424 days beginning at 2009-01-01
+#' # [1] 2009-01-01 -- 2010-02-02 01:01:01
 #' as.period(span)
 #' # 1 year, 1 month, 1 day, 1 hour, 1 minute and 1 second
-#' as.period(span, units = c("year")) 
-#' # 1 year and 2768461 seconds
-#' as.period(span, units = c("day", "minute")) 
-#' # 1 day, 1 minute and 34218001 seconds
 as.period <- function(x)
   UseMethod("as.period")
   
