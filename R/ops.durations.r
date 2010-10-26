@@ -235,6 +235,8 @@ add_dates <- function(e1, e2){
       add_number_to_interval(e2, e1) 
     else if (is.difftime(e2))
       add_number_to_duration(e2, e1) 
+    else if (is.duration(e2))
+      add_number_to_duration(e2, e1) 
     else stop("Unknown object class")
   }
   else stop("Unknown object class")
