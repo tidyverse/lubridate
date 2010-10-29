@@ -1,3 +1,15 @@
+Version 0.2.1
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().
+
+BUG FIXES
+
+* fixed bug in add_dates(). duration objects can now be successfully added to numeric objects.
+
+
 Version 0.2
 -------------------------------------------------------------------------
 

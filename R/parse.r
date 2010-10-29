@@ -74,15 +74,16 @@ make_format <- function(order) {
 }
 
 
-#' Parse dates that appear in standard POSIXt order 
+#' Parse dates that have hours, minutes, or seconds elements 
 #'
 #' Transforms dates stored as character vectors in year, month, day, hour, minute, 
-#' second format to POSIXct objects. ymd_hms() recognizes all non-alphanumeric 
-#' separators of length 1 with the exception of ".". ymd_hms() automatically
+#' second format to POSIXct objects. ymd_hms() type functions recognize all non-alphanumeric 
+#' separators of length 1 with the exception of ".". ymd_hms() functions automatically
 #' assigns the Universal Coordinated Time Zone (UTC) to the parsed date. This time 
 #' zone can be changed with \code{\link{force_tz}}.
 #'
-#' @export ymd_hms
+#' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h
+#' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h
 #' @param ... a character vector of dates in year, month, day, hour, minute, 
 #'   second format 
 #' @return a vector of POSIXct date-time objects
@@ -114,6 +115,229 @@ ymd_hms <- function(...){
   }
   date + time
 }
+
+ymd_hm <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- ymd(parts[1,])
+    time <- hm(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- ymd(substr(dates, 1, breaks-1))
+    time <- hm(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+ymd_h <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- ymd(parts[1,])
+    time <- hours(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- ymd(substr(dates, 1, breaks-1))
+    time <- hours(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+
+dmy_hms <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- dmy(parts[1,])
+    time <- hms(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- dmy(substr(dates, 1, breaks-1))
+    time <- hms(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+dmy_hm <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- dmy(parts[1,])
+    time <- hm(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- dmy(substr(dates, 1, breaks-1))
+    time <- hm(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+dmy_h <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- dmy(parts[1,])
+    time <- hours(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- dmy(substr(dates, 1, breaks-1))
+    time <- hours(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+
+mdy_hms <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- mdy(parts[1,])
+    time <- hms(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- mdy(substr(dates, 1, breaks-1))
+    time <- hms(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+mdy_hm <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- mdy(parts[1,])
+    time <- hm(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- mdy(substr(dates, 1, breaks-1))
+    time <- hm(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+mdy_h <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- mdy(parts[1,])
+    time <- hours(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- mdy(substr(dates, 1, breaks-1))
+    time <- hours(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+ydm_hms <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- ydm(parts[1,])
+    time <- hms(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- ydm(substr(dates, 1, breaks-1))
+    time <- hms(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+ydm_hm <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- ydm(parts[1,])
+    time <- hm(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- ydm(substr(dates, 1, breaks-1))
+    time <- hm(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+ydm_h <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- ydm(parts[1,])
+    time <- hours(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- ydm(substr(dates, 1, breaks-1))
+    time <- hours(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
 
 
 #' Create a period with the specified number of minutes and seconds

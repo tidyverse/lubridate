@@ -1,21 +1,33 @@
 \name{ymd_hms}
-\alias{ymd_hms}
-\title{Parse dates that appear in standard POSIXt order...}
+\title{Parse dates that have hours, minutes, or seconds elements...}
 \usage{ymd_hms(...)}
 
 \description{
-  Parse dates that appear in standard POSIXt order
+  Parse dates that have hours, minutes, or seconds elements
 }
 
 \details{
   Transforms dates stored as character vectors in year,
   month, day, hour, minute, second format to POSIXct
-  objects. ymd_hms() recognizes all non-alphanumeric
-  separators of length 1 with the exception of ".".
-  ymd_hms() automatically assigns the Universal Coordinated
-  Time Zone (UTC) to the parsed date. This time zone can be
-  changed with \code{\link{force_tz}}.
+  objects. ymd_hms() type functions recognize all
+  non-alphanumeric separators of length 1 with the
+  exception of ".". ymd_hms() functions automatically
+  assigns the Universal Coordinated Time Zone (UTC) to the
+  parsed date. This time zone can be changed with
+  \code{\link{force_tz}}.
 }
+\alias{ymd_hms}
+\alias{ymd_hm}
+\alias{ymd_h}
+\alias{dmy_hms}
+\alias{dmy_hm}
+\alias{dmy_h}
+\alias{mdy_hms}
+\alias{mdy_hm}
+\alias{mdy_h}
+\alias{ydm_hms}
+\alias{ydm_hm}
+\alias{ydm_h}
 \value{a vector of POSIXct date-time objects}
 \seealso{\code{\link{ymd}}, \code{\link{hms}}}
 \keyword{POSIXt}
