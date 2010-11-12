@@ -1,4 +1,4 @@
-add_difftime_to_date <- function(date, difftime) {
+add_difftime_to_date <- function(difftime, date) {
   if(is.Date(date)){
     date <- as.POSIXct(date)
     ans <- with_tz(.base_add_POSIXt(date, as.numeric(difftime, units = "secs")), "UTC")
@@ -11,14 +11,16 @@ add_difftime_to_date <- function(date, difftime) {
   reclass_date(new, date)
 }
 
-add_difftime_to_difftime <- function(diff1, diff2){
+add_difftime_to_difftime <- function(diff2, diff1){
 	sec1 <- as.numeric(diff1, units = "secs")
 	sec2 <- as.numeric(diff2, units = "secs")
 	make_difftime(sec1 + sec2)
 }
 
 
-add_duration_to_date <- function(date, duration) {
+
+
+add_duration_to_date <- function(duration, date) {
   if(is.Date(date)){
     date <- as.POSIXct(date)
     ans <- with_tz(.base_add_POSIXt(date, as.numeric(duration)), "UTC")
@@ -31,16 +33,16 @@ add_duration_to_date <- function(date, duration) {
   reclass_date(new, date)
 }
 
-add_duration_to_duration <- function(dur1, dur2)
+add_duration_to_duration <- function(dur2, dur1)
   structure(as.numeric(dur1) + as.numeric(dur2), class = c("duration", "numeric"))
 
-add_duration_to_interval <- function(int, dur){
+add_duration_to_interval <- function(dur, int){
   start <- attr(int, "start")	
   span <- unclass(int) + as.numeric(dur, "secs")
   new_interval(start + span, start)
 }
 
-add_duration_to_period <- function(per, dur){
+add_duration_to_period <- function(dur, per){
 	message("duration converted to seconds")
 	per + seconds(as.numeric(dur, "secs"))
 }
@@ -48,15 +50,15 @@ add_duration_to_period <- function(per, dur){
 
 
 
-add_interval_to_date <- function(date, interval){
+add_interval_to_date <- function(interval, date){
 	if (any(attr(interval, "start") != as.POSIXct(date)))
 	   message("coercing interval to duration")
 	   dur <- as.duration(interval)
 	   attr(dur, "start") <- NULL
-	add_duration_to_date(date, dur)
+	add_duration_to_date(dur, date)
 }
 
-add_interval_to_interval <- function(int1, int2){
+add_interval_to_interval <- function(int2, int1){
 	start1 <- attr(int1, "start")
 	start2 <- attr(int2, "start")
 	end1 <- start1 + int1
@@ -77,37 +79,40 @@ add_interval_to_interval <- function(int1, int2){
 
 
 
-add_number_to_date <- function(e1, e2)
-      structure(unclass(e1) + e2, class = "Date")
+add_number_to_date <- function(num, date)
+      structure(unclass(date) + num, class = "Date")
+      
+add_number_to_difftime <- function(num, diff)
+	.difftime(unclass(diff) + num, units = attr(diff, "units"))
 
-add_number_to_duration <- function(dur, num){
+add_number_to_duration <- function(num, dur){
 	if (is.difftime(dur))
 		return(make_difftime(num + as.double(dur, "secs")))
   	new_duration(num + unclass(dur))
 }
 
-add_number_to_interval <-function(int, num){
+add_number_to_interval <-function(num, int){
   message("numeric coerced to duration in seconds")
-  add_duration_to_interval(int, as.duration(num))
+  add_duration_to_interval(as.duration(num), int)
 }
 
-add_number_to_period <- function(per, num){
+add_number_to_period <- function(num, per){
   message("numeric coerced to seconds")
   per$second <- per$second + num
   per
 }
 
-add_number_to_posix <- function(e1, e2){
-      if(is.POSIXct(e1)){
-      	return(structure(unclass(as.POSIXct(e1)) + e2, class = 
-      		class(e1)))
+add_number_to_posix <- function(num, pos){
+      if(is.POSIXct(pos)){
+      	return(structure(unclass(as.POSIXct(pos)) + num, class = 
+      		class(pos)))
       }
-      as.POSIXlt(structure(unclass(as.POSIXct(e1)) + e2, class = 		class(as.POSIXct(e1))))
+      as.POSIXlt(structure(unclass(as.POSIXct(pos)) + num, class = 		class(as.POSIXct(pos))))
 }
 
 
 
-add_period_to_date <- function(date, period){
+add_period_to_date <- function(period, date){
 	new <- update(as.POSIXlt(date), 
 			years = year(date) + period$year,
 			months = month(date) + period$month,
@@ -122,14 +127,14 @@ add_period_to_date <- function(date, period){
 	reclass_date(new, date)
 }
 
-add_period_to_interval <- function(int, per){
+add_period_to_interval <- function(per, int){
   start <- attr(int, "start")
   end <- start + unclass(int)
   end2 <- end + per
   new_interval(end2, start)
 }
 
-add_period_to_period <- function(per1, per2){
+add_period_to_period <- function(per2, per1){
   to.add <- suppressWarnings(cbind(per1,per2))
   structure(to.add[,1:6] + to.add[,7:12], class = c("period", "data.frame"))
 }
@@ -148,95 +153,95 @@ add_dates <- function(e1, e2){
     if (is.instant(e2))
       stop("binary '+' not defined for adding dates together")
     if (is.period(e2))
-      add_period_to_date(e1, e2)
+      add_period_to_date(e2, e1)
     else if (is.interval(e2))
-      add_interval_to_date(e1, e2)
+      add_interval_to_date(e2, e1)
     else if (is.difftime(e2)) 
-      add_difftime_to_date(e1, e2)
+      add_difftime_to_date(e2, e1)
     else if (is.duration(e2)) 
-      add_duration_to_date(e1, e2)
+      add_duration_to_date(e2, e1)
     else if (is.POSIXt(e1))
-      add_number_to_posix(e1, e2)
+      add_number_to_posix(e2, e1)
     else if (is.Date(e1))
-      add_number_to_date(e1, e2)
+      add_number_to_date(e2, e1)
     else{
-      base::'+'(e1,e2)
+      .base_add_POSIXt(e1,e2)
       }
   }
 
   else if (is.period(e1)) {
     if (is.instant(e2))
-      add_period_to_date(e2, e1)
+      add_period_to_date(e1, e2)
     else if (is.period(e2))
-      add_period_to_period(e1, e2)
+      add_period_to_period(e2, e1)
     else if (is.interval(e2))
-      add_period_to_interval(e2, e1)
+      add_period_to_interval(e1, e2)
     else if (is.difftime(e2))
-      add_duration_to_period(e1, e2)
+      add_duration_to_period(as.duration(e2), e1)
     else if (is.duration(e2)) 
-      add_duration_to_period(e1, e2)
+      add_duration_to_period(e2, e1)
     else
-      add_number_to_period(e1, e2)
+      add_number_to_period(e2, e1)
   }
   
   else if (is.interval(e1)){
     if (is.instant(e2))
-      add_interval_to_date(e2, e1)
+      add_interval_to_date(e1, e2)
     else if (is.interval(e2))
-      add_interval_to_interval(e1, e2)
+      add_interval_to_interval(e2, e1)
     else if (is.period(e2))
-      add_period_to_interval(e1, e2)
+      add_period_to_interval(e2, e1)
     else if (is.difftime(e2))
-      add_duration_to_interval(e1, e2) 
+      add_duration_to_interval(as.duration(e2), e1) 
     else if (is.duration(e2)) 
-      add_duration_to_interval(e1, e2) 
+      add_duration_to_interval(e2, e1) 
     else
-      add_number_to_interval(e1, e2)
+      add_number_to_interval(e2, e1)
   }
 
   else if (is.difftime(e1)) {
     if (is.instant(e2))
-      add_difftime_to_date(e2, e1)
+      add_difftime_to_date(e1, e2)
     else if (is.period(e2))
-      add_duration_to_period(e2, e1)
+      add_duration_to_period(e1, e2)
     else if (is.interval(e2))
-      add_duration_to_interval(e2, e1)
+      add_duration_to_interval(e1, e2)
     else if (is.difftime(e2))
-      add_difftime_to_difftime(e1, e2)
+      add_difftime_to_difftime(e2, e1)
     else if (is.duration(e2)) 
-      add_duration_to_duration(e1, e2)
+      add_difftime_to_diftime(as.difftime(e2, units = "secs"), e1)
     else
-      add_number_to_duration(e1, e2)
+      add_number_to_difftime(e2, e1)
   }
   
   else if (is.duration(e1)) {
     if (is.instant(e2))
-      add_duration_to_date(e2, e1)
+      add_duration_to_date(e1, e2)
     else if (is.period(e2))
-      add_duration_to_period(e2, e1)
+      add_duration_to_period(e1, e2)
     else if (is.interval(e2))
-      add_duration_to_interval(e2, e1)
+      add_duration_to_interval(e1, e2)
     else if (is.difftime(e2))
-      add_duration_to_duration(e1, e2)
+      add_duration_to_duration(as.duration(e2), e1)
     else if (is.duration(e2)) 
-      add_duration_to_duration(e1, e2)
+      add_duration_to_duration(e2, e1)
     else
-      add_number_to_duration(e1, e2)
+      add_number_to_duration(e2, e1)
   }
   
   else if (is.numeric(e1)) {
     if (is.POSIXt(e2))
-      add_number_to_posix(e2, e1)
+      add_number_to_posix(e1, e2)
     else if (is.Date(e1))
-      add_number_to_date(e2, e1)
+      add_number_to_date(e1, e2)
     else if (is.period(e2))
-      add_number_to_period(e2, e1)
+      add_number_to_period(e1, e2)
     else if (is.interval(e2))
-      add_number_to_interval(e2, e1) 
+      add_number_to_interval(e1, e2) 
     else if (is.difftime(e2))
-      add_number_to_duration(e2, e1) 
+      add_number_to_difftime(e1, e2) 
     else if (is.duration(e2))
-      add_number_to_duration(e2, e1) 
+      add_number_to_duration(e1, e2) 
     else stop("Unknown object class")
   }
   else stop("Unknown object class")
@@ -314,6 +319,22 @@ multiply_interval_by_number <- function(int, num){
       multiply_duration_by_number(e2, e1)
     else base::'*'(e1, e2)
 }  
+
+
+divide_difftime_by_difftime <- function(dif1, dif2)
+	as.numeric(dif1, units = "secs") / as.numeric(dif2, units = "secs")
+	
+divide_difftime_by_duration <- function(dif, dur)
+	as.numeric(dif, units = "secs") / as.numeric(dur)
+
+divide_difftime_by_interval <- function(dif, int)
+	as.numeric(dif, units = "secs") / as.numeric(int)
+
+divide_difftime_by_period <- function(dif, per)
+	as.numeric(dif, units = "secs") / as.numeric(as.duration(per))
+	
+base_divide_difftime <- function(e1, e2)
+    .difftime(unclass(e1)/e2, attr(e1, "units"))
 
 
 
@@ -448,7 +469,7 @@ divide_period_by_period <- function(per1, per2){
 
 
 
-"/.period" <- "/.interval" <- "/.duration" <- function(e1, e2){
+"/.period" <- "/.interval" <- "/.duration" <- "/.difftime" <- function(e1, e2){
 	if (is.interval(e2)){
 		message("interval denominator coerced to duration")
 		e2 <- as.duration(e2)
@@ -481,7 +502,19 @@ divide_period_by_period <- function(per1, per2){
     		divide_period_by_period(e1, e2)
     	else if (is.numeric(e2))
     		divide_period_by_number(e1, e2)
-    }   else base::'/'(e1, e2)
+    } else if (is.difftime(e1)) {
+    	if (is.duration(e2))
+    		divide_difftime_by_duration(e1, e2)
+    	else if (is.difftime(e2))
+    		divide_difftime_by_difftime(e1, e2)
+    	else if (is.period(e2))
+    		divide_difftime_by_period(e1, e2)
+    	else if (is.numeric(e2))
+    		divide_difftime_by_number(e1, e2)
+    	else
+    		base_divide_difftime(e1, e2)
+    } else base::'/'(e1, e2)
+    	
 }  
 
 
@@ -491,7 +524,7 @@ subtract_interval_from_date <- function(int, date){
 	   message("interval does not align: coercing to duration")
 	dur <- as.duration(int)
 	attr(dur, "start") <- NULL
-	add_duration_to_date(date, -dur)
+	add_duration_to_date(-dur, date)
 }
 
 subtract_interval_from_interval <- function(int2, int1){
@@ -550,14 +583,13 @@ subtract_dates <- function(e1, e2){
 '%%.period' <- '%%.interval' <- '%%.duration' <- '%%.difftime' <- function(e1, e2){
 	if (!is.timespan(e1) && !is.timespan(e2))
 		stop("attempt to use an unrecognized timespan object with a timespan") 
-	else if (is.interval(e1) && is.period(e2))
-		remainder_period_into_interval(e2, e1)
-	else
-		get_remainder(e1, e2)
+	if (class(e1)[1] != class(e2)[1])
+	    e1 <- reclass_timespan(e1, e2)
+	get_remainder(e1, e2)
 }
 
 get_remainder <- function(num, den){
-	decimal <- num / den
+	decimal <- suppressMessages(num / den)
 	integ <- trunc(decimal)
 	num - den * integ
 }
@@ -574,7 +606,7 @@ remainder_period_into_interval <- function(per, int){
 '%/%.period' <- '%/%.interval' <- '%/%.duration' <- '%/%.difftime' <- function(e1, e2){
 	if (!is.timespan(e1) && !is.timespan(e2))
 		stop("attempt to use an unrecognized timespan object with a timespan") 
-	else trunc(e1 / e2)
+	else trunc(suppressMessages(e1 / e2))
 }
 
 
