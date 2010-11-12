@@ -376,7 +376,7 @@ test_that("modulo operations work for period numerator with vectors",{
 	smaller_diff <- new_difftime(days = 100)
 	bigger_diff <- new_difftime(days = 400)
 	
-	per <- as.period(int1)
+	per <- as.period(ymd("2010-01-01") - ymd("2009-02-03"))
 	pers <- c(per, per - minutes(144))
   
   expect_that(c(per1, per2) %% bigger_int, 
