@@ -31,6 +31,7 @@
 #' @S3method rep period
 #' @S3method print period
 #' @S3method format period
+#' @S3method c period
 #' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, 
 #'   hours, days, weeks, months, and years are supported.
 #' @return a period object
@@ -314,3 +315,7 @@ rep.period <- function(x, ...){
 	y
 }
 	
+c.period <- function(...){
+	pers <- list(...)
+	do.call(rbind, pers)
+}

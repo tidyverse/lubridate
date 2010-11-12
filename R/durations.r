@@ -152,6 +152,7 @@ NULL
 #' @S3method format duration
 #' @S3method print duration
 #' @S3method rep duration
+#' @S3method c duration
 #' @export new_duration
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
@@ -207,6 +208,7 @@ new_duration <- function(num = 0,...){
 #' @param ... a list of time units to be included in the difftime and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported. 
 #' @return a difftime object
+#' @S3method c difftime
 #' @export new_difftime
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
@@ -516,3 +518,14 @@ print.duration <- function(x, ...) {
 rep.duration <- function(x, ...){
 	structure(rep(as.numeric(x), ...), class = c("duration", "numeric"))
 }
+
+c.duration <- function(...){
+	durs <- unlist(list(...))
+	structure(durs, class = c("duration", "numeric"))
+}
+
+c.difftime <- function(...){
+	diffs <- unlist(lapply(list(...), as.numeric, units = "secs"))
+	make_difftime(diffs)
+}
+
