@@ -75,3 +75,30 @@ reclass_date.ti <- function(new, orig) {
 reclass_date.Date <- function(new, orig) {
   as.Date(new)
 }
+
+
+period_to_difftime <- function(per){
+	new_difftime(secs = per$second, mins = per$minute, 
+		hours = per$hour, days = per$day + 30 * per$month + 
+		365.25 * per$year)
+}
+
+reclass_timespan <- function(new, orig)
+	UseMethod("reclass_timespan", orig)
+
+reclass_timespan.difftime <- function(new, orig){
+	if (is.period(new))
+		period_to_difftime(new)
+	else
+		make_difftime(new)
+}
+
+reclass_timespan.duration <- function(new, orig)
+	suppressMessages(as.duration(new))
+	
+reclass_timespan.interval <- function(new, orig){
+	suppressMessages(as.duration(new))
+}
+	
+reclass_timespan.period <- function(new, orig)
+	suppressMessages(as.period(new))
