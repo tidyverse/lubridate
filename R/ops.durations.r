@@ -209,7 +209,7 @@ add_dates <- function(e1, e2){
     else if (is.difftime(e2))
       add_difftime_to_difftime(e2, e1)
     else if (is.duration(e2)) 
-      add_difftime_to_diftime(as.difftime(e2, units = "secs"), e1)
+      add_difftime_to_difftime(as.difftime(e2, units = "secs"), e1)
     else
       add_number_to_difftime(e2, e1)
   }
@@ -333,7 +333,7 @@ divide_difftime_by_interval <- function(dif, int)
 divide_difftime_by_period <- function(dif, per)
 	as.numeric(dif, units = "secs") / as.numeric(as.duration(per))
 	
-base_divide_difftime <- function(e1, e2)
+divide_difftime_by_number <- function(e1, e2)
     .difftime(unclass(e1)/e2, attr(e1, "units"))
 
 
@@ -467,9 +467,7 @@ divide_period_by_period <- function(per1, per2){
 	suppressMessages(as.duration(per1)) / as.duration(per2)
 }
 
-
-
-"/.period" <- "/.interval" <- "/.duration" <- "/.difftime" <- function(e1, e2){
+divide_dates <- function(e1, e2){
 	if (is.interval(e2)){
 		message("interval denominator coerced to duration")
 		e2 <- as.duration(e2)
@@ -512,7 +510,7 @@ divide_period_by_period <- function(per1, per2){
     	else if (is.numeric(e2))
     		divide_difftime_by_number(e1, e2)
     	else
-    		base_divide_difftime(e1, e2)
+    		.base_divide_difftime(e1, e2)
     } else base::'/'(e1, e2)
     	
 }  
@@ -580,7 +578,7 @@ subtract_dates <- function(e1, e2){
 
 
 
-'%%.period' <- '%%.interval' <- '%%.duration' <- '%%.difftime' <- function(e1, e2){
+modulo_dates <- function(e1, e2){
 	if (!is.timespan(e1) && !is.timespan(e2))
 		stop("attempt to use an unrecognized timespan object with a timespan") 
 	if (class(e1)[1] != class(e2)[1])
@@ -603,7 +601,7 @@ remainder_period_into_interval <- function(per, int){
 
 
 
-'%/%.period' <- '%/%.interval' <- '%/%.duration' <- '%/%.difftime' <- function(e1, e2){
+integer_divide_dates <- function(e1, e2){
 	if (!is.timespan(e1) && !is.timespan(e2))
 		stop("attempt to use an unrecognized timespan object with a timespan") 
 	else trunc(suppressMessages(e1 / e2))
