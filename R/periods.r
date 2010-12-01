@@ -85,8 +85,9 @@ new_period <- function(...) {
 #' 
 #' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
-#' @export seconds minutes hours days weeks months years y m w d
-#' @aliases seconds minutes hours days weeks months years y m w d
+#' @export seconds minutes hours days weeks years y m w d
+#' @aliases seconds minutes hours days weeks years y m w d
+#' @S3method months numeric
 #' @param x numeric value of the number of units to be contained in the period. With the exception 
 #'   of seconds(), x must be an integer. 
 #' @return a period object
@@ -146,7 +147,7 @@ minutes <- function(x = 1) new_period(minute = x)
 hours <-   function(x = 1) new_period(hour = x)
 days <-    function(x = 1) new_period(day = x)  
 weeks <-   function(x = 1) new_period(week = x)
-months <-  function(x = 1) new_period(month = x)
+months.numeric <-  function(x) new_period(month = x)
 years <-   function(x = 1) new_period(year = x)
 y <- years(1)
 m <- months(1)

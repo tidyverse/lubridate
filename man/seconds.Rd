@@ -30,7 +30,6 @@
 \alias{hours}
 \alias{days}
 \alias{weeks}
-\alias{months}
 \alias{years}
 \alias{y}
 \alias{m}
