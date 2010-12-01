@@ -137,22 +137,22 @@ c.interval <- function(..., recursive = F){
 #' Changing the start date of an interval does not change the length of 
 #' the interval. It shifts when the interval occurs.
 #'
-#' @aliases start start<-
-#' @export start "start<-"
+#' @aliases int_start int_start<-
+#' @export int_start "int_start<-"
 #' @param x An interval object
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
 #' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' # 2001-01-01 -- 2002-01-01
-#' start(int)
+#' int_start(int)
 #' # "2001-01-01 UTC"
-#' start(int) <- ymd("2001-06-01")
+#' int_start(int) <- ymd("2001-06-01")
 #' int
 #' # 2001-06-01 -- 2002-06-01
-start <- function(x)
+int_start <- function(x)
 	attr(x, "start")
 	
-"start<-" <- function(interval, value){
+"int_start<-" <- function(interval, value){
 	stopifnot(length(value) == length(interval))
 	interval <- structure(as.numeric(interval), start = value, class = c("interval", "numeric"))
 }	
@@ -167,22 +167,22 @@ start <- function(x)
 #' Changing the end date of an interval does not change the length of 
 #' the interval. It shifts when the interval occurs.
 #'
-#' @aliases end end<-
-#' @export end "end<-"
+#' @aliases int_end int_end<-
+#' @export int_end "int_end<-"
 #' @param x An interval object
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
 #' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' # 2001-01-01 -- 2002-01-01
-#' end(int)
+#' int_end(int)
 #' # "2002-01-01 UTC"
-#' end(int) <- ymd("2002-06-01")
+#' int_end(int) <- ymd("2002-06-01")
 #' int
 #' # 2001-06-01 -- 2002-06-01
-end <- function(x)
+int_end <- function(x)
 	attr(x, "start") + as.numeric(x)
 
-"end<-" <- function(interval, value){
+"int_end<-" <- function(interval, value){
 	stopifnot(length(value) == length(interval))
 	dur <- as.numeric(interval)
 	interval <- structure(dur, start = value - dur , class = c("interval", "numeric"))
