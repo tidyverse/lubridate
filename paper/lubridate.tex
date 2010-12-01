@@ -637,7 +637,7 @@ Time zones give multiple names to the same instant. For example, ``2010-03-26 11
 \code{R> with_tz(date, "UTC")}\\
 \code{[1] "2010-01-01 15:51:48 UTC"}\\
 
-\code{force_tz()} does the opposite of \code{with_tz()}: it changes the instant of time that is displayed, but the clock time remains the same. For example, the code below moves us to a new instant that occurs 6 hours earlier.\\
+\code{force_tz()} does the opposite of \code{with_tz()}: it changes the actual instant of time saved in the object, while keeping the displayed clock time the same. The new time zone value alerts us to this change. For example, the code below moves us to a new instant that occurs 6 hours earlier.\\
 
 \code{R> date}\\
 \code{[1] "2010-01-01 09:51:48 CST"}\\
@@ -798,11 +798,11 @@ or we can take advantage of \code{pretty.date()} to make pretty tick marks by fi
   \centering
   \includegraphics[width=0.49\textwidth]{play-time-histogram.png}        
   \includegraphics[width=0.49\textwidth]{play-time-histogram2.png} 
-  \caption{The graph on the right displays seconds on the x axis. The graph on the left uses a more intuitive division with minutes.}
+  \caption{The graph on the left displays seconds on the x axis. The graph on the right uses a more intuitive division with minutes.}
   \label{fig:plays}
 \end{figure}
 
-We see that the number of plays peaks within each of the four periods and then plummets at the beginning of the next period, figure~\ref{fig:plays}. The most plays occur in the last minute of the game. Perhaps any shot is worth taking at this point or there's less of an incentive not to foul other players. Less plays occur in overtime, since not all games go to overtime.
+We see that the number of plays peaks within each of the four periods and then plummets at the beginning of the next period, figure~\ref{fig:plays}. The most plays occur in the last minute of the game. Perhaps any shot is worth taking at this point or there's less of an incentive not to foul other players. Fewer plays occur in overtime, since not all games go to overtime.
 
 Now lets look more closely at just one basketball game: the game played against the Boston Celtics on Christmas of 2008. We can quickly model the amounts of time that occurred between each shot attempt.\\
 
