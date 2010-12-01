@@ -393,6 +393,7 @@ equalize_length <- function(x, y){
 
 divide_interval_by_period <- function(int, per){
 	
+	message("estimate only: convert periods to intervals for accuracy")
 	equals <- equalize_length(int, per)
 	int <- equals[[1]]
 	per <- equals[[2]]
@@ -423,15 +424,15 @@ divide_interval_by_period <- function(int, per){
 		if (miss == 0) {
 			return(estimate)
 		} else if (miss > 0) {
-			while (try1 + n * per < end)
+			while (try1 + n * per <= end)
 				n <- n + 1
 			# because the last one went too far	
 			return(estimate + (n - 1)) 
 		} else {
-			while (try1 - n * per > end)
+			while (try1 - n * per >= end)
 				n <- n + 1
 			# because the last one went too far	
-			return(estimate - (n + 1))
+			return(estimate - (n - 1))
 		}
 	}
 	
@@ -594,7 +595,7 @@ get_remainder <- function(num, den){
 
 remainder_period_into_interval <- function(per, int){
 	integ <- int / per
-	int2 <- new_interval(start(int) + integ * per, end(int))
+	int2 <- new_interval(int_start(int) + integ * per, int_end(int))
 	as.period(int2)
 }
 
