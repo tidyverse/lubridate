@@ -145,3 +145,6 @@
 #' about the Los Angeles Lakers' 2008-2009 basketball season.
 #' @import plyr stringr
 #' @docType package
+#' @name lubridate
+#' @aliases lubridate package-lubridate
+NULL
