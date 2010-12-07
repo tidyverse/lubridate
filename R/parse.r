@@ -363,7 +363,7 @@ ms <- function(...) {
   dates <- unlist(list(...))
   sep <- find_separator(dates)
   
-  parts <- as.data.frame(str_split(dates, fixed(sep)), 
+  parts <- as.data.frame(str_split(dates, fixed(sep[1])), 
     stringsAsFactors = FALSE)
   
   if(nrow(parts) != 2) stop("incorrect number of elements")
@@ -428,7 +428,7 @@ hms <- function(...) {
   dates <- unlist(list(...))
   sep <- find_separator(dates)
   
-  parts <- as.data.frame(str_split(dates, fixed(sep)), 
+  parts <- as.data.frame(str_split(dates, fixed(sep[1])), 
     stringsAsFactors = FALSE)
   
   if(nrow(parts) != 3) stop("incorrect number of elements")
