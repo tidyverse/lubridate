@@ -45,17 +45,17 @@ Date-time data can be frustrating to work with. Dates come in many different for
 While Base \proglang{R} \citep{R} handles some of these problems, the syntax it uses can be confusing and difficult to remember. Moreover, the correct \proglang{R} code often changes depending on the class of date-time object being used. \pkg{lubridate} acknowledges these problems and makes it easier to work with date-time data in \proglang{R}. It also provides tools for manipulating date-times in novel but useful ways. \pkg{lubridate} will enhance a user's experience for any analysis that includes date-time data. Specifically, \pkg{lubridate} helps users:
 
 \begin{itemize}
-   \item Identify and parse date-time data, Section~\ref{sec:parsing}.
+   \item Identify and parse date-time data, see section~\ref{sec:parsing}.
    
-    \item Extract and modify components of a date-time, such as years, months, days, hours, minutes, and seconds, Section~\ref{sec:accessors}.
+    \item Extract and modify components of a date-time, such as years, months, days, hours, minutes, and seconds, see section~\ref{sec:accessors}.
   
-  \item Perform accurate math on date-times and timespans, Sections~\ref{sec:types} and~\ref{sec:rounding}.
+  \item Perform accurate calculations with date-times and timespans, see sections~\ref{sec:types} and~\ref{sec:rounding}.
     
-  \item Handle time zones and Daylight Savings Time, Sections~\ref{sec:tz}, and~\ref{sec:DST}.
+  \item Handle time zones and Daylight Savings Time, see sections~\ref{sec:tz} and~\ref{sec:DST}.
   
 \end{itemize}
 
-\pkg{lubridate} uses an intuitive user interface inspired by the date libraries of object oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, \pkg{chron} ~\citep{chron}, \pkg{fCalendar} ~\citep{fCalendar}, \pkg{zoo} ~\citep{zoo}, \pkg{xts} ~\citep{xts}, \pkg{its} ~\citep{its}, \pkg{tis} ~\citep{tis}, \pkg{timeSeries} ~\citep{timeSeries}, \pkg{fts} ~\citep{fts}, and \pkg{tseries} ~\citep{tseries} objects. 
+\pkg{lubridate} uses an intuitive user interface inspired by the date libraries of object-oriented programming languages.  \pkg{lubridate} methods are compatible with a wide-range of common date-time objects. These include character strings, POSIXct, POSIXlt, Date, \pkg{chron} ~\citep{chron}, \pkg{fCalendar} ~\citep{fCalendar}, \pkg{zoo} ~\citep{zoo}, \pkg{xts} ~\citep{xts}, \pkg{its} ~\citep{its}, \pkg{tis} ~\citep{tis}, \pkg{timeSeries} ~\citep{timeSeries}, \pkg{fts} ~\citep{fts}, and \pkg{tseries} ~\citep{tseries} objects. 
 
 Note that \pkg{lubridate} overrides the + and - methods for POSIXt, Date, and difftime objects in base \proglang{R}. This allows users to perform simple arithmetic on date-time objects with the new timespan classes introduced by \pkg{lubridate}, but it does not alter the way \proglang{R} implements addition and subtraction for non-\pkg{lubridate} objects.
 
@@ -389,9 +389,9 @@ Finally, we can also change dates by adding or subtracting units of time from th
 
 Notice that \code{hours()} (plural) is not the same function as \code{hour()} (singular). \code{hours()} creates a new object that can be added or subtracted to a  date-time. These objects are discussed in the next section. 
 
-\section{Math with date-times}
+\section{Arithmetic with date-times}
 \label{sec:types}
-Arithmetic with date-times is more complicated than arithmetic with numbers, but it can be done accurately and easily with \pkg{lubridate}. What complicates math with date-times? Clock times are periodically re-calibrated to reflect astronomical conditions, such as the hour of daylight, or the Earth's tilt on its axis relative to the sun. We know these re-calibrations as daylight savings time, leap years, and leap seconds. Consider how one of these conventions might complicate a simple math operation. If today were January 1st, 2010 and we wished to know what day it would be one year from now, we could simply add 1 to the years element of our date.\\
+Arithmetic with date-times is more complicated than arithmetic with numbers, but it can be done accurately and easily with \pkg{lubridate}. What complicates arithmetic with date-times? Clock times are periodically re-calibrated to reflect astronomical conditions, such as the hour of daylight or the Earth's tilt on its axis relative to the sun. We know these re-calibrations as daylight savings time, leap years, and leap seconds. Consider how one of these conventions might complicate a simple addition task. If today were January 1st, 2010 and we wished to know what day it would be one year from now, we could simply add 1 to the years element of our date.\\
 
 January 1st, 2010 + 1 year = January 1st, 2011\\
 
@@ -408,7 +408,7 @@ At different moments in time, the lengths of months, weeks, days, hours, and eve
 
 Researchers may be interested in exact lengths, relative lengths, or both. For example, the speed of a physical object is most precisely measured in exact lengths. The opening bell of the stock market is more easily modeled with relative lengths.
 
-\pkg{lubridate} allows math with both relative and exact units by introducing four new time related objects. These are \emph{instants}, \emph{intervals}, \emph{durations}, and \emph{periods}. This terminology is borrowed from the \pkg{Joda Time} project \citep{jodatime}. Similar concepts for instants, periods, and durations also appear in the \proglang{C++} library \pkg{Boost.Date$\_$Time} \citep{boost}. \pkg{lubridate} provides helper functions, object classes and methods for using all four concepts in the \proglang{R} language.
+\pkg{lubridate} allows arithmetic with both relative and exact units by introducing four new time related objects. These are \emph{instants}, \emph{intervals}, \emph{durations}, and \emph{periods}. This terminology is borrowed from the \pkg{Joda Time} project \citep{jodatime}. Similar concepts for instants, periods, and durations also appear in the \proglang{C++} library \pkg{Boost.Date$\_$Time} \citep{boost}. \pkg{lubridate} provides helper functions, object classes and methods for using all four concepts in the \proglang{R} language.
 
 \subsection{Instants}
 \label{sec:instants}
@@ -441,15 +441,15 @@ We can create interval objects by subtracting two instants or by using the comma
 \code{R> span <- start_2011 - start_2010}\\
 \code{[1] 2010-01-01 12:00:00 -- 2011-01-01 12:00:00}\\
 
-We can access the start and end dates of an interval with \code{start()} and \code{end()}. \pkg{lubridate} provides each of these with an S3 method for interval objects. Intervals always begin at the date-time that occurs first and end at the date-time that occurs last. Hence, intervals always have a positive length.\\
+We can access the start and end dates of an interval with \code{int_start()} and \code{int_end()}. Intervals always begin at the date-time that occurs first and end at the date-time that occurs last. Hence, intervals always have a positive length.\\
 
-\code{R> start(span)}\\
+\code{R> int_start(span)}\\
 \code{[1] "2010-01-01 12:00:00 UTC"}\\
-\code{R> end(span)}\\
+\code{R> int_end(span)}\\
 \code{[1] "2011-01-01 12:00:00 UTC"}\\
 
 
-Unfortunately, since intervals are anchored to their start and end dates, they are not very useful for date-time math. It only makes sense to add an interval to its start date or to subtract it from its end date.\\
+Unfortunately, since intervals are anchored to their start and end dates, they are not very useful for date-time calculations. It only makes sense to add an interval to its start date or to subtract it from its end date.\\
 
 \code{R> start_2010 + span}\\
 \code{[1] "2011-01-01 12:00:00 UTC"}\\
@@ -525,9 +525,9 @@ Periods record a time span in units larger than seconds, such as years, months, 
 \code{R> months(3) + days(2)}\\
 \code{[1] 3 months and 2 days}\\
 
-These functions do not contain a d in their name, because they are not durations; they no longer have consistent lengths (as measured in seconds). For example, \code{months(2)} always has the length of two months even though the length of two months will change depending on when the period begins. For this reason, we can not compute exactly how long a period will be in seconds until we know when it occurs. However, we can still do date-time math with periods. When we add or subtract a period to an instant, the period becomes anchored to the instant. The instant tells us when the period occurs, which allows us to calculate its exact length in seconds. 
+These functions do not contain a ``d" in their name, because they are not durations; they no longer have consistent lengths (as measured in seconds). For example, \code{months(2)} always has the length of two months even though the length of two months will change depending on when the period begins. For this reason, we can not compute exactly how long a period will be in seconds until we know when it occurs. However, we can still perform date-time calculations with periods. When we add or subtract a period to an instant, the period becomes anchored to the instant. The instant tells us when the period occurs, which allows us to calculate its exact length in seconds. 
 
-In other words, we can use periods to accurately model clock times without knowing when events such as leap seconds, leap days, and DST changes occur.
+As a result, we can use periods to accurately model clock times without knowing when events such as leap seconds, leap days, and DST changes occur.
 
 \code{R> start_2012 + years(1)}\\
 \code{[1] "2013-01-01 12:00:00 UTC"}\\
@@ -567,29 +567,29 @@ Intervals are also exact measures of timespans. Although it is more work, we cou
 \code{interval denominator coerced to duration}\\
 \code{[1] 7.857143}\\
 
-Dividing by periods returns an integer value equal to the number of whole periods that occur in the timespan. This is equivalent to the $\%/\%$ operator. \\
+Division is not possible with periods. Since periods have inconsistent lengths, we can not express the remainder as a decimal. For example, if we were to divide our interval by months, the remainder would be 24 days.\\
 
-\code{R> interval / weeks(1)}\\
-\code{[1] 7}\\
-\code{R> interval \%/\% weeks(1)}\\
-\code{[1] 7}\\
-
-Since periods have inconsistent lengths, we can not express the remainder as a decimal. For example, if we were to divide our interval by months, the remainder would be 24 days.\\
-
-\code{R> interval / months(1)}\\
-\code{[1] 1}\\
 \code{R> interval \%\% months(1)}\\
 \code{[1] 24 days}\\
 
-Should we calculate 24 days as $24 / 30 = 0.8$ months since November has 30 days? Or should we calculate 24 days as $24 / 31 = 0.77$ months since December has 31 days? Both November and December are included in our numerator. If we want an exact calculation, we should use durations instead of periods. As shown above, we can retrieve the remainder using the $\%\%$ operator.\\
+Should we calculate 24 days as $24 / 30 = 0.8$ months since November has 30 days? Or should we calculate 24 days as $24 / 31 = 0.77$ months since December has 31 days? Both November and December are included in our numerator. If we want an exact calculation, we should use durations instead of periods. 
 
-In summary, math with date-times involves four types of objects: instants, intervals, durations, and periods. Table~\ref{tbl:date-math} describes which objects can be added to each other and what type of object will result.
+If we attempt to divide by a period, \pkg{lubridate} will return a warning message and automatically perform integer division: it returns the integer value equal to the number of whole periods that occur in the timespan. This is equivalent to the $\%/\%$ operator. As shown above, we can retrieve the remainder using the $\%\%$ operator.\\
+
+\code{R> interval / months(1)}\\
+\code{estimate only: convert periods to intervals for accuracy}\\
+\code{[1] 1}\\
+\code{R> interval \%/\% months(1)}\\
+\code{[1] 1}\\
+
+In summary, arithmetic with date-times involves four types of objects: instants, intervals, durations, and periods. Table~\ref{tbl:date-math} describes which objects can be added to each other and what type of object will result.
 
 \begin{table}
   \begin{center}
   \begin{tabular}{lllll}
-  & Instant & Interval & Duration & Period\\
   \toprule
+  & Instant & Interval & Duration & Period\\
+  \midrule
   Instant & N/A & instant & instant & instant\\
   Interval & instant & interval$^{1}$ & interval & interval\\
   Duration & instant & interval & duration & period\\
@@ -817,7 +817,7 @@ The waiting times between shots will be the timespan that occurs between each sh
 \begin{figure}[htpb]
   \centering
   \includegraphics[width=\textwidth]{wait-histogram.png}        
-  \caption{Distribution of wait times between shot attempts. Rarely did 30 seconds pass without a shot attempt.}
+  \caption{Distribution of wait times between shot attempts.}
   \label{fig:waits}
 \end{figure}
 
@@ -838,14 +838,14 @@ We can also examine changes in the score throughout the game. This reveals that 
 
 
 \section{Conclusion}
-Date-times create technical difficulties that other types of data do not. They must be specifically identified as date-time data, which can be difficult due to the overabundance of date-time classes. It can also be difficult to access and manipulate the individual pieces of data contained within a date-time. Math with date-times is often appropriate, but must follow different rules than math with ordinal numbers. Finally, date-related conventions such as daylight savings time and time zones make it difficult to compare and recognize different moments of time.
+Date-times create technical difficulties that other types of data do not. They must be specifically identified as date-time data, which can be difficult due to the overabundance of date-time classes. It can also be difficult to access and manipulate the individual pieces of data contained within a date-time. Arithmetic with date-times is often appropriate, but must follow different rules than arithmetic with ordinal numbers. Finally, date-related conventions such as daylight savings time and time zones make it difficult to compare and recognize different moments of time.
 
-Base \proglang{R} handles many of these difficulties, but not all. Moreover, base \proglang{R}'s date-time methods can be complicated and confusing. \pkg{lubridate} makes it to easier to work with date-time data in \proglang{R}. The package provides a set of standard methods for most common date-time classes. These methods make it simple to parse, manipulate, and perform math on date-time objects. By implementing the time concepts pioneered by projects such as \pkg{Joda Time} and \pkg{Boost.Date\_Time}, \pkg{lubridate} helps researchers perform precise calculations as well as model tricky time-related processes. \pkg{lubridate} also makes it simple to switch between time zones and to use or ignore daylight savings time.
+Base \proglang{R} handles many of these difficulties, but not all. Moreover, base \proglang{R}'s date-time methods can be complicated and confusing. \pkg{lubridate} makes it to easier to work with date-time data in \proglang{R}. The package provides a set of standard methods for most common date-time classes. These methods make it simple to parse, manipulate, and perform calculations with date-time objects. By implementing the time concepts pioneered by projects such as \pkg{Joda Time} and \pkg{Boost.Date\_Time}, \pkg{lubridate} helps researchers perform precise calculations as well as model tricky time-related processes. \pkg{lubridate} also makes it simple to switch between time zones and to use or ignore daylight savings time.
 
-Future work on the \pkg{lubridate} package will develop methods for handling partial dates and for modeling recurrent events, such as stock market opening times, business days, or street cleaning hours. In particular, we hope to create methods for R that work with reoccurring temporal date patterns, which were introduced by Martin Fowler \citep{fowler} and have been implemented in \proglang{Ruby} by the \proglang{runt} project \citep{runts}.
+Future work on the \pkg{lubridate} package will develop methods for handling partial dates and for modeling recurrent events, such as stock market opening times, business days, or street cleaning hours. In particular, we hope to create methods for R that work with reoccurring temporal date patterns, which were introduced by \citet{fowler} and have been implemented in \proglang{Ruby} by the \proglang{runt} project \citep{runts}.
 
 \section*{Acknowledgements}
-We'd like to thank the National Science Foundation. This work was supported by the NSF VIGRE Grant, number  DMS-0739420.
+We would like to thank the National Science Foundation. This work was supported by the NSF VIGRE Grant, number  DMS-0739420.
 
 
 \bibliography{lubridate}
