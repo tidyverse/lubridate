@@ -24,7 +24,7 @@
 
   Lubridate can also parse partial dates from strings into
   \code{\link{period}} objects with the functions
-  \code{\link{hm}}, \code{\link{hms}} and code{\link{ms}}.
+  \code{\link{hm}}, \code{\link{hms}} and \code{\link{ms}}.
 
   Manipulating dates
 
@@ -58,10 +58,8 @@
   \code{\link{day}}, \code{\link{yday}},
   \code{\link{mday}}, \code{\link{wday}},
   \code{\link{week}}, \code{\link{month}},
-  \code{\link{year}}, \code{\link{tz}}, \code{\link{dst}},
-  \code{\link{update.POSIXct}},
-  \code{\link{update.POSIXlt}} and
-  \code{\link{update.Date}}.  Note: the accessor functions
+  \code{\link{year}}, \code{\link{tz}}, and \code{\link{dst}}.  
+  Note: the accessor functions
   are named after the singular form of an element. They
   shouldn't be confused with the period helper functions
   that have the plural form of the units as a name (e.g,
@@ -105,7 +103,7 @@
 
   Durations
 
-  \code{\link{{durations}} measure the exact time of span
+  \code{\link{durations}} measure the exact time of span
   that occurs between two instants. This can create
   unexpected results if a leap second, leap year, or change
   in daylight savings time (DST) occurs in the interval.
@@ -121,7 +119,7 @@
 
   Periods
 
-  \code{\link{{periods}} measure the change in clock time
+  \code{\link{periods}} measure the change in clock time
   that occurs between two instants. Periods provide robust
   predictions #' of clock time in the presence of leap
   seconds, leap years, and #' changes in DST.
@@ -157,7 +155,7 @@
   \code{\link{pretty.dates}} provides a method of making
   pretty breaks for date-times \code{\link{lakers}} is a
   data set that contains information about the Los Angeles
-  Lakers' 2008-2009 basketball season.
+  Lakers 2008-2009 basketball season.
 }
 \docType{package}
 \alias{lubridate}
