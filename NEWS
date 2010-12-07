@@ -1,3 +1,32 @@
+Version 0.2.3
+-------------------------------------------------------------------------
+NEW FEATURES
+
+* ymd_hms(), hms(), and ms() functions can now parse dates that include decimal values in the seconds element.
+
+* milliseconds(), microseconds(), nanoseconds(), and picoseconds() create period objects of the specified lengths. dmilliseconds(), dmicroseconds(), dnanoseconds(), and dpicoseconds() make duration objects of the specified lengths.
+
+
+BUG FIXES
+
+* lubridate no longer overwrites months(), start(), and end() from base R. Start and end have been replaced ith int_start() and int_end(). 
+
+* lubridate imports plyr and stringr packages, instead of depending on them.
+
+Version 0.2.2
+-------------------------------------------------------------------------
+NEW FEATURES
+
+* made division, modulo, and integer division operations compatible with difftimes
+
+* created c() methods for periods and durations
+
+
+BUG FIXES
+
+* fixed bug in division, modulo, and integer operations with timespans
+
+
 Version 0.2.1
 -------------------------------------------------------------------------
 
