@@ -312,8 +312,8 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' manipulated in a method similar to object oriented programming. Duration 
 #' objects can be added to Date, POSIXt, and Interval objects.
 #'
-#' @export eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears
-#' @aliases eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears
+#' @export eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears dmilliseconds emilliseconds dmicroseconds emicroseconds dnanoseconds enanoseconds dpicoseconds epicoseconds
+#' @aliases eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears dmilliseconds emilliseconds dmicroseconds emicroseconds dnanoseconds enanoseconds dpicoseconds epicoseconds
 #' @param x numeric value of the number of units to be contained in the duration. 
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
@@ -357,6 +357,10 @@ dhours <- ehours <-   function(x = 1) new_duration(hour = x)
 ddays <- edays <-    function(x = 1) new_duration(day = x)  
 dweeks <- eweeks <-   function(x = 1) new_duration(week = x)
 dyears <- eyears <- function(x = 1) new_duration(second = x * 31536000)
+dmilliseconds <- emilliseconds <- function(x = 1) milliseconds(x)
+dmicroseconds <- emicroseconds <- function(x = 1) microseconds(x)
+dnanoseconds <- enanoseconds <- function(x = 1) nanoseconds(x)
+dpicoseconds <- epicoseconds <- function(x = 1) picoseconds(x)
 
 
 #' Is x a date-time object?

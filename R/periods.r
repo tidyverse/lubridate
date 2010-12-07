@@ -85,8 +85,8 @@ new_period <- function(...) {
 #' 
 #' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
-#' @export seconds minutes hours days weeks years y m w d
-#' @aliases seconds minutes hours days weeks years y m w d
+#' @export seconds minutes hours days weeks years y m w d milliseconds microseconds microseconds nanoseconds picoseconds
+#' @aliases seconds minutes hours days weeks years y m w d milliseconds microseconds microseconds nanoseconds picoseconds
 #' @S3method months numeric
 #' @param x numeric value of the number of units to be contained in the period. With the exception 
 #'   of seconds(), x must be an integer. 
@@ -153,6 +153,10 @@ y <- years(1)
 m <- months(1)
 d <- days(1)
 w <- weeks(1)
+milliseconds <- function(x = 1) seconds(x/1000)
+microseconds <- function(x = 1) seconds(x/1000000)
+nanoseconds <- function(x = 1) seconds(x/1e9)
+picoseconds <- function(x = 1) seconds(x/1e12)
 
 
 format.period <- function(x, ...){
