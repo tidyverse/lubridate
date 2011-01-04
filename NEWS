@@ -9,7 +9,7 @@ NEW FEATURES
 
 BUG FIXES
 
-* lubridate no longer overwrites months(), start(), and end() from base R. Start and end have been replaced ith int_start() and int_end(). 
+* lubridate no longer overwrites months(), start(), and end() from base R. Start and end have been replaced with int_start() and int_end(). 
 
 * lubridate imports plyr and stringr packages, instead of depending on them.
 
