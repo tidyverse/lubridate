@@ -480,7 +480,7 @@ find_separator <- function(x) {
   x <- as.character(x)
   chars <- unlist(strsplit(x, ""))
   
-  alpha <- c(LETTERS, letters, 0:9)
+  alpha <- c(0:9)
   nonalpha <- setdiff(chars, alpha)
   if (length(nonalpha) == 0) nonalpha <- ""
   nonalpha
