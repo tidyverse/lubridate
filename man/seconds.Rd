@@ -35,20 +35,20 @@
 \alias{m}
 \alias{w}
 \alias{d}
+\alias{milliseconds}
+\alias{microseconds}
+\alias{microseconds}
+\alias{nanoseconds}
+\alias{picoseconds}
 \value{a period object}
-\seealso{\code{\link{period}}, \code{\link{new_period}}, \code{\link{edays}}}
+\seealso{\code{\link{period}}, \code{\link{new_period}}, \code{\link{ddays}}}
 \keyword{chron}
 \keyword{manip}
 \arguments{
   \item{x}{numeric value of the number of units to be contained in the period. With the exception 
 of seconds(), x must be an integer.}
 }
-\examples{eseconds(1) 
-# Time difference of 1 secs
-eminutes(3.5) 
-# Time difference of 3.5 mins
-
-x <- as.POSIXct("2009-08-03") 
+\examples{x <- as.POSIXct("2009-08-03") 
 # "2009-08-03 CDT"
 x + days(1) + hours(6) + minutes(30)
 # "2009-08-04 06:30:00 CDT"

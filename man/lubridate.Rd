@@ -58,9 +58,9 @@
   \code{\link{day}}, \code{\link{yday}},
   \code{\link{mday}}, \code{\link{wday}},
   \code{\link{week}}, \code{\link{month}},
-  \code{\link{year}}, \code{\link{tz}}, and \code{\link{dst}}.  
-  Note: the accessor functions
-  are named after the singular form of an element. They
+  \code{\link{year}}, \code{\link{tz}}, and
+  \code{\link{dst}}.  Note: the accessor functions are
+  named after the singular form of an element. They
   shouldn't be confused with the period helper functions
   that have the plural form of the units as a name (e.g,
   \code{\link{seconds}}).

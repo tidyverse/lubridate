@@ -31,6 +31,14 @@
 \alias{ddays}
 \alias{dweeks}
 \alias{dyears}
+\alias{dmilliseconds}
+\alias{emilliseconds}
+\alias{dmicroseconds}
+\alias{emicroseconds}
+\alias{dnanoseconds}
+\alias{enanoseconds}
+\alias{dpicoseconds}
+\alias{epicoseconds}
 \value{a duration object}
 \seealso{\code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}}
 \keyword{chron}
