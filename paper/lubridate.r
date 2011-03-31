@@ -130,7 +130,7 @@ str(lakers$date)
 
 library(ggplot2)
 qplot(date, 0, data = lakers, colour = game_type) 
-qplot(wday(date, label = TRUE), data = lakers, geom = "histogram") 
+qplot(wday(date, label = TRUE, abbr = FALSE), data = lakers, geom = "histogram") 
 lakers$time <- ms(lakers$time) 
 lakers$time <- as.duration(lakers$time) 
 lakers$time <- dminutes(c(12, 24, 36, 48, 53)[lakers$period]) - 
