@@ -5,52 +5,53 @@ Database file #1: lubridate.bib
 Warning--entry type for "boost" isn't style-file defined
 --line 12 of file lubridate.bib
 Warning--entry type for "bball" isn't style-file defined
---line 43 of file lubridate.bib
+--line 44 of file lubridate.bib
 Warning--entry type for "runts" isn't style-file defined
---line 53 of file lubridate.bib
+--line 54 of file lubridate.bib
 Warning--entry type for "jodatime" isn't style-file defined
---line 64 of file lubridate.bib
+--line 66 of file lubridate.bib
+Warning--I didn't find a database entry for "timeDate"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--missing institution in fowler
-You've used 17 entries,
+You've used 16 entries,
             3179 wiz_defined-function locations,
-            732 strings with 7408 characters,
-and the built_in function-call counts, 11479 in all, are:
-= -- 988
-> -- 257
+            731 strings with 7371 characters,
+and the built_in function-call counts, 10328 in all, are:
+= -- 889
+> -- 223
 < -- 16
-+ -- 98
-- -- 81
-* -- 874
-:= -- 1637
-add.period$ -- 62
-call.type$ -- 17
-change.case$ -- 103
-chr.to.int$ -- 17
-cite$ -- 18
-duplicate$ -- 1076
-empty$ -- 1041
-format.name$ -- 128
-if$ -- 2314
++ -- 85
+- -- 69
+* -- 765
+:= -- 1476
+add.period$ -- 59
+call.type$ -- 16
+change.case$ -- 98
+chr.to.int$ -- 16
+cite$ -- 17
+duplicate$ -- 969
+empty$ -- 932
+format.name$ -- 113
+if$ -- 2079
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 146
-newline$ -- 100
-num.names$ -- 68
-pop$ -- 359
+missing$ -- 138
+newline$ -- 95
+num.names$ -- 64
+pop$ -- 334
 preamble$ -- 1
-purify$ -- 94
+purify$ -- 87
 quote$ -- 0
-skip$ -- 291
+skip$ -- 273
 stack$ -- 0
-substring$ -- 921
-swap$ -- 304
+substring$ -- 786
+swap$ -- 286
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 150
+type$ -- 141
 warning$ -- 1
-while$ -- 81
+while$ -- 74
 width$ -- 0
-write$ -- 234
-(There were 5 warnings)
+write$ -- 224
+(There were 6 warnings)

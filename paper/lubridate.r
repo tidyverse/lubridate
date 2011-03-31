@@ -3,7 +3,7 @@
 
 # Run below code to get started
 # install.packages("lubridate")
-# library(lubridate)
+library(lubridate)
 
 # Section 2. Motivation
 # base R methods:
@@ -112,24 +112,25 @@ dst_time + dhours(2)  #"2010-03-14 04:59:59 CDT"
 ## Section 9.1. Thanksgiving
 date <- ymd("2010-01-01")  #"2010-01-01 UTC"
 month(date) <- 11  #"2010-11-01 UTC" 
-wday(date, label = T, abbr = F)  #Monday 
+wday(date, label = TRUE, abbr = FALSE)  #Monday 
 date <- date + days(3)  #"2010-11-04 UTC" 
-wday(date, label = T, abbr = F)  #Thursday 
+wday(date, label = TRUE, abbr = FALSE)  #Thursday 
 date + weeks(3)  #"2010-11-25 UTC" 
 
 ## Section 9.2. Memorial Day
 date <- ymd("2010-01-01")  #"2010-01-01 UTC" 
 month(date) <- 5  #"2010-05-01 UTC" 
 date <- ceiling_date(date, "month") - days(1)  #"2010-05-31 UTC" 
-wday(date, label = T, abbr = F)  #Monday 
+wday(date, label = TRUE, abbr = FALSE)  #Monday 
 
 # Section 10. Case study 2
 str(lakers$date)
 lakers$date <- ymd(lakers$date) 
 str(lakers$date) 
-# library(ggplot2)
+
+library(ggplot2)
 qplot(date, 0, data = lakers, colour = game_type) 
-qplot(wday(date, label = T), data = lakers, geom = "histogram") 
+qplot(wday(date, label = TRUE), data = lakers, geom = "histogram") 
 lakers$time <- ms(lakers$time) 
 lakers$time <- as.duration(lakers$time) 
 lakers$time <- dminutes(c(12, 24, 36, 48, 53)[lakers$period]) - 

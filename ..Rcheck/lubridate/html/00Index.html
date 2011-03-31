@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Make dealing with dates a little easier</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="../../../doc/html/R.css">
+</head><body>
+<h1> Make dealing with dates a little easier
+<img class="toplogo" src="../../../doc/html/logo.jpg" alt="[R logo]"></h1>
+</h1>
+<hr>
+<div align="center">
+<a href="../../../doc/html/packages.html"><img src="../../../doc/html/left.jpg" alt="[Up]" width="30" height="30" border="0"></a>
+<a href="../../../doc/html/index.html"><img src="../../../doc/html/up.jpg" alt="[Top]" width="30" height="30" border="0"></a>
+</div><h2>Documentation for package &lsquo;lubridate&rsquo; version 0.2.3</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">Overview of user guides and package vignettes</a>; browse <a href="../doc">directory</a>.</li>
+<li><a href="../NEWS">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<p align="center">
+<a href="#A">A</a>
+<a href="#C">C</a>
+<a href="#D">D</a>
+<a href="#E">E</a>
+<a href="#F">F</a>
+<a href="#H">H</a>
+<a href="#I">I</a>
+<a href="#L">L</a>
+<a href="#M">M</a>
+<a href="#N">N</a>
+<a href="#O">O</a>
+<a href="#P">P</a>
+<a href="#R">R</a>
+<a href="#S">S</a>
+<a href="#T">T</a>
+<a href="#W">W</a>
+<a href="#Y">Y</a>
+</p>
+
+
+<h2><a name="A">-- A --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="add_dates.html">add_dates</a></td>
+<td>Adding date-time objects...</td></tr>
+<tr><td width="25%"><a href="add_epoch_to_date.html">add_epoch_to_date</a></td>
+<td>Add epochs to dates...</td></tr>
+<tr><td width="25%"><a href="am.html">am</a></td>
+<td>Does date time occur in the am or pm?</td></tr>
+<tr><td width="25%"><a href="as.duration.html">as.duration</a></td>
+<td>Change an object to a duration (difftime).</td></tr>
+<tr><td width="25%"><a href="as.interval.html">as.interval</a></td>
+<td>Change an object to an interval.</td></tr>
+<tr><td width="25%"><a href="as.period.html">as.period</a></td>
+<td>Change an object to a period.</td></tr>
+</table>
+
+<h2><a name="C">-- C --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="ceiling_date.html">ceiling_date</a></td>
+<td>Round date-times up.</td></tr>
+</table>
+
+<h2><a name="D">-- D --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="seconds.html">d</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="DateUpdate.html">DateUpdate</a></td>
+<td>Changes the components of a date object...</td></tr>
+<tr><td width="25%"><a href="yday.html">day</a></td>
+<td>Get/set days component of a date-time.</td></tr>
+<tr><td width="25%"><a href="yday.html">day&lt;-</a></td>
+<td>Get/set days component of a date-time.</td></tr>
+<tr><td width="25%"><a href="seconds.html">days</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">ddays</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="decimal_date.html">decimal_date</a></td>
+<td>Converts a date to a decimal of its year.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dhours</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dmicroseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dmilliseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dminutes</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="ymd.html">dmy</a></td>
+<td>Parse dates according to the order that year, month, and day elements</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">dmy_h</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">dmy_hm</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">dmy_hms</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dnanoseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dpicoseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dst.html">dst</a></td>
+<td>Get Daylight Savings Time indicator of a date-time.</td></tr>
+<tr><td width="25%"><a href="duration.html">dur</a></td>
+<td>Description of time span classes in lubridate.</td></tr>
+<tr><td width="25%"><a href="duration.html">duration</a></td>
+<td>Description of time span classes in lubridate.</td></tr>
+<tr><td width="25%"><a href="duration.html">durations</a></td>
+<td>Description of time span classes in lubridate.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dweeks</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">dyears</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="ymd.html">dym</a></td>
+<td>Parse dates according to the order that year, month, and day elements</td></tr>
+</table>
+
+<h2><a name="E">-- E --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="dseconds.html">edays</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">ehours</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">emicroseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">emilliseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">eminutes</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">enanoseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">epicoseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">eseconds</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">eweeks</a></td>
+<td>Quickly create exact time spans.</td></tr>
+<tr><td width="25%"><a href="dseconds.html">eyears</a></td>
+<td>Quickly create exact time spans.</td></tr>
+</table>
+
+<h2><a name="F">-- F --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="floor_date.html">floor_date</a></td>
+<td>Round date-times down.</td></tr>
+<tr><td width="25%"><a href="force_tz.html">force_tz</a></td>
+<td>Replace time zone to create new date-time...</td></tr>
+<tr><td width="25%"><a href="sundays.html">fridays</a></td>
+<td>Quickly create common epoch objects...</td></tr>
+</table>
+
+<h2><a name="H">-- H --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="hm.html">hm</a></td>
+<td>Create a period with the specified number of hours and minutes...</td></tr>
+<tr><td width="25%"><a href="hms.html">hms</a></td>
+<td>Create a period with the specified hours, minutes, and seconds...</td></tr>
+<tr><td width="25%"><a href="hour.html">hour</a></td>
+<td>Get/set hours component of a date-time.</td></tr>
+<tr><td width="25%"><a href="hour.html">hour&lt;-</a></td>
+<td>Get/set hours component of a date-time.</td></tr>
+<tr><td width="25%"><a href="seconds.html">hours</a></td>
+<td>Quickly create relative timespans.</td></tr>
+</table>
+
+<h2><a name="I">-- I --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="is.instant.html">instant</a></td>
+<td>Is x a date-time object?</td></tr>
+<tr><td width="25%"><a href="is.instant.html">instants</a></td>
+<td>Is x a date-time object?</td></tr>
+<tr><td width="25%"><a href="duration.html">interval</a></td>
+<td>Description of time span classes in lubridate.</td></tr>
+<tr><td width="25%"><a href="duration.html">intervals</a></td>
+<td>Description of time span classes in lubridate.</td></tr>
+<tr><td width="25%"><a href="int_end.html">int_end</a></td>
+<td>Access and change the end date of an interval...</td></tr>
+<tr><td width="25%"><a href="int_end.html">int_end&lt;-</a></td>
+<td>Access and change the end date of an interval...</td></tr>
+<tr><td width="25%"><a href="int_start.html">int_start</a></td>
+<td>Access and change the start date of an interval...</td></tr>
+<tr><td width="25%"><a href="int_start.html">int_start&lt;-</a></td>
+<td>Access and change the start date of an interval...</td></tr>
+<tr><td width="25%"><a href="is.Date.html">is.Date</a></td>
+<td>Is x a Date object?</td></tr>
+<tr><td width="25%"><a href="is.difftime.html">is.difftime</a></td>
+<td>Is x a difftime object?</td></tr>
+<tr><td width="25%"><a href="is.duration.html">is.duration</a></td>
+<td>Is x a duration object?</td></tr>
+<tr><td width="25%"><a href="is.instant.html">is.instant</a></td>
+<td>Is x a date-time object?</td></tr>
+<tr><td width="25%"><a href="is.interval.html">is.interval</a></td>
+<td>Is x an interval object?</td></tr>
+<tr><td width="25%"><a href="is.period.html">is.period</a></td>
+<td>Is x a period object?</td></tr>
+<tr><td width="25%"><a href="is.POSIXt.html">is.POSIXct</a></td>
+<td>Is x a POSIXct or POSIXlt object?</td></tr>
+<tr><td width="25%"><a href="is.POSIXt.html">is.POSIXlt</a></td>
+<td>Is x a POSIXct or POSIXlt object?</td></tr>
+<tr><td width="25%"><a href="is.POSIXt.html">is.POSIXt</a></td>
+<td>Is x a POSIXct or POSIXlt object?</td></tr>
+<tr><td width="25%"><a href="is.instant.html">is.timepoint</a></td>
+<td>Is x a date-time object?</td></tr>
+<tr><td width="25%"><a href="is.timespan.html">is.timespan</a></td>
+<td>Is x a length of time?</td></tr>
+</table>
+
+<h2><a name="L">-- L --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="lakers.html">lakers</a></td>
+<td>Lakers 2008-2009 basketball data set...</td></tr>
+<tr><td width="25%"><a href="leap_year.html">leap_year</a></td>
+<td>Is a year a leap year?</td></tr>
+<tr><td width="25%"><a href="lubridate.html">lubridate</a></td>
+<td>Dates and times made easy with lubridate...</td></tr>
+</table>
+
+<h2><a name="M">-- M --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="seconds.html">m</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="make_difftime.html">make_difftime</a></td>
+<td>Makes a difftime object from a given number of seconds...</td></tr>
+<tr><td width="25%"><a href="yday.html">mday</a></td>
+<td>Get/set days component of a date-time.</td></tr>
+<tr><td width="25%"><a href="yday.html">mday&lt;-</a></td>
+<td>Get/set days component of a date-time.</td></tr>
+<tr><td width="25%"><a href="ymd.html">mdy</a></td>
+<td>Parse dates according to the order that year, month, and day elements</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">mdy_h</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">mdy_hm</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">mdy_hms</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="seconds.html">microseconds</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="seconds.html">milliseconds</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="minute.html">minute</a></td>
+<td>Get/set minutes component of a date-time.</td></tr>
+<tr><td width="25%"><a href="minute.html">minute&lt;-</a></td>
+<td>Get/set minutes component of a date-time.</td></tr>
+<tr><td width="25%"><a href="seconds.html">minutes</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="sundays.html">mondays</a></td>
+<td>Quickly create common epoch objects...</td></tr>
+<tr><td width="25%"><a href="month.html">month</a></td>
+<td>Get/set months component of a date-time.</td></tr>
+<tr><td width="25%"><a href="month.html">month&lt;-</a></td>
+<td>Get/set months component of a date-time.</td></tr>
+<tr><td width="25%"><a href="ms.html">ms</a></td>
+<td>Create a period with the specified number of minutes and seconds...</td></tr>
+<tr><td width="25%"><a href="ymd.html">myd</a></td>
+<td>Parse dates according to the order that year, month, and day elements</td></tr>
+</table>
+
+<h2><a name="N">-- N --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="seconds.html">nanoseconds</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="new_difftime.html">new_difftime</a></td>
+<td>Create a difftime object.</td></tr>
+<tr><td width="25%"><a href="new_duration.html">new_duration</a></td>
+<td>Create a duration object.</td></tr>
+<tr><td width="25%"><a href="new_epoch.html">new_epoch</a></td>
+<td>Create an epoch object...</td></tr>
+<tr><td width="25%"><a href="new_interval.html">new_interval</a></td>
+<td>Create an interval object.</td></tr>
+<tr><td width="25%"><a href="new_period.html">new_period</a></td>
+<td>Create a period object.</td></tr>
+<tr><td width="25%"><a href="now.html">now</a></td>
+<td>The current time...</td></tr>
+</table>
+
+<h2><a name="O">-- O --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="origin.html">origin</a></td>
+<td>1970-01-01 GMT...</td></tr>
+</table>
+
+<h2><a name="P">-- P --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="lubridate.html">package-lubridate</a></td>
+<td>Dates and times made easy with lubridate...</td></tr>
+<tr><td width="25%"><a href="parse_date.html">parse_date</a></td>
+<td>Change dates into a POSIXct format...</td></tr>
+<tr><td width="25%"><a href="duration.html">period</a></td>
+<td>Description of time span classes in lubridate.</td></tr>
+<tr><td width="25%"><a href="duration.html">periods</a></td>
+<td>Description of time span classes in lubridate.</td></tr>
+<tr><td width="25%"><a href="seconds.html">picoseconds</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="am.html">pm</a></td>
+<td>Does date time occur in the am or pm?</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.dates</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.day</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.hour</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.min</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.month</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.point</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.sec</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.unit</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+<tr><td width="25%"><a href="pretty.dates.html">pretty.year</a></td>
+<td>Computes attractive axis breaks for date-time data...</td></tr>
+</table>
+
+<h2><a name="R">-- R --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="round_date.html">round_date</a></td>
+<td>Rounding for date-times.</td></tr>
+</table>
+
+<h2><a name="S">-- S --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="sundays.html">saturdays</a></td>
+<td>Quickly create common epoch objects...</td></tr>
+<tr><td width="25%"><a href="second.html">second</a></td>
+<td>Get/set seconds component of a date-time.</td></tr>
+<tr><td width="25%"><a href="second.html">second&lt;-</a></td>
+<td>Get/set seconds component of a date-time.</td></tr>
+<tr><td width="25%"><a href="seconds.html">seconds</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="subtract_dates.html">subtract_dates</a></td>
+<td>Subtracting date-time objects...</td></tr>
+<tr><td width="25%"><a href="sundays.html">sundays</a></td>
+<td>Quickly create common epoch objects...</td></tr>
+</table>
+
+<h2><a name="T">-- T --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="sundays.html">thursdays</a></td>
+<td>Quickly create common epoch objects...</td></tr>
+<tr><td width="25%"><a href="is.instant.html">timepoint</a></td>
+<td>Is x a date-time object?</td></tr>
+<tr><td width="25%"><a href="duration.html">timespans</a></td>
+<td>Description of time span classes in lubridate.</td></tr>
+<tr><td width="25%"><a href="today.html">today</a></td>
+<td>The current date...</td></tr>
+<tr><td width="25%"><a href="sundays.html">tuesdays</a></td>
+<td>Quickly create common epoch objects...</td></tr>
+<tr><td width="25%"><a href="tz.html">tz</a></td>
+<td>Get/set time zone component of a date-time.</td></tr>
+<tr><td width="25%"><a href="tz.html">tz&lt;-</a></td>
+<td>Get/set time zone component of a date-time.</td></tr>
+</table>
+
+<h2><a name="W">-- W --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="seconds.html">w</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="wday.html">wday</a></td>
+<td>Get/set days component of a date-time.</td></tr>
+<tr><td width="25%"><a href="wday.html">wday&lt;-</a></td>
+<td>Get/set days component of a date-time.</td></tr>
+<tr><td width="25%"><a href="sundays.html">wednesdays</a></td>
+<td>Quickly create common epoch objects...</td></tr>
+<tr><td width="25%"><a href="week.html">week</a></td>
+<td>Get/set weeks component of a date-time.</td></tr>
+<tr><td width="25%"><a href="week.html">week&lt;-</a></td>
+<td>Get/set weeks component of a date-time.</td></tr>
+<tr><td width="25%"><a href="seconds.html">weeks</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="with_tz.html">with_tz</a></td>
+<td>Get date-time in a different time zone...</td></tr>
+</table>
+
+<h2><a name="Y">-- Y --</a></h2>
+
+<table width="100%">
+<tr><td width="25%"><a href="seconds.html">y</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="yday.html">yday</a></td>
+<td>Get/set days component of a date-time.</td></tr>
+<tr><td width="25%"><a href="yday.html">yday&lt;-</a></td>
+<td>Get/set days component of a date-time.</td></tr>
+<tr><td width="25%"><a href="ymd.html">ydm</a></td>
+<td>Parse dates according to the order that year, month, and day elements</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">ydm_h</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">ydm_hm</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">ydm_hms</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="year.html">year</a></td>
+<td>Get/set years component of a date-time.</td></tr>
+<tr><td width="25%"><a href="year.html">year&lt;-</a></td>
+<td>Get/set years component of a date-time.</td></tr>
+<tr><td width="25%"><a href="ymd.html">yearmonthdate</a></td>
+<td>Parse dates according to the order that year, month, and day elements</td></tr>
+<tr><td width="25%"><a href="seconds.html">years</a></td>
+<td>Quickly create relative timespans.</td></tr>
+<tr><td width="25%"><a href="ymd.html">ymd</a></td>
+<td>Parse dates according to the order that year, month, and day elements</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">ymd_h</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">ymd_hm</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+<tr><td width="25%"><a href="ymd_hms.html">ymd_hms</a></td>
+<td>Parse dates that have hours, minutes, or seconds elements...</td></tr>
+</table>
+</body></html>

@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{16}
 \newcommand{\enquote}[1]{``#1''}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
@@ -16,20 +16,20 @@ Armstrong W (2009).
 \newblock R package version 0.7.6,
   \urlprefix\url{http://CRAN.R-project.org/package=fts}.
 
-\bibitem[{Colebourne and O'Neill(2006)}]{jodatime}
-Colebourne S, O'Neill BS (2006).
-\newblock \enquote{\pkg{Joda-Time}.}
-\newblock \urlprefix\url{http://joda-time.sourceforge.net/}.
+\bibitem[{Colebourne and O'Neill(2010)}]{jodatime}
+Colebourne S, O'Neill BS (2010).
+\newblock \enquote{\pkg{Joda-Time} -- \proglang{Java} Date and Time API.}
+\newblock Release~1.6.2, \urlprefix\url{http://joda-time.sourceforge.net/}.
 
 \bibitem[{Fowler(1997)}]{fowler}
 Fowler M (1997).
 \newblock \enquote{Recurring Events for Calendars.}
 \newblock \emph{Technical report}.
 
-\bibitem[{Garland(2005)}]{boost}
-Garland J (2005).
-\newblock \enquote{\pkg{Boost.Date$\_$Time}.}
-\newblock \urlprefix\url{http://www.boost.org/}.
+\bibitem[{Garland(2011)}]{boost}
+Garland J (2011).
+\newblock \enquote{\pkg{Boost.Date$\_$Time} -- \proglang{C++} library.}
+\newblock Release~1.46.1, \urlprefix\url{http://www.boost.org/}.
 
 \bibitem[{Grothendieck and Petzoldt(2004)}]{Rnews}
 Grothendieck G, Petzoldt T (2004).
@@ -51,12 +51,13 @@ James D, Hornik K (2010).
 
 \bibitem[{Lipper(2008)}]{runts}
 Lipper M (2008).
-\newblock \enquote{\pkg{runt}.}
-\newblock \urlprefix\url{http://runt.rubyforge.org/}.
+\newblock \enquote{\pkg{runt} -- \proglang{Ruby} Temporal Expressions.}
+\newblock Release~0.7.0, \urlprefix\url{http://runt.rubyforge.org/}.
 
 \bibitem[{Parker(2010)}]{bball}
 Parker RJ (2010).
-\newblock \enquote{Basketball Geek.}
+\newblock \enquote{Basketball Geek: Advancing Our Understanding of the Game of
+  Basketball.}
 \newblock \urlprefix\url{http://www.basketballgeek.com/data/}.
 
 \bibitem[{{Portfolio and Risk Advisory Group, Commerzbank
@@ -97,15 +98,6 @@ Wuertz D, Chalabi Y (2010).
 \newblock \emph{\pkg{timeSeries}: Rmetrics - Financial Time Series Objects}.
 \newblock R package version 2110.87,
   \urlprefix\url{http://CRAN.R-project.org/package=timeSeries}.
-
-\bibitem[{Wuertz \emph{et~al.}(2010)Wuertz, with contributions~from
-  Martin~Maechler, Byers \emph{et~al.}}]{fCalendar}
-Wuertz D, with contributions~from Martin~Maechler YC, Byers JW, \emph{et~al.}
-  (2010).
-\newblock \emph{\pkg{timeDate}: Rmetrics - Chronological and Calendarical
-  Objects}.
-\newblock R package version 2110.88,
-  \urlprefix\url{http://CRAN.R-project.org/package=timeDate}.
 
 \bibitem[{Zeileis and Grothendieck(2005)}]{zoo}
 Zeileis A, Grothendieck G (2005).
