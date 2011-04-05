@@ -1,7 +1,7 @@
 Package: lubridate
 Type: Package
 Title: Make dealing with dates a little easier
-Version: 0.2.3
+Version: 0.2.4
 Author: Garrett Grolemund <grolemund@rice.edu>, Hadley
     Wickham <h.wickham@gmail.com>
 Maintainer: Garrett Grolemund <grolemund@rice.edu>
