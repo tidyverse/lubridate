@@ -255,15 +255,15 @@ as.period.interval <- function(x){
   to.per$hour[nhous] <- 24 + to.per$hour[nhous]
   to.per$day[nhous] <- to.per$day[nhous] - 1
   
-  nmons <- to.per$month < 0
-  to.per$month[nmons] <- 12 + to.per$month[nmons]
-  to.per$year[nmons] <- to.per$year[nmons] - 1
-  
   day.no <- floor_date(end, "month") - days(1)
   day.no <- day.no$mday
   ndays <- to.per$day < 0
   to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
   to.per$month[ndays] <- to.per$month[ndays] - 1
+  
+  nmons <- to.per$month < 0
+  to.per$month[nmons] <- 12 + to.per$month[nmons]
+  to.per$year[nmons] <- to.per$year[nmons] - 1
   
   structure(to.per[,c(6:1)], class = c("period", "data.frame"))
 }
