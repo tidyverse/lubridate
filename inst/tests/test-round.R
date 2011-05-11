@@ -149,8 +149,7 @@ test_that("floor_date works for a variety of formats",{
   expect_that(floor_date(as.Date(x), "month"), equals(
     as.Date("2009-08-01"), tz = "UTC"))
   expect_that(floor_date(as.POSIXlt(x), "minute"), equals(
-    as.POSIXlt(as.POSIXct("2009-08-03 12:01:00"), tz = 
-    "UTC")))
+    as.POSIXlt(as.POSIXct("2009-08-03 12:01:00", tz = "UTC"))))
 })
 
 test_that("ceiling_date works for a variety of formats",{
