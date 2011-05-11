@@ -80,10 +80,10 @@ make_format <- function(order) {
 #' second format to POSIXct objects. ymd_hms() type functions recognize all non-alphanumeric 
 #' separators of length 1 with the exception of ".". ymd_hms() functions automatically
 #' assigns the Universal Coordinated Time Zone (UTC) to the parsed date. This time 
-#' zone can be changed with \code{\link{force_tz}}.
+#' zone can be changed with \code{\link{force_tz}}. ymdThms() specifically handles combined dates and times written in the ISO 8601 format.
 #'
-#' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h
-#' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h
+#' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
+#' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
 #' @param ... a character vector of dates in year, month, day, hour, minute, 
 #'   second format 
 #' @return a vector of POSIXct date-time objects
@@ -102,6 +102,26 @@ ymd_hms <- function(...){
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
+      stringsAsFactors = FALSE)
+    date <- ymd(parts[1,])
+    time <- hms(parts[2,])
+  }
+  
+  else{
+    breaks <- as.data.frame(gregexpr(seps, dates))
+    breaks <- as.numeric(breaks[3,])
+    date <- ymd(substr(dates, 1, breaks-1))
+    time <- hms(substr(dates, breaks + 1, nchar(dates)))
+  }
+  date + time
+}
+
+ymdThms <- function(...){
+  dates <- unlist(list(...))
+  seps <- find_separator_T(dates)
+  
+  if(length(seps) >= 2){
+    parts <- as.data.frame(str_split(dates, "T"),
       stringsAsFactors = FALSE)
     date <- ymd(parts[1,])
     time <- hms(parts[2,])
@@ -480,9 +500,20 @@ find_separator <- function(x) {
   x <- as.character(x)
   chars <- unlist(strsplit(x, ""))
   
-  alpha <- c(0:9)
+  alpha <- c(LETTERS, letters, 0:9)
   nonalpha <- setdiff(chars, alpha)
   if (length(nonalpha) == 0) nonalpha <- ""
+  nonalpha
+}
+
+find_separator_T <- function(x) {
+  x <- as.character(x)
+  chars <- unlist(strsplit(x, ""))
+  
+  alpha <- c(LETTERS, letters, 0:9)
+  nonalpha <- setdiff(chars, alpha)
+  nonalpha <- c(nonalpha, "T")
+  if (length(nonalpha) == 1) nonalpha <- ""
   nonalpha
 }
 

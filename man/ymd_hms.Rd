@@ -14,7 +14,8 @@
   exception of ".". ymd_hms() functions automatically
   assigns the Universal Coordinated Time Zone (UTC) to the
   parsed date. This time zone can be changed with
-  \code{\link{force_tz}}.
+  \code{\link{force_tz}}. ymdThms() specifically handles
+  combined dates and times written in the ISO 8601 format.
 }
 \alias{ymd_hms}
 \alias{ymd_hm}
@@ -28,6 +29,7 @@
 \alias{ydm_hms}
 \alias{ydm_hm}
 \alias{ydm_h}
+\alias{ymdThms}
 \value{a vector of POSIXct date-time objects}
 \seealso{\code{\link{ymd}}, \code{\link{hms}}}
 \keyword{POSIXt}
