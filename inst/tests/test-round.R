@@ -39,6 +39,15 @@ test_that("ceiling_date works for each time element",{
   	"2010-01-01 00:00:00", tz = "UTC")))
 })
 
+test_that("ceiling_date works for irregular-sized units",{
+  x <- as.POSIXct("2009-01-31")
+
+  expect_that(ceiling_date(x, "month"),
+              equals(as.POSIXct("2009-02-01")))
+
+})
+
+
 test_that("round_date works for each time element",{
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz = 
   	"UTC")
