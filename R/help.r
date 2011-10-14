@@ -91,8 +91,8 @@
 #'
 #' Durations
 #'
-#' \code{\link{durations}} measure the exact time of span that 
-#' occurs between two instants. This can create 
+#' \code{\link{durations}} measure an exact amount of time in seconds.
+#' They are not linked to any particular instant.  This can create
 #' unexpected results if  a leap second, leap year, or change in 
 #' daylight savings time (DST) occurs in the interval. Duration 
 #' objects also inherit from the difftime class.
@@ -107,8 +107,12 @@
 #'
 #' Periods
 #'
-#' \code{\link{periods}} measure the change in clock time that 
-#' occurs between two instants. Periods provide robust predictions #' of clock time in the presence of leap seconds, leap years, and #' changes in DST.
+#' \code{\link{periods}} measure an abstract amount of time in
+#' various combinations of hours, minutes, seconds, years, months,
+#' and days.  Like durations, they are not linked to
+#' any particular instant.  Periods enable robust calculations
+#' of time in the presence of leap seconds, leap years, and
+#' changes in DST.
 #'
 #' Functions for working with periods include 
 #' \code{\link{is.period}}, \code{\link{as.period}} and 
