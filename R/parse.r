@@ -526,13 +526,14 @@ num_to_date <- function(x) {
 }
 
 
-guess_format <- function(x, formats, seps = c("-", "/", "")) {
+guess_format <- function(x, formats, seps = c("-", "/", ""), na.substitute = "NA") {
   
   if (is.list(formats))
     formats <- do.call(rbind, formats)
   else formats <- as.matrix(t(formats))
     
   with_seps <- combine(formats, seps)
+  with_seps[which(is.na(with_seps))] <- na.substitute
 
   fmts <- unlist(mlply(with_seps, paste))
   
