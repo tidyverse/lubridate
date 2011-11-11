@@ -1,18 +1,29 @@
 \name{ymd}
-\title{Parse dates according to the order that year, month, and day elements appear...}
-\usage{ymd(...)}
-
-\description{
-  Parse dates according to the order that year, month, and
-  day elements appear
+\alias{dmy}
+\alias{dym}
+\alias{mdy}
+\alias{myd}
+\alias{ydm}
+\alias{yearmonthdate}
+\alias{ymd}
+\title{Parse dates according to the order that year, month, and day elements appear}
+\usage{
+  ymd(...)
 }
-
-\details{
+\arguments{
+  \item{...}{a character or numeric vector of suspected
+  dates}
+}
+\value{
+  a vector of POSIXct date-time objects
+}
+\description{
   Transforms dates stored in character and numeric vectors
-  to POSIXct objects.  These functions automatically
+  to POSIXct objects. These functions automatically
   recognize the following separators: "-", "/", ".", and ""
   (i.e., no separators).
-
+}
+\details{
   Users should choose the function that models the order in
   which year(y), month(m), and date(d) appear in the dates.
   All inputed dates are considered to have the same order
@@ -22,20 +33,8 @@
   Coordinated Time Zone (UTC) to the parsed dates. This
   time zone can be changed with \code{\link{force_tz}}.
 }
-\alias{yearmonthdate}
-\alias{ymd}
-\alias{myd}
-\alias{dym}
-\alias{ydm}
-\alias{mdy}
-\alias{dmy}
-\value{a vector of POSIXct date-time objects}
-\seealso{\code{\link{parse_date}}}
-\keyword{chron}
-\arguments{
-  \item{...}{a character or numeric vector of suspected dates}
-}
-\examples{x <- c("09-01-01", "09-01-02", "09-01-03")
+\examples{
+x <- c("09-01-01", "09-01-02", "09-01-03")
 ymd(x)
 # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 z <- c("2009-01-01", "2009-01-02", "2009-01-03")
@@ -45,7 +44,13 @@ ymd(090101)
 # "2009-01-01 UTC"
 ymd(90101)
 # "2009-01-01 UTC"
-now() > ymd(20090101) 
+now() > ymd(20090101)
 # TRUE
 dmy(010210)
-mdy(010210)}
+mdy(010210)
+}
+\seealso{
+  \code{\link{parse_date}}
+}
+\keyword{chron}
+

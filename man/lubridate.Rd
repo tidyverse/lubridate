@@ -1,16 +1,15 @@
+\docType{package}
 \name{lubridate}
-\title{Dates and times made easy with lubridate...}
-
+\alias{lubridate}
+\alias{lubridate-package}
+\title{Dates and times made easy with lubridate}
 \description{
-  Dates and times made easy with lubridate
-}
-
-\details{
   Lubridate provides tools that make it easier to parse and
   manipulate dates. These tools are grouped below by common
   purpose. More information about each function can be
   found in #' its help documentation.
-
+}
+\details{
   Parsing dates
 
   Lubridate's parsing functions read strings into R as
@@ -41,12 +40,12 @@
   instants. \code{\link{is.Date}} tests whether an object
   inherits from the Date class. \code{\link{is.POSIXt}}
   tests whether an object inherits from the POSIXlt or
-  POSIXct classes.  \code{\link{is.instant}} tests whether
+  POSIXct classes. \code{\link{is.instant}} tests whether
   an object inherits from any of the three classes.
 
   \code{\link{now}} returns the current system time as a
   POSIXct object. \code{\link{today}} returns the current
-  system date.  For convenience, 1970-01-01 00:00:00 is
+  system date. For convenience, 1970-01-01 00:00:00 is
   saved to \code{\link{origin}}. This is the instant from
   which POSIXct times are calculated from.
 
@@ -59,10 +58,10 @@
   \code{\link{mday}}, \code{\link{wday}},
   \code{\link{week}}, \code{\link{month}},
   \code{\link{year}}, \code{\link{tz}}, and
-  \code{\link{dst}}.  Note: the accessor functions are
-  named after the singular form of an element. They
-  shouldn't be confused with the period helper functions
-  that have the plural form of the units as a name (e.g,
+  \code{\link{dst}}. Note: the accessor functions are named
+  after the singular form of an element. They shouldn't be
+  confused with the period helper functions that have the
+  plural form of the units as a name (e.g,
   \code{\link{seconds}}).
 
   Rounding dates
@@ -77,7 +76,7 @@
   time zones. \code{\link{with_tz}} changes the time zone
   in which an instant is displayed. The clock time
   displayed for the instant changes, but the moment of time
-  described remains the same.  \code{\link{force_tz}}
+  described remains the same. \code{\link{force_tz}}
   changes only the time zone element of an instant. The
   clock time displayed remains the same, but the resulting
   instant describes a new moment of time.
@@ -87,8 +86,8 @@
   A timespan is a length of time that may or not be
   connected to a particular instant. For example, three
   months or an hour and a half. Base R uses difftime class
-  objects to record timespans.  Lubridate creates three
-  more timespan classes, \code{\link{intervals}},
+  objects to record timespans. Lubridate creates three more
+  timespan classes, \code{\link{intervals}},
   \code{\link{periods}} and \code{\link{durations}}, to
   better navigate the nuances of time.
   \code{\link{is.difftime}} tests whether an object
@@ -157,9 +156,10 @@
   data set that contains information about the Los Angeles
   Lakers 2008-2009 basketball season.
 }
-\references{Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made
-Easy with lubridate. Journal of Statistical Software, 40(3), 1-25. 
-\url{http://www.jstatsoft.org/v40/i03/}.}
-\docType{package}
-\alias{lubridate}
-\alias{package-lubridate}
+\references{
+  Garrett Grolemund, Hadley Wickham (2011). Dates and Times
+  Made Easy with lubridate. Journal of Statistical
+  Software, 40(3), 1-25.
+  \url{http://www.jstatsoft.org/v40/i03/}.
+}
+

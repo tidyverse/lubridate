@@ -1,12 +1,8 @@
+\docType{data}
 \name{lakers}
 \alias{lakers}
-\title{Lakers 2008-2009 basketball data set...}
-
+\title{Lakers 2008-2009 basketball data set}
 \description{
-  Lakers 2008-2009 basketball data set
-}
-
-\details{
   This data set contains play by play statistics of each
   Los Angeles Lakers basketball game in the 2008-2009
   season. Data includes the date, opponent, and type of
@@ -17,6 +13,9 @@
   play, and the location on the court where each play was
   made.
 }
-\docType{data}
-\references{\url{http://www.basketballgeek.com/data/}}
+\references{
+  \url{http://www.basketballgeek.com/data/}
+}
 \keyword{data}
+\keyword{dataset}
+

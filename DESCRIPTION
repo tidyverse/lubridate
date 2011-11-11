@@ -1,5 +1,7 @@
 Package: lubridate
-Imports: plyr, stringr
+Imports:
+    plyr,
+    stringr
 Maintainer: Garrett Grolemund <grolemund@rice.edu>
 License: GPL
 Title: Make dealing with dates a little easier
@@ -18,12 +20,29 @@ Description: Lubridate makes it easier to work with dates
 Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries,
     fts, tseries
 Version: 0.2.5
-Depends: R (>= 2.8)
-Suggests: testthat
-Collate: 'accessors-day.r' 'accessors-hour.r'
-    'accessors-minute.r' 'accessors-misc.r'
-    'accessors-month.r' 'accessors-second.r'
-    'accessors-tz.r' 'accessors-week.r' 'accessors-year.r'
-    'coercion.r' 'durations.r' 'epochs.r' 'help.r'
-    'intervals.r' 'ops.durations.r' 'parse.r' 'periods.r'
-    'pretty.r' 'round.r' 'util.r' 'zzz.r'
+Depends:
+    R (>= 2.8)
+Suggests:
+    testthat
+Collate:
+    'accessors-day.r'
+    'accessors-hour.r'
+    'accessors-minute.r'
+    'accessors-misc.r'
+    'accessors-month.r'
+    'accessors-second.r'
+    'accessors-tz.r'
+    'accessors-week.r'
+    'accessors-year.r'
+    'coercion.r'
+    'durations.r'
+    'epochs.r'
+    'help.r'
+    'intervals.r'
+    'ops.durations.r'
+    'parse.r'
+    'periods.r'
+    'pretty.r'
+    'round.r'
+    'util.r'
+    'zzz.r'

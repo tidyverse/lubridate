@@ -1,12 +1,31 @@
 \name{seconds}
+\alias{d}
+\alias{days}
+\alias{hours}
+\alias{m}
+\alias{microseconds}
+\alias{milliseconds}
+\alias{minutes}
+\alias{nanoseconds}
+\alias{picoseconds}
+\alias{seconds}
+\alias{w}
+\alias{weeks}
+\alias{y}
+\alias{years}
 \title{Quickly create relative timespans.}
-\usage{seconds(x=1)}
-
-\description{
-  Quickly create relative timespans.
+\usage{
+  seconds(x = 1)
 }
-
-\details{
+\arguments{
+  \item{x}{numeric value of the number of units to be
+  contained in the period. With the exception of seconds(),
+  x must be an integer.}
+}
+\value{
+  a period object
+}
+\description{
   Quickly create period objects for easy date-time
   manipulation. The units of the period created depend on
   the name of the function called. For period objects,
@@ -16,7 +35,8 @@
   manipulations with clock times because units expand or
   contract in length to accomodate conventions such as leap
   years, leap seconds, and Daylight Savings Time.
-
+}
+\details{
   When paired with date-times, these functions allow
   date-times to be manipulated in a method similar to
   object oriented programming. Period objects can be added
@@ -25,47 +45,25 @@
   y, m, w, d are predefined period objects such that y = 1
   year, m = 1 month, w = 1 week, d = 1 day.
 }
-\alias{seconds}
-\alias{minutes}
-\alias{hours}
-\alias{days}
-\alias{weeks}
-\alias{years}
-\alias{y}
-\alias{m}
-\alias{w}
-\alias{d}
-\alias{milliseconds}
-\alias{microseconds}
-\alias{microseconds}
-\alias{nanoseconds}
-\alias{picoseconds}
-\value{a period object}
-\seealso{\code{\link{period}}, \code{\link{new_period}}, \code{\link{ddays}}}
-\keyword{chron}
-\keyword{manip}
-\arguments{
-  \item{x}{numeric value of the number of units to be contained in the period. With the exception 
-of seconds(), x must be an integer.}
-}
-\examples{x <- as.POSIXct("2009-08-03") 
+\examples{
+x <- as.POSIXct("2009-08-03")
 # "2009-08-03 CDT"
 x + days(1) + hours(6) + minutes(30)
 # "2009-08-04 06:30:00 CDT"
-x + days(100) - hours(8) 
+x + days(100) - hours(8)
 # "2009-11-10 15:00:00 CST"
 
 class(as.Date("2009-08-09") + days(1)) # retains Date class
 # "Date"
-as.Date("2009-08-09") + hours(12) 
+as.Date("2009-08-09") + hours(12)
 # "2009-08-09 12:00:00 UTC"
-class(as.Date("2009-08-09") + hours(12)) 
+class(as.Date("2009-08-09") + hours(12))
 # "POSIXt"  "POSIXct"
 # converts to POSIXt class to accomodate time units
 
-years(1) - months(7) 
+years(1) - months(7)
 # 1 year and -7 months
-c(1:3) * hours(1) 
+c(1:3) * hours(1)
 # 1 hour   2 hours   3 hours
 hours(1:3)
 # 1 hour   2 hours   3 hours
@@ -90,4 +88,12 @@ boundary <- as.POSIXct("2009-03-08 01:59:59")
 boundary + days(1) # period
 # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 boundary + edays(1) # duration
-# "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)}
+# "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
+}
+\seealso{
+  \code{\link{period}}, \code{\link{new_period}},
+  \code{\link{ddays}}
+}
+\keyword{chron}
+\keyword{manip}
+

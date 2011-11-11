@@ -1,17 +1,24 @@
 \name{am}
-\title{Does date time occur in the am or pm?}
-\usage{am(x)}
-
-\description{
-  Does date time occur in the am or pm?
-}
 \alias{am}
 \alias{pm}
-\value{TRUE or FALSE depending on whethe x occurs in the am or pm}
-\keyword{chron}
+\title{Does date time occur in the am or pm?}
+\usage{
+  am(x)
+}
 \arguments{
   \item{x}{a date-time object}
 }
-\examples{x <- now()
-am(x) 
-pm(x)}
+\value{
+  TRUE or FALSE depending on whethe x occurs in the am or
+  pm
+}
+\description{
+  Does date time occur in the am or pm?
+}
+\examples{
+x <- now()
+am(x)
+pm(x)
+}
+\keyword{chron}
+

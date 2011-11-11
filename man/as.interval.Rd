@@ -1,18 +1,26 @@
 \name{as.interval}
 \alias{as.interval}
 \title{Change an object to an interval.}
-\usage{as.interval(x, start)}
-
-\description{
-  Change an object to an interval.
+\usage{
+  as.interval(x, start)
 }
+\arguments{
+  \item{x}{a duration (i.e. difftime), period, or numeric
+  object that describes the length of the interval}
 
-\details{
+  \item{start}{a POSIXt or Date object that describes when
+  the interval begins}
+}
+\value{
+  an interval object
+}
+\description{
   as.interval changes difftime, duration, period and
   numeric objects to intervals that begin at the specified
   date-time. Numeric objects are first coerced to time
   spans equal to the numeric value in seconds.
-
+}
+\details{
   as.interval can be used to create accurate
   transformations between period objects, which measure
   time spans in variable length units, and difftime
@@ -23,18 +31,8 @@
   lasted for during the time span described. See
   \code{\link{as.duration}}, \code{\link{as.period}}.
 }
-\value{an interval object}
-\seealso{\code{\link{interval}}, \code{\link{new_interval}}}
-\keyword{classes}
-\keyword{manip}
-\keyword{methods}
-\keyword{chron}
-\arguments{
-  \item{x}{a duration (i.e. difftime), period, or numeric object that describes the length of the 
-interval}
-  \item{start}{a POSIXt or Date object that describes when the interval begins}
-}
-\examples{diff <- new_difftime(days = 31) #difftime
+\examples{
+diff <- new_difftime(days = 31) #difftime
 as.interval(diff, ymd("2009-01-01"))
 # 2009-01-01 -- 2009-02-01
 as.interval(diff, ymd("2009-02-01"))
@@ -48,9 +46,18 @@ as.interval(dur, ymd("2009-02-01"))
 
 per <- new_period(months = 1) #period
 as.interval(per, ymd("2009-01-01"))
-# 2009-01-01 -- 2009-02-01 
+# 2009-01-01 -- 2009-02-01
 as.interval(per, ymd("2009-02-01"))
 # 2009-02-01 -- 2009-03-01
 
 as.interval(3600, ymd("2009-01-01")) #numeric
-# 2009-01-01 -- 2009-01-01 01:00:00}
+# 2009-01-01 -- 2009-01-01 01:00:00
+}
+\seealso{
+  \code{\link{interval}}, \code{\link{new_interval}}
+}
+\keyword{chron}
+\keyword{classes}
+\keyword{manip}
+\keyword{methods}
+

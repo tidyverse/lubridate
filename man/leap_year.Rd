@@ -1,27 +1,29 @@
 \name{leap_year}
 \alias{leap_year}
 \title{Is a year a leap year?}
-\usage{leap_year(date)}
-
-\description{
-  Is a year a leap year?
+\usage{
+  leap_year(date)
 }
-
-\details{
+\arguments{
+  \item{date}{a date-time object or a year}
+}
+\value{
+  TRUE if x is a leap year, FALSE otherwise
+}
+\description{
   If x is a recognized date-time object, leap_year will
   return whether x occurs during a leap year. If x is a
   number, leap_year returns whether it would be a leap year
   under the Gregorian calendar.
 }
-\value{TRUE if x is a leap year, FALSE otherwise}
-\keyword{logic}
-\keyword{chron}
-\arguments{
-  \item{date}{a date-time object or a year}
-}
-\examples{x <- as.Date("2009-08-02")
+\examples{
+x <- as.Date("2009-08-02")
 leap_year(x) # FALSE
 leap_year(2009) # FALSE
 leap_year(2008) # TRUE
 leap_year(1900) # FALSE
-leap_year(2000) # TRUE}
+leap_year(2000) # TRUE
+}
+\keyword{chron}
+\keyword{logic}
+

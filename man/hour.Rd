@@ -1,28 +1,30 @@
 \name{hour}
+\alias{hour}
+\alias{hour<-}
 \title{Get/set hours component of a date-time.}
-\usage{hour(x)}
-
-\description{
-  Get/set hours component of a date-time.
+\usage{
+  hour(x)
 }
-
-\details{
+\arguments{
+  \item{x}{a date-time object}
+}
+\value{
+  the hours element of x as a decimal number
+}
+\description{
   Date-time must be a POSIXct, POSIXlt, Date, chron,
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
-\alias{hour}
-\alias{hour<-}
-\keyword{utilities}
-\keyword{manip}
-\keyword{chron}
-\keyword{methods}
-\value{the hours element of x as a decimal number}
-\arguments{
-  \item{x}{a date-time object}
-}
-\examples{x <- now()
+\examples{
+x <- now()
 hour(x)
 hour(x) <- 1
-hour(x) <- 61 
-hour(x) > 2}
+hour(x) <- 61
+hour(x) > 2
+}
+\keyword{chron}
+\keyword{manip}
+\keyword{methods}
+\keyword{utilities}
+

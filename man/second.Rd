@@ -1,28 +1,30 @@
 \name{second}
+\alias{second}
+\alias{second<-}
 \title{Get/set seconds component of a date-time.}
-\usage{second(x)}
-
-\description{
-  Get/set seconds component of a date-time.
+\usage{
+  second(x)
 }
-
-\details{
+\arguments{
+  \item{x}{a date-time object}
+}
+\value{
+  the seconds element of x as a decimal number
+}
+\description{
   Date-time must be a POSIXct, POSIXlt, Date, chron,
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
-\alias{second}
-\alias{second<-}
-\value{the seconds element of x as a decimal number}
-\keyword{utilities}
-\keyword{manip}
-\keyword{chron}
-\keyword{methods}
-\arguments{
-  \item{x}{a date-time object}
-}
-\examples{x <- now()
+\examples{
+x <- now()
 second(x)
 second(x) <- 1
-second(x) <- 61 
-second(x) > 2}
+second(x) <- 61
+second(x) > 2
+}
+\keyword{chron}
+\keyword{manip}
+\keyword{methods}
+\keyword{utilities}
+
