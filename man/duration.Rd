@@ -1,19 +1,23 @@
 \name{duration}
+\alias{dur}
+\alias{duration}
+\alias{durations}
+\alias{interval}
+\alias{intervals}
+\alias{period}
+\alias{periods}
+\alias{timespans}
 \title{Description of time span classes in lubridate.}
-
 \description{
-  Description of time span classes in lubridate.
-}
-
-\details{
   A time span can be measured in three ways: as a duration,
   an interval, or a period.
-
+}
+\details{
   Durations record the exact number of seconds in a time
   span. They measure the exact passage of time but do not
   always align with measurements made in larger units of
-  time such as hours, months and years.  This is because
-  the length of larger time units can be affected by
+  time such as hours, months and years. This is because the
+  length of larger time units can be affected by
   conventions such as leap years and Daylight Savings Time.
   Base R measures durations with the difftime class.
   lubridate provides an additional class, the duration
@@ -35,7 +39,7 @@
   \code{\link{dhours}}, \code{\link{dminutes}} and
   \code{\link{dseconds}}. These objects can be added to and
   subtracted from date- times to create a user interface
-  similar to object oriented programming.  Duration objects
+  similar to object oriented programming. Duration objects
   can be added to Date, POSIXt, and Interval objects.
 
   Periods record the change in the clock time between two
@@ -73,24 +77,11 @@
   automatically creates an interval object. An interval
   displays as the start and end points of the time span it
   represents. By default, the #' date-time that occurs
-  first is considered the start point.  Hence, intervals
-  are always positive.
+  first is considered the start point. Hence, intervals are
+  always positive.
 }
-\alias{duration}
-\alias{durations}
-\alias{dur}
-\alias{periods}
-\alias{period}
-\alias{interval}
-\alias{intervals}
-\alias{timespans}
-\seealso{\code{\link{new_duration}} for creating duration objects and
-\code{\link{as.duration}} for converting objects into durations, 
-\code{\link{new_interval}} for creating interval objects and
-\code{\link[lubridate]{as.interval}} for converting objects to intervals}
-\keyword{classes}
-\keyword{chron}
-\examples{new_duration(second = 3690)
+\examples{
+new_duration(second = 3690)
 # 3690s (1.02h)
 new_period(second = 3690)
 # 3690 seconds
@@ -108,7 +99,7 @@ date + edays(1)
 
 date2 <- as.POSIXct("2000-02-29 12:00:00")
 date2 + years(1)
-# "2001-02-28 12:00:00 CST" 
+# "2001-02-28 12:00:00 CST"
 # self corrects to most recent real day
 
 date3 <- as.POSIXct("2009-01-31 01:00:00")
@@ -120,14 +111,14 @@ date3 + c(0:11) * months(1)
 # [9] "2009-09-30 01:00:00 CDT" "2009-10-31 01:00:00 CDT"
 #[11] "2009-11-30 01:00:00 CST" "2009-12-31 01:00:00 CST"
 
-span <- date2 - date  #creates interval 
+span <- date2 - date  #creates interval
 # 2000-02-29 12:00:00 -- 2009-03-08 01:59:59
 span - days(294)
 # 2000-02-29 12:00:00 -- 2008-05-18 01:59:59
 span - ddays(294)
 # 2000-02-29 12:00:00 -- 2008-05-18 02:59:59
 
-date <- as.POSIXct("2009-01-01 00:00:00") 
+date <- as.POSIXct("2009-01-01 00:00:00")
 # "2009-01-01 GMT"
 date + years(1)
 # "2010-01-01 GMT"
@@ -137,4 +128,15 @@ date + 3 * seconds(10)
 # "2009-01-01 00:00:30 GMT"
 
 months(6) + days(1)
-# 6 months and 1 day}
+# 6 months and 1 day
+}
+\seealso{
+  \code{\link{new_duration}} for creating duration objects
+  and \code{\link{as.duration}} for converting objects into
+  durations, \code{\link{new_interval}} for creating
+  interval objects and \code{\link[lubridate]{as.interval}}
+  for converting objects to intervals
+}
+\keyword{chron}
+\keyword{classes}
+

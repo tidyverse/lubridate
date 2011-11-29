@@ -1,17 +1,21 @@
 \name{as.period}
 \alias{as.period}
 \title{Change an object to a period.}
-\usage{as.period(x)}
-
-\description{
-  Change an object to a period.
+\usage{
+  as.period(x)
 }
-
-\details{
+\arguments{
+  \item{x}{an interval, difftime, or numeric object}
+}
+\value{
+  a period object
+}
+\description{
   as.period changes interval, duration (i.e., difftime) and
   numeric objects to period objects with the specified
   units.
-
+}
+\details{
   Users must specify which time units to measure the period
   in. The length of each time unit in a period depends on
   when it occurs. See \code{\link{periods}}. The choice of
@@ -34,16 +38,17 @@
   first transform the duration to an interval with
   \code{\link{as.interval}}.
 }
-\value{a period object}
-\seealso{\code{\link{period}}, \code{\link{new_period}}}
+\examples{
+span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
+# [1] 2009-01-01 -- 2010-02-02 01:01:01
+as.period(span)
+# 1 year, 1 month, 1 day, 1 hour, 1 minute and 1 second
+}
+\seealso{
+  \code{\link{period}}, \code{\link{new_period}}
+}
+\keyword{chron}
 \keyword{classes}
 \keyword{manip}
 \keyword{methods}
-\keyword{chron}
-\arguments{
-  \item{x}{an interval, difftime, or numeric object}
-}
-\examples{span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
-# [1] 2009-01-01 -- 2010-02-02 01:01:01
-as.period(span)
-# 1 year, 1 month, 1 day, 1 hour, 1 minute and 1 second}
+

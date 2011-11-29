@@ -153,5 +153,5 @@
 #' @import plyr stringr
 #' @docType package
 #' @name lubridate
-#' @aliases lubridate package-lubridate
+#' @aliases lubridate lubridate-package
 NULL

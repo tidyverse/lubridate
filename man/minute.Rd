@@ -1,28 +1,30 @@
 \name{minute}
+\alias{minute}
+\alias{minute<-}
 \title{Get/set minutes component of a date-time.}
-\usage{minute(x)}
-
-\description{
-  Get/set minutes component of a date-time.
+\usage{
+  minute(x)
 }
-
-\details{
+\arguments{
+  \item{x}{a date-time object}
+}
+\value{
+  the minutes element of x as a decimal number
+}
+\description{
   Date-time must be a POSIXct, POSIXlt, Date, chron,
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
 }
-\alias{minute}
-\alias{minute<-}
-\keyword{utilities}
-\keyword{manip}
-\keyword{chron}
-\keyword{methods}
-\value{the minutes element of x as a decimal number}
-\arguments{
-  \item{x}{a date-time object}
-}
-\examples{x <- now()
+\examples{
+x <- now()
 minute(x)
 minute(x) <- 1
-minute(x) <- 61 
-minute(x) > 2}
+minute(x) <- 61
+minute(x) > 2
+}
+\keyword{chron}
+\keyword{manip}
+\keyword{methods}
+\keyword{utilities}
+

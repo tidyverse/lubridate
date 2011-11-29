@@ -1,20 +1,26 @@
 \name{today}
 \alias{today}
-\title{The current date...}
-\usage{today(tzone="")}
-
+\title{The current date}
+\usage{
+  today(tzone = "")
+}
+\arguments{
+  \item{tzone}{a character vector specifying which time
+  zone you would like to find the current date of. tzone
+  defaults to the system time zone set on your computer.}
+}
+\value{
+  the current date as a Date object
+}
 \description{
   The current date
 }
-\value{the current date as a Date object}
-\keyword{chron}
-\keyword{utilities}
-\arguments{
-  \item{tzone}{a character vector specifying which time zone you would like to 
-find the current date of. tzone defaults to the system time zone set on your 
-computer.}
-}
-\examples{today()
+\examples{
+today()
 today("GMT")
 today() == today("GMT") # not always true
-today() < as.Date("2999-01-01") # TRUE  (so far)}
+today() < as.Date("2999-01-01") # TRUE  (so far)
+}
+\keyword{chron}
+\keyword{utilities}
+

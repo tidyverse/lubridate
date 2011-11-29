@@ -1,16 +1,24 @@
 \name{tz}
+\alias{tz}
+\alias{tz<-}
 \title{Get/set time zone component of a date-time.}
-\usage{tz(x)}
-
-\description{
-  Get/set time zone component of a date-time.
+\usage{
+  tz(x)
 }
-
-\details{
+\arguments{
+  \item{x}{a date-time object}
+}
+\value{
+  the first element of x's tzone attribute vector as a
+  character string. If no tzone attribute exists, tz
+  returns "GMT".
+}
+\description{
   Date-time must be a POSIXct, POSIXlt, Date, chron,
   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
   jul, timeSeries, and fts objects.
-
+}
+\details{
   Setting tz does not update a date-time to display the
   same moment as measured at a different time zone. See
   \code{\link{with_tz}}. Setting a new time zone creates a
@@ -27,24 +35,20 @@
   For a description of the time zone attribute, see
   \code{\link[base]{DateTimeClasses}}.
 }
-\alias{tz}
-\alias{tz<-}
-\value{the first element of x's tzone attribute vector as a character string. If no tzone 
-attribute exists, tz returns "GMT".}
-\keyword{utilities}
-\keyword{manip}
-\keyword{chron}
-\keyword{methods}
-\arguments{
-  \item{x}{a date-time object}
-}
-\examples{x <- now()
-tz(x) 
-tz(x) <- "GMT"  
+\examples{
+x <- now()
+tz(x)
+tz(x) <- "GMT"
 x
 tz(x) <- "America/New_York"
 x
 Sys.setenv(TZ = "GMT")
 x
 tz(x)
-Sys.unsetenv("TZ")}
+Sys.unsetenv("TZ")
+}
+\keyword{chron}
+\keyword{manip}
+\keyword{methods}
+\keyword{utilities}
+
