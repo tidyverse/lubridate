@@ -322,5 +322,8 @@ rep.period <- function(x, ...){
 	
 c.period <- function(...){
 	pers <- list(...)
-	do.call(rbind, pers)
+	if (!all (sapply (pers, inherits, 'period') ) )
+		NextMethod('c') else
+		do.call(rbind, pers)
 }
+
