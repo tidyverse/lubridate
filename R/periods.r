@@ -327,3 +327,37 @@ c.period <- function(...){
 		do.call(rbind, pers)
 }
 
+
+Ops.period <- function (e1, e2) {
+	if (!inherits (e2, 'period') ) return (NextMethod (.Generic) )
+	if (!.Generic %in% c('==', '!=', '<=', '<', '>', '>='))# stop (sprintf ("%s not implemented for 'period' objects"), .Generic)
+		#                 stop(gettextf("'%s' not defined for \"period\" objects", 
+		#                                           .Generic), domain = NA)
+		return (NextMethod(.Generic) )
+	if (.Generic == '==')
+		return (apply (data.frame (mapply ('==', e1, e2[names(e1)], SIMPLIFY=FALSE) ), 1, all) )
+	if (.Generic == '!=')
+		return (!e1 == e2)
+	if (.Generic == '<') {
+		res <-  e1$year		< e2$year	| (e1$year	== e2$year	& (
+			e1$month	< e2$month	| (e1$month	== e2$month & (
+			e1$day		< e2$day	| (e1$day	== e2$day & (
+			e1$hour		< e2$hour	| (e1$hour	== e2$hour & (
+			e1$minute	< e2$minute	| (e1$minute	== e2$minute & (
+			e1$second	< e2$second))))))))))
+		return (res)
+	}
+	if (.Generic == '<=') {
+		res <-  e1$year		< e2$year	| (e1$year	== e2$year	& (
+			e1$month	< e2$month	| (e1$month	== e2$month & (
+			e1$day		< e2$day	| (e1$day	== e2$day & (
+			e1$hour		< e2$hour	| (e1$hour	== e2$hour & (
+			e1$minute	< e2$minute	| (e1$minute	== e2$minute & (
+			e1$second	<= e2$second))))))))))
+		return (res)
+	}
+	if (.Generic == '>')
+		return (e2 < e1)
+	if (.Generic == '>=')
+		return (e2 <= e1)
+}
