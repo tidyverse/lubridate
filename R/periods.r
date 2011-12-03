@@ -328,11 +328,22 @@ c.period <- function(...){
 }
 
 
+#' Comparison between period objects.
+#'
+#' Allows to make comparison between periods.
+#' Possible comparisons are '==', '!=', '<=',
+#' '<', '>' and '>='.
+#'
+#' @export Ops.period 
+#' @S3method Ops period
+#'
+#' @param e1 first period to be compared
+#' @param e2 second period to be compared
+#' 
+#' @return a boolean
 Ops.period <- function (e1, e2) {
 	if (!inherits (e2, 'period') ) return (NextMethod (.Generic) )
-	if (!.Generic %in% c('==', '!=', '<=', '<', '>', '>='))# stop (sprintf ("%s not implemented for 'period' objects"), .Generic)
-		#                 stop(gettextf("'%s' not defined for \"period\" objects", 
-		#                                           .Generic), domain = NA)
+	if (!.Generic %in% c('==', '!=', '<=', '<', '>', '>='))
 		return (NextMethod(.Generic) )
 	if (.Generic == '==')
 		return (apply (data.frame (mapply ('==', e1, e2[names(e1)], SIMPLIFY=FALSE) ), 1, all) )
