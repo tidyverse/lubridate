@@ -1,3 +1,6 @@
+* use `test_package` to avoid incompatibility with current version of
+  `testthat`
+
 Version 0.2.5
 -------------------------------------------------------------------------
 
