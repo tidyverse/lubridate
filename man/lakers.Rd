@@ -17,5 +17,5 @@
   \url{http://www.basketballgeek.com/data/}
 }
 \keyword{data}
-\keyword{dataset}
+\keyword{datasets}
 
