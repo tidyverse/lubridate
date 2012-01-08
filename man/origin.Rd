@@ -17,5 +17,5 @@ origin
 }
 \keyword{chron}
 \keyword{data}
-\keyword{dataset}
+\keyword{datasets}
 

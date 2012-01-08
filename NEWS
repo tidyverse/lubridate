@@ -1,3 +1,11 @@
+Version 0.2.6
+-------------------------------------------------------------------------
+
+* use `test_package` to avoid incompatibility with current version of
+  `testthat`
+  
+* other minor fixes to pass `R CMD check`
+
 Version 0.2.5
 -------------------------------------------------------------------------
 
