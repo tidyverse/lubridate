@@ -255,11 +255,13 @@ as.period.interval <- function(x){
   to.per$hour[nhous] <- 24 + to.per$hour[nhous]
   to.per$day[nhous] <- to.per$day[nhous] - 1
   
-  day.no <- floor_date(end, "month") - days(1)
-  day.no <- day.no$mday
   ndays <- to.per$day < 0
-  to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
-  to.per$month[ndays] <- to.per$month[ndays] - 1
+  if (any (ndays) ) {
+	  day.no <- floor_date(end, "month") - days(1)
+	  day.no <- day.no$mday
+	  to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
+	  to.per$month[ndays] <- to.per$month[ndays] - 1
+  }
   
   nmons <- to.per$month < 0
   to.per$month[nmons] <- 12 + to.per$month[nmons]
@@ -320,5 +322,53 @@ rep.period <- function(x, ...){
 	
 c.period <- function(...){
 	pers <- list(...)
-	do.call(rbind, pers)
+	if (!all (sapply (pers, inherits, 'period') ) )
+		NextMethod('c') else
+		do.call(rbind, pers)
+}
+
+
+#' Comparison between period objects.
+#'
+#' Allows to make comparison between periods.
+#' Possible comparisons are '==', '!=', '<=',
+#' '<', '>' and '>='.
+#'
+#' @export Ops.period 
+#' @S3method Ops period
+#'
+#' @param e1 first period to be compared
+#' @param e2 second period to be compared
+#' 
+#' @return a boolean
+Ops.period <- function (e1, e2) {
+	if (!inherits (e2, 'period') ) return (NextMethod (.Generic) )
+	if (!.Generic %in% c('==', '!=', '<=', '<', '>', '>='))
+		return (NextMethod(.Generic) )
+	if (.Generic == '==')
+		return (apply (data.frame (mapply ('==', e1, e2[names(e1)], SIMPLIFY=FALSE) ), 1, all) )
+	if (.Generic == '!=')
+		return (!e1 == e2)
+	if (.Generic == '<') {
+		res <-  e1$year		< e2$year	| (e1$year	== e2$year	& (
+			e1$month	< e2$month	| (e1$month	== e2$month & (
+			e1$day		< e2$day	| (e1$day	== e2$day & (
+			e1$hour		< e2$hour	| (e1$hour	== e2$hour & (
+			e1$minute	< e2$minute	| (e1$minute	== e2$minute & (
+			e1$second	< e2$second))))))))))
+		return (res)
+	}
+	if (.Generic == '<=') {
+		res <-  e1$year		< e2$year	| (e1$year	== e2$year	& (
+			e1$month	< e2$month	| (e1$month	== e2$month & (
+			e1$day		< e2$day	| (e1$day	== e2$day & (
+			e1$hour		< e2$hour	| (e1$hour	== e2$hour & (
+			e1$minute	< e2$minute	| (e1$minute	== e2$minute & (
+			e1$second	<= e2$second))))))))))
+		return (res)
+	}
+	if (.Generic == '>')
+		return (e2 < e1)
+	if (.Generic == '>=')
+		return (e2 <= e1)
 }
