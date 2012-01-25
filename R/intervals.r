@@ -59,6 +59,21 @@ new_interval <- function(date2, date1){
 }
 
 
+#' Is x an interval object?
+#'
+#' @export is.interval
+#' @param x an R object   
+#' @return TRUE if x is an interval object, FALSE otherwise.
+#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.period}}, 
+#'   \code{\link{is.duration}}, \code{\link{interval}}
+#' @keywords logic chron
+#' @examples
+#' is.interval(new_period(months= 1, days = 15)) # FALSE
+#' is.interval(new_interval(ymd(20090801), ymd(20090809))) # TRUE
+is.interval <- function(x) is(x, c("Interval"))
+
+
+
 format.interval <- function(x, ...){
   paste(attr(x, "start"), "--", attr(x, "start") + as.numeric(x), "")
 }

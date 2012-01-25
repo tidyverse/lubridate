@@ -112,6 +112,17 @@
 #' # 6 months and 1 day
 NULL
 
+setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
+
+check_duration <- function(object){
+	if (is.numeric(object@.Data))
+		TRUE
+	else
+		"Duration value is not a number. Should be numeric."
+}
+
+
+
 #' Create a duration object.
 #'
 #' new_duration creates a duration object with the specified values. Entries for 
@@ -180,64 +191,15 @@ new_duration <- function(num = 0,...){
     pieces$days * 86400 +
     pieces$weeks * 604800
   
-  structure(x, class = c("duration", "numeric"))
+  new("Duration", x)
 }
 
 
 
 
 
-#' Create a difftime object.
-#'
-#' new_difftime creates a difftime object with the specified number of units. Entries for 
-#' different units are cumulative. difftime displays durations in various units, 
-#' but these units are estimates given for convenience. The underlying object is 
-#' always recorded as a fixed number of seconds. For display and creation 
-#' purposes, units are converted to seconds using their most common lengths in 
-#' seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, 
-#' weeks = 604800. Units larger than weeks are not used due to their 
-#' variability.
-#'
-#' difftime objects are durations. Durations are time spans measured in seconds. They measure the 
-#' exact passage of time but do not always align with measurements 
-#' made in larger units of time such as hours, months and years. 
-#' This is because the length of larger time units can be affected 
-#' by conventions such as leap years 
-#' and Daylight Savings Time. lubridate provides a second class for measuring durations, the duration class.
-#'
-#' @param ... a list of time units to be included in the difftime and their amounts. Seconds, 
-#'   minutes, hours, days, and weeks are supported. 
-#' @return a difftime object
-#' @S3method c difftime
-#' @export new_difftime
-#' @seealso \code{\link{duration}}, \code{\link{as.duration}}
-#' @keywords chron classes
-#' @examples
-#' new_difftime(second = 90)
-#' # Time difference of 1.5 mins
-#' new_difftime(minute = 1.5)
-#' # Time difference of 1.5 mins
-#' new_difftime(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
-#' # Time difference of 1.869201 weeks
-#' new_difftime(hour = 1, minute = -60)
-#' # Time difference of 0 secs
-#' new_difftime(day = -1)
-#' # Time difference of -1 days
-new_difftime <- function(...){
-  pieces <- list(...)
-  names(pieces) <- standardise_difftime_names(names(pieces))
-  
-  defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)
-  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
-  
-  x <- pieces$secs +
-    pieces$mins * 60 +
-    pieces$hours * 3600 +
-    pieces$days * 86400 +
-    pieces$weeks * 604800
-  
-  make_difftime(x)
-}
+
+
 
 #' Change an object to a duration (difftime).
 #'
@@ -271,11 +233,28 @@ new_difftime <- function(...){
 #' # 18316800s (212d)
 #' as.duration(10) # numeric
 #' # 10s
+
 as.duration <- function(x)
   UseMethod("as.duration")
   
+as.duration.default <- function(x)
+  new("Duration", x) 
 
-as.duration.period <- function(x){
+as.duration.difftime <- function(x)
+	new("Duration", as.numeric(x, "secs"))
+ 
+setGeneric("as.duration") 
+
+setMethod("as.duration", signature(x = "Interval"), function(x){
+	new("Duration", unclass(x))
+})
+
+setMethod("as.duration", signature(x = "Duration"), function(x){
+	x
+})
+
+
+setMethod("as.duration", signature(x = "Period"), function(x){
 	message("estimate only: convert periods to intervals for accuracy")
 	dur <- x$second +
 		   60 * x$minute +
@@ -283,22 +262,9 @@ as.duration.period <- function(x){
 		   60 * 60 * 24 * x$day +
 		   60 * 60 * 24 * 30 * x$month +
 		   60 * 60 * 24 * 365.25 * x$year
-	structure(dur, class = c("duration", "numeric"))
-}
+	new("Duration", dur)
+})
 
-
-as.duration.difftime <- function(x)
-  structure(as.numeric(x, "secs"), class = c("duration", "numeric"))
-  
-as.duration.interval <- function(x){
-  structure(unclass(x), class = c("duration", "numeric"))
-}
-
-as.duration.default <- function(x)
-  structure(x, class = c("duration", "numeric"))
-
-
-as.POSIXt <- function(x) as.POSIXlt(x)
 
 #' Quickly create exact time spans.
 #'
@@ -351,61 +317,16 @@ as.POSIXt <- function(x) as.POSIXlt(x)
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + ddays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
-dseconds <- eseconds <- function(x = 1) new_duration(second = x)
-dminutes <- eminutes <- function(x = 1) new_duration(minute = x)
-dhours <- ehours <-   function(x = 1) new_duration(hour = x)
-ddays <- edays <-    function(x = 1) new_duration(day = x)  
-dweeks <- eweeks <-   function(x = 1) new_duration(week = x)
-dyears <- eyears <- function(x = 1) new_duration(second = x * 31536000)
+dseconds <- eseconds <- function(x = 1) new("Duration", x)
+dminutes <- eminutes <- function(x = 1) new("Duration", x * 60)
+dhours <- ehours <-   function(x = 1) new("Duration", x * 3600)
+ddays <- edays <-    function(x = 1) new("Duration", x * 86400)  
+dweeks <- eweeks <-   function(x = 1) new("Duration", x * 604800)
+dyears <- eyears <- function(x = 1) new("Duration", x * 31536000)
 dmilliseconds <- emilliseconds <- function(x = 1) milliseconds(x)
 dmicroseconds <- emicroseconds <- function(x = 1) microseconds(x)
 dnanoseconds <- enanoseconds <- function(x = 1) nanoseconds(x)
 dpicoseconds <- epicoseconds <- function(x = 1) picoseconds(x)
-
-
-#' Is x a date-time object?
-#'
-#' An instant is a specific moment in time. Most common date-time 
-#' objects (e.g, POSIXct, POSIXlt, and Date objects) are instants.
-#'
-#' @export is.instant is.timepoint
-#' @aliases instant instants is.instant timepoint is.timepoint
-#' @param x an R object   
-#' @return TRUE if x is a POSIXct, POSIXlt, or Date object, FALSE otherwise.
-#' @seealso \code{\link{is.timespan}}, \code{\link{is.POSIXt}}, \code{\link{is.Date}}
-#' @keywords logic chron
-#' @examples
-#' is.instant(as.Date("2009-08-03")) # TRUE
-#' is.timepoint(5) # FALSE
-is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
-
-#' Is x a length of time?
-#'
-#' @export is.timespan 
-#' @aliases is.timespan
-#' @param x an R object   
-#' @return TRUE if x is a period, interval, duration, or difftime object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.duration}}, \code{\link{is.difftime}}, \code{\link{is.period}}, \code{\link{is.interval}}
-#' @keywords logic chron
-#' @examples
-#' is.timespan(as.Date("2009-08-03")) # FALSE
-#' is.timespan(new_duration(second = 1)) # TRUE
-is.timespan <- function(x) inherits(x,c("period", "difftime", "duration", "interval"))
-
-#' Is x a POSIXct or POSIXlt object?
-#'
-#' @export is.POSIXt is.POSIXlt is.POSIXct
-#' @aliases is.POSIXt is.POSIXlt is.POSIXct
-#' @param x an R object   
-#' @return TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.Date}}
-#' @keywords logic chron
-#' @examples
-#' is.POSIXt(as.Date("2009-08-03")) # FALSE
-#' is.POSIXt(as.POSIXct("2009-08-03")) # TRUE
-is.POSIXt <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt"))
-is.POSIXlt <- function(x) inherits(x, "POSIXlt")
-is.POSIXct <- function(x) inherits(x, "POSIXct")
 
 #' Is x a duration object?
 #'
@@ -418,59 +339,8 @@ is.POSIXct <- function(x) inherits(x, "POSIXct")
 #' @examples
 #' is.duration(as.Date("2009-08-03")) # FALSE
 #' is.duration(new_duration(days = 12.4)) # TRUE
-is.duration <- function(x) inherits(x, "duration")
+is.duration <- function(x) is(x, "Duration")
 
-#' Is x a difftime object?
-#'
-#' @export is.difftime
-#' @param x an R object   
-#' @return TRUE if x is a difftime object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
-#'   \code{\link{is.period}}.
-#' @keywords logic chron
-#' @examples
-#' is.difftime(as.Date("2009-08-03")) # FALSE
-#' is.difftime(new_difftime(days = 12.4)) # TRUE
-is.difftime <- function(x) inherits(x, "difftime")
-
-#' Is x a Date object?
-#'
-#' @export is.Date
-#' @param x an R object   
-#' @return TRUE if x is a Date object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.POSIXt}}
-#' @keywords logic chron
-#' @examples
-#' is.Date(as.Date("2009-08-03")) # TRUE
-#' is.Date(difftime(now() + 5, now())) # FALSE
-is.Date <- function(x) inherits(x, "Date")
-
-
-#' Is x a period object?
-#'
-#' @export is.period
-#' @param x an R object   
-#' @return TRUE if x is a period object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
-#'   \code{\link{is.duration}}, \code{\link{period}}
-#' @keywords logic chron
-#' @examples
-#' is.period(as.Date("2009-08-03")) # FALSE
-#' is.period(new_period(months= 1, days = 15)) # TRUE
-is.period <- function(x) inherits(x,"period")
-
-#' Is x an interval object?
-#'
-#' @export is.interval
-#' @param x an R object   
-#' @return TRUE if x is an interval object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.period}}, 
-#'   \code{\link{is.duration}}, \code{\link{interval}}
-#' @keywords logic chron
-#' @examples
-#' is.interval(new_period(months= 1, days = 15)) # FALSE
-#' is.interval(new_interval(ymd(20090801), ymd(20090809))) # TRUE
-is.interval <- function(x) inherits(x, c("interval"))
 
 
 standardise_difftime_names <- function(x) {
@@ -498,38 +368,54 @@ compute_estimate <- function (x) {
     else
     	units <- "years"
     
-    switch(units, secs = paste(round(x, 2), "s", sep = ""), 
-      mins = paste(round(x/60, 2), "m", sep = ""), 
-      hours = paste(round(x/3600, 2), "h", sep = ""), 
-      days = paste(round(x/86400, 2), "d", sep = ""), 
-      years = paste(round(x/31557600, 2), "y", sep = ""))
+    switch(units, secs = paste(round(x, 2), " seconds", sep = ""), 
+      mins = paste("~", round(x/60, 2), " minutes", sep = ""), 
+      hours = paste("~", round(x/3600, 2), " hours", sep = ""), 
+      days = paste("~", round(x/86400, 2), " days", sep = ""), 
+      years = paste("~", round(x/31557600, 2), " years", sep = ""))
 }
 
 
-format.duration <- function(x, ...){
-  if (all(abs(unclass(x)) < 3600))
-  	return(paste(format(unclass(x),...), "s", sep = ""))
-  else
-  	paste(format(unclass(x),...), "s", " (", compute_estimate(x), ") ", sep = "") 
-}
+setMethod("show", signature(object = "Duration"), function(object){
+	if (all(object@.Data < 120))
+		print(paste(object@.Data, "s", sep = ""))
+	else
+		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""))
+})
+
+setGeneric("as.numeric")
+setMethod("as.numeric", signature("Duration"), function(x, units = "seconds", ...){
+	if (units == "months") stop("cannot map durations to months")
+	num <- switch(units, 
+		seconds = x@.Data, 
+		minutes = x@.Data / 60, 
+		hours = x@.Data / (60 * 60),
+		days = x@.Data / (60 * 60 * 24),
+		weeks = x@.Data / (60 * 60 * 24 * 7),
+		years = x@.Data / (60 * 60 * 24 * 365.25))
+		
+	as.numeric(num, ...)
+})
 
 
-print.duration <- function(x, ...) {
-  print(format(x), ..., quote = FALSE)
-}
+setGeneric("rep")
+setMethod("rep", signature(x = "Duration"), function(x, ...){
+	new("Duration", rep(as.numeric(x), ...))
+})
 
 
-rep.duration <- function(x, ...){
-	structure(rep(as.numeric(x), ...), class = c("duration", "numeric"))
-}
+setMethod("c", signature(x = "Duration"), function(x, ...){
+	durs <- c(x@.Data, unlist(list(...)))
+	new("Duration", durs)
+})
 
-c.duration <- function(...){
-	durs <- unlist(list(...))
-	structure(durs, class = c("duration", "numeric"))
-}
 
-c.difftime <- function(...){
-	diffs <- unlist(lapply(list(...), as.numeric, units = "secs"))
-	make_difftime(diffs)
-}
+setMethod("[", representation(x = "Duration", i = "integer"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Duration", x@.Data[i])
+})
+setMethod("[", representation(x = "Duration", i = "numeric"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Duration", x@.Data[i])
+})
 

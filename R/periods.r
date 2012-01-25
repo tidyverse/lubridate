@@ -156,6 +156,20 @@ nanoseconds <- function(x = 1) seconds(x/1e9)
 picoseconds <- function(x = 1) seconds(x/1e12)
 
 
+#' Is x a period object?
+#'
+#' @export is.period
+#' @param x an R object   
+#' @return TRUE if x is a period object, FALSE otherwise.
+#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
+#'   \code{\link{is.duration}}, \code{\link{period}}
+#' @keywords logic chron
+#' @examples
+#' is.period(as.Date("2009-08-03")) # FALSE
+#' is.period(new_period(months= 1, days = 15)) # TRUE
+is.period <- function(x) is(x,"Period")
+
+
 
 format.period <- function(x, ...){
   show <- vector(mode = "character")
