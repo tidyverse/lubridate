@@ -178,7 +178,7 @@ check_duration <- function(object){
 #' # 0s
 #' new_duration(day = -1)
 #' # -86400s (-1d)
-new_duration <- function(num = 0,...){
+new_duration <- duration <- function(num = 0,...){
   pieces <- list(...)
   names(pieces) <- standardise_difftime_names(names(pieces))
   

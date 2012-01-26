@@ -1,3 +1,28 @@
+setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct"), 
+	validity = check_interval)
+
+check_interval <- function(object){
+	errors <- character()
+	if (!is.numeric(object@.Data)) {
+		msg <- "Span length must be numeric."
+		errors <- c(errors, msg)
+	}
+	if (!is(object@start, "POSIXct")) {
+		msg <- "Start date must be in POSIXct format."
+		errors <- c(errors, msg)
+	}
+	if (length(object@.Data) != length(object@start)) {
+		msg <- paste("Inconsistent lengths: spans = ", length(object@.Data), 
+			", start dates = ", length(object@start), sep = "") 
+		errors <- c(errors, msg)
+	}
+	if (length(errors) == 0) 
+		TRUE
+	else
+		errors
+}
+
+
 #' Create an interval object.
 #'
 #' new_interval creates an interval object with the specified start and end 
@@ -51,11 +76,11 @@
 #' # "2009-01-01 UTC"
 #' end <- start + span
 #' # "2009-02-01 UTC"
-new_interval <- function(date2, date1){
+new_interval <- interval <- function(date2, date1){
   int <- data.frame(date2 = as.POSIXct(date2), 
                     date1 = as.POSIXct(date1))
   span <- abs(as.numeric(int$date2) - as.numeric(int$date1))
-  structure(span, start = pmin(int$date1, int$date2), class = c("interval", "numeric"))
+  new("Interval", span, start = pmin(int$date1, int$date2))
 }
 
 
@@ -73,14 +98,11 @@ new_interval <- function(date2, date1){
 is.interval <- function(x) is(x, c("Interval"))
 
 
+setMethod("show", signature(object = "Interval"), function(object){
+	print(paste(format(object@start, usetz = TRUE), "--", 
+		format(object@start + object@.Data, usetz = TRUE), sep = ""))
+})
 
-format.interval <- function(x, ...){
-  paste(attr(x, "start"), "--", attr(x, "start") + as.numeric(x), "")
-}
-
-print.interval <- function(x, ...) {
-  print(format(x), ..., quote = FALSE)
-}
 
 
 #' Change an object to an interval.
@@ -135,17 +157,28 @@ as.interval <- function(x, start){
 }
 
 
-c.interval <- function(..., recursive = F){
-	intervals <- list(...)
-	starts <- structure(c(unlist(lapply(intervals, attr, "start"))), class = c("POSIXt", "POSIXct"))
-	durations <- unlist(lapply(intervals, as.vector))
-	structure(durations, start = starts, class = c("interval", "numeric"))
-}
+setMethod("c", signature(x = "Interval"), function(x, ...){
+	spans <- c(x@.Data, unlist(list(...)))
+	starts <- c(x@start, unlist(lapply(list(...), int_start)))
+	new("Interval", spans, start = starts)
+})
 
 
-"[.interval" <- function(x, i, ...){
-	structure(unclass(x)[i], start = attr(x, "start")[i], class = c("interval", "numeric"))
-} 
+setMethod("rep", signature(x = "Interval"), function(x, ...){
+	new("Interval", rep(x@.Data, ...), start = rep(x@start,...))
+})
+
+setMethod("[", representation(x = "Interval", i = "integer"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Interval", x@.Data[i], start = x@start[i])
+})
+
+setMethod("[", representation(x = "Interval", i = "numeric"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Interval", x@.Data[i], start = x@start[i])
+})
+
+
 
 #' Access and change the start date of an interval
 #'
@@ -164,18 +197,17 @@ c.interval <- function(..., recursive = F){
 #' int_start(int) <- ymd("2001-06-01")
 #' int
 #' # 2001-06-01 -- 2002-06-01
-int_start <- function(x)
-	attr(x, "start")
+int_start <- function(x) x@start
 	
 "int_start<-" <- function(interval, value){
-	stopifnot(length(value) == length(interval))
-	interval <- structure(as.numeric(interval), start = value, class = c("interval", "numeric"))
+	equal.lengths <- data.frame(interval, value)
+	interval <- new("Interval", interval@.Data, start = equal.lengths$value)
 }	
 
 
 	
 
-
+# WHY DON"T THESE JUST DIRECTLY ALTER THE START AND END DATES?
 
 #' Access and change the end date of an interval
 #'
@@ -194,23 +226,52 @@ int_start <- function(x)
 #' int_end(int) <- ymd("2002-06-01")
 #' int
 #' # 2001-06-01 -- 2002-06-01
-int_end <- function(x)
-	attr(x, "start") + as.numeric(x)
+int_end <- function(x) x@start + x@.Data
 
 "int_end<-" <- function(interval, value){
-	stopifnot(length(value) == length(interval))
-	dur <- as.numeric(interval)
-	interval <- structure(dur, start = value - dur , class = c("interval", "numeric"))
+	equal.lengths <- data.frame(interval, value)
+	interval <- new("Interval", interval@.Data, start = equal.lengths$value - interval@.Data)
 }
 
-	
-	
+# HOW EXACTLY SHOULD THIS WORK - falls in?
+# setGeneric("%in%")
+# setMethod("%in%", signature(table = "Interval"), function(x, table){
+#	if(!is.instant(x)) stop("Argument 1 is not a recognized date-time")
+#	x - table@start <= table@.Data & x - table@start >= 0
+#})
 
+setGeneric("intersect")
+setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
+	starts <- pmax(x@start, y@start)
+	ends <- pmin(x@start + x@.Data, y@start + y@.Data)
+	spans <- as.numeric(ends) - as.numeric(starts) 
 	
+	no.int <- end < start
+	spans[no.int] <- NA
+	starts[no.int] <- NA
+	
+	new("Interval", spans, start = starts)
+})
 
-rep.interval <- function(x, ...){
-	y <- rep(as.numeric(x), ...)
-	attr(y, "start") <- rep(attr(x, "start"), ...)
-	attr(y, "class") <- attr(x, "class")
-	y
+setGeneric("union")
+setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
+	starts <- pmin(x@start, y@start)
+	ends <- pmax(x@start + x@.Data, y@start + y@.Data)
+	spans <- as.numeric(ends) - as.numeric(starts) 
+	
+	no.overlap <- spans > (x@.Data + y@.Data)
+	if(any(no.overlap[!is.na(no.overlap)])) 
+		message("Union includes intervening time between intervals.")
+	
+	new("Interval", spans, start = starts)
+})
+
+
+#' Shifts an interval up or down the timeline by a specified amount
+#' note this may change the exact length of the interval
+shift <- function(int, by){
+	if(!is.timespan(by)) stop("by is not a recognized timespan object")
+	if(is.interval(by)) stop("an interval cannot be shifted by another interval. 
+		Convert second interval to a period or duration.")
+	new_interval(int@start + by, int_end(int) + by)
 }
