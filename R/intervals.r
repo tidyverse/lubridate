@@ -1,5 +1,4 @@
-setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct"), 
-	validity = check_interval)
+setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
 
 check_interval <- function(object){
 	errors <- character()
@@ -77,10 +76,19 @@ check_interval <- function(object){
 #' end <- start + span
 #' # "2009-02-01 UTC"
 new_interval <- interval <- function(date2, date1){
-  int <- data.frame(date2 = as.POSIXct(date2), 
-                    date1 = as.POSIXct(date1))
-  span <- abs(as.numeric(int$date2) - as.numeric(int$date1))
-  new("Interval", span, start = pmin(int$date1, int$date2))
+	if (is.null(attr(date2, "tzone"))) {
+		if (is.null(attr(date1, "tzone"))) {
+			tzone <- ""
+		} else {
+			tzone <- attr(date1, "tzone")
+		}
+	} else {
+		tzone <- attr(date2, "tzone")
+	}
+	
+	int <- data.frame(date2 = as.POSIXct(date2), date1 = as.POSIXct(date1))
+	span <- abs(as.numeric(int$date2) - as.numeric(int$date1))
+	new("Interval", span, start = pmin(int$date1, int$date2), tzone = tzone)
 }
 
 
@@ -99,8 +107,8 @@ is.interval <- function(x) is(x, c("Interval"))
 
 
 setMethod("show", signature(object = "Interval"), function(object){
-	print(paste(format(object@start, usetz = TRUE), "--", 
-		format(object@start + object@.Data, usetz = TRUE), sep = ""))
+	print(paste(format(object@start, tz = object@tzone, usetz = TRUE), "--", 
+		format(object@start + object@.Data, tz = object@tzone, usetz = TRUE), sep = ""))
 })
 
 
@@ -160,22 +168,22 @@ as.interval <- function(x, start){
 setMethod("c", signature(x = "Interval"), function(x, ...){
 	spans <- c(x@.Data, unlist(list(...)))
 	starts <- c(x@start, unlist(lapply(list(...), int_start)))
-	new("Interval", spans, start = starts)
+	new("Interval", spans, start = starts, tzone = x@tzone)
 })
 
 
 setMethod("rep", signature(x = "Interval"), function(x, ...){
-	new("Interval", rep(x@.Data, ...), start = rep(x@start,...))
+	new("Interval", rep(x@.Data, ...), start = rep(x@start,...), tzone = x@tzone)
 })
 
 setMethod("[", representation(x = "Interval", i = "integer"), 
   function(x, i, j, ..., drop = TRUE) {
-    new("Interval", x@.Data[i], start = x@start[i])
+    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
 })
 
 setMethod("[", representation(x = "Interval", i = "numeric"), 
   function(x, i, j, ..., drop = TRUE) {
-    new("Interval", x@.Data[i], start = x@start[i])
+    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
 })
 
 
@@ -201,7 +209,8 @@ int_start <- function(x) x@start
 	
 "int_start<-" <- function(interval, value){
 	equal.lengths <- data.frame(interval, value)
-	interval <- new("Interval", interval@.Data, start = equal.lengths$value)
+	interval <- new("Interval", interval@.Data, start = equal.lengths$value, 
+		tzone = interval@tzone)
 }	
 
 
@@ -230,7 +239,8 @@ int_end <- function(x) x@start + x@.Data
 
 "int_end<-" <- function(interval, value){
 	equal.lengths <- data.frame(interval, value)
-	interval <- new("Interval", interval@.Data, start = equal.lengths$value - interval@.Data)
+	interval <- new("Interval", interval@.Data, start = equal.lengths$value - interval@.Data,
+		tzone = interval@tzone)
 }
 
 # HOW EXACTLY SHOULD THIS WORK - falls in?
@@ -250,7 +260,7 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	spans[no.int] <- NA
 	starts[no.int] <- NA
 	
-	new("Interval", spans, start = starts)
+	new("Interval", spans, start = starts, tzone = x@tzone)
 })
 
 setGeneric("union")
@@ -263,7 +273,7 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 	if(any(no.overlap[!is.na(no.overlap)])) 
 		message("Union includes intervening time between intervals.")
 	
-	new("Interval", spans, start = starts)
+	new("Interval", spans, start = starts, tzone = x@tzone)
 })
 
 
