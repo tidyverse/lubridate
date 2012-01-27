@@ -286,10 +286,13 @@ shift <- function(int, by){
 	new_interval(int@start + by, int_end(int) + by)
 }
 
-
+#' Tests whether a date falls within a given interval
 setGeneric("%within%", function(a,b) standardGeneric("%within%"))
 setMethod("%within%", signature(b = "Interval"), function(a,b){
 	if(!is.instant(a)) stop("Argument 1 is not a recognized date-time")
 	a <- as.POSIXct(a)
 	as.numeric(a) - as.numeric(b@start) <= b@.Data & as.numeric(a) - as.numeric(b@start) >= 0
 })
+
+#' Creates an interval from two dates
+"%--%" <- function(e1, e2) interval(e1, e2)
