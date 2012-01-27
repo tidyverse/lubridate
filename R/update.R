@@ -1,29 +1,3 @@
-
-#' Get Daylight Savings Time indicator of a date-time.
-#'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
-#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
-#'
-#' A date-time's daylight savings flag can not be set because it depends on the 
-#' date-time's year, month, day, and hour values.
-#'
-#' @export dst
-#' @S3method dst default
-#' @param x a date-time object   
-#' @return Daylight savings time flag. Positive if in force, zero if not, negative if unknown.
-#' @keywords utilities chron methods
-#' @examples
-#' x <- now()
-#' dst(x) 
-dst <- function(x)
-  UseMethod("dst")
-  
-dst.default <- function(x)
-  as.POSIXlt(x)$isdst
-
-
-
-
 #' Changes the components of a date object
 #'
 #' update.Date and update.POSIXt return a date with the specified elements updated. 
@@ -144,18 +118,5 @@ update.POSIXlt <- function(object, years = year(object), months = month(object),
     months, days = days, mdays = mdays, ydays = ydays, wdays = 
     wdays, hours = hours, minutes = minutes, seconds = 
     seconds, tzs = tzs))
-}
-
-
-
-standardise_date_names <- function(x) {
-  dates <- c("second", "minute", "hour", "mday", "wday", "yday", "day", "week", "month", "year", "tz")
-  y <- gsub("(.)s$", "\\1", x)
-  res <- dates[pmatch(y, dates)]
-  if (any(is.na(res))) {
-    stop("Invalid unit name: ", paste(x[is.na(res)], collapse = ", "), 
-      call. = FALSE)
-  }
-  res
 }
 

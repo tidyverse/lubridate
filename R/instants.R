@@ -13,3 +13,40 @@
 #' is.instant(as.Date("2009-08-03")) # TRUE
 #' is.timepoint(5) # FALSE
 is.instant <- is.timepoint <- function(x) is(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
+
+#' The current time 
+#'
+#' @export now
+#' @param tzone a character vector specifying which time zone you would like 
+#'   the current time in. tzone defaults to the system time zone set on your 
+#'   computer.
+#' @return the current date and time as a POSIXct object
+#'
+#' @keywords chron utilities
+#' @examples
+#' now()
+#' now("GMT")
+#' now() == now() # would be true if computer processed both at the same instant
+#' now() < now() # TRUE
+#' now() > now() # FALSE
+now <- function(tzone = "") 
+  with_tz(Sys.time(),tzone)
+
+
+#' The current date 
+#'
+#' @export today
+#' @param tzone a character vector specifying which time zone you would like to 
+#'   find the current date of. tzone defaults to the system time zone set on your 
+#'   computer.
+#' @return the current date as a Date object
+#'
+#' @keywords chron utilities
+#' @examples
+#' today()
+#' today("GMT")
+#' today() == today("GMT") # not always true
+#' today() < as.Date("2999-01-01") # TRUE  (so far)
+today <- function(tzone = "") {
+  as.Date(force_tz(floor_date(now(tzone), "day"), tz = "UTC"))
+}
