@@ -285,3 +285,10 @@ shift <- function(int, by){
 		Convert second interval to a period or duration.")
 	new_interval(int@start + by, int_end(int) + by)
 }
+
+
+setGeneric("%within%", function(a,b) standardGeneric("%within%"))
+setMethod("%within%", signature(b = "Interval"), function(a,b){
+	if(!is.instant(a)) stop("Argument 1 is not a recognized date-time")
+	as.numeric(a) - as.numeric(b@start) <= b@.Data & as.numeric(a) - as.numeric(b@start) >= 0
+})
