@@ -112,14 +112,14 @@
 #' # 6 months and 1 day
 NULL
 
-setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
-
 check_duration <- function(object){
 	if (is.numeric(object@.Data))
 		TRUE
 	else
 		"Duration value is not a number. Should be numeric."
 }
+
+setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
 
 
@@ -246,7 +246,7 @@ as.duration.difftime <- function(x)
 setGeneric("as.duration") 
 
 setMethod("as.duration", signature(x = "Interval"), function(x){
-	new("Duration", unclass(x))
+	new("Duration", x@.Data)
 })
 
 setMethod("as.duration", signature(x = "Duration"), function(x){
@@ -256,13 +256,7 @@ setMethod("as.duration", signature(x = "Duration"), function(x){
 
 setMethod("as.duration", signature(x = "Period"), function(x){
 	message("estimate only: convert periods to intervals for accuracy")
-	dur <- x$second +
-		   60 * x$minute +
-		   60 * 60 * x$hour +
-		   60 * 60 * 24 * x$day +
-		   60 * 60 * 24 * 30 * x$month +
-		   60 * 60 * 24 * 365.25 * x$year
-	new("Duration", dur)
+	new("Duration", periods_to_seconds(x))
 })
 
 
@@ -343,17 +337,7 @@ is.duration <- function(x) is(x, "Duration")
 
 
 
-standardise_difftime_names <- function(x) {
-  dates <- c("secs", "mins", "hours", "days", "weeks")
-  y <- gsub("(.)s$", "\\1", x)
-  y <- substr(y, 1, 3)
-  res <- dates[pmatch(y, dates)]
-  if (any(is.na(res))) {
-    stop("Invalid difftime name: ", paste(x[is.na(res)], collapse = ", "), 
-      call. = FALSE)
-  }
-  res
-}
+
 
 compute_estimate <- function (x) {  
   seconds <- abs(x)
