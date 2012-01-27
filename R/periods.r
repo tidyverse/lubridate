@@ -79,6 +79,36 @@ setMethod("show", signature(object = "Period"), function(object){
 	print(show, quote = FALSE)
 })
 
+setMethod("c", signature(x = "Period"), function(x, ...){
+	seconds <- c(x@.Data, unlist(list(...)))
+	years <- c(x@year, unlist(lapply(list(...), slot, "year")))
+	months <- c(x@month, unlist(lapply(list(...), slot, "month"))) 
+	days <- c(x@day, unlist(lapply(list(...), slot, "day")))
+	hours <- c(x@month, unlist(lapply(list(...), slot, "hour")))
+	minutes <- c(x@month, unlist(lapply(list(...), slot, "minute")))
+	new("Period", seconds, year = years, month = months, day = days, 
+		hour = hours, minute = minutes)
+})
+
+
+setMethod("rep", signature(x = "Period"), function(x, ...){
+	new("Period", rep(x@.Data, ...), year = rep(x@year, ...), 
+		month = rep(x@month, ...), day = rep(x@day, ...), 
+		hour = rep(x@hour, ...), minute = rep(x@minute, ...))
+})
+
+setMethod("[", representation(x = "Period", i = "integer"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Period", x@.Data[i], year = x@year[i], month = x@month[i], 
+    	day = x@day[i], hour = x@hour[i], minute = x@minute[i])
+})
+
+setMethod("[", representation(x = "Period", i = "numeric"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Period", x@.Data[i], year = x@year[i], month = x@month[i], 
+    	day = x@day[i], hour = x@hour[i], minute = x@minute[i])
+})
+
 
 
 #' Create a period object.
@@ -304,9 +334,33 @@ as.period.default <- function(x){
   f(x)
 }
 
-as.period.interval <- function(x){
-  start <- as.POSIXlt(attr(x, "start"))
-  end <- start + unclass(x)
+as.period.difftime <- function(x){
+  message("estimate only: convert difftimes to intervals for accuracy")
+  span <- as.double(x, "secs")
+  remainder <- abs(span)
+  newper <- new_period(second = rep(0, length(x)))
+  
+  slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
+  remainder <- remainder %% (3600 * 24 * 365.25)
+  
+  slot(newper,"day") <- remainder %/% (3600 * 24)
+  remainder <- remainder %% (3600 * 24)
+  
+  slot(newper, "hour") <- remainder %/% (3600)
+  remainder <- remainder %% (3600)
+  
+  slot(newper, "minute") <- remainder %/% (60)
+  
+  slot(newper, ".Data") <- remainder %% (60)
+  
+  newper * sign(span)
+}
+
+setGeneric("as.period")
+
+setMethod("as.period", signature(x = "Interval"), function(x) {
+  start <- as.POSIXlt(x@start)
+  end <- as.POSIXlt(start + x@.Data)
 
   to.per <- as.data.frame(unclass(end)) - 
     as.data.frame(unclass(start))
@@ -337,60 +391,27 @@ as.period.interval <- function(x){
   to.per$month[nmons] <- 12 + to.per$month[nmons]
   to.per$year[nmons] <- to.per$year[nmons] - 1
   
-  structure(to.per[,c(6:1)], class = c("period", "data.frame"))
-}
+  new("Period", to.per$second, year = to.per$year, month = to.per$month, day = to.per$day, hour = to.per$hour, minute = to.per$minute)
+})
 
-as.period.difftime <- function(x){
+setMethod("as.period", signature(x = "Duration"), function(x) {
   message("estimate only: convert durations to intervals for accuracy")
-  span <- as.double(x, "secs")
+  span <- x@.Data
   remainder <- abs(span)
   newper <- new_period(second = rep(0, length(x)))
   
-  newper$year <- remainder %/% (3600 * 24 * 365.25)
+  slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
   remainder <- remainder %% (3600 * 24 * 365.25)
   
-  newper$day <- remainder %/% (3600 * 24)
+  slot(newper, "day") <- remainder %/% (3600 * 24)
   remainder <- remainder %% (3600 * 24)
   
-  newper$hour <- remainder %/% (3600)
+  slot(newper, "hour") <- remainder %/% (3600)
   remainder <- remainder %% (3600)
   
-  newper$minute <- remainder %/% (60)
+  slot(newper, "minute") <- remainder %/% (60)
   newper$second <- remainder %% (60)
   
   newper * sign(span)
-}
+})
 
-as.period.duration <- function(x){
-  message("estimate only: convert durations to intervals for accuracy")
-  span <- as.numeric(x)
-  remainder <- abs(span)
-  newper <- new_period(second = rep(0, length(x)))
-  
-  newper$year <- remainder %/% (3600 * 24 * 365.25)
-  remainder <- remainder %% (3600 * 24 * 365.25)
-  
-  newper$day <- remainder %/% (3600 * 24)
-  remainder <- remainder %% (3600 * 24)
-  
-  newper$hour <- remainder %/% (3600)
-  remainder <- remainder %% (3600)
-  
-  newper$minute <- remainder %/% (60)
-  newper$second <- remainder %% (60)
-  
-  newper * sign(span)
-}
-
-
-rep.period <- function(x, ...){
-	y <- lapply(x, rep, ...)
-	attr(y, "row.names") <- c(1:length(y$year))
-	attr(y, "class") <- attr(x, "class")
-	y
-}
-	
-c.period <- function(...){
-	pers <- list(...)
-	do.call(rbind, pers)
-}
