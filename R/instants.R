@@ -50,3 +50,17 @@ now <- function(tzone = "")
 today <- function(tzone = "") {
   as.Date(force_tz(floor_date(now(tzone), "day"), tz = "UTC"))
 }
+
+
+#' 1970-01-01 GMT
+#'
+#' Origin is the date-time for 1970-01-01 GMT in POSIXct format. This date-time 
+#' is the origin for the numbering system used by POSIXct, POSIXlt, chron, and 
+#' Date classes.
+#'
+#' @export origin
+#' @keywords data chron
+#' @examples
+#' origin
+#' # "1970-01-01 GMT"
+origin <- with_tz(structure(0, class = c("POSIXt", "POSIXct")), "UTC")
