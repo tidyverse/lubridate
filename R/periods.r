@@ -1,3 +1,57 @@
+setClass("Period", contains = c("Timespan", "numeric"), representation(year = "numeric", 
+	month = "numeric", week = "numeric", day = "numeric", hour = "numeric", 
+	minute = "numeric"), prototype(year = 0, month = 0, week = 0, day = 0, hour = 0, 
+	minute = 0), validity = check_period)
+
+check_period <- function(object){
+	errors <- character()
+	if (!is.numeric(object@.Data)) {
+		msg <- "seconds (.Data) value must be numeric."
+		errors <- c(errors, msg)
+	} 
+	if (!is.numeric(object@year)) {
+		msg <- "year value must be numeric."
+		errors <- c(errors, msg)
+	}
+	if (!is.numeric(object@month)) {
+		msg <- "year value must be numeric."
+		errors <- c(errors, msg)
+	}
+	if (!is.numeric(object@week)) {
+		msg <- "year value must be numeric."
+		errors <- c(errors, msg)
+	}		
+	if (!is.numeric(object@day)) {
+		msg <- "year value must be numeric."
+		errors <- c(errors, msg)
+	}		
+	if (!is.numeric(object@hour)) {
+		msg <- "year value must be numeric."
+		errors <- c(errors, msg)
+	}		
+	if (!is.numeric(object@minute)) {
+		msg <- "year value must be numeric."
+		errors <- c(errors, msg)		
+	}	
+	
+	length(object@.Data) -> n
+	lengths <- c(length(object@year), length(object@month), length(object@week), 
+		length(object@day), length(object@hour), length(object@minute))
+		
+	if (any(lengths != n)) {
+		msg <- paste("Inconsistent lengths: year = ", lengths[1], 
+			", month = ", lengths[2], ", week = ", lengths[3], 
+			", day = ", lengths[4], ", hour = ", lengths[5],
+			", minute = ", lengths[6], ", second = ", n, sep = "") 
+		errors <- c(errors, msg)
+	}
+	if (length(errors) == 0) 
+		TRUE
+	else
+		errors
+}
+
+
 #' Create a period object.
 #'
 #' new_period creates a period object with the specified values. Within a 
@@ -48,7 +102,7 @@
 #' # 1 hour and -60 minutes
 #' new_period(second = 0)
 #' # 0 seconds
-new_period <- function(...) {
+new_period <- period <- function(...) {
   pieces <- data.frame(...)
     
   names(pieces) <- standardise_date_names(names(pieces))
