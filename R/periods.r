@@ -1,9 +1,3 @@
-setClass("Period", contains = c("Timespan", "numeric"), 
-	representation(year = "numeric", month = "numeric", day = "numeric", 
-		hour = "numeric", minute = "numeric"), 
-	prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0), 
-	validity = check_period)
-
 check_period <- function(object){
 	errors <- character()
 	if (!is.numeric(object@.Data)) {
@@ -50,6 +44,14 @@ check_period <- function(object){
 	else
 		errors
 }
+
+
+setClass("Period", contains = c("Timespan", "numeric"), 
+	representation(year = "numeric", month = "numeric", day = "numeric", 
+		hour = "numeric", minute = "numeric"), 
+	prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0), 
+	validity = check_period)
+
 
 setMethod("show", signature(object = "Period"), function(object){
 	show <- vector(mode = "character")
@@ -381,11 +383,13 @@ setMethod("as.period", signature(x = "Interval"), function(x) {
   to.per$hour[nhous] <- 24 + to.per$hour[nhous]
   to.per$day[nhous] <- to.per$day[nhous] - 1
   
-  day.no <- floor_date(end, "month") - days(1)
-  day.no <- day.no$mday
   ndays <- to.per$day < 0
-  to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
-  to.per$month[ndays] <- to.per$month[ndays] - 1
+  if (any(ndays)) {
+	  day.no <- floor_date(end, "month") - days(1)
+	  day.no <- day.no$mday
+	  to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
+	  to.per$month[ndays] <- to.per$month[ndays] - 1
+  }
   
   nmons <- to.per$month < 0
   to.per$month[nmons] <- 12 + to.per$month[nmons]
@@ -415,3 +419,16 @@ setMethod("as.period", signature(x = "Duration"), function(x) {
   newper * sign(span)
 })
 
+setMethod("as.period", signature("Period"), function(x) x)
+
+#' Converts a period to the number of units it appears to represent
+period_to_seconds <- function(x) {
+	x@.Data + 
+	60 * x@minute +
+	60 * 60 * x@hour +
+	60 * 60 * 24 * x@day +
+	60 * 60 * 24 * 30 * x@month +
+	60 * 60 * 24 * 365.25 * x@year
+}
+	
+	
