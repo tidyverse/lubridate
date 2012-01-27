@@ -1,17 +1,20 @@
 
-#' 1970-01-01 GMT
-#'
-#' Origin is the date-time for 1970-01-01 GMT in POSIXct format. This date-time 
-#' is the origin for the numbering system used by POSIXct, POSIXlt, chron, and 
-#' Date classes.
-#'
-#' @export origin
-#' @keywords data chron
-#' @examples
-#' origin
-#' # "1970-01-01 GMT"
-origin <- with_tz(structure(0, class = c("POSIXt", "POSIXct")), "UTC")
-
+equalize_length <- function(x, y){
+	n.x <- length(x)
+	n.y <- nrow(y) 
+	n.max <- max(n.x, n.y)
+	n.min <- min(n.x, n.y)
+	if (n.max %% n.min != 0L){
+		stop("longer object length is not a multiple of shorter object length")
+	} else {
+		if (n.x < n.y) {
+			x <- rep(x, length.out = n.y)
+		} else {
+			y <- rep(y, length.out = n.x)
+		}	
+	}
+	list(x, y)
+}
 
 
 recognize <- function(x){
@@ -33,6 +36,19 @@ standardise_date_names <- function(x) {
   }
   res
 }
+
+standardise_difftime_names <- function(x) {
+  dates <- c("secs", "mins", "hours", "days", "weeks")
+  y <- gsub("(.)s$", "\\1", x)
+  y <- substr(y, 1, 3)
+  res <- dates[pmatch(y, dates)]
+  if (any(is.na(res))) {
+    stop("Invalid difftime name: ", paste(x[is.na(res)], collapse = ", "), 
+      call. = FALSE)
+  }
+  res
+}
+
 
 #' Lakers 2008-2009 basketball data set
 #' 
