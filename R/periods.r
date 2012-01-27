@@ -1,7 +1,8 @@
-setClass("Period", contains = c("Timespan", "numeric"), representation(year = "numeric", 
-	month = "numeric", week = "numeric", day = "numeric", hour = "numeric", 
-	minute = "numeric"), prototype(year = 0, month = 0, week = 0, day = 0, hour = 0, 
-	minute = 0), validity = check_period)
+setClass("Period", contains = c("Timespan", "numeric"), 
+	representation(year = "numeric", month = "numeric", day = "numeric", 
+		hour = "numeric", minute = "numeric"), 
+	prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0), 
+	validity = check_period)
 
 check_period <- function(object){
 	errors <- character()
@@ -16,11 +17,7 @@ check_period <- function(object){
 	if (!is.numeric(object@month)) {
 		msg <- "year value must be numeric."
 		errors <- c(errors, msg)
-	}
-	if (!is.numeric(object@week)) {
-		msg <- "year value must be numeric."
-		errors <- c(errors, msg)
-	}		
+	}	
 	if (!is.numeric(object@day)) {
 		msg <- "year value must be numeric."
 		errors <- c(errors, msg)
@@ -35,14 +32,17 @@ check_period <- function(object){
 	}	
 	
 	length(object@.Data) -> n
-	lengths <- c(length(object@year), length(object@month), length(object@week), 
+	lengths <- c(length(object@year), length(object@month), 
 		length(object@day), length(object@hour), length(object@minute))
 		
 	if (any(lengths != n)) {
 		msg <- paste("Inconsistent lengths: year = ", lengths[1], 
-			", month = ", lengths[2], ", week = ", lengths[3], 
-			", day = ", lengths[4], ", hour = ", lengths[5],
-			", minute = ", lengths[6], ", second = ", n, sep = "") 
+			", month = ", lengths[2], 
+			", day = ", lengths[3], 
+			", hour = ", lengths[4],
+			", minute = ", lengths[5], 
+			", second = ", n, 
+			sep = "") 
 		errors <- c(errors, msg)
 	}
 	if (length(errors) == 0) 
@@ -50,6 +50,35 @@ check_period <- function(object){
 	else
 		errors
 }
+
+setMethod("show", signature(object = "Period"), function(object){
+	show <- vector(mode = "character")
+	per.mat <- matrix(c(object@year, object@month, object@day, object@hour, 
+		object@minute, object@.Data), ncol = 6) 
+	colnames(per.mat) <- c("year", "month", "day", "hour", "minute", "second")
+	
+	for (i in 1:nrow(per.mat)){
+		per <- per.mat[i,]
+		per <- per[which(per != 0)]
+		
+		if (length(per) == 0) {
+			show[i] <- "0 seconds"
+		} else {
+			singular <- names(per)
+			plural <- paste(singular, "s", sep = "")
+			IDs <- paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
+			
+			if(length(IDs) == 1) {
+				show[i] <- IDs
+			} else {
+				show[i] <- paste(paste(paste(IDs[-length(IDs)], collapse = ", "),
+					IDs[length(IDs)], sep = " and "), "")  
+			}
+		}
+	}
+	print(show, quote = FALSE)
+})
+
 
 
 #' Create a period object.
@@ -120,7 +149,8 @@ new_period <- period <- function(...) {
   if(any(trunc(pieces[,1:5]) - pieces[,1:5] != 0))
     stop("periods must have integer values", call. = FALSE)
   
-  structure(pieces, class = c("period", "data.frame"))
+  new("Period", pieces$second, year = pieces$year, month = pieces$month, 
+  	day = pieces$day, hour = pieces$hour, minute = pieces$minute)
 }
 
 #' Quickly create relative timespans.
@@ -225,33 +255,7 @@ is.period <- function(x) is(x,"Period")
 
 
 
-format.period <- function(x, ...){
-  show <- vector(mode = "character")
-  for (i in 1:nrow(x)){
-    per <- x[i,]
-  
-    per <- per[which(per != 0)]
-    if (length(per) == 0) {
-      show[i] <- "0 seconds"
-    } else {
-      singular <- names(per)
-      plural <- paste(singular, "s", sep = "")
-      IDs <- paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
-      if(length(IDs) == 1) {
-        show[i] <- IDs
-      } else {
-        show[i] <- paste(paste(paste(IDs[-length(IDs)], collapse = ", "),
-          IDs[length(IDs)], sep = " and "), "")  
-      }
-    }
-  }
-  show
-}
 
-
-print.period <- function(x, ...) {
-  print(format(x), ..., quote = FALSE)
-}
 
 #' Change an object to a period.
 #'
