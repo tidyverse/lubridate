@@ -1,29 +1,25 @@
 subtract_interval_from_date <- function(int, date){
-	end <- attr(int, "start") + unclass(int)
+	end <- int@start + int@.Data
 	if (any(end != as.POSIXct(date)))
 	   message("interval does not align: coercing to duration")
 	dur <- as.duration(int)
-	attr(dur, "start") <- NULL
 	add_duration_to_date(-dur, date)
 }
 
+#' THIS HAS CHANGED
 subtract_interval_from_interval <- function(int2, int1){
-	start1 <- attr(int1, "start")
-	start2 <- attr(int2, "start")
-	end1 <- start1 + int1
-	end2 <- start2 + int2
-	
-	if (all(end1 >= end2)){
-		if (all(end2 == end1))
-			return(new_interval(start2, start1))
-		else if (all(start2 == start1))
-			return(new_interval(end2, end1))
-	}
-	
-	message("Intervals do not align: coercing to durations")
-	dur <- as.duration(int1) - as.duration(int2)
-	attr(dur, "start") <- NULL
-	dur
+	holes <- int2@start > int1@start & int2@start + int2@.Data < int1@start + 
+		int1@.Data
+	if (any(holes)) {
+		message("lubridate does not support discontinuous intervals")
+		stop(paste("case," which(holes), "results in discontinuous interval"))
+	} else if (any(!overlaps(int2, int1))) {
+		message("Intervals do not overlap: coercing to durations")
+		new("Duration", int1@.Data - int2@.Data)
+	} else
+		ifelse(int1@start < int2@start, 
+			new_interval(int1@start, int2@start),
+			new_interval(int2@start + int2@.Data, int1@start + int1@.Data))
 }
 
 #' Subtracting date-time objects
@@ -34,11 +30,6 @@ subtract_interval_from_interval <- function(int2, int1){
 #' @param e1 a numeric or date-time object
 #' @param e2 a numeric or date-time object
 #' @export subtract_dates
-
-
-# THIS NEEDS A SOLUTION S4 METHODS WILL NOT WORK
-  else if(is.instant(e1) && is.instant(e2))
-    new_interval(e2, e1)
 
 
 setMethod("-", signature(e1 = "Interval", e2 = "missing"),

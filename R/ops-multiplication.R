@@ -1,23 +1,18 @@
 multiply_duration_by_number <- function(dur, num)
-	structure(as.numeric(dur) * num, class = c("duration", "numeric"))
+	new("Duration", dur@.Data * num)
 
 
 multiply_period_by_number <- function(per, num){
-  new_period(
-    year = per$year * num,
-    month = per$month * num,
-    day = per$day * num,
-    hour = per$hour * num,
-    minute = per$minute * num,
-    second = per$second * num
-  )
+  new("Period", per@.Data * num,
+    year = per@year * num,
+    month = per@month * num,
+    day = per@day * num,
+    hour = per@hour * num,
+    minute = per@minute * num)
 }
 
 multiply_interval_by_number <- function(int, num){
-	start <- attr(int, "start")
-	span <- num * as.duration(int)
-	
-	new_interval(start + span, start)
+	new("Interval", int@.Data * num, start = int@start)
 }
 
 

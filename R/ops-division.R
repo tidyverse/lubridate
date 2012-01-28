@@ -1,151 +1,80 @@
 divide_difftime_by_duration <- function(dif, dur)
-	as.numeric(dif, units = "secs") / as.numeric(dur)
+	as.numeric(dif, units = "secs") / dur@.Data
 
 divide_difftime_by_interval <- function(dif, int)
-	as.numeric(dif, units = "secs") / as.numeric(int)
+	as.numeric(dif, units = "secs") / int@.Data
 
 divide_difftime_by_period <- function(dif, per)
-	as.numeric(dif, units = "secs") / as.numeric(as.duration(per))
-	
-divide_difftime_by_number <- function(e1, e2)
-    .difftime(unclass(e1)/e2, attr(e1, "units"))
+	as.numeric(dif, units = "secs") / period_to_seconds(per)
 
 
 
 divide_duration_by_difftime <- function(dur, diff)
-	as.numeric(dur) / as.numeric(diff, units = "secs")
+	dur@.Data / as.numeric(diff, units = "secs")
 
 divide_duration_by_duration <- function(dur1, dur2)
-	as.numeric(dur1) / as.numeric(dur2)
+	dur1@.Data / dur2@.Data
 	
 divide_duration_by_interval <- function(dur, int)
-	as.numeric(dur) / as.numeric(int)
+	dur@.Data / int@.Data
 
 divide_duration_by_number <- function(dur, num)
-	new_duration(as.numeric(dur) / num)
+	new("Duration", dur@.Data / num)
 
 divide_duration_by_period <- function(dur, per)
-	as.numeric(dur) / as.numeric(as.duration(per))
+	dur@.Data / period_to_seconds(per)
+
 
 
 divide_interval_by_difftime <- function(int, diff){
-	as.numeric(unclass(int) / as.double(diff, units = "secs"))
+	int@.Data / as.double(diff, units = "secs"))
 }
 
 divide_interval_by_duration <- function(int, dur){
-	as.numeric(unclass(int) / unclass(dur))
+	int@.Data / dur@.Data
 }
 
 divide_interval_by_interval <- function(int, int2){
-	message("interval denominator coerced to duration")
-	as.numeric(unclass(int) / unclass(int2))
+	int@.Data / int2@.Data
 }
 
 divide_interval_by_number <- function(int, num){
-	start <- attr(int, "start")
-	span <- as.duration(int) / num
-	
-	new_interval(start + span, start)
-}
-
-equalize_length <- function(x, y){
-	n.x <- length(x)
-	n.y <- nrow(y) 
-	n.max <- max(n.x, n.y)
-	n.min <- min(n.x, n.y)
-	if (n.max %% n.min != 0L){
-		stop("longer object length is not a multiple of shorter object length")
-	} else {
-		if (n.x < n.y) {
-			x <- rep(x, length.out = n.y)
-		} else {
-			y <- rep(y, length.out = n.x)
-		}	
-	}
-	list(x, y)
+	new("Interval", int@.Data / num, start = int@start)
 }
 
 divide_interval_by_period <- function(int, per){
-	
 	message("estimate only: convert periods to intervals for accuracy")
-	equals <- equalize_length(int, per)
-	int <- equals[[1]]
-	per <- equals[[2]]
-	
-	paired.up <- data.frame(interval = int, per, row = seq_along(int))
-
-	
-	division_engine <- function(df){
-		int <- df$int
-		per <- structure(df[,2:7], class = c("period", "data.frame"))
-	
-		start <- attr(int, "start")
-		end <- start + unclass(int)
-	
-		# sign of period shouldn't affect answer
-		per <- abs(per)
-	
-		# duration division should give good approximation
-		dur <- suppressMessages(as.duration(per))
-		estimate <- trunc(as.numeric(int) / as.numeric(dur))
-	
-		# did we overshoot or undershoot?
-		try1 <- start + per * estimate
-		miss <- as.numeric(end) - as.numeric(try1)
-	
-		# adjust estimate until satisfactory
-		n <- 0
-		if (miss == 0) {
-			return(estimate)
-		} else if (miss > 0) {
-			while (try1 + n * per <= end)
-				n <- n + 1
-			# because the last one went too far	
-			return(estimate + (n - 1)) 
-		} else {
-			while (try1 - n * per >= end)
-				n <- n + 1
-			# because the last one went too far	
-			return(estimate - (n - 1))
-		}
-	}
-	
-	unlist(ddply(paired.up, "row", division_engine)[,2])	
+	as.period(int)/per
 }
 
 
 divide_period_by_difftime <- function(per, diff){
-	as.numeric(as.duration(per)) / as.numeric(diff, units = "secs")
+	period_to_seconds(per) / as.numeric(diff, units = "secs")
 }
 
 
 divide_period_by_duration <- function(per, dur){
-	as.numeric(as.duration(per)) / as.numeric(dur)
+	message("estimate only: convert to intervals for accuracy")
+	period_to_seconds(per) / dur@.Data
 }
 
 divide_period_by_interval <- function(per, int){
-	as.numeric(as.duration(per)) / as.numeric(int)
+	period_to_seconds(per) / int@.Data
 }
 
 divide_period_by_number <- function(per, num){
-  new_period(
-    year = per$year / num,
-    month = per$month / num,
-    day = per$day / num,
-    hour = per$hour / num,
-    minute = per$minute / num,
-    second = per$second / num
-  )
+	new("Period", per@.Data / num, year = per@year / num, 
+		month = per@month / num, day = per@day / num, hour = per@hour / num, 
+		minute = per@minute / hour)
 }
 
 divide_period_by_period <- function(per1, per2){
-	suppressMessages(as.duration(per1)) / as.duration(per2)
+	period_to_seconds(per1) / period_to_seconds(per2)
 }
 
 remainder_period_into_interval <- function(per, int){
-	integ <- int / per
-	int2 <- new_interval(int_start(int) + integ * per, int_end(int))
-	as.period(int2)
+	integ <- trunc(int / per)
+	as.period(new_interval(int@start + integ * per, int_end(int)))
 }
 
 
