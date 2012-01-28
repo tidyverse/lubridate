@@ -1,5 +1,3 @@
-setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
-
 check_interval <- function(object){
 	errors <- character()
 	if (!is.numeric(object@.Data)) {
@@ -20,6 +18,9 @@ check_interval <- function(object){
 	else
 		errors
 }
+
+setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
+
 
 
 #' Create an interval object.
@@ -256,7 +257,7 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	ends <- pmin(x@start + x@.Data, y@start + y@.Data)
 	spans <- as.numeric(ends) - as.numeric(starts) 
 	
-	no.int <- end < start
+	no.int <- ends < starts
 	spans[no.int] <- NA
 	starts[no.int] <- NA
 	
@@ -296,3 +297,9 @@ setMethod("%within%", signature(b = "Interval"), function(a,b){
 
 #' Creates an interval from two dates
 "%--%" <- function(e1, e2) interval(e1, e2)
+
+#' detects if two intervals overlap
+overlaps <- function(int1, int2){
+	stopifnot(c(is.interval(int1), is.interval(int2)))
+	int1@start <= int2@start + int2@.Data & int2@start <= int1@start + int1@.Data
+}
