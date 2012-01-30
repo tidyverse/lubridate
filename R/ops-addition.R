@@ -99,7 +99,7 @@ setMethod("+", signature(e1 = "Interval", e2 = "Interval"),
 	add_interval_to_interval(e2, e1))
 	
 setMethod("+", signature(e1 = "Interval", e2 = "Period"),
-	add_period_to_interval(e2, e1)
+	add_period_to_interval(e2, e1))
 
 setMethod("+", signature(e1 = "Interval", e2 = "Duration"),
 	add_duration_to_interval(e2, e1)) 
