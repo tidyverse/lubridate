@@ -367,19 +367,7 @@ setMethod("show", signature(object = "Duration"), function(object){
 		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""))
 })
 
-setGeneric("as.numeric")
-setMethod("as.numeric", signature("Duration"), function(x, units = "seconds", ...){
-	if (units == "months") stop("cannot map durations to months")
-	num <- switch(units, 
-		seconds = x@.Data, 
-		minutes = x@.Data / 60, 
-		hours = x@.Data / (60 * 60),
-		days = x@.Data / (60 * 60 * 24),
-		weeks = x@.Data / (60 * 60 * 24 * 7),
-		years = x@.Data / (60 * 60 * 24 * 365.25))
-		
-	as.numeric(num, ...)
-})
+
 
 
 setGeneric("rep")

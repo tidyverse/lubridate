@@ -49,6 +49,18 @@ standardise_difftime_names <- function(x) {
   res
 }
 
+standardise_period_names <- function(x) {
+  dates <- c("secs", "mins", "hours", "days", "weeks", "months", "years")
+  y <- gsub("(.)s$", "\\1", x)
+  y <- substr(y, 1, 3)
+  res <- dates[pmatch(y, dates)]
+  if (any(is.na(res))) {
+    stop("Invalid difftime name: ", paste(x[is.na(res)], collapse = ", "), 
+      call. = FALSE)
+  }
+  res
+}
+
 
 #' Lakers 2008-2009 basketball data set
 #' 
