@@ -50,7 +50,7 @@ standardise_difftime_names <- function(x) {
 }
 
 standardise_period_names <- function(x) {
-  dates <- c("secs", "mins", "hours", "days", "weeks", "months", "years")
+  dates <- c("second", "minute", "hour", "day", "week", "month", "year")
   y <- gsub("(.)s$", "\\1", x)
   y <- substr(y, 1, 3)
   res <- dates[pmatch(y, dates)]
