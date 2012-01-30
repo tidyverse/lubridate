@@ -364,7 +364,7 @@ setMethod("show", signature(object = "Duration"), function(object){
 	if (all(object@.Data < 120))
 		print(paste(object@.Data, "s", sep = ""))
 	else
-		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""))
+		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""), quote = FALSE)
 })
 
 
