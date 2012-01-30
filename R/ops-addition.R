@@ -107,6 +107,9 @@ setMethod("+", signature(e1 = "Interval", e2 = "Duration"),
 setMethod("+", signature(e1 = "Interval", e2 = "POSIXt"),
 	add_interval_to_date(e1, e2))
 	
+setMethod("+", signature(e1 = "Interval", e2 = "Date"),
+	add_interval_to_date(e1, e2))
+	
 setMethod("+", signature(e1 = "Interval", e2 = "difftime"),
 	add_duration_to_interval(as.duration(e2), e1))
  
@@ -126,6 +129,9 @@ setMethod("+", signature(e1 = "Period", e2 = "Duration"),
 	add_duration_to_period(e2, e1))
 
 setMethod("+", signature(e1 = "Period", e2 = "POSIXt"), 
+	add_period_to_date(e1, e2))
+
+setMethod("+", signature(e1 = "Period", e2 = "Date"), 
 	add_period_to_date(e1, e2))
 		
 setMethod("+", signature(e1 = "Period", e2 = "difftime"),	
@@ -150,6 +156,9 @@ setMethod("+", signature(e1 = "Duration", e2 = "Duration"),
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXt"), 
 	add_duration_to_date(e1, e2)) 
 	
+setMethod("+", signature(e1 = "Duration", e2 = "Date"), 
+	add_duration_to_date(e1, e2)) 
+	
 setMethod("+", signature(e1 = "Duration", e2 = "difftime"),
 	add_duration_to_duration(as.duration(e2), e1))
 	
@@ -166,6 +175,17 @@ setMethod("+", signature(e1 = "POSIXt", e2 = "Period"),
 	add_period_to_date(e2, e1))
       
 setMethod("+", signature(e1 = "POSIXt", e2 = "Duration"), 
+	add_duration_to_date(e2, e1)) 
+	
+
+
+setMethod("+", signature(e1 = "Date", e2 = "Interval"),
+	add_interval_to_date(e2, e1))
+	
+setMethod("+", signature(e1 = "Date", e2 = "Period"), 
+	add_period_to_date(e2, e1))
+      
+setMethod("+", signature(e1 = "Date", e2 = "Duration"), 
 	add_duration_to_date(e2, e1)) 
 
 

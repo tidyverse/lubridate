@@ -1,3 +1,5 @@
+setOldClass("Date")
+
 #' Is x a Date object?
 #'
 #' @export is.Date
