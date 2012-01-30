@@ -112,6 +112,11 @@ setMethod("show", signature(object = "Interval"), function(object){
 		format(object@start + object@.Data, tz = object@tzone, usetz = TRUE), sep = ""))
 })
 
+format.Interval <- function(x,...){
+	paste(format(x@start, tz = x@tzone, usetz = TRUE), "--", 
+		format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
+}
+
 
 
 #' Change an object to an interval.

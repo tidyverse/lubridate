@@ -368,6 +368,13 @@ setMethod("show", signature(object = "Duration"), function(object){
 })
 
 
+format.Duration <- function(x, ...) {
+	if (all(x@.Data < 120))
+		print(paste(x@.Data, "s", sep = ""))
+	else
+		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
+}
+
 
 
 setGeneric("rep")

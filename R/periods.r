@@ -81,6 +81,35 @@ setMethod("show", signature(object = "Period"), function(object){
 	print(show, quote = FALSE)
 })
 
+format.Period <- function(x, ...){
+	show <- vector(mode = "character")
+	per.mat <- matrix(c(x@year, x@month, x@day, x@hour, 
+		x@minute, x@.Data), ncol = 6) 
+	colnames(per.mat) <- c("year", "month", "day", "hour", "minute", "second")
+	
+	for (i in 1:nrow(per.mat)){
+		per <- per.mat[i,]
+		per <- per[which(per != 0)]
+		
+		if (length(per) == 0) {
+			show[i] <- "0 seconds"
+		} else {
+			singular <- names(per)
+			plural <- paste(singular, "s", sep = "")
+			IDs <- paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
+			
+			if(length(IDs) == 1) {
+				show[i] <- IDs
+			} else {
+				show[i] <- paste(paste(paste(IDs[-length(IDs)], collapse = ", "),
+					IDs[length(IDs)], sep = " and "), "")  
+			}
+		}
+	}
+	show
+}
+
+
 setMethod("c", signature(x = "Period"), function(x, ...){
 	seconds <- c(x@.Data, unlist(list(...)))
 	years <- c(x@year, unlist(lapply(list(...), slot, "year")))
