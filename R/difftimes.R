@@ -1,6 +1,6 @@
 setOldClass("difftime")
 
-setClass("difftime", contains = "Timespan")
+setClass("difftime")
 
 
 #' Makes a difftime object from a given number of seconds 
