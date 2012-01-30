@@ -73,19 +73,19 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 #' ceiling_date(x, "year")
 #' # "2010-01-01 CST"
 ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
-  unit <- match.arg(unit) 
-  
-  switch(unit,
-    second = second(x) <- ceiling(second(x)),
-    minute = minute(x) <- minute(x) + 1,
-    hour =   hour(x) <- hour(x) + 1,
-    day =    yday(x) <- yday(x) + 1,
-    week =   week(x) <- week(x) + 1,
-    month =  month(x) <- month(x) + 1,
-    year =   year(x) <- year(x) + 1
-  )
-  
-  floor_date(x, unit)
+	unit <- match.arg(unit) 
+	
+	floor_date(x, unit)
+	
+	switch(unit,
+		second = second(x) <- ceiling(second(x)),
+		minute = minute(x) <- minute(x) + 1,
+		hour =   hour(x) <- hour(x) + 1,
+		day =    yday(x) <- yday(x) + 1,
+		week =   week(x) <- week(x) + 1,
+		month =  month(x) <- month(x) + 1,
+		year =   year(x) <- year(x) + 1
+	)
 }
 
 
