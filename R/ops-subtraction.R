@@ -40,9 +40,6 @@ setMethod("-", signature(e1 = "Duration", e2 = "missing"),
     
 setMethod("-", signature(e1 = "Period", e2 = "missing"),
     multiply_period_by_number(e1, -1))
-    
-setMethod("-", signature(e1 = "POSIXct", e2 = "Timespan"),
-	structure(unclass(e1) - e2, class = class(e1))
 
 
 # NOTE: Should I just change this to a warning message that tells users to switch to a duration or period if they want to subtract intervals?
