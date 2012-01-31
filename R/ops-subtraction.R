@@ -6,22 +6,6 @@ subtract_interval_from_date <- function(int, date){
 	add_duration_to_date(-dur, date)
 }
 
-#' THIS HAS CHANGED
-subtract_interval_from_interval <- function(int2, int1){
-	holes <- int2@start > int1@start & int2@start + int2@.Data < int1@start + 
-		int1@.Data
-	if (any(holes)) {
-		message("lubridate does not support discontinuous intervals")
-		stop(paste("case," which(holes), "results in discontinuous interval"))
-	} else if (any(!overlaps(int2, int1))) {
-		message("Intervals do not overlap: coercing to durations")
-		new("Duration", int1@.Data - int2@.Data)
-	} else
-		ifelse(int1@start < int2@start, 
-			new_interval(int1@start, int2@start),
-			new_interval(int2@start + int2@.Data, int1@start + int1@.Data))
-}
-
 #' Subtracting date-time objects
 #'
 #' subtract_dates subtracts two objects, both of which can be date-time 
@@ -44,7 +28,7 @@ setMethod("-", signature(e1 = "Period", e2 = "missing"),
 
 
 setMethod("-", signature(e1 = "Interval", e2 = "Interval"),
-	subtract_interval_from_interval(e2, e1))
+	setdiff(e1, e2)
 
 setMethod("-", signature(e1 = "POSIXct", e2 = "Interval"),
 	subtract_interval_from_date(e2, e1))

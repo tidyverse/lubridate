@@ -12,7 +12,7 @@ multiply_period_by_number <- function(per, num){
 }
 
 multiply_interval_by_number <- function(int, num){
-	new("Interval", int@.Data * num, start = int@start)
+	new("Interval", int@.Data * num, start = int@start, tzone = int@tzone)
 }
 
 

@@ -42,14 +42,22 @@ setMethod("rep", signature(x = "Interval"), function(x, ...){
 	new("Interval", rep(x@.Data, ...), start = rep(x@start,...), tzone = x@tzone)
 })
 
-setMethod("[", representation(x = "Interval", i = "integer"), 
-  function(x, i, j, ..., drop = TRUE) {
-    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
-})
+setMethod("[", representation(x = "Interval"), 
+	function(x, i, j, ..., drop = TRUE) {
+    	new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
+	}
+)
 
-setMethod("[", representation(x = "Interval", i = "numeric"), 
-  function(x, i, j, ..., drop = TRUE) {
-    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
+setMethod("[<-", representation(x = "Interval"), function(x, i, j, ..., value) {
+  	if (is.interval(value)){
+  		x@.Data[i] <- value@.Data
+  		x@start[i] <- value@start 
+  		new("Interval", x@.Data, start = x@start, tzone = x@tzone)
+  	}
+  	else {
+  		x@.Data[i] <- value
+		new("Interval", x@.Data, start = x@start, tzone = x@tzone)
+	}
 })
 
 
@@ -106,20 +114,19 @@ setMethod("[", representation(x = "Interval", i = "numeric"),
 #' # "2009-01-01 UTC"
 #' end <- start + span
 #' # "2009-02-01 UTC"
-new_interval <- interval <- function(date2, date1){
-	if (is.null(attr(date2, "tzone"))) {
-		if (is.null(attr(date1, "tzone"))) {
+new_interval <- interval <- function(start, end){
+	if (is.null(attr(start, "tzone"))) {
+		if (is.null(attr(end, "tzone"))) {
 			tzone <- ""
 		} else {
-			tzone <- attr(date1, "tzone")
+			tzone <- attr(end, "tzone")
 		}
 	} else {
-		tzone <- attr(date2, "tzone")
+		tzone <- attr(start, "tzone")
 	}
 	
-	int <- data.frame(date2 = as.POSIXct(date2), date1 = as.POSIXct(date1))
-	span <- abs(as.numeric(int$date2) - as.numeric(int$date1))
-	new("Interval", span, start = pmin(int$date1, int$date2), tzone = tzone)
+	span <- as.numeric(end) - as.numeric(start)
+	new("Interval", span, start = start, tzone = tzone)
 }
 
 
@@ -189,7 +196,7 @@ as.interval <- function(x, start){
 	if (is.instant(x))
 		return(new_interval(x, start))
 	else
-		new_interval(start + x, start)
+		new_interval(start, start + x)
 }
 
 
@@ -215,10 +222,10 @@ as.interval <- function(x, start){
 #' # 2001-06-01 -- 2002-06-01
 int_start <- function(x) x@start
 	
-"int_start<-" <- function(interval, value){
-	equal.lengths <- data.frame(interval, value)
-	interval <- new("Interval", interval@.Data, start = equal.lengths$value, 
-		tzone = interval@tzone)
+"int_start<-" <- function(int, value){
+	equal.lengths <- data.frame(int, value)
+	int <- new("Interval", int@.Data, start = equal.lengths$value, 
+		tzone = int@tzone)
 }	
 
 
@@ -245,21 +252,21 @@ int_start <- function(x) x@start
 #' # 2001-06-01 -- 2002-06-01
 int_end <- function(x) x@start + x@.Data
 
-"int_end<-" <- function(interval, value){
-	equal.lengths <- data.frame(interval, value)
-	interval <- new("Interval", interval@.Data, start = equal.lengths$value - interval@.Data,
-		tzone = interval@tzone)
+"int_end<-" <- function(int, value){
+	equal.lengths <- data.frame(int, value)
+	int <- new("Interval", int@.Data, start = value - int@.Data,
+		tzone = int@tzone)
 }
 
-# HOW EXACTLY SHOULD THIS WORK - falls in?
-# setGeneric("%in%")
-# setMethod("%in%", signature(table = "Interval"), function(x, table){
-#	if(!is.instant(x)) stop("Argument 1 is not a recognized date-time")
-#	x - table@start <= table@.Data & x - table@start >= 0
-#})
 
+#' returns an interval with the same sign as the first interval
 setGeneric("intersect")
 setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
+	first.x <- pmin(x@start, x@start + x@.Data)
+	first.y <- pmin(y@start, y@start + y@.Data)
+	last.x <- pmax(x@start, x@start + x@.Data)
+	last.y <- pmax(y@start, y@start + y@.Data)
+	
 	starts <- pmax(x@start, y@start)
 	ends <- pmin(x@start + x@.Data, y@start + y@.Data)
 	spans <- as.numeric(ends) - as.numeric(starts) 
@@ -268,21 +275,57 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	spans[no.int] <- NA
 	starts[no.int] <- NA
 	
-	new("Interval", spans, start = starts, tzone = x@tzone)
+	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
 })
 
 setGeneric("union")
 setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
-	starts <- pmin(x@start, y@start)
-	ends <- pmax(x@start + x@.Data, y@start + y@.Data)
+	first.x <- pmin(x@start, x@start + x@.Data)
+	first.y <- pmin(y@start, y@start + y@.Data)
+	last.x <- pmax(x@start, x@start + x@.Data)
+	last.y <- pmax(y@start, y@start + y@.Data)
+	
+	starts <- pmin(first.x, first.y)
+	ends <- pmax(last.x, last.y)
+
 	spans <- as.numeric(ends) - as.numeric(starts) 
 	
 	no.overlap <- spans > (x@.Data + y@.Data)
 	if(any(no.overlap[!is.na(no.overlap)])) 
 		message("Union includes intervening time between intervals.")
 	
-	new("Interval", spans, start = starts, tzone = x@tzone)
+	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
 })
+
+setGeneric("setdiff")
+setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
+	if (any(y %within% x)) {
+		stop(paste("Cases", which(y %within% x), 
+			"result in discontinuous intervals."))
+	}
+	
+	first.x <- pmin(x@start, x@start + x@.Data)
+	first.y <- pmin(y@start, y@start + y@.Data)
+	last.x <- pmax(x@start, x@start + x@.Data)
+	last.y <- pmax(y@start, y@start + y@.Data)
+	
+	start <- first.x
+	start[last.y %within% x] <- last.y[last.y %within% x]
+
+	end <- last.x
+	end[first.y %within% x] <- first.y[first.y %within% x]
+	
+	spans <- as.numeric(ends) - as.numeric(starts)
+	
+	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
+})
+
+
+#' Shifts an interval up or down the timeline by a specified amount
+#' note this may change the exact length of the interval
+flip <- function(int){
+	new("Interval", -int@.Data, start = int@start + int@.Data, tzone = int@tzone)
+}
 
 
 #' Shifts an interval up or down the timeline by a specified amount
@@ -300,6 +343,10 @@ setMethod("%within%", signature(b = "Interval"), function(a,b){
 	if(!is.instant(a)) stop("Argument 1 is not a recognized date-time")
 	a <- as.POSIXct(a)
 	as.numeric(a) - as.numeric(b@start) <= b@.Data & as.numeric(a) - as.numeric(b@start) >= 0
+})
+
+setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
+	as.numeric(a@start) - as.numeric(b@start) <= b@.Data & as.numeric(a@start) - as.numeric(b@start) >= 0
 })
 
 #' Creates an interval from two dates
