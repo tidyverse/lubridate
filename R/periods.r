@@ -128,19 +128,33 @@ setMethod("rep", signature(x = "Period"), function(x, ...){
 		hour = rep(x@hour, ...), minute = rep(x@minute, ...))
 })
 
-setMethod("[", representation(x = "Period", i = "integer"), 
+setMethod("[", representation(x = "Period"), 
   function(x, i, j, ..., drop = TRUE) {
     new("Period", x@.Data[i], year = x@year[i], month = x@month[i], 
     	day = x@day[i], hour = x@hour[i], minute = x@minute[i])
 })
 
-setMethod("[", representation(x = "Period", i = "numeric"), 
-  function(x, i, j, ..., drop = TRUE) {
-    new("Period", x@.Data[i], year = x@year[i], month = x@month[i], 
-    	day = x@day[i], hour = x@hour[i], minute = x@minute[i])
+setMethod("[<-", representation(x = "Period", i = "Period"), 
+  function(x, i, j, ..., value) {
+  	x@.Data[i] <- value@.Data
+  	x@year[i] <- value@year
+  	x@month[i] <- value@month
+  	x@day[i] <- value@day 
+  	x@hour[i] <- value@hour
+  	x@minute[i] <- value@minute
+    x
 })
 
+setMethod("$", representation(x = "Period"), function(x, name) {
+	if (name == "second") name <- ".Data"
+    slot(x, name)
+})
 
+setMethod("$<-", representation(x = "Period"), function(x, name, value) {
+	if (name == "second") name <- ".Data"
+    slot(x, name) <- value
+    x
+})
 
 #' Create a period object.
 #'

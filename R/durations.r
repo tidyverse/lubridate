@@ -51,13 +51,15 @@ setMethod("rep", signature(x = "Duration"), function(x, ...){
 	new("Duration", rep(as.numeric(x), ...))
 })
 
-setMethod("[", representation(x = "Duration", i = "integer"), 
+setMethod("[", representation(x = "Duration"), 
   function(x, i, j, ..., drop = TRUE) {
     new("Duration", x@.Data[i])
 })
-setMethod("[", representation(x = "Duration", i = "numeric"), 
-  function(x, i, j, ..., drop = TRUE) {
-    new("Duration", x@.Data[i])
+
+setMethod("[<-", representation(x = "Duration"), 
+  function(x, i, j, ..., value) {
+  	x@.Data[i] <- value
+    new("Duration", x@.Data)
 })
 
 
