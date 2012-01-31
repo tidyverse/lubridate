@@ -1,3 +1,69 @@
+check_duration <- function(object){
+	if (is.numeric(object@.Data))
+		TRUE
+	else
+		"Duration value is not a number. Should be numeric."
+}
+
+setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
+
+compute_estimate <- function (x) {  
+  seconds <- abs(x)
+    if (any(seconds < 60)) 
+        units <- "secs"
+    else if (any(seconds < 3600))
+        units <- "mins"
+    else if (any(seconds < 86400))
+        units <- "hours"
+    else if (any(seconds < 31557600))
+        units <- "days"
+    else
+    	units <- "years"
+    
+    switch(units, secs = paste(round(x, 2), " seconds", sep = ""), 
+      mins = paste("~", round(x/60, 2), " minutes", sep = ""), 
+      hours = paste("~", round(x/3600, 2), " hours", sep = ""), 
+      days = paste("~", round(x/86400, 2), " days", sep = ""), 
+      years = paste("~", round(x/31557600, 2), " years", sep = ""))
+}
+
+setMethod("show", signature(object = "Duration"), function(object){
+	if (all(object@.Data < 120))
+		print(paste(object@.Data, "s", sep = ""))
+	else
+		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""), quote = FALSE)
+})
+
+format.Duration <- function(x, ...) {
+	if (all(x@.Data < 120))
+		print(paste(x@.Data, "s", sep = ""))
+	else
+		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
+}
+
+setMethod("c", signature(x = "Duration"), function(x, ...){
+	durs <- c(x@.Data, unlist(list(...)))
+	new("Duration", durs)
+})
+
+setGeneric("rep")
+setMethod("rep", signature(x = "Duration"), function(x, ...){
+	new("Duration", rep(as.numeric(x), ...))
+})
+
+setMethod("[", representation(x = "Duration", i = "integer"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Duration", x@.Data[i])
+})
+setMethod("[", representation(x = "Duration", i = "numeric"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Duration", x@.Data[i])
+})
+
+
+
+
+
 #' Description of time span classes in lubridate.
 #'
 #' A time span can be measured in three ways: as a duration, an interval, or a 
@@ -112,16 +178,6 @@
 #' # 6 months and 1 day
 NULL
 
-check_duration <- function(object){
-	if (is.numeric(object@.Data))
-		TRUE
-	else
-		"Duration value is not a number. Should be numeric."
-}
-
-setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
-
-
 
 #' Create a duration object.
 #'
@@ -194,72 +250,6 @@ new_duration <- duration <- function(num = 0,...){
   new("Duration", x)
 }
 
-
-
-
-
-
-
-
-#' Change an object to a duration (difftime).
-#'
-#' as.duration changes interval, period and numeric objects to 
-#' duration objects. Numeric objects are changed to duration objects 
-#' with the seconds unit equal to the numeric value. 
-#'
-#' Durations are exact time measurements, whereas periods are relative time 
-#' measurements. See \code{\link{periods}}. The length of a period depends on 
-#' when it occurs. Hence, a one to one mapping does not exist between durations 
-#' and periods. When used with a period object, as.duration provides an inexact 
-#' estimate of the length of the period; each time unit is assigned its most 
-#' common number of seconds. Periods with a months unit cannot be coerced to 
-#' durations because of the variability of month lengths. For an exact 
-#' transformation, first transform the period to an interval with 
-#' \code{\link{as.interval}}.
-#'
-#' @export as.duration 
-#' @S3method as.duration default 
-#' @S3method as.duration period 
-#' @S3method as.duration interval 
-#' @S3method as.duration difftime
-#' @param x an interval, period, or numeric object   
-#' @return a duration object
-#' @seealso \code{\link{duration}}, \code{\link{new_duration}}
-#' @keywords classes manip methods chron
-#' @examples
-#' span <- new_interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
-#' # 2009-01-01 -- 2009-08-01 
-#' as.duration(span)
-#' # 18316800s (212d)
-#' as.duration(10) # numeric
-#' # 10s
-
-as.duration <- function(x)
-  UseMethod("as.duration")
-  
-as.duration.default <- function(x)
-  new("Duration", x) 
-
-as.duration.difftime <- function(x)
-	new("Duration", as.numeric(x, "secs"))
- 
-setGeneric("as.duration") 
-
-setMethod("as.duration", signature(x = "Interval"), function(x){
-	new("Duration", x@.Data)
-})
-
-setMethod("as.duration", signature(x = "Duration"), function(x){
-	x
-})
-
-
-setMethod("as.duration", signature(x = "Period"), function(x){
-	message("estimate only: convert periods to intervals for accuracy")
-	new("Duration", periods_to_seconds(x))
-})
-
-
 #' Quickly create exact time spans.
 #'
 #' Quickly create duration objects for easy date-time manipulation. The units of 
@@ -322,6 +312,7 @@ dmicroseconds <- emicroseconds <- function(x = 1) microseconds(x)
 dnanoseconds <- enanoseconds <- function(x = 1) nanoseconds(x)
 dpicoseconds <- epicoseconds <- function(x = 1) picoseconds(x)
 
+
 #' Is x a duration object?
 #'
 #' @export is.duration
@@ -336,65 +327,59 @@ dpicoseconds <- epicoseconds <- function(x = 1) picoseconds(x)
 is.duration <- function(x) is(x, "Duration")
 
 
+#' Change an object to a duration (difftime).
+#'
+#' as.duration changes interval, period and numeric objects to 
+#' duration objects. Numeric objects are changed to duration objects 
+#' with the seconds unit equal to the numeric value. 
+#'
+#' Durations are exact time measurements, whereas periods are relative time 
+#' measurements. See \code{\link{periods}}. The length of a period depends on 
+#' when it occurs. Hence, a one to one mapping does not exist between durations 
+#' and periods. When used with a period object, as.duration provides an inexact 
+#' estimate of the length of the period; each time unit is assigned its most 
+#' common number of seconds. Periods with a months unit cannot be coerced to 
+#' durations because of the variability of month lengths. For an exact 
+#' transformation, first transform the period to an interval with 
+#' \code{\link{as.interval}}.
+#'
+#' @export as.duration 
+#' @S3method as.duration default 
+#' @S3method as.duration period 
+#' @S3method as.duration interval 
+#' @S3method as.duration difftime
+#' @param x an interval, period, or numeric object   
+#' @return a duration object
+#' @seealso \code{\link{duration}}, \code{\link{new_duration}}
+#' @keywords classes manip methods chron
+#' @examples
+#' span <- new_interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
+#' # 2009-01-01 -- 2009-08-01 
+#' as.duration(span)
+#' # 18316800s (212d)
+#' as.duration(10) # numeric
+#' # 10s
+as.duration <- function(x)
+  UseMethod("as.duration")
+  
+as.duration.default <- function(x)
+  new("Duration", x) 
 
+as.duration.difftime <- function(x)
+	new("Duration", as.numeric(x, "secs"))
+ 
+setGeneric("as.duration") 
 
+setMethod("as.duration", signature(x = "Interval"), function(x){
+	new("Duration", x@.Data)
+})
 
-compute_estimate <- function (x) {  
-  seconds <- abs(x)
-    if (any(seconds < 60)) 
-        units <- "secs"
-    else if (any(seconds < 3600))
-        units <- "mins"
-    else if (any(seconds < 86400))
-        units <- "hours"
-    else if (any(seconds < 31557600))
-        units <- "days"
-    else
-    	units <- "years"
-    
-    switch(units, secs = paste(round(x, 2), " seconds", sep = ""), 
-      mins = paste("~", round(x/60, 2), " minutes", sep = ""), 
-      hours = paste("~", round(x/3600, 2), " hours", sep = ""), 
-      days = paste("~", round(x/86400, 2), " days", sep = ""), 
-      years = paste("~", round(x/31557600, 2), " years", sep = ""))
-}
-
-
-setMethod("show", signature(object = "Duration"), function(object){
-	if (all(object@.Data < 120))
-		print(paste(object@.Data, "s", sep = ""))
-	else
-		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""), quote = FALSE)
+setMethod("as.duration", signature(x = "Duration"), function(x){
+	x
 })
 
 
-format.Duration <- function(x, ...) {
-	if (all(x@.Data < 120))
-		print(paste(x@.Data, "s", sep = ""))
-	else
-		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
-}
-
-
-
-setGeneric("rep")
-setMethod("rep", signature(x = "Duration"), function(x, ...){
-	new("Duration", rep(as.numeric(x), ...))
+setMethod("as.duration", signature(x = "Period"), function(x){
+	message("estimate only: convert periods to intervals for accuracy")
+	new("Duration", periods_to_seconds(x))
 })
-
-
-setMethod("c", signature(x = "Duration"), function(x, ...){
-	durs <- c(x@.Data, unlist(list(...)))
-	new("Duration", durs)
-})
-
-
-setMethod("[", representation(x = "Duration", i = "integer"), 
-  function(x, i, j, ..., drop = TRUE) {
-    new("Duration", x@.Data[i])
-})
-setMethod("[", representation(x = "Duration", i = "numeric"), 
-  function(x, i, j, ..., drop = TRUE) {
-    new("Duration", x@.Data[i])
-})
-

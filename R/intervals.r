@@ -21,6 +21,36 @@ check_interval <- function(object){
 
 setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
 
+setMethod("show", signature(object = "Interval"), function(object){
+	print(paste(format(object@start, tz = object@tzone, usetz = TRUE), "--", 
+		format(object@start + object@.Data, tz = object@tzone, usetz = TRUE), sep = ""))
+})
+
+format.Interval <- function(x,...){
+	paste(format(x@start, tz = x@tzone, usetz = TRUE), "--", 
+		format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
+}
+
+setMethod("c", signature(x = "Interval"), function(x, ...){
+	spans <- c(x@.Data, unlist(list(...)))
+	starts <- c(x@start, unlist(lapply(list(...), int_start)))
+	new("Interval", spans, start = starts, tzone = x@tzone)
+})
+
+
+setMethod("rep", signature(x = "Interval"), function(x, ...){
+	new("Interval", rep(x@.Data, ...), start = rep(x@start,...), tzone = x@tzone)
+})
+
+setMethod("[", representation(x = "Interval", i = "integer"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
+})
+
+setMethod("[", representation(x = "Interval", i = "numeric"), 
+  function(x, i, j, ..., drop = TRUE) {
+    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
+})
 
 
 #' Create an interval object.
@@ -107,15 +137,7 @@ new_interval <- interval <- function(date2, date1){
 is.interval <- function(x) is(x, c("Interval"))
 
 
-setMethod("show", signature(object = "Interval"), function(object){
-	print(paste(format(object@start, tz = object@tzone, usetz = TRUE), "--", 
-		format(object@start + object@.Data, tz = object@tzone, usetz = TRUE), sep = ""))
-})
 
-format.Interval <- function(x,...){
-	paste(format(x@start, tz = x@tzone, usetz = TRUE), "--", 
-		format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
-}
 
 
 
@@ -171,26 +193,6 @@ as.interval <- function(x, start){
 }
 
 
-setMethod("c", signature(x = "Interval"), function(x, ...){
-	spans <- c(x@.Data, unlist(list(...)))
-	starts <- c(x@start, unlist(lapply(list(...), int_start)))
-	new("Interval", spans, start = starts, tzone = x@tzone)
-})
-
-
-setMethod("rep", signature(x = "Interval"), function(x, ...){
-	new("Interval", rep(x@.Data, ...), start = rep(x@start,...), tzone = x@tzone)
-})
-
-setMethod("[", representation(x = "Interval", i = "integer"), 
-  function(x, i, j, ..., drop = TRUE) {
-    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
-})
-
-setMethod("[", representation(x = "Interval", i = "numeric"), 
-  function(x, i, j, ..., drop = TRUE) {
-    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
-})
 
 
 
