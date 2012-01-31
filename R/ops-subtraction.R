@@ -42,11 +42,14 @@ setMethod("-", signature(e1 = "Period", e2 = "missing"),
     multiply_period_by_number(e1, -1))
 
 
-# NOTE: Should I just change this to a warning message that tells users to switch to a duration or period if they want to subtract intervals?
+
 setMethod("-", signature(e1 = "Interval", e2 = "Interval"),
 	subtract_interval_from_interval(e2, e1))
 
-setMethod("-", signature(e1 = "POSIXt", e2 = "Interval"),
+setMethod("-", signature(e1 = "POSIXct", e2 = "Interval"),
+	subtract_interval_from_date(e2, e1))
+	
+setMethod("-", signature(e1 = "POSIXlt", e2 = "Interval"),
 	subtract_interval_from_date(e2, e1))
 	
 setMethod("-", signature(e1 = "Date", e2 = "Interval"),

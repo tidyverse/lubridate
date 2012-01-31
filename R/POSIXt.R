@@ -1,3 +1,7 @@
+setOldClass("POSIXt")
+setOldClass("POSIXct")
+setOldClass("POSIXlt")
+
 as.POSIXt <- function(x) as.POSIXlt(x)
 
 #' Is x a POSIXct or POSIXlt object?
