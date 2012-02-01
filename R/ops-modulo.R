@@ -1,4 +1,4 @@
-modulo_dates <- function(e1, e2){
+modulo_spans <- function(e1, e2){
 	if (!is.timespan(e1) && !is.timespan(e2))
 		stop("attempt to use an unrecognized timespan object with a timespan") 
 	if (class(e1)[1] != class(e2)[1])
@@ -12,6 +12,6 @@ get_remainder <- function(num, den){
 	num - den * integ
 }
 
-setMethod("%%", signature(e1 = "Timespan", e2 = "Timespan"), modulo_dates(e1, e2))
+setMethod("%%", signature(e1 = "Timespan", e2 = "Timespan"), modulo_spans(e1, e2))
 
 

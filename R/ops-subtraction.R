@@ -15,20 +15,26 @@ subtract_interval_from_date <- function(int, date){
 #' @param e2 a numeric or date-time object
 #' @export subtract_dates
 
-
-setMethod("-", signature(e1 = "Interval", e2 = "missing"),
-	multiply_interval_by_number(e1, -1))
- 
 setMethod("-", signature(e1 = "Duration", e2 = "missing"),
     multiply_duration_by_number(e1, -1))
+    
+setMethod("-", signature(e1 = "Interval", e2 = "missing"),
+	multiply_interval_by_number(e1, -1))
     
 setMethod("-", signature(e1 = "Period", e2 = "missing"),
     multiply_period_by_number(e1, -1))
 
 
 
+setMethod("-", signature(e2 = "Duration"), e1  + (-1 * e2))
+
 setMethod("-", signature(e1 = "Interval", e2 = "Interval"),
-	setdiff(e1, e2)
+	setdiff(e1, e2))
+	
+setMethod("-", signature(e2 = "Period"), e1  + (-1 * e2))
+
+setMethod("-", signature(e1 = "Date", e2 = "Interval"),
+	subtract_interval_from_date(e2, e1))
 
 setMethod("-", signature(e1 = "POSIXct", e2 = "Interval"),
 	subtract_interval_from_date(e2, e1))
@@ -36,10 +42,3 @@ setMethod("-", signature(e1 = "POSIXct", e2 = "Interval"),
 setMethod("-", signature(e1 = "POSIXlt", e2 = "Interval"),
 	subtract_interval_from_date(e2, e1))
 	
-setMethod("-", signature(e1 = "Date", e2 = "Interval"),
-	subtract_interval_from_date(e2, e1))
-
-	
-setMethod("-", signature(e2 = "Duration"), e1  + (-1 * e2))
-
-setMethod("-", signature(e2 = "Period"), e1  + (-1 * e2))
