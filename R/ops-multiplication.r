@@ -1,3 +1,9 @@
+#' @include timespans.r
+#' @include durations.r
+#' @include intervals.r
+#' @include periods.r
+
+
 multiply_duration_by_number <- function(dur, num)
 	new("Duration", dur@.Data * num)
 

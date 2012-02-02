@@ -1,3 +1,13 @@
+#' @include timespans.r
+#' @include durations.r
+#' @include intervals.r
+#' @include periods.r
+#' @include Dates.r
+#' @include difftimes.r
+#' @include numeric.r
+#' @include POSIXt.r
+
+
 add_duration_to_duration <- function(dur2, dur1)
 	new("Duration", dur1@.Data + dur2@.Data)
 

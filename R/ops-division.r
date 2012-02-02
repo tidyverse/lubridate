@@ -1,3 +1,11 @@
+#' @include timespans.r
+#' @include durations.r
+#' @include intervals.r
+#' @include periods.r
+#' @include difftimes.r
+#' @include numeric.r
+
+
 divide_duration_by_duration <- function(dur1, dur2)
 	dur1@.Data / dur2@.Data
 	

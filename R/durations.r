@@ -1,3 +1,5 @@
+#' @include timespans.r
+
 check_duration <- function(object){
 	if (is.numeric(object@.Data))
 		TRUE
@@ -327,61 +329,3 @@ dpicoseconds <- epicoseconds <- function(x = 1) picoseconds(x)
 #' is.duration(as.Date("2009-08-03")) # FALSE
 #' is.duration(new_duration(days = 12.4)) # TRUE
 is.duration <- function(x) is(x, "Duration")
-
-
-#' Change an object to a duration (difftime).
-#'
-#' as.duration changes interval, period and numeric objects to 
-#' duration objects. Numeric objects are changed to duration objects 
-#' with the seconds unit equal to the numeric value. 
-#'
-#' Durations are exact time measurements, whereas periods are relative time 
-#' measurements. See \code{\link{periods}}. The length of a period depends on 
-#' when it occurs. Hence, a one to one mapping does not exist between durations 
-#' and periods. When used with a period object, as.duration provides an inexact 
-#' estimate of the length of the period; each time unit is assigned its most 
-#' common number of seconds. Periods with a months unit cannot be coerced to 
-#' durations because of the variability of month lengths. For an exact 
-#' transformation, first transform the period to an interval with 
-#' \code{\link{as.interval}}.
-#'
-#' @export as.duration 
-#' @S3method as.duration default 
-#' @S3method as.duration period 
-#' @S3method as.duration interval 
-#' @S3method as.duration difftime
-#' @param x an interval, period, or numeric object   
-#' @return a duration object
-#' @seealso \code{\link{duration}}, \code{\link{new_duration}}
-#' @keywords classes manip methods chron
-#' @examples
-#' span <- new_interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
-#' # 2009-01-01 -- 2009-08-01 
-#' as.duration(span)
-#' # 18316800s (212d)
-#' as.duration(10) # numeric
-#' # 10s
-as.duration <- function(x)
-  UseMethod("as.duration")
-  
-as.duration.default <- function(x)
-  new("Duration", x) 
-
-as.duration.difftime <- function(x)
-	new("Duration", as.numeric(x, "secs"))
- 
-setGeneric("as.duration") 
-
-setMethod("as.duration", signature(x = "Interval"), function(x){
-	new("Duration", x@.Data)
-})
-
-setMethod("as.duration", signature(x = "Duration"), function(x){
-	x
-})
-
-
-setMethod("as.duration", signature(x = "Period"), function(x){
-	message("estimate only: convert periods to intervals for accuracy")
-	new("Duration", periods_to_seconds(x))
-})

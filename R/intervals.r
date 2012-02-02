@@ -1,3 +1,6 @@
+#' @include timespans.r
+
+
 check_interval <- function(object){
 	errors <- character()
 	if (!is.numeric(object@.Data)) {
@@ -152,63 +155,6 @@ new_interval <- interval <- function(start, end){
 #' is.interval(new_period(months= 1, days = 15)) # FALSE
 #' is.interval(new_interval(ymd(20090801), ymd(20090809))) # TRUE
 is.interval <- function(x) is(x, c("Interval"))
-
-
-
-
-
-
-#' Change an object to an interval.
-#'
-#' as.interval changes difftime, duration, period and numeric objects to 
-#' intervals that begin at the specified date-time. Numeric objects are first 
-#' coerced to time spans equal to the numeric value in seconds. 
-#'
-#' as.interval can be used to create accurate transformations between period 
-#' objects, which measure time spans in variable length units, and difftime objects, 
-#' which measure timespans as an exact number of seconds. A start date-
-#' time must be supplied to make the conversion. Lubridate uses 
-#' this start date to look up how many seconds each variable 
-#' length unit (e.g. month, year) lasted for during the time span 
-#' described. See 
-#' \code{\link{as.duration}}, \code{\link{as.period}}.
-#'
-#' @export as.interval
-#' @param x a duration (i.e. difftime), period, or numeric object that describes the length of the 
-#'   interval
-#' @param start a POSIXt or Date object that describes when the interval begins   
-#' @return an interval object
-#' @seealso \code{\link{interval}}, \code{\link{new_interval}}
-#' @keywords classes manip methods chron
-#' @examples
-#' diff <- new_difftime(days = 31) #difftime
-#' as.interval(diff, ymd("2009-01-01"))
-#' # 2009-01-01 -- 2009-02-01
-#' as.interval(diff, ymd("2009-02-01"))
-#' # 2009-02-01 -- 2009-03-04
-#' 
-#' dur <- new_duration(days = 31) #duration
-#' as.interval(dur, ymd("2009-01-01"))
-#' # 2009-01-01 -- 2009-02-01
-#' as.interval(dur, ymd("2009-02-01"))
-#' # 2009-02-01 -- 2009-03-04
-#'
-#' per <- new_period(months = 1) #period
-#' as.interval(per, ymd("2009-01-01"))
-#' # 2009-01-01 -- 2009-02-01 
-#' as.interval(per, ymd("2009-02-01"))
-#' # 2009-02-01 -- 2009-03-01
-#'
-#' as.interval(3600, ymd("2009-01-01")) #numeric
-#' # 2009-01-01 -- 2009-01-01 01:00:00
-as.interval <- function(x, start){
-	stopifnot(is.instant(start))
-	if (is.instant(x))
-		return(new_interval(x, start))
-	else
-		new_interval(start, start + x)
-}
-
 
 
 

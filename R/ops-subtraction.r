@@ -1,3 +1,12 @@
+#' @include timespans.r
+#' @include durations.r
+#' @include intervals.r
+#' @include periods.r
+#' @include Dates.r
+#' @include difftimes.r
+#' @include POSIXt.r
+
+
 subtract_interval_from_date <- function(int, date){
 	end <- int@start + int@.Data
 	if (any(end != as.POSIXct(date)))

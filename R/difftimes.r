@@ -1,6 +1,10 @@
-setOldClass("difftime")
+#' @include timespans.r
+#' @include durations.r
+#' @include intervals.r
+#' @include periods.r
 
-setClass("difftime")
+
+setOldClass("difftime")
 
 
 #' Makes a difftime object from a given number of seconds 
@@ -102,16 +106,3 @@ c.difftime <- function(...){
 	diffs <- unlist(lapply(list(...), as.numeric, units = "secs"))
 	make_difftime(diffs)
 }
-
-setGeneric("as.difftime")
-setMethod("as.difftime", signature(tim = "Interval"), function(tim, format = "%X", units = "secs"){
-	as.difftime(as.numeric(tim, units), format, units)
-})
-
-setMethod("as.difftime", signature(tim = "Duration"), function(tim, format = "%X", units = "secs"){
-	as.difftime(tim@.Data, format, units)
-})
-
-setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X", units = "secs"){
-	as.difftime(period_to_seconds(tim), format, units)
-})
