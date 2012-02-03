@@ -7,6 +7,32 @@ check_duration <- function(object){
 		"Duration value is not a number. Should be numeric."
 }
 
+
+#' Duration class
+#'
+#' Duration is an S4 class that extends the \code{\link{Timespan}} class. 
+#' Durations record the exact number of seconds in a time span. They measure the 
+#' exact passage of time but do not always align with measurements 
+#' made in larger units of time such as hours, months and years. 
+#' This is because the length of larger time units can be affected 
+#' by conventions such as leap years 
+#' and Daylight Savings Time. 
+#' 
+#' Durations provide a method for measuring generalized timespans when we wish to 
+#' treat time as a mathematical quantity that increases in a uniform, monotone manner 
+#' along a continuous numberline. They allow exact comparisons with other durations. 
+#' See \code{\link{Periods}} for an alternative way to measure timespans that better 
+#' preserves clock times. 
+#'
+#' \details{Durations class objects have one slot
+#'
+#'    \item{.Data}{A numeric object. The amount of seconds in the duration.} 
+#'
+#'  }
+#'
+#' @name Duration-class
+#' @rdname Duration-class
+#' @exportClass Duration
 setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
 compute_estimate <- function (x) {  
@@ -29,6 +55,7 @@ compute_estimate <- function (x) {
       years = paste("~", round(x/31557600, 2), " years", sep = ""))
 }
 
+#' @export
 setMethod("show", signature(object = "Duration"), function(object){
 	if (all(object@.Data < 120))
 		print(paste(object@.Data, "s", sep = ""))
@@ -36,6 +63,7 @@ setMethod("show", signature(object = "Duration"), function(object){
 		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""), quote = FALSE)
 })
 
+#' @S3method format Duration
 format.Duration <- function(x, ...) {
 	if (all(x@.Data < 120))
 		print(paste(x@.Data, "s", sep = ""))
@@ -43,22 +71,25 @@ format.Duration <- function(x, ...) {
 		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
 }
 
+#' @export
 setMethod("c", signature(x = "Duration"), function(x, ...){
 	durs <- c(x@.Data, unlist(list(...)))
 	new("Duration", durs)
 })
 
-setGeneric("rep")
+#' @export
 setMethod("rep", signature(x = "Duration"), function(x, ...){
 	new("Duration", rep(as.numeric(x), ...))
 })
 
-setMethod("[", representation(x = "Duration"), 
+#' @export
+setMethod("[", signature(x = "Duration"), 
   function(x, i, j, ..., drop = TRUE) {
     new("Duration", x@.Data[i])
 })
 
-setMethod("[<-", representation(x = "Duration"), 
+#' @export
+setMethod("[<-", signature(x = "Duration"), 
   function(x, i, j, ..., value) {
   	x@.Data[i] <- value
     new("Duration", x@.Data)
@@ -209,22 +240,8 @@ NULL
 #' @param ... a list of time units to be included in the duration and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported.
 #' @return a duration object
-#' @S3method format duration
-#' @S3method print duration
-#' @S3method rep duration
-#' @S3method "%%" duration
-#' @S3method "%/%" duration
-#' @S3method "%%" difftime
-#' @S3method "%/%" difftime
-#' @S3method "/" duration
-#' @S3method "*" duration
-#' @S3method "+" duration
-#' @S3method "-" duration
-#' @S3method format duration
-#' @S3method print duration
-#' @S3method rep duration
-#' @S3method c duration
-#' @export new_duration
+#' @export new_duration duration
+#' @aliases new_duration duration
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
 #' @examples
