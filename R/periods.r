@@ -49,14 +49,54 @@ check_period <- function(object){
 		errors
 }
 
-
+#' Period class
+#'
+#' Period is an S4 class that extends the \code{\link{Timespan}} class. 
+#' Periods track the change in the "clock time" between two date-times. They 
+#' are measured in common time related units: years, months, days, hours, 
+#' minutes, and seconds. Each unit except for seconds must be expressed in 
+#' integer values. 
+#'
+#' The exact length of a period is not defined until the period is placed at a 
+#' specific moment of time. This is because the precise length of one year, 
+#' month, day, etc. can change depending on when it occurs. A period can be 
+#' associated with a specific moment in time by coercing it to an 
+#' \code{\link{Interval}} object with \code{\link{as.interval}} or by adding 
+#' it to a date-time with "+".
+#'
+#' Periods provide a method for measuring generalized timespans when we wish 
+#' to model clock times. Periods will attain intuitive results at this task 
+#' even when leap years, leap seconds, gregorian days, daylight savings 
+#' changes, and other events happen uring the period. See 
+#' \code{\link{Durations}} for an alternative way to measure timespans that 
+#' allows precise comparisons between timespans. 
+#'
+#' \details{Period class objects have six slots
+#'
+#'    \item{.Data}{A numeric object. The apparent amount of seconds to add to the period.} 
+#'
+#'    \item{minute}{A numeric object. The apparent amount of minutes to add to the period.} 
+#'
+#'    \item{hour}{A numeric object. The apparent amount of hours to add to the period.} 
+#'
+#'    \item{day}{A numeric object. The apparent amount of days to add to the period.} 
+#'
+#'    \item{month}{A numeric object. The apparent amount of months to add to the period.} 
+#'
+#'    \item{year}{A numeric object. The apparent amount of years to add to the period.} 
+#'
+#'  }
+#'
+#' @name Period-class
+#' @rdname Period-class
+#' @exportClass Period
 setClass("Period", contains = c("Timespan", "numeric"), 
 	representation(year = "numeric", month = "numeric", day = "numeric", 
 		hour = "numeric", minute = "numeric"), 
 	prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0), 
 	validity = check_period)
 
-
+#' @export
 setMethod("show", signature(object = "Period"), function(object){
 	show <- vector(mode = "character")
 	per.mat <- matrix(c(object@year, object@month, object@day, object@hour, 
@@ -85,6 +125,7 @@ setMethod("show", signature(object = "Period"), function(object){
 	print(show, quote = FALSE)
 })
 
+#' @S3method format Period
 format.Period <- function(x, ...){
 	show <- vector(mode = "character")
 	per.mat <- matrix(c(x@year, x@month, x@day, x@hour, 
@@ -113,7 +154,7 @@ format.Period <- function(x, ...){
 	show
 }
 
-
+#' @export
 setMethod("c", signature(x = "Period"), function(x, ...){
 	seconds <- c(x@.Data, unlist(list(...)))
 	years <- c(x@year, unlist(lapply(list(...), slot, "year")))
@@ -125,20 +166,22 @@ setMethod("c", signature(x = "Period"), function(x, ...){
 		hour = hours, minute = minutes)
 })
 
-
+#' @export
 setMethod("rep", signature(x = "Period"), function(x, ...){
 	new("Period", rep(x@.Data, ...), year = rep(x@year, ...), 
 		month = rep(x@month, ...), day = rep(x@day, ...), 
 		hour = rep(x@hour, ...), minute = rep(x@minute, ...))
 })
 
-setMethod("[", representation(x = "Period"), 
+#' @export
+setMethod("[", signature(x = "Period"), 
   function(x, i, j, ..., drop = TRUE) {
     new("Period", x@.Data[i], year = x@year[i], month = x@month[i], 
     	day = x@day[i], hour = x@hour[i], minute = x@minute[i])
 })
 
-setMethod("[<-", representation(x = "Period", i = "Period"), 
+#' @export
+setMethod("[<-", signature(x = "Period", i = "Period"), 
   function(x, i, j, ..., value) {
   	x@.Data[i] <- value@.Data
   	x@year[i] <- value@year
@@ -149,12 +192,14 @@ setMethod("[<-", representation(x = "Period", i = "Period"),
     x
 })
 
-setMethod("$", representation(x = "Period"), function(x, name) {
+#' @export
+setMethod("$", signature(x = "Period"), function(x, name) {
 	if (name == "second") name <- ".Data"
     slot(x, name)
 })
 
-setMethod("$<-", representation(x = "Period"), function(x, name, value) {
+#' @export
+setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 	if (name == "second") name <- ".Data"
     slot(x, name) <- value
     x
@@ -183,17 +228,8 @@ setMethod("$<-", representation(x = "Period"), function(x, name, value) {
 #' can be added to and subtracted to date-times to create a user interface 
 #' similar to object oriented programming.
 #'
-#' @export new_period
-#' @S3method "%/%" period
-#' @S3method "%%" period
-#' @S3method "/" period
-#' @S3method "*" period
-#' @S3method "+" period
-#' @S3method "-" period
-#' @S3method rep period
-#' @S3method print period
-#' @S3method format period
-#' @S3method c period
+#' @export new_period period
+#' @aliases new_period period
 #' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, 
 #'   hours, days, weeks, months, and years are supported.
 #' @return a period object
@@ -245,8 +281,6 @@ new_period <- period <- function(...) {
 #' When paired with date-times, these functions allow date-times to be 
 #' manipulated in a method similar to object oriented programming. Period 
 #' objects can be added to Date, POSIXt, and Interval objects.
-#' 
-#' y, m, w, d are predefined period objects such that y = 1 year, m = 1 month, w = 1 week, d = 1 day.
 #'
 #' @export seconds minutes hours days weeks years y m w d milliseconds microseconds microseconds nanoseconds picoseconds
 #' @aliases seconds minutes hours days weeks years y m w d milliseconds microseconds microseconds nanoseconds picoseconds
@@ -333,7 +367,10 @@ is.period <- function(x) is(x,"Period")
 
 
 
-#' Converts a period to the number of units it appears to represent
+#' Convert a period to the number of units it appears to represent
+#'
+#' @param x A period object
+#' @export
 period_to_seconds <- function(x) {
 	x@.Data + 
 	60 * x@minute +
