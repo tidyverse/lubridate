@@ -1,3 +1,5 @@
+#' @include periods.r
+NULL
 
 #' Get/set weeks component of a date-time.
 #'

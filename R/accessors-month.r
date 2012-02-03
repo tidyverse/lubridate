@@ -1,3 +1,6 @@
+#' @include periods.r
+NULL
+
 #' Get/set months component of a date-time.
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 

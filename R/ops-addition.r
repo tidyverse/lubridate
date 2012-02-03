@@ -73,7 +73,7 @@ add_period_to_date <- function(per, date){
 			minutes = minute(date) + per@minute,
 			seconds = second(date) + per@.Data
 			)
-	if (is.Date(date) && sum(new@.Data, new@minute, new@hour, na.rm = TRUE) != 0)
+	if (is.Date(date) && sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
 		return(new)	
 	
 	reclass_date(new, date)
