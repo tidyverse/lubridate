@@ -16,7 +16,7 @@ NULL
 #' x <- now()
 #' hour(x)
 #' hour(x) <- 1
-#' hour(x) <- 61 
+#' hour(x) <- 25 
 #' hour(x) > 2
 hour <- function(x) 
   UseMethod("hour")
