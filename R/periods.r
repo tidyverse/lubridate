@@ -1,5 +1,6 @@
 #' @include timespans.r
-#' @include utilities.r
+#' @include util.r
+NULL
 
 check_period <- function(object){
 	errors <- character()

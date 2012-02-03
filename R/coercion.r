@@ -6,6 +6,7 @@
 #' @include difftimes.r
 #' @include numeric.r
 #' @include POSIXt.r
+NULL
 
 
 #' Convert every date method we know about to POSIXlt and POSIXct

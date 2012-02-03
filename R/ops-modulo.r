@@ -1,4 +1,5 @@
 #' @include timespans.r
+NULL
 
 modulo_spans <- function(e1, e2){
 	if (!is.timespan(e1) && !is.timespan(e2))

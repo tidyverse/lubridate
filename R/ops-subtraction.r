@@ -5,6 +5,7 @@
 #' @include Dates.r
 #' @include difftimes.r
 #' @include POSIXt.r
+NULL
 
 
 subtract_interval_from_date <- function(int, date){

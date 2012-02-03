@@ -44,19 +44,6 @@ Collate:
     'durations.r'
     'difftimes.r'
     'Dates.r'
-    'utilities.r'
-    'POSIXt.r
-    Convert
-    every
-    date
-    method
-    we
-    know
-    about
-    to
-    POSIXlt
-    and
-    POSIXct'
     'coercion.r'
     'decimal-dates.r'
     'epochs.r'

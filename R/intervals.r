@@ -1,4 +1,5 @@
 #' @include timespans.r
+NULL
 
 
 check_interval <- function(object){

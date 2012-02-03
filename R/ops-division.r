@@ -4,6 +4,7 @@
 #' @include periods.r
 #' @include difftimes.r
 #' @include numeric.r
+NULL
 
 
 divide_duration_by_duration <- function(dur1, dur2)

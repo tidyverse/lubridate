@@ -2,6 +2,7 @@
 #' @include durations.r
 #' @include intervals.r
 #' @include periods.r
+NULL
 
 
 multiply_duration_by_number <- function(dur, num)

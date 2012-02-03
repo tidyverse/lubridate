@@ -6,6 +6,7 @@
 #' @include difftimes.r
 #' @include numeric.r
 #' @include POSIXt.r
+NULL
 
 
 add_duration_to_duration <- function(dur2, dur1)
