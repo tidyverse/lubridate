@@ -1,4 +1,5 @@
 #' @include timespans.r
+#' @include utilities.r
 
 check_period <- function(object){
 	errors <- character()
@@ -307,10 +308,6 @@ days <-    function(x = 1) new_period(day = x)
 weeks <-   function(x = 1) new_period(week = x)
 months.numeric <- months.integer <- function(x, abbreviate) new_period(month = x)
 years <-   function(x = 1) new_period(year = x)
-y <- years(1)
-m <- months(1)
-d <- days(1)
-w <- weeks(1)
 milliseconds <- function(x = 1) seconds(x/1000)
 microseconds <- function(x = 1) seconds(x/1000000)
 nanoseconds <- function(x = 1) seconds(x/1e9)

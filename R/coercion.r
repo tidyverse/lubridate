@@ -396,7 +396,7 @@ setMethod("as.numeric", signature(x = "Interval"), function(x, units = "secs", .
 
 setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", ...){
 	units <- standardise_period_names(units)
-	ifelse(units == "second") x@.Data
+	if (units == "second") x@.Data
 	else slot(x, units)
 })
 

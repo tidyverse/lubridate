@@ -99,7 +99,7 @@ add_number_to_period <- function(num, per){
 
 
 
-#' RE-DOCUMENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# RE-DOCUMENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #' Adding date-time objects
 #'
 #' add_dates adds two objects, both of which can be date-time 
@@ -109,136 +109,136 @@ add_number_to_period <- function(num, per){
 #' @param e2 a numeric or date-time object
 #' @export add_dates
 setMethod("+", signature(e1 = "Duration", e2 = "Duration"),
-	add_duration_to_duration(e2, e1))
+	function(e1, e2) add_duration_to_duration(e2, e1))
 
 setMethod("+", signature(e1 = "Duration", e2 = "Interval"),
-	add_duration_to_interval(e1, e2))
+	function(e1, e2) add_duration_to_interval(e1, e2))
 	
 setMethod("+", signature(e1 = "Duration", e2 = "Period"),
-	add_duration_to_period(e1, e2))
+	function(e1, e2) add_duration_to_period(e1, e2))
 	
 setMethod("+", signature(e1 = "Duration", e2 = "Date"), 
-	add_duration_to_date(e1, e2)) 
+	function(e1, e2) add_duration_to_date(e1, e2)) 
 	
 setMethod("+", signature(e1 = "Duration", e2 = "difftime"),
-	add_duration_to_duration(as.duration(e2), e1))
+	function(e1, e2) add_duration_to_duration(as.duration(e2), e1))
 	
 setMethod("+", signature(e1 = "Duration", e2 = "numeric"),
-	add_number_to_duration(e2, e1))
+	function(e1, e2) add_number_to_duration(e2, e1))
   
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXct"), 
-	add_duration_to_date(e1, e2)) 
+	function(e1, e2) add_duration_to_date(e1, e2)) 
 	
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXlt"), 
-	add_duration_to_date(e1, e2)) 
+	function(e1, e2) add_duration_to_date(e1, e2)) 
 	
 
 
 setMethod("+", signature(e1 = "Interval", e2 = "Duration"),
-	add_duration_to_interval(e2, e1)) 
+	function(e1, e2) add_duration_to_interval(e2, e1)) 
 	
 setMethod("+", signature(e1 = "Interval", e2 = "Interval"),
-	add_interval_to_interval(e2, e1))
+	function(e1, e2) add_interval_to_interval(e2, e1))
 	
 setMethod("+", signature(e1 = "Interval", e2 = "Period"),
-	add_period_to_interval(e2, e1))
+	function(e1, e2) add_period_to_interval(e2, e1))
 	
 setMethod("+", signature(e1 = "Interval", e2 = "Date"),
-	add_interval_to_date(e1, e2))
+	function(e1, e2) add_interval_to_date(e1, e2))
 	
 setMethod("+", signature(e1 = "Interval", e2 = "difftime"),
-	add_duration_to_interval(as.duration(e2), e1))
+	function(e1, e2) add_duration_to_interval(as.duration(e2), e1))
  
 setMethod("+", signature(e1 = "Interval", e2 = "numeric"), 
-	add_number_to_interval(e2, e1))
+	function(e1, e2) add_number_to_interval(e2, e1))
 
 setMethod("+", signature(e1 = "Interval", e2 = "POSIXct"),
-	add_interval_to_date(e1, e2))
+	function(e1, e2) add_interval_to_date(e1, e2))
 	
 setMethod("+", signature(e1 = "Interval", e2 = "POSIXlt"),
-	add_interval_to_date(e1, e2))
+	function(e1, e2) add_interval_to_date(e1, e2))
 
 
 
-setMethod("+", signature(e1 = "Period", e2 = "Duration"),		
-	add_duration_to_period(e2, e1))
+setMethod("+", signature(e1 = "Period", e2 = "Duration"),
+	function(e1, e2) add_duration_to_period(e2, e1))
 	
 setMethod("+", signature(e1 = "Period", e2 = "Interval"),
-	add_period_to_interval(e1, e2))
+	function(e1, e2) add_period_to_interval(e1, e2))
 
 setMethod("+", signature(e1 = "Period", e2 = "Period"), 
-	add_period_to_period(e2, e1))
+	function(e1, e2) add_period_to_period(e2, e1))
 
 setMethod("+", signature(e1 = "Period", e2 = "Date"), 
-	add_period_to_date(e1, e2))
+	function(e1, e2) add_period_to_date(e1, e2))
 		
 setMethod("+", signature(e1 = "Period", e2 = "difftime"),	
-	add_duration_to_period(as.duration(e2), e1))
+	function(e1, e2) add_duration_to_period(as.duration(e2), e1))
 	
-setMethod("+", signature(e1 = "Period", e2 = "numeric"),		
-	add_number_to_period(e2, e1))
+setMethod("+", signature(e1 = "Period", e2 = "numeric"),
+	function(e1, e2) add_number_to_period(e2, e1))
 
 setMethod("+", signature(e1 = "Period", e2 = "POSIXct"), 
-	add_period_to_date(e1, e2))
+	function(e1, e2) add_period_to_date(e1, e2))
 	
 setMethod("+", signature(e1 = "Period", e2 = "POSIXlt"), 
-	add_period_to_date(e1, e2))
+	function(e1, e2) add_period_to_date(e1, e2))
 	
 
 
 setMethod("+", signature(e1 = "Date", e2 = "Duration"), 
-	add_duration_to_date(e2, e1)) 
+	function(e1, e2) add_duration_to_date(e2, e1)) 
 	
 setMethod("+", signature(e1 = "Date", e2 = "Interval"),
-	add_interval_to_date(e2, e1))
+	function(e1, e2) add_interval_to_date(e2, e1))
 	
 setMethod("+", signature(e1 = "Date", e2 = "Period"), 
-	add_period_to_date(e2, e1))
+	function(e1, e2) add_period_to_date(e2, e1))
 
 
 	
 
 setMethod("+", signature(e1 = "difftime", e2 = "Duration"), 
-	add_difftime_to_difftime(as.difftime(e2, units = "secs"), e1))
+	function(e1, e2) add_difftime_to_difftime(as.difftime(e2, units = "secs"), e1))
 	
 setMethod("+", signature(e1 = "difftime", e2 = "Interval"),
-	add_duration_to_interval(e1, e2))
+	function(e1, e2) add_duration_to_interval(e1, e2))
 
 setMethod("+", signature(e1 = "difftime", e2 = "Period"), 
-	add_duration_to_period(e1, e2))
+	function(e1, e2) add_duration_to_period(e1, e2))
 
 	
 
 
 
 setMethod("+", signature(e1 = "numeric", e2 = "Duration"),
-	add_number_to_duration(e1, e2)) 
+	function(e1, e2) add_number_to_duration(e1, e2)) 
 	
 setMethod("+", signature(e1 = "numeric", e2 = "Interval"),
-	add_number_to_interval(e1, e2)) 
+	function(e1, e2) add_number_to_interval(e1, e2)) 
 
 setMethod("+", signature(e1 = "numeric", e2 = "Period"),
-	add_number_to_period(e1, e2))
+	function(e1, e2) add_number_to_period(e1, e2))
 
 	
 	
 
 setMethod("+", signature(e1 = "POSIXct", e2 = "Duration"), 
-	add_duration_to_date(e2, e1)) 
+	function(e1, e2) add_duration_to_date(e2, e1)) 
 	
 setMethod("+", signature(e1 = "POSIXct", e2 = "Interval"),
-	add_interval_to_date(e2, e1))
+	function(e1, e2) add_interval_to_date(e2, e1))
 	
 setMethod("+", signature(e1 = "POSIXct", e2 = "Period"), 
-	add_period_to_date(e2, e1))
+	function(e1, e2) add_period_to_date(e2, e1))
       
       
       
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Duration"), 
-	add_duration_to_date(e2, e1)) 
+	function(e1, e2) add_duration_to_date(e2, e1)) 
 
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Interval"),
-	add_interval_to_date(e2, e1))
+	function(e1, e2) add_interval_to_date(e2, e1))
 	
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Period"), 
-	add_period_to_date(e2, e1))
+	function(e1, e2) add_period_to_date(e2, e1))

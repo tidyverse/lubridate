@@ -36,7 +36,7 @@ divide_interval_by_period <- function(int, per){
 }
 
 divide_interval_by_difftime <- function(int, diff){
-	int@.Data / as.double(diff, units = "secs"))
+	int@.Data / as.double(diff, units = "secs")
 }
 
 divide_interval_by_number <- function(int, num){
@@ -91,74 +91,74 @@ divide_difftime_by_period <- function(dif, per)
 	
 	
 setMethod("/", signature(e1 = "Duration", e2 = "Duration"),
-	divide_duration_by_duration(e1, e2))
+	function(e1, e2) divide_duration_by_duration(e1, e2))
 		
-setMethod("/", signature(e1 = "Duration", e2 = "Interval"), function {
+setMethod("/", signature(e1 = "Duration", e2 = "Interval"), function(e1, e2) {
 	message("interval denominator coerced to duration")
 	e2 <- as.duration(e2)
 	divide_duration_by_duration(e1, e2)
 })
 
 setMethod("/", signature(e1 = "Duration", e2 = "Period"),
-	divide_duration_by_period(e1, e2))
+	function(e1, e2) divide_duration_by_period(e1, e2))
 		
 setMethod("/", signature(e1 = "Duration", e2 = "difftime"),
-	divide_duration_by_difftime(e1, e2))
+	function(e1, e2) divide_duration_by_difftime(e1, e2))
 
 setMethod("/", signature(e1 = "Duration", e2 = "numeric"),	
-	divide_duration_by_number(e1, e2))
+	function(e1, e2) divide_duration_by_number(e1, e2))
 		
 		
 	
 setMethod("/", signature(e1 = "Interval", e2 = "Duration"), 
-	divide_interval_by_duration(e1, e2))	
+	function(e1, e2) divide_interval_by_duration(e1, e2))	
 
-setMethod("/", signature(e1 = "Interval", e2 = "Interval"), function {
+setMethod("/", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
 	message("interval denominator coerced to duration")
 	e2 <- as.duration(e2)
 	divide_interval_by_duration(e1, e2)
 })
 	
 setMethod("/", signature(e1 = "Interval", e2 = "Period"), 
-	divide_interval_by_period(e1, e2))
+	function(e1, e2) divide_interval_by_period(e1, e2))
 		
 setMethod("/", signature(e1 = "Interval", e2 = "difftime"), 
-	divide_interval_by_difftime(e1, e2))
+	function(e1, e2) divide_interval_by_difftime(e1, e2))
 	
 setMethod("/", signature(e1 = "Interval", e2 = "numeric"), 
-	divide_interval_by_number(e1, e2))
+	function(e1, e2) divide_interval_by_number(e1, e2))
 
 
 
 setMethod("/", signature(e1 = "Period", e2 = "Duration"),
-	divide_period_by_duration(e1, e2))
+	function(e1, e2) divide_period_by_duration(e1, e2))
 
-setMethod("/", signature(e1 = "Period", e2 = "Interval"), function {
+setMethod("/", signature(e1 = "Period", e2 = "Interval"), function(e1, e2) {
 	message("interval denominator coerced to duration")
 	e2 <- as.duration(e2)
 	divide_period_by_duration(e1, e2)
 })	
 
 setMethod("/", signature(e1 = "Period", e2 = "Period"),
-	divide_period_by_period(e1, e2))
+	function(e1, e2) divide_period_by_period(e1, e2))
 		
 setMethod("/", signature(e1 = "Period", e2 = "difftime"),
-	divide_period_by_difftime(e1, e2))
+	function(e1, e2) divide_period_by_difftime(e1, e2))
 	
 setMethod("/", signature(e1 = "Period", e2 = "numeric"),
-	divide_period_by_number(e1, e2))
+	function(e1, e2) divide_period_by_number(e1, e2))
 
 
 	
 
 setMethod("/", signature(e1 = "difftime", e2 = "Duration"),
-	divide_difftime_by_duration(e1, e2))
+	function(e1, e2) divide_difftime_by_duration(e1, e2))
 
-setMethod("/", signature(e1 = "difftime", e2 = "Interval"), function {
+setMethod("/", signature(e1 = "difftime", e2 = "Interval"), function(e1, e2) {
 	message("interval denominator coerced to duration")
 	e2 <- as.duration(e2)
 	divide_difftime_by_duration(e1, e2)
 })	
 
 setMethod("/", signature(e1 = "difftime", e2 = "Period"),
-	divide_difftime_by_period(e1, e2))
+	function(e1, e2) divide_difftime_by_period(e1, e2))

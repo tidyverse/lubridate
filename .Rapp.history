@@ -1,0 +1,2626 @@
+document("lubridate")
+traceback()
+document("lubridate")
+document("lubridate")
+traceback()
+document("lubridate")
+traceback()
+?initialize
+check("lubridate")
+document
+require("roxygen2")
+pkg <- "lubridate"
+ pkg <- as.package(pkg)
+pkg
+clean = FALSE
+?document
+load_deps(pkg)
+in_dir(pkg$path, roxygenise("."))
+?roxygenise
+document("lubridate", clean = TRUE)
+pkg$path
+setwd("/Users/GarrettsiMac/Documents/git/lubridate")
+roxygenise(".")
+roxygenise
+package.dir <- "."
+roxygen.dir = package.dir
+copy.package = package.dir != #
+    roxygen.dir
+overwrite = TRUE
+unlink.target = FALSE
+roclets = c("collate", #
+    "namespace", "rd")
+file.path(roxygen.dir, "man")
+skeleton <- c(roxygen.dir, file.path(roxygen.dir, "man"))
+copy.package
+skeleton
+for (dir in skeleton) {#
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)#
+    }
+normalizePath(roxygen.dir)
+roxygen.dir <- normalizePath(roxygen.dir)
+file.path(roxygen.dir, "R")
+dir(file.path(roxygen.dir, "R"), "[.Rr]$", full.names = TRUE)
+r_files <- dir(file.path(roxygen.dir, "R"), "[.Rr]$", full.names = TRUE)
+file.path(package.dir, "DESCRIPTION")
+DESCRIPTION <- file.path(package.dir, "DESCRIPTION")
+file.exists(DESCRIPTION)
+read.description(DESCRIPTION)
+read.description <- function(file) {#
+  dcf <- read.dcf(file)#
+  #
+  dcf_list <- setNames(as.list(dcf[1, ]), colnames(dcf))#
+  lapply(dcf_list, str_trim)#
+}
+read.description <- function(file) {#
+  dcf <- read.dcf(file)#
+  #
+  dcf_list <- setNames(as.list(dcf[1, ]), colnames(dcf))#
+  lapply(dcf_list, str_trim)#
+}
+read.description(DESCRIPTION)
+        desc <- read.description(DESCRIPTION)
+desc$Collate %||% ""
+"%||%" <- function(a, b) {#
+  if (!is.null(a)) a else b#
+}
+desc$Collate %||% ""
+        raw_collate <- desc$Collate %||% ""
+textConnection(raw_collate)
+        con <- textConnection(raw_collate)
+        on.exit(close(con))
+scan(con, "character", sep = " ", quiet = TRUE)
+        collate <- scan(con, "character", sep = " ", quiet = TRUE)
+file.path(roxygen.dir, "R", collate)
+        collate <- scan(con, "character", sep = " ", quiet = TRUE)
+file.path(roxygen.dir, "R", collate)
+collate_path <- file.path(roxygen.dir, "R", collate)
+collate
+scan(con, "character", sep = " ", quiet = TRUE)
+con <- textConnection(raw_collate)#
+        on.exit(close(con))#
+        collate <- scan(con, "character", sep = " ", quiet = TRUE)
+collate
+file.path(roxygen.dir, "R", collate)
+collate_path <- file.path(roxygen.dir, "R", collate)
+collate_exists <- Filter(file.exists, collate_path)
+collate_exists
+c(collate_exists, setdiff(r_files, collate_exists))
+r_files <- c(collate_exists, setdiff(r_files, collate_exists))
+paste(c(desc$Depends, desc$Imports), collapse = ", ")
+        pkgs <- paste(c(desc$Depends, desc$Imports), collapse = ", ")
+pkgs != ""
+pkgs <- gsub("\\s*\\(.*?\\)", "", pkgs)
+pkgs
+pkgs <- strsplit(pkgs, ",")[[1]]
+pkgs
+pkgs <- gsub("^\\s+|\\s+$", "", pkgs)
+pkgs
+lapply(pkgs[pkgs != "R"], require, character.only = TRUE
+)
+parsed <- parse.files(r_files)
+parse.files
+paths <- r_files
+env <- new.env(parent = parent.env(globalenv()))
+env
+env_hash <- suppressWarnings(digest(env))
+library(digest)
+digest
+env_hash <- suppressWarnings(digest(env))
+env_hash
+setPackageName("roxygen_destest", env)
+lapply(paths, sys.source, chdir = TRUE, envir = env
+)
+?sys.source
+paths
+    lapply(paths[1:23], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[24], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[25:37], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[25:37], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[25:37], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[25:37], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[26:37], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+traceback()
+    lapply(paths[26:37], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+traceback()
+    lapply(paths, sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths, sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths, sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths, sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+traceback()
+    lapply(paths[30], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[29], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[28], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths[31], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+paths[31]
+dim(paths)
+length(paths)
+    lapply(paths[32:37], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+document("lubridate", clean = TRUE)
+document("lubridate", clean = TRUE)
+skeleton <- c(roxygen.dir, file.path(roxygen.dir, "man"))
+copy.package
+clean = TRUE
+clear_caches()
+file.remove(dir(file.path(pkg$path, "man"), full = TRUE))
+  load_deps(pkg)
+setwd(pkg$path)
+getwd()
+roxygenise(".")
+ skeleton <- c(roxygen.dir, file.path(roxygen.dir, "man"))
+    for (dir in skeleton) {#
+        dir.create(dir, recursive = TRUE, showWarnings = FALSE)#
+    }
+    roxygen.dir <- normalizePath(roxygen.dir)
+    r_files <- dir(file.path(roxygen.dir, "R"), "[.Rr]$", full.names = TRUE)
+    DESCRIPTION <- file.path(package.dir, "DESCRIPTION")
+file.exists(DESCRIPTION)
+        desc <- read.description(DESCRIPTION)
+        raw_collate <- desc$Collate %||% ""
+        con <- textConnection(raw_collate)
+        on.exit(close(con))
+        collate <- scan(con, "character", sep = " ", quiet = TRUE)
+        collate_path <- file.path(roxygen.dir, "R", collate)
+        collate_exists <- Filter(file.exists, collate_path)
+        r_files <- c(collate_exists, setdiff(r_files, collate_exists))
+        pkgs <- paste(c(desc$Depends, desc$Imports), collapse = ", ")
+pkgs != ""
+            pkgs <- gsub("\\s*\\(.*?\\)", "", pkgs)
+            pkgs <- strsplit(pkgs, ",")[[1]]
+            pkgs <- gsub("^\\s+|\\s+$", "", pkgs)
+            lapply(pkgs[pkgs != "R"], require, character.only = TRUE)
+    parsed <- parse.files(r_files) # e1 error here !!!!!!!!!!!!!!!!!!
+paths <- r_files
+    env <- new.env(parent = parent.env(globalenv()))
+    env_hash <- suppressWarnings(digest(env))
+    setPackageName("roxygen_destest", env)
+    lapply(paths[32:37], sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    lapply(paths, sys.source, chdir = TRUE, envir = env) # e1 error here!!!!!!
+    unlist(lapply(paths, parse.file, env = env, env_hash = env_hash), #
+        recursive = FALSE)
+lapply(paths, parse.file, env = env, env_hash = env_hash)
+    unlist(lapply(paths[1:20], parse.file, env = env, env_hash = env_hash), #
+        recursive = FALSE)
+    unlist(lapply(paths[1], parse.file, env = env, env_hash = env_hash), #
+        recursive = FALSE)
+    unlist(lapply(paths[1:10], parse.file, env = env, env_hash = env_hash),
+        recursive = FALSE)
+    unlist(lapply(paths[1:15], parse.file, env = env, env_hash = env_hash), #
+        recursive = FALSE)
+    unlist(lapply(paths[12:15], parse.file, env = env, env_hash = env_hash),
+        recursive = FALSE)
+.
+    unlist(lapply(paths[14:15], parse.file, env = env, env_hash = env_hash), #
+        recursive = FALSE)
+    unlist(lapply(paths[15], parse.file, env = env, env_hash = env_hash),
+        recursive = FALSE)
+    unlist(lapply(paths[14], parse.file, env = env, env_hash = env_hash),
+        recursive = FALSE)
+paths[14]
+file <- paths[14]
+srcfile(file)
+  srcfile <- srcfile(file)
+parse_cache$compute
+new_cache <- function() {#
+  cache <- new.env(parent = emptyenv())#
+  #
+  compute <- function(keys, code) {#
+    hash <- suppressWarnings(digest(keys))#
+    if (exists(hash, cache, inherits = FALSE)) {#
+      return(cache[[hash]])#
+    }#
+    #
+    (cache[[hash]] <- force(code))#
+  }#
+  #
+  reset <- function() {#
+    cache <<- new.env(parent = emptyenv())#
+  }#
+  #
+  #
+  list(compute = compute, reset = reset)#
+}#
+#
+parse_cache <- new_cache()
+parse_cache$compute
+keys <- c(env_hash, readLines(file, warn = FALSE))
+keys
+code <- {#
+    src_refs <- attributes(parse(srcfile$filename, srcfile = srcfile))$srcref#
+    pre_refs <- prerefs(srcfile, src_refs)#
+#
+    if (length(src_refs) == 0) return(list())#
+#
+    src_parsed <- lapply(src_refs, parse.srcref, env = env)#
+    pre_parsed <- lapply(pre_refs, parse.preref)#
+#
+    stopifnot(length(src_parsed) == length(pre_parsed))#
+#
+    mapply(c, src_parsed, pre_parsed, SIMPLIFY = FALSE)#
+  }
+prerefs <- function(srcfile, srcrefs) {#
+  if (length(srcrefs) == 0) return(list())#
+    #
+  src_start <- vapply(srcrefs, "[[", integer(1), 1) - 1#
+  src_end <- vapply(srcrefs, "[[", integer(1), 3) + 1#
+  #
+  comments_start <- c(1, src_end[-length(src_end)])#
+  comments_end <- src_start#
+  #
+  src <- readLines(srcfile$filename, warn = FALSE)#
+  #
+  extract <- function(start, end) {#
+    srcref <- list(filename = srcfile$filename, lloc = c(start, 0 , end, 0))#
+    structure(src[start:end], srcref = srcref)#
+  }#
+  #
+  Map(extract, comments_start, comments_end)#
+}
+code <- {#
+    src_refs <- attributes(parse(srcfile$filename, srcfile = srcfile))$srcref#
+    pre_refs <- prerefs(srcfile, src_refs)#
+#
+    if (length(src_refs) == 0) return(list())#
+#
+    src_parsed <- lapply(src_refs, parse.srcref, env = env)#
+    pre_parsed <- lapply(pre_refs, parse.preref)#
+#
+    stopifnot(length(src_parsed) == length(pre_parsed))#
+#
+    mapply(c, src_parsed, pre_parsed, SIMPLIFY = FALSE)#
+  }
+    hash <- suppressWarnings(digest(keys))
+exists(hash, cache, inherits = FALSE)
+src_refs <- attributes(parse(srcfile$filename, srcfile = srcfile))$srcref
+src_refs
+pre_refs <- prerefs(srcfile, src_refs)
+pre_refs
+length(src_refs) == 0
+src_parsed <- lapply(src_refs, parse.srcref, env = env)
+#
+parse.preref <- function(lines) {#
+  # Extract srcrefs#
+  srcrefs <- attr(lines, 'srcref')#
+  srcrefs$lloc[1] <- srcrefs$lloc[1] + 1 #
+  #
+  delimited.lines <- lines[str_detect(lines, LINE.DELIMITER)]#
+  trimmed.lines <- str_trim(str_replace(delimited.lines, LINE.DELIMITER, ""),#
+    "right")#
+#
+  if (length(trimmed.lines) == 0) return(list())#
+#
+  joined.lines <- str_c(trimmed.lines, collapse = '\n')#
+  ## Thanks to Fegis at #regex on Freenode for the#
+  ## lookahead/lookbehind hack; as he notes, however, "it's not#
+  ## proper escaping though... it will not split a@@@b."#
+  elements <- strsplit(joined.lines, '(?<!@)@(?!@)', perl = TRUE)[[1]]#
+#
+  ## Compress the escaped delimeters.#
+  elements <- str_replace_all(elements, fixed("@@"), "@")#
+#
+  parsed.introduction <- parse.introduction(elements[[1]])#
+  parsed.elements <- unlist(lapply(elements[-1], parse.element, #
+    srcref = srcrefs), recursive = FALSE)#
+  #
+  c(parsed.introduction, parsed.elements)#
+}
+parse.srcref <- function(ref, env) {#
+  srcfile <- attributes(ref)$srcfile#
+  srcref <- list(srcref = #
+    list(filename = srcfile$filename, lloc = as.vector(ref)))#
+#
+  # Get code from source and parse to extract first call#
+  lines <- getSrcLines(srcfile, ref[[1]], ref[[3]])#
+  call <- parse(text = lines)[[1]]#
+  #
+  if (!is.call(call)) {#
+    return(c(srcref, list(value = deparse(call))))#
+  }#
+#
+  # Dispatch to registered srcref parsers based on call#
+  name <- as.character(call[[1]])#
+  if (length(name) > 1) return(srcref)#
+  parser <- srcref.parsers[[name]]#
+  if (is.null(parser)) return(srcref)#
+  #
+  f <- eval(call[[1]], env)#
+  # If not a primitive function, use match.call so argument handlers#
+  # can use argument names#
+  if (!is.primitive(f)) {#
+    call <- match.call(eval(call[[1]], env), call)#
+  }#
+  c(srcref, parser(call, env))#
+}
+src_parsed <- lapply(src_refs, parse.srcref, env = env)
+setGeneric("topic_name", function(x) {#
+  standardGeneric("topic_name")#
+})#
+setMethod("topic_name", signature(x = "MethodDefinition"), function(x) {#
+  str_c(str_c(c(x@generic, x@defined), collapse = ","), "-method")#
+})#
+setMethod("topic_name", signature(x = "standardGeneric"), function(x) {#
+  x@generic#
+})
+register.srcref.parser('<-', parse_assignment)#
+register.srcref.parser('=', parse_assignment)#
+register.srcref.parser('setClass', parse_class)#
+register.srcref.parser('setGeneric', parse_generic)#
+register.srcref.parser('setMethod', parse_method)
+!exists("preref.parsers")
+  preref.parsers <- new.env(parent=emptyenv())#
+  # Srcref parser table#
+  srcref.parsers <- new.env(parent=emptyenv())
+register.preref.parser <- function(key, parser) {#
+  preref.parsers[[key]] <- parser#
+}#
+#
+#' @export#
+#' @rdname register-parser#
+register.srcref.parser <- function(key, parser) {#
+  srcref.parsers[[key]] <- parser#
+}
+if (!exists("preref.parsers")) {#
+  # Preref parser table#
+  preref.parsers <- new.env(parent=emptyenv())#
+  # Srcref parser table#
+  srcref.parsers <- new.env(parent=emptyenv())#
+}#
+#
+#' Register parsers.#
+#'#
+#' @param key the key upon which to register#
+#' @param parser the parser callback to register;#
+#' a function taking \code{key} and \code{expression}#
+#' @return \code{NULL}#
+#' @export#
+#' @keywords internal#
+#' @rdname register-parser#
+register.preref.parser <- function(key, parser) {#
+  preref.parsers[[key]] <- parser#
+}#
+#
+#' @export#
+#' @rdname register-parser#
+register.srcref.parser <- function(key, parser) {#
+  srcref.parsers[[key]] <- parser#
+}#
+#
+#' Register many parsers at once.#
+#'#
+#' @param parser the parser to register#
+#' @param \dots the keys upon which to register#
+#' @return \code{NULL}#
+#' @export#
+#' @keywords internal#
+#' @rdname register-parsers#
+register.preref.parsers <- function(parser, ...) {#
+  for (key in c(...)) {#
+    register.preref.parser(key, parser)#
+  }#
+}#
+#
+#' @export#
+#' @rdname register-parsers#
+register.srcref.parsers <- function(parser, ...) {#
+  for (key in c(...)) {#
+    register.srcref.parser(key, parser)#
+  }#
+}
+    src_parsed <- lapply(src_refs, parse.srcref, env = env)
+    pre_parsed <- lapply(pre_refs, parse.preref)
+parse.preref
+length(pre_refs)
+    pre_parsed <- lapply(pre_refs[1:25], parse.preref)
+    pre_parsed <- lapply(pre_refs[1], parse.preref)
+parse.preref <- function(lines) {#
+  # Extract srcrefs#
+  srcrefs <- attr(lines, 'srcref')#
+  srcrefs$lloc[1] <- srcrefs$lloc[1] + 1 #
+  #
+  delimited.lines <- lines[str_detect(lines, LINE.DELIMITER)]#
+  trimmed.lines <- str_trim(str_replace(delimited.lines, LINE.DELIMITER, ""),#
+    "right")#
+#
+  if (length(trimmed.lines) == 0) return(list())#
+#
+  joined.lines <- str_c(trimmed.lines, collapse = '\n')#
+  ## Thanks to Fegis at #regex on Freenode for the#
+  ## lookahead/lookbehind hack; as he notes, however, "it's not#
+  ## proper escaping though... it will not split a@@@b."#
+  elements <- strsplit(joined.lines, '(?<!@)@(?!@)', perl = TRUE)[[1]]#
+#
+  ## Compress the escaped delimeters.#
+  elements <- str_replace_all(elements, fixed("@@"), "@")#
+#
+  parsed.introduction <- parse.introduction(elements[[1]])#
+  parsed.elements <- unlist(lapply(elements[-1], parse.element, #
+    srcref = srcrefs), recursive = FALSE)#
+  #
+  c(parsed.introduction, parsed.elements)#
+} #
+#
+# Sequence that distinguishes roxygen comment from normal comment.#
+LINE.DELIMITER <- '\\s*#+\' ?'#
+#
+# Comment blocks (possibly null) that precede a file's expressions.#
+##
+# @param srcfile result of running \code{srcfile} on an interesting file#
+# @param srcrefs the resultant srcrefs#
+# @return A list of prerefs that resemble srcrefs in form, i.e. with srcfile#
+#   and lloc#
+prerefs <- function(srcfile, srcrefs) {#
+  if (length(srcrefs) == 0) return(list())#
+    #
+  src_start <- vapply(srcrefs, "[[", integer(1), 1) - 1#
+  src_end <- vapply(srcrefs, "[[", integer(1), 3) + 1#
+  #
+  comments_start <- c(1, src_end[-length(src_end)])#
+  comments_end <- src_start#
+  #
+  src <- readLines(srcfile$filename, warn = FALSE)#
+  #
+  extract <- function(start, end) {#
+    srcref <- list(filename = srcfile$filename, lloc = c(start, 0 , end, 0))#
+    structure(src[start:end], srcref = srcref)#
+  }#
+  #
+  Map(extract, comments_start, comments_end)#
+}#
+#
+# Parse a raw string containing key and expressions.#
+##
+# @param element the string containing key and expressions#
+# @return A list containing the parsed constituents#
+parse.element <- function(element, srcref) {#
+  pieces <- str_split_fixed(element, "[[:space:]]+", 2)#
+  #
+  tag <- pieces[, 1]#
+  rest <- pieces[, 2]#
+  #
+  tag_parser <- preref.parsers[[tag]] %||% parse.unknown #
+  tag_parser(tag, rest, srcref)#
+}#
+#
+# Parse introduction: the premier part of a roxygen block#
+# containing description and option details separated by#
+# a blank roxygen line.#
+##
+# @param expression the description to be parsed#
+# @return A list containing the parsed description#
+parse.introduction <- function(expression) {#
+  if (is.null.string(expression)) return(NULL)#
+  list(introduction = str_trim(expression))#
+}#
+#
+#' Default parser which simply emits the key and expression.#
+#'#
+#' Used for elements with optional values (like \code{@@export})#
+#' where roclets can do more sophisticated things with \code{NULL}.#
+#'#
+#' @param key the parsing key#
+#' @param rest the expression to be parsed#
+#' @param srcref srcref providing location of file name and line number#
+#' @return A list containing the key and expression (possibly null)#
+#' @keywords internal#
+#' @family preref parsing functions#
+#' @export#
+parse.default <- function(key, rest, srcref)#
+  as.list(structure(str_trim(rest), names=key))#
+#
+#' Parse an unknown tag.#
+#'#
+#' Resorts to the default parser but with a warning about the#
+#' unknown tag.#
+#'#
+#' @inheritParams parse.default#
+#' @return A list containing the key and expression (possibly null)#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.unknown <- function(key, rest, srcref) {#
+  roxygen_warning(key, ' is an unknown key', srcref = srcref)#
+  parse.default(key, rest)#
+}#
+#
+#' Parse an element with a mandatory value.#
+#'#
+#' @inheritParams parse.default#
+#' @return A list containing the key and value#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.value <- function(key, rest, srcref) {#
+  if (is.null.string(rest))#
+    roxygen_stop(key, ' requires a value', srcref = srcref)#
+  else#
+    parse.default(key, rest)#
+}#
+  #
+#' Parse an element containing a mandatory name#
+#' and description (such as \code{@@param}).#
+#'#
+#' @inheritParams parse.default#
+#' @return A list containing the key, name and description#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.name.description <- function(key, rest, srcref) {#
+  pieces <- str_split_fixed(rest, "[[:space:]]+", 2)#
+  #
+  name <- pieces[, 1]#
+  rest <- str_trim(pieces[, 2])#
+#
+  if (is.null.string(name))#
+    roxygen_stop(key, ' requires a name and description', srcref = srcref)#
+  else#
+    as.list(structure(list(list(name=name,#
+                                description=rest)),#
+                      names=key))#
+}#
+#
+#' Parse an element containing a single name and only a name.#
+#'#
+#' Extra material will be ignored and a warning issued.#
+#'#
+#' @inheritParams parse.default#
+#' @param name the name to be parsed#
+#' @return A list containing key and name#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.name <- function(key, name, srcref) {#
+  name <- str_trim(name)#
+  #
+  if (is.null.string(name)) {#
+    roxygen_stop(key, ' requires a name', srcref = srcref)#
+  } else if (str_count(name, "\\s+") > 1) {#
+    roxygen_warning(key, ' ignoring extra arguments', srcref = srcref)#
+  }#
+    #
+  parse.default(key, word(name, 1))#
+}#
+#
+#' Turn a binary element on; parameters are ignored.#
+#'#
+#' @inheritParams parse.default#
+#' @return A list with the key and \code{TRUE}#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.toggle <- function(key, rest, srcref)#
+  as.list(structure(TRUE, names=key))
+    pre_parsed <- lapply(pre_refs, parse.preref)
+"%||%" <- function(a, b) {#
+  if (!is.null(a)) a else b#
+}#
+#
+# Given argument list, produce usage string for it.#
+# #
+# Adapted from \code{\link{prompt}}.#
+##
+# @param f function, or name of function, as string#
+# @return a string#
+usage <- function(args) {#
+  is.missing.arg <- function(arg) {#
+    is.symbol(arg) && deparse(arg) == ""#
+  }#
+  arg_to_text <- function(arg) {#
+    if (is.missing.arg(arg)) return("")#
+    text <- deparse(arg, backtick = TRUE, width.cutoff = 500L)#
+    text <- str_replace_all(text, fixed("%"), "\\%")#
+    text <- str_replace_all(text, fixed(" "), "\u{A0}")#
+    Encoding(text) <- "UTF-8"    #
+    #
+    str_c("\u{A0}=\u{A0}", paste(text, collapse = "\n"))#
+  }#
+#
+  arg_values <- vapply(args, arg_to_text, character(1))#
+  #
+  paste(names(args), arg_values, collapse = ", ", sep = "")#
+}#
+#
+# Does the string contain no matter, but very well [:space:]?#
+# @param string the string to check#
+# @return TRUE if the string contains words, otherwise FALSE#
+is.null.string <- function(string) {#
+  str_length(str_trim(string)) == 0#
+}#
+#
+#
+subs <- matrix(ncol = 2, byrow = T, c(#
+  '[]', 'sub',#
+  '<-', 'set',#
+  '!', 'not',#
+  '"', 'quote',#
+  '#', 'hash',#
+  '$', 'cash',#
+  '%', 'grapes',#
+  '&', 'and',#
+  '|', 'or',#
+  "'", 'single-quote',#
+  '(', 'open-paren',#
+  ')', 'close-paren',#
+  '*', 'star',#
+  '+', 'plus',#
+  ',', 'comma',#
+  '/', 'slash',#
+  ':', 'colon',#
+  ';', 'semi-colon',#
+  '<', 'less-than',#
+  '=', 'equals',#
+  '>', 'greater-than',#
+  '?', 'p',#
+  '@', 'at',#
+  '[', 'open-brace',#
+  '\\', 'backslash',#
+  ']', 'close-brace',#
+  '^', 'hat',#
+  '`', 'tick',#
+  '{', 'open-curly',#
+  '}', 'close',#
+  '~', 'twiddle'#
+))#
+subs[, 2] <- str_c("-", subs[, 2])#
+#
+nice_name <- function(x) {#
+  for(i in seq_len(nrow(subs))) {#
+    x <- str_replace_all(x, fixed(subs[i, 1]), subs[i, 2])#
+  }#
+  x <- str_replace(x, "-+", "-")#
+  x#
+}#
+#
+#
+roxygen_stop <- function(..., srcref = NULL) {#
+  stop(..., srcref_location(srcref), call. = FALSE)#
+}#
+#
+roxygen_warning <- function(..., srcref = NULL) {#
+  warning(..., srcref_location(srcref), call. = FALSE)#
+}#
+#
+srcref_location <- function(srcref = NULL) {#
+  if (is.null(srcref)) return()#
+  str_c(" in block ", basename(srcref$filename), ":", srcref$lloc[1])#
+}
+    pre_parsed <- lapply(pre_refs, parse.preref)
+warnings()
+R/cache.R
+#' @importFrom digest digest#
+new_cache <- function() {#
+  cache <- new.env(parent = emptyenv())#
+  #
+  compute <- function(keys, code) {#
+    hash <- suppressWarnings(digest(keys))#
+    if (exists(hash, cache, inherits = FALSE)) {#
+      return(cache[[hash]])#
+    }#
+    #
+    (cache[[hash]] <- force(code))#
+  }#
+  #
+  reset <- function() {#
+    cache <<- new.env(parent = emptyenv())#
+  }#
+  #
+  #
+  list(compute = compute, reset = reset)#
+}#
+#
+parse_cache <- new_cache()#
+rd_proc_cache <- new_cache()#
+rd_out_cache <- new_cache()#
+#
+#' Clear all roxygen caches.#
+#'#
+#' In order to speed up execution time, roxygen caches a number of #
+#' interim results. This function empties all caches and guarantees that all#
+#' results are computed afresh.#
+#' #
+#' @export#
+clear_caches <- function() {#
+  parse_cache$reset()#
+  rd_proc_cache$reset()#
+  rd_out_cache$reset()#
+}
+# Parse DESCRIPTION into convenient format#
+read.description <- function(file) {#
+  dcf <- read.dcf(file)#
+  #
+  dcf_list <- setNames(as.list(dcf[1, ]), colnames(dcf))#
+  lapply(dcf_list, str_trim)#
+}#
+#
+# Write parsed DESCRIPTION back out to disk#
+write.description <- function(desc, file = "") {#
+  unlink(file)#
+  mapply(cat.description, names(desc), desc, MoreArgs = list(file = file))#
+  invisible()#
+}#
+#
+# Print the field-value pair to a given file or standard out.#
+cat.description <- function(field, value, file='') {#
+  comma_sep <- any(field %in% c("Suggests", "Depends", "Extends", "Imports"))#
+  individual_lines <- field %in% c("Collate")#
+  #
+  if (comma_sep) {#
+    value <- strsplit(value, ",\\s+")[[1]]#
+    value <- gsub("^\\s+|\\s+$", "", value)#
+    value_string <- paste("    ", value, collapse = ",\n", sep = "")#
+    out <- paste(field, ":\n", value_string, sep = "")#
+  } else {#
+    width <- if (individual_lines) 0 else 80#
+    out <- wrap_field_if_necessary(field, value, wrap.threshold = width)    #
+  }#
+#
+  cat(out, sep='\n', file=file, append=TRUE)#
+}#
+#
+# Determine whether a given field is too long and should be text-wrapped#
+wrap_field_if_necessary <- function(field, value, wrap.threshold) {#
+   text <- simulate_formatted_text(field, value)#
+   longest.line <- max(str_length(text))#
+   #
+   if (longest.line > wrap.threshold) {#
+     text <- str_wrap(str_c(field, ": ", value), exdent = 4, width = wrap.threshold)#
+   }#
+   #
+   return(text)#
+}#
+#
+# Simulate what was probably the user's intended field formatting#
+simulate_formatted_text <- function(field, value) {#
+  text     <- str_split(str_c(field, ": ", value), "\n")[[1]]#
+  text[-1] <- str_c("    ", text[-1]) # indents all *but* the first line#
+  #
+  return(text)#
+}
+parse.preref <- function(lines) {#
+  # Extract srcrefs#
+  srcrefs <- attr(lines, 'srcref')#
+  srcrefs$lloc[1] <- srcrefs$lloc[1] + 1 #
+  #
+  delimited.lines <- lines[str_detect(lines, LINE.DELIMITER)]#
+  trimmed.lines <- str_trim(str_replace(delimited.lines, LINE.DELIMITER, ""),#
+    "right")#
+#
+  if (length(trimmed.lines) == 0) return(list())#
+#
+  joined.lines <- str_c(trimmed.lines, collapse = '\n')#
+  ## Thanks to Fegis at #regex on Freenode for the#
+  ## lookahead/lookbehind hack; as he notes, however, "it's not#
+  ## proper escaping though... it will not split a@@@b."#
+  elements <- strsplit(joined.lines, '(?<!@)@(?!@)', perl = TRUE)[[1]]#
+#
+  ## Compress the escaped delimeters.#
+  elements <- str_replace_all(elements, fixed("@@"), "@")#
+#
+  parsed.introduction <- parse.introduction(elements[[1]])#
+  parsed.elements <- unlist(lapply(elements[-1], parse.element, #
+    srcref = srcrefs), recursive = FALSE)#
+  #
+  c(parsed.introduction, parsed.elements)#
+} #
+#
+# Sequence that distinguishes roxygen comment from normal comment.#
+LINE.DELIMITER <- '\\s*#+\' ?'#
+#
+# Comment blocks (possibly null) that precede a file's expressions.#
+##
+# @param srcfile result of running \code{srcfile} on an interesting file#
+# @param srcrefs the resultant srcrefs#
+# @return A list of prerefs that resemble srcrefs in form, i.e. with srcfile#
+#   and lloc#
+prerefs <- function(srcfile, srcrefs) {#
+  if (length(srcrefs) == 0) return(list())#
+    #
+  src_start <- vapply(srcrefs, "[[", integer(1), 1) - 1#
+  src_end <- vapply(srcrefs, "[[", integer(1), 3) + 1#
+  #
+  comments_start <- c(1, src_end[-length(src_end)])#
+  comments_end <- src_start#
+  #
+  src <- readLines(srcfile$filename, warn = FALSE)#
+  #
+  extract <- function(start, end) {#
+    srcref <- list(filename = srcfile$filename, lloc = c(start, 0 , end, 0))#
+    structure(src[start:end], srcref = srcref)#
+  }#
+  #
+  Map(extract, comments_start, comments_end)#
+}#
+#
+# Parse a raw string containing key and expressions.#
+##
+# @param element the string containing key and expressions#
+# @return A list containing the parsed constituents#
+parse.element <- function(element, srcref) {#
+  pieces <- str_split_fixed(element, "[[:space:]]+", 2)#
+  #
+  tag <- pieces[, 1]#
+  rest <- pieces[, 2]#
+  #
+  tag_parser <- preref.parsers[[tag]] %||% parse.unknown #
+  tag_parser(tag, rest, srcref)#
+}#
+#
+# Parse introduction: the premier part of a roxygen block#
+# containing description and option details separated by#
+# a blank roxygen line.#
+##
+# @param expression the description to be parsed#
+# @return A list containing the parsed description#
+parse.introduction <- function(expression) {#
+  if (is.null.string(expression)) return(NULL)#
+  list(introduction = str_trim(expression))#
+}#
+#
+#' Default parser which simply emits the key and expression.#
+#'#
+#' Used for elements with optional values (like \code{@@export})#
+#' where roclets can do more sophisticated things with \code{NULL}.#
+#'#
+#' @param key the parsing key#
+#' @param rest the expression to be parsed#
+#' @param srcref srcref providing location of file name and line number#
+#' @return A list containing the key and expression (possibly null)#
+#' @keywords internal#
+#' @family preref parsing functions#
+#' @export#
+parse.default <- function(key, rest, srcref)#
+  as.list(structure(str_trim(rest), names=key))#
+#
+#' Parse an unknown tag.#
+#'#
+#' Resorts to the default parser but with a warning about the#
+#' unknown tag.#
+#'#
+#' @inheritParams parse.default#
+#' @return A list containing the key and expression (possibly null)#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.unknown <- function(key, rest, srcref) {#
+  roxygen_warning(key, ' is an unknown key', srcref = srcref)#
+  parse.default(key, rest)#
+}#
+#
+#' Parse an element with a mandatory value.#
+#'#
+#' @inheritParams parse.default#
+#' @return A list containing the key and value#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.value <- function(key, rest, srcref) {#
+  if (is.null.string(rest))#
+    roxygen_stop(key, ' requires a value', srcref = srcref)#
+  else#
+    parse.default(key, rest)#
+}#
+  #
+#' Parse an element containing a mandatory name#
+#' and description (such as \code{@@param}).#
+#'#
+#' @inheritParams parse.default#
+#' @return A list containing the key, name and description#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.name.description <- function(key, rest, srcref) {#
+  pieces <- str_split_fixed(rest, "[[:space:]]+", 2)#
+  #
+  name <- pieces[, 1]#
+  rest <- str_trim(pieces[, 2])#
+#
+  if (is.null.string(name))#
+    roxygen_stop(key, ' requires a name and description', srcref = srcref)#
+  else#
+    as.list(structure(list(list(name=name,#
+                                description=rest)),#
+                      names=key))#
+}#
+#
+#' Parse an element containing a single name and only a name.#
+#'#
+#' Extra material will be ignored and a warning issued.#
+#'#
+#' @inheritParams parse.default#
+#' @param name the name to be parsed#
+#' @return A list containing key and name#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.name <- function(key, name, srcref) {#
+  name <- str_trim(name)#
+  #
+  if (is.null.string(name)) {#
+    roxygen_stop(key, ' requires a name', srcref = srcref)#
+  } else if (str_count(name, "\\s+") > 1) {#
+    roxygen_warning(key, ' ignoring extra arguments', srcref = srcref)#
+  }#
+    #
+  parse.default(key, word(name, 1))#
+}#
+#
+#' Turn a binary element on; parameters are ignored.#
+#'#
+#' @inheritParams parse.default#
+#' @return A list with the key and \code{TRUE}#
+#' @family preref parsing functions#
+#' @keywords internal#
+#' @export#
+parse.toggle <- function(key, rest, srcref)#
+  as.list(structure(TRUE, names=key))
+if (!exists("preref.parsers")) {#
+  # Preref parser table#
+  preref.parsers <- new.env(parent=emptyenv())#
+  # Srcref parser table#
+  srcref.parsers <- new.env(parent=emptyenv())#
+}#
+#
+#' Register parsers.#
+#'#
+#' @param key the key upon which to register#
+#' @param parser the parser callback to register;#
+#' a function taking \code{key} and \code{expression}#
+#' @return \code{NULL}#
+#' @export#
+#' @keywords internal#
+#' @rdname register-parser#
+register.preref.parser <- function(key, parser) {#
+  preref.parsers[[key]] <- parser#
+}#
+#
+#' @export#
+#' @rdname register-parser#
+register.srcref.parser <- function(key, parser) {#
+  srcref.parsers[[key]] <- parser#
+}#
+#
+#' Register many parsers at once.#
+#'#
+#' @param parser the parser to register#
+#' @param \dots the keys upon which to register#
+#' @return \code{NULL}#
+#' @export#
+#' @keywords internal#
+#' @rdname register-parsers#
+register.preref.parsers <- function(parser, ...) {#
+  for (key in c(...)) {#
+    register.preref.parser(key, parser)#
+  }#
+}#
+#
+#' @export#
+#' @rdname register-parsers#
+register.srcref.parsers <- function(parser, ...) {#
+  for (key in c(...)) {#
+    register.srcref.parser(key, parser)#
+  }#
+}
+#
+# Parse a srcref#
+parse.srcref <- function(ref, env) {#
+  srcfile <- attributes(ref)$srcfile#
+  srcref <- list(srcref = #
+    list(filename = srcfile$filename, lloc = as.vector(ref)))#
+#
+  # Get code from source and parse to extract first call#
+  lines <- getSrcLines(srcfile, ref[[1]], ref[[3]])#
+  call <- parse(text = lines)[[1]]#
+  #
+  if (!is.call(call)) {#
+    return(c(srcref, list(value = deparse(call))))#
+  }#
+#
+  # Dispatch to registered srcref parsers based on call#
+  name <- as.character(call[[1]])#
+  if (length(name) > 1) return(srcref)#
+  parser <- srcref.parsers[[name]]#
+  if (is.null(parser)) return(srcref)#
+  #
+  f <- eval(call[[1]], env)#
+  # If not a primitive function, use match.call so argument handlers#
+  # can use argument names#
+  if (!is.primitive(f)) {#
+    call <- match.call(eval(call[[1]], env), call)#
+  }#
+  c(srcref, parser(call, env))#
+}
+#' Parse a source file containing roxygen directives.#
+#'#
+#' @param file string naming file to be parsed#
+#' @return List containing parsed directives#
+#' @keywords internal#
+#' @export#
+parse.file <- function(file, env, env_hash) {#
+  srcfile <- srcfile(file)#
+  #
+  parse_cache$compute(c(env_hash, readLines(file, warn = FALSE)), {#
+    src_refs <- attributes(parse(srcfile$filename, srcfile = srcfile))$srcref#
+    pre_refs <- prerefs(srcfile, src_refs)#
+#
+    if (length(src_refs) == 0) return(list())#
+#
+    src_parsed <- lapply(src_refs, parse.srcref, env = env)#
+    pre_parsed <- lapply(pre_refs, parse.preref)#
+#
+    stopifnot(length(src_parsed) == length(pre_parsed))#
+#
+    mapply(c, src_parsed, pre_parsed, SIMPLIFY = FALSE)#
+  })#
+}#
+#
+#' Parse many files at once.#
+#'#
+#' @param \dots files to be parsed#
+#' @return List containing parsed directives#
+#' @seealso \code{\link{parse.file}}#
+#' @keywords internal#
+#' @export#
+#' @importFrom digest digest#
+parse.files <- function(paths) {#
+  # Source all files into their own environment so that parsing code can#
+  # access them.#
+  env <- new.env(parent = parent.env(globalenv()))#
+  env_hash <- suppressWarnings(digest(env))#
+  #
+  setPackageName("roxygen_destest", env)#
+  lapply(paths, sys.source, chdir = TRUE, envir = env)#
+  #
+  unlist(lapply(paths, parse.file, env = env, env_hash = env_hash), #
+    recursive = FALSE)#
+}#
+  #
+#' Text-parsing hack using tempfiles for more facility.#
+#'#
+#' @param text stringr containing text to be parsed#
+#' @return The parse tree#
+#' @keywords internal#
+#' @export#
+parse.text <- function(text) {#
+  file <- tempfile()#
+  writeLines(text, file)#
+  on.exit(unlink(file))#
+  parse.files(file)#
+}
+new_rd_file <- function() {#
+  structure(list(environment()), class = "rd_file")#
+}#
+is.rd_file <- function(x) inherits(x, "rd_file")#
+#
+#' @S3method print rd_file#
+print.rd_file <- function(x, ...) {#
+  cat("Rd file with tags ", str_c(names(x), collapse = ", "), "\n", sep = "")#
+}#
+#
+#' @S3method names rd_file#
+names.rd_file <- function(x) {#
+  vapply(as.list(x[[1]]), "[[", "tag", FUN.VALUE = character(1))#
+}#
+#
+#
+#' @S3method format rd_file#
+format.rd_file <- function(x, ...) {#
+  tags <- as.list(x[[1]])#
+  order <- c("docType", "encoding", "name", "alias", "title", "format",#
+    "source", "usage", "arguments", "value", "description", "details", "note",#
+    "section", "examples", "author", "references", "seealso", "concept",#
+    "keyword")#
+    #
+  tags <- tags[intersect(order, names(tags))]#
+  #
+  formatted <- lapply(tags, "format")#
+  str_c(unlist(formatted), collapse = "")#
+}#
+#
+#' @S3method merge rd_file#
+merge.rd_file <- function(x, y, ...) {#
+  rd <- new_rd_file()#
+  for(tag_x in as.list(x[[1]])) {#
+    add_tag(rd, tag_x)#
+  }#
+  for(tag_y in as.list(y[[1]])) {#
+    add_tag(rd, tag_y)#
+  }#
+  rd#
+}#
+#
+#' @S3method length rd_file#
+length.rd_file <- function(x) {#
+  length(x[[1]])#
+}#
+#
+get_tag <- function(file, tagname) {#
+  file[[1]][[tagname]]#
+}#
+#
+add_tag <- function(file, tag) {#
+  if (is.null(tag)) return()#
+  stopifnot(is.rd_file(file))#
+  #
+  if (!is.rd_tag(tag) && is.list(tag)) {#
+    return(lapply(tag, add_tag, file = file))#
+  }#
+  stopifnot(is.rd_tag(tag))#
+  #
+  existing <- file[[1]][[tag$tag]]#
+  if (is.null(existing)) {#
+    file[[1]][[tag$tag]] <- tag #
+  } else {#
+    file[[1]][[tag$tag]] <- merge(existing, tag)[[1]]#
+  }#
+#
+  invisible()#
+}
+get_rd <- function(topic, package = NULL) {#
+  help_call <- substitute(help(t, p), list(t = topic, p = package))#
+  top <- eval(help_call)#
+  #
+  if (length(top) == 0) return(list())#
+  #
+  utils:::.getHelpFile(top)#
+}#
+#
+# get_rd should parse Rd into a rd_file so I don't need to maintain#
+# two parallel apis#
+#
+get_tags <- function(rd, tag) {#
+  rd_tag <- function(x) attr(x, "Rd_tag")#
+#
+  Filter(function(x) rd_tag(x) == tag, rd)#
+}#
+#
+rd2rd <- function(x) {#
+  paste(unlist(tools:::as.character.Rd(x)), collapse = "")#
+}#
+#
+# rd_arguments(get_rd("mean"))#
+rd_arguments <- function(rd) {#
+  arguments <- get_tags(rd, "\\arguments")[[1]]#
+  items <- get_tags(arguments, "\\item")#
+  #
+  values <- lapply(items, function(x) rd2rd(x[[2]]))#
+  params <- vapply(items, function(x) rd2rd(x[[1]]), character(1))#
+  #
+  setNames(values, params)#
+}#
+#
+rd_title <- function(rd) {#
+  as.character(get_tags(rd, "\\title")[[1]])#
+}#
+#
+rd_description <- function(rd) {#
+  tags <- get_tags(rd, "\\description")[[1]]#
+  str_trim(str_c(as.character(tags), collapse = ""))#
+}#
+#
+method_summary <- function(generic) {#
+  is_default <- function(x) inherits(x, "derivedDefaultMethod")#
+  methods <- Filter(Negate(is_default), findMethods(generic))#
+#
+  rd <- lapply(methods, lookup_rd)#
+  links <- vapply(methods, link, character(1))#
+  #
+  # Only display if title / description different to generic / class ?#
+  #
+}#
+#
+link <- function(x) {#
+  str_c("\\code{\\link[", link_text(x), "]{", topic_name(x), "}}")#
+}#
+#
+setGeneric("link_text", function(x) {#
+  standardGeneric("link_text")#
+})#
+setMethod("link_text", signature(x = "MethodDefinition"), function(x) {#
+  sig <- x@defined#
+  str_c(x@generic, "(", str_c(sig@names, " = ", sig), ")")#
+})#
+#
+lookup_rd <- function(x, package = NULL) {#
+  get_rd(topic_name(x), package = package)#
+}
+# Translate a tag and expressions into an Rd expression;#
+# multiple expressions take their own braces.#
+##
+# Tags have two methods: \code{merge} and \code{format}.  Currently for all#
+# tags, merge just combines all values, and format selects from these to #
+# display the tags in the appropriate way. #
+##
+new_tag <- function(tag, values) {#
+  if (is.null(values)) return()#
+  #
+  subc <- str_c(tag, "_tag")#
+  list(structure(list(tag = tag, values = values), class = c(subc, "rd_tag")))#
+}#
+#
+is.rd_tag <- function(x) inherits(x, "rd_tag")#
+#
+#' @S3method print rd_tag#
+print.rd_tag <- function(x, ...) {#
+  cat(format(x), "\n")#
+}#
+#
+# Translate a tag and values into an Rd expression; multiple values get their#
+# own braces.#
+rd_tag <- function(tag, ..., space = FALSE) {#
+  if (space) {#
+    values <- str_c("\n", str_c(..., collapse = "\n"), "\n")#
+  } else {#
+    values <- str_trim(c(...))#
+  }#
+  # Turn non-breaking spaces back into regular spaces#
+  values <- str_replace_all(values, fixed("\u{A0}"), " ")#
+  str_c("\\", tag, str_c("{", values, "}", collapse = ""), "\n")                         #
+}#
+#
+#' @S3method format rd_tag#
+format.rd_tag <- function(x, ...) stop("Unimplemented format")#
+#
+#' @S3method merge rd_tag#
+merge.rd_tag <- function(x, y, ...) {#
+  stopifnot(identical(class(x), class(y)))  #
+  new_tag(x$tag, c(x$values, y$values))#
+}#
+#
+# Tags that repeat multiple times --------------------------------------------#
+#
+#' @S3method format keyword_tag#
+#' @S3method format alias_tag#
+format_rd <- function(x, ...) {#
+  vapply(sort(unique(x$values)), rd_tag, tag = x$tag, #
+    FUN.VALUE = character(1), USE.NAMES = FALSE)#
+}#
+format.keyword_tag <- format_rd#
+format.alias_tag <- function(x, ...) {#
+  x$values <- str_replace_all(x$values, fixed("%"), "\\%")#
+  format_rd(x, ...)#
+}#
+#
+# Tags that keep the first occurence -----------------------------------------#
+format_first <- function(x, ...) {#
+  rd_tag(x$tag, x$values[1])#
+} #
+#' @S3method format name_tag#
+#' @S3method format title_tag#
+#' @S3method format docType_tag#
+#' @S3method format format_tag#
+#' @S3method format encoding_tag#
+format.name_tag <- function(x, ...) {#
+  x$values <- str_replace_all(x$values, fixed("%"), "\\%")#
+  format_first(x, ...)#
+}#
+format.title_tag <- format_first#
+format.docType_tag <- format_first#
+format.format_tag <- format_first#
+format.encoding_tag <- format_first#
+#
+# Tags collapse their values into a single string ----------------------------#
+#
+format_collapse <- function(x, ..., indent = 2, exdent = 2) {#
+  values <- str_c(x$values, collapse = "\n\n")#
+  rd_tag(x$tag, str_wrap(values, width = 60, indent = indent, #
+    exdent = exdent), space = TRUE)#
+} #
+#' @S3method format author_tag#
+#' @S3method format concept_tag#
+#' @S3method format description_tag#
+#' @S3method format details_tag#
+#' @S3method format note_tag#
+#' @S3method format references_tag#
+#' @S3method format seealso_tag#
+#' @S3method format source_tag#
+#' @S3method format usage_tag#
+#' @S3method format value_tag#
+format.author_tag <- format_collapse#
+format.concept_tag <- format_collapse#
+format.description_tag <- format_collapse#
+format.details_tag <- format_collapse#
+format.note_tag <- format_collapse#
+format.references_tag <- format_collapse#
+format.seealso_tag <- format_collapse#
+format.source_tag <- format_collapse#
+format.usage_tag <- function(x, ...) format_collapse(x, ..., exdent = 4)#
+format.value_tag <- format_collapse#
+#
+#
+# Tags that don't have output ------------------------------------------------#
+#
+format_null <- function(x, ...) NULL#
+#
+#' @S3method format family_tag#
+format.family_tag <- format_null#
+format.inheritParams_tag <- format_null#
+format.formals_tag <- format_null#
+#
+# Tags with special errors or other semantics --------------------------------#
+#
+#' @S3method format arguments_tag#
+format.arguments_tag <- function(x, ...) {#
+  names <- names(x$values)#
+  dups <- duplicated(names)#
+  #
+  items <- str_c("\\item{", names, "}{", x$values, "}", collapse = "\n\n")#
+  rd_tag("arguments", str_wrap(items, width = 60, exdent = 2, indent = 2),#
+    space = TRUE)#
+}#
+#
+#' @S3method format section_tag#
+format.section_tag <- function(x, ...) {#
+  names <- vapply(x$values, "[[", "name", FUN.VALUE = character(1))#
+#
+  contents <- vapply(x$values, "[[", "content", FUN.VALUE = character(1))#
+  contents <- str_wrap(str_trim(contents), width = 60, exdent = 2, indent = 2)#
+  #
+  setions <- str_c("\\section{", names, "}{\n", contents, "\n}\n", #
+    collapse = "\n")#
+}#
+#
+#' @S3method format examples_tag#
+format.examples_tag <- function(x, ...) {#
+  values <- str_c(x$values, collapse = "\n")#
+  rd_tag(x$tag, values, space = TRUE)  #
+}
+NULL#
+#
+register.preref.parsers(parse.value, 'include')#
+#
+#' Roclet: make Collate field in DESCRIPTION.#
+#'#
+#' Topologically sort R files and record in Collate field.#
+#'#
+#' Each \code{@@include} tag should specify the filename of one intrapackage#
+#' dependency; multiple \code{@@include} tags may be given.#
+#'#
+#' @family roclets#
+#' @return Rd roclet#
+#' @examples#
+#' #' `example-a.R', `example-b.R' and `example-c.R' reside#
+#' #' in the `example' directory, with dependencies#
+#' #' a -> {b, c}. This is `example-a.R'.#
+#' #' @@include example-b.R#
+#' #' @@include example-c.R#
+#' NULL#
+#'#
+#' roclet <- collate_roclet()#
+#' \dontrun{#
+#'   roc_proc(roclet, dir('example'))#
+#'   roc_out(roclet, dir('example'), "example")#
+#' }#
+#' @export#
+collate_roclet <- function() {#
+  new_roclet(list(), "collate")#
+}#
+#
+#' @S3method roc_process collate#
+roc_process.collate <- function(roclet, partita, base_path) {#
+  topo <- topo_sort()#
+#
+  for (partitum in partita) {#
+    file <- base_path(partitum$srcref$filename, base_path)#
+    vertex <- topo$add(file)#
+#
+    includes <- partitum[names(partitum) == "include"]#
+    if (length(includes) > 0) {#
+      for (include in includes) {#
+        topo$add_ancestor(vertex, include)#
+      }#
+    }#
+  }#
+#
+  unique(basename(topo$sort()))#
+}#
+#
+#' @S3method roc_output collate#
+roc_output.collate <- function(roclet, results, base_path) {#
+  DESCRIPTION <- file.path(base_path, "DESCRIPTION")#
+  old <- read.description(DESCRIPTION)#
+  new <- old#
+  new$Collate <- str_c("'", results, "'", collapse = " ")#
+  write.description(new, DESCRIPTION)#
+#
+  if (!identical(old, read.description(DESCRIPTION))) {#
+    cat('Updating collate directive in ', DESCRIPTION, "\n")#
+  }#
+}#
+#
+base_path <- function(path, base) {#
+  path <- normalizePath(path, winslash = "/")#
+  base <- normalizePath(base, winslash = "/")#
+#
+  str_replace(path, fixed(str_c(base, "/")), "")#
+}
+NULL#
+#
+register.preref.parsers(parse.default, 'export')#
+#
+register.preref.parsers(parse.value, 'exportClass', 'exportMethod',#
+  'exportPattern', 'S3method', 'import', 'importFrom', 'importClassesFrom',#
+  'importMethodsFrom', 'useDynLib')#
+#
+#' Roclet: make NAMESPACE.#
+#' #
+#' This roclet automates the production of a \file{NAMESPACE} file, #
+#' see \cite{Writing R Extensions}#
+#' (\url{http://cran.r-project.org/doc/manuals/R-exts.pdf}) for details.#
+#'#
+#' @section Tags:#
+#'#
+#' There are four tags for exporting objects from the package:#
+#' #
+#' \describe{#
+#'#
+#' \item{\code{@@export}}{Roxygen guesses the directive: \code{export} for #
+#'   functions, \code{exportMethod} for S4 methods, \code{S3method} for S3#
+#'   methods, \code{exportClass} for S4 classes.#
+#'   #
+#'   This is the only directive you should need for documented function,#
+#'   the other directives are useful if you want to export (e.g.) methods#
+#'   but not document them.} #
+#'#
+#' \item{\code{@@export f g ...}}{overrides auto-detection and #
+#'   produces multiple export directives: \code{export(f)}, \code{export(g)} #
+#'   ...}#
+#'    #
+#' \item{\code{@@exportClass x}}{produces \code{exportClasses(x)} directive.}#
+#' #
+#' \item{\code{@@exportMethod x}}{produces \code{exportMethods(x)} directive.}#
+#'#
+#' \item{\code{@@S3method generic class}}{produces#
+#'    \code{S3method(generic,class)} directive}#
+#'#
+#' }#
+#'#
+#' There are five tags for importing objects into the package:#
+#'#
+#' \describe{#
+#'#
+#' \item{\code{@@import package}}{produces \code{import(package) directive#
+#'   to import all functions from the given package}}#
+#'#
+#' \item{\code{@@importFrom package functiona functionb ...}}{produces #
+#'    multiple \code{importFrom(package, function)} directives to import#
+#'    selected functions from a package.}#
+#'#
+#' \item{\code{@@importClassesFrom package classa classb ...}}{produces #
+#'   multiple \code{importClassesFrom(package, class)} directives to import#
+#'   selected classes from a package.}#
+#'#
+#' \item{\code{@@importMethodsFrom package methoda methodb ...}}{produces #
+#'   multiple \code{importMethodsFrom(package, method)} directives to import#
+#'   selected methods from a package.}#
+#'#
+#' \item{\code{@@useDynLib package}}{produces a \code{useDynLib(package)}#
+#'   directive to import all compiled routines from the shared objects in#
+#'   the specified package}#
+#'#
+#' \item{\code{@@useDynLib paackage routinea routineb}}{produces multiple#
+#'   \code{useDynLib(package,routine)} directions to import specified #
+#'   compiled routines from a package.}#
+#' }#
+#'#
+#' Only unique directives are saved to the \file{NAMESPACE} file, so you can#
+#' repeat them as needed to maintain a close link between the functions where#
+#' they are needed and the namespace file..#
+#' #
+#' @family roclets#
+#' @examples#
+#' #' An example file, example.R, which imports#
+#' #' packages foo and bar#
+#' #' @@import foo bar#
+#' NULL#
+#'#
+#' #' An exportable function#
+#' #' @@export#
+#' fun <- function() {}#
+#'#
+#' roclet <- namespace_roclet()#
+#' \dontrun{roc_proc(roclet, "example.R")}#
+#' \dontrun{roc_out(roclet, "example.R", ".")}#
+#' @export#
+#' @aliases export exportClass exportMethod S3method import importFrom#
+#'   importClassesFrom importMethodsFrom#
+namespace_roclet <- function() {#
+  new_roclet(list, "namespace")#
+}#
+#
+#' @S3method roc_process namespace#
+roc_process.namespace <- function(roclet, partita, base_path) {#
+  ns <- character()#
+  for (partitum in partita) {#
+    ns_one <- c( #
+      process_tag(partitum, "export", ns_export),#
+      process_tag(partitum, "S3method", ns_S3method),#
+      process_tag(partitum, "importFrom", ns_collapse),#
+      process_tag(partitum, 'exportClass', ns_exportClass),#
+      process_tag(partitum, 'exportMethod', ns_exportMethod),#
+      process_tag(partitum, 'exportPattern', ns_default),#
+      process_tag(partitum, 'import', ns_default),#
+      process_tag(partitum, 'importClassesFrom', ns_collapse),#
+      process_tag(partitum, 'importMethodsFrom', ns_collapse),#
+      process_tag(partitum, 'useDynLib', ns_collapse)#
+    )#
+    ns <- c(ns, ns_one)#
+  }#
+  with_locale("C", sort(unique(ns)))#
+}#
+#
+#
+#' @S3method roc_output namespace#
+roc_output.namespace <- function(roclet, results, base_path) { #
+  NAMESPACE <- file.path(base_path, "NAMESPACE")#
+  #
+  old <- if (file.exists(NAMESPACE)) readLines(NAMESPACE) else ""#
+  #
+  if (!identical(results, old)) {#
+    cat("Updating namespace directives\n")#
+    writeLines(results, NAMESPACE)#
+  }#
+}#
+#
+#
+ns_directive <- function(tag, parms) {#
+  str_c(tag, "(", str_trim(parms), ")")#
+}#
+#
+ns_default <- function(tag, parms, all) {#
+  ns_directive(tag, words(parms))#
+}#
+ns_collapse <- function(tag, parms, all) {#
+  params <- words(parms)#
+  if (length(params) == 1) {#
+    ns_directive(tag, params)#
+  } else {#
+    ns_directive(tag, str_c(params[1], ",", params[-1]))#
+  }#
+}#
+#
+ns_exportClass <- function(tag, parms, all) {#
+  ns_directive('exportClasses', quote_if_needed(parms))#
+}#
+ns_exportMethod <- function(tag, parms, all) {#
+  ns_directive('exportMethods', quote_if_needed(parms))#
+}#
+ns_export <- function(tag, parms, all) {#
+  if (!is.null.string(parms)) {#
+    return(ns_directive('export', words(parms)))#
+  }#
+  #
+  if (all$src_type == "method") {#
+    ns_exportMethod(NULL, all$generic)#
+  } else if (all$src_type == "class") {#
+    ns_exportClass(NULL, all$src_name)#
+  } else if (all$src_type == "method") {#
+    ns_S3method(all$src_name)#
+  } else {#
+    name <- all$name %||% all$src_name#
+    if (is.null(name)) {#
+      warning('Empty export directive', call. = FALSE)#
+      NULL#
+    } else {#
+      ns_directive('export', quote_if_needed(name))#
+    }#
+  }#
+}#
+ns_S3method <- function(tag, parms, all) {#
+  params <- words(parms)#
+  if (length(params) != 2) {#
+    warning("Invalid @S3method: ", parms, call. = FALSE)#
+  }#
+  ns_directive("S3method", str_c(quote_if_needed(params), collapse = ","))#
+}#
+#
+#
+process_tag <- function(partitum, tag, f) {#
+  matches <- partitum[names(partitum) == tag]#
+  if (length(matches) == 0) return()#
+  #
+  unlist(lapply(matches, f, tag = tag, all = partitum), use.names = FALSE)#
+}#
+  #
+words <- function(x) {#
+  quote_if_needed(str_split(str_trim(x), "\\s+")[[1]])#
+}#
+is.syntactic <- function(x) make.names(x) == x#
+has.quotes <- function(x) str_detect(x, "'|\"")#
+quote_if_needed <- function(x) {#
+  needs_quotes <- !has.quotes(x) & !is.syntactic(x)#
+  x[needs_quotes] <- str_c('"', x[needs_quotes], '"')#
+  x#
+}
+#' @import stringr#
+NULL#
+#
+register.preref.parsers(parse.value,#
+                        'name', #
+                        'rdname',#
+                        'aliases',#
+                        'title',#
+                        'usage',#
+                        'references',#
+                        'concept',#
+                        'note',#
+                        'seealso',#
+                        'example',#
+                        'examples',#
+                        'keywords',#
+                        'return',#
+                        'author',#
+                        'section',#
+                        'family',#
+                        'inheritParams',#
+                        'format',#
+                        'source', #
+                        'encoding',#
+                        'description',#
+                        'details')#
+#
+register.preref.parsers(parse.name.description,#
+                        'param',#
+                        'method')#
+#
+register.preref.parsers(parse.name,#
+                        'docType')#
+#
+register.preref.parsers(parse.default,#
+                        'noRd')#
+#
+#' Roclet: make Rd files.#
+#'#
+#' This roclet is the workhorse of \pkg{roxygen}, producing the Rd files that#
+#' document that functions in your package.  #
+#'#
+#' This roclet also automatically runs \code{\link[tools]{checkRd}} on all#
+#' generated Rd files so that you know as early as possible if there's a#
+#' problem.#
+#'#
+#' @section Required tags:#
+#' #
+#' As well as a title and description, extracted from the first sentence and#
+#' first paragraph respectively, all functions must have the following tags:#
+#'#
+#' \describe{#
+#'#
+#'  \item{\code{@@param name description}}{Document a parameter.  #
+#'    Documentation is required for every parameter.}#
+#'#
+#'  \item{\code{@@inheritParams source_function}}{Alternatively, you can#
+#'    inherit parameter description from another function. This tag will#
+#'    bring in all documentation for parameters that are undocumented in the#
+#'    current function, but documented in the source function. The source #
+#'    can be a function in the current package, \code{function}, or another#
+#'    package \code{package::function}.}#
+#'#
+#'  \item{\code{@@method generic class}}{Required if your function is an S3#
+#'    method.  This helps R to distinguish between (e.g.) \code{t.test} and #
+#'    the \code{t} method for the \code{test} class.}#
+#'#
+#'  }#
+#'#
+#' @section Optional tags that add extra information:#
+#'#
+#' Valid tags for \code{rd_roclet} are:#
+#' #
+#' \describe{#
+#'#
+#'  \item{\code{@@examples R code...}}{Highly recommended: example code that#
+#'    demonstrates how to use your function.  Use \\dontrun{} to tag code#
+#'    that should not automatically be run.}#
+#' #
+#'  \item{\code{@@example path/relative/to/packge/root}}{Instead of including#
+#'    examples directly in the documentation, you can include them as #
+#'    separate files, and use the \code{@@example} tag to insert them into#
+#'    the documentation.}#
+#'#
+#'  \item{\code{@@return}}{Used to document the object returned by the #
+#'    function. For lists, use the \code{\\item{name a}{description a}} #
+#'    describe each component of the list}#
+#'#
+#'  \item{\code{@@author authors...}}{A free text string describing the #
+#'    authors of the function.  This is typically only necessary if the#
+#'    author is not the same as the package author.}#
+#'#
+#'  \item{\code{@@note contents}}{Create a note section containing additional#
+#'    information.}#
+#' #
+#'  \item{\code{@@section Name: contents}}{Use to add to an arbitrary section#
+#'    to the documentation. The name of the section will be the content before#
+#'    the first colon, and the contents will be everything after the colon.} #
+#'#
+#'  \item{\code{@@keywords keyword1 keyword2 ...}}{Keywords are optional, #
+#'    but if present, must be taken from the list in #
+#'    \file{file.path(R.home(), "doc/KEYWORDS")}.  Use the \code{internal}#
+#'    keyword for functions that should not appear in the main function#
+#'    listing.}#
+#'#
+#'  }#
+#'#
+#' @section Optional tags for cross-referencing:#
+#'#
+#' \describe{#
+#'#
+#'  \item{\code{@@aliases space separated aliases}}{Add additional aliases, #
+#'    through which the user can find the documentation with \code{?}. #
+#'    The topic name is always included in the list of aliases.}#
+#' #
+#'  \item{\code{@@concepts space separated concepts}}{Similar to#
+#'    \code{@@aliases} but for \code{\link{help.search}}}#
+#'#
+#'  \item{\code{@@references free text reference}}{Pointers to the literature#
+#'    related to this object.}#
+#'#
+#'  \item{\code{@@seealso Text with \\code{\\link{function}}}}{Pointers to#
+#'    related R objects, and why you might be interested in them.}#
+#'#
+#'  \item{\code{@@family family name}}{Automatically adds see-also#
+#'     cross-references between all functions in a family. A function can#
+#'     belong to multiple families.}#
+#'  }#
+#'#
+#' @template template#
+#' @section Optional tags that override defaults:#
+#'#
+#' These tags all override the default values that roxygen guess from #
+#' inspecting the source code.#
+#' #
+#' \describe{#
+#'#
+#'  \item{\code{@@rdname filename}}{Overrides the output file name (without#
+#'    extension). This is useful if your function has a name that is not#
+#'    a valid filename (e.g. \code{[[<-}), or you want to merge documentation#
+#'    for multiple function into a single file.}#
+#' #
+#'  \item{\code{@@title Topic title}}{Specify the topic title, which by #
+#'    by default is taken from the first sentence of the roxygen block.}#
+#'#
+#'  \item{\code{@@usage usage_string}}{Override the default usage string. #
+#'    You should not need to use this tag - if you are trying to document#
+#'    multiple functions in the same topic, use \code{@@rdname}.}#
+#'#
+#'  }#
+#'#
+#' @section Tags for non-functions:#
+#'#
+#' These tags are useful when documenting things that aren't functions, #
+#' datasets and packages.#
+#'#
+#' \describe{#
+#'#
+#'  \item{\code{@@name topicname}}{Override the default topic name, which is#
+#'    taken by default from the object that is assigned to in the code#
+#'    immediately following the roxygen block. This tag is useful when#
+#'    documenting datasets, and other non-function elements.}#
+#'#
+#'  \item{\code{@@docType type}}{Type of object being documented. Useful #
+#'    values are \code{data} and \code{package}. Package doc type will#
+#'    automatically add a \code{package-} alias if needed.}#
+#' #
+#'  \item{\code{@@format description}}{A textual description of the format#
+#'    of the object.}#
+#'#
+#'  \item{\code{@@source text}}{The original source of the data.}#
+#' #
+#'}#
+#' @family roclets#
+#' @examples#
+#' roclet <- rd_roclet()#
+#' \dontrun{roc_proc(roclet, "example.R")}#
+#' \dontrun{roc_out(roclet, "example.R", ".")}#
+#' @export#
+rd_roclet <- function() {#
+  new_roclet(list(), "had")#
+}#
+#
+#' @S3method roc_process had#
+#' @importFrom digest digest#
+roc_process.had <- function(roclet, partita, base_path) {#
+  # Remove srcrefs with no attached roxygen comments#
+  partita <- Filter(function(x) length(x) > 1, partita)#
+  templates <- dir(file.path(base_path, "max-roxygen"), full = TRUE)#
+  template_hash <- digest(lapply(templates, readLines))#
+  #
+  topics <- list()#
+  for (partitum in partita) {#
+    key <- c(template_hash, digest(partitum))#
+    new <- rd_proc_cache$compute(key, roclet_rd_one(partitum, base_path)) #
+    if (is.null(new)) next; #
+    # Clone output so cached object isn't modified#
+    new$rd[[1]] <- list2env(as.list(new$rd[[1]]))#
+    #
+    old <- topics[[new$filename]]#
+    topics[[new$filename]] <- if (is.null(old)) new$rd else merge(old, new$rd)#
+  }#
+  #
+  # Second parse through to process @family#
+  invert <- function(x) {#
+    if (length(x) == 0) return()#
+    unstack(rev(stack(x)))#
+  }#
+  get_values <- function(topics, tag) {#
+    tags <- lapply(topics, get_tag, tag)#
+    tags <- Filter(Negate(is.null), tags)#
+    lapply(tags, "[[", "values")#
+  }#
+  #
+  family_lookup <- invert(get_values(topics, "family"))#
+  name_lookup <- get_values(topics, "name")#
+#
+  for(family in names(family_lookup)) {#
+    related <- family_lookup[[family]]#
+    #
+    for(topic_name in related) {#
+      topic <- topics[[topic_name]]#
+      others <- setdiff(related, topic_name)#
+      #
+      if (length(others) < 1) next;#
+      #
+      other_topics <- sort(unlist(name_lookup[others], use.names = FALSE))#
+#
+      links <- paste("\\code{\\link{", other_topics, "}}", #
+        collapse =", ", sep = "")#
+      seealso <- paste("Other ", family, ": ", links, sep = "")#
+      #
+      add_tag(topic, new_tag("seealso", seealso))#
+    }#
+  }#
+  #
+  # And to process @inheritParams#
+  #
+  # Currently no topological sort, so @inheritParams will only traverse#
+  # one-level - you can't inherit params that have been inherited from#
+  # another function (and you can't currently use multiple inherit tags)#
+  inherits <- get_values(topics, "inheritParams")#
+  #
+  for(topic_name in names(inherits)) {#
+    topic <- topics[[topic_name]]#
+    #
+    for(inheritor in inherits[[topic_name]]) {#
+      if (grepl("::", inheritor, fixed = TRUE)) {#
+        # Reference to another package#
+        pieces <- strsplit(inheritor, "::", fixed = TRUE)[[1]]#
+        params <- rd_arguments(get_rd(pieces[2], pieces[1]))#
+        #
+      } else {#
+        # Reference within this package        #
+        rd_name <- names(Filter(function(x) inheritor %in% x, name_lookup))#
+        #
+        if (length(rd_name) != 1) {#
+          warning("@inheritParams: can't find topic ", inheritor, #
+            call. = FALSE, immediate. = TRUE)#
+          next#
+        }#
+        params <- get_tag(topics[[rd_name]], "arguments")$values  #
+      }#
+      params <- unlist(params)#
+#
+      missing_params <- setdiff(get_tag(topic, "formals")$values,#
+        names(get_tag(topic, "arguments")$values))#
+      matching_params <- intersect(missing_params, names(params))#
+      #
+      add_tag(topic, new_tag("arguments", params[matching_params]))#
+    }#
+    #
+  }#
+  #
+  #
+  topics#
+}#
+#
+roclet_rd_one <- function(partitum, base_path) {  #
+  # Add in templates#
+  partitum <- process_templates(partitum, base_path)#
+  #
+  has_rd <- any(names(partitum) %in% c("description", "param", "return",#
+    "title", "example", "examples", "name", "rdname", "usage",#
+    "details", "introduction"))#
+  dont_rd <- any(names(partitum) == "noRd")#
+  if (!has_rd || dont_rd) return()#
+  #
+  # Figure out topic name#
+  name <- partitum$name %||% partitum$src_name  #
+  if (is.null(name)) roxygen_stop("Missing name", srcref = partitum$srcref)#
+#
+  # Work out file name and initialise Rd object#
+  filename <- str_c(partitum$rdname %||% nice_name(name), ".Rd")#
+  rd <- new_rd_file()  #
+#
+  add_tag(rd, new_tag("encoding", partitum$encoding))#
+  add_tag(rd, new_tag("name", name))#
+  add_tag(rd, new_tag("alias", partitum$name %||% partitum$src_alias))#
+  add_tag(rd, new_tag("formals", names(partitum$formals)))#
+#
+  add_tag(rd, process_description(partitum, base_path))#
+#
+  add_tag(rd, process_had_tag(partitum, 'aliases', function(tag, param) {#
+    new_tag('alias', str_split(str_trim(param), "\\s+")[[1]])#
+  }))#
+  add_tag(rd, process.usage(partitum))#
+  add_tag(rd, process.arguments(partitum))#
+  add_tag(rd, process.docType(partitum))#
+  add_tag(rd, process_had_tag(partitum, 'note'))#
+  add_tag(rd, process_had_tag(partitum, 'family'))#
+  add_tag(rd, process_had_tag(partitum, 'inheritParams'))#
+  add_tag(rd, process_had_tag(partitum, 'author'))#
+  add_tag(rd, process_had_tag(partitum, 'format'))#
+  add_tag(rd, process_had_tag(partitum, 'source'))#
+  add_tag(rd, process_had_tag(partitum, 'seealso'))#
+  add_tag(rd, process_had_tag(partitum, "references"))#
+  add_tag(rd, process_had_tag(partitum, 'concept'))#
+  add_tag(rd, process_had_tag(partitum, 'return', function(tag, param) {#
+      new_tag("value", param)#
+    }))#
+  add_tag(rd, process_had_tag(partitum, 'keywords', function(tag, param, all, rd) {#
+      new_tag("keyword", str_split(str_trim(param), "\\s+")[[1]])#
+    }))#
+  add_tag(rd, process_had_tag(partitum, 'section', process.section))#
+  add_tag(rd, process.examples(partitum, base_path))#
+#
+  list(rd = rd, filename = filename)#
+}#
+#
+#' @S3method roc_output had#
+#' @importFrom tools checkRd#
+roc_output.had <- function(roclet, results, base_path) { #
+  man <- normalizePath(file.path(base_path, "man"))#
+  #
+  contents <- vapply(results, FUN.VALUE = character(1), function(x) {#
+    rd_out_cache$compute(x, format(x))#
+  })#
+  #
+  write_out <- function(filename, contents) {#
+    if (the_same(filename, contents)) return()#
+    #
+    name <- basename(filename)#
+    if (!str_detect(name, "^[a-zA-Z][a-zA-Z0-9_.-]*$")) {#
+      cat("Skipping invalid filename: ", name, "\n")#
+    } else {#
+      cat(sprintf('Writing %s\n', name))#
+      writeLines(contents, filename)    #
+      try(checkRd(filename))#
+    }#
+    #
+  }#
+  the_same <- function(path, new) {#
+    if (!file.exists(path)) return(FALSE)#
+#
+    old <- str_c(readLines(path), collapse = "\n")#
+    return(identical(old, new))#
+  }#
+  #
+  paths <- file.path(man, names(results))#
+  mapply(write_out, paths, contents)    #
+}#
+#
+#
+# Prefer explicit \code{@@usage} to a \code{@@formals} list.#
+process.usage <- function(partitum) {#
+  if (!is.null(partitum$usage)) {#
+    return(new_tag("usage", partitum$usage))#
+  }#
+#
+  # Only function usages are generated here#
+  type <- partitum$docType %||% partitum$src_type#
+  if (!identical(type, "function") && !identical(type, "method")) {#
+    return(new_tag("usage", NULL))#
+  }#
+#
+  if (type == "method") {#
+    signature <- str_c(partitum$signature, collapse = ",")#
+    fun_name <- str_c("\\S4method{", partitum$generic, "}{", signature, "}")#
+  } else {#
+    if (is.null(partitum$method)) {#
+      fun_name <- partitum$src_name#
+    } else {#
+      fun_name <- rd_tag('method', partitum$method[[1]], partitum$method[[2]])#
+    }#
+  }#
+  #
+  args <- usage(partitum$formals)#
+  if (str_detect(fun_name, fixed("<-"))) {#
+    fun_name <- str_replace(fun_name, fixed("<-"), "")#
+    new_tag("usage", str_c(fun_name, "(", args, ") <- value"))#
+  } else {#
+    new_tag("usage", str_c(fun_name, "(", args, ")"))#
+  }#
+}#
+#
+# Process title, description and details. #
+##
+# Split the introductory matter into its description followed#
+# by details (separated by a blank line).#
+process_description <- function(partitum, base_path) {#
+  intro <- partitum$introduction#
+  #
+  if (!is.null(intro)) {#
+    paragraphs <- str_trim(str_split(intro, fixed('\n\n'))[[1]])#
+  } else {#
+    paragraphs <- NULL#
+  } #
+#
+  # 1st paragraph = title (unless has @title)#
+  if (!is.null(partitum$title)) {#
+    title <- partitum$title#
+  } else if (length(paragraphs) > 0) {#
+    title <- paragraphs[1]#
+    paragraphs <- paragraphs[-1]#
+  } else {#
+    title <- NULL#
+  }#
+  #
+  #
+  # 2nd paragraph = description (unless has @description)#
+  if (!is.null(partitum$description)) {#
+    description <- partitum$description#
+  } else if (length(paragraphs) > 0) {#
+    description <- paragraphs[1]#
+    paragraphs <- paragraphs[-1]#
+  } else {#
+    # Description is required, so if missing description, repeat title.#
+    description <- title#
+  }#
+#
+  # Every thing else = details, combined with @details.#
+  details <- c(paragraphs, partitum$details)#
+  if (length(details) > 0) {#
+    details <- paste(details, collapse = "\n\n")#
+  } else {#
+    details <- NULL#
+  }#
+#
+  c(new_tag("title", title),#
+    new_tag("description", description), #
+    new_tag("details", details))#
+}#
+#
+process.arguments <- function(partitum) {#
+  params <- partitum[names(partitum) == "param"]#
+  if (length(params) == 0) return() #
+#
+  desc <- str_trim(sapply(params, "[[", "description"))#
+  names(desc) <- sapply(params, "[[", "name")#
+  #
+  new_tag("arguments", desc)#
+}#
+#
+# If \code{@@examples} is provided, use that; otherwise, concatenate#
+# the files pointed to by each \code{@@example}.#
+process.examples <- function(partitum, base_path) {#
+  out <- list()#
+  if (!is.null(partitum$examples)) {      #
+    ex <- partitum$examples#
+    ex <- gsub("([%\\])", "\\\\\\1", ex)#
+    ex <- gsub("\\\\dont", "\\dont", ex)#
+    out <- c(out, new_tag("examples", ex))#
+  } #
+  #
+  paths <- unlist(partitum[names(partitum) == "example"])#
+  if (length(paths) > 0) {#
+    paths <- file.path(base_path, str_trim(paths))#
+    examples <- unlist(lapply(paths, readLines))#
+    examples <- gsub("([%\\])", "\\\\\\1", examples)                        #
+    #
+    out <- c(out, new_tag("examples", examples))#
+  }#
+  out#
+}#
+process.section <- function(key, value) {#
+  pieces <- str_split_fixed(value, ":", n = 2)[1, ]#
+  #
+  new_tag("section", list(list(name = pieces[1], content = pieces[2])))#
+}#
+#
+process.docType <- function(partitum) {#
+  doctype <- partitum$docType %||% partitum$src_type#
+  #
+  if (is.null(doctype)) return()#
+  #
+  tags <- list()#
+  #
+  if (doctype == "package") {#
+    name <- partitum$name#
+    tags <- c(tags, new_tag("docType", "package"))#
+    if (!str_detect(name, "-package")) {#
+      tags <- c(tags, new_tag("alias", str_c(name, "-package")))#
+    }#
+  } else if (doctype == "data") {#
+    tags <- c(tags, new_tag("docType", "data"))#
+    if (is.null(partitum$format)) {#
+      tags <- c(tags, new_tag("format", partitum$str))#
+    }#
+    if (is.null(partitum$usage)) {#
+      tags <- c(tags, new_tag("usage", partitum$src_name))#
+    }#
+    tags <- c(tags, new_tag("keyword", "datasets"))#
+  }#
+  #
+  tags#
+}#
+#
+process_had_tag <- function(partitum, tag, f = new_tag) {#
+  matches <- partitum[names(partitum) == tag]#
+  if (length(matches) == 0) return()#
+#
+  unlist(lapply(matches, function(p) f(tag, p)), recursive = FALSE)#
+}
+#' Build new roclet object.#
+#'#
+#' @export#
+#' @keywords internal#
+new_roclet <- function(obj, subclass = NULL) {#
+  structure(obj, class = c(subclass, 'roclet'))#
+}#
+#
+is.roclet <- function(x) inherits(x, "roclet")#
+#
+#' Process roclet and capture results.#
+#' #
+#' @param roclet to use for processing#
+#' @param input character vector of paths to files to process#
+#' @param base_path base directory #
+#' @seealso \code{\link{roxygenise}} for user-friendly interface#
+#' @keywords internal#
+#' @export#
+roc_proc <- function(roclet, paths, base_path) {#
+  stopifnot(is.roclet(roclet))#
+  #
+  parsed <- parse.files(paths)#
+  roc_process(roclet, parsed, base_path)#
+} #
+#
+#' Process roclet on string and capture results.#
+#' Useful for testing.#
+#'#
+#' @param roclet to use for processing#
+#' @param input source string#
+#' @export#
+#' @keywords internal#
+roc_proc_text <- function(roclet, input) {#
+  stopifnot(is.roclet(roclet))#
+  #
+  parsed <- parse.text(input)#
+  roc_process(roclet, parsed, base_path = ".")#
+} #
+#
+#
+#' Process roclet and output results.#
+#' #
+#' @param roclet to use for processing#
+#' @param input character vector of paths to files to process#
+#' @param base_path base directory in which to save output#
+#' @keywords internal#
+#' @seealso \code{\link{roxygenise}} for user-friendly interface#
+#' @export#
+roc_out <- function(roclet, input, base_path) {#
+  stopifnot(is.roclet(roclet))#
+#
+  results <- roc_proc(roclet, input, base_path)#
+  roc_output(roclet, results, base_path)#
+}#
+#
+# Internal methods for processing and output#
+#
+roc_output <- function(roclet, results, base_path) {#
+  UseMethod("roc_output", roclet)#
+}#
+#
+roc_process <- function(roclet, partita, base_path) {#
+  UseMethod("roc_process", roclet)#
+}
+#' Process a package with the Rd, namespace and collate roclets.#
+#'#
+#' This is the workhorse function that uses roclets, the built-in document#
+#' tranformation functions, to build all documentation for a package.  See#
+#' the documentation for the individual roclets, \code{\link{rd_roclet}},#
+#' \code{\link{namespace_roclet}} and \code{\link{collate_roclet}}, for #
+#' documentation on how to use each one.#
+#'#
+#' @param package.dir the package's top directory#
+#' @param roxygen.dir where to create roxygen output; defaults to#
+#'   \file{package.dir}.#
+#' @param copy.package copies the package over before adding/manipulating#
+#'    files.#
+#' @param overwrite overwrite target files?#
+#' @param unlink.target unlink target directory before processing files?#
+#' @param roclets character vector of roclet names to apply to package#
+#' @return \code{NULL}#
+#' @rdname roxygenize#
+#' @export#
+roxygenize <- function(package.dir,#
+                       roxygen.dir=package.dir,#
+                       copy.package=package.dir != roxygen.dir,#
+                       overwrite=TRUE,#
+                       unlink.target=FALSE,#
+                       roclets=c("collate", "namespace", "rd")) {#
+#
+  skeleton <- c(roxygen.dir, file.path(roxygen.dir, "man"))#
+#
+  if (copy.package) {#
+    copy.dir(package.dir, roxygen.dir, unlink.target = unlink.target,#
+      overwrite = overwrite, verbose = FALSE)#
+  }#
+#
+  for (dir in skeleton) {#
+    dir.create(dir, recursive=TRUE, showWarnings=FALSE)#
+  }#
+#
+  roxygen.dir <- normalizePath(roxygen.dir)#
+  r_files <- dir(file.path(roxygen.dir, "R"), "[.Rr]$", full.names = TRUE)#
+#
+  # If description present, use Collate to order the files #
+  # (but still include them all, and silently remove missing)#
+  DESCRIPTION <- file.path(package.dir, "DESCRIPTION")#
+  if (file.exists(DESCRIPTION)) {#
+    desc <- read.description(DESCRIPTION)#
+    raw_collate <- desc$Collate %||% ""#
+    con <- textConnection(raw_collate)#
+    on.exit(close(con))#
+    collate <- scan(con, "character", sep = " ", quiet = TRUE)#
+    #
+    collate_path <- file.path(roxygen.dir, "R", collate)#
+    collate_exists <- Filter(file.exists, collate_path)#
+    r_files <- c(collate_exists, setdiff(r_files, collate_exists))#
+    # load the dependencies#
+    pkgs <- paste(c(desc$Depends, desc$Imports), collapse = ", ")#
+    if (pkgs != "") {#
+      pkgs <- gsub("\\s*\\(.*?\\)", "", pkgs)#
+      pkgs <- strsplit(pkgs, ",")[[1]]#
+      pkgs <- gsub("^\\s+|\\s+$", "", pkgs)#
+      lapply(pkgs[pkgs != "R"], require, character.only = TRUE)#
+    }#
+  }#
+  #
+  parsed <- parse.files(r_files)#
+#
+  roclets <- str_c(roclets, "_roclet", sep = "")#
+  for (roclet in roclets) {#
+    roc <- match.fun(roclet)()#
+    results <- roc_process(roc, parsed, roxygen.dir)#
+    roc_output(roc, results, roxygen.dir)#
+  }#
+}#
+#
+#' @rdname roxygenize#
+#' @export#
+roxygenise <- roxygenize#
+#
+# Recursively copy a directory thither; optionally unlinking#
+# the target first; optionally overwriting; optionally#
+# verbalizing.#
+##
+# @note Not tested on non-linux platforms#
+copy.dir <- function(source,#
+                     target = source,#
+                     unlink.target=FALSE,#
+                     overwrite=FALSE,#
+                     verbose=FALSE) {#
+  if (unlink.target)#
+    unlink(target, recursive=TRUE)#
+  files <- list.files(source,#
+                      full.name=TRUE,#
+                      recursive=TRUE,#
+                      all.files=TRUE)#
+  for (source.file in files) {#
+    promoted.file <- sub('[^/\\]*(/|\\\\)', '', source.file)#
+    target.file <- file.path(target, promoted.file)#
+    target.dir <- dirname(target.file)#
+    ## Could create, instead, a list of unique directories in#
+    ## Theta(n).#
+    dir.create(target.dir, recursive=TRUE, showWarnings=FALSE)#
+    if (verbose)#
+      cat(sprintf('%s -> %s', source.file, target.file), '\n')#
+    file.copy(source.file, target.file, overwrite=overwrite)#
+  }#
+}
+#
+parse_assignment <- function(call, env) {#
+  assignee <- as.character(call[[2]])#
+  #
+  # If it doesn't exist (any more), don't document it.#
+  if (!exists(assignee, env)) return()#
+#
+  out <- list(#
+    src_name = assignee,#
+    src_alias = assignee)#
+#
+  value <- get(assignee, env)#
+  if (is.function(value)) {#
+    out$src_type <- "function"#
+    out$formals <- formals(value)#
+  } else if (inherits(value, "refObjectGenerator")) {#
+    out$src_type <- "ref-class"#
+  } else {#
+    out$src_type <- "data"#
+    out$str <- str_c(capture.output(str(value, max.level = 1)), #
+      collapse = "\n")#
+  }#
+#
+  out#
+}#
+#
+parse_class <- function(call, env) {#
+  name <- as.character(call$Class)#
+  class <- getClass(name, where = env)#
+#
+  # class?classRepresentation#
+  list(#
+    src_type = "class",#
+    src_name = name,#
+    src_alias = c(name, str_c(name, "-class")),#
+    extends = showExtends(class@contains, printTo = FALSE),#
+    slots = class@slots#
+  )#
+}#
+#
+parse_generic <- function(call, env) {#
+  name <- as.character(call$name)#
+  f <- getGeneric(name, where = env)#
+  #
+  list(#
+    src_type = "function",#
+    src_name = topic_name(f),#
+    src_alias = c(name, str_c(name, "-methods"))#
+  )#
+}#
+#
+parse_method <- function(call, env) {#
+  name <- as.character(call$f)#
+  f <- getMethod(name, eval(call$signature), where = env)#
+#
+  # class?MethodDefinition#
+  list(#
+    src_type = "method",#
+    src_name = topic_name(f),#
+    src_alias = topic_name(f),#
+    generic = f@generic,#
+    formals = formals(f@.Data),#
+    signature = as.character(f@defined),#
+    inheritParams = str_c(attr(f@generic, "package"), "::", f@generic)#
+  )#
+}#
+#
+register.srcref.parser('<-', parse_assignment)#
+register.srcref.parser('=', parse_assignment)#
+register.srcref.parser('setClass', parse_class)#
+register.srcref.parser('setGeneric', parse_generic)#
+register.srcref.parser('setMethod', parse_method)#
+# register.srcref.parser('setReplaceMethod', parse_method)#
+#
+setGeneric("topic_name", function(x) {#
+  standardGeneric("topic_name")#
+})#
+setMethod("topic_name", signature(x = "MethodDefinition"), function(x) {#
+  str_c(str_c(c(x@generic, x@defined), collapse = ","), "-method")#
+})#
+setMethod("topic_name", signature(x = "standardGeneric"), function(x) {#
+  x@generic#
+})
+register.preref.parsers(parse.value, "template") #
+register.preref.parsers(parse.name.description, "templateVar")#
+#
+template_find <- function(base_path, template_name) {#
+  path <- file.path(base_path, "man-roxygen", str_c(template_name, ".R"))#
+#
+  if (!file.exists(path)) {#
+    stop("Can not find template ", template_name, call. = FALSE)#
+  } #
+  #
+  path#
+}#
+#
+#' @importFrom brew brew#
+template_eval <- function(template_path, vars) {#
+  capture.output(brew(template_path, env = vars))#
+}#
+#
+process_templates <- function(partitum, base_path) {#
+  template_locs <- names(partitum) == "template"#
+  template_tags <- partitum[template_locs]#
+  if (length(template_tags) == 0) return(partitum)#
+#
+  templates <- unlist(template_tags, use.names = FALSE)#
+  paths <- vapply(templates, template_find, base_path = base_path, #
+    FUN.VALUE = character(1), USE.NAMES = FALSE)#
+  #
+  var_tags <- partitum[names(partitum) == "templateVar"]#
+  vars <- lapply(var_tags, "[[", "description")#
+  vars <- lapply(vars, type.convert, as.is = TRUE)#
+  #
+  results <- lapply(paths, template_eval, vars = list2env(vars))#
+  #
+  # Insert templates back in the location where they came from#
+  partitum_pieces <- lapply(partitum, list)#
+  partitum_pieces[template_locs] <- lapply(results, parse.preref)#
+  names(partitum_pieces)[template_locs] <- ""#
+  #
+  unlist(partitum_pieces, recursive = FALSE)#
+}
+topo_sort <- function() {#
+  vertices <- NULL#
+#
+  make.vertex <- function(file) {#
+    vertex <- new.env(parent = emptyenv())#
+    vertex$file <- file#
+    vertex$discovered <- FALSE#
+    vertex$ancestors <- NULL#
+    vertex#
+  }#
+#
+  maybe.append.vertex <- function(file) {#
+    if (is.null(vertices[[file]])) {#
+      vertices[[file]] <<- make.vertex(file)#
+    }#
+    vertices[[file]]#
+  }#
+#
+  member <- function(ancestor, ancestors) {#
+    for (vertex in ancestors)#
+      if (identical(ancestor, vertex))#
+        TRUE#
+    FALSE#
+  }#
+  #
+  maybe.append.ancestor <- function(predecessor, ancestor_name) {#
+    ancestor <- maybe.append.vertex(ancestor_name)#
+    #
+    if (!member(ancestor, predecessor$ancestors)) {#
+      predecessor$ancestors <- append(ancestor, predecessor$ancestors)#
+    }#
+  }#
+#
+#
+  topological.sort <- function() {#
+    sorted <- NULL#
+    visit <- function(predecessor) {#
+      predecessor$discovered <- TRUE#
+      for (ancestor in predecessor$ancestors) {#
+        if (!ancestor$discovered) {#
+          visit(ancestor)#
+        }#
+      }#
+      sorted <<- append(sorted, predecessor)#
+    }#
+    #
+    for (vertex in vertices) {#
+      if (!vertex$discovered) {#
+        visit(vertex)        #
+      }#
+    }#
+    vapply(sorted, function(x) x$file, character(1))#
+  }#
+  #
+  list(add = maybe.append.vertex, #
+     add_ancestor = maybe.append.ancestor, #
+     sort = topological.sort#
+  )#
+}
+with_locale <- function(locale, code) {#
+  cur <- Sys.getlocale(category = "LC_COLLATE")#
+  Sys.setlocale(category = "LC_COLLATE", locale = locale)#
+  res <- force(code)#
+  Sys.setlocale(category = "LC_COLLATE", locale = cur)#
+  res#
+}
+"%||%" <- function(a, b) {#
+  if (!is.null(a)) a else b#
+}#
+#
+# Given argument list, produce usage string for it.#
+# #
+# Adapted from \code{\link{prompt}}.#
+##
+# @param f function, or name of function, as string#
+# @return a string#
+usage <- function(args) {#
+  is.missing.arg <- function(arg) {#
+    is.symbol(arg) && deparse(arg) == ""#
+  }#
+  arg_to_text <- function(arg) {#
+    if (is.missing.arg(arg)) return("")#
+    text <- deparse(arg, backtick = TRUE, width.cutoff = 500L)#
+    text <- str_replace_all(text, fixed("%"), "\\%")#
+    text <- str_replace_all(text, fixed(" "), "\u{A0}")#
+    Encoding(text) <- "UTF-8"    #
+    #
+    str_c("\u{A0}=\u{A0}", paste(text, collapse = "\n"))#
+  }#
+#
+  arg_values <- vapply(args, arg_to_text, character(1))#
+  #
+  paste(names(args), arg_values, collapse = ", ", sep = "")#
+}#
+#
+# Does the string contain no matter, but very well [:space:]?#
+# @param string the string to check#
+# @return TRUE if the string contains words, otherwise FALSE#
+is.null.string <- function(string) {#
+  str_length(str_trim(string)) == 0#
+}#
+#
+#
+subs <- matrix(ncol = 2, byrow = T, c(#
+  '[]', 'sub',#
+  '<-', 'set',#
+  '!', 'not',#
+  '"', 'quote',#
+  '#', 'hash',#
+  '$', 'cash',#
+  '%', 'grapes',#
+  '&', 'and',#
+  '|', 'or',#
+  "'", 'single-quote',#
+  '(', 'open-paren',#
+  ')', 'close-paren',#
+  '*', 'star',#
+  '+', 'plus',#
+  ',', 'comma',#
+  '/', 'slash',#
+  ':', 'colon',#
+  ';', 'semi-colon',#
+  '<', 'less-than',#
+  '=', 'equals',#
+  '>', 'greater-than',#
+  '?', 'p',#
+  '@', 'at',#
+  '[', 'open-brace',#
+  '\\', 'backslash',#
+  ']', 'close-brace',#
+  '^', 'hat',#
+  '`', 'tick',#
+  '{', 'open-curly',#
+  '}', 'close',#
+  '~', 'twiddle'#
+))#
+subs[, 2] <- str_c("-", subs[, 2])#
+#
+nice_name <- function(x) {#
+  for(i in seq_len(nrow(subs))) {#
+    x <- str_replace_all(x, fixed(subs[i, 1]), subs[i, 2])#
+  }#
+  x <- str_replace(x, "-+", "-")#
+  x#
+}#
+#
+#
+roxygen_stop <- function(..., srcref = NULL) {#
+  stop(..., srcref_location(srcref), call. = FALSE)#
+}#
+#
+roxygen_warning <- function(..., srcref = NULL) {#
+  warning(..., srcref_location(srcref), call. = FALSE)#
+}#
+#
+srcref_location <- function(srcref = NULL) {#
+  if (is.null(srcref)) return()#
+  str_c(" in block ", basename(srcref$filename), ":", srcref$lloc[1])#
+}
+    pre_parsed <- lapply(pre_refs, parse.preref)
+    stopifnot(length(src_parsed) == length(pre_parsed))
+    mapply(c, src_parsed, pre_parsed, SIMPLIFY = FALSE)
+code <-  mapply(c, src_parsed, pre_parsed, SIMPLIFY = FALSE)
+    hash <- suppressWarnings(digest(keys))
+exists(hash, cache, inherits = FALSE)
+force(code))
+force(code)
+args(parse.files)
+?cache
+parse_cache$compute(c(env_hash, readLines(file, warn = FALSE)), {#
+    src_refs <- attributes(parse(srcfile$filename, srcfile = srcfile))$srcref#
+    pre_refs <- prerefs(srcfile, src_refs)#
+#
+    if (length(src_refs) == 0) return(list())#
+#
+    src_parsed <- lapply(src_refs, parse.srcref, env = env)#
+    pre_parsed <- lapply(pre_refs, parse.preref)#
+#
+    stopifnot(length(src_parsed) == length(pre_parsed))#
+#
+    mapply(c, src_parsed, pre_parsed, SIMPLIFY = FALSE)#
+  })
+cache <- parse_cache$cache
+cache
+exists(hash, cache, inherits = FALSE)
+parse_cache
+ls(envir = 0x120f71520)
+ls(envir = as.environment(0x120f71520))

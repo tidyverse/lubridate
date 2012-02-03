@@ -66,13 +66,13 @@ setMethod("[<-", representation(x = "Interval"), function(x, i, j, ..., value) {
 setMethod("$", representation(x = "Interval"), function(x, name) {
 	if(name == "span") name <- ".Data"
 	slot(x, name)
-)
+})
 
 setMethod("$<-", representation(x = "Interval"), function(x, name, value) {
 	if(name == "span") name <- ".Data"
 	slot(x, name) <- value
 	x
-)
+})
 
 #' Create an interval object.
 #'

@@ -2,7 +2,7 @@
 \alias{new_interval}
 \title{Create an interval object.}
 \usage{
-  new_interval(date2, date1)
+  new_interval(start, end)
 }
 \arguments{
   \item{date1}{a POSIXt or Date date-time object}
