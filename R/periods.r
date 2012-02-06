@@ -71,19 +71,13 @@ check_period <- function(object){
 #' \code{\link{Durations}} for an alternative way to measure timespans that 
 #' allows precise comparisons between timespans. 
 #'
-#' Period class objects have six slots
-#'
-#'    \item{.Data}{A numeric object. The apparent amount of seconds to add to the period.} 
-#'
-#'    \item{minute}{A numeric object. The apparent amount of minutes to add to the period.} 
-#'
-#'    \item{hour}{A numeric object. The apparent amount of hours to add to the period.} 
-#'
-#'    \item{day}{A numeric object. The apparent amount of days to add to the period.} 
-#'
-#'    \item{month}{A numeric object. The apparent amount of months to add to the period.} 
-#'
-#'    \item{year}{A numeric object. The apparent amount of years to add to the period.} 
+#' Period class objects have six slots. 1) .Data, a numeric object. The 
+#' apparent amount of seconds to add to the period. 2) minute, a numeric object. 
+#' The apparent amount of minutes to add to the period. 3) hour, a numeric object. 
+#' The apparent amount of hours to add to the period.4) day, a numeric object. 
+#' The apparent amount of days to add to the period.5) month, a numeric object. 
+#' The apparent amount of months to add to the period. 6) year, a numeric object. 
+#' The apparent amount of years to add to the period.
 #'
 #'
 #'
@@ -282,8 +276,8 @@ new_period <- period <- function(...) {
 #' manipulated in a method similar to object oriented programming. Period 
 #' objects can be added to Date, POSIXt, and Interval objects.
 #'
-#' @export seconds minutes hours days weeks years y m w d milliseconds microseconds microseconds nanoseconds picoseconds
-#' @aliases seconds minutes hours days weeks years y m w d milliseconds microseconds microseconds nanoseconds picoseconds
+#' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
+#' @aliases seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
 #' @S3method months numeric
 #' @S3method months integer
 #' @param x numeric value of the number of units to be contained in the period. With the exception 

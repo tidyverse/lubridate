@@ -39,11 +39,9 @@ check_interval <- function(object){
 #' Intervals can be both negative and positive. Negative intervals progress 
 #' backwards from the start date; positive intervals progress forwards.
 #'
-#' Interval class objects have two slots
-#'
-#'    \item{.Data}{A numeric object. The amount of seconds in the interval} 
-#'
-#'    \item{start}{A POSIXct object. The time when the interval starts.}
+#' Interval class objects have two slots: .Data, a numeric object equal to the number 
+#' of seconds in the interval; and start, a POSIXct object that specifies the time 
+#' when the interval starts.
 #'
 #'
 #' @name Interval-class

@@ -24,9 +24,9 @@ check_duration <- function(object){
 #' See \code{\link{Periods}} for an alternative way to measure timespans that better 
 #' preserves clock times. 
 #'
-#' Durations class objects have one slot
+#' Durations class objects have one slot: .Data, a numeric object equal to the number 
+#' of seconds in the duration.
 #'
-#'    \item{.Data}{A numeric object. The amount of seconds in the duration.} 
 #'
 #'
 #'
