@@ -109,7 +109,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 
 #' Create an interval object.
 #'
-#' interval creates an \code{\link{Interval}} object with the specified start and end 
+#' interval creates an \code{\link{Interval-class}} object with the specified start and end 
 #' dates. If the start date occurs before the end date, the interval will be positive. 
 #' Otherwise, it will be negative.
 #'
@@ -120,7 +120,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' and the number of variable length time units that occurred during the interval can be
 #' calculated.  
 #'
-#' \%--\% Creates an \code{\link{Interval}} that covers the range spanned 
+#' \%--\% Creates an interval that covers the range spanned 
 #' by two dates. It replaces the 
 #' original behavior of lubridate, which created an interval by default whenever 
 #' two date-times were subtracted.
@@ -130,7 +130,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' @param start a POSIXt or Date date-time object
 #' @param end a POSIXt or Date date-time object
 #' @return an Interval object
-#' @seealso \code{\link{Interval}}, \code{\link{as.interval}}, \code{\link{\%--\%}}
+#' @seealso \code{\link{Interval-class}}, \code{\link{as.interval}}
 #' @examples
 #' new_interval(ymd(20090201), ymd(20090101))
 #' # 2009-01-01 -- 2009-02-01 
@@ -177,7 +177,7 @@ new_interval <- interval <- function(start, end){
 #' @param x an R object   
 #' @return TRUE if x is an Interval object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.period}}, 
-#'   \code{\link{is.duration}}, \code{\link{Interval}}
+#'   \code{\link{is.duration}}, \code{\link{Interval-class}}
 #' @keywords logic chron
 #' @examples
 #' is.interval(new_period(months= 1, days = 15)) # FALSE

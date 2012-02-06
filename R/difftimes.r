@@ -57,7 +57,6 @@ make_difftime <- function (x) {
 #' @param ... a list of time units to be included in the difftime and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported. 
 #' @return a difftime object
-#' @S3method c difftime
 #' @export new_difftime
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes

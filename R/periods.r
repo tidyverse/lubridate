@@ -267,7 +267,7 @@ new_period <- period <- function(...) {
 #' Quickly create period objects for easy date-time manipulation. The units of 
 #' the period created depend on the name of the function called. For period 
 #' objects, units do not have a fixed length until they are added to a specific 
-#' date time, contrast this with \code{\link{durations}}. This makes periods 
+#' date time, contrast this with \code{\link{new_duration}}. This makes periods 
 #' useful for manipulations with clock times because units expand or contract 
 #' in length to accomodate conventions such as leap years, leap seconds, and 
 #' Daylight Savings Time. 
@@ -283,7 +283,7 @@ new_period <- period <- function(...) {
 #' @param x numeric value of the number of units to be contained in the period. With the exception 
 #'   of seconds(), x must be an integer. 
 #' @return a period object
-#' @seealso \code{\link{period}}, \code{\link{new_period}}, \code{\link{ddays}}
+#' @seealso \code{\link{Period-class}}, \code{\link{new_period}}, \code{\link{ddays}}
 #' @keywords chron manip
 #' @examples
 #'

@@ -126,14 +126,14 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 })
 
 
-#' Change an object to a duration (difftime).
+#' Change an object to a duration.
 #'
 #' as.duration changes interval, period and numeric objects to 
 #' duration objects. Numeric objects are changed to duration objects 
 #' with the seconds unit equal to the numeric value. 
 #'
 #' Durations are exact time measurements, whereas periods are relative time 
-#' measurements. See \code{\link{periods}}. The length of a period depends on 
+#' measurements. See \code{\link{Period-class}}. The length of a period depends on 
 #' when it occurs. Hence, a one to one mapping does not exist between durations 
 #' and periods. When used with a period object, as.duration provides an inexact 
 #' estimate of the length of the period; each time unit is assigned its most 
@@ -145,9 +145,10 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' @export as.duration 
 #' @S3method as.duration default 
 #' @S3method as.duration difftime
+#' @S3method as.duration numeric
 #' @param x an interval, period, or numeric object   
 #' @return a duration object
-#' @seealso \code{\link{duration}}, \code{\link{new_duration}}
+#' @seealso \code{\link{Duration-class}}, \code{\link{new_duration}}
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- new_interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
@@ -160,6 +161,9 @@ as.duration <- function(x)
   UseMethod("as.duration")
   
 as.duration.default <- function(x)
+  new("Duration", x) 
+  
+as.duration.numeric <- function(x)
   new("Duration", x) 
 
 as.duration.difftime <- function(x)
@@ -243,14 +247,15 @@ as.interval <- function(x, start){
 #'
 #' Users must specify which time units to measure the period in. The length of 
 #' each time unit in a period depends on when it occurs. See 
-#' \code{\link{periods}}. The choice of units is not trivial; units that are 
+#' \code{\link{Period-class}} and \code{\link{new_period}}. 
+#' The choice of units is not trivial; units that are 
 #' normally equal may differ in length depending on when the time period 
 #' occurs. For example, when a leap second occurs one minute is longer than 60 
 #' seconds.
 #'
 #' Because periods do not have a fixed length, they can not be accurately 
 #' converted to and from duration objects. Duration objects measure time spans 
-#' in exact numbers of seconds, see \code{\link{duration}}. Hence, a one to one 
+#' in exact numbers of seconds, see \code{\link{Duration-class}}. Hence, a one to one 
 #' mapping does not exist between durations and periods. When used with a 
 #' duration object, as.period provides an inexact estimate; the duration is 
 #' broken into time units based on the most common lengths of time units, in 
@@ -264,7 +269,7 @@ as.interval <- function(x, start){
 #' @S3method as.period difftime 
 #' @param x an interval, difftime, or numeric object   
 #' @return a period object
-#' @seealso \code{\link{period}}, \code{\link{new_period}}
+#' @seealso \code{\link{Period-class}}, \code{\link{new_period}}
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
