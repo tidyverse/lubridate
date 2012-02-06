@@ -281,7 +281,7 @@ int_shift <- function(int, by){
 
 #' Test if two intervals overlap
 #'
-#' export "int_overlaps"
+#' @export "int_overlaps"
 #' @param int1 an Interval object
 #' @param int2 an Interval object
 #' @return Logical. TRUE if int1 and int2 overlap by at least one second. FALSE otherwise.
@@ -292,6 +292,8 @@ int_overlaps <- function(int1, int2){
 
 #' @export
 setGeneric("intersect")
+
+#' @export
 setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	first.x <- pmin(x@start, x@start + x@.Data)
 	first.y <- pmin(y@start, y@start + y@.Data)
@@ -311,6 +313,8 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 
 #' @export
 setGeneric("union")
+
+#' @export
 setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 	first.x <- pmin(x@start, x@start + x@.Data)
 	first.y <- pmin(y@start, y@start + y@.Data)
@@ -331,6 +335,7 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 
 #' @export
 setGeneric("setdiff")
+#' @export
 setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 	if (any(y %within% x)) {
 		stop(paste("Cases", which(y %within% x), 
@@ -367,6 +372,8 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 #' @param b An interval
 #' @return A logical
 setGeneric("%within%", function(a,b) standardGeneric("%within%"))
+
+#' @export
 setMethod("%within%", signature(b = "Interval"), function(a,b){
 	if(!is.instant(a)) stop("Argument 1 is not a recognized date-time")
 	a <- as.POSIXct(a)

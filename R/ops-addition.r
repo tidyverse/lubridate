@@ -100,111 +100,131 @@ add_number_to_period <- function(num, per){
 
 
 
-# RE-DOCUMENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#' Adding date-time objects
-#'
-#' add_dates adds two objects, both of which can be date-time 
-#' objects. Lubridate is built so that you don't need to use 
-#' add_dates but can use regular math expressions instead.
-#' @param e1 a numeric or date-time object
-#' @param e2 a numeric or date-time object
-#' @export add_dates
+#' @export
 setMethod("+", signature(e1 = "Duration", e2 = "Duration"),
 	function(e1, e2) add_duration_to_duration(e2, e1))
 
+#' @export
 setMethod("+", signature(e1 = "Duration", e2 = "Interval"),
 	function(e1, e2) add_duration_to_interval(e1, e2))
-	
+
+#' @export	
 setMethod("+", signature(e1 = "Duration", e2 = "Period"),
 	function(e1, e2) add_duration_to_period(e1, e2))
-	
+
+#' @export	
 setMethod("+", signature(e1 = "Duration", e2 = "Date"), 
 	function(e1, e2) add_duration_to_date(e1, e2)) 
 	
+#' @export	
 setMethod("+", signature(e1 = "Duration", e2 = "difftime"),
 	function(e1, e2) add_duration_to_duration(as.duration(e2), e1))
 	
+#' @export	
 setMethod("+", signature(e1 = "Duration", e2 = "numeric"),
 	function(e1, e2) add_number_to_duration(e2, e1))
-  
+
+#' @export  
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXct"), 
 	function(e1, e2) add_duration_to_date(e1, e2)) 
-	
+
+#' @export	
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXlt"), 
 	function(e1, e2) add_duration_to_date(e1, e2)) 
 	
 
-
+#' @export
 setMethod("+", signature(e1 = "Interval", e2 = "Duration"),
 	function(e1, e2) add_duration_to_interval(e2, e1)) 
-	
+
+#' @export	
 setMethod("+", signature(e1 = "Interval", e2 = "Interval"),
 	function(e1, e2) add_interval_to_interval(e2, e1))
-	
+
+#' @export	
 setMethod("+", signature(e1 = "Interval", e2 = "Period"),
 	function(e1, e2) add_period_to_interval(e2, e1))
-	
+
+#' @export	
 setMethod("+", signature(e1 = "Interval", e2 = "Date"),
 	function(e1, e2) add_interval_to_date(e1, e2))
-	
+
+#' @export	
 setMethod("+", signature(e1 = "Interval", e2 = "difftime"),
 	function(e1, e2) add_duration_to_interval(as.duration(e2), e1))
- 
+
+#' @export 
 setMethod("+", signature(e1 = "Interval", e2 = "numeric"), 
 	function(e1, e2) add_number_to_interval(e2, e1))
 
+#' @export 
 setMethod("+", signature(e1 = "Interval", e2 = "POSIXct"),
 	function(e1, e2) add_interval_to_date(e1, e2))
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "Interval", e2 = "POSIXlt"),
 	function(e1, e2) add_interval_to_date(e1, e2))
 
 
 
+#' @export 
 setMethod("+", signature(e1 = "Period", e2 = "Duration"),
 	function(e1, e2) add_duration_to_period(e2, e1))
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "Period", e2 = "Interval"),
 	function(e1, e2) add_period_to_interval(e1, e2))
 
+#' @export 
 setMethod("+", signature(e1 = "Period", e2 = "Period"), 
 	function(e1, e2) add_period_to_period(e2, e1))
 
+#' @export 
 setMethod("+", signature(e1 = "Period", e2 = "Date"), 
 	function(e1, e2) add_period_to_date(e1, e2))
-		
+
+#' @export 		
 setMethod("+", signature(e1 = "Period", e2 = "difftime"),	
 	function(e1, e2) add_duration_to_period(as.duration(e2), e1))
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "Period", e2 = "numeric"),
 	function(e1, e2) add_number_to_period(e2, e1))
 
+#' @export 
 setMethod("+", signature(e1 = "Period", e2 = "POSIXct"), 
 	function(e1, e2) add_period_to_date(e1, e2))
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "Period", e2 = "POSIXlt"), 
 	function(e1, e2) add_period_to_date(e1, e2))
 	
 
 
+#' @export 
 setMethod("+", signature(e1 = "Date", e2 = "Duration"), 
 	function(e1, e2) add_duration_to_date(e2, e1)) 
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "Date", e2 = "Interval"),
 	function(e1, e2) add_interval_to_date(e2, e1))
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "Date", e2 = "Period"), 
 	function(e1, e2) add_period_to_date(e2, e1))
 
 
 	
 
+#' @export 
 setMethod("+", signature(e1 = "difftime", e2 = "Duration"), 
 	function(e1, e2) add_difftime_to_difftime(as.difftime(e2, units = "secs"), e1))
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "difftime", e2 = "Interval"),
 	function(e1, e2) add_duration_to_interval(e1, e2))
 
+#' @export 
 setMethod("+", signature(e1 = "difftime", e2 = "Period"), 
 	function(e1, e2) add_duration_to_period(e1, e2))
 
@@ -212,34 +232,43 @@ setMethod("+", signature(e1 = "difftime", e2 = "Period"),
 
 
 
+#' @export 
 setMethod("+", signature(e1 = "numeric", e2 = "Duration"),
 	function(e1, e2) add_number_to_duration(e1, e2)) 
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "numeric", e2 = "Interval"),
 	function(e1, e2) add_number_to_interval(e1, e2)) 
 
+#' @export 
 setMethod("+", signature(e1 = "numeric", e2 = "Period"),
 	function(e1, e2) add_number_to_period(e1, e2))
 
 	
 	
 
+#' @export 
 setMethod("+", signature(e1 = "POSIXct", e2 = "Duration"), 
 	function(e1, e2) add_duration_to_date(e2, e1)) 
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "POSIXct", e2 = "Interval"),
 	function(e1, e2) add_interval_to_date(e2, e1))
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "POSIXct", e2 = "Period"), 
 	function(e1, e2) add_period_to_date(e2, e1))
       
       
-      
+
+#' @export       
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Duration"), 
 	function(e1, e2) add_duration_to_date(e2, e1)) 
 
+#' @export 
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Interval"),
 	function(e1, e2) add_interval_to_date(e2, e1))
-	
+
+#' @export 	
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Period"), 
 	function(e1, e2) add_period_to_date(e2, e1))

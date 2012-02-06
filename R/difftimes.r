@@ -101,8 +101,3 @@ new_difftime <- function(...){
 #' is.difftime(as.Date("2009-08-03")) # FALSE
 #' is.difftime(new_difftime(days = 12.4)) # TRUE
 is.difftime <- function(x) is(x, "difftime")
-
-c.difftime <- function(...){
-	diffs <- unlist(lapply(list(...), as.numeric, units = "secs"))
-	make_difftime(diffs)
-}

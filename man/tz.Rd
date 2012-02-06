@@ -43,8 +43,8 @@ x
 tz(x) <- "America/New_York"
 x
 Sys.setenv(TZ = "GMT")
-x
-tz(x)
+now()
+tz(now())
 Sys.unsetenv("TZ")
 }
 \keyword{chron}

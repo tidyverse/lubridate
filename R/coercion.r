@@ -92,6 +92,11 @@ period_to_difftime <- function(per){
 	as.difftime(per)
 }
 
+#' Convenience method to reclass timespans post-modification.
+#' @keywords internal
+#'
+#' @export reclass_timespan
+#' @S3method reclass_timespan difftime
 reclass_timespan <- function(new, orig)
 	UseMethod("reclass_timespan", orig)
 
@@ -102,16 +107,20 @@ reclass_timespan.difftime <- function(new, orig){
 		make_difftime(as.numeric(new))
 }
 
+#' @export
 setGeneric("reclass_timespan")
 
+#' @export
 setMethod("reclass_timespan", signature(orig = "Duration"), function(new, orig){
 	suppressMessages(as.duration(new))
 })
 
+#' @export
 setMethod("reclass_timespan", signature(orig = "Interval"), function(new, orig){
 	suppressMessages(as.duration(new))
 })
-	
+
+#' @export	
 setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 	suppressMessages(as.period(new))
 })
@@ -135,8 +144,6 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #'
 #' @export as.duration 
 #' @S3method as.duration default 
-#' @S3method as.duration period 
-#' @S3method as.duration interval 
 #' @S3method as.duration difftime
 #' @param x an interval, period, or numeric object   
 #' @return a duration object
@@ -157,23 +164,25 @@ as.duration.default <- function(x)
 
 as.duration.difftime <- function(x)
 	new("Duration", as.numeric(x, "secs"))
- 
+
+#' @export 
 setGeneric("as.duration") 
 
+#' @export
 setMethod("as.duration", signature(x = "Interval"), function(x){
 	new("Duration", x@.Data)
 })
 
+#' @export
 setMethod("as.duration", signature(x = "Duration"), function(x){
 	x
 })
 
-
+#' @export
 setMethod("as.duration", signature(x = "Period"), function(x){
 	message("estimate only: convert periods to intervals for accuracy")
 	new("Duration", periods_to_seconds(x))
 })
-
 
 #' Change an object to an interval.
 #'
@@ -226,6 +235,7 @@ as.interval <- function(x, start){
 		new_interval(start, start + x)
 }
 
+
 #' Change an object to a period.
 #'
 #' as.period changes interval, duration (i.e., difftime)  and numeric objects 
@@ -252,8 +262,6 @@ as.interval <- function(x, start){
 #' @export as.period 
 #' @S3method as.period default 
 #' @S3method as.period difftime 
-#' @S3method as.period interval
-#' @S3method as.period duration
 #' @param x an interval, difftime, or numeric object   
 #' @return a period object
 #' @seealso \code{\link{period}}, \code{\link{new_period}}
@@ -295,8 +303,10 @@ as.period.difftime <- function(x){
   newper * sign(span)
 }
 
+#' @export
 setGeneric("as.period")
 
+#' @export
 setMethod("as.period", signature(x = "Interval"), function(x) {
   start <- as.POSIXlt(x@start)
   end <- as.POSIXlt(start + x@.Data)
@@ -335,6 +345,7 @@ setMethod("as.period", signature(x = "Interval"), function(x) {
   new("Period", to.per$second, year = to.per$year, month = to.per$month, day = to.per$day, hour = to.per$hour, minute = to.per$minute)
 })
 
+#' @export
 setMethod("as.period", signature(x = "Duration"), function(x) {
   message("estimate only: convert durations to intervals for accuracy")
   span <- x@.Data
@@ -356,25 +367,30 @@ setMethod("as.period", signature(x = "Duration"), function(x) {
   newper * sign(span)
 })
 
+#' @export
 setMethod("as.period", signature("Period"), function(x) x)
 
-
-
+#' @export
 setGeneric("as.difftime")
+
+#' @export
 setMethod("as.difftime", signature(tim = "Interval"), function(tim, format = "%X", units = "secs"){
 	as.difftime(as.numeric(tim, units), format, units)
 })
 
+#' @export
 setMethod("as.difftime", signature(tim = "Duration"), function(tim, format = "%X", units = "secs"){
 	as.difftime(tim@.Data, format, units)
 })
 
+#' @export
 setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X", units = "secs"){
 	as.difftime(period_to_seconds(tim), format, units)
 })
 
-
 setGeneric("as.numeric")
+
+#' @export
 setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...){
 	units <- standardise_period_names(units)
 	
@@ -390,15 +406,18 @@ setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...){
 	as.numeric(num, ...)
 })
 
+#' @export
 setMethod("as.numeric", signature(x = "Interval"), function(x, units = "secs", ...){
 	message("coercing interval to duration")
 	as.numeric(as.duration(x), units, ...)
 })
 
+#' @export
 setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", ...){
 	units <- standardise_period_names(units)
 	if (units == "second") x@.Data
 	else slot(x, units)
 })
+
 
 as.POSIXt <- function(x) as.POSIXlt(x)
