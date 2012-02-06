@@ -89,11 +89,12 @@ divide_difftime_by_period <- function(dif, per)
 
 
 
-	
+#' @rdname Duration-class
 #' @export
 setMethod("/", signature(e1 = "Duration", e2 = "Duration"),
 	function(e1, e2) divide_duration_by_duration(e1, e2))
 
+#' @rdname Duration-class
 #' @export		
 setMethod("/", signature(e1 = "Duration", e2 = "Interval"), function(e1, e2) {
 	message("interval denominator coerced to duration")
@@ -101,24 +102,28 @@ setMethod("/", signature(e1 = "Duration", e2 = "Interval"), function(e1, e2) {
 	divide_duration_by_duration(e1, e2)
 })
 
+#' @rdname Duration-class
 #' @export	
 setMethod("/", signature(e1 = "Duration", e2 = "Period"),
 	function(e1, e2) divide_duration_by_period(e1, e2))
 
+#' @rdname Duration-class
 #' @export			
 setMethod("/", signature(e1 = "Duration", e2 = "difftime"),
 	function(e1, e2) divide_duration_by_difftime(e1, e2))
 
+#' @rdname Duration-class
 #' @export	
 setMethod("/", signature(e1 = "Duration", e2 = "numeric"),	
 	function(e1, e2) divide_duration_by_number(e1, e2))
 		
 		
-
+#' @rdname Interval-class
 #' @export		
 setMethod("/", signature(e1 = "Interval", e2 = "Duration"), 
 	function(e1, e2) divide_interval_by_duration(e1, e2))	
 
+#' @rdname Interval-class
 #' @export	
 setMethod("/", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
 	message("interval denominator coerced to duration")
@@ -126,24 +131,28 @@ setMethod("/", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
 	divide_interval_by_duration(e1, e2)
 })
 
+#' @rdname Interval-class
 #' @export		
 setMethod("/", signature(e1 = "Interval", e2 = "Period"), 
 	function(e1, e2) divide_interval_by_period(e1, e2))
 
+#' @rdname Interval-class
 #' @export			
 setMethod("/", signature(e1 = "Interval", e2 = "difftime"), 
 	function(e1, e2) divide_interval_by_difftime(e1, e2))
 
+#' @rdname Interval-class
 #' @export		
 setMethod("/", signature(e1 = "Interval", e2 = "numeric"), 
 	function(e1, e2) divide_interval_by_number(e1, e2))
 
 
-
+#' @rdname Period-class
 #' @export	
 setMethod("/", signature(e1 = "Period", e2 = "Duration"),
 	function(e1, e2) divide_period_by_duration(e1, e2))
 
+#' @rdname Period-class
 #' @export	
 setMethod("/", signature(e1 = "Period", e2 = "Interval"), function(e1, e2) {
 	message("interval denominator coerced to duration")
@@ -151,25 +160,29 @@ setMethod("/", signature(e1 = "Period", e2 = "Interval"), function(e1, e2) {
 	divide_period_by_duration(e1, e2)
 })	
 
+#' @rdname Period-class
 #' @export	
 setMethod("/", signature(e1 = "Period", e2 = "Period"),
 	function(e1, e2) divide_period_by_period(e1, e2))
 
+#' @rdname Period-class
 #' @export			
 setMethod("/", signature(e1 = "Period", e2 = "difftime"),
 	function(e1, e2) divide_period_by_difftime(e1, e2))
 
+#' @rdname Period-class
 #' @export		
 setMethod("/", signature(e1 = "Period", e2 = "numeric"),
 	function(e1, e2) divide_period_by_number(e1, e2))
 
 
 	
-
+#' @rdname Duration-class
 #' @export	
 setMethod("/", signature(e1 = "difftime", e2 = "Duration"),
 	function(e1, e2) divide_difftime_by_duration(e1, e2))
 
+#' @rdname Interval-class
 #' @export	
 setMethod("/", signature(e1 = "difftime", e2 = "Interval"), function(e1, e2) {
 	message("interval denominator coerced to duration")
@@ -177,6 +190,7 @@ setMethod("/", signature(e1 = "difftime", e2 = "Interval"), function(e1, e2) {
 	divide_difftime_by_duration(e1, e2)
 })	
 
+#' @rdname Period-class
 #' @export	
 setMethod("/", signature(e1 = "difftime", e2 = "Period"),
 	function(e1, e2) divide_difftime_by_period(e1, e2))

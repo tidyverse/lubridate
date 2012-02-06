@@ -49,7 +49,7 @@ check_interval <- function(object){
 #' @exportClass Interval
 setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
 
-
+#' @rdname Interval-class
 #' @export
 setMethod("show", signature(object = "Interval"), function(object){
 	print(paste(format(object@start, tz = object@tzone, usetz = TRUE), "--", 
@@ -62,6 +62,7 @@ format.Interval <- function(x,...){
 		format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
 }
 
+#' @rdname Interval-class
 #' @export
 setMethod("c", signature(x = "Interval"), function(x, ...){
 	spans <- c(x@.Data, unlist(list(...)))
@@ -69,11 +70,13 @@ setMethod("c", signature(x = "Interval"), function(x, ...){
 	new("Interval", spans, start = starts, tzone = x@tzone)
 })
 
+#' @rdname Interval-class
 #' @export
 setMethod("rep", signature(x = "Interval"), function(x, ...){
 	new("Interval", rep(x@.Data, ...), start = rep(x@start,...), tzone = x@tzone)
 })
 
+#' @rdname Interval-class
 #' @export
 setMethod("[", signature(x = "Interval"), 
 	function(x, i, j, ..., drop = TRUE) {
@@ -81,6 +84,7 @@ setMethod("[", signature(x = "Interval"),
 	}
 )
 
+#' @rdname Interval-class
 #' @export
 setMethod("[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
   	if (is.interval(value)){
@@ -94,12 +98,15 @@ setMethod("[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
 	}
 })
 
+
+#' @rdname Interval-class
 #' @export
 setMethod("$", signature(x = "Interval"), function(x, name) {
 	if(name == "span") name <- ".Data"
 	slot(x, name)
 })
 
+#' @rdname Interval-class
 #' @export
 setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 	if(name == "span") name <- ".Data"
@@ -286,9 +293,11 @@ int_overlaps <- function(int1, int2){
 	int1@start <= int2@start + int2@.Data & int2@start <= int1@start + int1@.Data
 }
 
+#' @rdname Interval-class
 #' @export
 setGeneric("intersect")
 
+#' @rdname Interval-class
 #' @export
 setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	first.x <- pmin(x@start, x@start + x@.Data)
@@ -307,9 +316,11 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
 })
 
+#' @rdname Interval-class
 #' @export
 setGeneric("union")
 
+#' @rdname Interval-class
 #' @export
 setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 	first.x <- pmin(x@start, x@start + x@.Data)
@@ -329,8 +340,11 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
 })
 
+#' @rdname Interval-class
 #' @export
 setGeneric("setdiff")
+
+#' @rdname Interval-class
 #' @export
 setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 	if (any(y %within% x)) {

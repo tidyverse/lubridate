@@ -55,6 +55,7 @@ compute_estimate <- function (x) {
       years = paste("~", round(x/31557600, 2), " years", sep = ""))
 }
 
+#' @rdname Duration-class
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
 	if (all(object@.Data < 120))
@@ -71,23 +72,27 @@ format.Duration <- function(x, ...) {
 		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
 }
 
+#' @rdname Duration-class
 #' @export
 setMethod("c", signature(x = "Duration"), function(x, ...){
 	durs <- c(x@.Data, unlist(list(...)))
 	new("Duration", durs)
 })
 
+#' @rdname Duration-class
 #' @export
 setMethod("rep", signature(x = "Duration"), function(x, ...){
 	new("Duration", rep(as.numeric(x), ...))
 })
 
+#' @rdname Duration-class
 #' @export
 setMethod("[", signature(x = "Duration"), 
   function(x, i, j, ..., drop = TRUE) {
     new("Duration", x@.Data[i])
 })
 
+#' @rdname Duration-class
 #' @export
 setMethod("[<-", signature(x = "Duration"), 
   function(x, i, j, ..., value) {
