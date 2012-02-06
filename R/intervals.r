@@ -126,7 +126,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' two date-times were subtracted.
 #'
 #' @export new_interval interval "%--%"
-#' @aliases interval new_interval "%--%"
+#' @aliases interval new_interval %--%
 #' @param start a POSIXt or Date date-time object
 #' @param end a POSIXt or Date date-time object
 #' @return an Interval object
