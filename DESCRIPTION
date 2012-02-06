@@ -21,6 +21,7 @@ Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries,
     fts, tseries
 Version: 0.2.6
 Depends:
+    methods,
     R (>= 2.10)
 Suggests:
     testthat
@@ -30,14 +31,16 @@ Collate:
     'timespans.r'
     'numeric.r'
     'util.r'
-    'periods.r'
+    'periods.R'
     'intervals.r'
+    'durations.R'
+    'periods.r'
     'durations.r'
     'difftimes.r'
     'Dates.r'
     'coercion.r'
-    'ops-addition.r'
-    'ops-division.r'
+    'ops-addition.R'
+    'ops-division.R'
     'ops-integer-division.r'
     'ops-modulo.r'
     'ops-multiplication.r'

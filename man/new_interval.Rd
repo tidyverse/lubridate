@@ -1,23 +1,24 @@
 \name{new_interval}
+\alias{"\%--\%"}
+\alias{interval}
 \alias{new_interval}
 \title{Create an interval object.}
 \usage{
   new_interval(start, end)
 }
 \arguments{
-  \item{date1}{a POSIXt or Date date-time object}
+  \item{start}{a POSIXt or Date date-time object}
 
-  \item{date2}{a POSIXt or Date date-time object}
+  \item{end}{a POSIXt or Date date-time object}
 }
 \value{
-  an interval object
+  an Interval object
 }
 \description{
-  new_interval creates an interval object with the
-  specified start and end dates. new_interval automatically
-  assigns the date that occurs first in time as the start
-  date and the date that occurs later as the end date. As a
-  result, intervals are always positive.
+  interval creates an \code{\link{Interval}} object with
+  the specified start and end dates. If the start date
+  occurs before the end date, the interval will be
+  positive. Otherwise, it will be negative.
 }
 \details{
   Intervals are time spans bound by two real date-times.
@@ -27,8 +28,12 @@
   to a fixed history of time, both the exact number of
   seconds that passed and the number of variable length
   time units that occurred during the interval can be
-  calculated.  Subtracting two date times automatically
-  creates an interval object.
+  calculated.
+
+  \%--\% Creates an \code{\link{Interval}} that covers the
+  range spanned by two dates. It replaces the original
+  behavior of lubridate, which created an interval by
+  default whenever two date-times were subtracted.
 }
 \examples{
 new_interval(ymd(20090201), ymd(20090101))
@@ -54,8 +59,9 @@ end <- start + span
 # "2009-02-01 UTC"
 }
 \seealso{
-  \code{\link{interval}}, \code{\link{as.interval}}
+  \code{\link{Interval}}, \code{\link{as.interval},
+  \code{\link{\%--\%}}
 }
-\keyword{chron}
-\keyword{classes}
+\keyword{interval}
+\keyword{Timespan}
 

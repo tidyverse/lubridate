@@ -6,16 +6,19 @@
   int_end(x)
 }
 \arguments{
-  \item{x}{An interval object}
+  \item{int}{An interval object}
+
+  \item{value}{A date-time object that can be coerced to
+  POSIXct}
 }
 \value{
   A POSIXct date object when used as an accessor. Nothing
   when used as a settor
 }
 \description{
-  Changing the end date of an interval does not change the
-  length of the interval. It shifts when the interval
-  occurs.
+  Note that changing the end date of an interval will
+  change the length of the interval, since the start date
+  will remain the same.
 }
 \examples{
 int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
@@ -25,5 +28,9 @@ int_end(int)
 int_end(int) <- ymd("2002-06-01")
 int
 # 2001-06-01 -- 2002-06-01
+}
+\seealso{
+  \code{\link{int_start}}, \code{\link{int_shift}},
+  \code{\link{int_flip}}
 }
 
