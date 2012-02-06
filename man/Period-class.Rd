@@ -35,7 +35,7 @@
   timespans that allows precise comparisons between
   timespans.
 
-  \details{Period class objects have six slots
+  Period class objects have six slots
 
   \item{.Data}{A numeric object. The apparent amount of
   seconds to add to the period.}
@@ -54,8 +54,6 @@
 
   \item{year}{A numeric object. The apparent amount of
   years to add to the period.}
-
-  }
 
   The exact length of a period is not defined until the
   period is placed at a specific moment of time. This is
@@ -75,7 +73,7 @@
   timespans that allows precise comparisons between
   timespans.
 
-  \details{Period class objects have six slots
+  Period class objects have six slots
 
   \item{.Data}{A numeric object. The apparent amount of
   seconds to add to the period.}
@@ -94,7 +92,5 @@
 
   \item{year}{A numeric object. The apparent amount of
   years to add to the period.}
-
-  }
 }
 

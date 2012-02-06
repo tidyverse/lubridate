@@ -20,12 +20,12 @@
   intervals progress backwards from the start date;
   positive intervals progress forwards.
 
-  \details{Interval class objects have two slots
+  Interval class objects have two slots
 
   \item{.Data}{A numeric object. The amount of seconds in
   the interval}
 
   \item{start}{A POSIXct object. The time when the interval
-  starts.} }
+  starts.}
 }
 

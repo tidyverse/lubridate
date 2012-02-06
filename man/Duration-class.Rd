@@ -29,12 +29,10 @@
   \code{\link{Periods}} for an alternative way to measure
   timespans that better preserves clock times.
 
-  \details{Durations class objects have one slot
+  Durations class objects have one slot
 
   \item{.Data}{A numeric object. The amount of seconds in
   the duration.}
-
-  }
 
   Durations provide a method for measuring generalized
   timespans when we wish to treat time as a mathematical
@@ -44,11 +42,9 @@
   \code{\link{Periods}} for an alternative way to measure
   timespans that better preserves clock times.
 
-  \details{Durations class objects have one slot
+  Durations class objects have one slot
 
   \item{.Data}{A numeric object. The amount of seconds in
   the duration.}
-
-  }
 }
 

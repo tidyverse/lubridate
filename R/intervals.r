@@ -39,13 +39,12 @@ check_interval <- function(object){
 #' Intervals can be both negative and positive. Negative intervals progress 
 #' backwards from the start date; positive intervals progress forwards.
 #'
-#'
-#' \details{Interval class objects have two slots
+#' Interval class objects have two slots
 #'
 #'    \item{.Data}{A numeric object. The amount of seconds in the interval} 
 #'
 #'    \item{start}{A POSIXct object. The time when the interval starts.}
-#'  }
+#'
 #'
 #' @name Interval-class
 #' @rdname Interval-class
@@ -133,8 +132,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' @param start a POSIXt or Date date-time object
 #' @param end a POSIXt or Date date-time object
 #' @return an Interval object
-#' @seealso \code{\link{Interval}}, \code{\link{as.interval}, \code{\link{\%--\%}}
-#' @keywords Timespan interval
+#' @seealso \code{\link{Interval}}, \code{\link{as.interval}}, \code{\link{\%--\%}}
 #' @examples
 #' new_interval(ymd(20090201), ymd(20090101))
 #' # 2009-01-01 -- 2009-02-01 

@@ -59,9 +59,7 @@ end <- start + span
 # "2009-02-01 UTC"
 }
 \seealso{
-  \code{\link{Interval}}, \code{\link{as.interval},
+  \code{\link{Interval}}, \code{\link{as.interval}},
   \code{\link{\%--\%}}
 }
-\keyword{interval}
-\keyword{Timespan}
 

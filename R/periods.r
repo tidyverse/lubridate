@@ -71,7 +71,7 @@ check_period <- function(object){
 #' \code{\link{Durations}} for an alternative way to measure timespans that 
 #' allows precise comparisons between timespans. 
 #'
-#' \details{Period class objects have six slots
+#' Period class objects have six slots
 #'
 #'    \item{.Data}{A numeric object. The apparent amount of seconds to add to the period.} 
 #'
@@ -85,7 +85,7 @@ check_period <- function(object){
 #'
 #'    \item{year}{A numeric object. The apparent amount of years to add to the period.} 
 #'
-#'  }
+#'
 #'
 #' @name Period-class
 #' @rdname Period-class
