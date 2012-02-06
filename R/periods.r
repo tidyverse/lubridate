@@ -51,7 +51,7 @@ check_period <- function(object){
 
 #' Period class
 #'
-#' Period is an S4 class that extends the \code{\link{Timespan}} class. 
+#' Period is an S4 class that extends the \code{\link{Timespan-class}} class. 
 #' Periods track the change in the "clock time" between two date-times. They 
 #' are measured in common time related units: years, months, days, hours, 
 #' minutes, and seconds. Each unit except for seconds must be expressed in 
@@ -61,14 +61,14 @@ check_period <- function(object){
 #' specific moment of time. This is because the precise length of one year, 
 #' month, day, etc. can change depending on when it occurs. A period can be 
 #' associated with a specific moment in time by coercing it to an 
-#' \code{\link{Interval}} object with \code{\link{as.interval}} or by adding 
+#' \code{\link{Interval-class}} object with \code{\link{as.interval}} or by adding 
 #' it to a date-time with "+".
 #'
 #' Periods provide a method for measuring generalized timespans when we wish 
 #' to model clock times. Periods will attain intuitive results at this task 
 #' even when leap years, leap seconds, gregorian days, daylight savings 
 #' changes, and other events happen uring the period. See 
-#' \code{\link{Durations}} for an alternative way to measure timespans that 
+#' \code{\link{Duration-class}} for an alternative way to measure timespans that 
 #' allows precise comparisons between timespans. 
 #'
 #' Period class objects have six slots. 1) .Data, a numeric object. The 
