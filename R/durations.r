@@ -99,7 +99,7 @@ setMethod("show", signature(object = "Duration"), function(object){
 #' @S3method format Duration
 format.Duration <- function(x, ...) {
 	if (all(x@.Data < 120))
-		print(paste(x@.Data, "s", sep = ""))
+		print(paste(x@.Data, "s", sep = ""), quote = FALSE)
 	else
 		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
 }
