@@ -52,7 +52,7 @@ add_interval_to_interval <- function(int2, int1){
 add_period_to_interval <- function(per, int){
   end <- int@start + int@.Data
   end2 <- end + per
-  new_interval(end2, int@start)
+  interval(int@start, end)
 }
 
 add_period_to_period <- function(per2, per1){
