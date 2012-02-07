@@ -1,14 +1,18 @@
 \name{as.period}
 \alias{as.period}
-\alias{as.period-methods}
+\alias{as.period,difftime-method}
+\alias{as.period,Duration-method}
+\alias{as.period,Interval-method}
+\alias{as.period,numeric-method}
+\alias{as.period,Period-method}
 \title{Change an object to a period.}
 \usage{
-  as.period(x)
-
-  as.period()
+  as.period(x, ...)
 }
 \arguments{
   \item{x}{an interval, difftime, or numeric object}
+
+  \item{...}{additional arguments to pass to as.period}
 }
 \value{
   a period object

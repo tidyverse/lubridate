@@ -1,17 +1,19 @@
 \name{as.duration}
 \alias{as.duration}
-\alias{as.duration-methods}
+\alias{as.duration,difftime-method}
+\alias{as.duration,Duration-method}
+\alias{as.duration,Interval-method}
+\alias{as.duration,numeric-method}
+\alias{as.duration,Period-method}
 \title{Change an object to a duration.}
 \usage{
   as.duration(x)
-
-  as.duration()
 }
 \arguments{
-  \item{x}{an interval, period, or numeric object}
+  \item{x}{Object to be coerced to a duration}
 }
 \value{
-  a duration object
+  A duration object
 }
 \description{
   as.duration changes interval, period and numeric objects

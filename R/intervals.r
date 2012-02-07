@@ -399,23 +399,24 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 #' If a is an interval, both its start and end dates must fall within b 
 #' to return TRUE.
 #'
-#' @export "%within%"
+#' @export 
 #' @rdname within-interval
 #' @aliases %within%,Interval,Interval-method
 #' @aliases %within%,ANY,Interval-method
 #' @param a An interval or date-time object
 #' @param b An interval
 #' @return A logical
-setGeneric("%within%", function(a,b) standardGeneric("%within%"))
+"%within%" <- function(a,b) standardGeneric("%within%")
 
 #' @export
+setGeneric("%within%")
+
 setMethod("%within%", signature(b = "Interval"), function(a,b){
 	if(!is.instant(a)) stop("Argument 1 is not a recognized date-time")
 	a <- as.POSIXct(a)
 	as.numeric(a) - as.numeric(b@start) <= b@.Data & as.numeric(a) - as.numeric(b@start) >= 0
 })
 
-#' @export
 setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
 	as.numeric(a@start) - as.numeric(b@start) <= b@.Data & as.numeric(a@start) - as.numeric(b@start) >= 0
 })
