@@ -202,8 +202,9 @@ new_interval <- interval <- function(start, end){
 		tzone <- attr(start, "tzone")
 	}
 	
+	equal.lengths <- data.frame(end = end, start = start)
 	span <- as.numeric(end) - as.numeric(start)
-	new("Interval", span, start = as.POSIXct(start), tzone = tzone)
+	new("Interval", span, start = as.POSIXct(equal.lengths$start), tzone = tzone)
 }
 
 "%--%" <- function(start, end) interval(start, end)
