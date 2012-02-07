@@ -15,8 +15,8 @@
   Converts a date to a decimal of its year.
 }
 \examples{
-date <- as.POSIXlt("2009-02-10")
-decimal_date(date)  # 2009.109
+date <- ymd("2009-02-10")
+decimal_date(date)  # 2009.11
 }
 \keyword{chron}
 \keyword{manip}
