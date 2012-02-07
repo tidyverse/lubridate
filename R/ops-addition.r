@@ -83,7 +83,7 @@ add_period_to_date <- function(per, date){
 
 
 add_number_to_duration <- function(num, dur){
-  	new("Duration", dur@.data + num)
+  	new("Duration", dur@.Data + num)
 }
 
 add_number_to_interval <-function(num, int){
