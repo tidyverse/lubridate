@@ -75,7 +75,7 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
 	unit <- match.arg(unit) 
 	
-	floor_date(x, unit)
+	x <- floor_date(x, unit)
 	
 	switch(unit,
 		second = second(x) <- ceiling(second(x)),
@@ -86,6 +86,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 		month =  month(x) <- month(x) + 1,
 		year =   year(x) <- year(x) + 1
 	)
+	x
 }
 
 
