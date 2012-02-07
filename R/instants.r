@@ -12,7 +12,7 @@
 #' @examples
 #' is.instant(as.Date("2009-08-03")) # TRUE
 #' is.timepoint(5) # FALSE
-is.instant <- is.timepoint <- function(x) is(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
+is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
 
 #' The current time 
 #'
