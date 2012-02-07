@@ -203,7 +203,7 @@ new_interval <- interval <- function(start, end){
 	}
 	
 	span <- as.numeric(end) - as.numeric(start)
-	new("Interval", span, start = start, tzone = tzone)
+	new("Interval", span, start = as.POSIXct(start), tzone = tzone)
 }
 
 "%--%" <- function(start, end) interval(start, end)
