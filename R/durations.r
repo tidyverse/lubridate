@@ -33,6 +33,38 @@ check_duration <- function(object){
 #' @name Duration-class
 #' @rdname Duration-class
 #' @exportClass Duration
+#' @aliases as.numeric,Duration-method
+#' @aliases show,Duration-method
+#' @aliases c,Duration-method
+#' @aliases rep,Duration-method
+#' @aliases [,Duration-method
+#' @aliases [<-,Duration,ANY-method
+#' @aliases $,Duration-method
+#' @aliases $<-,Duration-method
+#' @aliases as.difftime,Duration-method
+#' @aliases +,Duration,Duration-method
+#' @aliases +,Duration,Interval-method
+#' @aliases +,Duration,Period-method
+#' @aliases +,Duration,Date-method
+#' @aliases +,Date,Duration-method
+#' @aliases +,Duration,difftime-method
+#' @aliases +,difftime,Duration-method
+#' @aliases +,Duration,numeric-method
+#' @aliases +,numeric,Duration-method
+#' @aliases +,Duration,POSIXct-method
+#' @aliases +,POSIXct,Duration-method
+#' @aliases +,Duration,POSIXlt-method
+#' @aliases +,POSIXlt,Duration-method
+#' @aliases /,Duration,Duration-method
+#' @aliases /,Duration,Interval-method
+#' @aliases /,Duration,Period-method
+#' @aliases /,Duration,difftime-method
+#' @aliases /,difftime,Duration-method
+#' @aliases /,Duration,numeric-method
+#' @aliases *,Duration,ANY-method
+#' @aliases *,ANY,Duration-method
+#' @aliases -,Duration,missing-method
+#' @aliases -,ANY,Duration-method
 setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
 compute_estimate <- function (x) {  
@@ -55,7 +87,7 @@ compute_estimate <- function (x) {
       years = paste("~", round(x/31557600, 2), " years", sep = ""))
 }
 
-#' @rdname Duration-class
+
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
 	if (all(object@.Data < 120))
@@ -72,27 +104,23 @@ format.Duration <- function(x, ...) {
 		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
 }
 
-#' @rdname Duration-class
 #' @export
 setMethod("c", signature(x = "Duration"), function(x, ...){
 	durs <- c(x@.Data, unlist(list(...)))
 	new("Duration", durs)
 })
 
-#' @rdname Duration-class
 #' @export
 setMethod("rep", signature(x = "Duration"), function(x, ...){
 	new("Duration", rep(as.numeric(x), ...))
 })
 
-#' @rdname Duration-class
 #' @export
 setMethod("[", signature(x = "Duration"), 
   function(x, i, j, ..., drop = TRUE) {
     new("Duration", x@.Data[i])
 })
 
-#' @rdname Duration-class
 #' @export
 setMethod("[<-", signature(x = "Duration"), 
   function(x, i, j, ..., value) {

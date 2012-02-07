@@ -29,9 +29,10 @@
 
   Lubridate distinguishes between moments in time (known as
   \code{\link{instants}}) and spans of time (known as
-  \code{\link{timespans}}). Time spans are further
-  separated into \code{\link{durations}},
-  \code{\link{periods}} and \code{\link{intervals}}.
+  \code{\link{Timespan-class}}). Time spans are further
+  separated into \code{\link{Duration-class}},
+  \code{\link{Period-class}} and
+  \code{\link{Interval-class}}.
 
   Instants
 
@@ -87,26 +88,21 @@
   connected to a particular instant. For example, three
   months or an hour and a half. Base R uses difftime class
   objects to record timespans. Lubridate creates three more
-  timespan classes, \code{\link{intervals}},
-  \code{\link{periods}} and \code{\link{durations}}, to
-  better navigate the nuances of time.
-  \code{\link{is.difftime}} tests whether an object
-  inherits from the difftime class.
+  timespan classes, \code{\link{Interval-class}},
+  \code{\link{Period-class}} and
+  \code{\link{Duration-class}}, to better navigate the
+  nuances of time. \code{\link{is.difftime}} tests whether
+  an object inherits from the difftime class.
   \code{\link{is.timespan}} tests whether an object
-  inherits from any of the four timespan classes. Lubridate
-  alters the subtraction method for dates to create
-  interval objects, which can be used like difftimes but
-  preserve more information than difftimes. To create a
-  difftime with lubridate use \code{\link{make_difftime}}
-  instead of subtraction.
+  inherits from any of the four timespan classes.
 
   Durations
 
-  \code{\link{durations}} measure the exact time of span
-  that occurs between two instants. This can create
-  unexpected results if a leap second, leap year, or change
-  in daylight savings time (DST) occurs in the interval.
-  Duration objects also inherit from the difftime class.
+  Durations measure the exact time of span that occurs
+  between two instants. This can create unexpected results
+  if a leap second, leap year, or change in daylight
+  savings time (DST) occurs in the interval. Duration
+  objects also inherit from the difftime class.
 
   Functions for working with durations include
   \code{\link{is.duration}}, \code{\link{as.duration}} and
@@ -118,10 +114,10 @@
 
   Periods
 
-  \code{\link{periods}} measure the change in clock time
-  that occurs between two instants. Periods provide robust
-  predictions #' of clock time in the presence of leap
-  seconds, leap years, and #' changes in DST.
+  Periods measure the change in clock time that occurs
+  between two instants. Periods provide robust predictions
+  of clock time in the presence of leap seconds, leap
+  years, and changes in DST.
 
   Functions for working with periods include
   \code{\link{is.period}}, \code{\link{as.period}} and

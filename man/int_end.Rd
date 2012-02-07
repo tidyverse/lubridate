@@ -3,13 +3,10 @@
 \alias{int_end<-}
 \title{Access and change the end date of an interval}
 \usage{
-  int_end(x)
+  int_end(int)
 }
 \arguments{
   \item{int}{An interval object}
-
-  \item{value}{A date-time object that can be coerced to
-  POSIXct}
 }
 \value{
   A POSIXct date object when used as an accessor. Nothing

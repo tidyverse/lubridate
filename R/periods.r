@@ -84,13 +84,44 @@ check_period <- function(object){
 #' @name Period-class
 #' @rdname Period-class
 #' @exportClass Period
+#' @aliases as.numeric,Period-method
+#' @aliases show,Period-method
+#' @aliases c,Period-method
+#' @aliases rep,Period-method
+#' @aliases [,Period-method
+#' @aliases [<-,Period,Period-method
+#' @aliases $,Period-method
+#' @aliases $<-,Period-method
+#' @aliases as.difftime,Period-method
+#' @aliases +,Period,Duration-method
+#' @aliases +,Period,Interval-method
+#' @aliases +,Period,Period-method
+#' @aliases +,Period,Date-method
+#' @aliases +,Date,Period-method
+#' @aliases +,Period,difftime-method
+#' @aliases +,difftime,Period-method
+#' @aliases +,Period,numeric-method
+#' @aliases +,numeric,Period-method
+#' @aliases +,Period,POSIXct-method
+#' @aliases +,POSIXct,Period-method
+#' @aliases +,Period,POSIXlt-method
+#' @aliases +,POSIXlt,Period-method
+#' @aliases /,Period,Duration-method
+#' @aliases /,Period,Interval-method
+#' @aliases /,Period,Period-method
+#' @aliases /,Period,difftime-method
+#' @aliases /,difftime,Period-method
+#' @aliases /,Period,numeric-method
+#' @aliases *,Period,ANY-method
+#' @aliases *,ANY,Period-method
+#' @aliases -,Period,missing-method
+#' @aliases -,ANY,Period-method
 setClass("Period", contains = c("Timespan", "numeric"), 
 	representation(year = "numeric", month = "numeric", day = "numeric", 
 		hour = "numeric", minute = "numeric"), 
 	prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0), 
 	validity = check_period)
 
-#' @rdname Period-class
 #' @export
 setMethod("show", signature(object = "Period"), function(object){
 	show <- vector(mode = "character")
@@ -149,7 +180,6 @@ format.Period <- function(x, ...){
 	show
 }
 
-#' @rdname Period-class
 #' @export
 setMethod("c", signature(x = "Period"), function(x, ...){
 	seconds <- c(x@.Data, unlist(list(...)))
@@ -162,7 +192,6 @@ setMethod("c", signature(x = "Period"), function(x, ...){
 		hour = hours, minute = minutes)
 })
 
-#' @rdname Period-class
 #' @export
 setMethod("rep", signature(x = "Period"), function(x, ...){
 	new("Period", rep(x@.Data, ...), year = rep(x@year, ...), 
@@ -170,7 +199,6 @@ setMethod("rep", signature(x = "Period"), function(x, ...){
 		hour = rep(x@hour, ...), minute = rep(x@minute, ...))
 })
 
-#' @rdname Period-class
 #' @export
 setMethod("[", signature(x = "Period"), 
   function(x, i, j, ..., drop = TRUE) {
@@ -178,7 +206,6 @@ setMethod("[", signature(x = "Period"),
     	day = x@day[i], hour = x@hour[i], minute = x@minute[i])
 })
 
-#' @rdname Period-class
 #' @export
 setMethod("[<-", signature(x = "Period", i = "Period"), 
   function(x, i, j, ..., value) {
@@ -191,14 +218,12 @@ setMethod("[<-", signature(x = "Period", i = "Period"),
     x
 })
 
-#' @rdname Period-class
 #' @export
 setMethod("$", signature(x = "Period"), function(x, name) {
 	if (name == "second") name <- ".Data"
     slot(x, name)
 })
 
-#' @rdname Period-class
 #' @export
 setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 	if (name == "second") name <- ".Data"

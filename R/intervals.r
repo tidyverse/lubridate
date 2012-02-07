@@ -47,9 +47,46 @@ check_interval <- function(object){
 #' @name Interval-class
 #' @rdname Interval-class
 #' @exportClass Interval
+#' @aliases intersect,Interval,Interval-method 
+#' @aliases union,Interval,Interval-method 
+#' @aliases setdiff,Interval,Interval-method 
+#' @aliases as.numeric,Interval-method 
+#' @aliases show,Interval-method
+#' @aliases c,Interval-method
+#' @aliases rep,Interval-method
+#' @aliases [,Interval-method
+#' @aliases [<-,Interval,ANY-method
+#' @aliases $,Interval-method
+#' @aliases $<-,Interval-method
+#' @aliases as.difftime,Interval-method
+#' @aliases +,Interval,Duration-method
+#' @aliases +,Interval,Interval-method
+#' @aliases +,Interval,Period-method
+#' @aliases +,Interval,Date-method
+#' @aliases +,Date,Interval-method
+#' @aliases +,Interval,difftime-method
+#' @aliases +,difftime,Interval-method
+#' @aliases +,Interval,numeric-method
+#' @aliases +,numeric,Interval-method
+#' @aliases +,Interval,POSIXct-method
+#' @aliases +,POSIXct,Interval-method
+#' @aliases +,Interval,POSIXlt-method
+#' @aliases +,POSIXlt,Interval-method
+#' @aliases /,Interval,Duration-method
+#' @aliases /,Interval,Interval-method
+#' @aliases /,Interval,Period-method
+#' @aliases /,Interval,difftime-method
+#' @aliases /,difftime,Interval-method
+#' @aliases /,Interval,numeric-method
+#' @aliases *,Interval,ANY-method
+#' @aliases *,ANY,Interval-method
+#' @aliases -,Interval,missing-method
+#' @aliases -,Interval,Interval-method
+#' @aliases -,Date,Interval-method
+#' @aliases -,POSIXct,Interval-method
+#' @aliases -,POSIXlt,Interval-method
 setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
 
-#' @rdname Interval-class
 #' @export
 setMethod("show", signature(object = "Interval"), function(object){
 	print(paste(format(object@start, tz = object@tzone, usetz = TRUE), "--", 
@@ -62,7 +99,6 @@ format.Interval <- function(x,...){
 		format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
 }
 
-#' @rdname Interval-class
 #' @export
 setMethod("c", signature(x = "Interval"), function(x, ...){
 	spans <- c(x@.Data, unlist(list(...)))
@@ -70,13 +106,11 @@ setMethod("c", signature(x = "Interval"), function(x, ...){
 	new("Interval", spans, start = starts, tzone = x@tzone)
 })
 
-#' @rdname Interval-class
 #' @export
 setMethod("rep", signature(x = "Interval"), function(x, ...){
 	new("Interval", rep(x@.Data, ...), start = rep(x@start,...), tzone = x@tzone)
 })
 
-#' @rdname Interval-class
 #' @export
 setMethod("[", signature(x = "Interval"), 
 	function(x, i, j, ..., drop = TRUE) {
@@ -84,7 +118,6 @@ setMethod("[", signature(x = "Interval"),
 	}
 )
 
-#' @rdname Interval-class
 #' @export
 setMethod("[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
   	if (is.interval(value)){
@@ -99,14 +132,12 @@ setMethod("[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
 })
 
 
-#' @rdname Interval-class
 #' @export
 setMethod("$", signature(x = "Interval"), function(x, name) {
 	if(name == "span") name <- ".Data"
 	slot(x, name)
 })
 
-#' @rdname Interval-class
 #' @export
 setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 	if(name == "span") name <- ".Data"
@@ -200,7 +231,6 @@ is.interval <- function(x) is(x, c("Interval"))
 #' @aliases int_start int_start<-
 #' @export int_start "int_start<-"
 #' @param int An interval object
-#' @param value A date-time object that can be coerced to POSIXct
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
 #' @seealso \code{\link{int_end}}, \code{\link{int_shift}}, \code{\link{int_flip}}
 #' @examples
@@ -211,8 +241,8 @@ is.interval <- function(x) is(x, c("Interval"))
 #' int_start(int) <- ymd("2001-06-01")
 #' int
 #' # 2001-06-01 -- 2002-06-01
-int_start <- function(x) x@start
-	
+int_start <- function(int) int@start
+
 "int_start<-" <- function(int, value){
 	value <- as.POSIXct(value)
 	span <- int@start + int@.Data - value
@@ -231,7 +261,6 @@ int_start <- function(x) x@start
 #' @aliases int_end int_end<-
 #' @export int_end "int_end<-"
 #' @param int An interval object
-#' @param value A date-time object that can be coerced to POSIXct
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
 #' @seealso \code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}}
 #' @examples
@@ -242,7 +271,7 @@ int_start <- function(x) x@start
 #' int_end(int) <- ymd("2002-06-01")
 #' int
 #' # 2001-06-01 -- 2002-06-01
-int_end <- function(x) x@start + x@.Data
+int_end <- function(int) x@start + x@.Data
 
 "int_end<-" <- function(int, value){
 	value <- as.POSIXct(value)
@@ -272,6 +301,7 @@ int_flip <- function(int){
 #'
 #' @export int_shift
 #' @param int An interval object
+#' @param by A period or duration object
 #' @return An interval object
 #' @seealso \code{\link{int_flip}},  \code{\link{int_start}}, \code{\link{int_end}}
 int_shift <- function(int, by){
@@ -293,11 +323,9 @@ int_overlaps <- function(int1, int2){
 	int1@start <= int2@start + int2@.Data & int2@start <= int1@start + int1@.Data
 }
 
-#' @rdname Interval-class
 #' @export
 setGeneric("intersect")
 
-#' @rdname Interval-class
 #' @export
 setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	first.x <- pmin(x@start, x@start + x@.Data)
@@ -316,11 +344,9 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
 })
 
-#' @rdname Interval-class
 #' @export
 setGeneric("union")
 
-#' @rdname Interval-class
 #' @export
 setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 	first.x <- pmin(x@start, x@start + x@.Data)
@@ -340,11 +366,9 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
 })
 
-#' @rdname Interval-class
 #' @export
 setGeneric("setdiff")
 
-#' @rdname Interval-class
 #' @export
 setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 	if (any(y %within% x)) {
@@ -377,7 +401,8 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 #'
 #' @export "%within%"
 #' @rdname within-interval
-#' @aliases "%within%"
+#' @aliases %within%,Interval,Interval-method
+#' @aliases %within%,ANY,Interval-method
 #' @param a An interval or date-time object
 #' @param b An interval
 #' @return A logical

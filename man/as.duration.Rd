@@ -1,8 +1,11 @@
 \name{as.duration}
 \alias{as.duration}
-\title{Change an object to a duration (difftime).}
+\alias{as.duration-methods}
+\title{Change an object to a duration.}
 \usage{
   as.duration(x)
+
+  as.duration()
 }
 \arguments{
   \item{x}{an interval, period, or numeric object}
@@ -19,14 +22,14 @@
 \details{
   Durations are exact time measurements, whereas periods
   are relative time measurements. See
-  \code{\link{periods}}. The length of a period depends on
-  when it occurs. Hence, a one to one mapping does not
-  exist between durations and periods. When used with a
-  period object, as.duration provides an inexact estimate
-  of the length of the period; each time unit is assigned
-  its most common number of seconds. Periods with a months
-  unit cannot be coerced to durations because of the
-  variability of month lengths. For an exact
+  \code{\link{Period-class}}. The length of a period
+  depends on when it occurs. Hence, a one to one mapping
+  does not exist between durations and periods. When used
+  with a period object, as.duration provides an inexact
+  estimate of the length of the period; each time unit is
+  assigned its most common number of seconds. Periods with
+  a months unit cannot be coerced to durations because of
+  the variability of month lengths. For an exact
   transformation, first transform the period to an interval
   with \code{\link{as.interval}}.
 }
@@ -39,7 +42,7 @@ as.duration(10) # numeric
 # 10s
 }
 \seealso{
-  \code{\link{duration}}, \code{\link{new_duration}}
+  \code{\link{Duration-class}}, \code{\link{new_duration}}
 }
 \keyword{chron}
 \keyword{classes}

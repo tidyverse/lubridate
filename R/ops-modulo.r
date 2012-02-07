@@ -15,7 +15,6 @@ get_remainder <- function(num, den){
 	num - den * integ
 }
 
-#' @rdname Timespan-class
 #' @export	
 setMethod("%%", signature(e1 = "Timespan", e2 = "Timespan"), 
 	function(e1, e2) modulo_spans(e1, e2))

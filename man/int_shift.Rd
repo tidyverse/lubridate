@@ -6,6 +6,8 @@
 }
 \arguments{
   \item{int}{An interval object}
+
+  \item{by}{A period or duration object}
 }
 \value{
   An interval object

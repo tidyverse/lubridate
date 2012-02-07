@@ -20,7 +20,7 @@ is.interval(new_interval(ymd(20090801), ymd(20090809))) # TRUE
 \seealso{
   \code{\link{is.instant}}, \code{\link{is.timespan}},
   \code{\link{is.period}}, \code{\link{is.duration}},
-  \code{\link{Interval}}
+  \code{\link{Interval-class}}
 }
 \keyword{chron}
 \keyword{logic}

@@ -174,20 +174,14 @@ as.duration.difftime <- function(x)
 #' @export 
 setGeneric("as.duration") 
 
-#' @rdname as.duration
-#' @export 
 setMethod("as.duration", signature(x = "Interval"), function(x){
 	new("Duration", x@.Data)
 })
 
-#' @rdname as.duration
-#' @export 
 setMethod("as.duration", signature(x = "Duration"), function(x){
 	x
 })
 
-#' @rdname as.duration
-#' @export 
 setMethod("as.duration", signature(x = "Period"), function(x){
 	message("estimate only: convert periods to intervals for accuracy")
 	new("Duration", periods_to_seconds(x))
@@ -390,19 +384,16 @@ setMethod("as.period", signature("Period"), function(x) x)
 #' @export
 setGeneric("as.difftime")
 
-#' @rdname Interval-class
 #' @export
 setMethod("as.difftime", signature(tim = "Interval"), function(tim, format = "%X", units = "secs"){
 	as.difftime(as.numeric(tim, units), format, units)
 })
 
-#' @rdname Duration-class
 #' @export
 setMethod("as.difftime", signature(tim = "Duration"), function(tim, format = "%X", units = "secs"){
 	as.difftime(tim@.Data, format, units)
 })
 
-#' @rdname Period-class
 #' @export
 setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X", units = "secs"){
 	as.difftime(period_to_seconds(tim), format, units)
@@ -410,7 +401,6 @@ setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X",
 
 setGeneric("as.numeric")
 
-#' @rdname Duration-class
 #' @export
 setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...){
 	units <- standardise_period_names(units)
@@ -427,14 +417,12 @@ setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...){
 	as.numeric(num, ...)
 })
 
-#' @rdname Interval-class
 #' @export
 setMethod("as.numeric", signature(x = "Interval"), function(x, units = "secs", ...){
 	message("coercing interval to duration")
 	as.numeric(as.duration(x), units, ...)
 })
 
-#' @rdname Period-class
 #' @export
 setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", ...){
 	units <- standardise_period_names(units)

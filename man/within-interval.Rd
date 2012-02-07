@@ -1,7 +1,8 @@
 \name{\%within\%}
-\alias{"\%within\%"}
 \alias{\%within\%}
 \alias{\%within\%-methods}
+\alias{\%within\%,ANY,Interval-method}
+\alias{\%within\%,Interval,Interval-method}
 \title{Tests whether a date or interval falls within an interval}
 \usage{
   %within%()

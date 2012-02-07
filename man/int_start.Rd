@@ -3,13 +3,10 @@
 \alias{int_start<-}
 \title{Access and change the start date of an interval}
 \usage{
-  int_start(x)
+  int_start(int)
 }
 \arguments{
   \item{int}{An interval object}
-
-  \item{value}{A date-time object that can be coerced to
-  POSIXct}
 }
 \value{
   A POSIXct date object when used as an accessor. Nothing
