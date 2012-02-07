@@ -8,8 +8,8 @@
 #' @return a numeric object where the date is expressed as a fraction of its year
 #' @keywords manip chron methods
 #' @examples
-#' date <- as.POSIXlt("2009-02-10")
-#' decimal_date(date)  # 2009.109
+#' date <- ymd("2009-02-10")
+#' decimal_date(date)  # 2009.11
 decimal_date <- function(date)
   UseMethod("decimal_date")
   
