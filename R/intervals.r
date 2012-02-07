@@ -245,7 +245,7 @@ int_start <- function(int) int@start
 
 "int_start<-" <- function(int, value){
 	value <- as.POSIXct(value)
-	span <- int@start + int@.Data - value
+	span <- as.numeric(int@start + int@.Data - value, "secs")
 	equal.lengths <- data.frame(span, value)
 	int <- new("Interval", span, start = equal.lengths$value, 
 		tzone = int@tzone)
@@ -271,11 +271,11 @@ int_start <- function(int) int@start
 #' int_end(int) <- ymd("2002-06-01")
 #' int
 #' # 2001-06-01 -- 2002-06-01
-int_end <- function(int) x@start + x@.Data
+int_end <- function(int) int@start + int@.Data
 
 "int_end<-" <- function(int, value){
 	value <- as.POSIXct(value)
-	span <- value - int@start
+	span <- as.numeric(value - int@start, "secs")
 	int <- new("Interval", span, start = int@start,
 		tzone = int@tzone)
 }
