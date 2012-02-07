@@ -181,7 +181,7 @@ setMethod("as.duration", signature(x = "Duration"), function(x){
 
 setMethod("as.duration", signature(x = "Period"), function(x){
 	message("estimate only: convert periods to intervals for accuracy")
-	new("Duration", periods_to_seconds(x))
+	new("Duration", period_to_seconds(x))
 })
 
 
