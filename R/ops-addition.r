@@ -12,8 +12,10 @@ NULL
 add_duration_to_duration <- function(dur2, dur1)
 	new("Duration", dur1@.Data + dur2@.Data)
 
-add_duration_to_interval <- function(dur, int)
-	new("Interval", int@.Data + dur@.Data, start = int@start, tzone = int@tzone)
+add_duration_to_interval <- function(dur, int) {
+	start <- int@start + rep(0, length(dur@.Data))
+	new("Interval", int@.Data + dur@.Data, start = start, tzone = int@tzone)
+}
 
 add_duration_to_period <- function(dur, per){
 	message("duration converted to seconds")
