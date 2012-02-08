@@ -43,6 +43,14 @@ check_period <- function(object){
 			sep = "") 
 		errors <- c(errors, msg)
 	}
+	
+	values <- c(object@year, object@month, object@day, object@hour, object@minute, 
+		object@.Data)
+	if (sum(values - trunc(values))) {
+		msg <- "periods must have integer values"
+		errors <- c(errors, msg)
+	}
+	
 	if (length(errors) == 0) 
 		TRUE
 	else
@@ -112,6 +120,7 @@ check_period <- function(object){
 #' @aliases /,Period,difftime-method
 #' @aliases /,difftime,Period-method
 #' @aliases /,Period,numeric-method
+#' @aliases /,numeric,Period-method
 #' @aliases *,Period,ANY-method
 #' @aliases *,ANY,Period-method
 #' @aliases -,Period,missing-method
