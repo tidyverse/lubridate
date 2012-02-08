@@ -167,6 +167,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' @aliases interval new_interval %--%
 #' @param start a POSIXt or Date date-time object
 #' @param end a POSIXt or Date date-time object
+#' @param tzone a recognized timezone to display the interval in
 #' @return an Interval object
 #' @seealso \code{\link{Interval-class}}, \code{\link{as.interval}}
 #' @examples
@@ -191,20 +192,17 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' # "2009-01-01 UTC"
 #' end <- start + span
 #' # "2009-02-01 UTC"
-new_interval <- interval <- function(start, end){
-	if (is.null(attr(start, "tzone"))) {
-		if (is.null(attr(end, "tzone"))) {
-			tzone <- ""
-		} else {
-			tzone <- attr(end, "tzone")
-		}
-	} else {
-		tzone <- attr(start, "tzone")
+new_interval <- interval <- function(start, end, tzone = attr(start, "tzone")){
+	if (is.null(tzone)) {
+		if (is.null(attr(end, "tzone"))) tzone <- ""
+		else tzone <- attr(end, "tzone")
 	}
 	
 	span <- as.numeric(end) - as.numeric(start)
-	start <- start + rep(0, length(span))
-	new("Interval", span, start = start, tzone = tzone)
+	starts <- start + rep(0, length(span))
+	starts <- with_tz(starts, tzone)
+	
+	new("Interval", span, start = starts, tzone = tzone)
 }
 
 "%--%" <- function(start, end) interval(start, end)
@@ -363,7 +361,8 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 	no.overlap <- spans > (x@.Data + y@.Data)
 	if(any(no.overlap[!is.na(no.overlap)])) 
 		message("Union includes intervening time between intervals.")
-	
+		
+	tz(starts) <- x@tzone
 	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
 })
 

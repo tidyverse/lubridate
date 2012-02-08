@@ -54,7 +54,7 @@ add_interval_to_interval <- function(int2, int1){
 add_period_to_interval <- function(per, int){
   end <- int@start + int@.Data
   end2 <- end + per
-  interval(int@start, end2)
+  interval(int@start, end2, tzone = int@tzone)
 }
 
 add_period_to_period <- function(per2, per1){
@@ -90,7 +90,8 @@ add_number_to_duration <- function(num, dur){
 
 add_number_to_interval <-function(num, int){
   message("numeric coerced to duration in seconds")
-  new("Interval", int@.Data + num, start = int@start, tzone = int@tzone)
+  starts <- int@start + rep(0, length(num))
+  new("Interval", int@.Data + num, start = starts, tzone = int@tzone)
 }
 
 add_number_to_period <- function(num, per){
