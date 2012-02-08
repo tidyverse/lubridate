@@ -16,3 +16,7 @@ setOldClass("POSIXlt")
 is.POSIXt <- function(x) is(x, "POSIXt")
 is.POSIXlt <- function(x) is(x, "POSIXlt")
 is.POSIXct <- function(x) is(x, "POSIXct")
+
+#' @S3method c POSIXct
+c.POSIXct <- function (..., recursive = FALSE) 
+	.POSIXct(c(unlist(lapply(list(...), unclass))), tz = tz(list(...)[[1]]))
