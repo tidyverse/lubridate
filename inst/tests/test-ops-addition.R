@@ -229,17 +229,6 @@ test_that("adding vectors works as expected for instants",{
   y <- as.POSIXlt(c("2008-01-01 00:00:00", 
     "2009-01-01 00:00:00"), tz = "UTC")
   z <- c(as.Date("2008-01-01"), as.Date("2008-01-10"))
-  
-  expect_that(x + 1, equals(as.POSIXct(c("2008-01-01 00:00:01",
-    "2009-01-01 00:00:01"), tz = "UTC")))
-  expect_that(y + 1, equals(as.POSIXlt(c("2008-01-01 00:00:01", 
-    "2009-01-01 00:00:01"), tz = "UTC")))
-  expect_that(z + 1, equals(as.Date(c("2008-01-02", 
-    "2008-01-11"))))
-  
-  expect_that(x + y, throws_error())
-  expect_that(y + z, throws_error())
-  expect_that(z + x, throws_error())
 
   expect_that(x + years(1), equals(as.POSIXct(c(
     "2009-01-01 00:00:00","2010-01-01 00:00:00"), tz = 
@@ -261,12 +250,12 @@ test_that("adding vectors works as expected for instants",{
   
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
-  int <- new_interval(time2, time1)
-  diff <- difftime(time2, time1)
+  int <- interval(time1, time2)
+  num <- as.numeric(time2) - as.numeric(time1)
   
-  expect_that(x + int, equals(x + diff))
-  expect_that(y + int, equals(y + diff))
-  expect_that(z + int, equals(z + diff))
+  expect_equal(x + int, x + num)
+  expect_equal(y + int, as.POSIXlt(y + num))
+  expect_equal(z + int, z + num/(60*60*24))
 
 })
 
@@ -294,8 +283,8 @@ test_that("adding vectors works as expected for periods",{
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   time3 <- as.POSIXct("2010-08-03 00:00:00", tz = "UTC")
   time4 <- as.POSIXct("2011-08-03 00:00:00", tz = "UTC")
-  int <- new_interval(time2, time1)
-  int2 <- new_interval(c(time3, time4), time1)
+  int <- new_interval(time1, time2)
+  int2 <- new_interval(time1, c(time3, time4))
     
   expect_that(years(1:2) + int, equals(int2))
 
@@ -307,10 +296,10 @@ test_that("adding vectors works as expected for durations",{
   w <- as.POSIXct("2007-01-01 00:00:00", tz = "UTC") 
   x <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
   y <- as.POSIXct(c("2008-01-01 00:00:00", "2008-12-31 00:00:00"), tz = "UTC")
-  dur_it <- function(x) structure(x, class = c("duration", "numeric"))
+  dur <- dminutes(1:2) + 1
   
-  expect_that(dminutes(1:2) + 1, equals(dur_it(c(61, 121))))
-  expect_that(dyears(1:2) + w, equals(y))
+  expect_equal(dur@.Data, c(61, 121))
+  expect_equal(dyears(1:2) + w, y)
   expect_that(dyears(1:2) + as.POSIXlt(w), equals(as.POSIXlt(y)))
   expect_that(dyears(1:2) + minutes(3), equals(new_period(
     minutes = 3, seconds = c(1, 2)*31536000)))  
@@ -320,8 +309,8 @@ test_that("adding vectors works as expected for durations",{
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   time3 <- as.POSIXct("2010-08-03 00:00:00", tz = "UTC")
   time4 <- as.POSIXct("2011-08-03 00:00:00", tz = "UTC")
-  int <- new_interval(time2, time1)
-  int2 <- new_interval(c(time3, time4), time1)
+  int <- new_interval(time1, time2)
+  int2 <- new_interval(time1, c(time3, time4))
     
   expect_that(eyears(1:2) + int, equals(int2))
 
@@ -333,31 +322,20 @@ test_that("adding vectors works as expected for intervals",{
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   time3 <- as.POSIXct("2010-08-03 00:00:00", tz = "UTC")
   time4 <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
-  int <- new_interval(time3, c(time1, time2))
-  diff <- difftime(time3, c(time1, time2))
-  add_int <- function(x) {
-  	result <- new_interval(time3 + x, c(time1, time2))
-    attr(result, "tzone") <- NULL
-    result
-  }
+  int <- interval(c(time1, time2), time3)
+  num <- as.numeric(time3) - as.numeric(c(time1, time2))
   
-  expect_that(int + time4, equals(diff + time4))
-  expect_that(int + 1, equals(add_int(1)))
-  expect_that(int + minutes(3), equals(add_int(minutes(3))))
-  expect_that(int + eyears(1), equals(add_int(eyears(1))))
+  expect_equal(int + time4, num + time4)
+  expect_equal(int + 1, interval(c(time1, time2), time3 + 1))
+  expect_equal(int + minutes(3), interval(c(time1, time2), time3 + minutes(3)))
+  expect_equal(int + eyears(1), interval(c(time1, time2), time3 + eyears(1)))
+
     
   time5 <- as.POSIXct("2011-08-03 00:00:00", tz = "UTC")
-  int2 <- new_interval(time5, time3)
-  int3 <- new_interval(time5, c(time1, time2))
+  int2 <- new_interval(time3, time5)
+  int3 <- new_interval(c(time1, time2), time5)
     
-  expect_that(int + int2, equals(int3))
+  expect_equal(int + int2, int3)
     
 
-})
-
-
-test_that("addition still works for numbers",{
-  
-  expect_that(c(1,2) + 1, equals(c(2,3)))
-  expect_that(c(1,2) + 1, is_a("numeric"))
 })

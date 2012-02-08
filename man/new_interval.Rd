@@ -4,12 +4,15 @@
 \alias{new_interval}
 \title{Create an interval object.}
 \usage{
-  new_interval(start, end)
+  new_interval(start, end, tzone = attr(start, "tzone"))
 }
 \arguments{
   \item{start}{a POSIXt or Date date-time object}
 
   \item{end}{a POSIXt or Date date-time object}
+
+  \item{tzone}{a recognized timezone to display the
+  interval in}
 }
 \value{
   an Interval object
