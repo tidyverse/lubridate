@@ -31,9 +31,25 @@ divide_interval_by_interval <- function(int, int2){
 	int@.Data / int2@.Data
 }
 
+divisible_period <- function(per, anchor){
+	per@month <- per@month + 12* per@year
+	per@year <- rep(0, length(per@year))
+	
+	secs.in.months <- as.numeric(anchor + months(per@month)) - as.numeric(anchor)
+	days.in.months <- round(secs.in.months/86400)
+	
+	per@day <- per@day + days.in.months
+	per@month <- 0
+	
+	per
+}
+
+
 divide_interval_by_period <- function(int, per){
-	message("estimate only: convert periods to intervals for accuracy")
-	as.period(int)/per
+	numer <- divisible_period(as.period(int), int_start(int))
+	denom <- divisible_period(per, int_start(int))
+	
+	numer/denom
 }
 
 divide_interval_by_difftime <- function(int, diff){
