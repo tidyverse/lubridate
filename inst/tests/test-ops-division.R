@@ -1,12 +1,9 @@
 context("Division operators")
 
 test_that("division operations work for interval numerator",{
-	int <- ymd("2010-01-01") - ymd("2009-02-03")
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
+	int <- ymd("2009-02-03") %--% ymd("2010-01-01")
+	smaller_int <- ymd("2009-12-01") %--% ymd("2010-01-01") 
+	bigger_int <- ymd("2009-01-01") %--% ymd("2010-02-01")
 	
 	smaller_dur <- ddays(20) + dhours(4)
 	bigger_dur <- dyears(1) + dseconds(2)
@@ -14,60 +11,45 @@ test_that("division operations work for interval numerator",{
 	smaller_diff <- new_difftime(days = 100)
 	bigger_diff <- new_difftime(days = 400)
   
-  expect_that(int/smaller_int, equals(28684800/2678400))
-  expect_that(int/bigger_int, equals(28684800/34214400))
+  expect_equal(int/smaller_int, 28684800/2678400)
+  expect_equal(int/bigger_int, 28684800/34214400)
   
-  expect_that(int/smaller_per, equals(10))
-  expect_that(int/bigger_per, equals(0))
+  expect_equal(int_start(int) + days(int/days(1)), int_end(int))
+  expect_equal(int_start(int) + edays(int/edays(1)), int_end(int))
   
-  expect_that(int/smaller_dur, equals(28684800/1742400))
-  expect_that(int/bigger_dur, equals(28684800/31536002))
-  
-  expect_that(int/smaller_diff, equals(28684800/8640000))
-  expect_that(int/bigger_diff, equals(28684800/34560000))
+  expect_equal(int/smaller_diff, 28684800/8640000)
+  expect_equal(int/bigger_diff, 28684800/34560000)
   
 })
 
 test_that("division works for interval numerator with vectors",{
-	int1 <- ymd("2010-01-01") - ymd("2009-02-03")
-	int2 <- ymd("2011-01-01") - ymd("2008-02-03")
+	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+	int3 <- ymd("2009-01-01") %--% ymd("2010-01-01")
 	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
+	smaller_diff <- new_difftime(days = 365)
   
-  expect_that(c(int1, int2) / bigger_int, 
-  	equals(c(28684800/34214400, 91843200/34214400)))
-  expect_that(int1 / c(smaller_int, bigger_int),   	equals(c(28684800/2678400, 28684800/34214400)))
+  expect_equal(c(int1, int2) / int1, c(1,2))
+  expect_equal(int1 / c(int1, int2), c(1, 0.5))
   
-  expect_that(c(int1, int2) / bigger_per, equals(c(0,2)))
-  expect_that(int1 / c(smaller_per, bigger_per), 	equals(c(10, 0)))
+  expect_equal(c(int1, int2) / years(1), c(1,2))
+  expect_equal(int1 / years(1:2), c(1, 0.5))
   
-  expect_that(c(int1, int2) / bigger_dur,  
-  	equals(c(28684800/31536002, 91843200/31536002)))
-  expect_that(int1 / c(smaller_dur, bigger_dur),
-	equals(c(28684800/1742400, 28684800/31536002)))
+  expect_equal(c(int1, int2) / eyears(1), c(1,2))
+  expect_equal(int1 / eyears(1:2), c(1, 0.5))
    	  
-  expect_that(c(int1, int2) / bigger_diff, 
-  	equals(c(28684800/34560000, 91843200/34560000)))
-  expect_that(int1 / c(smaller_diff, bigger_diff),
-	equals(c(28684800/8640000, 28684800/34560000)))
+  expect_equal(c(int1, int2) / smaller_diff, c(1,2))
+  
+  expect_equal(int2 / c(1, 2), c(int2, int3))
+  expect_equal(c(int2, int2) / 2, c(int3, int3))
   
 })
 
 
 test_that("division operations work for period numerator",{
 	per <- months(10) + days(29)
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
+	smaller_int <-  ymd("2009-12-01") %--% ymd("2010-01-01")
+	bigger_int <- ymd("2009-01-01") %--% ymd("2010-02-01")
 	
 	smaller_per <- months(1) + days(2)
 	bigger_per <- years(1) + minutes(72)
@@ -78,8 +60,8 @@ test_that("division operations work for period numerator",{
 	smaller_diff <- new_difftime(days = 100)
 	bigger_diff <- new_difftime(days = 400)
   
-  expect_that(per/smaller_int, equals(28425600/2678400))
-  expect_that(per/bigger_int, equals(28425600/34214400))
+  expect_equal(months(1)/smaller_int, 1)
+  expect_equal(months(13)/bigger_int, 1)
   
   expect_that(per/smaller_per, equals(28425600/2764800))
   expect_that(per/bigger_per, equals(28425600/31561920))
@@ -93,216 +75,92 @@ test_that("division operations work for period numerator",{
 })
 
 test_that("division works for period numerator with vectors",{
-	per1 <- as.period(ymd("2010-01-01") - ymd("2009-02-03"))
-	per2 <- as.period(ymd("2011-01-01") - ymd("2008-02-03"))
-	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
+	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+
   
-  expect_that(c(per1, per2) / bigger_int, 
-  	equals(c(28425600/34214400, 91540800/34214400)))
-  expect_that(per1 / c(smaller_int, bigger_int),   	equals(c(28425600/2678400, 28425600/34214400)))
+  expect_equal(years(1:2) / int2, c(0.5, 1))
+  expect_equal(years(1) / c(int1, int2), c(1, 0.5))
   
-  expect_that(c(per1, per2) / bigger_per, 
-  	equals(c(28425600/31561920, 91540800/31561920)))
-  expect_that(per1 / c(smaller_per, bigger_per), 	equals(c(28425600/2764800, 28425600/31561920)))
+  expect_equal(days(1:2) / hours(12), c(2,4))
+  expect_equal(days(1) / hours(c(12, 24)), c(2,1))
   
-  expect_that(c(per1, per2) / bigger_dur,  
-  	equals(c(28425600/31536002, 91540800/31536002)))
-  expect_that(per1 / c(smaller_dur, bigger_dur),
-	equals(c(28425600/1742400, 28425600/31536002)))
+  expect_equal(days(1:2) / ehours(12), c(2,4))
+  expect_equal(days(1) / ehours(c(12, 24)), c(2,1)) 
    	  
-  expect_that(c(per1, per2) / bigger_diff, 
-  	equals(c(28425600/34560000, 91540800/34560000)))
-  expect_that(per1 / c(smaller_diff, bigger_diff),
-	equals(c(28425600/8640000, 28425600/34560000)))
+  expect_equal(days(1:2) / new_difftime(days = 1), c(1,2))
+  		
+  expect_equal(days(2) / c(1,2), c(days(2), days(1)))
+  expect_equal(days(c(2,4)) / c(2), c(days(1), days(2)))
   
 })
 
 test_that("division operations work for duration numerator",{
-	dur <- as.duration(ymd("2010-01-01") - ymd("2009-02-03"))
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
+	int <-  ymd("2009-12-01") %--% ymd("2010-01-01")
+
 	
 	smaller_diff <- new_difftime(days = 100)
 	bigger_diff <- new_difftime(days = 400)
   
-  expect_that(dur/smaller_int, equals(28684800/2678400))
-  expect_that(dur/bigger_int, equals(28684800/34214400))
-  
-  expect_that(dur/smaller_per, equals(28684800/2764800))
-  expect_that(dur/bigger_per, equals(28684800/31561920))
-  
-  expect_that(dur/smaller_dur, equals(28684800/1742400))
-  expect_that(dur/bigger_dur, equals(28684800/31536002))
-  
-  expect_that(dur/smaller_diff, equals(28684800/8640000))
-  expect_that(dur/bigger_diff, equals(28684800/34560000))
+  expect_equal(edays(31)/int, 1)
+  expect_equal(edays(20)/ days(20), 1)
+  expect_equal(edays(20)/ edays(1), 20)
+  expect_equal(edays(20)/ new_difftime(days = 1), 20)
   
 })
 
 
 
 test_that("division works for duration numerator with vectors",{
-	dur1 <- as.duration(ymd("2010-01-01") - ymd("2009-02-03"))
-	dur2 <- as.duration(ymd("2011-01-01") - ymd("2008-02-03"))
-	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
+	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+
   
-  expect_that(c(dur1, dur2) / bigger_int, 
-  	equals(c(28684800/34214400, 91843200/34214400)))
-  expect_that(dur1 / c(smaller_int, bigger_int),   	equals(c(28684800/2678400, 28684800/34214400)))
+  expect_equal(edays(365*c(1:2)) / int2, c(0.5, 1))
+  expect_equal(edays(365) / c(int1, int2), c(1, 0.5))
   
-  expect_that(c(dur1, dur2) / bigger_per, 
-  	equals(c(28684800/31561920, 91843200/31561920)))
-  expect_that(dur1 / c(smaller_per, bigger_per), 	equals(c(28684800/2764800, 28684800/31561920)))
+  expect_equal(edays(1:2) / ehours(12), c(2,4))
+  expect_equal(edays(1) / ehours(c(12, 24)), c(2,1))
   
-  expect_that(c(dur1, dur2) / bigger_dur,  
-  	equals(c(28684800/31536002, 91843200/31536002)))
-  expect_that(dur1 / c(smaller_dur, bigger_dur),
-	equals(c(28684800/1742400, 28684800/31536002)))
+  expect_equal(edays(1:2) / ehours(12), c(2,4))
+  expect_equal(edays(1) / ehours(c(12, 24)), c(2,1)) 
    	  
-  expect_that(c(dur1, dur2) / bigger_diff, 
-  	equals(c(28684800/34560000, 91843200/34560000)))
-  expect_that(dur1 / c(smaller_diff, bigger_diff),
-	equals(c(28684800/8640000, 28684800/34560000)))
+  expect_equal(edays(1:2) / new_difftime(days = 1), c(1,2))
+  		
+  expect_equal(edays(2) / c(1,2), c(edays(2), edays(1)))
+  expect_equal(edays(c(2,4)) / c(2), c(edays(1), edays(2)))
   
 })
 
 test_that("division operations work for difftime numerator",{
-	diff <- make_difftime(as.numeric(ymd("2010-01-01") - 		ymd("2009-02-03")))
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
+	diff <- new_difftime(days = 365)
+	int <- ymd("2010-01-01") %--% ymd("2011-01-01") 
   
-  expect_that(diff/smaller_int, equals(28684800/2678400))
-  expect_that(diff/bigger_int, equals(28684800/34214400))
-  
-  expect_that(diff/smaller_per, equals(28684800/2764800))
-  expect_that(diff/bigger_per, equals(28684800/31561920))
-  
-  expect_that(diff/smaller_dur, equals(28684800/1742400))
-  expect_that(diff/bigger_dur, equals(28684800/31536002))
-  
-  expect_that(diff/smaller_diff, equals(28684800/8640000))
-  expect_that(diff/bigger_diff, equals(28684800/34560000))
-  
-})
-
-test_that("division works for difftime numerator with vectors",{
-	diff1 <- make_difftime(as.duration(ymd("2010-01-01") - 		ymd("2009-02-03")))
-	diff2 <- make_difftime(as.duration(ymd("2011-01-01") - 
-		ymd("2008-02-03")))
-	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-  
-  expect_that(c(diff1, diff2) / bigger_int, 
-  	equals(c(28684800/34214400, 91843200/34214400)))
-  expect_that(diff1 / c(smaller_int, bigger_int),   	equals(c(28684800/2678400, 28684800/34214400)))
-  
-  expect_that(c(diff1, diff2) / bigger_per, 
-  	equals(c(28684800/31561920, 91843200/31561920)))
-  expect_that(diff1 / c(smaller_per, bigger_per), 	equals(c(28684800/2764800, 28684800/31561920)))
-  
-  expect_that(c(diff1, diff2) / bigger_dur,  
-  	equals(c(28684800/31536002, 91843200/31536002)))
-  expect_that(diff1 / c(smaller_dur, bigger_dur),
-	equals(c(28684800/1742400, 28684800/31536002)))
-   	  
-  expect_that(c(diff1, diff2) / bigger_diff, 
-  	equals(c(28684800/34560000, 91843200/34560000)))
-  expect_that(diff1 / c(smaller_diff, bigger_diff),
-	equals(c(28684800/8640000, 28684800/34560000)))
+  expect_equal(diff/int, 1)
+  expect_equal(diff/days(1), 365)
+  expect_equal(diff/ edays(365), 1)
   
 })
 
 
 
-
-
-
-
-
-
-test_that("division still works for numbers",{
-  expect_that(6/2, equals(3))
-  expect_that(c(4,6)/2, equals(c(2,3)))
-  expect_that(3/2, is_a("numeric"))
-  
-})
-
-
-# division for everything
-
-test_that("division throws error for instants",{
-  x <- as.POSIXct("2010-03-15 00:00:00", tz = "UTC")
-  
-  expect_that(3 / x, throws_error())
-  expect_that(x / 3, throws_error())
-  
-})
 
 
 test_that("division works as expected for periods",{
   
   expect_that(3/months(1), throws_error())
-  expect_that(months(1)/3, throws_error(
-    "periods must have integer values"))
+  expect_that(months(1)/3, throws_error())
   expect_that(months(9)/3, equals(months(3)))
-  expect_that(months(9)/3, is_a("period"))
+  expect_that(months(9)/3, is_a("Period"))
   
 })
 
 test_that("dividing vectors works for periods",{
   
   expect_that(c(2,3)/months(1), throws_error())
-  expect_that(months(1)/c(2,3), throws_error(
-    "periods must have integer values"))
+  expect_that(months(1)/c(2,3), throws_error())
   expect_that(months(9)/c(3,1), equals(months(c(3,9))))
-  expect_that(months(9)/c(3,1), is_a("period"))
+  expect_that(months(9)/c(3,1), is_a("Period"))
   
 })
 
@@ -310,7 +168,7 @@ test_that("division works as expected for durations",{
     
   expect_that(3/ehours(1), throws_error())
   expect_that(ehours(9)/3, equals(ehours(3)))
-  expect_that(ehours(9)/3, is_a("duration"))
+  expect_that(ehours(9)/3, is_a("Duration"))
   
 })
 
@@ -318,7 +176,7 @@ test_that("dividing vectors works for durations",{
   
   expect_that(c(2,3)/ehours(1), throws_error())
   expect_that(ehours(9)/c(3,1), equals(ehours(c(3,9))))
-  expect_that(ehours(9)/c(3,1), is_a("duration"))
+  expect_that(ehours(9)/c(3,1), is_a("Duration"))
   
 })
 

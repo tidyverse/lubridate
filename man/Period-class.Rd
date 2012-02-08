@@ -6,6 +6,7 @@
 \alias{*,ANY,Period-method}
 \alias{*,Period,ANY-method}
 \alias{/,difftime,Period-method}
+\alias{/,numeric,Period-method}
 \alias{/,Period,difftime-method}
 \alias{/,Period,Duration-method}
 \alias{/,Period,Interval-method}
