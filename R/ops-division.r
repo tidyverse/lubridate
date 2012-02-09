@@ -45,7 +45,7 @@ adjust <- function(est, int, per) {
 }
 
 divide_interval_by_period <- function(int, per){
-	message(cat("Remainder cannot be expressed as fraction of a period.\nPerforming %/%."))
+    message("Remainder cannot be expressed as fraction of a period.\nPerforming %/%.")
 	estimate <- ceiling(suppressMessages(int/as.duration(per)))
 	adjust(estimate, int, per)
 }
