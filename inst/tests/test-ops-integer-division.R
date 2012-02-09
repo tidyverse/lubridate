@@ -1,6 +1,12 @@
 context("integer division operations")
 
 test_that("integer division works for interval numerator",{
+	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+	int3 <- ymd("2009-01-01") %--% ymd("2010-01-01")
+	
+	smaller_diff <- new_difftime(days = 365)
+	
 	int <- ymd("2010-01-01") - ymd("2009-02-03")
 	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
 	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
@@ -14,14 +20,14 @@ test_that("integer division works for interval numerator",{
 	smaller_diff <- new_difftime(days = 100)
 	bigger_diff <- new_difftime(days = 400)
   
-  expect_that(int %/% smaller_int, equals(10))
-  expect_that(int %/% bigger_int, equals(0))
+  expect_equal(int2 %/% int1, 2)
+  expect_equal(int1 %/% int2, 0)
   
-  expect_that(int %/% smaller_per, equals(10))
-  expect_that(int %/% bigger_per, equals(0))
+  expect_equal(int1 %/% months(1), 12)
+  expect_equal(months(12) %/% int1, 1)
   
-  expect_that(int %/% smaller_dur, equals(16))
-  expect_that(int %/% bigger_dur, equals(0))
+  expect_equal(int1 %/% edays(1), 365)
+  expect_equal(edays(365) %/% int1, 1)
   
   expect_that(int %/% smaller_diff, equals(3))
   expect_that(int %/% bigger_diff, equals(0))

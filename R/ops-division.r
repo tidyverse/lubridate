@@ -31,26 +31,25 @@ divide_interval_by_interval <- function(int, int2){
 	int@.Data / int2@.Data
 }
 
-divisible_period <- function(per, anchor){
-	per@month <- per@month + 12* per@year
-	per@year <- rep(0, length(per@year))
-	
-	secs.in.months <- as.numeric(anchor + months(per@month)) - as.numeric(anchor)
-	days.in.months <- round(secs.in.months/86400)
-	
-	per@day <- per@day + days.in.months
-	per@month <- 0
-	
-	per
-}
 
+adjust <- function(est, int, per) {
+	start <- int_start(int)
+	end <- int_end(int)
+	
+	while(any(start + est * per < end))
+		est[start + est * per < end] <- est + 1
+	while(any(start + est * per > end))
+		est[start + est * per > end] <- est - 1
+	
+	est
+}
 
 divide_interval_by_period <- function(int, per){
-	numer <- divisible_period(as.period(int), int_start(int))
-	denom <- divisible_period(per, int_start(int))
-	
-	numer/denom
+	message(cat("Remainder cannot be expressed as fraction of a period.\nPerforming %/%."))
+	estimate <- ceiling(suppressMessages(int/as.duration(per)))
+	adjust(estimate, int, per)
 }
+
 
 divide_interval_by_difftime <- function(int, diff){
 	int@.Data / as.double(diff, units = "secs")
@@ -68,11 +67,10 @@ divide_period_by_duration <- function(per, dur){
 	period_to_seconds(per) / dur@.Data
 }
 
+
+
 divide_period_by_interval <- function(per, int){
-	numer <- divisible_period(per, int_start(int))
-	denom <- divisible_period(as.period(int), int_start(int))
-	
-	numer/denom
+	per / as.period(interval)
 }
 
 divide_period_by_period <- function(per1, per2){
