@@ -33,7 +33,7 @@ test_that("division works for interval numerator with vectors",{
   expect_equal(int1 / c(int1, int2), c(1, 0.5))
   
   expect_equal(c(int1, int2) / years(1), c(1,2))
-  expect_equal(int1 / years(1:2), c(1, 0.5))
+  expect_equal(int1 / years(1:2), c(1, 0))
   
   expect_equal(c(int1, int2) / eyears(1), c(1,2))
   expect_equal(int1 / eyears(1:2), c(1, 0.5))

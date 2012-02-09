@@ -37,9 +37,9 @@ adjust <- function(est, int, per) {
 	end <- int_end(int)
 	
 	while(any(start + est * per < end))
-		est[start + est * per < end] <- est + 1
+		est[start + est * per < end] <- est[start + est * per < end] + 1
 	while(any(start + est * per > end))
-		est[start + est * per > end] <- est - 1
+		est[start + est * per > end] <- est[start + est * per > end] - 1
 	
 	est
 }
@@ -83,9 +83,9 @@ divisible_period <- function(per, anchor){
 }
 
 
-divide_interval_by_period <- function(int, per){
-	numer <- divisible_period(as.period(int), int_start(int))
-	denom <- divisible_period(per, int_start(int))
+divide_period_by_interval <- function(per, int){
+	numer <- divisible_period(per, int_start(int))
+	denom <- divisible_period(as.period(int), int_start(int))
 
 	numer/denom
 }
