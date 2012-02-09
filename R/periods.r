@@ -411,8 +411,8 @@ period_to_seconds <- function(x) {
 	60 * x@minute +
 	60 * 60 * x@hour +
 	60 * 60 * 24 * x@day +
-	60 * 60 * 24 * 365.25 / 12 * x@month +
-	60 * 60 * 24 * 365.25 * x@year
+	60 * 60 * 24 * 365 / 12 * x@month +
+	60 * 60 * 24 * 365 * x@year
 }
 	
 	
