@@ -47,30 +47,17 @@ test_that("division works for interval numerator with vectors",{
 
 
 test_that("division operations work for period numerator",{
-	per <- months(10) + days(29)
-	smaller_int <-  ymd("2009-12-01") %--% ymd("2010-01-01")
-	bigger_int <- ymd("2009-01-01") %--% ymd("2010-02-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
+	int1 <- ymd("2009-01-01") %--% ymd("2010-01-01")
+
   
-  expect_equal(months(1)/smaller_int, 1)
-  expect_equal(months(13)/bigger_int, 1)
-  
-  expect_that(per/smaller_per, equals(28425600/2764800))
-  expect_that(per/bigger_per, equals(28425600/31561920))
-  
-  expect_that(per/smaller_dur, equals(28425600/1742400))
-  expect_that(per/bigger_dur, equals(28425600/31536002))
-  
-  expect_that(per/smaller_diff, equals(28425600/8640000))
-  expect_that(per/bigger_diff, equals(28425600/34560000))
+  expect_equal(years(2) / int1, 2)
+  expect_equal(days(2) / hours(12), 4)
+  expect_equal(years(1) / months(1), 12)
+  expect_equal(days(2) / ehours(12), 4)
+   	  
+  expect_equal(days(1) / new_difftime(days = 1), 1)
+  		
+  expect_equal(days(2) / 2, days(1))
   
 })
 

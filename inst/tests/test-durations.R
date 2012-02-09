@@ -65,7 +65,7 @@ test_that("as.duration handles periods",{
   expect_that(as.duration(hours(3)), equals(dhours(3)))
   expect_that(as.duration(days(4)), equals(ddays(4)))
   expect_that(as.duration(weeks(5)), equals(dweeks(5)))
-  expect_that(as.duration(months(1)), equals(dseconds(60*60*24*30)))
+  expect_that(as.duration(months(1)), equals(dseconds(60*60*24*365.25/12)))
   expect_that(as.duration(years(1)), equals(dseconds(60*60*24*365.25)))
   expect_that(as.duration(seconds(1) + minutes(4)), equals(dseconds(1) + dminutes(4)))
 })

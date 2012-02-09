@@ -3,22 +3,6 @@ context("integer division operations")
 test_that("integer division works for interval numerator",{
 	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
 	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
-	int3 <- ymd("2009-01-01") %--% ymd("2010-01-01")
-	
-	smaller_diff <- new_difftime(days = 365)
-	
-	int <- ymd("2010-01-01") - ymd("2009-02-03")
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
   
   expect_equal(int2 %/% int1, 2)
   expect_equal(int1 %/% int2, 0)
@@ -29,45 +13,41 @@ test_that("integer division works for interval numerator",{
   expect_equal(int1 %/% edays(1), 365)
   expect_equal(edays(365) %/% int1, 1)
   
-  expect_that(int %/% smaller_diff, equals(3))
-  expect_that(int %/% bigger_diff, equals(0))
-  
 })
 
 
 test_that("integer division works for interval numerator with vectors",{
-	int1 <- ymd("2010-01-01") - ymd("2009-02-03")
-	int2 <- ymd("2011-01-01") - ymd("2008-02-03")
-	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
+	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+	int3 <- ymd("2009-01-01") %--% ymd("2010-01-01")
+
+
+  expect_equal(int2 %/% c(int1, int3), c(2, 2))
+  expect_equal(c(int1, int2) %/% int3, c(1, 2))
   
-  expect_that(c(int1, int2) %/% bigger_int, equals(c(0,2)))
-  expect_that(int1 %/% c(smaller_int, bigger_int), 	equals(c(10,0)))
+  expect_equal(int1 %/% months(1:2), c(12, 6))
+  expect_equal(months(c(6, 12)) %/% int1, c(0, 1))
   
-  expect_that(c(int1, int2) %/% bigger_per, equals(c(0,2)))
-  expect_that(int1 %/% c(smaller_per, bigger_per), 	equals(c(10,0)))
-  
-  expect_that(c(int1, int2) %/% bigger_dur, equals(c(0,2)))
-  expect_that(int1 %/% c(smaller_dur, bigger_dur), 	equals(c(16,0)))
-  
-  expect_that(c(int1, int2) %/% bigger_diff, equals(c(0,2)))
-  expect_that(int1 %/% c(smaller_diff, bigger_diff), 
-  	equals(c(3,0)))
+  expect_equal(int1 %/% edays(1:2), c(365, 182))
+  expect_equal(edays(c(365, 365*2)) %/% int1, c(1, 2))
   
 })
 
 
 test_that("integer division works for period numerator",{
+	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+
+
+  expect_equal(years(2) %/% c(int1, int2), c(2, 1))
+  expect_equal(years(1:2) %/% int1, c(1, 2))
+  
+  expect_equal(years(1) %/% months(1:2), c(12, 6))
+  expect_equal(months(c(6, 12)) %/% years(1), c(0, 1))
+  
+  expect_equal(int1 %/% edays(1:2), c(365, 182))
+  expect_equal(edays(c(365, 365*2)) %/% int1, c(1, 2))
+	
 	per <- as.period(ymd("2010-01-01") - ymd("2009-02-03"))
 	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
 	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
