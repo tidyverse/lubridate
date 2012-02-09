@@ -69,8 +69,25 @@ divide_period_by_duration <- function(per, dur){
 
 
 
-divide_period_by_interval <- function(per, int){
-	per / as.period(int)
+divisible_period <- function(per, anchor){
+	per@month <- per@month + 12* per@year
+	per@year <- rep(0, length(per@year))
+
+	secs.in.months <- as.numeric(anchor + months(per@month)) - as.numeric(anchor)
+	days.in.months <- round(secs.in.months/86400)
+
+	per@day <- per@day + days.in.months
+	per@month <- 0
+
+	per
+}
+
+
+divide_interval_by_period <- function(int, per){
+	numer <- divisible_period(as.period(int), int_start(int))
+	denom <- divisible_period(per, int_start(int))
+
+	numer/denom
 }
 
 divide_period_by_period <- function(per1, per2){
