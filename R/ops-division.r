@@ -70,7 +70,7 @@ divide_period_by_duration <- function(per, dur){
 
 
 divide_period_by_interval <- function(per, int){
-	per / as.period(interval)
+	per / as.period(int)
 }
 
 divide_period_by_period <- function(per1, per2){
