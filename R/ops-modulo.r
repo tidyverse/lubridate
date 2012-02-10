@@ -6,9 +6,10 @@ modulo_spans <- function(e1, e2){
 		stop("attempt to use an unrecognized timespan object with a timespan") 
 	if (is.interval(e1))
 		int_remainder(e1, e2)
-	if (class(e1)[1] != class(e2)[1])
+	else if (class(e1)[1] != class(e2)[1]) {
 	    e1 <- reclass_timespan(e1, e2)
-	get_remainder(e1, e2)
+		get_remainder(e1, e2)
+	}
 }
 
 # returns remainder as decimal

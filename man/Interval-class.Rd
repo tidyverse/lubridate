@@ -1,7 +1,9 @@
 \name{Interval-class}
 \alias{-,Date,Interval-method}
+\alias{-,Duration,Interval-method}
 \alias{-,Interval,Interval-method}
 \alias{-,Interval,missing-method}
+\alias{-,Period,Interval-method}
 \alias{-,POSIXct,Interval-method}
 \alias{-,POSIXlt,Interval-method}
 \alias{[,Interval-method}

@@ -36,6 +36,14 @@ setMethod("-", signature(e2 = "Duration"),
 #' @export
 setMethod("-", signature(e1 = "Interval", e2 = "Interval"),
 	function(e1, e2) setdiff(e1, e2))
+	
+#' @export
+setMethod("-", signature(e1 = "Duration", e2 = "Interval"),
+	function(e1, e2) e1  + (-1 * as.duration(e2)))
+	
+#' @export
+setMethod("-", signature(e1 = "Period", e2 = "Interval"),
+	function(e1, e2) e1  + (-1 * as.period(e2)))
 
 #' @export	
 setMethod("-", signature(e2 = "Period"), 

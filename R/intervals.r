@@ -86,6 +86,8 @@ check_interval <- function(object){
 #' @aliases -,Date,Interval-method
 #' @aliases -,POSIXct,Interval-method
 #' @aliases -,POSIXlt,Interval-method
+#' @aliases -,Duration,Interval-method
+#' @aliases -,Period,Interval-method
 setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
 
 #' @export
@@ -323,6 +325,35 @@ int_overlaps <- function(int1, int2){
 	int1@start <= int2@start + int2@.Data & int2@start <= int1@start + int1@.Data
 }
 
+#' Ensures all intervals in an interval object are positive
+#'
+#' If an interval is not positive, int_standardize flips it so that it 
+#' retains its endpoints but becomes positive.
+#'
+#' @export "int_standardize"
+#' @param int1 an Interval object
+int_standardize <- function(int){
+	int[int@.Data < 0] <- int_flip(int[int@.Data < 0])
+	int
+}
+	
+	first.int1 == first.y | last.int1 == last.y
+}
+
+
+#' Test if two intervals share an endpoint
+#'
+#' @export "int_aligns"
+#' @param int1 an Interval object
+#' @param int2 an Interval object
+#' @return Logical. TRUE if int1 and int2 at least one endpoint in any combination. FALSE otherwise.
+int_aligns <- function(int1, int2){
+	int1 <- int_standardize(int1)
+	int2 <- int_standardise(int2)
+	
+	first.int1 == first.y | last.int1 == last.y
+}
+
 #' @export
 setGeneric("intersect")
 
@@ -370,17 +401,22 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 #' @export
 setGeneric("setdiff")
 
+# returns the part of x that is not in y
 #' @export
 setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
-	if (any(y %within% x)) {
-		stop(paste("Cases", which(y %within% x), 
-			"result in discontinuous intervals."))
-	}
-	
 	first.x <- pmin(x@start, x@start + x@.Data)
 	first.y <- pmin(y@start, y@start + y@.Data)
 	last.x <- pmax(x@start, x@start + x@.Data)
 	last.y <- pmax(y@start, y@start + y@.Data)
+	
+	aligned <- which(int_aligns(x, y))
+	inside <- which(y %within% x)
+	makes2 <- setdiff(aligned, inside)
+	
+	if (length(makes2)) {
+		stop(paste("Cases", makes2, 
+			"result in discontinuous intervals."))
+	}
 	
 	start <- first.x
 	start[last.y %within% x] <- last.y[last.y %within% x]

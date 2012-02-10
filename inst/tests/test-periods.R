@@ -22,31 +22,30 @@ test_that("is.period handles vectors",{
 
 
 test_that("new_period works as expected", {
-  per <- new_period(second = 90, minute = 5)
+  per <- period(second = 90, minute = 5)
   
-  expect_that(class(per)[1], matches("period"))
-  expect_that(new_period(hours = 25), equals(hours(25)))
-  expect_that(per[[1]], equals(0))
-  expect_that(per[[2]], equals(0))
-  expect_that(per[[3]], equals(0))
-  expect_that(per[[4]], equals(0))
-  expect_that(per[[5]], equals(5))
-  expect_that(per[[6]], equals(90))
+  expect_is(per, "Period")
+  expect_equal(new_period(hours = 25), hours(25))
+  expect_equal(per@year, 0)
+  expect_equal(per@month, 0)
+  expect_equal(per@day, 0)
+  expect_equal(per@hour, 0)
+  expect_equal(per@minute, 5)
+  expect_equal(per@.Data, 90)
   
 })
 
 test_that("new_period handles vector input", {
   per <- new_period(second = c(90,60), minute = 5)
   
-  expect_that(dim(per), equals(c(2,6)))
-  expect_that(per[[1]], equals(c(0,0)))
-  expect_that(per[[2]], equals(c(0,0)))
-  expect_that(per[[3]], equals(c(0,0)))
-  expect_that(per[[4]], equals(c(0,0)))
-  expect_that(per[[5]], equals(c(5,5)))
-  expect_that(per[[6]], equals(c(90,60)))
-
-
+  expect_is(per, "Period")
+  expect_equal(length(per), 2)
+  expect_equal(per@year, c(0, 0))
+  expect_equal(per@month, c(0, 0))
+  expect_equal(per@day, c(0, 0))
+  expect_equal(per@hour, c(0, 0))
+  expect_equal(per@minute, c(5, 5))
+  expect_equal(per@.Data, c(90, 60))
 })
 
 
@@ -55,16 +54,15 @@ test_that("period objects handle vector input", {
   expect_that(as.numeric(x + minutes(c(1,3,4))), equals(as.numeric(x + c(60,180,240))))
 })
 
-test_that("print.period works as expected", {
+test_that("format.Period works as expected", {
   per <- new_period(second = 90, minute = 5)
-  expect_that(print(per), 
-    matches("5 minutes and 90 seconds"))
+  expect_match(format(per), "5 minutes and 90 seconds")
 })
 
 test_that("as.period handles interval objects", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
-  int <- new_interval(time2, time1)
+  int <- new_interval(time1, time2)
     
   expect_that(as.period(int), equals(years(1)))
 })
@@ -73,7 +71,7 @@ test_that("as.period handles vectors", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
   time3 <- as.POSIXct("2010-08-03 13:01:59", tz = "UTC")
-  int <- new_interval(time3, c(time2, time1))
+  int <- new_interval(c(time2, time1), time3)
     
   dur <- new_duration(seconds = 5, minutes = c(30,59))
     

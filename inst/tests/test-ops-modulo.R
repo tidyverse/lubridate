@@ -1,6 +1,19 @@
 context("modulo operations")
 
 test_that("modulo operations work for interval numerator",{
+	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+  
+  expect_equal(int2 %% int1, 2)
+  expect_equal(int1 %% int2, 0)
+  
+  expect_equal(int1 %% months(1), 12)
+  expect_equal(months(12) %% int1, 1)
+  
+  expect_equal(int1 %% edays(1), 365)
+  
+  expect_equal(edays(365) %% int1, 1)
+	
 	int <- ymd("2010-01-01") - ymd("2009-02-03")
 	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
 	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
