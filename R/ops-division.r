@@ -11,10 +11,10 @@ divide_duration_by_duration <- function(dur1, dur2)
 	dur1@.Data / dur2@.Data
 	
 divide_duration_by_interval <- function(dur, int)
-	dur@.Data / int@.Data
+	stop("Incompatible timespan classes:\n  change class with as.duration()")
 	
 divide_duration_by_period <- function(dur, per)
-	dur@.Data / period_to_seconds(per)
+	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 
 divide_duration_by_difftime <- function(dur, diff)
 	dur@.Data / as.numeric(diff, units = "secs")
@@ -45,7 +45,7 @@ adjust <- function(est, int, per) {
 }
 
 divide_interval_by_period <- function(int, per){
-    message("Remainder cannot be expressed as fraction of a period.\nPerforming %/%.")
+    message("Remainder cannot be expressed as fraction of a period.\n  Performing %/%.")
 	estimate <- ceiling(suppressMessages(int/as.duration(per)))
 	adjust(estimate, int, per)
 }
@@ -56,15 +56,12 @@ divide_interval_by_difftime <- function(int, diff){
 }
 
 divide_interval_by_number <- function(int, num){
-	starts <- int@start + rep(0, length(num))
-	new("Interval", int@.Data / num, start = starts, tzone = int@tzone)
+	new("Interval", int@.Data / num, start = int@start, tzone = int@tzone)
 }
 
 
-
 divide_period_by_duration <- function(per, dur){
-	message("estimate only: convert to intervals for accuracy")
-	period_to_seconds(per) / dur@.Data
+	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 }
 
 
@@ -84,10 +81,8 @@ divisible_period <- function(per, anchor){
 
 
 divide_period_by_interval <- function(per, int){
-	numer <- divisible_period(per, int_start(int))
-	denom <- divisible_period(as.period(int), int_start(int))
+	stop("Incompatible timespan classes:\n  change class with as.period()")
 
-	numer/denom
 }
 
 divide_period_by_period <- function(per1, per2){
@@ -96,7 +91,8 @@ divide_period_by_period <- function(per1, per2){
 }
 
 divide_period_by_difftime <- function(per, diff){
-	period_to_seconds(per) / as.numeric(diff, units = "secs")
+	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
+
 }
 
 divide_period_by_number <- function(per, num){
@@ -105,21 +101,18 @@ divide_period_by_number <- function(per, num){
 		minute = per@minute / num)
 }
 
-remainder_period_into_interval <- function(per, int){
-	integ <- trunc(int / per)
-	as.period(new_interval(int@start + integ * per, int_end(int)))
-}
-
 
 
 divide_difftime_by_duration <- function(dif, dur)
 	as.numeric(dif, units = "secs") / dur@.Data
 
 divide_difftime_by_interval <- function(dif, int)
-	as.numeric(dif, units = "secs") / int@.Data
+	stop("Incompatible timespan classes:\n  change class with as.duration()")
+
 
 divide_difftime_by_period <- function(dif, per)
-	as.numeric(dif, units = "secs") / period_to_seconds(per)
+	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
+
 	
 
 
