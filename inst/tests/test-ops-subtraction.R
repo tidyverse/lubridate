@@ -131,13 +131,17 @@ test_that("subtraction works as expected for intervals",{
 
     
   time3 <- as.POSIXct("2008-11-02 00:00:00", tz = "UTC") 
-  time4 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
-  int2 <- new_interval(time3, time4)
-  diff1 <- difftime(time2, time1)
-  diff2 <- difftime(time4, time3)
-  dur <- as.duration(diff1 - diff2)
+  int2 <- interval(time3, time2)
+  int3 <- interval(time1, time3)
+  int4 <- interval(time1 - years(1), time3)
+  int5 <- interval(time3, time2 + months(1))
+
     
-  expect_that(int - int2, equals(dur))  
+  expect_equal(int - int2, int3)  
+  expect_equal(int - int3, int2) 
+  expect_equal(int3 - int2, int3) 
+  expect_equal(int - int4, int2) 
+  expect_equal(int - int5, int3)
 
 })
 

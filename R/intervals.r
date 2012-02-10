@@ -336,9 +336,6 @@ int_standardize <- function(int){
 	int[int@.Data < 0] <- int_flip(int[int@.Data < 0])
 	int
 }
-	
-	first.int1 == first.y | last.int1 == last.y
-}
 
 
 #' Test if two intervals share an endpoint
@@ -349,9 +346,9 @@ int_standardize <- function(int){
 #' @return Logical. TRUE if int1 and int2 at least one endpoint in any combination. FALSE otherwise.
 int_aligns <- function(int1, int2){
 	int1 <- int_standardize(int1)
-	int2 <- int_standardise(int2)
+	int2 <- int_standardize(int2)
 	
-	first.int1 == first.y | last.int1 == last.y
+	int1@start == int2@start | (int1@start + int1@.Data) == (int2@start + int2@.Data)
 }
 
 #' @export
@@ -359,13 +356,11 @@ setGeneric("intersect")
 
 #' @export
 setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
-	first.x <- pmin(x@start, x@start + x@.Data)
-	first.y <- pmin(y@start, y@start + y@.Data)
-	last.x <- pmax(x@start, x@start + x@.Data)
-	last.y <- pmax(y@start, y@start + y@.Data)
+	int1 <- int_standardize(x)
+	int2 <- int_standardize(y)
 	
-	starts <- pmax(x@start, y@start)
-	ends <- pmin(x@start + x@.Data, y@start + y@.Data)
+	starts <- pmax(int1@start, int2@start)
+	ends <- pmin(int1@start + int1@.Data, int2@start + int2@.Data)
 	spans <- as.numeric(ends) - as.numeric(starts) 
 	
 	no.int <- ends < starts
@@ -380,18 +375,15 @@ setGeneric("union")
 
 #' @export
 setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
-	first.x <- pmin(x@start, x@start + x@.Data)
-	first.y <- pmin(y@start, y@start + y@.Data)
-	last.x <- pmax(x@start, x@start + x@.Data)
-	last.y <- pmax(y@start, y@start + y@.Data)
+	int1 <- int_standardize(x)
+	int2 <- int_standardize(y)
 	
-	starts <- pmin(first.x, first.y)
-	ends <- pmax(last.x, last.y)
+	starts <- pmin(int1@start, int2@start)
+	ends <- pmax(int1@start + int1@.Data, int2@start + int2@.Data)
 
 	spans <- as.numeric(ends) - as.numeric(starts) 
 	
-	no.overlap <- spans > (x@.Data + y@.Data)
-	if(any(no.overlap[!is.na(no.overlap)])) 
+	if(any(!int_overlaps(int1, int2))) 
 		message("Union includes intervening time between intervals.")
 		
 	tz(starts) <- x@tzone
@@ -404,11 +396,6 @@ setGeneric("setdiff")
 # returns the part of x that is not in y
 #' @export
 setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
-	first.x <- pmin(x@start, x@start + x@.Data)
-	first.y <- pmin(y@start, y@start + y@.Data)
-	last.x <- pmax(x@start, x@start + x@.Data)
-	last.y <- pmax(y@start, y@start + y@.Data)
-	
 	aligned <- which(int_aligns(x, y))
 	inside <- which(y %within% x)
 	makes2 <- setdiff(aligned, inside)
@@ -418,11 +405,17 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 			"result in discontinuous intervals."))
 	}
 	
-	start <- first.x
-	start[last.y %within% x] <- last.y[last.y %within% x]
+	int1 <- int_standardize(x)
+	int2 <- int_standardize(y)
+	
+	first.y <- int_start(int2)
+	last.y <- int_end(int2)
+	
+	starts <- int_start(int1)
+	starts[(last.y + 1) %within% int1] <- last.y[(last.y + 1) %within% int1]
 
-	end <- last.x
-	end[first.y %within% x] <- first.y[first.y %within% x]
+	ends <- int_end(int1)
+	ends[(first.y - 1) %within% int1] <- first.y[(first.y - 1) %within% int1]
 	
 	spans <- as.numeric(ends) - as.numeric(starts)
 	
