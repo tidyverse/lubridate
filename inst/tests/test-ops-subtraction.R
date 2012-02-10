@@ -95,8 +95,7 @@ test_that("subtraction works as expected for durations",{
 
   expect_error(eyears(1) - as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
 
-
-  expect_equal(eyears(1) - minutes(3), period(minutes = -3, seconds = 31536000))
+  expect_equal(eyears(1) - minutes(3), dseconds(31535820))
   
   expect_equal(eyears(2) - eyears(1), eyears(1))
     
@@ -111,7 +110,7 @@ test_that("subtraction works as expected for durations",{
 test_that("subtraction with durations returns correct class",{
   
   expect_that(eyears(1) - 1, is_a("Duration"))
-  expect_that(eyears(1) - minutes(3), is_a("Period"))  
+  expect_that(eyears(1) - minutes(3), is_a("Duration"))  
   expect_that(dyears(1) - dyears(1), is_a("Duration"))
   
 })

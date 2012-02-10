@@ -1,282 +1,70 @@
 context("modulo operations")
 
-test_that("modulo operations work for interval numerator",{
-	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+test_that("modulo operations return correct class",{
+	int <- ymd("2010-01-01") %--% ymd("2011-01-01") 
 	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
-  
-  expect_equal(int2 %% int1, 2)
-  expect_equal(int1 %% int2, 0)
-  
-  expect_equal(int1 %% months(1), 12)
-  expect_equal(months(12) %% int1, 1)
-  
-  expect_equal(int1 %% edays(1), 365)
-  
-  expect_equal(edays(365) %% int1, 1)
 	
-	int <- ymd("2010-01-01") - ymd("2009-02-03")
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
+	expect_is(int %% int2, "Interval")
+	expect_is(int %% months(1), "Interval")
+	expect_is(int %% edays(10), "Interval")	
 	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
+	expect_is(months(3) %% int, "Period")
+	expect_is(days(3) %% hours(2), "Period")
+	expect_is(days(5) %% eminutes(300), "Period")	
 	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-  
-  expect_that(int %% smaller_int, equals(ddays(22)))
-  expect_that(int %% bigger_int, equals(ddays(332)))
-  
-  expect_that(int %% smaller_per, equals(days(9)))
-  expect_that(int %% bigger_per, equals(months(10) + days(29)))
-  
-  expect_that(int %% smaller_dur, equals(dseconds(806400)))
-  expect_that(int %% bigger_dur, equals(ddays(332)))
-  
-  expect_that(int %% smaller_diff, equals(.difftime(32, "days")))
-  expect_that(int %% bigger_diff, equals(.difftime(332, "days")))
-  
+	expect_is(eyears(3) %% int, "Duration")
+	expect_is(edays(2) %% weeks(1), "Duration")
+	expect_is(edays(3) %% edays(1), "Duration")		
+
 })
 
+	
+test_that("modulo operations synchronize with integer division",{	
+	int <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+	
+	expect_equal(int2 %% int + int2 %/% int * int, int2)
+	expect_equal(int %% years(2) + int %/% years(2) * years(2), int)
+	expect_equal(int %% eweeks(20) + int %/% eweeks(20) * eweeks(20), int)	
+	
+	expect_equal(years(2) %% int + years(2) %/% int * int, years(2))
+	expect_equal(years(2) %% months(5) + years(2) %/% months(5) * months(5), years(2))
+	expect_equal(years(2) %% eweeks(20) + years(2) %/% eweeks(20) * eweeks(20), years(2))		
+	
+	expect_equal(eweeks(20) %% int + eweeks(20) %/% int * int, eweeks(20))
+	expect_equal(eweeks(20) %% years(2) + eweeks(20) %/% years(2) * years(2), eweeks(20))
+	expect_equal(eweeks(20) %% edays(20) + eweeks(20) %/% edays(20) * eweeks(20), eweeks(20))	
+
+})	
+	
+	
+test_that("modulo operations work for vectors",{	
+	int <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+	int3 <- ymd("2008-01-01") %--% ymd("2009-02-01")
+	
+	expect_equal(c(int, int3) %% int2 + c(int, int3) %/% int2 * int2, c(int, int3))
+	expect_equal(c(int, int3) %% years(2) + c(int, int3) %/% years(2) * years(2), c(int, int3))
+	expect_equal(c(int, int3) %% eweeks(20) + c(int, int3) %/% eweeks(20) * eweeks(20), c(int, int3))	
+	expect_equal(int %% c(int2, int3) + int %/% c(int2, int3) * c(int2, int3), c(int, int))
+	expect_equal(int %% years(2:3) + int %/% years(2:3) * years(2:3), c(int, int))
+	expect_equal(int %% eweeks(20:21) + int %/% eweeks(20:21) * eweeks(20:21), c(int, int))	
+	
+	expect_equal(years(2:3) %% int + years(2:3) %/% int * int,years(2:3))
+	expect_equal(years(2:3) %% months(5) + years(2:3) %/% months(5) * months(5), years(2:3))
+	expect_equal(years(2:3) %% eweeks(20) + years(2:3) %/% eweeks(20) * eweeks(20), years(2:3))
+	expect_equal(years(2) %% c(int2, int3) + years(2) %/% c(int2, int3) * c(int2, int3), years(c(2,2)))
+	expect_equal(years(2) %% months(5:6) + years(2) %/% months(5:6) * months(5:6), years(c(2,2)))
+	expect_equal(years(2) %% eweeks(20:21) + years(2) %/% eweeks(20:21) * eweeks(20:21), years(c(2,2)))		
+	
+	expect_equal(eweeks(20:21) %% int + eweeks(20:21) %/% int * int, eweeks(20:21))
+	expect_equal(eweeks(20:21) %% years(2) + eweeks(20:21) %/% years(2) * years(2), eweeks(20:21))
+	expect_equal(eweeks(20:21) %% edays(20) + eweeks(20:21) %/% edays(20) * eweeks(20:21), eweeks(20:21))
+	expect_equal(eweeks(20) %% c(int2, int3) + eweeks(20) %/% c(int2, int3) * c(int2, int3), c(eweeks(20), eweeks(20)))
+	expect_equal(eweeks(20) %% years(2:3) + eweeks(20) %/% years(2:3) * years(2:3), c(eweeks(20), eweeks(20)))
+	expect_equal(eweeks(20) %% edays(20:21) + eweeks(20) %/% edays(20:21) * edays(20:21), c(eweeks(20), eweeks(20)))	
 
 
-
-test_that("modulo operations work for interval numerator with vectors",{
-	int1 <- ymd("2010-01-01") - ymd("2009-02-03")
-	int2 <- ymd("2011-01-01") - ymd("2008-02-03")
+})		
 	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
 	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-	
-	per <- as.period(int1)
-	pers <- c(per, per - minutes(144))
-  
-  expect_that(c(int1, int2) %% bigger_int, 
-  	equals(dseconds(c(28684800,23414400))))
-  expect_that(int1 %% c(smaller_int, bigger_int), 	equals(dseconds(c(1900800,28684800))))
-  
-  expect_that(c(int1, int2) %% bigger_per, equals(pers))
-  expect_that(int1 %% c(smaller_per, bigger_per), 	equals(c(days(9),per)))
-  
-  expect_that(c(int1, int2) %% bigger_dur,  
-   	equals(dseconds(c(28684800,28771196))))
-  expect_that(int1 %% c(smaller_dur, bigger_dur),
-   	equals(dseconds(c(806400, 28684800))))
-   	  
-  expect_that(c(int1, int2) %% bigger_diff, 
-  	equals(new_difftime(days = c(332,263))))
-  expect_that(int1 %% c(smaller_diff, bigger_diff),
-  	equals(new_difftime(days = c(32, 332))))
-  
-})
-
-test_that("modulo operations work for period numerator",{
-	per <- as.period(ymd("2010-01-01") - ymd("2009-02-03"))
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-  
-  expect_that(per %% smaller_int, equals(ddays(19)))
-  expect_that(per %% bigger_int, equals(ddays(329)))
-  
-  expect_that(per %% smaller_per, equals(days(9)))
-  expect_that(per %% bigger_per, equals(months(10) + days(29)))
-  
-  expect_that(per %% smaller_dur, equals(dseconds(547200)))
-  expect_that(per %% bigger_dur, equals(ddays(329)))
-  
-  expect_that(per %% smaller_diff, equals(.difftime(29, "days")))
-  expect_that(per %% bigger_diff, equals(.difftime(329, "days")))
-  
-})
-
-test_that("modulo operations work for period numerator with vectors",{
-	per1 <- as.period(ymd("2010-01-01") - ymd("2009-02-03"))
-	per2 <- as.period(ymd("2011-01-01") - ymd("2008-02-03"))
-	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-	
-	per <- as.period(ymd("2010-01-01") - ymd("2009-02-03"))
-	pers <- c(per, per - minutes(144))
-  
-  expect_that(c(per1, per2) %% bigger_int, 
-  	equals(dseconds(c(28425600,23112000))))
-  expect_that(per1 %% c(smaller_int, bigger_int), 	equals(dseconds(c(1641600,28425600))))
-  
-  expect_that(c(per1, per2) %% bigger_per, equals(pers))
-  expect_that(per1 %% c(smaller_per, bigger_per), 	equals(c(days(9),per)))
-  
-  expect_that(c(per1, per2) %% bigger_dur,  
-   	equals(dseconds(c(28425600,28468796))))
-  expect_that(per1 %% c(smaller_dur, bigger_dur),
-   	equals(dseconds(c(547200, 28425600))))
-   	  
-  expect_that(c(per1, per2) %% bigger_diff, 
-  	equals(new_difftime(days = c(329,259.5))))
-  expect_that(per1 %% c(smaller_diff, bigger_diff),
-  	equals(new_difftime(days = c(29, 329))))
-  
-})
-
-
-test_that("modulo operations work for period numerator",{
-	dur <- as.duration(ymd("2010-01-01") - ymd("2009-02-03"))
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-  
-  expect_that(dur %% smaller_int, equals(ddays(22)))
-  expect_that(dur %% bigger_int, equals(ddays(332)))
-  
-  expect_that(dur %% smaller_per, equals(days(312) - months(10)))
-  expect_that(dur %% bigger_per, equals(days(332)))
-  
-  expect_that(dur %% smaller_dur, equals(dseconds(806400)))
-  expect_that(dur %% bigger_dur, equals(dseconds(28684800)))
-  
-  expect_that(dur %% smaller_diff, equals(.difftime(32, "days")))
-  expect_that(dur %% bigger_diff, equals(.difftime(332, "days")))
-  
-})
-
-
-
-test_that("modulo operations work for duration numerator with vectors",{
-	dur1 <- as.duration(ymd("2010-01-01") - ymd("2009-02-03"))
-	dur2 <- as.duration(ymd("2011-01-01") - ymd("2008-02-03"))
-	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-  
-  expect_that(c(dur1, dur2) %% bigger_int, 
-  	equals(dseconds(c(28684800,23414400))))
-  expect_that(dur1 %% c(smaller_int, bigger_int), 	equals(dseconds(c(1900800,28684800))))
-  
-  expect_that(c(dur1, dur2) %% bigger_per, 
-  	equals(c(days(332), days(332) + hours(12) - minutes(144))))
-  expect_that(dur1 %% c(smaller_per, bigger_per), 	equals(c(days(312) - months(10), days(332))))
-  
-  expect_that(c(dur1, dur2) %% bigger_dur,  
-   	equals(dseconds(c(28684800,28771196))))
-  expect_that(dur1 %% c(smaller_dur, bigger_dur),
-   	equals(dseconds(c(806400, 28684800))))
-   	  
-  expect_that(c(dur1, dur2) %% bigger_diff, 
-  	equals(new_difftime(days = c(332,263))))
-  expect_that(dur1 %% c(smaller_diff, bigger_diff),
-  	equals(new_difftime(days = c(32, 332))))
-  
-})
-
-test_that("modulo operations work for period numerator",{
-	diff <- make_difftime(as.duration(ymd("2010-01-01") - 
-		ymd("2009-02-03")))
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-  
-  expect_that(diff %% smaller_int, equals(dseconds(1900800)))
-  expect_that(diff %% bigger_int, equals(dseconds(28684800)))
-  
-  expect_that(diff %% smaller_per, equals(days(312) - months(10)))
-  expect_that(diff %% bigger_per, equals(days(332)))
-  
-  expect_that(diff %% smaller_dur, equals(dseconds(806400)))
-  expect_that(diff %% bigger_dur, equals(dseconds(28684800)))
-  
-  expect_that(diff %% smaller_diff, equals(.difftime(32, "days")))
-  expect_that(diff %% bigger_diff, equals(.difftime(332, "days")))
-  
-})
-
-test_that("modulo operations work for duration numerator with vectors",{
-	diff1 <- make_difftime(as.duration(ymd("2010-01-01") - 		ymd("2009-02-03")))
-	diff2 <- make_difftime(as.duration(ymd("2011-01-01") - 
-		ymd("2008-02-03")))
-	
-	smaller_int <- ymd("2010-01-01") - ymd("2009-12-01")
-	bigger_int <- ymd("2010-02-01") - ymd("2009-01-01")
-	
-	smaller_per <- months(1) + days(2)
-	bigger_per <- years(1) + minutes(72)
-	
-	smaller_dur <- ddays(20) + dhours(4)
-	bigger_dur <- dyears(1) + dseconds(2)
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
-  
-  expect_that(c(diff1, diff2) %% bigger_int, 
-  	equals(dseconds(c(28684800,23414400))))
-  expect_that(diff1 %% c(smaller_int, bigger_int), 	equals(dseconds(c(1900800,28684800))))
-  
-  expect_that(c(diff1, diff2) %% bigger_per, 
-  	equals(c(days(332), days(332) + hours(12) - minutes(144))))
-  expect_that(diff1 %% c(smaller_per, bigger_per), 	equals(c(days(312) - months(10), days(332))))
-  
-  expect_that(c(diff1, diff2) %% bigger_dur,  
-   	equals(dseconds(c(28684800,28771196))))
-  expect_that(diff1 %% c(smaller_dur, bigger_dur),
-   	equals(dseconds(c(806400, 28684800))))
-   	  
-  expect_that(c(diff1, diff2) %% bigger_diff, 
-  	equals(new_difftime(days = c(332,263))))
-  expect_that(diff1 %% c(smaller_diff, bigger_diff),
-  	equals(new_difftime(days = c(32, 332))))
-  
-})

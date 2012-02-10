@@ -18,8 +18,8 @@ add_duration_to_interval <- function(dur, int) {
 }
 
 add_duration_to_period <- function(dur, per){
-	message("duration converted to seconds")
-	per + seconds(dur@.Data)
+	message("period converted to duration")
+	dur + period_to_seconds(per)
 }
 
 add_duration_to_date <- function(dur, date) {
@@ -44,12 +44,17 @@ add_interval_to_date <- function(int, date){
 	add_duration_to_date(dur, date)
 }
 
-add_interval_to_interval <- function(int2, int1){
-	union(int2, int1)
+add_interval_to_interval <- function(int1, int2){
+	message("second interval converted to duration")
+	int1 + as.duration(int2)	
 }
 
 
 
+add_period_to_duration <- function(per, dur){
+	message("duration converted to period")
+	per + seconds(dur@.Data)
+}
 
 add_period_to_interval <- function(per, int){
   end <- int@start + int@.Data
@@ -142,7 +147,7 @@ setMethod("+", signature(e1 = "Interval", e2 = "Duration"),
 
 #' @export	
 setMethod("+", signature(e1 = "Interval", e2 = "Interval"),
-	function(e1, e2) add_interval_to_interval(e2, e1))
+	function(e1, e2) add_interval_to_interval(e1, e2))
 
 #' @export	
 setMethod("+", signature(e1 = "Interval", e2 = "Period"),
@@ -171,7 +176,7 @@ setMethod("+", signature(e1 = "Interval", e2 = "POSIXlt"),
 
 #' @export 
 setMethod("+", signature(e1 = "Period", e2 = "Duration"),
-	function(e1, e2) add_duration_to_period(e2, e1))
+	function(e1, e2) add_period_to_duration(e1, e2))
 
 #' @export 	
 setMethod("+", signature(e1 = "Period", e2 = "Interval"),

@@ -131,8 +131,7 @@ test_that("addition works as expected for durations",{
   
   expect_equal(dyears(1) + 1, new_duration(31536001))
   expect_that(dyears(1) + x, equals(y))
-  expect_that(dyears(1) + minutes(3), equals(new_period(
-    minutes = 3, seconds = 31536000)))
+  expect_equal(dyears(1) + minutes(3), dseconds(60*60*24*365 + 60*3))
   expect_that(dyears(1) + dyears(1), equals(dyears(2)))
     
       
@@ -154,7 +153,7 @@ test_that("addition with durations returns correct class",{
   expect_that(dyears(1) + 1, is_a("Duration"))
   expect_that(dyears(1) + ct, is_a("POSIXct"))
   expect_that(dyears(1) + lt, is_a("POSIXlt"))
-  expect_that(dyears(1) + minutes(3), is_a("Period"))  
+  expect_that(dyears(1) + minutes(3), is_a("Duration"))  
   expect_that(dyears(1) + dyears(1), is_a("Duration"))  
   
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
@@ -182,13 +181,7 @@ test_that("addition works as expected for intervals",{
   expect_that(int + minutes(3), equals(add_int(minutes(3))))
   expect_that(int + eyears(1), equals(add_int(eyears(1))))
     
-  time4 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC") 
   time5 <- as.POSIXct("2010-08-03 00:00:00", tz = "UTC")
-  int2 <- new_interval(time4, time5)
-  diff2 <- difftime(time4, time5)
-  dur <- as.duration(diff + diff2)
-    
-  expect_equal(int + int2, int2)
     
   int3 <- new_interval(time2, time5)
   int4 <- new_interval(time1, time5)
@@ -301,8 +294,7 @@ test_that("adding vectors works as expected for durations",{
   expect_equal(dur@.Data, c(61, 121))
   expect_equal(dyears(1:2) + w, y)
   expect_that(dyears(1:2) + as.POSIXlt(w), equals(as.POSIXlt(y)))
-  expect_that(dyears(1:2) + minutes(3), equals(new_period(
-    minutes = 3, seconds = c(1, 2)*31536000)))  
+  expect_equal(dyears(1:2) + minutes(3), dseconds(c(31536180, 63072180)))  
   expect_that(dyears(1:2) + dyears(1), equals(eyears(2:3)))
     
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
