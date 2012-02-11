@@ -12,6 +12,9 @@
 \alias{/,Period,Interval-method}
 \alias{/,Period,numeric-method}
 \alias{/,Period,Period-method}
+\alias{\%\%,Period,Duration-method}
+\alias{\%\%,Period,Interval-method}
+\alias{\%\%,Period,Period-method}
 \alias{+,Date,Period-method}
 \alias{+,difftime,Period-method}
 \alias{+,numeric,Period-method}

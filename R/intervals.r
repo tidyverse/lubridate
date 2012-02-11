@@ -88,6 +88,9 @@ check_interval <- function(object){
 #' @aliases -,POSIXlt,Interval-method
 #' @aliases -,Duration,Interval-method
 #' @aliases -,Period,Interval-method
+#' @aliases %%,Interval,Duration-method
+#' @aliases %%,Interval,Interval-method
+#' @aliases %%,Interval,Period-method
 setClass("Interval", contains = c("Timespan", "numeric"), representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
 
 #' @export
@@ -331,7 +334,7 @@ int_overlaps <- function(int1, int2){
 #' retains its endpoints but becomes positive.
 #'
 #' @export "int_standardize"
-#' @param int1 an Interval object
+#' @param int an Interval object
 int_standardize <- function(int){
 	int[int@.Data < 0] <- int_flip(int[int@.Data < 0])
 	int

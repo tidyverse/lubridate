@@ -13,7 +13,7 @@ add_duration_to_duration <- function(dur2, dur1)
 	new("Duration", dur1@.Data + dur2@.Data)
 
 add_duration_to_interval <- function(dur, int) {
-	stop("Addition undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 }
 
 add_duration_to_period <- function(dur, per){
@@ -37,11 +37,11 @@ add_duration_to_date <- function(dur, date) {
 
 
 add_interval_to_date <- function(int, date){
-	stop("Addition undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 }
 
 add_interval_to_interval <- function(int1, int2){
-	stop("Addition undefined for Interval class:\nConsider intersect(), union(), or setdiff()\nor change class with as.period() or as.duration()")
+	stop("+ undefined for Interval class:\nConsider intersect(), union(), or setdiff()\nor change class with as.period() or as.duration()")
 
 }
 
@@ -52,7 +52,7 @@ add_period_to_duration <- function(per, dur){
 }
 
 add_period_to_interval <- function(per, int){
-	stop("Addition undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 }
 
 add_period_to_period <- function(per2, per1){
@@ -87,11 +87,10 @@ add_number_to_duration <- function(num, dur){
 }
 
 add_number_to_interval <-function(num, int){
-	stop("Addition undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 }
 
 add_number_to_period <- function(num, per){
-  message("numeric coerced to seconds")
   slot(per, ".Data") <- per@.Data + num
   per
 }

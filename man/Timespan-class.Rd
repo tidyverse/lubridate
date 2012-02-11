@@ -1,7 +1,6 @@
 \name{Timespan-class}
 \alias{*,Timespan,Timespan-method}
 \alias{\%/\%,Timespan,Timespan-method}
-\alias{\%\%,Timespan,Timespan-method}
 \alias{Timespan-class}
 \title{Timespan class}
 \description{

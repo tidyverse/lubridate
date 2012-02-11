@@ -66,6 +66,9 @@ check_duration <- function(object){
 #' @aliases *,ANY,Duration-method
 #' @aliases -,Duration,missing-method
 #' @aliases -,ANY,Duration-method
+#' @aliases %%,Duration,Duration-method
+#' @aliases %%,Duration,Interval-method
+#' @aliases %%,Duration,Period-method
 setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
 compute_estimate <- function (x) {  

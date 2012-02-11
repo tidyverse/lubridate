@@ -23,6 +23,7 @@ divide_duration_by_number <- function(dur, num)
 	new("Duration", dur@.Data / num)
 
 
+
 divide_interval_by_duration <- function(int, dur){
 	int@.Data / dur@.Data
 }

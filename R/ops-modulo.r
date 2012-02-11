@@ -17,14 +17,14 @@ modulo_duration_by_period <- function(dur, per)
 
 
 modulo_interval_by_duration <- function(int, dur)
-
+	interval(int@start + int@.Data %/% dur@.Data * dur, int_end(int))
 
 modulo_interval_by_interval <- function(int, int2) {
 		stop("undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 }
 
 modulo_interval_by_period <- function(int, period)
-
+	interval(int@start + int %/% per * per, int_end(int))
 
 
 modulo_period_by_duration <- function(per, dur)

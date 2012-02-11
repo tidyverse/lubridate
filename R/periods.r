@@ -125,6 +125,9 @@ check_period <- function(object){
 #' @aliases *,ANY,Period-method
 #' @aliases -,Period,missing-method
 #' @aliases -,ANY,Period-method
+#' @aliases %%,Period,Duration-method
+#' @aliases %%,Period,Interval-method
+#' @aliases %%,Period,Period-method
 setClass("Period", contains = c("Timespan", "numeric"), 
 	representation(year = "numeric", month = "numeric", day = "numeric", 
 		hour = "numeric", minute = "numeric"), 

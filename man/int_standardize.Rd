@@ -1,0 +1,14 @@
+\name{int_standardize}
+\alias{int_standardize}
+\title{Ensures all intervals in an interval object are positive}
+\usage{
+  int_standardize(int)
+}
+\arguments{
+  \item{int}{an Interval object}
+}
+\description{
+  If an interval is not positive, int_standardize flips it
+  so that it retains its endpoints but becomes positive.
+}
+
