@@ -86,6 +86,11 @@ check_interval <- function(object){
 #' @aliases -,Date,Interval-method
 #' @aliases -,POSIXct,Interval-method
 #' @aliases -,POSIXlt,Interval-method
+#' @aliases -,numeric,Interval-method
+#' @aliases -,Interval,Date-method
+#' @aliases -,Interval,POSIXct-method
+#' @aliases -,Interval,POSIXlt-method
+#' @aliases -,Interval,numeric-method
 #' @aliases -,Duration,Interval-method
 #' @aliases -,Period,Interval-method
 #' @aliases %%,Interval,Duration-method

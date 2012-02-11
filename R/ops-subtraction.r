@@ -58,11 +58,36 @@ setMethod("-", signature(e1 = "Date", e2 = "Interval"), function(e1, e2) {
 })
 
 #' @export
+setMethod("-", signature(e1 = "Interval", e2 = "Date"), function(e1, e2) {
+	stop("- undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+})
+
+#' @export
 setMethod("-", signature(e1 = "POSIXct", e2 = "Interval"), function(e1, e2) {
+	stop("- undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+})
+
+#' @export
+setMethod("-", signature(e1 = "Interval", e2 = "POSIXct"), function(e1, e2) {
 	stop("- undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
 
 #' @export	
 setMethod("-", signature(e1 = "POSIXlt", e2 = "Interval"), function(e1, e2) {
+	stop("- undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+})
+
+#' @export
+setMethod("-", signature(e1 = "Interval", e2 = "POSIXlt"), function(e1, e2) {
+	stop("- undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+})
+
+#' @export	
+setMethod("-", signature(e1 = "numeric", e2 = "Interval"), function(e1, e2) {
+	stop("- undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
+})
+
+#' @export
+setMethod("-", signature(e1 = "Interval", e2 = "numeric"), function(e1, e2) {
 	stop("- undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
