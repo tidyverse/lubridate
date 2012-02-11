@@ -11,8 +11,8 @@ test_that("division operations work for interval numerator",{
 	smaller_diff <- new_difftime(days = 100)
 	bigger_diff <- new_difftime(days = 400)
   
-  expect_equal(int/smaller_int, 28684800/2678400)
-  expect_equal(int/bigger_int, 28684800/34214400)
+  expect_error(int/smaller_int)
+  expect_error(int/bigger_int)
   
   expect_equal(int_start(int) + days(int/days(1)), int_end(int))
   expect_equal(int_start(int) + edays(int/edays(1)), int_end(int))
@@ -29,8 +29,8 @@ test_that("division works for interval numerator with vectors",{
 	
 	smaller_diff <- new_difftime(days = 365)
   
-  expect_equal(c(int1, int2) / int1, c(1,2))
-  expect_equal(int1 / c(int1, int2), c(1, 0.5))
+  expect_error(c(int1, int2) / int1)
+  expect_error(int1 / c(int1, int2))
   
   expect_equal(c(int1, int2) / years(1), c(1,2))
   expect_equal(int1 / years(1:2), c(1, 0))
@@ -47,35 +47,32 @@ test_that("division works for interval numerator with vectors",{
 
 
 test_that("division operations work for period numerator",{
-	int1 <- ymd("2009-01-01") %--% ymd("2010-01-01")
+  int1 <- ymd("2009-01-01") %--% ymd("2010-01-01")
 
-  
-  expect_equal(years(2) / int1, 2)
+  expect_error(years(2) / int1)
   expect_equal(days(2) / hours(12), 4)
   expect_equal(years(1) / months(1), 12)
-  expect_equal(days(2) / ehours(12), 4)
-   	  
-  expect_equal(days(1) / new_difftime(days = 1), 1)
-  		
+  expect_error(days(2) / ehours(12))
+  expect_error(days(1) / new_difftime(days = 1))
   expect_equal(days(2) / 2, days(1))
   
 })
 
 test_that("division works for period numerator with vectors",{
-	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
-	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+  int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
 
   
-  expect_equal(years(1:2) / int2, c(0.5, 1))
-  expect_equal(years(1) / c(int1, int2), c(1, 0.5))
+  expect_error(years(1:2) / int2)
+  expect_error(years(1) / c(int1, int2))
   
   expect_equal(days(1:2) / hours(12), c(2,4))
   expect_equal(days(1) / hours(c(12, 24)), c(2,1))
   
-  expect_equal(days(1:2) / ehours(12), c(2,4))
-  expect_equal(days(1) / ehours(c(12, 24)), c(2,1)) 
+  expect_error(days(1:2) / ehours(12))
+  expect_error(days(1) / ehours(c(12, 24))) 
    	  
-  expect_equal(days(1:2) / new_difftime(days = 1), c(1,2))
+  expect_error(days(1:2) / new_difftime(days = 1))
   		
   expect_equal(days(2) / c(1,2), c(days(2), days(1)))
   expect_equal(days(c(2,4)) / c(2), c(days(1), days(2)))
@@ -83,14 +80,10 @@ test_that("division works for period numerator with vectors",{
 })
 
 test_that("division operations work for duration numerator",{
-	int <-  ymd("2009-12-01") %--% ymd("2010-01-01")
-
-	
-	smaller_diff <- new_difftime(days = 100)
-	bigger_diff <- new_difftime(days = 400)
+  int <-  ymd("2009-12-01") %--% ymd("2010-01-01")
   
-  expect_equal(edays(31)/int, 1)
-  expect_equal(edays(20)/ days(20), 1)
+  expect_error(edays(31)/int)
+  expect_error(edays(20)/ days(20))
   expect_equal(edays(20)/ edays(1), 20)
   expect_equal(edays(20)/ new_difftime(days = 1), 20)
   
@@ -99,18 +92,18 @@ test_that("division operations work for duration numerator",{
 
 
 test_that("division works for duration numerator with vectors",{
-	int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
-	int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+  int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
 
   
-  expect_equal(edays(365*c(1:2)) / int2, c(0.5, 1))
-  expect_equal(edays(365) / c(int1, int2), c(1, 0.5))
+  expect_error(edays(365*c(1:2)) / int2)
+  expect_error(edays(365) / c(int1, int2))
   
   expect_equal(edays(1:2) / ehours(12), c(2,4))
   expect_equal(edays(1) / ehours(c(12, 24)), c(2,1))
   
-  expect_equal(edays(1:2) / ehours(12), c(2,4))
-  expect_equal(edays(1) / ehours(c(12, 24)), c(2,1)) 
+  expect_error(edays(1:2) / hours(12))
+  expect_error(edays(1) / hours(c(12, 24))) 
    	  
   expect_equal(edays(1:2) / new_difftime(days = 1), c(1,2))
   		
@@ -120,11 +113,11 @@ test_that("division works for duration numerator with vectors",{
 })
 
 test_that("division operations work for difftime numerator",{
-	diff <- new_difftime(days = 365)
-	int <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+  diff <- new_difftime(days = 365)
+  int <- ymd("2010-01-01") %--% ymd("2011-01-01") 
   
-  expect_equal(diff/int, 1)
-  expect_equal(diff/days(1), 365)
+  expect_error(diff/int)
+  expect_error(diff/days(1))
   expect_equal(diff/ edays(365), 1)
   
 })
