@@ -183,26 +183,17 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' @seealso \code{\link{Interval-class}}, \code{\link{as.interval}}
 #' @examples
 #' new_interval(ymd(20090201), ymd(20090101))
-#' # 2009-01-01 -- 2009-02-01 
+#' # 2009-02-01 UTC--2009-01-01 UTC 
 #'
 #' date1 <- as.POSIXct("2009-03-08 01:59:59")
 #' date2 <- as.POSIXct("2000-02-29 12:00:00")
 #' new_interval(date2, date1)
-#' # 2000-02-29 12:00:00 -- 2009-03-08 01:59:59
+#' # 2000-02-29 12:00:00 CST--2009-03-08 01:59:59 CST
 #' new_interval(date1, date2)
-#' # 2000-02-29 12:00:00 -- 2009-03-08 01:59:59
+#' # 2009-03-08 01:59:59 CST--2000-02-29 12:00:00 CST
 #' 
-#' span <- new_interval(ymd(20090201), ymd(20090101))
-#' # [1] 2009-01-01 -- 2009-02-01 
-#' span - days(30)
-#' # 2009-01-01 -- 2009-01-02
-#' span + months(6)
-#' # 2009-01-01 -- 2009-08-01 
-#'
-#' start <- attr(span, "start")
-#' # "2009-01-01 UTC"
-#' end <- start + span
-#' # "2009-02-01 UTC"
+#' span <- new_interval(ymd(20090101), ymd(20090201))
+#' # 2009-01-01 UTC--2009-02-01 UTC 
 new_interval <- interval <- function(start, end, tzone = attr(start, "tzone")){
 	if (is.null(tzone)) {
 		if (is.null(attr(end, "tzone"))) tzone <- ""
@@ -245,12 +236,12 @@ is.interval <- function(x) is(x, c("Interval"))
 #' @seealso \code{\link{int_end}}, \code{\link{int_shift}}, \code{\link{int_flip}}
 #' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
-#' # 2001-01-01 -- 2002-01-01
+#' # 2001-01-01 UTC--2002-01-01 UTC
 #' int_start(int)
 #' # "2001-01-01 UTC"
 #' int_start(int) <- ymd("2001-06-01")
 #' int
-#' # 2001-06-01 -- 2002-06-01
+#' # 2001-06-01 UTC--2002-01-01 UTC
 int_start <- function(int) int@start
 
 "int_start<-" <- function(int, value){
@@ -275,12 +266,12 @@ int_start <- function(int) int@start
 #' @seealso \code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}}
 #' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
-#' # 2001-01-01 -- 2002-01-01
+#' # 2001-01-01 UTC--2002-01-01 UTC
 #' int_end(int)
 #' # "2002-01-01 UTC"
 #' int_end(int) <- ymd("2002-06-01")
 #' int
-#' # 2001-06-01 -- 2002-06-01
+#' # 2001-01-01 UTC--2002-06-01 UTC
 int_end <- function(int) int@start + int@.Data
 
 "int_end<-" <- function(int, value){
@@ -300,6 +291,11 @@ int_end <- function(int) int@start + int@.Data
 #' @param int An interval object
 #' @return An interval object
 #' @seealso \code{\link{int_shift}},  \code{\link{int_start}}, \code{\link{int_end}}
+#' @examples
+#' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+#' # 2001-01-01 UTC--2002-01-01 UTC
+#' int_flip(int)
+#' # 2002-01-01 UTC--2001-01-01 UTC
 int_flip <- function(int){
 	new("Interval", -int@.Data, start = int@start + int@.Data, tzone = int@tzone)
 }
@@ -307,13 +303,22 @@ int_flip <- function(int){
 #' Shift an interval along the timeline
 #'
 #' Shifts the start and end dates of an interval up or down the timeline 
-#' by a specified amount. Note that this may change the exact length of the interval.
+#' by a specified amount. Note that this may change the exact length of the 
+#' interval if the interval is shifted by a Period object. Intervals shifted by a 
+#' Duration or difftime object will retain their exact length in seconds.
 #'
 #' @export int_shift
 #' @param int An interval object
 #' @param by A period or duration object
 #' @return An interval object
 #' @seealso \code{\link{int_flip}},  \code{\link{int_start}}, \code{\link{int_end}}
+#' @examples
+#' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+#' # 2001-01-01 UTC--2002-01-01 UTC
+#' int_shift(int, duration(days = 11))
+#' # 2001-01-12 UTC--2002-01-12 UTC
+#' int_shift(int, duration(hours = -1))
+#' # 2000-12-31 23:00:00 UTC--2001-12-31 23:00:00 UTC
 int_shift <- function(int, by){
 	if(!is.timespan(by)) stop("by is not a recognized timespan object")
 	if(is.interval(by)) stop("an interval cannot be shifted by another interval. 
@@ -328,6 +333,16 @@ int_shift <- function(int, by){
 #' @param int1 an Interval object
 #' @param int2 an Interval object
 #' @return Logical. TRUE if int1 and int2 overlap by at least one second. FALSE otherwise.
+#' @examples
+#' int1 <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+#' # 2001-01-01 UTC--2002-01-01 UTC
+#' int2 <- new_interval(ymd("2001-06-01"), ymd("2002-06-01"))
+#' # 2001-06-01 UTC--2002-06-01 UTC
+#' int3 <- new_interval(ymd("2003-01-01"), ymd("2004-01-01"))
+#' # 2003-01-01 UTC--2004-01-01 UTC
+#'
+#' int_overlaps(int1, int2) # TRUE
+#' int_overlaps(int1, int3) # FALSE
 int_overlaps <- function(int1, int2){
 	stopifnot(c(is.interval(int1), is.interval(int2)))
 	int1@start <= int2@start + int2@.Data & int2@start <= int1@start + int1@.Data
@@ -340,6 +355,11 @@ int_overlaps <- function(int1, int2){
 #'
 #' @export "int_standardize"
 #' @param int an Interval object
+#' @examples
+#' int <- new_interval(ymd("2002-01-01"), ymd("2001-01-01"))
+#' # 2002-01-01 UTC--2001-01-01 UTC
+#' int_standardize(int)
+#' # 2001-01-01 UTC--2002-01-01 UTC
 int_standardize <- function(int){
 	int[int@.Data < 0] <- int_flip(int[int@.Data < 0])
 	int
@@ -348,10 +368,25 @@ int_standardize <- function(int){
 
 #' Test if two intervals share an endpoint
 #'
+#' int_aligns tests for the case where two intervals begin or end at the same 
+#' moment when arranged chronologically. The direction of each interval is ignored. 
+#' int_align tests whether the earliest or latest moments of each interval occur at 
+#' the same time.
+#'
 #' @export "int_aligns"
 #' @param int1 an Interval object
 #' @param int2 an Interval object
-#' @return Logical. TRUE if int1 and int2 at least one endpoint in any combination. FALSE otherwise.
+#' @return Logical. TRUE if int1 and int2 begin or end on the same moment. FALSE otherwise.
+#' @examples
+#' int1 <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+#' # 2001-01-01 UTC--2002-01-01 UTC
+#' int2 <- new_interval(ymd("2001-06-01"), ymd("2002-01-01"))
+#' # 2001-06-01 UTC--2002-01-01 UTC
+#' int3 <- new_interval(ymd("2003-01-01"), ymd("2004-01-01"))
+#' # 2003-01-01 UTC--2004-01-01 UTC
+#'
+#' int_aligns(int1, int2) # TRUE
+#' int_aligns(int1, int3) # FALSE
 int_aligns <- function(int1, int2){
 	int1 <- int_standardize(int1)
 	int2 <- int_standardize(int2)
@@ -433,7 +468,7 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 
 #' Tests whether a date or interval falls within an interval
 #'
-#' %within% returns TRUE is a falls within interval b, FALSE otherwise. 
+#' %within% returns TRUE if a falls within interval b, FALSE otherwise. 
 #' If a is an interval, both its start and end dates must fall within b 
 #' to return TRUE.
 #'
@@ -444,6 +479,14 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 #' @param a An interval or date-time object
 #' @param b An interval
 #' @return A logical
+#' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+#' # 2001-01-01 UTC--2002-01-01 UTC
+#' int2 <- new_interval(ymd("2001-06-01"), ymd("2002-01-01"))
+#' # 2001-06-01 UTC--2002-01-01 UTC
+#'
+#' ymd("2001-05-03") %within% int # TRUE
+#' int2 %within% int # TRUE
+#' ymd("1999-01-01") %within% int # FALSE
 "%within%" <- function(a,b) standardGeneric("%within%")
 
 #' @export
