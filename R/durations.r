@@ -95,7 +95,7 @@ compute_estimate <- function (x) {
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
 	if (all(object@.Data < 120))
-		print(paste(object@.Data, "s", sep = ""))
+		print(paste(object@.Data, "s", sep = ""), quote = FALSE)
 	else
 		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""), quote = FALSE)
 })
