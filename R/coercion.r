@@ -9,7 +9,7 @@
 NULL
 
 
-#' Convert every date method we know about to POSIXlt and POSIXct
+#' Convert a variety of date-time classes to POSIXlt and POSIXct
 #' @name DateCoercion
 #' @keywords internal 
 #'
@@ -127,8 +127,8 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 
 #' Change an object to a duration.
 #'
-#' as.duration changes interval, period and numeric objects to 
-#' duration objects. Numeric objects are changed to duration objects 
+#' as.duration changes Interval, Period and numeric class objects to 
+#' Duration objects. Numeric objects are changed to Duration objects 
 #' with the seconds unit equal to the numeric value. 
 #'
 #' Durations are exact time measurements, whereas periods are relative time 
@@ -136,8 +136,9 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' when it occurs. Hence, a one to one mapping does not exist between durations 
 #' and periods. When used with a period object, as.duration provides an inexact 
 #' estimate of the length of the period; each time unit is assigned its most 
-#' common number of seconds. Periods with a months unit cannot be coerced to 
-#' durations because of the variability of month lengths. For an exact 
+#' common number of seconds. A period of one month is converted to 2628000 seconds 
+#' (approximately 30.42 days). This ensures that 12 months will sum to 365 days, or 
+#' one normal year. For an exact 
 #' transformation, first transform the period to an interval with 
 #' \code{\link{as.interval}}.
 #'
@@ -146,10 +147,10 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' @seealso \code{\link{Duration-class}}, \code{\link{new_duration}}
 #' @keywords classes manip methods chron
 #' @examples
-#' span <- new_interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
-#' # 2009-01-01 -- 2009-08-01 
+#' span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
+#' # "2009-01-01 UTC--2009-08-01 UTC"
 #' as.duration(span)
-#' # 18316800s (212d)
+#' # 18316800s (~212 days)
 #' as.duration(10) # numeric
 #' # 10s
 #' @export 
@@ -192,12 +193,12 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 
 #' Change an object to an interval.
 #'
-#' as.interval changes difftime, duration, period and numeric objects to 
+#' as.interval changes difftime, Duration, Period and numeric class objects to 
 #' intervals that begin at the specified date-time. Numeric objects are first 
-#' coerced to time spans equal to the numeric value in seconds. 
+#' coerced to timespans equal to the numeric value in seconds. 
 #'
-#' as.interval can be used to create accurate transformations between period 
-#' objects, which measure time spans in variable length units, and difftime objects, 
+#' as.interval can be used to create accurate transformations between Period 
+#' objects, which measure time spans in variable length units, and Duration objects, 
 #' which measure timespans as an exact number of seconds. A start date-
 #' time must be supplied to make the conversion. Lubridate uses 
 #' this start date to look up how many seconds each variable 
@@ -206,8 +207,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' \code{\link{as.duration}}, \code{\link{as.period}}.
 #'
 #' @export as.interval
-#' @param x a duration (i.e. difftime), period, or numeric object that describes the length of the 
-#'   interval
+#' @param x a duration, difftime, period, or numeric object that describes the length of the interval
 #' @param start a POSIXt or Date object that describes when the interval begins   
 #' @return an interval object
 #' @seealso \code{\link{interval}}, \code{\link{new_interval}}
@@ -215,24 +215,24 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' @examples
 #' diff <- new_difftime(days = 31) #difftime
 #' as.interval(diff, ymd("2009-01-01"))
-#' # 2009-01-01 -- 2009-02-01
+#' # 2009-01-01 UTC--2009-02-01 UTC
 #' as.interval(diff, ymd("2009-02-01"))
-#' # 2009-02-01 -- 2009-03-04
+#' # 2009-02-01 UTC--2009-03-04 UTC
 #' 
 #' dur <- new_duration(days = 31) #duration
 #' as.interval(dur, ymd("2009-01-01"))
-#' # 2009-01-01 -- 2009-02-01
+#' # 2009-01-01 UTC--2009-02-01 UTC
 #' as.interval(dur, ymd("2009-02-01"))
-#' # 2009-02-01 -- 2009-03-04
+#' # 2009-02-01 UTC--2009-03-04 UTC
 #'
 #' per <- new_period(months = 1) #period
 #' as.interval(per, ymd("2009-01-01"))
-#' # 2009-01-01 -- 2009-02-01 
+#' # 2009-01-01 UTC--2009-02-01 UTC 
 #' as.interval(per, ymd("2009-02-01"))
-#' # 2009-02-01 -- 2009-03-01
+#' # 2009-02-01 UTC--2009-03-01 UTC
 #'
 #' as.interval(3600, ymd("2009-01-01")) #numeric
-#' # 2009-01-01 -- 2009-01-01 01:00:00
+#' # 2009-01-01 UTC--2009-01-01 01:00:00 UTC
 as.interval <- function(x, start){
 	stopifnot(is.instant(start))
 	if (is.instant(x))
@@ -244,11 +244,11 @@ as.interval <- function(x, start){
 
 #' Change an object to a period.
 #'
-#' as.period changes interval, duration (i.e., difftime)  and numeric objects 
-#' to period objects with the specified units.
+#' as.period changes Interval, Duration, difftime and numeric class objects 
+#' to Period class objects with the specified units.
 #'
-#' Users must specify which time units to measure the period in. The length of 
-#' each time unit in a period depends on when it occurs. See 
+#' Users must specify which time units to measure the period in. The exact length of 
+#' each time unit in a period will depend on when it occurs. See 
 #' \code{\link{Period-class}} and \code{\link{new_period}}. 
 #' The choice of units is not trivial; units that are 
 #' normally equal may differ in length depending on when the time period 
@@ -256,10 +256,10 @@ as.interval <- function(x, start){
 #' seconds.
 #'
 #' Because periods do not have a fixed length, they can not be accurately 
-#' converted to and from duration objects. Duration objects measure time spans 
+#' converted to and from Duration objects. Duration objects measure time spans 
 #' in exact numbers of seconds, see \code{\link{Duration-class}}. Hence, a one to one 
 #' mapping does not exist between durations and periods. When used with a 
-#' duration object, as.period provides an inexact estimate; the duration is 
+#' Duration object, as.period provides an inexact estimate; the duration is 
 #' broken into time units based on the most common lengths of time units, in 
 #' seconds. Because the length of months are particularly variable, a period 
 #' with a months unit can not be coerced from a duration object. For an exact 
@@ -274,7 +274,7 @@ as.interval <- function(x, start){
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
-#' # [1] 2009-01-01 -- 2010-02-02 01:01:01
+#' # 2009-01-01 CST--2010-02-02 01:01:01 CST
 #' as.period(span)
 #' # 1 year, 1 month, 1 day, 1 hour, 1 minute and 1 second
 #' @aliases as.period,numeric-method
@@ -360,8 +360,8 @@ setMethod("as.period", signature(x = "Duration"), function(x,...) {
   remainder <- abs(span)
   newper <- new_period(second = rep(0, length(x)))
   
-  slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
-  remainder <- remainder %% (3600 * 24 * 365.25)
+  slot(newper, "year") <- remainder %/% (3600 * 24 * 365)
+  remainder <- remainder %% (3600 * 24 * 365)
   
   slot(newper, "day") <- remainder %/% (3600 * 24)
   remainder <- remainder %% (3600 * 24)
