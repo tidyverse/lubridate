@@ -78,7 +78,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 	x <- floor_date(x, unit)
 	
 	switch(unit,
-		second = second(x) <- ceiling(second(x)),
+		second = second(x) <- second(x) + 1,
 		minute = minute(x) <- minute(x) + 1,
 		hour =   hour(x) <- hour(x) + 1,
 		day =    yday(x) <- yday(x) + 1,
