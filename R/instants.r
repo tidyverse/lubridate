@@ -63,4 +63,4 @@ today <- function(tzone = "") {
 #' @examples
 #' origin
 #' # "1970-01-01 GMT"
-origin <- with_tz(structure(0, class = c("POSIXt", "POSIXct")), "UTC")
+origin <- with_tz(structure(0, class = c("POSIXt", "POSIXct")), "GMT")
