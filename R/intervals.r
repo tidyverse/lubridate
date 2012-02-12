@@ -101,7 +101,7 @@ setClass("Interval", contains = c("Timespan", "numeric"), representation(start =
 #' @export
 setMethod("show", signature(object = "Interval"), function(object){
 	print(paste(format(object@start, tz = object@tzone, usetz = TRUE), "--", 
-		format(object@start + object@.Data, tz = object@tzone, usetz = TRUE), sep = ""))
+		format(object@start + object@.Data, tz = object@tzone, usetz = TRUE), sep = ""), quote = F)
 })
 
 #' @S3method format Interval
