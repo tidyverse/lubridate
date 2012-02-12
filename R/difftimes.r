@@ -47,12 +47,12 @@ make_difftime <- function (x) {
 #' weeks = 604800. Units larger than weeks are not used due to their 
 #' variability.
 #'
-#' difftime objects are durations. Durations are time spans measured in seconds. They measure the 
+#' Conceptually, difftime objects are a type of duration. They measure the 
 #' exact passage of time but do not always align with measurements 
 #' made in larger units of time such as hours, months and years. 
 #' This is because the length of larger time units can be affected 
 #' by conventions such as leap years 
-#' and Daylight Savings Time. lubridate provides a second class for measuring durations, the duration class.
+#' and Daylight Savings Time. lubridate provides a second class for measuring durations, the Duration class.
 #'
 #' @param ... a list of time units to be included in the difftime and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported. 
@@ -66,7 +66,7 @@ make_difftime <- function (x) {
 #' new_difftime(minute = 1.5)
 #' # Time difference of 1.5 mins
 #' new_difftime(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
-#' # Time difference of 1.869201 weeks
+#' # Time difference of 13.08441 days
 #' new_difftime(hour = 1, minute = -60)
 #' # Time difference of 0 secs
 #' new_difftime(day = -1)
