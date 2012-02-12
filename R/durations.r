@@ -14,7 +14,7 @@ check_duration <- function(object){
 #' Durations record the exact number of seconds in a time span. They measure the 
 #' exact passage of time but do not always align with measurements 
 #' made in larger units of time such as hours, months and years. 
-#' This is because the length of larger time units can be affected 
+#' This is because the exact length of larger time units can be affected 
 #' by conventions such as leap years 
 #' and Daylight Savings Time. 
 #' 
@@ -94,7 +94,7 @@ compute_estimate <- function (x) {
 
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
-	if (all(object@.Data < 120))
+	if (all(abs(object@.Data) < 120))
 		print(paste(object@.Data, "s", sep = ""), quote = FALSE)
 	else
 		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""), quote = FALSE)
@@ -137,7 +137,9 @@ setMethod("[<-", signature(x = "Duration"),
 #' Create a duration object.
 #'
 #' new_duration creates a duration object with the specified values. Entries for 
-#' different units are cumulative. durations display as the number of seconds in a time span. When this number is large, durations also display an estimate in larger units,; however, the underlying object is 
+#' different units are cumulative. durations display as the number of seconds in a 
+#' time span. When this number is large, durations also display an estimate in 
+#' larger units,; however, the underlying object is 
 #' always recorded as a fixed number of seconds. For display and creation 
 #' purposes, units are converted to seconds using their most common lengths in 
 #' seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, 
@@ -149,9 +151,10 @@ setMethod("[<-", signature(x = "Duration"),
 #' made in larger units of time such as hours, months and years. 
 #' This is because the length of larger time units can be affected 
 #' by conventions such as leap years 
-#' and Daylight Savings Time. Base R provides a second class for measuring durations, the difftime class.
+#' and Daylight Savings Time. Base R provides a second class for measuring 
+#' durations, the difftime class.
 #'
-#' duration objects can be easily created with the helper functions 
+#' Duration objects can be easily created with the helper functions 
 #' \code{\link{dweeks}}, \code{\link{ddays}}, \code{\link{dminutes}}, 
 #' \code{\link{dseconds}}. These objects can be added to and subtracted to date-
 #' times to create a user interface similar to object oriented programming. 
@@ -170,11 +173,11 @@ setMethod("[<-", signature(x = "Duration"),
 #' new_duration(minute = 1.5)
 #' # 90s
 #' new_duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
-#' # 1130493s (13.08d)
+#' # 1130493s (~13.08 days)
 #' new_duration(hour = 1, minute = -60)
 #' # 0s
 #' new_duration(day = -1)
-#' # -86400s (-1d)
+#' # -86400s (~-1 days)
 new_duration <- duration <- function(num = 0,...){
   pieces <- list(...)
   names(pieces) <- standardise_difftime_names(names(pieces))
@@ -193,8 +196,8 @@ new_duration <- duration <- function(num = 0,...){
 
 #' Quickly create exact time spans.
 #'
-#' Quickly create duration objects for easy date-time manipulation. The units of 
-#' the duration created depend on the name of the function called. For duration 
+#' Quickly create Duration objects for easy date-time manipulation. The units of 
+#' the duration created depend on the name of the function called. For Duration 
 #' objects, units are equal to their most common lengths in seconds (i.e. 
 #' minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 
 #' 604800, years = 31536000).
@@ -213,7 +216,7 @@ new_duration <- duration <- function(num = 0,...){
 #' dseconds(1) 
 #' # 1s
 #' dminutes(3.5) 
-#' # 210s
+#' # 210s (~3.5 minutes)
 #'
 #' x <- as.POSIXct("2009-08-03") 
 #' # "2009-08-03 CDT"
@@ -227,13 +230,13 @@ new_duration <- duration <- function(num = 0,...){
 #' as.Date("2009-08-09") + dhours(12) 
 #' # "2009-08-09 12:00:00 UTC"
 #' class(as.Date("2009-08-09") + dhours(12)) 
-#' # "POSIXt"  "POSIXct"
+#' # "POSIXct" "POSIXt"
 #' # converts to POSIXt class to accomodate time units
 #' 
 #' dweeks(1) - ddays(7) 
 #' # 0s
 #' c(1:3) * dhours(1) 
-#' # 3600s  7200s  10800s
+#' # 3600s (~1 hours)  7200s (~2 hours)  10800s (~3 hours)
 #' #
 #' # compare DST handling to durations
 #' boundary <- as.POSIXct("2009-03-08 01:59:59")
