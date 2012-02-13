@@ -39,7 +39,7 @@
   Base R provides a second class for measuring durations,
   the difftime class.
 
-  duration objects can be easily created with the helper
+  Duration objects can be easily created with the helper
   functions \code{\link{dweeks}}, \code{\link{ddays}},
   \code{\link{dminutes}}, \code{\link{dseconds}}. These
   objects can be added to and subtracted to date- times to
@@ -52,11 +52,11 @@ new_duration(second = 90)
 new_duration(minute = 1.5)
 # 90s
 new_duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
-# 1130493s (13.08d)
+# 1130493s (~13.08 days)
 new_duration(hour = 1, minute = -60)
 # 0s
 new_duration(day = -1)
-# -86400s (-1d)
+# -86400s (~-1 days)
 }
 \seealso{
   \code{\link{duration}}, \code{\link{as.duration}}

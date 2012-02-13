@@ -49,9 +49,10 @@
   The exact length of a period is not defined until the
   period is placed at a specific moment of time. This is
   because the precise length of one year, month, day, etc.
-  can change depending on when it occurs. A period can be
-  associated with a specific moment in time by coercing it
-  to an \code{\link{Interval-class}} object with
+  can change depending on when it occurs due to daylight
+  savings, leap years, and other conventions. A period can
+  be associated with a specific moment in time by coercing
+  it to an \code{\link{Interval-class}} object with
   \code{\link{as.interval}} or by adding it to a date-time
   with "+".
 

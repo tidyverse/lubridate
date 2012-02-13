@@ -136,9 +136,9 @@
 #' Functions for working with intervals include 
 #' \code{\link{is.interval}}, \code{\link{as.interval}},  
 #' \code{\link{new_interval}}, \code{\link{int_shift}},
-#' \code{\link{int_flip}}, \code{\link{int_align}},
-#' \code{\link{int_overlaps}}, \code{\link{%--%}}, and
-#' \code{\link{%within%}}. Intervals can also be manipulated with 
+#' \code{\link{int_flip}}, \code{\link{int_aligns}},
+#' \code{\link{int_overlaps}}, and
+#' \code{\link{\%within\%}}. Intervals can also be manipulated with 
 #' intersect, union, and setdiff().
 #' 
 #' Miscellaneous

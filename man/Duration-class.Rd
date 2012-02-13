@@ -43,9 +43,9 @@
   exact number of seconds in a time span. They measure the
   exact passage of time but do not always align with
   measurements made in larger units of time such as hours,
-  months and years. This is because the length of larger
-  time units can be affected by conventions such as leap
-  years and Daylight Savings Time.
+  months and years. This is because the exact length of
+  larger time units can be affected by conventions such as
+  leap years and Daylight Savings Time.
 }
 \details{
   Durations provide a method for measuring generalized

@@ -15,16 +15,17 @@
 }
 \description{
   new_period creates a period object with the specified
-  values. Within a period object, time units do not have a
+  values. Within a Period object, time units do not have a
   fixed length (except for seconds) until they are added to
   a date-time. The length of each time unit will depend on
   the date-time to which it is added. For example, a year
   that begins on 2009-01-01 will be 365 days long.  A year
   that begins on 2012-01-01 will be 366 days long. When
   math is performed with a period object, each unit is
-  applied separately. How a period is distributed among the
-  time units is non-trivial. For example, when leap seconds
-  occur 1 minute is longer than 60 seconds.
+  applied separately. How the length of a period is
+  distributed among its units is non-trivial. For example,
+  when leap seconds occur 1 minute is longer than 60
+  seconds.
 }
 \details{
   Periods track the change in the "clock time" between two

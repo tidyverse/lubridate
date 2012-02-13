@@ -12,10 +12,16 @@
   \item{b}{An interval}
 }
 \value{
-  A logical
+  A logical int <- new_interval(ymd("2001-01-01"),
+  ymd("2002-01-01")) # 2001-01-01 UTC--2002-01-01 UTC int2
+  <- new_interval(ymd("2001-06-01"), ymd("2002-01-01")) #
+  2001-06-01 UTC--2002-01-01 UTC
+
+  ymd("2001-05-03") %within% int # TRUE int2 %within% int #
+  TRUE ymd("1999-01-01") %within% int # FALSE
 }
 \description{
-  %within% returns TRUE is a falls within interval b, FALSE
+  %within% returns TRUE if a falls within interval b, FALSE
   otherwise. If a is an interval, both its start and end
   dates must fall within b to return TRUE.
 }

@@ -31,9 +31,9 @@
   a duration object
 }
 \description{
-  Quickly create duration objects for easy date-time
+  Quickly create Duration objects for easy date-time
   manipulation. The units of the duration created depend on
-  the name of the function called. For duration objects,
+  the name of the function called. For Duration objects,
   units are equal to their most common lengths in seconds
   (i.e. minutes = 60 seconds, hours = 3600 seconds, days =
   86400 seconds, weeks = 604800, years = 31536000).
@@ -48,7 +48,7 @@
 dseconds(1)
 # 1s
 dminutes(3.5)
-# 210s
+# 210s (~3.5 minutes)
 
 x <- as.POSIXct("2009-08-03")
 # "2009-08-03 CDT"
@@ -62,13 +62,13 @@ class(as.Date("2009-08-09") + ddays(1)) # retains Date class
 as.Date("2009-08-09") + dhours(12)
 # "2009-08-09 12:00:00 UTC"
 class(as.Date("2009-08-09") + dhours(12))
-# "POSIXt"  "POSIXct"
+# "POSIXct" "POSIXt"
 # converts to POSIXt class to accomodate time units
 
 dweeks(1) - ddays(7)
 # 0s
 c(1:3) * dhours(1)
-# 3600s  7200s  10800s
+# 3600s (~1 hours)  7200s (~2 hours)  10800s (~3 hours)
 #
 # compare DST handling to durations
 boundary <- as.POSIXct("2009-03-08 01:59:59")

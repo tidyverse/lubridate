@@ -7,7 +7,7 @@
   Lubridate provides tools that make it easier to parse and
   manipulate dates. These tools are grouped below by common
   purpose. More information about each function can be
-  found in #' its help documentation.
+  found in its help documentation.
 }
 \details{
   Parsing dates
@@ -22,17 +22,17 @@
   \code{\link{ymd_hms}}).
 
   Lubridate can also parse partial dates from strings into
-  \code{\link{period}} objects with the functions
+  \code{\link{Period-class}} objects with the functions
   \code{\link{hm}}, \code{\link{hms}} and \code{\link{ms}}.
 
   Manipulating dates
 
   Lubridate distinguishes between moments in time (known as
-  \code{\link{instants}}) and spans of time (known as
-  \code{\link{Timespan-class}}). Time spans are further
-  separated into \code{\link{Duration-class}},
+  \code{\link{instants}}) and spans of time (known as time
+  spans, see \code{\link{Timespan-class}}). Time spans are
+  further separated into \code{\link{Duration-class}},
   \code{\link{Period-class}} and
-  \code{\link{Interval-class}}.
+  \code{\link{Interval-class}} objects.
 
   Instants
 
@@ -48,22 +48,25 @@
   POSIXct object. \code{\link{today}} returns the current
   system date. For convenience, 1970-01-01 00:00:00 is
   saved to \code{\link{origin}}. This is the instant from
-  which POSIXct times are calculated from.
+  which POSIXct times are calculated. Try unclass(now()) to
+  see the numeric structure that underlies POSIXct objects.
+  Each POSIXct object is saved as the number of seconds it
+  occurred after 1970-01-01 00:00:00.
 
-  Instants are a combination of measurements on different
-  units (i.e, years, months, days, etc.). The individual
-  values for these units can be extracted from an instant
-  and set with the accessor functions \code{\link{second}},
-  \code{\link{minute}}, \code{\link{hour}},
-  \code{\link{day}}, \code{\link{yday}},
-  \code{\link{mday}}, \code{\link{wday}},
-  \code{\link{week}}, \code{\link{month}},
-  \code{\link{year}}, \code{\link{tz}}, and
-  \code{\link{dst}}. Note: the accessor functions are named
-  after the singular form of an element. They shouldn't be
-  confused with the period helper functions that have the
-  plural form of the units as a name (e.g,
-  \code{\link{seconds}}).
+  Conceptually, instants are a combination of measurements
+  on different units (i.e, years, months, days, etc.). The
+  individual values for these units can be extracted from
+  an instant and set with the accessor functions
+  \code{\link{second}}, \code{\link{minute}},
+  \code{\link{hour}}, \code{\link{day}},
+  \code{\link{yday}}, \code{\link{mday}},
+  \code{\link{wday}}, \code{\link{week}},
+  \code{\link{month}}, \code{\link{year}},
+  \code{\link{tz}}, and \code{\link{dst}}. Note: the
+  accessor functions are named after the singular form of
+  an element. They shouldn't be confused with the period
+  helper functions that have the plural form of the units
+  as a name (e.g, \code{\link{seconds}}).
 
   Rounding dates
 
@@ -84,25 +87,35 @@
 
   Timespans
 
-  A timespan is a length of time that may or not be
+  A timespan is a length of time that may or may not be
   connected to a particular instant. For example, three
-  months or an hour and a half. Base R uses difftime class
-  objects to record timespans. Lubridate creates three more
-  timespan classes, \code{\link{Interval-class}},
-  \code{\link{Period-class}} and
-  \code{\link{Duration-class}}, to better navigate the
-  nuances of time. \code{\link{is.difftime}} tests whether
-  an object inherits from the difftime class.
+  months is a timespan. So is an hour and a half. Base R
+  uses difftime class objects to record timespans. However,
+  people are not always consistent in how they expect time
+  to behave. Sometimes the passage of time is a monotone
+  progression of instants that should be as mathematically
+  reliable as the number line. On other occasions time must
+  follow complex conventions and rules so that the clock
+  times we see reflect what we expect to observe in terms
+  of daylight, season, and congruence with the atomic
+  clock. To better navigate the nuances of time, lubridate
+  creates three additional timespan classes, each with its
+  own specific and consistent behavior:
+  \code{\link{Interval-class}}, \code{\link{Period-class}}
+  and \code{\link{Duration-class}}.
+
+  \code{\link{is.difftime}} tests whether an object
+  inherits from the difftime class.
   \code{\link{is.timespan}} tests whether an object
   inherits from any of the four timespan classes.
 
   Durations
 
-  Durations measure the exact time of span that occurs
+  Durations measure the exact amount of time that occurs
   between two instants. This can create unexpected results
-  if a leap second, leap year, or change in daylight
-  savings time (DST) occurs in the interval. Duration
-  objects also inherit from the difftime class.
+  in relation to clock times if a leap second, leap year,
+  or change in daylight savings time (DST) occurs in the
+  interval.
 
   Functions for working with durations include
   \code{\link{is.duration}}, \code{\link{as.duration}} and
@@ -129,18 +142,18 @@
 
   Intervals
 
-  Intervals are timespans that begin at a specific instant.
-  Intervals provide the only reliable way to convert
-  between periods and durations. Intervals inherit from
-  both difftime and duration object classes. They can be
-  used as a difftime but contain an extra attribute which
-  records the start time of the interval. When lubridate is
-  loaded, subtracting two dates creates an interval by
-  default.
+  Intervals are timespans that begin at a specific instant
+  and end at a specific instant. Intervals retain complete
+  information about a timespan. They provide the only
+  reliable way to convert between periods and durations.
 
   Functions for working with intervals include
-  \code{\link{is.interval}}, \code{\link{as.interval}} and
-  \code{\link{new_interval}}.
+  \code{\link{is.interval}}, \code{\link{as.interval}},
+  \code{\link{new_interval}}, \code{\link{int_shift}},
+  \code{\link{int_flip}}, \code{\link{int_aligns}},
+  \code{\link{int_overlaps}}, and \code{\link{\%within\%}}.
+  Intervals can also be manipulated with intersect, union,
+  and setdiff().
 
   Miscellaneous
 

@@ -19,12 +19,12 @@
 }
 \examples{
 int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
-# 2001-01-01 -- 2002-01-01
+# 2001-01-01 UTC--2002-01-01 UTC
 int_start(int)
 # "2001-01-01 UTC"
 int_start(int) <- ymd("2001-06-01")
 int
-# 2001-06-01 -- 2002-06-01
+# 2001-06-01 UTC--2002-01-01 UTC
 }
 \seealso{
   \code{\link{int_end}}, \code{\link{int_shift}},

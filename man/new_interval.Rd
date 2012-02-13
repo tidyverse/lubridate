@@ -40,26 +40,17 @@
 }
 \examples{
 new_interval(ymd(20090201), ymd(20090101))
-# 2009-01-01 -- 2009-02-01
+# 2009-02-01 UTC--2009-01-01 UTC
 
 date1 <- as.POSIXct("2009-03-08 01:59:59")
 date2 <- as.POSIXct("2000-02-29 12:00:00")
 new_interval(date2, date1)
-# 2000-02-29 12:00:00 -- 2009-03-08 01:59:59
+# 2000-02-29 12:00:00 CST--2009-03-08 01:59:59 CST
 new_interval(date1, date2)
-# 2000-02-29 12:00:00 -- 2009-03-08 01:59:59
+# 2009-03-08 01:59:59 CST--2000-02-29 12:00:00 CST
 
-span <- new_interval(ymd(20090201), ymd(20090101))
-# [1] 2009-01-01 -- 2009-02-01
-span - days(30)
-# 2009-01-01 -- 2009-01-02
-span + months(6)
-# 2009-01-01 -- 2009-08-01
-
-start <- attr(span, "start")
-# "2009-01-01 UTC"
-end <- start + span
-# "2009-02-01 UTC"
+span <- new_interval(ymd(20090101), ymd(20090201))
+# 2009-01-01 UTC--2009-02-01 UTC
 }
 \seealso{
   \code{\link{Interval-class}}, \code{\link{as.interval}}

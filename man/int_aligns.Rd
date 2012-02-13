@@ -10,10 +10,25 @@
   \item{int2}{an Interval object}
 }
 \value{
-  Logical. TRUE if int1 and int2 at least one endpoint in
-  any combination. FALSE otherwise.
+  Logical. TRUE if int1 and int2 begin or end on the same
+  moment. FALSE otherwise.
 }
 \description{
-  Test if two intervals share an endpoint
+  int_aligns tests for the case where two intervals begin
+  or end at the same moment when arranged chronologically.
+  The direction of each interval is ignored. int_align
+  tests whether the earliest or latest moments of each
+  interval occur at the same time.
+}
+\examples{
+int1 <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+# 2001-01-01 UTC--2002-01-01 UTC
+int2 <- new_interval(ymd("2001-06-01"), ymd("2002-01-01"))
+# 2001-06-01 UTC--2002-01-01 UTC
+int3 <- new_interval(ymd("2003-01-01"), ymd("2004-01-01"))
+# 2003-01-01 UTC--2004-01-01 UTC
+
+int_aligns(int1, int2) # TRUE
+int_aligns(int1, int3) # FALSE
 }
 

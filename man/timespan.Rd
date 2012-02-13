@@ -11,7 +11,7 @@
   span. They measure the exact passage of time but do not
   always align with measurements made in larger units of
   time such as hours, months and years. This is because the
-  length of larger time units can be affected by
+  exact length of larger time units can be affected by
   conventions such as leap years and Daylight Savings Time.
   Base R measures durations with the difftime class.
   lubridate provides an additional class, the duration
@@ -34,7 +34,8 @@
   \code{\link{dseconds}}. These objects can be added to and
   subtracted from date- times to create a user interface
   similar to object oriented programming. Duration objects
-  can be added to Date, POSIXt, and Interval objects.
+  can be added to Date, POSIXct, and POSIXlt objects to
+  return a new date-time.
 
   Periods record the change in the clock time between two
   date-times. They are measured in common time related
@@ -57,8 +58,8 @@
   \code{\link{minutes}}, \code{\link{seconds}}. These
   objects can be added to and subtracted to date-times to
   create a user interface similar to object oriented
-  programming. Period objects can be added to Date, POSIXt,
-  and Interval objects.
+  programming. Period objects can be added to Date,
+  POSIXct, and POSIXlt objects to return a new date-time.
 
   Intervals are time spans bound by two real date-times.
   Intervals can be accurately converted to periods and
@@ -67,16 +68,12 @@
   during the interval can be calculated. To accurately
   convert between periods and durations, a period or
   duration should first be converted to an interval with
-  \code{\link{as.interval}}. Subtracting two date times
-  automatically creates an interval object. An interval
-  displays as the start and end points of the time span it
-  represents. By default, the #' date-time that occurs
-  first is considered the start point. Hence, intervals are
-  always positive.
+  \code{\link{as.interval}}. An interval displays as the
+  start and end points of the time span it represents.
 }
 \examples{
 duration(second = 3690)
-# 3690s (1.02h)
+# 3690s (~1.02 hours)
 period(second = 3690)
 # 3690 seconds
 period(second = 30, minute = 1, hour = 1)
@@ -107,10 +104,6 @@ date3 + c(0:11) * months(1)
 
 span <- date2 \%--\% date  #creates interval
 # "2000-02-29 12:00:00 CST--2009-03-08 01:59:59 CST"
-span - days(294)
-# "2008-05-18 01:59:59 CDT--2000-02-29 12:00:00 CST"
-span - ddays(294)
-# "2000-02-29 12:00:00 CST--2008-05-18 02:59:59 CDT"
 
 date <- as.POSIXct("2009-01-01 00:00:00")
 # "2009-01-01 GMT"

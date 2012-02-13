@@ -16,6 +16,12 @@
   timespan as the original interval, but has the opposite
   direction.
 }
+\examples{
+int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+# 2001-01-01 UTC--2002-01-01 UTC
+int_flip(int)
+# 2002-01-01 UTC--2001-01-01 UTC
+}
 \seealso{
   \code{\link{int_shift}}, \code{\link{int_start}},
   \code{\link{int_end}}

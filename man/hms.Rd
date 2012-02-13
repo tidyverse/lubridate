@@ -23,8 +23,6 @@ hms(x)
 # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
 hms("7 6 5")
 # [1] 7 hours, 6 minutes and 5 seconds
-hms("7,6,5")
-# [1] 7 hours, 6 minutes and 5 seconds
 }
 \seealso{
   \code{\link{hm}, \link{ms}}

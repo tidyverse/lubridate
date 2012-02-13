@@ -18,26 +18,26 @@
   a period object
 }
 \description{
-  as.period changes interval, duration (i.e., difftime) and
-  numeric objects to period objects with the specified
-  units.
+  as.period changes Interval, Duration, difftime and
+  numeric class objects to Period class objects with the
+  specified units.
 }
 \details{
   Users must specify which time units to measure the period
-  in. The length of each time unit in a period depends on
-  when it occurs. See \code{\link{Period-class}} and
-  \code{\link{new_period}}. The choice of units is not
+  in. The exact length of each time unit in a period will
+  depend on when it occurs. See \code{\link{Period-class}}
+  and \code{\link{new_period}}. The choice of units is not
   trivial; units that are normally equal may differ in
   length depending on when the time period occurs. For
   example, when a leap second occurs one minute is longer
   than 60 seconds.
 
   Because periods do not have a fixed length, they can not
-  be accurately converted to and from duration objects.
+  be accurately converted to and from Duration objects.
   Duration objects measure time spans in exact numbers of
   seconds, see \code{\link{Duration-class}}. Hence, a one
   to one mapping does not exist between durations and
-  periods. When used with a duration object, as.period
+  periods. When used with a Duration object, as.period
   provides an inexact estimate; the duration is broken into
   time units based on the most common lengths of time
   units, in seconds. Because the length of months are
@@ -48,7 +48,7 @@
 }
 \examples{
 span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
-# [1] 2009-01-01 -- 2010-02-02 01:01:01
+# 2009-01-01 CST--2010-02-02 01:01:01 CST
 as.period(span)
 # 1 year, 1 month, 1 day, 1 hour, 1 minute and 1 second
 }

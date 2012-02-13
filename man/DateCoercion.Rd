@@ -1,8 +1,8 @@
 \name{DateCoercion}
 \alias{DateCoercion}
-\title{Convert every date method we know about to POSIXlt and POSIXct}
+\title{Convert a variety of date-time classes to POSIXlt and POSIXct}
 \description{
-  Convert every date method we know about to POSIXlt and
+  Convert a variety of date-time classes to POSIXlt and
   POSIXct
 }
 \keyword{internal}

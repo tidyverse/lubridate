@@ -5,8 +5,8 @@
   as.interval(x, start)
 }
 \arguments{
-  \item{x}{a duration (i.e. difftime), period, or numeric
-  object that describes the length of the interval}
+  \item{x}{a duration, difftime, period, or numeric object
+  that describes the length of the interval}
 
   \item{start}{a POSIXt or Date object that describes when
   the interval begins}
@@ -15,15 +15,15 @@
   an interval object
 }
 \description{
-  as.interval changes difftime, duration, period and
-  numeric objects to intervals that begin at the specified
-  date-time. Numeric objects are first coerced to time
-  spans equal to the numeric value in seconds.
+  as.interval changes difftime, Duration, Period and
+  numeric class objects to intervals that begin at the
+  specified date-time. Numeric objects are first coerced to
+  timespans equal to the numeric value in seconds.
 }
 \details{
   as.interval can be used to create accurate
-  transformations between period objects, which measure
-  time spans in variable length units, and difftime
+  transformations between Period objects, which measure
+  time spans in variable length units, and Duration
   objects, which measure timespans as an exact number of
   seconds. A start date- time must be supplied to make the
   conversion. Lubridate uses this start date to look up how
@@ -34,24 +34,24 @@
 \examples{
 diff <- new_difftime(days = 31) #difftime
 as.interval(diff, ymd("2009-01-01"))
-# 2009-01-01 -- 2009-02-01
+# 2009-01-01 UTC--2009-02-01 UTC
 as.interval(diff, ymd("2009-02-01"))
-# 2009-02-01 -- 2009-03-04
+# 2009-02-01 UTC--2009-03-04 UTC
 
 dur <- new_duration(days = 31) #duration
 as.interval(dur, ymd("2009-01-01"))
-# 2009-01-01 -- 2009-02-01
+# 2009-01-01 UTC--2009-02-01 UTC
 as.interval(dur, ymd("2009-02-01"))
-# 2009-02-01 -- 2009-03-04
+# 2009-02-01 UTC--2009-03-04 UTC
 
 per <- new_period(months = 1) #period
 as.interval(per, ymd("2009-01-01"))
-# 2009-01-01 -- 2009-02-01
+# 2009-01-01 UTC--2009-02-01 UTC
 as.interval(per, ymd("2009-02-01"))
-# 2009-02-01 -- 2009-03-01
+# 2009-02-01 UTC--2009-03-01 UTC
 
 as.interval(3600, ymd("2009-01-01")) #numeric
-# 2009-01-01 -- 2009-01-01 01:00:00
+# 2009-01-01 UTC--2009-01-01 01:00:00 UTC
 }
 \seealso{
   \code{\link{interval}}, \code{\link{new_interval}}

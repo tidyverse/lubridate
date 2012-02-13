@@ -22,9 +22,9 @@
   a period object
 }
 \description{
-  Quickly create period objects for easy date-time
+  Quickly create Period objects for easy date-time
   manipulation. The units of the period created depend on
-  the name of the function called. For period objects,
+  the name of the function called. For Period objects,
   units do not have a fixed length until they are added to
   a specific date time, contrast this with
   \code{\link{new_duration}}. This makes periods useful for
@@ -36,7 +36,8 @@
   When paired with date-times, these functions allow
   date-times to be manipulated in a method similar to
   object oriented programming. Period objects can be added
-  to Date, POSIXt, and Interval objects.
+  to Date, POSIXct, and POSIXlt objects to calculate new
+  date-times.
 }
 \examples{
 x <- as.POSIXct("2009-08-03")
