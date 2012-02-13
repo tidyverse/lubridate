@@ -67,7 +67,8 @@ check_period <- function(object){
 #'
 #' The exact length of a period is not defined until the period is placed at a 
 #' specific moment of time. This is because the precise length of one year, 
-#' month, day, etc. can change depending on when it occurs. A period can be 
+#' month, day, etc. can change depending on when it occurs due to daylight savings,
+#' leap years, and other conventions. A period can be 
 #' associated with a specific moment in time by coercing it to an 
 #' \code{\link{Interval-class}} object with \code{\link{as.interval}} or by adding 
 #' it to a date-time with "+".
@@ -246,13 +247,14 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' Create a period object.
 #'
 #' new_period creates a period object with the specified values. Within a 
-#' period object, time units do not have a fixed length (except for seconds) 
+#' Period object, time units do not have a fixed length (except for seconds) 
 #' until they are added to a date-time. The length of each time unit will 
 #' depend on the date-time to which it is added. For example, a year that 
 #' begins on 2009-01-01 will be 365 days long.  A year that begins on 
 #' 2012-01-01 will be 366 days long. When math is performed with a period 
-#' object, each unit is applied separately. How a period is distributed among 
-#' the time units is non-trivial. For example, when leap seconds occur 1 minute 
+#' object, each unit is applied separately. How the length of a period is 
+#' distributed among 
+#' its units is non-trivial. For example, when leap seconds occur 1 minute 
 #' is longer than 60 seconds.
 #'
 #' Periods track the change in the "clock time" between two date-times. They 
@@ -308,8 +310,8 @@ new_period <- period <- function(...) {
 
 #' Quickly create relative timespans.
 #'
-#' Quickly create period objects for easy date-time manipulation. The units of 
-#' the period created depend on the name of the function called. For period 
+#' Quickly create Period objects for easy date-time manipulation. The units of 
+#' the period created depend on the name of the function called. For Period 
 #' objects, units do not have a fixed length until they are added to a specific 
 #' date time, contrast this with \code{\link{new_duration}}. This makes periods 
 #' useful for manipulations with clock times because units expand or contract 
@@ -318,7 +320,8 @@ new_period <- period <- function(...) {
 #'
 #' When paired with date-times, these functions allow date-times to be 
 #' manipulated in a method similar to object oriented programming. Period 
-#' objects can be added to Date, POSIXt, and Interval objects.
+#' objects can be added to Date, POSIXct, and POSIXlt objects to calculate new 
+#' date-times.
 #'
 #' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
 #' @aliases seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
