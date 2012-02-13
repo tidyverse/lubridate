@@ -1,3 +1,35 @@
+
+Version 1.1.0
+-------------------------------------------------------------------------
+DEVELOPMENT
+
+* lubridate no longer overwrites base R methods for +, - , *, /, %%, and %/%. To recreate the previous experience of subtracting two date times to create an interval, we've added the interval creation function %--%.
+
+* lubridate has moved to an S4 object system. Timespans, Intervals, Durations, and Periods have each been redefined as an S4 class with its own methods.
+
+* arithmetic operations will no longer perform implicit class changes between timespans. Users must explicitly state how and when they wish class changes to occur with as.period(), as.duration(), and as.interval(). This makes code written with lubridate more robust, as such implicit changes often did not produce consistent behavior across a variety of operations. It also allows lubridate to be less chatty with fewer console messages. lubridate does not need to explain what it is doing, because it no longer attempts to do things whose outcome would not be clear. On the other hand, arithmetic between multiple time classes will produce informative error messages.
+
+* the internal structure of lubridate R code has been reorganized at https://github.com/hadley/lubridate to make lubridate more development friendly.
+
+
+NEW FEATURES
+
+* intervals are now more useful and lubridate has more ways to manipulate them. Intervals can be created with %--%; modified with int_shift(), int_flip(), and int_standardize(); manipulated with intersect(), union(), and setdiff(); and used in logical tests with int_aligns(), int_overlaps(), and %within%. lubridate will no longer perform arithmetic between two intervals because the correct results of such operations is no more obvious than the correct result of adding two dates. Instead users are encouraged to use the new set operations or to directly modify intervals with int_start() and int_end(), which can also be used as settors. lubridate now supports negative intervals as well as positive intervals. Intervals also now display with a time zone.
+
+* Modulo methods for timespans have been changed to return a timespan. this allows modulo methods to be used with integer division in an intuitive manner, e.g.
+
+a = a %/% b * b + a %% b
+
+Users can still acheive a numerical result by using as.numeric() on input before performing modulo.
+
+* Periods, durations, and intervals can now all be put into a data frame.
+
+* Periods, durations, and intervals can be intuitively subset with $ and []. These operations also can be used as settors with <-.
+
+* The parsing functions and the as.period method for intervals are now slightly faster.
+
+
+
 Version 0.2.6
 -------------------------------------------------------------------------
 
