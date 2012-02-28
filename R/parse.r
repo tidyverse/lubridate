@@ -14,6 +14,7 @@
 #'
 #' @export ymd myd dym ydm mdy dmy
 #' @aliases yearmonthdate ymd myd dym ydm mdy dmy
+#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 #' @param ... a character or numeric vector of suspected dates 
 #' @return a vector of POSIXct date-time objects
 #' @seealso \code{\link{parse_date}}
@@ -33,29 +34,29 @@
 #' # TRUE
 #' dmy(010210)
 #' mdy(010210)
-ymd <- function(...) {
+ymd <- function(..., quiet = FALSE) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("ymd"))
+  parse_date(num_to_date(dates), make_format("ymd"), quiet = quiet)
 }
-ydm <- function(...) {
+ydm <- function(..., quiet = FALSE) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("ydm"))
+  parse_date(num_to_date(dates), make_format("ydm"), quiet = quiet)
 }
-mdy <- function(...) {
+mdy <- function(..., quiet = FALSE) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("mdy"))
+  parse_date(num_to_date(dates), make_format("mdy"), quiet = quiet)
 }
-myd <- function(...) {
+myd <- function(..., quiet = FALSE) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("myd"))
+  parse_date(num_to_date(dates), make_format("myd"), quiet = quiet)
 }
-dmy <- function(...) {
+dmy <- function(..., quiet = FALSE) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("dmy"))
+  parse_date(num_to_date(dates), make_format("dmy"), quiet = quiet)
 }
-dym <- function(...) {
+dym <- function(..., quiet = FALSE) {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("dym"))
+  parse_date(num_to_date(dates), make_format("dym"), quiet = quiet)
 }
 
 
@@ -84,6 +85,7 @@ make_format <- function(order) {
 #'
 #' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
 #' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
+#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 #' @param ... a character vector of dates in year, month, day, hour, minute, 
 #'   second format 
 #' @return a vector of POSIXct date-time objects
@@ -96,263 +98,263 @@ make_format <- function(order) {
 #' y <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
 #' ymd_hms(y)
 #' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
-ymd_hms <- function(...){
+ymd_hms <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ymd(parts[1,])
+    date <- ymd(parts[1,], quiet = quiet)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1))
+    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ymdThms <- function(...){
+ymdThms <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator_T(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, "T"),
       stringsAsFactors = FALSE)
-    date <- ymd(parts[1,])
+    date <- ymd(parts[1,], quiet = quiet)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1))
+    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ymd_hm <- function(...){
+ymd_hm <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ymd(parts[1,])
+    date <- ymd(parts[1,], quiet = quiet)
     time <- hm(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1))
+    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hm(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ymd_h <- function(...){
+ymd_h <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ymd(parts[1,])
+    date <- ymd(parts[1,], quiet = quiet)
     time <- hours(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1))
+    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hours(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
 
-dmy_hms <- function(...){
+dmy_hms <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- dmy(parts[1,])
+    date <- dmy(parts[1,], quiet = quiet)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1))
+    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-dmy_hm <- function(...){
+dmy_hm <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- dmy(parts[1,])
+    date <- dmy(parts[1,], quiet = quiet)
     time <- hm(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1))
+    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hm(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-dmy_h <- function(...){
+dmy_h <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- dmy(parts[1,])
+    date <- dmy(parts[1,], quiet = quiet)
     time <- hours(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1))
+    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hours(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
 
-mdy_hms <- function(...){
+mdy_hms <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- mdy(parts[1,])
+    date <- mdy(parts[1,], quiet = quiet)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1))
+    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-mdy_hm <- function(...){
+mdy_hm <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- mdy(parts[1,])
+    date <- mdy(parts[1,], quiet = quiet)
     time <- hm(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1))
+    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hm(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-mdy_h <- function(...){
+mdy_h <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- mdy(parts[1,])
+    date <- mdy(parts[1,], quiet = quiet)
     time <- hours(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1))
+    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hours(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ydm_hms <- function(...){
+ydm_hms <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ydm(parts[1,])
+    date <- ydm(parts[1,], quiet = quiet)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1))
+    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ydm_hm <- function(...){
+ydm_hm <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ydm(parts[1,])
+    date <- ydm(parts[1,], quiet = quiet)
     time <- hm(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1))
+    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hm(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ydm_h <- function(...){
+ydm_h <- function(..., quiet = FALSE){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ydm(parts[1,])
+    date <- ydm(parts[1,], quiet = quiet)
     time <- hours(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1))
+    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet)
     time <- hours(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
@@ -469,6 +471,7 @@ hms <- function(...) {
 #' @param x a character or numeric vector of suspected dates 
 #' @param formats a vector of date-time format elements in the order they occur within the dates. 
 #'   See \code{\link[base]{strptime}} for format elements.
+#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 #' @param seps a vector of possible characters used to separate elements within the dates.
 #' @return a vector of POSIXct date-time objects
 #' @seealso \code{\link{ymd}}
@@ -479,11 +482,11 @@ hms <- function(...) {
 #' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 #' ymd(x)
 #' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-parse_date <- function(x, formats, seps = find_separator(x)) {
-  fmt <- guess_format(head(x, 100), formats, seps)
+parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x)) {
+  fmt <- guess_format(head(x, 100), formats, seps, quiet)
   parsed <- as.POSIXct(strptime(x, fmt, tz = "UTC"))
 
-  if (length(x) > 2) message("Using date format ", fmt, ".")
+  if (length(x) > 2 & !quiet) message("Using date format ", fmt, ".")
 
   failed <- sum(is.na(parsed)) - sum(is.na(x))
   if (failed > 0) {
@@ -524,7 +527,7 @@ num_to_date <- function(x) {
 }
 
 
-guess_format <- function(x, formats, seps = c("-", "/", "")) {
+guess_format <- function(x, formats, seps = c("-", "/", ""), quiet = FALSE) {
   
   if (is.list(formats))
     formats <- do.call(rbind, formats)
@@ -549,7 +552,7 @@ guess_format <- function(x, formats, seps = c("-", "/", "")) {
       paste(fmts, collapse = ", "), ". ",
       "Check for incorrect or missing elements.", call. = FALSE)
   } 
-  else if (length(best) > 1) {
+  else if (length(best) > 1 & !quiet) {
     message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
     best <- best[1]
   }
