@@ -495,7 +495,7 @@ parse_date <- function(x, formats, seps = find_separator(x)) {
 
 
 find_separator <- function(x) {
-  x <- as.character(x)
+  x <- as.character(na.omit(x))
   chars <- unlist(strsplit(x, ""))
   
   alpha <- c(LETTERS, letters, 0:9)
