@@ -85,9 +85,7 @@ update.POSIXct <- function(object, years = year(object),
   utc$min <- parts$minutes
   utc$sec <- parts$seconds
 
-  bad29 <- which(!leap_year(utc$year) & utc$mon == 1 & utc$mday == 29)
   utc <- as.POSIXct(utc)
-  utc[bad29] <- NA
   force_tz(utc, tz = tzs)
 }
 
