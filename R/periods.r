@@ -1,5 +1,6 @@
 #' @include timespans.r
 #' @include util.r
+#' @include durations.r
 NULL
 
 check_period <- function(object){

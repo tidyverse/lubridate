@@ -14,9 +14,12 @@
 \alias{ymdThms}
 \title{Parse dates that have hours, minutes, or seconds elements}
 \usage{
-  ymd_hms(...)
+  ymd_hms(..., quiet = FALSE)
 }
 \arguments{
+  \item{quiet}{logical. When TRUE function evalueates
+  without displaying customary messages.}
+
   \item{...}{a character vector of dates in year, month,
   day, hour, minute, second format}
 }

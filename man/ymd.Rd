@@ -8,9 +8,12 @@
 \alias{ymd}
 \title{Parse dates according to the order that year, month, and day elements appear}
 \usage{
-  ymd(...)
+  ymd(..., quiet = FALSE)
 }
 \arguments{
+  \item{quiet}{logical. When TRUE function evalueates
+  without displaying customary messages.}
+
   \item{...}{a character or numeric vector of suspected
   dates}
 }
