@@ -1,22 +1,30 @@
-\name{new_period}
-\alias{new_period}
+\name{period}
+\alias{period}
 \title{Create a period object.}
 \usage{
-  new_period(...)
+  period(num, units = "second")
 }
 \arguments{
-  \item{...}{a list of time units to be included in the
-  period and their amounts. Seconds, minutes, hours, days,
-  weeks, months, and years are supported.}
+  \item{num}{a numeric vector that lists the number of time
+  units to be included in the period}
+
+  \item{units}{a character vector that lists the type of
+  units to be used. The units in units are matched to the
+  values in num according to their order.}
 }
 \value{
   a period object
 }
 \description{
-  new_period creates a period object with the specified
-  values. Within a Period object, time units do not have a
-  fixed length (except for seconds) until they are added to
-  a date-time. The length of each time unit will depend on
+  period creates a period object with the specified values.
+  period provides the behaviour of \code{\link{new_period}}
+  in a way that is more suitable for automating within a
+  function.
+}
+\details{
+  Within a Period object, time units do not have a fixed
+  length (except for seconds) until they are added to a
+  date-time. The length of each time unit will depend on
   the date-time to which it is added. For example, a year
   that begins on 2009-01-01 will be 365 days long.  A year
   that begins on 2012-01-01 will be 366 days long. When
@@ -25,8 +33,7 @@
   distributed among its units is non-trivial. For example,
   when leap seconds occur 1 minute is longer than 60
   seconds.
-}
-\details{
+
   Periods track the change in the "clock time" between two
   date-times. They are measured in common time related
   units: years, months, days, hours, minutes, and seconds.
@@ -40,25 +47,21 @@
   objects can be added to and subtracted to date-times to
   create a user interface similar to object oriented
   programming.
-
-  new_period is meant to be used interactively on the
-  command line. See \code{\link{period}}, for a version
-  that is better suited to automating within a function.
 }
 \examples{
-new_period (second = 90, minute = 5)
+period(c(90, 5), c("second", "minute"))
 #  5 minutes and 90 seconds
-new_period(day = -1)
+period(-1, "days")
 # -1 days
-new_period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
+period(c(3, 1, 2, 13, 1), c("second", "minute", "hour", "day", "week"))
 # 13 days, 2 hours, 1 minute and 3 seconds
-new_period(hour = 1, minute = -60)
+period(c(1, -60), c("hour", "minute"))
 # 1 hour and -60 minutes
-new_period(second = 0)
+period(0, "second")
 # 0 seconds
 }
 \seealso{
-  \code{\link{period}}, \code{\link{as.period}}
+  \code{\link{new_period}}, \code{\link{as.period}}
 }
 \keyword{chron}
 \keyword{classes}

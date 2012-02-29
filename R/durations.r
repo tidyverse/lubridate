@@ -146,6 +146,10 @@ setMethod("[<-", signature(x = "Duration"),
 #' weeks = 604800. Units larger than weeks are not used due to their 
 #' variability.
 #'
+#' new_duration is meant to be used interactively on the command line. See 
+#' \code{\link{duration}}, for a version that is better suited to automating 
+#' within a function.
+#'
 #' Durations record the exact number of seconds in a time span. They measure the 
 #' exact passage of time but do not always align with measurements 
 #' made in larger units of time such as hours, months and years. 
@@ -159,12 +163,12 @@ setMethod("[<-", signature(x = "Duration"),
 #' \code{\link{dseconds}}. These objects can be added to and subtracted to date-
 #' times to create a user interface similar to object oriented programming. 
 #'
-#' @param num the number of seconds to be included in the period (if not listing time units).
+#' @param num the number of seconds to be included in the duration (if not listing time units).
 #' @param ... a list of time units to be included in the duration and their amounts. Seconds, 
 #'   minutes, hours, days, and weeks are supported.
 #' @return a duration object
-#' @export new_duration duration
-#' @aliases new_duration duration
+#' @export new_duration
+#' @aliases new_duration
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
 #' @examples
@@ -178,7 +182,7 @@ setMethod("[<-", signature(x = "Duration"),
 #' # 0s
 #' new_duration(day = -1)
 #' # -86400s (~-1 days)
-new_duration <- duration <- function(num = 0,...){
+new_duration <- function(num = 0,...){
   pieces <- list(...)
   names(pieces) <- standardise_difftime_names(names(pieces))
   
@@ -193,6 +197,62 @@ new_duration <- duration <- function(num = 0,...){
   
   new("Duration", x)
 }
+
+
+
+
+#' Create a duration object.
+#'
+#' duration creates a duration object with the specified values. duration 
+#' provides the behavior of \code{\link{new_duration}} in a way that is more 
+#' suitable for automating within a function. 
+#'
+#' Durations display as the number of seconds in a 
+#' time span. When this number is large, durations also display an estimate in 
+#' larger units,; however, the underlying object is 
+#' always recorded as a fixed number of seconds. For display and creation 
+#' purposes, units are converted to seconds using their most common lengths in 
+#' seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, 
+#' weeks = 604800. 
+#'
+#' Durations record the exact number of seconds in a time span. They measure the 
+#' exact passage of time but do not always align with measurements 
+#' made in larger units of time such as hours, months and years. 
+#' This is because the length of larger time units can be affected 
+#' by conventions such as leap years 
+#' and Daylight Savings Time. Base R provides a second class for measuring 
+#' durations, the difftime class.
+#'
+#' Duration objects can be easily created with the helper functions 
+#' \code{\link{dweeks}}, \code{\link{ddays}}, \code{\link{dminutes}}, 
+#' \code{\link{dseconds}}. These objects can be added to and subtracted to date-
+#' times to create a user interface similar to object oriented programming. 
+#'
+#' @param num the number of time units to include in the duration
+#' @param units a character string that specifies the type of units that num refers to.
+#' @return a duration object
+#' @export duration
+#' @aliases duration
+#' @seealso \code{\link{new_duration}}, \code{\link{as.duration}}
+#' @keywords chron classes
+#' @examples
+#' duration(90, "seconds")
+#' # 90s
+#' duration(1.5, "minutes")
+#' # 90s
+#' duration(-1, "days")
+#' # -86400s (~-1 days)
+duration <- function(num = 0, units = "seconds"){
+	unit <- standardise_date_names(units)
+	mult <- c(second = 1, minute = 60, hour = 3600, mday = 86400, 
+		wday = 86400, yday =86400, day = 86400, week = 604800,
+		month = 60 * 60 * 24 * 365 / 12, year = 60 * 60 * 24 * 365)
+		
+	new("Duration", num * unname(mult[unit]))
+}
+
+
+
 
 #' Quickly create exact time spans.
 #'

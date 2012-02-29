@@ -47,7 +47,7 @@ test_that("subtraction works as expected for periods",{
   time2 <- as.POSIXct("2009-02-02 00:00:00", tz = "UTC")
   int <- new_interval(time1, time2)
   
-  expect_equal(years(1) - 1, period(seconds = -1, years = 1))
+  expect_equal(years(1) - 1, new_period(seconds = -1, years = 1))
   expect_error(years(1) - as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
   expect_error(years(1) - as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
   expect_equal(years(1) - minutes(3), new_period(minutes = -3, years = 1))

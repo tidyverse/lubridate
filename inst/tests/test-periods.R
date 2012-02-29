@@ -22,7 +22,21 @@ test_that("is.period handles vectors",{
 
 
 test_that("new_period works as expected", {
-  per <- period(second = 90, minute = 5)
+  per <- new_period(second = 90, minute = 5)
+  
+  expect_is(per, "Period")
+  expect_equal(new_period(hours = 25), hours(25))
+  expect_equal(per@year, 0)
+  expect_equal(per@month, 0)
+  expect_equal(per@day, 0)
+  expect_equal(per@hour, 0)
+  expect_equal(per@minute, 5)
+  expect_equal(per@.Data, 90)
+  
+})
+
+test_that("period works as expected", {
+  per <- period(c(90, 5), c("second", "minute"))
   
   expect_is(per, "Period")
   expect_equal(new_period(hours = 25), hours(25))
