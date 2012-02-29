@@ -93,8 +93,13 @@ mday.default <- function(x)
 "yday<-" <- function(x, value)
   x <- x + days(value - yday(x))
 
-"wday<-" <- function(x, value)
+"wday<-" <- function(x, value){
+  if (!is.numeric(value)) {
+  	value <- pmatch(tolower(value), c("sunday", "monday", "tuesday", 
+  		"wednesday", "thursday", "friday", "saturday"))
+  }
   x <- x + days(value - wday(x))
+}
 
 "day<-" <- "mday<-" <- function(x, value)
   x <- x + days(value - mday(x))
