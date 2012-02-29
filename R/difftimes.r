@@ -18,7 +18,7 @@ setOldClass("difftime")
 #' make_difftime(60)
 #' make_difftime(3600)
 make_difftime <- function (x) {  
-  seconds <- abs(x)
+  seconds <- abs(na.omit(x))
     if (any(seconds < 60)) 
         units <- "secs"
     else if (any(seconds < 3600))
