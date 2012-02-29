@@ -14,8 +14,9 @@
 #'
 #' @export ymd myd dym ydm mdy dmy
 #' @aliases yearmonthdate ymd myd dym ydm mdy dmy
-#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 #' @param ... a character or numeric vector of suspected dates 
+#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
+#' @param tz a character string that specifies which time zone to parse the date with. The string must be a time zone that is recognized by the user's OS.
 #' @return a vector of POSIXct date-time objects
 #' @seealso \code{\link{parse_date}}
 #' @keywords chron 
@@ -34,29 +35,29 @@
 #' # TRUE
 #' dmy(010210)
 #' mdy(010210)
-ymd <- function(..., quiet = FALSE) {
+ymd <- function(..., quiet = FALSE, tz = "UTC") {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("ymd"), quiet = quiet)
+  parse_date(num_to_date(dates), make_format("ymd"), quiet = quiet, tz = tz)
 }
-ydm <- function(..., quiet = FALSE) {
+ydm <- function(..., quiet = FALSE, tz = "UTC") {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("ydm"), quiet = quiet)
+  parse_date(num_to_date(dates), make_format("ydm"), quiet = quiet, tz = tz)
 }
-mdy <- function(..., quiet = FALSE) {
+mdy <- function(..., quiet = FALSE, tz = "UTC") {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("mdy"), quiet = quiet)
+  parse_date(num_to_date(dates), make_format("mdy"), quiet = quiet, tz = tz)
 }
-myd <- function(..., quiet = FALSE) {
+myd <- function(..., quiet = FALSE, tz = "UTC") {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("myd"), quiet = quiet)
+  parse_date(num_to_date(dates), make_format("myd"), quiet = quiet, tz = tz)
 }
-dmy <- function(..., quiet = FALSE) {
+dmy <- function(..., quiet = FALSE, tz = "UTC") {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("dmy"), quiet = quiet)
+  parse_date(num_to_date(dates), make_format("dmy"), quiet = quiet, tz = tz)
 }
-dym <- function(..., quiet = FALSE) {
+dym <- function(..., quiet = FALSE, tz = "UTC") {
   dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("dym"), quiet = quiet)
+  parse_date(num_to_date(dates), make_format("dym"), quiet = quiet, tz = tz)
 }
 
 
@@ -85,9 +86,10 @@ make_format <- function(order) {
 #'
 #' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
 #' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
-#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 #' @param ... a character vector of dates in year, month, day, hour, minute, 
 #'   second format 
+#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
+#' @param tz a character string that specifies which time zone to parse the date with. The string must be a time zone that is recognized by the user's OS.
 #' @return a vector of POSIXct date-time objects
 #' @seealso \code{\link{ymd}}, \code{\link{hms}}
 #' @keywords POSIXt parse 
@@ -98,263 +100,263 @@ make_format <- function(order) {
 #' y <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
 #' ymd_hms(y)
 #' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
-ymd_hms <- function(..., quiet = FALSE){
+ymd_hms <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ymd(parts[1,], quiet = quiet)
+    date <- ymd(parts[1,], quiet = quiet, tz = tz)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ymdThms <- function(..., quiet = FALSE){
+ymdThms <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator_T(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, "T"),
       stringsAsFactors = FALSE)
-    date <- ymd(parts[1,], quiet = quiet)
+    date <- ymd(parts[1,], quiet = quiet, tz = tz)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ymd_hm <- function(..., quiet = FALSE){
+ymd_hm <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ymd(parts[1,], quiet = quiet)
+    date <- ymd(parts[1,], quiet = quiet, tz = tz)
     time <- hm(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hm(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ymd_h <- function(..., quiet = FALSE){
+ymd_h <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ymd(parts[1,], quiet = quiet)
+    date <- ymd(parts[1,], quiet = quiet, tz = tz)
     time <- hours(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hours(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
 
-dmy_hms <- function(..., quiet = FALSE){
+dmy_hms <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- dmy(parts[1,], quiet = quiet)
+    date <- dmy(parts[1,], quiet = quiet, tz = tz)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-dmy_hm <- function(..., quiet = FALSE){
+dmy_hm <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- dmy(parts[1,], quiet = quiet)
+    date <- dmy(parts[1,], quiet = quiet, tz = tz)
     time <- hm(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hm(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-dmy_h <- function(..., quiet = FALSE){
+dmy_h <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- dmy(parts[1,], quiet = quiet)
+    date <- dmy(parts[1,], quiet = quiet, tz = tz)
     time <- hours(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hours(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
 
-mdy_hms <- function(..., quiet = FALSE){
+mdy_hms <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- mdy(parts[1,], quiet = quiet)
+    date <- mdy(parts[1,], quiet = quiet, tz = tz)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-mdy_hm <- function(..., quiet = FALSE){
+mdy_hm <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- mdy(parts[1,], quiet = quiet)
+    date <- mdy(parts[1,], quiet = quiet, tz = tz)
     time <- hm(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hm(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-mdy_h <- function(..., quiet = FALSE){
+mdy_h <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- mdy(parts[1,], quiet = quiet)
+    date <- mdy(parts[1,], quiet = quiet, tz = tz)
     time <- hours(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hours(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ydm_hms <- function(..., quiet = FALSE){
+ydm_hms <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ydm(parts[1,], quiet = quiet)
+    date <- ydm(parts[1,], quiet = quiet, tz = tz)
     time <- hms(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hms(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ydm_hm <- function(..., quiet = FALSE){
+ydm_hm <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ydm(parts[1,], quiet = quiet)
+    date <- ydm(parts[1,], quiet = quiet, tz = tz)
     time <- hm(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hm(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
 }
 
-ydm_h <- function(..., quiet = FALSE){
+ydm_h <- function(..., quiet = FALSE, tz = "UTC"){
   dates <- unlist(list(...))
   seps <- find_separator(dates)
   
   if(length(seps) >= 2){
     parts <- as.data.frame(str_split(dates, seps[2]),
       stringsAsFactors = FALSE)
-    date <- ydm(parts[1,], quiet = quiet)
+    date <- ydm(parts[1,], quiet = quiet, tz = tz)
     time <- hours(parts[2,])
   }
   
   else{
     breaks <- as.data.frame(gregexpr(seps, dates))
     breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet)
+    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
     time <- hours(substr(dates, breaks + 1, nchar(dates)))
   }
   date + time
@@ -482,9 +484,9 @@ hms <- function(...) {
 #' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 #' ymd(x)
 #' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x)) {
+parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x), tz) {
   fmt <- guess_format(head(x, 100), formats, seps, quiet)
-  parsed <- as.POSIXct(strptime(x, fmt, tz = "UTC"))
+  parsed <- as.POSIXct(strptime(x, fmt, tz = tz))
 
   if (length(x) > 2 & !quiet) message("Using date format ", fmt, ".")
 

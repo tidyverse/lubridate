@@ -8,14 +8,18 @@
 \alias{ymd}
 \title{Parse dates according to the order that year, month, and day elements appear}
 \usage{
-  ymd(..., quiet = FALSE)
+  ymd(..., quiet = FALSE, tz = "UTC")
 }
 \arguments{
+  \item{...}{a character or numeric vector of suspected
+  dates}
+
   \item{quiet}{logical. When TRUE function evalueates
   without displaying customary messages.}
 
-  \item{...}{a character or numeric vector of suspected
-  dates}
+  \item{tz}{a character string that specifies which time
+  zone to parse the date with. The string must be a time
+  zone that is recognized by the user's OS.}
 }
 \value{
   a vector of POSIXct date-time objects

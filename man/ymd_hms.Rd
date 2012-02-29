@@ -14,14 +14,18 @@
 \alias{ymdThms}
 \title{Parse dates that have hours, minutes, or seconds elements}
 \usage{
-  ymd_hms(..., quiet = FALSE)
+  ymd_hms(..., quiet = FALSE, tz = "UTC")
 }
 \arguments{
+  \item{...}{a character vector of dates in year, month,
+  day, hour, minute, second format}
+
   \item{quiet}{logical. When TRUE function evalueates
   without displaying customary messages.}
 
-  \item{...}{a character vector of dates in year, month,
-  day, hour, minute, second format}
+  \item{tz}{a character string that specifies which time
+  zone to parse the date with. The string must be a time
+  zone that is recognized by the user's OS.}
 }
 \value{
   a vector of POSIXct date-time objects
