@@ -35,7 +35,7 @@ with_tz <- function (time, tzone = ""){
 #' contained in the string as a time zone on your system.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
-#' @seealso \code{\link{force_tz}}
+#' @seealso \code{\link{with_tz}}
 #' @examples
 #' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_york")
 #' force_tz(x, "GMT")

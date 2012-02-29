@@ -32,7 +32,7 @@ force_tz(x, "GMT")
 # "2009-08-07 00:00:01 GMT"
 }
 \seealso{
-  \code{\link{force_tz}}
+  \code{\link{with_tz}}
 }
 \keyword{chron}
 \keyword{manip}
