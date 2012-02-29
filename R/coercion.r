@@ -268,6 +268,7 @@ as.interval <- function(x, start){
 #'
 #' @export
 #' @param x an interval, difftime, or numeric object   
+#' @param unit A character string that specifies which time units to build period in. unit is only implemented for the as.period.numeric method. 
 #' @param ... additional arguments to pass to as.period
 #' @return a period object
 #' @seealso \code{\link{Period-class}}, \code{\link{new_period}}
@@ -282,19 +283,19 @@ as.interval <- function(x, start){
 #' @aliases as.period,Interval-method
 #' @aliases as.period,Duration-method
 #' @aliases as.period,Period-method
-as.period <- function(x,...) standardGeneric("as.period")
+as.period <- function(x, unit, ...) standardGeneric("as.period")
 
 #' @export
 setGeneric("as.period")
 
-setMethod("as.period", signature(x = "numeric"), function(x,...){
+setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ...){
   x <- as.numeric(x)
-  unit <- standardise_date_names(units[1])
+  unit <- standardise_date_names(unit)
   f <- match.fun(paste(unit, "s", sep = ""))
   f(x)
 })
 
-setMethod("as.period", signature(x = "difftime"), function(x,...){
+setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
   message("estimate only: convert difftimes to intervals for accuracy")
   span <- as.double(x, "secs")
   remainder <- abs(span)
@@ -316,7 +317,7 @@ setMethod("as.period", signature(x = "difftime"), function(x,...){
   newper * sign(span)
 })
 
-setMethod("as.period", signature(x = "Interval"), function(x,...) {
+setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) {
   start <- as.POSIXlt(x@start)
   end <- as.POSIXlt(start + x@.Data)
 
@@ -354,7 +355,7 @@ setMethod("as.period", signature(x = "Interval"), function(x,...) {
   new("Period", to.per$second, year = to.per$year, month = to.per$month, day = to.per$day, hour = to.per$hour, minute = to.per$minute)
 })
 
-setMethod("as.period", signature(x = "Duration"), function(x,...) {
+setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) {
   message("estimate only: convert durations to intervals for accuracy")
   span <- x@.Data
   remainder <- abs(span)
@@ -375,7 +376,7 @@ setMethod("as.period", signature(x = "Duration"), function(x,...) {
   newper * sign(span)
 })
 
-setMethod("as.period", signature("Period"), function(x,...) x)
+setMethod("as.period", signature("Period"), function(x, unit = NULL, ...) x)
 
 #' @export
 setGeneric("as.difftime")

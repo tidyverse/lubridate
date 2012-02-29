@@ -7,10 +7,14 @@
 \alias{as.period,Period-method}
 \title{Change an object to a period.}
 \usage{
-  as.period(x, ...)
+  as.period(x, unit, ...)
 }
 \arguments{
   \item{x}{an interval, difftime, or numeric object}
+
+  \item{unit}{A character string that specifies which time
+  units to build period in. unit is only implemented for
+  the as.period.numeric method.}
 
   \item{...}{additional arguments to pass to as.period}
 }
