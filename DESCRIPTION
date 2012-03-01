@@ -19,10 +19,10 @@ Description: Lubridate makes it easier to work with dates
     dates fun instead of frustrating.
 Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries,
     fts, tseries
-Version: 0.2.6
+Version: 1.1.0
 Depends:
     methods,
-    R (>= 2.10)
+    R (>= 2.14)
 Suggests:
     testthat
 Collate:
