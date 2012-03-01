@@ -1,6 +1,9 @@
 \name{Period-class}
 \alias{-,ANY,Period-method}
 \alias{-,Period,missing-method}
+\alias{!=,Duration,Period-method}
+\alias{!=,Period,Duration-method}
+\alias{!=,Period,Period-method}
 \alias{[,Period-method}
 \alias{[<-,Period,Period-method}
 \alias{*,ANY,Period-method}

@@ -133,16 +133,19 @@ check_period <- function(object){
 #' @aliases >,Period,Period-method
 #' @aliases >=,Period,Period-method
 #' @aliases ==,Period,Period-method
+#' @aliases !=,Period,Period-method
 #' @aliases <=,Period,Period-method
 #' @aliases <,Period,Period-method
 #' @aliases >,Period,Duration-method
 #' @aliases >=,Period,Duration-method
 #' @aliases ==,Period,Duration-method
+#' @aliases !=,Period,Duration-method
 #' @aliases <=,Period,Duration-method
 #' @aliases <,Period,Duration-method
 #' @aliases >,Duration,Period-method
 #' @aliases >=,Duration,Period-method
 #' @aliases ==,Duration,Period-method
+#' @aliases !=,Duration,Period-method
 #' @aliases <=,Duration,Period-method
 #' @aliases <,Duration,Period-method
 setClass("Period", contains = c("Timespan", "numeric"), 
@@ -523,6 +526,12 @@ setMethod("==", signature(e1 = "Period", e2 = "Period"),
 })
 
 #' @export
+setMethod("!=", signature(e1 = "Period", e2 = "Period"), 
+	function(e1, e2) {
+	 period_to_seconds(e1) != period_to_seconds(e2)
+})
+
+#' @export
 setMethod("<=", signature(e1 = "Period", e2 = "Period"), 
 	function(e1, e2) {
 	 period_to_seconds(e1) <= period_to_seconds(e2)
@@ -551,6 +560,12 @@ setMethod("==", signature(e1 = "Period", e2 = "Duration"),
 	 stop("cannot compare Period to Duration:\ncoerce with as.duration")})
 
 #' @export
+setMethod("!=", signature(e1 = "Period", e2 = "Duration"), 
+	function(e1, e2) {
+	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
+})
+
+#' @export
 setMethod("<=", signature(e1 = "Period", e2 = "Duration"), 
 	function(e1, e2) {
 	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
@@ -574,6 +589,12 @@ setMethod(">=", signature(e1 = "Duration", e2 = "Period"),
 
 #' @export
 setMethod("==", signature(e1 = "Duration", e2 = "Period"), 
+	function(e1, e2) {
+	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
+})
+
+#' @export
+setMethod("!=", signature(e1 = "Duration", e2 = "Period"), 
 	function(e1, e2) {
 	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
 })
