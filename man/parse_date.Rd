@@ -18,6 +18,9 @@
 
   \item{seps}{a vector of possible characters used to
   separate elements within the dates.}
+
+  \item{tz}{a character string that specifies the time zone
+  with which to parse the dates}
 }
 \value{
   a vector of POSIXct date-time objects

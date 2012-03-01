@@ -475,6 +475,7 @@ hms <- function(...) {
 #'   See \code{\link[base]{strptime}} for format elements.
 #' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 #' @param seps a vector of possible characters used to separate elements within the dates.
+#' @param tz a character string that specifies the time zone with which to parse the dates
 #' @return a vector of POSIXct date-time objects
 #' @seealso \code{\link{ymd}}
 #' @keywords chron
