@@ -72,11 +72,11 @@
   start and end points of the time span it represents.
 }
 \examples{
-duration(second = 3690)
+duration(3690, "seconds")
 # 3690s (~1.02 hours)
-period(second = 3690)
+period(3690, "seconds")
 # 3690 seconds
-period(second = 30, minute = 1, hour = 1)
+new_period(second = 30, minute = 1, hour = 1)
 # 1 hour, 1 minute and 30 seconds
 interval(ymd_hms("2009-08-09 13:01:30"), ymd_hms("2009-08-09 12:00:00"))
 # 2009-08-09 12:00:00 -- 2009-08-09 13:01:30

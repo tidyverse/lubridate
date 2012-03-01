@@ -485,7 +485,7 @@ hms <- function(...) {
 #' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 #' ymd(x)
 #' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x), tz) {
+parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x), tz = "UTC") {
   fmt <- guess_format(head(x, 100), formats, seps, quiet)
   parsed <- as.POSIXct(strptime(x, fmt, tz = tz))
 

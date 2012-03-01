@@ -3,7 +3,7 @@
 \title{Change dates into a POSIXct format}
 \usage{
   parse_date(x, formats, quiet = FALSE,
-    seps = find_separator(x), tz)
+    seps = find_separator(x), tz = "UTC")
 }
 \arguments{
   \item{x}{a character or numeric vector of suspected

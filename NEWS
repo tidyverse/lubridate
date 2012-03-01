@@ -28,7 +28,11 @@ Users can still acheive a numerical result by using as.numeric() on input before
 
 * The parsing functions and the as.period method for intervals are now slightly faster.
 
+* month<- and wday<- settors accept names as well as numbers
 
+* parsing functions now have a quiet argument to parse without messages and a tz argument to directly parse times into the desired time zone.
+
+* logical comparison methods now work for period objects.
 
 Version 0.2.6
 -------------------------------------------------------------------------

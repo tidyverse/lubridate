@@ -77,7 +77,7 @@ check_period <- function(object){
 #' Periods provide a method for measuring generalized timespans when we wish 
 #' to model clock times. Periods will attain intuitive results at this task 
 #' even when leap years, leap seconds, gregorian days, daylight savings 
-#' changes, and other events happen uring the period. See 
+#' changes, and other events happen during the period. See 
 #' \code{\link{Duration-class}} for an alternative way to measure timespans that 
 #' allows precise comparisons between timespans. 
 #'
