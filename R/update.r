@@ -97,7 +97,7 @@ update.Date <- function(object, years = year(object), months = month(object),
   time.change <- c(hours - hour(object), minutes - minute(object), 
     seconds - second(object))  
     
-  if(sum(time.change) != 0){
+  if(sum(na.omit(time.change)) != 0){
     return(update(with_tz(as.POSIXct(object), "UTC"), years = 
     years, months = months, days = days, mdays = mdays, ydays 
     = ydays, wdays = wdays, hours = hours, minutes = minutes, 
