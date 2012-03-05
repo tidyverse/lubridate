@@ -128,7 +128,7 @@ round_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
   below <- as.POSIXct(floor_date(x, unit))
   above <- as.POSIXct(ceiling_date(x, unit))
 
-  smaller <- difftime(as.POSIXct(x), below, unit = "secs") < difftime(above, as.POSIXct(x), unit = "secs")
+  smaller <- difftime(as.POSIXct(x), below, units = "secs") < difftime(above, as.POSIXct(x), units = "secs")
   new <- structure(ifelse(smaller, below, above), class = class(below))
   
   attr(new, "tzone") <- tz(x)
