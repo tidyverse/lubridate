@@ -25,7 +25,7 @@ decimal <- as.numeric(difftime(date, floor_date(date, "year"),
 }
 
 decimal_date.zoo <- function(date)
-  decimal_date(index(date))
+  decimal_date(zoo::index(date))
 
 decimal_date.its <- function(date)
   decimal_date.default(attr(date, "dates"))

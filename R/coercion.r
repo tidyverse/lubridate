@@ -72,16 +72,16 @@ reclass_date.POSIXct <- function(new, orig) {
   as.POSIXct(new)
 }
 reclass_date.chron <- function(new, orig) {
-  as.chron(new)
+  chron::as.chron(new)
 }
 reclass_date.timeDate <- function(new, orig) {
-  as.timeDate(new)
+  timeDate::as.timeDate(new)
 }
 reclass_date.its <- function(new, orig) {
-  its(x, dates, format = "%Y-%m-%d %X")
+  its::its(new, format = "%Y-%m-%d %X")
 }
 reclass_date.ti <- function(new, orig) {
-  as.ti(new, tifName(orig))
+  tis::as.ti(new, tis::tifName(orig))
 }
 reclass_date.Date <- function(new, orig) {
   as.Date(new)

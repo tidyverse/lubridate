@@ -47,7 +47,7 @@ tz.default <- function(x) {
 }
 
 tz.zoo <- function(x){
-  tzs <- attr(as.POSIXlt(index(x)), "tzone")
+  tzs <- attr(as.POSIXlt(zoo::index(x)), "tzone")
   tzs[1]
 }
 
