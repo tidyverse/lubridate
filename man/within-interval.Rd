@@ -4,7 +4,7 @@
 \alias{\%within\%,Interval,Interval-method}
 \title{Tests whether a date or interval falls within an interval}
 \usage{
-  %within%(a, b)
+  a \%within\% b
 }
 \arguments{
   \item{a}{An interval or date-time object}

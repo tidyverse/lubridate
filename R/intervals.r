@@ -474,6 +474,7 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 #'
 #' @export 
 #' @rdname within-interval
+#' @usage a \%within\% b
 #' @aliases %within%,Interval,Interval-method
 #' @aliases %within%,ANY,Interval-method
 #' @param a An interval or date-time object
