@@ -76,7 +76,7 @@ update.POSIXct <- function(object, years = year(object),
   parts <- data.frame(years, months, days, hours, minutes, seconds)
   
 
-  utc <- as.POSIXlt(force_tz(object, tz = "UTC"))
+  utc <- as.POSIXlt(force_tz(object, tzone = "UTC"))
   
   utc$year <- parts$years - 1900
   utc$mon <- parts$months - 1
@@ -86,7 +86,7 @@ update.POSIXct <- function(object, years = year(object),
   utc$sec <- parts$seconds
 
   utc <- as.POSIXct(utc)
-  force_tz(utc, tz = tzs)
+  force_tz(utc, tzone = tzs)
 }
 
 update.Date <- function(object, years = year(object), months = month(object), 
