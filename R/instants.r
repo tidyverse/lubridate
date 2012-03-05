@@ -30,7 +30,7 @@ is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "PO
 #' now() < now() # TRUE
 #' now() > now() # FALSE
 now <- function(tzone = "") 
-  with_tz(Sys.time(),tzone)
+  with_tz(Sys.time(), tzone)
 
 
 #' The current date 
@@ -48,7 +48,7 @@ now <- function(tzone = "")
 #' today() == today("GMT") # not always true
 #' today() < as.Date("2999-01-01") # TRUE  (so far)
 today <- function(tzone = "") {
-  as.Date(force_tz(floor_date(now(tzone), "day"), tz = "UTC"))
+  as.Date(force_tz(floor_date(now(tzone), "day"), tzone = "UTC"))
 }
 
 
