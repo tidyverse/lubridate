@@ -11,14 +11,14 @@
 #' @param ... additional arguments to pass to function
 #' @return a vector of date-times that can be used as axis tick marks or bin breaks
 #' @keywords dplot utilities chron
-#' @export pretty.dates pretty.unit pretty.sec pretty.min pretty.hour pretty.day pretty.month pretty.year pretty.point
+#' @export pretty_dates pretty.unit pretty.sec pretty.min pretty.hour pretty.day pretty.month pretty.year pretty.point
 #' @aliases pretty.dates pretty.unit pretty.sec pretty.min pretty.hour pretty.day pretty.month pretty.year pretty.point
 #' @examples
 #' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
 #' # "2009-08-02" "2010-08-02"
-#' pretty.dates(x, 12)
+#' pretty_dates(x, 12)
 #' #"2009-08-01 GMT" "2009-09-01 GMT" "2009-10-01 GMT" "2009-11-01 GMT" "2009-12-01 GMT" "2010-01-01 GMT" "2010-02-01 GMT" "2010-03-01 GMT" "2010-04-01 GMT" "2010-05-01 GMT" "2010-06-01 GMT" "2010-07-01 GMT" "2010-08-01 GMT" "2010-09-01 GMT"
-pretty.dates <- function(x, n, ...){
+pretty_dates <- function(x, n, ...){
   remember <- Sys.getenv("TZ") 
   if (Sys.getenv("TZ") == "")
     remember <- "unset"
