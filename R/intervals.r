@@ -200,6 +200,12 @@ new_interval <- interval <- function(start, end, tzone = attr(start, "tzone")){
 		else tzone <- attr(end, "tzone")
 	}
 	
+	if (is.Date(start)) start <- with_tz(as.POSIXct(start), "UTC")
+	if (is.Date(end)) end <- with_tz(as.POSIXct(end), "UTC")
+	
+	if (!is.POSIXct(start)) start <- as.POSIXct(start)
+	if (!is.POSIXct(end)) end <- as.POSIXct(end)
+	
 	span <- as.numeric(end) - as.numeric(start)
 	starts <- start + rep(0, length(span))
 	starts <- with_tz(starts, tzone)
