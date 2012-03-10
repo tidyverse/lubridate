@@ -394,6 +394,22 @@ int_aligns <- function(int1, int2){
 	int1@start == int2@start | (int1@start + int1@.Data) == (int2@start + int2@.Data)
 }
 
+#' Extract the intervals within a vector of date-times
+#'
+#' int_diff returns the intervals that occur between the elements of a vector of 
+#'date-times. int_diff is similar to the POSIXt and Date methods of
+#' \code{\link{diff}}, but returns an interval object instead of a difftime object.
+#'
+#' @export "int_diff"
+#' @param times A vector of POSIXct, POSIXlt or Date class date-times
+#' @return An interval object that contains the n-1 intervals between the n date-tiwe in times
+#' @examples
+#' dates <- now() + days(1:10)
+#' int_diff(dates) 
+int_diff <- function(times){
+  interval(times[-length(times)], times[-1])
+}
+
 #' @export
 setGeneric("intersect")
 
