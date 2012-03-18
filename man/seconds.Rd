@@ -69,13 +69,6 @@ y + months(0:11)
 # [5] "2009-05-01 CDT" "2009-06-01 CDT" "2009-07-01 CDT" "2009-08-01 CDT"
 # [9] "2009-09-01 CDT" "2009-10-01 CDT" "2009-11-01 CDT" "2009-12-01 CST"
 
-# end of month handling
-ymd(20090131) + months(0:11)
-# Undefined date. Defaulting to last previous real day.
-# [1] "2009-01-31 CST" "2009-02-28 CST" "2009-03-31 CDT" "2009-04-30 CDT"
-# [5] "2009-05-31 CDT" "2009-06-30 CDT" "2009-07-31 CDT" "2009-08-31 CDT"
-# [9] "2009-09-30 CDT" "2009-10-31 CDT" "2009-11-30 CST" "2009-12-31 CST"
-
 # compare DST handling to durations
 boundary <- as.POSIXct("2009-03-08 01:59:59")
 # "2009-03-08 01:59:59 CST"
