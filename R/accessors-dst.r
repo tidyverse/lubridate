@@ -9,13 +9,13 @@
 #' @export dst
 #' @S3method dst default
 #' @param x a date-time object   
-#' @return Daylight savings time flag. Positive if in force, zero if not, negative if unknown.
+#' @return A logical. TRUE if DST is in force, FALSE if not, NA if unknown.
 #' @keywords utilities chron methods
 #' @examples
-#' x <- now()
+#' x <- ymd("2012-03-26")
 #' dst(x) 
 dst <- function(x)
   UseMethod("dst")
   
 dst.default <- function(x)
-  as.POSIXlt(x)$isdst
+  c(NA, FALSE, TRUE)[as.POSIXlt(x)$isdst + 2]
