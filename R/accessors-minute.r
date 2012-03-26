@@ -13,7 +13,7 @@ NULL
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number
 #' @examples
-#' x <- now()
+#' x <- ymd("2012-03-26")
 #' minute(x)
 #' minute(x) <- 1
 #' minute(x) <- 61 

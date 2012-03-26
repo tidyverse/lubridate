@@ -14,7 +14,7 @@ NULL
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron
 #' @examples
-#' x <- now()
+#' x <- ymd("2012-03-26")
 #' week(x) 
 #' week(x) <- 1  
 #' week(x) <- 54

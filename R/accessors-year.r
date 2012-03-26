@@ -15,7 +15,7 @@ NULL
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- now()
+#' x <- ymd("2012-03-26")
 #' year(x) 
 #' year(x) <- 2001  
 #' year(x) > 1995

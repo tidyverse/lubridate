@@ -18,7 +18,7 @@ NULL
 #' @return the months element of x as a number (1-12) or character string. 1 = January.
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- now()
+#' x <- ymd("2012-03-26")
 #' month(x) 
 #' month(x) <- 1  
 #' month(x) <- 13

@@ -13,7 +13,7 @@ NULL
 #' @return the seconds element of x as a decimal number
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- now()
+#' x <- ymd("2012-03-26")
 #' second(x)
 #' second(x) <- 1
 #' second(x) <- 61 

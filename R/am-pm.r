@@ -6,7 +6,7 @@
 #' @return TRUE or FALSE depending on whethe x occurs in the am or pm 
 #' @keywords chron 
 #' @examples
-#' x <- now()
+#' x <- ymd("2012-03-26")
 #' am(x) 
 #' pm(x) 
 am <- function(x) hour(x) < 12

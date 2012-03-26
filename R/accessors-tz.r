@@ -26,7 +26,7 @@
 #'   attribute exists, tz returns "GMT".
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- now()
+#' x <- ymd("2012-03-26")
 #' tz(x) 
 #' tz(x) <- "GMT"  
 #' x
