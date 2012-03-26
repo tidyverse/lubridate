@@ -47,6 +47,7 @@ check_period <- function(object){
 	
 	values <- c(object@year, object@month, object@day, object@hour, object@minute, 
 		object@.Data)
+	values <- na.omit(values)
 	if (sum(values - trunc(values))) {
 		msg <- "periods must have integer values"
 		errors <- c(errors, msg)
@@ -322,10 +323,6 @@ new_period <- period <- function(...) {
   pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")] 
   
   pieces$day <- pieces$day + pieces$week * 7
-  pieces <- pieces[,-3]
-  
-  if(any(trunc(pieces[,1:5]) - pieces[,1:5] != 0))
-    stop("periods must have integer values", call. = FALSE)
   
   new("Period", pieces$second, year = pieces$year, month = pieces$month, 
   	day = pieces$day, hour = pieces$hour, minute = pieces$minute)
