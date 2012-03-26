@@ -94,7 +94,7 @@ compute_estimate <- function (x) {
 
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
-	if (all(abs(object@.Data) < 120))
+	if (all(abs(na.omit(object@.Data)) < 120))
 		print(paste(object@.Data, "s", sep = ""), quote = FALSE)
 	else
 		print(paste(object@.Data, "s", " (", compute_estimate(object@.Data), ")", sep = ""), quote = FALSE)
@@ -102,7 +102,7 @@ setMethod("show", signature(object = "Duration"), function(object){
 
 #' @S3method format Duration
 format.Duration <- function(x, ...) {
-	if (all(x@.Data < 120))
+	if (all(abs(na.omit(x@.Data)) < 120))
 		print(paste(x@.Data, "s", sep = ""), quote = FALSE)
 	else
 		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
