@@ -1,3 +1,57 @@
+
+lubridate_formats <- local({
+    comb <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
+    out <- lapply(comb, function(order) {
+        formats <- list(
+                     d = "%d",
+                     m = c("%m", "%b"),
+                     y = c("%y", "%Y"))[ unlist(strsplit(order, ""))]
+        grid <- expand.grid(formats, 
+                            KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
+        apply(grid, 1, function(row) paste(row, collapse = ""))
+    })
+    names(out) <- comb
+
+    ## hms <- c("%H%M%S", "%H%M%OS", "%k%M%S")
+    hms.f <- "%H%M%OS"
+    hms <- c("%H%M%S", "%I%M%S%p")
+    hm <- "%H%M"
+    h <- c("%H")
+    ms.f <- "%M%OS"
+    ms <- "%M%S"
+
+    for(D in comb){
+        out[[paste(D, "_hms.f", sep = "")]] <-
+            paste(out[[D]], rep(hms.f, each = length(out[comb])), sep = "")
+    }
+
+    for(D in comb){
+        out[[paste(D, "_hms", sep = "")]] <-
+            paste(out[[D]], rep(hms, each = length(out[comb])), sep = "")
+    }
+
+    
+    for(D in comb){
+        out[[paste(D, "_hm", sep = "")]] <-
+            paste(out[[D]], rep(hm, each = length(out[comb])), sep = "")
+    }
+
+    for(D in comb){
+        out[[paste(D, "_h", sep = "")]] <-
+            paste(out[[D]], rep(h, each = length(out[comb])), sep = "")
+    }
+
+    for( i in seq_along(out))
+        out[[i]] <- unique(out[[i]])
+
+    out[["hms.f"]] <- hms.f
+    out[["hms"]] <- hms
+    out[["hm"]] <- hm
+    out[["ms.f"]] <- ms.f
+    out[["ms"]] <- ms
+    out
+})
+
 #' Parse dates according to the order that year, month, and day elements appear
 #'
 #' Transforms dates stored in character and numeric vectors to POSIXct objects. 
@@ -18,7 +72,7 @@
 #' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 #' @param tz a character string that specifies which time zone to parse the date with. The string must be a time zone that is recognized by the user's OS.
 #' @return a vector of POSIXct date-time objects
-#' @seealso \code{\link{parse_date}}
+#' @seealso \code{\link{parseDateTime}}
 #' @keywords chron 
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -35,45 +89,25 @@
 #' # TRUE
 #' dmy(010210)
 #' mdy(010210)
-ymd <- function(..., quiet = FALSE, tz = "UTC") {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("ymd"), quiet = quiet, tz = tz)
-}
-ydm <- function(..., quiet = FALSE, tz = "UTC") {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("ydm"), quiet = quiet, tz = tz)
-}
-mdy <- function(..., quiet = FALSE, tz = "UTC") {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("mdy"), quiet = quiet, tz = tz)
-}
-myd <- function(..., quiet = FALSE, tz = "UTC") {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("myd"), quiet = quiet, tz = tz)
-}
-dmy <- function(..., quiet = FALSE, tz = "UTC") {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("dmy"), quiet = quiet, tz = tz)
-}
-dym <- function(..., quiet = FALSE, tz = "UTC") {
-  dates <- unlist(list(...))
-  parse_date(num_to_date(dates), make_format("dym"), quiet = quiet, tz = tz)
-}
+ymd <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx(..., type = "ymd", quiet = quiet, tz = tz, missing = missing)
 
+ydm <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
+    .parse_xxx(..., type = "ydm", quiet = quiet, tz = tz, missing = missing)
 
-make_format <- function(order) {
-  order <- strsplit(order, "")[[1]]
-  
-  formats <- list(
-    d = "%d",
-    m = c("%m", "%b"),
-    y = c("%y", "%Y")
-  )[order]
-  
-  grid <- expand.grid(formats, 
-    KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
-  lapply(1:nrow(grid), function(i) unname(unlist(grid[i, ])))
-}
+mdy <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
+    .parse_xxx(..., type = "mdy", quiet = quiet, tz = tz, missing = missing)
+
+ 
+myd <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
+    .parse_xxx(..., type = "myd", quiet = quiet, tz = tz, missing = missing)
+
+dmy <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
+    .parse_xxx(..., type = "dmy", quiet = quiet, tz = tz, missing = missing)
+
+dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
+    .parse_xxx(..., type = "dym", quiet = quiet, tz = tz, missing = missing)
+
 
 
 #' Parse dates that have hours, minutes, or seconds elements 
@@ -100,266 +134,55 @@ make_format <- function(order) {
 #' y <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
 #' ymd_hms(y)
 #' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
-ymd_hms <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- ymd(parts[1,], quiet = quiet, tz = tz)
-    time <- hms(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hms(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
+ymd_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
+    .parse_xxx_hms(..., type = "ymd_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
 }
 
-ymdThms <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator_T(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, "T"),
-      stringsAsFactors = FALSE)
-    date <- ymd(parts[1,], quiet = quiet, tz = tz)
-    time <- hms(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hms(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
+ymd_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx_hm(..., type =  "ymd_hm", quiet = quiet, tz = tz, missing = missing)
 
-ymd_hm <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- ymd(parts[1,], quiet = quiet, tz = tz)
-    time <- hm(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hm(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
+ymd_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx_hm(..., type = "ymd_h", quiet = quiet, tz = tz, missing = missing)
 
-ymd_h <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- ymd(parts[1,], quiet = quiet, tz = tz)
-    time <- hours(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- ymd(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hours(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
+dmy_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
+    .parse_xxx_hms(..., type = "dmy_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
+
+dmy_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx_hm(..., type = "dmy_hm", quiet = quiet, tz = tz, missing = missing)
+
+dmy_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx_hm(..., type = "dmy_hm", quiet = quiet, tz = tz, missing = missing)
+
+mdy_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
+    .parse_xxx_hms(..., type = "mdy_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
+    
+mdy_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx_hm(..., type = "mdy_hm", quiet = quiet, tz = tz, missing = missing)
+
+mdy_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx_hm(..., type = "mdy_h", quiet = quiet, tz = tz, missing = missing)
+
+ydm_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
+    .parse_xxx_hms(..., type = "ydm_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
+
+ydm_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx_hm(..., type = "ydm_hm", quiet = quiet, tz = tz, missing = missing)
+
+ydm_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
+    .parse_xxx_hm(..., type = "ydm_hm", quiet = quiet, tz = tz, missing = missing)
 
 
-dmy_hms <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- dmy(parts[1,], quiet = quiet, tz = tz)
-    time <- hms(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hms(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
-
-dmy_hm <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- dmy(parts[1,], quiet = quiet, tz = tz)
-    time <- hm(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hm(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
-
-dmy_h <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- dmy(parts[1,], quiet = quiet, tz = tz)
-    time <- hours(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- dmy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hours(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
-
-
-mdy_hms <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- mdy(parts[1,], quiet = quiet, tz = tz)
-    time <- hms(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hms(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
-
-mdy_hm <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- mdy(parts[1,], quiet = quiet, tz = tz)
-    time <- hm(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hm(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
-
-mdy_h <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- mdy(parts[1,], quiet = quiet, tz = tz)
-    time <- hours(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- mdy(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hours(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
-
-ydm_hms <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- ydm(parts[1,], quiet = quiet, tz = tz)
-    time <- hms(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hms(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
-
-ydm_hm <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- ydm(parts[1,], quiet = quiet, tz = tz)
-    time <- hm(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hm(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
-}
-
-ydm_h <- function(..., quiet = FALSE, tz = "UTC"){
-  dates <- unlist(list(...))
-  seps <- find_separator(dates)
-  
-  if(length(seps) >= 2){
-    parts <- as.data.frame(str_split(dates, seps[2]),
-      stringsAsFactors = FALSE)
-    date <- ydm(parts[1,], quiet = quiet, tz = tz)
-    time <- hours(parts[2,])
-  }
-  
-  else{
-    breaks <- as.data.frame(gregexpr(seps, dates))
-    breaks <- as.numeric(breaks[3,])
-    date <- ydm(substr(dates, 1, breaks-1), quiet = quiet, tz = tz)
-    time <- hours(substr(dates, breaks + 1, nchar(dates)))
-  }
-  date + time
+ymdThms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
+    dates <- unlist(list(...), use.names= FALSE)
+    if(frac){
+        sep <- "T|[^[:alnum:].]"
+        type <- "ymd_hms.f"
+    }else{
+        sep <- "T|[^[:alnum:]]"
+        type <- "ymd_hms"
+    }
+    as.POSIXct(parseDateTime(dates, lubridate_formats[[type]], tz = tz, 
+                          sep_regexp= sep, missing = missing, quiet = quiet))
 }
 
 
@@ -383,17 +206,9 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC"){
 #' # [1] 7 minutes and 6 seconds
 #' ms("6,5")
 #' # 6 minutes and 5 seconds
-ms <- function(...) {
-  dates <- unlist(list(...))
-  sep <- find_separator(dates)
-  
-  parts <- as.data.frame(str_split(dates, fixed(sep[1])), 
-    stringsAsFactors = FALSE)
-  
-  if(nrow(parts) != 2) stop("incorrect number of elements")
-  
-  new_period(minute = as.numeric(parts[1,]), 
-    second = as.numeric(parts[2,]))
+ms <- function(..., frac = FALSE) {
+    hms <- .parse_hms(..., type = "ms", frac = frac)
+    new_period(minute = hms$min, second = hms$sec)
 }
 
 
@@ -417,16 +232,8 @@ ms <- function(...) {
 #' hm("6,5")
 #' # [1] 6 hours and 5 minutes
 hm <- function(...) {
-  dates <- unlist(list(...))
-  sep <- find_separator(dates)
-  
-  parts <- as.data.frame(str_split(dates, fixed(sep)), 
-    stringsAsFactors = FALSE)
-  
-  if(nrow(parts) != 2) stop("incorrect number of elements")
-  
-  new_period(hour = as.numeric(parts[1,]), 
-    minute = as.numeric(parts[2,]))
+    time <- .parse_hms(..., type = "hm")
+    new_period(hour = time$hour, minute = time$min)
 }
 
 #' Create a period with the specified hours, minutes, and seconds
@@ -446,30 +253,21 @@ hm <- function(...) {
 #' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
 #' hms("7 6 5")
 #' # [1] 7 hours, 6 minutes and 5 seconds
-hms <- function(...) {
-  dates <- unlist(list(...))
-  sep <- find_separator(dates)
-  
-  parts <- as.data.frame(str_split(dates, fixed(sep[1])), 
-    stringsAsFactors = FALSE)
-  
-  if(nrow(parts) != 3) stop("incorrect number of elements")
-  
-  new_period(hour = as.numeric(parts[1,]), 
-    minute = as.numeric(parts[2,]), 
-    second = as.numeric(parts[3,]))
+hms <- function(..., missing = 0, frac = FALSE) {
+    time <- .parse_hms(..., type = "hms", missing = missing, frac = frac)
+    new_period(hour = time$hour, minute = time$min, second = time$sec)
 }
 
 
 #' Change dates into a POSIXct format
 #'
-#' parse_date is an internal function for the \code{\link{ymd}} family of 
+#' parseDateTime is an internal function for the \code{\link{ymd}} family of 
 #' functions. Its recommended to use these functions instead. It transforms 
 #' dates stored in character and numeric vectors to POSIXct objects. All 
 #' inputed dates are considered to have the same order and to use the same 
 #' separator. 
 #'
-#' @export parse_date
+#' @export parseDateTime
 #' @param x a character or numeric vector of suspected dates 
 #' @param formats a vector of date-time format elements in the order they occur within the dates. 
 #'   See \code{\link[base]{strptime}} for format elements.
@@ -481,47 +279,214 @@ hms <- function(...) {
 #' @keywords chron
 #' @examples
 #' x <- c("09-01-01", "09-01-02", "09-01-03")
-#' parse_date(x, c("%y", "%m", "%d"), seps = "-")
+#' parseDateTime(x, c("%y", "%m", "%d"), seps = "-")
 #' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 #' ymd(x)
 #' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x), tz = "UTC") {
-  fmt <- guess_format(head(x, 100), formats, seps, quiet)
-  parsed <- as.POSIXct(strptime(x, fmt, tz = tz))
+parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]",
+                       nr_best = Inf, try_collapsed = TRUE, try_separated = TRUE,
+                       missing = 0L, quiet = FALSE,
+                       train = head(x, max(10, min(100, length(x) %/% 3)))){
+    if( is.numeric(x) ){
+        ## collapsed only
+        sep_regexp <- NULL
+        x <- .num_to_date(x)
+    }
 
-  if (length(x) > 2 & !quiet) message("Using date format ", fmt, ".")
+    if( is.null(sep_regexp) )
+        try_collapsed <- try_separated <- FALSE
 
-  failed <- sum(is.na(parsed)) - sum(is.na(x))
-  if (failed > 0) {
-    message(failed, " failed to parse.")    
-  }
-  
-  parsed
+    altern_fmt <- NULL
+    if( is.null(train) ){
+        ## defaults to collapsed unless specified otherwise
+        if( try_collapsed && try_separated){
+            try_separated <- FALSE
+            altern_fmt <- structure(fmt, sep = "-")
+        }
+    }else{
+        if( try_separated ){
+            train_s <- gsub(sep_regexp, "-", train)
+            fmt <- .train_formats(train_s, gsub("^-", "", gsub("%", "-%", formats)), quiet)
+            
+            if( try_collapsed ){
+                train_c <- gsub(sep_regexp, "", train)
+                fmt_c <- .train_formats(train_c, formats, quiet)
+                
+                if(max(fmt) < max(fmt_c)){
+                    altern_fmt <- structure(fmt, sep = "-")
+                    fmt <- fmt_c
+                    try_separated <- FALSE
+                }else{
+                    altern_fmt <- structure(fmt_c, sep = "")
+                    try_collapsed <- FALSE
+                }
+            }
+            
+        }else if( try_collapsed ){
+            train_c <- gsub(sep_regexp, "", train)
+            fmt <- .train_formats(train_c, formats, quiet)
+            
+        }else{
+            ## not gsub here, as no sep substitution required
+            fmt <- .train_formats(train, formats, quiet)
+        }
+
+        if( all(fmt == 0L ) )
+            stop("Training set didn't match any of the format orders: ", paste(formats, collapse= ", "))
+
+
+        formats <- .select_formats(fmt, nr_best)
+    }
+    
+    if( missing != 0 )
+        formats <- .add_missing(formats, missing)
+
+    if( try_collapsed ) # try_separated == FALSE
+        x <- gsub(sep_regexp, "", x)    
+    else if( try_separated )
+        x <- gsub(sep_regexp, "-", x)
+
+    sum_na <- sum(is.na(x))
+    ## cat("Trying:"); print(formats)
+    out <- .parseDateTime(x, formats, quiet, tz)
+    
+    parsed_na <- is.na(out$year)
+    failed <- sum(parsed_na) - sum_na
+
+    ## alternative treatment for the unparsed times
+    if (!is.null(altern_fmt) && failed > 0){
+        sep <- attr(altern_fmt, "sep")
+        ## cat("Trying alternative:"); print(formats)
+        formats <- .select_formats(altern_fmt, nr_best)
+        out[parsed_na] <- .parseDateTime(gsub(sep_regexp, sep, x[parsed_na]), formats, quiet, tz)
+        failed <- sum(is.na(out$year)) - sum_na
+    }
+
+    if( failed > 0 )
+        message(failed, " failed to parse.")
+    
+    out
 }
 
 
-find_separator <- function(x) {
-  x <- as.character(na.omit(x))
-  chars <- unlist(strsplit(x, ""))
-  
-  alpha <- c(LETTERS, letters, 0:9)
-  nonalpha <- setdiff(chars, alpha)
-  if (length(nonalpha) == 0) nonalpha <- ""
-  nonalpha
+### INTERNAL
+.enclose <- function(fmts)
+    paste("@", fmts, "@", sep = "")
+    
+.select_formats <- function(fmt, nr_best){
+    
+    fmt <- fmt[order(fmt, decreasing = TRUE)]
+    fmt <-
+        if( nr_best  < 1 ) fmt[fmt > 0]
+        else fmt[1:min(length(fmt), nr_best)]
+
+    ## if( length(fmt) > 1 ) ## longer formats and "%y" format have priority
+    ##     fmt <- fmt[order(nzchar(names(fmt)), !grepl("%Y|%OS", names(fmt)), decreasing = TRUE)]
+
+    names(fmt)
 }
 
-find_separator_T <- function(x) {
-  x <- as.character(x)
-  chars <- unlist(strsplit(x, ""))
-  
-  alpha <- c(LETTERS, letters, 0:9)
-  nonalpha <- setdiff(chars, alpha)
-  nonalpha <- c(nonalpha, "T")
-  if (length(nonalpha) == 1) nonalpha <- ""
-  nonalpha
+.parseDateTime <- function(x, formats, quiet, tz){
+    out <- strptime(.enclose(x), .enclose(formats[[1]]), tz = tz)
+    na <- is.na(out$year)
+    newx <- x[na]
+    
+    if(!quiet &  sum(!na) > 0)
+        message(sum(!na), " parsed in ", formats[[1]], " order")
+    
+
+    if(length(formats) > 1 &  length(newx) > 0)
+        out[na] <- .parseDateTime(newx, formats[-1], quiet, tz)
+
+    ## return POSIXlt
+    out
 }
 
-num_to_date <- function(x) {
+
+.add_missing <- function(formats, missing){    
+    stopifnot(is.character(formats))
+
+    out <- strsplit(formats, "%")
+    for (fmt in out){
+        lenout <- length(out)
+        if(nchar(fmt[1]) == 0L) fmt <- fmt[-1]
+        if(missing > 0){
+            lenfmt <- length(fmt)
+            mis <- min(missing, lenfmt-1)
+            for (i in 1:mis)
+                out[[lenout + i]] <- c("", fmt[1:(lenfmt - i)])
+        }else{
+            lenfmt <- length(fmt)
+            mis <- min(-missing, lenfmt - 1)
+            for (i in 1:mis){
+                out[[lenout + i]] <- c("", fmt[(i + 1):lenfmt])
+            }
+        }
+    }
+
+    out <- unlist(lapply(out, paste, collapse = "%"), use.names = FALSE)
+    ## replace  garbage at the end of string
+    out <- gsub("[^[:alnum:]]+$", "", out)
+    out
+}
+
+
+.train_formats <- function(x, formats, quiet = FALSE) {
+    x <- .enclose(x)
+    formats2 <- .enclose(formats)
+    trials <- lapply(formats2, function(fmt) strptime(x, fmt))
+    successes <- unlist(lapply(trials, function(x) sum(!is.na(x))), use.names = FALSE)
+    names(successes) <- formats
+    successes
+}
+
+
+.parse_hms <- function(..., type, frac = FALSE, missing = 0){
+    hms <- unlist(list(...), use.names= FALSE)
+    if( frac ){
+        sep <- "[^[:alnum:].]"
+        type <- paste(type, ".f", sep = "")
+    }else{
+        sep <- "[^[:alnum:]]"
+    }
+    formats <- lubridate_formats[[type]]
+    formats <- paste("%Y%m%d", formats, sep = "")
+    tryCatch(parseDateTime(paste("1970-01-01", hms, sep = " "), formats,
+                   sep_regexp = sep, missing =  missing, quiet = TRUE),
+             error = function(e){
+                 e$message <- gsub("%Y%m%d|%Y-%m-%d", "", e$message)
+                 stop(e)
+             })
+}
+
+
+
+.parse_xxx_hms <- function(..., type, missing, quiet, tz, frac = FALSE){
+    dates <- unlist(list(...), use.names= FALSE)
+    if( frac ){
+        sep <- "[^[:alnum:].]"
+        type <- paste(type, ".f", sep = "")
+    }else{
+        sep <- "[^[:alnum:]]"
+    }
+    as.POSIXct(parseDateTime(dates, lubridate_formats[[type]], tz = tz, 
+                          sep_regexp = sep, missing = missing, quiet = quiet))
+}
+
+.parse_xxx_hm <- function(..., type, missing, quiet, tz){
+    dates <- unlist(list(...), use.names= FALSE)
+    as.POSIXct(parseDateTime(dates, lubridate_formats[[type]], tz = tz, 
+                          sep_regexp = "[^[:alnum:]]", missing = missing, quiet = quiet))
+}
+
+.parse_xxx <- function(..., type, quiet, tz, missing){
+    dates <- unlist(list(...))
+    as.POSIXct(parseDateTime(.num_to_date(dates),
+                          lubridate_formats[[type]], quiet = quiet, tz = tz, missing = missing))
+}
+
+
+.num_to_date <- function(x) {
   if (is.numeric(x)) {
     x <- as.character(x)
     x <- paste(ifelse(nchar(x) %% 2 == 1, "0", ""), x, sep = "")
@@ -530,45 +495,4 @@ num_to_date <- function(x) {
 }
 
 
-guess_format <- function(x, formats, seps = c("-", "/", ""), quiet = FALSE) {
-  
-  if (is.list(formats))
-    formats <- do.call(rbind, formats)
-  else formats <- as.matrix(t(formats))
-    
-  with_seps <- combine(formats, seps)
-
-  fmts <- unlist(mlply(with_seps, paste))
-  
-  x <- paste("@", x, "@", sep = "")
-  fmts2 <- paste("@", fmts, "@", sep = "")
-  
-  trials <- llply(fmts2, function(fmt) strptime(x, fmt))
-
-  successes <- unlist(llply(trials, function(x) sum(!is.na(x))))
-  
-  bestn <- max(successes)
-  best <- fmts[successes > 0 & successes == bestn]
-  
-  if (length(best) == 0) {
-    stop("Date did not match any of the guessed formats: ", 
-      paste(fmts, collapse = ", "), ". ",
-      "Check for incorrect or missing elements.", call. = FALSE)
-  } 
-  else if (length(best) > 1 & !quiet) {
-    message("Multiple format matches with ", bestn, " successes: ", paste(best, collapse =", "), ".")
-    best <- best[1]
-  }
-
-  best
-}
-
-combine <- function(mat, vec){
-  
-  combined <- mat[rep(1:nrow(mat), each = length(vec)),]
-  if (nrow(mat) == 1)
-    combined <- cbind(t(unname(combined)), sep = rep(vec, nrow(mat)))
-  else
-    combined <- cbind(unname(combined), sep = rep(vec, nrow(mat)))
-  combined
-}
+## parse.r ends here
