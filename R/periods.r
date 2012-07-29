@@ -320,7 +320,7 @@ new_period <- period <- function(...) {
   )
   
   pieces <- cbind(pieces, defaults[setdiff(names(defaults), names(pieces))])
-  pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")] 
+  ## pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")] 
   
   pieces$day <- pieces$day + pieces$week * 7
   
