@@ -52,43 +52,54 @@ lubridate_formats <- local({
     out
 })
 
-#' Parse dates according to the order that year, month, and day elements appear
-#'
-#' Transforms dates stored in character and numeric vectors to POSIXct objects. 
-#' These functions automatically recognize the following separators: "-", "/", 
-#' ".", and "" (i.e., no separators). 
-#'
-#' Users should choose the function that models the order in which year(y), 
-#' month(m), and date(d) appear in the dates. All inputed dates are considered 
-#' to have the same order and the same separators.
-#'
-#' ymd() type functions automatically assign the Universal Coordinated Time Zone 
-#' (UTC) to the parsed dates. This time zone can be changed with
-#' \code{\link{force_tz}}.
-#'
-#' @export ymd myd dym ydm mdy dmy
-#' @aliases yearmonthdate ymd myd dym ydm mdy dmy
-#' @param ... a character or numeric vector of suspected dates 
-#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
-#' @param tz a character string that specifies which time zone to parse the date with. The string must be a time zone that is recognized by the user's OS.
-#' @return a vector of POSIXct date-time objects
-#' @seealso \code{\link{parseDateTime}}
-#' @keywords chron 
-#' @examples
-#' x <- c("09-01-01", "09-01-02", "09-01-03")
-#' ymd(x)
-#' # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-#' z <- c("2009-01-01", "2009-01-02", "2009-01-03")
-#' ymd(z)
-#' # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-#' ymd(090101)
-#' # "2009-01-01 UTC"
-#' ymd(90101)
-#' # "2009-01-01 UTC"
-#' now() > ymd(20090101) 
-#' # TRUE
-#' dmy(010210)
-#' mdy(010210)
+##' Parse dates according to the order that year, month, and day elements appear
+##' in the input vector.
+##'
+##' Transforms dates stored in character and numeric vectors to POSIXct
+##' objects. These functions automatically recognize all non-alphanumeric
+##' separators as well as no separator. As long as the order of formats is
+##' correct, these functions will parse dates correctly even when the dates are
+##' in different format or use different separators. If you need even more
+##' flexibility in the range of available formats see low level parser
+##' \code{\link{parseDateTime}.
+##'
+##' \code{ymd} family of functions automatically assign the Universal
+##' Coordinated Time Zone (UTC) to the parsed dates. This time zone can be
+##' changed with \code{\link{force_tz}}.
+##'
+##' If \doce{missing} parameter is non-zero \code{ymd} functions also check for
+##' truncated formats. For example \code{ymd} with \code{missing = 2} will also
+##' parse incomplete dates like \code{2012-06} and \code{2012}. NOTE: \code{ymd}
+##' family of functions are based on \code{strptime} which currently fails to
+##' parse \code{%y-%m} formats.
+##'
+##' @export ymd myd dym ydm mdy dmy
+##' @aliases yearmonthdate ymd myd dym ydm mdy dmy
+##' @param ... a character or numeric vector of suspected dates 
+##' @param quiet logical. When TRUE function evalueates without displaying
+##' customary messages.
+##' @param tz a character string that specifies which time zone to parse the
+##' date with. The string must be a time zone that is recognized by the user's
+##' OS.
+##' @param missing integer, indicating how many formats can be missing. 
+##' @return a vector of class POSIXct 
+##' @seealso \code{\link{parseDateTime}} for underlying mechanism.
+##' @keywords chron 
+##' @examples
+##' x <- c("09-01-01", "09-01-02", "09-01-03")
+##' ymd(x)
+##' # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
+##' z <- c("2009-01-01", "2009-01-02", "2009-01-03")
+##' ymd(z)
+##' # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
+##' ymd(090101)
+##' # "2009-01-01 UTC"
+##' ymd(90101)
+##' # "2009-01-01 UTC"
+##' now() > ymd(20090101) 
+##' # TRUE
+##' dmy(010210)
+##' mdy(010210)
 ymd <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx(..., type = "ymd", quiet = quiet, tz = tz, missing = missing)
 
@@ -110,30 +121,50 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 
 
 
-#' Parse dates that have hours, minutes, or seconds elements 
-#'
-#' Transforms dates stored as character vectors in year, month, day, hour, minute, 
-#' second format to POSIXct objects. ymd_hms() type functions recognize all non-alphanumeric 
-#' separators of length 1 with the exception of ".". ymd_hms() functions automatically
-#' assigns the Universal Coordinated Time Zone (UTC) to the parsed date. This time 
-#' zone can be changed with \code{\link{force_tz}}. ymdThms() specifically handles combined dates and times written in the ISO 8601 format.
-#'
-#' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
-#' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
-#' @param ... a character vector of dates in year, month, day, hour, minute, 
-#'   second format 
-#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
-#' @param tz a character string that specifies which time zone to parse the date with. The string must be a time zone that is recognized by the user's OS.
-#' @return a vector of POSIXct date-time objects
-#' @seealso \code{\link{ymd}}, \code{\link{hms}}
-#' @keywords POSIXt parse 
-#' @examples
-#' x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
-#' ymd_hms(x)
-#' # [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
-#' y <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
-#' ymd_hms(y)
-#' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
+##' Parse dates that have hours, minutes, or seconds elements.
+##'
+##' Transform dates stored as character or numeric vectors to POSIXct
+##' objects. ymd_hms family of functions recognize all non-alphanumeric
+##' separators (with the exception of "." if \code{frac = TRUE}) and correctly
+##' handle heterogeneous date-time representations in a single input vector. For
+##' more flexibility, see low level parser \code{\link{parseDateTime}.
+##'
+##' ymd_hms() functions automatically assigns the Universal Coordinated Time
+##' Zone (UTC) to the parsed date. This time zone can be changed with
+##' \code{\link{force_tz}}.
+##'
+##' The most common type of iregularity in date-time strings is the truncation
+##' due to rounding or unavailability of the time stamp. If \doce{missing}
+##' parameter is non-zero \code{ymd_hms} functions also check for truncated
+##' formats. For example \code{ymd_hms} with \code{missing = 3} will also parse
+##' incomplete dates like \code{2012-06-01 12:23}, \code{2012-06-01 12} and
+##' \code{2012-06-01}. NOTE: \code{ymd} family of functions are based on
+##' \code{strptime} which currently fails to parse \code{%y-%m} formats.
+##'
+##' ymdThms() specifically handles combined dates and times written in the ISO
+##' 8601 format.
+##'
+##' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
+##' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
+##' @param ... a character vector of dates in year, month, day, hour, minute, 
+##'   second format 
+##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
+##' @param tz a character string that specifies which time zone to parse the date with. The string must be a time zone that is recognized by the user's OS.
+##' @param missing integer, indicating how many formats can be missing. See details.
+##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
+##' that fractional seconds are separated by ".". In this case "." cannot be
+##' used as a separator between other fields.
+##' @return a vector of POSIXct date-time objects
+##' @seealso \code{\link{ymd}}, \code{\link{hms}}. \code{\link{parseDateTime}}
+##' for underlying mechanism.
+##' @keywords POSIXt parse 
+##' @examples
+##' x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
+##' ymd_hms(x)
+##' # [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
+##' y <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
+##' ymd_hms(y)
+##' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
     .parse_xxx_hms(..., type = "ymd_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
 }
@@ -187,103 +218,183 @@ ymdThms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
 
 
 
-#' Create a period with the specified number of minutes and seconds
-#'
-#' Transforms a character string into a period object with the 
-#' specified number of minutes and seconds. ms() 
-#' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
-#'
-#' @export ms
-#' @param ... a character vector of minute second pairs
-#' @return a vector of period objects
-#' @seealso \code{\link{hms}, \link{hm}}
-#' @keywords period
-#' @examples
-#' x <- c("09:10", "09:02", "1:10")
-#' ms(x)
-#' # [1] 9 minutes and 10 seconds   9 minutes and 2 seconds   1 minute and 10 seconds
-#' ms("7 6")
-#' # [1] 7 minutes and 6 seconds
-#' ms("6,5")
-#' # 6 minutes and 5 seconds
+##' Create a period with the specified number of minutes and seconds
+##'
+##' Transforms a character string into a period object with the 
+##' specified number of minutes and seconds. ms() 
+##' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
+##'
+##' @export ms
+##' @param ... character or numeric vectors of minute second pairs
+##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
+##' that fractional seconds are separated by ".". If \code{TRUE}, "." cannot be
+##' used as a separator between minutes and seconds.
+##' @return a vector of class \code{Period}
+##' @seealso \code{\link{hms}, \link{hm}}
+##' @keywords period
+##' @examples
+##' x <- c("09:10", "09:02", "1:10")
+##' ms(x)
+##' # [1] 9 minutes and 10 seconds   9 minutes and 2 seconds   1 minute and 10 seconds
+##' ms("7 6")
+##' # [1] 7 minutes and 6 seconds
+##' ms("6,5")
+##' # 6 minutes and 5 seconds
 ms <- function(..., frac = FALSE) {
     hms <- .parse_hms(..., type = "ms", frac = frac)
     new_period(minute = hms$min, second = hms$sec)
 }
 
 
-#' Create a period with the specified number of hours and minutes
-#'
-#' Transforms a character string into a period object with the 
-#' specified number of hours and minutes. hm() 
-#' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
-#'
-#' @export hm
-#' @param ... a character vector of hour minute pairs
-#' @return a vector of period objects
-#' @seealso \code{\link{hms}, \link{ms}}
-#' @keywords period
-#' @examples
-#' x <- c("09:10", "09:02", "1:10")
-#' hm(x)
-#' # [1] 9 hours and 10 minutes   9 hours and 2 minutes   1 hour and 10 minutes
-#' hm("7 6")
-#' # [1] 7 hours and 6 minutes
-#' hm("6,5")
-#' # [1] 6 hours and 5 minutes
+##' Create a period with the specified number of hours and minutes
+##'
+##' Transforms a character or numeric vector into a period object with the
+##' specified number of hours and minutes. hm() recognizes all non-alphanumeric
+##' and no separator.
+##'
+##' @export hm
+##' @param ... character or numeric vectors of hour minute pairs
+##' @return a vector of class \code{Period}
+##' @seealso \code{\link{hms}, \link{ms}}
+##' @keywords period
+##' @examples
+##' x <- c("09:10", "09:02", "1:10")
+##' hm(x)
+##' # [1] 9 hours and 10 minutes   9 hours and 2 minutes   1 hour and 10 minutes
+##' hm("7 6")
+##' # [1] 7 hours and 6 minutes
+##' hm("6,5")
+##' # [1] 6 hours and 5 minutes
 hm <- function(...) {
     time <- .parse_hms(..., type = "hm")
     new_period(hour = time$hour, minute = time$min)
 }
 
-#' Create a period with the specified hours, minutes, and seconds
-#'
-#' Transforms a character string into a period object with the 
-#' specified number of hours, minutes, and seconds. hms() 
-#' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
-#'
-#' @export hms
-#' @param ... a character vector of hour minute second triples
-#' @return a vector of period objects
-#' @seealso \code{\link{hm}, \link{ms}}
-#' @keywords period
-#' @examples
-#' x <- c("09:10:01", "09:10:02", "09:10:03")
-#' hms(x)
-#' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
-#' hms("7 6 5")
-#' # [1] 7 hours, 6 minutes and 5 seconds
+##' Create a period with the specified hours, minutes, and seconds
+##'
+##' Transforms a character or numeric vector into a period object with the
+##' specified number of hours, minutes, and seconds. hms() recognizes all
+##' non-alphanumeric separators.
+##'
+##' @export hms
+##' @param ... a character vector of hour minute second triples
+##' @param missing integer, number of formats that can be missing. See
+##' \code{\link{parseDateTime}}.
+##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
+##' that fractional seconds are separated by ".". If \code{TRUE}, "." cannot be
+##' used as a separator between minutes and seconds.
+##' @return a vector of period objects
+##' @seealso \code{\link{hm}, \link{ms}}
+##' @keywords period
+##' @examples
+##' x <- c("09:10:01", "09:10:02", "09:10:03")
+##' hms(x)
+##' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
+##' hms("7 6 5")
+##' # [1] 7 hours, 6 minutes and 5 seconds
 hms <- function(..., missing = 0, frac = FALSE) {
     time <- .parse_hms(..., type = "hms", missing = missing, frac = frac)
     new_period(hour = time$hour, minute = time$min, second = time$sec)
 }
 
 
-#' Change dates into a POSIXct format
-#'
-#' parseDateTime is an internal function for the \code{\link{ymd}} family of 
-#' functions. Its recommended to use these functions instead. It transforms 
-#' dates stored in character and numeric vectors to POSIXct objects. All 
-#' inputed dates are considered to have the same order and to use the same 
-#' separator. 
-#'
-#' @export parseDateTime
-#' @param x a character or numeric vector of suspected dates 
-#' @param formats a vector of date-time format elements in the order they occur within the dates. 
-#'   See \code{\link[base]{strptime}} for format elements.
-#' @param quiet logical. When TRUE function evalueates without displaying customary messages.
-#' @param seps a vector of possible characters used to separate elements within the dates.
-#' @param tz a character string that specifies the time zone with which to parse the dates
-#' @return a vector of POSIXct date-time objects
-#' @seealso \code{\link{ymd}}
-#' @keywords chron
-#' @examples
-#' x <- c("09-01-01", "09-01-02", "09-01-03")
-#' parseDateTime(x, c("%y", "%m", "%d"), seps = "-")
-#' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-#' ymd(x)
-#' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]",
+##' Low level function to parse character and numeric vectors into POSIXct object.
+##'
+##' parseDateTime transforms dates stored in character and numeric vectors into
+##' POSIXct objects. All inputted dates should have the same order, but can have
+##' different formatting and separators.
+##'
+##' If \code{sep_regexp} is non-NULL, it should be a regular expression to match
+##' separators between numeric elements in \code{x}. In this case \code{formats}
+##' should not contain separators, like in "%y%m%d". See
+##' \code{lubridate_formats} for formats used in \code{ymd} and \code{ymd_hms}
+##' families of functions.
+##'
+##' For the training and parsing two strategies can be applied. First, when
+##' requested with \code{try_separated = TRUE}, is to replace the separators
+##' with "-" and parse with \code{strptime}. Second, when requested with
+##' \code{try_collapsed = TRUE}, completely remove separators and parse with
+##' \code{strptime}.
+##' 
+##' This are the parsing steps:
+##'
+##' \enumerate{
+##' 
+##'   \item For each requested strategy, sort the available formats according to
+##' their performance on the training set in \code{train}.
+##' 
+##'   \item If both \code{try_separated} and \code{try_collapsed} are TRUE. Take
+##' the best strategy and store the alternative strategy for the potential latter
+##' use. 
+##' 
+##'   \item Parse \code{x} with first \code{nr_best} formats recursively with
+##' the best strategy. That is, parse \code{x} with the best format, then parse
+##' with the second best format all the unparsed in the previous stage
+##' elements. Continue until all elements in \code{x} are parsed or all formats
+##' are exhausted.
+##'
+##'   \item If there are still unparsed elements in \code{x}, try to parse them
+##' with the alternative strategy, if any, using the same formats.
+##'
+##' }
+##'
+##' \bold{Speed considerations:}
+##'
+##' In most of the cases \code{parseDateTime} is very fast (as fast as
+##' \code{as.POSIXct}) on vectors longer than 10000 elements. (todo: check this
+##' number)
+##'
+##' For short vectors it might not be very efficient because of the training of
+##' formats involved. It's never a problem in interactive use but could be felt
+##' if you run \code{for} or \code{lapply} loops on big data. You can deactivate
+##' training by setting \code{train} to \code{NULL}. In this case it is a good
+##' idea to order the \code{formats} in decreasing order of how often they occur
+##' in \code{x}.
+##'
+##' For efficiency reason training is always skipped when length of
+##' \code{x} is less than 300. (todo: .... )
+##'
+##' For long input vector \code{x}, If you know all the available formats in
+##' \code{x}, it might be a good idea to set \code{sep_regexp} to NULL and
+##' supply all the formats explicitly (i.e. including separators). This will
+##' save up to 20-30% in speed as it avoids \code{gsub}-ing of \code{x}. This
+##' way you will achieve the efficiency of the bare \code{strptime}.
+##' 
+##' @export parseDateTime
+##' @param x a character or numeric vector of suspected dates 
+##' @param formats a vector of date-time formats. It should be a character
+##' vector of formats. Each format is series of formatting elements as listed
+##' \code{\link[base]{strptime}}. Formats should not include separators unless
+##' \code{sep_regexp} is NULL. See examples.
+##' @param tz a character string that specifies the time zone with which to
+##' parse the dates
+##' @param sep_regexp a character.  A regular expression matching separators
+##' (defaults to all non-alphanumeric characters). Can also be NULL.  In this
+##' case, \code{formats} are taken literally and \code{x} is parsed as is. That
+##' is,  try_collapsed and try_separated are ignored and no substitution of
+##' \code{x} is maid strategies. 
+##' @param nr_best number of "best" formats to try. Defaults to \code{Inf}, that
+##' is all formats are tried recursively and training is only used to order
+##' formats according to how well they have performed on the training set.
+##' @param try_collapsed logical. TRUE if collapsed (no separator) formats
+##' should be tried.
+##' @param try_separated logical. TRUE if separated formats should be tried.
+##' @param missing integer, number of formats that can be missing. 
+##' @param quiet logical. When TRUE function evalueates without displaying
+##' customary messages.
+##' @param train a vector to use for format training. Defaults to the head of
+##' \code{x}. If NULL, no training is performed.
+##' @param seps a vector of possible characters used to separate elements within the dates.
+##' @return a vector of POSIXct date-time objects
+##' @seealso \code{\link{ymd}}
+##' @keywords chron
+##' @examples
+##' x <- c("09-01-01", "09-01-02", "09-01-03")
+##' parseDateTime(x, c("%y", "%m", "%d"), seps = "-")
+##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
+##' ymd(x)
+##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
+parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
                        nr_best = Inf, try_collapsed = TRUE, try_separated = TRUE,
                        missing = 0L, quiet = FALSE,
                        train = head(x, max(10, min(100, length(x) %/% 3)))){
