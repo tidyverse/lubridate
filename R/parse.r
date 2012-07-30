@@ -553,7 +553,9 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 
 
 .parse_hms <- function(..., type, frac = FALSE, missing = 0){
-    hms <- unlist(list(...), use.names= FALSE)
+    if(length(hms <- list(...)) > 1) # avoid converting to string in most common case
+        hms <- lapply(hms, .num_to_date)
+    hms <- unlist(hms, use.names= FALSE)
     if( frac ){
         sep <- "[^[:alnum:].]"
         type <- paste(type, ".f", sep = "")
@@ -573,7 +575,9 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 
 
 .parse_xxx_hms <- function(..., type, missing, quiet, tz, frac = FALSE){
-    dates <- unlist(list(...), use.names= FALSE)
+    if(length(dates <- list(...)) > 1) # avoid converting to string in most common case
+        dates <- lapply(dates, .num_to_date)
+    dates <- unlist(dates, use.names= FALSE)
     if( frac ){
         sep <- "[^[:alnum:].]"
         type <- paste(type, ".f", sep = "")
@@ -585,13 +589,17 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 }
 
 .parse_xxx_hm <- function(..., type, missing, quiet, tz){
-    dates <- unlist(list(...), use.names= FALSE)
+    if(length(dates <- list(...)) > 1) # avoid converting to string in most common case
+        dates <- lapply(dates, .num_to_date)
+    dates <- unlist(dates, use.names= FALSE)
     as.POSIXct(parseDateTime(dates, lubridate_formats[[type]], tz = tz, 
                           sep_regexp = "[^[:alnum:]]", missing = missing, quiet = quiet))
 }
 
 .parse_xxx <- function(..., type, quiet, tz, missing){
-    dates <- unlist(list(...))
+    if(length(dates <- list(...)) > 1) # avoid converting to string in most common case
+        dates <- lapply(dates, .num_to_date)
+    dates <- unlist(dates, use.names= FALSE)
     as.POSIXct(parseDateTime(.num_to_date(dates),
                           lubridate_formats[[type]], quiet = quiet, tz = tz, missing = missing))
 }
