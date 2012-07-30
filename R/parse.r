@@ -421,7 +421,8 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
         ## defaults to collapsed unless specified otherwise
         if( try_collapsed && try_separated){
             try_separated <- FALSE
-            altern_fmt <- structure(formats, sep = "-")
+            altern_fmt <- structure(rep.int(0L, length(formats)), sep = "-",
+                                    names = gsub("^-", "", gsub("%", "-%", formats)))
         }
     }else{
         if( try_separated ){
@@ -461,14 +462,16 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
     if( missing != 0 )
         formats <- .add_missing(formats, missing)
 
-    if( try_collapsed ) # try_separated == FALSE
-        x <- gsub(sep_regexp, "", x)    
-    else if( try_separated )
-        x <- gsub(sep_regexp, "-", x)
+    out <-
+        if( try_collapsed ) # try_separated == FALSE
+            gsub(sep_regexp, "", x)
+        else if( try_separated )
+            gsub(sep_regexp, "-", x)
+        else x
 
     sum_na <- sum(is.na(x))
     ## cat("Trying:"); print(formats)
-    out <- .parseDateTime(x, formats, quiet, tz)
+    out <- .parseDateTime(out, formats, quiet, tz)
     
     parsed_na <- is.na(out$year)
     failed <- sum(parsed_na) - sum_na
@@ -572,9 +575,7 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 }
 
 .parse_hms <- function(..., type, frac = FALSE, missing = 0){
-    if(length(hms <- list(...)) > 1) # avoid converting to string in most common case
-        hms <- lapply(hms, .num_to_date)
-    hms <- unlist(hms, use.names= FALSE)
+    hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
     if( frac ){
         sep <- "[^[:alnum:].]+"
         type <- paste(type, ".f", sep = "")
@@ -584,8 +585,9 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
     formats <- lubridate_formats[[type]]
     formats <- paste("%Y%m%d", formats, sep = "")
     ## ugly hack, but what can we do :(
-    tryCatch(parseDateTime(paste("1970-01-01", hms, sep = " "), formats,
-                   sep_regexp = sep, missing =  missing, quiet = TRUE, train = .train_head(hms)),
+    hms <- paste("1970-01-01", hms, sep = "-")
+    tryCatch(parseDateTime(hms, formats, sep_regexp = sep, missing =  missing,
+                           quiet = TRUE, train = .train_head(hms)),
              error = function(e){
                  e$message <- gsub("%Y%m%d|%Y-%m-%d", "", e$message)
                  stop(e)
