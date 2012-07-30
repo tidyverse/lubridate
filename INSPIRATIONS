@@ -27,3 +27,86 @@ Date time standards
   # Ordered from least precise to most
   # 2003-08-06 04:28-02:00
   # 2003-08-06T04:28Z
+
+
+Variety of formats (from http://chronic.rubyforge.org/):
+
+ Simple
+
+  thursday
+  november
+  summer
+  friday 13:00
+  mon 2:35
+  4pm
+  6 in the morning
+  friday 1pm
+  sat 7 in the evening
+  yesterday
+  today
+  tomorrow
+  this tuesday
+  next month
+  last winter
+  this morning
+  last night
+  this second
+  yesterday at 4:00
+  last friday at 20:00
+  last week tuesday
+  tomorrow at 6:45pm
+  afternoon yesterday
+  thursday last week
+
+Complex
+
+  3 years ago
+  5 months before now
+  7 hours ago
+  7 days from now
+  1 week hence
+  in 3 hours
+  1 year ago tomorrow
+  3 months ago saturday at 5:00 pm
+  7 hours before tomorrow at noon
+  3rd wednesday in november
+  3rd month next year
+  3rd thursday this september
+  4th day last week
+
+Specific Dates
+
+  January 5
+  dec 25
+  may 27th
+  October 2006
+  oct 06
+  jan 3 2010
+  february 14, 2004
+  3 jan 2000
+  17 april 85
+  5/27/1979
+  27/5/1979
+  05/06
+  1979-05-27
+  Friday
+  5
+  4:00
+  17:00
+  0800
+
+Specific Times (many of the above with an added time)
+
+  January 5 at 7pm
+  1979-05-27 05:00
+  etc
+
+
+Natural (from http://code.google.com/p/datejs/)
+
+Date.parse('July 23rd 2004')    // Fri Jul 23 2004
+Date.parse('Sat July 3, 2004')  // Sat Jul 03 2004
+
+Date.parse('July 8th, 2004, 10:30 PM')      // Thu Jul 08 2004 22:30:00
+Date.parse('2004-07-15T06:45:00')           // Thu Jul 15 2004 06:45:00
+Date.parse('Thu, 1 July 2004 22:30:00 GMT') // Thu Jul 01 2004 16:30:00

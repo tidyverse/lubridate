@@ -633,4 +633,21 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 }
 
 
+##' Deprecated internal function, use \code{\link{parseDateTime}} instead.
+##'
+##'
+##' @export parse_date
+##' @param x -
+##' @param formats -
+##' @param quiet -
+##' @param seps -
+##' @param tz - 
+parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x), tz = "UTC") {
+
+  stop("Internal function parse_date has been removed from lubridate package. Plese use parseDateTime instead.")
+}
+
+
+
 ## parse.r ends here
+
