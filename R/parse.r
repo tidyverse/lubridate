@@ -58,9 +58,9 @@ lubridate_formats <- local({
 ##' Transforms dates stored in character and numeric vectors to POSIXct
 ##' objects. These functions automatically recognize all non-alphanumeric
 ##' separators as well as no separator. As long as the order of formats is
-##' correct, these functions will parse dates correctly even when the dates are
-##' in different format or use different separators. If you need even more
-##' flexibility in the range of available formats see low level parser
+##' correct, these functions will parse dates correctly even when dates have
+##' different formats or use different separators. For even more flexibility in
+##' treatment of heterogeneous formats see low level parser
 ##' \code{\link{parseDateTime}.
 ##'
 ##' \code{ymd} family of functions automatically assign the Universal
@@ -81,7 +81,7 @@ lubridate_formats <- local({
 ##' @param tz a character string that specifies which time zone to parse the
 ##' date with. The string must be a time zone that is recognized by the user's
 ##' OS.
-##' @param missing integer, indicating how many formats can be missing. 
+##' @param missing integer. Number of formats that can be missing. 
 ##' @return a vector of class POSIXct 
 ##' @seealso \code{\link{parseDateTime}} for underlying mechanism.
 ##' @keywords chron 
@@ -126,14 +126,15 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##' Transform dates stored as character or numeric vectors to POSIXct
 ##' objects. ymd_hms family of functions recognize all non-alphanumeric
 ##' separators (with the exception of "." if \code{frac = TRUE}) and correctly
-##' handle heterogeneous date-time representations in a single input vector. For
-##' more flexibility, see low level parser \code{\link{parseDateTime}.
+##' handle heterogeneous date-time representations. For more flexibility in
+##' treatment of heterogeneous formats, see low level parser
+##' \code{\link{parseDateTime}.
 ##'
 ##' ymd_hms() functions automatically assigns the Universal Coordinated Time
 ##' Zone (UTC) to the parsed date. This time zone can be changed with
 ##' \code{\link{force_tz}}.
 ##'
-##' The most common type of iregularity in date-time strings is the truncation
+##' The most common type of irregularity in date-time data is the truncation
 ##' due to rounding or unavailability of the time stamp. If \doce{missing}
 ##' parameter is non-zero \code{ymd_hms} functions also check for truncated
 ##' formats. For example \code{ymd_hms} with \code{missing = 3} will also parse
@@ -220,9 +221,9 @@ ymdThms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
 
 ##' Create a period with the specified number of minutes and seconds
 ##'
-##' Transforms a character string into a period object with the 
-##' specified number of minutes and seconds. ms() 
-##' recognizes all non-alphanumeric separators of length 1 with the exception of ".".
+##' Transforms character or numeric vectors into a period object with the
+##' specified number of minutes and seconds. ms() recognizes all
+##' non-alphanumeric separators as well as no separator. 
 ##'
 ##' @export ms
 ##' @param ... character or numeric vectors of minute second pairs
@@ -248,9 +249,9 @@ ms <- function(..., frac = FALSE) {
 
 ##' Create a period with the specified number of hours and minutes
 ##'
-##' Transforms a character or numeric vector into a period object with the
+##' Transforms a character or numeric vectors into a period object with the
 ##' specified number of hours and minutes. hm() recognizes all non-alphanumeric
-##' and no separator.
+##' separators, and no separator.
 ##'
 ##' @export hm
 ##' @param ... character or numeric vectors of hour minute pairs
@@ -274,7 +275,7 @@ hm <- function(...) {
 ##'
 ##' Transforms a character or numeric vector into a period object with the
 ##' specified number of hours, minutes, and seconds. hms() recognizes all
-##' non-alphanumeric separators.
+##' non-alphanumeric separators, as well as no separator.
 ##'
 ##' @export hms
 ##' @param ... a character vector of hour minute second triples
@@ -298,25 +299,25 @@ hms <- function(..., missing = 0, frac = FALSE) {
 }
 
 
-##' Low level function to parse character and numeric vectors into POSIXct object.
+##' Low level function to parse character and numeric vectors into POSIXct
+##' object, specifically designed to handle heterogeneous date-time formats at
+##' once. It first sorts the supplied formats based on a training set and then
+##' applies them recursively for parsing of the input vector.
 ##'
-##' parseDateTime transforms dates stored in character and numeric vectors into
-##' POSIXct objects. All inputted dates should have the same order, but can have
-##' different formatting and separators.
 ##'
 ##' If \code{sep_regexp} is non-NULL, it should be a regular expression to match
 ##' separators between numeric elements in \code{x}. In this case \code{formats}
-##' should not contain separators, like in "%y%m%d". See
+##' should not contain separators (like in "%y%m%d"). See
 ##' \code{lubridate_formats} for formats used in \code{ymd} and \code{ymd_hms}
 ##' families of functions.
 ##'
-##' For the training and parsing two strategies can be applied. First, when
-##' requested with \code{try_separated = TRUE}, is to replace the separators
-##' with "-" and parse with \code{strptime}. Second, when requested with
-##' \code{try_collapsed = TRUE}, completely remove separators and parse with
-##' \code{strptime}.
+##' There are two strategies that can be applied for the training and
+##' parsing. First strategy (when \code{try_separated = TRUE}) is to replace the
+##' separators with "-" and then parse with \code{strptime}. Second strategy
+##' (requested with \code{try_collapsed = TRUE}), it to completely remove
+##' separators and then parse with \code{strptime}.
 ##' 
-##' This are the parsing steps:
+##' \bold{Parsing steps:}
 ##'
 ##' \enumerate{
 ##' 
@@ -345,20 +346,20 @@ hms <- function(..., missing = 0, frac = FALSE) {
 ##' number)
 ##'
 ##' For short vectors it might not be very efficient because of the training of
-##' formats involved. It's never a problem in interactive use but could be felt
-##' if you run \code{for} or \code{lapply} loops on big data. You can deactivate
-##' training by setting \code{train} to \code{NULL}. In this case it is a good
-##' idea to order the \code{formats} in decreasing order of how often they occur
-##' in \code{x}.
+##' formats involved. It's never a problem in interactive use but could have a
+##' sizable effect if you run \code{for} or \code{lapply} loops on big data and
+##' small blocks. You can deactivate training by setting \code{train} to
+##' \code{NULL}. In this case it is a good idea to order the \code{formats} in
+##' decreasing order of how often they occur in \code{x}.
 ##'
-##' For efficiency reason training is always skipped when length of
-##' \code{x} is less than 300. (todo: .... )
+##' For efficiency reasons, in \code{ymd} and \code{ymd_hms} family of functions,
+##' training is always skipped when length of \code{x} is less than 300.
 ##'
 ##' For long input vector \code{x}, If you know all the available formats in
 ##' \code{x}, it might be a good idea to set \code{sep_regexp} to NULL and
 ##' supply all the formats explicitly (i.e. including separators). This will
 ##' save up to 20-30% in speed as it avoids \code{gsub}-ing of \code{x}. This
-##' way you will achieve the efficiency of the bare \code{strptime}.
+##' way, you will achieve the efficiency of the bare call to \code{strptime}.
 ##' 
 ##' @export parseDateTime
 ##' @param x a character or numeric vector of suspected dates 
@@ -379,7 +380,15 @@ hms <- function(..., missing = 0, frac = FALSE) {
 ##' @param try_collapsed logical. TRUE if collapsed (no separator) formats
 ##' should be tried.
 ##' @param try_separated logical. TRUE if separated formats should be tried.
-##' @param missing integer, number of formats that can be missing. 
+##' @param missing integer, number of formats that can be missing. The most
+##' common type of irregularity in date-time data is the truncation due to
+##' rounding or unavailability of the time stamp. If \doce{missing} parameter is
+##' non-zero \code{parseDateTime} also checks for truncated formats. For example
+##' if the format is "%y%m%d%h%m%s" and \code{missing = 3}, \code{parseDateTime}
+##' will correctly parse incomplete dates like \code{2012-06-01 12:23},
+##' \code{2012-06-01 12} and \code{2012-06-01}. NOTE: \code{ymd} family of
+##' functions are based on \code{strptime} which currently fails to parse
+##' \code{%y-%m} formats.
 ##' @param quiet logical. When TRUE function evalueates without displaying
 ##' customary messages.
 ##' @param train a vector to use for format training. Defaults to the head of
