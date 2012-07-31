@@ -45,8 +45,7 @@ check_period <- function(object){
 		errors <- c(errors, msg)
 	}
 	
-	values <- c(object@year, object@month, object@day, object@hour, object@minute, 
-		object@.Data)
+        values <- c(object@year, object@month, object@day, object@hour, object@minute)
 	values <- na.omit(values)
 	if (sum(values - trunc(values))) {
 		msg <- "periods must have integer values"
