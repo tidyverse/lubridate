@@ -13,7 +13,7 @@ lubridate_formats <- local({
     names(out) <- comb
 
     ## hms <- c("%H%M%S", "%H%M%OS", "%k%M%S")
-    hms.f <- "%H%M%OS"
+    hms.f <-"%H%M%OS" ## "%I%M%0S%p"  <- strptime doesn't parser this
     hms <- c("%H%M%S", "%I%M%S%p")
     hm <- "%H%M"
     h <- c("%H")
@@ -180,12 +180,12 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##' for underlying mechanism.
 ##' @keywords POSIXt parse 
 ##' @examples
-x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
-ymd_hms(x)
-# [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
-x <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
-ymd_hms(x)
-# [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
+##' x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
+##' ymd_hms(x)
+##' # [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
+##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
+##' ymd_hms(x)
+##' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
 ##' 
 ##' ## ** heterogenuous formats **
 ##' x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
@@ -436,8 +436,8 @@ hms <- function(..., missing = 0, frac = FALSE) {
 ##' \code{%y-%m} formats.
 ##' @param quiet logical. When TRUE function evalueates without displaying
 ##' customary messages.
-##' @param train a vector to use for format training. Defaults to the head of
-##' \code{x}. If NULL, no training is performed.
+##' @param train a vector to use for format training. Defaults to the equally
+##' spaced 100 elements of \code{x}. If NULL, no training is performed.
 ##' @param seps a vector of possible characters used to separate elements within the dates.
 ##' @return a vector of POSIXct date-time objects
 ##' @seealso \code{\link{ymd}}
@@ -474,9 +474,9 @@ hms <- function(..., missing = 0, frac = FALSE) {
 ##' x <- c("Thu, 1 July 2004 22:30:00", "July 8th, 2004, 10:30")
 ##' parseDateTime(x, c("%a%d%b%Y %H%M%%S", "%b %dth %Y %H%M"))
 parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
-                       nr_best = Inf, try_collapsed = TRUE, try_separated = TRUE,
-                       missing = 0L, quiet = FALSE,
-                       train = head(x, max(10, min(100, length(x) %/% 3)))){
+                          nr_best = Inf, try_collapsed = TRUE, try_separated = TRUE,
+                          missing = 0L, quiet = FALSE,
+                          train = if(length(x) > 100) x[1:100*(length(x)%/%100)] else x){
 
     if(is.logical(train) && is.false(train)) # for convenience
         train <- NULL
