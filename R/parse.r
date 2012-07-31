@@ -61,17 +61,19 @@ lubridate_formats <- local({
 ##' correct, these functions will parse dates correctly even when dates have
 ##' different formats or use different separators. For even more flexibility in
 ##' treatment of heterogeneous formats see low level parser
-##' \code{\link{parseDateTime}.
+##' \code{\link{parseDateTime}}.
 ##'
 ##' \code{ymd} family of functions automatically assign the Universal
 ##' Coordinated Time Zone (UTC) to the parsed dates. This time zone can be
 ##' changed with \code{\link{force_tz}}.
 ##'
-##' If \doce{missing} parameter is non-zero \code{ymd} functions also check for
+##' If \code{missing} parameter is non-zero \code{ymd} functions also check for
 ##' truncated formats. For example \code{ymd} with \code{missing = 2} will also
-##' parse incomplete dates like \code{2012-06} and \code{2012}. NOTE: \code{ymd}
-##' family of functions are based on \code{strptime} which currently fails to
-##' parse \code{%y-%m} formats.
+##' parse incomplete dates like \code{2012-06} and \code{2012}.
+##'
+##' NOTE: \code{ymd} family of functions are based on \code{\link{strptime}}
+##' which currently correctly parses "\%y" format, but fails to parse "\%y-\%m"
+##' format.
 ##'
 ##' @export ymd myd dym ydm mdy dmy
 ##' @aliases yearmonthdate ymd myd dym ydm mdy dmy
@@ -88,18 +90,37 @@ lubridate_formats <- local({
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
 ##' ymd(x)
-##' # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-##' z <- c("2009-01-01", "2009-01-02", "2009-01-03")
-##' ymd(z)
-##' # "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-##' ymd(090101)
-##' # "2009-01-01 UTC"
-##' ymd(90101)
-##' # "2009-01-01 UTC"
+##' ## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
+##' x <- c("2009-01-01", "2009-01-02", "2009-01-03")
+##' ymd(x)
+##' ## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
+##' ymd(090101, 90102)
+##' ## "2009-01-01 UTC" "2009-01-02 UTC"
 ##' now() > ymd(20090101) 
-##' # TRUE
+##' ## TRUE
 ##' dmy(010210)
 ##' mdy(010210)
+##' 
+##' ## heterogenuous formats in a single vector:
+##' x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
+##'        "2009-1, 5", "2009....1--6", "200901-07", "200901-8")
+##' ymd(x)
+##' ## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC" "2009-01-04 UTC" "2009-01-05 UTC" "2009-01-06 UTC"
+##' 
+##' ## What lubridate might not handle:
+##' 
+##' ## 1) Extremely weird cases when one of the separators is "" and some of the
+##' ## formats are not in double digits might not be parsed correctly:
+##' ymd("201002-01", "201002-1", "20102-1")
+##' dmy("0312-2010", "312-2010")
+##' 
+##' ## 2) %y formats have precedence over %Y:
+##' ymd("10-02-01", "2010-02-02")
+##' ## gives "2010-02-01 UTC" "2010-02-02 UTC" and not "10-02-01 UTC" "2010-02-02 UTC"
+##' 
+##' ## This is usually what is desired, as it's very unlikely that "10-02-01" means
+##' ## year 10. If not, then you should use parseDateTime or strptime and pass
+##' ## formats explicitly.
 ymd <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx(..., type = "ymd", quiet = quiet, tz = tz, missing = missing)
 
@@ -118,7 +139,6 @@ dmy <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 
 dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
     .parse_xxx(..., type = "dym", quiet = quiet, tz = tz, missing = missing)
-
 
 
 ##' Parse dates that have hours, minutes, or seconds elements.
@@ -160,46 +180,71 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##' for underlying mechanism.
 ##' @keywords POSIXt parse 
 ##' @examples
-##' x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
+x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
+ymd_hms(x)
+# [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
+x <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
+ymd_hms(x)
+# [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
+##' 
+##' ## ** heterogenuous formats **
+##' x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
+##'        "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6", "20090107 120107", "200901-08 1201-8",
+##'        "10-01-09 12:01:09", "10-01-10 10:01:10 AM", "10-01-11 10:01:11 PM")
 ##' ymd_hms(x)
-##' # [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
-##' y <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
-##' ymd_hms(y)
-##' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
+##' ## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC" "2009-01-04 UTC" "2009-01-05 UTC" "2009-01-06 UTC"
+##' 
+##' ## ** truncated time-dates **
+##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
+##' ymd_hms(x, missing = 3)
+##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##' x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
+##' ymd_hm(x, missing = 2)
+##' ## "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##' 
+##' ## ** fractional seconds **
+##' options(digits.secs = 3)
+##' x <- c("2011-12-31 12:59:59.23", "2010-01-01 12:11:10")
+##' ymd_hms(x, frac = TRUE)
+##' ## "2011-12-31 12:59:59.23 UTC" "2010-01-01 12:11:10.00 UTC" 
+##' 
+##' ## ** What lubridate might not handle **
+##' ## 1) Extremely weird cases when one of the separators is "" and some of the
+##' ## formats are not in double digits might not be parsed correctly:
+##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")
+##' ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
+##' 
+##' ## 2) %y formats have precedence over %Y:
+##' ymd_h("10-02-01 02", "2010-02-02 02")
+##' ## gives "2010-02-01 02:00:00 UTC" "2010-02-02 02:00:00 UTC"
+##' ## and not  "10-02-01 UTC" "2010-02-02 UTC" 
+##' 
+##' ## This is usually what is desired, as it's very unlikely that "10-02-01" means
+##' ## year 10. If not, then you should use parseDateTime or strptime and pass
+##' ## formats explicitly.
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
     .parse_xxx_hms(..., type = "ymd_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
 }
-
 ymd_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx_hm(..., type =  "ymd_hm", quiet = quiet, tz = tz, missing = missing)
-
 ymd_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx_hm(..., type = "ymd_h", quiet = quiet, tz = tz, missing = missing)
-
 dmy_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
     .parse_xxx_hms(..., type = "dmy_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
-
 dmy_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx_hm(..., type = "dmy_hm", quiet = quiet, tz = tz, missing = missing)
-
 dmy_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx_hm(..., type = "dmy_hm", quiet = quiet, tz = tz, missing = missing)
-
 mdy_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
-    .parse_xxx_hms(..., type = "mdy_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
-    
+    .parse_xxx_hms(..., type = "mdy_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)    
 mdy_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx_hm(..., type = "mdy_hm", quiet = quiet, tz = tz, missing = missing)
-
 mdy_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx_hm(..., type = "mdy_h", quiet = quiet, tz = tz, missing = missing)
-
 ydm_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
     .parse_xxx_hms(..., type = "ydm_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
-
 ydm_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx_hm(..., type = "ydm_hm", quiet = quiet, tz = tz, missing = missing)
-
 ydm_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
     .parse_xxx_hm(..., type = "ydm_hm", quiet = quiet, tz = tz, missing = missing)
 
@@ -291,8 +336,8 @@ hm <- function(...) {
 ##' x <- c("09:10:01", "09:10:02", "09:10:03")
 ##' hms(x)
 ##' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
-##' hms("7 6 5")
-##' # [1] 7 hours, 6 minutes and 5 seconds
+##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
+##' ## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds 
 hms <- function(..., missing = 0, frac = FALSE) {
     time <- .parse_hms(..., type = "hms", missing = missing, frac = frac)
     new_period(hour = time$hour, minute = time$min, second = time$sec)
@@ -363,10 +408,10 @@ hms <- function(..., missing = 0, frac = FALSE) {
 ##' 
 ##' @export parseDateTime
 ##' @param x a character or numeric vector of suspected dates 
-##' @param formats a vector of date-time formats. It should be a character
-##' vector of formats. Each format is series of formatting elements as listed
-##' \code{\link[base]{strptime}}. Formats should not include separators unless
-##' \code{sep_regexp} is NULL. See examples.
+##' @param formats a character vector of date-time formats. Each format is
+##' series of formatting elements as listed
+##' \code{\link[base]{strptime}}. Formats might include spaces but should not
+##' include separators unless \code{sep_regexp} is NULL. See examples.
 ##' @param tz a character string that specifies the time zone with which to
 ##' parse the dates
 ##' @param sep_regexp a character.  A regular expression matching separators
@@ -399,10 +444,35 @@ hms <- function(..., missing = 0, frac = FALSE) {
 ##' @keywords chron
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
-##' parseDateTime(x, c("%y", "%m", "%d"), seps = "-")
+##' parseDateTime(x, "%y%m%d")
+##' parseDateTime(x, "%y %m %d")
 ##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-##' ymd(x)
-##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
+##' 
+##' ## ** heterogenuous formats **
+##' x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
+##' parseDateTime(x, c("%y%m%d", "%y%m%d %H%M"))
+##' ## Avoid training for small vectors (all the formats are just tried in turn):
+##' parseDateTime(x, c("%y%m%d", "%y%m%d %H%M"), train = NULL)
+##' 
+##' ## different ymd orders:
+##' x <- c("2009-01-01", "02022010", "02-02-2010")
+##' parseDateTime(x, c("%d%m%Y", "%Y%m%d"), train = NULL)
+##' ##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"
+##' 
+##' ## ** truncated time-dates **
+##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
+##' parseDateTime(x, "%Y%m%d %H%M%S", missing = 3)
+##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##' 
+##' ## ** custom formats **
+##' x <- c("July 8th, 2004, 10:30")
+##' strptime(x, "%b %dth, %Y, %H:%M")
+##' parseDateTime(x, "%b %dth, %Y, %H:%M", sep_regexp=NULL)
+##' ## or just
+##' parseDateTime(x, "%b%dth%Y %H%M")
+##' 
+##' x <- c("Thu, 1 July 2004 22:30:00", "July 8th, 2004, 10:30")
+##' parseDateTime(x, c("%a%d%b%Y %H%M%%S", "%b %dth %Y %H%M"))
 parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
                        nr_best = Inf, try_collapsed = TRUE, try_separated = TRUE,
                        missing = 0L, quiet = FALSE,
