@@ -477,6 +477,10 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
                        nr_best = Inf, try_collapsed = TRUE, try_separated = TRUE,
                        missing = 0L, quiet = FALSE,
                        train = head(x, max(10, min(100, length(x) %/% 3)))){
+
+    if(is.logical(train) && is.false(train)) # for convenience
+        train <- NULL
+
     if( is.numeric(x) ){
         ## collapsed only
         sep_regexp <- NULL
@@ -485,30 +489,34 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 
     if( is.null(sep_regexp) )
         try_collapsed <- try_separated <- FALSE
+    else
+        formats <- gsub(" +", "", formats) # allow spaces for convenience
 
     altern_fmt <- NULL
     if( is.null(train) ){
-        ## defaults to collapsed unless specified otherwise
-        if( try_collapsed && try_separated){
-            try_separated <- FALSE
-            altern_fmt <- structure(rep.int(0L, length(formats)), sep = "-",
-                                    names = gsub("^-", "", gsub("%", "-%", formats)))
+        ## defaults to separated, unless specified otherwise
+        if(try_separated){
+            if( try_collapsed){
+                try_collapsed <- FALSE
+                altern_fmt <- structure(formats, sep = "")
+            }
+            formats <- gsub("^-", "", gsub("[^[:alnum:]]*%", "-%", formats))
         }
     }else{
         if( try_separated ){
             train_s <- gsub(sep_regexp, "-", train)
-            fmt <- .train_formats(train_s, gsub("^-", "", gsub("%", "-%", formats)), quiet)
+            fmt <- .train_formats(train_s, gsub("^-", "", gsub("[^[:alnum:]]*%", "-%", formats)), quiet)
             
             if( try_collapsed ){
                 train_c <- gsub(sep_regexp, "", train)
                 fmt_c <- .train_formats(train_c, formats, quiet)
-                
-                if(max(fmt) < max(fmt_c)){
-                    altern_fmt <- structure(fmt, sep = "-")
+                ## separated is always prefered, otherwise 2010-1-3 is parsed as 2020-09-13 UTC
+                if(max(fmt) == 0L){
+                    altern_fmt <- structure(.select_formats(fmt, nr_best), sep = "-")
                     fmt <- fmt_c
                     try_separated <- FALSE
                 }else{
-                    altern_fmt <- structure(fmt_c, sep = "")
+                    altern_fmt <- structure(.select_formats(fmt_c, nr_best), sep = "")
                     try_collapsed <- FALSE
                 }
             }
@@ -540,7 +548,7 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
         else x
 
     sum_na <- sum(is.na(x))
-    ## cat("Trying:"); print(formats)
+    ## cat("Trying:"); print(formats); print(out)
     out <- .parseDateTime(out, formats, quiet, tz)
     
     parsed_na <- is.na(out$year)
@@ -550,13 +558,12 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
     if (!is.null(altern_fmt) && failed > 0){
         sep <- attr(altern_fmt, "sep")
         ## cat("Trying alternative:"); print(formats)
-        fmt <- .select_formats(altern_fmt, nr_best)
-        out[parsed_na] <- .parseDateTime(gsub(sep_regexp, sep, x[parsed_na]), fmt, quiet, tz)
+        out[parsed_na] <- .parseDateTime(gsub(sep_regexp, sep, x[parsed_na]), altern_fmt, quiet, tz)
         failed <- sum(is.na(out$year)) - sum_na
     }
 
     if( length(x) == sum_na + failed )
-        stop("x didn't match any of the format orders: ", paste(formats, collapse= ", "), call. = FALSE)
+        stop("x didn't match any of the format orders: ", paste(gsub("-", "", formats), collapse= ", "), call. = FALSE)
 
     if( failed > 0 )
         message(failed, " failed to parse.")
@@ -719,7 +726,4 @@ parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x), tz =
   stop("Internal function parse_date has been removed from lubridate package. Plese use parseDateTime instead.")
 }
 
-
-
 ## parse.r ends here
-
