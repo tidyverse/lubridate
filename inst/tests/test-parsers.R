@@ -289,89 +289,47 @@ test_that("hms functions correctly throw errors", {
 
 
 
-## x <- c("09-01-01 12:23", "09-01-02", "09-01-03")
+test_that("heterogeneous formats are correctly parsed", {
+  
+  expect_that(ymd(c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
+                    "2009-1, 5", "2009....1--6", "200901-07", "200901-8")),
+              equals(as.POSIXct(c("2009-01-01", "2009-01-02", "2009-01-03", "2009-01-04",
+                                  "2009-01-05", "2009-01-06", "2009-01-07", "2009-01-08"), tz = "UTC")))
 
 
-## x <- c("02/11/92 23", "31/03/92 22", "01/10/92 01:03",
-##        "02/02/92 18:21:03",  "02/01/92 16:56:26")
+  expect_that({
+    x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
+           "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6", "20090107 120107", "200901-08 1201-8",
+           "10-01-09 12:01:09", "10-01-10 10:01:10 AM", "10-01-11 10:01:11 PM")
+    ymd_hms(x)
+  }, equals(as.POSIXct(c("2010-01-01 12:01:01", "2009-01-02 12:01:02", "2009-01-03 12:01:03", 
+                         "2009-01-04 12:01:04", "2009-01-05 12:01:05", "2009-01-06 12:01:06", 
+                         "2009-01-07 12:01:07", "2009-01-08 12:01:08", "2010-01-09 12:01:09", 
+                         "2010-01-10 10:01:10", "2010-01-11 22:01:11"), tz = "UTC")))
+})
 
 
-## parse_time(x, c("%d%m%y%H%M%S", "%d%m%y"))
+test_that("truncated formats are correctly parsed", {
 
-## parse_time(x, c("%d%m%y%H%M%S"))
-## parse_time(x, c("%d%m%y%H%M%S"), missing = 2)
+  expect_that({
+    x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
+    ymd_hms(x, missing = 3)
+  }, equals(as.POSIXct(c("2011-12-31 12:59:59", "2010-01-01 12:11:00", "2010-01-01 12:00:00", 
+                         "2010-01-01 00:00:00"), tz = "UTC")))
 
-## x <- c("11/92",  "92", "02/02/92",  "02/01/92")
-## parse_time(x, "%d%m%y", missing = -2)
-
-## x <- c("07-03-02",  "92", "02/02/92",  "02/01/92")
-## ## gives junk
-## parse_time(x, "%d%m%y", missing = -2)
-## ## only reliable way is to specify formats explicitly:
-## parse_time(x, c("%d/%m/%y", "%y-%m-%d", "%y"), sep = NULL)
-
-## x <- c("02/11/92 23", "31/03/92 22", "01/10/92 01:03",
-##        "02/02/92 18:21:03",  "02/01/92 16:56:26")
-
-## dates <- c("02/27/92", "02/27/92", "01/14/92", "02/28/92", "02/01/92")
-
-## mdy(dates)
-
-## options(digits.secs = 3)
-## tt <- rep(as.character(Sys.time()), 10^6)
-## system.time(out <- as.POSIXct(tt))
-## system.time(out <- ymd_hms(tt))
-## system.time(out <- ymd_hms(tt, frac = T))
-
-## options(digits.secs = 0)
-## tt <- rep(as.character(Sys.time()), 10^3)
-## system.time(out <- ymd_hms(tt))
-## str(out)
-
-## system.time(ms <- as.numeric(gsub(".*\\.([^.]*)", "\\1", tt)))
-## system.time(ms <- as.numeric(gsub("(.*)(\\.([^.]))?", "\\3", tt)))
-## (gsub(".*\\.([^.]*)$", "", "2012-07-20 14:13:46"))
-
-## system.time(parse_time(tt, "%Y%m%d", sep = "-"))
-## system.time(parse_time(tt, list(c("%Y", "%m", "%d")), sep = "-"))
-
-## system.time(parse_date(tt, list(c("%Y", "%m", "%d")), seps = "-"))
-
-## tt <- rep("3.4.5", 10^6)
-
-## system.time(out <- strsplitt(t, "[[:alnum:]]"))
-
-## x <- c("1jan1960135412", "2jan1960", "31mar1960", "30jul1960")
-## str(unclass(z <- strptime(x, "%d%b%Y%k%M%S")))
-
-## x <- c("09:10:01", "09:10:02", "09:10:03")
-## hms(x)
-
-## x <- rep(c("1970-01-01 09:10:01"), 10^6)
-## system.time(str(strptime(x, "%Y-%m-%d %H:%M:%S")))
-## system.time(lubridate:::hms(x))
-
-## x <- rep("7 6", 10^5)
-## ms(x)
+})
 
 
-## y <- c("2011-12-31 12:9:23.3", "2011-12-31 2:9", "10-03-04 12:00", "10-03-04 12", "10-03-04 1204",
-##        "2011-12-31 3:3:3")
-## strptime(y, format = "%y-%m-%d %H:%M") ## [1] NA "2010-03-04 12:00:00"
-## strptime(y, format = "%Y-%m-%d %H:%M") ## [1] "2011-12-31 12:59:00" "10-03-04 12:00:00"  
-## strptime(y, format = "%Y-%m-%d %H:%M") ## [1] "2011-12-31 12:59:00" "10-03-04 12:00:00"
-## unclass(strptime(y, format = "%Y-%m-%d %H:%M:%OS")) ## [1] "2011-12-31 12:59:00" "10-03-04 12:00:00"  
+test_that("fractional formats are correctly parsed", {
 
-## ymd_hms(y)
-## ymd_hm(y) ## [1] "2011-12-31 12:59:00 UTC" "2010-03-04 12:00:00 UTC"
-## (ymd_hm(y, missing = 1))
+  expect_that({
+    x <- c("2011-12-31 12:59:59.23", "2010-01-01 12:11:10")
+    ymd_hms(x, frac = TRUE)
+  }, equals(as.POSIXct(c("2011-12-31 12:59:59.23 UTC", "2010-01-01 12:11:10.00 UTC"), tz = "UTC")))
 
-
-## ymd_hms("2011-12-31 11:09:23PM")
-## lubridate::ymd_hms("2011-12-31 11:09:23PM")
+  expect_that(hms("3:0:3.34", frac = T), equals(hours(3) + minutes(0) + seconds(3.34)))
+})
 
 
-## ymd_hms("2011-12-31 11:9:23 PM")
-## lubridate::ymd_hms("2011-12-31 11:9:23 PM")
 
 
