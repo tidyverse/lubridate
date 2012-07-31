@@ -609,8 +609,10 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 .add_missing <- function(formats, missing){    
     stopifnot(is.character(formats))
 
-    out <- strsplit(formats, "%")
-    for (fmt in out){
+    split <- strsplit(formats, "%")
+    out <- list()
+    for (fmt in split){
+        out[[length(out) + 1L]] <- fmt
         lenout <- length(out)
         if(nchar(fmt[1]) == 0L) fmt <- fmt[-1]
         if(missing > 0){
