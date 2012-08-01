@@ -1,4 +1,13 @@
-
+##' Lubridate formats used in \code{ymd}, \code{hms} and \code{ymd_hms} family of functions. 
+##'
+##' These formats are passed to \code{parseDateTime} low level parsing function.
+##' @export lubridate_formats
+##' @format Named list with formats.
+##' @docType data
+##' @seealso \code{\link{parseDateTime}}, \code{\link{ymd}}, \code{\link{ymd_hms}}
+##' @keywords chron
+##' @examples
+##' str(lubridate_formats)
 lubridate_formats <- local({
     comb <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
     out <- lapply(comb, function(order) {
@@ -148,19 +157,19 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##' separators (with the exception of "." if \code{frac = TRUE}) and correctly
 ##' handle heterogeneous date-time representations. For more flexibility in
 ##' treatment of heterogeneous formats, see low level parser
-##' \code{\link{parseDateTime}.
+##' \code{\link{parseDateTime}}.
 ##'
 ##' ymd_hms() functions automatically assigns the Universal Coordinated Time
 ##' Zone (UTC) to the parsed date. This time zone can be changed with
 ##' \code{\link{force_tz}}.
 ##'
 ##' The most common type of irregularity in date-time data is the truncation
-##' due to rounding or unavailability of the time stamp. If \doce{missing}
+##' due to rounding or unavailability of the time stamp. If \code{missing}
 ##' parameter is non-zero \code{ymd_hms} functions also check for truncated
 ##' formats. For example \code{ymd_hms} with \code{missing = 3} will also parse
 ##' incomplete dates like \code{2012-06-01 12:23}, \code{2012-06-01 12} and
 ##' \code{2012-06-01}. NOTE: \code{ymd} family of functions are based on
-##' \code{strptime} which currently fails to parse \code{%y-%m} formats.
+##' \code{strptime} which currently fails to parse \code{\%y-\%m} formats.
 ##'
 ##' ymdThms() specifically handles combined dates and times written in the ISO
 ##' 8601 format.
@@ -180,6 +189,7 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##' for underlying mechanism.
 ##' @keywords POSIXt parse 
 ##' @examples
+##' 
 ##' x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
 ##' ymd_hms(x)
 ##' # [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
@@ -345,11 +355,19 @@ hms <- function(..., missing = 0, frac = FALSE) {
 
 
 ##' Low level function to parse character and numeric vectors into POSIXct
-##' object, specifically designed to handle heterogeneous date-time formats at
+##' object.
+##'
+##'
+##' Specifically designed to handle heterogeneous date-time formats at
 ##' once. It first sorts the supplied formats based on a training set and then
 ##' applies them recursively for parsing of the input vector.
 ##'
+##' As oposed to \code{strptime} and \code{as.POSIXct}, \code{parseDateTime}
+##' doesn't ignore remaining unparsed part of the string.  For example, the
+##' format "\%y\%m\%d \%H\%M" doesn't match "2010-01-01 00:00:00", and the
+##' format "\%y\%m\%d \%H\%M\%S" doesn't match "2010-01-01 00:00:00 UTC".
 ##'
+##' 
 ##' If \code{sep_regexp} is non-NULL, it should be a regular expression to match
 ##' separators between numeric elements in \code{x}. In this case \code{formats}
 ##' should not contain separators (like in "%y%m%d"). See
@@ -427,20 +445,19 @@ hms <- function(..., missing = 0, frac = FALSE) {
 ##' @param try_separated logical. TRUE if separated formats should be tried.
 ##' @param missing integer, number of formats that can be missing. The most
 ##' common type of irregularity in date-time data is the truncation due to
-##' rounding or unavailability of the time stamp. If \doce{missing} parameter is
-##' non-zero \code{parseDateTime} also checks for truncated formats. For example
-##' if the format is "%y%m%d%h%m%s" and \code{missing = 3}, \code{parseDateTime}
-##' will correctly parse incomplete dates like \code{2012-06-01 12:23},
-##' \code{2012-06-01 12} and \code{2012-06-01}. NOTE: \code{ymd} family of
-##' functions are based on \code{strptime} which currently fails to parse
-##' \code{%y-%m} formats.
+##' rounding or unavailability of the time stamp. If \code{missing} parameter is
+##' non-zero \code{parseDateTime} also checks for truncated formats. For
+##' example,  if the format is "%y%m%d%h%m%s" and \code{missing = 3},
+##' \code{parseDateTime} will correctly parse incomplete dates like
+##' \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:}
+##' \code{ymd} family of functions are based on \code{strptime} which currently
+##' fails to parse \code{\%y-\%m} formats.
 ##' @param quiet logical. When TRUE function evalueates without displaying
 ##' customary messages.
 ##' @param train a vector to use for format training. Defaults to the equally
 ##' spaced 100 elements of \code{x}. If NULL, no training is performed.
-##' @param seps a vector of possible characters used to separate elements within the dates.
 ##' @return a vector of POSIXct date-time objects
-##' @seealso \code{\link{ymd}}
+##' @seealso \code{\link{ymd}}, \code{\link{ymd_hms}}
 ##' @keywords chron
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -478,9 +495,10 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
                           missing = 0L, quiet = FALSE,
                           train = if(length(x) > 100) x[1:100*(length(x)%/%100)] else x){
 
-    if(is.logical(train) && is.false(train)) # for convenience
-        train <- NULL
-
+    if(is.logical(train)) # convenience 
+        train <- if (train)  NULL
+        else if(length(x) > 100) x[1:100*(length(x)%/%100)] else x
+    
     if( is.numeric(x) ){
         ## collapsed only
         sep_regexp <- NULL
@@ -723,7 +741,7 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 ##' @param quiet -
 ##' @param seps -
 ##' @param tz - 
-parse_date <- function(x, formats, quiet = FALSE, seps = find_separator(x), tz = "UTC") {
+parse_date <- function(x, formats, quiet = FALSE, seps = NULL, tz = "UTC") {
 
   stop("Internal function parse_date has been removed from lubridate package. Plese use parseDateTime instead.")
 }
