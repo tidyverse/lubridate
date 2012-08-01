@@ -333,3 +333,48 @@ test_that("fractional formats are correctly parsed", {
 
 
 
+
+## ### speed:
+## options(digits.secs = 0)
+## tt <- rep(as.character(Sys.time()), 10^5)
+
+## system.time(out <- lubridate::ymd_hms(tt))
+## system.time(out <- ymd_hms(tt))
+
+## tt <- rep(as.character(Sys.time()), 10^6)
+## system.time(out <- as.POSIXct(tt, tz = "UTC"))
+## system.time(out <- ymd_hms(tt))
+
+
+## tt <- rep("3:3:3", 10^5)
+## system.time(out <- lubridate:::hms(tt))
+## system.time(out <- hms(tt))
+
+
+## ## ** heterogenuous formats **
+## x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
+##        "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6", "20090107 120107", "200901-08 1201-8",
+##        "10-01-09 12:01:09", "10-01-10 10:01:10 AM", "10-01-11 10:01:11 PM")
+## ymd_hms(x)
+
+## ## ** truncated time-dates **
+## x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
+## ymd_hms(x, missing = 3)
+
+## x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
+## ymd_hm(x, missing = 2)
+
+
+## ## ** fractional seconds **
+## library(devtools)
+## install_github("lubridate", "vitoshka")
+## library(lubridate)
+## options(digits.secs = 3)
+## x <- c("2011-12-31 12:59:59.23", "2010-01-01 12:11:10")
+## ymd_hms(x, frac = TRUE)
+## hms("3:3:3.34", frac = TRUE)
+
+## ## New formats:
+## ymd_hms("10-12-01 01:01:01 AM", "10-12-01 01:01:01 PM", 101010202020)
+
+
