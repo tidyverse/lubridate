@@ -16,7 +16,7 @@
   Does date time occur in the am or pm?
 }
 \examples{
-x <- now()
+x <- ymd("2012-03-26")
 am(x)
 pm(x)
 }

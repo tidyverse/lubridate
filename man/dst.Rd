@@ -8,8 +8,8 @@
   \item{x}{a date-time object}
 }
 \value{
-  Daylight savings time flag. Positive if in force, zero if
-  not, negative if unknown.
+  A logical. TRUE if DST is in force, FALSE if not, NA if
+  unknown.
 }
 \description{
   Date-time must be a POSIXct, POSIXlt, Date, chron,
@@ -22,7 +22,7 @@
   and hour values.
 }
 \examples{
-x <- now()
+x <- ymd("2012-03-26")
 dst(x)
 }
 \keyword{chron}
