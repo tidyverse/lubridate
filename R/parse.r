@@ -10,7 +10,7 @@
 ##' str(lubridate_formats)
 lubridate_formats <- local({
     comb <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
-    out <- lapply(comb, function(order) {
+    xxx <- lapply(comb, function(order) {
         formats <- list(
                      d = "%d",
                      m = c("%m", "%b"),
@@ -19,7 +19,7 @@ lubridate_formats <- local({
                             KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
         apply(grid, 1, function(row) paste(row, collapse = ""))
     })
-    names(out) <- comb
+    names(xxx) <- comb
 
     ## hms <- c("%H%M%S", "%H%M%OS", "%k%M%S")
     hms.f <-"%H%M%OS" ## "%I%M%0S%p"  <- strptime doesn't parser this
@@ -29,30 +29,33 @@ lubridate_formats <- local({
     ms.f <- "%M%OS"
     ms <- "%M%S"
 
-    for(D in comb){
-        out[[paste(D, "_hms.f", sep = "")]] <-
-            paste(out[[D]], rep(hms.f, each = length(out[comb])), sep = "")
-    }
+    out <- list()
 
     for(D in comb){
         out[[paste(D, "_hms", sep = "")]] <-
-            paste(out[[D]], rep(hms, each = length(out[comb])), sep = "")
+            paste(xxx[[D]], rep(hms, each = length(xxx[comb])), sep = "")
     }
 
+    for(D in comb){
+      out[[paste(D, "_hms.f", sep = "")]] <-
+        paste(xxx[[D]], rep(hms.f, each = length(xxx[comb])), sep = "")
+    }
     
     for(D in comb){
         out[[paste(D, "_hm", sep = "")]] <-
-            paste(out[[D]], rep(hm, each = length(out[comb])), sep = "")
+            paste(xxx[[D]], rep(hm, each = length(xxx[comb])), sep = "")
     }
 
     for(D in comb){
         out[[paste(D, "_h", sep = "")]] <-
-            paste(out[[D]], rep(h, each = length(out[comb])), sep = "")
+            paste(xxx[[D]], rep(h, each = length(xxx[comb])), sep = "")
     }
 
     for( i in seq_along(out))
         out[[i]] <- unique(out[[i]])
 
+    out <- c(out, xxx)
+    
     out[["hms.f"]] <- hms.f
     out[["hms"]] <- hms
     out[["hm"]] <- hm
