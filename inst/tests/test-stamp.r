@@ -9,7 +9,13 @@ x <- c('February 20th 1973',
        "January 5 1999 at 7pm",
        "jan 3 2010",
        "Jan 1, 1999", 
-       "jan 3   10", 
+       "jan 3   10",
+       "01 3 2010",
+       "1 3 10",
+       '1 13 89',
+       "5/27/1979", 
+       "12/31/99", 
+       "DOB:12/11/00", 
        "-----------", 
        'Thu, 1 July 2004 22:30:00',
        'Thu, 1st of July 2004 at 22:30:00',
@@ -22,18 +28,20 @@ x <- c('February 20th 1973',
        "-----------", 
        "3 jan 2000", 
        "17 april 85", 
-       "5/27/1979", 
        "27/5/1979", 
-       "12/31/99", 
-       "DOB:12/11/00", 
        '20 01 89', 
-       '1 13 89', 
-       '00/13/10' )
+       '00/13/10',
+       "-------", 
+       "14 12 00",
+       "03:23:22 pm")
 
 guess_formats(x, "BdY")
 guess_formats(x, "Bdy")
 guess_formats(x, "bdY")
 guess_formats(x, "bdy")
+guess_formats(x, "mdy")
+
+guess_formats(x, "T")
 
 guess_formats(x, c("mdY", "BdY", "Bdy", "bdY", "bdy"))
 guess_formats(x, c("dby", "dbY", "dBy", "dBY"))
@@ -41,13 +49,10 @@ guess_formats(x, c("dby", "dbY", "dBy", "dBY"))
 guess_formats(x, c("mdY", "mdy"))
 guess_formats(x, c("dmY", "dmy"))
 
-
-
 guess_formats(x, c("BdY H", "dBY HMS", "dbY HMS"))
 guess_formats(x, c("dBy HMS"))
 
 guess_formats(x, c("Ymd HMS"))
-
 
 
 stamp(x, c("BdY", "bdY", "bd"))(Sys.time())

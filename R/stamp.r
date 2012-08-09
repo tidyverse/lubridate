@@ -3,43 +3,6 @@ library(stringr)
 .locale_regs_cache <- list()
 dbg <- T
 
-guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME")){
-  ## get all the formats which suite ORDERS 
-  
-  orders <- gsub("[^[:alpha:]]+", "", orders)
-  orders <- gsub("OS\\d*", "Q", orders) ## hack
-  osplits <- strsplit(orders, "", fixed = TRUE)
-  reg <- .get_loc_regs(locale)
-  
-  REGS <- unlist(lapply(osplits, function(names){
-
-    which <- ! names %in% c(names(reg$alpha_flex), names(reg$num_flex))
-    if( any( which ) )
-       stop("Unknown formats supplied: ", paste(names[ which ], sep = ", "))
-    
-    ## !! the restriction, no numbers before, after and in between of the formats
-    paste("^\\D*?\\b((", paste(c(reg$alpha_exact, reg$num_exact)[names], collapse = "\\D?"), 
-          ")|(",  paste(c(reg$alpha_flex, reg$num_flex)[names], collapse = "\\D*?"), 
-          "))\\D*$", sep = "")
-  }))
-
-  if( dbg ){
-    subs <- lapply(REGS, .substitute_formats, x, fmts_only = FALSE)
-    names(subs) <- orders
-    print(do.call(cbind, c(list(x), subs))) ## deb
-  }
-  
-  out <- mapply(
-    function(reg, name){
-      out <- .substitute_formats(reg, x)
-      if( !is.null(out) ) names(out) <- rep.int(name, length(out))
-      out
-    }, REGS, orders, SIMPLIFY= F, USE.NAMES= F)
-  names(out) <- NULL
-  unlist(out)
-}
-
-
 stamp <- function(x, orders = unlist(lubridate_formats),
                   locale = Sys.getlocale("LC_TIME"), quiet = FALSE){
   ## if( is.null(orders) )
@@ -67,6 +30,49 @@ stamp <- function(x, orders = unlist(lubridate_formats),
 }
 
 
+guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"), preproc_wday = TRUE){
+  ## get all the formats which suite ORDERS 
+  
+  orders <- gsub("[^[:alpha:]]+", "", orders)
+  orders <- gsub("OS\\d*", "Q", orders) ## hack
+  osplits <- strsplit(orders, "", fixed = TRUE)
+  reg <- .get_loc_regs(locale)
+
+  if( preproc_wday ){
+    x <- gsub(reg$alpha_exact[["A"]], "%A", x, ignore.case = T, perl = T)
+    x <- gsub(reg$alpha_exact[["a"]], "%a", x , ignore.case =  T, perl = T)
+  }
+  
+  REGS <- unlist(lapply(osplits, function(names){
+
+    which <- ! names %in% c(names(reg$alpha_flex), names(reg$num_flex))
+    if( any( which ) )
+      stop("Unknown formats supplied: ", paste(names[ which ], sep = ", "))
+    
+    ## !! the restriction, no numbers before, after and in between of the formats
+    paste("^\\D*?\\b((", paste(unlist(c(reg$alpha_exact, reg$num_exact)[names]), collapse = "\\D*?"), 
+          ")|(",  paste(unlist(c(reg$alpha_flex, reg$num_flex)[names]), collapse = "\\D*?"), 
+          "))\\D*$", sep = "")
+  }))
+
+  if( dbg ){
+    subs <- lapply(REGS, .substitute_formats, x, fmts_only = FALSE)
+    names(subs) <- orders
+    print(do.call(cbind, c(list(x), subs))) ## deb
+  }
+  
+  out <- mapply(
+    function(reg, name){
+      out <- .substitute_formats(reg, x)
+      if( !is.null(out) ) names(out) <- rep.int(name, length(out))
+      out
+    }, REGS, orders, SIMPLIFY= F, USE.NAMES= F)
+  names(out) <- NULL
+  unlist(out)
+}
+
+
+
 .substitute_formats <- function(reg, x, fmts_only = TRUE){
   ## reg should be with captures named with the corresponding format letters 
   ## return substituted formats
@@ -79,27 +85,29 @@ stamp <- function(x, orders = unlist(lubridate_formats),
   if ( any(matched) ){
     ns <- attr(m, "capture.names")
     ns <- ns[nzchar(ns)]
-    e <- grepl("_e", ns, fixed = TRUE)
-    ns_e <- ns[e]
-    ns <- ns[!e]
+    ## e <- grepl("_e", ns, fixed = TRUE)
+    ## ns_e <- ns[e]
+    ## ns <- ns[!e]
     
-    start <- ## captures are 0 for unmatched subexp
-      attr(m, "capture.start")[matched, ns, drop = FALSE] +
-        attr(m, "capture.start")[matched, ns_e, drop = FALSE]
-    end <- start +
-      attr(m, "capture.length")[matched, ns, drop = FALSE] + 
-        attr(m, "capture.length")[matched, ns_e, drop = FALSE] - 1L
+    start <- attr(m, "capture.start")[matched, , drop = FALSE]
+    end <- start + attr(m, "capture.length")[matched, , drop = FALSE] - 1L
+    ## start <- ## captures are 0 for unmatched subexp
+    ##   attr(m, "capture.start")[matched, ns, drop = FALSE] +
+    ##     attr(m, "capture.start")[matched, ns_e, drop = FALSE]
+    ## end <- start +
+    ##   attr(m, "capture.length")[matched, ns, drop = FALSE] + 
+    ##     attr(m, "capture.length")[matched, ns_e, drop = FALSE] - 1L
 
     lout <- x[matched]
     for( n in rev(ns) ){  ## start from the end
       w <- end[, n] > 0 ## -1 if unmatched  subpatern
-      str_sub(lout[w], start[w, n], end[w, n]) <- paste("%", n, sep = "")
+      str_sub(lout[w], start[w, n], end[w, n]) <- paste("%", sub("_[[:alpha:]]$", "", n), sep = "")
     }
     
     if(fmts_only)
       lout
     else{
-      out <- character(length(x))
+      out <- character(length(x)) ## dev only
       out[matched] <- lout
       out
     }
@@ -127,14 +135,29 @@ stamp <- function(x, orders = unlist(lubridate_formats),
     names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
 
     alpha <- list()
-    alpha["b"] <- alpha["B"] <-
+    alpha["b"] <- 
       sprintf("((?<b>%s)|(?<B>%s))(?![[:alpha:]])",
               paste(unique(mat[, "b"]), collapse = "|"),
               paste(unique(mat[, "B"]), collapse = "|"))
-    alpha["a"] <- alpha["A"] <-
+    alpha["B"] <- 
+      sprintf("(?<B>%s)(?![[:alpha:]])",
+              paste(unique(mat[, "B"]), collapse = "|"))
+
+    alpha["a"] <- 
       sprintf("((?<a>%s)|(?<A>%s))(?![[:alpha:]])",
               paste(unique(mat[, "a"]), collapse = "|"),
-              paste(unique(mat[, "A"]), collapse = "|"))      
+              paste(unique(mat[, "A"]), collapse = "|"))
+
+    alpha["A"] <- 
+      sprintf("(?<A>%s)(?![[:alpha:]])",
+              paste(unique(mat[, "A"]), collapse = "|"))
+
+    p <- unique(mat[, "p"])
+    p <- p[nzchar(p)]
+    alpha["p"] <-
+      if ( length(p) == 0L ) ""
+      else sprintf("(?<p>%s)(?![[:alpha]])", paste(p, collapse = "|"))
+    
     alpha <- unlist(alpha)
     
     num <- num_flex <- num_exact <- c(
@@ -153,25 +176,50 @@ stamp <- function(x, orders = unlist(lubridate_formats),
       Y = "<Y>\\d{4}", 
       z = "<z>[-+]\\d{4,}", ## R implements only 4 digits
       F = "<F>\\d{4)-\\d{2}-\\d{2}", 
-      T = "<T>[012]?\\d:[0-5]?\\d:[0-6]?\\d",
       Q = "<OS>[0-5]\\d\\.\\d+" ## fractional
       )
 
+    num2 <- gsub("?", "", num, fixed= TRUE)
     
     num_flex[] <- sprintf("(?%s)(?!\\d)", num)
-    num_exact[] <- sprintf("(?%s)", gsub("?", "", num, fixed= TRUE))
+    num_exact[] <- sprintf("(?%s)", num2)
     num_exact <- sub(">", "_e>", num_exact, fixed = TRUE)
     
     alpha_flex <- alpha
-    alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE) 
+    alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE)
+
+
 
     ## m match %m, %b and %B
     num_flex <- c(num_flex,
-                  m = sprintf("((?<m>1[0-2]|0?[1-9])(?!\\d))|(%s)", alpha[["b"]]),
-                  y = sprintf("((?<y>\\d{2})|(?<Y>\\d{4}))(?!\\d)")) 
+                  m = sprintf("(((?<m>1[0-2]|0?[1-9])(?!\\d))|(%s))", alpha[["b"]]),
+                  y = "((?<y>\\d{2})|(?<Y>\\d{4}))(?!\\d)")
+    
     num_exact <- c(num_exact,
-                   m = sprintf("(?<m_e>1[012]|0[1-9])|(%s)", alpha_exact[["b"]]),
-                   y = sprintf("((?<y_e>\\d{2})|(?<Y_e>\\d{4}))"))
+                   m = sprintf("((?<m_e>1[012]|0[1-9])|(%s))", alpha_exact[["b"]]),
+                   y = "((?<y_e>\\d{2})|(?<Y_e>\\d{4}))")
+
+    nms <- c("T", "R", "r")
+    if( length(p) == 0L ){
+      num_flex <- c(num_flex,
+                    T = sprintf("((?%s)\\D+(?%s)\\D+(?%s)(?!\\d)", num[["H"]], num[["M"]], num[["S"]]), 
+                    R = sprintf("((?%s)\\D+(?%s)(?!\\d)", num[["H"]], num[["M"]]),
+                    r = sprintf("((?%s)\\D+(?%s)(?!\\d)", num[["H"]]))
+      num_exact[nms] <-
+        gsub("\\?(?!<)", "", gsub("+", "*", num_exact[nms], fixed = T), perl = T)
+      
+    }else{
+      num_flex <- c(num_flex,
+                     T = sprintf("((?%s)\\D+(?%s)\\D+(?%s)\\D+%s)|((?%s)\\D+(?%s)\\D+(?%s)(?!\\d))",
+                       num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]), 
+                     R = sprintf("((?%s)\\D+(?%s)\\D+%s)|((?%s)\\D+(?%s)(?!\\d))",
+                       num[["I"]], num[["M"]], alpha[["p"]], num[["H"]], num[["M"]]),
+                     r = sprintf("((?%s)\\D+%s)|((?%s)(?!\\d))",
+                       num[["I"]], alpha[["p"]], num[["H"]]))
+      num_flex[nms] <- sub("<M>", "<M_T>", sub("<S>", "<S_T>", num_flex[nms], fixed = T), fixed = T) ## unique captures
+      num_exact[nms] <-
+        gsub("\\?(?!<)", "", gsub("+", "*", num_exact[nms], fixed = T), perl = T)
+    }
     
     .locale_regs_cache[[locale]] <- regs <-
       list(alpha_flex = alpha_flex, num_flex = num_flex,
