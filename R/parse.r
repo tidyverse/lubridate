@@ -54,13 +54,17 @@ lubridate_formats <- local({
     for( i in seq_along(out))
         out[[i]] <- unique(out[[i]])
 
-    out <- c(out, xxx)
     
+    out <- c(out, xxx)
+    out[["my"]] <- "my"
+    out[["ym"]] <- "ym"
     out[["hms.f"]] <- hms.f
     out[["hms"]] <- hms
     out[["hm"]] <- hm
     out[["ms.f"]] <- ms.f
     out[["ms"]] <- ms
+    out[["y"]] <- "y"
+    out[["m"]] <- "m"
     out
 })
 
