@@ -35,13 +35,13 @@ x <- c('February 20th 1973',
        "14 12 00",
        "03:23:22 pm")
 
-guess_formats(x, "BdY")
+guess_formats(x, "BdY", print = T)
 guess_formats(x, "Bdy")
 guess_formats(x, "bdY")
 guess_formats(x, "bdy")
-guess_formats(x, "mdy")
+guess_formats(x, "mdy", print = T)
 
-guess_formats(x, "T")
+guess_formats(x, "T", print = T)
 
 guess_formats(x, c("mdY", "BdY", "Bdy", "bdY", "bdy"))
 guess_formats(x, c("dby", "dbY", "dBy", "dBY"))
