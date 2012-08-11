@@ -263,7 +263,7 @@ ms <- function(...) {
 ##' hm("6,5")
 ##' # [1] 6 hours and 5 minutes
 hm <- function(...) {
-    time <- .parse_hms(..., type = "hm")
+    time <- .parse_hms(..., orders = "R")
     new_period(hour = time$hour, minute = time$min)
 }
 
@@ -410,170 +410,83 @@ hms <- function(..., truncated = 0) {
 ##' parseDateTime(x, "%b %dth, %Y, %H:%M", sep_regexp=NULL)
 ##' ## or just
 ##' parseDateTime(x, "%b%dth%Y %H%M")
-##' 
+##'
 ##' x <- c("Thu, 1 July 2004 22:30:00", "July 8th, 2004, 10:30")
 ##' parseDateTime(x, c("%a%d%b%Y %H%M%%S", "%b %dth %Y %H%M"))
-parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
-                          nr_best = Inf, try_collapsed = TRUE, try_separated = TRUE,
-                          missing = 0L, quiet = FALSE,
-                          train = if(length(x) > 100) x[1:100*(length(x)%/%100)] else x){
+parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
+                          locale = Sys.getlocale("LC_TIME")){
 
-    if(is.logical(train)) # convenience 
-        train <- if (train)  NULL
-        else if(length(x) > 100) x[1:100*(length(x)%/%100)] else x
-    
-    if( is.numeric(x) ){
-        ## collapsed only
-        sep_regexp <- NULL
-        x <- .num_to_date(x)
-    }
+  x <- .num_to_date(x)
+  if( truncated != 0 )
+    orders <- c(orders, .add_truncated(orders, truncated))
 
-    if( is.null(sep_regexp) )
-        try_collapsed <- try_separated <- FALSE
-    else
-        formats <- gsub(" +", "", formats) # allow spaces for convenience
 
-    altern_fmt <- NULL
-    if( is.null(train) ){
-        ## defaults to separated, unless specified otherwise
-        if(try_separated){
-            if( try_collapsed){
-                try_collapsed <- FALSE
-                altern_fmt <- structure(formats, sep = "")
-            }
-            formats <- gsub("^-", "", gsub("[^[:alnum:]]*%", "-%", formats))
-        }
+  .local_parse <- function(x){
+    train <- .get_train_set(x)
+    formats <- .best_formats(train, orders, locale = locale)
+    if( length(formats) > 0 ){
+      out <- .parseDateTime(x, formats, locale = locale, quiet = quiet, tz = tz)
+      new_na <- is.na(out)
+      if( any(new_na) )
+        out[new_na] <- .local_parse(x[new_na])
+      out
     }else{
-        if( try_separated ){
-            train_s <- gsub(sep_regexp, "-", train)
-            fmt <- .train_formats(train_s, gsub("^-", "", gsub("[^[:alnum:]]*%", "-%", formats)), quiet)
-            
-            if( try_collapsed ){
-                train_c <- gsub(sep_regexp, "", train)
-                fmt_c <- .train_formats(train_c, formats, quiet)
-                ## separated is always prefered, otherwise 2010-1-3 is parsed as 2020-09-13 UTC
-                if(max(fmt) == 0L){
-                    altern_fmt <- structure(.select_formats(fmt, nr_best), sep = "-")
-                    fmt <- fmt_c
-                    try_separated <- FALSE
-                }else{
-                    altern_fmt <- structure(.select_formats(fmt_c, nr_best), sep = "")
-                    try_collapsed <- FALSE
-                }
-            }
-            
-        }else if( try_collapsed ){
-            train_c <- gsub(sep_regexp, "", train)
-            fmt <- .train_formats(train_c, formats, quiet)
-            
-        }else{
-            ## not gsub here, as no sep substitution required
-            fmt <- .train_formats(train, formats, quiet)
-        }
-
-        if( all(fmt == 0L ) )
-            stop("Training set didn't match any of the format orders: ", paste(formats, collapse= ", "), call.= FALSE)
-
-
-        formats <- .select_formats(fmt, nr_best)
+      failed <<- length(x)
+      NA
     }
-    
-    if( missing != 0 )
-        formats <- .add_missing(formats, missing)
+  }
 
-    out <-
-        if( try_collapsed ) # try_separated == FALSE
-            gsub(sep_regexp, "", x)
-        else if( try_separated )
-            gsub(sep_regexp, "-", x)
-        else x
-
-    sum_na <- sum(is.na(x))
-    ## cat("Trying:"); print(formats); print(out)
-    out <- .parseDateTime(out, formats, quiet, tz)
-    
-    parsed_na <- is.na(out$year)
-    failed <- sum(parsed_na) - sum_na
-
-    ## alternative treatment for the unparsed times
-    if (!is.null(altern_fmt) && failed > 0){
-        sep <- attr(altern_fmt, "sep")
-        ## cat("Trying alternative:"); print(formats)
-        out[parsed_na] <- .parseDateTime(gsub(sep_regexp, sep, x[parsed_na]), altern_fmt, quiet, tz)
-        failed <- sum(is.na(out$year)) - sum_na
-    }
-
-    if( length(x) == sum_na + failed )
-        stop("x didn't match any of the format orders: ", paste(gsub("-", "", formats), collapse= ", "), call. = FALSE)
-
-    if( failed > 0 )
-        message(failed, " failed to parse.")
-    
-    out
+  failed <- 0L
+  to_parse <- !is.na(x)
+  x <- .enclose(x)
+  train <- .get_train_set(x[to_parse])
+  formats <- .best_formats(train, orders, locale = locale)
+  if( !is.null(formats) ){
+    out <- .parseDateTime(x, formats, locale = locale, quiet = quiet, tz = tz)
+    to_parse <- is.na(out) & to_parse
+    out[to_parse] <- .local_parse(x[to_parse])
+  }else{
+    out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)
+    failed <- sum(to_parse)
+  }
+  
+  if( failed > 0 && !quiet )
+    message(failed, " failed to parse.")
+  
+  out
 }
 
 
 ### INTERNAL
-.enclose <- function(fmts)
-    paste("@", fmts, "@", sep = "")
-    
-.select_formats <- function(fmt, nr_best){
-    
-    fmt <- fmt[order(fmt, decreasing = TRUE)]
-    fmt <-
-        if( nr_best  < 1 ) fmt[fmt > 0]
-        else fmt[1:min(length(fmt), nr_best)]
 
-    ## if( length(fmt) > 1 ) ## longer formats and "%y" format have priority
-    ##     fmt <- fmt[order(nzchar(names(fmt)), !grepl("%Y|%OS", names(fmt)), decreasing = TRUE)]
+.parseDateTime <- function(x, formats, locale, quiet, tz){
+  
+  out <- strptime(x, formats[[1]], tz = tz)
+  na <- is.na(out$year)
+  newx <- x[na]
+  
+  if(!quiet &  sum(!na) > 0)
+    message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
-    names(fmt)
-}
+  if( length(formats) > 1 && length(newx) > 0 )
+    out[na] <- .parseDateTime(newx, formats[-1], quiet, tz)
 
-.parseDateTime <- function(x, formats, quiet, tz){
-    out <- strptime(.enclose(x), .enclose(formats[[1]]), tz = tz)
-    na <- is.na(out$year)
-    newx <- x[na]
-    
-    if(!quiet &  sum(!na) > 0)
-        message(sum(!na), " parsed in ", formats[[1]], " order")
-    
-
-    if(length(formats) > 1 &  length(newx) > 0)
-        out[na] <- .parseDateTime(newx, formats[-1], quiet, tz)
-
-    ## return POSIXlt
-    out
+  ## return POSIXlt
+  out
 }
 
 
-.add_missing <- function(formats, missing){    
-    stopifnot(is.character(formats))
-
-    split <- strsplit(formats, "%")
-    out <- list()
-    for (fmt in split){
-        out[[length(out) + 1L]] <- fmt
-        lenout <- length(out)
-        if(nchar(fmt[1]) == 0L) fmt <- fmt[-1]
-        if(missing > 0){
-            lenfmt <- length(fmt)
-            mis <- min(missing, lenfmt-1)
-            for (i in 1:mis)
-                out[[lenout + i]] <- c("", fmt[1:(lenfmt - i)])
-        }else{
-            lenfmt <- length(fmt)
-            mis <- min(-missing, lenfmt - 1)
-            for (i in 1:mis){
-                out[[lenout + i]] <- c("", fmt[(i + 1):lenfmt])
-            }
-        }
+.add_truncated <- function(orders, truncated){    
+    out <- c()
+    
+    if(truncated > 0){
+      for (i in 1:truncated)
+        out <- c(out, substr(orders, 1, nchar(orders) - i))
+    }else{
+      for (i in 1:abs(truncated))
+        out <- c(out, substr(orders, i + 1, 100000))
     }
-
-    out <- unlist(lapply(out, paste, collapse = "%"), use.names = FALSE)
-    ## replace  garbage at the end of string
-    out <- gsub("[^[:alnum:]]+$", "", out)
-    out
+    out[nzchar(out)]
 }
 
 
@@ -609,53 +522,36 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 
 .parse_hms <- function(..., orders,  truncated = 0){
     hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
-    if( frac ){
-        sep <- "[^[:alnum:].]+"
-        type <- paste(type, ".f", sep = "")
-    }else{
-        sep <- "[^[:alnum:]]+"
-    }
-    formats <- lubridate_formats[[type]]
-    formats <- paste("%Y%m%d", formats, sep = "")
-    ## ugly hack, but what can we do :(
+    orders <- paste("Ymd", orders, sep = "")
     hms <- paste("1970-01-01", hms, sep = "-")
-    tryCatch(parseDateTime(hms, formats, sep_regexp = sep, missing =  missing,
-                           quiet = TRUE, train = .train_head(hms)),
+    ## ugly hack, but what can we do :(
+    tryCatch(parseDateTime(hms, orders, truncated =  truncated, quiet = TRUE),
              error = function(e){
-                 e$message <- gsub("%Y%m%d|%Y-%m-%d", "", e$message)
+                 e$message <- gsub("%Y-%m-%d", "", e$message)
                  stop(e)
              })
 }
 
 
-.parse_xxx_hms <- function(..., type, missing, quiet, tz, frac = FALSE){
-    if(length(dates <- list(...)) > 1) # avoid converting to string in most common case
-        dates <- lapply(dates, .num_to_date)
-    dates <- unlist(dates, use.names= FALSE)
-    if( frac ){
-        sep <- "[^[:alnum:].]+"
-        type <- paste(type, ".f", sep = "")
-    }else{
-        sep <- "[^[:alnum:]]+"
-    }
-    as.POSIXct(parseDateTime(dates, lubridate_formats[[type]], tz = tz,  sep_regexp = sep,
-                             missing = missing, quiet = quiet, train = .train_head(dates)))
+.xxx_hms_truncations <- list(T = c("R", "r", ""), R = c("r", ""), r = "")
+
+.parse_xxx_hms <- function(..., orders, truncated, quiet, tz){
+  if( truncated > 0 ){
+    xxx <- substr(orders, 1, 3)
+    add <- paste(xxx, .xxx_hms_truncations[[substr(orders, 4, 4)]], sep = "")
+    rest <- length(add) - truncated
+    if( rest  < 0 )
+      orders <- c(orders, add, .add_truncated(xxx, abs(rest)))
+    else
+      orders <- c(orders, add[1:truncated], sep = "")
+  }
+  dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
+  as.POSIXct(parseDateTime(dates, orders, tz = tz,  quiet = quiet))
 }
 
-.parse_xxx_hm <- function(..., type, missing, quiet, tz){
-    if(length(dates <- list(...)) > 1) # avoid converting to string in most common case
-        dates <- lapply(dates, .num_to_date)
-    dates <- unlist(dates, use.names= FALSE)
-    as.POSIXct(parseDateTime(dates, lubridate_formats[[type]], tz = tz, missing = missing,
-                             quiet = quiet, train = .train_head(dates)))
-}
-
-.parse_xxx <- function(..., type, quiet, tz, missing){
-    if(length(dates <- list(...)) > 1) # avoid converting to string in most common case
-        dates <- lapply(dates, .num_to_date)
-    dates <- unlist(dates, use.names= FALSE)
-    as.POSIXct(parseDateTime(.num_to_date(dates), lubridate_formats[[type]], quiet = quiet,
-                             tz = tz, missing = missing, train = .train_head(dates)))
+.parse_xxx <- function(..., orders, quiet, tz, truncated){
+  dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
+  as.POSIXct(parseDateTime(.num_to_date(dates), orders, quiet = quiet, tz = tz, truncated = truncated))
 }
 
 
