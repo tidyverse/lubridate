@@ -259,82 +259,77 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
               paste(unique(mat[, "A"]), collapse = "|"))
 
     alpha["A"] <- 
-      sprintf("(?<A>%s)(?![[:alpha:]])",
+      sprintf("(?<A_A>%s)(?![[:alpha:]])",
               paste(unique(mat[, "A"]), collapse = "|"))
 
     p <- unique(mat[, "p"])
     p <- p[nzchar(p)]
     alpha["p"] <-
       if ( length(p) == 0L ) ""
-      else sprintf("(?<p>%s)(?![[:alpha]])", paste(p, collapse = "|"))
+      else sprintf("(?<p>%s)(?![[:alpha:]])", paste(p, collapse = "|"))
     
     alpha <- unlist(alpha)
     
     num <- num_flex <- num_exact <- c(
-      d = "<d>[0-2]?\\d|3[01]", ## todo: enumerate 30, 31
-      H = "<H>2[0-4]|[01]?\\d",
-      I = "<I>1[0-2]|0?[1-9]", 
-      j = "<j>[0-3]?\\d?\\d", 
-      M = "<M>[0-5]?\\d", 
-      S = "<S>[0-6]?\\d", 
-      U = "<U>[0-5]?\\d", 
-      w = "<w>[0-6]", # merge with a, A??
-      u = "<u>[1-7]", 
-      W = "<W>[0-5]?\\d", 
-      x = "<x>\\d{2}/[01]?\\d/[0-3]?\\d", 
-      X = "<X>[012]?\\d:[0-5]?\\d:[0-6]?\\d", 
-      Y = "<Y>\\d{4}", 
-      z = "<z>[-+]\\d{4,}", ## R implements only 4 digits
-      F = "<F>\\d{4)-\\d{2}-\\d{2}", 
-      Q = "<OS>[0-5]\\d\\.\\d+" ## fractional
+      d = "(?<d>[0-2]?\\d|3[01])",
+      m = sprintf("((?<m>1[0-2]|0?[1-9])|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]])), 
+      H = "(?<H>2[0-4]|[01]?\\d)",
+      I = "(?<I>1[0-2]|0?[1-9])", 
+      j = "(?<j>[0-3]?\\d?\\d)", 
+      M = "(?<M>[0-5]?\\d)",
+      S = "((?<OS_S>[0-5]?\\d\\.\\d+)|(?<S>[0-6]?\\d))", 
+      U = "(?<U>[0-5]?\\d)", 
+      w = "(?<w>[0-6])", # merge with a, A??
+      u = "(?<u>[1-7])", 
+      W = "(?<W>[0-5]?\\d)", 
+      ## x = "(?<x>\\d{2}/[01]?\\d/[0-3]?\\d)", 
+      ## X = "(?<X>[012]?\\d:[0-5]?\\d:[0-6]?\\d)", 
+      Y = "(?<Y>\\d{4})",
+      y = "((?<Y_y>\\d{4})|(?<y>\\d{2}))",
+      z = "(?<z>[-+]\\d{4,}))", ## R implements only 4 digits
+      ## F = "(?<F>\\d{4)-\\d{2}-\\d{2})", 
+      Q = "(?<OS>[0-5]\\d\\.\\d+)" ## fractional
       )
 
-    num2 <- gsub("?", "", num, fixed= TRUE)
+    nms <- c("T", "R", "r")
+    if( length(p) == 0L ){
+      ## in some locales %p = ""
+      num <- c(num,
+               T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]), 
+               R = sprintf("(%s\\D+%s)", num[["H"]], num[["M"]]),
+               r = sprintf("(%s\\D+%s)", num[["H"]]))
+      
+    }else{
+      num <- c(num,
+               T = sprintf("((%s\\D+%s\\D+%s\\D+%s)|(%s\\D+%s\\D+%s))",
+                 num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]), 
+               R = sprintf("((%s\\D+%s\\D+%s)|(%s\\D+%s))",
+                 num[["I"]], num[["M"]], alpha[["p"]], num[["H"]], num[["M"]]),
+               r = sprintf("((%s\\D+%s)|%s)",
+                 num[["I"]], alpha[["p"]], num[["H"]]))
+      
+      num[nms] <- sub("<M", "<M_T", 
+                      sub("<S", "<S_T", 
+                          sub("<OS", "<OS_T", num[nms])))
+    }
+    num[nms] <- gsub("(<[IMSpHS]|<OS)", "\\1_f", num[nms]) ## don't let them be confused with standard  formats
     
-    num_flex[] <- sprintf("(?%s)(?!\\d)", num)
-    num_exact[] <- sprintf("(?%s)", num2)
-    num_exact <- sub(">", "_e>", num_exact, fixed = TRUE)
+
+    num_exact <- num_flex <- num
+    num_flex[] <- sprintf("%s(?!\\d)", num) ## flexes follow by non-digits
+    
+    num_exact[] <- gsub("(?<!\\()\\?(?!<)", "", perl = T, # remove ?
+                      gsub("+", "*",  fixed = T,  # todo: problem, OS + is replaced
+                           gsub(">", "_e>", num))) # append _e to avoid confusion    
     
     alpha_flex <- alpha
     alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE)
 
-
-
-    ## m match %m, %b and %B
-    num_flex <- c(num_flex,
-                  m = sprintf("(((?<m>1[0-2]|0?[1-9])(?!\\d))|(%s))", alpha[["b"]]),
-                  y = "((?<y>\\d{2})|(?<Y>\\d{4}))(?!\\d)")
-    
-    num_exact <- c(num_exact,
-                   m = sprintf("((?<m_e>1[012]|0[1-9])|(%s))", alpha_exact[["b"]]),
-                   y = "((?<y_e>\\d{2})|(?<Y_e>\\d{4}))")
-
-    nms <- c("T", "R", "r")
-    if( length(p) == 0L ){
-      num_flex <- c(num_flex,
-                    T = sprintf("((?%s)\\D+(?%s)\\D+(?%s)(?!\\d)", num[["H"]], num[["M"]], num[["S"]]), 
-                    R = sprintf("((?%s)\\D+(?%s)(?!\\d)", num[["H"]], num[["M"]]),
-                    r = sprintf("((?%s)\\D+(?%s)(?!\\d)", num[["H"]]))
-      num_exact[nms] <-
-        gsub("\\?(?!<)", "", gsub("+", "*", num_exact[nms], fixed = T), perl = T)
-      
-    }else{
-      num_flex <- c(num_flex,
-                    T = sprintf("((?%s)\\D+(?%s)\\D+(?%s)\\D+%s)|((?%s)\\D+(?%s)\\D+(?%s)(?!\\d))",
-                      num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]), 
-                    R = sprintf("((?%s)\\D+(?%s)\\D+%s)|((?%s)\\D+(?%s)(?!\\d))",
-                      num[["I"]], num[["M"]], alpha[["p"]], num[["H"]], num[["M"]]),
-                    r = sprintf("((?%s)\\D+%s)|((?%s)(?!\\d))",
-                      num[["I"]], alpha[["p"]], num[["H"]]))
-      num_flex[nms] <- sub("<M>", "<M_T>", sub("<S>", "<S_T>", num_flex[nms], fixed = T), fixed = T) ## unique captures
-      num_exact[nms] <-
-        gsub("\\?(?!<)", "", gsub("+", "*", num_exact[nms], fixed = T), perl = T)
-    }
-    
-    .locale_regs_cache[[locale]] <- regs <-
+    .locale_regs_cache[[locale]] <<- regs <-
       list(alpha_flex = alpha_flex, num_flex = num_flex,
            alpha_exact = alpha_exact, num_exact = num_exact)
   }
-  
   regs
 }
+
+
