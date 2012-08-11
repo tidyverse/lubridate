@@ -1,6 +1,7 @@
-##' Lubridate formats used in \code{ymd}, \code{hms} and \code{ymd_hms} family of functions. 
+##' Lubridate format orders used in \code{ymd}, \code{hms} and \code{ymd_hms}
+##' family of functions.
 ##'
-##' These formats are passed to \code{parseDateTime} low level parsing function.
+##' These orders are passed to \code{parseDateTime} low level parsing function.
 ##' @export lubridate_formats
 ##' @format Named list with formats.
 ##' @docType data
@@ -9,62 +10,17 @@
 ##' @examples
 ##' str(lubridate_formats)
 lubridate_formats <- local({
-    comb <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
-    xxx <- lapply(comb, function(order) {
-        formats <- list(
-                     d = "%d",
-                     m = c("%m", "%b"),
-                     y = c("%y", "%Y"))[ unlist(strsplit(order, ""))]
-        grid <- expand.grid(formats, 
-                            KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
-        apply(grid, 1, function(row) paste(row, collapse = ""))
-    })
-    names(xxx) <- comb
-
-    ## hms <- c("%H%M%S", "%H%M%OS", "%k%M%S")
-    hms.f <-"%H%M%OS" ## "%I%M%0S%p"  <- strptime doesn't parser this
-    hms <- c("%H%M%S", "%I%M%S%p")
-    hm <- "%H%M"
-    h <- c("%H")
-    ms.f <- "%M%OS"
-    ms <- "%M%S"
-
-    out <- list()
-
-    for(D in comb){
-        out[[paste(D, "_hms", sep = "")]] <-
-            paste(xxx[[D]], rep(hms, each = length(xxx[comb])), sep = "")
-    }
-
-    for(D in comb){
-      out[[paste(D, "_hms.f", sep = "")]] <-
-        paste(xxx[[D]], rep(hms.f, each = length(xxx[comb])), sep = "")
-    }
+    xxx <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
+    names(xxx) <- xxx    
+    out <- character()
+    for(D in xxx){
+        out[[paste(D, "_hms", sep = "")]] <- paste(xxx[[D]], "T", sep = "")
+        out[[paste(D, "_hm", sep = "")]] <- paste(xxx[[D]], "R", sep = "")
+        out[[paste(D, "_h", sep = "")]] <- paste(xxx[[D]], "r", sep = "")
+    }    
     
-    for(D in comb){
-        out[[paste(D, "_hm", sep = "")]] <-
-            paste(xxx[[D]], rep(hm, each = length(xxx[comb])), sep = "")
-    }
-
-    for(D in comb){
-        out[[paste(D, "_h", sep = "")]] <-
-            paste(xxx[[D]], rep(h, each = length(xxx[comb])), sep = "")
-    }
-
-    for( i in seq_along(out))
-        out[[i]] <- unique(out[[i]])
-
-    
-    out <- c(out, xxx)
-    out[["my"]] <- "my"
-    out[["ym"]] <- "ym"
-    out[["hms.f"]] <- hms.f
-    out[["hms"]] <- hms
-    out[["hm"]] <- hm
-    out[["ms.f"]] <- ms.f
-    out[["ms"]] <- ms
-    out[["y"]] <- "y"
-    out[["m"]] <- "m"
+    out <- c(out, xxx, my = "my", ym = "ym", md = "md", dm = "dm", 
+             hms = "T", hm = "R", ms = "MS", h = "r", m = "m", y = "y")
     out
 })
 
@@ -72,24 +28,23 @@ lubridate_formats <- local({
 ##' in the input vector.
 ##'
 ##' Transforms dates stored in character and numeric vectors to POSIXct
-##' objects. These functions automatically recognize all non-alphanumeric
-##' separators as well as no separator. As long as the order of formats is
-##' correct, these functions will parse dates correctly even when dates have
-##' different formats or use different separators. For even more flexibility in
-##' treatment of heterogeneous formats see low level parser
-##' \code{\link{parseDateTime}}.
+##' objects. These functions recognize arbitrary non-digit separators as well as
+##' no separator. As long as the order of formats is correct, these functions
+##' will parse dates correctly even when the input vectors contain differently
+##' formatted dates. See examples. For even more flexibility in treatment of
+##' heterogeneous formats see low level parser \code{\link{parseDateTime}}.
 ##'
 ##' \code{ymd} family of functions automatically assign the Universal
 ##' Coordinated Time Zone (UTC) to the parsed dates. This time zone can be
 ##' changed with \code{\link{force_tz}}.
 ##'
-##' If \code{missing} parameter is non-zero \code{ymd} functions also check for
-##' truncated formats. For example \code{ymd} with \code{missing = 2} will also
+##' If \code{truncated} parameter is non-zero \code{ymd} functions also check for
+##' truncated formats. For example \code{ymd} with \code{truncated = 2} will also
 ##' parse incomplete dates like \code{2012-06} and \code{2012}.
 ##'
 ##' NOTE: \code{ymd} family of functions are based on \code{\link{strptime}}
 ##' which currently correctly parses "\%y" format, but fails to parse "\%y-\%m"
-##' format.
+##' formats.
 ##'
 ##' @export ymd myd dym ydm mdy dmy
 ##' @aliases yearmonthdate ymd myd dym ydm mdy dmy
@@ -99,7 +54,7 @@ lubridate_formats <- local({
 ##' @param tz a character string that specifies which time zone to parse the
 ##' date with. The string must be a time zone that is recognized by the user's
 ##' OS.
-##' @param missing integer. Number of formats that can be missing. 
+##' @param truncated integer. Number of formats that can be truncated. 
 ##' @return a vector of class POSIXct 
 ##' @seealso \code{\link{parseDateTime}} for underlying mechanism.
 ##' @keywords chron 
@@ -119,42 +74,34 @@ lubridate_formats <- local({
 ##' 
 ##' ## heterogenuous formats in a single vector:
 ##' x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
-##'        "2009-1, 5", "2009....1--6", "200901-07", "200901-8")
+##'        "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07", "200901-8")
 ##' ymd(x)
-##' ## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC" "2009-01-04 UTC" "2009-01-05 UTC" "2009-01-06 UTC"
 ##' 
 ##' ## What lubridate might not handle:
 ##' 
-##' ## 1) Extremely weird cases when one of the separators is "" and some of the
+##' ## Extremely weird cases when one of the separators is "" and some of the
 ##' ## formats are not in double digits might not be parsed correctly:
 ##' ymd("201002-01", "201002-1", "20102-1")
 ##' dmy("0312-2010", "312-2010")
 ##' 
-##' ## 2) %y formats have precedence over %Y:
-##' ymd("10-02-01", "2010-02-02")
-##' ## gives "2010-02-01 UTC" "2010-02-02 UTC" and not "10-02-01 UTC" "2010-02-02 UTC"
-##' 
-##' ## This is usually what is desired, as it's very unlikely that "10-02-01" means
-##' ## year 10. If not, then you should use parseDateTime or strptime and pass
-##' ## formats explicitly.
-ymd <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx(..., type = "ymd", quiet = quiet, tz = tz, missing = missing)
+ymd <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, truncated = truncated)
 
-ydm <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
-    .parse_xxx(..., type = "ydm", quiet = quiet, tz = tz, missing = missing)
+ydm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
+    .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, truncated = truncated)
 
-mdy <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
-    .parse_xxx(..., type = "mdy", quiet = quiet, tz = tz, missing = missing)
+mdy <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
+    .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, truncated = truncated)
 
  
-myd <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
-    .parse_xxx(..., type = "myd", quiet = quiet, tz = tz, missing = missing)
+myd <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
+    .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, truncated = truncated)
 
-dmy <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
-    .parse_xxx(..., type = "dmy", quiet = quiet, tz = tz, missing = missing)
+dmy <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
+    .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, truncated = truncated)
 
-dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0) 
-    .parse_xxx(..., type = "dym", quiet = quiet, tz = tz, missing = missing)
+dym <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
+    .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, truncated = truncated)
 
 
 ##' Parse dates that have hours, minutes, or seconds elements.
@@ -171,9 +118,9 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##' \code{\link{force_tz}}.
 ##'
 ##' The most common type of irregularity in date-time data is the truncation
-##' due to rounding or unavailability of the time stamp. If \code{missing}
+##' due to rounding or unavailability of the time stamp. If \code{truncated}
 ##' parameter is non-zero \code{ymd_hms} functions also check for truncated
-##' formats. For example \code{ymd_hms} with \code{missing = 3} will also parse
+##' formats. For example \code{ymd_hms} with \code{truncated = 3} will also parse
 ##' incomplete dates like \code{2012-06-01 12:23}, \code{2012-06-01 12} and
 ##' \code{2012-06-01}. NOTE: \code{ymd} family of functions are based on
 ##' \code{strptime} which currently fails to parse \code{\%y-\%m} formats.
@@ -187,7 +134,7 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##'   second format 
 ##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 ##' @param tz a character string that specifies which time zone to parse the date with. The string must be a time zone that is recognized by the user's OS.
-##' @param missing integer, indicating how many formats can be missing. See details.
+##' @param truncated integer, indicating how many formats can be missing. See details.
 ##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
 ##' that fractional seconds are separated by ".". In this case "." cannot be
 ##' used as a separator between other fields.
@@ -203,20 +150,25 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
 ##' ymd_hms(x)
 ##' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
+##'
 ##' 
 ##' ## ** heterogenuous formats **
-##' x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
-##'        "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6", "20090107 120107", "200901-08 1201-8",
-##'        "10-01-09 12:01:09", "10-01-10 10:01:10 AM", "10-01-11 10:01:11 PM")
+##' x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03",
+##'        "2009-1-4 12-1-4",
+##'        "2009-1, 5 12:1, 5",
+##'        "200901-08 1201-08",
+##'        "2009 arbitrary 1 non-decimal 6 chars 12 in between 1 !!! 6",
+##'        "OR collapsed formats: 20090107 120107 (as long as prefixed with zeros)",
+##'        "Automatic wday, Thu, detection, 10-01-10 10:01:10 and p format: AM",
+##'        "Created on 10-01-11 at 10:01:11 PM")
 ##' ymd_hms(x)
-##' ## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC" "2009-01-04 UTC" "2009-01-05 UTC" "2009-01-06 UTC"
 ##' 
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
-##' ymd_hms(x, missing = 3)
+##' ymd_hms(x, truncated = 3)
 ##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##' x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
-##' ymd_hm(x, missing = 2)
+##' ymd_hm(x, truncated = 2)
 ##' ## "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##' 
 ##' ## ** fractional seconds **
@@ -226,57 +178,42 @@ dym <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
 ##' ## "2011-12-31 12:59:59.23 UTC" "2010-01-01 12:11:10.00 UTC" 
 ##' 
 ##' ## ** What lubridate might not handle **
-##' ## 1) Extremely weird cases when one of the separators is "" and some of the
+##' ## Extremely weird cases when one of the separators is "" and some of the
 ##' ## formats are not in double digits might not be parsed correctly:
 ##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")
 ##' ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 ##' 
-##' ## 2) %y formats have precedence over %Y:
-##' ymd_h("10-02-01 02", "2010-02-02 02")
-##' ## gives "2010-02-01 02:00:00 UTC" "2010-02-02 02:00:00 UTC"
-##' ## and not  "10-02-01 UTC" "2010-02-02 UTC" 
-##' 
-##' ## This is usually what is desired, as it's very unlikely that "10-02-01" means
-##' ## year 10. If not, then you should use parseDateTime or strptime and pass
-##' ## formats explicitly.
-ymd_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
-    .parse_xxx_hms(..., type = "ymd_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
+ymd_hms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0){
+    .parse_xxx_hms(..., orders = "ymdT", quiet = quiet, tz = tz, truncated = truncated)
 }
-ymd_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx_hm(..., type =  "ymd_hm", quiet = quiet, tz = tz, missing = missing)
-ymd_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx_hm(..., type = "ymd_h", quiet = quiet, tz = tz, missing = missing)
-dmy_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
-    .parse_xxx_hms(..., type = "dmy_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
-dmy_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx_hm(..., type = "dmy_hm", quiet = quiet, tz = tz, missing = missing)
-dmy_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx_hm(..., type = "dmy_hm", quiet = quiet, tz = tz, missing = missing)
-mdy_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
-    .parse_xxx_hms(..., type = "mdy_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)    
-mdy_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx_hm(..., type = "mdy_hm", quiet = quiet, tz = tz, missing = missing)
-mdy_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx_hm(..., type = "mdy_h", quiet = quiet, tz = tz, missing = missing)
-ydm_hms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE)
-    .parse_xxx_hms(..., type = "ydm_hms", quiet = quiet, tz = tz, missing = missing, frac = frac)
-ydm_hm <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx_hm(..., type = "ydm_hm", quiet = quiet, tz = tz, missing = missing)
-ydm_h <- function(..., quiet = FALSE, tz = "UTC", missing = 0)
-    .parse_xxx_hm(..., type = "ydm_hm", quiet = quiet, tz = tz, missing = missing)
+ymd_hm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders =  "ymdR", quiet = quiet, tz = tz, truncated = truncated)
+ymd_h <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "ymdr", quiet = quiet, tz = tz, truncated = truncated)
+dmy_hms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "dmyT", quiet = quiet, tz = tz, truncated = truncated)
+dmy_hm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, truncated = truncated)
+dmy_h <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, truncated = truncated)
+mdy_hms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "mdyT", quiet = quiet, tz = tz, truncated = truncated)    
+mdy_hm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "mdyR", quiet = quiet, tz = tz, truncated = truncated)
+mdy_h <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "mdyr", quiet = quiet, tz = tz, truncated = truncated)
+ydm_hms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "ydmT", quiet = quiet, tz = tz, truncated = truncated)
+ydm_hm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, truncated = truncated)
+ydm_h <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
+    .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, truncated = truncated)
 
 
-ymdThms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
+ymdThms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0){
     dates <- unlist(list(...), use.names= FALSE)
-    if(frac){
-        sep <- "T|[^[:alnum:].]"
-        type <- "ymd_hms.f"
-    }else{
-        sep <- "T|[^[:alnum:]]"
-        type <- "ymd_hms"
-    }
-    as.POSIXct(parseDateTime(dates, lubridate_formats[[type]], tz = tz, 
-                          sep_regexp= sep, missing = missing, quiet = quiet))
+    as.POSIXct(parseDateTime(dates, stop(), tz = tz, 
+                          sep_regexp= sep, truncated = truncated, quiet = quiet))
 }
 
 
@@ -284,14 +221,11 @@ ymdThms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
 ##' Create a period with the specified number of minutes and seconds
 ##'
 ##' Transforms character or numeric vectors into a period object with the
-##' specified number of minutes and seconds. ms() recognizes all
-##' non-alphanumeric separators as well as no separator. 
+##' specified number of minutes and seconds. ms() Arbitrary text can separate
+##' minutes and seconds. Fractional separator is assumed to be ".".
 ##'
 ##' @export ms
 ##' @param ... character or numeric vectors of minute second pairs
-##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
-##' that fractional seconds are separated by ".". If \code{TRUE}, "." cannot be
-##' used as a separator between minutes and seconds.
 ##' @return a vector of class \code{Period}
 ##' @seealso \code{\link{hms}, \link{hm}}
 ##' @keywords period
@@ -303,8 +237,8 @@ ymdThms <- function(..., quiet = FALSE, tz = "UTC", missing = 0, frac = FALSE){
 ##' # [1] 7 minutes and 6 seconds
 ##' ms("6,5")
 ##' # 6 minutes and 5 seconds
-ms <- function(..., frac = FALSE) {
-    hms <- .parse_hms(..., type = "ms", frac = frac)
+ms <- function(...) {
+    hms <- .parse_hms(..., orders = "MS")
     new_period(minute = hms$min, second = hms$sec)
 }
 
@@ -312,8 +246,8 @@ ms <- function(..., frac = FALSE) {
 ##' Create a period with the specified number of hours and minutes
 ##'
 ##' Transforms a character or numeric vectors into a period object with the
-##' specified number of hours and minutes. hm() recognizes all non-alphanumeric
-##' separators, and no separator.
+##' specified number of hours and minutes. Arbitrary text can separate hours and
+##' minutes.
 ##'
 ##' @export hm
 ##' @param ... character or numeric vectors of hour minute pairs
@@ -341,7 +275,7 @@ hm <- function(...) {
 ##'
 ##' @export hms
 ##' @param ... a character vector of hour minute second triples
-##' @param missing integer, number of formats that can be missing. See
+##' @param truncated integer, number of formats that can be missing. See
 ##' \code{\link{parseDateTime}}.
 ##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
 ##' that fractional seconds are separated by ".". If \code{TRUE}, "." cannot be
@@ -350,144 +284,126 @@ hm <- function(...) {
 ##' @seealso \code{\link{hm}, \link{ms}}
 ##' @keywords period
 ##' @examples
-##' x <- c("09:10:01", "09:10:02", "09:10:03")
+##'
+##' x <- c("09:10:01", "09:10:02", "09:10:03", "Collided at 9:20:04 pm")
 ##' hms(x)
 ##' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
 ##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
 ##' ## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds 
-hms <- function(..., missing = 0, frac = FALSE) {
-    time <- .parse_hms(..., type = "hms", missing = missing, frac = frac)
+hms <- function(..., truncated = 0) {
+    time <- .parse_hms(..., orders = "T", truncated = truncated)
     new_period(hour = time$hour, minute = time$min, second = time$sec)
 }
 
 
-##' Low level function to parse character and numeric vectors into POSIXct
-##' object.
+##' Function to parse character and numeric date-time vectors with user friendly
+##' order formats.
 ##'
 ##'
-##' Specifically designed to handle heterogeneous date-time formats at
-##' once. It first sorts the supplied formats based on a training set and then
-##' applies them recursively for parsing of the input vector.
+##' As compared to \code{strptime} parser, \code{parseDateTime} allows to
+##' specify only the order in which the formats occur instead of the full
+##' format.  As it was specifically designed to handle heterogeneous date-time
+##' formats at once, you can specify several alternative
+##' orders. \code{parseDateTime} sorts the supplied formats based on a training
+##' set and then applies them recursively on the input vector.
 ##'
-##' As oposed to \code{strptime} and \code{as.POSIXct}, \code{parseDateTime}
-##' doesn't ignore remaining unparsed part of the string.  For example, the
-##' format "\%y\%m\%d \%H\%M" doesn't match "2010-01-01 00:00:00", and the
-##' format "\%y\%m\%d \%H\%M\%S" doesn't match "2010-01-01 00:00:00 UTC".
+##' Below are all the implemented formats recognized by lubridate. For all
+##' numeric formats leading 0s are optional. All formats are case
+##' insensitive. As compared to \code{strptime}, some of the formats have been
+##' extended for efficiency reasons. They are marked with "*"
 ##'
+##' \describe{ \item{\code{a}}{Abbreviated weekday name in the current
+##' locale. (Also matches full name)}
+##'
+##' \item{\code{A}}{Full weekday name in the current locale.  (Also matches
+##' abbreviated name).
+##'
+##' You need not specify \code{a} and \code{A} formats explicitly. Wday is
+##' automatically handled if \code{preproc_wday = TRUE}}
 ##' 
-##' If \code{sep_regexp} is non-NULL, it should be a regular expression to match
-##' separators between numeric elements in \code{x}. In this case \code{formats}
-##' should not contain separators (like in "%y%m%d"). See
-##' \code{lubridate_formats} for formats used in \code{ymd} and \code{ymd_hms}
-##' families of functions.
-##'
-##' There are two strategies that can be applied for the training and
-##' parsing. First strategy (when \code{try_separated = TRUE}) is to replace the
-##' separators with "-" and then parse with \code{strptime}. Second strategy
-##' (requested with \code{try_collapsed = TRUE}), it to completely remove
-##' separators and then parse with \code{strptime}.
+##' \item{\code{b}}{Abbreviated month name in the current locale.  (Also matches full name.)}
+##' \item{\code{B}}{Full month name in the current locale.  (Also matches abbreviated name.)}
 ##' 
-##' \bold{Parsing steps:}
-##'
-##' \enumerate{
+##' \item{\code{d}}{Day of the month as decimal number (01--31 or 0--31)}
+##' \item{\code{H}}{Hours as decimal number (00--24 or 0--24).}
+##' \item{\code{I}}{Hours as decimal number (01--12 or 0--12).}
+##' \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
+##' \item{\code{m}*}{Month as decimal number (01--12 or 1--12). Also matches abbreviated and full months names as \code{b} and \code{B} formats}
+##' \item{\code{M}}{Minute as decimal number (00--59 or 0--59).}
+##' \item{\code{p}}{AM/PM indicator in the locale.  Used in
+##'                   conjunction with \code{I} and \bold{not} with \code{H}.  An
+##'                   empty string in some locales.}
+##' \item{\code{S}}{Second as decimal number (00--61 or 0--61), allowing for
+##'                   up to two leap-seconds (but POSIX-compliant implementations
+##'                                           will ignore leap seconds).}
+##' \item{\code{OS}}{Fractional second.}
 ##' 
-##'   \item For each requested strategy, sort the available formats according to
-##' their performance on the training set in \code{train}.
+##' \item{\code{U}}{Week of the year as decimal number (00--53 or 0-53) using
+##'                   Sunday as the first day 1 of the week (and typically with the
+##'                                                          first Sunday of the year as day 1 of week 1).  The US convention.}
+##' \item{\code{w}}{Weekday as decimal number (0--6, Sunday is 0).}
+##' \item{\code{W}}{Week of the year as decimal number (00--53 or 0-53) using
+##'                   Monday as the first day of week (and typically with the
+##'                                                    first Monday of the year as day 1 of week 1).  The UK convention.}
+##' \item{\code{y}*}{Year without century (00--99 or 0--99).  Also matches year with century (Y format).}
+##' \item{\code{Y}}{Year with century.} 
+##' \item{\code{z}}{Signed offset in hours and minutes from UTC, so
+##'                   \code{-0800} is 8 hours behind UTC.}
+##'
+##' \item{\code{r}*}{Matches \code{Ip} and \code{H} orders.}
+##' \item{\code{R}*}{Matches \code{HM} and\code{IMp} orders.}
+##' \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 ##' 
-##'   \item If both \code{try_separated} and \code{try_collapsed} are TRUE. Take
-##' the best strategy and store the alternative strategy for the potential latter
-##' use. 
-##' 
-##'   \item Parse \code{x} with first \code{nr_best} formats recursively with
-##' the best strategy. That is, parse \code{x} with the best format, then parse
-##' with the second best format all the unparsed in the previous stage
-##' elements. Continue until all elements in \code{x} are parsed or all formats
-##' are exhausted.
+##'   }
 ##'
-##'   \item If there are still unparsed elements in \code{x}, try to parse them
-##' with the alternative strategy, if any, using the same formats.
-##'
-##' }
-##'
-##' \bold{Speed considerations:}
-##'
-##' In most of the cases \code{parseDateTime} is very fast (as fast as
-##' \code{as.POSIXct}) on vectors longer than 10000 elements. (todo: check this
-##' number)
-##'
-##' For short vectors it might not be very efficient because of the training of
-##' formats involved. It's never a problem in interactive use but could have a
-##' sizable effect if you run \code{for} or \code{lapply} loops on big data and
-##' small blocks. You can deactivate training by setting \code{train} to
-##' \code{NULL}. In this case it is a good idea to order the \code{formats} in
-##' decreasing order of how often they occur in \code{x}.
-##'
-##' For efficiency reasons, in \code{ymd} and \code{ymd_hms} family of functions,
-##' training is always skipped when length of \code{x} is less than 300.
-##'
-##' For long input vector \code{x}, If you know all the available formats in
-##' \code{x}, it might be a good idea to set \code{sep_regexp} to NULL and
-##' supply all the formats explicitly (i.e. including separators). This will
-##' save up to 20-30% in speed as it avoids \code{gsub}-ing of \code{x}. This
-##' way, you will achieve the efficiency of the bare call to \code{strptime}.
-##' 
 ##' @export parseDateTime
-##' @param x a character or numeric vector of suspected dates 
-##' @param formats a character vector of date-time formats. Each format is
-##' series of formatting elements as listed
-##' \code{\link[base]{strptime}}. Formats might include spaces but should not
-##' include separators unless \code{sep_regexp} is NULL. See examples.
+##' @param x a character or numeric vector of dates
 ##' @param tz a character string that specifies the time zone with which to
 ##' parse the dates
-##' @param sep_regexp a character.  A regular expression matching separators
-##' (defaults to all non-alphanumeric characters). Can also be NULL.  In this
-##' case, \code{formats} are taken literally and \code{x} is parsed as is. That
-##' is,  try_collapsed and try_separated are ignored and no substitution of
-##' \code{x} is maid strategies. 
-##' @param nr_best number of "best" formats to try. Defaults to \code{Inf}, that
-##' is all formats are tried recursively and training is only used to order
-##' formats according to how well they have performed on the training set.
-##' @param try_collapsed logical. TRUE if collapsed (no separator) formats
-##' should be tried.
-##' @param try_separated logical. TRUE if separated formats should be tried.
-##' @param missing integer, number of formats that can be missing. The most
+##' @param locale locale to be used, see \link{locales}. On linux systems you
+##' can use \code{system("locale -a")} to list all the installed locales.
+##' @param truncated integer, number of formats that can be missing. The most
 ##' common type of irregularity in date-time data is the truncation due to
-##' rounding or unavailability of the time stamp. If \code{missing} parameter is
+##' rounding or unavailability of the time stamp. If \code{truncated} parameter is
 ##' non-zero \code{parseDateTime} also checks for truncated formats. For
-##' example,  if the format is "%y%m%d%h%m%s" and \code{missing = 3},
+##' example,  if the format order is "ymdhms" and \code{truncated = 3},
 ##' \code{parseDateTime} will correctly parse incomplete dates like
 ##' \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:}
 ##' \code{ymd} family of functions are based on \code{strptime} which currently
 ##' fails to parse \code{\%y-\%m} formats.
 ##' @param quiet logical. When TRUE function evalueates without displaying
 ##' customary messages.
-##' @param train a vector to use for format training. Defaults to the equally
-##' spaced 100 elements of \code{x}. If NULL, no training is performed.
+##' @param orders a character vector of date-time formats. Each order string is
+##' series of formatting characters as listed \code{\link[base]{strptime}} but
+##' might not include the "\%" prefix, for example "ymd" will match all the
+##' possible dates in year, month, day order.  Formatting orders might include
+##' arbitrary separators. These are discarded.  See details for implemented
+##' formats.
 ##' @return a vector of POSIXct date-time objects
-##' @seealso \code{\link{ymd}}, \code{\link{ymd_hms}}
+##' @seealso \code{strptime}, \code{\link{ymd}}, \code{\link{ymd_hms}}
 ##' @keywords chron
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
 ##' parseDateTime(x, "%y%m%d")
 ##' parseDateTime(x, "%y %m %d")
 ##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
-##' 
+##'
 ##' ## ** heterogenuous formats **
 ##' x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
 ##' parseDateTime(x, c("%y%m%d", "%y%m%d %H%M"))
 ##' ## Avoid training for small vectors (all the formats are just tried in turn):
 ##' parseDateTime(x, c("%y%m%d", "%y%m%d %H%M"), train = NULL)
-##' 
+##'
 ##' ## different ymd orders:
 ##' x <- c("2009-01-01", "02022010", "02-02-2010")
 ##' parseDateTime(x, c("%d%m%Y", "%Y%m%d"), train = NULL)
 ##' ##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"
-##' 
+##'
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
-##' parseDateTime(x, "%Y%m%d %H%M%S", missing = 3)
+##' parseDateTime(x, "%Y%m%d %H%M%S", truncated = 3)
 ##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
-##' 
+##'
 ##' ## ** custom formats **
 ##' x <- c("July 8th, 2004, 10:30")
 ##' strptime(x, "%b %dth, %Y, %H:%M")
@@ -661,24 +577,37 @@ parseDateTime <- function(x, formats, tz = "UTC", sep_regexp = "[^[:alnum:]]+",
 }
 
 
-.train_formats <- function(x, formats, quiet = FALSE) {
-    x <- .enclose(x)
-    formats2 <- .enclose(formats)
-    trials <- lapply(formats2, function(fmt) strptime(x, fmt))
-    successes <- unlist(lapply(trials, function(x) sum(!is.na(x))), use.names = FALSE)
-    names(successes) <- formats
-    successes
-}
+## .add_truncated <- function(formats, truncated){    
+##     stopifnot(is.character(formats))
 
-.train_head <- function(x){
-    ## heuristics
-    if(length(x)  < 300)
-        NULL
-    else
-        nr <- head(x, min(100, length(x) %/% 6))
-}
+##     split <- strsplit(formats, "%")
+##     out <- list()
+##     for (fmt in split){
+##         out[[length(out) + 1L]] <- fmt
+##         lenout <- length(out)
+##         if(nchar(fmt[1]) == 0L) fmt <- fmt[-1]
+##         if(truncated > 0){
+##             lenfmt <- length(fmt)
+##             mis <- min(truncated, lenfmt-1)
+##             for (i in 1:mis)
+##                 out[[lenout + i]] <- c("", fmt[1:(lenfmt - i)])
+##         }else{
+##             lenfmt <- length(fmt)
+##             mis <- min(-truncated, lenfmt - 1)
+##             for (i in 1:mis){
+##                 out[[lenout + i]] <- c("", fmt[(i + 1):lenfmt])
+##             }
+##         }
+##     }
 
-.parse_hms <- function(..., type, frac = FALSE, missing = 0){
+##     out <- unlist(lapply(out, paste, collapse = "%"), use.names = FALSE)
+##     ## replace  garbage at the end of string
+##     out <- gsub("[^[:alnum:]]+$", "", out)
+##     out
+## }
+
+
+.parse_hms <- function(..., orders,  truncated = 0){
     hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
     if( frac ){
         sep <- "[^[:alnum:].]+"
