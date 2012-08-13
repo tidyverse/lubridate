@@ -277,8 +277,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     alpha <- unlist(alpha)
     
     num <- num_flex <- num_exact <- c(
-      d = "(?<d>[0-2]?\\d|3[01])",
-      m = sprintf("((?<m>1[0-2]|0?[1-9])|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]])), 
+      d = "(?<d>[0-2]?[1-9]|3[01]|20)",
       H = "(?<H>2[0-4]|[01]?\\d)",
       I = "(?<I>1[0-2]|0?[1-9])", 
       j = "(?<j>[0-3]?\\d?\\d)", 
@@ -307,11 +306,11 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       
     }else{
       num <- c(num,
-               T = sprintf("((%s\\D+%s\\D+%s\\D+%s)|(%s\\D+%s\\D+%s))",
+               T = sprintf("((%s\\D+%s\\D+%s\\D*%s)|(%s\\D+%s\\D+%s))",
                  num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]), 
-               R = sprintf("((%s\\D+%s\\D+%s)|(%s\\D+%s))",
+               R = sprintf("((%s\\D+%s\\D*%s)|(%s\\D+%s))",
                  num[["I"]], num[["M"]], alpha[["p"]], num[["H"]], num[["M"]]),
-               r = sprintf("((%s\\D+%s)|%s)",
+               r = sprintf("((%s\\D*%s)|%s)",
                  num[["I"]], alpha[["p"]], num[["H"]]))
       
       num[nms] <- sub("<M", "<M_T", 
@@ -330,6 +329,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     
     alpha_flex <- alpha
     alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE)
+
+    num_flex["m"] <- sprintf("((?<m>1[0-2]|0?[1-9](?!\\d))|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]])) 
+    num_exact["m"] <- sprintf("((?<m_e>1[0-2]|0[1-9])|(%s))", gsub("_[bB]", "\\1_m_e>", alpha[["b"]]))
 
     .locale_regs_cache[[locale]] <<- regs <-
       list(alpha_flex = alpha_flex, num_flex = num_flex,
