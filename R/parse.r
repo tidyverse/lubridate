@@ -358,10 +358,14 @@ hms <- function(..., truncated = 0) {
 ##'
 ##' @export parseDateTime
 ##' @param x a character or numeric vector of dates
+##' @param orders a character vector of date-time formats. Each order string is
+##' series of formatting characters as listed \code{\link[base]{strptime}} but
+##' might not include the "\%" prefix, for example "ymd" will match all the
+##' possible dates in year, month, day order.  Formatting orders might include
+##' arbitrary separators. These are discarded.  See details for implemented
+##' formats.
 ##' @param tz a character string that specifies the time zone with which to
 ##' parse the dates
-##' @param locale locale to be used, see \link{locales}. On linux systems you
-##' can use \code{system("locale -a")} to list all the installed locales.
 ##' @param truncated integer, number of formats that can be missing. The most
 ##' common type of irregularity in date-time data is the truncation due to
 ##' rounding or unavailability of the time stamp. If \code{truncated} parameter is
@@ -373,12 +377,17 @@ hms <- function(..., truncated = 0) {
 ##' fails to parse \code{\%y-\%m} formats.
 ##' @param quiet logical. When TRUE function evalueates without displaying
 ##' customary messages.
-##' @param orders a character vector of date-time formats. Each order string is
-##' series of formatting characters as listed \code{\link[base]{strptime}} but
-##' might not include the "\%" prefix, for example "ymd" will match all the
-##' possible dates in year, month, day order.  Formatting orders might include
-##' arbitrary separators. These are discarded.  See details for implemented
-##' formats.
+##' @param locale locale to be used, see \link{locales}. On linux systems you
+##' can use \code{system("locale -a")} to list all the installed locales.
+##' @param select_formats A function to select actual formats for parsing from a
+##' set of formats which matched a training subset of \code{x}. This should be
+##' function receiving a named integer vector and returning a character vector
+##' of selected formats. Names of the input vector are explicit formats (not
+##' orders) which matched the training set and numeric values are the number of
+##' dates which matched the corresponding format. You should use this argument
+##' if the default selection method fails to select the formats in the right
+##' order. By default the formats with most formating tockens (\%) are selected
+##' and \%Y counts as 2.5 tockens (so that it can have priority over \%y\%m).
 ##' @return a vector of POSIXct date-time objects
 ##' @seealso \code{strptime}, \code{\link{ymd}}, \code{\link{ymd_hms}}
 ##' @keywords chron
@@ -414,7 +423,7 @@ hms <- function(..., truncated = 0) {
 ##' x <- c("Thu, 1 July 2004 22:30:00", "July 8th, 2004, 10:30")
 ##' parseDateTime(x, c("%a%d%b%Y %H%M%%S", "%b %dth %Y %H%M"))
 parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
-                          locale = Sys.getlocale("LC_TIME")){
+                          locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
 
   x <- .num_to_date(x)
   if( truncated != 0 )
@@ -423,7 +432,7 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   .local_parse <- function(x){
     train <- .get_train_set(x)
-    formats <- .best_formats(train, orders, locale = locale)
+    formats <- .best_formats(train, orders, locale = locale, .select_formats)
     if( length(formats) > 0 ){
       out <- .parseDateTime(x, formats, locale = locale, quiet = quiet, tz = tz)
       new_na <- is.na(out)
@@ -440,7 +449,7 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   to_parse <- !is.na(x)
   x <- .enclose(x)
   train <- .get_train_set(x[to_parse])
-  formats <- .best_formats(train, orders, locale = locale)
+  formats <- .best_formats(train, orders, locale = locale, .select_formats)
   if( !is.null(formats) ){
     out <- .parseDateTime(x, formats, locale = locale, quiet = quiet, tz = tz)
     to_parse <- is.na(out) & to_parse
