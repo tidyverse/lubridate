@@ -52,14 +52,13 @@ stamp <- function(x, orders = unlist(lubridate_formats),
   ##   orders <- 
 
   fmts <- guess_formats(x, orders, locale)
-  if( is.null(fmts) ) stop( "Couldn't quess formats. ")
+  if( is.null(fmts) ) stop( "Couldn't quess formats of: ", x)
   if( length(fmts) == 1L ){
     FMT <- fmts[[1]]
   }else{
-    trained <- .train_formats(x, fmts)
-    trained <- trained[ order(nchar(names(fmts)), trained, decreasing= TRUE) ]
-    trained <- trained[trained > 0]
-    FMT <- names(trained)[1]
+    trained <- .train_formats(x, unique(fmts))
+    formats <- .select_formats(trained)
+    FMT <- formats[[1]]
     if( !quiet && length(trained) > 1 )
       message("Multiple formats matched: ", paste("\"", names(trained),"\"(", trained, ")", sep = "", collapse= ", "))
   }
@@ -90,5 +89,5 @@ stamp_date <- function(x, locale = Sys.getlocale("LC_TIME"))
 ##' @param locale
 ##' @export
 stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"))
-  stamp(x, orders = c("hms", "hm", "ms", "h", "m", "s") locale = locale)
+  stamp(x, orders = c("hms", "hm", "ms", "h", "m", "s"), locale = locale)
 
