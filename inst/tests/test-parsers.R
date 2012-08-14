@@ -312,13 +312,14 @@ test_that("fractional formats are correctly parsed", {
 
 ## ## ### speed:
 ## options(digits.secs = 0)
-## tt <- rep(as.character(Sys.time()), 1e5)
+## tt <- rep(as.character(Sys.time()), 1e6)
 
-## ## system.time(out <- lubridate::ymd_hms(tt))
+## system.time(out <- as.POSIXct(tt, tz = "UTC"))
 ## system.time(out <- ymd_hms(tt))
 
-## tt <- rep(as.character(Sys.time()), 10^7)
-## system.time(as.POSIXct(tt, tz = "UTC"))
+## tt <- rep(c(as.character(Sys.time()), as.character(Sys.Date())), 5e5)
+## system.time(out <- as.POSIXct(tt, tz = "UTC"))
+## system.time(out <- ymd_hms(tt, tz = "UTC", truncated = 3))
 
 ## Rprof()
 ## system.time(out <- as.POSIXct(strptime(tt, "%Y-%m-%d %H:%M:%S", tz = "UTC")))
@@ -330,28 +331,66 @@ test_that("fractional formats are correctly parsed", {
 ## summaryRprof()
 
 ## tt <- rep("3:3:3", 10^5)
-## system.time(out <- lubridate:::hms(tt))
 ## system.time(out <- hms(tt))
 
 
 ## ## ** heterogenuous formats **
-## x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03",
+## x <- c(20100101120101, "dsf 09-01-02 12-01-02 dff", "2009.01.03 12:01:03",
 ##        "2009-1-4 12-1-4",
 ##        "2009-1, 5 12:1, 5",
 ##        "200901-08 1201-08",
 ##        "2009 arbitrary 1 non-decimal 6 chars 12 in between 1 !!! 6",
 ##        "OR collapsed formats: 20090107 120107 (as long as prefixed with zeros)",
-##        "Automatic wday, Thu, detection, 10-01-10 10:01:10 and p format: AM",
+##        "Automatic wday, Thu, detection, 10-01-10 10:01:10 and p format: AM sdf",
 ##        "Created on 10-01-11 at 10:01:11 PM")
 ## ymd_hms(x)
+
+## guess_formats(x, "ymdHMS")
 
 ## tt <- rep.int(x, 1e4)
 ## system.time(as.POSIXct(tt))
 ## system.time(ymd_hms(tt))
 
+
+
+## ## ** stamp ** functionality:
+## Sys.setlocale("LC_TIME", "en_US.utf8")
+
+## y <- c('February 20th 1973',
+##        "february  14, 2004",
+##        "01 3 2010",
+##        "1 3 10",
+##        "12/31/99", 
+##        "DOB:12/11/00", 
+##        'Thu, 1 July 2004 22:30:00',
+##        "1979-05-27 05:00:59",
+##        '00/13/10',
+##        "03:23:22 pm")
+## D <- as.POSIXct("2012-08-13 11:37:53", tz = "UTC")
+## stamp(y[[7]])(D)
+## cbind(y, unlist(lapply(y, function(x) stamp(x, quiet = TRUE)(D))))
+
 ## tt <- c(rep.int(as.character(Sys.Date()), 55),
 ##         rep.int(as.character(Sys.time()), 55))
 
+## ## locales
+## Sys.setlocale("LC_TIME", "zh_CN.utf8")
+## format(Sys.time(), format = "%A %Y %B %d %I:%M:%S %p")
+
+## Sys.setlocale("LC_TIME", "ru_RU.utf8")
+## format(Sys.time(), format = "%a %Y %b %d %I:%M:%S %p")
+
+## x_CN <- "星期二 2012 八月 14 12:07:40 下午"
+## ymd_hms(x_CN, locale = "zh_CN.utf8")
+## guess_formats(x_CN, "ymdT", locale = "zh_CN.utf8")
+## x_RO <- "Ma 2012 august 14 11:28:30 "
+## ymd_hms(x_RO, locale = "ro_RO.utf8")
+## x_RU <- "Вт. 2012 Август 14 11:28:19 "
+## x_RU2 <- "Вт. 2012 авг. 14 11:52:57 "
+## ymd_hms(c(x_RU, x_RU2), locale = "ru_RU.utf8")
+
+
+## gsub("([].|(){^$*+?[])", "\\\\\\1", "sdfs.")
 
 ## ## ** truncated time-dates **
 ## x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
