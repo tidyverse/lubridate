@@ -114,7 +114,7 @@
 ##' 
 guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                           preproc_wday = TRUE, print_matches = FALSE){
-  ## get all the formats which suite ORDERS 
+  ## get all the formats which suite ORDERS
   
   orders <- gsub("[^[:alpha:]]+", "", orders)
   orders <- gsub("OS\\d*", "Q", orders) ## hack
@@ -199,7 +199,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   paste("@", fmts, "@", sep = "")
 
 
-.train_formats <- function(x, formats, quiet = FALSE) {
+.train_formats <- function(x, formats, locale ) {
   x <- .enclose(x)
   formats2 <- .enclose(formats)
   trials <- lapply(formats2, function(fmt) strptime(x, fmt))
@@ -227,7 +227,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
 .best_formats <- function(x, orders, locale, .select_formats){
   fmts <- guess_formats(x, orders, locale = locale, preproc_wday = TRUE) # orders as names
-  trained <- .train_formats(x, unique(fmts))
+  trained <- .train_formats(x, unique(fmts), locale = locale)
   
   trained <- trained[ trained > 0 ]
   .select_formats(trained)
@@ -245,9 +245,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     on.exit({Sys.setlocale("LC_TIME", orig_locale)
              options(orig_opt)})
 
-    format <- "%a@%A@%b@%B@%p"
+    format <- "%a@%A@%b@%B@%p@"
     L <- unique(format(.date_template, format = format))
     mat <- do.call(rbind, strsplit(L, "@", fixed = TRUE))
+    mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) ## escaping all meta chars
     names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
 
     alpha <- list()
@@ -277,7 +278,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     alpha <- unlist(alpha)
     
     num <- num_flex <- num_exact <- c(
-      d = "(?<d>[0-2]?[1-9]|3[01]|20)",
+      d = "(?<d>[012]?[1-9]|3[01]|[12]0)",
       H = "(?<H>2[0-4]|[01]?\\d)",
       I = "(?<I>1[0-2]|0?[1-9])", 
       j = "(?<j>[0-3]?\\d?\\d)", 
@@ -302,7 +303,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       num <- c(num,
                T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]), 
                R = sprintf("(%s\\D+%s)", num[["H"]], num[["M"]]),
-               r = sprintf("(%s\\D+%s)", num[["H"]]))
+               r = sprintf("(%s\\D+)", num[["H"]]))
       
     }else{
       num <- c(num,
@@ -324,8 +325,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     num_flex[] <- sprintf("%s(?!\\d)", num) ## flexes follow by non-digits
     
     num_exact[] <- gsub("(?<!\\()\\?(?!<)", "", perl = T, # remove ?
-                      gsub("+", "*",  fixed = T,  # todo: problem, OS + is replaced
-                           gsub(">", "_e>", num))) # append _e to avoid confusion    
+                        gsub("+", "*",  fixed = T,  # todo: problem, OS + is replaced
+                             gsub(">", "_e>", num))) # append _e to avoid confusion    
     
     alpha_flex <- alpha
     alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE)
@@ -336,7 +337,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     .locale_regs_cache[[locale]] <<- regs <-
       list(alpha_flex = alpha_flex, num_flex = num_flex,
            alpha_exact = alpha_exact, num_exact = num_exact)
-  }
+  }  
   regs
 }
 

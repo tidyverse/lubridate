@@ -1,11 +1,11 @@
 ##' Lubridate format orders used in \code{ymd}, \code{hms} and \code{ymd_hms}
 ##' family of functions.
 ##'
-##' These orders are passed to \code{parseDateTime} low level parsing function.
+##' These orders are passed to \code{parse_date_time} low level parsing function.
 ##' @export lubridate_formats
 ##' @format Named list with formats.
 ##' @docType data
-##' @seealso \code{\link{parseDateTime}}, \code{\link{ymd}}, \code{\link{ymd_hms}}
+##' @seealso \code{\link{parse_date_time}}, \code{\link{ymd}}, \code{\link{ymd_hms}}
 ##' @keywords chron
 ##' @examples
 ##' str(lubridate_formats)
@@ -32,7 +32,7 @@ lubridate_formats <- local({
 ##' no separator. As long as the order of formats is correct, these functions
 ##' will parse dates correctly even when the input vectors contain differently
 ##' formatted dates. See examples. For even more flexibility in treatment of
-##' heterogeneous formats see low level parser \code{\link{parseDateTime}}.
+##' heterogeneous formats see low level parser \code{\link{parse_date_time}}.
 ##'
 ##' \code{ymd} family of functions automatically assign the Universal
 ##' Coordinated Time Zone (UTC) to the parsed dates. This time zone can be
@@ -56,7 +56,7 @@ lubridate_formats <- local({
 ##' OS.
 ##' @param truncated integer. Number of formats that can be truncated. 
 ##' @return a vector of class POSIXct 
-##' @seealso \code{\link{parseDateTime}} for underlying mechanism.
+##' @seealso \code{\link{parse_date_time}} for underlying mechanism.
 ##' @keywords chron 
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -84,24 +84,24 @@ lubridate_formats <- local({
 ##' ymd("201002-01", "201002-1", "20102-1")
 ##' dmy("0312-2010", "312-2010")
 ##' 
-ymd <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, truncated = truncated)
+ymd <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
-ydm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
-    .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, truncated = truncated)
+ydm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
+    .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
-mdy <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
-    .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, truncated = truncated)
+mdy <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
+    .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
  
-myd <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
-    .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, truncated = truncated)
+myd <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
+    .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
-dmy <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
-    .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, truncated = truncated)
+dmy <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
+    .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
-dym <- function(..., quiet = FALSE, tz = "UTC", truncated = 0) 
-    .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, truncated = truncated)
+dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
+    .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
 ##' Parse dates that have hours, minutes, or seconds elements.
@@ -111,7 +111,7 @@ dym <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
 ##' separators (with the exception of "." if \code{frac = TRUE}) and correctly
 ##' handle heterogeneous date-time representations. For more flexibility in
 ##' treatment of heterogeneous formats, see low level parser
-##' \code{\link{parseDateTime}}.
+##' \code{\link{parse_date_time}}.
 ##'
 ##' ymd_hms() functions automatically assigns the Universal Coordinated Time
 ##' Zone (UTC) to the parsed date. This time zone can be changed with
@@ -139,7 +139,7 @@ dym <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
 ##' that fractional seconds are separated by ".". In this case "." cannot be
 ##' used as a separator between other fields.
 ##' @return a vector of POSIXct date-time objects
-##' @seealso \code{\link{ymd}}, \code{\link{hms}}. \code{\link{parseDateTime}}
+##' @seealso \code{\link{ymd}}, \code{\link{hms}}. \code{\link{parse_date_time}}
 ##' for underlying mechanism.
 ##' @keywords POSIXt parse 
 ##' @examples
@@ -183,36 +183,36 @@ dym <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
 ##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")
 ##' ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 ##' 
-ymd_hms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0){
-    .parse_xxx_hms(..., orders = "ymdT", quiet = quiet, tz = tz, truncated = truncated)
+ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
+    .parse_xxx_hms(..., orders = "ymdT", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 }
-ymd_hm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders =  "ymdR", quiet = quiet, tz = tz, truncated = truncated)
-ymd_h <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "ymdr", quiet = quiet, tz = tz, truncated = truncated)
-dmy_hms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "dmyT", quiet = quiet, tz = tz, truncated = truncated)
-dmy_hm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, truncated = truncated)
-dmy_h <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, truncated = truncated)
-mdy_hms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "mdyT", quiet = quiet, tz = tz, truncated = truncated)    
-mdy_hm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "mdyR", quiet = quiet, tz = tz, truncated = truncated)
-mdy_h <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "mdyr", quiet = quiet, tz = tz, truncated = truncated)
-ydm_hms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "ydmT", quiet = quiet, tz = tz, truncated = truncated)
-ydm_hm <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, truncated = truncated)
-ydm_h <- function(..., quiet = FALSE, tz = "UTC", truncated = 0)
-    .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, truncated = truncated)
+ymd_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders =  "ymdR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ymd_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "ymdr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+dmy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "dmyT", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+dmy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+mdy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "mdyT", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)    
+mdy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "mdyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+mdy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "mdyr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ydm_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "ydmT", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ydm_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+    .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
-ymdThms <- function(..., quiet = FALSE, tz = "UTC", truncated = 0){
+ymdThms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
     dates <- unlist(list(...), use.names= FALSE)
-    as.POSIXct(parseDateTime(dates, stop(), tz = tz, 
+    as.POSIXct(parse_date_time(dates, stop(), tz = tz, locale = locale,  
                           sep_regexp= sep, truncated = truncated, quiet = quiet))
 }
 
@@ -276,7 +276,7 @@ hm <- function(...) {
 ##' @export hms
 ##' @param ... a character vector of hour minute second triples
 ##' @param truncated integer, number of formats that can be missing. See
-##' \code{\link{parseDateTime}}.
+##' \code{\link{parse_date_time}}.
 ##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
 ##' that fractional seconds are separated by ".". If \code{TRUE}, "." cannot be
 ##' used as a separator between minutes and seconds.
@@ -300,11 +300,11 @@ hms <- function(..., truncated = 0) {
 ##' order formats.
 ##'
 ##'
-##' As compared to \code{strptime} parser, \code{parseDateTime} allows to
+##' As compared to \code{strptime} parser, \code{parse_date_time} allows to
 ##' specify only the order in which the formats occur instead of the full
 ##' format.  As it was specifically designed to handle heterogeneous date-time
 ##' formats at once, you can specify several alternative
-##' orders. \code{parseDateTime} sorts the supplied formats based on a training
+##' orders. \code{parse_date_time} sorts the supplied formats based on a training
 ##' set and then applies them recursively on the input vector.
 ##'
 ##' Below are all the implemented formats recognized by lubridate. For all
@@ -356,7 +356,7 @@ hms <- function(..., truncated = 0) {
 ##' 
 ##'   }
 ##'
-##' @export parseDateTime
+##' @export parse_date_time
 ##' @param x a character or numeric vector of dates
 ##' @param orders a character vector of date-time formats. Each order string is
 ##' series of formatting characters as listed \code{\link[base]{strptime}} but
@@ -369,9 +369,9 @@ hms <- function(..., truncated = 0) {
 ##' @param truncated integer, number of formats that can be missing. The most
 ##' common type of irregularity in date-time data is the truncation due to
 ##' rounding or unavailability of the time stamp. If \code{truncated} parameter is
-##' non-zero \code{parseDateTime} also checks for truncated formats. For
+##' non-zero \code{parse_date_time} also checks for truncated formats. For
 ##' example,  if the format order is "ymdhms" and \code{truncated = 3},
-##' \code{parseDateTime} will correctly parse incomplete dates like
+##' \code{parse_date_time} will correctly parse incomplete dates like
 ##' \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:}
 ##' \code{ymd} family of functions are based on \code{strptime} which currently
 ##' fails to parse \code{\%y-\%m} formats.
@@ -393,48 +393,51 @@ hms <- function(..., truncated = 0) {
 ##' @keywords chron
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
-##' parseDateTime(x, "%y%m%d")
-##' parseDateTime(x, "%y %m %d")
+##' parse_date_time(x, "%y%m%d")
+##' parse_date_time(x, "%y %m %d")
 ##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 ##'
 ##' ## ** heterogenuous formats **
 ##' x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
-##' parseDateTime(x, c("%y%m%d", "%y%m%d %H%M"))
+##' parse_date_time(x, c("%y%m%d", "%y%m%d %H%M"))
 ##' ## Avoid training for small vectors (all the formats are just tried in turn):
-##' parseDateTime(x, c("%y%m%d", "%y%m%d %H%M"), train = NULL)
+##' parse_date_time(x, c("%y%m%d", "%y%m%d %H%M"), train = NULL)
 ##'
 ##' ## different ymd orders:
 ##' x <- c("2009-01-01", "02022010", "02-02-2010")
-##' parseDateTime(x, c("%d%m%Y", "%Y%m%d"), train = NULL)
+##' parse_date_time(x, c("%d%m%Y", "%Y%m%d"), train = NULL)
 ##' ##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"
 ##'
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
-##' parseDateTime(x, "%Y%m%d %H%M%S", truncated = 3)
+##' parse_date_time(x, "%Y%m%d %H%M%S", truncated = 3)
 ##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##'
 ##' ## ** custom formats **
 ##' x <- c("July 8th, 2004, 10:30")
 ##' strptime(x, "%b %dth, %Y, %H:%M")
-##' parseDateTime(x, "%b %dth, %Y, %H:%M", sep_regexp=NULL)
+##' parse_date_time(x, "%b %dth, %Y, %H:%M", sep_regexp=NULL)
 ##' ## or just
-##' parseDateTime(x, "%b%dth%Y %H%M")
+##' parse_date_time(x, "%b%dth%Y %H%M")
 ##'
 ##' x <- c("Thu, 1 July 2004 22:30:00", "July 8th, 2004, 10:30")
-##' parseDateTime(x, c("%a%d%b%Y %H%M%%S", "%b %dth %Y %H%M"))
-parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
+##' parse_date_time(x, c("%a%d%b%Y %H%M%%S", "%b %dth %Y %H%M"))
+parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                           locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
+
+  orig_locale <- Sys.getlocale("LC_TIME")
+  Sys.setlocale("LC_TIME", locale)
+  on.exit(Sys.setlocale("LC_TIME", orig_locale))  
 
   x <- .num_to_date(x)
   if( truncated != 0 )
     orders <- c(orders, .add_truncated(orders, truncated))
 
-
   .local_parse <- function(x){
     train <- .get_train_set(x)
     formats <- .best_formats(train, orders, locale = locale, .select_formats)
     if( length(formats) > 0 ){
-      out <- .parseDateTime(x, formats, locale = locale, quiet = quiet, tz = tz)
+      out <- .parse_date_time(x, formats,  quiet = quiet, tz = tz, locale = locale)
       new_na <- is.na(out)
       if( any(new_na) )
         out[new_na] <- .local_parse(x[new_na])
@@ -450,8 +453,9 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   x <- .enclose(x)
   train <- .get_train_set(x[to_parse])
   formats <- .best_formats(train, orders, locale = locale, .select_formats)
+  if(length(formats) == 0L) stop("No formats could be infered from the training set.")
   if( !is.null(formats) ){
-    out <- .parseDateTime(x, formats, locale = locale, quiet = quiet, tz = tz)
+    out <- .parse_date_time(x, formats, locale = locale, quiet = quiet, tz = tz)
     to_parse <- is.na(out) & to_parse
     out[to_parse] <- .local_parse(x[to_parse])
   }else{
@@ -468,7 +472,7 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
 ### INTERNAL
 
-.parseDateTime <- function(x, formats, locale, quiet, tz){
+.parse_date_time <- function(x, formats, locale, quiet, tz){
   
   out <- strptime(x, formats[[1]], tz = tz)
   na <- is.na(out$year)
@@ -478,7 +482,7 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
     message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   if( length(formats) > 1 && length(newx) > 0 )
-    out[na] <- .parseDateTime(newx, formats[-1], quiet, tz)
+    out[na] <- .parse_date_time(newx, formats[-1], quiet, tz)
 
   ## return POSIXlt
   out
@@ -534,7 +538,7 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
     orders <- paste("Ymd", orders, sep = "")
     hms <- paste("1970-01-01", hms, sep = "-")
     ## ugly hack, but what can we do :(
-    tryCatch(parseDateTime(hms, orders, truncated =  truncated, quiet = TRUE),
+    tryCatch(parse_date_time(hms, orders, truncated =  truncated, quiet = TRUE),
              error = function(e){
                  e$message <- gsub("%Y-%m-%d", "", e$message)
                  stop(e)
@@ -544,7 +548,7 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
 .xxx_hms_truncations <- list(T = c("R", "r", ""), R = c("r", ""), r = "")
 
-.parse_xxx_hms <- function(..., orders, truncated, quiet, tz){
+.parse_xxx_hms <- function(..., orders, truncated, quiet, tz, locale){
   if( truncated > 0 ){
     xxx <- substr(orders, 1, 3)
     add <- paste(xxx, .xxx_hms_truncations[[substr(orders, 4, 4)]], sep = "")
@@ -555,12 +559,12 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
       orders <- c(orders, add[1:truncated], sep = "")
   }
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  as.POSIXct(parseDateTime(dates, orders, tz = tz,  quiet = quiet))
+  as.POSIXct(parse_date_time(dates, orders, tz = tz, locale = locale,   quiet = quiet))
 }
 
-.parse_xxx <- function(..., orders, quiet, tz, truncated){
+.parse_xxx <- function(..., orders, quiet, tz, locale = locale,  truncated){
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  as.POSIXct(parseDateTime(.num_to_date(dates), orders, quiet = quiet, tz = tz, truncated = truncated))
+  as.POSIXct(parse_date_time(.num_to_date(dates), orders, quiet = quiet, tz = tz, locale = locale,  truncated = truncated))
 }
 
 
@@ -573,7 +577,7 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 }
 
 
-##' Deprecated internal function, use \code{\link{parseDateTime}} instead.
+##' Deprecated internal function, use \code{\link{parse_date_time}} instead.
 ##'
 ##'
 ##' @export parse_date
@@ -584,7 +588,7 @@ parseDateTime <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 ##' @param tz - 
 parse_date <- function(x, formats, quiet = FALSE, seps = NULL, tz = "UTC") {
 
-  stop("Internal function parse_date has been removed from lubridate package. Plese use parseDateTime instead.")
+  stop("Internal function parse_date has been removed from lubridate package. Plese use parse_date_time instead.")
 }
 
 ## parse.r ends here
