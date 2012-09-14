@@ -74,8 +74,6 @@ stamp <- function(x, orders = unlist(lubridate_formats),
 
 ##'
 ##' @rdname stamp
-##' @param x 
-##' @param locale
 ##' @export
 stamp_date <- function(x, locale = Sys.getlocale("LC_TIME"))
   stamp(x, orders = c("ymd", "dmy", "mdy", "ydm", "dym", "myd", "my", "ym", "md", "dm", "m", "d", "y"),
@@ -85,8 +83,6 @@ stamp_date <- function(x, locale = Sys.getlocale("LC_TIME"))
 
 ##'
 ##' @rdname stamp
-##' @param x 
-##' @param locale
 ##' @export
 stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"))
   stamp(x, orders = c("hms", "hm", "ms", "h", "m", "s"), locale = locale)
