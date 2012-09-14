@@ -19,7 +19,7 @@
   date and January 1st, plus one.
 }
 \examples{
-x <- now()
+x <- ymd("2012-03-26")
 week(x)
 week(x) <- 1
 week(x) <- 54
