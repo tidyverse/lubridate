@@ -33,10 +33,10 @@
   time units that occurred during the interval can be
   calculated.
 
-  \%--\% Creates an interval that covers the range spanned
-  by two dates. It replaces the original behavior of
-  lubridate, which created an interval by default whenever
-  two date-times were subtracted.
+  \code{\%--\%} Creates an interval that covers the range
+  spanned by two dates. It replaces the original behavior
+  of lubridate, which created an interval by default
+  whenever two date-times were subtracted.
 }
 \examples{
 new_interval(ymd(20090201), ymd(20090101))

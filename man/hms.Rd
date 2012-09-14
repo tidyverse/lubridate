@@ -2,14 +2,14 @@
 \alias{hms}
 \title{Create a period with the specified hours, minutes, and seconds}
 \usage{
-  hms(..., missing = 0, frac = FALSE)
+  hms(..., truncated = 0)
 }
 \arguments{
   \item{...}{a character vector of hour minute second
   triples}
 
-  \item{missing}{integer, number of formats that can be
-  missing. See \code{\link{parseDateTime}}.}
+  \item{truncated}{integer, number of formats that can be
+  missing. See \code{\link{parse_date_time}}.}
 
   \item{frac}{If \code{TRUE}, fractional seconds are
   allowed. It is assumed that fractional seconds are
@@ -26,7 +26,7 @@
   separators, as well as no separator.
 }
 \examples{
-x <- c("09:10:01", "09:10:02", "09:10:03")
+x <- c("09:10:01", "09:10:02", "09:10:03", "Collided at 9:20:04 pm")
 hms(x)
 # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
 hms("7 6 5", "3-23---2", "2 : 23 : 33")

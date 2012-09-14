@@ -14,8 +14,7 @@
 \description{
   Transforms a character or numeric vectors into a period
   object with the specified number of hours and minutes.
-  hm() recognizes all non-alphanumeric separators, and no
-  separator.
+  Arbitrary text can separate hours and minutes.
 }
 \examples{
 x <- c("09:10", "09:02", "1:10")

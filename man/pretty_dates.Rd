@@ -1,5 +1,4 @@
 \name{pretty_dates}
-\alias{pretty_dates}
 \alias{pretty.dates}
 \alias{pretty.day}
 \alias{pretty.hour}
@@ -9,6 +8,7 @@
 \alias{pretty.sec}
 \alias{pretty.unit}
 \alias{pretty.year}
+\alias{pretty_dates}
 \title{Computes attractive axis breaks for date-time data}
 \usage{
   pretty_dates(x, n, ...)

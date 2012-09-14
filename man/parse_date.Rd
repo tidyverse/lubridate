@@ -1,6 +1,6 @@
 \name{parse_date}
 \alias{parse_date}
-\title{Deprecated internal function, use \code{\link{parseDateTime}} instead.}
+\title{Deprecated internal function, use \code{\link{parse_date_time}} instead.}
 \usage{
   parse_date(x, formats, quiet = FALSE, seps = NULL,
     tz = "UTC")
@@ -18,6 +18,6 @@
 }
 \description{
   Deprecated internal function, use
-  \code{\link{parseDateTime}} instead.
+  \code{\link{parse_date_time}} instead.
 }
 
