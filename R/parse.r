@@ -375,7 +375,7 @@ hms <- function(..., truncated = 0) {
 ##' \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:}
 ##' \code{ymd} family of functions are based on \code{strptime} which currently
 ##' fails to parse \code{\%y-\%m} formats.
-##' @param quiet logical. When TRUE function evalueates without displaying
+##' @param quiet logical. When TRUE function evaluates without displaying
 ##' customary messages.
 ##' @param locale locale to be used, see \link{locales}. On linux systems you
 ##' can use \code{system("locale -a")} to list all the installed locales.
@@ -453,7 +453,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   x <- .enclose(x)
   train <- .get_train_set(x[to_parse])
   formats <- .best_formats(train, orders, locale = locale, .select_formats)
-  if(length(formats) == 0L) stop("No formats could be infered from the training set.")
+  if(length(formats) == 0L & length(x) != 1L) 
+    stop("No formats could be infered from the training set.")
   if( !is.null(formats) ){
     out <- .parse_date_time(x, formats, locale = locale, quiet = quiet, tz = tz)
     to_parse <- is.na(out) & to_parse
