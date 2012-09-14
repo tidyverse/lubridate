@@ -63,3 +63,5 @@ Collate:
     'round.r'
     'update.r'
     'data.r'
+    'guess.r'
+    'stamp.r'
