@@ -34,7 +34,7 @@
 ##' \code{locale -a} in terminal to list available locales.
 ##' @param quiet whether to output informative messages.
 ##' @return a function to be applied on a vector of dates
-##' @seealso \link{guess_formats}, \link{parseDateTime}, \link{strptime}
+##' @seealso \link{guess_formats}, \link{parse_date_time}, \link{strptime}
 ##' @export
 ##' @examples
 ##' D <- ymd("2010-04-05") - days(1:5)

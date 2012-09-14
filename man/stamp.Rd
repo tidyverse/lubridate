@@ -82,7 +82,7 @@ stamp("12/31/99")(D)              #=> "06/09/11"
 stamp("Sunday, May 1, 2000 22:10")(D)
 }
 \seealso{
-  \link{guess_formats}, \link{parseDateTime},
+  \link{guess_formats}, \link{parse_date_time},
   \link{strptime}
 }
 
