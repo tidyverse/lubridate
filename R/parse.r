@@ -81,8 +81,8 @@ lubridate_formats <- local({
 ##' 
 ##' ## Extremely weird cases when one of the separators is "" and some of the
 ##' ## formats are not in double digits might not be parsed correctly:
-##' ymd("201002-01", "201002-1", "20102-1")
-##' dmy("0312-2010", "312-2010")
+##' \dontrun{ymd("201002-01", "201002-1", "20102-1")
+##' dmy("0312-2010", "312-2010")}
 ##' 
 ymd <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
     .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
@@ -136,9 +136,6 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' @param tz a character string that specifies which time zone to parse the date with. The string 
 ##' must be a time zone that is recognized by the user's OS.
 ##' @param truncated integer, indicating how many formats can be missing. See details.
-##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
-##' that fractional seconds are separated by ".". In this case "." cannot be
-##' used as a separator between other fields.
 ##' @return a vector of POSIXct date-time objects
 ##' @seealso \code{\link{ymd}}, \code{\link{hms}}. \code{\link{parse_date_time}}
 ##' for underlying mechanism.
@@ -172,16 +169,10 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' ymd_hm(x, truncated = 2)
 ##' ## "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##' 
-##' ## ** fractional seconds **
-##' options(digits.secs = 3)
-##' x <- c("2011-12-31 12:59:59.23", "2010-01-01 12:11:10")
-##' ymd_hms(x, frac = TRUE)
-##' ## "2011-12-31 12:59:59.23 UTC" "2010-01-01 12:11:10.00 UTC" 
-##' 
 ##' ## ** What lubridate might not handle **
 ##' ## Extremely weird cases when one of the separators is "" and some of the
 ##' ## formats are not in double digits might not be parsed correctly:
-##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")
+##' \dontrun{ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
 ##' ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 ##' 
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
@@ -277,9 +268,6 @@ hm <- function(...) {
 ##' @param ... a character vector of hour minute second triples
 ##' @param truncated integer, number of formats that can be missing. See
 ##' \code{\link{parse_date_time}}.
-##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
-##' that fractional seconds are separated by ".". If \code{TRUE}, "." cannot be
-##' used as a separator between minutes and seconds.
 ##' @return a vector of period objects
 ##' @seealso \code{\link{hm}, \link{ms}}
 ##' @keywords period
