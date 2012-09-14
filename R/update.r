@@ -39,6 +39,7 @@
 #' # "2009-02-10 00:10:03 CST"
 NULL
 
+#' @S3method update POSIXct
 update.POSIXct <- function(object, years = year(object), 
 	months = month(object), days = mday(object), 
 	mdays = mday(object), ydays = yday(object), 
@@ -89,6 +90,7 @@ update.POSIXct <- function(object, years = year(object),
   force_tz(utc, tzone = tzs)
 }
 
+#' @S3method update Date
 update.Date <- function(object, years = year(object), months = month(object), 
   days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
   wday(object), hours = hour(object), minutes = minute(object), seconds = 
@@ -110,6 +112,7 @@ update.Date <- function(object, years = year(object), months = month(object),
     seconds = seconds, tzs = tzs))
 }
 
+#' @S3method update POSIXlt
 update.POSIXlt <- function(object, years = year(object), months = month(object), 
   days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
   wday(object), hours = hour(object), minutes = minute(object), seconds = 
