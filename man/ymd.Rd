@@ -23,6 +23,10 @@ in the input vector.}
   zone to parse the date with. The string must be a time
   zone that is recognized by the user's OS.}
 
+  \item{locale}{locale to be used, see \link{locales}. On
+  linux systems you can use \code{system("locale -a")} to
+  list all the installed locales.}
+
   \item{truncated}{integer. Number of formats that can be
   truncated.}
 }
@@ -77,8 +81,8 @@ ymd(x)
 
 ## Extremely weird cases when one of the separators is "" and some of the
 ## formats are not in double digits might not be parsed correctly:
-ymd("201002-01", "201002-1", "20102-1")
-dmy("0312-2010", "312-2010")
+\dontrun{ymd("201002-01", "201002-1", "20102-1")
+dmy("0312-2010", "312-2010")}
 }
 \seealso{
   \code{\link{parse_date_time}} for underlying mechanism.

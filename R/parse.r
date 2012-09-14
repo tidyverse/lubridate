@@ -54,6 +54,8 @@ lubridate_formats <- local({
 ##' @param tz a character string that specifies which time zone to parse the
 ##' date with. The string must be a time zone that is recognized by the user's
 ##' OS.
+##' @param locale locale to be used, see \link{locales}. On linux systems you
+##' can use \code{system("locale -a")} to list all the installed locales.
 ##' @param truncated integer. Number of formats that can be truncated. 
 ##' @return a vector of class POSIXct 
 ##' @seealso \code{\link{parse_date_time}} for underlying mechanism.
@@ -135,6 +137,8 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 ##' @param tz a character string that specifies which time zone to parse the date with. The string 
 ##' must be a time zone that is recognized by the user's OS.
+##' @param locale locale to be used, see \link{locales}. On linux systems you
+##' can use \code{system("locale -a")} to list all the installed locales.
 ##' @param truncated integer, indicating how many formats can be missing. See details.
 ##' @return a vector of POSIXct date-time objects
 ##' @seealso \code{\link{ymd}}, \code{\link{hms}}. \code{\link{parse_date_time}}

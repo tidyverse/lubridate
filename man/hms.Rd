@@ -10,11 +10,6 @@
 
   \item{truncated}{integer, number of formats that can be
   missing. See \code{\link{parse_date_time}}.}
-
-  \item{frac}{If \code{TRUE}, fractional seconds are
-  allowed. It is assumed that fractional seconds are
-  separated by ".". If \code{TRUE}, "." cannot be used as a
-  separator between minutes and seconds.}
 }
 \value{
   a vector of period objects

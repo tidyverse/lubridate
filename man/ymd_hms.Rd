@@ -28,13 +28,12 @@
   zone to parse the date with. The string must be a time
   zone that is recognized by the user's OS.}
 
+  \item{locale}{locale to be used, see \link{locales}. On
+  linux systems you can use \code{system("locale -a")} to
+  list all the installed locales.}
+
   \item{truncated}{integer, indicating how many formats can
   be missing. See details.}
-
-  \item{frac}{If \code{TRUE}, fractional seconds are
-  allowed. It is assumed that fractional seconds are
-  separated by ".". In this case "." cannot be used as a
-  separator between other fields.}
 }
 \value{
   a vector of POSIXct date-time objects
@@ -95,16 +94,10 @@ x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
 ymd_hm(x, truncated = 2)
 ## "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 
-## ** fractional seconds **
-options(digits.secs = 3)
-x <- c("2011-12-31 12:59:59.23", "2010-01-01 12:11:10")
-ymd_hms(x, frac = TRUE)
-## "2011-12-31 12:59:59.23 UTC" "2010-01-01 12:11:10.00 UTC"
-
 ## ** What lubridate might not handle **
 ## Extremely weird cases when one of the separators is "" and some of the
 ## formats are not in double digits might not be parsed correctly:
-ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")
+\dontrun{ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
 ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 }
 \seealso{

@@ -25,14 +25,6 @@
   list available locales.}
 
   \item{quiet}{whether to output informative messages.}
-
-  \item{x}{}
-
-  \item{locale}{}
-
-  \item{x}{}
-
-  \item{locale}{}
 }
 \value{
   a function to be applied on a vector of dates
