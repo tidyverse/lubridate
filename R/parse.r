@@ -133,7 +133,8 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' @param ... a character vector of dates in year, month, day, hour, minute, 
 ##'   second format 
 ##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
-##' @param tz a character string that specifies which time zone to parse the date with. The string must be a time zone that is recognized by the user's OS.
+##' @param tz a character string that specifies which time zone to parse the date with. The string 
+##' must be a time zone that is recognized by the user's OS.
 ##' @param truncated integer, indicating how many formats can be missing. See details.
 ##' @param frac If \code{TRUE}, fractional seconds are allowed. It is assumed
 ##' that fractional seconds are separated by ".". In this case "." cannot be
@@ -212,8 +213,7 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 
 ymdThms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
     dates <- unlist(list(...), use.names= FALSE)
-    as.POSIXct(parse_date_time(dates, stop(), tz = tz, locale = locale,  
-                          sep_regexp= sep, truncated = truncated, quiet = quiet))
+    as.POSIXct(parse_date_time(dates, stop(), tz = tz, locale = locale, truncated = truncated, quiet = quiet))
 }
 
 
@@ -328,7 +328,8 @@ hms <- function(..., truncated = 0) {
 ##' \item{\code{H}}{Hours as decimal number (00--24 or 0--24).}
 ##' \item{\code{I}}{Hours as decimal number (01--12 or 0--12).}
 ##' \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
-##' \item{\code{m}*}{Month as decimal number (01--12 or 1--12). Also matches abbreviated and full months names as \code{b} and \code{B} formats}
+##' \item{\code{m}*}{Month as decimal number (01--12 or 1--12). Also matches abbreviated 
+##' and full months names as \code{b} and \code{B} formats}
 ##' \item{\code{M}}{Minute as decimal number (00--59 or 0--59).}
 ##' \item{\code{p}}{AM/PM indicator in the locale.  Used in
 ##'                   conjunction with \code{I} and \bold{not} with \code{H}.  An
