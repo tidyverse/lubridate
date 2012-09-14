@@ -20,7 +20,7 @@
   year does not yet support years before 0 C.E.
 }
 \examples{
-x <- now()
+x <- ymd("2012-03-26")
 year(x)
 year(x) <- 2001
 year(x) > 1995

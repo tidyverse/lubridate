@@ -2,19 +2,25 @@
 \alias{ms}
 \title{Create a period with the specified number of minutes and seconds}
 \usage{
-  ms(...)
+  ms(..., frac = FALSE)
 }
 \arguments{
-  \item{...}{a character vector of minute second pairs}
+  \item{...}{character or numeric vectors of minute second
+  pairs}
+
+  \item{frac}{If \code{TRUE}, fractional seconds are
+  allowed. It is assumed that fractional seconds are
+  separated by ".". If \code{TRUE}, "." cannot be used as a
+  separator between minutes and seconds.}
 }
 \value{
-  a vector of period objects
+  a vector of class \code{Period}
 }
 \description{
-  Transforms a character string into a period object with
-  the specified number of minutes and seconds. ms()
-  recognizes all non-alphanumeric separators of length 1
-  with the exception of ".".
+  Transforms character or numeric vectors into a period
+  object with the specified number of minutes and seconds.
+  ms() recognizes all non-alphanumeric separators as well
+  as no separator.
 }
 \examples{
 x <- c("09:10", "09:02", "1:10")

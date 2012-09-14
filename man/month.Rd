@@ -27,7 +27,7 @@
   jul, timeSeries, and fts objects.
 }
 \examples{
-x <- now()
+x <- ymd("2012-03-26")
 month(x)
 month(x) <- 1
 month(x) <- 13

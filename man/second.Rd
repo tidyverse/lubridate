@@ -17,7 +17,7 @@
   jul, timeSeries, and fts objects.
 }
 \examples{
-x <- now()
+x <- ymd("2012-03-26")
 second(x)
 second(x) <- 1
 second(x) <- 61
