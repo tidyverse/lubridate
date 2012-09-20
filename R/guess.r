@@ -2,7 +2,6 @@
 .date_template <- structure(c(3600, 2844000, 5274000, 8200800, 10371600, 13212000, 
                               15814800, 18741600, 20998800, 23752800, 26442000, 29282400),
                             class = c("POSIXct", "POSIXt"), tzone = "UTC")
-.locale_regs_cache <- list()
 
 .primes <-c(1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
  61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139,
@@ -234,23 +233,22 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 }
 
 
-.get_loc_regs <- function(locale = Sys.getlocale("LC_TIME")){
+.get_loc_regs <- memoise::memoise(.get_locale_regs)
 
-  regs <- .locale_regs_cache[[locale]]
+.get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
   
-  if( T | is.null(regs) ){ 
     orig_locale <- Sys.getlocale("LC_TIME")
     Sys.setlocale("LC_TIME", locale)
     orig_opt <- options(warn = 5)
     on.exit({Sys.setlocale("LC_TIME", orig_locale)
              options(orig_opt)})
-
+    
     format <- "%a@%A@%b@%B@%p@"
     L <- unique(format(.date_template, format = format))
     mat <- do.call(rbind, strsplit(L, "@", fixed = TRUE))
     mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) ## escaping all meta chars
     names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
-
+    
     alpha <- list()
     alpha["b"] <- 
       sprintf("((?<b_b>%s)|(?<B_b>%s))(?![[:alpha:]])",
@@ -259,21 +257,21 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     alpha["B"] <- 
       sprintf("(?<B_B>%s)(?![[:alpha:]])",
               paste(unique(mat[, "B"]), collapse = "|"))
-
+    
     alpha["a"] <- 
       sprintf("((?<a_a>%s)|(?<A_a>%s))(?![[:alpha:]])",
               paste(unique(mat[, "a"]), collapse = "|"),
               paste(unique(mat[, "A"]), collapse = "|"))
-
+    
     alpha["A"] <- 
       sprintf("(?<A_A>%s)(?![[:alpha:]])",
               paste(unique(mat[, "A"]), collapse = "|"))
-
+    
     p <- unique(mat[, "p"])
     p <- p[nzchar(p)]
     alpha["p"] <-
       if ( length(p) == 0L ) ""
-      else sprintf("(?<p>%s)(?![[:alpha:]])", paste(p, collapse = "|"))
+    else sprintf("(?<p>%s)(?![[:alpha:]])", paste(p, collapse = "|"))
     
     alpha <- unlist(alpha)
     
@@ -295,8 +293,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       z = "(?<z>[-+]\\d{4,}))", ## R implements only 4 digits
       ## F = "(?<F>\\d{4)-\\d{2}-\\d{2})", 
       Q = "(?<OS>[0-5]\\d\\.\\d+)" ## fractional
-      )
-
+    )
+    
     nms <- c("T", "R", "r")
     if( length(p) == 0L ){
       ## in some locales %p = ""
@@ -334,11 +332,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     num_flex["m"] <- sprintf("((?<m>1[0-2]|0?[1-9](?!\\d))|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]])) 
     num_exact["m"] <- sprintf("((?<m_e>1[0-2]|0[1-9])|(%s))", gsub("_[bB]", "\\1_m_e>", alpha[["b"]]))
 
-    .locale_regs_cache[[locale]] <<- regs <-
-      list(alpha_flex = alpha_flex, num_flex = num_flex,
+    list(alpha_flex = alpha_flex, num_flex = num_flex,
            alpha_exact = alpha_exact, num_exact = num_exact)
-  }  
-  regs
 }
 
 
