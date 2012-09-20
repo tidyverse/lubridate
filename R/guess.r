@@ -115,6 +115,11 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                           preproc_wday = TRUE, print_matches = FALSE){
   ## get all the formats which suite ORDERS
   
+  orders <- gsub("hms", "HMS", orders, ignore.case = TRUE)
+  orders <- gsub("hm", "HM", orders, ignore.case = TRUE)
+  orders <- gsub("ms", "MS", orders, ignore.case = TRUE)
+
+  
   orders <- gsub("[^[:alpha:]]+", "", orders)
   orders <- gsub("OS\\d*", "Q", orders) ## hack
   osplits <- strsplit(orders, "", fixed = TRUE)
@@ -278,10 +283,12 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     num <- num_flex <- num_exact <- c(
       d = "(?<d>[012]?[1-9]|3[01]|[12]0)",
       H = "(?<H>2[0-4]|[01]?\\d)",
+      h = "(?<H>2[0-4]|[01]?\\d)",
       I = "(?<I>1[0-2]|0?[1-9])", 
       j = "(?<j>[0-3]?\\d?\\d)", 
       M = "(?<M>[0-5]?\\d)",
       S = "((?<OS_S>[0-5]?\\d\\.\\d+)|(?<S>[0-6]?\\d))", 
+      s = "((?<OS_S>[0-5]?\\d\\.\\d+)|(?<S>[0-6]?\\d))",
       U = "(?<U>[0-5]?\\d)", 
       w = "(?<w>[0-6])", # merge with a, A??
       u = "(?<u>[1-7])", 
