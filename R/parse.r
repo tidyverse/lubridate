@@ -393,12 +393,10 @@ hms <- function(..., truncated = 0) {
 ##' ## ** heterogenuous formats **
 ##' x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
 ##' parse_date_time(x, c("%y%m%d", "%y%m%d %H%M"))
-##' ## Avoid training for small vectors (all the formats are just tried in turn):
-##' parse_date_time(x, c("%y%m%d", "%y%m%d %H%M"), train = NULL)
 ##'
 ##' ## different ymd orders:
 ##' x <- c("2009-01-01", "02022010", "02-02-2010")
-##' parse_date_time(x, c("%d%m%Y", "%Y%m%d"), train = NULL)
+##' parse_date_time(x, c("%d%m%Y", "%Y%m%d"))
 ##' ##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"
 ##'
 ##' ## ** truncated time-dates **
@@ -483,18 +481,44 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 }
 
 # expand format strings to also include truncated formats
-.add_truncated <- function(orders, truncated){    
-    out <- c()
-    
-    if(truncated > 0){
-      for (i in 1:truncated)
-        out <- c(out, substr(orders, 1, nchar(orders) - i))
-    }else{
-      for (i in 1:abs(truncated))
-        out <- c(out, substr(orders, i + 1, 100000))
+# Get locations of letters as vector
+# Choose the number at the n - truncated place in the vector
+# return the substring created by 1 to tat number
+.add_truncated <- function(orders, truncated){  
+  if (truncated == 0) return(orders)
+  
+  out <- orders
+  
+  if (truncated > 0) {
+    trunc_one <- function(order) {
+      alphas <- gregexpr("[a-zA-Z]", order)[[1]]
+      start <- max(0, length(alphas) - truncated + 1)
+      cut_points <- alphas[start:length(alphas)]
+      
+      truncs <- c()
+      for (j in seq_along(cut_points))
+        truncs <- c(truncs, substr(order, 1, cut_points))
     }
-    out[nzchar(out)]
+  }else{
+    trunc_one <- function(order) {
+      alphas <- gregexpr("[a-zA-Z]", order)[[1]][-1]
+      end <- max(1, abs(truncated) - 1)
+      cut_points <- alphas[1:end]
+      
+      truncs <- c()
+      for (j in seq_along(cut_points))
+        truncs <- c(truncs, substr(order, cut_points[j], nchar(order)))
+    }
+  }
+  
+  for (i in seq_along(orders)) {
+    out <- c(out, trunc_one(orders[i]))
+  }
+   
+  out
 }
+
+
 
 
 .parse_hms <- function(..., orders,  truncated = 0){

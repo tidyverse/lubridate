@@ -14,11 +14,11 @@
   \item{locale}{locale to use, default to the current
   locale (also checks en_US)}
 
-  \item{preproc_wday}{whether to preprocess weak days
+  \item{preproc_wday}{whether to preprocess week days
   names. Internal optimization used by ymd_hms family of
-  functions. If true weak days are substituted with %a or
+  functions. If true week days are substituted with %a or
   %A accordingly, so that there is no need to supply this
-  format explicitely.}
+  format explicitly.}
 
   \item{print_matches}{for development purpose mainly. If
   TRUE prints a matrix of matched templates.}
