@@ -131,6 +131,7 @@ order formats.}
 }
 \examples{
 x <- c("09-01-01", "09-01-02", "09-01-03")
+parse_date_time(x, "ymd")
 parse_date_time(x, "\%y\%m\%d")
 parse_date_time(x, "\%y \%m \%d")
 #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
@@ -138,28 +139,17 @@ parse_date_time(x, "\%y \%m \%d")
 ## ** heterogenuous formats **
 x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
 parse_date_time(x, c("\%y\%m\%d", "\%y\%m\%d \%H\%M"))
-## Avoid training for small vectors (all the formats are just tried in turn):
-parse_date_time(x, c("\%y\%m\%d", "\%y\%m\%d \%H\%M"), train = NULL)
 
 ## different ymd orders:
 x <- c("2009-01-01", "02022010", "02-02-2010")
-parse_date_time(x, c("\%d\%m\%Y", "\%Y\%m\%d"), train = NULL)
+parse_date_time(x, c("\%d\%m\%Y", "ymd"))
 ##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"
 
 ## ** truncated time-dates **
 x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 parse_date_time(x, "\%Y\%m\%d \%H\%M\%S", truncated = 3)
+parse_date_time(x, "ymd_hms", truncated = 3)
 ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
-
-## ** custom formats **
-x <- c("July 8th, 2004, 10:30")
-strptime(x, "\%b \%dth, \%Y, \%H:\%M")
-parse_date_time(x, "\%b \%dth, \%Y, \%H:\%M", sep_regexp=NULL)
-## or just
-parse_date_time(x, "\%b\%dth\%Y \%H\%M")
-
-x <- c("Thu, 1 July 2004 22:30:00", "July 8th, 2004, 10:30")
-parse_date_time(x, c("\%a\%d\%b\%Y \%H\%M\%\%S", "\%b \%dth \%Y \%H\%M"))
 }
 \seealso{
   \code{strptime}, \code{\link{ymd}}, \code{\link{ymd_hms}}

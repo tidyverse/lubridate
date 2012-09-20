@@ -386,6 +386,7 @@ hms <- function(..., truncated = 0) {
 ##' @keywords chron
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
+##' parse_date_time(x, "ymd")
 ##' parse_date_time(x, "%y%m%d")
 ##' parse_date_time(x, "%y %m %d")
 ##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
@@ -396,23 +397,14 @@ hms <- function(..., truncated = 0) {
 ##'
 ##' ## different ymd orders:
 ##' x <- c("2009-01-01", "02022010", "02-02-2010")
-##' parse_date_time(x, c("%d%m%Y", "%Y%m%d"))
+##' parse_date_time(x, c("%d%m%Y", "ymd"))
 ##' ##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"
 ##'
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ##' parse_date_time(x, "%Y%m%d %H%M%S", truncated = 3)
+##' parse_date_time(x, "ymd_hms", truncated = 3)
 ##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
-##'
-##' ## ** custom formats **
-##' x <- c("July 8th, 2004, 10:30")
-##' strptime(x, "%b %dth, %Y, %H:%M")
-##' parse_date_time(x, "%b %dth, %Y, %H:%M", sep_regexp=NULL)
-##' ## or just
-##' parse_date_time(x, "%b%dth%Y %H%M")
-##'
-##' x <- c("Thu, 1 July 2004 22:30:00", "July 8th, 2004, 10:30")
-##' parse_date_time(x, c("%a%d%b%Y %H%M%%S", "%b %dth %Y %H%M"))
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                           locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
 
@@ -422,7 +414,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   x <- .num_to_date(x)
   if( truncated != 0 )
-    orders <- c(orders, .add_truncated(orders, truncated))
+    orders <- .add_truncated(orders, truncated)
 
   .local_parse <- function(x){
     train <- .get_train_set(x)
@@ -485,19 +477,18 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 # Choose the number at the n - truncated place in the vector
 # return the substring created by 1 to tat number
 .add_truncated <- function(orders, truncated){  
-  if (truncated == 0) return(orders)
-  
   out <- orders
   
   if (truncated > 0) {
     trunc_one <- function(order) {
       alphas <- gregexpr("[a-zA-Z]", order)[[1]]
-      start <- max(0, length(alphas) - truncated + 1)
-      cut_points <- alphas[start:length(alphas)]
+      start <- max(0, length(alphas) - truncated)
+      cut_points <- alphas[start:(length(alphas)-1)]
       
       truncs <- c()
       for (j in seq_along(cut_points))
-        truncs <- c(truncs, substr(order, 1, cut_points))
+        truncs <- c(truncs, substr(order, 1, cut_points[j]))
+      truncs
     }
   }else{
     trunc_one <- function(order) {
@@ -508,6 +499,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
       truncs <- c()
       for (j in seq_along(cut_points))
         truncs <- c(truncs, substr(order, cut_points[j], nchar(order)))
+      truncs
     }
   }
   
