@@ -528,7 +528,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
 .parse_xxx <- function(..., orders, quiet, tz, locale = locale,  truncated){
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  as.POSIXct(parse_date_time(.num_to_date(dates), orders, quiet = quiet, tz = tz, locale = locale,  truncated = truncated))
+  as.POSIXct(parse_date_time(dates, orders, quiet = quiet, tz = tz, locale = locale,  truncated = truncated))
 }
 
 
