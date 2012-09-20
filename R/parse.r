@@ -482,7 +482,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   out
 }
 
-
+# expand format strings to also include truncated formats
 .add_truncated <- function(orders, truncated){    
     out <- c()
     
@@ -495,36 +495,6 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
     }
     out[nzchar(out)]
 }
-
-
-## .add_truncated <- function(formats, truncated){    
-##     stopifnot(is.character(formats))
-
-##     split <- strsplit(formats, "%")
-##     out <- list()
-##     for (fmt in split){
-##         out[[length(out) + 1L]] <- fmt
-##         lenout <- length(out)
-##         if(nchar(fmt[1]) == 0L) fmt <- fmt[-1]
-##         if(truncated > 0){
-##             lenfmt <- length(fmt)
-##             mis <- min(truncated, lenfmt-1)
-##             for (i in 1:mis)
-##                 out[[lenout + i]] <- c("", fmt[1:(lenfmt - i)])
-##         }else{
-##             lenfmt <- length(fmt)
-##             mis <- min(-truncated, lenfmt - 1)
-##             for (i in 1:mis){
-##                 out[[lenout + i]] <- c("", fmt[(i + 1):lenfmt])
-##             }
-##         }
-##     }
-
-##     out <- unlist(lapply(out, paste, collapse = "%"), use.names = FALSE)
-##     ## replace  garbage at the end of string
-##     out <- gsub("[^[:alnum:]]+$", "", out)
-##     out
-## }
 
 
 .parse_hms <- function(..., orders,  truncated = 0){
