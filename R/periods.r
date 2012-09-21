@@ -283,7 +283,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' new_period(second = 0)
 #' # 0 seconds
 new_period <- period <- function(...) {
-  pieces <- data.frame(...)
+  pieces <- data.frame(lapply(list(...), as.numeric))
   
   names(pieces) <- standardise_date_names(names(pieces))
   defaults <- data.frame(
@@ -298,7 +298,7 @@ new_period <- period <- function(...) {
 
   na <- is.na(rowSums(pieces))
   pieces$second[na] <- NA ## if any of supplied pieces is NA whole vector should be NA
-  
+
   new("Period", pieces$second, year = pieces$year, month = pieces$month, 
   	day = pieces$day, hour = pieces$hour, minute = pieces$minute)
 }
