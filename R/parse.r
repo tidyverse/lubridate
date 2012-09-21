@@ -76,7 +76,7 @@ lubridate_formats <- local({
 ##' 
 ##' ## heterogenuous formats in a single vector:
 ##' x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
-##'        "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07", "200901-8")
+##'        "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07")
 ##' ymd(x)
 ##' 
 ##' ## What lubridate might not handle:
