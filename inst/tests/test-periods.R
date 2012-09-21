@@ -70,7 +70,11 @@ test_that("period objects handle vector input", {
 
 test_that("format.Period works as expected", {
   per <- new_period(second = 90, minute = 5)
-  expect_match(format(per), "5 minutes and 90 seconds")
+  per2 <- new_period(days = 0)
+  per3 <- new_period(years = 1, days = NA)
+  expect_match(format(per), "5M 90S")
+  expect_match(format(per2), "0S")
+  expect_equivalent(format(per3), as.character(NA))
 })
 
 test_that("as.period handles interval objects", {

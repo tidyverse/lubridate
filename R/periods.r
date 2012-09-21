@@ -45,7 +45,7 @@ check_period <- function(object){
 		errors <- c(errors, msg)
 	}
 	
-        values <- c(object@year, object@month, object@day, object@hour, object@minute)
+  values <- c(object@year, object@month, object@day, object@hour, object@minute)
 	values <- na.omit(values)
 	if (sum(values - trunc(values))) {
 		msg <- "periods must have integer values"
@@ -157,77 +157,33 @@ setClass("Period", contains = c("Timespan", "numeric"),
 #' @export
 setMethod("show", signature(object = "Period"), function(object){
 	show <- vector(mode = "character")
-        na <- is.na(object)
+  na <- is.na(object)
 
-        show <- paste(object@year, "y ", object@month, "m ", object@day, "d ",
-                      object@hour, "H ", object@minute, "M ", object@.Data, "S", sep="")
-        show <- gsub("((0|NA)[ymd] +)", "", show)
+  show <- paste(object@year, "y ", object@month, "m ", object@day, "d ",
+    object@hour, "H ", object@minute, "M ", object@.Data, "S", sep="")
+	start <- regexpr("[1-9]", show)
+	show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
 
-        show[na] <- NA
-        
-	## When more 5 periods in an object, the output becomes unreadable, I am
-	## modifying this to be similar to how date-times in base R are
-	## printed. This code is not treating NAs properly.
-
-        ## per.mat <- matrix(c(object@year, object@month, object@day, object@hour, 
-        ##                     object@minute, object@.Data), ncol = 6) 
-	## colnames(per.mat) <- c("year", "month", "day", "hour", "minute", "second")
-
-	## for (i in 1:nrow(per.mat)){
-	## 	per <- per.mat[i,]
-	## 	per <- per[which(per != 0)]
-
-	## 	if (length(per) == 0) {
-	## 		show[i] <- "0 seconds"
-	## 	} else {
-	## 		singular <- names(per)
-	## 		plural <- paste(singular, "s", sep = "")
-	## 		IDs <- paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
-			
-	## 		if(length(IDs) == 1) {
-	## 			show[i] <- IDs
-	## 		} else {
-	## 			show[i] <- paste(paste(paste(IDs[-length(IDs)], collapse = ", "),
-	## 				IDs[length(IDs)], sep = " and "), "")  
-	## 		}
-	## 	}
-	## }
-	## print(show, quote = FALSE)
-
-        
-        ## VS: quetes are essential for visibility, especially when fontification is availabe
-        print(show)
+  show[na] <- NA
+  print(show)
 
 })
 
 #' @S3method format Period
 format.Period <- function(x, ...){
-	show <- vector(mode = "character")
-	per.mat <- matrix(c(x@year, x@month, x@day, x@hour, 
-		x@minute, x@.Data), ncol = 6) 
-	colnames(per.mat) <- c("year", "month", "day", "hour", "minute", "second")
-	
-	for (i in 1:nrow(per.mat)){
-		per <- per.mat[i,]
-		per <- per[which(per != 0)]
-		
-		if (length(per) == 0) {
-			show[i] <- "0 seconds"
-		} else {
-			singular <- names(per)
-			plural <- paste(singular, "s", sep = "")
-			IDs <- paste(per, ifelse(!is.na(per) & per == 1, singular, plural))
-			
-			if(length(IDs) == 1) {
-				show[i] <- IDs
-			} else {
-				show[i] <- paste(paste(paste(IDs[-length(IDs)], collapse = ", "),
-					IDs[length(IDs)], sep = " and "), "")  
-			}
-		}
-	}
-	show
+  show <- vector(mode = "character")
+  na <- is.na(x)
+  
+  show <- paste(x@year, "y ", x@month, "m ", x@day, "d ",
+    x@hour, "H ", x@minute, "M ", x@.Data, "S", sep="")
+  start <- regexpr("[1-9]", show)
+  show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
+                 
+  show[na] <- NA
+  show
 }
+
+
 
 #' @export
 setMethod("c", signature(x = "Period"), function(x, ...){
