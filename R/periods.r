@@ -191,8 +191,8 @@ setMethod("c", signature(x = "Period"), function(x, ...){
 	years <- c(x@year, unlist(lapply(list(...), slot, "year")))
 	months <- c(x@month, unlist(lapply(list(...), slot, "month"))) 
 	days <- c(x@day, unlist(lapply(list(...), slot, "day")))
-	hours <- c(x@month, unlist(lapply(list(...), slot, "hour")))
-	minutes <- c(x@month, unlist(lapply(list(...), slot, "minute")))
+	hours <- c(x@hour, unlist(lapply(list(...), slot, "hour")))
+	minutes <- c(x@minute, unlist(lapply(list(...), slot, "minute")))
 	new("Period", seconds, year = years, month = months, day = days, 
 		hour = hours, minute = minutes)
 })
@@ -212,7 +212,7 @@ setMethod("[", signature(x = "Period"),
 })
 
 #' @export
-setMethod("[<-", signature(x = "Period", i = "Period"), 
+setMethod("[<-", signature(x = "Period", value = "Period"), 
   function(x, i, j, ..., value) {
   	x@.Data[i] <- value@.Data
   	x@year[i] <- value@year

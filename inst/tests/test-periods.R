@@ -103,3 +103,15 @@ test_that("as.period handles duration objects", {
   expect_that(as.period(dur), equals(seconds(5) + minutes(30)))
 })
 
+test_that("[<- can subset periods with new periods", {
+  Time <- data.frame(Time = c(hms("01:01:01"), hms("02:02:02")))
+  Time[1,1] <- Time[1,1] + hours(1)
+  
+  times <- days(1:3)
+  times[1] <- times[1] + hours(2)
+  
+  expect_equal(Time[1,1], hms("02:01:01"))
+  expect_equal(times[1], new_period(days = 1, hours = 2))
+  
+})
+
