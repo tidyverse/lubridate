@@ -1,7 +1,7 @@
-.Rhistory
-.RData
 *.pdf
 *.aux
 *.log
 *.out
 *.synctex.gz
+.DS_store
+.R*
