@@ -91,3 +91,16 @@ test_that("as.interval handles vector input", {
   expect_equal(dint2, as.interval(days(1), c(a,b)))
 
 })
+
+test_that("[<- can subset intervals", {
+  ints <- data.frame(spans = c(interval(ymd(20090201), ymd(20090101)), 
+                               interval(ymd(20090201), ymd(20090101))))
+  my_int <- interval(ymd(18800101), ymd(18810101))
+  ints[1,1] <- 31536000
+  ints[2,1] <- my_int
+  int2 <- interval(ymd(20090201), ymd(20100201))
+  
+  expect_equal(ints[1,1], int2)
+  expect_equal(ints[2,1], my_int)
+  
+})
