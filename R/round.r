@@ -75,18 +75,18 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
 	unit <- match.arg(unit) 
 	
-	x <- floor_date(x, unit)
+	y <- floor_date(x - seconds(1), unit)
 	
 	switch(unit,
-		second = second(x) <- second(x) + 1,
-		minute = minute(x) <- minute(x) + 1,
-		hour =   hour(x) <- hour(x) + 1,
-		day =    yday(x) <- yday(x) + 1,
-		week =   week(x) <- week(x) + 1,
-		month =  month(x) <- month(x) + 1,
-		year =   year(x) <- year(x) + 1
+		second = second(y) <- second(y) + 1,
+		minute = minute(y) <- minute(y) + 1,
+		hour =   hour(y) <- hour(y) + 1,
+		day =    yday(y) <- yday(y) + 1,
+		week =   week(y) <- week(y) + 1,
+		month =  month(y) <- month(y) + 1,
+		year =   year(y) <- year(y) + 1
 	)
-	x
+	reclass_date(y, x)
 }
 
 

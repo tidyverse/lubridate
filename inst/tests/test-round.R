@@ -176,4 +176,6 @@ test_that("round_date works for a variety of formats",{
     "UTC"))))
 })
 
-
+test_that("ceiling_date does not round up dates that are already on a boundary",{
+  expect_equal(ceiling_date(as.Date("2012-09-27"), 'day'), as.Date("2012-09-27"))
+})
