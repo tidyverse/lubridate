@@ -47,15 +47,15 @@
 }
 \examples{
 new_period (second = 90, minute = 5)
-#  5 minutes and 90 seconds
+# "5M 90S"
 new_period(day = -1)
-# -1 days
+# "-1d 0H 0M 0S"
 new_period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
-# 13 days, 2 hours, 1 minute and 3 seconds
+# "20d 2H 1M 3S"
 new_period(hour = 1, minute = -60)
-# 1 hour and -60 minutes
+# "1H -60M 0S"
 new_period(second = 0)
-# 0 seconds
+# "0S"
 }
 \seealso{
   \code{\link{period}}, \code{\link{as.period}}

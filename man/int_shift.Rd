@@ -30,6 +30,6 @@ int_shift(int, new_duration(hours = -1))
 }
 \seealso{
   \code{\link{int_flip}}, \code{\link{int_start}},
-  \code{\link{int_end}}
+  \code{\link{int_end}}, \code{\link{int_length}}
 }
 

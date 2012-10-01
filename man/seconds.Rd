@@ -56,11 +56,11 @@ class(as.Date("2009-08-09") + hours(12))
 # converts to POSIXt class to accomodate time units
 
 years(1) - months(7)
-# 1 year and -7 months
+# "1y -7m 0d 0H 0M 0S"
 c(1:3) * hours(1)
-# 1 hour   2 hours   3 hours
+# "1H 0M 0S" "2H 0M 0S" "3H 0M 0S"
 hours(1:3)
-# 1 hour   2 hours   3 hours
+# "1H 0M 0S" "2H 0M 0S" "3H 0M 0S"
 
 #sequencing
 y <- ymd(090101) # "2009-01-01 CST"

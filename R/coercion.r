@@ -268,7 +268,10 @@ as.interval <- function(x, start){
 #'
 #' @export
 #' @param x an interval, difftime, or numeric object   
-#' @param unit A character string that specifies which time units to build period in. unit is only implemented for the as.period.numeric method. 
+#' @param unit A character string that specifies which time units to build period in. 
+#' unit is only implemented for the as.period.numeric method and the as.period.interval method. 
+#' For as.period.interval, as.period will convert intervals to units no larger than the specified 
+#' unit. 
 #' @param ... additional arguments to pass to as.period
 #' @return a period object
 #' @seealso \code{\link{Period-class}}, \code{\link{new_period}}
@@ -318,6 +321,28 @@ setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
 })
 
 setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) {
+  negs <- int_length(x) < 0
+  x[negs] <- int_flip(x[negs])
+
+  if (is.null(match.call()$unit)) {
+    pers <- .int_to_period(x)
+    pers[negs] <- -1 * pers[negs]
+    return(pers)
+  } else {
+    unit <- match.call()$unit
+    unit <- standardise_period_names(unit)
+    per <- get(paste(unit, "s", sep = ""))
+    num <- x %/% per(1)
+    left_over <- x %% per(1)
+    pers <- per(num) + .int_to_period(left_over)
+  }
+  
+  pers[negs] <- -1 * pers[negs]
+  pers
+})
+  
+  
+.int_to_period <- function(x){  
   start <- as.POSIXlt(x@start)
   end <- as.POSIXlt(start + x@.Data)
 
@@ -342,18 +367,19 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   
   ndays <- to.per$day < 0
   if (any(ndays)) {
-	  day.no <- floor_date(end, "month") - days(1)
-	  day.no <- day.no$mday
-	  to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
-	  to.per$month[ndays] <- to.per$month[ndays] - 1
+    day.no <- floor_date(end, "month") - days(1)
+    day.no <- day.no$mday
+    to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
+    to.per$month[ndays] <- to.per$month[ndays] - 1
   }
   
   nmons <- to.per$month < 0
   to.per$month[nmons] <- 12 + to.per$month[nmons]
   to.per$year[nmons] <- to.per$year[nmons] - 1
   
-  new("Period", to.per$second, year = to.per$year, month = to.per$month, day = to.per$day, hour = to.per$hour, minute = to.per$minute)
-})
+  new("Period", to.per$second, year = to.per$year, month = to.per$month, 
+    day = to.per$day, hour = to.per$hour, minute = to.per$minute)
+}
 
 setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) {
   message("estimate only: convert durations to intervals for accuracy")

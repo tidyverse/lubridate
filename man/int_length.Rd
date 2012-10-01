@@ -1,0 +1,27 @@
+\name{int_length}
+\alias{int_length}
+\title{Get the length of an interval in seconds}
+\usage{
+  int_length(int)
+}
+\arguments{
+  \item{int}{An interval object}
+}
+\value{
+  numeric The length of the interval in seconds. A negative
+  number connotes a negative interval
+}
+\description{
+  Get the length of an interval in seconds
+}
+\examples{
+int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+# 2001-01-01 UTC--2002-01-01 UTC
+int_length(int)
+# 31536000
+}
+\seealso{
+  \code{\link{int_start}}, \code{\link{int_shift}},
+  \code{\link{int_flip}}
+}
+

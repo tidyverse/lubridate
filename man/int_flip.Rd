@@ -24,6 +24,6 @@ int_flip(int)
 }
 \seealso{
   \code{\link{int_shift}}, \code{\link{int_start}},
-  \code{\link{int_end}}
+  \code{\link{int_end}}, \code{\link{int_length}}
 }
 

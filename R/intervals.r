@@ -240,7 +240,8 @@ is.interval <- function(x) is(x, c("Interval"))
 #' @export int_start "int_start<-"
 #' @param int An interval object
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
-#' @seealso \code{\link{int_end}}, \code{\link{int_shift}}, \code{\link{int_flip}}
+#' @seealso \code{\link{int_end}}, \code{\link{int_shift}}, \code{\link{int_flip}},
+#' \code{\link{int_length}}
 #' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' # 2001-01-01 UTC--2002-01-01 UTC
@@ -270,7 +271,8 @@ int_start <- function(int) int@start
 #' @export int_end "int_end<-"
 #' @param int An interval object
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
-#' @seealso \code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}}
+#' @seealso \code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}}, 
+#' \code{\link{int_length}}
 #' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' # 2001-01-01 UTC--2002-01-01 UTC
@@ -288,6 +290,20 @@ int_end <- function(int) int@start + int@.Data
 		tzone = int@tzone)
 }
 
+#' Get the length of an interval in seconds
+#'
+#' @export int_length
+#' @param int An interval object
+#' @return numeric The length of the interval in seconds. A negative number connotes 
+#' a negative interval
+#' @seealso \code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}}
+#' @examples
+#' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+#' # 2001-01-01 UTC--2002-01-01 UTC
+#' int_length(int)
+#' # 31536000
+int_length <- function(int) int@.Data
+
 #' Flip the direction of an interval
 #'
 #' Reverses the order of the start date and end date in an interval. The 
@@ -297,7 +313,8 @@ int_end <- function(int) int@start + int@.Data
 #' @export int_flip
 #' @param int An interval object
 #' @return An interval object
-#' @seealso \code{\link{int_shift}},  \code{\link{int_start}}, \code{\link{int_end}}
+#' @seealso \code{\link{int_shift}},  \code{\link{int_start}}, \code{\link{int_end}},
+#' \code{\link{int_length}}
 #' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' # 2001-01-01 UTC--2002-01-01 UTC
@@ -318,7 +335,8 @@ int_flip <- function(int){
 #' @param int An interval object
 #' @param by A period or duration object
 #' @return An interval object
-#' @seealso \code{\link{int_flip}},  \code{\link{int_start}}, \code{\link{int_end}}
+#' @seealso \code{\link{int_flip}},  \code{\link{int_start}}, \code{\link{int_end}},
+#' \code{\link{int_length}}
 #' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' # 2001-01-01 UTC--2002-01-01 UTC
@@ -525,3 +543,5 @@ setMethod("%within%", signature(b = "Interval"), function(a,b){
 setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
 	as.numeric(a@start) - as.numeric(b@start) <= b@.Data & as.numeric(a@start) - as.numeric(b@start) >= 0
 })
+
+

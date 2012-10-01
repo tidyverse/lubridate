@@ -14,7 +14,9 @@
 
   \item{unit}{A character string that specifies which time
   units to build period in. unit is only implemented for
-  the as.period.numeric method.}
+  the as.period.numeric method and the as.period.interval
+  method. For as.period.interval, as.period will convert
+  intervals to units no larger than the specified unit.}
 
   \item{...}{additional arguments to pass to as.period}
 }
@@ -54,7 +56,7 @@
 span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
 # 2009-01-01 CST--2010-02-02 01:01:01 CST
 as.period(span)
-# 1 year, 1 month, 1 day, 1 hour, 1 minute and 1 second
+# "1y 1m 1d 1H 1M 1S"
 }
 \seealso{
   \code{\link{Period-class}}, \code{\link{new_period}}
