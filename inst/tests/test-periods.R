@@ -115,3 +115,8 @@ test_that("[<- can subset periods with new periods", {
   
 })
 
+test_that("period correctly handles week units", {
+  expect_equal(period(1, "week"), days(7))
+  expect_equal(period(8, "days"), days(8))
+  expect_equal(period(c(3,2), c("days", "week")), days(c(17)))
+})

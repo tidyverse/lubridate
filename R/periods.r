@@ -282,7 +282,8 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' # 1 hour and -60 minutes
 #' new_period(second = 0)
 #' # 0 seconds
-new_period <- period <- function(...) {
+new_period <- function(...) {
+
   pieces <- data.frame(lapply(list(...), as.numeric))
   
   names(pieces) <- standardise_date_names(names(pieces))
@@ -361,6 +362,7 @@ period <- function(num, units = "second") {
 	defaults <- list(second = 0, minute = 0, hour = 0, day = 0, week = 0, 
     	month = 0, year = 0)
     pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
+    pieces$day <- pieces$day + 7 * pieces$week
 		
 	new("Period", pieces$second, year = pieces$year, month = pieces$month, 
   		day = pieces$day, hour = pieces$hour, minute = pieces$minute)
