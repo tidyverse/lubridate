@@ -183,6 +183,11 @@ format.Period <- function(x, ...){
   show
 }
 
+#' @S3method xtfrm Period
+xtfrm.Period <- function(x){
+  xtfrm(period_to_seconds(x))
+}
+
 
 
 #' @export
