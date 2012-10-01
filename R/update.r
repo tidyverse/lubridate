@@ -62,7 +62,7 @@ update.POSIXct <- function(object, years = year(object),
     wdays - wday(object), 
     ydays - yday(object))
   
-  blank.rows <- rowSums(day.change, na.rm = TRUE)
+  blank.rows <- rowSums(abs(day.change), na.rm = TRUE)
   new.days <- day.change[which(blank.rows != 0),]
   
   if(is.matrix(new.days)){
