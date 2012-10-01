@@ -87,9 +87,8 @@ test_that("with_tz handles vectors", {
 test_that("with_tz handles various date-time classes", {
   x <- as.POSIXct("2008-08-03 13:01:59", tz = "America/New_York")
   
-  expect_that(with_tz(as.POSIXlt(x), "UTC"), 
-    equals(as.POSIXlt(format(
-      as.POSIXct(x), tz = "UTC"), tz = "UTC")))
+  expect_equal(with_tz(as.POSIXlt(x), "UTC"), 
+    as.POSIXlt(format(as.POSIXct(x), tz = "UTC"), tz = "UTC"))
 })
 
 test_that("force_tz works as expected", {

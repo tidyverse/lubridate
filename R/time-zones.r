@@ -16,8 +16,9 @@
 #' with_tz(x, "GMT")
 #' # "2009-08-07 04:00:01 GMT"
 with_tz <- function (time, tzone = ""){
-  new <- as.POSIXct(format(as.POSIXct(time), tz = tzone), 
-    tz = tzone)
+  if (is.POSIXlt(time)) new <- as.POSIXct(time)
+  else new <- time
+  new <- as.POSIXlt(new, tz = tzone)
   reclass_date(new, time)
 }
 
