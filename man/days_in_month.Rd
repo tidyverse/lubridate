@@ -1,0 +1,19 @@
+\name{days_in_month}
+\alias{days_in_month}
+\title{Get the number of days in the month of a date-time.}
+\usage{
+  days_in_month(x)
+}
+\arguments{
+  \item{x}{a date-time object}
+}
+\value{
+  An integer of the number of days in the month component
+  of the date-time object.
+}
+\description{
+  Date-time must be a POSIXct, POSIXlt, Date, chron,
+  yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
+  jul, timeSeries, and fts objects.
+}
+

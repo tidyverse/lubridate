@@ -62,3 +62,24 @@ month.numeric <- function(x, label = FALSE, abbr = TRUE) {
   	}
   	x <- x + months(value - month(x))
  }
+
+#' Get the number of days in the month of a date-time.
+#' 
+#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, 
+#' zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
+#'
+#' @export days_in_month
+#' @param x a date-time object
+#' @return An integer of the number of days in the month component of the date-time object.
+days_in_month <- function(x) {
+  month_x <- month(x, label = TRUE)
+  N_DAYS <- c(
+    Jan = 31L, Feb = 28L, Mar = 31L, 
+    Apr = 30L, May = 31L, Jun = 30L, 
+    Jul = 31L, Aug = 31L, Sep = 30L, 
+    Oct = 31L, Nov = 30L, Dec = 31L
+  )
+  n_days <- N_DAYS[month_x]
+  n_days[month_x == "Feb" & leap_year(x)] <- 29L
+  n_days
+}

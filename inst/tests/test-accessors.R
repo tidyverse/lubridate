@@ -156,3 +156,33 @@ test_that("accessors handle vectors",{
   expect_that(tz(date), matches("UTC"))
 })
 
+
+context("test days_in_month")
+
+test_that(
+  "days in month works for non leap years",
+{
+  x <- seq(ymd("2011-01-01"), ymd("2011-12-01"), "1 month")
+  expected <- c(
+    Jan = 31L, Feb = 28L, Mar = 31L, 
+    Apr = 30L, May = 31L, Jun = 30L, 
+    Jul = 31L, Aug = 31L, Sep = 30L, 
+    Oct = 31L, Nov = 30L, Dec = 31L
+  )
+  expect_that(days_in_month(x), equals(expected))
+}
+)
+
+test_that(
+  "days in month works for leap years",
+{
+  x <- seq(ymd("2012-01-01"), ymd("2012-12-01"), "1 month")
+  expected <- c(
+    Jan = 31L, Feb = 29L, Mar = 31L, 
+    Apr = 30L, May = 31L, Jun = 30L, 
+    Jul = 31L, Aug = 31L, Sep = 30L, 
+    Oct = 31L, Nov = 30L, Dec = 31L
+  )
+  expect_that(days_in_month(x), equals(expected))
+}
+)
