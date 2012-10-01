@@ -161,7 +161,7 @@ setMethod("show", signature(object = "Period"), function(object){
 
   show <- paste(object@year, "y ", object@month, "m ", object@day, "d ",
     object@hour, "H ", object@minute, "M ", object@.Data, "S", sep="")
-	start <- regexpr("[1-9]", show)
+	start <- regexpr("[-1-9]", show)
 	show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
 
   show[na] <- NA
@@ -176,7 +176,7 @@ format.Period <- function(x, ...){
   
   show <- paste(x@year, "y ", x@month, "m ", x@day, "d ",
     x@hour, "H ", x@minute, "M ", x@.Data, "S", sep="")
-  start <- regexpr("[1-9]", show)
+  start <- regexpr("[-1-9]", show)
   show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
                  
   show[na] <- NA
@@ -273,17 +273,16 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' @keywords chron classes
 #' @examples
 #' new_period (second = 90, minute = 5)
-#' #  5 minutes and 90 seconds
+#' # "5M 90S"
 #' new_period(day = -1)
-#' # -1 days
+#' # "-1d 0H 0M 0S"
 #' new_period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
-#' # 13 days, 2 hours, 1 minute and 3 seconds
+#' # "20d 2H 1M 3S"
 #' new_period(hour = 1, minute = -60)
-#' # 1 hour and -60 minutes
+#' # "1H -60M 0S"
 #' new_period(second = 0)
-#' # 0 seconds
+#' # "0S"
 new_period <- function(...) {
-
   pieces <- data.frame(lapply(list(...), as.numeric))
   
   names(pieces) <- standardise_date_names(names(pieces))
@@ -336,21 +335,22 @@ new_period <- function(...) {
 #' @export period
 #' @aliases period
 #' @param num a numeric vector that lists the number of time units to be included in the period
-#' @param units a character vector that lists the type of units to be used. The units in units are matched to the values in num according to their order.
+#' @param units a character vector that lists the type of units to be used. The units in units 
+#' are matched to the values in num according to their order.
 #' @return a period object
 #' @seealso \code{\link{new_period}}, \code{\link{as.period}}
 #' @keywords chron classes
 #' @examples
 #' period(c(90, 5), c("second", "minute"))
-#' #  5 minutes and 90 seconds
+#' #  "5M 90S"
 #' period(-1, "days")
-#' # -1 days
+#' # "-1d 0H 0M 0S"
 #' period(c(3, 1, 2, 13, 1), c("second", "minute", "hour", "day", "week"))
-#' # 13 days, 2 hours, 1 minute and 3 seconds
+#' # "20d 2H 1M 3S"
 #' period(c(1, -60), c("hour", "minute"))
-#' # 1 hour and -60 minutes
+#' # "1H -60M 0S"
 #' period(0, "second")
-#' # 0 seconds
+#' # "0S"
 period <- function(num, units = "second") {
 	if (length(units) %% length(num) != 0)
 		stop("arguments must have same length")
@@ -410,11 +410,11 @@ period <- function(num, units = "second") {
 #' # converts to POSIXt class to accomodate time units
 #' 
 #' years(1) - months(7) 
-#' # 1 year and -7 months
+#' # "1y -7m 0d 0H 0M 0S"
 #' c(1:3) * hours(1) 
-#' # 1 hour   2 hours   3 hours
+#' # "1H 0M 0S" "2H 0M 0S" "3H 0M 0S"
 #' hours(1:3)
-#' # 1 hour   2 hours   3 hours
+#' # "1H 0M 0S" "2H 0M 0S" "3H 0M 0S"
 #'
 #' #sequencing
 #' y <- ymd(090101) # "2009-01-01 CST"

@@ -277,7 +277,7 @@ as.interval <- function(x, start){
 #' span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
 #' # 2009-01-01 CST--2010-02-02 01:01:01 CST
 #' as.period(span)
-#' # 1 year, 1 month, 1 day, 1 hour, 1 minute and 1 second
+#' # "1y 1m 1d 1H 1M 1S"
 #' @aliases as.period,numeric-method
 #' @aliases as.period,difftime-method
 #' @aliases as.period,Interval-method

@@ -91,9 +91,9 @@ is.timespan <- function(x) is(x, "Timespan")
 #' duration(3690, "seconds")
 #' # 3690s (~1.02 hours)
 #' period(3690, "seconds")
-#' # 3690 seconds
+#' # "3690S"
 #' new_period(second = 30, minute = 1, hour = 1)
-#' # 1 hour, 1 minute and 30 seconds
+#' # "1H 1M 30S"
 #' interval(ymd_hms("2009-08-09 13:01:30"), ymd_hms("2009-08-09 12:00:00"))
 #' # 2009-08-09 12:00:00 -- 2009-08-09 13:01:30
 #'
@@ -131,5 +131,5 @@ is.timespan <- function(x) is(x, "Timespan")
 #' # "2009-01-01 00:00:30 GMT"
 #'
 #' months(6) + days(1)
-#' # 6 months and 1 day
+#' # "6m 1d 0H 0M 0S"
 NULL

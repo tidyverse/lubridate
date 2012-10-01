@@ -120,3 +120,8 @@ test_that("period correctly handles week units", {
   expect_equal(period(8, "days"), days(8))
   expect_equal(period(c(3,2), c("days", "week")), days(c(17)))
 })
+
+test_that("format.period correctly displays negative units", {
+  expect_match(format(days(-2)), "-2d 0H 0M 0S")
+  expect_match(format(new_period(second = -1, hour = -2, day = 3)), "3d -2H 0M -1S")
+})
