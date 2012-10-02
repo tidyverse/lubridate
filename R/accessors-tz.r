@@ -1,7 +1,14 @@
 #' Get/set time zone component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
-#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
+#' Time zones are stored as character strings in an 
+#' attribute of date-time objects. tz returns a date's time zone attribute. 
+#' When used as a settor, it changes the time zone attribute. R does not come with 
+#' a predefined list zone names, but relies on the user's OS to interpret time zone 
+#' names. As a result, some names will be recognized on some computers but not others.
+#' Most computers, however, will recognize names in the timezone data base originally 
+#' compiled by Arthur Olson. These names normally take the form "Country/City." A 
+#' convenient listing of these timezones can be found at 
+#' \url{http://en.wikipedia.org/wiki/List_of_tz_database_time_zones}.
 #'
 #' Setting tz does not update a date-time to display the same moment as measured 
 #' at a different time zone. See \code{\link{with_tz}}. Setting a new time zone 
@@ -13,7 +20,8 @@
 #' chron, then R will update the number in the hours element to display the new 
 #' date-time in the GMT timezone. 
 #'
-#' For a description of the time zone attribute, see \code{\link[base]{DateTimeClasses}}. 
+#' For a description of the time zone attribute, see \code{\link[base]{timezones}} 
+#' or \code{\link[base]{DateTimeClasses}}. 
 #'
 #' @export tz "tz<-"
 #' @aliases tz tz<-
@@ -21,7 +29,9 @@
 #' @S3method tz zoo 
 #' @S3method tz timeSeries
 #' @S3method tz irts 
-#' @param x a date-time object   
+#' @param x a date-time object of class a POSIXct, POSIXlt, Date, chron, yearmon, 
+#' yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can 
+#' be coerced to POSIXlt with as.POSIXlt
 #' @return the first element of x's tzone attribute vector as a character string. If no tzone 
 #'   attribute exists, tz returns "GMT".
 #' @keywords utilities manip chron methods
@@ -30,8 +40,22 @@
 #' tz(x) 
 #' tz(x) <- "GMT"  
 #' x
+#' \dontrun{
 #' tz(x) <- "America/New_York"
 #' x
+#' tz(x) <- "America/Chicago"
+#' x
+#' tz(x) <- "America/Los_Angeles"
+#' x
+#' tz(x) <- "Pacific/Honolulu"
+#' x
+#' tz(x) <- "Pacific/Auckland"
+#' x
+#' tz(x) <- "Europe/London"
+#' x
+#' tz(x) <- "Europe/Berlin"
+#' x
+#' }
 #' Sys.setenv(TZ = "GMT")
 #' now()
 #' tz(now())
