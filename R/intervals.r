@@ -521,6 +521,7 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 #' @param a An interval or date-time object
 #' @param b An interval
 #' @return A logical
+#' @examples
 #' int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' # 2001-01-01 UTC--2002-01-01 UTC
 #' int2 <- new_interval(ymd("2001-06-01"), ymd("2002-01-01"))

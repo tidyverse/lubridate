@@ -99,5 +99,42 @@ test_that("subtraction works as expected for intervals",{
   expect_error(int - eminutes(3))
   expect_error(int - int2)  
 
+})
 
+
+test_that("%m-% correctly subtracts months without rollover",{
+  may <- ymd_hms("2010-05-31 03:04:05")
+  ends <- ymd_hms(c("2010-04-30 03:04:05", "2010-03-31 03:04:05", "2010-02-28 03:04:05"))
+  
+  expect_equal(may %m-% months(1:3), ends)
+})
+
+test_that("%m-% correctly subtracts years without rollover",{
+  leap <- ymd("2012-02-29")
+  next1 <- ymd("2011-02-28")
+  next2 <- ymd("2011-01-29")
+  next3 <- ymd("2011-03-29")
+  
+  expect_equal(leap %m-% years(1), next1)
+  expect_equal(leap %m-% new_period(years = 1, months = 1), next2)
+  expect_equal(leap %m-% new_period(years = 1, months = -1), next3)
+})
+
+test_that("%m-% correctly subtract negative months without rollover",{
+  jan <- ymd_hms("2010-01-31 03:04:05")
+  ends <- ymd_hms(c("2010-02-28 03:04:05", "2010-03-31 03:04:05", "2010-04-30 03:04:05"))
+  
+  expect_equal(jan %m-% -months(1:3), ends)
+})
+
+test_that("%m-% correctly subtracts negative years without rollover",{
+  leap <- ymd("2012-02-29")
+  next1 <- ymd("2013-02-28")
+  next2 <- ymd("2013-03-29")
+  next3 <- ymd("2013-01-29")
+  
+  expect_equal(leap %m-% years(-1), next1)
+  expect_equal(leap %m-% new_period(years = -1, months = -1), next2)
+  expect_equal(leap %m-% new_period(years = -1, months = 1), next3)
+  
 })

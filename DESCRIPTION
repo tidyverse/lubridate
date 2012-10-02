@@ -66,3 +66,4 @@ Collate:
     'data.r'
     'guess.r'
     'stamp.r'
+    'ops-%m+%.r'

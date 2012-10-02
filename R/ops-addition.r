@@ -248,3 +248,4 @@ setMethod("+", signature(e1 = "POSIXlt", e2 = "Interval"), function(e1, e2) {
 #' @export 	
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Period"), 
 	function(e1, e2) add_period_to_date(e2, e1))
+

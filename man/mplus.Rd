@@ -1,0 +1,65 @@
+\name{\%m+\%}
+\alias{\%m+\%}
+\alias{\%m+\%,ANY,Period-method}
+\alias{\%m+\%,Period,ANY-method}
+\alias{\%m-\%}
+\alias{\%m-\%,ANY,Period-method}
+\alias{\%m-\%,Period,ANY-method}
+\alias{m+}
+\alias{m-}
+\title{Add and subtract months to a date without exceeding the last day of the new month}
+\usage{
+  e1 \%m+\% e2
+}
+\arguments{
+  \item{e1}{A period or a date-time object of class
+  \code{\link{POSIXlt}}, \code{\link{POSIXct} or
+  \code{\link{Date}}.}
+
+  \item{e2}{A period or a date-time object of class
+  \code{\link{POSIXlt}}, \code{\link{POSIXct} or
+  \code{\link{Date}}. Note that one of e1 and e2 must be a
+  period and the other a date-time object.}
+}
+\value{
+  A date-time object of class POSIXlt, POSIXct or Date
+}
+\description{
+  Adding months frustrates basic arithmetic because
+  consecutive months have different lengths. With other
+  elements, it is helpful for arithmetic to perform
+  automatic roll over. For example, 12:00:00 + 61 seconds
+  becomes 12:01:01. However, people often prefer that this
+  behavior NOT occur with months. For example, we sometimes
+  want January 31 + 1 month = February 28 and not March 3.
+  %m+% performs this type of arithmetic. Date %m+%
+  months(n) always returns a date in the nth month after
+  Date. If the new date would usually spill over into the n
+  + 1th month, %m+% will return the last day of the nth
+  month. Date %m-% months(n) always returns a date in the
+  nth month before Date.
+}
+\details{
+  %m+% and %m-% do not handle periods less than a month.
+  These must be added separately with traditional
+  arithmetic. %m+% and %m-% should be used with caution as
+  they are not a one-to-one operations and results for
+  either will be sensitive to the order of operations.
+}
+\examples{
+jan <- ymd_hms("2010-01-31 03:04:05")
+# "2010-01-31 03:04:05 UTC"
+jan + months(1:3) # Feb 31 and April 31 prompt "rollover"
+# "2010-03-03 03:04:05 UTC" "2010-03-31 03:04:05 UTC" "2010-05-01 03:04:05 UTC"
+jan \%m+\% months(1:3) # No rollover
+# "2010-02-28 03:04:05 UTC" "2010-03-31 03:04:05 UTC" "2010-04-30 03:04:05 UTC"
+
+leap <- ymd("2012-02-29")
+"2012-02-29 UTC"
+leap \%m+\% years(1)
+# "2013-02-28 UTC"
+leap \%m+\% years(-1)
+leap \%m-\% years(1)
+# "2011-02-28 UTC"
+}
+
