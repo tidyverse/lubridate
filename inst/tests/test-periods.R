@@ -125,3 +125,9 @@ test_that("format.period correctly displays negative units", {
   expect_match(format(days(-2)), "-2d 0H 0M 0S")
   expect_match(format(new_period(second = -1, hour = -2, day = 3)), "3d -2H 0M -1S")
 })
+
+test_that("format.Period correctly displays intervals of length 0", {
+  per <- new_period(seconds = 5)
+  
+  expect_output(per[FALSE], "Period\\(0)")
+})

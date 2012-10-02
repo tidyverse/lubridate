@@ -156,21 +156,12 @@ setClass("Period", contains = c("Timespan", "numeric"),
 
 #' @export
 setMethod("show", signature(object = "Period"), function(object){
-	show <- vector(mode = "character")
-  na <- is.na(object)
-
-  show <- paste(object@year, "y ", object@month, "m ", object@day, "d ",
-    object@hour, "H ", object@minute, "M ", object@.Data, "S", sep="")
-	start <- regexpr("[-1-9]", show)
-	show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
-
-  show[na] <- NA
-  print(show)
-
+  print(format(object))
 })
 
 #' @S3method format Period
 format.Period <- function(x, ...){
+  if (length(x@.Data) == 0) return("Period(0)")
   show <- vector(mode = "character")
   na <- is.na(x)
   

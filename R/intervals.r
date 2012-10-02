@@ -101,12 +101,12 @@ setClass("Interval", contains = c("Timespan", "numeric"),
 
 #' @export
 setMethod("show", signature(object = "Interval"), function(object){
-	print(paste(format(object@start, tz = object@tzone, usetz = TRUE), "--", 
-		format(object@start + object@.Data, tz = object@tzone, usetz = TRUE), sep = ""), quote = F)
+	print(format.Interval(object), quote = F)
 })
 
 #' @S3method format Interval
 format.Interval <- function(x,...){
+  if (length(x@.Data) == 0) return("Interval(0)")
 	paste(format(x@start, tz = x@tzone, usetz = TRUE), "--", 
 		format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
 }

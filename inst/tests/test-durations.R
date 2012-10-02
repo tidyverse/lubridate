@@ -117,3 +117,8 @@ test_that("is.duration handle vectors",{
   expect_that(is.duration(dminutes(1:3)), is_true())
 })
 
+test_that("format.Duration correctly displays intervals of length 0", {
+  dur <- new_duration(seconds = 5)
+  
+  expect_output(dur[FALSE], "Duration\\(0)")
+})
