@@ -99,7 +99,7 @@ check_period <- function(object){
 #' @aliases c,Period-method
 #' @aliases rep,Period-method
 #' @aliases [,Period-method
-#' @aliases [<-,Period,Period-method
+#' @aliases [<-,Period,ANY,ANY,Period-method
 #' @aliases $,Period-method
 #' @aliases $<-,Period-method
 #' @aliases as.difftime,Period-method

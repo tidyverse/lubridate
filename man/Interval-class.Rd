@@ -37,7 +37,7 @@
 \alias{/,numeric,Interval-method}
 \alias{Interval-class}
 \alias{[,Interval-method}
-\alias{[<-,Interval,ANY-method}
+\alias{[<-,Interval,ANY,ANY,ANY-method}
 \alias{\%\%,Interval,Duration-method}
 \alias{\%\%,Interval,Interval-method}
 \alias{\%\%,Interval,Period-method}

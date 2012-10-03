@@ -13,11 +13,11 @@
 }
 \arguments{
   \item{e1}{A period or a date-time object of class
-  \code{\link{POSIXlt}}, \code{\link{POSIXct} or
+  \code{\link{POSIXlt}}, \code{\link{POSIXct}} or
   \code{\link{Date}}.}
 
   \item{e2}{A period or a date-time object of class
-  \code{\link{POSIXlt}}, \code{\link{POSIXct} or
+  \code{\link{POSIXlt}}, \code{\link{POSIXct}} or
   \code{\link{Date}}. Note that one of e1 and e2 must be a
   period and the other a date-time object.}
 }

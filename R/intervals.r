@@ -55,7 +55,7 @@ check_interval <- function(object){
 #' @aliases c,Interval-method
 #' @aliases rep,Interval-method
 #' @aliases [,Interval-method
-#' @aliases [<-,Interval,ANY-method
+#' @aliases [<-,Interval,ANY,ANY,ANY-method
 #' @aliases $,Interval-method
 #' @aliases $<-,Interval-method
 #' @aliases as.difftime,Interval-method
