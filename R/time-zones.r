@@ -47,7 +47,9 @@ force_tz <- function(time, tzone = ""){
   if(is.null(tzone)) tzone <- ""
   new <- ISOdatetime(year(x),  month(x), mday(x), hour(x),
     minute(x), second(x), tzone)
-  new[hour(with_tz(new, tzone)) != hour(time)] <- NA
+  
+  missing_hour <- hour(with_tz(new, tzone)) != hour(time)
+  new[missing_hour] <- NA
     
   reclass_date(new, time)
 }
