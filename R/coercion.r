@@ -281,6 +281,8 @@ as.interval <- function(x, start){
 #' # 2009-01-01 CST--2010-02-02 01:01:01 CST
 #' as.period(span)
 #' # "1y 1m 1d 1H 1M 1S"
+#' as.period(span, units = "day")
+#' "397d 1H 1M 1S"
 #' @aliases as.period,numeric-method
 #' @aliases as.period,difftime-method
 #' @aliases as.period,Interval-method
