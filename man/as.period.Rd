@@ -57,6 +57,8 @@ span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")
 # 2009-01-01 CST--2010-02-02 01:01:01 CST
 as.period(span)
 # "1y 1m 1d 1H 1M 1S"
+as.period(span, units = "day")
+"397d 1H 1M 1S"
 }
 \seealso{
   \code{\link{Period-class}}, \code{\link{new_period}}
