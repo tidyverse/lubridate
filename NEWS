@@ -1,4 +1,76 @@
 
+Version 1.2.0
+-------------------------------------------------------------------------
+DEVELOPMENT
+
+* lubridate 1.2.0 is significantly faster than lubridate 1.1.0. This is largely thanks to a parser rewrite submitted by Vitalie Spinu. Thank you, Vitalie. Some metrics:
+  - parser speed up - 60x faster
+  - `with_tz` speed up - 15x faster
+  - `force_tz` speed up - 3x faster
+
+* Development for 1.2.0 has also focused on improving the way we work with months. `rollback` rolls dates back to the last day of the previous month. provides more options for working with months. `days_in_month` finds the number of days in a date's month. And, `%m+%` and `%m-%` provide a new way to handle unequal month lengths while doing arithmetic. See NEW FEATURES for more details
+
+* date parsing can now parse multiple date formats within the same vector of date-times. Parsing can also recognize a greater variety of date-time formats as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. Thank you, Vitalie.
+
+* 1.2.0 introduces a new display format for periods. The display is more math and international friendly.
+
+* 1.2.0 transforms negative intervals into periods much more gracefully (e.g, - 3 days instead of -1 years, 11 months, and 27 days)
+
+* S3 update methods are now exported
+
+NEW FEATURES
+
+* `stamp` allows users to print dates in whatever form they like. Contributed by Vitalie Spinu. Thank you, Vitalie.
+
+* periods now handle fractional seconds. Contributed by Vitalie Spinu. Thank you, Vitalie.
+
+* date parsing can now parse multiple date formats within the same vector of date-times. Parsing can also recognize a greater variety of date-time formats as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. Thank you, Vitalie.
+
+* `sort`, `order`, `rank` and `xtfrm` now work with periods
+
+* `as.period.Interval` accepts a unit argument. `as.period` will convert intervals into periods no larger than the supplied unit.
+
+* `days_in_month` takes a date, returns the number of days in the date's month. Contributed by Richard Cotton. Thank you, Richard.
+
+* `%m+%` and `%m-%` perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can't be used with periods smaller than a month, which should be handled separately. An example of the new behavior:
+
+    ymd("2010-01-31") %m+% months(1)
+    # "2010-02-28 UTC"
+    
+    ymd("2010-01-31") + months(1)
+    # "2010-03-03 UTC"
+
+    ymd("2010-03-31") %m-% months(1)
+    # "2010-02-28 UTC"
+    
+    ymd("2010-01-31") - months(1)
+    # "2010-03-03 UTC"
+
+* `rollback` rolls a date back to the last day of the previous month.
+
+* `quarter` returns the fiscal quarter that a date occurs in. Like `quartes` in base R, but returns a numeric instead of a character string.
+
+BUG FIXES
+
+* date parsers now handle NAs
+
+* periods now handle NAs 
+
+* `[<-` now correctly updates all elements of a period inside a vector, list, or data.frame
+
+* `period()` now works with unit = "weeks"
+
+* `ceiling_date` no longer rounds up if a date is already at a ceiling
+
+* the redundant (i.e, repeated) hour of fall daylight savings time now displays with the correct time zone
+
+* `update.POSIXct` and `update.POSIXlt` handle vectors that sum to zero in the days argument
+
+* the format method for periods, intervals and duration now accurately displays objects of length 0.
+
+
+
+
 Version 1.1.0
 -------------------------------------------------------------------------
 DEVELOPMENT
