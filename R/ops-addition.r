@@ -141,8 +141,9 @@ setMethod("+", signature(e1 = "Interval", e2 = "POSIXlt"), function(e1, e2) {
 })
 
 #' @export 
-setMethod("+", signature(e1 = "Period", e2 = "Duration"),
-	function(e1, e2) add_period_to_duration(e1, e2))
+setMethod("+", signature(e1 = "Period", e2 = "Duration"), function(e1, e2) {
+  stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
+})
 
 #' @export 	
 setMethod("+", signature(e1 = "Period", e2 = "Interval"), function(e1, e2){ 
@@ -193,7 +194,7 @@ setMethod("+", signature(e1 = "Date", e2 = "Period"),
 	
 #' @export 
 setMethod("+", signature(e1 = "difftime", e2 = "Duration"), 
-	function(e1, e2) add_difftime_to_difftime(as.difftime(e2, units = "secs"), e1))
+	function(e1, e2) as.difftime(e2, units = "secs") + e1)
 
 #' @export 	
 setMethod("+", signature(e1 = "difftime", e2 = "Interval"), function(e1, e2){ 
