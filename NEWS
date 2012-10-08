@@ -3,36 +3,58 @@ Version 1.2.0
 -------------------------------------------------------------------------
 DEVELOPMENT
 
-* lubridate 1.2.0 is significantly faster than lubridate 1.1.0. This is largely thanks to a parser rewrite submitted by Vitalie Spinu. Thank you, Vitalie. Some metrics:
+* lubridate 1.2.0 is significantly faster than lubridate 1.1.0. This is 
+largely thanks to a parser rewrite submitted by Vitalie Spinu. Thank you, 
+Vitalie. Some metrics:
   - parser speed up - 60x faster
   - `with_tz` speed up - 15x faster
   - `force_tz` speed up - 3x faster
 
-* Development for 1.2.0 has also focused on improving the way we work with months. `rollback` rolls dates back to the last day of the previous month. provides more options for working with months. `days_in_month` finds the number of days in a date's month. And, `%m+%` and `%m-%` provide a new way to handle unequal month lengths while doing arithmetic. See NEW FEATURES for more details
+* Development for 1.2.0 has also focused on improving the way we work with 
+months. `rollback` rolls dates back to the last day of the previous month. 
+provides more options for working with months. `days_in_month` finds the 
+number of days in a date's month. And, `%m+%` and `%m-%` provide a new way to 
+handle unequal month lengths while doing arithmetic. See NEW FEATURES for more 
+details
 
-* date parsing can now parse multiple date formats within the same vector of date-times. Parsing can also recognize a greater variety of date-time formats as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. Thank you, Vitalie.
+* date parsing can now parse multiple date formats within the same vector of 
+date-times. Parsing can also recognize a greater variety of date-time formats 
+as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. 
+Thank you, Vitalie.
 
-* 1.2.0 introduces a new display format for periods. The display is more math and international friendly.
+* 1.2.0 introduces a new display format for periods. The display is more math 
+and international friendly.
 
-* 1.2.0 transforms negative intervals into periods much more gracefully (e.g, - 3 days instead of -1 years, 11 months, and 27 days)
+* 1.2.0 transforms negative intervals into periods much more gracefully (e.g, -
+ 3 days instead of -1 years, 11 months, and 27 days)
 
 * S3 update methods are now exported
 
 NEW FEATURES
 
-* `stamp` allows users to print dates in whatever form they like. Contributed by Vitalie Spinu. Thank you, Vitalie.
+* `stamp` allows users to print dates in whatever form they like. Contributed 
+by Vitalie Spinu. Thank you, Vitalie.
 
-* periods now handle fractional seconds. Contributed by Vitalie Spinu. Thank you, Vitalie.
+* periods now handle fractional seconds. Contributed by Vitalie Spinu. Thank 
+you, Vitalie.
 
-* date parsing can now parse multiple date formats within the same vector of date-times. Parsing can also recognize a greater variety of date-time formats as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. Thank you, Vitalie.
+* date parsing can now parse multiple date formats within the same vector of 
+date-times. Parsing can also recognize a greater variety of date-time formats 
+as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. 
+Thank you, Vitalie.
 
 * `sort`, `order`, `rank` and `xtfrm` now work with periods
 
-* `as.period.Interval` accepts a unit argument. `as.period` will convert intervals into periods no larger than the supplied unit.
+* `as.period.Interval` accepts a unit argument. `as.period` will convert 
+intervals into periods no larger than the supplied unit.
 
-* `days_in_month` takes a date, returns the number of days in the date's month. Contributed by Richard Cotton. Thank you, Richard.
+* `days_in_month` takes a date, returns the number of days in the date's month.
+ Contributed by Richard Cotton. Thank you, Richard.
 
-* `%m+%` and `%m-%` perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can't be used with periods smaller than a month, which should be handled separately. An example of the new behavior:
+* `%m+%` and `%m-%` perform addition and subtraction with months (and years) 
+without rollover at the end of a month. These can be used in place of + and -. 
+These can't be used with periods smaller than a month, which should be handled 
+separately. An example of the new behavior:
 
     ymd("2010-01-31") %m+% months(1)
     # "2010-02-28 UTC"
@@ -48,7 +70,8 @@ NEW FEATURES
 
 * `rollback` rolls a date back to the last day of the previous month.
 
-* `quarter` returns the fiscal quarter that a date occurs in. Like `quartes` in base R, but returns a numeric instead of a character string.
+* `quarter` returns the fiscal quarter that a date occurs in. Like `quartes` 
+in base R, but returns a numeric instead of a character string.
 
 BUG FIXES
 
@@ -56,17 +79,21 @@ BUG FIXES
 
 * periods now handle NAs 
 
-* `[<-` now correctly updates all elements of a period inside a vector, list, or data.frame
+* `[<-` now correctly updates all elements of a period inside a vector, list, 
+or data.frame
 
 * `period()` now works with unit = "weeks"
 
 * `ceiling_date` no longer rounds up if a date is already at a ceiling
 
-* the redundant (i.e, repeated) hour of fall daylight savings time now displays with the correct time zone
+* the redundant (i.e, repeated) hour of fall daylight savings time now 
+displays with the correct time zone
 
-* `update.POSIXct` and `update.POSIXlt` handle vectors that sum to zero in the days argument
+* `update.POSIXct` and `update.POSIXlt` handle vectors that sum to zero in the 
+days argument
 
-* the format method for periods, intervals and duration now accurately displays objects of length 0.
+* the format method for periods, intervals and duration now accurately 
+displays objects of length 0.
 
 
 
@@ -75,34 +102,61 @@ Version 1.1.0
 -------------------------------------------------------------------------
 DEVELOPMENT
 
-* lubridate no longer overwrites base R methods for +, - , *, /, %%, and %/%. To recreate the previous experience of subtracting two date times to create an interval, we've added the interval creation function %--%.
+* lubridate no longer overwrites base R methods for +, - , *, /, %%, and %/%. 
+To recreate the previous experience of subtracting two date times to create an 
+interval, we've added the interval creation function %--%.
 
-* lubridate has moved to an S4 object system. Timespans, Intervals, Durations, and Periods have each been redefined as an S4 class with its own methods.
+* lubridate has moved to an S4 object system. Timespans, Intervals, Durations, 
+and Periods have each been redefined as an S4 class with its own methods.
 
-* arithmetic operations will no longer perform implicit class changes between timespans. Users must explicitly state how and when they wish class changes to occur with as.period(), as.duration(), and as.interval(). This makes code written with lubridate more robust, as such implicit changes often did not produce consistent behavior across a variety of operations. It also allows lubridate to be less chatty with fewer console messages. lubridate does not need to explain what it is doing, because it no longer attempts to do things whose outcome would not be clear. On the other hand, arithmetic between multiple time classes will produce informative error messages.
+* arithmetic operations will no longer perform implicit class changes between 
+timespans. Users must explicitly state how and when they wish class changes to 
+occur with as.period(), as.duration(), and as.interval(). This makes code 
+written with lubridate more robust, as such implicit changes often did not 
+produce consistent behavior across a variety of operations. It also allows 
+lubridate to be less chatty with fewer console messages. lubridate does not 
+need to explain what it is doing, because it no longer attempts to do things 
+whose outcome would not be clear. On the other hand, arithmetic between 
+multiple time classes will produce informative error messages.
 
-* the internal structure of lubridate R code has been reorganized at https://github.com/hadley/lubridate to make lubridate more development friendly.
+* the internal structure of lubridate R code has been reorganized at 
+https://github.com/hadley/lubridate to make lubridate more development friendly.
 
 
 NEW FEATURES
 
-* intervals are now more useful and lubridate has more ways to manipulate them. Intervals can be created with %--%; modified with int_shift(), int_flip(), and int_standardize(); manipulated with intersect(), union(), and setdiff(); and used in logical tests with int_aligns(), int_overlaps(), and %within%. lubridate will no longer perform arithmetic between two intervals because the correct results of such operations is no more obvious than the correct result of adding two dates. Instead users are encouraged to use the new set operations or to directly modify intervals with int_start() and int_end(), which can also be used as settors. lubridate now supports negative intervals as well as positive intervals. Intervals also now display with a time zone.
+* intervals are now more useful and lubridate has more ways to manipulate them.
+Intervals can be created with %--%; modified with int_shift(), int_flip(), and 
+int_standardize(); manipulated with intersect(), union(), and setdiff(); and 
+used in logical tests with int_aligns(), int_overlaps(), and %within%. 
+lubridate will no longer perform arithmetic between two intervals because the 
+correct results of such operations is no more obvious than the correct result 
+of adding two dates. Instead users are encouraged to use the new set 
+operations or to directly modify intervals with int_start() and int_end(), 
+which can also be used as settors. lubridate now supports negative intervals 
+as well as positive intervals. Intervals also now display with a time zone.
 
-* Modulo methods for timespans have been changed to return a timespan. this allows modulo methods to be used with integer division in an intuitive manner, e.g.
+* Modulo methods for timespans have been changed to return a timespan. this 
+allows modulo methods to be used with integer division in an intuitive manner, 
+e.g.
 
 a = a %/% b * b + a %% b
 
-Users can still acheive a numerical result by using as.numeric() on input before performing modulo.
+Users can still acheive a numerical result by using as.numeric() on input 
+before performing modulo.
 
 * Periods, durations, and intervals can now all be put into a data frame.
 
-* Periods, durations, and intervals can be intuitively subset with $ and []. These operations also can be used as settors with <-.
+* Periods, durations, and intervals can be intuitively subset with $ and []. 
+These operations also can be used as settors with <-.
 
-* The parsing functions and the as.period method for intervals are now slightly faster.
+* The parsing functions and the as.period method for intervals are now 
+slightly faster.
 
 * month<- and wday<- settors accept names as well as numbers
 
-* parsing functions now have a quiet argument to parse without messages and a tz argument to directly parse times into the desired time zone.
+* parsing functions now have a quiet argument to parse without messages and a 
+tz argument to directly parse times into the desired time zone.
 
 * logical comparison methods now work for period objects.
 
@@ -134,14 +188,19 @@ Version 0.2.3
 -------------------------------------------------------------------------
 NEW FEATURES
 
-* ymd_hms(), hms(), and ms() functions can now parse dates that include decimal values in the seconds element.
+* ymd_hms(), hms(), and ms() functions can now parse dates that include 
+decimal values in the seconds element.
 
-* milliseconds(), microseconds(), nanoseconds(), and picoseconds() create period objects of the specified lengths. dmilliseconds(), dmicroseconds(), dnanoseconds(), and dpicoseconds() make duration objects of the specified lengths.
+* milliseconds(), microseconds(), nanoseconds(), and picoseconds() create 
+period objects of the specified lengths. dmilliseconds(), dmicroseconds(), 
+dnanoseconds(), and dpicoseconds() make duration objects of the specified 
+lengths.
 
 
 BUG FIXES
 
-* lubridate no longer overwrites months(), start(), and end() from base R. Start and end have been replaced with int_start() and int_end(). 
+* lubridate no longer overwrites months(), start(), and end() from base R. 
+Start and end have been replaced with int_start() and int_end(). 
 
 * lubridate imports plyr and stringr packages, instead of depending on them.
 
@@ -149,7 +208,8 @@ Version 0.2.2
 -------------------------------------------------------------------------
 NEW FEATURES
 
-* made division, modulo, and integer division operations compatible with difftimes
+* made division, modulo, and integer division operations compatible with 
+difftimes
 
 * created c() methods for periods and durations
 
@@ -164,11 +224,13 @@ Version 0.2.1
 
 NEW FEATURES
 
-* created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().
+* created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm 
+mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().
 
 BUG FIXES
 
-* fixed bug in add_dates(). duration objects can now be successfully added to numeric objects.
+* fixed bug in add_dates(). duration objects can now be successfully added to 
+numeric objects.
 
 
 Version 0.2
@@ -176,22 +238,25 @@ Version 0.2
 
 NEW FEATURES
 
-* division between timespans: each timespan class (durations, periods, intervals) 
-  can be divided by other timespans. For example, how many weeks are there between 
-  Halloween and Christmas?: (christmas - halloween) / weeks(1)
+* division between timespans: each timespan class (durations, periods, 
+intervals) can be divided by other timespans. For example, how many weeks are 
+there between Halloween and Christmas?: (christmas - halloween) / weeks(1)
   
 * modulo operations between timespans
 
-* duration objects now have their own class and display format separate from difftimes
+* duration objects now have their own class and display format separate from 
+difftimes
 
-* interval objects now use an improved data structure and have a cleaner display format
+* interval objects now use an improved data structure and have a cleaner 
+display format
 
 * lubridate now loads its own namespace
 
-* math operations now automatically coerce interval objects to duration objects. Allows 
-  intervals to be used "right out of the box" without error messages.
+* math operations now automatically coerce interval objects to duration objects. 
+Allows intervals to be used "right out of the box" without error messages.
   
-* created start() and end() functions for accessing and changing the boundary date-times of an interval
+* created start() and end() functions for accessing and changing the boundary 
+date-times of an interval
 
 
 * rep() methods for periods, intervals, and durations
@@ -202,8 +267,8 @@ MINOR CHANGES
 
 * added a package help page with functions listed by purpose
 
-* eseconds(), eminutes(), etc. are aliased to dseconds(), dminutes(), etc. to make it easier 
-  to remember they are duration objects.
+* eseconds(), eminutes(), etc. are aliased to dseconds(), dminutes(), etc. to 
+make it easier to remember they are duration objects.
   
 * changed leap.years() to leap_years() to maintain consistent naming scheme
 
