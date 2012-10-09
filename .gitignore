@@ -5,3 +5,4 @@
 *.synctex.gz
 .DS_store
 .R*
+.DS_Store
