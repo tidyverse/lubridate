@@ -406,8 +406,9 @@ hms <- function(..., truncated = 0) {
 ##' parse_date_time(x, "ymd_hms", truncated = 3)
 ##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
-                          locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
+  locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
 
+  if (length(x) < 10) quiet <- TRUE
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   on.exit(Sys.setlocale("LC_TIME", orig_locale))  
