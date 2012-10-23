@@ -80,7 +80,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
     return(x)
   }
   
-	y <- floor_date(x - seconds(1), unit)
+	y <- floor_date(x - eseconds(1), unit)
 	
 	switch(unit,
 		minute = minute(y) <- minute(y) + 1,
