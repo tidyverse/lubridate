@@ -17,9 +17,10 @@ decimal_date.default <- function(date){
   if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
     stop("date(s) not in POSIXt or Date format")
   
-decimal <- as.numeric(difftime(date, floor_date(date, "year"), 
-  units = "secs"))/as.numeric(difftime(ceiling_date(date, 
-  "year"), floor_date(date, "year"), units = "secs"))
+  decimal <- as.numeric(difftime(date, floor_date(date, "year"), units = "secs"))
+  nonzero <- decimal != 0
+  decimal[nonzero] <- decimal[nonzero]/as.numeric(difftime(ceiling_date(date[nonzero], 
+  "year"), floor_date(date[nonzero], "year"), units = "secs"))
   
     year(date) + decimal
 }
