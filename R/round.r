@@ -75,6 +75,8 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
 	unit <- match.arg(unit) 
   
+	if(!length(x)) return(x)
+  
   if (unit == "second") {
     second(x) <- ceiling(second(x))
     return(x)
