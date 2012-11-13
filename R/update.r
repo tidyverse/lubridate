@@ -122,6 +122,9 @@ update.POSIXlt <- function(object, years = year(object), months = month(object),
   days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
   wday(object), hours = hour(object), minutes = minute(object), seconds = 
   second(object), tzs = tz(object), ...){
+  
+  if(!length(object)) return(object)
+  
   as.POSIXlt(update(as.POSIXct(object), years = years, months = 
     months, days = days, mdays = mdays, ydays = ydays, wdays = 
     wdays, hours = hours, minutes = minutes, seconds = 
