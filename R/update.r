@@ -47,7 +47,9 @@ update.POSIXct <- function(object, years = year(object),
 	wdays = wday(object), hours = hour(object), 
 	minutes = minute(object), seconds = second(object), 
 	tzs = tz(object), ...){
-    
+  
+  if(!length(object)) return(object)
+  
   d.length <- max(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
   d.length2 <- min(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
   
