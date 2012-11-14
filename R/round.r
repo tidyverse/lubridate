@@ -129,6 +129,9 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 #' round_date(x, "year")
 #' # "2010-01-01 CST"
 round_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
+
+  if(!length(x)) return(x)
+  
   unit <- match.arg(unit)
   
   below <- as.POSIXct(floor_date(x, unit))
