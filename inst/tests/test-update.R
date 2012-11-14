@@ -410,3 +410,15 @@ test_that("update handles gives error for non-conformable vectors of inputs",{
   expect_that(day(update(date, days = c(1,2), months = 
     c(1,2,3))), throws_error())
 })
+
+test_that("update.POSIXct returns input of length zero when given input of length zero",{
+  x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))
+  
+  expect_equal(update(x, days = 1), x)
+})
+
+test_that("update.POSIXlt returns input of length zero when given input of length zero",{
+  x <- as.POSIXlt(structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt")))
+  
+  expect_equal(update(x, days = 1), x)
+})

@@ -12,3 +12,9 @@ test_that("decimal_date works handles vectors",{
   expect_that(round(decimal_date(x), 3), equals(c(2008.589, 2009.587)))
   
 })
+
+test_that("decimal_date handles first second of year without returning NaN",{
+  
+  expect_equal(decimal_date(ymd("2012-01-01")), 2012)
+  
+})

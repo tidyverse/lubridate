@@ -187,3 +187,21 @@ test_that("floor_date does not round down dates that are already on a boundary",
 test_that("round_date does not round dates that are already on a boundary",{
   expect_equal(round_date(as.Date("2012-09-27"), 'day'), as.Date("2012-09-27"))
 })
+
+test_that("ceiling_date returns input of length zero when given input of length zero",{
+  x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))
+  
+  expect_equal(ceiling_date(x), x)
+})
+
+test_that("floor_date returns input of length zero when given input of length zero",{
+  x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))
+  
+  expect_equal(floor_date(x), x)
+})
+
+test_that("round_date returns input of length zero when given input of length zero",{
+  x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))
+  
+  expect_equal(round_date(x), x)
+})
