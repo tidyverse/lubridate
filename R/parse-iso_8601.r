@@ -73,7 +73,7 @@ ymd_hms_z <- function(..., quiet = FALSE, locale = Sys.getlocale("LC_TIME"),  tr
 #' @examples
 #' my_instant <- ymd_hms_o("2012-03-04T05:06:07-05:00")
 #' my_offset <- helper_offset(with_tz(my_instant, tz="America/New_York"), sep=":")
-#' paste(format(my_instant, "\%Y-\%m-\%dT\%H-\%M-\%S"), my_offset, sep="")
+#' paste(format(my_instant, "\%Y-\%m-\%dT\%H:\%M:\%S"), my_offset, sep="")
 #'
 ymd_hms_o <- function(..., quiet = FALSE, locale = Sys.getlocale("LC_TIME"),  truncated = 0){
   
@@ -131,7 +131,7 @@ ymd_hms_o <- function(..., quiet = FALSE, locale = Sys.getlocale("LC_TIME"),  tr
 #' @examples
 #' my_instant <- ymd_hms_o("2012-03-04T05:06:07-05:00")
 #' my_offset <- helper_offset(with_tz(my_instant, tz="America/New_York"), sep=":")
-#' paste(format(my_instant, "\%Y-\%m-\%dT\%H-\%M-\%S"), my_offset, sep="")
+#' paste(format(my_instant, "\%Y-\%m-\%dT\%H:\%M:\%S"), my_offset, sep="")
 #'
 helper_offset <- function(..., sep=":"){
   
