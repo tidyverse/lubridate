@@ -72,7 +72,7 @@ check_duration <- function(object){
 setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
 compute_estimate <- function (x) {  
-  seconds <- abs(x)
+  seconds <- abs(na.omit(x))
     if (any(seconds < 60)) 
         units <- "secs"
     else if (any(seconds < 3600))
@@ -94,16 +94,21 @@ compute_estimate <- function (x) {
 
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
-	print(format.Duration(object), quote = FALSE)
+	print(format.Duration(object), quote = TRUE)
 })
 
 #' @S3method format Duration
 format.Duration <- function(x, ...) {
   if (length(x@.Data) == 0) return("Duration(0)")
+  show <- vector(mode = "character")
+  na <- is.na(x)
+  
 	if (all(abs(na.omit(x@.Data)) < 120))
-		paste(x@.Data, "s", sep = "")
+		show <- paste(x@.Data, "s", sep = "")
 	else
-		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
+		show <- paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
+  show[na] <- NA
+  show
 }
 
 #' @export
