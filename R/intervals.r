@@ -545,4 +545,19 @@ setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
 	as.numeric(a@start) - as.numeric(b@start) <= b@.Data & as.numeric(a@start) - as.numeric(b@start) >= 0
 })
 
+#' @S3method summary Interval
+summary.Interval <- function(object, ...) {
+  nas <- is.na(object)
+  object <- object[!nas]
+  n <- length(object)
+  dates <- c(int_start(object), int_end(object))
+  earliest <- as.character(min(dates))
+  latest <- as.character(max(dates))
+  
+  qq <- c(n, earliest, latest)
+  names(qq) <- c("Intervals", "Earliest endpoint", "Latest endpoint")
+  if (any(nas)) 
+    c(qq, `NA's` = sum(nas))
+  else qq
+}
 
