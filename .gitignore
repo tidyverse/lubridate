@@ -7,3 +7,5 @@
 .R*
 .DS_Store
 .Rproj.user
+*.Rproj
+*.Rbuildignore
