@@ -42,6 +42,7 @@ check_duration <- function(object){
 #' @aliases $,Duration-method
 #' @aliases $<-,Duration-method
 #' @aliases as.difftime,Duration-method
+#' @aliases as.character,Duration-method
 #' @aliases +,Duration,Duration-method
 #' @aliases +,Duration,Interval-method
 #' @aliases +,Duration,Period-method

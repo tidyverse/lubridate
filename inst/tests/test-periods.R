@@ -85,6 +85,10 @@ test_that("as.period handles interval objects", {
   expect_that(as.period(int), equals(years(1)))
 })
 
+test_that("as.period handles NA objects", {
+  expect_true(is.na(as.period(NA)))
+})
+
 test_that("as.period handles vectors", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
@@ -130,4 +134,18 @@ test_that("format.Period correctly displays intervals of length 0", {
   per <- new_period(seconds = 5)
   
   expect_output(per[FALSE], "Period\\(0)")
+})
+
+test_that("c.Period correctly handles NAs", {
+  per <- new_period(seconds = 5)
+  
+  expect_true(is.na(c(per, NA)[2]))
+})
+
+test_that("summary.Period creates useful summary", {
+  per <- new_period(minutes = 5)
+  text <- c(rep("5M 0S", 6), 1)
+  names(text) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max.", "NA's")
+  
+  expect_equal(summary(c(per, NA)), text)
 })
