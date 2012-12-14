@@ -9,3 +9,4 @@
 .Rproj.user
 *.Rproj
 *.Rbuildignore
+*.DS_Store

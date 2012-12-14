@@ -206,7 +206,7 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
     .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
-ymdThms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
+ymdThms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0){
     dates <- unlist(list(...), use.names= FALSE)
     as.POSIXct(parse_date_time(dates, stop(), tz = tz, locale = locale, truncated = truncated, quiet = quiet))
 }

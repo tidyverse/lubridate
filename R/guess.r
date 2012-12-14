@@ -113,8 +113,7 @@
 ##' 
 guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                           preproc_wday = TRUE, print_matches = FALSE){
-  ## get all the formats which suite ORDERS
-  
+  ## get all the formats which suit ORDERS
   orders <- gsub("hms", "HMS", orders, ignore.case = TRUE)
   orders <- gsub("hm", "HM", orders, ignore.case = TRUE)
   orders <- gsub("ms", "MS", orders, ignore.case = TRUE)
