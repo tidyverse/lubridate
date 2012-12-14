@@ -128,3 +128,11 @@ test_that("format.Duration correctly displays durations with an NA", {
   
   expect_equivalent(format(dur), c("5s", NA))
 })
+
+test_that("summary.Duration creates useful summary", {
+  dur <- dminutes(5)
+  text <- c(rep("300s (~5 minutes)", 6), 1)
+  names(text) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max.", "NA's")
+  
+  expect_equal(summary(c(dur, NA)), text)
+})

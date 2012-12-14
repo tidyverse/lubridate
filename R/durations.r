@@ -332,3 +332,19 @@ dpicoseconds <- epicoseconds <- function(x = 1) picoseconds(x)
 #' is.duration(as.Date("2009-08-03")) # FALSE
 #' is.duration(new_duration(days = 12.4)) # TRUE
 is.duration <- function(x) is(x, "Duration")
+
+#' @S3method summary Duration
+summary.Duration <- function(object, ...) {
+  nas <- is.na(object)
+  object <- object[!nas]
+  nums <- as.numeric(object)
+  qq <- stats::quantile(nums)
+  qq <- c(qq[1L:3L], mean(nums), qq[4L:5L])
+  qq <- dseconds(qq)
+  qq <- as.character(qq)
+  names(qq) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", 
+                 "Max.")
+  if (any(nas)) 
+    c(qq, `NA's` = sum(nas))
+  else qq
+}
