@@ -234,7 +234,9 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' as.interval(3600, ymd("2009-01-01")) #numeric
 #' # 2009-01-01 UTC--2009-01-01 01:00:00 UTC
 as.interval <- function(x, start){
-	stopifnot(is.instant(start))
+  if (missing(start) & all(is.na(x)))
+    start <- as.POSIXct(NA, origin = origin)
+  else stopifnot(is.instant(start))
 	if (is.instant(x))
 		return(new_interval(x, start))
 	else
@@ -295,6 +297,7 @@ setGeneric("as.period")
 
 setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ...){
   x <- as.numeric(x)
+  if (missing(unit)) unit <- "second"
   unit <- standardise_date_names(unit)
   f <- match.fun(paste(unit, "s", sep = ""))
   f(x)
@@ -302,24 +305,7 @@ setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ..
 
 setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
   message("estimate only: convert difftimes to intervals for accuracy")
-  span <- as.double(x, "secs")
-  remainder <- abs(span)
-  newper <- new_period(second = rep(0, length(x)))
-  
-  slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
-  remainder <- remainder %% (3600 * 24 * 365.25)
-  
-  slot(newper,"day") <- remainder %/% (3600 * 24)
-  remainder <- remainder %% (3600 * 24)
-  
-  slot(newper, "hour") <- remainder %/% (3600)
-  remainder <- remainder %% (3600)
-  
-  slot(newper, "minute") <- remainder %/% (60)
-  
-  slot(newper, ".Data") <- remainder %% (60)
-  
-  newper * sign(span)
+  seconds_to_period(as.double(x, "secs"))
 })
 
 setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) {
@@ -407,6 +393,11 @@ setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) 
 setMethod("as.period", signature("Period"), function(x, unit = NULL, ...) x)
 
 #' @export
+setMethod("as.period", signature("logical"), function(x, unit = NULL, ...) {
+  as.period(as.numeric(x), unit, ...)
+})
+
+#' @export
 setGeneric("as.difftime")
 
 #' @export
@@ -457,3 +448,18 @@ setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", .
 
 
 as.POSIXt <- function(x) as.POSIXlt(x)
+
+#' @export
+setMethod("as.character", signature(x = "Period"), function(x, ...){
+  format(x)
+})
+
+#' @export
+setMethod("as.character", signature(x = "Duration"), function(x, ...){
+  format(x)
+})
+
+#' @export
+setMethod("as.character", signature(x = "Interval"), function(x, ...){
+  format(x)
+})
