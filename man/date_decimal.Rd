@@ -1,0 +1,28 @@
+\name{date_decimal}
+\alias{date_decimal}
+\title{Converts a decimal to a date.}
+\usage{
+  date_decimal(decimal, tz = NULL)
+}
+\arguments{
+  \item{decimal}{a numeric object}
+}
+\value{
+  a POSIXct object, whose year corresponds to the integer
+  part of decimal. The months, days, hours, minutes and
+  seconds elements are picked so the date-time will
+  accurately represent the fraction of the year expressed
+  by decimal.
+}
+\description{
+  Converts a decimal to a date.
+}
+\examples{
+date <- ymd("2009-02-10")
+decimal <- decimal_date(date)  # 2009.11
+date_decimal(decimal) # "2009-02-10 UTC"
+}
+\keyword{chron}
+\keyword{manip}
+\keyword{methods}
+
