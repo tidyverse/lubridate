@@ -27,7 +27,6 @@ is.POSIXct <- function(x) is(x, "POSIXct")
 #' a vector.
 #' @return \code{NULL} or an expression or a vector of an appropriate mode. 
 #' (With no arguments the value is \code{NULL}.)
-#' @S3method c POSIXct
 #' @export
 c.POSIXct <- function (..., recursive = FALSE) 
 	.POSIXct(c(unlist(lapply(list(...), unclass))), tz = tz(list(...)[[1]]))
