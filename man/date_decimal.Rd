@@ -6,6 +6,8 @@
 }
 \arguments{
   \item{decimal}{a numeric object}
+
+  \item{tz}{the time zone required}
 }
 \value{
   a POSIXct object, whose year corresponds to the integer
