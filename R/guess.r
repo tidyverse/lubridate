@@ -237,9 +237,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 }
 
 
-.get_loc_regs <- memoise::memoise(.get_locale_regs)
+.get_loc_regs <- memoise::memoise(.build_locale_regs)
 
-.get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
+.build_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
   
     orig_locale <- Sys.getlocale("LC_TIME")
     Sys.setlocale("LC_TIME", locale)
