@@ -200,11 +200,6 @@ ydm_h <- function(..., quiet = TRUE, tz = "UTC", locale = Sys.getlocale("LC_TIME
   .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
-## ymdThms <- function(..., quiet = TRUE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0){
-##     dates <- unlist(list(...), use.names= FALSE)
-##     as.POSIXct(parse_date_time(dates, stop(), tz = tz, locale = locale, truncated = truncated, quiet = quiet))
-## }
-
 
 
 ##' Create a period with the specified number of minutes and seconds
@@ -545,21 +540,6 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
     x <- paste(ifelse(nchar(x) %% 2 == 1, "0", ""), x, sep = "")
   }
   x
-}
-
-
-##' Deprecated internal function, use \code{\link{parse_date_time}} instead.
-##'
-##'
-##' @export parse_date
-##' @param x -
-##' @param formats -
-##' @param quiet -
-##' @param seps -
-##' @param tz - 
-parse_date <- function(x, formats, quiet = TRUE, seps = NULL, tz = "UTC") {
-
-  stop("Internal function parse_date has been removed from lubridate package. Plese use parse_date_time instead.")
 }
 
 ## parse.r ends here
