@@ -51,12 +51,12 @@ stamp <- function(x, orders = lubridate_formats,
   ## if( is.null(orders) )
   ##   orders <- 
 
-  fmts <- guess_formats(x, orders, locale)
+  fmts <- unique(guess_formats(x, orders, locale))
   if( is.null(fmts) ) stop( "Couldn't quess formats of: ", x)
   if( length(fmts) == 1L ){
     FMT <- fmts[[1]]
   }else{
-    trained <- .train_formats(x, unique(fmts))
+    trained <- .train_formats(x, fmts)
     formats <- .select_formats(trained)
     FMT <- formats[[1]]
     if( !quiet && length(trained) > 1 )
