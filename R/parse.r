@@ -425,7 +425,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   if( truncated != 0 )
     orders <- .add_truncated(orders, truncated)
 
-  .local_parse <- function(x){
+  .local_parse <- function(x, first = FALSE){
     train <- .get_train_set(x)
     formats <- .best_formats(train, orders, locale = locale, .select_formats)
     if( length(formats) > 0 ){
@@ -435,6 +435,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
         out[new_na] <- .local_parse(x[new_na])
       out
     }else{
+      if ( first && !quiet)
+        stop("No formats could be infered from the training set.")
       failed <<- length(x)
       NA
     }
@@ -443,21 +445,12 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   failed <- 0L
   to_parse <- !is.na(x)
   x <- .enclose(x)
-  train <- .get_train_set(x[to_parse])
-  formats <- .best_formats(train, orders, locale = locale, .select_formats)
-  if(length(formats) == 0L & length(x) != 1L) 
-    stop("No formats could be infered from the training set.")
-  if( !is.null(formats) ){
-    out <- .parse_date_time(x, formats, locale = locale, quiet = quiet, tz = tz)
-    to_parse <- is.na(out) & to_parse
-    out[to_parse] <- .local_parse(x[to_parse])
-  }else{
-    out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)
-    failed <- sum(to_parse)
-  }
+  ## out <- rep.int(NA, length(x))
+  out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)
+  out[to_parse] <- .local_parse(x[to_parse], TRUE)
   
   if( failed > 0 && !quiet )
-    message(failed, " failed to parse.")
+    message(" ", failed, " failed to parse.")
   
   out
 }
