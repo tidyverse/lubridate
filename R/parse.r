@@ -426,7 +426,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
       out
     }else{
       if ( first && !quiet)
-        stop("No formats could be infered from the training set.")
+        warning("No formats could be infered from the training set.")
       failed <<- length(x)
       NA
     }
