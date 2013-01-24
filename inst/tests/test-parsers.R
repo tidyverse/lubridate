@@ -307,19 +307,38 @@ test_that("fractional formats are correctly parsed", {
 })
 
 
-test_that("z format is correctly parsed",
-          expect_that(
-            parse_date_time("2012-12-04 15:06:06.95-0800", "YmdHMOSz"),
-            equals(as.POSIXlt("2012-12-04 23:06:06.95 UTC", tz = "UTC"))))
+test_that("ISO8601: lubridate %Ot format is correctly parsed",{
+
+
+test_that("ISO8601: %z format (aka lubridate %Ot, %OO and %Oo formats) is correctly parsed",{
+  
+  expect_that(
+    parse_date_time("2012-12-04 15:06:06.95-0800", "YmdHMOSz"),
+    equals(as.POSIXlt("2012-12-04 23:06:06.95 UTC", tz = "UTC")))
+  
+  expect_that(
+    parse_date_time(c("2012-12-04 15:06:06.95-08", "2012-12-04 15:06:06.95+08:00"), "YmdHMOSz"),
+    equals(as.POSIXlt(c("2012-12-04 23:06:06.95 UTC", "2012-12-04 07:06:06.95 UTC"), tz = "UTC")))
+  
+})
+
+
+
+## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00", 
+##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00", 
+##   "2012-12-04 17:16:05.097000-08:00")
+
 
 ## ## ### speed:
 ## options(digits.secs = 0)
-## tt <- rep(as.character(Sys.time()), 1e5)
+## tt <- c(rep(as.character(Sys.time()), 1e5))#, "sfds", "sdfdsf")
 
 ## system.time(out <- as.POSIXct(tt, tz = "UTC"))
 ## system.time(out <- ymd_hms(tt))
 
 ## ttz <- paste(tt, "-06:00", sep = "")
+## system.time(parse_date_time(ttz, "YmdHMOSz"))
+## head(parse_date_time(ttz, "YmdHMOSz"))
 ## system.time(out <- ymd_hms_o(ttz))
 
 ## tt <- rep(c(as.character(Sys.time()), as.character(Sys.Date())), 5e5)
