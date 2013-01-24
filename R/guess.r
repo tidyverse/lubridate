@@ -202,15 +202,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   paste("@", fmts, "@", sep = "")
 
 
-.train_formats <- function(x, formats, locale ) {
-  x <- .enclose(x)
-  formats2 <- .enclose(formats)
-  trials <- lapply(formats2, function(fmt) strptime(x, fmt))
-  successes <- unlist(lapply(trials, function(x) sum(!is.na(x))), use.names = FALSE)
-  names(successes) <- formats
-  successes
-}
-
 .get_train_set <- function(x){
   ## the smartest irregular guesser I could came up with
   len <- length(x)
@@ -222,13 +213,22 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     x[ .primes * (length(x) %/% 3571) ] #501 primes
 }
 
-.select_formats <-   function(trained){
-  n_fmts <- nchar(gsub("[^%]", "", names(trained))) + grepl("%Y", names(trained))*1.5
-  names(trained[ which.max(n_fmts) ])
+
+.train_formats <- function(x, formats, locale ) {
+  ## return a numeric vector of size length(formats), with each element giving
+  ## the number of matched elements in X
+  ## can return NULL if formats is NULL
+  x <- .enclose(x)
+  formats2 <- .enclose(formats)
+  trials <- lapply(formats2, function(fmt) strptime(x, fmt))
+  successes <- unlist(lapply(trials, function(x) sum(!is.na(x))), use.names = FALSE)
+  names(successes) <- formats
+  successes
 }
 
-
 .best_formats <- function(x, orders, locale, .select_formats){
+  ## return a vector of formats that matched X at least once.
+  ## Can be zero length vector, if none matched
   fmts <- guess_formats(x, orders, locale = locale, preproc_wday = TRUE) # orders as names
   trained <- .train_formats(x, unique(fmts), locale = locale)
   
@@ -236,7 +236,13 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   .select_formats(trained)
 }
 
+.select_formats <-   function(trained){
+  n_fmts <- nchar(gsub("[^%]", "", names(trained))) + grepl("%Y", names(trained))*1.5
+  names(trained[ which.max(n_fmts) ])
+}
 
+
+## cache the regexp value fro each locale
 .get_loc_regs <- memoise::memoise(.build_locale_regs)
 
 .build_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
