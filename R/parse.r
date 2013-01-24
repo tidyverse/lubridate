@@ -516,8 +516,10 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
 .parse_xxx_hms <- function(..., orders, truncated, quiet, tz, locale){
   if( truncated > 0 ){
-    xxx <- substr(orders, 1, 3)
-    add <- paste(xxx, .xxx_hms_truncations[[substr(orders, 4, 4)]], sep = "")
+    ## Take first 3 formats and append formats from .xxx_hms_truncations
+    ## co responding to the 4th format letter in order[[1]] -- T, R or r.
+    xxx <- substr(orders[[1]], 1, 3) ##
+    add <- paste(xxx, .xxx_hms_truncations[[substr(orders[[1]], 4, 4)]], sep = "")
     rest <- length(add) - truncated
     if( rest  < 0 )
       orders <- c(orders, add, .add_truncated(xxx, abs(rest)))
