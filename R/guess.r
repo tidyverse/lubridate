@@ -259,10 +259,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   tzwarn <- FALSE
   
-  if( grepl("%Ot", fmt, fixed = T) ){
+  if( grepl("%Ou", fmt, fixed = T) ){
     ## UTC (ISO8601 with Z) ignoring tz
     tzwarn <- TRUE
-    fmt <- sub("%Ot", "Z", fmt, fixed = T)
+    fmt <- sub("%Ou", "Z", fmt, fixed = T)
   }else if( grepl("%OO", fmt, fixed = T) ){
     ## time zone in -08:00 format
     tzwarn <- TRUE
@@ -331,8 +331,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       sprintf("(?<A_A>%s)(?![[:alpha:]])",
               paste(unique(mat[, "A"]), collapse = "|"))
 
-    ## just match Z in ISO8601
-    alpha["Ot"] <- "(?<Ot_Ot>Z)(?![[:alpha:]])"
+    ## just match Z in ISO8601, (UTC zulu format)
+    alpha["Ou"] <- "(?<Ou_Ou>Z)(?![[:alpha:]])"
     
     p <- unique(mat[, "p"])
     p <- p[nzchar(p)]
@@ -413,14 +413,14 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     num_flex["m"] <- sprintf("((?<m>1[0-2]|0?[1-9](?!\\d))|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]])) 
     num_exact["m"] <- sprintf("((?<m_e>1[0-2]|0[1-9])|(%s))", gsub("_[bB]", "\\1_m_e>", alpha[["b"]]))
 
+    ## canoot be in num above because gsub("+", "*") messes it up
+    num_flex["OS"] <- "(?<OS_f>[0-5]\\d\\.\\d+)" 
+    num_exact["OS"] <- "(?<OS_e>[0-5]\\d\\.\\d+)"
+    num_flex["z"] <- sprintf("(%s|%s|%s|%s)", alpha_flex[["Ou"]], num_flex[["Oz"]], num_flex[["OO"]], num_flex[["Oo"]])
+    num_exact["z"] <- sprintf("(%s|%s|%s|%s)", alpha_exact[["Ou"]], num_exact[["Oz"]], num_exact[["OO"]], num_exact[["Oo"]])
+
     list(alpha_flex = alpha_flex, num_flex = num_flex,
            alpha_exact = alpha_exact, num_exact = num_exact)
 }
 
-
-    ## canoot be in num above because gsub("+", "*") messes it up
-    num_flex["OS"] <- "(?<OS_f>[0-5]\\d\\.\\d+)" 
-    num_exact["OS"] <- "(?<OS_e>[0-5]\\d\\.\\d+)"
-    num_flex["z"] <- sprintf("(%s|%s|%s|%s)", alpha_flex[["Ot"]], num_flex[["Oz"]], num_flex[["OO"]], num_flex[["Oo"]])
-    num_exact["z"] <- sprintf("(%s|%s|%s|%s)", alpha_exact[["Ot"]], num_exact[["Oz"]], num_exact[["OO"]], num_exact[["Oo"]])
 
