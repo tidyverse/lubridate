@@ -24,15 +24,14 @@ lubridate_formats <- local({
     out
 })
 
-##' Parse dates according to the order that year, month, and day elements appear
-##' in the input vector.
+##' Parse dates according to the order in that year, month, and day elements
+##' appear in the input vector.
 ##'
 ##' Transforms dates stored in character and numeric vectors to POSIXct
 ##' objects. These functions recognize arbitrary non-digit separators as well as
 ##' no separator. As long as the order of formats is correct, these functions
 ##' will parse dates correctly even when the input vectors contain differently
-##' formatted dates. See examples. For even more flexibility in treatment of
-##' heterogeneous formats see low level parser \code{\link{parse_date_time}}.
+##' formatted dates. See examples.
 ##'
 ##' \code{ymd} family of functions automatically assign the Universal
 ##' Coordinated Time Zone (UTC) to the parsed dates. This time zone can be
@@ -58,7 +57,7 @@ lubridate_formats <- local({
 ##' can use \code{system("locale -a")} to list all the installed locales.
 ##' @param truncated integer. Number of formats that can be truncated. 
 ##' @return a vector of class POSIXct 
-##' @seealso \code{\link{parse_date_time}} for underlying mechanism.
+##' @seealso \code{\link{parse_date_time}} for an even more flexible low level mechanism.
 ##' @keywords chron 
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -127,11 +126,8 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' \code{2012-06-01}. NOTE: \code{ymd} family of functions are based on
 ##' \code{strptime} which currently fails to parse \code{\%y-\%m} formats.
 ##'
-##' ymdThms() specifically handles combined dates and times written in the ISO
-##' 8601 format.
-##'
-##' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
-##' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h ymdThms
+##' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h 
+##' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h
 ##' @param ... a character vector of dates in year, month, day, hour, minute, 
 ##'   second format 
 ##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
@@ -164,11 +160,17 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##'        "Automatic wday, Thu, detection, 10-01-10 10:01:10 and p format: AM",
 ##'        "Created on 10-01-11 at 10:01:11 PM")
 ##' ymd_hms(x)
+##'
+##' ## ** fractional seconds **
+##' op <- options(digits.secs=3)
+##' dmy_hms("20/2/06 11:16:16.683")
+##' ## "2006-02-20 11:16:16.683 UTC"
+##' options(op)
 ##' 
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ##' ymd_hms(x, truncated = 3)
-##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##' ##"2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##' x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
 ##' ymd_hm(x, truncated = 2)
 ##' ## "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
@@ -176,7 +178,8 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' ## ** What lubridate might not handle **
 ##' ## Extremely weird cases when one of the separators is "" and some of the
 ##' ## formats are not in double digits might not be parsed correctly:
-##' \dontrun{ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
+##' \dontrun{
+##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
 ##' ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 ##' 
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
@@ -288,21 +291,26 @@ hms <- function(..., truncated = 0) {
 }
 
 
-##' Function to parse character and numeric date-time vectors with user friendly
-##' order formats.
+##' Parse character and numeric date-time vectors with user friendly order
+##' formats.
+##'
+##' As \code{strptime} \code{parse_date_time} parses a character vector into
+##' POSIXct date-time object but with two major differences. First, it allows
+##' the user to specify only the order in which the formats occur, with no need
+##' to include separators and "\%" prefix. Second, it allows the user to specify
+##' several format-orders to handle heterogeneous date-time character
+##' representations. See examples.
 ##'
 ##'
-##' As compared to \code{strptime} parser, \code{parse_date_time} allows to
-##' specify only the order in which the formats occur instead of the full
-##' format.  As it was specifically designed to handle heterogeneous date-time
-##' formats at once, you can specify several alternative
-##' orders. \code{parse_date_time} sorts the supplied formats based on a training
-##' set and then applies them recursively on the input vector.
+##' When several format-orders are specified \code{parse_date_time} sorts the
+##' supplied format-orders based on a training set and then applies them
+##' recursively on the input vector.
 ##'
-##' Below are all the implemented formats recognized by lubridate. For all
-##' numeric formats leading 0s are optional. All formats are case
-##' insensitive. As compared to \code{strptime}, some of the formats have been
-##' extended for efficiency reasons. They are marked with "*"
+##' Below are all the implemented formats recognized by lubridate. For numeric
+##' formats leading 0s are optional. All formats are case insensitive.
+##'
+##' As compared to \code{strptime}, some of the formats have been extended for
+##' efficiency reasons. They are marked with "*"
 ##'
 ##' \describe{ \item{\code{a}}{Abbreviated weekday name in the current
 ##' locale. (Also matches full name)}
@@ -320,7 +328,7 @@ hms <- function(..., truncated = 0) {
 ##' \item{\code{H}}{Hours as decimal number (00--24 or 0--24).}
 ##' \item{\code{I}}{Hours as decimal number (01--12 or 0--12).}
 ##' \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
-##' \item{\code{m}*}{Month as decimal number (01--12 or 1--12). Also matches abbreviated 
+##' \item{\code{m*}}{Month as decimal number (01--12 or 1--12). Also matches abbreviated 
 ##' and full months names as \code{b} and \code{B} formats}
 ##' \item{\code{M}}{Minute as decimal number (00--59 or 0--59).}
 ##' \item{\code{p}}{AM/PM indicator in the locale.  Used in
@@ -338,14 +346,14 @@ hms <- function(..., truncated = 0) {
 ##' \item{\code{W}}{Week of the year as decimal number (00--53 or 0-53) using
 ##'                   Monday as the first day of week (and typically with the
 ##'                                                    first Monday of the year as day 1 of week 1).  The UK convention.}
-##' \item{\code{y}*}{Year without century (00--99 or 0--99).  Also matches year with century (Y format).}
+##' \item{\code{y*}}{Year without century (00--99 or 0--99).  Also matches year with century (Y format).}
 ##' \item{\code{Y}}{Year with century.} 
 ##' \item{\code{z}}{Signed offset in hours and minutes from UTC, so
 ##'                   \code{-0800} is 8 hours behind UTC.}
 ##'
-##' \item{\code{r}*}{Matches \code{Ip} and \code{H} orders.}
-##' \item{\code{R}*}{Matches \code{HM} and\code{IMp} orders.}
-##' \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
+##' \item{\code{r*}}{Matches \code{Ip} and \code{H} orders.}
+##' \item{\code{R*}}{Matches \code{HM} and\code{IMp} orders.}
+##' \item{\code{T*}}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 ##' 
 ##'   }
 ##'
