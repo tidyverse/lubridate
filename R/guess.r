@@ -296,7 +296,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       ## X = "(?<X>[012]?\\d:[0-5]?\\d:[0-6]?\\d)", 
       Y = "(?<Y>\\d{4})",
       y = "((?<Y_y>\\d{4})|(?<y>\\d{2}))",
-      z = "(?<z>[-+]\\d{4,}))", ## R implements only 4 digits
+      z = "(?<z>[-+]\\d{4,})", ## sptrtime implements only this format (4 digits)
       ## F = "(?<F>\\d{4)-\\d{2}-\\d{2})", 
       Q = "(?<OS>[0-5]\\d\\.\\d+)" ## fractional
     )
