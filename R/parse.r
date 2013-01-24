@@ -60,17 +60,17 @@
 ##' dmy("0312-2010", "312-2010")}
 ##' 
 ymd <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 ydm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
-    .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 mdy <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
-    .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 myd <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
-    .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 dmy <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
-    .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0) 
-    .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
 ##' Parse dates that have hours, minutes, or seconds elements.
@@ -151,33 +151,33 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 ##' 
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
-    .parse_xxx_hms(..., orders = c("ymdTz", "ymdT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 }
 ymd_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders =  "ymdR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders =  "ymdR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 ymd_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = "ymdr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "ymdr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 dmy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = c("dmyTz", "dmyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 dmy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 mdy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = c("mdyTz", "mdyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)    
+  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)    
 mdy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = "mdyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "mdyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 mdy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = "mdyr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "mdyr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 ydm_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = c("ydmTz", "ydmT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 ydm_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-    .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
 ## ymdThms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0){
@@ -207,8 +207,8 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' ms("6,5")
 ##' # 6 minutes and 5 seconds
 ms <- function(...) {
-    hms <- .parse_hms(..., orders = "MS")
-    new_period(minute = hms$min, second = hms$sec)
+  hms <- .parse_hms(..., orders = "MS")
+  new_period(minute = hms$min, second = hms$sec)
 }
 
 
@@ -232,8 +232,8 @@ ms <- function(...) {
 ##' hm("6,5")
 ##' # [1] 6 hours and 5 minutes
 hm <- function(...) {
-    time <- .parse_hms(..., orders = "R")
-    new_period(hour = time$hour, minute = time$min)
+  time <- .parse_hms(..., orders = "R")
+  new_period(hour = time$hour, minute = time$min)
 }
 
 ##' Create a period with the specified hours, minutes, and seconds
@@ -257,8 +257,8 @@ hm <- function(...) {
 ##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
 ##' ## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds 
 hms <- function(..., truncated = 0) {
-    time <- .parse_hms(..., orders = "T", truncated = truncated)
-    new_period(hour = time$hour, minute = time$min, second = time$sec)
+  time <- .parse_hms(..., orders = "T", truncated = truncated)
+  new_period(hour = time$hour, minute = time$min, second = time$sec)
 }
 
 
@@ -385,7 +385,7 @@ hms <- function(..., truncated = 0) {
 ##' parse_date_time(x, "ymd_hms", truncated = 3)
 ##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
-  locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
+                            locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
 
   if (length(x) < 10) quiet <- TRUE
   orig_locale <- Sys.getlocale("LC_TIME")
@@ -444,10 +444,10 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   out
 }
 
-# expand format strings to also include truncated formats
-# Get locations of letters as vector
-# Choose the number at the n - truncated place in the vector
-# return the substring created by 1 to tat number
+## Expand format strings to also include truncated formats
+## Get locations of letters as vector
+## Choose the number at the n - truncated place in the vector
+## return the substring created by 1 to tat number
 .add_truncated <- function(orders, truncated){  
   out <- orders
   
@@ -474,11 +474,11 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
       truncs
     }
   }
-  
+
   for (i in seq_along(orders)) {
     out <- c(out, trunc_one(orders[i]))
   }
-   
+
   out
 }
 
@@ -486,15 +486,15 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
 
 .parse_hms <- function(..., orders,  truncated = 0){
-    hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
-    orders <- paste("Ymd", orders, sep = "")
-    hms <- paste("1970-01-01", hms, sep = "-")
-    ## ugly hack, but what can we do :(
-    tryCatch(parse_date_time(hms, orders, truncated =  truncated, quiet = TRUE),
-             error = function(e){
-                 e$message <- gsub("%Y-%m-%d", "", e$message)
-                 stop(e)
-             })
+  hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
+  orders <- paste("Ymd", orders, sep = "")
+  hms <- paste("1970-01-01", hms, sep = "-")
+  ## ugly hack, but what can we do :(
+  tryCatch(parse_date_time(hms, orders, truncated =  truncated, quiet = TRUE),
+           error = function(e){
+             e$message <- gsub("%Y-%m-%d", "", e$message)
+             stop(e)
+           })
 }
 
 
