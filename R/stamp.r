@@ -46,7 +46,7 @@
 ##' stamp("Sun Aug 5")(D) #=> "Sun Aug 04" "Sat Aug 04" "Fri Aug 04" "Thu Aug 04" "Wed Aug 03"
 ##' stamp("12/31/99")(D)              #=> "06/09/11"
 ##' stamp("Sunday, May 1, 2000 22:10")(D)
-stamp <- function(x, orders = unlist(lubridate_formats),
+stamp <- function(x, orders = lubridate_formats,
                   locale = Sys.getlocale("LC_TIME"), quiet = FALSE){
   ## if( is.null(orders) )
   ##   orders <- 
@@ -79,11 +79,32 @@ stamp_date <- function(x, locale = Sys.getlocale("LC_TIME"))
   stamp(x, orders = c("ymd", "dmy", "mdy", "ydm", "dym", "myd", "my", "ym", "md", "dm", "m", "d", "y"),
         locale = locale)
 
-
-
 ##'
 ##' @rdname stamp
 ##' @export
 stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"))
   stamp(x, orders = c("hms", "hm", "ms", "h", "m", "s"), locale = locale)
+
+##' Lubridate format orders used in \code{stamp}
+##' 
+##' @format  character vector of formats.
+##' @docType data
+##' @seealso \code{\link{parse_date_time}}, \code{\link{ymd}}, \code{\link{ymd_hms}}
+##' @keywords chron
+##' @examples
+##' str(lubridate_formats)
+lubridate_formats <- local({
+  xxx <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
+  names(xxx) <- xxx    
+  out <- character()
+  for(D in xxx){
+    out[[paste(D, "_hms", sep = "")]] <- paste(xxx[[D]], "T", sep = "")
+    out[[paste(D, "_hm", sep = "")]] <- paste(xxx[[D]], "R", sep = "")
+    out[[paste(D, "_h", sep = "")]] <- paste(xxx[[D]], "r", sep = "")
+  }    
+  
+  out <- c(out, xxx, my = "my", ym = "ym", md = "md", dm = "dm", 
+           hms = "T", hm = "R", ms = "MS", h = "r", m = "m", y = "y")
+  out
+})
 

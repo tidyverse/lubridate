@@ -1,29 +1,3 @@
-##' Lubridate format orders used in \code{ymd}, \code{hms} and \code{ymd_hms}
-##' family of functions.
-##'
-##' These orders are passed to \code{parse_date_time} low level parsing function.
-##' @export lubridate_formats
-##' @format Named list with formats.
-##' @docType data
-##' @seealso \code{\link{parse_date_time}}, \code{\link{ymd}}, \code{\link{ymd_hms}}
-##' @keywords chron
-##' @examples
-##' str(lubridate_formats)
-lubridate_formats <- local({
-    xxx <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
-    names(xxx) <- xxx    
-    out <- character()
-    for(D in xxx){
-        out[[paste(D, "_hms", sep = "")]] <- paste(xxx[[D]], "T", sep = "")
-        out[[paste(D, "_hm", sep = "")]] <- paste(xxx[[D]], "R", sep = "")
-        out[[paste(D, "_h", sep = "")]] <- paste(xxx[[D]], "r", sep = "")
-    }    
-    
-    out <- c(out, xxx, my = "my", ym = "ym", md = "md", dm = "dm", 
-             hms = "T", hm = "R", ms = "MS", h = "r", m = "m", y = "y")
-    out
-})
-
 ##' Parse dates according to the order in that year, month, and day elements
 ##' appear in the input vector.
 ##'
