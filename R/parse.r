@@ -459,13 +459,13 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 ### INTERNAL
 
 .parse_date_time <- function(x, formats, locale, quiet, tz){
-  
-  out <- strptime(x, formats[[1]], tz = tz)
+  ## recursive parsing 
+  out <- .strptime(x, formats[[1]], tz = tz)
   na <- is.na(out$year)
   newx <- x[na]
   
-  if(!quiet &  sum(!na) > 0)
-    message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
+  if(!quiet && (tsum <- sum(!na)) > 0)
+    message(" ", tsum , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   if( length(formats) > 1 && length(newx) > 0 )
     out[na] <- .parse_date_time(newx, formats[-1], quiet, tz)
