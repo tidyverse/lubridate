@@ -269,7 +269,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     ## time zone in -08:00 format
     tzwarn <- TRUE
     fmt <- sub("%OO", "%z", fmt, fixed = T)
-    x <- sub("([+-]\\d{2}:(?=\\d.*$))", "\\1", x, perl = T)
+    x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = T)
   }else if( grepl("%Oo", fmt, fixed = T) ){
     ## time zone in -08 format
     tzwarn <- TRUE
