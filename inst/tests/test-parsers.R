@@ -307,15 +307,20 @@ test_that("fractional formats are correctly parsed", {
 })
 
 
-
-
+test_that("z format is correctly parsed",
+          expect_that(
+            parse_date_time("2012-12-04 15:06:06.95-0800", "YmdHMOSz"),
+            equals(as.POSIXlt("2012-12-04 23:06:06.95 UTC", tz = "UTC"))))
 
 ## ## ### speed:
 ## options(digits.secs = 0)
-## tt <- rep(as.character(Sys.time()), 1e6)
+## tt <- rep(as.character(Sys.time()), 1e5)
 
 ## system.time(out <- as.POSIXct(tt, tz = "UTC"))
 ## system.time(out <- ymd_hms(tt))
+
+## ttz <- paste(tt, "-06:00", sep = "")
+## system.time(out <- ymd_hms_o(ttz))
 
 ## tt <- rep(c(as.character(Sys.time()), as.character(Sys.Date())), 5e5)
 ## system.time(out <- as.POSIXct(tt, tz = "UTC"))
