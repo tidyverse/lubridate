@@ -118,16 +118,18 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   orders <- gsub("hm", "HM", orders, ignore.case = TRUE)
   orders <- gsub("ms", "MS", orders, ignore.case = TRUE)
   
-  orders <- gsub("[^[:alpha:]]+", "", orders) ## remove all non-alphas from the beginning
-  ## orders <- gsub("OS\\d*", "Q", orders) ## hack to make the following work:
+  orders <- gsub("[^[:alpha:]]+", "", orders) ## remove all separators
   osplits <- strsplit(orders, "", fixed = TRUE)
 
-  osplits <- lapply(osplits, function(ospt){
-    ## perl's lookahead is not working in strsplit. Thus need this junk.
-    if( length(which_O <- which(ospt == "O")) > 0 ){
-      ospt[which_O + 1] <- paste("O", ospt[which_O + 1], sep = "")
-      ospt[-which_O]
-    }})
+  osplits <- lapply(osplits,
+                    function(ospt){
+                      ## perl lookahead is not working in strsplit. Thus this junk.
+                      if( length(which_O <- which(ospt == "O")) > 0 ){
+                        ospt[which_O + 1] <- paste("O", ospt[which_O + 1], sep = "")
+                        ospt[-which_O]
+                      }else
+                        ospt
+                    })
 
   reg <- .get_loc_regs(locale)
 
@@ -240,8 +242,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 .best_formats <- function(x, orders, locale, .select_formats){
   ## return a vector of formats that matched X at least once.
   ## Can be zero length vector, if none matched
-  fmts <- guess_formats(x, orders, locale = locale, preproc_wday = TRUE) # orders as names
-  trained <- .train_formats(x, unique(fmts), locale = locale)
+  fmts <- unique(guess_formats(x, orders, locale = locale, preproc_wday = TRUE)) # orders as names
+  trained <- .train_formats(x, fmts, locale = locale)
   
   trained <- trained[ trained > 0 ]
   .select_formats(trained)
