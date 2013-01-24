@@ -134,6 +134,26 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' dmy_hms("20/2/06 11:16:16.683")
 ##' ## "2006-02-20 11:16:16.683 UTC"
 ##' options(op)
+##'
+##' ## ** different formats for ISO8601 timezone offset **
+##' ymd_hms(c("2013-01-24 19:39:07.880-0600",
+##' "2013-01-24 19:39:07.880", "2013-01-24 19:39:07.880-06:00",
+##' "2013-01-24 19:39:07.880-06", "2013-01-24 19:39:07.880Z"))
+##'
+##' ## ** internationalization **
+##' \dontrun{
+##'
+##' x_CN <- "星期二 2012 八月 14 12:07:40 下午"
+##' ymd_hms(x_CN, locale = "zh_CN.utf8")
+##' guess_formats(x_CN, "ymdT", locale = "zh_CN.utf8")
+##' 
+##' x_RO <- "Ma 2012 august 14 11:28:30 "
+##' ymd_hms(x_RO, locale = "ro_RO.utf8")
+##' 
+##' x_RU <- "Вт. 2012 Август 14 11:28:19 "
+##' x_RU2 <- "Вт. 2012 авг. 14 11:52:57 "
+##' ymd_hms(c(x_RU, x_RU2), locale = "ru_RU.utf8")
+##' }
 ##' 
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
