@@ -301,7 +301,18 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     mat <- do.call(rbind, strsplit(L, "@", fixed = TRUE))
     mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) ## escaping all meta chars
     names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
+
+    ## Captures should be unique. Thus we build captures with the following rule.
+    ## Capture starts with the name of strptime format (B, b, y etc)
+    ## It ends with _e or _f indicating whether the expression is an exact or
+    ## fixed match, see below.
+
+    ## It can contain _x where x is a main format in which this format
+    ## occurs. For example <B_b_e> is an exact capture in the strptime format B
+    ## but that also matches b in lubridate. Try lubridate:::.get_loc_regs()
+    ## todo: elaborate this explanation
     
+    ## ALPHABETIC FORMATS
     alpha <- list()
     alpha["b"] <- 
       sprintf("((?<b_b>%s)|(?<B_b>%s))(?![[:alpha:]])",
@@ -328,9 +339,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     alpha["p"] <-
       if ( length(p) == 0L ) ""
     else sprintf("(?<p>%s)(?![[:alpha:]])", paste(p, collapse = "|"))
-    
+
     alpha <- unlist(alpha)
-    
+
+    ##  NUMERIC FORMATS
     num <- num_flex <- num_exact <- c(
       d = "(?<d>[012]?[1-9]|3[01]|[12]0)",
       H = "(?<H>2[0-4]|[01]?\\d)",
@@ -380,6 +392,16 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     ## don't let special nms be confused with standard formats
     num[nms] <- gsub("(<[IMSpHS]|<OS)", "\\1_s", num[nms]) 
     
+
+    ## The difference between flex regexp and exact is that flex should follow
+    ## by non-digit, thus flexible strings like 12-1-2 can be matched. In exact
+    ## regexp a number need not be followed by non-number, but then the number
+    ## of digits in a number should be precisely specified. This allows matching
+    ## 120102. *Note*: the exact regexps is build from flex regex by gsubing
+    ## below. So, pay attention when you modify the regexp above.
+
+    alpha_flex <- alpha
+    alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE)
 
     num_exact <- num_flex <- num
     num_flex[] <- sprintf("%s(?!\\d)", num) 
