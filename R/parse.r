@@ -387,7 +387,6 @@ hms <- function(..., truncated = 0) {
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                             locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
 
-  if (length(x) < 10) quiet <- TRUE
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   on.exit(Sys.setlocale("LC_TIME", orig_locale))  
@@ -434,8 +433,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   na <- is.na(out$year)
   newx <- x[na]
   
-  if(!quiet && (tsum <- sum(!na)) > 0)
-    message(" ", tsum , " parsed with ", gsub("^@|@$", "", formats[[1]]))
+  if( !quiet )
+    message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   if( length(formats) > 1 && length(newx) > 0 )
     out[na] <- .parse_date_time(newx, formats[-1], quiet, tz)
