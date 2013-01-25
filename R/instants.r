@@ -18,19 +18,34 @@ is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "PO
 #'
 #' @export now
 #' @param tzone a character vector specifying which time zone you would like 
-#'   the current time in. tzone defaults to the system time zone set on your 
-#'   computer.
+#'   the current time in. tzone defaults to Universal Coordinated Time (UTC). You 
+#'   can retrieve the current time in your local timezone with now("").
 #' @return the current date and time as a POSIXct object
+#' 
+#' @seealso \code{\link{here}}
 #'
 #' @keywords chron utilities
 #' @examples
 #' now()
 #' now("GMT")
+#' now("")
 #' now() == now() # would be true if computer processed both at the same instant
 #' now() < now() # TRUE
 #' now() > now() # FALSE
-now <- function(tzone = "") 
+now <- function(tzone = "UTC") 
   with_tz(Sys.time(), tzone)
+
+#' The current time in your local timezone
+#'
+#' @export here
+#' @return the current date and time as a POSIXct object
+#' 
+#' @seealso \code{\link{now}}
+#'
+#' @keywords chron utilities
+#' @examples
+#' here()
+here <- function() now("") 
 
 
 #' The current date 

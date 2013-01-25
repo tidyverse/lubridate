@@ -2,12 +2,13 @@
 \alias{now}
 \title{The current time}
 \usage{
-  now(tzone = "")
+  now(tzone = "UTC")
 }
 \arguments{
   \item{tzone}{a character vector specifying which time
   zone you would like the current time in. tzone defaults
-  to the system time zone set on your computer.}
+  to Universal Coordinated Time (UTC). You can retrieve the
+  current time in your local timezone with now("").}
 }
 \value{
   the current date and time as a POSIXct object
@@ -18,9 +19,13 @@
 \examples{
 now()
 now("GMT")
+now("")
 now() == now() # would be true if computer processed both at the same instant
 now() < now() # TRUE
 now() > now() # FALSE
+}
+\seealso{
+  \code{\link{here}}
 }
 \keyword{chron}
 \keyword{utilities}
