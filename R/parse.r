@@ -333,9 +333,15 @@ hms <- function(..., truncated = 0) {
 ##'                   Monday as the first day of week (and typically with the
 ##'                                                    first Monday of the year as day 1 of week 1).  The UK convention.}
 ##' \item{\code{y*}}{Year without century (00--99 or 0--99).  Also matches year with century (Y format).}
-##' \item{\code{Y}}{Year with century.} 
-##' \item{\code{z}}{Signed offset in hours and minutes from UTC, so
-##'                   \code{-0800} is 8 hours behind UTC.}
+##' \item{\code{Y}}{Year with century.}
+##' 
+##' \item{\code{z*}}{ISO8601 signed offset in hours and minutes from UTC. For
+##' example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours
+##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
+##' strptime doesn't fully support ISO8601, lubridate represents this format
+##' internally as an union of 4 different orders: Ou (Z), Oz (-0800), OO
+##' (-08:00) and Oo (-08). You can use this formats as any other but it is
+##' rarely necessary.}.
 ##'
 ##' \item{\code{r*}}{Matches \code{Ip} and \code{H} orders.}
 ##' \item{\code{R*}}{Matches \code{HM} and\code{IMp} orders.}
