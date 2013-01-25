@@ -210,6 +210,7 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##'
 ##' @export ms
 ##' @param ... character or numeric vectors of minute second pairs
+##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 ##' @return a vector of class \code{Period}
 ##' @seealso \code{\link{hms}, \link{hm}}
 ##' @keywords period
@@ -221,8 +222,8 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' # [1] 7 minutes and 6 seconds
 ##' ms("6,5")
 ##' # 6 minutes and 5 seconds
-ms <- function(...) {
-  hms <- .parse_hms(..., orders = "MS")
+ms <- function(..., quiet = FALSE) {
+  hms <- .parse_hms(..., orders = "MS", quiet = quiet)
   new_period(minute = hms$min, second = hms$sec)
 }
 
@@ -235,6 +236,7 @@ ms <- function(...) {
 ##'
 ##' @export hm
 ##' @param ... character or numeric vectors of hour minute pairs
+##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 ##' @return a vector of class \code{Period}
 ##' @seealso \code{\link{hms}, \link{ms}}
 ##' @keywords period
@@ -246,8 +248,8 @@ ms <- function(...) {
 ##' # [1] 7 hours and 6 minutes
 ##' hm("6,5")
 ##' # [1] 6 hours and 5 minutes
-hm <- function(...) {
-  time <- .parse_hms(..., orders = "R")
+hm <- function(..., quiet = FALSE) {
+  time <- .parse_hms(..., orders = "R", quiet = quiet)
   new_period(hour = time$hour, minute = time$min)
 }
 
@@ -259,6 +261,7 @@ hm <- function(...) {
 ##'
 ##' @export hms
 ##' @param ... a character vector of hour minute second triples
+##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 ##' @param truncated integer, number of formats that can be missing. See
 ##' \code{\link{parse_date_time}}.
 ##' @return a vector of period objects
@@ -271,8 +274,8 @@ hm <- function(...) {
 ##' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
 ##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
 ##' ## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds 
-hms <- function(..., truncated = 0) {
-  time <- .parse_hms(..., orders = "T", truncated = truncated)
+hms <- function(..., quiet = FALSE, truncated = 0) {
+  time <- .parse_hms(..., orders = "T", truncated = truncated, quiet = quiet)
   new_period(hour = time$hour, minute = time$min, second = time$sec)
 }
 
@@ -368,10 +371,10 @@ hms <- function(..., truncated = 0) {
 ##' \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:}
 ##' \code{ymd} family of functions are based on \code{strptime} which currently
 ##' fails to parse \code{\%y-\%m} formats.
-##' @param quiet logical. When TRUE function evaluates without displaying
-##' progress messages and error is not thrown when date-time string failed to
-##' parse. This later behavior is consistent with \code{strptime}. Default
-##' is FALSE.
+##' @param quiet logical. When TRUE progress messages are not printed, and "no
+##' formats found" error is surpresed and the function simply returns a vector
+##' of NAs.  This mirrors the behavior of base R functions \code{strptime} and
+##' \code{as.POSIXct}. Default is FALSE.
 ##' @param locale locale to be used, see \link{locales}. On linux systems you
 ##' can use \code{system("locale -a")} to list all the installed locales.
 ##' @param select_formats A function to select actual formats for parsing from a
@@ -428,7 +431,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
         out[new_na] <- .local_parse(x[new_na])
       out
     }else{
-      if ( first )
+      if ( first && !quiet)
         stop("No formats could be infered from the training set.")
       failed <<- length(x)
       NA
@@ -507,12 +510,12 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
 
 
-.parse_hms <- function(..., orders,  truncated = 0){
+.parse_hms <- function(..., orders, truncated = 0, quiet){
   hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
   orders <- paste("Ymd", orders, sep = "")
   hms <- paste("1970-01-01", hms, sep = "-")
   ## ugly hack, but what can we do :(
-  tryCatch(parse_date_time(hms, orders, truncated =  truncated, quiet = TRUE),
+  tryCatch(parse_date_time(hms, orders, truncated =  truncated, quiet = quiet),
            error = function(e){
              e$message <- gsub("%Y-%m-%d", "", e$message)
              stop(e)
