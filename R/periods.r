@@ -426,7 +426,7 @@ period <- function(num, units = "second") {
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + edays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 
-#' seconds later)
+#' # seconds later)
 seconds <- function(x = 1) new_period(second = x)
 minutes <- function(x = 1) new_period(minute = x)
 hours <-   function(x = 1) new_period(hour = x)
