@@ -443,7 +443,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   out[to_parse] <- .local_parse(x[to_parse], TRUE)
   
   if( failed > 0 && !quiet )
-    warning(" ", failed, " failed to parse.")
+    warning(" ", failed, " failed to parse.", call. = FALSE)
   
   out
 }
