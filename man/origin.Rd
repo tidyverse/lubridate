@@ -1,13 +1,13 @@
 \docType{data}
 \name{origin}
 \alias{origin}
-\title{1970-01-01 GMT}
+\title{1970-01-01 UTC}
 \format{POSIXct[1:1], format: "1970-01-01"}
 \usage{
   origin
 }
 \description{
-  Origin is the date-time for 1970-01-01 GMT in POSIXct
+  Origin is the date-time for 1970-01-01 UTC in POSIXct
   format. This date-time is the origin for the numbering
   system used by POSIXct, POSIXlt, chron, and Date classes.
 }
