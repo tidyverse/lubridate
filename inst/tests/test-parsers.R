@@ -149,18 +149,34 @@ test_that("ymd functions correctly parse dates with no separators and no quotes"
               equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
 })
 
+## test_that("ymd functions fail to parse absurd formats", {
+##   ## should not through errors, just as as.POSIX and strptime
+##   pna <- as.POSIXct(as.POSIXlt(NA, tz = "UTC"))
+##   expect_that(ymd(201001023), equals(pna))
+##   expect_that(ydm(20103201),  equals(pna))
+##   expect_that(mdy(13022010), equals(pna))
+##   expect_that(myd(01201033), equals(pna))
+##   expect_that(dmy(02222010), equals(pna))
+##   expect_that(dym(022010013), equals(pna))
+##   expect_that(ymd_hms("2010-01-023 23:59:59"), equals(pna))
+##   expect_that(ymd_hms("2010-01-023 23:59:59.34"), equals(pna))
+##   expect_that(ymd_hms("201001023235959.34"), equals(pna))
+##   expect_that(ymd(c(201001024, 20100103)),
+##               equals(as.POSIXct(c(NA, "2010-01-03"), tz = "UTC")))
+## })
+
 test_that("ymd functions fail to parse absurd formats", {
-  ## should not through errors, just as as.POSIX and strptime
+  ## should it be an error?
   pna <- as.POSIXct(as.POSIXlt(NA, tz = "UTC"))
-  expect_that(ymd(201001023), equals(pna))
-  expect_that(ydm(20103201),  equals(pna))
-  expect_that(mdy(13022010), equals(pna))
-  expect_that(myd(01201033), equals(pna))
-  expect_that(dmy(02222010), equals(pna))
-  expect_that(dym(022010013), equals(pna))
-  expect_that(ymd_hms("2010-01-023 23:59:59"), equals(pna))
-  expect_that(ymd_hms("2010-01-023 23:59:59.34"), equals(pna))
-  expect_that(ymd_hms("201001023235959.34"), equals(pna))
+  expect_error(ymd(201001023))
+  expect_error(ydm(20103201))
+  expect_error(mdy(13022010))
+  expect_error(myd(01201033))
+  expect_error(dmy(02222010))
+  expect_error(dym(022010013))
+  expect_error(ymd_hms("2010-01-023 23:59:59"))
+  expect_error(ymd_hms("2010-01-023 23:59:59.34"))
+  expect_error(ymd_hms("201001023235959.34"))
   expect_that(ymd(c(201001024, 20100103)),
               equals(as.POSIXct(c(NA, "2010-01-03"), tz = "UTC")))
 })
@@ -260,13 +276,23 @@ test_that("hms functions correctly handle / separators", {
 })
 
 
+## test_that("hms functions return NA on incompatible inputs", {
+##   expect_that(is.na(hms("3:3:3:4")), is_true())
+##   expect_that(is.na(hms("03:03")), is_true())
+##   expect_that(is.na(ms("03:02:01")), is_true())
+##   expect_that(is.na(ms("03")), is_true())
+##   expect_that(is.na(hm("03:03:01")), is_true())
+##   expect_that(is.na(hm("03")), is_true())
+## })
+
+
 test_that("hms functions return NA on incompatible inputs", {
-  expect_that(is.na(hms("3:3:3:4")), is_true())
-  expect_that(is.na(hms("03:03")), is_true())
-  expect_that(is.na(ms("03:02:01")), is_true())
-  expect_that(is.na(ms("03")), is_true())
-  expect_that(is.na(hm("03:03:01")), is_true())
-  expect_that(is.na(hm("03")), is_true())
+  expect_error(hms("3:3:3:4"))
+  expect_error(hms("03:03"))
+  expect_error(ms("03:02:01"))
+  expect_error(ms("03"))
+  expect_error(hm("03:03:01"))
+  expect_error(hm("03"))
 })
 
 
