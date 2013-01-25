@@ -68,4 +68,3 @@ Collate:
     'stamp.r'
     'ops-%m+%.r'
     'accessors-quarter.r'
-    'parse-iso_8601.r'

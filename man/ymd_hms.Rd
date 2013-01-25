@@ -8,7 +8,6 @@
 \alias{ydm_h}
 \alias{ydm_hm}
 \alias{ydm_hms}
-\alias{ymdThms}
 \alias{ymd_h}
 \alias{ymd_hm}
 \alias{ymd_hms}
@@ -63,8 +62,6 @@
   are based on \code{strptime} which currently fails to
   parse \code{\%y-\%m} formats.
 
-  ymdThms() specifically handles combined dates and times
-  written in the ISO 8601 format.
 }
 \examples{
 x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
