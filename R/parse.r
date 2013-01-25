@@ -363,7 +363,9 @@ hms <- function(..., truncated = 0) {
 ##' \code{ymd} family of functions are based on \code{strptime} which currently
 ##' fails to parse \code{\%y-\%m} formats.
 ##' @param quiet logical. When TRUE function evaluates without displaying
-##' customary messages.
+##' progress messages and error is not thrown when date-time string failed to
+##' parse. This later behavior is consistent with \code{strptime}. Default
+##' is FALSE.
 ##' @param locale locale to be used, see \link{locales}. On linux systems you
 ##' can use \code{system("locale -a")} to list all the installed locales.
 ##' @param select_formats A function to select actual formats for parsing from a
@@ -420,8 +422,10 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
         out[new_na] <- .local_parse(x[new_na])
       out
     }else{
-      if ( first && !quiet)
-        warning("No formats could be infered from the training set.")
+      if ( first ){
+        msg <- "No formats could be infered from the training set."
+        if( quiet ) warning(msg) else stop(msg)
+      }
       failed <<- length(x)
       NA
     }
@@ -435,7 +439,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   out[to_parse] <- .local_parse(x[to_parse], TRUE)
   
   if( failed > 0 && !quiet )
-    message(" ", failed, " failed to parse.")
+    warning(" ", failed, " failed to parse.")
   
   out
 }
