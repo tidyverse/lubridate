@@ -258,28 +258,21 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 .strptime <- function(x, fmt, tz = "", quiet = FALSE){
   ## depending on fmt we might need to preprocess x,
   ## Fortunately ISO8601 is the only case so far.
+  zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
-  tzwarn <- FALSE
-  if( grepl("%Oz", fmt, fixed = T) ){
-    tzwarn <- TRUE
-    fmt <- sub("%Oz", "%z", fmt, fixed = T)
-  }else if( grepl("%Ou", fmt, fixed = T) ){
-    ## UTC (ISO8601 with Z) ignoring tz
-    tzwarn <- TRUE
-    fmt <- sub("%Ou", "Z", fmt, fixed = T)
-  }else if( grepl("%OO", fmt, fixed = T) ){
-    ## time zone in -08:00 format
-    tzwarn <- TRUE
-    fmt <- sub("%OO", "%z", fmt, fixed = T)
-    x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = T)
-  }else if( grepl("%Oo", fmt, fixed = T) ){
-    ## time zone in -08 format
-    tzwarn <- TRUE
-    fmt <- sub("%Oo", "%z", fmt, fixed = T)
-    x <- sub("([+-]\\d{2}(?=\\D+$))", "\\100", x, perl = T)
-  }
+  if( zpos > 0 ){
+    capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
+    repl <- switch(capt,
+                   z = "%z",
+                   u ="Z",
+                   o = { x <- sub("([+-]\\d{2}(?=\\D+$))", "\\100", x, perl = TRUE)
+                         "%z"}, 
+                   O = { x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = TRUE)
+                         "%z"},
+                   stop("Unrecognised capture detected; please report this bug"))
 
-  if( tzwarn ){
+    str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
+
     if( !quiet && tz != "" && tz != "UTC" )
       warning("Date in ISO8601 format; timezone ignored", call. = FALSE)
     tz <- "UTC"
