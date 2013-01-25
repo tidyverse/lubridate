@@ -439,7 +439,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   }
 
   failed <- 0L
-  to_parse <- !is.na(x)
+  to_parse <- !is.na(x) & nzchar(x) ## missing data could be just ""
   x <- .enclose(x)
   ## out <- rep.int(NA, length(x))
   out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)
