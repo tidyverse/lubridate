@@ -210,7 +210,7 @@ new_interval <- interval <- function(start, end, tzone = attr(start, "tzone")){
 	
 	span <- as.numeric(end) - as.numeric(start)
 	starts <- start + rep(0, length(span))
-	starts <- with_tz(starts, tzone)
+	if (tzone != tz(starts)) starts <- with_tz(starts, tzone)
 	
 	new("Interval", span, start = starts, tzone = tzone)
 }
