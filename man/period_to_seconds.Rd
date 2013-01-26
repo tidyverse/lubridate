@@ -1,6 +1,6 @@
 \name{period_to_seconds}
 \alias{period_to_seconds}
-\title{Convert a period to the number of units it appears to represent}
+\title{Convert a period to the number of seconds it appears to represent}
 \usage{
   period_to_seconds(x)
 }
@@ -8,7 +8,7 @@
   \item{x}{A period object}
 }
 \description{
-  Convert a period to the number of units it appears to
+  Convert a period to the number of seconds it appears to
   represent
 }
 

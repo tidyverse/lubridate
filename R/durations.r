@@ -42,6 +42,7 @@ check_duration <- function(object){
 #' @aliases $,Duration-method
 #' @aliases $<-,Duration-method
 #' @aliases as.difftime,Duration-method
+#' @aliases as.character,Duration-method
 #' @aliases +,Duration,Duration-method
 #' @aliases +,Duration,Interval-method
 #' @aliases +,Duration,Period-method
@@ -72,7 +73,7 @@ check_duration <- function(object){
 setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
 compute_estimate <- function (x) {  
-  seconds <- abs(x)
+  seconds <- abs(na.omit(x))
     if (any(seconds < 60)) 
         units <- "secs"
     else if (any(seconds < 3600))
@@ -94,16 +95,21 @@ compute_estimate <- function (x) {
 
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
-	print(format.Duration(object), quote = FALSE)
+	print(format.Duration(object), quote = TRUE)
 })
 
 #' @S3method format Duration
 format.Duration <- function(x, ...) {
   if (length(x@.Data) == 0) return("Duration(0)")
+  show <- vector(mode = "character")
+  na <- is.na(x)
+  
 	if (all(abs(na.omit(x@.Data)) < 120))
-		paste(x@.Data, "s", sep = "")
+		show <- paste(x@.Data, "s", sep = "")
 	else
-		paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
+		show <- paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
+  show[na] <- NA
+  show
 }
 
 #' @export
@@ -327,3 +333,19 @@ dpicoseconds <- epicoseconds <- function(x = 1) picoseconds(x)
 #' is.duration(as.Date("2009-08-03")) # FALSE
 #' is.duration(new_duration(days = 12.4)) # TRUE
 is.duration <- function(x) is(x, "Duration")
+
+#' @S3method summary Duration
+summary.Duration <- function(object, ...) {
+  nas <- is.na(object)
+  object <- object[!nas]
+  nums <- as.numeric(object)
+  qq <- stats::quantile(nums)
+  qq <- c(qq[1L:3L], mean(nums), qq[4L:5L])
+  qq <- dseconds(qq)
+  qq <- as.character(qq)
+  names(qq) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", 
+                 "Max.")
+  if (any(nas)) 
+    c(qq, `NA's` = sum(nas))
+  else qq
+}

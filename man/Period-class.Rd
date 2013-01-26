@@ -49,6 +49,7 @@
 \alias{\%\%,Period,Duration-method}
 \alias{\%\%,Period,Interval-method}
 \alias{\%\%,Period,Period-method}
+\alias{as.character,Period-method}
 \alias{as.difftime,Period-method}
 \alias{as.numeric,Period-method}
 \alias{c,Period-method}

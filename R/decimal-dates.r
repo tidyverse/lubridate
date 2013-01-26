@@ -30,3 +30,28 @@ decimal_date.zoo <- function(date)
 
 decimal_date.its <- function(date)
   decimal_date.default(attr(date, "dates"))
+
+
+#' Converts a decimal to a date. 
+#'
+#' @export 
+#' @param decimal a numeric object   
+#' @return a POSIXct object, whose year corresponds to the integer part of 
+#' decimal. The months, days, hours, minutes and seconds elements are picked so 
+#' the date-time will accurately represent the fraction of the year expressed by
+#' decimal.
+#' @keywords manip chron methods
+#' @examples
+#' date <- ymd("2009-02-10")
+#' decimal <- decimal_date(date)  # 2009.11
+#' date_decimal(decimal) # "2009-02-10 UTC"
+date_decimal <- function(decimal, tz = NULL) {
+  year <- trunc(decimal)
+  frac <- decimal - year
+  start <- ymd(paste(year, "01", "01"))
+  seconds <- as.numeric(ymd(paste(year + 1, "01", "01")) - start, units = "secs")
+  
+  if (!is.null(tz)) start <- force_tz(start, tz)
+  start + seconds * frac
+}
+  

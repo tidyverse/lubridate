@@ -6,5 +6,8 @@
 .DS_store
 .R*
 .DS_Store
-lubridate.Rproj
 .Rproj.user
+*.Rproj
+*.Rbuildignore
+*.DS_Store
+

@@ -103,6 +103,7 @@ check_period <- function(object){
 #' @aliases $,Period-method
 #' @aliases $<-,Period-method
 #' @aliases as.difftime,Period-method
+#' @aliases as.character,Period-method
 #' @aliases +,Period,Duration-method
 #' @aliases +,Period,Interval-method
 #' @aliases +,Period,Period-method
@@ -179,16 +180,15 @@ xtfrm.Period <- function(x){
   xtfrm(period_to_seconds(x))
 }
 
-
-
 #' @export
 setMethod("c", signature(x = "Period"), function(x, ...){
-	seconds <- c(x@.Data, unlist(list(...)))
-	years <- c(x@year, unlist(lapply(list(...), slot, "year")))
-	months <- c(x@month, unlist(lapply(list(...), slot, "month"))) 
-	days <- c(x@day, unlist(lapply(list(...), slot, "day")))
-	hours <- c(x@hour, unlist(lapply(list(...), slot, "hour")))
-	minutes <- c(x@minute, unlist(lapply(list(...), slot, "minute")))
+  elements <- lapply(list(...), as.period)
+	seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
+	years <- c(x@year, unlist(lapply(elements, slot, "year")))
+	months <- c(x@month, unlist(lapply(elements, slot, "month"))) 
+	days <- c(x@day, unlist(lapply(elements, slot, "day")))
+	hours <- c(x@hour, unlist(lapply(elements, slot, "hour")))
+	minutes <- c(x@minute, unlist(lapply(elements, slot, "minute")))
 	new("Period", seconds, year = years, month = months, day = days, 
 		hour = hours, minute = minutes)
 })
@@ -425,13 +425,16 @@ period <- function(num, units = "second") {
 #' boundary + days(1) # period
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + edays(1) # duration
-#' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
+#' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 
+#' seconds later)
 seconds <- function(x = 1) new_period(second = x)
 minutes <- function(x = 1) new_period(minute = x)
 hours <-   function(x = 1) new_period(hour = x)
 days <-    function(x = 1) new_period(day = x)  
 weeks <-   function(x = 1) new_period(week = x)
-months.numeric <- months.integer <- function(x, abbreviate) new_period(month = x)
+months.numeric <- months.integer <- function(x, abbreviate) {
+  new_period(month = x)
+}
 years <-   function(x = 1) new_period(year = x)
 milliseconds <- function(x = 1) seconds(x/1000)
 microseconds <- function(x = 1) seconds(x/1000000)
@@ -444,7 +447,8 @@ picoseconds <- function(x = 1) seconds(x/1e12)
 #' @export is.period
 #' @param x an R object   
 #' @return TRUE if x is a period object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
+#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, 
+#' \code{\link{is.interval}}, 
 #'   \code{\link{is.duration}}, \code{\link{period}}
 #' @keywords logic chron
 #' @examples
@@ -457,7 +461,7 @@ is.period <- function(x) is(x,"Period")
 
 
 
-#' Convert a period to the number of units it appears to represent
+#' Convert a period to the number of seconds it appears to represent
 #'
 #' @param x A period object
 #' @export
@@ -469,6 +473,41 @@ period_to_seconds <- function(x) {
 	60 * 60 * 24 * 365 / 12 * x@month +
 	60 * 60 * 24 * 365 * x@year
 }
+
+#' Contrive a period from a given number of seconds
+#' 
+#' seconds_to_period uses estimates of time elements (in seconds) to create the 
+#' period that has the maximum number of large elements(years > months > days > 
+#' hours > minutes > seconds) and roughly equates to a given number of seconds. 
+#' Note that the actual number of seconds in a period depends on when the period 
+#' occurs. Since there is no one-to-one relationship between the periods that 
+#' seconds_to_period makes and the number of seconds given as input, these 
+#' periods should be treated as rough estimates only. 
+#'
+#' @param x A numeric object. The number of seconds to coerce into a period.
+#' @return A period that roughly equates to the number of seconds given.
+#' @export
+seconds_to_period <- function(x) {
+  span <- as.double(x)
+  remainder <- abs(span)
+  newper <- new_period(second = rep(0, length(x)))
+  
+  slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
+  remainder <- remainder %% (3600 * 24 * 365.25)
+  
+  slot(newper,"day") <- remainder %/% (3600 * 24)
+  remainder <- remainder %% (3600 * 24)
+  
+  slot(newper, "hour") <- remainder %/% (3600)
+  remainder <- remainder %% (3600)
+  
+  slot(newper, "minute") <- remainder %/% (60)
+  
+  slot(newper, ".Data") <- remainder %% (60)
+  
+  newper * sign(span)
+}
+
 	
 #' @export
 setMethod(">", signature(e1 = "Period", e2 = "Period"), 
@@ -574,3 +613,20 @@ setMethod("<", signature(e1 = "Duration", e2 = "Period"),
 	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
 })
 	
+#' @S3method summary Period
+summary.Period <- function(object, ...) {
+  nas <- is.na(object)
+  object <- object[!nas]
+  persecs <- period_to_seconds(object)
+  qq <- stats::quantile(persecs)
+  qq <- c(qq[1L:3L], mean(persecs), qq[4L:5L])
+  qq <- seconds_to_period(qq)
+  qq <- as.character(qq)
+  names(qq) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", 
+                 "Max.")
+  if (any(nas)) 
+    c(qq, `NA's` = sum(nas))
+  else qq
+}
+
+

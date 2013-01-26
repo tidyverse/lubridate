@@ -110,3 +110,15 @@ test_that("format.Interval correctly displays intervals of length 0", {
   
   expect_output(int[FALSE], "Interval\\(0)")
 })
+
+test_that("summary.Interval creates useful summary", {
+  int <- interval(ymd(20090201), ymd(20090101))
+  text <- c(3, "2009-01-01", "2009-02-01", 1)
+  names(text) <- c("Intervals", "Earliest endpoint", "Latest endpoint", "NA's")
+  
+  expect_equal(summary(c(int, int, int, as.interval(NA))), text)
+})
+
+test_that("as.interval handles NAs", {
+  expect_equal(as.interval(NA), new_interval(NA, NA))
+})
