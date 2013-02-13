@@ -1,9 +1,17 @@
 \name{\%m+\%}
 \alias{\%m+\%}
+\alias{\%m+\%,ANY,Duration-method}
+\alias{\%m+\%,ANY,Interval-method}
 \alias{\%m+\%,ANY,Period-method}
+\alias{\%m+\%,Duration,ANY-method}
+\alias{\%m+\%,Interval,ANY-method}
 \alias{\%m+\%,Period,ANY-method}
 \alias{\%m-\%}
+\alias{\%m-\%,ANY,Duration-method}
+\alias{\%m-\%,ANY,Interval-method}
 \alias{\%m-\%,ANY,Period-method}
+\alias{\%m-\%,Duration,ANY-method}
+\alias{\%m-\%,Interval,ANY-method}
 \alias{\%m-\%,Period,ANY-method}
 \alias{m+}
 \alias{m-}
