@@ -54,3 +54,71 @@ force_tz <- function(time, tzone = ""){
 
 
 # Note: alternative method? as.POSIXlt(format(as.POSIXct(x)), tz = tz)
+
+#' Names of available time zones
+#' 
+#' The names of all available Olson-style time zones.
+#' 
+#' @param order_by Return names alphabetically (the default) 
+#' or from West to East.
+#' @note Olson-style names are the most readable and portable 
+#' way of specifying time zones.  This function gets names
+#' from the file shipped with R, stored in 
+#' \code{file.path(R.home("share"), "zoneinfo", "zone.tab")}.
+#' \code{?\link[base]Sys.timezone}} has more information.
+#' @return A character vector of time zone names.
+#' @seealso \code{\link[base]Sys.timezone}}
+#' @examples
+#' olson_time_zones()
+#' olson_time_zones("longitude")
+olson_time_zones <- function(order_by = c("name", "longitude"))
+{
+  order_by <- match.arg(order_by)
+  tzfile <- file.path(R.home("share"), "zoneinfo", "zone.tab")
+  tzones <- read.delim(
+    tzfile, 
+    row.names    = NULL, 
+    header       = FALSE,
+    col.names    = c("country", "coords", "name", "comments"),
+    as.is        = TRUE, 
+    fill         = TRUE,
+    comment.char = "#"
+  )
+  o <- order(switch(
+    order_by,
+    name      = tzones$name,
+    longitude = 
+    {
+      longitude_string <- stringr::str_match(
+        tzones$coords, 
+        "[+-][[:digit:]]+([+-][[:digit:]]+)"
+      )[, 2]
+      nch <- nchar(longitude_string)
+      sign <- ifelse(
+        substring(longitude_string, 1, 1) == "+", 
+        1, 
+        -1
+      )
+      
+      nss <- function(first, last)
+      {
+        as.numeric(substring(longitude_string, first, last))
+      } 
+      
+      sign * ifelse(
+        nch == 5,
+        3600 * nss(2, 3) + 60 * nss(4, 5),
+        ifelse(
+          nch == 6,
+          3600 * nss(2, 4) + 60 * nss(6, 6),
+          ifelse(
+            nch == 7,
+            3600 * nss(2, 3) + 60 * nss(4, 5) + nss(6, 7),
+            3600 * nss(2, 4) + 60 * nss(6, 6) + nss(7, 8)          
+          )                  
+        )
+      ) 
+    }
+  ))
+  tzones$name[o]
+}
