@@ -201,6 +201,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 .enclose <- function(fmts)
   paste("@", fmts, "@", sep = "")
 
+.enclosed.na <- function(x)
+  x == "@NA@"
 
 .train_formats <- function(x, formats, locale ) {
   x <- .enclose(x)
@@ -213,6 +215,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
 .get_train_set <- function(x){
   ## the smartest irregular guesser I could came up with
+  x <- x[!.enclosed.na(x)]
   len <- length(x)
   if( len < 100)
     x
