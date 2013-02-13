@@ -136,3 +136,33 @@ test_that("summary.Duration creates useful summary", {
   
   expect_equal(summary(c(dur, NA)), text)
 })
+
+test_that(
+  "compute_estimate works with NA values",
+{
+  x <- list(
+    NA,
+    c(1, NA),
+    c(100, NA),
+    c(10000, NA),
+    c(100000, NA),
+    c(100000000, NA)
+  )
+  expected <- list(
+    "NA seconds",
+    c("1 seconds", "NA seconds"),
+    c("~1.67 minutes", "NA minutes"),
+    c("~2.78 hours", "NA hours"),
+    c("~1.16 days", "NA days"),
+    c("~3.17 years", "NA years")
+  )
+  mapply(
+    function(x, expected)
+    {
+      expect_identical(expected, lubridate:::compute_estimate(x))
+    },
+    x,
+    expected      
+  )
+}
+)
