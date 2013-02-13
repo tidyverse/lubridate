@@ -155,6 +155,7 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' # 10s
 #' @export 
 #' @aliases as.duration,numeric-method
+#' @aliases as.duration,logical-method
 #' @aliases as.duration,difftime-method
 #' @aliases as.duration,Interval-method
 #' @aliases as.duration,Duration-method
@@ -166,6 +167,10 @@ setGeneric("as.duration")
 
 setMethod("as.duration", signature(x = "numeric"), function(x){
 	new("Duration", x)
+})
+
+setMethod("as.duration", signature(x = "logical"), function(x){
+  new("Duration", as.numeric(x))
 })
 
 setMethod("as.duration", signature(x = "difftime"), function(x){
@@ -332,7 +337,7 @@ setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
 })
 
 setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) {
-  negs <- int_length(x) < 0
+  negs <- int_length(x) < 0 & !is.na(int_length(x))
   x[negs] <- int_flip(x[negs])
 
   if (is.null(match.call()$unit)) {
@@ -364,19 +369,19 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   to.per <- to.per[1:6]
   
   # remove negative periods
-  nsecs <- to.per$second < 0
+  nsecs <- to.per$second < 0 & !is.na(to.per$second)
   to.per$second[nsecs] <- 60 + to.per$second[nsecs]
   to.per$minute[nsecs] <- to.per$minute[nsecs] - 1
   
-  nmins <- to.per$minute < 0
+  nmins <- to.per$minute < 0 & !is.na(to.per$minute)
   to.per$minute[nmins] <- 60 + to.per$minute[nmins]
   to.per$hour[nmins] <- to.per$hour[nmins] - 1
   
-  nhous <- to.per$hour < 0
+  nhous <- to.per$hour < 0 & !is.na(to.per$hour)
   to.per$hour[nhous] <- 24 + to.per$hour[nhous]
   to.per$day[nhous] <- to.per$day[nhous] - 1
   
-  ndays <- to.per$day < 0
+  ndays <- to.per$day < 0 & !is.na(to.per$day)
   if (any(ndays)) {
     day.no <- floor_date(end, "month") - days(1)
     day.no <- day.no$mday
@@ -384,7 +389,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
     to.per$month[ndays] <- to.per$month[ndays] - 1
   }
   
-  nmons <- to.per$month < 0
+  nmons <- to.per$month < 0 & !is.na(to.per$month)
   to.per$month[nmons] <- 12 + to.per$month[nmons]
   to.per$year[nmons] <- to.per$year[nmons] - 1
   

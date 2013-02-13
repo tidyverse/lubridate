@@ -137,9 +137,7 @@ test_that("summary.Duration creates useful summary", {
   expect_equal(summary(c(dur, NA)), text)
 })
 
-test_that(
-  "compute_estimate works with NA values",
-{
+test_that("compute_estimate works with NA values", {
   x <- list(
     NA,
     c(1, NA),
@@ -156,13 +154,38 @@ test_that(
     c("~1.16 days", "NA days"),
     c("~3.17 years", "NA years")
   )
-  mapply(
-    function(x, expected)
-    {
+  mapply(function(x, expected) {
       expect_identical(expected, lubridate:::compute_estimate(x))
     },
-    x,
-    expected      
-  )
-}
-)
+    x, expected)
+})
+
+test_that("as.duration handles NA interval objects", {
+  one_missing_date <- as.POSIXct(NA_real_, origin = origin)
+  one_missing_interval <- new_interval(one_missing_date, 
+                                       one_missing_date)
+  several_missing_dates <- rep(as.POSIXct(NA_real_, origin = origin), 2)
+  several_missing_intervals <- new_interval(several_missing_dates, 
+                                            several_missing_dates)
+  start_missing_intervals <- new_interval(several_missing_dates, origin)
+  end_missing_intervals <- new_interval(origin, several_missing_dates)
+  na.dur <- dseconds(NA)
+  
+  expect_equal(as.duration(one_missing_interval), na.dur)
+  expect_equal(as.duration(several_missing_intervals), c(na.dur, na.dur))
+  expect_equal(as.duration(start_missing_intervals), c(na.dur, na.dur))
+  expect_equal(as.duration(end_missing_intervals), c(na.dur, na.dur))
+})
+
+test_that("as.duration handles NA period objects", {
+  na.dur <- dseconds(NA)
+  
+  expect_equal(suppressMessages(as.duration(years(NA))), na.dur)
+  expect_equal(suppressMessages(as.duration(years(c(NA, NA)))), c(na.dur, na.dur))
+  expect_equal(suppressMessages(as.duration(years(c(1, NA)))), c(dyears(1), na.dur))
+})
+
+test_that("as.duration handles NA objects", { 
+  na.dur <- dseconds(NA)
+  expect_equal(as.duration(NA), na.dur)
+})

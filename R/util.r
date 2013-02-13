@@ -1,21 +1,19 @@
-
-equalize_length <- function(x, y){
-	n.x <- length(x)
-	n.y <- nrow(y) 
-	n.max <- max(n.x, n.y)
-	n.min <- min(n.x, n.y)
-	if (n.max %% n.min != 0L){
-		stop("longer object length is not a multiple of shorter object length")
-	} else {
-		if (n.x < n.y) {
-			x <- rep(x, length.out = n.y)
-		} else {
-			y <- rep(y, length.out = n.x)
-		}	
-	}
-	list(x, y)
+match_lengths <- function(x, y) {
+  n.x <- length(x)
+  n.y <- length(y) 
+  n.max <- max(n.x, n.y)
+  n.min <- min(n.x, n.y)
+  if (n.max %% n.min != 0L){
+    stop("longer object length is not a multiple of shorter object length")
+  } else {
+    if (n.x < n.y) {
+      x <- rep(x, length.out = n.y)
+    } else {
+      y <- rep(y, length.out = n.x)
+    }	
+  }
+  list(x, y)
 }
-
 
 recognize <- function(x){
   recognized <- c("POSIXt", "POSIXlt", "POSIXct", "yearmon", "yearqtr", "Date")
