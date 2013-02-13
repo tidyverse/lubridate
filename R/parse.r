@@ -549,10 +549,13 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
 .num_to_date <- function(x) {
   if (is.numeric(x)) {
-    x <- as.character(x)
+    out <- rep.int(as.character(NA), length(x))
+    nnas <- !is.na(x)
+    x <- as.character(x[nnas])
     x <- paste(ifelse(nchar(x) %% 2 == 1, "0", ""), x, sep = "")
-  }
-  x
+    out[nnas] <- x
+    out
+  }else x
 }
 
 ## parse.r ends here
