@@ -28,6 +28,8 @@
 \alias{Duration-class}
 \alias{[,Duration-method}
 \alias{[<-,Duration,ANY,ANY,ANY-method}
+\alias{[[,Duration-method}
+\alias{[[<-,Duration,ANY,ANY,ANY-method}
 \alias{\%\%,Duration,Duration-method}
 \alias{\%\%,Duration,Interval-method}
 \alias{\%\%,Duration,Period-method}

@@ -56,6 +56,8 @@ check_interval <- function(object){
 #' @aliases rep,Interval-method
 #' @aliases [,Interval-method
 #' @aliases [<-,Interval,ANY,ANY,ANY-method
+#' @aliases [[,Interval-method
+#' @aliases [[<-,Interval,ANY,ANY,ANY-method
 #' @aliases $,Interval-method
 #' @aliases $<-,Interval-method
 #' @aliases as.difftime,Interval-method
@@ -132,6 +134,13 @@ setMethod("[", signature(x = "Interval"),
 )
 
 #' @export
+setMethod("[[", signature(x = "Interval"), 
+  function(x, i, j, ..., exact = TRUE) {
+    new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
+  }
+)
+
+#' @export
 setMethod("[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
   	if (is.interval(value)){
   		x@.Data[i] <- value@.Data
@@ -142,6 +151,19 @@ setMethod("[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
   		x@.Data[i] <- value
 		new("Interval", x@.Data, start = x@start, tzone = x@tzone)
 	}
+})
+
+#' @export
+setMethod("[[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
+  if (is.interval(value)){
+    x@.Data[i] <- value@.Data
+    x@start[i] <- value@start 
+    new("Interval", x@.Data, start = x@start, tzone = x@tzone)
+  }
+  else {
+    x@.Data[i] <- value
+    new("Interval", x@.Data, start = x@start, tzone = x@tzone)
+  }
 })
 
 

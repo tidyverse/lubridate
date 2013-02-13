@@ -39,6 +39,8 @@ check_duration <- function(object){
 #' @aliases rep,Duration-method
 #' @aliases [,Duration-method
 #' @aliases [<-,Duration,ANY,ANY,ANY-method
+#' @aliases [[,Duration-method
+#' @aliases [[<-,Duration,ANY,ANY,ANY-method
 #' @aliases $,Duration-method
 #' @aliases $<-,Duration-method
 #' @aliases as.difftime,Duration-method
@@ -135,9 +137,22 @@ setMethod("[", signature(x = "Duration"),
 })
 
 #' @export
+setMethod("[[", signature(x = "Duration"), 
+  function(x, i, j, ..., exact = TRUE) {
+    new("Duration", x@.Data[i])
+})
+
+#' @export
 setMethod("[<-", signature(x = "Duration"), 
   function(x, i, j, ..., value) {
   	x@.Data[i] <- value
+    new("Duration", x@.Data)
+})
+
+#' @export
+setMethod("[[<-", signature(x = "Duration"), 
+  function(x, i, j, ..., value) {
+    x@.Data[i] <- as.numeric(value)
     new("Duration", x@.Data)
 })
 

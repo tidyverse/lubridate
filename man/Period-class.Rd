@@ -46,6 +46,8 @@
 \alias{Period-class}
 \alias{[,Period-method}
 \alias{[<-,Period,ANY,ANY,Period-method}
+\alias{[[,Period-method}
+\alias{[[<-,Period,ANY,ANY,Period-method}
 \alias{\%\%,Period,Duration-method}
 \alias{\%\%,Period,Interval-method}
 \alias{\%\%,Period,Period-method}

@@ -100,6 +100,8 @@ check_period <- function(object){
 #' @aliases rep,Period-method
 #' @aliases [,Period-method
 #' @aliases [<-,Period,ANY,ANY,Period-method
+#' @aliases [[,Period-method
+#' @aliases [[<-,Period,ANY,ANY,Period-method
 #' @aliases $,Period-method
 #' @aliases $<-,Period-method
 #' @aliases as.difftime,Period-method
@@ -208,6 +210,13 @@ setMethod("[", signature(x = "Period"),
 })
 
 #' @export
+setMethod("[[", signature(x = "Period"), 
+          function(x, i, j, ..., exact = TRUE) {
+            new("Period", x@.Data[i], year = x@year[i], month = x@month[i], 
+                day = x@day[i], hour = x@hour[i], minute = x@minute[i])
+})
+
+#' @export
 setMethod("[<-", signature(x = "Period", value = "Period"), 
   function(x, i, j, ..., value) {
   	x@.Data[i] <- value@.Data
@@ -217,6 +226,18 @@ setMethod("[<-", signature(x = "Period", value = "Period"),
   	x@hour[i] <- value@hour
   	x@minute[i] <- value@minute
     x
+})
+
+#' @export
+setMethod("[[<-", signature(x = "Period", value = "Period"), 
+          function(x, i, j, ..., value) {
+            x@.Data[i] <- value@.Data
+            x@year[i] <- value@year
+            x@month[i] <- value@month
+            x@day[i] <- value@day 
+            x@hour[i] <- value@hour
+            x@minute[i] <- value@minute
+            x
 })
 
 #' @export
