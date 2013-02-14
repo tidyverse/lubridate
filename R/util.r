@@ -53,8 +53,20 @@ standardise_period_names <- function(x) {
   y <- substr(y, 1, 3)
   res <- dates[pmatch(y, dates)]
   if (any(is.na(res))) {
-    stop("Invalid difftime name: ", paste(x[is.na(res)], collapse = ", "), 
+    stop("Invalid period name: ", paste(x[is.na(res)], collapse = ", "), 
       call. = FALSE)
+  }
+  res
+}
+
+standardise_lt_names <- function(x) {
+  dates <- c("sec", "min", "hour", "day", "mday", "wday", "yday", "mon", "year", "tz")
+  y <- gsub("(.)s$", "\\1", x)
+  y <- substr(y, 1, 3)
+  res <- dates[pmatch(y, dates)]
+  if (any(is.na(res))) {
+    stop("Invalid unit name: ", paste(x[is.na(res)], collapse = ", "), 
+         call. = FALSE)
   }
   res
 }

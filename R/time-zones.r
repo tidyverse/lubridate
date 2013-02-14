@@ -52,23 +52,12 @@ with_tz <- function (time, tzone = ""){
 #' # "2009-08-07 00:00:01 GMT"
 force_tz <- function(time, tzone = ""){  
   check_tz(tzone)
-  lt <- as.POSIXlt(time)
-  attr(lt, "tzone") <- tzone
-  
-  ct <- as.POSIXct(lt)
-  
-  # check if date falls in DST gap
-  lt.hours <- lt$hour %% 24 + lt$min %/% 60 + lt$sec %/% 3600
-  if (any(na.omit(lt.hours < 3)) && tzone != "UTC") { 
-    ct[!is.na(ct) & hour(ct) != lt.hours] <- NA
-  }
-  
-  reclass_date(ct, time)
+  update(time, tz = tzone)
 }
 
 check_tz <- function(tz) {}
 
-# Note: alternative method? as.POSIXlt(format(as.POSIXct(x)), tz = tz)
+# Note: alternative method? as.POSIXlt(format(as.POSIXct(x)), tz = tzone)
 
 #' Names of available time zones
 #' 

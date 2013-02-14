@@ -40,40 +40,49 @@ NULL
 
 #' @export
 #' @method update POSIXt
-update.POSIXt <- function(object, years. = year(object), 
-  months. = month(object), hours. = hour(object), 
-  minutes. = minute(object), seconds. = second(object), tz. = tz(object),
-  days. = NULL, wdays. = NULL, mdays. = NULL, ydays. = NULL, ...){
+update.POSIXt <- function(object, ...){
   
-  # just return empty objects
   if(!length(object)) return(object)
+  date <- as.POSIXlt(object)
   
-  xday <- sum(c(!is.null(days.), !is.null(wdays.), !is.null(mdays.), !is.null(ydays.)))
-  if (!xday) days. <- mday(object)
-  else {
-    if (xday > 1) stop("conflicting days input")
-    if (!is.null(mdays.)) days. <- mdays.
-    else if (!is.null(wdays.)) days. <- wdays. - wday(object) + day(object)
-    else if (!is.null(ydays.)) days. <- ydays. - yday(object) + day(object)
+  units <- list(...)
+  names(units) <- standardise_lt_names(names(units))
+  
+  new.tz <- NA
+  if (!is.null(units$tz)) {
+    new.tz <- units$tz
+    units$tz <- NULL
+  }
+  
+  day.units <- c("day", "wday", "mday", "yday")
+  ndays <- day.units %in% names(units)
+  n <- sum(ndays)
+  
+  if (n > 1) stop("conflicting days input")
+  if (n) {
+    day <- day.units[ndays]
+    if (day != "mday") {
+      names(units)[names(units) == day] <- "mday"
+    if (day != "day")
+      units$mday <- units$mday - date[[day]] + date$mday - 1
+    }
   }  
   
-  lt <- structure(list(sec = seconds., 
-                       min = minutes., 
-                       hour = hours., 
-                       mday = days., 
-                       mon = months. - 1,
-                       year = years. - 1900,
-                       wday = NULL,
-                       yday = NULL,
-                       isdst = NULL), 
-                  tzone = tz.,
-                  class = c("POSIXlt", "POSIXt"))
+  if (!is.null(units$mon)) units$mon <- units$mon - 1
+  if (!is.null(units$year)) units$year <- units$year - 1900
   
-  ct <- as.POSIXct(lt)
+  class(date) <- "list"
+  date[names(units)] <- units
+  date[c("wday", "yday", "isdst")] <- list(wday = NA, yday = NA, isdst = NA)  
+  class(date) <- c("POSIXlt", "POSIXt")
+  
+  if (!is.na(new.tz)) attr(date, "tzone") <- new.tz
+
+  ct <- as.POSIXct(date)
   
   # check if date falls in DST gap
-  lt.hours <- hours. %% 24 + minutes. %/% 60 + seconds. %/% 3600
-  if (any(na.omit(lt.hours < 3)) && tz. != "UTC") { 
+  lt.hours <- date$hour %% 24 + date$min %/% 60 + date$sec %/% 3600
+  if (any(na.omit(lt.hours < 3)) && attr(date, "tzone") != "UTC") { 
     ct[!is.na(ct) & hour(ct) != lt.hours] <- NA
   }
   
@@ -83,20 +92,13 @@ update.POSIXt <- function(object, years. = year(object),
 
 #' @export
 #' @method update Date
-update.Date <- function(object, years. = year(object), 
-  months. = month(object), tz. = tz(object), 
-  hours. = 0, minutes. = 0, seconds. = 0, wdays. = NULL, 
-  mdays. = NULL, ydays. = NULL, days. = NULL, ...){ 
+update.Date <- function(object, ...){ 
   
-  ct <- as.POSIXct(object)
-  attr(ct, "tzone") <- "UTC"
+  lt <- as.POSIXlt(object, tz = "UTC")
   
-  new <- update(ct, years. = years., months. = months., 
-    days. = days., mdays. = mdays., ydays. = ydays., wdays. = wdays., 
-    hours. = hours., minutes. = minutes., seconds. = seconds., 
-    tzs. = tzs.)
+  new <- update(lt, ...)
   
-  if (sum(na.omit(c(hours., minutes., seconds.)))) {
+  if (sum(c(new$hour, new$min, new$sec))) {
     new
   } else {
     as.Date(new)

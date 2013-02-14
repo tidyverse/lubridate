@@ -4,7 +4,7 @@ test_that("force_tz returns NA for a time that falls in the spring gap",{
   x <- as.POSIXct("2010-03-14 02:05:05", tz = "UTC")
   result <- is.na(force_tz(x, "America/New_York"))
   
-  expect_that(result, is_true())
+  expect_true(result)
 })
 
 
@@ -65,29 +65,29 @@ test_that("update returns NA for date-times in the spring dst gap",{
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
      
-  expect_that(is.na(update(poslt, seconds = 61)), is_true())
-  expect_that(is.na(update(poslt, minutes = 61)), is_true())
-  expect_that(is.na(update(poslt, hours = 2)), is_true())
+  expect_true(is.na(update(poslt, seconds = 61)))
+  expect_true(is.na(update(poslt, minutes = 61)))
+  expect_true(is.na(update(poslt, hours = 2)))
   
   poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   
-  expect_that(is.na(update(poslt, mday = 14)), is_true())
-  expect_that(is.na(update(poslt, wday = 8)), is_true())
-  expect_that(is.na(update(poslt, yday = 73)), is_true())
+  expect_true(is.na(update(poslt, mday = 14)))
+  expect_true(is.na(update(poslt, wday = 8)))
+  expect_true(is.na(update(poslt, yday = 73)))
   
   poslt <- as.POSIXlt("2010-02-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   
-  expect_that(is.na(update(poslt, months = 3)), is_true())
+  expect_true(is.na(update(poslt, months = 3)))
   
   poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   
-  expect_that(is.na(update(poslt, years = 2010)), is_true())
+  expect_true(is.na(update(poslt, years = 2010)))
   
   poslt <- as.POSIXlt("2010-03-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
