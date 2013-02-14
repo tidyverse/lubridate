@@ -69,11 +69,16 @@ update.POSIXt <- function(object, years. = year(object),
                   tzone = tz.,
                   class = c("POSIXlt", "POSIXt"))
   
-  ct <- as.POSIXct(lt) 
+  ct <- as.POSIXct(lt)
   
-  # tests whether time is invalid due to daylight savings gap
-  ct[hour(ct) != hour(format(lt))] <- NA
+  # check if date falls in DST gap
+  lt.hours <- hours. %% 24 + minutes. %/% 60 + seconds. %/% 3600
+  if (any(na.omit(lt.hours < 3)) && tz. != "UTC") { 
+    ct[!is.na(ct) & hour(ct) != lt.hours] <- NA
+  }
+  
   reclass_date(ct, object)
+
 }
 
 #' @export
