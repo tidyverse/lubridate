@@ -8,8 +8,7 @@
 #' 
 #' @name DateUpdate
 #' @S3method update Date
-#' @S3method update POSIXct
-#' @S3method update POSIXlt
+#' @S3method update POSIXt
 #' @param object a date-time object  
 #' @param years a value to substitute for the date's year component
 #' @param months a value to substitute for the date's month component
@@ -40,94 +39,61 @@
 NULL
 
 #' @export
-#' @method update POSIXct
-update.POSIXct <- function(object, years = year(object), 
-	months = month(object), days = mday(object), 
-	mdays = mday(object), ydays = yday(object), 
-	wdays = wday(object), hours = hour(object), 
-	minutes = minute(object), seconds = second(object), 
-	tzs = tz(object), ...){
+#' @method update POSIXt
+update.POSIXt <- function(object, years. = year(object), 
+  months. = month(object), hours. = hour(object), 
+  minutes. = minute(object), seconds. = second(object), tz. = tz(object),
+  days. = NULL, wdays. = NULL, mdays. = NULL, ydays. = NULL, ...){
   
+  # just return empty objects
   if(!length(object)) return(object)
   
-  d.length <- max(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
-  d.length2 <- min(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
+  xday <- sum(c(!is.null(days.), !is.null(wdays.), !is.null(mdays.), !is.null(ydays.)))
+  if (!xday) days. <- mday(object)
+  else {
+    if (xday > 1) stop("conflicting days input")
+    if (!is.null(mdays.)) days. <- mdays.
+    else if (!is.null(wdays.)) days. <- wdays. - wday(object) + day(object)
+    else if (!is.null(ydays.)) days. <- ydays. - yday(object) + day(object)
+  }  
   
-  if(d.length %% d.length2 != 0){
-    stop(paste("arguments imply differing day lengths: ", 
-      d.length, ", ", d.length2, sep = ""))
-  }
-    
-  day.change <- rbind(
-    days - mday(object), 
-    mdays - mday(object), 
-    wdays - wday(object), 
-    ydays - yday(object))
+  lt <- structure(list(sec = seconds., 
+                       min = minutes., 
+                       hour = hours., 
+                       mday = days., 
+                       mon = months. - 1,
+                       year = years. - 1900,
+                       wday = NULL,
+                       yday = NULL,
+                       isdst = NULL), 
+                  tzone = tz.,
+                  class = c("POSIXlt", "POSIXt"))
   
-  blank.rows <- rowSums(abs(day.change), na.rm = TRUE)
-  new.days <- day.change[which(blank.rows != 0),]
+  ct <- as.POSIXct(lt) 
   
-  if(is.matrix(new.days)){
-  	if(nrow(unique(new.days)) > 1) 
-    	stop("conflicting days input")
-    else
-    	new.days <- unique(new.days)
-  }
-
-  days <- colSums(rbind(mday(object), new.days), na.rm = TRUE)
-  
-    
-  parts <- data.frame(years, months, days, hours, minutes, seconds)
-  
-
-  utc <- as.POSIXlt(force_tz(object, tzone = "UTC"))
-  
-  utc$year <- parts$years - 1900
-  utc$mon <- parts$months - 1
-  utc$mday <- parts$days
-  utc$hour <- parts$hours
-  utc$min <- parts$minutes
-  utc$sec <- parts$seconds
-
-  utc <- as.POSIXct(utc)
-  force_tz(utc, tzone = tzs)
+  # tests whether time is invalid due to daylight savings gap
+  ct[hour(ct) != hour(format(lt))] <- NA
+  reclass_date(ct, object)
 }
 
 #' @export
 #' @method update Date
-update.Date <- function(object, years = year(object), months = month(object), 
-  days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
-  wday(object), hours = hour(object), minutes = minute(object), seconds = 
-  second(object), tzs = tz(object), ...){
-    
-  time.change <- c(hours - hour(object), minutes - minute(object), 
-    seconds - second(object))  
-    
-  if(sum(na.omit(time.change)) != 0){
-    return(update(with_tz(as.POSIXct(object), "UTC"), years = 
-    years, months = months, days = days, mdays = mdays, ydays 
-    = ydays, wdays = wdays, hours = hours, minutes = minutes, 
-    seconds = seconds, tzs = tzs))
+update.Date <- function(object, years. = year(object), 
+  months. = month(object), tz. = tz(object), 
+  hours. = 0, minutes. = 0, seconds. = 0, wdays. = NULL, 
+  mdays. = NULL, ydays. = NULL, days. = NULL, ...){ 
+  
+  ct <- as.POSIXct(object)
+  attr(ct, "tzone") <- "UTC"
+  
+  new <- update(ct, years. = years., months. = months., 
+    days. = days., mdays. = mdays., ydays. = ydays., wdays. = wdays., 
+    hours. = hours., minutes. = minutes., seconds. = seconds., 
+    tzs. = tzs.)
+  
+  if (sum(na.omit(c(hours., minutes., seconds.)))) {
+    new
+  } else {
+    as.Date(new)
   }
-    
-  as.Date(update(with_tz(as.POSIXct(object), "UTC"), years = years, 
-    months = months, days = days, mdays = mdays, ydays = 
-    ydays, wdays = wdays, hours = hours, minutes = minutes, 
-    seconds = seconds, tzs = tzs))
 }
-
-#' @export
-#' @method update POSIXlt
-update.POSIXlt <- function(object, years = year(object), months = month(object), 
-  days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
-  wday(object), hours = hour(object), minutes = minute(object), seconds = 
-  second(object), tzs = tz(object), ...){
-  
-  if(!length(object)) return(object)
-  
-  as.POSIXlt(update(as.POSIXct(object), years = years, months = 
-    months, days = days, mdays = mdays, ydays = ydays, wdays = 
-    wdays, hours = hours, minutes = minutes, seconds = 
-    seconds, tzs = tzs))
-}
-

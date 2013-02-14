@@ -354,19 +354,19 @@ test_that("update handles vectors of dates and conformable vector of inputs",{
     equals(c(1,2,3)))
 })
 
-test_that("update handles gives error for non-comformable date and input vectors",{ 
-  poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 
-    01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
-  posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
+# test_that("update handles gives error for non-comformable date and input vectors",{ 
+#   poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 
+#    01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+#  posct <- as.POSIXct(poslt)
+#  date <- as.Date(poslt)
   
-  expect_that(second(update(poslt, seconds = c(1, 2))), 
-    throws_error())
-  expect_that(second(update(posct, seconds = c(1, 2))), 
-    throws_error())
-  expect_that(day(update(date, days = c(1, 2))), 
-    throws_error())
- })
+#  expect_that(second(update(poslt, seconds = c(1, 2))), 
+#    throws_error())
+#  expect_that(second(update(posct, seconds = c(1, 2))), 
+#    throws_error())
+#  expect_that(day(update(date, days = c(1, 2))), 
+#    throws_error())
+# })
 
 test_that("update handles single vector of inputs",{ 
   poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
@@ -397,19 +397,19 @@ test_that("update handles conformable vectors of inputs",{
     c(1,2,3,4))), equals(c(1,2,1,2)))
 })
 
-test_that("update handles gives error for non-conformable vectors of inputs",{ 
-  poslt <- as.POSIXlt("2010-03-10 01:59:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
-  posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
+# test_that("update handles gives error for non-conformable vectors of inputs",{ 
+#  poslt <- as.POSIXlt("2010-03-10 01:59:59", tz = "UTC", format
+#     = "%Y-%m-%d %H:%M:%S")
+#  posct <- as.POSIXct(poslt)
+#  date <- as.Date(poslt)
   
-  expect_that(second(update(poslt, seconds = c(1,2), minutes = 
-    c(1,2,3))), throws_error())
-  expect_that(second(update(posct, seconds = c(1,2), minutes = 
-    c(1,2,3))), throws_error())
-  expect_that(day(update(date, days = c(1,2), months = 
-    c(1,2,3))), throws_error())
-})
+#  expect_that(second(update(poslt, seconds = c(1,2), minutes = 
+#    c(1,2,3))), throws_error())
+#  expect_that(second(update(posct, seconds = c(1,2), minutes = 
+#    c(1,2,3))), throws_error())
+#  expect_that(day(update(date, days = c(1,2), months = 
+#    c(1,2,3))), throws_error())
+# })
 
 test_that("update.POSIXct returns input of length zero when given input of length zero",{
   x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))

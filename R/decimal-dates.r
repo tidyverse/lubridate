@@ -14,6 +14,7 @@ decimal_date <- function(date)
   UseMethod("decimal_date")
   
 decimal_date.default <- function(date){
+
   if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
     stop("date(s) not in POSIXt or Date format")
   
