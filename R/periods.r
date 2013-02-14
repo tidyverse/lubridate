@@ -151,6 +151,18 @@ check_period <- function(object){
 #' @aliases !=,Duration,Period-method
 #' @aliases <=,Duration,Period-method
 #' @aliases <,Duration,Period-method
+#' @aliases >,Period,numeric-method
+#' @aliases >=,Period,numeric-method
+#' @aliases ==,Period,numeric-method
+#' @aliases !=,Period,numeric-method
+#' @aliases <=,Period,numeric-method
+#' @aliases <,Period,numeric-method
+#' @aliases >,numeric,Period-method
+#' @aliases >=,numeric,Period-method
+#' @aliases ==,numeric,Period-method
+#' @aliases !=,numeric,Period-method
+#' @aliases <=,numeric,Period-method
+#' @aliases <,numeric,Period-method
 setClass("Period", contains = c("Timespan", "numeric"), 
 	representation(year = "numeric", month = "numeric", day = "numeric", 
 		hour = "numeric", minute = "numeric"), 
@@ -633,6 +645,75 @@ setMethod("<", signature(e1 = "Duration", e2 = "Period"),
 	function(e1, e2) {
 	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
 })
+
+#' @export
+setMethod(">", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod(">=", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
+
+#' @export
+setMethod("==", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
+
+#' @export
+setMethod("!=", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("<=", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("<", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
+
+#' @export
+setMethod(">", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod(">=", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
+
+#' @export
+setMethod("==", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("!=", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("<=", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("<", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
 	
 #' @S3method summary Period
 summary.Period <- function(object, ...) {
