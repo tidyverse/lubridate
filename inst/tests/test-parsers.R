@@ -307,6 +307,12 @@ test_that("fractional formats are correctly parsed", {
 })
 
 
+test_that("improper dates return an NA with a warning, not an error", {
+  expect_warning(ymd("2010-02-29"))
+  expect_true(is.na(suppressWarnings(ymd("2010-02-29"))))
+})
+
+
 
 
 
