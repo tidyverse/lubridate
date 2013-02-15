@@ -81,7 +81,8 @@ as.period(leap, unit = "days")
 # "366d 0H 0M 0S"
 as.period(leap, unit = "years")
 # "1y 0m 0d 0H 0M 0S"
-dst <- new_interval(ymd("2016-11-06", tz = "America/Chicago"), ymd("2016-11-07", tz = "America/Chicago"))
+dst <- new_interval(ymd("2016-11-06", tz = "America/Chicago"),
+ymd("2016-11-07", tz = "America/Chicago"))
 # 2016-11-06 CDT--2016-11-07 CST
 # as.period(dst, unit = "seconds")
 # "86400S"

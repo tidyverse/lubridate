@@ -116,8 +116,9 @@ format.Interval <- function(x,...){
 
 #' @export
 setMethod("c", signature(x = "Interval"), function(x, ...){
-	spans <- c(x@.Data, unlist(list(...)))
-	starts <- c(x@start, unlist(lapply(list(...), int_start)))
+  elements <- lapply(list(...), as.interval)
+	spans <- c(x@.Data, unlist(elements@.Data))
+	starts <- c(x@start, lapply(elements, int_start))
 	new("Interval", spans, start = starts, tzone = x@tzone)
 })
 
@@ -393,6 +394,8 @@ int_shift <- function(int, by){
 #' int_overlaps(int1, int3) # FALSE
 int_overlaps <- function(int1, int2){
 	stopifnot(c(is.interval(int1), is.interval(int2)))
+  int1 <- int_standardize(int1)
+  int2 <- int_standardize(int2)
 	int1@start <= int2@start + int2@.Data & int2@start <= int1@start + int1@.Data
 }
 
@@ -474,7 +477,9 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	spans[no.int] <- NA
 	starts[no.int] <- NA
 	
-	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
+	new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
+  new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
+  new.int
 })
 
 #' @export
@@ -494,7 +499,9 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
 		message("Union includes intervening time between intervals.")
 		
 	tz(starts) <- x@tzone
-	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
+	new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
+	new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
+	new.int
 })
 
 #' @export
@@ -503,6 +510,13 @@ setGeneric("setdiff")
 # returns the part of x that is not in y
 #' @export
 setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
+  
+  if (length(x) != length(y)) {
+    xy <- match_lengths(x, y)
+    x <- xy[[1]]
+    y <- xy[[2]]
+  }
+  
 	aligned <- which(int_aligns(x, y))
 	inside <- which(y %within% x)
 	makes2 <- setdiff(aligned, inside)
@@ -517,8 +531,9 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 	
 	first.y <- int_start(int2)
 	last.y <- int_end(int2)
-	
+  
 	starts <- int_start(int1)
+  
 	starts[(last.y + 1) %within% int1] <- last.y[(last.y + 1) %within% int1]
 
 	ends <- int_end(int1)
@@ -526,7 +541,9 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 	
 	spans <- as.numeric(ends) - as.numeric(starts)
 	
-	new("Interval", spans, start = starts, tzone = x@tzone) * sign(x@.Data)
+	new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
+	new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
+	new.int
 })
 
 
@@ -565,7 +582,11 @@ setMethod("%within%", signature(b = "Interval"), function(a,b){
 })
 
 setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
-	as.numeric(a@start) - as.numeric(b@start) <= b@.Data & as.numeric(a@start) - as.numeric(b@start) >= 0
+  a <- int_standardize(a)
+  b <- int_standardize(b)
+  start.in <- as.numeric(a@start) >= as.numeric(b@start) 
+	end.in <- (as.numeric(a@start) + a@.Data) <= (as.numeric(b@start) + b@.Data)
+  start.in & end.in
 })
 
 #' @S3method summary Interval
@@ -576,9 +597,10 @@ summary.Interval <- function(object, ...) {
   dates <- c(int_start(object), int_end(object))
   earliest <- as.character(min(dates))
   latest <- as.character(max(dates))
+  zone <- tz(dates)
   
-  qq <- c(n, earliest, latest)
-  names(qq) <- c("Intervals", "Earliest endpoint", "Latest endpoint")
+  qq <- c(n, earliest, latest, zone)
+  names(qq) <- c("Intervals", "Earliest endpoint", "Latest endpoint", "Time zone")
   if (any(nas)) 
     c(qq, `NA's` = sum(nas))
   else qq

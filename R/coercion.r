@@ -238,10 +238,44 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #'
 #' as.interval(3600, ymd("2009-01-01")) #numeric
 #' # 2009-01-01 UTC--2009-01-01 01:00:00 UTC
-as.interval <- function(x, start){
+#' @aliases as.interval,numeric-method
+#' @aliases as.interval,difftime-method
+#' @aliases as.interval,Interval-method
+#' @aliases as.interval,Duration-method
+#' @aliases as.interval,Period-method
+#' @aliases as.interval,POSIXt-method
+#' @aliases as.interval,logical-method
+as.interval <- function(x, start, ...) standardGeneric("as.interval")
+
+#' @export
+setGeneric("as.interval")
+
+setMethod("as.interval", signature(x = "numeric"), function(x, start, ...){
+  .number_to_interval(x, start, ...)
+})
+
+setMethod("as.interval", signature(x = "difftime"), function(x, start, ...){
+  .number_to_interval(x, start, ...)
+})
+
+setMethod("as.interval", signature(x = "Interval"), function(x, start, ...) {
+  x
+})
+
+setMethod("as.interval", signature(x = "POSIXt"), function(x, start, ...) {
+  .number_to_interval(x, start, ...)
+})
+
+#' @export
+setMethod("as.interval", signature("logical"), function(x, start, ...) {
+  .number_to_interval(as.numeric(x), start, ...)
+})
+
+.number_to_interval <- function(x, start, ...){
   if (missing(start) & all(is.na(x)))
     start <- as.POSIXct(NA, origin = origin)
   else stopifnot(is.instant(start))
+  
 	if (is.instant(x))
 		return(new_interval(x, start))
 	else
@@ -307,7 +341,8 @@ as.interval <- function(x, start){
 #' # "366d 0H 0M 0S"
 #' as.period(leap, unit = "years")
 #' # "1y 0m 0d 0H 0M 0S"
-#' dst <- new_interval(ymd("2016-11-06", tz = "America/Chicago"), ymd("2016-11-07", tz = "America/Chicago"))
+#' dst <- new_interval(ymd("2016-11-06", tz = "America/Chicago"), 
+#' ymd("2016-11-07", tz = "America/Chicago"))
 #' # 2016-11-06 CDT--2016-11-07 CST
 #' # as.period(dst, unit = "seconds")
 #' # "86400S"
