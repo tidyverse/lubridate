@@ -18,6 +18,11 @@
 ##' NOTE: \code{ymd} family of functions are based on \code{\link{strptime}}
 ##' which currently correctly parses "\%y" format, but fails to parse "\%y-\%m"
 ##' formats.
+##' 
+##' As of version 1.3.0, lubridate's parse functions no longer return a
+##' message that displays which format they used to parse their input. You can 
+##' change this by setting the \code{lubridate.verbose} option to true with 
+##' \code{options(lubridate.verbose = TRUE)}.
 ##'
 ##' @export ymd myd dym ydm mdy dmy
 ##' @aliases yearmonthdate ymd myd dym ydm mdy dmy
@@ -93,6 +98,11 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' incomplete dates like \code{2012-06-01 12:23}, \code{2012-06-01 12} and
 ##' \code{2012-06-01}. NOTE: \code{ymd} family of functions are based on
 ##' \code{strptime} which currently fails to parse \code{\%y-\%m} formats.
+##'
+##' As of version 1.3.0, lubridate's parse functions no longer return a
+##' message that displays which format they used to parse their input. You can 
+##' change this by setting the \code{lubridate.verbose} option to true with 
+##' \code{options(lubridate.verbose = TRUE)}.
 ##'
 ##' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h 
 ##' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h
@@ -448,7 +458,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)
   out[to_parse] <- .local_parse(x[to_parse], TRUE)
   
-  if( failed > 0 && !quiet && !warned)
+  if( failed > 0 && !quiet && !warned )
     warning(" ", failed, " failed to parse.", call. = FALSE)
   
   out
@@ -462,7 +472,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   na <- is.na(out$year)
   newx <- x[na]
   
-  if( !quiet )
+  verbose <- getOption("lubridate.verbose")
+  if( !is.null(verbose) && verbose )
     message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   if( length(formats) > 1 && length(newx) > 0 )
