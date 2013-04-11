@@ -2,11 +2,14 @@
 \alias{ms}
 \title{Create a period with the specified number of minutes and seconds}
 \usage{
-  ms(...)
+  ms(..., quiet = FALSE)
 }
 \arguments{
   \item{...}{character or numeric vectors of minute second
   pairs}
+
+  \item{quiet}{logical. When TRUE function evalueates
+  without displaying customary messages.}
 }
 \value{
   a vector of class \code{Period}

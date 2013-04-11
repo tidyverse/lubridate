@@ -2,11 +2,14 @@
 \alias{hm}
 \title{Create a period with the specified number of hours and minutes}
 \usage{
-  hm(...)
+  hm(..., quiet = FALSE)
 }
 \arguments{
   \item{...}{character or numeric vectors of hour minute
   pairs}
+
+  \item{quiet}{logical. When TRUE function evalueates
+  without displaying customary messages.}
 }
 \value{
   a vector of class \code{Period}

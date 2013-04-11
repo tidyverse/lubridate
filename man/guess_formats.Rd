@@ -9,7 +9,7 @@
 \arguments{
   \item{x}{input vector of date-times}
 
-  \item{orders}{format orders to look for. See details.}
+  \item{orders}{format orders to look for. See examples.}
 
   \item{locale}{locale to use, default to the current
   locale (also checks en_US)}

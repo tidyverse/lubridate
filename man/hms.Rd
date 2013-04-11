@@ -2,11 +2,14 @@
 \alias{hms}
 \title{Create a period with the specified hours, minutes, and seconds}
 \usage{
-  hms(..., truncated = 0)
+  hms(..., quiet = FALSE, truncated = 0)
 }
 \arguments{
   \item{...}{a character vector of hour minute second
   triples}
+
+  \item{quiet}{logical. When TRUE function evalueates
+  without displaying customary messages.}
 
   \item{truncated}{integer, number of formats that can be
   missing. See \code{\link{parse_date_time}}.}

@@ -149,18 +149,34 @@ test_that("ymd functions correctly parse dates with no separators and no quotes"
               equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
 })
 
+## test_that("ymd functions fail to parse absurd formats", {
+##   ## should not through errors, just as as.POSIX and strptime
+##   pna <- as.POSIXct(as.POSIXlt(NA, tz = "UTC"))
+##   expect_that(ymd(201001023), equals(pna))
+##   expect_that(ydm(20103201),  equals(pna))
+##   expect_that(mdy(13022010), equals(pna))
+##   expect_that(myd(01201033), equals(pna))
+##   expect_that(dmy(02222010), equals(pna))
+##   expect_that(dym(022010013), equals(pna))
+##   expect_that(ymd_hms("2010-01-023 23:59:59"), equals(pna))
+##   expect_that(ymd_hms("2010-01-023 23:59:59.34"), equals(pna))
+##   expect_that(ymd_hms("201001023235959.34"), equals(pna))
+##   expect_that(ymd(c(201001024, 20100103)),
+##               equals(as.POSIXct(c(NA, "2010-01-03"), tz = "UTC")))
+## })
+
 test_that("ymd functions fail to parse absurd formats", {
-  ## should not through errors, just as as.POSIX and strptime
+  ## should it be an error?
   pna <- as.POSIXct(as.POSIXlt(NA, tz = "UTC"))
-  expect_that(ymd(201001023), equals(pna))
-  expect_that(ydm(20103201),  equals(pna))
-  expect_that(mdy(13022010), equals(pna))
-  expect_that(myd(01201033), equals(pna))
-  expect_that(dmy(02222010), equals(pna))
-  expect_that(dym(022010013), equals(pna))
-  expect_that(ymd_hms("2010-01-023 23:59:59"), equals(pna))
-  expect_that(ymd_hms("2010-01-023 23:59:59.34"), equals(pna))
-  expect_that(ymd_hms("201001023235959.34"), equals(pna))
+  expect_error(ymd(201001023))
+  expect_error(ydm(20103201))
+  expect_error(mdy(13022010))
+  expect_error(myd(01201033))
+  expect_error(dmy(02222010))
+  expect_error(dym(022010013))
+  expect_error(ymd_hms("2010-01-023 23:59:59"))
+  expect_error(ymd_hms("2010-01-023 23:59:59.34"))
+  expect_error(ymd_hms("201001023235959.34"))
   expect_that(ymd(c(201001024, 20100103)),
               equals(as.POSIXct(c(NA, "2010-01-03"), tz = "UTC")))
 })
@@ -260,13 +276,23 @@ test_that("hms functions correctly handle / separators", {
 })
 
 
+## test_that("hms functions return NA on incompatible inputs", {
+##   expect_that(is.na(hms("3:3:3:4")), is_true())
+##   expect_that(is.na(hms("03:03")), is_true())
+##   expect_that(is.na(ms("03:02:01")), is_true())
+##   expect_that(is.na(ms("03")), is_true())
+##   expect_that(is.na(hm("03:03:01")), is_true())
+##   expect_that(is.na(hm("03")), is_true())
+## })
+
+
 test_that("hms functions return NA on incompatible inputs", {
-  expect_that(is.na(hms("3:3:3:4")), is_true())
-  expect_that(is.na(hms("03:03")), is_true())
-  expect_that(is.na(ms("03:02:01")), is_true())
-  expect_that(is.na(ms("03")), is_true())
-  expect_that(is.na(hm("03:03:01")), is_true())
-  expect_that(is.na(hm("03")), is_true())
+  expect_error(hms("3:3:3:4"))
+  expect_error(hms("03:03"))
+  expect_error(ms("03:02:01"))
+  expect_error(ms("03"))
+  expect_error(hm("03:03:01"))
+  expect_error(hm("03"))
 })
 
 
@@ -314,14 +340,82 @@ test_that("fractional formats are correctly parsed", {
 
 
 
+test_that("ISO8601: %z format (aka lubridate %Ot, %OO and %Oo formats) is correctly parsed",{
+  
+  expect_that(
+    parse_date_time("2012-12-04 15:06:06.95-0800", "YmdHMOSz"),
+    equals(as.POSIXlt("2012-12-04 23:06:06.95 UTC", tz = "UTC")))
+  
+  expect_that(
+    parse_date_time(c("2012-12-04 15:06:06.95-08", "2012-12-04 15:06:06.95+08:00"), "YmdHMOSz"),
+    equals(as.POSIXlt(c("2012-12-04 23:06:06.95 UTC", "2012-12-04 07:06:06.95 UTC"), tz = "UTC")))
+  
+})
+
+test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo formats.", {
+
+  expect_that(
+    ymd_hms(c("2013-01-24 19:39:07.880-0600", 
+              "2013-01-24 19:39:07.880", "2013-01-24 19:39:07.880-06:00", 
+              "2013-01-24 19:39:07.880-06", "2013-01-24 19:39:07.880Z")),
+    equals(as.POSIXct(c("2013-01-25 01:39:07.88 UTC", 
+                        "2013-01-24 19:39:07.88 UTC", "2013-01-25 01:39:07.88 UTC", 
+                        "2013-01-25 01:39:07.88 UTC", "2013-01-24 19:39:07.88 UTC"), tz = "UTC")))
+})
+
+
+
+test_that("ymd_hms parses Ou format correctly ",{
+  expect_that(ymd_hms("2012-03-04T05:06:07Z"), 
+              equals(ymd_hms("2012-03-04 05:06:07", tz="UTC")))
+})
+
+test_that("ymd_hms parses OO and Oo formats correctly", {
+  ## +00:00
+  expect_that(ymd_hms("2012-03-04T05:06:07+00:00"), 
+              equals(ymd_hms("2012-03-04 05:06:07", tz="UTC")))
+  ## -HH
+  expect_that(ymd_hms("2012-03-04T05:06:07-01"), 
+              equals(ymd_hms("2012-03-04 06:06:07", tz="UTC")))
+  ## -HHMM
+  expect_that(ymd_hms("2012-03-04T05:06:07-0130"), 
+              equals(ymd_hms("2012-03-04 06:36:07", tz="UTC")))
+  ## -HH:MM
+  expect_that(ymd_hms("2012-03-04T05:06:07-01:30"), 
+              equals(ymd_hms("2012-03-04 06:36:07", tz="UTC")))
+  ## +HH
+  expect_that(ymd_hms("2012-03-04T05:06:07+01"), 
+              equals(ymd_hms("2012-03-04 04:06:07", tz="UTC")))
+  ## +HHMM
+  expect_that(ymd_hms("2012-03-04T05:06:07+0130"), 
+              equals(ymd_hms("2012-03-04 03:36:07", tz="UTC")))
+  ## +HH:MM
+  expect_that(ymd_hms("2012-03-04T05:06:07+01:30"), 
+              equals(ymd_hms("2012-03-04 03:36:07", tz="UTC")))
+  ## vectorizes
+  expect_that(ymd_hms(c("2012-03-04T05:06:07+01", "2012-03-04T05:06:07+01:30")), 
+              equals(ymd_hms(c("2012-03-04 04:06:07", "2012-03-04 03:36:07"), tz="UTC")))  
+})
+
+
+
+
+## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00", 
+##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00", 
+##   "2012-12-04 17:16:05.097000-08:00")
 
 
 ## ## ### speed:
-## options(digits.secs = 0)
-## tt <- rep(as.character(Sys.time()), 1e6)
+## options(digits.secs = 3)
+## tt <- c(rep(as.character(Sys.time()), 1e5))#, "sfds", "sdfdsf")
 
 ## system.time(out <- as.POSIXct(tt, tz = "UTC"))
 ## system.time(out <- ymd_hms(tt))
+
+## ttz <- paste(tt, "-0600", sep = "")
+## system.time(parse_date_time(ttz, "YmdHMOSz"))
+## head(parse_date_time(ttz, "YmdHMOSz"))
+## system.time(out <- ymd_hms(ttz))
 
 ## tt <- rep(c(as.character(Sys.time()), as.character(Sys.Date())), 5e5)
 ## system.time(out <- as.POSIXct(tt, tz = "UTC"))
