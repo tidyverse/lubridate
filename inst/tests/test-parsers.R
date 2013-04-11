@@ -149,36 +149,34 @@ test_that("ymd functions correctly parse dates with no separators and no quotes"
               equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
 })
 
-## test_that("ymd functions fail to parse absurd formats", {
-##   ## should not through errors, just as as.POSIX and strptime
-##   pna <- as.POSIXct(as.POSIXlt(NA, tz = "UTC"))
-##   expect_that(ymd(201001023), equals(pna))
-##   expect_that(ydm(20103201),  equals(pna))
-##   expect_that(mdy(13022010), equals(pna))
-##   expect_that(myd(01201033), equals(pna))
-##   expect_that(dmy(02222010), equals(pna))
-##   expect_that(dym(022010013), equals(pna))
-##   expect_that(ymd_hms("2010-01-023 23:59:59"), equals(pna))
-##   expect_that(ymd_hms("2010-01-023 23:59:59.34"), equals(pna))
-##   expect_that(ymd_hms("201001023235959.34"), equals(pna))
-##   expect_that(ymd(c(201001024, 20100103)),
-##               equals(as.POSIXct(c(NA, "2010-01-03"), tz = "UTC")))
-## })
-
-test_that("ymd functions fail to parse absurd formats", {
-  ## should it be an error?
+test_that("ymd functions parse absurd formats as NA's", {
+  ## should not through errors, just as as.POSIX and strptime
   pna <- as.POSIXct(as.POSIXlt(NA, tz = "UTC"))
-  expect_error(ymd(201001023))
-  expect_error(ydm(20103201))
-  expect_error(mdy(13022010))
-  expect_error(myd(01201033))
-  expect_error(dmy(02222010))
-  expect_error(dym(022010013))
-  expect_error(ymd_hms("2010-01-023 23:59:59"))
-  expect_error(ymd_hms("2010-01-023 23:59:59.34"))
-  expect_error(ymd_hms("201001023235959.34"))
-  expect_that(ymd(c(201001024, 20100103)),
+  expect_that(ymd(201001023, quiet = TRUE), equals(pna))
+  expect_that(ydm(20103201, quiet = TRUE),  equals(pna))
+  expect_that(mdy(13022010, quiet = TRUE), equals(pna))
+  expect_that(myd(01201033, quiet = TRUE), equals(pna))
+  expect_that(dmy(02222010, quiet = TRUE), equals(pna))
+  expect_that(dym(022010013, quiet = TRUE), equals(pna))
+  expect_that(ymd_hms("2010-01-023 23:59:59", quiet = TRUE), equals(pna))
+  expect_that(ymd_hms("2010-01-023 23:59:59.34", quiet = TRUE), equals(pna))
+  expect_that(ymd_hms("201001023235959.34", quiet = TRUE), equals(pna))
+  expect_that(ymd(c(201001024, 20100103), quiet = TRUE),
               equals(as.POSIXct(c(NA, "2010-01-03"), tz = "UTC")))
+})
+
+test_that("ymd functions give warning when parsing absurd formats", {
+  ## should not through errors, just as as.POSIX and strptime
+  expect_warning(ymd(201001023))
+  expect_warning(ydm(20103201))
+  expect_warning(mdy(13022010))
+  expect_warning(myd(01201033))
+  expect_warning(dmy(02222010))
+  expect_warning(dym(022010013))
+  expect_warning(ymd_hms("2010-01-023 23:59:59"))
+  expect_warning(ymd_hms("2010-01-023 23:59:59.34"))
+  expect_warning(ymd_hms("201001023235959.34"))
+  expect_warning(ymd(c(201001024, 20100103)))
 })
 
 
@@ -276,23 +274,22 @@ test_that("hms functions correctly handle / separators", {
 })
 
 
-## test_that("hms functions return NA on incompatible inputs", {
-##   expect_that(is.na(hms("3:3:3:4")), is_true())
-##   expect_that(is.na(hms("03:03")), is_true())
-##   expect_that(is.na(ms("03:02:01")), is_true())
-##   expect_that(is.na(ms("03")), is_true())
-##   expect_that(is.na(hm("03:03:01")), is_true())
-##   expect_that(is.na(hm("03")), is_true())
-## })
-
-
 test_that("hms functions return NA on incompatible inputs", {
-  expect_error(hms("3:3:3:4"))
-  expect_error(hms("03:03"))
-  expect_error(ms("03:02:01"))
-  expect_error(ms("03"))
-  expect_error(hm("03:03:01"))
-  expect_error(hm("03"))
+  expect_that(is.na(hms("3:3:3:4", quiet = TRUE)), is_true())
+  expect_that(is.na(hms("03:03", quiet = TRUE)), is_true())
+  expect_that(is.na(ms("03:02:01", quiet = TRUE)), is_true())
+  expect_that(is.na(ms("03", quiet = TRUE)), is_true())
+  expect_that(is.na(hm("03:03:01", quiet = TRUE)), is_true())
+  expect_that(is.na(hm("03", quiet = TRUE)), is_true())
+})
+
+test_that("hms functions give warning on incompatible inputs", {
+  expect_warning(hms("3:3:3:4"))
+  expect_warning(hms("03:03"))
+  expect_warning(ms("03:02:01"))
+  expect_warning(ms("03"))
+  expect_warning(hm("03:03:01"))
+  expect_warning(hm("03"))
 })
 
 
@@ -333,13 +330,62 @@ test_that("fractional formats are correctly parsed", {
 })
 
 
-# test_that("improper dates return an NA with a warning, not an error", {
-#  expect_warning(ymd("2010-02-29"))
-#  expect_true(is.na(suppressWarnings(ymd("2010-02-29"))))
-#})
+test_that( "NA's are parsed as NA's", {
+  expect_warning(ymd(NA))
+  expect_true(is.na(ymd(NA, quiet = TRUE)))
+  expect_warning(ymd_hms(NA))
+  expect_true(is.na(ymd_hms(NA, quiet = TRUE)))
+  expect_warning(ymd_hm(NA))
+  expect_true(is.na(ymd_hm(NA, quiet = TRUE)))
+  expect_warning(hms(NA))
+  expect_true(is.na(hms(NA, quiet = TRUE)))
+  expect_warning(ms(NA))
+  expect_true(is.na(ms(NA, quiet = TRUE)))
+})
 
-
-
+test_that( "Vectors of NA's are parsed as vectors of NA's", {
+  mna <- as.POSIXct(as.POSIXlt(c(NA,NA,NA), tz = "UTC"))
+  pna <- new("Period"
+             , .Data = c(NA_real_, NA_real_, NA_real_)
+             , year = c(0, 0, 0)
+             , month = c(0, 0, 0)
+             , day = c(0, 0, 0)
+             , hour = c(NA_real_, NA_real_, NA_real_)
+             , minute = c(NA_real_, NA_real_, NA_real_)
+  )
+  pna2 <- new("Period"
+              , .Data = c(NA_real_, NA_real_, NA_real_)
+              , year = c(0, 0, 0)
+              , month = c(0, 0, 0)
+              , day = c(0, 0, 0)
+              , hour = c(0, 0, 0)
+              , minute = c(NA_real_, NA_real_, NA_real_)
+  )
+  
+  expect_warning(ymd(NA, NA, NA))
+  expect_equal(ymd(NA, NA, NA, quiet = TRUE), mna)
+  expect_warning(ymd_hms(NA, NA, NA))
+  expect_equal(ymd_hms(NA, NA, NA, quiet = TRUE), mna)
+  expect_warning(ymd_hm(NA, NA, NA))
+  expect_equal(ymd_hm(NA, NA, NA, quiet = TRUE), mna)
+  expect_warning(hms(NA, NA, NA))
+  expect_equal(hms(NA, NA, NA, quiet = TRUE), pna)
+  expect_warning(ms(NA, NA, NA))
+  expect_equal(ms(NA, NA, NA, quiet = TRUE), pna2)
+  
+  expect_warning(ymd(c(NA, NA, NA)))
+  expect_equal(ymd(c(NA, NA, NA), quiet = TRUE), mna)
+  expect_warning(ymd_hms(c(NA, NA, NA)))
+  expect_equal(ymd_hms(c(NA, NA, NA), quiet = TRUE), mna)
+  expect_warning(ymd_hm(c(NA, NA, NA)))
+  expect_equal(ymd_hm(c(NA, NA, NA), quiet = TRUE), mna)
+  expect_warning(hms(c(NA, NA, NA)))
+  expect_equal(hms(c(NA, NA, NA), quiet = TRUE), pna)
+  expect_warning(ms(c(NA, NA, NA)))
+  expect_equal(ms(c(NA, NA, NA), quiet = TRUE), pna2)
+})
+  
+  
 test_that("ISO8601: %z format (aka lubridate %Ot, %OO and %Oo formats) is correctly parsed",{
   
   expect_that(
@@ -353,7 +399,7 @@ test_that("ISO8601: %z format (aka lubridate %Ot, %OO and %Oo formats) is correc
 })
 
 test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo formats.", {
-
+  
   expect_that(
     ymd_hms(c("2013-01-24 19:39:07.880-0600", 
               "2013-01-24 19:39:07.880", "2013-01-24 19:39:07.880-06:00", 
@@ -516,6 +562,3 @@ test_that("ymd_hms parses OO and Oo formats correctly", {
 ## guess_formats("001020", "ymd")
 
 ## guess_formats("10 am", "r")
-
-
-

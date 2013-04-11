@@ -412,15 +412,15 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                             locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
-
+  
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   on.exit(Sys.setlocale("LC_TIME", orig_locale))  
-
+  
   x <- .num_to_date(x)
   if( truncated != 0 )
     orders <- .add_truncated(orders, truncated)
-
+  
   .local_parse <- function(x, first = FALSE){
     train <- .get_train_set(x)
     formats <- .best_formats(train, orders, locale = locale, .select_formats)
@@ -431,21 +431,24 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
         out[new_na] <- .local_parse(x[new_na])
       out
     }else{
-      if ( first && !quiet)
-        stop("No formats could be infered from the training set.")
+      if ( first && !quiet) {
+        warning("All formats failed to parse. No formats found.", call. = FALSE)
+        warned <<- TRUE
+      }
       failed <<- length(x)
       NA
     }
   }
-
+  
   failed <- 0L
+  warned <- FALSE
   to_parse <- !is.na(x) & nzchar(x) ## missing data could be just ""
   x <- .enclose(x)
   ## out <- rep.int(NA, length(x))
   out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)
   out[to_parse] <- .local_parse(x[to_parse], TRUE)
   
-  if( failed > 0 && !quiet )
+  if( failed > 0 && !quiet && !warned)
     warning(" ", failed, " failed to parse.", call. = FALSE)
   
   out
