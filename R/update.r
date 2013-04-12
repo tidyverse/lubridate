@@ -9,6 +9,8 @@
 #' @name DateUpdate
 #' @S3method update Date
 #' @S3method update POSIXt
+#' @S3method update POSIXct
+#' @S3method update POSIXlt
 #' @param object a date-time object  
 #' @param years a value to substitute for the date's year component
 #' @param months a value to substitute for the date's month component
@@ -40,7 +42,7 @@ NULL
 
 #' @export
 #' @method update POSIXt
-update.POSIXt <- function(object, ...){
+update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
   
   if(!length(object)) return(object)
   date <- as.POSIXlt(object)
