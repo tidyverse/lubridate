@@ -61,6 +61,12 @@
   \code{2012-06-01}. NOTE: \code{ymd} family of functions
   are based on \code{strptime} which currently fails to
   parse \code{\%y-\%m} formats.
+
+  As of version 1.3.0, lubridate's parse functions no
+  longer return a message that displays which format they
+  used to parse their input. You can change this by setting
+  the \code{lubridate.verbose} option to true with
+  \code{options(lubridate.verbose = TRUE)}.
 }
 \examples{
 x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
