@@ -1,0 +1,268 @@
+# Korean translation for R lubridate package
+# /po/R-ko.po
+# This file is distributed under the same license as the R lubridate package.
+# R Development Translation Team - Korean
+# Chel Hee Lee <gnustats@korea.gnu.org>, 2013.
+# Chel Hee Lee <gnustats@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lubridate 1.2.1\n"
+"Report-Msgid-Bugs-To: bugs@r-project.org\n"
+"POT-Creation-Date: 2013-03-29 14:35\n"
+"PO-Revision-Date: 2013-04-01 16:55+0900\n"
+"Last-Translator: Eugene Jung <muoe78@gmail.com>\n"
+"Language-Team: R Development Translation Teams (Korean) <gnustats@korea.gnu."
+"org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.5\n"
+
+msgid "estimate only: convert periods to intervals for accuracy"
+msgstr "추정만: 정확성을 위해 기간(periods)을 간격(intervals)으로 변환"
+
+msgid "estimate only: convert difftimes to intervals for accuracy"
+msgstr "추정만: 정확성을 위해 difftimes를 간격(intervals)으로 변환"
+
+msgid "estimate only: convert durations to intervals for accuracy"
+msgstr "추정만: 정확성을 위해 듀레이션(durations)를 간격(intervals)로 변환함"
+
+msgid "cannot map durations to months"
+msgstr "듀레이션(durations)을 월(months)로 나타낼 수 없습니다."
+
+msgid "coercing interval to duration"
+msgstr "간격(interval)을 듀레이션(duration)으로 강제변환"
+
+msgid "date(s) not in POSIXt or Date format"
+msgstr "날짜가 POSIXt 또는 Date 형태(format)와 일치하지 않습니다."
+
+msgid "Unknown formats supplied:"
+msgstr "알 수 없는 형태(formats)가 입력되었습니다."
+
+msgid ","
+msgstr ","
+
+msgid "by is not a recognized timespan object"
+msgstr "알려진 timespan 객체에 의한 것이 아닙니다."
+
+msgid ""
+"an interval cannot be shifted by another interval. \n"
+"\t\tConvert second interval to a period or duration."
+msgstr ""
+"특정 간격(interval)이 다른 간격(interval)으로 전환될 수 없습니다. \n"
+"\t\t두 번째 간격(interval)을 일정 기간(period)이나 듀레이션(duration)으로 변"
+"환합니다."
+
+msgid "Union includes intervening time between intervals."
+msgstr "유니온(union)은 간격간 변환시간을 포함합니다."
+
+msgid "Cases"
+msgstr "사례(cases)"
+
+msgid "result in discontinuous intervals."
+msgstr "이산기간의 결과"
+
+msgid "Argument 1 is not a recognized date-time"
+msgstr "인수 1은 date-time으로 인식되지 않습니다."
+
+msgid "unrecognized date format"
+msgstr "인식되지 않는 날짜 형식"
+
+msgid ""
+"+ undefined for Interval class:\n"
+"  manipulate with int_start(), int_end() and int_shift()\n"
+"  or change class with as.duration()"
+msgstr ""
+"+ 정의되지 않은 간격 클래스(interval class)\"\n"
+" int_start(), int_end(), 그리고 int_shift()로 조정하십시오.\n"
+" 또는 as.duration()으로 클래스(class)를 변경하십시오."
+
+msgid ""
+"Incompatible timespan classes:\n"
+"  change class with as.duration() or as.period()"
+msgstr ""
+"호환되지 않는 기간  클래스(timespan class):\n"
+"   as.duration()이나 as.period()로 클래스를 변경하십시오."
+
+msgid ""
+"+ undefined for Interval class:\n"
+"Consider intersect(), union(), or setdiff()\n"
+"or change class with as.period() or as.duration()"
+msgstr ""
+"+ 간격 클래스(interval class)가 정의되지 않음:\n"
+"intersect(), union() 또는 setfiff()를 고려해 보십시오\n"
+"또는 as.period()나 as.duration()으로 클래스를 변경하십시오."
+
+msgid ""
+"+ undefined for Interval class:\n"
+"  manipulate with int_start(), int_end() and int_shift()\n"
+"  or change class with as.period()"
+msgstr ""
+"+ 간격 클래스(interval class)가 정의되지 않음:\n"
+"int_start(), int_end(), 그리고 int_shift()로 조정하십시오\n"
+"또는 as.period()로 클래스를 변경하십시오."
+
+msgid ""
+"+ undefined for Interval class:\n"
+"  manipulate with int_start(), int_end() and int_shift()\n"
+"  or change class with as.duration() or as.period()"
+msgstr ""
+"간격 클래스(interval class)가 정의되지 않음:\n"
+"int_start(), int_end(), 그리고 int_shift()로 조정하십시오.\n"
+"또는 as.duration()이나 as.period()으로 클래스를 변경하십시오."
+
+msgid ""
+"Remainder cannot be expressed as fraction of a period.\n"
+"  Performing %/%."
+msgstr ""
+"나머지는 기간의 일부로 표현될 수 없습니다.\n"
+"진행률 %/%"
+
+msgid "estimate only: convert to intervals for accuracy"
+msgstr "추정만: 정확성을 위해 간격(intervals)로 변환"
+
+msgid ""
+"Incompatible timespan classes:\n"
+"  change class with as.duration() or put interval in numerator."
+msgstr ""
+"호환되지 않는 기간 클래스(timespan class):\n"
+"as.duration()으로 클래스를 변경하거나 분자에 간격 삽입하십시오."
+
+msgid "interval / interval not defined"
+msgstr "간격/정의되지 않은 간격"
+
+msgid ""
+"Incompatible timespan classes:\n"
+"  change class with as.period() or put interval in numerator."
+msgstr ""
+"호환되지 않는 기간 클래스(timespan class):\n"
+"as.period()로 클래스를 변경하거나 분자에 간격을 삽입하십시오."
+
+msgid "Cannot divide numeric by duration"
+msgstr "듀레이션에 의해 숫자로 나누어지지 않습니다."
+
+msgid "Cannot divide numeric by interval"
+msgstr "간격에 의해 숫자로 나누어지지 않습니다."
+
+msgid "Cannot divide numeric by period"
+msgstr "간격에 의해 숫자로 나누어지지 않습니다."
+
+msgid ""
+"%% not defined for Interval class\n"
+"Consider setdiff()"
+msgstr ""
+"%% 간격 클래스(interval class)로 정의되지 않음\n"
+"setdiff()를 고려하십시오."
+
+msgid "%m+% only handles Period objects with month or year units"
+msgstr ""
+"%m+%만 오로지 월(month) 또는 년(year) 단위로 기간 객체(period objects)를 다룹"
+"니다."
+
+msgid "%m-% only handles Period objects with month or year units"
+msgstr ""
+"%m-%만 오로지 월(month) 또는 년(year) 단위로 기간 객체(period objects)를 다룹"
+"니다."
+
+msgid ""
+"%m+% only handles month and years. Add other periods separately with '+'"
+msgstr ""
+"%m+%만 오로지 월(month) 또는 년(year)을 다룹니다. 다른 기간은 별도로 \"+\"에 "
+"의해 추가하십시오."
+
+msgid "cannot multiply time span by time span"
+msgstr "기간을 기간으로 곱할 수 없습니다."
+
+msgid "interval does not align: coercing to duration"
+msgstr "간격이 정렬되지 않습니다: 듀레이션으로 강제변환합니다."
+
+msgid ""
+"- undefined for Interval class:\n"
+"Consider intersect(), union(), or setdiff()\n"
+"or change class with as.period() or as.duration()"
+msgstr ""
+"정의되지 않은 간격 클래스(interval class):\n"
+"intersect(), union(), 또는 setdiff()를 고려해 보십시오\n"
+"또는 as.period()나 as.duration()으로 클래스를 변경하십시오."
+
+msgid ""
+"- undefined for Interval class:\n"
+"  manipulate with int_start(), int_end() and int_shift()\n"
+"  or change class with as.duration() or as.period()"
+msgstr ""
+"정의되지 않은 간격 클래스(interval class):\n"
+"int_start(), int_end() 그리고 int_shift()로 조정해 보십시오\n"
+"또는 as.duration()이나 as.period()로 클래스를 변경하십시오."
+
+msgid "No formats could be infered from the training set."
+msgstr "실험집단(traininig set)으로 부터 추정할 수 없는 형식(format)"
+
+msgid "failed to parse."
+msgstr "parse 실패"
+
+msgid "parsed with"
+msgstr "다음으로 parse"
+
+msgid "^@|@$"
+msgstr "^@|@$"
+
+msgid ""
+"Internal function parse_date has been removed from lubridate package. Plese "
+"use parse_date_time instead."
+msgstr ""
+"내부 함수 parse_date가 lubridate 패키지에서 제거되었습니다. 대신에 "
+"parse_date_time을 사용해 주십시오."
+
+msgid "arguments must have same length"
+msgstr "인수(arguments)는 같은 길이를 가져야 합니다."
+
+msgid ""
+"cannot compare Period to Duration:\n"
+"coerce with as.duration"
+msgstr ""
+"기간(period)과 듀레이션(duration)을 비교할 수 없습니다.:\n"
+"as.duration으로 강제변환합니다."
+
+msgid ""
+"cannot compare Period to numeric:\n"
+"coerce with as.numeric"
+msgstr ""
+"기간(period)과 숫자(numeric)을 비교할 수 없습니다.:\n"
+"as.numeric으로 강제변환합니다."
+
+msgid "Couldn't quess formats of:"
+msgstr "Quess 할 수 없는 형식(format)입니다."
+
+msgid "Multiple formats matched:"
+msgstr "여러 개의 형식(formats)이 대응되었습니다."
+
+msgid "\""
+msgstr "\""
+
+msgid "\"("
+msgstr "\"("
+
+msgid ")"
+msgstr ")"
+
+msgid "Using: \""
+msgstr "\"을 사용하십시오."
+
+msgid "conflicting days input"
+msgstr "날짜 입력이 충돌합니다."
+
+msgid "longer object length is not a multiple of shorter object length"
+msgstr "보다 긴 객체 길이가 보다 짧은 객체 길이의 배수는 아닙니다."
+
+msgid "Invalid unit name:"
+msgstr "유효하지 않은 단위(unit) 이름입니다:"
+
+msgid "Invalid difftime name:"
+msgstr "유효하지 않은 difftime 이름입니다:"
+
+msgid "Invalid period name:"
+msgstr "유효하지 않은 기간(period) 이름입니다:"

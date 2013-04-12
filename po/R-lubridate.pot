@@ -1,0 +1,177 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: R 2.15.1\n"
+"Report-Msgid-Bugs-To: bugs@r-project.org\n"
+"POT-Creation-Date: 2013-03-29 14:39\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "estimate only: convert periods to intervals for accuracy"
+msgstr ""
+
+msgid "estimate only: convert difftimes to intervals for accuracy"
+msgstr ""
+
+msgid "estimate only: convert durations to intervals for accuracy"
+msgstr ""
+
+msgid "cannot map durations to months"
+msgstr ""
+
+msgid "coercing interval to duration"
+msgstr ""
+
+msgid "date(s) not in POSIXt or Date format"
+msgstr ""
+
+msgid "Unknown formats supplied:"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "by is not a recognized timespan object"
+msgstr ""
+
+msgid "an interval cannot be shifted by another interval. \n\t\tConvert second interval to a period or duration."
+msgstr ""
+
+msgid "Union includes intervening time between intervals."
+msgstr ""
+
+msgid "Cases"
+msgstr ""
+
+msgid "result in discontinuous intervals."
+msgstr ""
+
+msgid "Argument 1 is not a recognized date-time"
+msgstr ""
+
+msgid "unrecognized date format"
+msgstr ""
+
+msgid "+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration()"
+msgstr ""
+
+msgid "Incompatible timespan classes:\n  change class with as.duration() or as.period()"
+msgstr ""
+
+msgid "+ undefined for Interval class:\nConsider intersect(), union(), or setdiff()\nor change class with as.period() or as.duration()"
+msgstr ""
+
+msgid "+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.period()"
+msgstr ""
+
+msgid "+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()"
+msgstr ""
+
+msgid "Remainder cannot be expressed as fraction of a period.\n  Performing %/%."
+msgstr ""
+
+msgid "estimate only: convert to intervals for accuracy"
+msgstr ""
+
+msgid "Incompatible timespan classes:\n  change class with as.duration() or put interval in numerator."
+msgstr ""
+
+msgid "interval / interval not defined"
+msgstr ""
+
+msgid "Incompatible timespan classes:\n  change class with as.period() or put interval in numerator."
+msgstr ""
+
+msgid "Cannot divide numeric by duration"
+msgstr ""
+
+msgid "Cannot divide numeric by interval"
+msgstr ""
+
+msgid "Cannot divide numeric by period"
+msgstr ""
+
+msgid "%% not defined for Interval class\nConsider setdiff()"
+msgstr ""
+
+msgid "%m+% only handles Period objects with month or year units"
+msgstr ""
+
+msgid "%m-% only handles Period objects with month or year units"
+msgstr ""
+
+msgid "%m+% only handles month and years. Add other periods separately with '+'"
+msgstr ""
+
+msgid "cannot multiply time span by time span"
+msgstr ""
+
+msgid "interval does not align: coercing to duration"
+msgstr ""
+
+msgid "- undefined for Interval class:\nConsider intersect(), union(), or setdiff()\nor change class with as.period() or as.duration()"
+msgstr ""
+
+msgid "- undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()"
+msgstr ""
+
+msgid "No formats could be infered from the training set."
+msgstr ""
+
+msgid "failed to parse."
+msgstr ""
+
+msgid "parsed with"
+msgstr ""
+
+msgid "^@|@$"
+msgstr ""
+
+msgid "Internal function parse_date has been removed from lubridate package. Plese use parse_date_time instead."
+msgstr ""
+
+msgid "arguments must have same length"
+msgstr ""
+
+msgid "cannot compare Period to Duration:\ncoerce with as.duration"
+msgstr ""
+
+msgid "cannot compare Period to numeric:\ncoerce with as.numeric"
+msgstr ""
+
+msgid "Couldn't quess formats of:"
+msgstr ""
+
+msgid "Multiple formats matched:"
+msgstr ""
+
+msgid "\""
+msgstr ""
+
+msgid "\"("
+msgstr ""
+
+msgid ")"
+msgstr ""
+
+msgid "Using: \""
+msgstr ""
+
+msgid "conflicting days input"
+msgstr ""
+
+msgid "longer object length is not a multiple of shorter object length"
+msgstr ""
+
+msgid "Invalid unit name:"
+msgstr ""
+
+msgid "Invalid difftime name:"
+msgstr ""
+
+msgid "Invalid period name:"
+msgstr ""
