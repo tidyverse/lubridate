@@ -3,7 +3,7 @@ NULL
 
 #' Get/set months component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @export month "month<-"
@@ -84,3 +84,18 @@ days_in_month <- function(x) {
   n_days[month_x == "Feb" & leap_year(x)] <- 29L
   n_days
 }
+
+setGeneric("month")
+
+#' @export
+setMethod("month", signature("Period"), function(x){
+  slot(x, "month")
+})
+
+setGeneric("month<-")
+
+#' @export
+setMethod("month<-", signature("Period"), function(x, value){
+  slot(x, "month") <- value
+  x
+})

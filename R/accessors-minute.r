@@ -3,7 +3,7 @@ NULL
 
 #' Get/set minutes component of a date-time.
 #'
-#' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' Date-time must be a  POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @export minute "minute<-"
@@ -27,3 +27,18 @@ minute.default <- function(x)
 
 "minute<-" <- function(x, value)
   x <- x + minutes(value - minute(x))
+
+setGeneric("minute")
+
+#' @export
+setMethod("minute", signature("Period"), function(x){
+  slot(x, "minute")
+})
+
+setGeneric("minute<-")
+
+#' @export
+setMethod("minute<-", signature("Period"), function(x, value){
+  slot(x, "minute") <- value
+  x
+})

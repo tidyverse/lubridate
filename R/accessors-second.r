@@ -3,7 +3,7 @@ NULL
 
 #' Get/set seconds component of a date-time.
 #'
-#' Date-time must be a  POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' Date-time must be a  POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @export second "second<-"
@@ -27,3 +27,17 @@ second.default <- function(x)
 "second<-" <- function(x, value)
   x <- x + seconds(value - second(x))
   
+setGeneric("second")
+
+#' @export
+setMethod("second", signature("Period"), function(x){
+  slot(x, ".Data")
+})
+
+setGeneric("second<-")
+
+#' @export
+setMethod("second<-", signature("Period"), function(x, value){
+  slot(x, ".Data") <- value
+  x
+})

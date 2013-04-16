@@ -68,9 +68,10 @@
   minutes that is suggested by the differences in clock
   time. See the examples below.
 
-  as.period.difftime displays the message "estimate only:
-  convert difftimes to intervals for accuracy" by default.
-  You can turn this message off by setting the global
+  as.period.difftime and as.period.duration display the
+  message "estimate only: convert difftimes (or duration)
+  to intervals for accuracy" by default. You can turn this
+  message off by setting the global
   \code{lubridate.verbose} option to FALSE with
   \code{options(lubridate.verbose = FALSE)}.
 }

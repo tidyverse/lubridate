@@ -3,7 +3,7 @@ NULL
 
 #' Get/set hours component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @export hour "hour<-"
@@ -27,3 +27,18 @@ hour.default <- function(x)
 
 "hour<-" <- function(x, value)
   x <- x + hours(value - hour(x))
+
+setGeneric("hour")
+
+#' @export
+setMethod("hour", signature("Period"), function(x){
+  slot(x, "hour")
+})
+
+setGeneric("hour<-")
+
+#' @export
+setMethod("hour<-", signature("Period"), function(x, value){
+  slot(x, "hour") <- value
+  x
+})

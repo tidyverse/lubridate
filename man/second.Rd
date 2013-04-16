@@ -12,9 +12,9 @@
   the seconds element of x as a decimal number
 }
 \description{
-  Date-time must be a POSIXct, POSIXlt, Date, chron,
-  yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
-  jul, timeSeries, and fts objects.
+  Date-time must be a POSIXct, POSIXlt, Date, Period,
+  chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its,
+  ti, jul, timeSeries, and fts objects.
 }
 \examples{
 x <- ymd("2012-03-26")

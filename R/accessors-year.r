@@ -3,7 +3,7 @@ NULL
 
 #' Get/set years component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' year does not yet support years before 0 C.E.
@@ -27,3 +27,18 @@ year.default <- function(x)
 
 "year<-" <- function(x, value)
   x <- x + years(value - year(x))
+
+setGeneric("year")
+
+#' @export
+setMethod("year", signature("Period"), function(x){
+  slot(x, "year")
+})
+
+setGeneric("year<-")
+
+#' @export
+setMethod("year<-", signature("Period"), function(x, value){
+  slot(x, "year") <- value
+  x
+})

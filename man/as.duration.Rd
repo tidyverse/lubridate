@@ -36,6 +36,12 @@
   days, or one normal year. For an exact transformation,
   first transform the period to an interval with
   \code{\link{as.interval}}.
+
+  as.duration.period displays the message "estimate only:
+  convert periods to intervals for accuracy" by default.
+  You can turn this message off by setting the global
+  \code{lubridate.verbose} option to FALSE with
+  \code{options(lubridate.verbose = FALSE)}.
 }
 \examples{
 span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
