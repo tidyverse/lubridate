@@ -67,6 +67,12 @@
   These periods will show the "naive" change in seconds and
   minutes that is suggested by the differences in clock
   time. See the examples below.
+
+  as.period.difftime displays the message "estimate only:
+  convert difftimes to intervals for accuracy" by default.
+  You can turn this message off by setting the global
+  \code{lubridate.verbose} option to FALSE with
+  \code{options(lubridate.verbose = FALSE)}.
 }
 \examples{
 span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval

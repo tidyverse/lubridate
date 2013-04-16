@@ -141,6 +141,12 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' one normal year. For an exact 
 #' transformation, first transform the period to an interval with 
 #' \code{\link{as.interval}}.
+#' 
+#' as.duration.period displays the message "estimate only: 
+#' convert periods to 
+#' intervals for accuracy" by default. You can turn this message off by 
+#' setting the global \code{lubridate.verbose} option to FALSE with 
+#' \code{options(lubridate.verbose = FALSE)}.
 #'
 #' @param x Object to be coerced to a duration  
 #' @return A duration object
@@ -186,7 +192,10 @@ setMethod("as.duration", signature(x = "Duration"), function(x){
 })
 
 setMethod("as.duration", signature(x = "Period"), function(x){
-	message("estimate only: convert periods to intervals for accuracy")
+  verbose <- getOption("lubridate.verbose")
+  if (is.null(verbose) || verbose) {
+    message("estimate only: convert periods to intervals for accuracy")
+  }
 	new("Duration", period_to_seconds(x))
 })
 
@@ -318,6 +327,12 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' savings. These periods will show the "naive" change in seconds and minutes that is 
 #' suggested by the differences in clock time. See the examples below.
 #'
+#' as.period.difftime and as.period.duration display the message "estimate only: 
+#' convert difftimes (or duration) to 
+#' intervals for accuracy" by default. You can turn this message off by 
+#' setting the global \code{lubridate.verbose} option to FALSE with 
+#' \code{options(lubridate.verbose = FALSE)}.
+#'
 #' @export
 #' @param x an interval, difftime, or numeric object   
 #' @param unit A character string that specifies which time units to build period in. 
@@ -367,7 +382,10 @@ setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ..
 })
 
 setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
-  message("estimate only: convert difftimes to intervals for accuracy")
+  verbose <- getOption("lubridate.verbose")
+  if (is.null(verbose) || verbose) {
+    message("estimate only: convert difftimes to intervals for accuracy")
+  }
   seconds_to_period(as.double(x, "secs"))
 })
 
@@ -433,7 +451,10 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 }
 
 setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) {
-  message("estimate only: convert durations to intervals for accuracy")
+  verbose <- getOption("lubridate.verbose")
+  if (is.null(verbose) || verbose) {
+    message("estimate only: convert durations to intervals for accuracy")
+  }
   span <- x@.Data
   remainder <- abs(span)
   newper <- new_period(second = rep(0, length(x)))
