@@ -37,13 +37,14 @@ add_period_to_period <- function(per2, per1){
 }
 
 add_period_to_date <- function(per, date){
-	new <- update(as.POSIXlt(date), 
-			years = year(date) + per@year,
-			months = month(date) + per@month,
-			days = mday(date) + per@day,
-			hours = hour(date) + per@hour,
-			minutes = minute(date) + per@minute,
-			seconds = second(date) + per@.Data
+  lt <- as.POSIXlt(date)
+	new <- update(lt, 
+			years = year(lt) + per@year,
+			months = month(lt) + per@month,
+			days = mday(lt) + per@day,
+			hours = hour(lt) + per@hour,
+			minutes = minute(lt) + per@minute,
+			seconds = second(lt) + per@.Data
 			)
 	if (is.Date(date) && sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
 		return(new)	
