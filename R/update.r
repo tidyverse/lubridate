@@ -82,11 +82,19 @@ update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
 
   ct <- as.POSIXct(date)
   
-  # check if date falls in DST gap
-  lt.hours <- date$hour %% 24 + date$min %/% 60 + date$sec %/% 3600
-  if (any(na.omit(lt.hours < 3)) && attr(date, "tzone") != "UTC") { 
-    ct[!is.na(ct) & hour(ct) != lt.hours] <- NA
-  }
+  if (attr(date, "tzone")[1] == "UTC") return(reclass_date(ct, object))
+  
+  # check for dst discrepancies
+  
+  # spring gap
+  utc <- date
+  attr(utc, "tzone") <- "UTC"
+  uhours <- .Internal(format.POSIXlt(utc, "%H", usetz = FALSE))
+  chours <- .Internal(format.POSIXlt(as.POSIXlt(ct), "%H", usetz = FALSE))
+  
+  ct[uhours != chours] <- NA
+  
+  # fall gap - hours same but isdst changed?
   
   reclass_date(ct, object)
 
