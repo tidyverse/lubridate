@@ -98,6 +98,7 @@ update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
 #' been paired with an incorrect timezone/daylight savings time combination, 
 #' fit_to_timeline returns the instant with the correct combination.
 #'
+#'
 #' @export fit_to_timeline
 #' @param lt a POSIXlt date-time object.
 #' @param class a character string that describes what type of object to return, 
@@ -145,6 +146,7 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
     ct
   }
 }
+  
 
 
 
