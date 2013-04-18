@@ -152,17 +152,8 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##'
 ##' ## ** internationalization **
 ##' \dontrun{
-##'
-##' x_CN <- "星期二 2012 八月 14 12:07:40 下午"
-##' ymd_hms(x_CN, locale = "zh_CN.utf8")
-##' guess_formats(x_CN, "ymdT", locale = "zh_CN.utf8")
-##' 
 ##' x_RO <- "Ma 2012 august 14 11:28:30 "
 ##' ymd_hms(x_RO, locale = "ro_RO.utf8")
-##' 
-##' x_RU <- "Вт. 2012 Август 14 11:28:19 "
-##' x_RU2 <- "Вт. 2012 авг. 14 11:52:57 "
-##' ymd_hms(c(x_RU, x_RU2), locale = "ru_RU.utf8")
 ##' }
 ##' 
 ##' ## ** truncated time-dates **
