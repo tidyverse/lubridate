@@ -8,7 +8,12 @@ License: GPL
 Title: Make dealing with dates a little easier
 LazyData: true
 Type: Package
-Author: Garrett Grolemund <grolemund@rice.edu>, Hadley
+Authors@R: c(person("Garrett", "Grolemund", email = "lubridate@github.com",
+    role = c("aut", "cre")), person("Hadley", "Wickham", role = "aut"),
+    person("Vitalie", "Spinu", role = "ctb"), person("Imanuel", "Constigan",
+    role = "ctb"), person("Chel Hee", "Lee", role = "ctb"), person("Richard",
+    "Cotton", role = "ctb"), person("Winston", "Chang", role = "ctb"))
+Author: Garrett Grolemund <garrett@rstudio.com>, Hadley
     Wickham <h.wickham@gmail.com>
 Description: Lubridate makes it easier to work with dates
     and times by providing functions to identify and parse
@@ -25,7 +30,10 @@ Depends:
     methods,
     R (>= 2.14)
 Suggests:
-    testthat
+    testthat,
+    knitr
+BugReports: https://github.com/hadley/lubridate/issues
+VignetteBuilder: knitr
 Collate:
     'time-zones.r'
     'POSIXt.r'
