@@ -9,9 +9,6 @@
 \description{
   Lubridate format orders used in \code{stamp}
 }
-\examples{
-str(lubridate_formats)
-}
 \seealso{
   \code{\link{parse_date_time}}, \code{\link{ymd}},
   \code{\link{ymd_hms}}

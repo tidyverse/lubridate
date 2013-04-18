@@ -23,8 +23,10 @@
   information.
 }
 \examples{
+\dontrun{
 olson_time_zones()
 olson_time_zones("longitude")
+}
 }
 \seealso{
   \code{\link[base]{Sys.timezone}}

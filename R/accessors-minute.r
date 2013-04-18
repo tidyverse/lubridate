@@ -9,6 +9,7 @@ NULL
 #' @export minute "minute<-"
 #' @aliases minute minute<-
 #' @S3method minute default
+#' @S3method minute Period
 #' @param x a date-time object   
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number
@@ -24,16 +25,11 @@ minute <- function(x)
 minute.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$min
 
+minute.Period <- function(x)
+  slot(x, "minute")
 
 "minute<-" <- function(x, value)
   x <- x + minutes(value - minute(x))
-
-setGeneric("minute")
-
-#' @export
-setMethod("minute", signature("Period"), function(x){
-  slot(x, "minute")
-})
 
 setGeneric("minute<-")
 

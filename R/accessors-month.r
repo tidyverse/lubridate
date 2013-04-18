@@ -10,6 +10,7 @@ NULL
 #' @aliases month month<-
 #' @S3method month default
 #' @S3method month numeric
+#' @S3method month Period
 #' @param x a date-time object  
 #' @param label logical. TRUE will display the month as a character string
 #'   such as "January." FALSE will display the month as a number.
@@ -54,7 +55,8 @@ month.numeric <- function(x, label = FALSE, abbr = TRUE) {
   ordered(x, levels = 1:12, labels = labels)
 }
     
-
+month.Period <- function(x, label = FALSE, abbr = TRUE)
+  slot(x, "month")
 
 "month<-" <- function(x, value) {
 	if (!is.numeric(value)) {
@@ -85,12 +87,6 @@ days_in_month <- function(x) {
   n_days
 }
 
-setGeneric("month")
-
-#' @export
-setMethod("month", signature("Period"), function(x){
-  slot(x, "month")
-})
 
 setGeneric("month<-")
 

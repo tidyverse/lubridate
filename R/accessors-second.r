@@ -9,6 +9,7 @@ NULL
 #' @export second "second<-"
 #' @aliases second second<-
 #' @S3method second default
+#' @S3method second Period
 #' @param x a date-time object   
 #' @return the seconds element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -24,15 +25,12 @@ second <- function(x)
 second.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$sec
 
+second.Period <- function(x)
+  slot(x, ".Data")
+
 "second<-" <- function(x, value)
   x <- x + seconds(value - second(x))
   
-setGeneric("second")
-
-#' @export
-setMethod("second", signature("Period"), function(x){
-  slot(x, ".Data")
-})
 
 setGeneric("second<-")
 

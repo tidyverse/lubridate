@@ -200,8 +200,6 @@ stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"))
 ##' @docType data
 ##' @seealso \code{\link{parse_date_time}}, \code{\link{ymd}}, \code{\link{ymd_hms}}
 ##' @keywords chron
-##' @examples
-##' str(lubridate_formats)
 lubridate_formats <- local({
   xxx <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
   names(xxx) <- xxx    

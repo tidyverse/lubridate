@@ -73,8 +73,11 @@ check_tz <- function(tz) {}
 #' @return A character vector of time zone names.
 #' @seealso \code{\link[base]{Sys.timezone}}
 #' @examples
+#' \dontrun{
 #' olson_time_zones()
 #' olson_time_zones("longitude")
+#' }
+#' @export
 olson_time_zones <- function(order_by = c("name", "longitude")) {
   order_by <- match.arg(order_by)
   tzfile <- file.path(R.home("share"), "zoneinfo", "zone.tab")

@@ -11,6 +11,7 @@ NULL
 #' @export year "year<-"
 #' @aliases year year<-
 #' @S3method year default
+#' @S3method year Period
 #' @param x a date-time object   
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -25,15 +26,12 @@ year <- function(x)
 year.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$year + 1900
 
+year.Period <- function(x)
+  slot(x, "year")
+
 "year<-" <- function(x, value)
   x <- x + years(value - year(x))
 
-setGeneric("year")
-
-#' @export
-setMethod("year", signature("Period"), function(x){
-  slot(x, "year")
-})
 
 setGeneric("year<-")
 
