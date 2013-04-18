@@ -135,8 +135,8 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
   
   # spring break
   ct <- as.POSIXct(t) # should directly match if not in gap
-  chours <- .Internal(format.POSIXlt(as.POSIXlt(ct), "%H", usetz = FALSE))
-  lhours <- .Internal(format.POSIXlt(t, "%H", usetz = FALSE))
+  chours <- format.POSIXlt(as.POSIXlt(ct), "%H", usetz = FALSE)
+  lhours <- format.POSIXlt(t, "%H", usetz = FALSE)
   
   if (class == "POSIXlt") {
     t[chours != lhours] <- NA

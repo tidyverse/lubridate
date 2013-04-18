@@ -60,7 +60,7 @@ add_period_to_date <- function(per, date){
 add_months <- function(mt, mos) {
   mt$mon <- mt$mon + mos
   
-  ndays <- as.numeric(.Internal(format.POSIXlt(mt, "%d", usetz = FALSE)))
+  ndays <- as.numeric(format.POSIXlt(mt, "%d", usetz = FALSE))
   mt$mon[mt$mday != ndays] <- NA
   
   mt
