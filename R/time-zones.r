@@ -69,14 +69,13 @@ check_tz <- function(tz) {}
 #' way of specifying time zones.  This function gets names
 #' from the file shipped with R, stored in 
 #' \code{file.path(R.home("share"), "zoneinfo", "zone.tab")}.
-#' \code{?\link[base]Sys.timezone}} has more information.
+#' \code{?\link[base]{Sys.timezone}} has more information.
 #' @return A character vector of time zone names.
-#' @seealso \code{\link[base]Sys.timezone}}
+#' @seealso \code{\link[base]{Sys.timezone}}
 #' @examples
 #' olson_time_zones()
 #' olson_time_zones("longitude")
-olson_time_zones <- function(order_by = c("name", "longitude"))
-{
+olson_time_zones <- function(order_by = c("name", "longitude")) {
   order_by <- match.arg(order_by)
   tzfile <- file.path(R.home("share"), "zoneinfo", "zone.tab")
   tzones <- read.delim(

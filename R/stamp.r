@@ -59,8 +59,11 @@ stamp <- function(x, orders = lubridate_formats,
     trained <- .train_formats(x, fmts)
     formats <- .select_formats(trained)
     FMT <- formats[[1]]
-    if( !quiet && length(trained) > 1 )
-      message("Multiple formats matched: ", paste("\"", names(trained),"\"(", trained, ")", sep = "", collapse= ", "))
+    if( !quiet && length(trained) > 1 ) {
+      message("Multiple formats matched: ", 
+              paste("\"", names(trained),"\"(", trained, ")", sep = "", 
+                    collapse= ", "))
+    }
   }
   
   if( !quiet )
@@ -124,16 +127,16 @@ stamp <- function(x, orders = lubridate_formats,
 ##' There are three available formats:
 ##' 
 ##' \itemize{
-##'   \item \code{%Oo} +01
-##'   \item \code{%Oz} +0100
-##'   \item \code{%OO} +01:00
+##'   \item \code{\%Oo} +01
+##'   \item \code{\%Oz} +0100
+##'   \item \code{\%OO} +01:00
 ##' }
 ##' 
-##' If the \code{%Oo} format is used for a half-hour timezone, a warning 
-##' is issued, and the format is changed to \code{%Oz} 
+##' If the \code{\%Oo} format is used for a half-hour timezone, a warning 
+##' is issued, and the format is changed to \code{\%Oz} 
 ##' 
 ##' @param x      POSIXct for which offset-string is sought
-##' @param fmt    string describing format of offset, default: \code{%Oz}
+##' @param fmt    string describing format of offset, default: \code{\%Oz}
 ##' 
 ##' @return string
 ##' 
@@ -144,7 +147,7 @@ format_offset <- function(x, fmt="%Oz"){
   # "%OO"  +01:00  
   
   # calulate offset by forcing this time as utc
-  dtm_utc <- force_tz(x, tz="UTC")
+  dtm_utc <- force_tz(x, tzone = "UTC")
   
   # the offset is the duration represented by the difference in time
   offset_duration = as.duration(dtm_utc - x)

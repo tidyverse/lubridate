@@ -19,7 +19,7 @@
   of specifying time zones.  This function gets names from
   the file shipped with R, stored in
   \code{file.path(R.home("share"), "zoneinfo",
-  "zone.tab")}. \code{?\link[base]Sys.timezone}} has more
+  "zone.tab")}. \code{?\link[base]{Sys.timezone}} has more
   information.
 }
 \examples{
@@ -27,6 +27,6 @@ olson_time_zones()
 olson_time_zones("longitude")
 }
 \seealso{
-  \code{\link[base]Sys.timezone}}
+  \code{\link[base]{Sys.timezone}}
 }
 
