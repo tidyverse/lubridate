@@ -68,19 +68,19 @@
 \alias{as.numeric,Period-method}
 \alias{c,Period-method}
 \alias{day,Period-method}
-\alias{day<-,Period,ANY-method}
+\alias{day<-,Period-method}
 \alias{hour,Period-method}
-\alias{hour<-,Period,ANY-method}
+\alias{hour<-,Period-method}
 \alias{minute,Period-method}
-\alias{minute<-,Period,ANY-method}
+\alias{minute<-,Period-method}
 \alias{month,Period-method}
-\alias{month<-,Period,ANY-method}
+\alias{month<-,Period-method}
 \alias{rep,Period-method}
 \alias{second,Period-method}
-\alias{second<-,Period,ANY-method}
+\alias{second<-,Period-method}
 \alias{show,Period-method}
 \alias{year,Period-method}
-\alias{year<-,Period,ANY-method}
+\alias{year<-,Period-method}
 \title{Period class}
 \description{
   Period is an S4 class that extends the

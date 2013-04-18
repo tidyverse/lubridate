@@ -223,6 +223,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' @export as.interval
 #' @param x a duration, difftime, period, or numeric object that describes the length of the interval
 #' @param start a POSIXt or Date object that describes when the interval begins   
+#' @param ... additional arguments to pass to as.interval
 #' @return an interval object
 #' @seealso \code{\link{interval}}, \code{\link{new_interval}}
 #' @keywords classes manip methods chron
@@ -368,6 +369,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' @aliases as.period,Interval-method
 #' @aliases as.period,Duration-method
 #' @aliases as.period,Period-method
+#' @aliases as.period,logical-method
 as.period <- function(x, unit, ...) standardGeneric("as.period")
 
 #' @export
@@ -476,7 +478,6 @@ setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) 
 
 setMethod("as.period", signature("Period"), function(x, unit = NULL, ...) x)
 
-#' @export
 setMethod("as.period", signature("logical"), function(x, unit = NULL, ...) {
   as.period(as.numeric(x), unit, ...)
 })

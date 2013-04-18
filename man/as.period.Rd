@@ -4,6 +4,7 @@
 \alias{as.period,Interval-method}
 \alias{as.period,Period-method}
 \alias{as.period,difftime-method}
+\alias{as.period,logical-method}
 \alias{as.period,numeric-method}
 \title{Change an object to a period.}
 \usage{

@@ -17,6 +17,8 @@
 
   \item{start}{a POSIXt or Date object that describes when
   the interval begins}
+
+  \item{...}{additional arguments to pass to as.interval}
 }
 \value{
   an interval object
