@@ -1,5 +1,5 @@
 <!--
-%\VignetteEngine{knitr}
+%\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Lubridate}
 -->
 
@@ -13,7 +13,7 @@ Lubridate was created by Garrett Grolemund and Hadley Wickham.
 
 ## Parsing dates and times
 
-Getting R to agree that your data contains the dates and times you think it does can be tricky. Lubridate simplifies that. Identify the order in which the year, month, and day appears in your dates. Now arrange “y”, “m”, and “d” in the same order. This is the name of the function in lubridate that will parse your dates. For example,
+Getting R to agree that your data contains the dates and times you think it does can be tricky. Lubridate simplifies that. Identify the order in which the year, month, and day appears in your dates. Now arrange "y", "m", and "d" in the same order. This is the name of the function in lubridate that will parse your dates. For example,
 
 ```{r}
 library(lubridate)
@@ -58,7 +58,7 @@ meeting <- ymd_hms("2011-07-01 09:00:00", tz = "Pacific/Auckland")
 with_tz(meeting, "America/Chicago")
 ```
 
-So the meetings occurred at 4:00 Hadley’s time (and the day before no less). Of course, this was the same actual moment of time as 9:00 in New Zealand. It just appears to be a different day due to the curvature of the Earth.
+So the meetings occurred at 4:00 Hadley's time (and the day before no less). Of course, this was the same actual moment of time as 9:00 in New Zealand. It just appears to be a different day due to the curvature of the Earth.
 
 What if Hadley made a mistake and signed on at 9:00 his time? What time would it then be my time?
 
@@ -71,7 +71,7 @@ His call would arrive at 2:00 am my time! Luckily he never did that.
 
 ## Time Intervals
 
-You can save an interval of time as an Interval class object with lubridate. This is quite useful! For example, my stay in Auckland lasted from June 4, 2011 to August 10, 2011 (which we’ve already saved as arrive and leave). We can create this interval in one of two ways:
+You can save an interval of time as an Interval class object with lubridate. This is quite useful! For example, my stay in Auckland lasted from June 4, 2011 to August 10, 2011 (which we've already saved as arrive and leave). We can create this interval in one of two ways:
 
 ```{r}
 auckland <- interval(arrive, leave) 
@@ -103,7 +103,7 @@ Other functions that work with intervals include `int_start`, `int_end`, `int_fl
 
 ## Arithmetic with date times
 
-Intervals are specific time spans (because they are tied to specific dates), but lubridate also supplies two general time span classes: Durations and Periods. Helper functions for creating periods are named after the units of time (plural). Helper functions for creating durations follow the same format but begin with a “d” (for duration) or, if you prefer, and “e” (for exact).
+Intervals are specific time spans (because they are tied to specific dates), but lubridate also supplies two general time span classes: Durations and Periods. Helper functions for creating periods are named after the units of time (plural). Helper functions for creating durations follow the same format but begin with a "d" (for duration) or, if you prefer, and "e" (for exact).
 
 ```{r}
 minutes(2) ## period
@@ -149,7 +149,7 @@ auckland %/% months(1)
 auckland %% months(1)
 ```
 
-Modulo with an timespan returns the remainder as a new (smaller) interval. You can turn this or any interval into a generalized time span with as.period().
+Modulo with an timespan returns the remainder as a new (smaller) interval. You can turn this or any interval into a generalized time span with `as.period`.
 
 ```{r}
 as.period(auckland %% months(1))
@@ -183,7 +183,7 @@ The code in lubridate is vectorized and ready to be used in both interactive set
 
 ```{r}
 last_day <- function(date) {
-    ceiling_date(date, "month") - days(1)
+  ceiling_date(date, "month") - days(1)
 }
 ```
 
