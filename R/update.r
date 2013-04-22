@@ -128,7 +128,7 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
   if (class != "POSIXlt" && class != "POSIXct")
     stop("class argument must be POSIXlt or POSIXct")
   
-  # fall break
+  # fall break - DST only changes if it has to
   ct <- as.POSIXct(lt)
   t <- lt
   t$isdst <- as.POSIXlt(ct)$isdst
