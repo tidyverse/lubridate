@@ -3,3 +3,9 @@ paper
 INSPIRATIONS
 ^.*\.Rproj$
 ^\.Rproj\.user$
+.git
+lubridate.Rproj
+README.md
+.Rproj.user
+.Rhistory
+.DS_Store
