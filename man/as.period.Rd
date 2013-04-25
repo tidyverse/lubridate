@@ -4,6 +4,7 @@
 \alias{as.period,Interval-method}
 \alias{as.period,Period-method}
 \alias{as.period,difftime-method}
+\alias{as.period,logical-method}
 \alias{as.period,numeric-method}
 \title{Change an object to a period.}
 \usage{
@@ -51,6 +52,29 @@
   not be coerced from a duration object. For an exact
   transformation, first transform the duration to an
   interval with \code{\link{as.interval}}.
+
+  Coercing an interval to a period may cause surprising
+  behavior if you request periods with small units. A leap
+  year is 366 days long, but one year long. Such an
+  interval will convert to 366 days when unit is set to
+  days and 1 year when unit is set to years. Adding 366
+  days to a date will often give a different result than
+  adding one year. Daylight savings is the one exception
+  where this does not apply. Interval lengths are
+  calculated on the UTC timeline, which does not use
+  daylight savings. Hence, periods converted with seconds
+  or minutes will not reflect the actual variation in
+  seconds and minutes that occurs due to daylight savings.
+  These periods will show the "naive" change in seconds and
+  minutes that is suggested by the differences in clock
+  time. See the examples below.
+
+  as.period.difftime and as.period.duration display the
+  message "estimate only: convert difftimes (or duration)
+  to intervals for accuracy" by default. You can turn this
+  message off by setting the global
+  \code{lubridate.verbose} option to FALSE with
+  \code{options(lubridate.verbose = FALSE)}.
 }
 \examples{
 span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
@@ -59,6 +83,19 @@ as.period(span)
 # "1y 1m 1d 1H 1M 1S"
 as.period(span, units = "day")
 "397d 1H 1M 1S"
+leap <- new_interval(ymd("2016-01-01"), ymd("2017-01-01"))
+# 2016-01-01 UTC--2017-01-01 UTC
+as.period(leap, unit = "days")
+# "366d 0H 0M 0S"
+as.period(leap, unit = "years")
+# "1y 0m 0d 0H 0M 0S"
+dst <- new_interval(ymd("2016-11-06", tz = "America/Chicago"),
+ymd("2016-11-07", tz = "America/Chicago"))
+# 2016-11-06 CDT--2016-11-07 CST
+# as.period(dst, unit = "seconds")
+# "86400S"
+as.period(dst, unit = "hours")
+# "24H 0M 0S"
 }
 \seealso{
   \code{\link{Period-class}}, \code{\link{new_period}}

@@ -6,8 +6,8 @@
 \alias{ydm}
 \alias{yearmonthdate}
 \alias{ymd}
-\title{Parse dates according to the order that year, month, and day elements appear
-in the input vector.}
+\title{Parse dates according to the order in that year, month, and day elements
+appear in the input vector.}
 \usage{
   ymd(..., quiet = FALSE, tz = "UTC",
     locale = Sys.getlocale("LC_TIME"), truncated = 0)
@@ -39,9 +39,7 @@ in the input vector.}
   non-digit separators as well as no separator. As long as
   the order of formats is correct, these functions will
   parse dates correctly even when the input vectors contain
-  differently formatted dates. See examples. For even more
-  flexibility in treatment of heterogeneous formats see low
-  level parser \code{\link{parse_date_time}}.
+  differently formatted dates. See examples.
 }
 \details{
   \code{ymd} family of functions automatically assign the
@@ -57,6 +55,12 @@ in the input vector.}
   NOTE: \code{ymd} family of functions are based on
   \code{\link{strptime}} which currently correctly parses
   "\%y" format, but fails to parse "\%y-\%m" formats.
+
+  As of version 1.3.0, lubridate's parse functions no
+  longer return a message that displays which format they
+  used to parse their input. You can change this by setting
+  the \code{lubridate.verbose} option to true with
+  \code{options(lubridate.verbose = TRUE)}.
 }
 \examples{
 x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -85,7 +89,8 @@ ymd(x)
 dmy("0312-2010", "312-2010")}
 }
 \seealso{
-  \code{\link{parse_date_time}} for underlying mechanism.
+  \code{\link{parse_date_time}} for an even more flexible
+  low level mechanism.
 }
 \keyword{chron}
 

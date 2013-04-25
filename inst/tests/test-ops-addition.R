@@ -288,3 +288,34 @@ test_that("%m+% correctly adds negative years without rollover",{
   expect_equal(leap %m+% new_period(years = -1, months = -1), next2)
   expect_equal(leap %m+% new_period(years = -1, months = 1), next3)
 })
+
+
+test_that("addition with period months and years returns NA when appropriate", {
+  jan <- ymd("2013-01-31", tz = "America/Chicago")
+  feb <- ymd("2013-02-28", tz = "America/Chicago")
+  mar <- ymd("2013-03-28", tz = "America/Chicago")
+  leap <- ymd("2012-02-29", tz = "America/Chicago")
+
+  mos <- ymd(c("2013-01-31", NA, "2013-03-31", NA, 
+               "2013-05-31", NA, "2013-07-31", 
+               "2013-08-31", NA, "2013-10-31", NA,
+               "2013-12-31"), tz = "America/Chicago")
+  yrs <- ymd(c("2012-02-29", NA, NA, NA,"2016-02-29"), tz = "America/Chicago")
+  
+  mos2 <- ymd(c("2013-01-31", "2012-12-31", NA, 
+               "2012-10-31", NA, "2012-08-31", 
+               "2012-07-31", NA, "2012-05-31", NA,
+               "2012-03-31", NA), tz = "America/Chicago")
+  yrs2 <- ymd(c("2012-02-29", NA, NA, NA,"2008-02-29"), tz = "America/Chicago")
+  
+  
+  
+  expect_equal(jan + months(0:11), mos)
+  expect_equal(feb + months(1), mar)
+  expect_equal(leap + years(0:4), yrs)
+  
+  expect_equal(jan - months(0:11), mos2)
+  expect_equal(mar - months(1), feb)
+  expect_equal(leap - years(0:4), yrs2)
+  
+})

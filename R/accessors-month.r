@@ -3,12 +3,14 @@ NULL
 
 #' Get/set months component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
+#' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
 #' @export month "month<-"
 #' @aliases month month<-
 #' @S3method month default
+#' @S3method month numeric
+#' @S3method month Period
 #' @param x a date-time object  
 #' @param label logical. TRUE will display the month as a character string
 #'   such as "January." FALSE will display the month as a number.
@@ -53,7 +55,8 @@ month.numeric <- function(x, label = FALSE, abbr = TRUE) {
   ordered(x, levels = 1:12, labels = labels)
 }
     
-
+month.Period <- function(x, label = FALSE, abbr = TRUE)
+  slot(x, "month")
 
 "month<-" <- function(x, value) {
 	if (!is.numeric(value)) {
@@ -83,3 +86,12 @@ days_in_month <- function(x) {
   n_days[month_x == "Feb" & leap_year(x)] <- 29L
   n_days
 }
+
+
+setGeneric("month<-")
+
+#' @export
+setMethod("month<-", signature("Period"), function(x, value){
+  slot(x, "month") <- value
+  x
+})

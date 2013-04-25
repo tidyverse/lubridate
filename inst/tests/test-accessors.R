@@ -156,6 +156,56 @@ test_that("accessors handle vectors",{
   expect_that(tz(date), matches("UTC"))
 })
 
+test_that("accessors handle Period objects",{ 
+  per <- new_period(seconds = 1, minutes = 2, hours = 3, days = 4, months = 5, 
+    years = 6)
+  pers <- c(per, per)
+  
+  expect_equal(second(per), 1)
+  expect_equal(minute(per), 2)
+  expect_equal(hour(per), 3)
+  expect_equal(day(per), 4)
+  expect_equal(month(per), 5)
+  expect_equal(year(per), 6)
+  
+  expect_equal(second(pers), c(1, 1))
+  expect_equal(minute(pers), c(2, 2))
+  expect_equal(hour(pers), c(3, 3))
+  expect_equal(day(pers), c(4, 4))
+  expect_equal(month(pers), c(5, 5))
+  expect_equal(year(pers), c(6, 6))
+  
+  second(per) <- 2
+  minute(per) <- 3
+  hour(per) <- 4
+  day(per) <- 5
+  month(per) <- 6
+  year(per) <- 7
+  
+  expect_equal(per@.Data, 2)
+  expect_equal(per@minute, 3)
+  expect_equal(per@hour, 4)
+  expect_equal(per@day, 5)
+  expect_equal(per@month, 6)
+  expect_equal(per@year, 7)
+  
+  second(pers) <- c(2, 3)
+  minute(pers) <- c(3, 4)
+  hour(pers) <- c(4, 5)
+  day(pers) <- c(5, 6)
+  month(pers) <- c(6, 7)
+  year(pers) <- c(7, 8)
+  
+  expect_equal(pers@.Data, c(2, 3))
+  expect_equal(pers@minute, c(3, 4))
+  expect_equal(pers@hour, c(4, 5))
+  expect_equal(pers@day, c(5, 6))
+  expect_equal(pers@month, c(6, 7))
+  expect_equal(pers@year, c(7, 8))
+
+})
+
+
 
 context("test days_in_month")
 

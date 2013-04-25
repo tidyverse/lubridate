@@ -1,7 +1,7 @@
 \name{parse_date_time}
 \alias{parse_date_time}
-\title{Function to parse character and numeric date-time vectors with user friendly
-order formats.}
+\title{Parse character and numeric date-time vectors with user friendly order
+formats.}
 \usage{
   parse_date_time(x, orders, tz = "UTC", truncated = 0,
     quiet = FALSE, locale = Sys.getlocale("LC_TIME"),
@@ -34,8 +34,11 @@ order formats.}
   functions are based on \code{strptime} which currently
   fails to parse \code{\%y-\%m} formats.}
 
-  \item{quiet}{logical. When TRUE function evaluates
-  without displaying customary messages.}
+  \item{quiet}{logical. When TRUE progress messages are not
+  printed, and "no formats found" error is surpresed and
+  the function simply returns a vector of NAs.  This
+  mirrors the behavior of base R functions \code{strptime}
+  and \code{as.POSIXct}. Default is FALSE.}
 
   \item{locale}{locale to be used, see \link{locales}. On
   linux systems you can use \code{system("locale -a")} to
@@ -59,21 +62,28 @@ order formats.}
   a vector of POSIXct date-time objects
 }
 \description{
-  As compared to \code{strptime} parser,
-  \code{parse_date_time} allows to specify only the order
-  in which the formats occur instead of the full format.
-  As it was specifically designed to handle heterogeneous
-  date-time formats at once, you can specify several
-  alternative orders. \code{parse_date_time} sorts the
-  supplied formats based on a training set and then applies
-  them recursively on the input vector.
+  As \code{strptime} \code{parse_date_time} parses a
+  character vector into POSIXct date-time object but with
+  two major differences. First, it allows the user to
+  specify only the order in which the formats occur, with
+  no need to include separators and "\%" prefix. Second, it
+  allows the user to specify several format-orders to
+  handle heterogeneous date-time character representations.
+  See examples.
 }
 \details{
+  When several format-orders are specified
+  \code{parse_date_time} sorts the supplied format-orders
+  based on a training set and then applies them recursively
+  on the input vector.
+
   Below are all the implemented formats recognized by
-  lubridate. For all numeric formats leading 0s are
-  optional. All formats are case insensitive. As compared
-  to \code{strptime}, some of the formats have been
-  extended for efficiency reasons. They are marked with "*"
+  lubridate. For numeric formats leading 0s are optional.
+  All formats are case insensitive.
+
+  As compared to \code{strptime}, some of the formats have
+  been extended for efficiency reasons. They are marked
+  with "*"
 
   \describe{ \item{\code{a}}{Abbreviated weekday name in
   the current locale. (Also matches full name)}
@@ -95,7 +105,7 @@ order formats.}
   number (00--24 or 0--24).} \item{\code{I}}{Hours as
   decimal number (01--12 or 0--12).} \item{\code{j}}{Day of
   year as decimal number (001--366 or 1--366).}
-  \item{\code{m}*}{Month as decimal number (01--12 or
+  \item{\code{m*}}{Month as decimal number (01--12 or
   1--12). Also matches abbreviated and full months names as
   \code{b} and \code{B} formats} \item{\code{M}}{Minute as
   decimal number (00--59 or 0--59).} \item{\code{p}}{AM/PM
@@ -116,15 +126,23 @@ order formats.}
   number (00--53 or 0-53) using Monday as the first day of
   week (and typically with the first Monday of the year as
   day 1 of week 1).  The UK convention.}
-  \item{\code{y}*}{Year without century (00--99 or 0--99).
+  \item{\code{y*}}{Year without century (00--99 or 0--99).
   Also matches year with century (Y format).}
   \item{\code{Y}}{Year with century.}
-  \item{\code{z}}{Signed offset in hours and minutes from
-  UTC, so \code{-0800} is 8 hours behind UTC.}
 
-  \item{\code{r}*}{Matches \code{Ip} and \code{H} orders.}
-  \item{\code{R}*}{Matches \code{HM} and\code{IMp} orders.}
-  \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and
+  \item{\code{z*}}{ISO8601 signed offset in hours and
+  minutes from UTC. For example \code{-0800}, \code{-08:00}
+  or \code{-08}, all represent 8 hours behind UTC. This
+  format also matches the Z (Zulu) UTC indicator. Because
+  strptime doesn't fully support ISO8601, lubridate
+  represents this format internally as an union of 4
+  different orders: Ou (Z), Oz (-0800), OO (-08:00) and Oo
+  (-08). You can use this formats as any other but it is
+  rarely necessary.}.
+
+  \item{\code{r*}}{Matches \code{Ip} and \code{H} orders.}
+  \item{\code{R*}}{Matches \code{HM} and\code{IMp} orders.}
+  \item{\code{T*}}{Matches \code{IMSp}, \code{HMS}, and
   \code{HMOS} orders.}
 
   }

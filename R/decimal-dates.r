@@ -14,6 +14,7 @@ decimal_date <- function(date)
   UseMethod("decimal_date")
   
 decimal_date.default <- function(date){
+
   if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
     stop("date(s) not in POSIXt or Date format")
   
@@ -36,6 +37,7 @@ decimal_date.its <- function(date)
 #'
 #' @export 
 #' @param decimal a numeric object   
+#' @param tz the time zone required
 #' @return a POSIXct object, whose year corresponds to the integer part of 
 #' decimal. The months, days, hours, minutes and seconds elements are picked so 
 #' the date-time will accurately represent the fraction of the year expressed by

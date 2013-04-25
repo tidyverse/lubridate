@@ -8,6 +8,7 @@
 #' 
 #' @name DateUpdate
 #' @S3method update Date
+#' @S3method update POSIXt
 #' @S3method update POSIXct
 #' @S3method update POSIXlt
 #' @param object a date-time object  
@@ -40,94 +41,127 @@
 NULL
 
 #' @export
-#' @method update POSIXct
-update.POSIXct <- function(object, years = year(object), 
-	months = month(object), days = mday(object), 
-	mdays = mday(object), ydays = yday(object), 
-	wdays = wday(object), hours = hour(object), 
-	minutes = minute(object), seconds = second(object), 
-	tzs = tz(object), ...){
+#' @method update POSIXt
+update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
   
   if(!length(object)) return(object)
+  date <- as.POSIXlt(object)
   
-  d.length <- max(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
-  d.length2 <- min(length(days), length(mdays), length(ydays), length(wdays), length(mday(object)))
+  # adjudicate units input
+  units <- list(...)
+  names(units) <- standardise_lt_names(names(units))
   
-  if(d.length %% d.length2 != 0){
-    stop(paste("arguments imply differing day lengths: ", 
-      d.length, ", ", d.length2, sep = ""))
+  new.tz <- NA
+  if (!is.null(units$tz)) {
+    new.tz <- units$tz
+    units$tz <- NULL
   }
-    
-  day.change <- rbind(
-    days - mday(object), 
-    mdays - mday(object), 
-    wdays - wday(object), 
-    ydays - yday(object))
   
-  blank.rows <- rowSums(abs(day.change), na.rm = TRUE)
-  new.days <- day.change[which(blank.rows != 0),]
+  day.units <- c("day", "wday", "mday", "yday")
+  ndays <- day.units %in% names(units)
+  n <- sum(ndays)
   
-  if(is.matrix(new.days)){
-  	if(nrow(unique(new.days)) > 1) 
-    	stop("conflicting days input")
-    else
-    	new.days <- unique(new.days)
-  }
-
-  days <- colSums(rbind(mday(object), new.days), na.rm = TRUE)
+  if (n > 1) stop("conflicting days input")
+  if (n) {
+    day <- day.units[ndays]
+    if (day != "mday") {
+      names(units)[names(units) == day] <- "mday"
+    if (day != "day")
+      units$mday <- units$mday - date[[day]] + date$mday - 1
+    }
+  }  
   
-    
-  parts <- data.frame(years, months, days, hours, minutes, seconds)
+  if (!is.null(units$mon)) units$mon <- units$mon - 1
+  if (!is.null(units$year)) units$year <- units$year - 1900
   
-
-  utc <- as.POSIXlt(force_tz(object, tzone = "UTC"))
+  # make new date-times
+  class(date) <- "list"
+  date[names(units)] <- units
+  date[c("wday", "yday")] <- list(wday = NA, yday = NA)  
+  class(date) <- c("POSIXlt", "POSIXt")
+  if (!is.na(new.tz)) attr(date, "tzone") <- new.tz
   
-  utc$year <- parts$years - 1900
-  utc$mon <- parts$months - 1
-  utc$mday <- parts$days
-  utc$hour <- parts$hours
-  utc$min <- parts$minutes
-  utc$sec <- parts$seconds
-
-  utc <- as.POSIXct(utc)
-  force_tz(utc, tzone = tzs)
+  # fit to timeline
+  # POSIXct format avoids negative and NA elements in POSIXlt format
+  ct <- fit_to_timeline(date)
+  reclass_date(ct, object)
+  
 }
+  
+
+#' Fit a POSIXlt date-time to the timeline
+#' 
+#' The POSIXlt format allows you to create instants that do not exist in 
+#' real life due to daylight savings time and other conventions. fit_to_timeline
+#' matches POSIXlt date-times to a real times. If an instant does not exist, fit 
+#' to timeline will replace it with an NA. If an instant does exist, but has 
+#' been paired with an incorrect timezone/daylight savings time combination, 
+#' fit_to_timeline returns the instant with the correct combination.
+#'
+#'
+#' @export fit_to_timeline
+#' @param lt a POSIXlt date-time object.
+#' @param class a character string that describes what type of object to return, 
+#' POSIXlt or POSIXct. Defaults to POSIXct.
+#' @return a POSIXct or POSIXlt object that contains no illusory date-times
+#'
+#' @examples
+#' \dontrun{
+#' tricky <- structure(list(sec = c(0, 0, 0, -1), min = c(0L, 5L, 0L, 0L), 
+#' hour = c(2L, 0L, 2L, 2L), mday = c(4L, 4L, 14L, 4L), mon = c(10L, 10L, 2L, 10L), 
+#' year = c(112L, 112L, 110L, 112L), wday = c(0L, 0L, 0L, 0L), 
+#' yday = c(308L, 308L, 72L, 308L), isdst = c(1L, 0L, 1L, 1L)), 
+#' .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", 
+#' "isdst"), class = c("POSIXlt", "POSIXt"), tzone = c("America/Chicago", "CST", "CDT"))
+#' tricky
+#' ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST
+#' ## [2] "2012-11-04 00:05:00 CST" Times are still CDT, not CST at this instant
+#' ## [3] "2010-03-14 02:00:00 CDT" Doesn't exist because clocks "spring forward" past this time for daylight savings
+#' ## [4] "2012-11-04 01:59:59 CDT" Does exist, but has deceptive internal structure
+#' fit_to_timeline(tricky)
+#' ## [1] "2012-11-04 02:00:00 CST" instant paired with correct timezone & DST comnination
+#' ## [2] "2012-11-04 00:05:00 CDT" instant paired with correct timezone & DST comnination
+#' ## [3] NA fake time changed to NA (compare to as.POSIXct(tricky))
+#' ## [4] "2012-11-04 01:59:59 CDT" real instant, left as is
+#' }
+fit_to_timeline <- function(lt, class = "POSIXct") {
+  if (class != "POSIXlt" && class != "POSIXct")
+    stop("class argument must be POSIXlt or POSIXct")
+  
+  # fall break - DST only changes if it has to
+  ct <- as.POSIXct(lt)
+  t <- lt
+  t$isdst <- as.POSIXlt(ct)$isdst
+  
+  # spring break
+  ct <- as.POSIXct(t) # should directly match if not in gap
+  chours <- format.POSIXlt(as.POSIXlt(ct), "%H", usetz = FALSE)
+  lhours <- format.POSIXlt(t, "%H", usetz = FALSE)
+  
+  if (class == "POSIXlt") {
+    t[chours != lhours] <- NA
+    t
+  } else {
+    ct[chours != lhours] <- NA
+    ct
+  }
+}
+  
+
+
+
 
 #' @export
 #' @method update Date
-update.Date <- function(object, years = year(object), months = month(object), 
-  days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
-  wday(object), hours = hour(object), minutes = minute(object), seconds = 
-  second(object), tzs = tz(object), ...){
-    
-  time.change <- c(hours - hour(object), minutes - minute(object), 
-    seconds - second(object))  
-    
-  if(sum(na.omit(time.change)) != 0){
-    return(update(with_tz(as.POSIXct(object), "UTC"), years = 
-    years, months = months, days = days, mdays = mdays, ydays 
-    = ydays, wdays = wdays, hours = hours, minutes = minutes, 
-    seconds = seconds, tzs = tzs))
+update.Date <- function(object, ...){ 
+  
+  lt <- as.POSIXlt(object, tz = "UTC")
+  
+  new <- update(lt, ...)
+  
+  if (sum(c(new$hour, new$min, new$sec))) {
+    new
+  } else {
+    as.Date(new)
   }
-    
-  as.Date(update(with_tz(as.POSIXct(object), "UTC"), years = years, 
-    months = months, days = days, mdays = mdays, ydays = 
-    ydays, wdays = wdays, hours = hours, minutes = minutes, 
-    seconds = seconds, tzs = tzs))
 }
-
-#' @export
-#' @method update POSIXlt
-update.POSIXlt <- function(object, years = year(object), months = month(object), 
-  days = mday(object), mdays = mday(object), ydays = yday(object), wdays = 
-  wday(object), hours = hour(object), minutes = minute(object), seconds = 
-  second(object), tzs = tz(object), ...){
-  
-  if(!length(object)) return(object)
-  
-  as.POSIXlt(update(as.POSIXct(object), years = years, months = 
-    months, days = days, mdays = mdays, ydays = ydays, wdays = 
-    wdays, hours = hours, minutes = minutes, seconds = 
-    seconds, tzs = tzs))
-}
-

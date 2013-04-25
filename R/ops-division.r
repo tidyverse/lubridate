@@ -38,7 +38,16 @@ adjust <- function(est, int, per) {
 divide_interval_by_period <- function(int, per){
     message("Remainder cannot be expressed as fraction of a period.\n  Performing %/%.")
 	estimate <- ceiling(suppressMessages(int/as.duration(per)))
-	adjust(estimate, int, per)
+  nas <- is.na(estimate)
+  if (any(nas)) {
+    timespans <- match_lengths(int, per)
+    int2 <- timespans[[1]][!nas]
+    per2 <- timespans[[2]][!nas]
+    estimate[!nas] <- adjust(estimate[!nas], int2, per2)
+    estimate
+  } else {
+    adjust(estimate, int, per)
+  }
 }
 
 

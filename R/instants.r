@@ -18,19 +18,35 @@ is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "PO
 #'
 #' @export now
 #' @param tzone a character vector specifying which time zone you would like 
-#'   the current time in. tzone defaults to the system time zone set on your 
-#'   computer.
+#' the current time in. tzone defaults to your computer's system timezone. 
+#' You can retrieve the current time in the Universal Coordinated Time (UTC) 
+#' with now("UTC").
 #' @return the current date and time as a POSIXct object
+#' 
+#' @seealso \code{\link{here}}
 #'
 #' @keywords chron utilities
 #' @examples
 #' now()
 #' now("GMT")
+#' now("")
 #' now() == now() # would be true if computer processed both at the same instant
 #' now() < now() # TRUE
 #' now() > now() # FALSE
 now <- function(tzone = "") 
   with_tz(Sys.time(), tzone)
+
+#' The current time in your local timezone
+#'
+#' @export here
+#' @return the current date and time as a POSIXct object
+#' 
+#' @seealso \code{\link{now}}
+#'
+#' @keywords chron utilities
+#' @examples
+#' here()
+here <- function() now("") 
 
 
 #' The current date 
@@ -52,9 +68,9 @@ today <- function(tzone = "") {
 }
 
 
-#' 1970-01-01 GMT
+#' 1970-01-01 UTC
 #'
-#' Origin is the date-time for 1970-01-01 GMT in POSIXct format. This date-time 
+#' Origin is the date-time for 1970-01-01 UTC in POSIXct format. This date-time 
 #' is the origin for the numbering system used by POSIXct, POSIXlt, chron, and 
 #' Date classes.
 #'

@@ -86,13 +86,13 @@ test_that("seconds settor returns NA for spring dst gap",{
   poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
-  posct <- as.POSIXct(poslt)
+  posxct <- as.POSIXct(poslt)
   
   second(poslt) <- 69
-  second(posct) <- 69
+  second(posxct) <- 69
   
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posxct))
 
 })
 

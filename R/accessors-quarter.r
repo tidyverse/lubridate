@@ -33,4 +33,3 @@ quarter <- function(x) {
                 "12" = 4)
   unname(quarters[m])
 }
-  

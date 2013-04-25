@@ -45,6 +45,21 @@ test_that("division works for interval numerator with vectors",{
   
 })
 
+test_that("dividision works for interval vector with NAs",{
+  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+  int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
+  int3 <- ymd(NA, quiet = TRUE) %--% ymd(NA, quiet = TRUE)
+  ints <- c(int1, int2, int3)
+  nas <- as.numeric(c(NA,NA,NA))
+  
+  expect_equal(suppressMessages(ints / years(1)), c(1,2,NA))
+  expect_equal(suppressMessages(ints / dyears(1)), c(1,2,NA))
+  expect_equal(suppressMessages(ints / years(NA)), nas)
+  expect_equal(suppressMessages(ints / dyears(NA)), nas)
+  
+})
+
+
 
 test_that("division operations work for period numerator",{
   int1 <- ymd("2009-01-01") %--% ymd("2010-01-01")

@@ -80,6 +80,20 @@ check_period <- function(object){
 #' changes, and other events happen during the period. See 
 #' \code{\link{Duration-class}} for an alternative way to measure timespans that 
 #' allows precise comparisons between timespans. 
+#' 
+#' The logic that guides arithmetic with periods can be unintuitive. Starting 
+#' with version 1.3.0, lubridate enforces the reversible property of arithmetic 
+#' (e.g. a date + period - period = date)
+#' by returning an NA if you create an implausible date by adding periods with 
+#' months or years units to a date. For example, 
+#' adding one month to January 31st, 2013 results in February 31st, 2013, which 
+#' is not a real date. lubridate users have argued in the past that February 
+#' 31st, 2013 should be rolled over to March 3rd, 2013 or rolled back to February 
+#' 28, 2013. However, each of these corrections would destroy the reversibility 
+#' of addition (Mar 3 - one month == Feb 3 != Jan 31, Feb 28 - one month == Jan 
+#' 28 != Jan 31). If you would like to add and subtract months in a way that rolls 
+#' the results back to the last day of a month (when appropriate) use the special 
+#' operators, \code{\link{\%m+\%}} and \code{\link{\%m-\%}}.
 #'
 #' Period class objects have six slots. 1) .Data, a numeric object. The 
 #' apparent amount of seconds to add to the period. 2) minute, a numeric object. 
@@ -94,12 +108,26 @@ check_period <- function(object){
 #' @name Period-class
 #' @rdname Period-class
 #' @exportClass Period
+#' @aliases second,Period-method
+#' @aliases second<-,Period-method
+#' @aliases minute,Period-method
+#' @aliases minute<-,Period-method
+#' @aliases hour,Period-method
+#' @aliases hour<-,Period-method
+#' @aliases day,Period-method
+#' @aliases day<-,Period-method
+#' @aliases month,Period-method
+#' @aliases month<-,Period-method
+#' @aliases year,Period-method
+#' @aliases year<-,Period-method
 #' @aliases as.numeric,Period-method
 #' @aliases show,Period-method
 #' @aliases c,Period-method
 #' @aliases rep,Period-method
 #' @aliases [,Period-method
 #' @aliases [<-,Period,ANY,ANY,Period-method
+#' @aliases [[,Period-method
+#' @aliases [[<-,Period,ANY,ANY,Period-method
 #' @aliases $,Period-method
 #' @aliases $<-,Period-method
 #' @aliases as.difftime,Period-method
@@ -149,6 +177,18 @@ check_period <- function(object){
 #' @aliases !=,Duration,Period-method
 #' @aliases <=,Duration,Period-method
 #' @aliases <,Duration,Period-method
+#' @aliases >,Period,numeric-method
+#' @aliases >=,Period,numeric-method
+#' @aliases ==,Period,numeric-method
+#' @aliases !=,Period,numeric-method
+#' @aliases <=,Period,numeric-method
+#' @aliases <,Period,numeric-method
+#' @aliases >,numeric,Period-method
+#' @aliases >=,numeric,Period-method
+#' @aliases ==,numeric,Period-method
+#' @aliases !=,numeric,Period-method
+#' @aliases <=,numeric,Period-method
+#' @aliases <,numeric,Period-method
 setClass("Period", contains = c("Timespan", "numeric"), 
 	representation(year = "numeric", month = "numeric", day = "numeric", 
 		hour = "numeric", minute = "numeric"), 
@@ -208,6 +248,13 @@ setMethod("[", signature(x = "Period"),
 })
 
 #' @export
+setMethod("[[", signature(x = "Period"), 
+          function(x, i, j, ..., exact = TRUE) {
+            new("Period", x@.Data[i], year = x@year[i], month = x@month[i], 
+                day = x@day[i], hour = x@hour[i], minute = x@minute[i])
+})
+
+#' @export
 setMethod("[<-", signature(x = "Period", value = "Period"), 
   function(x, i, j, ..., value) {
   	x@.Data[i] <- value@.Data
@@ -217,6 +264,18 @@ setMethod("[<-", signature(x = "Period", value = "Period"),
   	x@hour[i] <- value@hour
   	x@minute[i] <- value@minute
     x
+})
+
+#' @export
+setMethod("[[<-", signature(x = "Period", value = "Period"), 
+          function(x, i, j, ..., value) {
+            x@.Data[i] <- value@.Data
+            x@year[i] <- value@year
+            x@month[i] <- value@month
+            x@day[i] <- value@day 
+            x@hour[i] <- value@hour
+            x@minute[i] <- value@minute
+            x
 })
 
 #' @export
@@ -426,7 +485,7 @@ period <- function(num, units = "second") {
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + edays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 
-#' seconds later)
+#' # seconds later)
 seconds <- function(x = 1) new_period(second = x)
 minutes <- function(x = 1) new_period(minute = x)
 hours <-   function(x = 1) new_period(hour = x)
@@ -612,6 +671,75 @@ setMethod("<", signature(e1 = "Duration", e2 = "Period"),
 	function(e1, e2) {
 	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
 })
+
+#' @export
+setMethod(">", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod(">=", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
+
+#' @export
+setMethod("==", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
+
+#' @export
+setMethod("!=", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("<=", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("<", signature(e1 = "Period", e2 = "numeric"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
+
+#' @export
+setMethod(">", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod(">=", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
+
+#' @export
+setMethod("==", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("!=", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("<=", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
+#' @export
+setMethod("<", signature(e1 = "numeric", e2 = "Period"), 
+          function(e1, e2) {
+            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+          })
+
 	
 #' @S3method summary Period
 summary.Period <- function(object, ...) {

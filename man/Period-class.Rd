@@ -2,6 +2,8 @@
 \alias{!=,Duration,Period-method}
 \alias{!=,Period,Duration-method}
 \alias{!=,Period,Period-method}
+\alias{!=,Period,numeric-method}
+\alias{!=,numeric,Period-method}
 \alias{$,Period-method}
 \alias{$<-,Period-method}
 \alias{*,ANY,Period-method}
@@ -31,21 +33,33 @@
 \alias{<,Duration,Period-method}
 \alias{<,Period,Duration-method}
 \alias{<,Period,Period-method}
+\alias{<,Period,numeric-method}
+\alias{<,numeric,Period-method}
 \alias{<=,Duration,Period-method}
 \alias{<=,Period,Duration-method}
 \alias{<=,Period,Period-method}
+\alias{<=,Period,numeric-method}
+\alias{<=,numeric,Period-method}
 \alias{==,Duration,Period-method}
 \alias{==,Period,Duration-method}
 \alias{==,Period,Period-method}
+\alias{==,Period,numeric-method}
+\alias{==,numeric,Period-method}
 \alias{>,Duration,Period-method}
 \alias{>,Period,Duration-method}
 \alias{>,Period,Period-method}
+\alias{>,Period,numeric-method}
+\alias{>,numeric,Period-method}
 \alias{>=,Duration,Period-method}
 \alias{>=,Period,Duration-method}
 \alias{>=,Period,Period-method}
+\alias{>=,Period,numeric-method}
+\alias{>=,numeric,Period-method}
 \alias{Period-class}
 \alias{[,Period-method}
 \alias{[<-,Period,ANY,ANY,Period-method}
+\alias{[[,Period-method}
+\alias{[[<-,Period,ANY,ANY,Period-method}
 \alias{\%\%,Period,Duration-method}
 \alias{\%\%,Period,Interval-method}
 \alias{\%\%,Period,Period-method}
@@ -53,8 +67,20 @@
 \alias{as.difftime,Period-method}
 \alias{as.numeric,Period-method}
 \alias{c,Period-method}
+\alias{day,Period-method}
+\alias{day<-,Period-method}
+\alias{hour,Period-method}
+\alias{hour<-,Period-method}
+\alias{minute,Period-method}
+\alias{minute<-,Period-method}
+\alias{month,Period-method}
+\alias{month<-,Period-method}
 \alias{rep,Period-method}
+\alias{second,Period-method}
+\alias{second<-,Period-method}
 \alias{show,Period-method}
+\alias{year,Period-method}
+\alias{year<-,Period-method}
 \title{Period class}
 \description{
   Period is an S4 class that extends the
@@ -83,6 +109,24 @@
   \code{\link{Duration-class}} for an alternative way to
   measure timespans that allows precise comparisons between
   timespans.
+
+  The logic that guides arithmetic with periods can be
+  unintuitive. Starting with version 1.3.0, lubridate
+  enforces the reversible property of arithmetic (e.g. a
+  date + period - period = date) by returning an NA if you
+  create an implausible date by adding periods with months
+  or years units to a date. For example, adding one month
+  to January 31st, 2013 results in February 31st, 2013,
+  which is not a real date. lubridate users have argued in
+  the past that February 31st, 2013 should be rolled over
+  to March 3rd, 2013 or rolled back to February 28, 2013.
+  However, each of these corrections would destroy the
+  reversibility of addition (Mar 3 - one month == Feb 3 !=
+  Jan 31, Feb 28 - one month == Jan 28 != Jan 31). If you
+  would like to add and subtract months in a way that rolls
+  the results back to the last day of a month (when
+  appropriate) use the special operators,
+  \code{\link{\%m+\%}} and \code{\link{\%m-\%}}.
 
   Period class objects have six slots. 1) .Data, a numeric
   object. The apparent amount of seconds to add to the

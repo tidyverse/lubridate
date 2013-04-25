@@ -39,6 +39,8 @@ check_duration <- function(object){
 #' @aliases rep,Duration-method
 #' @aliases [,Duration-method
 #' @aliases [<-,Duration,ANY,ANY,ANY-method
+#' @aliases [[,Duration-method
+#' @aliases [[<-,Duration,ANY,ANY,ANY-method
 #' @aliases $,Duration-method
 #' @aliases $<-,Duration-method
 #' @aliases as.difftime,Duration-method
@@ -72,24 +74,29 @@ check_duration <- function(object){
 #' @aliases %%,Duration,Period-method
 setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
+
+SECONDS_IN_ONE <- c(
+  second = 1, 
+  minute = 60, 
+  hour   = 3600, 
+  day    = 86400, 
+  year   = 31557600
+)
+
 compute_estimate <- function (x) {  
   seconds <- abs(na.omit(x))
-    if (any(seconds < 60)) 
-        units <- "secs"
-    else if (any(seconds < 3600))
-        units <- "mins"
-    else if (any(seconds < 86400))
-        units <- "hours"
-    else if (any(seconds < 31557600))
-        units <- "days"
-    else
-    	units <- "years"
-    
-    switch(units, secs = paste(round(x, 2), " seconds", sep = ""), 
-      mins = paste("~", round(x/60, 2), " minutes", sep = ""), 
-      hours = paste("~", round(x/3600, 2), " hours", sep = ""), 
-      days = paste("~", round(x/86400, 2), " days", sep = ""), 
-      years = paste("~", round(x/31557600, 2), " years", sep = ""))
+  unit <- if (length(seconds) == 0 || any(seconds < SECONDS_IN_ONE[["minute"]])) 
+    "second"
+  else if (any(seconds < SECONDS_IN_ONE[["hour"]])) 
+    "minute"
+  else if (any(seconds < SECONDS_IN_ONE[["day"]])) 
+    "hour"
+  else if (any(seconds < SECONDS_IN_ONE[["year"]])) 
+    "day"
+  else "year"
+  x <- x / SECONDS_IN_ONE[[unit]]
+  approx_prefix <- ifelse(unit != "second" & !is.na(x), "~", "")
+  paste(approx_prefix, round(x, 2), " ", unit, "s", sep = "")
 }
 
 
@@ -130,9 +137,22 @@ setMethod("[", signature(x = "Duration"),
 })
 
 #' @export
+setMethod("[[", signature(x = "Duration"), 
+  function(x, i, j, ..., exact = TRUE) {
+    new("Duration", x@.Data[i])
+})
+
+#' @export
 setMethod("[<-", signature(x = "Duration"), 
   function(x, i, j, ..., value) {
   	x@.Data[i] <- value
+    new("Duration", x@.Data)
+})
+
+#' @export
+setMethod("[[<-", signature(x = "Duration"), 
+  function(x, i, j, ..., value) {
+    x@.Data[i] <- as.numeric(value)
     new("Duration", x@.Data)
 })
 

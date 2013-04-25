@@ -21,13 +21,12 @@ test_that("decimal_date handles first second of year without returning NaN",{
 
 test_that("date_decimal works as expected",{
   y <- 2008.58846
-  expect_equal(date_decimal(y), as.POSIXct("2008-08-03 09:01:57", tz = "UTC"))
+  expect_equal(as.numeric(date_decimal(y)), 1217754118)
 })
 
 test_that("date_decimal handles vectors",{
   y <- c(2008.589, 2009.587)
-  expect_equal(date_decimal(y), as.POSIXct(c("2008-08-03 13:46:33", 
-    "2009-08-03 06:07:11"), tz = "UTC"))
+  expect_equal(as.numeric(date_decimal(y)), c(1217771194, 1249279632))
   
 })
 

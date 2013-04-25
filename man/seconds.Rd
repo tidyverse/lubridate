@@ -76,7 +76,7 @@ boundary + days(1) # period
 # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 boundary + edays(1) # duration
 # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400
-seconds later)
+# seconds later)
 }
 \seealso{
   \code{\link{Period-class}}, \code{\link{new_period}},

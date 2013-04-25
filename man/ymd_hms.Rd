@@ -8,7 +8,6 @@
 \alias{ydm_h}
 \alias{ydm_hm}
 \alias{ydm_hms}
-\alias{ymdThms}
 \alias{ymd_h}
 \alias{ymd_hm}
 \alias{ymd_hms}
@@ -63,8 +62,11 @@
   are based on \code{strptime} which currently fails to
   parse \code{\%y-\%m} formats.
 
-  ymdThms() specifically handles combined dates and times
-  written in the ISO 8601 format.
+  As of version 1.3.0, lubridate's parse functions no
+  longer return a message that displays which format they
+  used to parse their input. You can change this by setting
+  the \code{lubridate.verbose} option to true with
+  \code{options(lubridate.verbose = TRUE)}.
 }
 \examples{
 x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
@@ -86,10 +88,27 @@ x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03",
        "Created on 10-01-11 at 10:01:11 PM")
 ymd_hms(x)
 
+## ** fractional seconds **
+op <- options(digits.secs=3)
+dmy_hms("20/2/06 11:16:16.683")
+## "2006-02-20 11:16:16.683 UTC"
+options(op)
+
+## ** different formats for ISO8601 timezone offset **
+ymd_hms(c("2013-01-24 19:39:07.880-0600",
+"2013-01-24 19:39:07.880", "2013-01-24 19:39:07.880-06:00",
+"2013-01-24 19:39:07.880-06", "2013-01-24 19:39:07.880Z"))
+
+## ** internationalization **
+\dontrun{
+x_RO <- "Ma 2012 august 14 11:28:30 "
+ymd_hms(x_RO, locale = "ro_RO.utf8")
+}
+
 ## ** truncated time-dates **
 x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ymd_hms(x, truncated = 3)
-## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##"2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
 ymd_hm(x, truncated = 2)
 ## "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
@@ -97,7 +116,8 @@ ymd_hm(x, truncated = 2)
 ## ** What lubridate might not handle **
 ## Extremely weird cases when one of the separators is "" and some of the
 ## formats are not in double digits might not be parsed correctly:
-\dontrun{ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
+\dontrun{
+ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
 ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 }
 \seealso{

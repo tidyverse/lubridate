@@ -33,6 +33,14 @@ NULL
 #' @aliases %m+%,ANY,Period-method
 #' @aliases %m-%,Period,ANY-method
 #' @aliases %m-%,ANY,Period-method
+#' @aliases %m+%,Duration,ANY-method
+#' @aliases %m+%,ANY,Duration-method
+#' @aliases %m-%,Duration,ANY-method
+#' @aliases %m-%,ANY,Duration-method
+#' @aliases %m+%,Interval,ANY-method
+#' @aliases %m+%,ANY,Interval-method
+#' @aliases %m-%,Interval,ANY-method
+#' @aliases %m-%,ANY,Interval-method
 #' @param e1 A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}} 
 #' or \code{\link{Date}}.
 #' @param e2 A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}} 
@@ -67,6 +75,21 @@ setMethod("%m+%", signature(e2 = "Period"),
 setMethod("%m+%", signature(e1 = "Period"), 
   function(e1, e2) .month_plus(e2, e1))
 
+mplus_error <- function(e1, e2) 
+  stop("%m+% only handles Period objects with month or year units")
+
+#' @export   
+setMethod("%m+%", signature(e2 = "Duration"), mplus_error)
+
+#' @export   
+setMethod("%m+%", signature(e1 = "Duration"), mplus_error)
+
+#' @export   
+setMethod("%m+%", signature(e2 = "Interval"), mplus_error)
+
+#' @export   
+setMethod("%m+%", signature(e1 = "Interval"), mplus_error)
+
 
 #' @export
 "%m-%" <- function(e1,e2) standardGeneric("%m-%")
@@ -81,6 +104,22 @@ setMethod("%m-%", signature(e2 = "Period"),
 #' @export   
 setMethod("%m-%", signature(e1 = "Period"), 
   function(e1, e2) .month_plus(e2, -e1))
+
+mminus_error <- function(e1, e2) 
+  stop("%m-% only handles Period objects with month or year units")
+
+
+#' @export   
+setMethod("%m-%", signature(e2 = "Duration"), mminus_error)
+
+#' @export   
+setMethod("%m-%", signature(e1 = "Duration"), mminus_error)
+
+#' @export   
+setMethod("%m-%", signature(e2 = "Interval"), mminus_error)
+
+#' @export   
+setMethod("%m-%", signature(e1 = "Interval"), mminus_error)
 
 
 .month_plus <- function(e1, e2) {
