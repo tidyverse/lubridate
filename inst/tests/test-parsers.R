@@ -412,8 +412,17 @@ test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo forma
 
 
 test_that("ymd_hms parses Ou format correctly ",{
+  ## Correct usage
   expect_that(ymd_hms("2012-03-04T05:06:07Z"), 
               equals(ymd_hms("2012-03-04 05:06:07", tz="UTC")))
+  ## Inconsistent usage - suppress warning to check return value only
+  suppressWarnings(
+    expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"), 
+                equals(ymd_hms("2012-03-04 05:06:07", tz="UTC")))
+  )
+  ## Inconsistent usage - check for warning
+  expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"), 
+              gives_warning("Date in ISO8601 format; timezone ignored"))  
 })
 
 test_that("ymd_hms parses OO and Oo formats correctly", {
@@ -441,6 +450,14 @@ test_that("ymd_hms parses OO and Oo formats correctly", {
   ## vectorizes
   expect_that(ymd_hms(c("2012-03-04T05:06:07+01", "2012-03-04T05:06:07+01:30")), 
               equals(ymd_hms(c("2012-03-04 04:06:07", "2012-03-04 03:36:07"), tz="UTC")))  
+  ## Inconsistent usage - suppress warning to check return value only
+  suppressWarnings(
+    expect_that(ymd_hms("2012-03-04T05:06:07-01:30", tz="America/Chicago"), 
+                equals(ymd_hms("2012-03-04 06:36:07", tz="UTC")))
+  )
+  ## Inconsistent usage - check for warning
+  expect_that(ymd_hms("2012-03-04T05:06:07-01:30", tz="America/Chicago"), 
+              gives_warning("Date in ISO8601 format; timezone ignored"))  
 })
 
 
