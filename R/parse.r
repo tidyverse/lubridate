@@ -418,7 +418,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   Sys.setlocale("LC_TIME", locale)
   on.exit(Sys.setlocale("LC_TIME", orig_locale))  
   
-  x <- .num_to_date(x)
+  x <- as.character(.num_to_date(x))
   if( truncated != 0 )
     orders <- .add_truncated(orders, truncated)
   
