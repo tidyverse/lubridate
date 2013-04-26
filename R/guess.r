@@ -277,10 +277,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
 
     if( !quiet && tz != "" && tz != "UTC" )
-      warning("Date in ISO8601 format; timezone ignored", call. = FALSE)
-    tz <- "UTC"
+      warning("Date in ISO8601 format; using suplied timezone: ", tz, call. = FALSE)
+    else tz <- "UTC"
   }
-  
   strptime(x, fmt, tz)
 }
 
