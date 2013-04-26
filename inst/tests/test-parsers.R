@@ -398,6 +398,15 @@ test_that("ISO8601: %z format (aka lubridate %Ot, %OO and %Oo formats) is correc
   
 })
 
+test_that("Inconsistent Usage of ISO8601 is correctly reported", {
+  suppressWarnings(
+    expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"),
+                equals(ymd_hms("2012-03-04 05:06:07", tz="America/Chicago"))))
+
+  expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"),
+              gives_warning("Date in ISO8601 format"))
+})
+
 test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo formats.", {
   
   expect_that(
