@@ -398,15 +398,6 @@ test_that("ISO8601: %z format (aka lubridate %Ot, %OO and %Oo formats) is correc
   
 })
 
-test_that("Inconsistent Usage of ISO8601 is correctly reported", {
-  suppressWarnings(
-    expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"),
-                equals(ymd_hms("2012-03-04 05:06:07", tz="America/Chicago"))))
-
-  expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"),
-              gives_warning("Date in ISO8601 format"))
-})
-
 test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo formats.", {
   
   expect_that(
@@ -424,14 +415,12 @@ test_that("ymd_hms parses Ou format correctly ",{
   ## Correct usage
   expect_that(ymd_hms("2012-03-04T05:06:07Z"), 
               equals(ymd_hms("2012-03-04 05:06:07", tz="UTC")))
-  ## Inconsistent usage - suppress warning to check return value only
-  suppressWarnings(
-    expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"), 
-                equals(ymd_hms("2012-03-04 05:06:07", tz="UTC")))
-  )
-  ## Inconsistent usage - check for warning
   expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"), 
-              gives_warning("Date in ISO8601 format; timezone ignored"))  
+              equals(ymd_hms("2012-03-03 23:06:07", tz="America/Chicago")))
+  
+  ## check for message
+  expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"), 
+              shows_message("Date in ISO8601 format"))  
 })
 
 test_that("ymd_hms parses OO and Oo formats correctly", {
@@ -459,17 +448,20 @@ test_that("ymd_hms parses OO and Oo formats correctly", {
   ## vectorizes
   expect_that(ymd_hms(c("2012-03-04T05:06:07+01", "2012-03-04T05:06:07+01:30")), 
               equals(ymd_hms(c("2012-03-04 04:06:07", "2012-03-04 03:36:07"), tz="UTC")))  
-  ## Inconsistent usage - suppress warning to check return value only
-  suppressWarnings(
-    expect_that(ymd_hms("2012-03-04T05:06:07-01:30", tz="America/Chicago"), 
-                equals(ymd_hms("2012-03-04 06:36:07", tz="UTC")))
-  )
-  ## Inconsistent usage - check for warning
+
   expect_that(ymd_hms("2012-03-04T05:06:07-01:30", tz="America/Chicago"), 
-              gives_warning("Date in ISO8601 format; timezone ignored"))  
+              equals(ymd_hms("2012-03-04 00:36:07", tz="America/Chicago")))
+
+  expect_that(ymd_hms("2012-03-04T05:06:07-01:30", tz="America/Chicago"), 
+              shows_message("Date in ISO8601 format"))  
 })
 
-
+test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats",{
+  expect_that(ymd_hms(c("2012-03-04T05:06:07Z", "2001-02-03 04:05:06"), 
+                      tz="America/Chicago"), 
+              equals(ymd_hms(c("2012-03-03 23:06:07", "2001-02-03 04:05:06"), 
+                             tz="America/Chicago")))
+})
 
 
 ## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00", 
