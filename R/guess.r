@@ -258,15 +258,13 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 }
 
 
-.strptime <- function(x, fmt, tz = "", quiet = FALSE){
-  
-  # capture the timezone, just in case
-  tz_global <- tz
-  
+.strptime <- function(x, fmt, tz = "UTC", quiet = FALSE){
+
   ## depending on fmt we might need to preprocess x,
   ## Fortunately ISO8601 is the only case so far.
   zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
+  ## ISO8601 format -> pre-process fmt
   if( zpos > 0 ){
     capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
     repl <- switch(capt,
@@ -280,18 +278,14 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
     str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
 
-    # do we need to change the timezone?
-    if( !quiet && tz != "" && tz != "UTC" )
-      message(str_join("Date in ISO8601 format; converted timezone from UTC to ", tz,  "."))
-    
-    # ISO-8601 formats imply UTC
-    tz <- "UTC"
+    ## user has supplied tz argument -> convert to tz
+    if( tz != "UTC" ){
+      if( !quiet )
+        message("Date in ISO8601 format; converted timezone from UTC to \"", tz,  "\".")
+      return(with_tz(strptime(x, fmt, "UTC"), tzone = tz))
+    }
   }
-  
-  # express time using global timezone
-  with_tz(strptime(x, fmt, tz), tz_global)
-  
-  
+  strptime(x, fmt, tz)
 }
 
 
