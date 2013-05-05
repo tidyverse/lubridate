@@ -52,9 +52,7 @@
 
 stamp <- function(x, orders = lubridate_formats,
                   locale = Sys.getlocale("LC_TIME"), quiet = FALSE){
-  ## if( is.null(orders) )
-  ##   orders <- 
-  
+
   fmts <- unique(guess_formats(x, orders, locale))
   if( is.null(fmts) ) stop( "Couldn't quess formats of: ", x)
   if( length(fmts) == 1L ){
@@ -64,12 +62,12 @@ stamp <- function(x, orders = lubridate_formats,
     formats <- .select_formats(trained)
     FMT <- formats[[1]]
     if( !quiet && length(trained) > 1 ) {
-      message("Multiple formats matched: ", 
-              paste("\"", names(trained),"\"(", trained, ")", sep = "", 
+      message("Multiple formats matched: ",
+              paste("\"", names(trained),"\"(", trained, ")", sep = "",
                     collapse= ", "))
     }
   }
-  
+
   if( !quiet )
       message("Using: \"", FMT, "\"")
 
@@ -119,62 +117,62 @@ stamp <- function(x, orders = lubridate_formats,
 
 .format_offset <- function(x, fmt="%Oz"){
   ## .format_offset
-  ## 
+  ##
   ## function to format the offset of a time from UTC
-  ## 
+  ##
   ## This is an internal function, used in conjunction with \code{\link{stamp}}.
   ## There are three available formats:
-  ## 
+  ##
   ## \itemize{
   ##   \item \code{\%Oo} +01
   ##   \item \code{\%Oz} +0100
   ##   \item \code{\%OO} +01:00
   ## }
-  ## 
-  ## If the \code{\%Oo} format is used for a half-hour timezone, a warning 
-  ## is issued, and the format is changed to \code{\%Oz} 
-  ## 
+  ##
+  ## If the \code{\%Oo} format is used for a half-hour timezone, a warning
+  ## is issued, and the format is changed to \code{\%Oz}
+  ##
   ## @param x      POSIXct for which offset-string is sought
   ## @param fmt    string describing format of offset, default: \code{\%Oz}
-  ## 
+  ##
   ## @return string
-  ## 
-  
+  ##
+
   ## "%Oo"  +01
   ## "%Oz"  +0100
-  ## "%OO"  +01:00  
-  
-  # calulate offset by forcing this time as utc
+  ## "%OO"  +01:00
+
+  ## calulate offset by forcing this time as utc
   dtm_utc <- force_tz(x, tzone = "UTC")
-  
-  # the offset is the duration represented by the difference in time
+
+  ## the offset is the duration represented by the difference in time
   offset_duration = as.duration(dtm_utc - x)
-  
-  # determine sign 
+
+  ## determine sign
   .sgn <- ifelse(offset_duration >= 0, "+", "-")
-  
-  # remove sign
+
+  ## remove sign
   offset_duration <- abs(offset_duration)
-  
-  # determine hour
+
+  ## determine hour
   .hr <- floor(offset_duration/dhours(1))
-  
-  # determine minutes
+
+  ## determine minutes
   .min <- floor((offset_duration-dhours(.hr))/dminutes(1))
-  
-  # warning if we need minutes, but are using format without minutes
+
+  ## warning if we need minutes, but are using format without minutes
   if (any(.min > 0) & fmt=="%Oo"){
     warning("timezone offset-minutes are non-zero - changing format to %Oz")
     fmt <- "%Oz"
   }
-  
+
   result <- switch(
     fmt,
     "%Oo" = sprintf("%s%02d", .sgn, .hr),
     "%Oz" = sprintf("%s%02d%02d", .sgn, .hr, .min),
     "%OO" = sprintf("%s%02d:%02d", .sgn, .hr, .min)
-  )  
-  
+  )
+
   return(result)
 }
 
@@ -193,26 +191,26 @@ stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"))
   stamp(x, orders = c("hms", "hm", "ms", "h", "m", "s"), locale = locale)
 
 ##' Lubridate format orders used in \code{stamp}
-##' 
+##'
 ##' @format  character vector of formats.
 ##' @docType data
 ##' @seealso \code{\link{parse_date_time}}, \code{\link{ymd}}, \code{\link{ymd_hms}}
 ##' @keywords chron
 lubridate_formats <- local({
   xxx <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
-  names(xxx) <- xxx    
+  names(xxx) <- xxx
   out <- character()
   for(D in xxx){
     out[[paste(D, "_hms", sep = "")]] <- paste(xxx[[D]], "T", sep = "")
     out[[paste(D, "_hm", sep = "")]] <- paste(xxx[[D]], "R", sep = "")
     out[[paste(D, "_h", sep = "")]] <- paste(xxx[[D]], "r", sep = "")
-  }    
-  
-  out <- c(out, xxx, my = "my", ym = "ym", md = "md", dm = "dm", 
+  }
+
+  out <- c(out, xxx, my = "my", ym = "ym", md = "md", dm = "dm",
            hms = "T", hm = "R", ms = "MS", h = "r", m = "m", y = "y")
-  
-  # adding ISO8601
+
+  ## adding ISO8601
   out <- c(ymd_hmsz="ymdTz", out)
-  
+
   out
 })
