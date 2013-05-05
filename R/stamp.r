@@ -46,6 +46,10 @@
 ##' stamp("Sun Aug 5")(D) #=> "Sun Aug 04" "Sat Aug 04" "Fri Aug 04" "Thu Aug 04" "Wed Aug 03"
 ##' stamp("12/31/99")(D)              #=> "06/09/11"
 ##' stamp("Sunday, May 1, 2000 22:10")(D)
+##' stamp("2013-01-01T06:00:00Z")(D)
+##' stamp("2013-01-01T00:00:00-06")(D)
+##' stamp("2013-01-01T00:00:00-08:00")(force_tz(D, "America/Chicago"))
+
 stamp <- function(x, orders = lubridate_formats,
                   locale = Sys.getlocale("LC_TIME"), quiet = FALSE){
   ## if( is.null(orders) )
@@ -67,84 +71,78 @@ stamp <- function(x, orders = lubridate_formats,
   }
   
   if( !quiet )
-    message("Using: \"", FMT, "\"")
-  
-  f <- 
-    eval(
-      substitute(
-        function(x){ 
-          
-          # regular expression to detect ISO-8601 format, 
-          #   ends with "%Ou", "%Oo", "%Oz", "%OO"
-          regexp_8601 <- "%O\\w$"
-          
-          # do we have an ISO-8601 format?
-          ifelse(
-            str_detect(FMT, regexp_8601), 
-{ # yes - find out which one and use its function
-  sub_fmt <- str_extract(FMT, regexp_8601)
-  switch(
-    sub_fmt,
-    "%Ou" = { # ex: "2013-04-16T04:59:59Z"
-      FMT_new <- str_replace(FMT, regexp_8601, "Z")
-      x <- with_tz(x, tzone="UTC")
-      format(x, format = FMT_new)
-    },
-{ # All others:
-  # %Oo: "2013-04-16T04:59:59+01"
-  # %Oz: "2013-04-16T04:59:59+0100"
-  # %OO: "2013-04-16T04:59:59+01:00"
-  FMT_new <- str_replace(FMT, regexp_8601, "")
-  str_join(format(x, format = FMT_new),
-           format_offset(x, fmt=sub_fmt))
-}
-  )
-},
-            # no - use default function
-            format(x, format = FMT)
-          )                    
-          
-        }, 
-        list(FMT = FMT)
-      ), 
-      envir = topenv()
-    )
-  
-  
-  
-  
-  
-  
-  attr(f, "srcref") <- NULL
-  f
+      message("Using: \"", FMT, "\"")
+
+  ## ISO8601
+  ## %Ou: "2013-04-16T04:59:59Z"
+  ## %Oo: "2013-04-16T04:59:59+01"
+  ## %Oz: "2013-04-16T04:59:59+0100"
+  ## %OO: "2013-04-16T04:59:59+01:00"
+
+  ## Is a timezone format?
+  if( grepl("%O[oOzu]|%z", FMT) ){
+    ## We need to post-process x in the case of %Oo, %OO and %Oz formats
+    ## because standard %z output format ignores timezone.
+
+    ## Post-process only when at the end of the string, otherwise don't bother
+    ## and just output with %z format after a conversion to UTC.
+
+    oOz_end <- str_extract(FMT, "%O[oOz]$")
+
+    if(is.na(oOz_end)){
+      FMT <- sub("%O[oOz]", "%z",
+                 sub("%Ou", "Z", FMT, fixed = TRUE))
+
+      eval(bquote(
+        function(x){
+          ## %z ignores timezone
+          if(tz(x[[1]]) != "UTC")
+            x <- with_tz(x, tzone = "UTC")
+          format(x, format = .(FMT))
+        }))
+
+    } else {
+      FMT <- sub("%O[oOz]$", "", FMT)
+
+      eval(bquote(
+        function(x) paste0(format(x, format = .(FMT)),
+                           .format_offset(x, fmt = .(oOz_end)))))
+    }
+
+  } else {
+    ## most common case
+    eval(bquote(function(x) format(x, format = .(FMT))))
+  }
 }
 
-##' format_offset
-##' 
-##' function to format the offset of a time from UTC
-##' 
-##' This is an internal function, used in conjunction with \code{\link{stamp}}.
-##' There are three available formats:
-##' 
-##' \itemize{
-##'   \item \code{\%Oo} +01
-##'   \item \code{\%Oz} +0100
-##'   \item \code{\%OO} +01:00
-##' }
-##' 
-##' If the \code{\%Oo} format is used for a half-hour timezone, a warning 
-##' is issued, and the format is changed to \code{\%Oz} 
-##' 
-##' @param x      POSIXct for which offset-string is sought
-##' @param fmt    string describing format of offset, default: \code{\%Oz}
-##' 
-##' @return string
-##' 
-format_offset <- function(x, fmt="%Oz"){
+
+
+.format_offset <- function(x, fmt="%Oz"){
+  ## .format_offset
+  ## 
+  ## function to format the offset of a time from UTC
+  ## 
+  ## This is an internal function, used in conjunction with \code{\link{stamp}}.
+  ## There are three available formats:
+  ## 
+  ## \itemize{
+  ##   \item \code{\%Oo} +01
+  ##   \item \code{\%Oz} +0100
+  ##   \item \code{\%OO} +01:00
+  ## }
+  ## 
+  ## If the \code{\%Oo} format is used for a half-hour timezone, a warning 
+  ## is issued, and the format is changed to \code{\%Oz} 
+  ## 
+  ## @param x      POSIXct for which offset-string is sought
+  ## @param fmt    string describing format of offset, default: \code{\%Oz}
+  ## 
+  ## @return string
+  ## 
   
-  # "%Oo"  +01
-  # "%Oz"  +0100
-  # "%OO"  +01:00  
+  ## "%Oo"  +01
+  ## "%Oz"  +0100
+  ## "%OO"  +01:00  
   
   # calulate offset by forcing this time as utc
   dtm_utc <- force_tz(x, tzone = "UTC")
