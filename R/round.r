@@ -7,7 +7,7 @@
 #' @export floor_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
-#'   "second","minute","hour","day", "week", "month", or "year."
+#'   "second","minute","hour","day", "week", "lastweek", "month", or "year."
 #' @return x with the appropriate units floored
 #' @seealso \code{\link{ceiling_date}}, \code{\link{round_date}}
 #' @keywords manip chron
@@ -23,11 +23,13 @@
 #' # "2009-08-03 CDT"
 #' floor_date(x, "week")
 #' # "2009-08-02 CDT"
+#' floor_date(x, "lastweek")
+#' # "2009-07-30 CDT"'
 #' floor_date(x, "month")
 #' # "2009-08-01 CDT"
 #' floor_date(x, "year")
 #' # "2009-01-01 CST"
-floor_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
+floor_date <- function(x, unit = c("second","minute","hour","day", "week", "lastweek", "month", "year")) {
   unit <- match.arg(unit)
   
   new <- switch(unit,
@@ -36,6 +38,7 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
     hour =   update(x, minutes = 0, seconds = 0),
     day =    update(x, hours = 0, minutes = 0, seconds = 0),
     week =   update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
+    lastweek =  update(x, wdays = (wday(today())-7), hours = 0, minutes = 0, seconds = 0),
     month =  update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0),
     year =   update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0)
   )
