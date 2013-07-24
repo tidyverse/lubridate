@@ -418,7 +418,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   Sys.setlocale("LC_TIME", locale)
   on.exit(Sys.setlocale("LC_TIME", orig_locale))  
   
-  x <- .num_to_date(x)
+  x <- as.character(.num_to_date(x))
   if( truncated != 0 )
     orders <- .add_truncated(orders, truncated)
   
@@ -443,9 +443,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   
   failed <- 0L
   warned <- FALSE
-  to_parse <- !is.na(x) & nzchar(x) ## missing data could be just ""
+  to_parse <- !is.na(x) & nzchar(x) ## missing data might be ""
   x <- .enclose(x)
-  ## out <- rep.int(NA, length(x))
   out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)
   out[to_parse] <- .local_parse(x[to_parse], TRUE)
   
