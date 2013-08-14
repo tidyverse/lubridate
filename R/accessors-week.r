@@ -8,8 +8,8 @@ NULL
 #' the number of complete seven day periods that have occured between the date 
 #' and  January 1st, plus one. 
 #'
-#' @export week "week<-"
-#' @aliases week week<-
+#' @export week "week<-" isoweek
+#' @aliases week "week<-" isoweek
 #' @param x a date-time object   
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron
@@ -26,9 +26,10 @@ week <- function(x)
 "week<-" <- function(x, value)
   x <- x + days((value - week(x)) * 7)
 
+
 isoweek <- function(x){
   dn <- 1 + (wday(x) + 5) %% 7
   nth <- x + ddays(4 - dn)
-  jan1 <- ymd(sprintf('%s-01-01', year(nth)), tz = tz(x))
-  1 + as.numeric(difftime(nth, jan1, units = 'days')) %/% 7
+  jan1 <- ISOdate(year(nth), 1, 1, tz = tz(x))
+  1 + (nth - jan1) / ddays(7)
 }
