@@ -25,3 +25,10 @@ week <- function(x)
   
 "week<-" <- function(x, value)
   x <- x + days((value - week(x)) * 7)
+
+isoweek <- function(x){
+  dn <- 1 + (wday(x) + 5) %% 7
+  nth <- x + ddays(4 - dn)
+  jan1 <- ymd(sprintf('%s-01-01', year(nth)), tz = tz(x))
+  1 + as.numeric(difftime(nth, jan1, units = 'days')) %/% 7
+}
