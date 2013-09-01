@@ -470,9 +470,14 @@ test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats",{
 
 ## ### speed:
 ## options(digits.secs = 3)
-## tt <- c(rep(as.character(Sys.time()), 1e5))#, "sfds", "sdfdsf")
+
+## tt <- c(rep(as.character(Sys.time()), 1e6))
+## options(lubridate.fasttime = F)
+
 
 ## system.time(out <- as.POSIXct(tt, tz = "UTC"))
+## system.time(out <- ymd_hms(tt))
+## options(lubridate.fasttime = T)
 ## system.time(out <- ymd_hms(tt))
 
 ## ttz <- paste(tt, "-0600", sep = "")
