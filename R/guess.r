@@ -268,9 +268,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     befast <- getOption("lubridate.fasttime")
     posix <- regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt) > 0
     if(!is.null(befast) && befast && posix){
-      as.POSIXlt.POSIXct(.POSIXct(.Call("parse_ts", x, 3L, 6, tz = "UTC"), tz = "UTC"))
+      .POSIXct(.Call("parse_ts", x, 3L, 6, tz = "UTC"), tz = "UTC")
     }else
-      strptime(.enclose(x), .enclose(fmt), tz)
+      as.POSIXct(strptime(.enclose(x), .enclose(fmt), tz))
   }
 
   ## ISO8601 format -> pre-process fmt

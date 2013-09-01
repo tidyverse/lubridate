@@ -24,7 +24,7 @@
 #' the fasttime package by Simon Urbanek. This functionality is
 #' as yet optional and could be activated with
 #' \code{options(lubridate.fasttime = TRUE)}. Lubridate will
-#' automatically detec POSIX string and use fast parser instead
+#' automatically detect POSIX strings and use fast parser instead
 #' of the default \code{\link{strptime}} utility.
 #' 
 #' Manipulating dates

@@ -354,9 +354,9 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##'   }
 ##'
 ##' Lubridate also provides a very fast POSIX parser, ported from the fasttime
-##' package by Simon Urbanek. This functionality is as yet optional and could be
+##' package by Simon Urbanek. This functionality is as yet optional and must be
 ##' activated with \code{options(lubridate.fasttime = TRUE)}. Lubridate will
-##' automatically detec POSIX string and use fast parser instead of the default
+##' automatically detect POSIX string and use fast parser instead of the default
 ##' \code{\link{strptime}} utility.
 ##'
 ##' @export parse_date_time
@@ -450,10 +450,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   failed <- 0L
   warned <- FALSE
   to_parse <- !is.na(x) & nzchar(x) ## missing data might be ""
-  ## enclose into @@xxx@@, otherwise some formats are confused by strptime
-  ## x <- .enclose(x) ## this takes a 0.75s for 1e6 vector :(
   ## prepare an NA vector
-  out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)  ## this takes .25s :(
+  out <- .POSIXct(rep.int(NA, length(x)), tz = tz)
   out[to_parse] <- .local_parse(x[to_parse], TRUE)
 
   if( failed > 0 && !quiet && !warned )
@@ -467,7 +465,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 .parse_date_time <- function(x, formats, locale, quiet, tz){
   ## recursive parsing
   out <- .strptime(x, formats[[1]], tz = tz)
-  na <- is.na(out$year)
+  na <- is.na(out)
   newx <- x[na]
 
   verbose <- getOption("lubridate.verbose")
@@ -526,8 +524,9 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
   orders <- paste("Ymd", orders, sep = "")
   hms <- paste("1970-01-01", hms, sep = "-")
-  ## ugly hack, but what can we do :(
-  tryCatch(parse_date_time(hms, orders, truncated =  truncated, quiet = quiet),
+  ## ugly hack,
+  ## todo: write our own C parser
+  tryCatch(as.POSIXlt.POSIXct(parse_date_time(hms, orders, truncated =  truncated, quiet = quiet)),
            error = function(e){
              e$message <- gsub("%Y-%m-%d", "", e$message)
              stop(e)
@@ -550,12 +549,12 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
       orders <- c(orders, add[1:truncated], sep = "")
   }
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  as.POSIXct(parse_date_time(dates, orders, tz = tz, locale = locale,   quiet = quiet))
+  parse_date_time(dates, orders, tz = tz, locale = locale,   quiet = quiet)
 }
 
 .parse_xxx <- function(..., orders, quiet, tz, locale = locale,  truncated){
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  as.POSIXct(parse_date_time(dates, orders, quiet = quiet, tz = tz, locale = locale,  truncated = truncated))
+  parse_date_time(dates, orders, quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 }
 
 
