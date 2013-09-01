@@ -353,6 +353,12 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##'
 ##'   }
 ##'
+##' Lubridate also provides a very fast POSIX parser, ported from the fasttime
+##' package by Simon Urbanek. This functionality is as yet optional and could be
+##' activated with \code{options(lubridate.fasttime = TRUE)}. Lubridate will
+##' automatically detec POSIX string and use fast parser instead of the default
+##' \code{\link{strptime}} utility.
+##'
 ##' @export parse_date_time
 ##' @param x a character or numeric vector of dates
 ##' @param orders a character vector of date-time formats. Each order string is
