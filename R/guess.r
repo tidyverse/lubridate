@@ -227,13 +227,11 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     x[ .primes * (length(x) %/% 3571) ] #501 primes
 }
 
-.train_formats <- function(x, formats, locale ) {
+.train_formats <- function(x, formats, locale) {
   ## return a numeric vector of size length(formats), with each element giving
   ## the number of matched elements in X
   ## can return NULL if formats is NULL
-  x <- .enclose(x)
-  formats2 <- .enclose(formats)
-  trials <- lapply(formats2, function(fmt) strptime(x, fmt))
+  trials <- lapply(formats, function(fmt) .strptime(x, fmt))
   successes <- unlist(lapply(trials, function(x) sum(!is.na(x))), use.names = FALSE)
   names(successes) <- formats
   successes
@@ -268,10 +266,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   .process <- function(x, fmt, tz){
     befast <- getOption("lubridate.fasttime")
-    posix <- regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%]*$", fmt) > 0
-    if(!is.null(befast) && befast && posix)
-      as.POSIXlt.POSIXct(.POSIXct(.Call("parse_ts", x, 3L), tz = tz))
-    else 
+    posix <- regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt) > 0
+    if(!is.null(befast) && befast && posix){
+      as.POSIXlt.POSIXct(.POSIXct(.Call("parse_ts", x, 3L, 6, tz = "UTC"), tz = "UTC"))
+    }else
       strptime(.enclose(x), .enclose(fmt), tz)
   }
   
@@ -281,8 +279,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     repl <- switch(capt,
                    z = "%z",
                    u ="Z",
-                   o = { x <- sub("([+-]\\d{2}(?=\\D+$))", "\\100", x, perl = TRUE)
-                         "%z"}, 
+                   ## substitute +aa with +aa00
+                   o = { x <- sub("([+-]\\d{2}(?=\\D+)?$)", "\\100", x, perl = TRUE)
+                         "%z"},
+                   ## substitute +aa:bb with +aabb
                    O = { x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = TRUE)
                          "%z"},
                    stop("Unrecognised capture detected; please report this bug"))
