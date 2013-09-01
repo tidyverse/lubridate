@@ -477,6 +477,9 @@ test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats",{
 ## system.time(out <- ymd_hms(tt))
 ## options(lubridate.fasttime = T)
 ## system.time(out <- ymd_hms(tt))
+## ## this one is very slow
+## system.time(out <- ymd_hms(tt, tz = "America/Chicago"))
+
 
 ## ttz <- paste(tt, "-0600", sep = "")
 ## system.time(parse_date_time(ttz, "YmdHMOSz"))

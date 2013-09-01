@@ -264,15 +264,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
-  .process <- function(x, fmt, tz){
-    befast <- getOption("lubridate.fasttime")
-    posix <- regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt) > 0
-    if(!is.null(befast) && befast && posix){
-      .POSIXct(.Call("parse_ts", x, 3L, 6, tz = "UTC"), tz = "UTC")
-    }else
-      as.POSIXct(strptime(.enclose(x), .enclose(fmt), tz))
-  }
-
   ## ISO8601 format -> pre-process fmt
   if( zpos > 0 ){
     capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
@@ -293,11 +284,23 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     if( tz != "UTC" ){
       if( !quiet )
         message("Date in ISO8601 format; converted timezone from UTC to \"", tz,  "\".")
-      return(with_tz(.process(x, fmt, "UTC"), tzone = tz))
+      return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))
     }
   }
 
-  .process(x, fmt, tz)
+  befast <- getOption("lubridate.fasttime")
+
+  if(!is.null(befast) && befast &&
+     regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt) > 0)
+    {
+      if(tz != "UTC")
+        ## fixme: damn, this is so unbelievably slow
+        force_tz(.POSIXct(.Call("parse_ts", x, 3L), "UTC"), tzone = tz)
+      else
+        .POSIXct(.Call("parse_ts", x, 3L), tz = "UTC")
+    }else{
+      as.POSIXct(strptime(.enclose(x), .enclose(fmt), tz))
+    }
 }
 
 
