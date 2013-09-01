@@ -209,8 +209,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   else character(length(x))
 }
 
-
-
 .enclose <- function(fmts)
   paste("@", fmts, "@", sep = "")
 
@@ -229,14 +227,13 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     x[ .primes * (length(x) %/% 3571) ] #501 primes
 }
 
-
 .train_formats <- function(x, formats, locale ) {
   ## return a numeric vector of size length(formats), with each element giving
   ## the number of matched elements in X
   ## can return NULL if formats is NULL
   x <- .enclose(x)
   formats2 <- .enclose(formats)
-  trials <- lapply(formats2, function(fmt) .strptime(x, fmt))
+  trials <- lapply(formats2, function(fmt) strptime(x, fmt))
   successes <- unlist(lapply(trials, function(x) sum(!is.na(x))), use.names = FALSE)
   names(successes) <- formats
   successes
@@ -252,16 +249,16 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   .select_formats(trained)
 }
 
-.select_formats <-   function(trained){
+.select_formats <- function(trained){
   n_fmts <- nchar(gsub("[^%]", "", names(trained))) + grepl("%Y", names(trained))*1.5
   names(trained[ which.max(n_fmts) ])
 }
 
-
+##' @useDynLib lubridate parse_ts
 .strptime <- function(x, fmt, tz = "UTC", quiet = FALSE){
 
   ## Depending on fmt we might need to preprocess x.
-  ## Fortunately ISO8601 is the only case so far.
+  ## ISO8601 and fasttime are the only cases so far.
   ## %Ou: "2013-04-16T04:59:59Z"
   ## %Oo: "2013-04-16T04:59:59+01"
   ## %Oz: "2013-04-16T04:59:59+0100"
@@ -269,6 +266,15 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
+  .process <- function(x, fmt, tz){
+    befast <- getOption("lubridate.fasttime")
+    posix <- regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%]*$", fmt) > 0
+    if(!is.null(befast) && befast && posix)
+      as.POSIXlt.POSIXct(.POSIXct(.Call("parse_ts", x, 3L), tz = tz))
+    else 
+      strptime(.enclose(x), .enclose(fmt), tz)
+  }
+  
   ## ISO8601 format -> pre-process fmt
   if( zpos > 0 ){
     capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
@@ -287,10 +293,11 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     if( tz != "UTC" ){
       if( !quiet )
         message("Date in ISO8601 format; converted timezone from UTC to \"", tz,  "\".")
-      return(with_tz(strptime(x, fmt, "UTC"), tzone = tz))
+      return(with_tz(.process(x, fmt, "UTC"), tzone = tz))
     }
   }
-  strptime(x, fmt, tz)
+
+  .process(x, fmt, tz)
 }
 
 

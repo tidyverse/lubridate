@@ -444,8 +444,10 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   failed <- 0L
   warned <- FALSE
   to_parse <- !is.na(x) & nzchar(x) ## missing data might be ""
-  x <- .enclose(x)
-  out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)
+  ## enclose into @@xxx@@, otherwise some formats are confused by strptime
+  ## x <- .enclose(x) ## this takes a 0.75s for 1e6 vector :(
+  ## prepare an NA vector 
+  out <- as.POSIXlt(rep.int(NA, length(x)), tz = tz)  ## this takes .25s :(
   out[to_parse] <- .local_parse(x[to_parse], TRUE)
   
   if( failed > 0 && !quiet && !warned )
