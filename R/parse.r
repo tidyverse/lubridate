@@ -201,13 +201,12 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
   .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
-
-
 ##' Create a period with the specified number of minutes and seconds
 ##'
 ##' Transforms character or numeric vectors into a period object with the
 ##' specified number of minutes and seconds. ms() Arbitrary text can separate
-##' minutes and seconds. Fractional separator is assumed to be ".".
+##' minutes and seconds. Fractional separator is assumed to be ".". After
+##' minutes and seconds have been parsed, all numeric input is ignored.
 ##'
 ##' @export ms
 ##' @param ... character or numeric vectors of minute second pairs
@@ -224,16 +223,19 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' ms("6,5")
 ##' # 6 minutes and 5 seconds
 ms <- function(..., quiet = FALSE) {
-  hms <- .parse_hms(..., orders = "MS", quiet = quiet)
-  new_period(minute = hms$min, second = hms$sec)
+  ms <- as.character(unlist(lapply(list(...), .num_to_date), use.names= FALSE))
+  out <- matrix(.Call("parse_hms", ms, FALSE, TRUE), nrow = 3L)
+  if(!quiet && all(is.na(out[3, ]))) warning("Some strings failed to parse, or were partially parsed")
+  new_period(minute = out[2, ], second = out[3, ])
 }
 
 
 ##' Create a period with the specified number of hours and minutes
 ##'
 ##' Transforms a character or numeric vectors into a period object with the
-##' specified number of hours and minutes. Arbitrary text can separate hours and
-##' minutes.
+##' specified number of hours and minutes. Arbitrary non-numeric text can
+##' separate hours and minutes.  After hours and minutes have been parsed, the
+##' remaining input is ignored.
 ##'
 ##' @export hm
 ##' @param ... character or numeric vectors of hour minute pairs
@@ -250,15 +252,18 @@ ms <- function(..., quiet = FALSE) {
 ##' hm("6,5")
 ##' # [1] 6 hours and 5 minutes
 hm <- function(..., quiet = FALSE) {
-  time <- .parse_hms(..., orders = "R", quiet = quiet)
-  new_period(hour = time$hour, minute = time$min)
+  ms <- as.character(unlist(lapply(list(...), .num_to_date), use.names= FALSE))
+  out <- matrix(.Call("parse_hms", ms, TRUE, FALSE), nrow = 3L)
+  if(!quiet && all(is.na(out[2, ]))) warning("Some strings failed to parse, or were partially parsed")
+  new_period(hour = out[1, ], minute = out[2, ])
 }
 
 ##' Create a period with the specified hours, minutes, and seconds
 ##'
 ##' Transforms a character or numeric vector into a period object with the
 ##' specified number of hours, minutes, and seconds. hms() recognizes all
-##' non-alphanumeric separators, as well as no separator.
+##' non-numeric separators. After hours, minutes and seconds have been parsed,
+##' the remaining input is ingored.
 ##'
 ##' @export hms
 ##' @param ... a character vector of hour minute second triples
@@ -276,8 +281,10 @@ hm <- function(..., quiet = FALSE) {
 ##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
 ##' ## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds
 hms <- function(..., quiet = FALSE, truncated = 0) {
-  time <- .parse_hms(..., orders = "T", truncated = truncated, quiet = quiet)
-  new_period(hour = time$hour, minute = time$min, second = time$sec)
+  hms <- as.character(unlist(lapply(list(...), .num_to_date), use.names= FALSE))
+  out <- matrix(.Call("parse_hms", hms, TRUE, TRUE), nrow = 3L)
+  if(!quiet && all(is.na(out[3, ]))) warning("Some strings failed to parse, or were partially parsed")
+  new_period(hour = out[1, ], minute = out[2, ], second = out[3, ])
 }
 
 
@@ -515,22 +522,6 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   }
 
   out
-}
-
-
-
-
-.parse_hms <- function(..., orders, truncated = 0, quiet){
-  hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
-  orders <- paste("Ymd", orders, sep = "")
-  hms <- paste("1970-01-01", hms, sep = "-")
-  ## ugly hack,
-  ## todo: write our own C parser
-  tryCatch(as.POSIXlt.POSIXct(parse_date_time(hms, orders, truncated =  truncated, quiet = quiet)),
-           error = function(e){
-             e$message <- gsub("%Y-%m-%d", "", e$message)
-             stop(e)
-           })
 }
 
 

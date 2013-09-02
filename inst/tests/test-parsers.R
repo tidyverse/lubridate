@@ -274,21 +274,21 @@ test_that("hms functions correctly handle / separators", {
 })
 
 
-test_that("hms functions return NA on incompatible inputs", {
-  expect_that(is.na(hms("3:3:3:4", quiet = TRUE)), is_true())
+test_that("hms functions return NA on shorter inputs", {
+  ## expect_that(is.na(hms("3:3:3:4", quiet = TRUE)), is_true())
   expect_that(is.na(hms("03:03", quiet = TRUE)), is_true())
-  expect_that(is.na(ms("03:02:01", quiet = TRUE)), is_true())
+  ## expect_that(is.na(ms("03:02:01", quiet = TRUE)), is_true())
   expect_that(is.na(ms("03", quiet = TRUE)), is_true())
-  expect_that(is.na(hm("03:03:01", quiet = TRUE)), is_true())
+  ## expect_that(is.na(hm("03:03:01", quiet = TRUE)), is_true())
   expect_that(is.na(hm("03", quiet = TRUE)), is_true())
 })
 
-test_that("hms functions give warning on incompatible inputs", {
-  expect_warning(hms("3:3:3:4"))
+test_that("hms functions give warning on shorter inputs", {
+  ## expect_warning(hms("3:3:3:4"))
   expect_warning(hms("03:03"))
-  expect_warning(ms("03:02:01"))
+  ## expect_warning(ms("03:02:01"))
   expect_warning(ms("03"))
-  expect_warning(hm("03:03:01"))
+  ## expect_warning(hm("03:03:01"))
   expect_warning(hm("03"))
 })
 
