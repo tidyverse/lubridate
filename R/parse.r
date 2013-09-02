@@ -273,6 +273,7 @@ hm <- function(..., quiet = FALSE) {
 ##' @return a vector of period objects
 ##' @seealso \code{\link{hm}, \link{ms}}
 ##' @keywords period
+##' @useDynLib lubridate parse_hms
 ##' @examples
 ##'
 ##' x <- c("09:10:01", "09:10:02", "09:10:03", "Collided at 9:20:04 pm")
