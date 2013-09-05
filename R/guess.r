@@ -290,14 +290,15 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   befast <- getOption("lubridate.fasttime")
 
-  if(!is.null(befast) && befast &&
-     regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt) > 0)
-    {
-      if(tz != "UTC")
+  is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
+
+  if (identical(befast, TRUE) && is_posix){
+      if (tz != "UTC"){
         ## fixme: damn, this is so unbelievably slow
         force_tz(.POSIXct(.Call("parse_ts", x, 3L), "UTC"), tzone = tz)
-      else
-        .POSIXct(.Call("parse_ts", x, 3L), tz = "UTC")
+      }else{
+          .POSIXct(.Call("parse_ts", x, 3L), tz = "UTC")
+      }
     }else{
       as.POSIXct(strptime(.enclose(x), .enclose(fmt), tz))
     }
