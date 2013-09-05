@@ -223,10 +223,8 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' ms("6,5")
 ##' # 6 minutes and 5 seconds
 ms <- function(..., quiet = FALSE) {
-  ms <- as.character(unlist(lapply(list(...), .num_to_date), use.names= FALSE))
-  out <- matrix(.Call("parse_hms", ms, FALSE, TRUE), nrow = 3L)
-  if(!quiet && all(is.na(out[3, ]))) warning("Some strings failed to parse, or were partially parsed")
-  new_period(minute = out[2, ], second = out[3, ])
+  out <- .parse_hms(..., parseH = FALSE, quiet = quiet)
+  new_period(minute = out["minute", ], second = out["second", ])
 }
 
 
@@ -252,10 +250,8 @@ ms <- function(..., quiet = FALSE) {
 ##' hm("6,5")
 ##' # [1] 6 hours and 5 minutes
 hm <- function(..., quiet = FALSE) {
-  ms <- as.character(unlist(lapply(list(...), .num_to_date), use.names= FALSE))
-  out <- matrix(.Call("parse_hms", ms, TRUE, FALSE), nrow = 3L)
-  if(!quiet && all(is.na(out[2, ]))) warning("Some strings failed to parse, or were partially parsed")
-  new_period(hour = out[1, ], minute = out[2, ])
+  out <- .parse_hms(..., parseS = FALSE, check_for_na = "minute", quiet = quiet)
+  new_period(hour = out["hour", ], minute = out["minute", ])
 }
 
 ##' Create a period with the specified hours, minutes, and seconds
@@ -268,8 +264,6 @@ hm <- function(..., quiet = FALSE) {
 ##' @export hms
 ##' @param ... a character vector of hour minute second triples
 ##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
-##' @param truncated integer, number of formats that can be missing. See
-##' \code{\link{parse_date_time}}.
 ##' @return a vector of period objects
 ##' @seealso \code{\link{hm}, \link{ms}}
 ##' @keywords period
@@ -281,13 +275,23 @@ hm <- function(..., quiet = FALSE) {
 ##' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
 ##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
 ##' ## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds
-hms <- function(..., quiet = FALSE, truncated = 0) {
-  hms <- as.character(unlist(lapply(list(...), .num_to_date), use.names= FALSE))
-  out <- matrix(.Call("parse_hms", hms, TRUE, TRUE), nrow = 3L)
-  if(!quiet && all(is.na(out[3, ]))) warning("Some strings failed to parse, or were partially parsed")
-  new_period(hour = out[1, ], minute = out[2, ], second = out[3, ])
+hms <- function(..., quiet = FALSE) {
+  out <- .parse_hms(..., quiet = quiet)
+  new_period(hour = out["hour", ],
+             minute = out["minute", ],
+             second = out["second", ])
 }
 
+.parse_hms <- function(..., parseH = TRUE, parseS = TRUE,
+                       check_for_na = "second", quiet = FALSE){
+  ## wraper for C level parse_hms
+  hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
+  out <- matrix(.Call("parse_hms", hms, parseH, parseS),
+                nrow = 3L, dimnames = list(c("hour", "minute", "second"), NULL))
+  if(!quiet && all(is.na(out[check_for_na, ])))
+    warning("Some strings failed to parse, or were partially parsed")
+  out
+}
 
 ##' Parse character and numeric date-time vectors with user friendly order
 ##' formats.
@@ -541,12 +545,13 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
       orders <- c(orders, add[1:truncated], sep = "")
   }
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  parse_date_time(dates, orders, tz = tz, locale = locale,   quiet = quiet)
+  parse_date_time(dates, orders, tz = tz, locale = locale, quiet = quiet)
 }
 
 .parse_xxx <- function(..., orders, quiet, tz, locale = locale,  truncated){
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  parse_date_time(dates, orders, quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  parse_date_time(dates, orders, quiet = quiet, tz = tz,
+                  locale = locale, truncated = truncated)
 }
 
 
@@ -558,7 +563,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
     x <- paste(ifelse(nchar(x) %% 2 == 1, "0", ""), x, sep = "")
     out[nnas] <- x
     out
-  }else x
+  }else as.character(x)
 }
 
 ## parse.r ends here
