@@ -10,7 +10,12 @@
 static const int cml[] = { 0, 0, 2678400, 5097600, 7776000, 10368000, 13046400, 15638400,
 			   18316800, 20995200, 23587200, 26265600, 28857600, 31536000 };
 
+
 SEXP parse_hms(SEXP str, SEXP parseh, SEXP parses) {
+  // STR: character vector
+  // parseh: logical, shall we parse hour (FALSE for ms parser)
+  // parses: logical, shall we parse second (FALSE for hm parser)
+  // RETURN: numeric vector (H1 M1 S1 H2 M2 S2 ...)
   SEXP res;
   double *tsv;
   int n, i, doh = asLogical(parseh), dos = asLogical(parses);
