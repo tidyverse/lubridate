@@ -90,8 +90,18 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
   # form the paths for candidate locations
   tzfile_candidate <- file.path(dir_share, "zoneinfo", "zone.tab") 
   
-  # take the first one that exists
-  tzfile <- tzfile_candidate[file.exists(tzfile_candidate)][1]  
+  # do any of these files exist?
+  tzfile_exists <- file.exists(tzfile_candidate)
+  
+  # if not return
+  if (all(tzfile_exists == FALSE)){
+    warning("zone.tab file not found in any candidate location: ", 
+            str_join(tzfile_candidate, collapse=" "))
+    return(c())
+  } 
+  
+  # make it the first one
+  tzfile <- tzfile_candidate[tzfile_exists][1]  
   
   tzones <- read.delim(
     tzfile, 
