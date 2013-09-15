@@ -93,7 +93,7 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
   # do any of these files exist?
   tzfile_exists <- file.exists(tzfile_candidate)
   
-  # if not return
+  # if not, warn & return
   if (all(tzfile_exists == FALSE)){
     warning("zone.tab file not found in any candidate location: ", 
             str_join(tzfile_candidate, collapse=" "))
