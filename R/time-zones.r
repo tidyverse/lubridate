@@ -67,8 +67,7 @@ check_tz <- function(tz) {}
 #' or from West to East.
 #' @note Olson-style names are the most readable and portable 
 #' way of specifying time zones.  This function gets names
-#' from the file shipped with R, stored in 
-#' \code{file.path(R.home("share"), "zoneinfo", "zone.tab")}.
+#' from the file shipped with R, stored in the file `zone.tab`.
 #' \code{?\link[base]{Sys.timezone}} has more information.
 #' @return A character vector of time zone names.
 #' @seealso \code{\link[base]{Sys.timezone}}
@@ -80,7 +79,20 @@ check_tz <- function(tz) {}
 #' @export
 olson_time_zones <- function(order_by = c("name", "longitude")) {
   order_by <- match.arg(order_by)
-  tzfile <- file.path(R.home("share"), "zoneinfo", "zone.tab")
+
+  # collect possible locations for zoneinfo/zone.tab
+  dir_share <- c(
+    R.home("share"),              # Windows
+    file.path("", "usr", "share") # Ubuntu (likely others)
+    # add other possible locations here
+  )
+  
+  # form the paths for candidate locations
+  tzfile_candidate <- file.path(dir_share, "zoneinfo", "zone.tab") 
+  
+  # take the first one that exists
+  tzfile <- tzfile_candidate[file.exists(tzfile_candidate)][1]  
+  
   tzones <- read.delim(
     tzfile, 
     row.names    = NULL, 

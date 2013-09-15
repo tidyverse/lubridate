@@ -56,3 +56,11 @@ test_that("force_tz doesn't return NA just because new time zone uses DST", {
   
   expect_true(!is.na(poslt2))
 })
+
+
+test_that("olson_time_zones returns a non-trivial character vector", {
+  tz_olson <- olson_time_zones()
+  
+  expect_true(length(tz_olson) > 0)
+  expect_is(tz_olson, "character")
+})
