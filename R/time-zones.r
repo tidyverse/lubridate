@@ -97,7 +97,7 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
   if (all(tzfile_exists == FALSE)){
     warning("zone.tab file not found in any candidate location: ", 
             str_join(tzfile_candidate, collapse=" "))
-    return(c())
+    return(NULL)
   } 
   
   # make it the first one
