@@ -80,7 +80,7 @@ check_tz <- function(tz) {}
 olson_time_zones <- function(order_by = c("name", "longitude")) {
   order_by <- match.arg(order_by)
 
-  # collect possible locations for zoneinfo/zone.tab
+  # compile possible locations for zoneinfo/zone.tab
   dir_share <- c(
     R.home("share"),              # Windows
     file.path("", "usr", "share") # Ubuntu (likely others)
@@ -88,19 +88,18 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
   )
   
   # form the paths for candidate locations
-  tzfile_candidate <- file.path(dir_share, "zoneinfo", "zone.tab") 
+  tzfile_candidate <- file.path(dir_share, "zoneinfo", "zone2.tab") 
   
-  # do any of these files exist?
+  # determine the existence of each of the candidates
   tzfile_exists <- file.exists(tzfile_candidate)
   
-  # if not, warn & return
+  # if none of the candidates exists, throw an error
   if (all(tzfile_exists == FALSE)){
-    warning("zone.tab file not found in any candidate location: ", 
+    stop("zone.tab file not found in any candidate location: ", 
             str_join(tzfile_candidate, collapse=" "))
-    return(NULL)
   } 
   
-  # make it the first one
+  # use the first valid candidate
   tzfile <- tzfile_candidate[tzfile_exists][1]  
   
   tzones <- read.delim(
