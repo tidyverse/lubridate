@@ -424,7 +424,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   
   .local_parse <- function(x, first = FALSE){
     train <- .get_train_set(x)
-    formats <- .best_formats(train, orders, locale = locale, .select_formats)
+    formats <- .best_formats(train, orders, locale = locale, select_formats)
     if( length(formats) > 0 ){
       out <- .parse_date_time(x, formats,  quiet = quiet, tz = tz, locale = locale)
       new_na <- is.na(out)
