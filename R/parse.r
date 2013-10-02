@@ -296,8 +296,8 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##' supplied format-orders based on a training set and then applies them
 ##' recursively on the input vector.
 ##'
-##' Below are all the implemented formats recognized by lubridate. For numeric
-##' formats leading 0s are optional. All formats are case insensitive.
+##' Below are listed all the implemented formats recognized by lubridate. For
+##' numeric formats leading 0s are optional. All formats are case insensitive.
 ##'
 ##' As compared to \code{strptime}, some of the formats have been extended for
 ##' efficiency reasons. They are marked with "*"
@@ -318,7 +318,7 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##' \item{\code{H}}{Hours as decimal number (00--24 or 0--24).}
 ##' \item{\code{I}}{Hours as decimal number (01--12 or 0--12).}
 ##' \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
-##' \item{\code{m*}}{Month as decimal number (01--12 or 1--12). Also matches abbreviated 
+##' \item{\code{m}*}{Month as decimal number (01--12 or 1--12). Also matches abbreviated 
 ##' and full months names as \code{b} and \code{B} formats}
 ##' \item{\code{M}}{Minute as decimal number (00--59 or 0--59).}
 ##' \item{\code{p}}{AM/PM indicator in the locale.  Used in
@@ -336,10 +336,10 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##' \item{\code{W}}{Week of the year as decimal number (00--53 or 0-53) using
 ##'                   Monday as the first day of week (and typically with the
 ##'                                                    first Monday of the year as day 1 of week 1).  The UK convention.}
-##' \item{\code{y*}}{Year without century (00--99 or 0--99).  Also matches year with century (Y format).}
+##' \item{\code{y}*}{Year without century (00--99 or 0--99).  Also matches year with century (Y format).}
 ##' \item{\code{Y}}{Year with century.}
 ##' 
-##' \item{\code{z*}}{ISO8601 signed offset in hours and minutes from UTC. For
+##' \item{\code{z}*}{ISO8601 signed offset in hours and minutes from UTC. For
 ##' example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours
 ##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
 ##' strptime doesn't fully support ISO8601, lubridate represents this format
@@ -347,9 +347,9 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##' (-08:00) and Oo (-08). You can use this formats as any other but it is
 ##' rarely necessary.}.
 ##'
-##' \item{\code{r*}}{Matches \code{Ip} and \code{H} orders.}
-##' \item{\code{R*}}{Matches \code{HM} and\code{IMp} orders.}
-##' \item{\code{T*}}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
+##' \item{\code{r}*}{Matches \code{Ip} and \code{H} orders.}
+##' \item{\code{R}*}{Matches \code{HM} and\code{IMp} orders.}
+##' \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 ##' 
 ##'   }
 ##'
@@ -379,14 +379,14 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##' @param locale locale to be used, see \link{locales}. On linux systems you
 ##' can use \code{system("locale -a")} to list all the installed locales.
 ##' @param select_formats A function to select actual formats for parsing from a
-##' set of formats which matched a training subset of \code{x}. This should be
-##' function receiving a named integer vector and returning a character vector
-##' of selected formats. Names of the input vector are explicit formats (not
-##' orders) which matched the training set and numeric values are the number of
-##' dates which matched the corresponding format. You should use this argument
-##' if the default selection method fails to select the formats in the right
-##' order. By default the formats with most formating tockens (\%) are selected
-##' and \%Y counts as 2.5 tockens (so that it can have priority over \%y\%m).
+##' set of formats which matched a training subset of \code{x}. it receives a
+##' named integer vector and returns a character vector of selected
+##' formats. Names of the input vector are formats (not orders) that matched the
+##' training set. Numeric values are the number of dates (in the training set)
+##' that matched the corresponding format. You should use this argument if the
+##' default selection method fails to select the formats in the right order. By
+##' default the formats with most formating tockens (\%) are selected and \%Y
+##' counts as 2.5 tockens (so that it has a priority over \%y\%m). Se examples.
 ##' @return a vector of POSIXct date-time objects
 ##' @seealso \code{strptime}, \code{\link{ymd}}, \code{\link{ymd_hms}}
 ##' @keywords chron
@@ -411,6 +411,22 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##' parse_date_time(x, "%Y%m%d %H%M%S", truncated = 3)
 ##' parse_date_time(x, "ymd_hms", truncated = 3)
 ##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##'
+##' ## ** how to use select_formats **
+##' ## By default %Y has precedence:
+##' parse_date_time(c("27-09-13", "27-09-2013"), "dmy")
+##' ## [1] "13-09-27 UTC"   "2013-09-27 UTC"
+##'
+##' ## to give priority to %y format, define your own select_format function:
+##'
+##' my_select <-   function(trained){
+##'    n_fmts <- nchar(gsub("[^%]", "", names(trained))) +
+##'        grepl("%y", names(trained))*1.5
+##'    names(trained[ which.max(n_fmts) ])
+##' }
+##'
+##' parse_date_time(c("27-09-13", "27-09-2013"), "dmy", select_formats = my_select)
+##' ## '[1] "2013-09-27 UTC" "2013-09-27 UTC"
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                             locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
   
