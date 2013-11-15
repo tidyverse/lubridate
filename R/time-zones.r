@@ -88,7 +88,7 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
   )
   
   # form the paths for candidate locations
-  tzfile_candidate <- file.path(dir_share, "zoneinfo", "zone2.tab") 
+  tzfile_candidate <- file.path(dir_share, "zoneinfo", "zone.tab") 
   
   # determine the existence of each of the candidates
   tzfile_exists <- file.exists(tzfile_candidate)
