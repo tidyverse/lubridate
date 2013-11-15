@@ -10,7 +10,7 @@ NULL
 #' ISO 8601 system, which uses a reoccuring leap week.
 #'
 #' @export week "week<-" isoweek
-#' @aliases week "week<-" isoweek
+#' @aliases week week<- isoweek
 #' @param x a date-time object   
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron

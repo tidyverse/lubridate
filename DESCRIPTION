@@ -1,8 +1,7 @@
 Package: lubridate
 Imports:
     plyr,
-    stringr,
-    memoise
+    stringr
 Maintainer: Garrett Grolemund <garrett@rstudio.com>
 License: GPL
 Title: Make dealing with dates a little easier

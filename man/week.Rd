@@ -1,7 +1,7 @@
 \name{week}
-\alias{"week<-"}
 \alias{isoweek}
 \alias{week}
+\alias{week<-}
 \title{Get/set weeks component of a date-time.}
 \usage{
   week(x)
