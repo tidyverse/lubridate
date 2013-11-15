@@ -3,12 +3,12 @@ Imports:
     plyr,
     stringr,
     memoise
-Maintainer: Garrett Grolemund <grolemund@rice.edu>
+Maintainer: Garrett Grolemund <garrett@rstudio.com>
 License: GPL
 Title: Make dealing with dates a little easier
 LazyData: true
 Type: Package
-Authors@R: c(person("Garrett", "Grolemund", email = "lubridate@github.com",
+Authors@R: c(person("Garrett", "Grolemund", email = "garrett@rstudio.com",
     role = c("aut", "cre")), person("Hadley", "Wickham", role = "aut"),
     person("Vitalie", "Spinu", role = "ctb"), person("Imanuel", "Constigan",
     role = "ctb"), person("Chel Hee", "Lee", role = "ctb"), person("Richard",
@@ -26,7 +26,7 @@ Description: Lubridate makes it easier to work with dates
     dates fun instead of frustrating.
 Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries,
     fts, tseries
-Version: 1.3.0
+Version: 1.3.1
 Depends:
     methods,
     R (>= 2.14)
