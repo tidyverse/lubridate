@@ -28,8 +28,9 @@ week <- function(x)
 
 
 isoweek <- function(x){
+  xday <- ISOdate(year(x), month(x), day(x), tz = tz(x))
   dn <- 1 + (wday(x) + 5) %% 7
-  nth <- x + ddays(4 - dn)
-  jan1 <- ISOdate(year(nth), 1, 1, tz = tz(x))
-  1 + (nth - jan1) / ddays(7)
+  nth <- xday + ddays(4 - dn)
+  jan1 <- ISOdate(year(nth), 1, 1, tz = tz(x)) 
+  1 + (nth - jan1) %/% ddays(7)
 }
