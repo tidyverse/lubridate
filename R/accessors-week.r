@@ -8,8 +8,8 @@ NULL
 #' the number of complete seven day periods that have occured between the date 
 #' and  January 1st, plus one. 
 #'
-#' @export week "week<-"
-#' @aliases week week<-
+#' @export week "week<-" isoweek
+#' @aliases week "week<-" isoweek
 #' @param x a date-time object   
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron
@@ -25,3 +25,12 @@ week <- function(x)
   
 "week<-" <- function(x, value)
   x <- x + days((value - week(x)) * 7)
+
+
+isoweek <- function(x){
+  xday <- ISOdate(year(x), month(x), day(x), tz = tz(x))
+  dn <- 1 + (wday(x) + 5) %% 7
+  nth <- xday + ddays(4 - dn)
+  jan1 <- ISOdate(year(nth), 1, 1, tz = tz(x)) 
+  1 + (nth - jan1) %/% ddays(7)
+}

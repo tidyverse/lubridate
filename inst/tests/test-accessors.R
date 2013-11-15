@@ -71,6 +71,17 @@ test_that("weeks accessor extracts correct week",{
 
 })
 
+test_that("isoweek accessor extracts correct ISO8601 week",{
+  poslt <- as.POSIXlt("2010-01-01 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct(poslt)
+  date <- as.Date(poslt)
+  
+  expect_that(isoweek(poslt), equals(53))
+  expect_that(isoweek(posct), equals(53))
+  expect_that(isoweek(date), equals(53))
+  
+})
+
 test_that("months accessor extracts correct month",{
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
@@ -142,6 +153,10 @@ test_that("accessors handle vectors",{
   expect_that(week(poslt), equals(c(1,5,9)))
   expect_that(week(posct), equals(c(1,5,9)))
   expect_that(week(date), equals(c(1,5,9)))
+  
+  expect_that(isoweek(poslt), equals(c(1,5,10)))
+  expect_that(isoweek(posct), equals(c(1,5,10)))
+  expect_that(isoweek(date), equals(c(1,5,10)))
   
   expect_that(month(poslt), equals(c(1,2,3)))
   expect_that(month(posct), equals(c(1,2,3)))
@@ -236,3 +251,4 @@ test_that(
   expect_that(days_in_month(x), equals(expected))
 }
 )
+
