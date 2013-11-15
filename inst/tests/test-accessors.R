@@ -154,6 +154,10 @@ test_that("accessors handle vectors",{
   expect_that(week(posct), equals(c(1,5,9)))
   expect_that(week(date), equals(c(1,5,9)))
   
+  expect_that(isoweek(poslt), equals(c(1,5,10)))
+  expect_that(isoweek(posct), equals(c(1,5,10)))
+  expect_that(isoweek(date), equals(c(1,5,10)))
+  
   expect_that(month(poslt), equals(c(1,2,3)))
   expect_that(month(posct), equals(c(1,2,3)))
   expect_that(month(date), equals(c(1,2,3)))
