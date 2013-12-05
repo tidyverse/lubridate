@@ -27,7 +27,7 @@ Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries,
 Version: 1.3.2
 Depends:
     methods,
-    R (>= 2.14)
+    R (>= 3.0.0)
 Suggests:
     testthat,
     knitr
