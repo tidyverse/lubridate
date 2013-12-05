@@ -159,10 +159,12 @@ dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ##' ymd_hms(x, truncated = 3)
-##' ##"2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##' ## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" 
+##' ## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##' x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
 ##' ymd_hm(x, truncated = 2)
-##' ## "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##' ## [1] "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC" 
+##' ## [3] "2010-01-01 00:00:00 UTC"
 ##' 
 ##' ## ** What lubridate might not handle **
 ##' ## Extremely weird cases when one of the separators is "" and some of the
@@ -272,9 +274,14 @@ hm <- function(..., quiet = FALSE) {
 ##'
 ##' x <- c("09:10:01", "09:10:02", "09:10:03", "Collided at 9:20:04 pm")
 ##' hms(x)
-##' # [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
+##' # [1] 9 hours, 10 minutes and 1 second   
+##' # [2] 9 hours, 10 minutes and 2 seconds   
+##' # [3] 9 hours, 10 minutes and 3 seconds
+##' 
 ##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
-##' ## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds 
+##' ## [1] 7 hours, 6 minutes and 5 seconds    
+##' ## [2] 3 hours, 23 minutes and 2 seconds  
+##' ## [3] 2 hours, 23 minutes and 33 seconds 
 hms <- function(..., quiet = FALSE, truncated = 0) {
   time <- .parse_hms(..., orders = "T", truncated = truncated, quiet = quiet)
   new_period(hour = time$hour, minute = time$min, second = time$sec)
@@ -410,7 +417,8 @@ hms <- function(..., quiet = FALSE, truncated = 0) {
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ##' parse_date_time(x, "%Y%m%d %H%M%S", truncated = 3)
 ##' parse_date_time(x, "ymd_hms", truncated = 3)
-##' ## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+##' ## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" 
+##' ## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##'
 ##' ## ** how to use select_formats **
 ##' ## By default %Y has precedence:

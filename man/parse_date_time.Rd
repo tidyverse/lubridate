@@ -167,7 +167,8 @@ parse_date_time(x, c("\%d\%m\%Y", "ymd"))
 x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 parse_date_time(x, "\%Y\%m\%d \%H\%M\%S", truncated = 3)
 parse_date_time(x, "ymd_hms", truncated = 3)
-## "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC" "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
+## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 
 ## ** how to use select_formats **
 ## By default \%Y has precedence:
