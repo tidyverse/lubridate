@@ -87,8 +87,13 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
     # add other possible locations here
   )
   
-  # form the paths for candidate locations
-  tzfile_candidate <- file.path(dir_share, "zoneinfo", "zone.tab") 
+  # form the particular paths for candidate locations
+  # add path for Solaris, as filename is different
+  #   according to Brian Ripley: /usr/share/lib/zoneinfo/tab/zone_sun.tab
+  tzfile_candidate <- c(
+    file.path(dir_share, "zoneinfo", "zone.tab"),
+    file.path("", "usr", "share", "lib", "zoneinfo", "tab", "zone_sun.tab")
+  )
   
   # determine the existence of each of the candidates
   tzfile_exists <- file.exists(tzfile_candidate)
