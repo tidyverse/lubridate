@@ -252,58 +252,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   names(trained[ which.max(n_fmts) ])
 }
 
-##' @useDynLib lubridate parse_ts
-.strptime <- function(x, fmt, tz = "UTC", quiet = FALSE){
-
-  ## Depending on fmt we might need to preprocess x.
-  ## ISO8601 and fasttime are the only cases so far.
-  ## %Ou: "2013-04-16T04:59:59Z"
-  ## %Oo: "2013-04-16T04:59:59+01"
-  ## %Oz: "2013-04-16T04:59:59+0100"
-  ## %OO: "2013-04-16T04:59:59+01:00"
-
-  zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
-
-  ## ISO8601 format -> pre-process fmt
-  if( zpos > 0 ){
-    capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
-    repl <- switch(capt,
-                   z = "%z",
-                   u ="Z",
-                   ## substitute +aa with +aa00
-                   o = { x <- sub("([+-]\\d{2}(?=\\D+)?$)", "\\100", x, perl = TRUE)
-                         "%z"},
-                   ## substitute +aa:bb with +aabb
-                   O = { x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = TRUE)
-                         "%z"},
-                   stop("Unrecognised capture detected; please report this bug"))
-
-    str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
-
-    ## user has supplied tz argument -> convert to tz
-    if( tz != "UTC" ){
-      if( !quiet )
-        message("Date in ISO8601 format; converted timezone from UTC to \"", tz,  "\".")
-      return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))
-    }
-  }
-
-  befast <- getOption("lubridate.fasttime")
-
-  is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
-
-  if (identical(befast, TRUE) && is_posix){
-      if (tz != "UTC"){
-        ## fixme: damn, this is so unbelievably slow
-        force_tz(.POSIXct(.Call("parse_ts", x, 3L), "UTC"), tzone = tz)
-      }else{
-          .POSIXct(.Call("parse_ts", x, 3L), tz = "UTC")
-      }
-    }else{
-      as.POSIXct(strptime(.enclose(x), .enclose(fmt), tz))
-    }
-}
-
 
 ## cache the regexp value fro each locale
 .get_loc_regs <- memoise::memoise(.build_locale_regs)
