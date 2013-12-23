@@ -296,12 +296,13 @@ hms <- function(..., quiet = FALSE) {
 ##' Parse character and numeric date-time vectors with user friendly order
 ##' formats.
 ##'
-##' As \code{strptime} \code{parse_date_time} parses a character vector into
+##' As \code{strptime}, \code{parse_date_time} parses a character vector into
 ##' POSIXct date-time object but with two major differences. First, it allows
 ##' the user to specify only the order in which the formats occur, with no need
 ##' to include separators and "\%" prefix. Second, it allows the user to specify
 ##' several format-orders to handle heterogeneous date-time character
-##' representations. See examples.
+##' representations. \code{parse_date_time2} is a very fast C parser which
+##' supports only a subset of numeric orders.
 ##'
 ##'
 ##' When several format-orders are specified \code{parse_date_time} sorts the
@@ -472,6 +473,11 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   out
 }
 
+##' @rdname parse_date_time
+##' @export parse_date_time2
+parse_date_time2 <- function(x, orders, tz = "UTC"){
+    .POSIXct(.Call("parse_dt", x, orders), tz = tz)
+}
 
 ### INTERNAL
 .parse_date_time <- function(x, formats, locale, quiet, tz){

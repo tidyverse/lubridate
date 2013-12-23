@@ -471,15 +471,16 @@ test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats",{
 ## ### speed:
 ## options(digits.secs = 3)
 
-## tt <- c(rep(as.character(Sys.time()), 1e6))
-## options(lubridate.fasttime = F)
+## random times between 1400 and 3000
+## tt <- as.character(.POSIXct(runif(1e6, -17987443200, 32503680000)))
 ## system.time(out <- as.POSIXct(tt, tz = "UTC"))
-## system.time(out <- ymd_hms(tt))
-## options(lubridate.fasttime = T)
-## system.time(out <- ymd_hms(tt))
-## ## this one is very slow
-## system.time(out <- ymd_hms(tt, tz = "America/Chicago"))
+## system.time(out1 <- ymd_hms(tt))
+## system.time(out2 <- parse_date_time2(tt, "ymdHMS"))
+## identical(out, out2)
 
+
+## this one is very slow
+## system.time(out <- ymd_hms(tt, tz = "America/Chicago"))
 
 ## ttz <- paste(tt, "-0600", sep = "")
 ## system.time(parse_date_time(ttz, "YmdHMOSz"))
