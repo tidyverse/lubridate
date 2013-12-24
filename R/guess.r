@@ -248,7 +248,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 }
 
 .select_formats <- function(trained){
-  n_fmts <- nchar(gsub("[^%]", "", names(trained))) + grepl("%Y", names(trained))*1.5
+  nms <- names(trained)
+  n_fmts <- nchar(gsub("[^%]", "", nms)) + grepl("%Y", nms)*1.5
   names(trained[ which.max(n_fmts) ])
 }
 
