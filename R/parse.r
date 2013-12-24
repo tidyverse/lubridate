@@ -223,8 +223,8 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' ms("6,5")
 ##' # 6 minutes and 5 seconds
 ms <- function(..., quiet = FALSE) {
-  out <- .parse_hms(..., parseH = FALSE, quiet = quiet)
-  new_period(minute = out["minute", ], second = out["second", ])
+  out <- .parse_hms(..., order = "MS", quiet = quiet)
+  new_period(minute = out["M", ], second = out["S", ])
 }
 
 
@@ -250,8 +250,8 @@ ms <- function(..., quiet = FALSE) {
 ##' hm("6,5")
 ##' # [1] 6 hours and 5 minutes
 hm <- function(..., quiet = FALSE) {
-  out <- .parse_hms(..., parseS = FALSE, check_for_na = "minute", quiet = quiet)
-  new_period(hour = out["hour", ], minute = out["minute", ])
+  out <- .parse_hms(..., order = "HM", quiet = quiet)
+  new_period(hour = out["H", ], minute = out["M", ])
 }
 
 ##' Create a period with the specified hours, minutes, and seconds
@@ -276,20 +276,17 @@ hm <- function(..., quiet = FALSE) {
 ##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
 ##' ## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds
 hms <- function(..., quiet = FALSE) {
-  out <- .parse_hms(..., quiet = quiet)
-  new_period(hour = out["hour", ],
-             minute = out["minute", ],
-             second = out["second", ])
+  out <- .parse_hms(..., order = "HMS", quiet = quiet)
+  new_period(hour = out["H", ], minute = out["M", ], second = out["S", ])
 }
 
-.parse_hms <- function(..., parseH = TRUE, parseS = TRUE,
-                       check_for_na = "second", quiet = FALSE){
+.parse_hms <- function(..., order, quiet = FALSE){
   ## wraper for C level parse_hms
   hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
-  out <- matrix(.Call("parse_hms", hms, parseH, parseS),
-                nrow = 3L, dimnames = list(c("hour", "minute", "second"), NULL))
-  if(!quiet && all(is.na(out[check_for_na, ])))
-    warning("Some strings failed to parse, or were partially parsed")
+  out <- matrix(.Call("parse_hms", hms, order),
+                nrow = 3L, dimnames = list(c("H", "M", "S"), NULL))
+  if(!quiet && all(is.na(out[substr(order, ln <- nchar(order), ln), ])))
+    warning("Some strings failed to parse")
   out
 }
 
