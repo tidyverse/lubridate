@@ -190,9 +190,9 @@ check_period <- function(object){
 #' @aliases <=,numeric,Period-method
 #' @aliases <,numeric,Period-method
 setClass("Period", contains = c("Timespan", "numeric"), 
-	representation(year = "numeric", month = "numeric", day = "numeric", 
+	slots = c(year = "numeric", month = "numeric", day = "numeric", 
 		hour = "numeric", minute = "numeric"), 
-	prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0), 
+	prototype = prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0), 
 	validity = check_period)
 
 #' @export

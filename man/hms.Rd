@@ -26,9 +26,14 @@
 \examples{
 x <- c("09:10:01", "09:10:02", "09:10:03", "Collided at 9:20:04 pm")
 hms(x)
-# [1] 9 hours, 10 minutes and 1 second   9 hours, 10 minutes and 2 seconds   9 hours, 10 minutes and 3 seconds
+# [1] 9 hours, 10 minutes and 1 second
+# [2] 9 hours, 10 minutes and 2 seconds
+# [3] 9 hours, 10 minutes and 3 seconds
+
 hms("7 6 5", "3-23---2", "2 : 23 : 33")
-## 7 hours, 6 minutes and 5 seconds    3 hours, 23 minutes and 2 seconds  2 hours, 23 minutes and 33 seconds
+## [1] 7 hours, 6 minutes and 5 seconds
+## [2] 3 hours, 23 minutes and 2 seconds
+## [3] 2 hours, 23 minutes and 33 seconds
 }
 \seealso{
   \code{\link{hm}, \link{ms}}

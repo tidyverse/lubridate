@@ -10,6 +10,7 @@
 #' @exportClass Timespan
 #' @aliases *,Timespan,Timespan-method
 #' @aliases %/%,Timespan,Timespan-method
+#' @aliases %/%,difftime,Timespan-method
 setClass("Timespan")
 
 #' Is x a length of time?

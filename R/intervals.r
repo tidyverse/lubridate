@@ -100,7 +100,7 @@ check_interval <- function(object){
 #' @aliases %%,Interval,Interval-method
 #' @aliases %%,Interval,Period-method
 setClass("Interval", contains = c("Timespan", "numeric"), 
-  representation(start = "POSIXct", 	tzone = "character"), validity = check_interval)
+  slots = c(start = "POSIXct", 	tzone = "character"), validity = check_interval)
 
 #' @export
 setMethod("show", signature(object = "Interval"), function(object){
