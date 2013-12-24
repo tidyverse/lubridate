@@ -21,7 +21,6 @@ test_that("ymd functions correctly parse dates separated by -", {
 })
 
 test_that("ymd functions correctly parse dates separated by /", {
-  
   expect_that(ymd("2010/01/02"), 
     equals(as.POSIXct("2010-01-02", tz = "UTC")))
   expect_that(ymd("10/01/02"), 
@@ -43,7 +42,6 @@ test_that("ymd functions correctly parse dates separated by /", {
 
 
 test_that("ymd functions correctly parse dates separated by .", {
-  
   expect_that(ymd("2010.01.02"), 
     equals(as.POSIXct("2010-01-02", tz = "UTC")))
   expect_that(ymd("10.01.02"), 
@@ -64,7 +62,6 @@ test_that("ymd functions correctly parse dates separated by .", {
 })
 
 test_that("ymd functions correctly parse dates separated by ,", {
-  
   expect_that(ymd("2010,01,02"), 
     equals(as.POSIXct("2010-01-02", tz = "UTC")))
   expect_that(ymd("10,01,02"), 
@@ -85,7 +82,6 @@ test_that("ymd functions correctly parse dates separated by ,", {
 })
 
 test_that("ymd functions correctly parse dates separated by :", {
-  
   expect_that(ymd("2010:01:02"), 
     equals(as.POSIXct("2010-01-02", tz = "UTC")))
   expect_that(ymd("10:01:02"), 
@@ -106,7 +102,6 @@ test_that("ymd functions correctly parse dates separated by :", {
 })
 
 test_that("ymd functions correctly parse dates with no separators", {
-  
   expect_that(ymd("20100102"), 
     equals(as.POSIXct("2010-01-02", tz = "UTC")))
   expect_that(ydm("20100201"), 
@@ -127,7 +122,6 @@ test_that("ymd functions correctly parse dates with no separators", {
 })
 
 test_that("ymd functions correctly parse dates with no separators and no quotes", {
-  
   expect_that(ymd(20100102), 
     equals(as.POSIXct("2010-01-02", tz = "UTC")))
   expect_that(ydm(20100201), 
@@ -191,8 +185,7 @@ test_that("ymd_hms correctly handles a variety of formats", {
     "2010-01-02 23:59:59", tz = "UTC")))
   expect_that(ymd_hms("2010:01:02-23:59:59"), equals(as.POSIXct(
     "2010-01-02 23:59:59", tz = "UTC")))
-
-  ## VC: Next doesn't parse on my machine. It's OS specific.
+  ## VS: Next doesn't parse on my machine. It's OS specific.
   ## expect_that(ymd_hms("2010-01-02 23:59:61"), equals(as.POSIXct(
   ##   "2010-01-03 00:00:01", tz = "UTC")))  
   ## expect_that(ymd_hms(c("2010-01-02 23:59:61", 
@@ -275,40 +268,39 @@ test_that("hms functions correctly handle / separators", {
 
 
 test_that("hms functions return NA on shorter inputs", {
-  ## expect_that(is.na(hms("3:3:3:4", quiet = TRUE)), is_true())
+  expect_that(is.na(hms("3:3:3:4", quiet = TRUE)), is_true())
   expect_that(is.na(hms("03:03", quiet = TRUE)), is_true())
-  ## expect_that(is.na(ms("03:02:01", quiet = TRUE)), is_true())
+  expect_that(is.na(ms("03:02:01", quiet = TRUE)), is_true())
   expect_that(is.na(ms("03", quiet = TRUE)), is_true())
-  ## expect_that(is.na(hm("03:03:01", quiet = TRUE)), is_true())
+  expect_that(is.na(hm("03:03:01", quiet = TRUE)), is_true())
   expect_that(is.na(hm("03", quiet = TRUE)), is_true())
 })
 
 test_that("hms functions give warning on shorter inputs", {
-  ## expect_warning(hms("3:3:3:4"))
+  expect_warning(hms("3:3:3:4"))
   expect_warning(hms("03:03"))
-  ## expect_warning(ms("03:02:01"))
+  expect_warning(ms("03:02:01"))
   expect_warning(ms("03"))
-  ## expect_warning(hm("03:03:01"))
+  expect_warning(hm("03:03:01"))
   expect_warning(hm("03"))
 })
 
 
-test_that("heterogeneous formats are correctly parsed", {  
-  expect_that(ymd(c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
-                    "2009-1, 5", "2009....1--6", "200901-07", "200901-8")),
-              equals(as.POSIXct(c("2009-01-01", "2009-01-02", "2009-01-03", "2009-01-04",
-                                  "2009-01-05", "2009-01-06", "2009-01-07", "2009-01-08"), tz = "UTC")))
+test_that("heterogeneous formats are correctly parsed", {
+  X <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4", "2009-1, 5", "2009....1--6", "200901-07", "200901-8")
+  Y <- c("2009-01-01", "2009-01-02", "2009-01-03", "2009-01-04", "2009-01-05", "2009-01-06", "2009-01-07", "2009-01-08")
+  expect_that( ymd(X) ,equals( as.POSIXct(Y, tz = "UTC")))
+  ## cbind(ymd(X), as.POSIXct(Y, tz = "UTC"))
 
-
-  expect_that({
-    x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
-           "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6", "20090107 120107", "200901-08 1201-08",
-           "10-01-09 12:01:09", "10-01-10 10:01:10 AM", "10-01-11 10:01:11 PM")
-    ymd_hms(x)
-  }, equals(as.POSIXct(c("2010-01-01 12:01:01", "2009-01-02 12:01:02", "2009-01-03 12:01:03", 
-                         "2009-01-04 12:01:04", "2009-01-05 12:01:05", "2009-01-06 12:01:06", 
-                         "2009-01-07 12:01:07", "2009-01-08 12:01:08", "2010-01-09 12:01:09", 
-                         "2010-01-10 10:01:10", "2010-01-11 22:01:11"), tz = "UTC")))
+  X <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
+         "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6", "20090107 120107", "2009-01-08 1201-08",
+         "2010-01-09 12:01:09", "2010-01-10 10:01:10 AM", "2010-01-11 10:01:11 PM")
+  Y <- c("2010-01-01 12:01:01", "2009-01-02 12:01:02", "2009-01-03 12:01:03", 
+         "2009-01-04 12:01:04", "2009-01-05 12:01:05", "2009-01-06 12:01:06", 
+         "2009-01-07 12:01:07", "2009-01-08 12:01:08", "2010-01-09 12:01:09", 
+         "2010-01-10 10:01:10", "2010-01-11 22:01:11")
+  expect_that( ymd_hms(X), equals(as.POSIXct(Y, tz = "UTC")))
+  cbind(as.character(ymd_hms(X)), as.character(as.POSIXct(Y, tz = "UTC")))
 })
 
 
@@ -387,19 +379,15 @@ test_that( "Vectors of NA's are parsed as vectors of NA's", {
   
   
 test_that("ISO8601: %z format (aka lubridate %Ot, %OO and %Oo formats) is correctly parsed",{
-  
   expect_that(
     parse_date_time("2012-12-04 15:06:06.95-0800", "YmdHMOSz"),
     equals(as.POSIXct("2012-12-04 23:06:06.95 UTC", tz = "UTC")))
-  
   expect_that(
     parse_date_time(c("2012-12-04 15:06:06.95-08", "2012-12-04 15:06:06.95+08:00"), "YmdHMOSz"),
     equals(as.POSIXct(c("2012-12-04 23:06:06.95 UTC", "2012-12-04 07:06:06.95 UTC"), tz = "UTC")))
-  
 })
 
 test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo formats.", {
-  
   expect_that(
     ymd_hms(c("2013-01-24 19:39:07.880-0600", 
               "2013-01-24 19:39:07.880", "2013-01-24 19:39:07.880-06:00", 
@@ -410,13 +398,18 @@ test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo forma
 })
 
 
+test_that("ymd_hms treats time zones correctly", {
+  expect_that(ymd_hms("2012-03-03 23:06:07", tz="America/Chicago"), 
+              equals(as.POSIXct("2012-03-03 23:06:07", tz = "America/Chicago")))
+})
+
 test_that("ymd_hms parses Ou format correctly ",{
   ## Correct usage
   expect_that(ymd_hms("2012-03-04T05:06:07Z"), 
               equals(ymd_hms("2012-03-04 05:06:07", tz="UTC")))
   expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"), 
               equals(ymd_hms("2012-03-03 23:06:07", tz="America/Chicago")))
-  
+
   ## check for message
   expect_that(ymd_hms("2012-03-04T05:06:07Z", tz="America/Chicago"), 
               shows_message("Date in ISO8601 format"))  
@@ -462,11 +455,9 @@ test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats",{
                              tz="America/Chicago")))
 })
 
-
 ## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00", 
 ##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00", 
 ##   "2012-12-04 17:16:05.097000-08:00")
-
 
 ## ### speed:
 ## options(digits.secs = 3)
