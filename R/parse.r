@@ -363,12 +363,6 @@ hms <- function(..., quiet = FALSE) {
 ##'
 ##'   }
 ##'
-##' Lubridate also provides a very fast POSIX parser, ported from the fasttime
-##' package by Simon Urbanek. This functionality is as yet optional and must be
-##' activated with \code{options(lubridate.fasttime = TRUE)}. Lubridate will
-##' automatically detect POSIX string and use fast parser instead of the default
-##' \code{\link{strptime}} utility.
-##'
 ##' @export parse_date_time
 ##' @param x a character or numeric vector of dates
 ##' @param orders a character vector of date-time formats. Each order string is
@@ -470,11 +464,23 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   out
 }
 
-##' @useDynLib lubridate parse_dt
+
 ##' @rdname parse_date_time
 ##' @export parse_date_time2
 parse_date_time2 <- function(x, orders, tz = "UTC"){
-    .POSIXct(.Call("parse_dt", x, orders), tz = tz)
+  orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
+  .POSIXct(.Call("parse_dt", x, orders, FALSE), tz = tz)
+}
+
+##' @useDynLib lubridate parse_dt
+##' @rdname parse_date_time
+##' @export fast_strptime a string of formats starting with % for
+##' \code{fast_strptime}. Only numeric formats marked with ! below are
+##' supported.
+##' @param format 
+fast_strptime <- function(x, format, tz = "UTC"){
+  format <- as.character(format[[1]])
+  .POSIXct(.Call("parse_dt", x, format, TRUE), tz = tz)
 }
 
 ### INTERNAL
@@ -504,44 +510,48 @@ parse_date_time2 <- function(x, orders, tz = "UTC"){
   ## %Oz: "2013-04-16T04:59:59+0100"
   ## %OO: "2013-04-16T04:59:59+01:00"
 
-  zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
+  ## is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
 
-  ## ISO8601 format -> pre-process fmt
-  if( zpos > 0 ){
-    capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
-    repl <- switch(capt,
-                   z = "%z",
-                   u ="Z",
-                   ## substitute +aa with +aa00
-                   o = { x <- sub("([+-]\\d{2}(?=\\D+)?$)", "\\100", x, perl = TRUE)
-                         "%z"},
-                   ## substitute +aa:bb with +aabb
-                   O = { x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = TRUE)
-                         "%z"},
-                   stop("Unrecognised capture detected; please report this bug"))
+  num_only <-  0 < regexpr("^[^%0-9]*(%[YymdHMS][^%0-9Z]*)+$", fmt)
 
-    str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
+  if ( num_only ){
+    ## message("parsed by parse_dt")
 
-    ## user has supplied tz argument -> convert to tz
-    if( tz != "UTC" ){
-      if( !quiet )
-        message("Date in ISO8601 format; converted timezone from UTC to \"", tz,  "\".")
-      return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))
+    if ( tz != "UTC" ){
+      ## this is so unbelievably slow
+      force_tz(fast_strptime(x, fmt, tz = "UTC"), tzone = tz)
+    } else {
+      fast_strptime(x, fmt, tz = tz)
     }
-  }
 
-  befast <- getOption("lubridate.fasttime")
+  } else {
 
-  is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
+    zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
-  if (identical(befast, TRUE) && is_posix){
-    if (tz != "UTC"){
-      ## fixme: damn, this is so unbelievably slow
-      force_tz(.POSIXct(.Call("parse_ts", x, 3L), "UTC"), tzone = tz)
-    }else{
-      .POSIXct(.Call("parse_ts", x, 3L), tz = "UTC")
+    ## If ISO8601 -> pre-process x and fmt
+    if( zpos > 0 ){
+      capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
+      repl <- switch(capt,
+                     z = "%z",
+                     u ="Z",
+                     ## substitute +aa with +aa00
+                     o = { x <- sub("([+-]\\d{2}(?=\\D+)?$)", "\\100", x, perl = TRUE)
+                           "%z"},
+                     ## substitute +aa:bb with +aabb
+                     O = { x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = TRUE)
+                           "%z"},
+                     stop("Unrecognised capture detected; please report this bug"))
+
+      str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
+
+      ## user has supplied tz argument -> convert to tz
+      if( tz != "UTC" ){
+        if( !quiet )
+          message("Date in ISO8601 format; converted timezone from UTC to \"", tz,  "\".")
+        return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))
+      }
     }
-  }else{
+
     as.POSIXct(strptime(.enclose(x), .enclose(fmt), tz))
   }
 }
