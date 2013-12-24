@@ -455,6 +455,32 @@ test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats",{
                              tz="America/Chicago")))
 })
 
+
+test_that("ymd_hms, parse_date_time2 and fast_strptime give the same result", {
+  ## random times between 1400 and 3000
+  X <- as.character(.POSIXct(runif(1000, -17987443200, 32503680000)))
+  oposix <- as.POSIXct(X, tz = "UTC")
+  opdt1 <- ymd_hms(X)
+  opdt2 <- parse_date_time2(X, "YmdHMS")
+  ostrptime <- fast_strptime(X, "%Y-%m-%d %H:%M:%S")
+  expect_equal(oposix, opdt1)
+  expect_equal(oposix, opdt2)
+  expect_equal(oposix, ostrptime)
+})
+
+test_that("fast_strptime and parse_date_time2 parse correctly verbose formats", {
+  expect_equal(fast_strptime("aa 2000 bbb10ccc 12 zzz", "aa %Y bbb%mccc %d zzz"),
+               as.POSIXct("2000-10-12", tz = "UTC"))
+  expect_equal(fast_strptime("aa 2000 5555 bbb10ccc 12 zzz", "aa %Y 5555 bbb%mccc %d zzz"),
+               as.POSIXct("2000-10-12", tz = "UTC"))
+
+  expect_equal(parse_date_time2("aa 2000 bbb10ccc 12 zzz", "Ymd"),
+               as.POSIXct("2000-10-12", tz = "UTC"))
+  expect_equal(parse_date_time2("aa 2000 5555 bbb10ccc 12 zzz", "Ymd"),
+               as.POSIXct(as.POSIXlt(NA, tz = "UTC")))
+})
+
+
 ## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00", 
 ##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00", 
 ##   "2012-12-04 17:16:05.097000-08:00")
