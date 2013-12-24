@@ -134,45 +134,75 @@ SEXP parse_dt(SEXP str, SEXP ord) {
   return res;
 }
 
-SEXP parse_hms(SEXP str, SEXP parseh, SEXP parses) {
-  // STR: character vector
-  // parseh: logical, shall we parse hour (FALSE for ms parser)
-  // parses: logical, shall we parse second (FALSE for hm parser)
-  // RETURN: numeric vector (H1 M1 S1 H2 M2 S2 ...)
-  SEXP res;
-  double *tsv;
-  int n, i, doh = asLogical(parseh), dos = asLogical(parses);
-  n = LENGTH(str);
-  if (!(TYPEOF(str) == STRSXP)) Rf_error("argument must be of type character");
-  res = Rf_allocVector(REALSXP, n*3);
-  tsv = REAL(res);
-  for (i = 0; i < n*3; i++) tsv[i]=NA_REAL;
-  for (i = 0; i < n; i++) {
-    double s = 0.0;
-    int h = 0, m = 0, j=i*3;
-    const char *c = CHAR(STRING_ELT(str, i));
-    // ignore first non-digits
-    while (*c && !DIGIT(*c)) { c++; }
-    if (DIGIT(*c)) {
-      if(doh){
-        while (DIGIT(*c)) { h = h * 10 + (*c - '0'); c++; }
-        tsv[j]=h;
-      }
-      while (*c && !DIGIT(*c)) c++;
-      if (*c) {
-        while (DIGIT(*c)) { m = m * 10 + (*c - '0'); c++; }
-        tsv[j+1]=m;
-        c++;
-        if(dos){
-          while (*c && !(DIGIT(*c) || *c == '.')) c++;
-          if (*c) {
-            s += atof(c);
-            tsv[j+2]=s;
 
+
+
+SEXP parse_hms(SEXP str, SEXP ord) {
+  // str: string
+  // ord: orders. Can be any combination of "h", "m" and "s"
+  // RETURN: numeric vector (H1 M1 S1 H2 M2 S2 ...)
+
+  if (TYPEOF(str) != STRSXP) Rf_error("HMS argument must be a character vector");
+  if ((TYPEOF(ord) != STRSXP) || (LENGTH(ord) > 1))
+    Rf_error("Orders vector must be a character vector of length 1");
+
+  int i, n = LENGTH(str);
+  int len = 3*n;
+  const char *O = CHAR(STRING_ELT(ord, i));
+  SEXP res;
+  double *data;
+  res = Rf_allocVector(REALSXP, len);
+  data = REAL(res);
+
+  for (i = 0; i < n; i++) {
+
+    const char *c = CHAR(STRING_ELT(str, i));
+    const char *o = O;
+    int H=0, M=0, j=i*3;
+    double S=0.0;
+    while (*c && !DIGIT(*c)) c++;
+
+    if (DIGIT(*c)) {
+
+      while( *o ){
+        switch( *o ) {
+        case 'H':
+          if(!DIGIT(*c)) {data[j] = NA_REAL; break;}
+          while ( DIGIT(*c) ) { H = H * 10 + (*c - '0'); c++; }
+          data[j] = H;
+          break;
+        case 'M':
+          if(!DIGIT(*c)) {data[j+1] = NA_REAL; break;}
+          while ( DIGIT(*c) ) { M = M * 10 + (*c - '0'); c++; }
+          data[j+1]=M;
+          break;
+        case 'S':
+          if(!DIGIT(*c)) {data[j+2] = NA_REAL; break;}
+          while ( DIGIT(*c) ) { S = S * 10 + (*c - '0'); c++; }
+          // both . and , as decimal Seconds separator are allowed
+          if( *c == '.' || *c == ','){
+            double ms = 0.0, msfact = 0.1;
+            c++;
+            while (DIGIT(*c)) { ms = ms + (*c - '0')*msfact; msfact *= 0.1; c++; }
+            S += ms;
           }
+          data[j+2] = S;
+          break;
+        default:
+          Rf_error("Unrecognized format %c supplied", *o);
         }
+        while (*c && !DIGIT(*c)) c++;
+        *o++;
       }
     }
+
+    // unfinished parsing, return NA
+    if ( *c || *o ){
+      data[j] = NA_REAL;
+      data[j+1] = NA_REAL;
+      data[j+2] = NA_REAL;
+    }
+
   }
   return res;
 }
