@@ -110,8 +110,9 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
       }
     }
 
+    if( ! *fmt ) while (*c && !DIGIT(*c)) c++;
+
     // if at least one not finished, consider as a failure
-    // fixme: allow truncations
     if ( *c || *o ) succeed = 0;
 
     // process year
