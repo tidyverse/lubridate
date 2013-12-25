@@ -1,4 +1,3 @@
-#define USE_RINTERNALS 1 // 4% speed improvement
 #include <Rinternals.h>
 #include <stdlib.h>
 /* #include <stdint.h> */
@@ -43,7 +42,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
     const char *o = O;
 
     int y = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
-    int succeed = 1, leap = 0, D;
+    int succeed = 1, leap = 0, D, O_format=0;
     double secs = 0.0; // main accumulator
 
     while( *o && succeed ){
@@ -56,6 +55,11 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
 
         if ( *fmt ) o++; // sckip %
         else while (*c && !DIGIT(*c)) c++; // skip non-digits
+
+        if (*o == 'O'){
+          O_format = 1;
+          o++;
+        }
 
         if ( !DIGIT(*c) ){
           succeed = 0;
@@ -93,12 +97,15 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             // allow leap seconds
             if ( S < 62 ){
               secs += S;
-              // both . and , as decimal separator are allowed
-              if( *c == '.' || *c == ','){
-                double ms = 0.0, msfact = 0.1;
-                c++;
-                while (DIGIT(*c)) { ms = ms + (*c - '0')*msfact; msfact *= 0.1; c++; }
-                secs += ms;
+              if(O_format){
+                // process miliseconds
+                // both . and , as decimal separator are allowed
+                if( *c == '.' || *c == ','){
+                  double ms = 0.0, msfact = 0.1;
+                  c++;
+                  while (DIGIT(*c)) { ms = ms + (*c - '0')*msfact; msfact *= 0.1; c++; }
+                  secs += ms;
+                }
               }
             } else succeed = 0;
             break;

@@ -555,7 +555,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
 
   ## is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
 
-  num_only <-  0 < regexpr("^[^%0-9]*(%[YymdHMS][^%0-9Z]*)+$", fmt)
+  num_only <-  0 < regexpr("^[^%0-9]*(%([YymdHMS]|O[S])[^%0-9Z]*)+$", fmt)
 
   if ( num_only ){
     ## message("parsed by parse_dt")
