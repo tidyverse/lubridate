@@ -450,6 +450,20 @@ hms <- function(..., quiet = FALSE) {
 ##' ## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
 ##' ## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##'
+##' ## ** fast parsing **
+##' \dontrun{
+##'   options(digits.secs = 3)
+##'   ## random times between 1400 and 3000
+##'   tt <- as.character(.POSIXct(runif(1e6, -17987443200, 32503680000)))
+##'   system.time(out <- as.POSIXct(tt, tz = "UTC"))
+##'   system.time(out1 <- ymd_hms(tt)) ## format learning overhead
+##'   system.time(out2 <- parse_date_time2(tt, "YmdHMOS"))
+##'   system.time(out3 <- fast_strptime(tt, "%Y-%m-%d %H:%M:%OS"))
+##'   all.equal(out, out1)
+##'   all.equal(out, out2)
+##'   all.equal(out, out3)
+##' }
+##' 
 ##' ## ** how to use select_formats **
 ##' ## By default %Y has precedence:
 ##' parse_date_time(c("27-09-13", "27-09-2013"), "dmy")
