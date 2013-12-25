@@ -299,24 +299,31 @@ hms <- function(..., quiet = FALSE) {
 ##' Parse character and numeric date-time vectors with user friendly order
 ##' formats.
 ##'
-##' As \code{strptime}, \code{parse_date_time} parses a character vector into
-##' POSIXct date-time object but with two major differences. First, it allows
-##' the user to specify only the order in which the formats occur, with no need
-##' to include separators and "\%" prefix. Second, it allows the user to specify
-##' several format-orders to handle heterogeneous date-time character
-##' representations. \code{parse_date_time2} is a very fast C parser which
-##' supports only a subset of numeric orders.
-##'
+##' \code{parse_date_time} parses an input vector into POSIXct date-time
+##' object. It differs from \code{\link[base]{strptime}} in two respects. First,
+##' it allows specification of the order in which the formats occur without the
+##' need to include separators and "\%" prefix. Such a formating argument is
+##' refered to as "order". Second, it allows the user to specify several
+##' format-orders to handle heterogeneous date-time character
+##' representations. \cr \code{parse_date_time2} is a fast C parser of numeric
+##' orders. \cr \code{fast_strptime} is a fast C parser of numeric formats only
+##' that accepts explicit format arguments, just as
+##' \code{\link[base]{strptime}}.
 ##'
 ##' When several format-orders are specified \code{parse_date_time} sorts the
 ##' supplied format-orders based on a training set and then applies them
 ##' recursively on the input vector.
 ##'
-##' Below are listed all the implemented formats recognized by lubridate. For
-##' numeric formats leading 0s are optional. All formats are case insensitive.
+##' \code{parse_date_time}, and hence all the derived functions, such as
+##' \code{ymd_hms}, \code{ymd} etc, will drop into \code{fast_strptime} instead
+##' of \code{strptime} whenever the trained from input data formats are all
+##' numeric.
 ##'
-##' As compared to \code{strptime}, some of the formats have been extended for
-##' efficiency reasons. They are marked with "*"
+##' Here are all the formats recognized by lubridate. For numeric formats
+##' leading 0s are optional. As compared to \code{strptime}, some of the formats
+##' have been extended for efficiency reasons. They are marked with "*". Formats
+##' accepted by \code{parse_date_time2} and \code{fast_strptime} are marked with
+##' "!".
 ##'
 ##' \describe{ \item{\code{a}}{Abbreviated weekday name in the current
 ##' locale. (Also matches full name)}
@@ -328,32 +335,47 @@ hms <- function(..., quiet = FALSE) {
 ##' automatically handled if \code{preproc_wday = TRUE}}
 ##'
 ##' \item{\code{b}}{Abbreviated month name in the current locale.  (Also matches full name.)}
+##' 
 ##' \item{\code{B}}{Full month name in the current locale.  (Also matches abbreviated name.)}
 ##'
-##' \item{\code{d}}{Day of the month as decimal number (01--31 or 0--31)}
-##' \item{\code{H}}{Hours as decimal number (00--24 or 0--24).}
+##' \item{\code{d!}}{Day of the month as decimal number (01--31 or 0--31)}
+##' 
+##' \item{\code{H!}}{Hours as decimal number (00--24 or 0--24).}
+##' 
 ##' \item{\code{I}}{Hours as decimal number (01--12 or 0--12).}
+##' 
 ##' \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
-##' \item{\code{m*}}{Month as decimal number (01--12 or 1--12). Also matches abbreviated
-##' and full months names as \code{b} and \code{B} formats}
-##' \item{\code{M}}{Minute as decimal number (00--59 or 0--59).}
+##' 
+##' \item{\code{m*!}}{Month as decimal number (01--12 or 1--12). For
+##' \code{parse_date_time}, also matches abbreviated and full months names as
+##' \code{b} and \code{B} formats.}
+##' 
+##' \item{\code{M!}}{Minute as decimal number (00--59 or 0--59).}
+##' 
 ##' \item{\code{p}}{AM/PM indicator in the locale.  Used in
 ##'                   conjunction with \code{I} and \bold{not} with \code{H}.  An
 ##'                   empty string in some locales.}
-##' \item{\code{S}}{Second as decimal number (00--61 or 0--61), allowing for
-##'                   up to two leap-seconds (but POSIX-compliant implementations
-##'                                           will ignore leap seconds).}
+##' 
+##' \item{\code{S!}}{Second as decimal number (00--61 or 0--61), allowing for up
+##' to two leap-seconds (but POSIX-compliant implementations will ignore leap
+##' seconds).}
+##'
 ##' \item{\code{OS}}{Fractional second.}
 ##'
 ##' \item{\code{U}}{Week of the year as decimal number (00--53 or 0-53) using
-##'                   Sunday as the first day 1 of the week (and typically with the
-##'                                                          first Sunday of the year as day 1 of week 1).  The US convention.}
+##' Sunday as the first day 1 of the week (and typically with the first Sunday
+##' of the year as day 1 of week 1).  The US convention.}
+##' 
 ##' \item{\code{w}}{Weekday as decimal number (0--6, Sunday is 0).}
+##' 
 ##' \item{\code{W}}{Week of the year as decimal number (00--53 or 0-53) using
-##'                   Monday as the first day of week (and typically with the
-##'                                                    first Monday of the year as day 1 of week 1).  The UK convention.}
-##' \item{\code{y}*}{Year without century (00--99 or 0--99).  Also matches year with century (Y format).}
-##' \item{\code{Y}}{Year with century.}
+##' Monday as the first day of week (and typically with the first Monday of the
+##' year as day 1 of week 1).  The UK convention.}
+##'
+##' \item{\code{y*!}}{Year without century (00--99 or 0--99).  In
+##' \code{parse_date_time} also matches year with century (Y format).}
+##' 
+##' \item{\code{Y!}}{Year with century.}
 ##'
 ##' \item{\code{z*}}{ISO8601 signed offset in hours and minutes from UTC. For
 ##' example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours
@@ -362,6 +384,7 @@ hms <- function(..., quiet = FALSE) {
 ##' internally as an union of 4 different orders: Ou (Z), Oz (-0800), OO
 ##' (-08:00) and Oo (-08). You can use this formats as any other but it is
 ##' rarely necessary.}
+##' 
 ##' \item{\code{r*}}{Matches \code{Ip} and \code{H} orders.}
 ##' \item{\code{R*}}{Matches \code{HM} and\code{IMp} orders.}
 ##' \item{\code{T*}}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
@@ -435,8 +458,7 @@ hms <- function(..., quiet = FALSE) {
 ##' ## to give priority to %y format, define your own select_format function:
 ##'
 ##' my_select <-   function(trained){
-##'    n_fmts <- nchar(gsub("[^%]", "", names(trained))) +
-##'        grepl("%y", names(trained))*1.5
+##'    n_fmts <- nchar(gsub("[^%]", "", names(trained))) + grepl("%y", names(trained))*1.5
 ##'    names(trained[ which.max(n_fmts) ])
 ##' }
 ##'
