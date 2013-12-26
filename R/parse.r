@@ -525,6 +525,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 ##' @rdname parse_date_time
 ##' @export parse_date_time2
 parse_date_time2 <- function(x, orders, tz = "UTC"){
+  if( length(orders) > 1) warning("Multiple orders supplied. Only the first one is used")
   orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
   .POSIXct(.Call("parse_dt", x, orders, FALSE), tz = tz)
 }
@@ -534,8 +535,11 @@ parse_date_time2 <- function(x, orders, tz = "UTC"){
 ##' @export fast_strptime a string of formats starting with % for
 ##' \code{fast_strptime}. Only numeric formats marked with ! below are
 ##' supported.
-##' @param format
+##' @param format a character string of formats. It should include all the
+##' separators and each format must be prefixed with %, just as in the format
+##' argument of \code{strptime}.
 fast_strptime <- function(x, format, tz = "UTC"){
+  if( length(format) > 1 ) warning("Multiple formats supplied. Only the first one is used")
   format <- as.character(format[[1]])
   .POSIXct(.Call("parse_dt", x, format, TRUE), tz = tz)
 }
@@ -569,24 +573,30 @@ fast_strptime <- function(x, format, tz = "UTC"){
 
   ## is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
 
-  num_only <-  0 < regexpr("^[^%0-9]*(%([YymdHMS]|O[S])[^%0-9Z]*)+$", fmt)
+  num_only <-  0 < regexpr("^[^%0-9]*(%([YymdHMSz]|O[SzuoO])[^%0-9Z]*)+$", fmt)
+  zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
   if ( num_only ){
-    ## message("parsed by parse_dt")
+    ## C PARSER:
 
     if ( tz != "UTC" ){
-      ## this is so unbelievably slow
-      force_tz(fast_strptime(x, fmt, tz = "UTC"), tzone = tz)
+      if( zpos > 0 ){
+        if( !quiet )
+          message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
+        with_tz(fast_strptime(x, fmt, tz = "UTC"), tzone = tz)
+      } else {
+        ## as compared to the parsing, this is so unbelievably slow  :(
+        force_tz(fast_strptime(x, fmt, tz = "UTC"), tzone = tz)
+      }
     } else {
       fast_strptime(x, fmt, tz = tz)
     }
 
   } else {
+    ## STRPTIME PARSER:
 
-    zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
-
-    ## If ISO8601 -> pre-process x and fmt
     if( zpos > 0 ){
+      ## If ISO8601 -> pre-process x and fmt
       capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
       repl <- switch(capt,
                      z = "%z",
@@ -604,7 +614,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
       ## user has supplied tz argument -> convert to tz
       if( tz != "UTC" ){
         if( !quiet )
-          message("Date in ISO8601 format; converted timezone from UTC to \"", tz,  "\".")
+          message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
         return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))
       }
     }
@@ -617,8 +627,8 @@ fast_strptime <- function(x, format, tz = "UTC"){
 ## Expand format strings to also include truncated formats
 ## Get locations of letters as vector
 ## Choose the number at the n - truncated place in the vector
-## return the substring created by 1 to tat number
-.add_truncated <- function(orders, truncated){
+## return the substring created by 1 to tat number.
+add_truncated <- function(orders, truncated){
   out <- orders
 
   if ( truncated > 0 ) {
