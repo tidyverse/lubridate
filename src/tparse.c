@@ -1,4 +1,32 @@
-#define USE_RINTERNALS 1
+/*
+ *  time date parser for lubridate
+ *  Author: Vitalie Spinu
+ *  Copyright (C) 2013--2014  Vitalie Spinu, Garrett Grolemund, Hadley Wickham,
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the License, or (at your option)
+ *  any later version.
+ *
+ *  This program is distributed in the hope that it will be useful, but WITHOUT
+ *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ *  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ *  more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, a copy is available at
+ *  http://www.r-project.org/Licenses/
+ */
+
+/* Comments:
+
+   See the parse_date_time2 and fast_strptime in lubridate for how to use
+   parse_dt from R code.
+
+   See R function .parse_hms for how to use parse_hms.
+*/
+
+#define USE_RINTERNALS 1 // slight increase in speed
 #include <Rinternals.h>
 #include <stdlib.h>
 /* #include <stdint.h> */
@@ -13,22 +41,21 @@ static const int d30 = 946684800; // seconds between 2000-01-01 and 1970-01-01
 // int64_t from stdint.h is a bit slower
 static const long long yearlen = 31536000; // common year in sec: 365*24*60*60
 
-/* #define PRINC printf("c: %c\n",*c); // debug only */
-/* #define PRINO printf("o: %c\n",*o); // debug only */
-
 /* quick way to check if the first char is a digit */
 #define DIGIT(X) ((X) >= '0' && (X) <= '9')
-#define PARSENUM(X, N) int tN = N; while ( DIGIT(*c) && tN > 0) { X = X * 10 + (*c - '0'); c++; tN--; }
+#define PARSENUM(X, N) tN = N; while ( DIGIT(*c) && tN > 0) { X = X * 10 + (*c - '0'); c++; tN--; }
 
+
+// STR: character vector of date-times.
+// ORD: formats (as in strptime) or orders (as in parse_date_time)
+// FORMATS: TRUE if ord are formats as in strptime, otherwise they are orders.
 SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
-  // ord: formats (as in strptime) or orders (as in parse_date_time)
-  // formats: TRUE if ord are formats as in strptime, otherwise they are orders.
 
   if ( !isString(str) ) error("Date-time must be a character vector");
   if ( !isString(ord) || (LENGTH(ord) > 1))
     error("Format argument must be a character vector of length 1");
 
-  R_len_t i, n = LENGTH(str);
+  R_len_t i, tN, n = LENGTH(str);
   int *fmt = LOGICAL(formats);
   const char *O = CHAR(STRING_ELT(ord, 0));
 
@@ -229,11 +256,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
 
 
 
-
+// STR: string in HxMyS format where x and y are arbitrary non-numeric separators
+// ORD: orders. Can be any combination of "h", "m" and "s"
+// RETURN: numeric vector (H1 M1 S1 H2 M2 S2 ...)
 SEXP parse_hms(SEXP str, SEXP ord) {
-  // str: string
-  // ord: orders. Can be any combination of "h", "m" and "s"
-  // RETURN: numeric vector (H1 M1 S1 H2 M2 S2 ...)
 
   if (TYPEOF(str) != STRSXP) error("HMS argument must be a character vector");
   if ((TYPEOF(ord) != STRSXP) || (LENGTH(ord) > 1))
