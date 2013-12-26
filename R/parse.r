@@ -493,7 +493,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
     train <- .get_train_set(x)
     formats <- .best_formats(train, orders, locale = locale, select_formats)
     if( length(formats) > 0 ){
-      out <- .parse_date_time(x, formats,  quiet = quiet, tz = tz, locale = locale)
+      out <- .parse_date_time(x, formats, tz = tz, quiet = quiet)
       new_na <- is.na(out)
       if( any(new_na) )
         out[new_na] <- .local_parse(x[new_na])
@@ -541,9 +541,9 @@ fast_strptime <- function(x, format, tz = "UTC"){
 }
 
 ### INTERNAL
-.parse_date_time <- function(x, formats, locale, quiet, tz){
+.parse_date_time <- function(x, formats, tz, quiet){
   ## recursive parsing
-  out <- .strptime(x, formats[[1]], tz = tz)
+  out <- .strptime(x, formats[[1]], tz = tz, quiet = quiet)
   na <- is.na(out)
   newx <- x[na]
 
@@ -552,7 +552,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
     message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   if( length(formats) > 1 && length(newx) > 0 )
-    out[na] <- .parse_date_time(newx, formats[-1], quiet, tz)
+    out[na] <- .parse_date_time(newx, formats[-1], tz = tz, quiet = quiet)
 
   ## return POSIXlt
   out
@@ -669,7 +669,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
       orders <- c(orders, add[1:truncated], sep = "")
   }
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  parse_date_time(dates, orders, tz = tz, locale = locale, quiet = quiet)
+  parse_date_time(dates, orders, tz = tz, quiet = quiet, locale = locale)
 }
 
 .parse_xxx <- function(..., orders, quiet, tz, locale = locale,  truncated){
