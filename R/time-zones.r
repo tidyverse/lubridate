@@ -81,31 +81,24 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
   order_by <- match.arg(order_by)
 
   # compile possible locations for zoneinfo/zone.tab
-  dir_share <- c(
-    R.home("share"),              # Windows
-    file.path("", "usr", "share") # Ubuntu (likely others)
-    # add other possible locations here
-  )
-  
-  # form the particular paths for candidate locations
-  # add path for Solaris, as filename is different
-  #   according to Brian Ripley: /usr/share/lib/zoneinfo/tab/zone_sun.tab
-  tzfile_candidate <- c(
-    file.path(dir_share, "zoneinfo", "zone.tab"),
-    file.path("", "usr", "share", "lib", "zoneinfo", "tab", "zone_sun.tab")
-  )
-  
-  # determine the existence of each of the candidates
-  tzfile_exists <- file.exists(tzfile_candidate)
-  
-  # if none of the candidates exists, throw an error
-  if (all(tzfile_exists == FALSE)){
-    stop("zone.tab file not found in any candidate location: ", 
-            str_join(tzfile_candidate, collapse=" "))
+  tzdirs <- c(
+    R.home("share"), # Windows
+    ## taken from OlsonNames in R3.0.3
+    "/usr/share", "/usr/share/lib","/usr/lib/zoneinfo",
+    "/usr/local/etc", "/etc", "/usr/etc")
+
+  tzfiles <- c(file.path(tzdirs, "zoneinfo", "zone.tab"),
+               ## special treatment of Soloaris > 9 (versions < 8 seem not to
+               ## have it at all)
+               "/usr/share/lib/zoneinfo/tab/zone_sun.tab")
+  tzfiles <- tzfiles[file.exists(tzfiles)]
+
+  if ( length(tzfiles) == 0 ){
+    warning("zone.tab file not found in any candidate locations: ",
+            str_join(tzdirs, collapse=" "))
   } 
   
-  # use the first valid candidate
-  tzfile <- tzfile_candidate[tzfile_exists][1]  
+  tzfile <- tzfiles[[1]]
   
   tzones <- read.delim(
     tzfile, 
