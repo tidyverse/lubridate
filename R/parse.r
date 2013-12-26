@@ -480,7 +480,7 @@ hms <- function(..., quiet = FALSE) {
 ##' parse_date_time(c("27-09-13", "27-09-2013"), "dmy", select_formats = my_select)
 ##' ## '[1] "2013-09-27 UTC" "2013-09-27 UTC"
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
-                            locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
+  locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
 
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
@@ -627,7 +627,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
 ## Get locations of letters as vector
 ## Choose the number at the n - truncated place in the vector
 ## return the substring created by 1 to tat number.
-add_truncated <- function(orders, truncated){
+.add_truncated <- function(orders, truncated){
   out <- orders
 
   if ( truncated > 0 ) {
