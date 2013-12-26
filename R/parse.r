@@ -377,13 +377,14 @@ hms <- function(..., quiet = FALSE) {
 ##' 
 ##' \item{\code{Y!}}{Year with century.}
 ##'
-##' \item{\code{z*}}{ISO8601 signed offset in hours and minutes from UTC. For
+##' \item{\code{z*!}}{ISO8601 signed offset in hours and minutes from UTC. For
 ##' example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours
 ##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
 ##' strptime doesn't fully support ISO8601, lubridate represents this format
 ##' internally as an union of 4 different orders: Ou (Z), Oz (-0800), OO
 ##' (-08:00) and Oo (-08). You can use this formats as any other but it is
-##' rarely necessary.}
+##' rarely necessary. \code{parse_date_time2} and \code{fast_strptime} support
+##' all of the timezone formats.}
 ##' 
 ##' \item{\code{r*}}{Matches \code{Ip} and \code{H} orders.}
 ##' \item{\code{R*}}{Matches \code{HM} and\code{IMp} orders.}
@@ -532,9 +533,7 @@ parse_date_time2 <- function(x, orders, tz = "UTC"){
 
 ##' @useDynLib lubridate parse_dt
 ##' @rdname parse_date_time
-##' @export fast_strptime a string of formats starting with % for
-##' \code{fast_strptime}. Only numeric formats marked with ! below are
-##' supported.
+##' @export fast_strptime
 ##' @param format a character string of formats. It should include all the
 ##' separators and each format must be prefixed with %, just as in the format
 ##' argument of \code{strptime}.
