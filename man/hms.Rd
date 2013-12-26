@@ -2,7 +2,7 @@
 \alias{hms}
 \title{Create a period with the specified hours, minutes, and seconds}
 \usage{
-  hms(..., quiet = FALSE, truncated = 0)
+  hms(..., quiet = FALSE)
 }
 \arguments{
   \item{...}{a character vector of hour minute second
@@ -10,9 +10,6 @@
 
   \item{quiet}{logical. When TRUE function evalueates
   without displaying customary messages.}
-
-  \item{truncated}{integer, number of formats that can be
-  missing. See \code{\link{parse_date_time}}.}
 }
 \value{
   a vector of period objects
@@ -20,8 +17,9 @@
 \description{
   Transforms a character or numeric vector into a period
   object with the specified number of hours, minutes, and
-  seconds. hms() recognizes all non-alphanumeric
-  separators, as well as no separator.
+  seconds. hms() recognizes all non-numeric separators.
+  After hours, minutes and seconds have been parsed, the
+  remaining input is ingored.
 }
 \examples{
 x <- c("09:10:01", "09:10:02", "09:10:03", "Collided at 9:20:04 pm")

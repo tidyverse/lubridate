@@ -392,6 +392,7 @@ hms <- function(..., quiet = FALSE) {
 ##' }
 ##'
 ##' @export parse_date_time
+##' @aliases parse_date_time2 fast_strptime
 ##' @param x a character or numeric vector of dates
 ##' @param orders a character vector of date-time formats. Each order string is
 ##' series of formatting characters as listed \code{\link[base]{strptime}} but

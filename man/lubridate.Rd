@@ -19,11 +19,20 @@
   string to be parsed: \code{\link{dmy}},
   \code{\link{myd}}, \code{\link{ymd}}, \code{\link{ydm}},
   \code{\link{dym}}, \code{\link{mdy}},
-  \code{\link{ymd_hms}}).
+  \code{\link{ymd_hms}}). A very flexible and user friendly
+  parser is provided by \code{\link{parse_date_time}}.
 
   Lubridate can also parse partial dates from strings into
   \code{\link{Period-class}} objects with the functions
   \code{\link{hm}}, \code{\link{hms}} and \code{\link{ms}}.
+
+  Lubridate has an inbuilt very fast POSIX parser, ported
+  from the fasttime package by Simon Urbanek. This
+  functionality is as yet optional and could be activated
+  with \code{options(lubridate.fasttime = TRUE)}. Lubridate
+  will automatically detect POSIX strings and use fast
+  parser instead of the default \code{\link{strptime}}
+  utility.
 
   Manipulating dates
 

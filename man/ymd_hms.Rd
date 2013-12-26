@@ -114,7 +114,6 @@ x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
 ymd_hm(x, truncated = 2)
 ## [1] "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC"
 ## [3] "2010-01-01 00:00:00 UTC"
-
 ## ** What lubridate might not handle **
 ## Extremely weird cases when one of the separators is "" and some of the
 ## formats are not in double digits might not be parsed correctly:

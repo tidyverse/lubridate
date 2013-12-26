@@ -18,7 +18,9 @@
   Transforms character or numeric vectors into a period
   object with the specified number of minutes and seconds.
   ms() Arbitrary text can separate minutes and seconds.
-  Fractional separator is assumed to be ".".
+  Fractional separator is assumed to be ".". After minutes
+  and seconds have been parsed, all numeric input is
+  ignored.
 }
 \examples{
 x <- c("09:10", "09:02", "1:10")
