@@ -1,3 +1,4 @@
+#define USE_RINTERNALS 1
 #include <Rinternals.h>
 #include <stdlib.h>
 /* #include <stdint.h> */
@@ -12,27 +13,29 @@ static const int d30 = 946684800; // seconds between 2000-01-01 and 1970-01-01
 // int64_t from stdint.h is a bit slower
 static const long long yearlen = 31536000; // common year in sec: 365*24*60*60
 
+/* #define PRINC printf("c: %c\n",*c); // debug only */
+/* #define PRINO printf("o: %c\n",*o); // debug only */
+
 /* quick way to check if the first char is a digit */
 #define DIGIT(X) ((X) >= '0' && (X) <= '9')
-#define PARSENUM(X, N) D=N; while ( DIGIT(*c) && D > 0) { X = X * 10 + (*c - '0'); c++; D--; }
-
+#define PARSENUM(X, N) int tN = N; while ( DIGIT(*c) && tN > 0) { X = X * 10 + (*c - '0'); c++; tN--; }
 
 SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
   // ord: formats (as in strptime) or orders (as in parse_date_time)
   // formats: TRUE if ord are formats as in strptime, otherwise they are orders.
 
-  if ( !isString(str) ) Rf_error("Date-time must be a character vector");
+  if ( !isString(str) ) error("Date-time must be a character vector");
   if ( !isString(ord) || (LENGTH(ord) > 1))
-    Rf_error("Format argument must be a character vector of length 1");
+    error("Format argument must be a character vector of length 1");
 
-  int i, n = LENGTH(str);
+  R_len_t i, n = LENGTH(str);
   int *fmt = LOGICAL(formats);
   const char *O = CHAR(STRING_ELT(ord, 0));
 
   SEXP res;
   double *data;
 
-  res = Rf_allocVector(REALSXP, n);
+  res = allocVector(REALSXP, n);
   data = REAL(res);
 
 
@@ -42,7 +45,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
     const char *o = O;
 
     int y = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
-    int succeed = 1, leap = 0, D, O_format=0;
+    int succeed = 1, leap = 0, O_format=0;
     double secs = 0.0; // main accumulator
 
     while( *o && succeed ){
@@ -53,15 +56,17 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
 
       } else {
 
-        if ( *fmt ) o++; // sckip %
-        else while (*c && !DIGIT(*c)) c++; // skip non-digits
+        if ( *fmt ) o++; // skip %
+        else if ( *o != 'O' && *o != 'z' )
+          // O and z formats are specially treated
+          while (*c && !DIGIT(*c)) c++; // skip non-digits
 
-        if (*o == 'O'){
+        if ( *o == 'O' ){
           O_format = 1;
           o++;
-        }
+        } else O_format = 0;
 
-        if ( !DIGIT(*c) ){
+        if ( !( DIGIT(*c) || O_format || *o == 'z') ){
           succeed = 0;
         } else {
           switch( *o ) {
@@ -93,13 +98,15 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             else succeed = 0;
             break;
           case 'S':
+            if( O_format && !*fmt ){
+              while (*c && !DIGIT(*c)) c++;
+              if ( !*c ) {succeed = 0; break;}
+            }
             PARSENUM(S, 2);
-            // allow leap seconds
-            if ( S < 62 ){
+            if ( S < 62 ){ // allow leap seconds
               secs += S;
               if(O_format){
-                // process miliseconds
-                // both . and , as decimal separator are allowed
+                // Parse milliseconds; both . and , as decimal separator are allowed
                 if( *c == '.' || *c == ','){
                   double ms = 0.0, msfact = 0.1;
                   c++;
@@ -109,8 +116,71 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
               }
             } else succeed = 0;
             break;
+          case 'u':
+            // %Ou: "2013-04-16T04:59:59Z"
+            if( O_format )
+              if( *c == 'Z' ) c++;
+              else succeed = 0;
+            else succeed  = 0;
+            break;
+          case 'z':
+            // %Oz: "+0100"
+            // %z: "+O100" or "+O1" or "+01:00"
+            if( !O_format ){
+              if( !*fmt ) {
+                while (*c && *c != '+' && *c != '-' && *c != 'Z') c++; // skip non + -
+                if( !*c ) { succeed = 0; break; };
+              }
+
+              int Z = 0, sig;
+              if( *c == 'Z') break;
+              else if ( *c == '+' ) sig = -1;
+              else if ( *c == '-') sig = 1;
+              else { succeed = 0; break; }
+              c++;
+              PARSENUM(Z, 2);
+              secs += sig*Z*3600;
+
+              if( *c == ':' ){
+                c++;
+                if ( !DIGIT(*c) ){ succeed = 0; break; }
+              }
+
+              if( DIGIT(*c) ){
+                Z = 0;
+                PARSENUM(Z, 2);
+                secs += sig*Z*60;
+              }
+              break;
+            }// else: pass through
+          case 'O':
+            // %OO: "+01:00"
+          case 'o':
+            // %Oo: "+01"
+            if( O_format ){
+              while (*c && *c != '+' && *c != '-' ) c++; // skip non + -
+              int Z = 0, sig;
+              if ( *c == '+' ) sig = -1;
+              else if ( *c == '-') sig = 1;
+              else { succeed = 0; break; }
+              c++;
+
+              PARSENUM(Z, 2);
+              secs += sig*Z*3600;
+
+              if( *o == 'O')
+                if ( *c == ':') c++;
+                else { succeed = 0; break; }
+
+              if ( *o != 'o' ){
+                Z = 0;
+                PARSENUM(Z, 2);
+                secs += sig*Z*60;
+              }
+            } else error("Unrecognized format '%c' supplied", *o);
+            break;
           default:
-            Rf_error("Unrecognized format %c supplied", *o);
+            error("Unrecognized format %c supplied", *o);
           }
           *o++;
         }
@@ -165,16 +235,16 @@ SEXP parse_hms(SEXP str, SEXP ord) {
   // ord: orders. Can be any combination of "h", "m" and "s"
   // RETURN: numeric vector (H1 M1 S1 H2 M2 S2 ...)
 
-  if (TYPEOF(str) != STRSXP) Rf_error("HMS argument must be a character vector");
+  if (TYPEOF(str) != STRSXP) error("HMS argument must be a character vector");
   if ((TYPEOF(ord) != STRSXP) || (LENGTH(ord) > 1))
-    Rf_error("Orders vector must be a character vector of length 1");
+    error("Orders vector must be a character vector of length 1");
 
   int i, n = LENGTH(str);
   int len = 3*n;
   const char *O = CHAR(STRING_ELT(ord, i));
   SEXP res;
   double *data;
-  res = Rf_allocVector(REALSXP, len);
+  res = allocVector(REALSXP, len);
   data = REAL(res);
 
   for (i = 0; i < n; i++) {
@@ -212,7 +282,7 @@ SEXP parse_hms(SEXP str, SEXP ord) {
           data[j+2] = S;
           break;
         default:
-          Rf_error("Unrecognized format %c supplied", *o);
+          error("Unrecognized format %c supplied", *o);
         }
         while (*c && !DIGIT(*c)) c++;
         *o++;
