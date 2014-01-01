@@ -216,11 +216,14 @@ parse_date_time(x, "ymd_hms", truncated = 3)
 \dontrun{
   options(digits.secs = 3)
   ## random times between 1400 and 3000
-  tt <- as.character(.POSIXct(runif(1e6, -17987443200, 32503680000)))
+  tt <- as.character(.POSIXct(runif(1000, -17987443200, 32503680000)))
+  tt <- rep.int(tt, 1000)
+
   system.time(out <- as.POSIXct(tt, tz = "UTC"))
-  system.time(out1 <- ymd_hms(tt)) ## format learning overhead
+  system.time(out1 <- ymd_hms(tt)) # constant overhead on long vectors
   system.time(out2 <- parse_date_time2(tt, "YmdHMOS"))
   system.time(out3 <- fast_strptime(tt, "\%Y-\%m-\%d \%H:\%M:\%OS"))
+  
   all.equal(out, out1)
   all.equal(out, out2)
   all.equal(out, out3)
