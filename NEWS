@@ -3,11 +3,17 @@ Version 1.3.3
 
 DEVELOPMENT
 
-* parser functions work faster and handle more heterogeneous formats.
+* New low level C parser for numeric formats and two new front-end R functions
+  parse_date_time2 and fast_strptime. The achieved speed up is 50-100x as
+  compared to standard as.POSIXct and strptime functions.
+
+  The user level parser functions of ymd_hms family drop to these C routines
+  whenever plain numeric formats are detected.
 
 BUG FIXES
 
 * olson_time_zones now supports Solaris OS
+* infinite recursion on parsing non-existing leap times was fixed
 
 Version 1.3.2
 -------------------------------------------------------------------------
