@@ -121,6 +121,19 @@ test_that("ymd functions correctly parse dates with no separators", {
     equals(as.POSIXct("2010-01-02", tz = "UTC")))
 })
 
+test_that("ymd function correctly parse b and B formats",{
+    expect_equal(ymd("2004-Jan-15"),
+                 as.POSIXct("2004-01-15", tz = "UTC"))
+    expect_equal(ymd("2004-January-15"),
+                 as.POSIXct("2004-01-15", tz = "UTC"))
+    expect_equal(ymd("2004-Jan-15", "2004-Feb-15", "1904-Jan-15", "1904-Feb-15"),
+                 as.POSIXct(c("2004-01-15 UTC", "2004-02-15 UTC", "1904-01-15 UTC", "1904-02-15 UTC"),
+                            tz = "UTC"))
+    expect_equal(ymd("2004-Jan-15", "2004-Feb-15", "1904-January-15", "1904-February-15"),
+                 as.POSIXct(c("2004-01-15 UTC", "2004-02-15 UTC", "1904-01-15 UTC", "1904-02-15 UTC"),
+                            tz = "UTC"))
+})
+
 test_that("ymd functions correctly parse dates with no separators and no quotes", {
   expect_that(ymd(20100102),
     equals(as.POSIXct("2010-01-02", tz = "UTC")))
@@ -172,7 +185,6 @@ test_that("ymd functions give warning when parsing absurd formats", {
   expect_warning(ymd_hms("201001023235959.34"))
   expect_warning(ymd(c(201001024, 20100103)))
 })
-
 
 test_that("ymd_hms correctly handles a variety of formats", {
   expect_that(ymd_hms("2010-01-02 23:59:59"), equals(as.POSIXct(

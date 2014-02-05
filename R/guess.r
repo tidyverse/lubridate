@@ -146,8 +146,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       stop("Unknown formats supplied: ", paste(fnames[ which ], sep = ", "))
 
     ## restriction: no numbers before or after
-    paste("^\\D*?\\b((", paste(unlist(c(reg$alpha_exact, reg$num_exact)[fnames]), collapse = "\\D*?"),
-          ")|(",  paste(unlist(c(reg$alpha_flex, reg$num_flex)[fnames]), collapse = "\\D*?"),
+    ## note: \\D+ doesn't work in flex match, why?
+    paste("^\\D*?\\b((", paste(unlist(c(reg$alpha_flex, reg$num_flex)[fnames]), collapse = "\\D*?"),
+          ")|(", paste(unlist(c(reg$alpha_exact, reg$num_exact)[fnames]), collapse = "\\D*?"),
           "))\\D*$", sep = "")
   }))
 
@@ -362,12 +363,14 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     num[nms] <- gsub("(<[IMSpHS]|<OS)", "\\1_s", num[nms])
 
 
-    ## The difference between flex regexp and exact is that flex should follow
+    ## The difference between flex and exact regexp is that flex should follow
     ## by non-digit, thus flexible strings like 12-1-2 can be matched. In exact
-    ## regexp a number need not be followed by non-number, but then the number
-    ## of digits in a number should be precisely specified. This allows matching
-    ## 120102. *Note*: the exact regexps is build from flex regex by gsubing
-    ## below. So, pay attention when you modify the regexp above.
+    ## regexp a number may not be followed by a non-number. In this case the
+    ## number of digits in a number should be precisely specified. For example
+    ## 120102 is matched by ymd.
+    ##
+    ## *Note*: the exact regexps is build from flex regex by gsubing below. So,
+    ## pay attention when you modify the regexp above.
 
     alpha_flex <- alpha
     alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE)
