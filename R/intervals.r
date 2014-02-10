@@ -517,12 +517,12 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
     y <- xy[[2]]
   }
   
-	aligned <- which(int_aligns(x, y))
-	inside <- which(y %within% x)
-	makes2 <- setdiff(aligned, inside)
+  aligned <- int_aligns(x,y)
+  inside <- y %within% x
+  makes2 <- !aligned & inside
 	
-	if (length(makes2)) {
-		stop(paste("Cases", makes2, 
+  if(sum(makes2)) {
+		stop(paste("Cases", which(makes2), 
 			"result in discontinuous intervals."))
 	}
 	

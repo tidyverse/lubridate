@@ -445,6 +445,14 @@ test_that("setdiff.Interval works as expected", {
   nint2 <- interval(time22, time21)
   nint3 <- interval(time32, time31)
   
+  arrive <- ymd_hms("2011-06-04 12:00:00", 
+    tz = "Pacific/Auckland")
+  leave <- ymd_hms("2011-08-10 14:00:00", 
+    tz = "Pacific/Auckland")
+  auckland <- interval(arrive, leave)
+  jsm2 <- interval(ymd(20110720, tz = "Pacific/Auckland"),
+    ymd(20110731, tz = "Pacific/Auckland"))
+  
   expect_equal(setdiff(int1, int2), interval(time1, time21))
   expect_equal(setdiff(int1, int3), int1)
   expect_equal(setdiff(int1, c(int2, int3)), c(interval(time1, time21), int1))
@@ -471,6 +479,8 @@ test_that("setdiff.Interval works as expected", {
   expect_equal(setdiff(c(int1, int3), c(nint2, nint2)), c(interval(time1, time21), int3))
   expect_equal(setdiff(c(nint1, nint3), c(int2, int2)), c(interval(time21, time1), nint3))
   expect_equal(setdiff(c(int1, nint3), c(nint2, int2)), c(interval(time1, time21), nint3))
+  expect_error(setdiff(auckland, jsm2), 
+    "Cases 1 result in discontinuous intervals.")
   
 })
 
