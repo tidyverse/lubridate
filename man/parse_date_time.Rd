@@ -223,7 +223,7 @@ parse_date_time(x, "ymd_hms", truncated = 3)
   system.time(out1 <- ymd_hms(tt)) # constant overhead on long vectors
   system.time(out2 <- parse_date_time2(tt, "YmdHMOS"))
   system.time(out3 <- fast_strptime(tt, "\%Y-\%m-\%d \%H:\%M:\%OS"))
-  
+
   all.equal(out, out1)
   all.equal(out, out2)
   all.equal(out, out3)

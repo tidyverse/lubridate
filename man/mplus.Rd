@@ -51,14 +51,14 @@
   %m+% and %m-% do not handle periods less than a month.
   These must be added separately with traditional
   arithmetic. %m+% and %m-% should be used with caution as
-  they are not a one-to-one operations and results for
-  either will be sensitive to the order of operations.
+  they are not one-to-one operations and results for either
+  will be sensitive to the order of operations.
 }
 \examples{
 jan <- ymd_hms("2010-01-31 03:04:05")
 # "2010-01-31 03:04:05 UTC"
-jan + months(1:3) # Feb 31 and April 31 prompt "rollover"
-# "2010-03-03 03:04:05 UTC" "2010-03-31 03:04:05 UTC" "2010-05-01 03:04:05 UTC"
+jan + months(1:3) # Feb 31 and April 31 returned as NA
+# NA "2010-03-31 03:04:05 UTC" NA
 jan \%m+\% months(1:3) # No rollover
 # "2010-02-28 03:04:05 UTC" "2010-03-31 03:04:05 UTC" "2010-04-30 03:04:05 UTC"
 
