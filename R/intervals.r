@@ -453,7 +453,7 @@ int_aligns <- function(int1, int2){
 #'
 #' @export "int_diff"
 #' @param times A vector of POSIXct, POSIXlt or Date class date-times
-#' @return An interval object that contains the n-1 intervals between the n date-tiwe in times
+#' @return An interval object that contains the n-1 intervals between the n date-time in times
 #' @examples
 #' dates <- now() + days(1:10)
 #' int_diff(dates) 
