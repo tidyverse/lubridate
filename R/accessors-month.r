@@ -29,10 +29,10 @@ NULL
 #' month(ymd(080101))
 #' # 1
 #' month(ymd(080101), label = TRUE)
-#' # "January"
-#' month(ymd(080101), label = TRUE, abbr = TRUE)
 #' # "Jan"
-#' month(ymd(080101) + months(0:11), label = TRUE, abbr = TRUE)
+#' month(ymd(080101), label = TRUE, abbr = FALSE)
+#' # "January"
+#' month(ymd(080101) + months(0:11), label = TRUE)
 #' # "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 month <- function(x, label = FALSE, abbr = TRUE) 
   UseMethod("month")
