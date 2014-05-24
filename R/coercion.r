@@ -417,11 +417,10 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   start <- as.POSIXlt(x@start)
   end <- as.POSIXlt(start + x@.Data)
 
-  to.per <- as.data.frame(unclass(end)) - 
-    as.data.frame(unclass(start))
+  to.per <- as.data.frame(unclass(end))[c("sec", "min", "hour", "mday", "mon", "year")] - 
+    as.data.frame(unclass(start))[c("sec", "min", "hour", "mday", "mon", "year")]
     
-  names(to.per)[1:6] <- c("second", "minute", "hour", "day", "month", "year")
-  to.per <- to.per[1:6]
+  names(to.per) <- c("second", "minute", "hour", "day", "month", "year")
   
   # remove negative periods
   nsecs <- to.per$second < 0 & !is.na(to.per$second)
