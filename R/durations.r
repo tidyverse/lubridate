@@ -335,10 +335,10 @@ dhours <- ehours <-   function(x = 1) new("Duration", x * 3600)
 ddays <- edays <-    function(x = 1) new("Duration", x * 86400)  
 dweeks <- eweeks <-   function(x = 1) new("Duration", x * 604800)
 dyears <- eyears <- function(x = 1) new("Duration", x * 60 * 60 * 24 * 365)
-dmilliseconds <- emilliseconds <- function(x = 1) milliseconds(x)
-dmicroseconds <- emicroseconds <- function(x = 1) microseconds(x)
-dnanoseconds <- enanoseconds <- function(x = 1) nanoseconds(x)
-dpicoseconds <- epicoseconds <- function(x = 1) picoseconds(x)
+dmilliseconds <- emilliseconds <- function(x = 1) new("Duration", x / 1000)
+dmicroseconds <- emicroseconds <- function(x = 1) new("Duration", x / 1000 / 1000)
+dnanoseconds <- enanoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000)
+dpicoseconds <- epicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000 / 1000)
 
 
 #' Is x a duration object?
