@@ -55,7 +55,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
   if ( !isString(ord) || (LENGTH(ord) > 1))
     error("Format argument must be a character vector of length 1");
 
-  R_len_t i, tN, n = LENGTH(str);
+  R_len_t tN, n = LENGTH(str);
   int *fmt = LOGICAL(formats);
   const char *O = CHAR(STRING_ELT(ord, 0));
 
@@ -66,17 +66,17 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
   data = REAL(res);
 
 
-  for (i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
 
     const char *c = CHAR(STRING_ELT(str, i));
     const char *o = O;
 
     int y = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
-    int succeed = 1, leap = 0, O_format=0;
+    int succeed = 1, O_format=0;
     double secs = 0.0; // main accumulator
 
     while( *o && succeed ){
-
+	
       if( *fmt && (*o != '%')) {
         // when formats, non fomrating character should match exactly
         if ( *c == *o ) { c++; o++; } else succeed = 0;
@@ -106,7 +106,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             break;
           case 'm': // month
             PARSENUM(m, 2);
-            if (0 < m < 13) secs += sm[m];
+            if (0 < m && m < 13) secs += sm[m];
             else succeed = 0;
             break;
           case 'd': // day
@@ -195,10 +195,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
               PARSENUM(Z, 2);
               secs += sig*Z*3600;
 
-              if( *o == 'O')
+              if( *o == 'O'){
                 if ( *c == ':') c++;
-                else { succeed = 0; break; }
-
+		else { succeed = 0; break; }
+	      }
               if ( *o != 'o' ){
                 Z = 0;
                 PARSENUM(Z, 2);
@@ -209,7 +209,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
           default:
             error("Unrecognized format %c supplied", *o);
           }
-          *o++;
+          o++;
         }
       }
     }
@@ -265,15 +265,15 @@ SEXP parse_hms(SEXP str, SEXP ord) {
   if ((TYPEOF(ord) != STRSXP) || (LENGTH(ord) > 1))
     error("Orders vector must be a character vector of length 1");
 
-  int i, n = LENGTH(str);
+  int n = LENGTH(str);
   int len = 3*n;
-  const char *O = CHAR(STRING_ELT(ord, i));
+  const char *O = CHAR(STRING_ELT(ord, 0));
   SEXP res;
   double *data;
   res = allocVector(REALSXP, len);
   data = REAL(res);
 
-  for (i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
 
     const char *c = CHAR(STRING_ELT(str, i));
     const char *o = O;
@@ -284,7 +284,9 @@ SEXP parse_hms(SEXP str, SEXP ord) {
     if (DIGIT(*c)) {
 
       while( *o ){
+
         switch( *o ) {
+	  
         case 'H':
           if(!DIGIT(*c)) {data[j] = NA_REAL; break;}
           while ( DIGIT(*c) ) { H = H * 10 + (*c - '0'); c++; }
@@ -310,8 +312,10 @@ SEXP parse_hms(SEXP str, SEXP ord) {
         default:
           error("Unrecognized format %c supplied", *o);
         }
+	
         while (*c && !DIGIT(*c)) c++;
-        *o++;
+	
+        o++;
       }
     }
 
