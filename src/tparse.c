@@ -102,16 +102,16 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             break;
           case 'y': // year in yy format
             PARSENUM(y, 2);
-            if (y < 100) y += 2000;
+            if ( y < 100 ) y += 2000;
             break;
           case 'm': // month
             PARSENUM(m, 2);
-            if (0 < m && m < 13) secs += sm[m];
+            if ( 0 < m && m < 13 ) secs += sm[m];
             else succeed = 0;
             break;
           case 'd': // day
             PARSENUM(d, 2);
-            if ( d < 32 ) secs += (d - 1) * 86400;
+            if ( 0 < d && d < 32 ) secs += (d - 1) * 86400;
             else succeed = 0;
             break;
           case 'H': // hour 24
@@ -132,7 +132,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             PARSENUM(S, 2);
             if ( S < 62 ){ // allow leap seconds
               secs += S;
-              if(O_format){
+              if( O_format ){
                 // Parse milliseconds; both . and , as decimal separator are allowed
                 if( *c == '.' || *c == ','){
                   double ms = 0.0, msfact = 0.1;

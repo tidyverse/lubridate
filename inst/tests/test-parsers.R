@@ -186,6 +186,16 @@ test_that("ymd functions give warning when parsing absurd formats", {
   expect_warning(ymd(c(201001024, 20100103)))
 })
 
+test_that("0 month and 0 day in date produces NA",
+          {
+              expect_equal(ymd(c("2013-1-1", "2013-0-1"), quiet = TRUE),
+                           as.POSIXct(c("2013-01-01", NA), tz = "UTC"))
+              expect_equal(ymd(c("2013-1-1", "2013-1-0"), quiet = TRUE),
+                           as.POSIXct(c("2013-01-01", NA), tz = "UTC"))
+              expect_equal(ymd("2013-1-0", quiet = TRUE),
+                           as.POSIXct(as.character(NA), tz = "UTC"))
+          })
+
 test_that("ymd_hms correctly handles a variety of formats", {
   expect_that(ymd_hms("2010-01-02 23:59:59"), equals(as.POSIXct(
     "2010-01-02 23:59:59", tz = "UTC")))
