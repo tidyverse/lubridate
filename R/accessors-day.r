@@ -43,13 +43,13 @@ yday.default <- function(x)
 #' @S3method wday numeric
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
 #'   jul, timeSeries, or fts object. 
-#' @param label logical. Only available for wday. TRUE will display the day of the week as a 
-#'   character string label such as "Sunday." FALSE will display the day of the week as a number.
-#' @param abbr logical. Only available for wday. FALSE will display the day of the week as a 
-#'   character string label such as "Sunday." TRUE will display an abbreviated version of the 
+#' @param label logical. Only available for wday. TRUE will display the day of the week as an 
+#'   ordered factor of character strings, such as "Sunday." FALSE will display the day of the week as a number.
+#' @param abbr logical. Only available for wday. FALSE will display the day of the week as an 
+#'   ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the 
 #'   label, such as "Sun". abbr is disregarded if label = FALSE.
 #' @return wday returns the day of the week as a decimal number 
-#'   (01-07, Sunday is 1).
+#'   (01-07, Sunday is 1) or an ordered factor (Sunday is first).
 #' @seealso \code{\link{yday}}, \code{\link{mday}}
 #' @keywords utilities manip chron methods
 #' @examples
