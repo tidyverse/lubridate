@@ -58,7 +58,7 @@ yday.default <- function(x)
 #'
 #' wday(ymd(080101))
 #' # 3
-#' wday(ymd(080101), label = TRUE)
+#' wday(ymd(080101), label = TRUE, abbr = FALSE)
 #' # "Tuesday"
 #' wday(ymd(080101), label = TRUE, abbr = TRUE)
 #' # "Tues"
