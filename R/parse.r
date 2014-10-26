@@ -63,7 +63,6 @@
 ##' ## formats are not in double digits might not be parsed correctly:
 ##' \dontrun{ymd("201002-01", "201002-1", "20102-1")
 ##' dmy("0312-2010", "312-2010")}
-##'
 ymd <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 ydm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
@@ -216,13 +215,12 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' @seealso \code{\link{hms}, \link{hm}}
 ##' @keywords period
 ##' @examples
-##' x <- c("09:10", "09:02", "1:10")
-##' ms(x)
-##' # [1] 9 minutes and 10 seconds   9 minutes and 2 seconds   1 minute and 10 seconds
+##' ms(c("09:10", "09:02", "1:10"))
+##' ## [1] "9M 10S" "9M 2S"  "1M 10S"
 ##' ms("7 6")
-##' # [1] 7 minutes and 6 seconds
+##' ## [1] "7M 6S"
 ##' ms("6,5")
-##' # 6 minutes and 5 seconds
+##' ## [1] "6M 5S"
 ms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "MS", quiet = quiet)
   new_period(minute = out["M", ], second = out["S", ])
@@ -243,13 +241,12 @@ ms <- function(..., quiet = FALSE) {
 ##' @seealso \code{\link{hms}, \link{ms}}
 ##' @keywords period
 ##' @examples
-##' x <- c("09:10", "09:02", "1:10")
-##' hm(x)
-##' # [1] 9 hours and 10 minutes   9 hours and 2 minutes   1 hour and 10 minutes
+##' hm(c("09:10", "09:02", "1:10"))
+##' ## [1] "9H 10M 0S" "9H 2M 0S"  "1H 10M 0S"
 ##' hm("7 6")
-##' # [1] 7 hours and 6 minutes
+##' ## [1] "7H 6M 0S"
 ##' hm("6,5")
-##' # [1] 6 hours and 5 minutes
+##' ## [1] "6H 5M 0S"
 hm <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HM", quiet = quiet)
   new_period(hour = out["H", ], minute = out["M", ])
@@ -271,16 +268,12 @@ hm <- function(..., quiet = FALSE) {
 ##' @useDynLib lubridate parse_hms
 ##' @examples
 ##'
-##' x <- c("09:10:01", "09:10:02", "09:10:03", "Collided at 9:20:04 pm")
+##' x <- c("09:10:01", "09:10:02", "09:10:03")
 ##' hms(x)
-##' # [1] 9 hours, 10 minutes and 1 second
-##' # [2] 9 hours, 10 minutes and 2 seconds
-##' # [3] 9 hours, 10 minutes and 3 seconds
+##' ## [1] "9H 10M 1S" "9H 10M 2S" "9H 10M 3S"
 ##'
-##' hms("7 6 5", "3-23---2", "2 : 23 : 33")
-##' ## [1] 7 hours, 6 minutes and 5 seconds
-##' ## [2] 3 hours, 23 minutes and 2 seconds
-##' ## [3] 2 hours, 23 minutes and 33 seconds
+##' hms("7 6 5", "3-23---2", "2 : 23 : 33", "Finished in 9 hours, 20 min and 4 seconds")
+##' ## [1] "7H 6M 5S" "3H 23M 2S" "2H 23M 33S" "9H 20M 4S"
 hms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HMS", quiet = quiet)
   new_period(hour = out["H", ], minute = out["M", ], second = out["S", ])
