@@ -395,12 +395,11 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   negs <- int_length(x) < 0 & !is.na(int_length(x))
   x[negs] <- int_flip(x[negs])
 
-  if (is.null(match.call()$unit)) {
+  if (is.null(unit)) {
     pers <- .int_to_period(x)
     pers[negs] <- -1 * pers[negs]
     return(pers)
   } else {
-    unit <- match.call()$unit
     unit <- standardise_period_names(unit)
     per <- get(paste(unit, "s", sep = ""))
     num <- x %/% per(1)
