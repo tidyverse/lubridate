@@ -395,7 +395,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   negs <- int_length(x) < 0 & !is.na(int_length(x))
   x[negs] <- int_flip(x[negs])
 
-  if (is.null(unit)) {
+  if (missing(unit)) {
     pers <- .int_to_period(x)
     pers[negs] <- -1 * pers[negs]
     return(pers)
