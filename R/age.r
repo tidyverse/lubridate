@@ -34,7 +34,7 @@
 age <- function(start, end = today(), unit = "year", exact = FALSE) {
   res <- new_interval(start, end)
   res[res < 0] <- NA
-  unit <- lubridate:::standardise_period_names(unit)
+  unit <- standardise_period_names(unit)
   res <- as.period(res, unit=unit)
   if(unit == "second") res <- slot(res, ".Data")
   else res <- slot(res, unit)
