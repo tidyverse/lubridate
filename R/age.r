@@ -5,7 +5,7 @@
 #' @export age
 #' @param start date of birth or equivalent
 #' @param end date for which age should be calculated
-#' @param unit a character string that specifies with time units to use (value \code{"string"} could be also be passed, see examples)
+#' @param unit a character string that specifies with time units to use
 #' @param exact should the computed age be exact?
 #' @return a numeric value
 #' @details
@@ -30,7 +30,6 @@
 age <- function(start, end = today(), unit = "year", exact = FALSE) {
   res <- new_interval(start, end)
   res[res < 0] <- NA
-  if (unit == "string") return(as.period(res, unit = "year"))
   unit <- lubridate:::standardise_period_names(unit)
   res <- as.period(res, unit=unit)
   if(unit == "second") res <- slot(res, ".Data")
