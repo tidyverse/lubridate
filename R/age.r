@@ -18,7 +18,6 @@
 #' @examples
 #' age(ymd('1900-01-01'), ymd('1999-12-31'))
 #' age(ymd('1900-01-01'), ymd('1999-12-31'), unit = "month")
-#' age(ymd('1900-01-01'), ymd('1999-12-31'), unit = "string")
 #' 
 #' # Exact age
 #' age(ymd('1900-01-01'), ymd('1999-12-31'), exact = TRUE)
