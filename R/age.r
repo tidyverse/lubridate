@@ -36,11 +36,12 @@ age <- function(start, end = today(), unit = "year", exact = FALSE) {
   if(unit == "second") res <- slot(res, ".Data")
   else res <- slot(res, unit)
   if (exact) {
-    previous_anniversary <- start + period(res, units = unit)
-    next_anniversary <- start + period(res+1, units = unit)
+    previous_anniversary <- start + res * period(1, units = unit)
+    next_anniversary <- start + (res+1) * period(1, units = unit)
     time_to_now <- as.duration(end - previous_anniversary)
     time_to_next <- as.duration(next_anniversary - previous_anniversary)
     res <- res + time_to_now / time_to_next
   }
   return(res)
 }
+
