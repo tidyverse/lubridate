@@ -9,7 +9,11 @@
 #' @param exact should the computed age be exact?
 #' @return a numeric value
 #' @details
-#' \code{age} computes ages based on a classic demographic approach, i.e. the result is equal to the exact age at last birthday (i.e. completed years). Age computation is based on calendar time ans is therefore more accurate than the basic approach based on the mean duration time of a year (see examples). If \code{exact} is true, the fraction of time between last birthday and end date will be added to the result.
+#' \code{age} computes ages based on a classic demographic approach, i.e. the result is equal to 
+#' the exact age at last birthday (i.e. completed years). Age computation is based on calendar time 
+#' and is therefore more accurate than the basic approach based on the mean duration time of a year 
+#' (see examples). If \code{exact} is true, the fraction of time between last birthday and end date 
+#' will be added to the result.
 #' @keywords chron math period
 #' @examples
 #' age(ymd('1900-01-01'), ymd('1999-12-31'))
