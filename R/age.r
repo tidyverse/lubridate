@@ -31,6 +31,8 @@
 
 
 age <- function(start, end = today(), unit = "year", exact = FALSE) {
+  start <- as.POSIXct(start)
+  end <- as.POSIXct(end)
   res <- new_interval(start, end)
   res[res < 0] <- NA
   unit <- standardise_period_names(unit)
@@ -40,8 +42,8 @@ age <- function(start, end = today(), unit = "year", exact = FALSE) {
   else res <- slot(res, unit)
   if (exact) {
     if (unit %in% c("year","month")) {
-      previous_anniversary <- start %m+% res * period(1, units = unit)
-      next_anniversary <- start %m+% (res+1) * period(1, units = unit)  
+      previous_anniversary <- start %m+% (res * period(1, units = unit))
+      next_anniversary <- start %m+% ((res+1) * period(1, units = unit))  
     } else {
       previous_anniversary <- start + res * period(1, units = unit)
       next_anniversary <- start + (res+1) * period(1, units = unit)
