@@ -60,10 +60,13 @@ yday.default <- function(x)
 #' # 3
 #' wday(ymd(080101), label = TRUE)
 #' # "Tuesday"
+#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 #' wday(ymd(080101), label = TRUE, abbr = TRUE)
 #' # "Tues"
+#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 #' wday(ymd(080101) + days(-2:4), label = TRUE, abbr = TRUE)
 #' # "Sun"   "Mon"   "Tues"  "Wed"   "Thurs" "Fri"   "Sat" 
+#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 wday <- function(x, label = FALSE, abbr = TRUE) 
   UseMethod("wday")
 
