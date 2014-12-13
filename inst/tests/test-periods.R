@@ -197,6 +197,13 @@ test_that("as.period handles duration objects", {
   expect_that(as.period(dur), equals(seconds(5) + minutes(30)))
 })
 
+test_that("as.period handles period objects", {
+    per <- minutes(1000) + seconds(50) + seconds(11)
+    expect_that(as.period(per), equals(per))
+    expect_that(as.period(per, "minute"), equals(period(c(1001, 1), c("minute", "second"))))
+    expect_that(as.period(per, "hour"), equals(period(c(16, 41, 1), c("hour", "minute", "second"))))
+})
+
 test_that("[<- can subset periods with new periods", {
   Time <- data.frame(Time = c(hms("01:01:01"), hms("02:02:02")))
   Time[1,1] <- Time[1,1] + hours(1)

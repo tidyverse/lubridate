@@ -482,7 +482,26 @@ setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) 
   newper * sign(span)
 })
 
-setMethod("as.period", signature("Period"), function(x, unit = NULL, ...) x)
+setMethod("as.period", signature("Period"),
+          function(x, unit = NULL, ...){
+            if (missing(unit) || is.null(unit)) {
+              x
+            } else {
+              unit <- standardise_period_names(unit)
+              switch(unit, 
+                     year = x,
+                     month = {
+                       month(x) <- month(x) + year(x)*12L
+                       year(x) <- 0L
+                       x
+                     },
+                     day = , hour = , minute = , second = {
+                       N <- .units_within_seconds(period_to_seconds(x), unit)
+                       do.call("new", c("Period", N))
+                     },
+                     stop("Unsuported unit ", unit))
+            }
+          })
 
 setMethod("as.period", signature("logical"), function(x, unit = NULL, ...) {
   as.period(as.numeric(x), unit, ...)
