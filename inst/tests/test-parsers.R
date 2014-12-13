@@ -335,10 +335,11 @@ test_that("truncated formats are correctly parsed", {
 })
 
 test_that("truncation on non-dates results in NAs indeed", {
-  expect_true({
-    tt <- c("NI PODATKA", "TUJINA", "GRAD")
-    all(is.na(ymd_hms(tt, truncated = 3)))
-  })
+  expect_warning(
+      expect_true({
+        tt <- c("NI PODATKA", "TUJINA", "GRAD")
+        all(is.na(ymd_hms(tt, truncated = 3)))
+      }))
 })
 
 
