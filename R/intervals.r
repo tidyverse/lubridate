@@ -23,6 +23,20 @@ check_interval <- function(object){
 		errors
 }
 
+.units_within_seconds <- function(secs, unit = "second"){
+  ## return a list suitable to pass to new("Period", ...)
+  switch(unit,
+         second = list(secs),
+         minute = list(secs %% 60, minute = secs %/% 60), 
+         hour =
+           c(.units_within_seconds(secs %% 3600, "minute"), 
+             list(hour = secs %/% 3600)), 
+         day =
+           c(.units_within_seconds(secs %% 86400, "hour"),
+             day = secs %/% 86400), 
+         stop("Unsuported unit ", unit))
+}
+
 
 #' Interval class
 #'

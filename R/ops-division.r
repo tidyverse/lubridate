@@ -131,7 +131,7 @@ setMethod("/", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
 
 #' @export		
 setMethod("/", signature(e1 = "Interval", e2 = "Period"), 
-	function(e1, e2) divide_interval_by_period(e1, e2))
+          function(e1, e2)divide_interval_by_period(e1, e2))
 
 #' @export			
 setMethod("/", signature(e1 = "Interval", e2 = "difftime"), 

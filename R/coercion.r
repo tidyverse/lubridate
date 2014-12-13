@@ -395,17 +395,25 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   negs <- int_length(x) < 0 & !is.na(int_length(x))
   x[negs] <- int_flip(x[negs])
 
-  if (missing(unit)) {
-    pers <- .int_to_period(x)
-    pers[negs] <- -1 * pers[negs]
-    return(pers)
-  } else {
-    unit <- standardise_period_names(unit)
-    per <- get(paste(unit, "s", sep = ""))
-    num <- x %/% per(1)
-    left_over <- x %% per(1)
-    pers <- per(num) + .int_to_period(left_over)
-  }
+  unit <- 
+    if (missing(unit))  "year"
+    else standardise_period_names(unit)
+
+  pers <-
+    switch(unit,
+           year = .int_to_period(x),
+           month = {
+             pers <- .int_to_period(x)
+             month(pers) <- month(pers) + year(pers)*12L
+             year(pers) <- 0L
+             pers
+           },
+           day = , hour = , minute = , second = {
+             secs <- abs(x@.Data)
+             units <- .units_within_seconds(secs, unit)
+             do.call("new", c("Period", units))
+           },
+           stop("Unsuported unit ", unit))
   
   pers[negs] <- -1 * pers[negs]
   pers
