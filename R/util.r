@@ -60,6 +60,8 @@ standardise_period_names <- function(x) {
 }
 
 standardise_lt_names <- function(x) {
+  if(length(x) == 0L)
+    stop("No unit names supplied.")
   dates <- c("sec", "min", "hour", "day", "mday", "wday", "yday", "mon", "year", "tz")
   y <- gsub("(.)s$", "\\1", x)
   y <- substr(y, 1, 3)
