@@ -334,6 +334,13 @@ test_that("truncated formats are correctly parsed", {
                          "2010-01-01 00:00:00"), tz = "UTC")))
 })
 
+test_that("truncation on non-dates results in NAs indeed", {
+  expect_true({
+    tt <- c("NI PODATKA", "TUJINA", "GRAD")
+    all(is.na(ymd_hms(tt, truncated = 3)))
+  })
+})
+
 
 test_that("fractional formats are correctly parsed", {
   expect_that({
