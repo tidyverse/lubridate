@@ -35,7 +35,8 @@ age <- function(start, end = today(), unit = "year", exact = FALSE) {
   res[res < 0] <- NA
   unit <- standardise_period_names(unit)
   res <- as.period(res, unit=unit)
-  if(unit == "second") res <- slot(res, ".Data")
+  if (unit == "second") res <- slot(res, ".Data")
+  else if (unit == "week") res <- trunc(res@day/7)
   else res <- slot(res, unit)
   if (exact) {
     if (unit %in% c("year","month")) {
