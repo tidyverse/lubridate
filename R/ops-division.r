@@ -27,29 +27,34 @@ adjust <- function(est, int, per) {
 	start <- int_start(int)
 	end <- int_end(int)
 	
-	while(any(start + est * per < end))
-		est[start + est * per < end] <- est[start + est * per < end] + 1
-	while(any(start + est * per > end))
-		est[start + est * per > end] <- est[start + est * per > end] - 1
+	while(any(which <- (start + est * per < end)))
+		est[which] <- est[which] + 1
+  
+	while(any(which <- (start + est * per > end)))
+		est[which] <- est[which] - 1
 	
 	est
 }
 
+
+## broken:
+## lubridate:::divide_interval_by_period(interval(ymd(20000229), ymd(20100303)), years(1))
+## Error in while (any(which <- (start + est * per < end))) est[which] <- est[which] +  : 
+##   missing value where TRUE/FALSE needed
 divide_interval_by_period <- function(int, per){
-    message("Remainder cannot be expressed as fraction of a period.\n  Performing %/%.")
-	estimate <- ceiling(suppressMessages(int/as.duration(per)))
-  nas <- is.na(estimate)
-  if (any(nas)) {
+  message("Remainder cannot be expressed as fraction of a period.\n  Performing %/%.")
+  estimate <- ceiling(int/as.duration(per))
+  not_nas <- !is.na(estimate)
+  if (!all(not_nas)) {
     timespans <- match_lengths(int, per)
-    int2 <- timespans[[1]][!nas]
-    per2 <- timespans[[2]][!nas]
-    estimate[!nas] <- adjust(estimate[!nas], int2, per2)
+    int2 <- timespans[[1]][not_nas]
+    per2 <- timespans[[2]][not_nas]
+    estimate[not_nas] <- adjust(estimate[not_nas], int2, per2)
     estimate
   } else {
     adjust(estimate, int, per)
   }
 }
-
 
 divide_interval_by_difftime <- function(int, diff){
 	int@.Data / as.double(diff, units = "secs")
