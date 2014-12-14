@@ -60,7 +60,6 @@ Collate:
     'accessors-tz.r'
     'accessors-week.r'
     'accessors-year.r'
-    'age.r'
     'am-pm.r'
     'decimal-dates.r'
     'epochs.r'
