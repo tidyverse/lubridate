@@ -200,7 +200,7 @@ setMethod("show", signature(object = "Period"), function(object){
   print(format(object))
 })
 
-#' @S3method format Period
+#' @method format Period
 format.Period <- function(x, ...){
   if (length(x@.Data) == 0) return("Period(0)")
   show <- vector(mode = "character")
@@ -215,7 +215,7 @@ format.Period <- function(x, ...){
   show
 }
 
-#' @S3method xtfrm Period
+#' @method xtfrm Period
 xtfrm.Period <- function(x){
   xtfrm(period_to_seconds(x))
 }
@@ -440,8 +440,8 @@ period <- function(num, units = "second") {
 #'
 #' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
 #' @aliases seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
-#' @S3method months numeric
-#' @S3method months integer
+#' @method months numeric
+#' @method months integer
 #' @param x numeric value of the number of units to be contained in the period. With the exception 
 #'   of seconds(), x must be an integer. 
 #' @return a period object
@@ -741,7 +741,7 @@ setMethod("<", signature(e1 = "numeric", e2 = "Period"),
           })
 
 	
-#' @S3method summary Period
+#' @method summary Period
 summary.Period <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]

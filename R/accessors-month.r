@@ -8,9 +8,9 @@ NULL
 #'
 #' @export month "month<-"
 #' @aliases month month<-
-#' @S3method month default
-#' @S3method month numeric
-#' @S3method month Period
+#' @method month default
+#' @method month numeric
+#' @method month Period
 #' @param x a date-time object  
 #' @param label logical. TRUE will display the month as a character string
 #'   such as "January." FALSE will display the month as a number.

@@ -121,7 +121,7 @@ setMethod("show", signature(object = "Interval"), function(object){
 	print(format.Interval(object), quote = F)
 })
 
-#' @S3method format Interval
+#' @method format Interval
 format.Interval <- function(x,...){
   if (length(x@.Data) == 0) return("Interval(0)")
 	paste(format(x@start, tz = x@tzone, usetz = TRUE), "--", 
@@ -603,7 +603,7 @@ setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
   start.in & end.in
 })
 
-#' @S3method summary Interval
+#' @method summary Interval
 summary.Interval <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]

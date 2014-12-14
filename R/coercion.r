@@ -14,19 +14,19 @@ NULL
 #' @name DateCoercion
 #' @keywords internal 
 #'
-#' @S3method as.POSIXlt fts
-#' @S3method as.POSIXlt its
-#' @S3method as.POSIXlt timeSeries
-#' @S3method as.POSIXlt irts
-#' @S3method as.POSIXlt xts
-#' @S3method as.POSIXlt zoo
-#' @S3method as.POSIXlt tis
-#' @S3method as.POSIXct fts
-#' @S3method as.POSIXct its
-#' @S3method as.POSIXct timeSeries
-#' @S3method as.POSIXct irts
-#' @S3method as.POSIXct xts
-#' @S3method as.POSIXct zoo
+#' @method as.POSIXlt fts
+#' @method as.POSIXlt its
+#' @method as.POSIXlt timeSeries
+#' @method as.POSIXlt irts
+#' @method as.POSIXlt xts
+#' @method as.POSIXlt zoo
+#' @method as.POSIXlt tis
+#' @method as.POSIXct fts
+#' @method as.POSIXct its
+#' @method as.POSIXct timeSeries
+#' @method as.POSIXct irts
+#' @method as.POSIXct xts
+#' @method as.POSIXct zoo
 NULL
 
 as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(fts::dates.fts(x))
@@ -58,13 +58,13 @@ as.POSIXlt.tis <- function(x, tz = "", ...) as.Date(x)
 #' @keywords internal
 #'
 #' @export reclass_date
-#' @S3method reclass_date POSIXlt
-#' @S3method reclass_date POSIXct
-#' @S3method reclass_date chron
-#' @S3method reclass_date timeDate
-#' @S3method reclass_date its
-#' @S3method reclass_date ti
-#' @S3method reclass_date Date
+#' @method reclass_date POSIXlt
+#' @method reclass_date POSIXct
+#' @method reclass_date chron
+#' @method reclass_date timeDate
+#' @method reclass_date its
+#' @method reclass_date ti
+#' @method reclass_date Date
 reclass_date <- function(new, orig) UseMethod("reclass_date", orig)
 reclass_date.POSIXlt <- function(new, orig) {
   as.POSIXlt(new)

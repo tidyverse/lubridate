@@ -7,10 +7,10 @@
 #'
 #' 
 #' @name DateUpdate
-#' @S3method update Date
-#' @S3method update POSIXt
-#' @S3method update POSIXct
-#' @S3method update POSIXlt
+#' @method update Date
+#' @method update POSIXt
+#' @method update POSIXct
+#' @method update POSIXlt
 #' @param object a date-time object  
 #' @param years a value to substitute for the date's year component
 #' @param months a value to substitute for the date's month component
@@ -41,7 +41,6 @@
 NULL
 
 #' @export
-#' @method update POSIXt
 update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
   
   if(!length(object)) return(object)
@@ -165,7 +164,6 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
 
 
 #' @export
-#' @method update Date
 update.Date <- function(object, ...){ 
   
   lt <- as.POSIXlt(object, tz = "UTC")

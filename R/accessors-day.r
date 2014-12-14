@@ -8,9 +8,9 @@ NULL
 #'
 #' @export day yday mday "day<-" "yday<-" "mday<-"
 #' @aliases day yday mday day<- yday<- mday<-
-#' @S3method yday default
-#' @S3method mday default
-#' @S3method mday Period
+#' @method yday default
+#' @method mday default
+#' @method mday Period
 #' @param x a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, zooreg,
 #'    timeDate, xts, its, ti, jul, timeSeries, or fts object. 
 #' @return yday returns the day of the year as a decimal number (01-366). mday returns the day of 
@@ -39,8 +39,8 @@ yday.default <- function(x)
 #'
 #' @export wday "wday<-"
 #' @aliases wday wday<- 
-#' @S3method wday default
-#' @S3method wday numeric
+#' @method wday default
+#' @method wday numeric
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
 #'   jul, timeSeries, or fts object. 
 #' @param label logical. Only available for wday. TRUE will display the day of the week as an 
