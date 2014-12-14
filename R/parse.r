@@ -370,7 +370,7 @@ hms <- function(..., quiet = FALSE) {
 ##' 
 ##' \item{\code{Y}!}{Year with century.}
 ##'
-##' \item{\code{z}*!}{ISO8601 signed offset in hours and minutes from UTC. For
+##' \item{\code{z}!*}{ISO8601 signed offset in hours and minutes from UTC. For
 ##' example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours
 ##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
 ##' strptime doesn't fully support ISO8601, lubridate represents this format
