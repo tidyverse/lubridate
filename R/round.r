@@ -5,7 +5,7 @@
 #' the nearest second, minute, hour, day, week, month, or year.
 #'
 #' By convention the boundary for a month is the first second of the month. Thus
-#' \code{floor_date(ymd("2000-03-01"))} gives "2000-03-01 UTC".
+#' \code{floor_date(ymd("2000-03-01"), "month")} gives "2000-03-01 UTC".
 #' @export floor_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
@@ -52,7 +52,7 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 #' up to the nearest second, minute, hour, day, week, month, or year.
 #'
 #' By convention, the boundary for a month is the first second of the next
-#' month. Thus \code{ceiling_date(ymd("2000-03-01"))} gives "2000-03-01 UTC".
+#' month. Thus \code{ceiling_date(ymd("2000-03-01"), "month")} gives "2000-03-01 UTC".
 #' @export ceiling_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
@@ -101,8 +101,6 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 
 
 
-
-
 #' Rounding for date-times.
 #'
 #' \code{round_date} takes a date-time object and rounds it to the nearest
@@ -110,7 +108,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 #' to the nearest second, minute, hour, day, week, month, or year.
 #'
 #' By convention, the boundary for a month is the first second of the next
-#' month. Thus \code{round_date(ymd("2000-03-01"))} gives "2000-03-01 UTC".
+#' month. Thus \code{round_date(ymd("2000-03-01"), "month")} gives "2000-03-01 UTC".
 #' @export round_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
