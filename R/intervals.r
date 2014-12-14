@@ -235,7 +235,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' # 2009-01-01 UTC--2009-02-01 UTC 
 new_interval <- interval <- function(start, end, tzone = attr(start, "tzone")){
 	if (is.null(tzone)) {
-		if (is.null(attr(end, "tzone"))) tzone <- ""
+		if (is.null(attr(end, "tzone"))) tzone <- "UTC"
 		else tzone <- attr(end, "tzone")
 	}
 	

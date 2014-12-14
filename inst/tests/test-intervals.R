@@ -111,6 +111,11 @@ test_that("format.Interval correctly displays intervals of length 0", {
   expect_output(int[FALSE], "Interval\\(0)")
 })
 
+test_that("interval handles correctly time zones of Date objects", {
+  expect_equal(interval(as.Date('2011-01-01'), as.Date('2013-01-01')),
+               new_interval(ymd('2011-01-01'), ymd('2013-01-01')))
+})
+
 test_that("summary.Interval creates useful summary", {
   int <- interval(ymd(20090201), ymd(20090101))
   text <- c(3, "2009-01-01", "2009-02-01", "UTC", 1)
