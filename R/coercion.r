@@ -14,76 +14,76 @@ NULL
 #' @name DateCoercion
 #' @keywords internal 
 #'
-#' @method as.POSIXlt fts
-#' @method as.POSIXlt its
-#' @method as.POSIXlt timeSeries
-#' @method as.POSIXlt irts
-#' @method as.POSIXlt xts
-#' @method as.POSIXlt zoo
-#' @method as.POSIXlt tis
-#' @method as.POSIXct fts
-#' @method as.POSIXct its
-#' @method as.POSIXct timeSeries
-#' @method as.POSIXct irts
-#' @method as.POSIXct xts
-#' @method as.POSIXct zoo
 NULL
 
+#' @export
 as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(fts::dates.fts(x))
+#' @export
 as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(fts::dates.fts(x))
 
+#' @export
 as.POSIXlt.its <- function(x, tz = "", ...) as.POSIXlt(attr(x, "dates"))
+#' @export
 as.POSIXct.its <- function(x, tz = "", ...) as.POSIXct(attr(x, "dates"))
 
+#' @export
 as.POSIXlt.timeSeries <- function(x, tz = "", ...) {
   as.POSIXlt(timeDate::timeDate(x@positions, 
     zone = x@FinCenter, FinCenter = x@FinCenter))
 }
+#' @export
 as.POSIXct.timeSeries <- function(x, tz = "", ...) {
   as.POSIXct(timeDate::timeDate(x@positions, 
     zone = x@FinCenter, FinCenter = x@FinCenter))
 }
 
+#' @export
 as.POSIXlt.irts <- function(x, tz = "", ...) as.POSIXlt(x$time)
+#' @export
 as.POSIXct.irts <- function(x, tz = "", ...) as.POSIXct(x$time)
 
+#' @export
 as.POSIXlt.xts <- function(x, tz = "", ...) as.POSIXlt(zoo::index(x))
+#' @export
 as.POSIXct.xts <- function(x, tz = "", ...) as.POSIXct(zoo::index(x))
+#' @export
 as.POSIXlt.zoo <- function(x, tz = "", ...) as.POSIXlt(zoo::index(x))
+#' @export
 as.POSIXct.zoo <- function(x, tz = "", ...) as.POSIXct(zoo::index(x))
 
+#' @export
 as.POSIXlt.tis <- function(x, tz = "", ...) as.Date(x)
 
 #' Convenience method to reclass dates post-modification.
 #' @keywords internal
 #'
-#' @export reclass_date
-#' @method reclass_date POSIXlt
-#' @method reclass_date POSIXct
-#' @method reclass_date chron
-#' @method reclass_date timeDate
-#' @method reclass_date its
-#' @method reclass_date ti
-#' @method reclass_date Date
+#' @export
 reclass_date <- function(new, orig) UseMethod("reclass_date", orig)
+#' @export
 reclass_date.POSIXlt <- function(new, orig) {
   as.POSIXlt(new)
 }
+#' @export
 reclass_date.POSIXct <- function(new, orig) {
   as.POSIXct(new)
 }
+#' @export
 reclass_date.chron <- function(new, orig) {
   chron::as.chron(new)
 }
+#' @export
 reclass_date.timeDate <- function(new, orig) {
   timeDate::as.timeDate(new)
 }
+#' @export
 reclass_date.its <- function(new, orig) {
   its::its(new, format = "%Y-%m-%d %X")
 }
+#' @export
 reclass_date.ti <- function(new, orig) {
   tis::as.ti(new, tis::tifName(orig))
 }
+#' @export
 reclass_date.Date <- function(new, orig) {
   as.Date(new)
 }
@@ -97,15 +97,12 @@ period_to_difftime <- function(per){
 #' @keywords internal
 #'
 #' @export
-#' @aliases reclass_timespan,ANY,difftime-method
-#' @aliases reclass_timespan,ANY,Duration-method
-#' @aliases reclass_timespan,ANY,Interval-method
-#' @aliases reclass_timespan,ANY,Period-method
 reclass_timespan <- function(new, orig) standardGeneric("reclass_timespan")
 
 #' @export
 setGeneric("reclass_timespan")
 
+#' @export
 setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig){
 	if (is.period(new))
 		as.difftime(new)
@@ -113,14 +110,17 @@ setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig){
 		make_difftime(as.numeric(new))
 })
 
+#' @export
 setMethod("reclass_timespan", signature(orig = "Duration"), function(new, orig){
 	suppressMessages(as.duration(new))
 })
 
+#' @export
 setMethod("reclass_timespan", signature(orig = "Interval"), function(new, orig){
 	suppressMessages(as.duration(new))
 })
 	
+#' @export
 setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 	suppressMessages(as.period(new))
 })

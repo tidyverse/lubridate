@@ -8,10 +8,8 @@ NULL
 #'
 #' year does not yet support years before 0 C.E.
 #'
-#' @export year "year<-"
+#' @export
 #' @aliases year year<-
-#' @method year default
-#' @method year Period
 #' @param x a date-time object   
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -23,12 +21,15 @@ NULL
 year <- function(x) 
   UseMethod("year")
   
+#' @export
 year.default <- function(x)
     as.POSIXlt(x, tz = tz(x))$year + 1900
 
+#' @export
 year.Period <- function(x)
   slot(x, "year")
 
+#' @export
 "year<-" <- function(x, value)
   x <- x + years(value - year(x))
 

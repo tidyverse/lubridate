@@ -7,10 +7,6 @@
 #'
 #' 
 #' @name DateUpdate
-#' @method update Date
-#' @method update POSIXt
-#' @method update POSIXct
-#' @method update POSIXlt
 #' @param object a date-time object  
 #' @param years a value to substitute for the date's year component
 #' @param months a value to substitute for the date's month component
@@ -38,10 +34,8 @@
 #'
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
-NULL
-
-#' @export
-update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
+#' @export 
+update.POSIXt <- function(object, ...){
   
   if(!length(object)) return(object)
   date <- as.POSIXlt(object)
@@ -84,7 +78,6 @@ update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
   # POSIXct format avoids negative and NA elements in POSIXlt format
   ct <- fit_to_timeline(date)
   reclass_date(ct, object)
-  
 }
   
 
@@ -98,7 +91,6 @@ update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
 #' fit_to_timeline returns the instant with the correct combination.
 #'
 #'
-#' @export fit_to_timeline
 #' @param lt a POSIXlt date-time object.
 #' @param class a character string that describes what type of object to return, 
 #' POSIXlt or POSIXct. Defaults to POSIXct.
@@ -136,6 +128,7 @@ update.POSIXt <- update.POSIXct <- update.POSIXlt <- function(object, ...){
 #' ## [3] NA fake time changed to NA (compare to as.POSIXct(tricky))
 #' ## [4] "2012-11-04 01:59:59 CDT" real instant, left as is
 #' }
+#' @export
 fit_to_timeline <- function(lt, class = "POSIXct") {
   if (class != "POSIXlt" && class != "POSIXct")
     stop("class argument must be POSIXlt or POSIXct")
@@ -159,9 +152,6 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
   }
 }
   
-
-
-
 
 #' @export
 update.Date <- function(object, ...){ 

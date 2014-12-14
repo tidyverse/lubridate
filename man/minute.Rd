@@ -5,7 +5,7 @@
 \alias{minute<-}
 \title{Get/set minutes component of a date-time.}
 \usage{
-\method{minute}{default}(x)
+minute(x)
 }
 \arguments{
 \item{x}{a date-time object}

@@ -628,8 +628,6 @@ fast_strptime <- function(x, format, tz = "UTC"){
 ## Choose the number at the n - truncated place in the vector
 ## return the substring created by 1 to tat number.
 .add_truncated <- function(orders, truncated){
-  ##:ess-bp-start::browser@nil:##
-browser(expr=is.null(.ESSBP.[["@19@"]]))##:ess-bp-end:##
   out <- orders
 
   if ( truncated > 0 ) {

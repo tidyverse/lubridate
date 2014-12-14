@@ -5,7 +5,7 @@
 \alias{hour<-}
 \title{Get/set hours component of a date-time.}
 \usage{
-\method{hour}{default}(x)
+hour(x)
 }
 \arguments{
 \item{x}{a date-time object}

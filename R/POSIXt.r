@@ -4,7 +4,7 @@ setOldClass("POSIXlt")
 
 #' Is x a POSIXct or POSIXlt object?
 #'
-#' @export is.POSIXt is.POSIXlt is.POSIXct
+#' @export
 #' @aliases is.POSIXt is.POSIXlt is.POSIXct
 #' @param x an R object   
 #' @return TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.
@@ -14,10 +14,12 @@ setOldClass("POSIXlt")
 #' is.POSIXt(as.Date("2009-08-03")) # FALSE
 #' is.POSIXt(as.POSIXct("2009-08-03")) # TRUE
 is.POSIXt <- function(x) is(x, "POSIXt")
+#' @export
 is.POSIXlt <- function(x) is(x, "POSIXlt")
+#' @export
 is.POSIXct <- function(x) is(x, "POSIXct")
 
-#' @method c POSIXct
+#' @export
 c.POSIXct <- function (..., recursive = FALSE) {
 	.POSIXct(c(unlist(lapply(list(...), unclass))), tz = tz(list(...)[[1]]))
 }

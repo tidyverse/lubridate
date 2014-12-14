@@ -6,8 +6,7 @@
 #' A date-time's daylight savings flag can not be set because it depends on the 
 #' date-time's year, month, day, and hour values.
 #'
-#' @export dst
-#' @method dst default
+#' @export
 #' @param x a date-time object   
 #' @return A logical. TRUE if DST is in force, FALSE if not, NA if unknown.
 #' @keywords utilities chron methods
@@ -16,6 +15,7 @@
 #' dst(x) 
 dst <- function(x)
   UseMethod("dst")
-  
+
+#' @export
 dst.default <- function(x)
   c(NA, FALSE, TRUE)[as.POSIXlt(x)$isdst + 2]

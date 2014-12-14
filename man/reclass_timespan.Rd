@@ -2,7 +2,6 @@
 % Please edit documentation in R/coercion.r
 \name{reclass_timespan}
 \alias{reclass_timespan}
-\alias{reclass_timespan,ANY,difftime-method}
 \title{Convenience method to reclass timespans post-modification.}
 \usage{
 reclass_timespan(new, orig)

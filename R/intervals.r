@@ -121,7 +121,7 @@ setMethod("show", signature(object = "Interval"), function(object){
 	print(format.Interval(object), quote = F)
 })
 
-#' @method format Interval
+#' @export
 format.Interval <- function(x,...){
   if (length(x@.Data) == 0) return("Interval(0)")
 	paste(format(x@start, tz = x@tzone, usetz = TRUE), "--", 
@@ -213,7 +213,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' original behavior of lubridate, which created an interval by default whenever 
 #' two date-times were subtracted.
 #'
-#' @export new_interval interval "%--%"
+#' @export
 #' @aliases interval new_interval %--%
 #' @param start a POSIXt or Date date-time object
 #' @param end a POSIXt or Date date-time object
@@ -233,7 +233,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' 
 #' span <- new_interval(ymd(20090101), ymd(20090201))
 #' # 2009-01-01 UTC--2009-02-01 UTC 
-new_interval <- interval <- function(start, end, tzone = attr(start, "tzone")){
+new_interval <- function(start, end, tzone = attr(start, "tzone")){
 	if (is.null(tzone)) {
 		if (is.null(attr(end, "tzone"))) tzone <- "UTC"
 		else tzone <- attr(end, "tzone")
@@ -252,6 +252,10 @@ new_interval <- interval <- function(start, end, tzone = attr(start, "tzone")){
 	new("Interval", span, start = starts, tzone = tzone)
 }
 
+#' @export
+interval <- new_interval
+
+#' @export
 "%--%" <- function(start, end) interval(start, end)
 
 
@@ -603,7 +607,7 @@ setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
   start.in & end.in
 })
 
-#' @method summary Interval
+#' @export
 summary.Interval <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]

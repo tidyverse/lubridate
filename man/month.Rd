@@ -5,7 +5,7 @@
 \alias{month<-}
 \title{Get/set months component of a date-time.}
 \usage{
-\method{month}{default}(x, label = FALSE, abbr = TRUE)
+month(x, label = FALSE, abbr = TRUE)
 }
 \arguments{
 \item{x}{a date-time object}

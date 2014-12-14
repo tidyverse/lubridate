@@ -6,10 +6,8 @@ NULL
 #' Date-time must be a  POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @export second "second<-"
+#' @export
 #' @aliases second second<-
-#' @method second default
-#' @method second Period
 #' @param x a date-time object   
 #' @return the seconds element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -22,12 +20,15 @@ NULL
 second <- function(x) 
   UseMethod("second")
   
+#' @export
 second.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$sec
 
+#' @export
 second.Period <- function(x)
   slot(x, ".Data")
 
+#' @export
 "second<-" <- function(x, value)
   x <- x + seconds(value - second(x))
   

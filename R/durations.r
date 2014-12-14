@@ -105,7 +105,7 @@ setMethod("show", signature(object = "Duration"), function(object){
 	print(format.Duration(object), quote = TRUE)
 })
 
-#' @method format Duration
+#' @export
 format.Duration <- function(x, ...) {
   if (length(x@.Data) == 0) return("Duration(0)")
   show <- vector(mode = "character")
@@ -331,8 +331,8 @@ duration <- function(num = 0, units = "seconds"){
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
 dseconds <- eseconds <- function(x = 1) new("Duration", x)
 dminutes <- eminutes <- function(x = 1) new("Duration", x * 60)
-dhours <- ehours <-   function(x = 1) new("Duration", x * 3600)
-ddays <- edays <-    function(x = 1) new("Duration", x * 86400)  
+dhours <- ehours <- function(x = 1) new("Duration", x * 3600)
+ddays <- edays <- function(x = 1) new("Duration", x * 86400)  
 dweeks <- eweeks <-   function(x = 1) new("Duration", x * 604800)
 dyears <- eyears <- function(x = 1) new("Duration", x * 60 * 60 * 24 * 365)
 dmilliseconds <- emilliseconds <- function(x = 1) new("Duration", x / 1000)
@@ -343,7 +343,7 @@ dpicoseconds <- epicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 
 
 #' Is x a duration object?
 #'
-#' @export is.duration
+#' @export
 #' @param x an R object   
 #' @return TRUE if x is a duration object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
@@ -354,7 +354,7 @@ dpicoseconds <- epicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 
 #' is.duration(new_duration(days = 12.4)) # TRUE
 is.duration <- function(x) is(x, "Duration")
 
-#' @method summary Duration
+#' @export
 summary.Duration <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]

@@ -200,7 +200,7 @@ setMethod("show", signature(object = "Period"), function(object){
   print(format(object))
 })
 
-#' @method format Period
+#' @export
 format.Period <- function(x, ...){
   if (length(x@.Data) == 0) return("Period(0)")
   show <- vector(mode = "character")
@@ -215,7 +215,7 @@ format.Period <- function(x, ...){
   show
 }
 
-#' @method xtfrm Period
+#' @export
 xtfrm.Period <- function(x){
   xtfrm(period_to_seconds(x))
 }
@@ -440,8 +440,6 @@ period <- function(num, units = "second") {
 #'
 #' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
 #' @aliases seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
-#' @method months numeric
-#' @method months integer
 #' @param x numeric value of the number of units to be contained in the period. With the exception 
 #'   of seconds(), x must be an integer. 
 #' @return a period object
@@ -488,22 +486,26 @@ period <- function(num, units = "second") {
 #' # seconds later)
 seconds <- function(x = 1) new_period(second = x)
 minutes <- function(x = 1) new_period(minute = x)
-hours <-   function(x = 1) new_period(hour = x)
-days <-    function(x = 1) new_period(day = x)  
-weeks <-   function(x = 1) new_period(week = x)
-months.numeric <- months.integer <- function(x, abbreviate) {
-  new_period(month = x)
-}
-years <-   function(x = 1) new_period(year = x)
+hours <- function(x = 1) new_period(hour = x)
+days <- function(x = 1) new_period(day = x)  
+weeks <- function(x = 1) new_period(week = x)
+years <- function(x = 1) new_period(year = x)
 milliseconds <- function(x = 1) seconds(x/1000)
 microseconds <- function(x = 1) seconds(x/1000000)
 nanoseconds <- function(x = 1) seconds(x/1e9)
 picoseconds <- function(x = 1) seconds(x/1e12)
 
+#' @export
+months.numeric <- function(x, abbreviate) {
+  new_period(month = x)
+}
+
+#' @export
+months.integer <- months.numeric
 
 #' Is x a period object?
 #'
-#' @export is.period
+#' @export
 #' @param x an R object   
 #' @return TRUE if x is a period object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, 
@@ -741,7 +743,7 @@ setMethod("<", signature(e1 = "numeric", e2 = "Period"),
           })
 
 	
-#' @method summary Period
+#' @export
 summary.Period <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]

@@ -6,10 +6,8 @@ NULL
 #' Date-time must be a  POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @export minute "minute<-"
+#' @export
 #' @aliases minute minute<-
-#' @method minute default
-#' @method minute Period
 #' @param x a date-time object   
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number
@@ -21,13 +19,16 @@ NULL
 #' minute(x) > 2
 minute <- function(x) 
   UseMethod("minute")
-  
+
+#' @export
 minute.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$min
 
+#' @export
 minute.Period <- function(x)
   slot(x, "minute")
 
+#' @export
 "minute<-" <- function(x, value)
   x <- x + minutes(value - minute(x))
 

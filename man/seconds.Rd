@@ -13,7 +13,7 @@
 \alias{years}
 \title{Quickly create relative timespans.}
 \usage{
-\method{months}{numeric}(x = 1)
+seconds(x = 1)
 }
 \arguments{
 \item{x}{numeric value of the number of units to be contained in the period. With the exception

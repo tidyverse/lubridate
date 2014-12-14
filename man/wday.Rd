@@ -5,7 +5,7 @@
 \alias{wday<-}
 \title{Get/set days component of a date-time.}
 \usage{
-\method{wday}{default}(x, label = FALSE, abbr = TRUE)
+wday(x, label = FALSE, abbr = TRUE)
 }
 \arguments{
 \item{x}{a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
