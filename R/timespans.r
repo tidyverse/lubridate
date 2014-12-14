@@ -138,7 +138,7 @@ NULL
 #' Get the length of a time span in any unit of time
 #' @export timespan_length 
 #' @S3method timespan_length default 
-#' @S3method timespan_length Interveal 
+#' @S3method timespan_length Interval 
 #' @param x a duration, period, difftime or interval
 #' @param unit a character string that specifies with time units to use
 #' @return the length of the interval in the specified unit. A negative number 
