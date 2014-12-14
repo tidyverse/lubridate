@@ -1,9 +1,11 @@
 #' Round date-times down.
 #'
-#' floor_date takes a date-time object and rounds it down to the nearest integer 
+#' \code{floor_date} takes a date-time object and rounds it down to the nearest integer 
 #' value of the specified time unit. Users can specify whether to round down to 
 #' the nearest second, minute, hour, day, week, month, or year.
 #'
+#' By convention the boundary for a month is the first second of the month. Thus
+#' \code{floor_date(ymd("2000-03-01"))} gives "2000-03-01 UTC".
 #' @export floor_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
@@ -45,10 +47,12 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 
 #' Round date-times up.
 #'
-#' ceiling_date takes a date-time object and rounds it up to the nearest integer 
-#' value of the specified time unit. Users can specify whether to round up to 
-#' the nearest second, minute, hour, day, week, month, or year.
+#' \code{ceiling_date} takes a date-time object and rounds it up to the nearest
+#' integer value of the specified time unit. Users can specify whether to round
+#' up to the nearest second, minute, hour, day, week, month, or year.
 #'
+#' By convention, the boundary for a month is the first second of the next
+#' month. Thus \code{ceiling_date(ymd("2000-03-01"))} gives "2000-03-01 UTC".
 #' @export ceiling_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
@@ -82,7 +86,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
     return(x)
   }
   
-	y <- floor_date(x - eseconds(1), unit)
+	y <- floor_date(x - dseconds(1), unit)
 	
 	switch(unit,
 		minute = minute(y) <- minute(y) + 1,
@@ -101,10 +105,12 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 
 #' Rounding for date-times.
 #'
-#' round_date takes a date-time object and rounds it to the nearest integer 
-#' value of the specified time unit. Users can specify whether to round to the 
-#' nearest second, minute, hour, day, week, month, or year.
+#' \code{round_date} takes a date-time object and rounds it to the nearest
+#' integer value of the specified time unit. Users can specify whether to round
+#' to the nearest second, minute, hour, day, week, month, or year.
 #'
+#' By convention, the boundary for a month is the first second of the next
+#' month. Thus \code{round_date(ymd("2000-03-01"))} gives "2000-03-01 UTC".
 #' @export round_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
