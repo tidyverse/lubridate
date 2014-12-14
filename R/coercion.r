@@ -6,6 +6,7 @@
 #' @include difftimes.r
 #' @include numeric.r
 #' @include POSIXt.r
+#' @include time-zones.r
 NULL
 
 
@@ -13,19 +14,19 @@ NULL
 #' @name DateCoercion
 #' @keywords internal 
 #'
-#' @S3method as.POSIXlt fts
-#' @S3method as.POSIXlt its
-#' @S3method as.POSIXlt timeSeries
-#' @S3method as.POSIXlt irts
-#' @S3method as.POSIXlt xts
-#' @S3method as.POSIXlt zoo
-#' @S3method as.POSIXlt tis
-#' @S3method as.POSIXct fts
-#' @S3method as.POSIXct its
-#' @S3method as.POSIXct timeSeries
-#' @S3method as.POSIXct irts
-#' @S3method as.POSIXct xts
-#' @S3method as.POSIXct zoo
+#' @method as.POSIXlt fts
+#' @method as.POSIXlt its
+#' @method as.POSIXlt timeSeries
+#' @method as.POSIXlt irts
+#' @method as.POSIXlt xts
+#' @method as.POSIXlt zoo
+#' @method as.POSIXlt tis
+#' @method as.POSIXct fts
+#' @method as.POSIXct its
+#' @method as.POSIXct timeSeries
+#' @method as.POSIXct irts
+#' @method as.POSIXct xts
+#' @method as.POSIXct zoo
 NULL
 
 as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(fts::dates.fts(x))
@@ -57,13 +58,13 @@ as.POSIXlt.tis <- function(x, tz = "", ...) as.Date(x)
 #' @keywords internal
 #'
 #' @export reclass_date
-#' @S3method reclass_date POSIXlt
-#' @S3method reclass_date POSIXct
-#' @S3method reclass_date chron
-#' @S3method reclass_date timeDate
-#' @S3method reclass_date its
-#' @S3method reclass_date ti
-#' @S3method reclass_date Date
+#' @method reclass_date POSIXlt
+#' @method reclass_date POSIXct
+#' @method reclass_date chron
+#' @method reclass_date timeDate
+#' @method reclass_date its
+#' @method reclass_date ti
+#' @method reclass_date Date
 reclass_date <- function(new, orig) UseMethod("reclass_date", orig)
 reclass_date.POSIXlt <- function(new, orig) {
   as.POSIXlt(new)
@@ -395,17 +396,25 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   negs <- int_length(x) < 0 & !is.na(int_length(x))
   x[negs] <- int_flip(x[negs])
 
-  if (missing(unit)) {
-    pers <- .int_to_period(x)
-    pers[negs] <- -1 * pers[negs]
-    return(pers)
-  } else {
-    unit <- standardise_period_names(unit)
-    per <- get(paste(unit, "s", sep = ""))
-    num <- x %/% per(1)
-    left_over <- x %% per(1)
-    pers <- per(num) + .int_to_period(left_over)
-  }
+  unit <- 
+    if (missing(unit))  "year"
+    else standardise_period_names(unit)
+
+  pers <-
+    switch(unit,
+           year = .int_to_period(x),
+           month = {
+             pers <- .int_to_period(x)
+             month(pers) <- month(pers) + year(pers)*12L
+             year(pers) <- 0L
+             pers
+           },
+           day = , hour = , minute = , second = {
+             secs <- abs(x@.Data)
+             units <- .units_within_seconds(secs, unit)
+             do.call("new", c("Period", units))
+           },
+           stop("Unsuported unit ", unit))
   
   pers[negs] <- -1 * pers[negs]
   pers
@@ -474,7 +483,26 @@ setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) 
   newper * sign(span)
 })
 
-setMethod("as.period", signature("Period"), function(x, unit = NULL, ...) x)
+setMethod("as.period", signature("Period"),
+          function(x, unit = NULL, ...){
+            if (missing(unit) || is.null(unit)) {
+              x
+            } else {
+              unit <- standardise_period_names(unit)
+              switch(unit, 
+                     year = x,
+                     month = {
+                       month(x) <- month(x) + year(x)*12L
+                       year(x) <- 0L
+                       x
+                     },
+                     day = , hour = , minute = , second = {
+                       N <- .units_within_seconds(period_to_seconds(x), unit)
+                       do.call("new", c("Period", N))
+                     },
+                     stop("Unsuported unit ", unit))
+            }
+          })
 
 setMethod("as.period", signature("logical"), function(x, unit = NULL, ...) {
   as.period(as.numeric(x), unit, ...)

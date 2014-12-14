@@ -23,6 +23,20 @@ check_interval <- function(object){
 		errors
 }
 
+.units_within_seconds <- function(secs, unit = "second"){
+  ## return a list suitable to pass to new("Period", ...)
+  switch(unit,
+         second = list(secs),
+         minute = list(secs %% 60, minute = secs %/% 60), 
+         hour =
+           c(.units_within_seconds(secs %% 3600, "minute"), 
+             list(hour = secs %/% 3600)), 
+         day =
+           c(.units_within_seconds(secs %% 86400, "hour"),
+             day = secs %/% 86400), 
+         stop("Unsuported unit ", unit))
+}
+
 
 #' Interval class
 #'
@@ -107,7 +121,7 @@ setMethod("show", signature(object = "Interval"), function(object){
 	print(format.Interval(object), quote = F)
 })
 
-#' @S3method format Interval
+#' @method format Interval
 format.Interval <- function(x,...){
   if (length(x@.Data) == 0) return("Interval(0)")
 	paste(format(x@start, tz = x@tzone, usetz = TRUE), "--", 
@@ -221,7 +235,7 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 #' # 2009-01-01 UTC--2009-02-01 UTC 
 new_interval <- interval <- function(start, end, tzone = attr(start, "tzone")){
 	if (is.null(tzone)) {
-		if (is.null(attr(end, "tzone"))) tzone <- ""
+		if (is.null(attr(end, "tzone"))) tzone <- "UTC"
 		else tzone <- attr(end, "tzone")
 	}
 	
@@ -589,7 +603,7 @@ setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
   start.in & end.in
 })
 
-#' @S3method summary Interval
+#' @method summary Interval
 summary.Interval <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]

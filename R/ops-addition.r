@@ -77,7 +77,6 @@ add_number_to_period <- function(num, per){
 }
 
 
-
 #' @export
 setMethod("+", signature(e1 = "Duration", e2 = "Duration"),
 	function(e1, e2) add_duration_to_duration(e2, e1))

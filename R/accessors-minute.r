@@ -8,8 +8,8 @@ NULL
 #'
 #' @export minute "minute<-"
 #' @aliases minute minute<-
-#' @S3method minute default
-#' @S3method minute Period
+#' @method minute default
+#' @method minute Period
 #' @param x a date-time object   
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number

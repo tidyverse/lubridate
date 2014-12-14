@@ -8,8 +8,8 @@ NULL
 #'
 #' @export second "second<-"
 #' @aliases second second<-
-#' @S3method second default
-#' @S3method second Period
+#' @method second default
+#' @method second Period
 #' @param x a date-time object   
 #' @return the seconds element of x as a decimal number
 #' @keywords utilities manip chron methods

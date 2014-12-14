@@ -75,21 +75,10 @@ setMethod("%m+%", signature(e2 = "Period"),
 setMethod("%m+%", signature(e1 = "Period"), 
   function(e1, e2) .month_plus(e2, e1))
 
-mplus_error <- function(e1, e2) 
-  stop("%m+% only handles Period objects with month or year units")
-
 #' @export   
-setMethod("%m+%", signature(e2 = "Duration"), mplus_error)
-
-#' @export   
-setMethod("%m+%", signature(e1 = "Duration"), mplus_error)
-
-#' @export   
-setMethod("%m+%", signature(e2 = "Interval"), mplus_error)
-
-#' @export   
-setMethod("%m+%", signature(e1 = "Interval"), mplus_error)
-
+setMethod("%m+%", signature(e2 = "ANY"), 
+          function(e1, e2)
+            stop("%m+% only handles Period objects with month or year units"))
 
 #' @export
 "%m-%" <- function(e1,e2) standardGeneric("%m-%")
@@ -105,22 +94,10 @@ setMethod("%m-%", signature(e2 = "Period"),
 setMethod("%m-%", signature(e1 = "Period"), 
   function(e1, e2) .month_plus(e2, -e1))
 
-mminus_error <- function(e1, e2) 
-  stop("%m-% only handles Period objects with month or year units")
-
-
 #' @export   
-setMethod("%m-%", signature(e2 = "Duration"), mminus_error)
-
-#' @export   
-setMethod("%m-%", signature(e1 = "Duration"), mminus_error)
-
-#' @export   
-setMethod("%m-%", signature(e2 = "Interval"), mminus_error)
-
-#' @export   
-setMethod("%m-%", signature(e1 = "Interval"), mminus_error)
-
+setMethod("%m-%", signature(e2 = "ANY"), 
+          function(e1, e2)
+            stop("%m-% only handles Period objects with month or year units"))
 
 .month_plus <- function(e1, e2) {
   if (any(c(e2@.Data, e2@minute, e2@hour, e2@day) != 0))

@@ -10,8 +10,8 @@ NULL
 #'
 #' @export year "year<-"
 #' @aliases year year<-
-#' @S3method year default
-#' @S3method year Period
+#' @method year default
+#' @method year Period
 #' @param x a date-time object   
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods

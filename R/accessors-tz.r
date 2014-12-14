@@ -25,10 +25,10 @@
 #'
 #' @export tz "tz<-"
 #' @aliases tz tz<-
-#' @S3method tz default 
-#' @S3method tz zoo 
-#' @S3method tz timeSeries
-#' @S3method tz irts 
+#' @method tz default 
+#' @method tz zoo 
+#' @method tz timeSeries
+#' @method tz irts 
 #' @param x a date-time object of class a POSIXct, POSIXlt, Date, chron, yearmon, 
 #' yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can 
 #' be coerced to POSIXlt with as.POSIXlt

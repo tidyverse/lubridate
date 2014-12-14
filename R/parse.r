@@ -331,25 +331,25 @@ hms <- function(..., quiet = FALSE) {
 ##' 
 ##' \item{\code{B}}{Full month name in the current locale.  (Also matches abbreviated name.)}
 ##'
-##' \item{\code{d!}}{Day of the month as decimal number (01--31 or 0--31)}
+##' \item{\code{d}!}{Day of the month as decimal number (01--31 or 0--31)}
 ##' 
-##' \item{\code{H!}}{Hours as decimal number (00--24 or 0--24).}
+##' \item{\code{H}!}{Hours as decimal number (00--24 or 0--24).}
 ##' 
 ##' \item{\code{I}}{Hours as decimal number (01--12 or 0--12).}
 ##' 
 ##' \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
 ##' 
-##' \item{\code{m*!}}{Month as decimal number (01--12 or 1--12). For
+##' \item{\code{m}!*}{Month as decimal number (01--12 or 1--12). For
 ##' \code{parse_date_time}, also matches abbreviated and full months names as
 ##' \code{b} and \code{B} formats.}
 ##' 
-##' \item{\code{M!}}{Minute as decimal number (00--59 or 0--59).}
+##' \item{\code{M}!}{Minute as decimal number (00--59 or 0--59).}
 ##' 
 ##' \item{\code{p}}{AM/PM indicator in the locale.  Used in
 ##'                   conjunction with \code{I} and \bold{not} with \code{H}.  An
 ##'                   empty string in some locales.}
 ##' 
-##' \item{\code{S!}}{Second as decimal number (00--61 or 0--61), allowing for up
+##' \item{\code{S}!}{Second as decimal number (00--61 or 0--61), allowing for up
 ##' to two leap-seconds (but POSIX-compliant implementations will ignore leap
 ##' seconds).}
 ##'
@@ -365,12 +365,12 @@ hms <- function(..., quiet = FALSE) {
 ##' Monday as the first day of week (and typically with the first Monday of the
 ##' year as day 1 of week 1).  The UK convention.}
 ##'
-##' \item{\code{y*!}}{Year without century (00--99 or 0--99).  In
+##' \item{\code{y}!*}{Year without century (00--99 or 0--99).  In
 ##' \code{parse_date_time} also matches year with century (Y format).}
 ##' 
-##' \item{\code{Y!}}{Year with century.}
+##' \item{\code{Y}!}{Year with century.}
 ##'
-##' \item{\code{z*!}}{ISO8601 signed offset in hours and minutes from UTC. For
+##' \item{\code{z}!*}{ISO8601 signed offset in hours and minutes from UTC. For
 ##' example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours
 ##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
 ##' strptime doesn't fully support ISO8601, lubridate represents this format
@@ -379,9 +379,9 @@ hms <- function(..., quiet = FALSE) {
 ##' rarely necessary. \code{parse_date_time2} and \code{fast_strptime} support
 ##' all of the timezone formats.}
 ##' 
-##' \item{\code{r*}}{Matches \code{Ip} and \code{H} orders.}
-##' \item{\code{R*}}{Matches \code{HM} and\code{IMp} orders.}
-##' \item{\code{T*}}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
+##' \item{\code{r}*}{Matches \code{Ip} and \code{H} orders.}
+##' \item{\code{R}*}{Matches \code{HM} and\code{IMp} orders.}
+##' \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 ##' }
 ##'
 ##' @export parse_date_time
@@ -628,6 +628,8 @@ fast_strptime <- function(x, format, tz = "UTC"){
 ## Choose the number at the n - truncated place in the vector
 ## return the substring created by 1 to tat number.
 .add_truncated <- function(orders, truncated){
+  ##:ess-bp-start::browser@nil:##
+browser(expr=is.null(.ESSBP.[["@19@"]]))##:ess-bp-end:##
   out <- orders
 
   if ( truncated > 0 ) {
@@ -675,7 +677,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
     if( rest  < 0 )
       orders <- c(orders, add, .add_truncated(xxx, abs(rest)))
     else
-      orders <- c(orders, add[1:truncated], sep = "")
+      orders <- c(orders, add[1:truncated])
   }
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
   parse_date_time(dates, orders, tz = tz, quiet = quiet, locale = locale)

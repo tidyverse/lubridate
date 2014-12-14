@@ -102,7 +102,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             break;
           case 'y': // year in yy format
             PARSENUM(y, 2);
-            if ( y < 100 ) y += 2000;
+	    if ( y <= 68 )
+	      y += 2000;
+	    else
+	      y += 1900;
             break;
           case 'm': // month
             PARSENUM(m, 2);

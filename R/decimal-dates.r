@@ -1,9 +1,9 @@
 #' Converts a date to a decimal of its year. 
 #'
 #' @export decimal_date 
-#' @S3method decimal_date default 
-#' @S3method decimal_date zoo 
-#' @S3method decimal_date its
+#' @method decimal_date default 
+#' @method decimal_date zoo 
+#' @method decimal_date its
 #' @param date a POSIXt or Date object   
 #' @return a numeric object where the date is expressed as a fraction of its year
 #' @keywords manip chron methods

@@ -78,12 +78,74 @@ test_that("format.Period works as expected", {
 })
 
 test_that("as.period handles interval objects", {
-  time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
-  time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
-  int <- new_interval(time1, time2)
+  start <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
+  end <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
+  int <- new_interval(start, end)
+  int_neg <- new_interval(end, start)
     
   expect_that(as.period(int), equals(years(1)))
+  expect_that(as.period(int_neg), equals(years(-1)))
 })
+
+test_that("as.period handles interval objects with special start dates", {
+    start <- ymd('1992-02-29')
+    end <- ymd('2010-12-05')
+    int <- new_interval(start, end)
+
+    expect_that(as.period(int), equals(period(c(18, 9, 6), c("year", "month", "day"))))
+    expect_that(as.period(int) + start, equals(end))
+})
+
+
+test_that("as.period with different units handles interval objects", {
+    start <- ymd('1992-02-29')
+    end <- ymd_hms('2010-12-05 01:02:03')
+    int <- new_interval(start, end)
+
+    expect_that(as.period(int),
+                equals(period(c(18, 9, 6, 1, 2, 3), c("year", "month", "day", "hour", "minute", "second"))))
+    expect_that(as.period(int) + start, equals(end))
+
+    expect_that(as.period(int, "months"),
+                equals(period(c(225, 6, 1, 2, 3), c("month", "day", "hour", "minute", "second"))))
+    expect_that(as.period(int, "months") + start, equals(end))
+
+    expect_that(as.period(int, "hours"), equals(period(c(164497, 2, 3), c("hour", "minute", "second"))))
+    expect_that(as.period(int, "hours") + start, equals(end))
+
+    expect_that(as.period(int, "minute"), equals(period(c(9869822, 3), c("minute", "second"))))
+    expect_that(as.period(int, "minute") + start, equals(end))
+
+    expect_that(as.period(int, "second"), equals(period(c(592189323), c("second"))))
+    expect_that(as.period(int, "second") + start, equals(end))
+})
+
+
+test_that("as.period with different units handles negative interval objects", {
+    end <- ymd('1992-02-29')
+    start <- ymd_hms('2010-12-05 01:02:03')
+    int <- new_interval(start, end)
+
+    expect_that(as.period(int),
+                equals(period(-c(18, 9, 6, 1, 2, 3), c("year", "month", "day", "hour", "minute", "second"))))
+    ## fixme: #285
+    ## expect_that(as.period(int) + start, equals(end))
+
+    expect_that(as.period(int, "months"),
+                equals(period(-c(225, 6, 1, 2, 3), c("month", "day", "hour", "minute", "second"))))
+    ## fixme: #285
+    ## expect_that(as.period(int, "months") + start, equals(end))
+
+    expect_that(as.period(int, "hours"), equals(period(-c(164497, 2, 3), c("hour", "minute", "second"))))
+    expect_that(as.period(int, "hours") + start, equals(end))
+
+    expect_that(as.period(int, "minute"), equals(period(-c(9869822, 3), c("minute", "second"))))
+    expect_that(as.period(int, "minute") + start, equals(end))
+
+    expect_that(as.period(int, "second"), equals(period(-c(592189323), c("second"))))
+    expect_that(as.period(int, "second") + start, equals(end))
+})
+
 
 test_that("as.period handles NA interval objects", {
   one_missing_date <- as.POSIXct(NA_real_, origin = origin)
@@ -135,6 +197,13 @@ test_that("as.period handles duration objects", {
   expect_that(as.period(dur), equals(seconds(5) + minutes(30)))
 })
 
+test_that("as.period handles period objects", {
+    per <- minutes(1000) + seconds(50) + seconds(11)
+    expect_that(as.period(per), equals(per))
+    expect_that(as.period(per, "minute"), equals(period(c(1001, 1), c("minute", "second"))))
+    expect_that(as.period(per, "hour"), equals(period(c(16, 41, 1), c("hour", "minute", "second"))))
+})
+
 test_that("[<- can subset periods with new periods", {
   Time <- data.frame(Time = c(hms("01:01:01"), hms("02:02:02")))
   Time[1,1] <- Time[1,1] + hours(1)
@@ -177,3 +246,4 @@ test_that("summary.Period creates useful summary", {
   
   expect_equal(summary(c(per, NA)), text)
 })
+

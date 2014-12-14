@@ -7,7 +7,7 @@
 #' date-time's year, month, day, and hour values.
 #'
 #' @export dst
-#' @S3method dst default
+#' @method dst default
 #' @param x a date-time object   
 #' @return A logical. TRUE if DST is in force, FALSE if not, NA if unknown.
 #' @keywords utilities chron methods

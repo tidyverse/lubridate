@@ -334,6 +334,14 @@ test_that("truncated formats are correctly parsed", {
                          "2010-01-01 00:00:00"), tz = "UTC")))
 })
 
+test_that("truncation on non-dates results in NAs indeed", {
+  expect_warning(
+      expect_true({
+        tt <- c("NI PODATKA", "TUJINA", "GRAD")
+        all(is.na(ymd_hms(tt, truncated = 3)))
+      }))
+})
+
 
 test_that("fractional formats are correctly parsed", {
   expect_that({
@@ -521,6 +529,19 @@ test_that("fast_strptime and parse_date_time2 parse correctly verbose formats", 
                as.POSIXct(as.POSIXlt(NA, tz = "UTC")))
 })
 
+test_that("fast_strptime and parse_date_time2 aggree with strptime", {
+  date <- "1 7 97"
+  expect_equal(fast_strptime(date, "%d %m %y"),
+               strptime(date, "%d %m %y", tz = "UTC"))
+  date <- "1 1 69"
+  expect_equal(fast_strptime(date, "%d %m %y"),
+               strptime(date, "%d %m %y", tz = "UTC"))
+  date <- "1 1 68"
+  expect_equal(fast_strptime(date, "%d %m %y"),
+               strptime(date, "%d %m %y", tz = "UTC"))
+  expect_equal(parse_date_time2(date, "dmy"),
+               strptime(date, "%d %m %y", tz = "UTC"))
+})
 
 ## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00",
 ##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00",

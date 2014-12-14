@@ -105,7 +105,7 @@ setMethod("show", signature(object = "Duration"), function(object){
 	print(format.Duration(object), quote = TRUE)
 })
 
-#' @S3method format Duration
+#' @method format Duration
 format.Duration <- function(x, ...) {
   if (length(x@.Data) == 0) return("Duration(0)")
   show <- vector(mode = "character")
@@ -354,7 +354,7 @@ dpicoseconds <- epicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 
 #' is.duration(new_duration(days = 12.4)) # TRUE
 is.duration <- function(x) is(x, "Duration")
 
-#' @S3method summary Duration
+#' @method summary Duration
 summary.Duration <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]

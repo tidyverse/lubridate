@@ -8,8 +8,8 @@ NULL
 #'
 #' @export hour "hour<-"
 #' @aliases hour hour<-
-#' @S3method hour default
-#' @S3method hour Period
+#' @method hour default
+#' @method hour Period
 #' @param x a date-time object   
 #' @keywords utilities manip chron methods
 #' @return the hours element of x as a decimal number

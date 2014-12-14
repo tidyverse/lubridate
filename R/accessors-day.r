@@ -8,9 +8,9 @@ NULL
 #'
 #' @export day yday mday "day<-" "yday<-" "mday<-"
 #' @aliases day yday mday day<- yday<- mday<-
-#' @S3method yday default
-#' @S3method mday default
-#' @S3method mday Period
+#' @method yday default
+#' @method mday default
+#' @method mday Period
 #' @param x a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, zooreg,
 #'    timeDate, xts, its, ti, jul, timeSeries, or fts object. 
 #' @return yday returns the day of the year as a decimal number (01-366). mday returns the day of 
@@ -39,17 +39,17 @@ yday.default <- function(x)
 #'
 #' @export wday "wday<-"
 #' @aliases wday wday<- 
-#' @S3method wday default
-#' @S3method wday numeric
+#' @method wday default
+#' @method wday numeric
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
 #'   jul, timeSeries, or fts object. 
-#' @param label logical. Only available for wday. TRUE will display the day of the week as a 
-#'   character string label such as "Sunday." FALSE will display the day of the week as a number.
-#' @param abbr logical. Only available for wday. FALSE will display the day of the week as a 
-#'   character string label such as "Sunday." TRUE will display an abbreviated version of the 
+#' @param label logical. Only available for wday. TRUE will display the day of the week as an 
+#'   ordered factor of character strings, such as "Sunday." FALSE will display the day of the week as a number.
+#' @param abbr logical. Only available for wday. FALSE will display the day of the week as an 
+#'   ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the 
 #'   label, such as "Sun". abbr is disregarded if label = FALSE.
 #' @return wday returns the day of the week as a decimal number 
-#'   (01-07, Sunday is 1).
+#'   (01-07, Sunday is 1) or an ordered factor (Sunday is first).
 #' @seealso \code{\link{yday}}, \code{\link{mday}}
 #' @keywords utilities manip chron methods
 #' @examples
@@ -58,12 +58,15 @@ yday.default <- function(x)
 #'
 #' wday(ymd(080101))
 #' # 3
-#' wday(ymd(080101), label = TRUE)
+#' wday(ymd(080101), label = TRUE, abbr = FALSE)
 #' # "Tuesday"
+#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 #' wday(ymd(080101), label = TRUE, abbr = TRUE)
 #' # "Tues"
+#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 #' wday(ymd(080101) + days(-2:4), label = TRUE, abbr = TRUE)
 #' # "Sun"   "Mon"   "Tues"  "Wed"   "Thurs" "Fri"   "Sat" 
+#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 wday <- function(x, label = FALSE, abbr = TRUE) 
   UseMethod("wday")
 

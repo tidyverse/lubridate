@@ -21,12 +21,10 @@ NULL
 #' week(x) <- 54
 #' week(x) > 3
 week <- function(x)
-  yday(x) %/% 7 + 1
-
+  (yday(x) - 1) %/% 7 + 1
   
 "week<-" <- function(x, value)
   x <- x + days((value - week(x)) * 7)
-
 
 isoweek <- function(x){
   xday <- ISOdate(year(x), month(x), day(x), tz = tz(x))
