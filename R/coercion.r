@@ -6,6 +6,7 @@
 #' @include difftimes.r
 #' @include numeric.r
 #' @include POSIXt.r
+#' @include time-zones.r
 NULL
 
 
