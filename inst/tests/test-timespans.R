@@ -17,3 +17,44 @@ test_that("is.timespan works as expected",{
 test_that("is.timespan handles vectors",{
   expect_that(is.timespan(minutes(1:3)), is_true())
 })
+
+test_that("time_length works as expected",{
+  expect_that(time_length(period(1, "day")), # period 
+    equals(86400)) 
+  expect_that(time_length(ymd('2014-12-15')-ymd('2014-11-30'), "day"), # difftime 
+    equals(15)) 
+  expect_that(time_length(ymd('2014-12-15')-ymd('2014-11-30'), "week"), 
+    equals(15/7)) 
+  expect_that(time_length(duration(3, "months"), "month"), # duration
+    equals(3))
+  expect_that(time_length(interval(ymd('2014-11-30'), ymd('2014-12-15')), "weeks"), # interval
+    equals(15/7))
+  expect_that(time_length(interval(ymd('1900-01-01'), ymd('1999-12-31')), "years"), 
+    is_less_than(100))
+  expect_that(time_length(as.duration(interval(ymd('1900-01-01'), ymd('1999-12-31'))), "years"), 
+    is_more_than(100))
+  expect_that(-1*time_length(interval(ymd('1900-01-01'), ymd('2000-01-01')), "days"),
+    equals(time_length(int_flip(interval(ymd('1900-01-01'), ymd('2000-01-01'))), "days")))
+  # time_length should work even if date of birth is a 29 Feb
+  expect_that(time_length(interval(ymd('1992-02-29'), ymd('1999-02-28')), "years"), 
+    is_less_than(7))
+  expect_that(time_length(interval(ymd('1992-02-29'), ymd('1999-03-31')), "years"), 
+    is_more_than(7))
+  # With a leap year, we expect same number of days
+  expect_that(-1*time_length(interval(ymd('1992-02-28'), ymd('2000-01-01')), "days"),
+    equals(time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-01-01'))), "days")))
+  # But for an age in years (years length different)
+  expect_that(
+    -1*time_length(interval(ymd('1992-02-28'), ymd('2000-01-01')), "years")
+    ==time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-01-01'))), "years"),
+    is_false())
+})
+
+test_that("time_length handles vectors",{
+  expect_that(time_length(days(1:3), unit="days"),
+    equals(1:3))
+  expect_that(time_length(as.interval(days(1:3), start=today()), unit="days"),
+    equals(1:3))
+  expect_that(time_length(as.interval(days(c(1:3,NA)), start=today()), unit="days"),
+    equals(c(1:3,NA)))
+})
