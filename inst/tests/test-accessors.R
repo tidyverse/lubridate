@@ -112,9 +112,9 @@ test_that("isoyear accessor extracts correct ISO8601 year",{
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
   
-  expect_that(lubridate:::isoyear(poslt), equals(c(2014,2015)))
-  expect_that(lubridate:::isoyear(posct), equals(c(2014,2015)))
-  expect_that(lubridate:::isoyear(date), equals(c(2014,2015)))
+  expect_that(isoyear(poslt), equals(c(2014,2015)))
+  expect_that(isoyear(posct), equals(c(2014,2015)))
+  expect_that(isoyear(date), equals(c(2014,2015)))
   
 })
 
