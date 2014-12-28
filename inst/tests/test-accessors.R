@@ -107,13 +107,14 @@ test_that("years accessor extracts correct year",{
 })
 
 test_that("isoyear accessor extracts correct ISO8601 year",{
-  poslt <- as.POSIXlt("2010-01-01 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+  poslt <- c(as.POSIXlt("2014-12-28 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"),
+             as.POSIXlt("2014-12-29 01:12:08", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
   
-  expect_that(isoyear(poslt), equals(2009))
-  expect_that(isoyear(posct), equals(2009))
-  expect_that(isoyear(date), equals(2009))
+  expect_that(lubridate:::isoyear(poslt), equals(c(2014,2015)))
+  expect_that(lubridate:::isoyear(posct), equals(c(2014,2015)))
+  expect_that(lubridate:::isoyear(date), equals(c(2014,2015)))
   
 })
 
