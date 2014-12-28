@@ -2,14 +2,19 @@
 % Please edit documentation in R/durations.r
 \name{duration}
 \alias{duration}
+\alias{is.duration}
 \title{Create a duration object.}
 \usage{
 duration(num = 0, units = "seconds")
+
+is.duration(x)
 }
 \arguments{
 \item{num}{the number of time units to include in the duration}
 
 \item{units}{a character string that specifies the type of units that num refers to.}
+
+\item{x}{an R object}
 }
 \value{
 a duration object
@@ -48,6 +53,8 @@ duration(1.5, "minutes")
 # 90s
 duration(-1, "days")
 # -86400s (~-1 days)
+is.duration(as.Date("2009-08-03")) # FALSE
+is.duration(new_duration(days = 12.4)) # TRUE
 }
 \seealso{
 \code{\link{new_duration}}, \code{\link{as.duration}}

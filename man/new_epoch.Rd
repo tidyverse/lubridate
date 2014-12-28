@@ -20,4 +20,5 @@ new_epoch creates an epoch object with the specified values. Implementation for 
 \seealso{
 \code{\link{saturdays}}
 }
+\keyword{internal}
 

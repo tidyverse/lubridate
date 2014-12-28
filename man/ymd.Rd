@@ -48,9 +48,12 @@ If \code{truncated} parameter is non-zero \code{ymd} functions also check for
 truncated formats. For example \code{ymd} with \code{truncated = 2} will also
 parse incomplete dates like \code{2012-06} and \code{2012}.
 
-NOTE: \code{ymd} family of functions are based on \code{\link{strptime}}
-which currently correctly parses "\%y" format, but fails to parse "\%y-\%m"
-formats.
+NOTE: \code{ymd} family of functions are based on `parse_date_time` and thus
+directly drop to internal C parser for numeric months, but use R's
+`strptime` for alphabetic months. This implies that some of the `strptime`'s
+limitations are inherited by lubridate's parser. For example truncated
+formats (like %Y-%b) will not be parsed. Numeric truncated formats (like
+%Y-%m) are handled correctly by lubridate's C parser.
 
 As of version 1.3.0, lubridate's parse functions no longer return a
 message that displays which format they used to parse their input. You can

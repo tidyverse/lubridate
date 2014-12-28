@@ -255,8 +255,7 @@ new_duration <- function(num = 0,...){
 #' @param num the number of time units to include in the duration
 #' @param units a character string that specifies the type of units that num refers to.
 #' @return a duration object
-#' @export duration
-#' @aliases duration
+#' @export
 #' @seealso \code{\link{new_duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
 #' @examples
@@ -276,9 +275,7 @@ duration <- function(num = 0, units = "seconds"){
 }
 
 
-
-
-#' Quickly create exact time spans.
+#' Quickly create duration objects.
 #'
 #' Quickly create Duration objects for easy date-time manipulation. The units of 
 #' the duration created depend on the name of the function called. For Duration 
@@ -290,8 +287,7 @@ duration <- function(num = 0, units = "seconds"){
 #' manipulated in a method similar to object oriented programming. Duration 
 #' objects can be added to Date, POSIXt, and Interval objects.
 #'
-#' @export eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears dmilliseconds emilliseconds dmicroseconds emicroseconds dnanoseconds enanoseconds dpicoseconds epicoseconds
-#' @aliases eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears dmilliseconds emilliseconds dmicroseconds emicroseconds dnanoseconds enanoseconds dpicoseconds epicoseconds
+#' @name quick_durations
 #' @param x numeric value of the number of units to be contained in the duration. 
 #' @return a duration object
 #' @seealso \code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
@@ -329,26 +325,31 @@ duration <- function(num = 0, units = "seconds"){
 #' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + ddays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
+#' @export eseconds eminutes ehours edays eweeks eyears dseconds dminutes dhours ddays dweeks dyears dmilliseconds emilliseconds dmicroseconds emicroseconds dnanoseconds enanoseconds dpicoseconds epicoseconds
 dseconds <- eseconds <- function(x = 1) new("Duration", x)
+#' @rdname quick_durations
 dminutes <- eminutes <- function(x = 1) new("Duration", x * 60)
+#' @rdname quick_durations
 dhours <- ehours <- function(x = 1) new("Duration", x * 3600)
+#' @rdname quick_durations
 ddays <- edays <- function(x = 1) new("Duration", x * 86400)  
-dweeks <- eweeks <-   function(x = 1) new("Duration", x * 604800)
+#' @rdname quick_durations
+dweeks <- eweeks <- function(x = 1) new("Duration", x * 604800)
+#' @rdname quick_durations
 dyears <- eyears <- function(x = 1) new("Duration", x * 60 * 60 * 24 * 365)
+#' @rdname quick_durations
 dmilliseconds <- emilliseconds <- function(x = 1) new("Duration", x / 1000)
+#' @rdname quick_durations
 dmicroseconds <- emicroseconds <- function(x = 1) new("Duration", x / 1000 / 1000)
+#' @rdname quick_durations
 dnanoseconds <- enanoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000)
+#' @rdname quick_durations
 dpicoseconds <- epicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000 / 1000)
 
 
-#' Is x a duration object?
-#'
-#' @export
+#' @rdname duration
 #' @param x an R object   
-#' @return TRUE if x is a duration object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}}, 
-#'   \code{\link{is.period}}, \code{\link{duration}}
-#' @keywords logic chron
+#' @export
 #' @examples
 #' is.duration(as.Date("2009-08-03")) # FALSE
 #' is.duration(new_duration(days = 12.4)) # TRUE

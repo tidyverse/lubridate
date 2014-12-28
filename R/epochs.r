@@ -20,22 +20,30 @@
 
 #' Quickly create common epoch objects
 #'
-#' Creates an epoch object that uses the functions name as the reference epoch event. Implementation for epochs will be implemented in future versions of lubridate.
-#' 
-#' @aliases sundays mondays tuesdays wednesdays thursdays fridays saturdays
+#' Creates an epoch object that uses the functions name as the reference epoch
+#' event. Implementation for epochs will be implemented in future versions of
+#' lubridate.
+#' @name quick_epochs
+#' @keywords internal
 #' @param x number of epochs to be included
 sundays <- function(x = 1) 
   new_epoch(weekday = "sunday", number = x)
+#' @rdname quick_epochs
 mondays <- function(x = 1) 
   new_epoch(weekday = "monday", number = x)
+#' @rdname quick_epochs
 tuesdays <- function(x = 1) 
   new_epoch(weekday = "tuesday", number = x)
+#' @rdname quick_epochs
 wednesdays <- function(x = 1) 
   new_epoch(weekday = "wednesday", number = x)
+#' @rdname quick_epochs
 thursdays <- function(x = 1) 
   new_epoch(weekday = "thursday", number = x)
+#' @rdname quick_epochs
 fridays <- function(x = 1) 
   new_epoch(weekday = "friday", number = x)
+#' @rdname quick_epochs
 saturdays <- function(x = 1) 
   new_epoch(weekday = "saturday", number = x)
 
@@ -46,6 +54,7 @@ saturdays <- function(x = 1)
 #' @param weekday name of weekday to use as epoch
 #' @param number number of epochs to include
 #' @return an epoch object
+#' @keywords internal
 #' @seealso \code{\link{saturdays}}
 new_epoch <- function(weekday, number){
   epoch <- list(weekday = weekday, number = number)
@@ -58,6 +67,7 @@ new_epoch <- function(weekday, number){
 #' 
 #' @param date a date-time object to be used as the reference time from which future epochs will be counted
 #' @param epoch an epoch object that decribes the number and type of epochs to be used to define a new date-time
+#' @keywords internal
 #' @return the date-time that occurs that specified number of epochs after the original date-time
 add_epoch_to_date <- function(date, epoch){
   weekday <- switch(epoch$weekday, sunday = 1, monday = 2, 

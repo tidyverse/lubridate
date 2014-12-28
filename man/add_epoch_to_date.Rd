@@ -17,4 +17,5 @@ the date-time that occurs that specified number of epochs after the original dat
 \description{
 Method for adding epochs to dates. Epochs will be implemented in a later version of lubridate.
 }
+\keyword{internal}
 

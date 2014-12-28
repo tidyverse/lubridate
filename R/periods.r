@@ -361,20 +361,18 @@ new_period <- function(...) {
 
 #' Create a period object.
 #'
-#' period creates a period object with the specified values. period provides the 
-#' behaviour of \code{\link{new_period}} in a way that is more suitable for automating 
-#' within a function.
+#' \code{period} creates a period object with the specified values. period
+#' provides the behaviour of \code{\link{new_period}} in a way that is more
+#' suitable for automating within a function.
 #'
-#' Within a 
-#' Period object, time units do not have a fixed length (except for seconds) 
-#' until they are added to a date-time. The length of each time unit will 
-#' depend on the date-time to which it is added. For example, a year that 
-#' begins on 2009-01-01 will be 365 days long.  A year that begins on 
-#' 2012-01-01 will be 366 days long. When math is performed with a period 
-#' object, each unit is applied separately. How the length of a period is 
-#' distributed among 
-#' its units is non-trivial. For example, when leap seconds occur 1 minute 
-#' is longer than 60 seconds.
+#' Within a Period object, time units do not have a fixed length (except for
+#' seconds) until they are added to a date-time. The length of each time unit
+#' will depend on the date-time to which it is added. For example, a year that
+#' begins on 2009-01-01 will be 365 days long.  A year that begins on 2012-01-01
+#' will be 366 days long. When math is performed with a period object, each unit
+#' is applied separately. How the length of a period is distributed among its
+#' units is non-trivial. For example, when leap seconds occur 1 minute is longer
+#' than 60 seconds.
 #'
 #' Periods track the change in the "clock time" between two date-times. They 
 #' are measured in common time related units: years, months, days, hours, 
@@ -387,13 +385,11 @@ new_period <- function(...) {
 #' can be added to and subtracted to date-times to create a user interface 
 #' similar to object oriented programming.
 #'
-#' @export period
-#' @aliases period
+#' @export
 #' @param num a numeric vector that lists the number of time units to be included in the period
 #' @param units a character vector that lists the type of units to be used. The units in units 
 #' are matched to the values in num according to their order.
 #' @return a period object
-#' @seealso \code{\link{new_period}}, \code{\link{as.period}}
 #' @keywords chron classes
 #' @examples
 #' period(c(90, 5), c("second", "minute"))
@@ -423,7 +419,15 @@ period <- function(num, units = "second") {
   		day = pieces$day, hour = pieces$hour, minute = pieces$minute)
 }
 
-#' Quickly create relative timespans.
+#' @rdname period
+#' @param x an R object   
+#' @examples
+#' is.period(as.Date("2009-08-03")) # FALSE
+#' is.period(new_period(months= 1, days = 15)) # TRUE
+#' @export
+is.period <- function(x) is(x,"Period")
+
+#' Quickly create period objects.
 #'
 #' Quickly create Period objects for easy date-time manipulation. The units of 
 #' the period created depend on the name of the function called. For Period 
@@ -438,12 +442,11 @@ period <- function(num, units = "second") {
 #' objects can be added to Date, POSIXct, and POSIXlt objects to calculate new 
 #' date-times.
 #'
-#' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
-#' @aliases seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
-#' @param x numeric value of the number of units to be contained in the period. With the exception 
-#'   of seconds(), x must be an integer. 
+#' @name quick_periods
+#' @param x numeric value of the number of units to be contained in the
+#'          period. With the exception of seconds(), x must be an integer.
 #' @return a period object
-#' @seealso \code{\link{Period-class}}, \code{\link{new_period}}, \code{\link{ddays}}
+#' @seealso \code{\link{Period-class}}, \code{\link{period}}, \code{\link{ddays}}
 #' @keywords chron manip
 #' @examples
 #'
@@ -484,43 +487,32 @@ period <- function(num, units = "second") {
 #' boundary + edays(1) # duration
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 
 #' # seconds later)
+#' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
 seconds <- function(x = 1) new_period(second = x)
+#' @rdname quick_periods
 minutes <- function(x = 1) new_period(minute = x)
+#' @rdname quick_periods
 hours <- function(x = 1) new_period(hour = x)
+#' @rdname quick_periods
 days <- function(x = 1) new_period(day = x)  
+#' @rdname quick_periods
 weeks <- function(x = 1) new_period(week = x)
+#' @rdname quick_periods
 years <- function(x = 1) new_period(year = x)
+#' @rdname quick_periods
 milliseconds <- function(x = 1) seconds(x/1000)
+#' @rdname quick_periods
 microseconds <- function(x = 1) seconds(x/1000000)
+#' @rdname quick_periods
 nanoseconds <- function(x = 1) seconds(x/1e9)
+#' @rdname quick_periods
 picoseconds <- function(x = 1) seconds(x/1e12)
 
+#' @rdname quick_periods
 #' @export
 months.numeric <- function(x, abbreviate) {
   new_period(month = x)
 }
-
-#' @export
-months.integer <- months.numeric
-
-#' Is x a period object?
-#'
-#' @export
-#' @param x an R object   
-#' @return TRUE if x is a period object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, 
-#' \code{\link{is.interval}}, 
-#'   \code{\link{is.duration}}, \code{\link{period}}
-#' @keywords logic chron
-#' @examples
-#' is.period(as.Date("2009-08-03")) # FALSE
-#' is.period(new_period(months= 1, days = 15)) # TRUE
-is.period <- function(x) is(x,"Period")
-
-
-
-
-
 
 #' Convert a period to the number of seconds it appears to represent
 #'
@@ -742,8 +734,7 @@ setMethod("<", signature(e1 = "numeric", e2 = "Period"),
             stop("cannot compare Period to numeric:\ncoerce with as.numeric")
           })
 
-	
-#' @export
+#' @export	
 summary.Period <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]
