@@ -9,7 +9,7 @@ NULL
 #' year does not yet support years before 0 C.E.
 #'
 #' @export
-#' @aliases year year<-
+#' @aliases year year<- isoyear
 #' @param x a date-time object   
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -41,3 +41,11 @@ setMethod("year<-", signature("Period"), function(x, value){
   slot(x, "year") <- value
   x
 })
+
+isoyear <- function(x) {
+  xday <- ISOdate(year(x), month(x), day(x), tz = tz(x))
+  dn <- 1 + (wday(x) + 5) %% 7
+  nth <- xday + ddays(4 - dn)
+  year(nth) 
+  
+}
