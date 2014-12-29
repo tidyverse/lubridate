@@ -179,12 +179,20 @@ setMethod("time_length", signature("Interval"), function(x, unit = "second") {
   if (unit %in% c("year","month")){
     res <- as.period(x, unit=unit)
     res <- slot(res, unit)
-    direction <- sign(res)
-    previous_anniversary <- int_start(x) %m+% (res * period(1, units = unit))
-    next_anniversary <- int_start(x) %m+% ((res + direction) * period(1, units = unit))
-    time_to_now <- as.duration(int_end(x) - previous_anniversary)
-    time_to_next <- as.duration(next_anniversary - previous_anniversary)
-    res <- res + direction * time_to_now / time_to_next
+    if (sign(res)>0) {
+      previous_anniversary <- int_start(x) %m++% (res * period(1, units = unit))
+      next_anniversary <- int_start(x) %m++% ((res + 1) * period(1, units = unit))
+      time_to_now <- as.duration(int_end(x) - previous_anniversary)
+      time_to_next <- as.duration(next_anniversary - previous_anniversary)
+      res <- res + time_to_now / time_to_next
+    } 
+    else {
+      previous_anniversary <- int_start(x) %m+% (res * period(1, units = unit))
+      next_anniversary <- int_start(x) %m+% ((res - 1) * period(1, units = unit))
+      time_to_now <- as.duration(int_end(x) - previous_anniversary)
+      time_to_next <- as.duration(next_anniversary - previous_anniversary)
+      res <- res - time_to_now / time_to_next
+    }
     res
   }
   else {
@@ -192,3 +200,21 @@ setMethod("time_length", signature("Interval"), function(x, unit = "second") {
   }
 })
 
+"%m++%" <- function(e1,e2) {
+  if (any(c(e2@.Data, e2@minute, e2@hour, e2@day) != 0))
+    stop("%m++% only handles month and years. Add other periods separately with '+'")
+  
+  if (any(e2@year != 0)) e2 <- months(12 * e2@year + e2@month)
+  
+  new <- .quick_month_add(e1, e2@month)
+  roll <- day(new) < day(e1)
+  new[roll] <- .rollback_day_plus_one(new[roll])
+  new
+}
+
+.rollback_day_plus_one <- function(dates) {
+  if (length(dates) == 0) 
+    return(structure(vector(length = 0), class = class(dates)))
+  day(dates) <- 1
+  dates
+}
