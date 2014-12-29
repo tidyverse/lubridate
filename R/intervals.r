@@ -624,3 +624,63 @@ summary.Interval <- function(object, ...) {
   else qq
 }
 
+
+setMethod("time_length", signature("Interval"), function(x, unit = "second") {
+  unit <- lubridate:::standardise_period_names(unit)
+  if (unit %in% c("year", "month")) {
+    per <- as.period(x, unit=unit)
+    int_part <- slot(per, unit)
+
+    if (unit == "year"){
+
+      pos <- per@month > 0
+      neg <- per@month < 0
+      m1 <- month(int_start(x))
+      m2 <- m1 + per@month
+      m2[neg] <- m2[neg] + 12L
+      m2 <- m2%% 12L
+      m2[m2 == 0] <- 12
+
+      sofar <- integer(length(x))
+      mixs <- cbind(m1, m2)
+      if(any(neg))
+        sofar[neg] <- -N_DAYS_BETWEEN_MONTHS_UPPER[mixs[neg, c(2, 1), drop = F]]
+      if(any(pos))
+        sofar[pos] <- N_DAYS_BETWEEN_MONTHS_LOWER[mixs[pos,, drop = F]]
+
+      year_end <- year(int_end(x))
+      leap1 <- leap_year(year_end - pos)
+      leap2 <- leap_year(year_end + neg)
+      febs <- .feb_in_range(m1, m2, neg)
+
+      sofar[febs[[1]]] <- sofar[febs[[1]]] + leap1[febs[[1]]]
+      sofar[febs[[2]]] <- sofar[febs[[2]]] + leap2[febs[[2]]]
+      per@year <- 0L; per@month <- 0L
+      sofar <- 86400*sofar + period_to_seconds(per)
+      
+      total <- rep.int(31536000, length(x))
+      total[m1 < 3 & leap1] <- 31622400
+      total[m1 > 2 & leap2] <- 31622400
+
+    } else {
+      per@month <- 0L
+      ## period_to_seconds is exact here
+      sofar <- period_to_seconds(per)
+      total <- 3600*days_in_month(int_end(x))
+    }
+    
+    int_part + sofar/total
+    
+  } else {
+    as.duration(x) / duration(num = 1, units = unit)
+  }
+})
+
+.feb_in_range <- function(m1, m2, upper){
+  ## Does the range m1 - m2 contais Febs in this and following years?
+  m1[upper] <- m1[upper] + 1L
+  m2[upper] <- m2[upper] + 1L
+  list(feb1 = (m1 < 3 & m2 > 2) | (m1 == 2 & m2 == 1), 
+       feb2 = (m1 > m2) & m2 > 2)
+}
+

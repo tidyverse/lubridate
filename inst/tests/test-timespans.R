@@ -35,17 +35,31 @@ test_that("time_length works as expected",{
               is_more_than(100))
   expect_that(-time_length(interval(ymd('1900-01-01'), ymd('2000-01-01')), "days"),
               equals(time_length(int_flip(interval(ymd('1900-01-01'), ymd('2000-01-01'))), "days")))
-  ## time_length should work even if date of birth is a 29 Feb
-  expect_that(round(time_length(interval(ymd('1992-02-29'), ymd('1999-02-28')), "years"), 3), 
-              equals(6.999))
-  expect_that(round(time_length(interval(ymd('1992-02-29'), ymd('1999-03-31')), "years"), 3), 
-              equals(7.089))
-  ## With a leap year, we expect same number of days
+})
+
+test_that("time_length works with birth date 29 Feb ", {
+  expect_that(round(time_length(interval(ymd('1992-02-29'), ymd('1999-02-28')), "years"), 4), 
+              equals(6.9973))
+  expect_that(round(time_length(interval(ymd('1992-02-29'), ymd('1999-03-31')), "years"), 4), 
+              equals(7.0822))
+  expect_that(time_length(interval(ymd('1992-02-29'), ymd('1999-03-01')), "years"), 
+              equals(7))
+  expect_that(round(time_length(interval(ymd('1992-02-29'), ymd('2000-03-01')), "years"), 4), 
+              equals(8.0027))
+  expect_that(time_length(interval(ymd('1992-02-29'), ymd('2000-02-29')), "years"), 
+              equals(8))
+})
+
+test_that("time_length works with negative interals", {
   expect_that(-time_length(interval(ymd('1992-02-28'), ymd('2000-01-01')), "days"),
               equals(time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-01-01'))), "days")))
-  ## If both ends are leap years, the lenths are identical
-  expect_true(-time_length(interval(ymd('1992-02-28'), ymd('2000-01-01')), "years") == 
-                time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-01-01'))), "years"))
+  expect_that(-time_length(interval(ymd('1992-02-28'), ymd('2000-03-01')), "days"),
+              equals(time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-03-01'))), "days")))
+
+  ## If both ends include leap years Febs, the lenths are identical
+  expect_true(-time_length(interval(ymd('1992-02-28'), ymd('2000-03-01')), "years") == 
+                time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-03-01'))), "years"))
+  
   ## ... otherwise not
   expect_false(-time_length(interval(ymd('1992-02-28'), ymd('2001-01-01')), "years") == 
                  time_length(int_flip(interval(ymd('1992-02-28'), ymd('2001-01-01'))), "years"))
