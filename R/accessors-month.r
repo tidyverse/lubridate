@@ -82,6 +82,25 @@ days_in_month <- function(x) {
   n_days
 }
 
+## tothink: export?
+days_in_months_so_far <- function(month, leap){
+  ## if month is negative, compute from the end of the year
+  cum_days_pos <- c(0, cumsum(N_DAYS_IN_MONTHS)[-12])
+  cum_days_neg <- c(0, cumsum(rev(N_DAYS_IN_MONTHS))[-12])
+  negative <- month < 0
+  positive <- month > 0
+  sofar <- integer(length(month))
+  sofar[negative] <- cum_days_neg[-month[negative]]
+  sofar[positive] <- cum_days_pos[month[positive]]
+  adjust <- leap & ((negative & month == -12) | (positive & month > 2)) 
+  sofar[adjust] <- sofar[adjust] + 1L
+  sofar
+}
+## days_in_months_so_far(c(1, 2, 3, -10, -11, -12), rep.int(T, 6))
+## [1]   0  31  60 275 306 335
+## days_in_months_so_far(c(1, 2, 3, -10, -11, -12), rep.int(F, 6))
+## [1]   0  31  59 275 306 334
+
 
 setGeneric("month<-")
 
