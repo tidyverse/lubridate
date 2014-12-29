@@ -149,7 +149,7 @@ NULL
 #' 
 #' When \code{x} is a \code{\link{Duration-class}}, \code{\link{Period-class}}
 #' or \code{\link{difftime}} object, length in months or years is based on their
-#' their most common lengths in seconds (see \code{\link{timespan}}).
+#' most common lengths in seconds (see \code{\link{timespan}}).
 #' @seealso \code{\link{timespan}}
 #' @keywords chron math period methods
 #' @examples
