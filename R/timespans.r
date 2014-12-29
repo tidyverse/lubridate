@@ -134,3 +134,87 @@ is.timespan <- function(x) is(x, "Timespan")
 #' months(6) + days(1)
 #' # "6m 1d 0H 0M 0S"
 NULL
+
+#' Get the length of a time span in any unit of time
+#' @export time_length 
+#' @param x a duration, period, difftime or interval
+#' @param unit a character string that specifies with time units to use
+#' @return the length of the interval in the specified unit. A negative number 
+#' connotes a negative interval or duration
+#' @details
+#' When \code{x} is an \code{\link{Interval-class}} object and \code{unit} are years or months,
+#' \code{timespan_length} takes into account the fact that all months and years don't have the
+#' same number of days. In that case, the decimal value of the result corresponds to the fraction
+#'  of time between last anniversary and end date.
+#' 
+#' When \code{x} is a \code{\link{Duration-class}}, \code{\link{Period-class}} or 
+#' \code{\link{difftime}} object, length in months or years is based on their their most common 
+#' lengths in seconds (see \code{\link{timespan}}).
+#' @seealso \code{\link{timespan}}
+#' @keywords chron math period methods
+#' @examples
+#' int <- new_interval(ymd("1980-01-01"), ymd("2014-09-18"))
+#' time_length(int, "week")
+#' 
+#' # Exact age
+#' time_length(int, "year")
+#' 
+#' # Age at last anniversary
+#' trunc(time_length(int, "year"))
+#' 
+#' # Example of difference between intervals and durations
+#' int <- new_interval(ymd("1900-01-01"), ymd("1999-12-31"))
+#' time_length(int, "year")
+#' time_length(as.duration(int), "year")
+time_length <- function(x, unit = "second") {
+  as.duration(x) / duration(num = 1, units = unit)
+}
+
+setGeneric("time_length")
+
+
+#' @export
+setMethod("time_length", signature("Interval"), function(x, unit = "second") {
+  unit <- standardise_period_names(unit)
+  if (unit %in% c("year","month")){
+    res <- as.period(x, unit=unit)
+    res <- slot(res, unit)
+    if (sign(res)>0) {
+      previous_anniversary <- int_start(x) %m++% (res * period(1, units = unit))
+      next_anniversary <- int_start(x) %m++% ((res + 1) * period(1, units = unit))
+      time_to_now <- as.duration(int_end(x) - previous_anniversary)
+      time_to_next <- as.duration(next_anniversary - previous_anniversary)
+      res <- res + time_to_now / time_to_next
+    } 
+    else {
+      previous_anniversary <- int_start(x) %m+% (res * period(1, units = unit))
+      next_anniversary <- int_start(x) %m+% ((res - 1) * period(1, units = unit))
+      time_to_now <- as.duration(int_end(x) - previous_anniversary)
+      time_to_next <- as.duration(next_anniversary - previous_anniversary)
+      res <- res - time_to_now / time_to_next
+    }
+    res
+  }
+  else {
+    as.duration(x) / duration(num = 1, units = unit)
+  }
+})
+
+"%m++%" <- function(e1,e2) {
+  if (any(c(e2@.Data, e2@minute, e2@hour, e2@day) != 0))
+    stop("%m++% only handles month and years. Add other periods separately with '+'")
+  
+  if (any(e2@year != 0)) e2 <- months(12 * e2@year + e2@month)
+  
+  new <- .quick_month_add(e1, e2@month)
+  roll <- day(new) < day(e1)
+  new[roll] <- .rollback_day_plus_one(new[roll])
+  new
+}
+
+.rollback_day_plus_one <- function(dates) {
+  if (length(dates) == 0) 
+    return(structure(vector(length = 0), class = class(dates)))
+  day(dates) <- 1
+  dates
+}
