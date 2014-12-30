@@ -60,9 +60,13 @@ test_that("time_length works with negative interals", {
   expect_true(-time_length(interval(ymd('1992-02-28'), ymd('2000-03-01')), "years") == 
                 time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-03-01'))), "years"))
   
+  ## or if both ends doesn't include leap years Febs, the lenths are identical
+  expect_true(-time_length(interval(ymd('1994-02-28'), ymd('2002-03-01')), "years") == 
+                time_length(int_flip(interval(ymd('1994-02-28'), ymd('2002-03-01'))), "years"))
+  
   ## ... otherwise not
-  expect_false(-time_length(interval(ymd('1992-02-28'), ymd('2001-01-01')), "years") == 
-                 time_length(int_flip(interval(ymd('1992-02-28'), ymd('2001-01-01'))), "years"))
+  expect_false(-time_length(interval(ymd('1992-02-28'), ymd('2002-01-01')), "years") == 
+                 time_length(int_flip(interval(ymd('1992-02-28'), ymd('2002-01-01'))), "years"))
 })
 
 test_that("time_length handles vectors",{
