@@ -148,7 +148,7 @@ NULL
 #' the fact that all months and years don't have the same number of days.
 #' 
 #' When \code{x} is a \code{\link{Duration-class}}, \code{\link{Period-class}}
-#' or \code{\link{difftime}} object, length in months or years is based on their
+#' or \code{\link{difftime}} object, length in months or years is based on
 #' their most common lengths in seconds (see \code{\link{timespan}}).
 #' @seealso \code{\link{timespan}}
 #' @keywords chron math period methods
