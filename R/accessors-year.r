@@ -8,8 +8,6 @@ NULL
 #'
 #' year does not yet support years before 0 C.E.
 #'
-#' @export
-#' @aliases year year<- isoyear
 #' @param x a date-time object   
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -18,6 +16,7 @@ NULL
 #' year(x) 
 #' year(x) <- 2001  
 #' year(x) > 1995
+#' @export
 year <- function(x) 
   UseMethod("year")
   
@@ -29,6 +28,7 @@ year.default <- function(x)
 year.Period <- function(x)
   slot(x, "year")
 
+#' @rdname year
 #' @export
 "year<-" <- function(x, value)
   x <- x + years(value - year(x))
@@ -42,6 +42,8 @@ setMethod("year<-", signature("Period"), function(x, value){
   x
 })
 
+#' @rdname year
+#' @export
 isoyear <- function(x) {
   xday <- ISOdate(year(x), month(x), day(x), tz = tz(x))
   dn <- 1 + (wday(x) + 5) %% 7

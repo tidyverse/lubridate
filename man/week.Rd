@@ -7,6 +7,10 @@
 \title{Get/set weeks component of a date-time.}
 \usage{
 week(x)
+
+week(x) <- value
+
+isoweek(x)
 }
 \arguments{
 \item{x}{a date-time object}
