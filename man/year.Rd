@@ -7,6 +7,10 @@
 \title{Get/set years component of a date-time.}
 \usage{
 year(x)
+
+year(x) <- value
+
+isoyear(x)
 }
 \arguments{
 \item{x}{a date-time object}

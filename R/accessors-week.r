@@ -9,8 +9,6 @@ NULL
 #' and  January 1st, plus one. isoweek returns the week as it would appear in the 
 #' ISO 8601 system, which uses a reoccuring leap week.
 #'
-#' @export week "week<-" isoweek
-#' @aliases week week<- isoweek
 #' @param x a date-time object   
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron
@@ -20,12 +18,17 @@ NULL
 #' week(x) <- 1  
 #' week(x) <- 54
 #' week(x) > 3
+#' @export
 week <- function(x)
   (yday(x) - 1) %/% 7 + 1
-  
+
+#' @rdname week
+#' @export
 "week<-" <- function(x, value)
   x <- x + days((value - week(x)) * 7)
 
+#' @rdname week
+#' @export
 isoweek <- function(x){
   xday <- ISOdate(year(x), month(x), day(x), tz = tz(x))
   dn <- 1 + (wday(x) + 5) %% 7
