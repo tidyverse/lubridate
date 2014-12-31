@@ -160,7 +160,7 @@ update.Date <- function(object, ...){
   
   new <- update(lt, ...)
   
-  if (sum(c(new$hour, new$min, new$sec))) {
+  if (sum(c(new$hour, new$min, new$sec), na.rm = TRUE)) {
     new
   } else {
     as.Date(new)
