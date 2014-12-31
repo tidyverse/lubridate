@@ -627,27 +627,26 @@ summary.Interval <- function(object, ...) {
 
 setMethod("time_length", signature("Interval"), function(x, unit = "second") {
   unit <- standardise_period_names(unit)
-  if (unit %in% c("year","month")){
-    res <- as.period(x, unit=unit)
-    res <- slot(res, unit)
-    if (sign(res)>0) {
-      previous_anniversary <- int_start(x) %m++% (res * period(1, units = unit))
-      next_anniversary <- int_start(x) %m++% ((res + 1) * period(1, units = unit))
-      time_to_now <- as.duration(int_end(x) - previous_anniversary)
-      time_to_next <- as.duration(next_anniversary - previous_anniversary)
-      res <- res + time_to_now / time_to_next
-    } 
-    else {
-      previous_anniversary <- int_start(x) %m+% (res * period(1, units = unit))
-      next_anniversary <- int_start(x) %m+% ((res - 1) * period(1, units = unit))
-      time_to_now <- as.duration(int_end(x) - previous_anniversary)
-      time_to_next <- as.duration(next_anniversary - previous_anniversary)
-      res <- res - time_to_now / time_to_next
-    }
-    res
-  }
-  else {
+  if (unit %in% c("year", "month")) {
+
+    periods <- as.period(x, unit = unit)
+    int_part <- slot(periods, unit)
+
+    neg <- x@.Data < 0
+    pos <- !neg
+    prev_aniv <- next_aniv <- int_start(x)
+
+    prev_aniv[pos] <- int_start(x)[pos] %m++% (int_part [pos] * period(1, units = unit))
+    next_aniv[pos] <- int_start(x)[pos] %m++% ((int_part[pos] + 1L) * period(1, units = unit))
+
+    prev_aniv[neg] <- int_start(x)[neg] %m+% (int_part[neg] * period(1, units = unit))
+    next_aniv[neg] <- int_start(x)[neg] %m+% ((int_part[neg] - 1L) * period(1, units = unit))
+      
+    sofar <- as.duration(int_end(x) - prev_aniv)
+    total <- as.duration(next_aniv - prev_aniv)
+    int_part + sign(x@.Data) * sofar / total
+
+  } else {
     as.duration(x) / duration(num = 1, units = unit)
   }
 })
-

@@ -161,7 +161,6 @@ rollback <- function(dates) {
 # "1993-03-01 UTC"
 #
 # %m++% is useful in particular for anniversary computation
-
 "%m++%" <- function(e1,e2) standardGeneric("%m++%")
 
 setGeneric("%m++%")
@@ -189,7 +188,6 @@ setMethod("%m--%", signature(e1 = "Period"),
 setMethod("%m--%", signature(e2 = "ANY"), 
           function(e1, e2)
             stop("%m--% only handles Period objects with month or year units"))
-
 
 .month_plus_plus <- function(e1, e2) {
   if (any(c(e2@.Data, e2@minute, e2@hour, e2@day) != 0))
