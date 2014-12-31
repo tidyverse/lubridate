@@ -146,3 +146,66 @@ rollback <- function(dates) {
   day(dates) <- 1
   dates - days(1)
 }
+
+# %m++% and %m--% operators
+#
+# (not exported)
+# They are similar to %m+% and %m-% except that, 
+# in case of rollback, the rollback will be the
+# first day of the month.
+#
+# Example:
+# ymd('1992-02-29') %m+% years(1)
+# "1993-02-28 UTC"
+# ymd('1992-02-29') %m++% years(1)
+# "1993-03-01 UTC"
+#
+# %m++% is useful in particular for anniversary computation
+
+"%m++%" <- function(e1,e2) standardGeneric("%m++%")
+
+setGeneric("%m++%")
+
+setMethod("%m++%", signature(e2 = "Period"), 
+          function(e1, e2) .month_plus_plus(e1, e2))
+
+setMethod("%m++%", signature(e1 = "Period"), 
+          function(e1, e2) .month_plus_plus(e2, e1))
+
+setMethod("%m++%", signature(e2 = "ANY"), 
+          function(e1, e2)
+            stop("%m++% only handles Period objects with month or year units"))
+
+"%m--%" <- function(e1,e2) standardGeneric("%m--%")
+
+setGeneric("%m--%")
+
+setMethod("%m--%", signature(e2 = "Period"), 
+          function(e1, e2) .month_plus_plus(e1, -e2))
+
+setMethod("%m--%", signature(e1 = "Period"), 
+          function(e1, e2) .month_plus_plus(e2, -e1))
+
+setMethod("%m--%", signature(e2 = "ANY"), 
+          function(e1, e2)
+            stop("%m--% only handles Period objects with month or year units"))
+
+
+.month_plus_plus <- function(e1, e2) {
+  if (any(c(e2@.Data, e2@minute, e2@hour, e2@day) != 0))
+    stop("%m++% only handles month and years. Add other periods separately with '+'")
+  
+  if (any(e2@year != 0)) e2 <- months(12 * e2@year + e2@month)
+  
+  new <- .quick_month_add(e1, e2@month)
+  roll <- day(new) < day(e1)
+  new[roll] <- .rollback_day_one(new[roll])
+  new
+}
+
+.rollback_day_one <- function(dates) {
+  if (length(dates) == 0) 
+    return(structure(vector(length = 0), class = class(dates)))
+  day(dates) <- 1
+  dates
+}
