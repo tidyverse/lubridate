@@ -11,5 +11,7 @@
 *.Rbuildignore
 *.DS_Store
 *~
+tmp*
+temp*
 src/*.so
 src/*.o
