@@ -91,7 +91,10 @@ yday.default <- function(x)
 
 #' @rdname day
 #' @export
-`mday<-` <- `day<-`
+`mday<-` <- function(x, value){
+  day(x) <- value
+  x
+}
 
 #' @export
 setGeneric("day<-", useAsDefault = function(x, value)
