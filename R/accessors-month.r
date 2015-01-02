@@ -6,8 +6,6 @@ NULL
 #' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @export
-#' @aliases month<-
 #' @param x a date-time object  
 #' @param label logical. TRUE will display the month as a character string
 #'   such as "January." FALSE will display the month as a number.
@@ -31,6 +29,7 @@ NULL
 #' # "January"
 #' month(ymd(080101) + months(0:11), label = TRUE)
 #' # "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
+#' @export
 month <- function(x, label = FALSE, abbr = TRUE) 
   UseMethod("month")
 
@@ -58,6 +57,7 @@ month.numeric <- function(x, label = FALSE, abbr = TRUE) {
 month.Period <- function(x, label = FALSE, abbr = TRUE)
   slot(x, "month")
 
+#' @rdname month
 #' @export
 "month<-" <- function(x, value) {
 	if (!is.numeric(value)) {
@@ -66,6 +66,14 @@ month.Period <- function(x, label = FALSE, abbr = TRUE)
   	}
   	x <- x + months(value - month(x))
  }
+
+setGeneric("month<-")
+
+#' @export
+setMethod("month<-", signature("Period"), function(x, value){
+  slot(x, "month") <- value
+  x
+})
 
 #' Get the number of days in the month of a date-time.
 #' 
@@ -100,12 +108,3 @@ days_in_months_so_far <- function(month, leap){
 ## [1]   0  31  60 275 306 335
 ## days_in_months_so_far(c(1, 2, 3, -10, -11, -12), rep.int(F, 6))
 ## [1]   0  31  59 275 306 334
-
-
-setGeneric("month<-")
-
-#' @export
-setMethod("month<-", signature("Period"), function(x, value){
-  slot(x, "month") <- value
-  x
-})

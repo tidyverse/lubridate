@@ -3,39 +3,7 @@ NULL
 
 #' Get/set days component of a date-time.
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
-#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
-#'
-#' @export
-#' @aliases day yday mday day<- yday<- mday<-
-#' @param x a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, zooreg,
-#'    timeDate, xts, its, ti, jul, timeSeries, or fts object. 
-#' @return yday returns the day of the year as a decimal number (01-366). mday returns the day of 
-#'   the month as a decimal number (01-31). 
-#' @seealso \code{\link{wday}}
-#' @keywords utilities manip chron methods
-#' @examples
-#' x <- as.Date("2009-09-02")
-#' yday(x) #245
-#' mday(x) #2
-#' yday(x) <- 1  #"2009-01-01"
-#' yday(x) <- 366 #"2010-01-01"
-#' mday(x) > 3
-yday <- function(x) 
-  UseMethod("yday")
-
-#' @export
-yday.default <- function(x)
-  as.POSIXlt(x, tz = tz(x))$yday + 1
-
-
-#' Get/set days component of a date-time.
-#'
-#' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
-#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
-#'
-#' @export
-#' @aliases wday wday<- 
+#' @details \code{day} and \code{day<-} are aliases for \code{mday} and \code{mday<-} respectively.
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
 #'   jul, timeSeries, or fts object. 
 #' @param label logical. Only available for wday. TRUE will display the day of the week as an 
@@ -62,6 +30,23 @@ yday.default <- function(x)
 #' wday(ymd(080101) + days(-2:4), label = TRUE, abbr = TRUE)
 #' # "Sun"   "Mon"   "Tues"  "Wed"   "Thurs" "Fri"   "Sat" 
 #' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
+#' 
+#' x <- as.Date("2009-09-02")
+#' yday(x) #245
+#' mday(x) #2
+#' yday(x) <- 1  #"2009-01-01"
+#' yday(x) <- 366 #"2010-01-01"
+#' mday(x) > 3
+#' @export day mday
+day <- function(x) 
+  UseMethod("mday")
+
+#' @rdname day
+#' @export
+mday <- day
+
+#' @rdname day
+#' @export
 wday <- function(x, label = FALSE, abbr = TRUE) 
   UseMethod("wday")
 
@@ -84,13 +69,6 @@ wday.numeric <- function(x, label = FALSE, abbr = TRUE) {
 }
 
 #' @export
-mday <- function(x) 
-    UseMethod("mday")
-
-#' @export
-day <- mday
-
-#' @export
 mday.default <- function(x)
   as.POSIXlt(x, tz = tz(x))$mday
 
@@ -98,27 +76,44 @@ mday.default <- function(x)
 mday.Period <- function(x)
   slot(x, "day")
 
+#' @rdname day
 #' @export
-"yday<-" <- function(x, value)
-  x <- x + days(value - yday(x))
+yday <- function(x) 
+  UseMethod("yday")
 
 #' @export
-"wday<-" <- function(x, value){
-  if (!is.numeric(value)) {
-  	value <- pmatch(tolower(value), c("sunday", "monday", "tuesday", 
-  		"wednesday", "thursday", "friday", "saturday"))
-  }
-  x <- x + days(value - wday(x))
-}
+yday.default <- function(x)
+  as.POSIXlt(x, tz = tz(x))$yday + 1
+
+#' @rdname day
+#' @export
+`day<-` <- function(x, value)  standardGeneric("day<-")
+
+#' @rdname day
+#' @export
+`mday<-` <- `day<-`
 
 #' @export
-"day<-" <- "mday<-" <- function(x, value)
-  x <- x + days(value - mday(x))
-
-setGeneric("day<-")
+setGeneric("day<-", useAsDefault = function(x, value)
+  x <- x + days(value - mday(x)))
 
 #' @export
 setMethod("day<-", signature("Period"), function(x, value){
   slot(x, "day") <- value
   x
 })
+
+#' @rdname day
+#' @export
+"wday<-" <- function(x, value){
+  if (!is.numeric(value)) {
+  	value <- pmatch(tolower(value), c("sunday", "monday", "tuesday", 
+                                      "wednesday", "thursday", "friday", "saturday"))
+  }
+  x <- x + days(value - wday(x))
+}
+
+#' @rdname day
+#' @export
+"yday<-" <- function(x, value)
+  x <- x + days(value - yday(x))
