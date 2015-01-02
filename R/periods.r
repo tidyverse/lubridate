@@ -514,39 +514,35 @@ months.numeric <- function(x, abbreviate) {
   new_period(month = x)
 }
 
-#' Convert a period to the number of seconds it appears to represent
+#' Contrive a period to/from a given number of seconds.
 #'
-#' @param x A period object
-#' @export
-period_to_seconds <- function(x) {
-	x@.Data + 
-	60 * x@minute +
-	60 * 60 * x@hour +
-	60 * 60 * 24 * x@day +
-	60 * 60 * 24 * 365 / 12 * x@month +
-	60 * 60 * 24 * 365 * x@year
-}
-
-#' Contrive a period from a given number of seconds
-#' 
-#' seconds_to_period uses estimates of time elements (in seconds) to create the 
-#' period that has the maximum number of large elements(years > months > days > 
-#' hours > minutes > seconds) and roughly equates to a given number of seconds. 
-#' Note that the actual number of seconds in a period depends on when the period 
-#' occurs. Since there is no one-to-one relationship between the periods that 
-#' seconds_to_period makes and the number of seconds given as input, these 
-#' periods should be treated as rough estimates only. 
+#' \code{period_to_seconds} approximately converts a period to seconds assuming
+#' there are 364.25 days in a calendar year and 365.25/12 days in a month. \cr
+#' \code{seconds_to_period} create a period that has the maximum number of
+#' non-zero elements (days, hours, minutes, seconds). This computation is exact
+#' because it doesn't involve years or months.
 #'
 #' @param x A numeric object. The number of seconds to coerce into a period.
 #' @return A period that roughly equates to the number of seconds given.
+#' @export
+period_to_seconds <- function(x) {
+	x@.Data + 
+    60 * x@minute +
+    60 * 60 * x@hour +
+    60 * 60 * 24 * x@day +
+    60 * 60 * 24 * 365.25 / 12 * x@month +
+    60 * 60 * 24 * 365.25 * x@year
+}
+
+#' @rdname period_to_seconds
 #' @export
 seconds_to_period <- function(x) {
   span <- as.double(x)
   remainder <- abs(span)
   newper <- new_period(second = rep(0, length(x)))
   
-  slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
-  remainder <- remainder %% (3600 * 24 * 365.25)
+  ## slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
+  ## remainder <- remainder %% (3600 * 24 * 365.25)
   
   slot(newper,"day") <- remainder %/% (3600 * 24)
   remainder <- remainder %% (3600 * 24)
@@ -560,7 +556,6 @@ seconds_to_period <- function(x) {
   
   newper * sign(span)
 }
-
 	
 #' @export
 setMethod(">", signature(e1 = "Period", e2 = "Period"), 

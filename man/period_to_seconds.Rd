@@ -2,14 +2,24 @@
 % Please edit documentation in R/periods.r
 \name{period_to_seconds}
 \alias{period_to_seconds}
-\title{Convert a period to the number of seconds it appears to represent}
+\alias{seconds_to_period}
+\title{Contrive a period to/from a given number of seconds.}
 \usage{
 period_to_seconds(x)
+
+seconds_to_period(x)
 }
 \arguments{
-\item{x}{A period object}
+\item{x}{A numeric object. The number of seconds to coerce into a period.}
+}
+\value{
+A period that roughly equates to the number of seconds given.
 }
 \description{
-Convert a period to the number of seconds it appears to represent
+\code{period_to_seconds} approximately converts a period to seconds assuming
+there are 364.25 days in a calendar year and 365.25/12 days in a month. \cr
+\code{seconds_to_period} create a period that has the maximum number of
+non-zero elements (days, hours, minutes, seconds). This computation is exact
+because it doesn't involve years or months.
 }
 

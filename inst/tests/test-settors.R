@@ -390,7 +390,7 @@ test_that("mdays settor correctly performs simple updates",{
 
 test_that("mdays settor rolls over as expected",{
   poslt <- as.POSIXlt("2010-12-31 23:59:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+                      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
   

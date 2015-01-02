@@ -65,8 +65,8 @@ test_that("as.duration handles periods",{
   expect_that(as.duration(hours(3)), equals(dhours(3)))
   expect_that(as.duration(days(4)), equals(ddays(4)))
   expect_that(as.duration(weeks(5)), equals(dweeks(5)))
-  expect_that(as.duration(months(1)), equals(dseconds(60*60*24*365/12)))
-  expect_that(as.duration(years(1)), equals(dseconds(60*60*24*365)))
+  expect_that(as.duration(months(1)), equals(dseconds(60*60*24*365.25/12)))
+  expect_that(as.duration(years(1)), equals(dseconds(60*60*24*365.25)))
   expect_that(as.duration(seconds(1) + minutes(4)), equals(dseconds(1) + dminutes(4)))
 })
 
@@ -182,7 +182,7 @@ test_that("as.duration handles NA period objects", {
   
   expect_equal(suppressMessages(as.duration(years(NA))), na.dur)
   expect_equal(suppressMessages(as.duration(years(c(NA, NA)))), c(na.dur, na.dur))
-  expect_equal(suppressMessages(as.duration(years(c(1, NA)))), c(dyears(1), na.dur))
+  expect_equal(suppressMessages(as.duration(years(c(1, NA)))), c(dyears(1) + ddays(.25), na.dur))
 })
 
 test_that("as.duration handles NA objects", { 

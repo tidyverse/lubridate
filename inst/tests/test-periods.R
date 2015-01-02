@@ -247,3 +247,8 @@ test_that("summary.Period creates useful summary", {
   expect_equal(summary(c(per, NA)), text)
 })
 
+test_that("idempotentcy between period_to_seconds and seconds_to_period holds", {
+  period <- new_period(years = 2, months = 3, days = 4, hour = 5, minutes = 6, seconds = 7)
+  seconds <- 71319967
+  expect_equal(period_to_seconds(seconds_to_period(seconds)), seconds)
+})
