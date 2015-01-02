@@ -632,15 +632,12 @@ setMethod("time_length", signature("Interval"), function(x, unit = "second") {
     periods <- as.period(x, unit = unit)
     int_part <- slot(periods, unit)
 
-    neg <- x@.Data < 0
-    pos <- !neg
-    prev_aniv <- next_aniv <- int_start(x)
-
-    prev_aniv[pos] <- int_start(x)[pos] %m++% (int_part [pos] * period(1, units = unit))
-    next_aniv[pos] <- int_start(x)[pos] %m++% ((int_part[pos] + 1L) * period(1, units = unit))
-
-    prev_aniv[neg] <- int_start(x)[neg] %m+% (int_part[neg] * period(1, units = unit))
-    next_aniv[neg] <- int_start(x)[neg] %m+% ((int_part[neg] - 1L) * period(1, units = unit))
+    prev_aniv <- .month_plus(
+      int_start(x), (int_part * period(1, units = unit)), 
+      roll_to_first = TRUE, preserve_hms = FALSE)
+    next_aniv <- .month_plus(
+      int_start(x), ((int_part + ifelse(x@.Data < 0, -1, 1)) * period(1, units = unit)), 
+      roll_to_first = TRUE, preserve_hms = FALSE)
       
     sofar <- as.duration(int_end(x) - prev_aniv)
     total <- as.duration(next_aniv - prev_aniv)
