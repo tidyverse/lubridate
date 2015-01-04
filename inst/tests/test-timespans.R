@@ -48,6 +48,8 @@ test_that("time_length works with birth date 29 Feb ", {
               equals(8.0027))
   expect_that(time_length(interval(ymd('1992-02-29'), ymd('2000-02-29')), "years"), 
               equals(8))
+  expect_that(time_length(interval(ymd_hms('1992-02-29 12:00:00'), ymd_hms('1999-03-01 05:00:00')), "years"), 
+              is_more_than(7))
 })
 
 test_that("time_length works with negative interals", {
@@ -97,7 +99,7 @@ test_that("time_length handles vectors",{
 
   expect_equal(round(time_length(ints, "month"), 5),
                c(2.4402, 625.99538, 60.57729, -194.06691, -145.2291, 520.81679, 
-                 -72.35552, -425.27918, -795.42705, 44.57974))
+                 -72.35552, -425.27918, -795.43557, 44.57974))
 })
 
 test_that("time_length handles 0 length intervals", {
