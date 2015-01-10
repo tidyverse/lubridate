@@ -17,9 +17,9 @@ NULL
 NULL
 
 #' @export
-as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(fts::dates.fts(x))
+as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(zoo::index(x))
 #' @export
-as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(fts::dates.fts(x))
+as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(zoo::index(x))
 
 #' @export
 as.POSIXlt.its <- function(x, tz = "", ...) as.POSIXlt(attr(x, "dates"))
