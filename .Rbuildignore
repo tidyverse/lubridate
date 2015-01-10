@@ -10,3 +10,7 @@ README.md
 .Rhistory
 .DS_Store
 ^\.travis\.yml$
+.dir-locals.el
+^tmp*
+^temp*
+^Rprof*
