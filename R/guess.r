@@ -254,66 +254,67 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   names(trained[ which.max(n_fmts) ])
 }
 
+.locale_reg_cache <- new.env(hash = FALSE)
 
-## cache the regexp value fro each locale
-.get_loc_regs <- memoise::memoise(.build_locale_regs)
+.get_loc_regs <- function(locale = Sys.getlocale("LC_TIME")){
 
-.build_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
+  if (exists(locale, envir = .locale_reg_cache, inherits = FALSE))
+    return(get(locale, envir = .locale_reg_cache))
+  
+  orig_locale <- Sys.getlocale("LC_TIME")
+  Sys.setlocale("LC_TIME", locale)
+  orig_opt <- options(warn = 5)
+  on.exit({Sys.setlocale("LC_TIME", orig_locale)
+           options(orig_opt)})
 
-    orig_locale <- Sys.getlocale("LC_TIME")
-    Sys.setlocale("LC_TIME", locale)
-    orig_opt <- options(warn = 5)
-    on.exit({Sys.setlocale("LC_TIME", orig_locale)
-             options(orig_opt)})
+  format <- "%a@%A@%b@%B@%p@"
+  L <- unique(format(.date_template, format = format))
+  mat <- do.call(rbind, strsplit(L, "@", fixed = TRUE))
+  mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) ## escaping all meta chars
+  names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
 
-    format <- "%a@%A@%b@%B@%p@"
-    L <- unique(format(.date_template, format = format))
-    mat <- do.call(rbind, strsplit(L, "@", fixed = TRUE))
-    mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) ## escaping all meta chars
-    names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
+  ## Captures should be unique. Thus we build captures with the following rule.
+  ## Capture starts with the name of strptime format (B, b, y etc)
+  ## It ends with _e or _f indicating whether the expression is an exact or
+  ## fixed match, see below.
 
-    ## Captures should be unique. Thus we build captures with the following rule.
-    ## Capture starts with the name of strptime format (B, b, y etc)
-    ## It ends with _e or _f indicating whether the expression is an exact or
-    ## fixed match, see below.
+  ## It can contain _x where x is a main format in which this format
+  ## occurs. For example <B_b_e> is an exact capture in the strptime format B
+  ## but that also matches b in lubridate. Try lubridate:::.get_loc_regs()
+  ## todo: elaborate this explanation
 
-    ## It can contain _x where x is a main format in which this format
-    ## occurs. For example <B_b_e> is an exact capture in the strptime format B
-    ## but that also matches b in lubridate. Try lubridate:::.get_loc_regs()
-    ## todo: elaborate this explanation
+  ## ALPHABETIC FORMATS
+  alpha <- list()
+  alpha["b"] <-
+    sprintf("((?<b_b>%s)|(?<B_b>%s))(?![[:alpha:]])",
+            paste(unique(mat[, "b"]), collapse = "|"),
+            paste(unique(mat[, "B"]), collapse = "|"))
+  alpha["B"] <-
+    sprintf("(?<B_B>%s)(?![[:alpha:]])",
+            paste(unique(mat[, "B"]), collapse = "|"))
 
-    ## ALPHABETIC FORMATS
-    alpha <- list()
-    alpha["b"] <-
-      sprintf("((?<b_b>%s)|(?<B_b>%s))(?![[:alpha:]])",
-              paste(unique(mat[, "b"]), collapse = "|"),
-              paste(unique(mat[, "B"]), collapse = "|"))
-    alpha["B"] <-
-      sprintf("(?<B_B>%s)(?![[:alpha:]])",
-              paste(unique(mat[, "B"]), collapse = "|"))
+  alpha["a"] <-
+    sprintf("((?<a_a>%s)|(?<A_a>%s))(?![[:alpha:]])",
+            paste(unique(mat[, "a"]), collapse = "|"),
+            paste(unique(mat[, "A"]), collapse = "|"))
 
-    alpha["a"] <-
-      sprintf("((?<a_a>%s)|(?<A_a>%s))(?![[:alpha:]])",
-              paste(unique(mat[, "a"]), collapse = "|"),
-              paste(unique(mat[, "A"]), collapse = "|"))
+  alpha["A"] <-
+    sprintf("(?<A_A>%s)(?![[:alpha:]])",
+            paste(unique(mat[, "A"]), collapse = "|"))
 
-    alpha["A"] <-
-      sprintf("(?<A_A>%s)(?![[:alpha:]])",
-              paste(unique(mat[, "A"]), collapse = "|"))
+  ## just match Z in ISO8601, (UTC zulu format)
+  alpha["Ou"] <- "(?<Ou_Ou>Z)(?![[:alpha:]])"
 
-    ## just match Z in ISO8601, (UTC zulu format)
-    alpha["Ou"] <- "(?<Ou_Ou>Z)(?![[:alpha:]])"
-
-    p <- unique(mat[, "p"])
-    p <- p[nzchar(p)]
-    alpha["p"] <-
-      if ( length(p) == 0L ) ""
+  p <- unique(mat[, "p"])
+  p <- p[nzchar(p)]
+  alpha["p"] <-
+    if ( length(p) == 0L ) ""
     else sprintf("(?<p>%s)(?![[:alpha:]])", paste(p, collapse = "|"))
 
-    alpha <- unlist(alpha)
+  alpha <- unlist(alpha)
 
-    ##  NUMERIC FORMATS
-    num <- num_flex <- num_exact <- c(
+  ##  NUMERIC FORMATS
+  num <- num_flex <- num_exact <- c(
       d = "(?<d>[012]?[1-9]|3[01]|[12]0)",
       H = "(?<H>2[0-4]|[01]?\\d)",
       h = "(?<H>2[0-4]|[01]?\\d)",
@@ -334,63 +335,66 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       ## F = "(?<F>\\d{4)-\\d{2}-\\d{2})",
       OO = "(?<OO>[-+]\\d{2}:\\d{2})",
       Oo = "(?<Oo>[-+]\\d{2})"
-    )
+      )
 
-    nms <- c("T", "R", "r")
-    if( length(p) == 0L ){
-      ## in some locales %p = ""
-      num <- c(num,
-               T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]),
-               R = sprintf("(%s\\D+%s)", num[["H"]], num[["M"]]),
-               r = sprintf("(%s\\D+)", num[["H"]]))
+  nms <- c("T", "R", "r")
+  if( length(p) == 0L ){
+    ## in some locales %p = ""
+    num <- c(num,
+             T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]),
+             R = sprintf("(%s\\D+%s)", num[["H"]], num[["M"]]),
+             r = sprintf("(%s\\D+)", num[["H"]]))
 
-    }else{
-      num <- c(num,
-               T = sprintf("((%s\\D+%s\\D+%s\\D*%s)|(%s\\D+%s\\D+%s))",
+  }else{
+    num <- c(num,
+             T = sprintf("((%s\\D+%s\\D+%s\\D*%s)|(%s\\D+%s\\D+%s))",
                  num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]),
-               R = sprintf("((%s\\D+%s\\D*%s)|(%s\\D+%s))",
+             R = sprintf("((%s\\D+%s\\D*%s)|(%s\\D+%s))",
                  num[["I"]], num[["M"]], alpha[["p"]], num[["H"]], num[["M"]]),
-               r = sprintf("((%s\\D*%s)|%s)",
+             r = sprintf("((%s\\D*%s)|%s)",
                  num[["I"]], alpha[["p"]], num[["H"]]))
 
-      num[nms] <- sub("<M", "<M_T",
-                      sub("<S", "<S_T",
-                          sub("<OS", "<OS_T", num[nms])))
-    }
+    num[nms] <- sub("<M", "<M_T",
+                    sub("<S", "<S_T",
+                        sub("<OS", "<OS_T", num[nms])))
+  }
 
 
-    ## don't let special nms be confused with standard formats
-    num[nms] <- gsub("(<[IMSpHS]|<OS)", "\\1_s", num[nms])
+  ## don't let special nms be confused with standard formats
+  num[nms] <- gsub("(<[IMSpHS]|<OS)", "\\1_s", num[nms])
 
 
-    ## The difference between flex and exact regexp is that flex should follow
-    ## by non-digit, thus flexible strings like 12-1-2 can be matched. In exact
-    ## regexp a number may not be followed by a non-number. In this case the
-    ## number of digits in a number should be precisely specified. For example
-    ## 120102 is matched by ymd.
-    ##
-    ## *Note*: the exact regexps is build from flex regex by gsubing below. So,
-    ## pay attention when you modify the regexp above.
+  ## The difference between flex and exact regexp is that flex should follow
+  ## by non-digit, thus flexible strings like 12-1-2 can be matched. In exact
+  ## regexp a number may not be followed by a non-number. In this case the
+  ## number of digits in a number should be precisely specified. For example
+  ## 120102 is matched by ymd.
+  ##
+  ## *Note*: the exact regexps is build from flex regex by gsubing below. So,
+  ## pay attention when you modify the regexp above.
 
-    alpha_flex <- alpha
-    alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE)
+  alpha_flex <- alpha
+  alpha_exact <- gsub(">", "_e>", alpha, fixed = TRUE)
 
-    num_exact <- num_flex <- num
-    num_flex[] <- sprintf("%s(?!\\d)", num)
+  num_exact <- num_flex <- num
+  num_flex[] <- sprintf("%s(?!\\d)", num)
 
-    num_exact[] <- gsub("(?<!\\()\\?(?!<)", "", perl = T, # remove ?
-                        gsub("+", "*",  fixed = T,
-                             gsub(">", "_e>", num))) # append _e to avoid duplicates
+  num_exact[] <- gsub("(?<!\\()\\?(?!<)", "", perl = T, # remove ?
+                      gsub("+", "*",  fixed = T,
+                           gsub(">", "_e>", num))) # append _e to avoid duplicates
 
-    num_flex["m"] <- sprintf("((?<m>1[0-2]|0?[1-9](?!\\d))|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]]))
-    num_exact["m"] <- sprintf("((?<m_e>1[0-2]|0[1-9])|(%s))", gsub("_[bB]", "\\1_m_e>", alpha[["b"]]))
+  num_flex["m"] <- sprintf("((?<m>1[0-2]|0?[1-9](?!\\d))|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]]))
+  num_exact["m"] <- sprintf("((?<m_e>1[0-2]|0[1-9])|(%s))", gsub("_[bB]", "\\1_m_e>", alpha[["b"]]))
 
-    ## canoot be in num above because gsub("+", "*") messes it up
-    num_flex["OS"] <- "(?<OS_f>[0-5]\\d\\.\\d+)"
-    num_exact["OS"] <- "(?<OS_e>[0-5]\\d\\.\\d+)"
-    num_flex["z"] <- sprintf("(%s|%s|%s|%s)", alpha_flex[["Ou"]], num_flex[["Oz"]], num_flex[["OO"]], num_flex[["Oo"]])
-    num_exact["z"] <- sprintf("(%s|%s|%s|%s)", alpha_exact[["Ou"]], num_exact[["Oz"]], num_exact[["OO"]], num_exact[["Oo"]])
+  ## canoot be in num above because gsub("+", "*") messes it up
+  num_flex["OS"] <- "(?<OS_f>[0-5]\\d\\.\\d+)"
+  num_exact["OS"] <- "(?<OS_e>[0-5]\\d\\.\\d+)"
+  num_flex["z"] <- sprintf("(%s|%s|%s|%s)", alpha_flex[["Ou"]], num_flex[["Oz"]], num_flex[["OO"]], num_flex[["Oo"]])
+  num_exact["z"] <- sprintf("(%s|%s|%s|%s)", alpha_exact[["Ou"]], num_exact[["Oz"]], num_exact[["OO"]], num_exact[["Oo"]])
 
-    list(alpha_flex = alpha_flex, num_flex = num_flex,
-           alpha_exact = alpha_exact, num_exact = num_exact)
+  out <- list(alpha_flex = alpha_flex, num_flex = num_flex,
+              alpha_exact = alpha_exact, num_exact = num_exact)
+
+  assign(locale, out, envir = .locale_reg_cache)
+  out
 }
