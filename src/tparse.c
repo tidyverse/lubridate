@@ -31,9 +31,9 @@
 #include <stdlib.h>
 /* #include <stdint.h> */
 
-// start of each month in seconds in a common year
-static const int sm[] = { 0, 0, 2678400, 5097600, 7776000, 10368000, 13046400, 15638400,
-                          18316800, 20995200, 23587200, 26265600, 28857600, 31536000 };
+// start of each month in seconds in a common year (1 indexed)
+static const int sm[] = {0, 0, 2678400, 5097600, 7776000, 10368000, 13046400, 15638400,
+			 18316800, 20995200, 23587200, 26265600, 28857600, 31536000 };
 static const int daylen = 86400; // day in seconds: 24*60*60
 static const int d30 = 946684800; // seconds between 2000-01-01 and 1970-01-01
 // need 64 type to avoid overflow on integer multiplication
@@ -43,6 +43,7 @@ static const long long yearlen = 31536000; // common year in sec: 365*24*60*60
 
 /* quick way to check if the first char is a digit */
 #define DIGIT(X) ((X) >= '0' && (X) <= '9')
+/* parse N characters from *c into integer X */
 #define PARSENUM(X, N) tN = N; while ( DIGIT(*c) && tN > 0) { X = X * 10 + (*c - '0'); c++; tN--; }
 
 
