@@ -1,6 +1,5 @@
 Package: lubridate
 Imports:
-    plyr,
     stringr
 Maintainer: Garrett Grolemund <garrett@rstudio.com>
 License: GPL
