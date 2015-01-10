@@ -10,27 +10,8 @@
 \arguments{
 \item{object}{a date-time object}
 
-\item{...}{...}
-
-\item{years}{a value to substitute for the date's year component}
-
-\item{months}{a value to substitute for the date's month component}
-
-\item{ydays}{a value to substitute for the date's yday component}
-
-\item{wdays}{a value to substitute for the date's wday component}
-
-\item{mdays}{a value to substitute for the date's mday component}
-
-\item{days}{a value to substitute for the date's mday component}
-
-\item{hours}{a value to substitute for the date's hour component}
-
-\item{minutes}{a value to substitute for the date's minute component}
-
-\item{seconds}{a value to substitute for the date's second component}
-
-\item{tzs}{a value to substitute for the date's tz component}
+\item{...}{named arguments: years, months, ydays, wdays, mdays, days, hours,
+minutes, seconds, tzs (time zone compnent)}
 }
 \value{
 a date object with the requested elements updated. The object will
@@ -39,10 +20,10 @@ a date object with the requested elements updated. The object will
   date object.
 }
 \description{
-update.Date and update.POSIXt return a date with the specified elements updated.
-Elements not specified will be left unaltered. update.Date and update.POSIXt do not
-add the specified values to the existing date, they substitute them for the
-appropriate parts of the existing date.
+\code{update.Date} and \code{update.POSIXt} return a date with the specified
+elements updated.  Elements not specified will be left unaltered. update.Date
+and update.POSIXt do not add the specified values to the existing date, they
+substitute them for the appropriate parts of the existing date.
 }
 \examples{
 date <- as.POSIXlt("2009-02-10")

@@ -61,58 +61,30 @@ check_interval <- function(object){
 #' @name Interval-class
 #' @rdname Interval-class
 #' @exportClass Interval
-#' @aliases intersect,Interval,Interval-method 
-#' @aliases union,Interval,Interval-method 
-#' @aliases setdiff,Interval,Interval-method 
-#' @aliases as.numeric,Interval-method 
-#' @aliases show,Interval-method
-#' @aliases c,Interval-method
-#' @aliases rep,Interval-method
-#' @aliases [,Interval-method
-#' @aliases [<-,Interval,ANY,ANY,ANY-method
-#' @aliases [[,Interval-method
-#' @aliases [[<-,Interval,ANY,ANY,ANY-method
-#' @aliases $,Interval-method
-#' @aliases $<-,Interval-method
-#' @aliases as.difftime,Interval-method
-#' @aliases as.character,Interval-method
-#' @aliases +,Interval,Duration-method
-#' @aliases +,Interval,Interval-method
-#' @aliases +,Interval,Period-method
-#' @aliases +,Interval,Date-method
-#' @aliases +,Date,Interval-method
-#' @aliases +,Interval,difftime-method
-#' @aliases +,difftime,Interval-method
-#' @aliases +,Interval,numeric-method
-#' @aliases +,numeric,Interval-method
-#' @aliases +,Interval,POSIXct-method
-#' @aliases +,POSIXct,Interval-method
-#' @aliases +,Interval,POSIXlt-method
-#' @aliases +,POSIXlt,Interval-method
-#' @aliases /,Interval,Duration-method
-#' @aliases /,Interval,Interval-method
-#' @aliases /,Interval,Period-method
-#' @aliases /,Interval,difftime-method
-#' @aliases /,difftime,Interval-method
-#' @aliases /,Interval,numeric-method
-#' @aliases /,numeric,Interval-method
-#' @aliases *,Interval,ANY-method
-#' @aliases *,ANY,Interval-method
-#' @aliases -,Interval,missing-method
-#' @aliases -,Interval,Interval-method
-#' @aliases -,Date,Interval-method
-#' @aliases -,POSIXct,Interval-method
-#' @aliases -,POSIXlt,Interval-method
-#' @aliases -,numeric,Interval-method
-#' @aliases -,Interval,Date-method
-#' @aliases -,Interval,POSIXct-method
-#' @aliases -,Interval,POSIXlt-method
-#' @aliases -,Interval,numeric-method
-#' @aliases -,Duration,Interval-method
-#' @aliases -,Period,Interval-method
-#' @aliases %%,Interval,Duration-method
-#' @aliases %%,Interval,Interval-method
-#' @aliases %%,Interval,Period-method
+#' @aliases intersect,Interval,Interval-method union,Interval,Interval-method
+#' setdiff,Interval,Interval-method as.numeric,Interval-method
+#' show,Interval-method c,Interval-method rep,Interval-method [,Interval-method
+#' [<-,Interval,ANY,ANY,ANY-method [[,Interval-method
+#' [[<-,Interval,ANY,ANY,ANY-method $,Interval-method $<-,Interval-method
+#' as.difftime,Interval-method as.character,Interval-method
+#' +,Interval,Duration-method +,Interval,Interval-method
+#' +,Interval,Period-method +,Interval,Date-method +,Date,Interval-method
+#' +,Interval,difftime-method +,difftime,Interval-method
+#' +,Interval,numeric-method +,numeric,Interval-method +,Interval,POSIXct-method
+#' +,POSIXct,Interval-method +,Interval,POSIXlt-method +,POSIXlt,Interval-method
+#' /,Interval,Duration-method /,Interval,Interval-method
+#' /,Interval,Period-method /,Interval,difftime-method
+#' /,difftime,Interval-method /,Interval,numeric-method
+#' /,numeric,Interval-method *,Interval,ANY-method *,ANY,Interval-method
+#' -,Interval,missing-method -,Interval,Interval-method -,Date,Interval-method
+#' -,POSIXct,Interval-method -,POSIXlt,Interval-method -,numeric,Interval-method
+#' -,Interval,Date-method -,Interval,POSIXct-method -,Interval,POSIXlt-method
+#' -,Interval,numeric-method -,Duration,Interval-method -,Period,Interval-method
+#' %%,Interval,Duration-method %%,Interval,Interval-method
+#' %%,Interval,Period-method %%,Interval,Duration %%,Interval,Interval
+#' %%,Interval,Period -,Date,Interval -,Duration,Interval -,Interval,Date
+#' -,Interval,Interval -,Interval,POSIXct -,Interval,POSIXlt -,Interval,numeric
+#' -,POSIXct,Interval -,POSIXlt,Interval -,numeric,Interval
 setClass("Interval", contains = c("Timespan", "numeric"), 
   slots = c(start = "POSIXct", 	tzone = "character"), validity = check_interval)
 
@@ -574,8 +546,7 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 #' @export 
 #' @rdname within-interval
 #' @usage a \%within\% b
-#' @aliases %within%,Interval,Interval-method
-#' @aliases %within%,ANY,Interval-method
+#' @aliases %within%,Interval,Interval-method %within%,ANY,Interval-method
 #' @param a An interval or date-time object
 #' @param b An interval
 #' @return A logical
@@ -624,7 +595,7 @@ summary.Interval <- function(object, ...) {
   else qq
 }
 
-
+#' @rdname time_length
 setMethod("time_length", signature("Interval"), function(x, unit = "second") {
   unit <- standardise_period_names(unit)
   if (unit %in% c("year", "month")) {

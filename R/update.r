@@ -1,24 +1,15 @@
 #' Changes the components of a date object
 #'
-#' update.Date and update.POSIXt return a date with the specified elements updated. 
-#' Elements not specified will be left unaltered. update.Date and update.POSIXt do not 
-#' add the specified values to the existing date, they substitute them for the 
-#' appropriate parts of the existing date. 
+#' \code{update.Date} and \code{update.POSIXt} return a date with the specified
+#' elements updated.  Elements not specified will be left unaltered. update.Date
+#' and update.POSIXt do not add the specified values to the existing date, they
+#' substitute them for the appropriate parts of the existing date.
 #'
 #' 
 #' @name DateUpdate
 #' @param object a date-time object  
-#' @param years a value to substitute for the date's year component
-#' @param months a value to substitute for the date's month component
-#' @param ydays a value to substitute for the date's yday component
-#' @param wdays a value to substitute for the date's wday component
-#' @param mdays a value to substitute for the date's mday component
-#' @param days a value to substitute for the date's mday component
-#' @param hours a value to substitute for the date's hour component
-#' @param minutes a value to substitute for the date's minute component
-#' @param seconds a value to substitute for the date's second component
-#' @param tzs a value to substitute for the date's tz component
-#' @param ... ...
+#' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours,
+#' minutes, seconds, tzs (time zone compnent)
 #' @return a date object with the requested elements updated. The object will
 #'   retain its original class unless an element is updated which the original
 #'   class does not support. In this case, the date returned will be a POSIXlt

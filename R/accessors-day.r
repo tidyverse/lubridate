@@ -11,6 +11,7 @@ NULL
 #' @param abbr logical. Only available for wday. FALSE will display the day of the week as an 
 #'   ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the 
 #'   label, such as "Sun". abbr is disregarded if label = FALSE.
+#' @param value a numeric object
 #' @return wday returns the day of the week as a decimal number 
 #'   (01-07, Sunday is 1) or an ordered factor (Sunday is first).
 #' @seealso \code{\link{yday}}, \code{\link{mday}}

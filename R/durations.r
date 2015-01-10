@@ -33,45 +33,7 @@ check_duration <- function(object){
 #' @name Duration-class
 #' @rdname Duration-class
 #' @exportClass Duration
-#' @aliases as.numeric,Duration-method
-#' @aliases show,Duration-method
-#' @aliases c,Duration-method
-#' @aliases rep,Duration-method
-#' @aliases [,Duration-method
-#' @aliases [<-,Duration,ANY,ANY,ANY-method
-#' @aliases [[,Duration-method
-#' @aliases [[<-,Duration,ANY,ANY,ANY-method
-#' @aliases $,Duration-method
-#' @aliases $<-,Duration-method
-#' @aliases as.difftime,Duration-method
-#' @aliases as.character,Duration-method
-#' @aliases +,Duration,Duration-method
-#' @aliases +,Duration,Interval-method
-#' @aliases +,Duration,Period-method
-#' @aliases +,Duration,Date-method
-#' @aliases +,Date,Duration-method
-#' @aliases +,Duration,difftime-method
-#' @aliases +,difftime,Duration-method
-#' @aliases +,Duration,numeric-method
-#' @aliases +,numeric,Duration-method
-#' @aliases +,Duration,POSIXct-method
-#' @aliases +,POSIXct,Duration-method
-#' @aliases +,Duration,POSIXlt-method
-#' @aliases +,POSIXlt,Duration-method
-#' @aliases /,Duration,Duration-method
-#' @aliases /,Duration,Interval-method
-#' @aliases /,Duration,Period-method
-#' @aliases /,Duration,difftime-method
-#' @aliases /,difftime,Duration-method
-#' @aliases /,Duration,numeric-method
-#' @aliases /,numeric,Duration-method
-#' @aliases *,Duration,ANY-method
-#' @aliases *,ANY,Duration-method
-#' @aliases -,Duration,missing-method
-#' @aliases -,ANY,Duration-method
-#' @aliases %%,Duration,Duration-method
-#' @aliases %%,Duration,Interval-method
-#' @aliases %%,Duration,Period-method
+#' @aliases as.numeric,Duration-method show,Duration-method c,Duration-method rep,Duration-method [,Duration-method [<-,Duration,ANY,ANY,ANY-method [[,Duration-method [[<-,Duration,ANY,ANY,ANY-method $,Duration-method $<-,Duration-method as.difftime,Duration-method as.character,Duration-method +,Duration,Duration-method +,Duration,Interval-method +,Duration,Period-method +,Duration,Date-method +,Date,Duration-method +,Duration,difftime-method +,difftime,Duration-method +,Duration,numeric-method +,numeric,Duration-method +,Duration,POSIXct-method +,POSIXct,Duration-method +,Duration,POSIXlt-method +,POSIXlt,Duration-method /,Duration,Duration-method /,Duration,Interval-method /,Duration,Period-method /,Duration,difftime-method /,difftime,Duration-method /,Duration,numeric-method /,numeric,Duration-method *,Duration,ANY-method *,ANY,Duration-method -,Duration,missing-method -,ANY,Duration-method %%,Duration,Duration-method %%,Duration,Interval-method %%,Duration,Period-method
 setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
 
@@ -192,7 +154,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #'   minutes, hours, days, and weeks are supported.
 #' @return a duration object
 #' @export new_duration
-#' @aliases new_duration
+# new_duration
 #' @seealso \code{\link{duration}}, \code{\link{as.duration}}
 #' @keywords chron classes
 #' @examples

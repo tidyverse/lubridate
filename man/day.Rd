@@ -37,6 +37,8 @@ ordered factor of character strings, such as "Sunday." FALSE will display the da
 \item{abbr}{logical. Only available for wday. FALSE will display the day of the week as an
 ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the
 label, such as "Sun". abbr is disregarded if label = FALSE.}
+
+\item{value}{a numeric object}
 }
 \value{
 wday returns the day of the week as a decimal number

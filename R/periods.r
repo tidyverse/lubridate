@@ -103,92 +103,46 @@ check_period <- function(object){
 #' The apparent amount of months to add to the period. 6) year, a numeric object. 
 #' The apparent amount of years to add to the period.
 #'
-#'
-#'
 #' @name Period-class
 #' @rdname Period-class
 #' @exportClass Period
-#' @aliases second,Period-method
-#' @aliases second<-,Period-method
-#' @aliases minute,Period-method
-#' @aliases minute<-,Period-method
-#' @aliases hour,Period-method
-#' @aliases hour<-,Period-method
-#' @aliases day,Period-method
-#' @aliases day<-,Period-method
-#' @aliases month,Period-method
-#' @aliases month<-,Period-method
-#' @aliases year,Period-method
-#' @aliases year<-,Period-method
-#' @aliases as.numeric,Period-method
-#' @aliases show,Period-method
-#' @aliases c,Period-method
-#' @aliases rep,Period-method
-#' @aliases [,Period-method
-#' @aliases [<-,Period,ANY,ANY,Period-method
-#' @aliases [[,Period-method
-#' @aliases [[<-,Period,ANY,ANY,Period-method
-#' @aliases $,Period-method
-#' @aliases $<-,Period-method
-#' @aliases as.difftime,Period-method
-#' @aliases as.character,Period-method
-#' @aliases +,Period,Duration-method
-#' @aliases +,Period,Interval-method
-#' @aliases +,Period,Period-method
-#' @aliases +,Period,Date-method
-#' @aliases +,Date,Period-method
-#' @aliases +,Period,difftime-method
-#' @aliases +,difftime,Period-method
-#' @aliases +,Period,numeric-method
-#' @aliases +,numeric,Period-method
-#' @aliases +,Period,POSIXct-method
-#' @aliases +,POSIXct,Period-method
-#' @aliases +,Period,POSIXlt-method
-#' @aliases +,POSIXlt,Period-method
-#' @aliases /,Period,Duration-method
-#' @aliases /,Period,Interval-method
-#' @aliases /,Period,Period-method
-#' @aliases /,Period,difftime-method
-#' @aliases /,difftime,Period-method
-#' @aliases /,Period,numeric-method
-#' @aliases /,numeric,Period-method
-#' @aliases *,Period,ANY-method
-#' @aliases *,ANY,Period-method
-#' @aliases -,Period,missing-method
-#' @aliases -,ANY,Period-method
-#' @aliases %%,Period,Duration-method
-#' @aliases %%,Period,Interval-method
-#' @aliases %%,Period,Period-method
-#' @aliases >,Period,Period-method
-#' @aliases >=,Period,Period-method
-#' @aliases ==,Period,Period-method
-#' @aliases !=,Period,Period-method
-#' @aliases <=,Period,Period-method
-#' @aliases <,Period,Period-method
-#' @aliases >,Period,Duration-method
-#' @aliases >=,Period,Duration-method
-#' @aliases ==,Period,Duration-method
-#' @aliases !=,Period,Duration-method
-#' @aliases <=,Period,Duration-method
-#' @aliases <,Period,Duration-method
-#' @aliases >,Duration,Period-method
-#' @aliases >=,Duration,Period-method
-#' @aliases ==,Duration,Period-method
-#' @aliases !=,Duration,Period-method
-#' @aliases <=,Duration,Period-method
-#' @aliases <,Duration,Period-method
-#' @aliases >,Period,numeric-method
-#' @aliases >=,Period,numeric-method
-#' @aliases ==,Period,numeric-method
-#' @aliases !=,Period,numeric-method
-#' @aliases <=,Period,numeric-method
-#' @aliases <,Period,numeric-method
-#' @aliases >,numeric,Period-method
-#' @aliases >=,numeric,Period-method
-#' @aliases ==,numeric,Period-method
-#' @aliases !=,numeric,Period-method
-#' @aliases <=,numeric,Period-method
-#' @aliases <,numeric,Period-method
+#' @aliases second,Period-method second<-,Period-method minute,Period-method
+#' minute<-,Period-method hour,Period-method hour<-,Period-method
+#' day,Period-method day<-,Period-method month,Period-method
+#' month<-,Period-method year,Period-method year<-,Period-method
+#' as.numeric,Period-method show,Period-method c,Period-method rep,Period-method
+#' [,Period-method [<-,Period,ANY,ANY,Period-method [[,Period-method
+#' [[<-,Period,ANY,ANY,Period-method $,Period-method $<-,Period-method
+#' as.difftime,Period-method as.character,Period-method +,Period,Duration-method
+#' +,Period,Interval-method +,Period,Period-method +,Period,Date-method
+#' +,Date,Period-method +,Period,difftime-method +,difftime,Period-method
+#' +,Period,numeric-method +,numeric,Period-method +,Period,POSIXct-method
+#' +,POSIXct,Period-method +,Period,POSIXlt-method +,POSIXlt,Period-method
+#' /,Period,Duration-method /,Period,Interval-method /,Period,Period-method
+#' /,Period,difftime-method /,difftime,Period-method /,Period,numeric-method
+#' /,numeric,Period-method *,Period,ANY-method *,ANY,Period-method
+#' -,Period,missing-method -,ANY,Period-method %%,Period,Duration-method
+#' %%,Period,Interval-method %%,Period,Period-method >,Period,Period-method
+#' >=,Period,Period-method ==,Period,Period-method !=,Period,Period-method
+#' <=,Period,Period-method <,Period,Period-method >,Period,Duration-method
+#' >=,Period,Duration-method ==,Period,Duration-method !=,Period,Duration-method
+#' <=,Period,Duration-method <,Period,Duration-method >,Duration,Period-method
+#' >=,Duration,Period-method ==,Duration,Period-method !=,Duration,Period-method
+#' <=,Duration,Period-method <,Duration,Period-method >,Period,numeric-method
+#' >=,Period,numeric-method ==,Period,numeric-method !=,Period,numeric-method
+#' <=,Period,numeric-method <,Period,numeric-method >,numeric,Period-method
+#' >=,numeric,Period-method ==,numeric,Period-method !=,numeric,Period-method
+#' <=,numeric,Period-method <,numeric,Period-method !=,Duration,Period
+#' !=,Period,Duration !=,Period,Period !=,Period,numeric !=,numeric,Period
+#' %%,Period,Duration %%,Period,Interval %%,Period,Period *,ANY,Period
+#' *,Period,ANY -,ANY,Period -,Period,Interval -,Period,missing /,numeric,Period
+#' <,Duration,Period <,Period,Duration <,Period,Period <,Period,numeric
+#' <,numeric,Period <=,Duration,Period <=,Period,Duration <=,Period,Period
+#' <=,Period,numeric <=,numeric,Period ==,Duration,Period ==,Period,Duration
+#' ==,Period,Period ==,Period,numeric ==,numeric,Period >,Duration,Period
+#' >,Period,Duration >,Period,Period >,Period,numeric >,numeric,Period
+#' >=,Duration,Period >=,Period,Duration >=,Period,Period >=,Period,numeric
+#' >=,numeric,Period
 setClass("Period", contains = c("Timespan", "numeric"), 
 	slots = c(year = "numeric", month = "numeric", day = "numeric", 
 		hour = "numeric", minute = "numeric"), 
@@ -445,6 +399,7 @@ is.period <- function(x) is(x,"Period")
 #' @name quick_periods
 #' @param x numeric value of the number of units to be contained in the
 #'          period. With the exception of seconds(), x must be an integer.
+#' @param abbreviate Ignored. For consistency with S3 generic in base namespace.
 #' @return a period object
 #' @seealso \code{\link{Period-class}}, \code{\link{period}}, \code{\link{ddays}}
 #' @keywords chron manip

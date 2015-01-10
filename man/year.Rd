@@ -14,6 +14,8 @@ isoyear(x)
 }
 \arguments{
 \item{x}{a date-time object}
+
+\item{value}{a numeric object}
 }
 \value{
 the years element of x as a decimal number

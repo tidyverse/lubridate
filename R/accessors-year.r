@@ -9,6 +9,7 @@ NULL
 #' year does not yet support years before 0 C.E.
 #'
 #' @param x a date-time object   
+#' @param value a numeric object
 #' @return the years element of x as a decimal number
 #' @keywords utilities manip chron methods
 #' @examples

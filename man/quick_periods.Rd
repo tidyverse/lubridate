@@ -40,6 +40,8 @@ picoseconds(x = 1)
 \arguments{
 \item{x}{numeric value of the number of units to be contained in the
 period. With the exception of seconds(), x must be an integer.}
+
+\item{abbreviate}{Ignored. For consistency with S3 generic in base namespace.}
 }
 \value{
 a period object

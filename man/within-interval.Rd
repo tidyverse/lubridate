@@ -2,6 +2,7 @@
 % Please edit documentation in R/intervals.r
 \name{\%within\%}
 \alias{\%within\%}
+\alias{\%within\%,ANY,Interval-method}
 \alias{\%within\%,Interval,Interval-method}
 \title{Tests whether a date or interval falls within an interval}
 \usage{

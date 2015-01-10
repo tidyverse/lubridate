@@ -25,8 +25,6 @@ add_duration_to_date <- function(dur, date) {
   reclass_date(new, date)
 }
 
-
-
 add_period_to_period <- function(per2, per1){
   new("Period", per1@.Data + per2@.Data,
   	year = per1@year + per2@year,
@@ -110,8 +108,6 @@ setMethod("+", signature(e1 = "Duration", e2 = "POSIXct"),
 #' @export	
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXlt"), 
 	function(e1, e2) add_duration_to_date(e1, e2)) 
-	
-
 
 #' @export
 setMethod("+", signature(e1 = "Interval", e2 = "Duration"), function(e1, e2){ 

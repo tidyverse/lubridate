@@ -12,6 +12,7 @@ NULL
 #' @param abbr logical. FALSE will display the month as a character string #'
 #'   label, such as #' "January". TRUE will display an abbreviated version of
 #'   the label, such as "Jan". abbr is #' disregarded if label = FALSE.
+#' @param value a numeric object
 #' @return the months element of x as a number (1-12) or character string. 1 = January.
 #' @keywords utilities manip chron methods
 #' @examples

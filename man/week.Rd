@@ -14,6 +14,8 @@ isoweek(x)
 }
 \arguments{
 \item{x}{a date-time object}
+
+\item{value}{a numeric object}
 }
 \value{
 the weeks element of x as an integer number

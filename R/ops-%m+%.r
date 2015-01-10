@@ -28,19 +28,7 @@ NULL
 #' @export 
 #' @rdname mplus
 #' @usage e1 \%m+\% e2
-#' @aliases m+ %m+% m- %m-%
-#' @aliases %m+%,Period,ANY-method
-#' @aliases %m+%,ANY,Period-method
-#' @aliases %m-%,Period,ANY-method
-#' @aliases %m-%,ANY,Period-method
-#' @aliases %m+%,Duration,ANY-method
-#' @aliases %m+%,ANY,Duration-method
-#' @aliases %m-%,Duration,ANY-method
-#' @aliases %m-%,ANY,Duration-method
-#' @aliases %m+%,Interval,ANY-method
-#' @aliases %m+%,ANY,Interval-method
-#' @aliases %m-%,Interval,ANY-method
-#' @aliases %m-%,ANY,Interval-method
+#' @aliases m+ %m+% m- %m-% %m+%,ANY,ANY-method %m-%,ANY,ANY-method %m+%,Period,ANY-method %m+%,ANY,Period-method %m-%,Period,ANY-method %m-%,ANY,Period-method %m+%,Duration,ANY-method %m+%,ANY,Duration-method %m-%,Duration,ANY-method %m-%,ANY,Duration-method %m+%,Interval,ANY-method %m+%,ANY,Interval-method %m-%,Interval,ANY-method %m-%,ANY,Interval-method
 #' @param e1 A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}} 
 #' or \code{\link{Date}}.
 #' @param e2 A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}} 

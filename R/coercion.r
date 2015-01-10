@@ -96,10 +96,12 @@ period_to_difftime <- function(per){
 #' Convenience method to reclass timespans post-modification.
 #' @keywords internal
 #'
+#' @aliases reclass_timespan,ANY,Duration-method reclass_timespan,ANY,Interval-method
+#' reclass_timespan,ANY,Period-method reclass_timespan,ANY,difftime-method
 #' @export
 reclass_timespan <- function(new, orig) standardGeneric("reclass_timespan")
 
-#' @export
+#' #' @export
 setGeneric("reclass_timespan")
 
 #' @export
@@ -160,13 +162,8 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' # 18316800s (~212 days)
 #' as.duration(10) # numeric
 #' # 10s
-#' @export 
-#' @aliases as.duration,numeric-method
-#' @aliases as.duration,logical-method
-#' @aliases as.duration,difftime-method
-#' @aliases as.duration,Interval-method
-#' @aliases as.duration,Duration-method
-#' @aliases as.duration,Period-method
+#' @aliases as.duration,numeric-method as.duration,logical-method as.duration,difftime-method as.duration,Interval-method as.duration,Duration-method as.duration,Period-method
+#' @export
 as.duration <- function(x) standardGeneric("as.duration")
 
 #' @export
@@ -221,8 +218,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' described. See 
 #' \code{\link{as.duration}}, \code{\link{as.period}}.
 #'
-#' @export as.interval
-#' @param x a duration, difftime, period, or numeric object that describes the length of the interval
+#'  as.interval@param x a duration, difftime, period, or numeric object that describes the length of the interval
 #' @param start a POSIXt or Date object that describes when the interval begins   
 #' @param ... additional arguments to pass to as.interval
 #' @return an interval object
@@ -249,13 +245,8 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #'
 #' as.interval(3600, ymd("2009-01-01")) #numeric
 #' # 2009-01-01 UTC--2009-01-01 01:00:00 UTC
-#' @aliases as.interval,numeric-method
-#' @aliases as.interval,difftime-method
-#' @aliases as.interval,Interval-method
-#' @aliases as.interval,Duration-method
-#' @aliases as.interval,Period-method
-#' @aliases as.interval,POSIXt-method
-#' @aliases as.interval,logical-method
+#' @aliases as.interval,numeric-method as.interval,difftime-method as.interval,Interval-method as.interval,Duration-method as.interval,Period-method as.interval,POSIXt-method as.interval,logical-method
+#' @export
 as.interval <- function(x, start, ...) standardGeneric("as.interval")
 
 #' @export
@@ -335,7 +326,6 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' setting the global \code{lubridate.verbose} option to FALSE with 
 #' \code{options(lubridate.verbose = FALSE)}.
 #'
-#' @export
 #' @param x an interval, difftime, or numeric object   
 #' @param unit A character string that specifies which time units to build period in. 
 #' unit is only implemented for the as.period.numeric method and the as.period.interval method. 
@@ -365,12 +355,8 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' # "86400S"
 #' as.period(dst, unit = "hours")
 #' # "24H 0M 0S"
-#' @aliases as.period,numeric-method
-#' @aliases as.period,difftime-method
-#' @aliases as.period,Interval-method
-#' @aliases as.period,Duration-method
-#' @aliases as.period,Period-method
-#' @aliases as.period,logical-method
+#' @aliases as.period,numeric-method as.period,difftime-method as.period,Interval-method as.period,Duration-method as.period,Period-method as.period,logical-method
+#' @export
 as.period <- function(x, unit, ...) standardGeneric("as.period")
 
 #' @export

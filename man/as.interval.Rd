@@ -2,6 +2,12 @@
 % Please edit documentation in R/coercion.r
 \name{as.interval}
 \alias{as.interval}
+\alias{as.interval,Duration-method}
+\alias{as.interval,Interval-method}
+\alias{as.interval,POSIXt-method}
+\alias{as.interval,Period-method}
+\alias{as.interval,difftime-method}
+\alias{as.interval,logical-method}
 \alias{as.interval,numeric-method}
 \title{Change an object to an interval.}
 \usage{
@@ -31,6 +37,8 @@ this start date to look up how many seconds each variable
 length unit (e.g. month, year) lasted for during the time span
 described. See
 \code{\link{as.duration}}, \code{\link{as.period}}.
+
+as.interval
 }
 \examples{
 diff <- new_difftime(days = 31) #difftime

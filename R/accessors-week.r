@@ -10,6 +10,7 @@ NULL
 #' ISO 8601 system, which uses a reoccuring leap week.
 #'
 #' @param x a date-time object   
+#' @param value a numeric object
 #' @return the weeks element of x as an integer number
 #' @keywords utilities manip chron
 #' @examples
