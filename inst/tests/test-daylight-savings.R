@@ -198,6 +198,6 @@ test_that("arithmetic handles fall gap in timespan appropriate way", {
   cdst <- structure(1352012400, tzone = "America/Chicago", class = c("POSIXct",                                                                  "POSIXt"))
 
   expect_equal(cdst - seconds(1), cdst - 3601)
-  expect_equal(cdst - eseconds(1), cdst - 1)
+  expect_equal(cdst - dseconds(1), cdst - 1)
 })
           

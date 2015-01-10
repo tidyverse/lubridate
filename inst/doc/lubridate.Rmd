@@ -139,7 +139,7 @@ How long was my stay in Auckland?
 ```{r}
 auckland / ddays(1)
 auckland / ddays(2)
-auckland / eminutes(1)
+auckland / dminutes(1)
 ```
 
 And so on. Alternatively, we can do modulo and integer division. Sometimes this is more sensible than division - it is not obvious how to express a remainder as a fraction of a month because the length of a month constantly changes.

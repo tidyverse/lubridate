@@ -9,7 +9,7 @@ test_that("is.difftime works as expected",{
   expect_true(!is.difftime(lt_time))
   expect_true(!is.difftime(Sys.Date()))
   expect_true(!is.difftime(minutes(1)))
-  expect_true(!is.difftime(eminutes(1)))
+  expect_true(!is.difftime(dminutes(1)))
   expect_true(!is.difftime(interval(ct_time, lt_time)))
   
   expect_true(is.difftime(new_difftime(1000)))

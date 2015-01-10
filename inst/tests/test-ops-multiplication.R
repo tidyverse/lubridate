@@ -36,8 +36,8 @@ test_that("multiplying vectors works for periods",{
 
 test_that("multiplication works as expected for durations",{
     
-  expect_that(3*ehours(1), equals(ehours(3)))
-  expect_that(3*ehours(1), is_a("Duration"))
+  expect_that(3*dhours(1), equals(dhours(3)))
+  expect_that(3*dhours(1), is_a("Duration"))
   
 })
 

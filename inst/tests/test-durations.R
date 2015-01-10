@@ -55,7 +55,7 @@ test_that("new_duration handles vectors",{
 
 
 test_that("as.duration handles vectors",{
-  expect_that(as.duration(minutes(1:3)), equals(eminutes(1:3)))
+  expect_that(as.duration(minutes(1:3)), equals(dminutes(1:3)))
 })
 
 test_that("as.duration handles periods",{
@@ -108,7 +108,7 @@ test_that("is.duration works as expected",{
   expect_that(is.duration(lt_time), is_false())
   expect_that(is.duration(Sys.Date()), is_false())
   expect_that(is.duration(minutes(1)), is_false())
-  expect_that(is.duration(eminutes(1)), is_true())
+  expect_that(is.duration(dminutes(1)), is_true())
   expect_that(is.duration(new_difftime(1000)), is_false())
   expect_that(is.duration(new_interval(lt_time, ct_time)), is_false())
 })

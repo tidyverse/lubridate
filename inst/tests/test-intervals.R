@@ -8,7 +8,7 @@ test_that("is.interval works as expected",{
     is_false())
   expect_that(is.interval(Sys.Date()), is_false())
   expect_that(is.interval(minutes(1)), is_false())
-  expect_that(is.interval(eminutes(1)), is_false())
+  expect_that(is.interval(dminutes(1)), is_false())
   expect_that(is.interval(new_interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_true())
