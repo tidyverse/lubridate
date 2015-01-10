@@ -137,8 +137,8 @@ meetings %within% jsm
 How long was my stay in Auckland?
 
 ```{r}
-auckland / edays(1)
-auckland / edays(2)
+auckland / ddays(1)
+auckland / ddays(2)
 auckland / eminutes(1)
 ```
 

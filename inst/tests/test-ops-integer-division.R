@@ -6,8 +6,8 @@ test_that("integer division works for interval numerator",{
   expect_error(int1 %/% int2)
   expect_equal(int1 %/% months(1), 12)
   expect_error(months(12) %/% int1)
-  expect_equal(int1 %/% edays(1), 365)
-  expect_error(edays(365) %/% int1)
+  expect_equal(int1 %/% ddays(1), 365)
+  expect_error(ddays(365) %/% int1)
   
 })
 
@@ -21,8 +21,8 @@ test_that("integer division works for interval numerator with vectors",{
   expect_error(c(int1, int2) %/% int3)
   expect_equal(int1 %/% months(1:2), c(12, 6))
   expect_error(months(c(6, 12)) %/% int1)
-  expect_equal(int1 %/% edays(1:2), c(365, 182))
-  expect_equal(c(int1, int2) %/% edays(2), c(182, 365))
+  expect_equal(int1 %/% ddays(1:2), c(365, 182))
+  expect_equal(c(int1, int2) %/% ddays(2), c(182, 365))
   
 })
 
@@ -33,7 +33,7 @@ test_that("integer division works for period numerator",{
   expect_error(years(2) %/% int1)
   expect_equal(years(1) %/% days(1), 365)
   expect_equal(months(13) %/% years(1), 1)
-  expect_error(months(1) %/% edays(1))
+  expect_error(months(1) %/% ddays(1))
   
 })
 
@@ -45,8 +45,8 @@ test_that("integer division works for period numerator with vectors",{
   expect_error(years(1:2) %/% int1)
   expect_equal(years(1) %/% months(1:2), c(12, 6))
   expect_equal(months(c(6, 12)) %/% years(1), c(0, 1))
-  expect_error(years(1) %/% edays(1:2))
-  expect_error(years(1:2) %/% edays(2))
+  expect_error(years(1) %/% ddays(1:2))
+  expect_error(years(1:2) %/% ddays(2))
   
 })
 
@@ -55,7 +55,7 @@ test_that("integer division works for duration numerator",{
 
   expect_error(eyears(2) %/% int1)  
   expect_error(eyears(1) %/% months(1))
-  expect_equal(eyears(1) %/% edays(1), 365)
+  expect_equal(eyears(1) %/% ddays(1), 365)
   
 })
 
@@ -67,8 +67,8 @@ test_that("integer division works for duration numerator with vectors",{
   expect_error(eyears(1:2) %/% int1)
   expect_error(eyears(1) %/% months(1:2))
   expect_error(eyears(1:2) %/% years(1))
-  expect_equal(eyears(1) %/% edays(1:2), c(365, 182))
-  expect_equal(eyears(1:2) %/% edays(2), c(182, 365))
+  expect_equal(eyears(1) %/% ddays(1:2), c(365, 182))
+  expect_equal(eyears(1:2) %/% ddays(2), c(182, 365))
   
 })
 

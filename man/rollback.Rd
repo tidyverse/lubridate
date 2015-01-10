@@ -4,26 +4,44 @@
 \alias{rollback}
 \title{Roll back date to last day of previous month}
 \usage{
-rollback(dates)
+rollback(dates, roll_to_first = FALSE, preserve_hms = TRUE)
 }
 \arguments{
 \item{dates}{A POSIXct, POSIXlt or Date class object.}
+
+\item{roll_to_first}{Rollback to the first day of the month instead of the last day of the
+previous month}
+
+\item{preserve_hms}{Retains the same hour, minute, and second information? If FALSE, the new
+date will be at 00:00:00.}
 }
 \value{
 A date-time object of class POSIXlt, POSIXct or Date, whose day has been adjusted to the
-last day of the previous month.
+last day of the previous month, or to the first day of the month.
+}
+\description{
+rollback changes a date to the last day of the previous month or to the first day of the month.
+Optionally, the new date can retain the same hour, minute, and second information.
+}
+\examples{
 date <- ymd("2010-03-03")
 # "2010-03-03 UTC"
 rollback(date)
 # "2010-02-28 UTC"
 
 dates <- date + months(0:2)
-"2010-03-03 UTC" "2010-04-03 UTC" "2010-05-03 UTC"
+# "2010-03-03 UTC" "2010-04-03 UTC" "2010-05-03 UTC"
 rollback(dates)
-"2010-02-28 UTC" "2010-03-31 UTC" "2010-04-30 UTC"
-}
-\description{
-rollback changes a date to the last day of the previous month. The new date retains the same hour,
-minute, and second information.
+# "2010-02-28 UTC" "2010-03-31 UTC" "2010-04-30 UTC"
+
+date <- ymd_hms("2010-03-03 12:44:22")
+rollback(date)
+# "2010-02-28 12:44:22 UTC"
+rollback(date, roll_to_first = TRUE)
+# "2010-03-01 12:44:22 UTC"
+rollback(date, preserve_hms = FALSE)
+# "2010-02-28 UTC"
+rollback(date, roll_to_first = TRUE, preserve_hms = FALSE)
+# "2010-03-01 UTC"
 }
 

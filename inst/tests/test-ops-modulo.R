@@ -5,15 +5,15 @@ test_that("modulo operations return correct class",{
 	
 	expect_error(int %% int)
 	expect_is(int %% months(1), "Interval")
-	expect_is(int %% edays(10), "Interval")	
+	expect_is(int %% ddays(10), "Interval")	
 	
 	expect_error(months(3) %% int)
 	expect_is(days(3) %% hours(2), "Period")
 	expect_error(days(5) %% eminutes(300))	
 	
 	expect_error(eyears(3) %% int)
-	expect_error(edays(2) %% weeks(1))
-	expect_is(edays(3) %% edays(1), "Duration")		
+	expect_error(ddays(2) %% weeks(1))
+	expect_is(ddays(3) %% ddays(1), "Duration")		
 
 })
 
@@ -33,7 +33,7 @@ test_that("modulo operations synchronize with integer division",{
 	
 	expect_error(eweeks(20) %% int)
 	expect_error(eweeks(20) %% years(2))
-	expect_equal(eweeks(20) %% edays(20) + eweeks(20) %/% edays(20) * edays(20), eweeks(20))
+	expect_equal(eweeks(20) %% ddays(20) + eweeks(20) %/% ddays(20) * ddays(20), eweeks(20))
 
 })	
 	
@@ -61,10 +61,10 @@ test_that("modulo operations work for vectors",{
 	
 	expect_error(eweeks(20:21) %% int)
 	expect_error(eweeks(20:21) %% years(2))
-	expect_equal(eweeks(20:21) %% edays(20) + eweeks(20:21) %/% edays(20) * edays(20), eweeks(20:21))
+	expect_equal(eweeks(20:21) %% ddays(20) + eweeks(20:21) %/% ddays(20) * ddays(20), eweeks(20:21))
 	expect_error(eweeks(20) %% c(int, int))
 	expect_error(eweeks(20) %% years(2:3))
-	expect_equal(eweeks(20) %% edays(20:21) + eweeks(20) %/% edays(20:21) * edays(20:21), c(eweeks(20), eweeks(20)))	
+	expect_equal(eweeks(20) %% ddays(20:21) + eweeks(20) %/% ddays(20:21) * ddays(20:21), c(eweeks(20), eweeks(20)))	
 
 
 })		

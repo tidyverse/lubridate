@@ -53,8 +53,8 @@ test_that("addition handles daylight savings time for spring gap", {
   
   expect_equal(x + days(1), px)
   expect_equal(c(x, px) + days(1), c(px, px2))
-  expect_equal(x + edays(1), ex) 
-  expect_equal(c(x, ex) + edays(1), c(ex, ex2))
+  expect_equal(x + ddays(1), ex) 
+  expect_equal(c(x, ex) + ddays(1), c(ex, ex2))
     
 })  
 
@@ -73,8 +73,8 @@ test_that("subtraction handles daylight savings time for spring gap", {
   
   expect_equal(x - days(1), px)
   expect_equal(c(x, px) - days(1), c(px, px2))
-  expect_equal(x - edays(1), ex) 
-  expect_equal(c(x, ex) - edays(1), c(ex, ex2))
+  expect_equal(x - ddays(1), ex) 
+  expect_equal(c(x, ex) - ddays(1), c(ex, ex2))
     
 })
 
@@ -92,8 +92,8 @@ test_that("addition handles daylight savings time for fall overlap", {
   
   expect_equal(x + days(1), px)
   expect_equal(c(x, px) + days(1), c(px, px2))
-  expect_equal(x + edays(1), ex)
-  expect_equal(c(x, ex) + edays(1), c(ex, ex2))
+  expect_equal(x + ddays(1), ex)
+  expect_equal(c(x, ex) + ddays(1), c(ex, ex2))
 })  
 
 
@@ -111,8 +111,8 @@ test_that("subtraction handles daylight savings time for fall overlap", {
   
   expect_equal(x - days(1), px)
   expect_equal(c(x, px) - days(1), c(px, px2))
-  expect_equal(x - edays(1), ex)  
-  expect_equal(c(x, ex) - edays(1), c(ex, ex2))
+  expect_equal(x - ddays(1), ex)  
+  expect_equal(c(x, ex) - ddays(1), c(ex, ex2))
     
 })
 

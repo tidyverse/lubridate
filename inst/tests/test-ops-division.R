@@ -15,7 +15,7 @@ test_that("division operations work for interval numerator",{
   expect_error(int/bigger_int)
   
   expect_equal(int_start(int) + days(int/days(1)), int_end(int))
-  expect_equal(int_start(int) + edays(int/edays(1)), int_end(int))
+  expect_equal(int_start(int) + ddays(int/ddays(1)), int_end(int))
   
   expect_equal(int/smaller_diff, 28684800/8640000)
   expect_equal(int/bigger_diff, 28684800/34560000)
@@ -97,10 +97,10 @@ test_that("division works for period numerator with vectors",{
 test_that("division operations work for duration numerator",{
   int <-  ymd("2009-12-01") %--% ymd("2010-01-01")
   
-  expect_error(edays(31)/int)
-  expect_error(edays(20)/ days(20))
-  expect_equal(edays(20)/ edays(1), 20)
-  expect_equal(edays(20)/ new_difftime(days = 1), 20)
+  expect_error(ddays(31)/int)
+  expect_error(ddays(20)/ days(20))
+  expect_equal(ddays(20)/ ddays(1), 20)
+  expect_equal(ddays(20)/ new_difftime(days = 1), 20)
   
 })
 
@@ -111,19 +111,19 @@ test_that("division works for duration numerator with vectors",{
   int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
 
   
-  expect_error(edays(365*c(1:2)) / int2)
-  expect_error(edays(365) / c(int1, int2))
+  expect_error(ddays(365*c(1:2)) / int2)
+  expect_error(ddays(365) / c(int1, int2))
   
-  expect_equal(edays(1:2) / ehours(12), c(2,4))
-  expect_equal(edays(1) / ehours(c(12, 24)), c(2,1))
+  expect_equal(ddays(1:2) / ehours(12), c(2,4))
+  expect_equal(ddays(1) / ehours(c(12, 24)), c(2,1))
   
-  expect_error(edays(1:2) / hours(12))
-  expect_error(edays(1) / hours(c(12, 24))) 
+  expect_error(ddays(1:2) / hours(12))
+  expect_error(ddays(1) / hours(c(12, 24))) 
    	  
-  expect_equal(edays(1:2) / new_difftime(days = 1), c(1,2))
+  expect_equal(ddays(1:2) / new_difftime(days = 1), c(1,2))
   		
-  expect_equal(edays(2) / c(1,2), c(edays(2), edays(1)))
-  expect_equal(edays(c(2,4)) / c(2), c(edays(1), edays(2)))
+  expect_equal(ddays(2) / c(1,2), c(ddays(2), ddays(1)))
+  expect_equal(ddays(c(2,4)) / c(2), c(ddays(1), ddays(2)))
   
 })
 
@@ -133,7 +133,7 @@ test_that("division operations work for difftime numerator",{
   
   expect_error(diff/int)
   expect_error(diff/days(1))
-  expect_equal(diff/ edays(365), 1)
+  expect_equal(diff/ ddays(365), 1)
   
 })
 

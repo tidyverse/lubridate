@@ -73,7 +73,7 @@ date <- as.POSIXct("2009-03-08 01:59:59") # DST boundary
 # "2009-03-08 01:59:59 CST"
 date + days(1)
 # "2009-03-09 01:59:59 CDT" periods preserve clock time
-date + edays(1)
+date + ddays(1)
 # "2009-03-09 02:59:59 CDT" durations preserve exact passage of time
 
 date2 <- as.POSIXct("2000-02-29 12:00:00")

@@ -67,24 +67,24 @@ test_that("format.Interval works as expected", {
 test_that("as.interval works as expected", {
   a <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   pint <- interval(a, a + days(1))
-  dint <- interval(a, a + edays(1))
+  dint <- interval(a, a + ddays(1))
   
   expect_equal(pint, as.interval(days(1), a))
-  expect_equal(dint, as.interval(edays(1), a))
+  expect_equal(dint, as.interval(ddays(1), a))
 })
 
 test_that("as.interval handles vector input", {
     a <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
     b <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
     pint <- interval(a, a + days(1:2))
-    dint <- interval(a, a + edays(1:2))
+    dint <- interval(a, a + ddays(1:2))
     pint1 <- interval(c(a,b), c(a,b) + days(1:2))
-    dint1 <- interval(c(a,b), c(a,b) + edays(1:2))
+    dint1 <- interval(c(a,b), c(a,b) + ddays(1:2))
     pint2 <- interval(c(a,b), c(a,b) + days(1))
-    dint2 <- interval(c(a,b), c(a,b) + edays(1))
+    dint2 <- interval(c(a,b), c(a,b) + ddays(1))
   
   expect_equal(pint, as.interval(days(1:2), a))
-  expect_equal(dint, as.interval(edays(1:2), a))
+  expect_equal(dint, as.interval(ddays(1:2), a))
   expect_equal(pint1, as.interval(days(1:2), c(a,b)))
   expect_equal(dint1, as.interval(days(1:2), c(a,b)))
   expect_equal(pint2, as.interval(days(1), c(a,b)))

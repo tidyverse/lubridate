@@ -6,7 +6,7 @@ test_that("addition handles daylight savings time", {
   
   expect_that(x + days(1), equals(as.POSIXct(
     "2010-03-15 00:00:00", tz = "America/New_York")))
-  expect_that(x + edays(1), equals(y))  
+  expect_that(x + ddays(1), equals(y))  
     
 })  
 
@@ -17,7 +17,7 @@ test_that("subtraction handles daylight savings time", {
   
   expect_that(x - days(1), equals(as.POSIXct(
     "2010-03-14 00:00:00", tz = "America/New_York")))
-  expect_that(x - edays(1), equals(y))  
+  expect_that(x - ddays(1), equals(y))  
     
 })  
 

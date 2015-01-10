@@ -11,6 +11,16 @@
 \alias{dseconds}
 \alias{dweeks}
 \alias{dyears}
+\alias{edays}
+\alias{ehours}
+\alias{emicroseconds}
+\alias{emilliseconds}
+\alias{eminutes}
+\alias{enanoseconds}
+\alias{epicoseconds}
+\alias{eseconds}
+\alias{eweeks}
+\alias{eyears}
 \alias{quick_durations}
 \title{Quickly create duration objects.}
 \usage{
@@ -33,6 +43,26 @@ dmicroseconds(x = 1)
 dnanoseconds(x = 1)
 
 dpicoseconds(x = 1)
+
+eseconds(x = 1)
+
+eminutes(x = 1)
+
+ehours(x = 1)
+
+edays(x = 1)
+
+eweeks(x = 1)
+
+eyears(x = 1)
+
+emilliseconds(x = 1)
+
+emicroseconds(x = 1)
+
+enanoseconds(x = 1)
+
+epicoseconds(x = 1)
 }
 \arguments{
 \item{x}{numeric value of the number of units to be contained in the duration.}
@@ -51,6 +81,11 @@ minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks =
 When paired with date-times, these functions allow date-times to be
 manipulated in a method similar to object oriented programming. Duration
 objects can be added to Date, POSIXt, and Interval objects.
+
+Since version 1.4.0 the following functions are deprecated: \code{eseconds},
+\code{eminutes}, \code{ehours}, \code{edays}, \code{eweeks}, \code{eyears},
+\code{emilliseconds}, \code{emicroseconds}, \code{enanoseconds},
+\code{epicoseconds}
 }
 \examples{
 dseconds(1)
