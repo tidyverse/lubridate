@@ -265,9 +265,9 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #'
 #' Period objects can be easily created with the helper functions 
 #' \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}}, 
-#' \code{\link{days}}, \code{\link{minutes}}, \code{\link{seconds}}. These objects 
-#' can be added to and subtracted to date-times to create a user interface 
-#' similar to object oriented programming.
+#' \code{\link{days}}, \code{\link{hours}}, \code{\link{minutes}}, 
+#' and \code{\link{seconds}}. These objects can be added to and subtracted 
+#' to date-times to create a user interface similar to object oriented programming.
 #'
 #' new_period is meant to be used interactively on the command line. See 
 #' \code{\link{period}}, for a version that is better suited to automating 
@@ -335,9 +335,9 @@ new_period <- function(...) {
 #'
 #' Period objects can be easily created with the helper functions 
 #' \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}}, 
-#' \code{\link{days}}, \code{\link{minutes}}, \code{\link{seconds}}. These objects 
-#' can be added to and subtracted to date-times to create a user interface 
-#' similar to object oriented programming.
+#' \code{\link{days}}, \code{\link{hours}}, \code{\link{minutes}}, 
+#' and \code{\link{seconds}}. These objects can be added to and subtracted 
+#' to date-times to create a user interface similar to object oriented programming.
 #'
 #' @export
 #' @param num a numeric vector that lists the number of time units to be included in the period
