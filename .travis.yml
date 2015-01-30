@@ -10,11 +10,14 @@ before_install:
 install:
   - ./travis-tool.sh install_deps
 
-script: ./travis-tool.sh run_tests
+script:
+  - ./travis-tool.sh run_tests
 
 after_failure:
   - ./travis-tool.sh dump_logs
 
+after_script:
+  - ./travis-tool.sh dump_sysinfo
+
 env:
   - WARNINGS_ARE_ERRORS=1 R_BUILD_ARGS="--no-manual" R_CHECK_ARGS="--no-manual --as-cran"
-
