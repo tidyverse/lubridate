@@ -89,7 +89,7 @@ jsm
 
 Will my visit overlap with and his travels? Yes.
 
-```{r]
+```{r}
 int_overlaps(jsm, auckland)
 ```
 

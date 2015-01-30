@@ -70,7 +70,7 @@
 #'
 #' Instants can be rounded to a convenient unit using the 
 #' functions \code{\link{ceiling_date}}, \code{\link{floor_date}} 
-#' and\code{\link{round_date}}.
+#' and \code{\link{round_date}}.
 #'
 #' Time zones
 #' 
