@@ -156,6 +156,16 @@ test_that("ymd functions correctly parse dates with no separators and no quotes"
               equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
 })
 
+test_that("all numbers are correctly converted into character for parsing", {
+  # Conversion to character of numbers with 000000 at the end with as.character()
+  # may outputs scientific notation depending on the value of the 'scipen' option.
+  # .num_to_date() uses format() to avoid that. Check that it does indeed work
+  expect_that(ymd_hms(20100102000000),
+              equals(as.POSIXct("2010-01-02 00:00:00", tz = "UTC")))
+  expect_that(.num_to_date(20100102000000),
+              equals("20100102000000"))
+})
+
 test_that("ymd functions parse absurd formats as NA's", {
   ## should not through errors, just as as.POSIX and strptime
   pna <- as.POSIXct(as.POSIXlt(NA, tz = "UTC"))

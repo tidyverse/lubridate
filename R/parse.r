@@ -695,7 +695,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
   if (is.numeric(x)) {
     out <- rep.int(as.character(NA), length(x))
     nnas <- !is.na(x)
-    x <- as.character(x[nnas])
+    x <- format(x[nnas], scientific = FALSE, trim = TRUE)
     x <- paste(ifelse(nchar(x) %% 2 == 1, "0", ""), x, sep = "")
     out[nnas] <- x
     out
