@@ -5,13 +5,13 @@
 \title{Round date-times up.}
 \usage{
 ceiling_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "year"))
+  "year", "quarter"))
 }
 \arguments{
 \item{x}{a vector of date-time objects}
 
 \item{unit}{a character string specifying the time unit to be rounded to. Should be one of
-"second","minute","hour","day", "week", "month", or "year."}
+"second", "minute", "hour", "day", "week", "month", "quarter", or "year."}
 }
 \value{
 x with the appropriate units rounded up
@@ -19,7 +19,7 @@ x with the appropriate units rounded up
 \description{
 \code{ceiling_date} takes a date-time object and rounds it up to the nearest
 integer value of the specified time unit. Users can specify whether to round
-up to the nearest second, minute, hour, day, week, month, or year.
+up to the nearest second, minute, hour, day, week, month, quarter, or year.
 }
 \details{
 By convention, the boundary for a month is the first second of the next
@@ -39,6 +39,8 @@ ceiling_date(x, "week")
 # "2009-08-09 CDT"
 ceiling_date(x, "month")
 # "2009-09-01 CDT"
+ceiling_date(x, "quarter")
+# "2009-10-01 CDT"
 ceiling_date(x, "year")
 # "2010-01-01 CST"
 }

@@ -5,13 +5,13 @@
 \title{Rounding for date-times.}
 \usage{
 round_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "year"))
+  "year", "quarter"))
 }
 \arguments{
 \item{x}{a vector of date-time objects}
 
 \item{unit}{a character string specifying the time unit to be rounded to. Should be one of
-"second","minute","hour","day", "week", "month", or "year."}
+"second", "minute", "hour", "day", "week", "month", "quarter", or "year."}
 }
 \value{
 x with the appropriate units rounded
@@ -19,7 +19,7 @@ x with the appropriate units rounded
 \description{
 \code{round_date} takes a date-time object and rounds it to the nearest
 integer value of the specified time unit. Users can specify whether to round
-to the nearest second, minute, hour, day, week, month, or year.
+to the nearest second, minute, hour, day, week, month, quarter, or year.
 }
 \details{
 By convention, the boundary for a month is the first second of the next
@@ -39,6 +39,8 @@ round_date(x, "week")
 # "2009-08-02 CDT"
 round_date(x, "month")
 # "2009-08-01 CDT"
+round_date(x, "quarter")
+# "2009-07-01 CDT"
 round_date(x, "year")
 # "2010-01-01 CST"
 }

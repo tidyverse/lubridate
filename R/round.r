@@ -2,14 +2,14 @@
 #'
 #' \code{floor_date} takes a date-time object and rounds it down to the nearest integer 
 #' value of the specified time unit. Users can specify whether to round down to 
-#' the nearest second, minute, hour, day, week, month, or year.
+#' the nearest second, minute, hour, day, week, month, quarter, or year.
 #'
 #' By convention the boundary for a month is the first second of the month. Thus
 #' \code{floor_date(ymd("2000-03-01"), "month")} gives "2000-03-01 UTC".
 #' @export floor_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
-#'   "second","minute","hour","day", "week", "month", or "year."
+#'   "second", "minute", "hour", "day", "week", "month", "quarter", or "year."
 #' @return x with the appropriate units floored
 #' @seealso \code{\link{ceiling_date}}, \code{\link{round_date}}
 #' @keywords manip chron
@@ -27,9 +27,11 @@
 #' # "2009-08-02 CDT"
 #' floor_date(x, "month")
 #' # "2009-08-01 CDT"
+#' floor_date(x, "quarter")
+#' # "2009-07-01 CDT"
 #' floor_date(x, "year")
 #' # "2009-01-01 CST"
-floor_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
+floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
   unit <- match.arg(unit)
   
   new <- switch(unit,
@@ -39,6 +41,7 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
     day =    update(x, hours = 0, minutes = 0, seconds = 0),
     week =   update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
     month =  update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0),
+    quarter = update(x, months = ((month(x)-1)%/%3)*3+1, mdays = 1, hours = 0, minutes = 0, seconds = 0),
     year =   update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0)
   )
   new
@@ -49,14 +52,14 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 #'
 #' \code{ceiling_date} takes a date-time object and rounds it up to the nearest
 #' integer value of the specified time unit. Users can specify whether to round
-#' up to the nearest second, minute, hour, day, week, month, or year.
+#' up to the nearest second, minute, hour, day, week, month, quarter, or year.
 #'
 #' By convention, the boundary for a month is the first second of the next
 #' month. Thus \code{ceiling_date(ymd("2000-03-01"), "month")} gives "2000-03-01 UTC".
 #' @export ceiling_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
-#'   "second","minute","hour","day", "week", "month", or "year."
+#'   "second", "minute", "hour", "day", "week", "month", "quarter", or "year."
 #' @return x with the appropriate units rounded up
 #' @seealso \code{\link{floor_date}}, \code{\link{round_date}}
 #' @keywords manip chron
@@ -74,11 +77,13 @@ floor_date <- function(x, unit = c("second","minute","hour","day", "week", "mont
 #' # "2009-08-09 CDT"
 #' ceiling_date(x, "month")
 #' # "2009-09-01 CDT"
+#' ceiling_date(x, "quarter")
+#' # "2009-10-01 CDT"
 #' ceiling_date(x, "year")
 #' # "2010-01-01 CST"
-ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
-	unit <- match.arg(unit) 
   
+ceiling_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
+	unit <- match.arg(unit)
 	if(!length(x)) return(x)
   
   if (unit == "second") {
@@ -94,6 +99,7 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 		day =    yday(y) <- yday(y) + 1,
 		week =   week(y) <- week(y) + 1,
 		month =  month(y) <- month(y) + 1,
+		quarter = month(y) <- month(y) + 3,
 		year =   year(y) <- year(y) + 1
 	)
 	reclass_date(y, x)
@@ -105,14 +111,14 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 #'
 #' \code{round_date} takes a date-time object and rounds it to the nearest
 #' integer value of the specified time unit. Users can specify whether to round
-#' to the nearest second, minute, hour, day, week, month, or year.
+#' to the nearest second, minute, hour, day, week, month, quarter, or year.
 #'
 #' By convention, the boundary for a month is the first second of the next
 #' month. Thus \code{round_date(ymd("2000-03-01"), "month")} gives "2000-03-01 UTC".
 #' @export round_date
 #' @param x a vector of date-time objects 
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of 
-#'   "second","minute","hour","day", "week", "month", or "year."
+#'   "second", "minute", "hour", "day", "week", "month", "quarter", or "year."
 #' @return x with the appropriate units rounded
 #' @seealso \code{\link{floor_date}}, \code{\link{ceiling_date}}
 #' @keywords manip chron
@@ -130,9 +136,11 @@ ceiling_date <- function(x, unit = c("second","minute","hour","day", "week", "mo
 #' # "2009-08-02 CDT"
 #' round_date(x, "month")
 #' # "2009-08-01 CDT"
+#' round_date(x, "quarter")
+#' # "2009-07-01 CDT"
 #' round_date(x, "year")
 #' # "2010-01-01 CST"
-round_date <- function(x, unit = c("second","minute","hour","day", "week", "month", "year")) {
+round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
 
   if(!length(x)) return(x)
   
