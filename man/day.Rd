@@ -5,6 +5,8 @@
 \alias{day<-}
 \alias{mday}
 \alias{mday<-}
+\alias{qday}
+\alias{qday<-}
 \alias{wday}
 \alias{wday<-}
 \alias{yday}
@@ -17,11 +19,15 @@ mday(x)
 
 wday(x, label = FALSE, abbr = TRUE)
 
+qday(x)
+
 yday(x)
 
 day(x) <- value
 
 mday(x) <- value
+
+qday(x) <- value
 
 wday(x) <- value
 

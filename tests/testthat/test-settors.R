@@ -1066,3 +1066,38 @@ test_that("settors handle vectors",{
   expect_that(tz(posct), matches("GMT"))
   expect_that(tz(date), matches("GMT"))
   })
+
+test_that("qdays settors correctly performs simple updates and rolls over as expected", {
+  poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-04-15 01:59:59", "2010-10-16
+  01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct(poslt)
+  date <- as.Date(poslt)
+
+  qday(poslt) <- 2
+  qday(posct) <- 2
+  qday(date) <- 2
+
+  expect_equal(month(poslt), c(1,4,10))
+  expect_equal(month(posct), c(1,4,10))
+  expect_equal(month(date), c(1,4,10))
+
+  expect_equal(mday(poslt), c(2,2,2))
+  expect_equal(mday(posct), c(2,2,2))
+  expect_equal(mday(date), c(2,2,2))
+
+  qday(poslt) <- 95
+  qday(posct) <- 95
+  qday(date) <- 95
+
+  expect_equal(month(poslt), c(4,7,1))
+  expect_equal(month(posct), c(4,7,1))
+  expect_equal(month(date), c(4,7,1))
+
+  expect_equal(mday(poslt), c(5,4,3))
+  expect_equal(mday(posct), c(5,4,3))
+  expect_equal(mday(date), c(5,4,3))
+
+  expect_equal(year(poslt), c(2010,2010,2011))
+  expect_equal(year(posct), c(2010,2010,2011))
+  expect_equal(year(date), c(2010,2010,2011))
+})

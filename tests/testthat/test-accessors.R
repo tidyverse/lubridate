@@ -57,6 +57,10 @@ test_that("days accessors extract correct days",{
   expect_that(wday(poslt), equals(4))
   expect_that(wday(posct), equals(4))
   expect_that(wday(date), equals(4))
+
+  expect_that(qday(poslt), equals(34))
+  expect_that(qday(poslt), equals(34))
+  expect_that(qday(poslt), equals(34))
 })
 
 test_that("weeks accessor extracts correct week",{
