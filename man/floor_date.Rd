@@ -5,13 +5,13 @@
 \title{Round date-times down.}
 \usage{
 floor_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "year"))
+  "year", "quarter"))
 }
 \arguments{
 \item{x}{a vector of date-time objects}
 
 \item{unit}{a character string specifying the time unit to be rounded to. Should be one of
-"second","minute","hour","day", "week", "month", or "year."}
+"second", "minute", "hour", "day", "week", "month", "quarter", or "year."}
 }
 \value{
 x with the appropriate units floored
@@ -19,7 +19,7 @@ x with the appropriate units floored
 \description{
 \code{floor_date} takes a date-time object and rounds it down to the nearest integer
 value of the specified time unit. Users can specify whether to round down to
-the nearest second, minute, hour, day, week, month, or year.
+the nearest second, minute, hour, day, week, month, quarter, or year.
 }
 \details{
 By convention the boundary for a month is the first second of the month. Thus
@@ -39,6 +39,8 @@ floor_date(x, "week")
 # "2009-08-02 CDT"
 floor_date(x, "month")
 # "2009-08-01 CDT"
+floor_date(x, "quarter")
+# "2009-07-01 CDT"
 floor_date(x, "year")
 # "2009-01-01 CST"
 }

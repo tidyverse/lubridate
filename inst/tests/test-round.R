@@ -16,6 +16,8 @@ test_that("floor_date works for each time element",{
   	"2009-08-02 00:00:00", tz = "UTC"))
   expect_identical(floor_date(x, "month"), as.POSIXct(
   	"2009-08-01 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "quarter"), as.POSIXct(
+    "2009-07-01 00:00:00", tz = "UTC"))
   expect_identical(floor_date(x, "year"), as.POSIXct(
   	"2009-01-01 00:00:00", tz = "UTC"))
 })
@@ -35,6 +37,8 @@ test_that("ceiling_date works for each time element",{
   	"2009-08-09 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(x, "month"), as.POSIXct(
   	"2009-09-01 00:00:00", tz = "UTC"))
+  expect_identical(ceiling_date(x, "quarter"), as.POSIXct(
+    "2009-10-01 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(x, "year"), as.POSIXct(
   	"2010-01-01 00:00:00", tz = "UTC"))
 })
@@ -55,6 +59,8 @@ test_that("round_date works for each time element",{
   	"2009-08-02 00:00:00", tz = "UTC"))
   expect_identical(round_date(x, "month"), as.POSIXct(
   	"2009-08-01 00:00:00", tz = "UTC"))
+  expect_identical(round_date(x, "quarter"), as.POSIXct(
+    "2009-07-01 00:00:00", tz = "UTC"))
   expect_identical(round_date(x, "year"), as.POSIXct(
   	"2010-01-01 00:00:00", tz = "UTC"))
 })
