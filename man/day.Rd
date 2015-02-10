@@ -5,6 +5,8 @@
 \alias{day<-}
 \alias{mday}
 \alias{mday<-}
+\alias{qday}
+\alias{qday<-}
 \alias{wday}
 \alias{wday<-}
 \alias{yday}
@@ -17,11 +19,15 @@ mday(x)
 
 wday(x, label = FALSE, abbr = TRUE)
 
+qday(x)
+
 yday(x)
 
 day(x) <- value
 
 mday(x) <- value
+
+qday(x) <- value
 
 wday(x) <- value
 
@@ -72,6 +78,9 @@ mday(x) #2
 yday(x) <- 1  #"2009-01-01"
 yday(x) <- 366 #"2010-01-01"
 mday(x) > 3
+qday(x) #64
+qday(x) <- 1 # "2009-07-01"
+qday(x) <- 0 # "2009-06-31"
 }
 \seealso{
 \code{\link{yday}}, \code{\link{mday}}

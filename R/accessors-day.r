@@ -79,6 +79,16 @@ mday.Period <- function(x)
 
 #' @rdname day
 #' @export
+qday <- function(x)
+  UseMethod("qday")
+
+#' @export
+qday.default <- function(x) {
+  as.integer(x - floor_date(x, "quarter")) + 1
+}
+
+#' @rdname day
+#' @export
 yday <- function(x) 
   UseMethod("yday")
 
@@ -96,6 +106,14 @@ yday.default <- function(x)
   day(x) <- value
   x
 }
+
+#' @rdname day
+#' @export
+`qday<-` <- function(x, value) standardGeneric("qday<-")
+
+#' @export
+setGeneric("qday<-", useAsDefault = function(x, value)
+  x <- x + days(value - qday(x)))
 
 #' @export
 setGeneric("day<-", useAsDefault = function(x, value)
