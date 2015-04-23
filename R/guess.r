@@ -69,14 +69,15 @@
 ##'
 guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                           preproc_wday = TRUE, print_matches = FALSE){
+
+  ## remove all separators
+  orders <- gsub("[^[:alpha:]]+", "", orders)
   ## get all the formats which comply with ORDERS
   orders <- gsub("hms", "HMS", orders, ignore.case = TRUE)
   orders <- gsub("hm", "HM", orders, ignore.case = TRUE)
   orders <- gsub("ms", "MS", orders, ignore.case = TRUE)
 
-  orders <- gsub("[^[:alpha:]]+", "", orders) ## remove all separators
   osplits <- strsplit(orders, "", fixed = TRUE)
-
   osplits <- lapply(osplits,
                     function(ospt){
                       ## perl lookahead is not working in strsplit. Thus this junk.
@@ -86,7 +87,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                       }else
                         ospt
                     })
-
   reg <- .get_loc_regs(locale)
 
   if( preproc_wday ){
