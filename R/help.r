@@ -164,7 +164,7 @@
 #'   Easy with lubridate. Journal of Statistical Software, 40(3), 1-25. 
 #'   \url{http://www.jstatsoft.org/v40/i03/}.
 #' @import stringr
-#' @importFrom methods setClass setGeneric
+#' @importFrom methods setClass setGeneric new show
 #' @docType package
 #' @name lubridate
 #' @aliases lubridate lubridate-package
