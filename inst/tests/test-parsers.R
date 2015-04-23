@@ -1,4 +1,5 @@
 context("Parsing")
+Sys.setlocale("LC_TIME", "en_US.UTF-8")
 
 test_that("ymd functions correctly parse dates separated by -", {
   expect_that(ymd("2010-01-02"),
