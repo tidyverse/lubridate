@@ -10,46 +10,31 @@ test_that("force_tz returns NA for a time that falls in the spring gap",{
   expect_equal(force_tz(c(y, x), "America/New_York"), c(z, NA)) 
 })
 
-
 test_that("force_tz behaves consistently for the fall overlap",{
-  y <- structure(1289111405, tzone = "America/New_York", class = c("POSIXct", 
-    "POSIXt"))
-  y2 <- structure(1289115005, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  y3 <- structure(1289104205, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
+  y <- structure(1289111405, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
+  y2 <- structure(1289115005, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  y3 <- structure(1289104205, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
   
-  z <- structure(1289197805, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  z2 <- structure(1289201405, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  z3 <- structure(1289194205, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
+  z <- structure(1289197805, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  z2 <- structure(1289201405, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  z3 <- structure(1289194205, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
   
-  cdst <- structure(1352012400, tzone = "America/Chicago", class = c("POSIXct", 
-    "POSIXt"))
-  edst <- structure(1352008800, tzone = "America/New_York", class = c("POSIXct", 
-    "POSIXt"))
+  cdst <- structure(1352012400, tzone = "America/Chicago", class = c("POSIXct", "POSIXt"))
+  edst <- structure(1352008800, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
 
   expect_equal(y + hours(1), y2)
   expect_equal(c(y, z) + hours(1), c(y2, z2))
   expect_equal(y - hours(1), y3)
   expect_equal(c(y, z) - hours(1), c(y3, z3))
   expect_equal(force_tz(cdst, "America/New_York"), edst) 
-
 })
 
 test_that("addition handles daylight savings time for spring gap", {
-  x <- structure(1268542800, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  px <- structure(1268625600, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  px2 <- structure(1268712000, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  ex <- structure(1268629200, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  ex2 <- structure(1268715600, tzone = "America/New_York", 
-    class = c("POSIXct", "POSIXt"))
+  x <- structure(1268542800, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  px <- structure(1268625600, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  px2 <- structure(1268712000, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  ex <- structure(1268629200, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  ex2 <- structure(1268715600, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
   
   expect_equal(x + days(1), px)
   expect_equal(c(x, px) + days(1), c(px, px2))
@@ -60,16 +45,11 @@ test_that("addition handles daylight savings time for spring gap", {
 
 
 test_that("subtraction handles daylight savings time for spring gap", {
-  x <- structure(1268625600, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  px <- structure(1268542800, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  px2 <- structure(1268456400, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  ex <- structure(1268539200, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  ex2 <- structure(1268452800, tzone = "America/New_York", 
-    class = c("POSIXct", "POSIXt"))
+  x <- structure(1268625600, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  px <- structure(1268542800, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  px2 <- structure(1268456400, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  ex <- structure(1268539200, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  ex2 <- structure(1268452800, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
   
   expect_equal(x - days(1), px)
   expect_equal(c(x, px) - days(1), c(px, px2))
@@ -79,16 +59,11 @@ test_that("subtraction handles daylight savings time for spring gap", {
 })
 
 test_that("addition handles daylight savings time for fall overlap", {
-  x <- structure(1289102400, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  px <- structure(1289192400, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  px2 <- structure(1289278800, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  ex <- structure(1289188800, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
-  ex2 <- structure(1289275200, class = c("POSIXct", "POSIXt"), 
-    tzone = "America/New_York")
+  x <- structure(1289102400, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  px <- structure(1289192400, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  px2 <- structure(1289278800, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  ex <- structure(1289188800, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  ex2 <- structure(1289275200, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
   
   expect_equal(x + days(1), px)
   expect_equal(c(x, px) + days(1), c(px, px2))
@@ -98,16 +73,11 @@ test_that("addition handles daylight savings time for fall overlap", {
 
 
 test_that("subtraction handles daylight savings time for fall overlap", {
-  x <- structure(1289192400, class = c("POSIXct", "POSIXt"), 
-     tzone = "America/New_York")
-  px <- structure(1289102400, class = c("POSIXct", "POSIXt"), 
-     tzone = "America/New_York")
-  px2 <- structure(1289016000, class = c("POSIXct", "POSIXt"), 
-     tzone = "America/New_York")
-  ex <- structure(1289106000, tzone = "America/New_York", 
-     class = c("POSIXct", "POSIXt"))
-  ex2 <- structure(1289019600, tzone = "America/New_York", 
-     class = c("POSIXct", "POSIXt"))
+  x <- structure(1289192400, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  px <- structure(1289102400, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  px2 <- structure(1289016000, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  ex <- structure(1289106000, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
+  ex2 <- structure(1289019600, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
   
   expect_equal(x - days(1), px)
   expect_equal(c(x, px) - days(1), c(px, px2))
