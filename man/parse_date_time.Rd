@@ -156,6 +156,15 @@ all of the timezone formats.}
 \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 }
 }
+\note{
+\code{parse_date_time} (and the derivatives \code{ymb}, \code{ymd_hms}
+etc) rely on a sparse guesser that takes at most 501 elements from the
+supplied character vector in order to identify appropriate formats from the
+supplied orders. If you get the error \code{All formats failed to parse} and
+you are confident that your vector contains valid dates, you should use
+functions that don't perform format guessing (\code{strptime},
+\code{fast_strptime} and \code{parse_date_time2}).
+}
 \examples{
 x <- c("09-01-01", "09-01-02", "09-01-03")
 parse_date_time(x, "ymd")
