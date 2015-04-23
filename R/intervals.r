@@ -167,6 +167,12 @@ setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
 	x
 })
 
+#' @export
+unique.Interval <- function(x, ...){
+  df <- unique.data.frame(data.frame(data = x@.Data, start = x@start), ...)
+  new("Interval", df$data, start = df$start, tzone = x@tzone)
+}
+
 #' Create an interval object.
 #'
 #' interval creates an \code{\link{Interval-class}} object with the specified start and end 
