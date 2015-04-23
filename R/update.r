@@ -63,20 +63,23 @@ update.POSIXt <- function(object, ...){
   
   date[names(units)] <- units
   date[c("wday", "yday")] <- list(wday = NA, yday = NA)
+  if (is.null(date$zone)) date$zone <- NULL
 
   ## unbalanced POSIXlt often results in R crashes
   maxlen <- max(unlist(lapply(date, length)))
-  for (nm in names(date))
-    if (length(date[[nm]]) != maxlen)
-      date[[nm]] <- rep_len(date[[nm]], maxlen)
-    
+
+  if (maxlen > 1) {
+    for (nm in names(date))
+      if (length(date[[nm]]) != maxlen)
+        date[[nm]] <- rep_len(date[[nm]], maxlen)
+  }
+  
   class(date) <- c("POSIXlt", "POSIXt")
   if (!is.na(new.tz)) attr(date, "tzone") <- new.tz
   
   # fit to timeline
   # POSIXct format avoids negative and NA elements in POSIXlt format
-  ct <- fit_to_timeline(date)
-  reclass_date(ct, object)
+  fit_to_timeline(date, class(object)[[1]])
 }
   
 
@@ -148,6 +151,8 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
     dlt <- lt[dstdiff]
     dlt2 <- lt2[dstdiff]
     dlt$isdst <- dlt2$isdst
+    dlt$zone <- dlt2$zone
+    dlt$gmtoff <- dlt2$gmtoff
     dct <- as.POSIXct(dlt) # should directly match if not in gap
 
     if (class == "POSIXct")
