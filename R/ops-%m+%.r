@@ -144,7 +144,7 @@ setMethod("%m-%", signature(e2 = "ANY"),
 #' # "2010-03-01 UTC"
 rollback <- function(dates, roll_to_first = FALSE, preserve_hms = TRUE) {
   if (length(dates) == 0) 
-    return(structure(vector(length = 0), class = class(dates)))
+    return(dates)
   day(dates) <- 1
   if (!preserve_hms) {
     hour(dates) <- 0
