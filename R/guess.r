@@ -89,12 +89,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                     })
   reg <- .get_loc_regs(locale)
 
-  if( preproc_wday ){
-    ## replace short/long weak days in current locale
-    x <- gsub(reg$alpha_exact[["A"]], "%A", x, ignore.case = T, perl = T)
-    x <- gsub(reg$alpha_exact[["a"]], "%a", x , ignore.case =  T, perl = T)
-  }
-
   REGS <- unlist(lapply(osplits, function(fnames){
     ## fnames are letters representing an individual valid format, like a, A, b, z, OS, OZ
     which <- ! fnames %in% c(names(reg$alpha_flex), names(reg$num_flex))
@@ -115,14 +109,32 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     print(do.call(cbind, c(list(x), subs)))
   }
 
-  out <- mapply(
-    function(reg, name){
-      out <- .substitute_formats(reg, x)
-      if( !is.null(out) ) names(out) <- rep.int(name, length(out))
-      out
-    }, REGS, orders, SIMPLIFY= F, USE.NAMES= F)
-  names(out) <- NULL
-  unlist(out)
+  .mapords <- function(regs, orders, x){
+    out <- mapply(
+        function(reg, name){
+          out <- .substitute_formats(reg, x)
+          if( !is.null(out) ) names(out) <- rep.int(name, length(out))
+          out
+        }, REGS, orders, SIMPLIFY= F, USE.NAMES= F)
+    names(out) <- NULL
+    unlist(out)
+  }
+  
+  if( preproc_wday ){
+    ## replace short/long weak days in current locale
+    x2 <- gsub(reg$alpha_exact[["A"]], "%A", x, ignore.case = T, perl = T)
+    x2 <- gsub(reg$alpha_exact[["a"]], "%a", x2, ignore.case =  T, perl = T)
+    formats <- .mapords(REGS, orders, x2)
+
+    ## In some locales abreviated day (italian "gio") is part of month name
+    ## ("maggio"). So check if %a or %A is present and append wday-less formats.
+    if (any(grepl("%[aA]", formats)))
+      c(formats, .mapords(REGS, orders, x))
+    else
+      formats
+  } else {
+    .mapords(REGS, orders, x)
+  }
 }
 
 
