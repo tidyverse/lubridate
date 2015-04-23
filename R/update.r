@@ -27,7 +27,7 @@
 #' # "2009-02-10 00:10:03 CST"
 #' @export 
 update.POSIXt <- function(object, ...){
-  
+
   if(!length(object)) return(object)
   date <- as.POSIXlt(object)
   
@@ -59,9 +59,17 @@ update.POSIXt <- function(object, ...){
   if (!is.null(units$year)) units$year <- units$year - 1900
   
   # make new date-times
-  class(date) <- "list"
+  date <- unclass(date)
+  
   date[names(units)] <- units
-  date[c("wday", "yday")] <- list(wday = NA, yday = NA)  
+  date[c("wday", "yday")] <- list(wday = NA, yday = NA)
+
+  ## unbalanced POSIXlt often results in R crashes
+  maxlen <- max(unlist(lapply(date, length)))
+  for (nm in names(date))
+    if (length(date[[nm]]) != maxlen)
+      date[[nm]] <- rep_len(date[[nm]], maxlen)
+    
   class(date) <- c("POSIXlt", "POSIXt")
   if (!is.na(new.tz)) attr(date, "tzone") <- new.tz
   

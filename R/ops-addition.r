@@ -36,19 +36,19 @@ add_period_to_period <- function(per2, per1){
 
 add_period_to_date <- function(per, date){
   lt <- as.POSIXlt(date)
-  
-  # add months and years with no backwards rollover
+
+  ## add months and years with no backwards rollover
   ms <- month(per) + year(per) * 12
   month(per) <- 0
   year(per) <- 0
   lt <- add_months(lt, ms)
   
-	new <- update(lt, 
-			days = mday(lt) + per@day,
-			hours = hour(lt) + per@hour,
-			minutes = minute(lt) + per@minute,
-			seconds = second(lt) + per@.Data
-			)
+  new <- update(lt, 
+                days = mday(lt) + per@day,
+                hours = hour(lt) + per@hour,
+                minutes = minute(lt) + per@minute,
+                seconds = second(lt) + per@.Data)
+  
 	if (is.Date(date) && sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
 		return(new)	
 	
@@ -60,7 +60,6 @@ add_months <- function(mt, mos) {
   
   ndays <- as.numeric(format.POSIXlt(mt, "%d", usetz = FALSE))
   mt$mon[mt$mday != ndays] <- NA
-  
   mt
 }
 
