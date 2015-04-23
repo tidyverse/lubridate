@@ -173,7 +173,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   x == "@NA@"
 
 .get_train_set <- function(x){
-  ## the smartest irregular guesser I could came up with
+  ## the best irregular guesser I could come up with
   x <- x[!.enclosed.na(x)]
   len <- length(x)
   if( len < 100)
