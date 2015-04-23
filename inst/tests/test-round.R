@@ -211,3 +211,12 @@ test_that("round_date returns input of length zero when given input of length ze
   
   expect_equal(round_date(x), x)
 })
+
+test_that("round_date behaves correctly on 60th second (bug #217)", {
+  x <- ymd_hms('2013-12-01 23:59:59.9999')
+
+  expect_equal(round_date(x, unit = "second"),
+               ymd("2013-12-02"))
+  second(x) <-  60
+  expect_equal(x, ymd("2013-12-02"))
+})

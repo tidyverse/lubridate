@@ -140,23 +140,34 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
   
   # fall break - DST only changes if it has to
   ct <- as.POSIXct(lt)
-  t <- lt
-  t$isdst <- as.POSIXlt(ct)$isdst
-  
-  # spring break
-  ct <- as.POSIXct(t) # should directly match if not in gap
-  chours <- format.POSIXlt(as.POSIXlt(ct), "%H", usetz = FALSE)
-  lhours <- format.POSIXlt(t, "%H", usetz = FALSE)
-  
-  if (class == "POSIXlt") {
-    t[chours != lhours] <- NA
-    t
-  } else {
-    ct[chours != lhours] <- NA
-    ct
+  lt2 <- as.POSIXlt(ct)
+  dstdiff <- !is.na(ct) & (lt$isdst != lt2$isdst)
+
+  if (any(dstdiff)) {
+
+    dlt <- lt[dstdiff]
+    dlt2 <- lt2[dstdiff]
+    dlt$isdst <- dlt2$isdst
+    dct <- as.POSIXct(dlt) # should directly match if not in gap
+
+    if (class == "POSIXct")
+      ct[dstdiff] <- dct
+    else 
+      lt2[dstdiff] <- dlt
+    
+    chours <- format.POSIXlt(as.POSIXlt(dct), "%H", usetz = FALSE)
+    lhours <- format.POSIXlt(dlt, "%H", usetz = FALSE)
+
+    any <- any(hdiff <- chours != lhours)
+    if (!is.na(any) && any) {
+      if (class == "POSIXct")
+        ct[dstdiff][hdiff] <- NA
+      else 
+        lt2[dstdiff][hdiff] <- NA
+    }
   }
+  if (class == "POSIXct") ct else lt2
 }
-  
 
 #' @export
 update.Date <- function(object, ...){ 
