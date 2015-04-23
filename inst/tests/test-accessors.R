@@ -79,7 +79,13 @@ test_that("isoweek accessor extracts correct ISO8601 week",{
   expect_that(isoweek(poslt), equals(53))
   expect_that(isoweek(posct), equals(53))
   expect_that(isoweek(date), equals(53))
-  
+})
+
+test_that("isoweek returns correct value for non-UTC time zone (#311)", {
+  cest <- ymd_hms("2015-04-14 16:45:00", tz="Europe/Copenhagen")
+  utc <-  ymd_hms("2015-04-14 16:45:00", tz="UTC")
+  expect_equal(isoweek(cest), 16L)
+  expect_equal(isoweek(utc), 16L)
 })
 
 test_that("months accessor extracts correct month",{
