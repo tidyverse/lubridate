@@ -49,7 +49,6 @@
 ##' stamp("2013-01-01T06:00:00Z")(D)
 ##' stamp("2013-01-01T00:00:00-06")(D)
 ##' stamp("2013-01-01T00:00:00-08:00")(force_tz(D, "America/Chicago"))
-
 stamp <- function(x, orders = lubridate_formats,
                   locale = Sys.getlocale("LC_TIME"), quiet = FALSE){
 

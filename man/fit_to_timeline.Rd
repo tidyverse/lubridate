@@ -34,7 +34,8 @@ tricky <- structure(list(sec   = c(5,    0,    0,    -1),
                          wday  = c(0L,   0L,   0L,   0L),
                          yday  = c(308L, 308L, 72L,  308L),
                          isdst = c(1L,   0L,   0L,   1L)),
-                    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday",  "isdst"),
+                    .Names = c("sec", "min", "hour", "mday", "mon",
+                               "year", "wday", "yday",  "isdst"),
                     class = c("POSIXlt", "POSIXt"),
                     tzone = c("America/Chicago", "CST", "CDT"))
 tricky
