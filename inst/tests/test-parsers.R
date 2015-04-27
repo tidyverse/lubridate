@@ -556,6 +556,14 @@ test_that("fast_strptime and parse_date_time2 aggree with strptime", {
                strptime(date, "%d %m %y", tz = "UTC"))
 })
 
+test_that("a and A formats are handled correctly (#254)", {
+  dates <- c("Saturday 31 August 2013", "Sun 12 Jan 2014")
+  expect_equal(parse_date_time(x = dates, orders = c("dby")), 
+               parse_date_time(x = dates, orders = c("adby")))
+  expect_equal(parse_date_time(x = dates, orders = c("dby")), 
+               parse_date_time(x = dates, orders = c("Adby")))
+})
+
 ## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00",
 ##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00",
 ##   "2012-12-04 17:16:05.097000-08:00")
