@@ -34,8 +34,12 @@
 // start of each month in seconds in a common year (1 indexed)
 static const int sm[] = {0, 0, 2678400, 5097600, 7776000, 10368000, 13046400, 15638400,
 			 18316800, 20995200, 23587200, 26265600, 28857600, 31536000 };
-static const int daylen = 86400; // day in seconds: 24*60*60
-static const int d30 = 946684800; // seconds between 2000-01-01 and 1970-01-01
+// days in months
+static const int mdays[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+// seconds in a day: 24*60*60
+static const int daylen = 86400;
+// seconds between 2000-01-01 and 1970-01-01
+static const int d30 = 946684800; 
 // need 64 type to avoid overflow on integer multiplication
 // potential problem: is long long 64 bit on all machines?
 // int64_t from stdint.h is a bit slower
@@ -79,21 +83,25 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
     while( *o && succeed ){
 	
       if( *fmt && (*o != '%')) {
-        // when formats, non fomrating character should match exactly
+        // when formats, non formatting character should match exactly
         if ( *c == *o ) { c++; o++; } else succeed = 0;
 
       } else {
 
         if ( *fmt ) o++; // skip %
-        else if ( *o != 'O' && *o != 'z' )
+        else if ( *o != 'O' && *o != 'z' ) {
           // O and z formats are specially treated
           while (*c && !DIGIT(*c)) c++; // skip non-digits
-
+	}
+	
         if ( *o == 'O' ){
+	  // Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08)
           O_format = 1;
           o++;
-        } else O_format = 0;
-
+        } else {
+	  O_format = 0;
+	}
+	
         if ( !( DIGIT(*c) || O_format || *o == 'z') ){
           succeed = 0;
         } else {
@@ -128,7 +136,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             if ( M < 61 ) secs += M * 60;
             else succeed = 0;
             break;
-          case 'S':
+          case 'S': // second
             if( O_format && !*fmt ){
               while (*c && !DIGIT(*c)) c++;
               if ( !*c ) {succeed = 0; break;}
@@ -147,16 +155,16 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
               }
             } else succeed = 0;
             break;
-          case 'u':
-            // %Ou: "2013-04-16T04:59:59Z"
+	  // %O_ and %z follow
+	  case 'u':
+	    // %Ou: "2013-04-16T04:59:59Z"
             if( O_format )
               if( *c == 'Z' ) c++;
               else succeed = 0;
             else succeed  = 0;
             break;
           case 'z':
-            // %Oz: "+0100"
-            // %z: "+O100" or "+O1" or "+01:00"
+            // for %z: "+O100" or "+O1" or "+01:00"
             if( !O_format ){
               if( !*fmt ) {
                 while (*c && *c != '+' && *c != '-' && *c != 'Z') c++; // skip non + -
@@ -183,7 +191,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
                 secs += sig*Z*60;
               }
               break;
-            }// else: pass through
+            } // else %Oz: "+0100". Pass through.
           case 'O':
             // %OO: "+01:00"
           case 'o':
@@ -222,16 +230,14 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
 
     // if at least one not finished, consider as a failure
     if ( *c || *o ) succeed = 0;
-
-    // process year
+      
     if ( succeed ){
+
+      // leap year every 400 years; no leap every 100 years
+      int leap = (y % 4 == 0) && !(y % 100 == 0 && y % 400 != 0);
 
       y -= 2000;
       secs += y * yearlen;
-
-      // leap year every 400 years; no leap every 100 years
-      int leap4 = y % 4 == 0;
-      int skip100leap = leap4 && y % 100 == 0 && y % 400 != 0;
 
       if ( y >= 0 ){
         // ordinary leap days before 2000-01-01 00:00:00
@@ -239,14 +245,14 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
         if( y > 99 )
           secs += (y / 400 - y / 100) * daylen;
         // adjust if within leap year
-        if ( leap4 && m < 3 && !skip100leap )
+        if ( leap && m < 3 )
           secs -= daylen;
 
       } else {
         secs += (y / 4) * daylen;
         if( y < -99 )
           secs += (y / 400 - y / 100) * daylen;
-        if ( leap4 && m > 2 && !skip100leap )
+        if ( leap && m > 2 )
           secs += daylen;
       }
 
