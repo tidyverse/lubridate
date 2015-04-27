@@ -15,13 +15,15 @@ decimal_date.default <- function(date){
 
   if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
     stop("date(s) not in POSIXt or Date format")
-  
-  decimal <- as.numeric(difftime(date, floor_date(date, "year"), units = "secs"))
-  nonzero <- decimal != 0
-  decimal[nonzero] <- decimal[nonzero]/as.numeric(difftime(ceiling_date(date[nonzero], 
-  "year"), floor_date(date[nonzero], "year"), units = "secs"))
-  
-    year(date) + decimal
+
+  date <- force_tz(as.POSIXlt(date), tz = "UTC")
+  Y <- year(date)
+  ## parsing is much faster than updating
+  start <- parse_date_time2(paste(Y, "1", "1"), "Ymd")
+  end <- parse_date_time2(paste(Y + 1L, "1", "1"), "Ymd")
+  sofar <- as.numeric(difftime(date, start, units = "secs"))
+  total <- as.numeric(difftime(end, start, units = "secs"))
+  Y + sofar/total
 }
 
 #' @export
@@ -48,12 +50,16 @@ decimal_date.its <- function(date)
 #' decimal <- decimal_date(date)  # 2009.11
 #' date_decimal(decimal) # "2009-02-10 UTC"
 date_decimal <- function(decimal, tz = NULL) {
-  year <- trunc(decimal)
-  frac <- decimal - year
-  start <- ymd(paste(year, "01", "01"))
-  seconds <- as.numeric(ymd(paste(year + 1, "01", "01")) - start, units = "secs")
-  
-  if (!is.null(tz)) start <- force_tz(start, tz)
-  start + seconds * frac
+  Y <- trunc(decimal)
+  ## parsing is much faster than updating
+  start <- parse_date_time2(paste(Y, "01", "01"), "Ymd")
+  end <- parse_date_time2(paste(Y + 1L, "01", "01"), "Ymd")
+  seconds <- as.numeric(difftime(end, start, units = "secs"))
+  frac <- decimal - Y
+  start <- start + seconds * frac
+  if (!is.null(tz))
+    force_tz(start, tz)
+  else
+    start
 }
   
