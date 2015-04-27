@@ -48,9 +48,13 @@ update.POSIXt <- function(object, ...){
     if (n > 1) stop("conflicting days input")
     uname <- day.units[wunit]
     if (uname != "mday") {
-      ## we compute everything with mdays
-      if (uname != "day")
-        units[[uname]] <- units[[uname]] - date[[uname]] + date$mday - 1
+      ## we compute everything with mdays (operating with ydays doesn't work)
+      if (uname != "day"){
+        if (uname == "yday" & !is.null(units$year))
+          warning("Updating on both 'year' and 'yday' can lead to wrong results. See bug #319.", call. = F)
+        diff <- units[[uname]] - date[[uname]] - 1
+        units[[uname]] <- diff + date$mday
+      }
       names(units)[names(units) == uname] <- "mday"
     }
   }
