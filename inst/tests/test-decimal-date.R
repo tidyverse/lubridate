@@ -45,3 +45,7 @@ test_that("date_decimal reverses decimal_date",{
   date_decimal(decimal, tz = "America/New_York")
   expect_equal(date_decimal(decimal, tz = "America/New_York"), date)
 })
+
+test_that("decimal_date returns NA on NA date input", {
+  expect_equal(decimal_date(as.Date(NA)), as.numeric(NA))
+})
