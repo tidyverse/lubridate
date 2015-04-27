@@ -10,6 +10,9 @@
 #' @param object a date-time object  
 #' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours,
 #' minutes, seconds, tzs (time zone compnent)
+#' @param simple logical, passed to \code{fit_to_timeline}. If TRUE a simple fit
+#' to time line is performed and no NA are produced for invalid dates. Invalid
+#' dates are converted to meaningful dates by by extrapolating the timezones.
 #' @return a date object with the requested elements updated. The object will
 #'   retain its original class unless an element is updated which the original
 #'   class does not support. In this case, the date returned will be a POSIXlt
@@ -26,7 +29,7 @@
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
 #' @export 
-update.POSIXt <- function(object, ...){
+update.POSIXt <- function(object, ..., simple = FALSE){
 
   if(!length(object)) return(object)
   date <- as.POSIXlt(object)
@@ -81,11 +84,24 @@ update.POSIXt <- function(object, ...){
   class(date) <- c("POSIXlt", "POSIXt")
   if (!is.na(new.tz)) attr(date, "tzone") <- new.tz
   
-  # fit to timeline
-  # POSIXct format avoids negative and NA elements in POSIXlt format
-  fit_to_timeline(date, class(object)[[1]])
+  ## fit to timeline
+  ## POSIXct format avoids negative and NA elements in POSIXlt format
+  fit_to_timeline(date, class(object)[[1]], simple = simple)
 }
   
+#' @export
+update.Date <- function(object, ...){ 
+  
+  lt <- as.POSIXlt(object, tz = "UTC")
+  
+  new <- update(lt, ...)
+  
+  if (sum(c(new$hour, new$min, new$sec), na.rm = TRUE)) {
+    new
+  } else {
+    as.Date(new)
+  }
+}
 
 #' Fit a POSIXlt date-time to the timeline
 #' 
@@ -100,6 +116,9 @@ update.POSIXt <- function(object, ...){
 #' @param lt a POSIXlt date-time object.
 #' @param class a character string that describes what type of object to return, 
 #' POSIXlt or POSIXct. Defaults to POSIXct.
+#' @param simple if TRUE, \code{lubridate} makes no attempt to detect
+#' meaningless time-dates or to correct time zones. No NAs are produced and the
+#' most meaningful valid dates are returned instead. See examples.
 #' @return a POSIXct or POSIXlt object that contains no illusory date-times
 #'
 #' @examples
@@ -132,6 +151,9 @@ update.POSIXt <- function(object, ...){
 #' ## has deceptive internal structure
 #' 
 #' fit_to_timeline(tricky)
+#' [1] "2012-11-04 02:00:05 CST" "2012-11-04 00:05:00 CDT"
+#' [4] NA                        "2012-11-04 01:59:59 CDT"
+#' 
 #' ## [1] "2012-11-04 02:00:00 CST" instant paired 
 #' ## with correct timezone & DST combination
 #' 
@@ -141,17 +163,22 @@ update.POSIXt <- function(object, ...){
 #' ## [3] NA fake time changed to NA (compare to as.POSIXct(tricky))
 #' ## [4] "2012-11-04 01:59:59 CDT" real instant, left as is
 #' }
+#' 
+#' fit_to_timeline(tricky, simple = TRUE)
+#' ## Reduce to valid time-dates by extrapolating CDT and CST zones
+#' ## [1] "2012-11-04 01:00:05 CST" "2012-11-04 01:05:00 CDT"
+#' ## [3] "2010-03-14 03:05:00 CDT" "2012-11-04 01:59:59 CDT"
 #' @export
-fit_to_timeline <- function(lt, class = "POSIXct") {
+fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
   if (class != "POSIXlt" && class != "POSIXct")
     stop("class argument must be POSIXlt or POSIXct")
-  
+
   # fall break - DST only changes if it has to
   ct <- as.POSIXct(lt)
   lt2 <- as.POSIXlt(ct)
   dstdiff <- !is.na(ct) & (lt$isdst != lt2$isdst)
 
-  if (any(dstdiff)) {
+  if (!simple & any(dstdiff)) {
 
     dlt <- lt[dstdiff]
     dlt2 <- lt2[dstdiff]
@@ -164,7 +191,7 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
       ct[dstdiff] <- dct
     else 
       lt2[dstdiff] <- dlt
-    
+
     chours <- format.POSIXlt(as.POSIXlt(dct), "%H", usetz = FALSE)
     lhours <- format.POSIXlt(dlt, "%H", usetz = FALSE)
 
@@ -177,18 +204,4 @@ fit_to_timeline <- function(lt, class = "POSIXct") {
     }
   }
   if (class == "POSIXct") ct else lt2
-}
-
-#' @export
-update.Date <- function(object, ...){ 
-  
-  lt <- as.POSIXlt(object, tz = "UTC")
-  
-  new <- update(lt, ...)
-  
-  if (sum(c(new$hour, new$min, new$sec), na.rm = TRUE)) {
-    new
-  } else {
-    as.Date(new)
-  }
 }
