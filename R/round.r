@@ -151,6 +151,7 @@ round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
   below <- unclass(as.POSIXct(floor_date(x, unit)))
 
   wabove <- (above - mid) < (mid - below)
+  wabove <- !is.na(wabove) & wabove
   new <- below
   new[wabove] <- above[wabove]
   new <- .POSIXct(new, tz = tz(x))
