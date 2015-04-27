@@ -32,6 +32,7 @@
 #' floor_date(x, "year")
 #' # "2009-01-01 CST"
 floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
+	if(!length(x)) return(x)
   unit <- match.arg(unit)
   
   new <- switch(unit,
@@ -83,29 +84,25 @@ floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
 #' # "2010-01-01 CST"
   
 ceiling_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
-	unit <- match.arg(unit)
 	if(!length(x)) return(x)
-  
+	unit <- match.arg(unit)
+
   if (unit == "second") {
-    second(x) <- ceiling(second(x))
-    return(x)
+    update(x, seconds = ceiling(second(x)))
+  } else {
+    ## we need this to accomodate the case when date is on a boundary
+    new <- update(x, seconds = second(x) - 1)
+    new <- switch(unit,
+                  minute  = update(new, minute = minute(new) + 1L, second = 0),
+                  hour    = update(new, hour = hour(new) + 1L, minute = 0, second = 0),
+                  day     = update(new, day = day(new) + 1L, hour = 0, minute = 0, second = 0),
+                  week    = update(new, wday = 8, hour = 0, minute = 0, second = 0),
+                  month   = update(new, month = month(new) + 1L, mday = 1, hour = 0, minute = 0, second = 0),
+                  quarter = update(new, month = ((month(new)-1)%/%3)*3+4, mday = 1, hour = 0, minute = 0, second = 0),
+                  year    = update(new, year = year(new) + 1L, month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
+    reclass_date(new, x)
   }
-  
-	y <- floor_date(x - dseconds(1), unit)
-	
-	switch(unit,
-		minute = minute(y) <- minute(y) + 1,
-		hour =   hour(y) <- hour(y) + 1,
-		day =    yday(y) <- yday(y) + 1,
-		week =   week(y) <- week(y) + 1,
-		month =  month(y) <- month(y) + 1,
-		quarter = month(y) <- month(y) + 3,
-		year =   year(y) <- year(y) + 1
-	)
-	reclass_date(y, x)
 }
-
-
 
 #' Rounding for date-times.
 #'

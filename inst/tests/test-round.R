@@ -218,3 +218,4 @@ test_that("round_date behaves correctly on 60th second (bug #217)", {
   second(x) <-  60
   expect_equal(x, ymd("2013-12-02"))
 })
+

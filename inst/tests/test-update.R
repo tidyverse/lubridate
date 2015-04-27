@@ -407,3 +407,15 @@ test_that("update correctly handles 60 seconds on 59 minute (bug #313)", {
   expect_equal(ymd_hms("2015-01-01 00:59:59") + seconds(1),
                ymd_hms("2015-01-01 01:00:00"))
 })
+
+
+## ## bug #319
+## x <- structure(list(sec = 0, min = 0, hour = 0, mday = -212, mon = 7L, 
+##                         year = 108L, wday = NA_integer_, yday = NA_integer_, isdst = 0L, 
+##                         zone = "EST", gmtoff = -18000L),
+##                    .Names = c("sec", "min", 
+##                        "hour", "mday", "mon", "year", "wday", "yday", "isdst", "zone", 
+##                        "gmtoff"),
+##                    tzone = c("America/New_York", "EST", "EDT"),
+##                    class = c("POSIXlt", "POSIXt"))
+## update(x, year = year(x) + 1)
