@@ -5,13 +5,17 @@
 \alias{update.POSIXt}
 \title{Changes the components of a date object}
 \usage{
-\method{update}{POSIXt}(object, ...)
+\method{update}{POSIXt}(object, ..., simple = FALSE)
 }
 \arguments{
 \item{object}{a date-time object}
 
 \item{...}{named arguments: years, months, ydays, wdays, mdays, days, hours,
 minutes, seconds, tzs (time zone compnent)}
+
+\item{simple}{logical, passed to \code{fit_to_timeline}. If TRUE a simple fit
+to time line is performed and no NA are produced for invalid dates. Invalid
+dates are converted to meaningful dates by by extrapolating the timezones.}
 }
 \value{
 a date object with the requested elements updated. The object will

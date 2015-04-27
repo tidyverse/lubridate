@@ -162,12 +162,12 @@ update.Date <- function(object, ...){
 #' 
 #' ## [3] NA fake time changed to NA (compare to as.POSIXct(tricky))
 #' ## [4] "2012-11-04 01:59:59 CDT" real instant, left as is
-#' }
-#' 
+#'
 #' fit_to_timeline(tricky, simple = TRUE)
 #' ## Reduce to valid time-dates by extrapolating CDT and CST zones
 #' ## [1] "2012-11-04 01:00:05 CST" "2012-11-04 01:05:00 CDT"
 #' ## [3] "2010-03-14 03:05:00 CDT" "2012-11-04 01:59:59 CDT"
+#' }
 #' @export
 fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
   if (class != "POSIXlt" && class != "POSIXct")

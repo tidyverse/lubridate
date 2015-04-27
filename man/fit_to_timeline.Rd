@@ -4,13 +4,17 @@
 \alias{fit_to_timeline}
 \title{Fit a POSIXlt date-time to the timeline}
 \usage{
-fit_to_timeline(lt, class = "POSIXct")
+fit_to_timeline(lt, class = "POSIXct", simple = FALSE)
 }
 \arguments{
 \item{lt}{a POSIXlt date-time object.}
 
 \item{class}{a character string that describes what type of object to return,
 POSIXlt or POSIXct. Defaults to POSIXct.}
+
+\item{simple}{if TRUE, \code{lubridate} makes no attempt to detect
+meaningless time-dates or to correct time zones. No NAs are produced and the
+most meaningful valid dates are returned instead. See examples.}
 }
 \value{
 a POSIXct or POSIXlt object that contains no illusory date-times
@@ -53,6 +57,9 @@ tricky
 ## has deceptive internal structure
 
 fit_to_timeline(tricky)
+[1] "2012-11-04 02:00:05 CST" "2012-11-04 00:05:00 CDT"
+[4] NA                        "2012-11-04 01:59:59 CDT"
+
 ## [1] "2012-11-04 02:00:00 CST" instant paired
 ## with correct timezone & DST combination
 
@@ -61,6 +68,11 @@ fit_to_timeline(tricky)
 
 ## [3] NA fake time changed to NA (compare to as.POSIXct(tricky))
 ## [4] "2012-11-04 01:59:59 CDT" real instant, left as is
+
+fit_to_timeline(tricky, simple = TRUE)
+## Reduce to valid time-dates by extrapolating CDT and CST zones
+## [1] "2012-11-04 01:00:05 CST" "2012-11-04 01:05:00 CDT"
+## [3] "2010-03-14 03:05:00 CDT" "2012-11-04 01:59:59 CDT"
 }
 }
 
