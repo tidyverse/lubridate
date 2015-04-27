@@ -42,18 +42,18 @@ update.POSIXt <- function(object, ...){
   }
   
   day.units <- c("day", "wday", "mday", "yday")
-  ndays <- day.units %in% names(units)
-  n <- sum(ndays)
-  
-  if (n > 1) stop("conflicting days input")
-  if (n) {
-    day <- day.units[ndays]
-    if (day != "mday") {
-      names(units)[names(units) == day] <- "mday"
-    if (day != "day")
-      units$mday <- units$mday - date[[day]] + date$mday - 1
+  wunit <- day.units %in% names(units)
+    
+  if (n <- sum(wunit)) {
+    if (n > 1) stop("conflicting days input")
+    uname <- day.units[wunit]
+    if (uname != "mday") {
+      ## we compute everything with mdays
+      if (uname != "day")
+        units[[uname]] <- units[[uname]] - date[[uname]] + date$mday - 1
+      names(units)[names(units) == uname] <- "mday"
     }
-  }  
+  }
   
   if (!is.null(units$mon)) units$mon <- units$mon - 1
   if (!is.null(units$year)) units$year <- units$year - 1900
