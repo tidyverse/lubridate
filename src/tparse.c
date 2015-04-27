@@ -233,6 +233,8 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
       
     if ( succeed ){
 
+      // 1) process year
+      
       // leap year every 400 years; no leap every 100 years
       int leap = (y % 4 == 0) && !(y % 100 == 0 && y % 400 != 0);
 
@@ -256,6 +258,20 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
           secs += daylen;
       }
 
+      // 2) check month
+
+      if ( m == 2 ){
+	// no check for d > 0 because we allow missing days in parsing
+	if ( leap )
+	  succeed = d < 30;
+	else
+	  succeed = d < 29;
+      } else {
+	succeed = d <= mdays[m];
+      }
+    }
+    
+    if (succeed ) {
       data[i] = secs + d30;
     } else {
       data[i] = NA_REAL;

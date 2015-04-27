@@ -263,7 +263,6 @@ test_that("hms functions correctly handle - separators", {
   expect_that(hm("03-3"), equals(hours(3) + minutes(3)))
 })
 
-
 test_that("hms functions correctly handle space separators", {
   expect_that(hms("3 3 3"), equals(hours(3) + minutes(3) +
     seconds(3)))
@@ -274,7 +273,6 @@ test_that("hms functions correctly handle space separators", {
   expect_that(hm("03 03"), equals(hours(3) + minutes(3)))
   expect_that(hm("03 3"), equals(hours(3) + minutes(3)))
 })
-
 
 test_that("hms functions correctly handle , separators", {
   expect_that(hms("3,3,3"), equals(hours(3) + minutes(3) +
@@ -287,7 +285,6 @@ test_that("hms functions correctly handle , separators", {
   expect_that(hm("03,3"), equals(hours(3) + minutes(3)))
 })
 
-
 test_that("hms functions correctly handle / separators", {
   expect_that(hms("3/3/3"), equals(hours(3) + minutes(3) +
     seconds(3)))
@@ -298,7 +295,6 @@ test_that("hms functions correctly handle / separators", {
   expect_that(hm("03/03"), equals(hours(3) + minutes(3)))
   expect_that(hm("03/3"), equals(hours(3) + minutes(3)))
 })
-
 
 test_that("hms functions return NA on shorter inputs", {
   expect_that(is.na(hms("3:3:3:4", quiet = TRUE)), is_true())
@@ -318,7 +314,6 @@ test_that("hms functions give warning on shorter inputs", {
   expect_warning(hm("03"))
 })
 
-
 test_that("heterogeneous formats are correctly parsed", {
   X <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4", "2009-1, 5", "2009....1--6", "200901-07", "200901-8")
   Y <- c("2009-01-01", "2009-01-02", "2009-01-03", "2009-01-04", "2009-01-05", "2009-01-06", "2009-01-07", "2009-01-08")
@@ -336,7 +331,6 @@ test_that("heterogeneous formats are correctly parsed", {
   cbind(as.character(ymd_hms(X)), as.character(as.POSIXct(Y, tz = "UTC")))
 })
 
-
 test_that("truncated formats are correctly parsed", {
   expect_that({
     x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
@@ -353,7 +347,6 @@ test_that("truncation on non-dates results in NAs indeed", {
       }))
 })
 
-
 test_that("fractional formats are correctly parsed", {
   expect_that({
     x <- c("2011-12-31 12:59:59.23", "2010-01-01 12:11:10")
@@ -361,7 +354,6 @@ test_that("fractional formats are correctly parsed", {
   }, equals(as.POSIXct(c("2011-12-31 12:59:59.23 UTC", "2010-01-01 12:11:10.00 UTC"), tz = "UTC")))
   expect_that(hms("3:0:3.34"), equals(hours(3) + minutes(0) + seconds(3.34)))
 })
-
 
 test_that( "NA's are parsed as NA's", {
   expect_warning(ymd(NA))
@@ -538,6 +530,16 @@ test_that("fast_strptime and parse_date_time2 parse correctly verbose formats", 
                as.POSIXct("2000-10-12", tz = "UTC"))
   expect_equal(parse_date_time2("aa 2000 5555 bbb10ccc 12 zzz", "Ymd"),
                as.POSIXct(as.POSIXlt(NA, tz = "UTC")))
+})
+
+test_that("fast_strptime and parse_date_time2 deal correctly with leap years", {
+  expect_equal(ymd(c("2000-02-29", "2100-02-29", "2400-02-29"), quiet = T),
+               as.POSIXct(c("2000-02-29 UTC", NA, "2400-02-29 UTC"), tz = "UTC"))
+})
+
+test_that("fast_strptime and parse_date_time2 detect excesive days (#289)", {
+  expect_equal(ymd(c("2000-01-32", "2000-02-30", "2100-03-32", "2400-12-32"), quiet = T),
+               as.POSIXct(c(NA, NA, NA, NA), tz = "UTC"))
 })
 
 test_that("fast_strptime and parse_date_time2 aggree with strptime", {
