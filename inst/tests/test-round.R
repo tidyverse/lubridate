@@ -1,8 +1,7 @@
 context("Rounding")
 
 test_that("floor_date works for each time element",{
-  x <- as.POSIXct("2009-08-03 12:01:59.23", tz = 
-  	"UTC")
+  x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
   
   expect_identical(floor_date(x, "second"), as.POSIXct(
   	"2009-08-03 12:01:59", tz = "UTC"))
@@ -44,11 +43,10 @@ test_that("ceiling_date works for each time element",{
 })
 
 test_that("round_date works for each time element",{
-  x <- as.POSIXct("2009-08-03 12:01:59.23", tz = 
-  	"UTC")
+  x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
   
-  expect_identical(round_date(x, "second"), as.POSIXct(
-  	"2009-08-03 12:01:59", tz = "UTC"))
+  expect_identical(round_date(x, "second"),
+                   as.POSIXct("2009-08-03 12:01:59", tz = "UTC"))
   expect_identical(round_date(x, "minute"), as.POSIXct(
   	"2009-08-03 12:02:00", tz = "UTC"))
   expect_identical(round_date(x, "hour"), as.POSIXct(

@@ -146,13 +146,14 @@ round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
   
   unit <- match.arg(unit)
   
-  below <- as.POSIXct(floor_date(x, unit))
-  above <- as.POSIXct(ceiling_date(x, unit))
+  above <- unclass(as.POSIXct(ceiling_date(x, unit)))
+  mid <- unclass(as.POSIXct(x))
+  below <- unclass(as.POSIXct(floor_date(x, unit)))
 
-  smaller <- difftime(as.POSIXct(x), below, units = "secs") < difftime(above, as.POSIXct(x), units = "secs")
-  new <- structure(ifelse(smaller, below, above), class = class(below))
-  
-  attr(new, "tzone") <- tz(x)
+  wabove <- (above - mid) < (mid - below)
+  new <- below
+  new[wabove] <- above[wabove]
+  new <- .POSIXct(new, tz = tz(x))
   
   reclass_date(new, x)
 }
