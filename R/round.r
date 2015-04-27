@@ -101,14 +101,14 @@ floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
   unit <- match.arg(unit)
   
   new <- switch(unit,
-                second  = update(x, seconds = floor(second(x))),
-                minute  = update(x, seconds = 0),
-                hour    = update(x, minutes = 0, seconds = 0),
-                day     = update(x, hours = 0, minutes = 0, seconds = 0),
-                week    = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
-                month   = update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0),
-                quarter = update(x, months = ((month(x)-1)%/%3)*3+1, mdays = 1, hours = 0, minutes = 0, seconds = 0),
-                year    = update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0))
+                second  = update(x, seconds = floor(second(x)), simple = T),
+                minute  = update(x, seconds = 0, simple = T),
+                hour    = update(x, minutes = 0, seconds = 0, simple = T),
+                day     = update(x, hours = 0, minutes = 0, seconds = 0, simple = T),
+                week    = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
+                month   = update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
+                quarter = update(x, months = ((month(x)-1)%/%3)*3+1, mdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
+                year    = update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0, simple = T))
   new
 }
 
@@ -118,19 +118,21 @@ ceiling_date <- function(x, unit = c("second", "minute", "hour", "day", "week", 
 	if(!length(x)) return(x)
 	unit <- match.arg(unit)
 
+  sx <- second(x)
+  
   if (unit == "second") {
-    update(x, seconds = ceiling(second(x)))
+    update(x, seconds = ceiling(sx), simple = T)
   } else {
+    new <- update(x, seconds = sx - 1, simple = T)
     ## we need this to accomodate the case when date is on a boundary
-    new <- update(x, seconds = second(x) - 1)
     new <- switch(unit,
-                  minute  = update(new, minute = minute(new) + 1L, second = 0),
-                  hour    = update(new, hour = hour(new) + 1L, minute = 0, second = 0),
-                  day     = update(new, day = day(new) + 1L, hour = 0, minute = 0, second = 0),
-                  week    = update(new, wday = 8, hour = 0, minute = 0, second = 0),
-                  month   = update(new, month = month(new) + 1L, mday = 1, hour = 0, minute = 0, second = 0),
-                  quarter = update(new, month = ((month(new)-1)%/%3)*3+4, mday = 1, hour = 0, minute = 0, second = 0),
-                  year    = update(new, year = year(new) + 1L, month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
+                  minute  = update(new, minute = minute(new) + 1L, second = 0, simple = T),
+                  hour    = update(new, hour = hour(new) + 1L, minute = 0, second = 0, simple = T), 
+                  day     = update(new, day = day(new) + 1L, hour = 0, minute = 0, second = 0, simple = T),
+                  week    = update(new, wday = 8, hour = 0, minute = 0, second = 0, simple = T),
+                  month   = update(new, month = month(new) + 1L, mday = 1, hour = 0, minute = 0, second = 0, simple = T),
+                  quarter = update(new, month = ((month(new)-1)%/%3)*3+4, mday = 1, hour = 0, minute = 0, second = 0, simple = T),
+                  year    = update(new, year = year(new) + 1L, month = 1, mday = 1,  hour = 0, minute = 0, second = 0, simple = T))
     reclass_date(new, x)
   }
 }
