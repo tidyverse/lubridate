@@ -408,7 +408,8 @@ int_overlaps <- function(int1, int2){
 #' int_standardize(int)
 #' # 2001-01-01 UTC--2002-01-01 UTC
 int_standardize <- function(int){
-	int[int@.Data < 0] <- int_flip(int[int@.Data < 0])
+  negs <- !is.na(int@.Data) & int@.Data < 0
+  int[negs] <- int_flip(int[negs])
 	int
 }
 
@@ -465,7 +466,7 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
 	int1 <- int_standardize(x)
 	int2 <- int_standardize(y)
 	
-	starts <- pmax(int1@start, int2@start)
+  starts <- pmax(int1@start, int2@start)
 	ends <- pmin(int1@start + int1@.Data, int2@start + int2@.Data)
 	spans <- as.numeric(ends) - as.numeric(starts) 
 	

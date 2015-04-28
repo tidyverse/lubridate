@@ -543,3 +543,15 @@ test_that("summary.Interval creates useful summary", {
   expect_equal(summary(c(int, NA)), text)
 })
    
+test_that("intersect on intervals propagates NAs (#226)", {
+  expect_equal(intersect(c(interval("2014-01-15", "2014-01-16"),
+                           interval("2014-01-15", "2014-01-16")),
+                         c(interval(NA,NA),interval(NA,NA))),
+               c(interval(NA,NA),interval(NA,NA)))
+  expect_equal(intersect(c(interval("2014-01-15", "2014-01-16"),
+                           interval("2014-01-15", "2014-01-16"),
+                           interval("2014-01-01", "2014-01-30")),
+                         c(interval(NA,NA), interval(NA,NA),
+                           interval("2014-01-15", "2014-02-16"))),
+               c(interval(NA,NA),interval(NA,NA), interval("2014-01-15", "2014-01-30")))
+})
