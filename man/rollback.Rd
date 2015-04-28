@@ -9,19 +9,21 @@ rollback(dates, roll_to_first = FALSE, preserve_hms = TRUE)
 \arguments{
 \item{dates}{A POSIXct, POSIXlt or Date class object.}
 
-\item{roll_to_first}{Rollback to the first day of the month instead of the last day of the
-previous month}
+\item{roll_to_first}{Rollback to the first day of the month instead of the
+last day of the previous month}
 
-\item{preserve_hms}{Retains the same hour, minute, and second information? If FALSE, the new
-date will be at 00:00:00.}
+\item{preserve_hms}{Retains the same hour, minute, and second information? If
+FALSE, the new date will be at 00:00:00.}
 }
 \value{
-A date-time object of class POSIXlt, POSIXct or Date, whose day has been adjusted to the
-last day of the previous month, or to the first day of the month.
+A date-time object of class POSIXlt, POSIXct or Date, whose day has
+been adjusted to the last day of the previous month, or to the first day of
+the month.
 }
 \description{
-rollback changes a date to the last day of the previous month or to the first day of the month.
-Optionally, the new date can retain the same hour, minute, and second information.
+rollback changes a date to the last day of the previous month or to the first
+day of the month. Optionally, the new date can retain the same hour, minute,
+and second information.
 }
 \examples{
 date <- ymd("2010-03-03")

@@ -27,7 +27,7 @@ adjust <- function(est, int, per) {
 	start <- int_start(int)
 	end <- int_end(int)
 	
-	while(any(which <- (start + est * per < end)))
+  while(any(which <- (start + est * per < end)))
 		est[which] <- est[which] + 1
   
 	while(any(which <- (start + est * per > end)))

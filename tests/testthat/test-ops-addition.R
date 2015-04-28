@@ -251,6 +251,22 @@ test_that("%m+% correctly adds years without rollover",{
   expect_equal(leap %m+% new_period(years = 1, months = 1), next2)
 })
 
+test_that("%m+% correctly adds years, months, days and HMS (#286)",{
+  date <- ymd("2012-02-29")
+  per_all <- new_period(years = 1, months = 1, days = 2, hours = 1, minutes = 20, seconds = 30)
+  per_major <- new_period(years = 1, months = 1)
+  per_minor <- new_period(days = 2, hours = 1, minutes = 20, seconds = 30)
+  expect_equal(date %m+% per_all,
+               date %m+% per_major + per_minor)
+
+  date <- ymd("2012-03-31")
+  per_all <- new_period(months = 3, days = 30, hours = 1, minutes = 20, seconds = 30)
+  per_major <- new_period(months = 3)
+  per_minor <- new_period(days = 30, hours = 1, minutes = 20, seconds = 30)
+  expect_equal(date %m+% per_all,
+               date %m+% per_major + per_minor)
+})
+
 test_that("%m+% correctly adds negative months without rollover",{
   may <- ymd_hms("2010-05-31 03:04:05")
   ends <- ymd_hms(c("2010-04-30 03:04:05", "2010-03-31 03:04:05", "2010-02-28 03:04:05"))

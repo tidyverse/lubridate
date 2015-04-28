@@ -609,10 +609,10 @@ setMethod("time_length", signature("Interval"), function(x, unit = "second") {
     periods <- as.period(x, unit = unit)
     int_part <- slot(periods, unit)
 
-    prev_aniv <- .month_plus(
+    prev_aniv <- add_with_rollback(
       int_start(x), (int_part * period(1, units = unit)), 
       roll_to_first = TRUE, preserve_hms = FALSE)
-    next_aniv <- .month_plus(
+    next_aniv <- add_with_rollback(
       int_start(x), ((int_part + ifelse(x@.Data < 0, -1, 1)) * period(1, units = unit)), 
       roll_to_first = TRUE, preserve_hms = FALSE)
       
