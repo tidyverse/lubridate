@@ -241,7 +241,7 @@ setMethod("$", signature(x = "Period"), function(x, name) {
 #' @export
 setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 	if (name == "second") name <- ".Data"
-    slot(x, name) <- value
+    slot(x, name) <- rep_len(value, length(x))
     x
 })
 
