@@ -32,10 +32,10 @@ week <- function(x)
 #' @rdname week
 #' @export
 isoweek <- function(x){
-  xday <- ISOdate(year(x), month(x), day(x), tz = "UTC")
+  xday <- parse_date_time2(paste(year(x), month(x), day(x)), "Ymd", tz = "UTC")
   ## week day (monday first)
   dn <- 1 + (wday(x) + 5) %% 7
   nth <- xday + ddays(4 - dn)
-  jan1 <- ISOdate(year(nth), 1, 1, tz = "UTC") 
+  jan1 <- parse_date_time2(paste(year(nth), "1", "1"), "Ymd", tz = "UTC") 
   1L + as.integer(difftime(nth,  jan1, units = "days")) %/% 7L
 }

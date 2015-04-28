@@ -45,7 +45,7 @@ setMethod("year<-", signature("Period"), function(x, value){
 #' @rdname year
 #' @export
 isoyear <- function(x) {
-  xday <- ISOdate(year(x), month(x), day(x), tz = tz(x))
+  xday <- parse_date_time2(paste(year(x), month(x), day(x)), "Ymd", tz = tz(x))
   dn <- 1 + (wday(x) + 5) %% 7
   nth <- xday + ddays(4 - dn)
   year(nth) 
