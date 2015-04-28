@@ -71,7 +71,7 @@ setMethod("%m+%", signature(e1 = "Period"),
 #' @export   
 setMethod("%m+%", signature(e2 = "ANY"), 
           function(e1, e2)
-            stop("%m+% only handles Period objects with month or year units"))
+            stop("%m+% handles only Period objects as second argument"))
 
 #' @export
 "%m-%" <- function(e1,e2) standardGeneric("%m-%")
@@ -90,7 +90,7 @@ setMethod("%m-%", signature(e1 = "Period"),
 #' @export   
 setMethod("%m-%", signature(e2 = "ANY"), 
           function(e1, e2)
-            stop("%m-% only handles Period objects with month or year units"))
+            stop("%m-% handles only Period objects as second argument"))
 
 #' \code{add_with_rollback} provides additional functionality to \%m+\% and
 #' \%m-\%. It allows rollback to first day of the month instead of the last day
