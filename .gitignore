@@ -4,10 +4,8 @@
 *.out
 *.synctex.gz
 .DS_store
-.R*
 .DS_Store
 .Rproj.user
-*.Rbuildignore
 *.DS_Store
 *~
 tmp*
