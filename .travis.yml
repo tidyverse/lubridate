@@ -7,6 +7,8 @@ before_install:
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
 
+env: TRAVIS=true
+
 install:
   - ./travis-tool.sh install_deps
 
