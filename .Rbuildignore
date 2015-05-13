@@ -1,8 +1,8 @@
 paper
 INSPIRATIONS
 ^\.Rproj\.user$
-lubridate.Rproj
 .Rproj.user
 .Rhistory
 ^\.travis\.yml$
 .dir-locals.el
+^.*\.Rproj$
