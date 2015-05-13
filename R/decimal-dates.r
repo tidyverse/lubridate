@@ -1,7 +1,7 @@
-#' Converts a date to a decimal of its year. 
+#' Converts a date to a decimal of its year.
 #'
 #' @export
-#' @param date a POSIXt or Date object   
+#' @param date a POSIXt or Date object
 #' @return a numeric object where the date is expressed as a fraction of its year
 #' @keywords manip chron methods
 #' @examples
@@ -16,7 +16,7 @@ decimal_date.default <- function(date){
   if(any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
     stop("date(s) not in POSIXt or Date format")
 
-  date <- force_tz(as.POSIXlt(date), tz = "UTC")
+  date <- force_tz(as.POSIXlt(date), tzone = "UTC")
   Y <- year(date)
   ## parsing is much faster than updating
   start <- parse_date_time2(paste(Y, "1", "1"), "Ymd")
@@ -35,13 +35,13 @@ decimal_date.its <- function(date)
   decimal_date.default(attr(date, "dates"))
 
 
-#' Converts a decimal to a date. 
+#' Converts a decimal to a date.
 #'
-#' @export 
-#' @param decimal a numeric object   
+#' @export
+#' @param decimal a numeric object
 #' @param tz the time zone required
-#' @return a POSIXct object, whose year corresponds to the integer part of 
-#' decimal. The months, days, hours, minutes and seconds elements are picked so 
+#' @return a POSIXct object, whose year corresponds to the integer part of
+#' decimal. The months, days, hours, minutes and seconds elements are picked so
 #' the date-time will accurately represent the fraction of the year expressed by
 #' decimal.
 #' @keywords manip chron methods
@@ -62,4 +62,4 @@ date_decimal <- function(decimal, tz = NULL) {
   else
     start
 }
-  
+
