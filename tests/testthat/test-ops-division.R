@@ -133,7 +133,7 @@ test_that("division operations work for difftime numerator",{
   
   expect_error(diff/int)
   expect_error(diff/days(1))
-  expect_equal(diff/ ddays(365), 1)
+  expect_equal(diff/ddays(365), 1)
   
 })
 

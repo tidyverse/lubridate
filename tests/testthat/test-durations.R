@@ -189,3 +189,20 @@ test_that("as.duration handles NA objects", {
   na.dur <- dseconds(NA)
   expect_equal(as.duration(NA), na.dur)
 })
+
+
+test_that("Comparison operators work duration and difftime objects (#323)", {
+  t1 <- now()
+  t2 <- t1 + dhours(1)
+  t3 <- t1 + dseconds(1)
+  
+  expect_true((t2 - t1) >  dseconds(60))
+  expect_false((t2 - t1) >  dseconds(3600))
+  expect_true((t2 - t1) < dseconds(3601))
+
+  expect_true(dhours(1) > dminutes(59))
+  expect_true(dhours(1) == dseconds(3600))
+
+  expect_error(dhours(1) == 3600)
+  expect_error(dhours(1) == 1)
+})

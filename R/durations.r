@@ -1,4 +1,5 @@
 #' @include timespans.r
+#' @include difftimes.r
 
 check_duration <- function(object){
 	if (is.numeric(object@.Data))
@@ -26,9 +27,6 @@ check_duration <- function(object){
 #'
 #' Durations class objects have one slot: .Data, a numeric object equal to the number 
 #' of seconds in the duration.
-#'
-#'
-#'
 #'
 #' @name Duration-class
 #' @rdname Duration-class
@@ -118,6 +116,27 @@ setMethod("[[<-", signature(x = "Duration"),
     new("Duration", x@.Data)
 })
 
+
+#' @export
+setMethod("Compare", c(e1 = "Duration", e2 = "ANY"),
+          function(e1, e2){
+            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration`.",
+                         class(e1), class(e2)),
+                 call. = FALSE)
+          })
+
+#' @export
+setMethod("Compare", c(e1 = "difftime", e2 = "Duration"),
+          function(e1, e2){
+            callGeneric(as.numeric(e1, "secs"),
+                        as.numeric(e2, "secs"))
+          })
+
+#' @export
+setMethod("Compare", c(e1 = "Duration", e2 = "Duration"),
+          function(e1, e2){
+            callGeneric(e1@.Data, e2@.Data)
+          })
 
 
 #' Create a duration object.
