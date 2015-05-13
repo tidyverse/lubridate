@@ -28,6 +28,9 @@
 \alias{/,Duration,numeric-method}
 \alias{/,difftime,Duration-method}
 \alias{/,numeric,Duration-method}
+\alias{Compare,Duration,ANY-method}
+\alias{Compare,Duration,Duration-method}
+\alias{Compare,difftime,Duration-method}
 \alias{Duration-class}
 \alias{[,Duration-method}
 \alias{[<-,Duration,ANY,ANY,ANY-method}

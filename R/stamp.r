@@ -148,7 +148,7 @@ stamp <- function(x, orders = lubridate_formats,
   offset_duration = as.duration(dtm_utc - x)
 
   ## determine sign
-  .sgn <- ifelse(offset_duration >= 0, "+", "-")
+  .sgn <- ifelse(offset_duration >= as.duration(0), "+", "-")
 
   ## remove sign
   offset_duration <- abs(offset_duration)
