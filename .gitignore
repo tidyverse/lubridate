@@ -7,7 +7,6 @@
 .R*
 .DS_Store
 .Rproj.user
-*.Rproj
 *.Rbuildignore
 *.DS_Store
 *~
@@ -15,3 +14,5 @@ tmp*
 temp*
 src/*.so
 src/*.o
+.Rhistory
+.RData
