@@ -4,6 +4,5 @@ INSPIRATIONS
 lubridate.Rproj
 .Rproj.user
 .Rhistory
-.DS_Store
 ^\.travis\.yml$
 .dir-locals.el

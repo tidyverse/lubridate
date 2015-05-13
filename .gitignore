@@ -3,7 +3,6 @@
 *.log
 *.out
 *.synctex.gz
-.DS_store
 .DS_Store
 .Rproj.user
 *.DS_Store
