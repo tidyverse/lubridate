@@ -6,18 +6,18 @@ setOldClass("POSIXlt")
 #'
 #' @export
 #' @aliases is.POSIXt is.POSIXlt is.POSIXct
-#' @param x an R object   
+#' @param x an R object
 #' @return TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.
 #' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.Date}}
 #' @keywords logic chron
 #' @examples
 #' is.POSIXt(as.Date("2009-08-03")) # FALSE
 #' is.POSIXt(as.POSIXct("2009-08-03")) # TRUE
-is.POSIXt <- function(x) is(x, "POSIXt")
+is.POSIXt <- function(x) inherits(x, "POSIXt")
 #' @export
-is.POSIXlt <- function(x) is(x, "POSIXlt")
+is.POSIXlt <- function(x) inherits(x, "POSIXlt")
 #' @export
-is.POSIXct <- function(x) is(x, "POSIXct")
+is.POSIXct <- function(x) inherits(x, "POSIXct")
 
 #' @export
 c.POSIXct <- function (..., recursive = FALSE) {
