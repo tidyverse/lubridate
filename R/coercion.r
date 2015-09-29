@@ -441,8 +441,10 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   to.per$month[nmons] <- 12 + to.per$month[nmons]
   to.per$year[nmons] <- to.per$year[nmons] - 1
   
-  new("Period", to.per$second, year = to.per$year, month = to.per$month, 
-    day = to.per$day, hour = to.per$hour, minute = to.per$minute)
+  np <- new("Period", to.per$second, year = to.per$year, month = to.per$month, 
+            day = to.per$day, hour = to.per$hour, minute = to.per$minute)
+  if (abs(sign(np@month) - sign(np@day))) np@day <- 0
+  np
 }
 
 setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) {
