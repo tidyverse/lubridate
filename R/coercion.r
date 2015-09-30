@@ -379,6 +379,14 @@ setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
 })
 
 setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) {
+  ## fixme: document this in the manual
+  
+  ## SEMANTICS: for postitive intervals all units of the period will be
+  ## positive, and the oposite for negatve intervals.
+
+  ## Periods are not symetric in the sense that as.period(int) might not be the
+  ## same as -as.period(int_flip(int)). See
+  ## https://github.com/hadley/lubridate/issues/285 for motivation.
 
   unit <- 
     if (missing(unit))  "year"
