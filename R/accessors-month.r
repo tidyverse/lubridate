@@ -91,6 +91,13 @@ days_in_month <- function(x) {
   n_days
 }
 
+## fixme: integrate with above, this oen is needed internally
+.days_in_month <- function(m, y){
+  n_days <- N_DAYS_IN_MONTHS[m]
+  n_days[m == 2L & leap_year(y)] <- 29L
+  n_days
+}
+
 ## tothink: export?
 days_in_months_so_far <- function(month, leap){
   ## if month is negative, compute from the end of the year

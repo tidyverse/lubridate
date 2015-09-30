@@ -58,17 +58,17 @@ test_that("time_length works with negative interals", {
   expect_that(-time_length(interval(ymd('1992-02-28'), ymd('2000-03-01')), "days"),
               equals(time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-03-01'))), "days")))
 
-  ## If both ends include leap years Febs, the lenths are identical
-  expect_true(-time_length(interval(ymd('1992-02-28'), ymd('2000-03-01')), "years") == 
-                time_length(int_flip(interval(ymd('1992-02-28'), ymd('2000-03-01'))), "years"))
+  ## If both ends include leap years Febs, the lenths are not identical
+  int <- interval(ymd('1992-02-28'), ymd('2000-03-01'))
+  expect_equal(-time_length(int, "years"), time_length(int_flip(int), "years"))
   
-  ## or if both ends doesn't include leap years Febs, the lenths are identical
-  expect_true(-time_length(interval(ymd('1994-02-28'), ymd('2002-03-01')), "years") == 
-                time_length(int_flip(interval(ymd('1994-02-28'), ymd('2002-03-01'))), "years"))
+  ## or if both ends don't include leap years Febs, the lenths are identical
+  int <- interval(ymd('1994-02-28'), ymd('2002-03-01'))
+  expect_equal(-time_length(int, "years"), time_length(int_flip(int), "years"))
   
   ## ... otherwise not
-  expect_false(-time_length(interval(ymd('1992-02-28'), ymd('2002-01-01')), "years") == 
-                 time_length(int_flip(interval(ymd('1992-02-28'), ymd('2002-01-01'))), "years"))
+  int <- interval(ymd('1992-02-28'), ymd('2002-01-01'))
+  expect_more_than(-time_length(int, "years"),  time_length(int_flip(int), "years"))
 })
 
 test_that("time_length handles vectors",{

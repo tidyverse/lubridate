@@ -137,14 +137,12 @@ test_that("as.period with different units handles negative interval objects", {
     int <- new_interval(start, end)
 
     expect_that(as.period(int),
-                equals(period(-c(18, 9, 6, 1, 2, 3), c("year", "month", "day", "hour", "minute", "second"))))
-    ## fixme: #285
-    ## expect_that(as.period(int) + start, equals(end))
+                equals(period(-c(18, 9, 5, 1, 2, 3), c("year", "month", "day", "hour", "minute", "second"))))
+    expect_that(as.period(int) + start, equals(end))
 
     expect_that(as.period(int, "months"),
-                equals(period(-c(225, 6, 1, 2, 3), c("month", "day", "hour", "minute", "second"))))
-    ## fixme: #285
-    ## expect_that(as.period(int, "months") + start, equals(end))
+                equals(period(-c(225, 5, 1, 2, 3), c("month", "day", "hour", "minute", "second"))))
+    expect_that(as.period(int, "months") + start, equals(end))
 
     expect_that(as.period(int, "hours"), equals(period(-c(164497, 2, 3), c("hour", "minute", "second"))))
     expect_that(as.period(int, "hours") + start, equals(end))
@@ -157,6 +155,7 @@ test_that("as.period with different units handles negative interval objects", {
 })
 
 test_that("as.period handles tricky intervals", {
+
   expect_equal(
     as.period(interval(ymd("1986-01-31"), ymd("1986-02-01")))
   , new_period(days = 1))
@@ -202,7 +201,58 @@ test_that("as.period handles tricky intervals", {
   , new_period(months = 1, days = 1, hours = 22))
 })
 
+
+
+test_that("as.period handles tricky negative intervals", {
+  
+  expect_equal(
+    as.period(interval(ymd("1986-02-01"), ymd("1986-01-31")))
+  , new_period(days = -1))
+
+  expect_equal(
+    as.period(interval(ymd("1986-02-01"), ymd("1984-01-30")))
+  , new_period(years = -2, days = -2))
+
+  expect_equal(
+    as.period(interval(ymd("1986-03-01"), ymd("1984-01-30")))
+  , new_period(years = -2, months = -1, days = -2))
+
+  expect_equal(
+    as.period(interval(ymd("1986-03-30"), ymd("1985-01-30")))
+  , new_period(years = -1, months = -2))
+
+  expect_equal(
+    as.period(interval(ymd("1986-03-28"), ymd("1985-01-28")))
+  , new_period(years = -1, months = -2))
+
+  expect_equal(
+    as.period(interval(ymd("1986-03-28"), ymd("1985-01-31")))
+  , new_period(years = -1, months = -1, days = -28))
+
+  expect_equal(
+    as.period(interval(ymd("1986-02-01"), ymd("1985-12-31")))
+  , new_period(months = -2, days = -1))
+
+  expect_equal(
+    as.period(interval(ymd("1984-03-01"), ymd("1984-01-31")))
+  , new_period(months = -1, days = -1))
+
+  expect_equal(
+    as.period(interval(ymd("1984-03-01"), ymd("1984-01-30")))
+  , new_period(months = -1, days = -2))
+
+  expect_equal(
+    as.period(interval(ymd("1984-03-01"), ymd("1984-01-29")))
+  , new_period(months = -1, days = -3))
+
+  expect_equal(
+    as.period(interval(ymd_hms("1984-03-01 3:0:0"), ymd_hms("1984-01-28 5:0:0")))
+  , new_period(months = -1, days = -3, hours = -22))
+  
+})
+
 test_that("as.period handles NA in interval objects", {
+
   one_missing_date <- as.POSIXct(NA_real_, origin = origin)
   one_missing_interval <- new_interval(one_missing_date, 
     one_missing_date)
