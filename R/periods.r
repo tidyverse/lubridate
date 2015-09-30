@@ -478,7 +478,7 @@ months.numeric <- function(x, abbreviate) {
 #' because it doesn't involve years or months.
 #'
 #' @param x A numeric object. The number of seconds to coerce into a period.
-#' @return A period that roughly equates to the number of seconds given.
+#' @return A number (period) that roughly equates to the period (seconds) given.
 #' @export
 period_to_seconds <- function(x) {
 	x@.Data + 

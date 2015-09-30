@@ -45,14 +45,14 @@ divide_interval_by_period <- function(int, per){
   message("Remainder cannot be expressed as fraction of a period.\n  Performing %/%.")
   estimate <- ceiling(int/as.duration(per))
   not_nas <- !is.na(estimate)
-  if (!all(not_nas)) {
+  if (all(not_nas)) {
+    adjust(estimate, int, per)
+  } else {
     timespans <- match_lengths(int, per)
     int2 <- timespans[[1]][not_nas]
     per2 <- timespans[[2]][not_nas]
     estimate[not_nas] <- adjust(estimate[not_nas], int2, per2)
     estimate
-  } else {
-    adjust(estimate, int, per)
   }
 }
 
