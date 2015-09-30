@@ -87,6 +87,16 @@ test_that("as.period handles interval objects", {
   expect_that(as.period(int_neg), equals(years(-1)))
 })
 
+test_that("as.period handles don't produce negative periods", {
+  p2 <- as.period(interval(ymd("1985-12-31"),ymd("1986-02-01")))
+  expect_equal(month(p2), 2)
+  ## expect_equal(day(p2), 1)
+
+  p3 <- as.period(interval(ymd("1985-12-31"),ymd("1986-03-01")))
+  expect_equal(month(p3), 3)
+  expect_equal(day(p3), 1)
+})
+
 test_that("as.period handles interval objects with special start dates", {
     start <- ymd('1992-02-29')
     end <- ymd('2010-12-05')
@@ -146,8 +156,53 @@ test_that("as.period with different units handles negative interval objects", {
     expect_that(as.period(int, "second") + start, equals(end))
 })
 
+test_that("as.period handles tricky intervals", {
+  expect_equal(
+    as.period(interval(ymd("1986-01-31"), ymd("1986-02-01")))
+  , new_period(days = 1))
 
-test_that("as.period handles NA interval objects", {
+  expect_equal(
+    as.period(interval(ymd("1984-01-30"), ymd("1986-02-01")))
+  , new_period(years = 2, days = 2))
+
+  expect_equal(
+    as.period(interval(ymd("1984-01-30"), ymd("1986-03-01")))
+  , new_period(years = 2, months = 1, days = 1))
+
+  expect_equal(
+    as.period(interval(ymd("1985-01-30"), ymd("1986-03-30")))
+  , new_period(years = 1, months = 2))
+
+  expect_equal(
+    as.period(interval(ymd("1985-01-28"), ymd("1986-03-28")))
+  , new_period(years = 1, months = 2))
+
+  expect_equal(
+    as.period(interval(ymd("1985-01-31"), ymd("1986-03-28")))
+  , new_period(years = 1, months = 1, days = 28))
+
+  expect_equal(
+    as.period(interval(ymd("1984-01-28"), ymd("1984-02-28")))
+  , new_period(months = 1))
+
+  expect_equal(
+    as.period(interval(ymd("1984-01-28"), ymd("1984-02-29")))
+  , new_period(months = 1, days = 1))
+
+  expect_equal(
+    as.period(interval(ymd_hms("1984-01-28 5:0:0"), ymd_hms("1984-02-29 3:0:0")))
+  , new_period(months = 1, hours = 22))
+
+  expect_equal(
+    as.period(interval(ymd("1984-01-28"), ymd("1984-03-01")))
+  , new_period(months = 1, days = 2))
+
+  expect_equal(
+    as.period(interval(ymd_hms("1984-01-28 5:0:0"), ymd_hms("1984-03-01 3:0:0")))
+  , new_period(months = 1, days = 1, hours = 22))
+})
+
+test_that("as.period handles NA in interval objects", {
   one_missing_date <- as.POSIXct(NA_real_, origin = origin)
   one_missing_interval <- new_interval(one_missing_date, 
     one_missing_date)

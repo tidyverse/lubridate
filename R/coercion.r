@@ -382,6 +382,8 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   negs <- int_length(x) < 0 & !is.na(int_length(x))
   x[negs] <- int_flip(x[negs])
 
+  ## fixme: the default must be "days". "year" leads to loose arithmetics and
+  ## bugs like #336
   unit <- 
     if (missing(unit))  "year"
     else standardise_period_names(unit)
@@ -395,6 +397,8 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
              year(pers) <- 0L
              pers
            },
+           ## fixme: add note to the docs that unit <= days results in much faster conversion
+           ## fixme: add week
            day = , hour = , minute = , second = {
              secs <- abs(x@.Data)
              units <- .units_within_seconds(secs, unit)
@@ -406,43 +410,63 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   pers
 })
   
-  
-.int_to_period <- function(x){  
+.int_to_period <- function(x){
+  ## this function is called only for conversion with units > day
   start <- as.POSIXlt(x@start)
   end <- as.POSIXlt(start + x@.Data)
 
-  to.per <- as.data.frame(unclass(end))[c("sec", "min", "hour", "mday", "mon", "year")] - 
-    as.data.frame(unclass(start))[c("sec", "min", "hour", "mday", "mon", "year")]
-    
-  names(to.per) <- c("second", "minute", "hour", "day", "month", "year")
+  per <- list()
   
-  # remove negative periods
-  nsecs <- to.per$second < 0 & !is.na(to.per$second)
-  to.per$second[nsecs] <- 60 + to.per$second[nsecs]
-  to.per$minute[nsecs] <- to.per$minute[nsecs] - 1
-  
-  nmins <- to.per$minute < 0 & !is.na(to.per$minute)
-  to.per$minute[nmins] <- 60 + to.per$minute[nmins]
-  to.per$hour[nmins] <- to.per$hour[nmins] - 1
-  
-  nhous <- to.per$hour < 0 & !is.na(to.per$hour)
-  to.per$hour[nhous] <- 24 + to.per$hour[nhous]
-  to.per$day[nhous] <- to.per$day[nhous] - 1
-  
-  ndays <- to.per$day < 0 & !is.na(to.per$day)
-  if (any(ndays)) {
-    day.no <- floor_date(end, "month") - days(1)
-    day.no <- day.no$mday
-    to.per$day[ndays] <- day.no[ndays] + to.per$day[ndays]
-    to.per$month[ndays] <- to.per$month[ndays] - 1
+  for(nm in c("sec", "min", "hour", "mday", "mon", "year")){
+    per[[nm]] <- end[[nm]] - start[[nm]]
   }
+
+  names(per) <- c("second", "minute", "hour", "day", "month", "year")
+
+  ## Remove negative ...
   
-  nmons <- to.per$month < 0 & !is.na(to.per$month)
-  to.per$month[nmons] <- 12 + to.per$month[nmons]
-  to.per$year[nmons] <- to.per$year[nmons] - 1
+  ## secons
+  nsecs <- per$second < 0L & !is.na(per$second)
+  per$second[nsecs] <- 60L + per$second[nsecs]
+  per$minute[nsecs] <- per$minute[nsecs] - 1L
+
+  ## minutes
+  nmins <- per$minute < 0L & !is.na(per$minute)
+  per$minute[nmins] <- 60L + per$minute[nmins]
+  per$hour[nmins] <- per$hour[nmins] - 1L
   
-  new("Period", to.per$second, year = to.per$year, month = to.per$month, 
-    day = to.per$day, hour = to.per$hour, minute = to.per$minute)
+  ## hours
+  nhous <- per$hour < 0L & !is.na(per$hour)
+  per$hour[nhous] <- 24L + per$hour[nhous]
+
+  ## days
+  ndays <- per$day < 0 & !is.na(per$day)
+  if (any(ndays)) {
+
+    ## compute nr days in previous month
+    add_months <- rep.int(-1L, sum(ndays))
+    ## no need to substract a month for negative months. For ex:
+    ## as.period(interval(ymd("1985-12-31"), ymd("1986-02-01")))
+    add_months[per$month[ndays] < 0] <- 0L
+    prev_month_days <- days_in_month(.quick_month_add(end[ndays], add_months))
+
+    ## Compute nr of days:
+    ## /need pmax to capture as.period(interval(ymd("1985-01-31"), ymd("1986-03-28")))/
+    per$day[ndays] <- pmax(prev_month_days - start$mday[ndays], 0) + end$mday[ndays]
+    per$month[ndays] <- per$month[ndays] + add_months
+  }
+
+  ## substract only after the day computation to capture intervals like:
+  ## as.period(interval(ymd_hms("1985-12-31 5:0:0"), ymd_hms("1986-02-01 3:0:0")))
+  per$day[nhous] <- per$day[nhous] - 1L
+
+  ## months
+  nmons <- per$month < 0L & !is.na(per$month)
+  per$month[nmons] <- 12L + per$month[nmons]
+  per$year[nmons] <- per$year[nmons] - 1L
+  
+  new("Period", per$second, year = per$year, month = per$month, 
+    day = per$day, hour = per$hour, minute = per$minute)
 }
 
 setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) {
