@@ -6,12 +6,16 @@ License: GPL
 Title: Make dealing with dates a little easier
 LazyData: true
 Type: Package
-Authors@R: c(person("Garrett", "Grolemund", email = "garrett@rstudio.com",
-    role = c("aut", "cre")), person("Hadley", "Wickham", role = "aut"),
-    person("Vitalie", "Spinu", role = "ctb"), person("Imanuel", "Constigan",
-    role = "ctb"), person("Chel Hee", "Lee", role = "ctb"), person("Richard",
-    "Cotton", role = "ctb"), person("Ian", "Lyttle", role = "ctb"),
-    person("Winston", "Chang", role = "ctb"))
+Authors@R: c(person("Garrett", "Grolemund", role = "aut"),
+             person("Vitalie", "Spinu", email = "spinuvit@gmail.com", role = c("aut","cre")),
+             person("Hadley", "Wickham", role = "aut"),
+             person("Jan", "Lyttle", role="ctb"),
+             person("Imanuel", "Constigan", role = "ctb"),
+             person("Jason", "Law", role="ctb"),
+             person("Doug","Mitarotonda", role="ctb"),
+             person("Joseph", "Larmarange", role="ctb"),
+             person("Jonathan", "Boiser", role="ctb"),
+             person("Chel Hee", "Lee", role = "ctb"))
 Description: Lubridate makes it easier to work with dates
     and times by providing functions to identify and parse
     date-time data, extract and modify components of a
