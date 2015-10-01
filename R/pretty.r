@@ -107,8 +107,8 @@ pretty.point <- function(x, units, length, start = TRUE, ...){
     
   } else {
     
-    floors <- list("sec", "min", "hour", "day", "month", "year")
-    floorto <- match(units, floors) + 1L
+    floors <- c("sec", "min", "hour", "day", "month", "year")
+    floorto <- floors[match(units, floors) + 1L]
     lower <- floor_date(x, floorto)
     upper <- ceiling_date(x, floorto)
     
