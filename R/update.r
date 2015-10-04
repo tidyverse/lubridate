@@ -12,7 +12,7 @@
 #' minutes, seconds, tzs (time zone compnent)
 #' @param simple logical, passed to \code{fit_to_timeline}. If TRUE a simple fit
 #' to time line is performed and no NA are produced for invalid dates. Invalid
-#' dates are converted to meaningful dates by by extrapolating the timezones.
+#' dates are converted to meaningful dates by extrapolating the timezones.
 #' @return a date object with the requested elements updated. The object will
 #'   retain its original class unless an element is updated which the original
 #'   class does not support. In this case, the date returned will be a POSIXlt
@@ -105,20 +105,21 @@ update.Date <- function(object, ...){
 
 #' Fit a POSIXlt date-time to the timeline
 #' 
-#' The POSIXlt format allows you to create instants that do not exist in 
-#' real life due to daylight savings time and other conventions. fit_to_timeline
-#' matches POSIXlt date-times to a real times. If an instant does not exist, fit 
-#' to timeline will replace it with an NA. If an instant does exist, but has 
-#' been paired with an incorrect timezone/daylight savings time combination, 
-#' fit_to_timeline returns the instant with the correct combination.
+#' The POSIXlt format allows you to create instants that do not exist in real
+#' life due to daylight savings time and other conventions. fit_to_timeline
+#' matches POSIXlt date-times to a real times. If an instant does not exist, fit
+#' to timeline will replace it with an NA. If an instant does exist, but has
+#' been paired with an incorrect timezone/daylight savings time combination,
+#' fit_to_timeline returns the instant with the correct combination. 
 #'
 #'
 #' @param lt a POSIXlt date-time object.
-#' @param class a character string that describes what type of object to return, 
-#' POSIXlt or POSIXct. Defaults to POSIXct.
+#' @param class a character string that describes what type of object to return,
+#'   POSIXlt or POSIXct. Defaults to POSIXct. This is an optimization to avoid
+#'   needless conversions.
 #' @param simple if TRUE, \code{lubridate} makes no attempt to detect
-#' meaningless time-dates or to correct time zones. No NAs are produced and the
-#' most meaningful valid dates are returned instead. See examples.
+#'   meaningless time-dates or to correct time zones. No NAs are produced and
+#'   the most meaningful valid dates are returned instead. See examples.
 #' @return a POSIXct or POSIXlt object that contains no illusory date-times
 #'
 #' @examples
@@ -173,35 +174,43 @@ fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
   if (class != "POSIXlt" && class != "POSIXct")
     stop("class argument must be POSIXlt or POSIXct")
 
-  # fall break - DST only changes if it has to
-  ct <- as.POSIXct(lt)
-  lt2 <- as.POSIXlt(ct)
-  dstdiff <- !is.na(ct) & (lt$isdst != lt2$isdst)
+  if(simple){
 
-  if (!simple & any(dstdiff)) {
+    if(class == "POSIXct") as.POSIXct(lt)
+    else as.POSIXlt(as.POSIXct(lt))
 
-    dlt <- lt[dstdiff]
-    dlt2 <- lt2[dstdiff]
-    dlt$isdst <- dlt2$isdst
-    dlt$zone <- dlt2$zone
-    dlt$gmtoff <- dlt2$gmtoff
-    dct <- as.POSIXct(dlt) # should directly match if not in gap
+  } else {
+    
+    ## fall break - DST only changes if it has to
+    ct <- as.POSIXct(lt)
+    lt2 <- as.POSIXlt(ct)
 
-    if (class == "POSIXct")
-      ct[dstdiff] <- dct
-    else 
-      lt2[dstdiff] <- dlt
+    dstdiff <- !is.na(ct) & (lt$isdst != lt2$isdst)
+    if (any(dstdiff)) {
 
-    chours <- format.POSIXlt(as.POSIXlt(dct), "%H", usetz = FALSE)
-    lhours <- format.POSIXlt(dlt, "%H", usetz = FALSE)
+      dlt <- lt[dstdiff]
+      dlt2 <- lt2[dstdiff]
+      dlt$isdst <- dlt2$isdst
+      dlt$zone <- dlt2$zone
+      dlt$gmtoff <- dlt2$gmtoff
+      dct <- as.POSIXct(dlt) # should directly match if not in gap
 
-    any <- any(hdiff <- chours != lhours)
-    if (!is.na(any) && any) {
       if (class == "POSIXct")
-        ct[dstdiff][hdiff] <- NA
+        ct[dstdiff] <- dct
       else 
-        lt2[dstdiff][hdiff] <- NA
+        lt2[dstdiff] <- dlt
+
+      chours <- format.POSIXlt(as.POSIXlt(dct), "%H", usetz = FALSE)
+      lhours <- format.POSIXlt(dlt, "%H", usetz = FALSE)
+
+      any <- any(hdiff <- chours != lhours)
+      if (!is.na(any) && any) {
+        if (class == "POSIXct")
+          ct[dstdiff][hdiff] <- NA
+        else 
+          lt2[dstdiff][hdiff] <- NA
+      }
     }
+    if (class == "POSIXct") ct else lt2
   }
-  if (class == "POSIXct") ct else lt2
 }
