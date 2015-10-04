@@ -86,16 +86,20 @@ round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
   if(!length(x)) return(x)
   
   unit <- match.arg(unit)
-  
-  above <- unclass(as.POSIXct(ceiling_date(x, unit)))
-  mid <- unclass(as.POSIXct(x))
-  below <- unclass(as.POSIXct(floor_date(x, unit)))
 
-  wabove <- (above - mid) <= (mid - below)
-  wabove <- !is.na(wabove) & wabove
-  new <- below
-  new[wabove] <- above[wabove]
-  new <- .POSIXct(new, tz = tz(x))
+  new <- 
+    if(unit %in% c("second", "minute", "hour", "day")){
+      round.POSIXt(x, units = lub2base_units[[unit]])
+    } else {
+      above <- unclass(as.POSIXct(ceiling_date(x, unit)))
+      mid <- unclass(as.POSIXct(x))
+      below <- unclass(as.POSIXct(floor_date(x, unit)))
+      wabove <- (above - mid) <= (mid - below)
+      wabove <- !is.na(wabove) & wabove
+      new <- below
+      new[wabove] <- above[wabove]
+      .POSIXct(new, tz = tz(x))
+    }
   
   reclass_date(new, x)
 }
@@ -105,17 +109,17 @@ round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
 floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
 	if(!length(x)) return(x)
   unit <- match.arg(unit)
-  
-  new <- switch(unit,
-                second  = update(x, seconds = floor(second(x)), simple = T),
-                minute  = update(x, seconds = 0, simple = T),
-                hour    = update(x, minutes = 0, seconds = 0, simple = T),
-                day     = update(x, hours = 0, minutes = 0, seconds = 0, simple = T),
-                week    = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
-                month   = update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
-                quarter = update(x, months = ((month(x)-1)%/%3)*3+1, mdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
-                year    = update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0, simple = T))
-  new
+
+  if(unit %in% c("second", "minute", "hour", "day")){
+    reclass_date(trunc(x, units = lub2base_units[[unit]]), x)
+  } else {
+    new <- switch(unit,
+                  week    = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
+                  month   = update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
+                  quarter = update(x, months = ((month(x)-1)%/%3)*3+1, mdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
+                  year    = update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0, simple = T))
+    new
+  }
 }
 
 #' @rdname round_date
@@ -124,13 +128,17 @@ ceiling_date <- function(x, unit = c("second", "minute", "hour", "day", "week", 
 	if(!length(x)) return(x)
 	unit <- match.arg(unit)
 
-  sx <- second(x)
-  
-  if (unit == "second") {
-    update(x, seconds = ceiling(sx), simple = T)
+  if(unit == "second"){
+    update(x, seconds = ceiling(second(x)), simple = T)
+  }else if(is.POSIXt(x) & (unit %in% c("minute", "hour", "day"))){
+    ## cannot use this for Date class, (local tz interferes with computation)
+    ## tohink: maybe make rounding functions generic
+    new <- as.POSIXct(x, tz = tz(x))
+    new <- new + switch(unit, minute = 59, hour = 3599, day = 86399)
+    reclass_date(trunc.POSIXt(new, units = lub2base_units[[unit]]), x)
   } else {
-    new <- update(x, seconds = sx - 1, simple = T)
     ## we need this to accomodate the case when date is on a boundary
+    new <- update(x, seconds = second(x) - 1L, simple = T)
     new <- switch(unit,
                   minute  = update(new, minute = minute(new) + 1L, second = 0, simple = T),
                   hour    = update(new, hour = hour(new) + 1L, minute = 0, second = 0, simple = T), 
