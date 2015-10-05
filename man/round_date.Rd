@@ -30,7 +30,12 @@ week, month, quarter, or year.
 }
 \details{
 \code{round_date} takes a date-time object and rounds it to the nearest
-integer value of the specified time unit.
+integer value of the specified time unit. For rounding date-ties which is
+exactly halfway between two consecutive units, the convention is to round
+up. Note that this is in line with the behavior of R's base
+\link[base]{round.POSIXt} function but does not follow the convention of the
+base \link[base]{round} function which "goes to the even digit" per IEC
+60559.
 
 \code{floor_date} takes a date-time object and rounds it down to the nearest integer
 value of the specified time unit.
@@ -95,6 +100,9 @@ ceiling_date(x, "quarter")
 # "2009-10-01 CDT"
 ceiling_date(x, "year")
 # "2010-01-01 CST"
+}
+\seealso{
+\link[base]{round}
 }
 \keyword{chron}
 \keyword{manip}

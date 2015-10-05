@@ -13,7 +13,7 @@ seconds_to_period(x)
 \item{x}{A numeric object. The number of seconds to coerce into a period.}
 }
 \value{
-A period that roughly equates to the number of seconds given.
+A number (period) that roughly equates to the period (seconds) given.
 }
 \description{
 \code{period_to_seconds} approximately converts a period to seconds assuming

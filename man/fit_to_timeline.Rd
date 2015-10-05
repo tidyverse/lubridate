@@ -10,18 +10,19 @@ fit_to_timeline(lt, class = "POSIXct", simple = FALSE)
 \item{lt}{a POSIXlt date-time object.}
 
 \item{class}{a character string that describes what type of object to return,
-POSIXlt or POSIXct. Defaults to POSIXct.}
+POSIXlt or POSIXct. Defaults to POSIXct. This is an optimization to avoid
+needless conversions.}
 
 \item{simple}{if TRUE, \code{lubridate} makes no attempt to detect
-meaningless time-dates or to correct time zones. No NAs are produced and the
-most meaningful valid dates are returned instead. See examples.}
+meaningless time-dates or to correct time zones. No NAs are produced and
+the most meaningful valid dates are returned instead. See examples.}
 }
 \value{
 a POSIXct or POSIXlt object that contains no illusory date-times
 }
 \description{
-The POSIXlt format allows you to create instants that do not exist in
-real life due to daylight savings time and other conventions. fit_to_timeline
+The POSIXlt format allows you to create instants that do not exist in real
+life due to daylight savings time and other conventions. fit_to_timeline
 matches POSIXlt date-times to a real times. If an instant does not exist, fit
 to timeline will replace it with an NA. If an instant does exist, but has
 been paired with an incorrect timezone/daylight savings time combination,
