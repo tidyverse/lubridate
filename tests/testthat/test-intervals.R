@@ -555,3 +555,16 @@ test_that("intersect on intervals propagates NAs (#226)", {
                            interval("2014-01-15", "2014-02-16"))),
                c(interval(NA,NA),interval(NA,NA), interval("2014-01-15", "2014-01-30")))
 })
+
+test_that("Reduce works with intervals (#348)", {
+
+  ints <- c(
+    new_interval(ymd("2001-01-01"), ymd("2002-01-01")),
+    new_interval(ymd("2001-01-01"), ymd("2004-01-01")),
+    new_interval(ymd("2001-02-01"), ymd("2002-01-01"))
+  )
+
+  expect_equal(Reduce(union, ints),
+               new_interval(ymd("2001-01-01"), ymd("2004-01-01")))
+  
+})

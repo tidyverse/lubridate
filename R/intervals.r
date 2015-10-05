@@ -586,6 +586,11 @@ setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
 })
 
 #' @export
+as.list.Interval <- function(x, ...){
+  lapply(seq_along(x), function(i) x[[i]])
+}
+
+#' @export
 summary.Interval <- function(object, ...) {
   nas <- is.na(object)
   object <- object[!nas]
