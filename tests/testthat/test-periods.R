@@ -87,6 +87,18 @@ test_that("as.period handles interval objects", {
   expect_that(as.period(int_neg), equals(years(-1)))
 })
 
+test_that("as.period handles vector interval objects (#349)", {
+  ints <- c(new_interval(ymd("2001-01-01"), ymd("2002-01-01")),
+            new_interval(ymd("2001-01-01"), ymd("2004-01-01")))
+  expect_equal(as.period(ints), new_period(years = c(1, 3)))
+
+  ints <- c(new_interval(ymd("2001-01-01"), ymd("2002-03-05")),
+            new_interval(ymd("2001-01-01"), ymd_hms("2004-12-31 3:2:1")))
+  expect_equal(as.period(ints),
+               new_period(years = c(1, 3), months = c(2, 11), days = c(4, 30),
+                          hours = c(0, 3), minutes = c(0, 2), seconds = c(0, 1)))
+})
+
 test_that("as.period handles don't produce negative periods", {
   p2 <- as.period(interval(ymd("1985-12-31"),ymd("1986-02-01")))
   expect_equal(month(p2), 2)
