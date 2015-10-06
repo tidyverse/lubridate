@@ -357,3 +357,12 @@ test_that("idempotentcy between period_to_seconds and seconds_to_period holds", 
   seconds <- 71319967
   expect_equal(period_to_seconds(seconds_to_period(seconds)), seconds)
 })
+
+
+test_that("direct reation of periods works as expected", {
+  expect_equal(new("Period", 1:4),
+               new_period(seconds = 1:4))
+
+  expect_equal(new("Period", 1:4, day = 1:2),
+               new_period(seconds = 1:4, days = 1:2))
+})

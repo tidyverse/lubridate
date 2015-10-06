@@ -149,6 +149,23 @@ setClass("Period", contains = c("Timespan", "numeric"),
 	prototype = prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0), 
 	validity = check_period)
 
+setMethod("initialize", "Period", function(.Object, ...){
+  dots <- list(...)
+  names(dots)[!nzchar(allNames(dots))] <- ".Data"
+  len <- max(unlist(lapply(dots, length), F, F))
+  for(nm in slotNames(.Object)){
+    slot(.Object, nm) <- 
+      if(is.null(obj <- dots[[nm]])){
+        rep.int(0L, len)
+      } else {
+        if(length(obj) < len) rep_len(obj, len)
+        else obj
+      }
+  }
+  validObject(.Object)
+  .Object
+})
+
 #' @export
 setMethod("show", signature(object = "Period"), function(object){
   print(format(object))
@@ -293,7 +310,8 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' # "0S"
 new_period <- function(...) {
   pieces <- data.frame(lapply(list(...), as.numeric))
-  
+
+  ## fixme: syncronize this with the initialize method
   names(pieces) <- standardise_date_names(names(pieces))
   defaults <- data.frame(
     second = 0, minute = 0, hour = 0, day = 0, week = 0, 
