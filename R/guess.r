@@ -77,26 +77,28 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   orders <- gsub("hm", "HM", orders, ignore.case = TRUE)
   orders <- gsub("ms", "MS", orders, ignore.case = TRUE)
 
+  ## We split into characterst first and then paste together formats that start
+  ## with O. If perl style lookahead would have worked we wouldn't need this,
+  ## but it doesn't.
   osplits <- strsplit(orders, "", fixed = TRUE)
   osplits <- lapply(osplits,
                     function(ospt){
-                      ## perl lookahead is not working in strsplit. Thus this junk.
                       if( length(which_O <- which(ospt == "O")) > 0 ){
                         ospt[which_O + 1] <- paste("O", ospt[which_O + 1], sep = "")
                         ospt[-which_O]
                       }else
                         ospt
                     })
-  reg <- .get_loc_regs(locale)
+  reg <- .get_locale_regs(locale)
 
   REGS <- unlist(lapply(osplits, function(fnames){
-    ## fnames are letters representing an individual valid format, like a, A, b, z, OS, OZ
+    ## fnames are names of smalest valid formats, like a, A, b, z, OS, OZ ...
     which <- ! fnames %in% c(names(reg$alpha_flex), names(reg$num_flex))
     if( any( which ) )
       stop("Unknown formats supplied: ", paste(fnames[ which ], sep = ", "))
 
     ## restriction: no numbers before or after
-    ## note: \\D+ doesn't work in flex match, why?
+    ## fixme: using \\D*? because \\D+ doesn't work in flex match, why?
     paste("^\\D*?\\b((", paste(unlist(c(reg$alpha_flex, reg$num_flex)[fnames]), collapse = "\\D*?"),
           ")|(", paste(unlist(c(reg$alpha_exact, reg$num_exact)[fnames]), collapse = "\\D*?"),
           "))\\D*$", sep = "")
@@ -109,7 +111,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     print(do.call(cbind, c(list(x), subs)))
   }
 
-  .mapords <- function(regs, orders, x){
+  .build_formats <- function(regs, orders, x){
     out <- mapply(
         function(reg, name){
           out <- .substitute_formats(reg, x)
@@ -124,16 +126,16 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     ## replace short/long weak days in current locale
     x2 <- gsub(reg$alpha_exact[["A"]], "%A", x, ignore.case = T, perl = T)
     x2 <- gsub(reg$alpha_exact[["a"]], "%a", x2, ignore.case =  T, perl = T)
-    formats <- .mapords(REGS, orders, x2)
+    formats <- .build_formats(REGS, orders, x2)
 
     ## In some locales abreviated day (italian "gio") is part of month name
     ## ("maggio"). So check if %a or %A is present and append wday-less formats.
     if (any(grepl("%[aA]", formats)))
-      c(formats, .mapords(REGS, orders, x))
+      c(formats, .build_formats(REGS, orders, x))
     else
       formats
   } else {
-    .mapords(REGS, orders, x)
+    .build_formats(REGS, orders, x)
   }
 }
 
@@ -224,10 +226,11 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
 .locale_reg_cache <- new.env(hash = FALSE)
 
-.get_loc_regs <- function(locale = Sys.getlocale("LC_TIME")){
+.get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
+  ## build locale specific regexps for all posible orders  
 
-  if (exists(locale, envir = .locale_reg_cache, inherits = FALSE))
-    return(get(locale, envir = .locale_reg_cache))
+  ## if (exists(locale, envir = .locale_reg_cache, inherits = FALSE))
+  ##   return(get(locale, envir = .locale_reg_cache))
   
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
@@ -302,11 +305,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       Oz = "(?<Oz_Oz>[-+]\\d{4})", ## sptrtime implements only this format (4 digits)
       ## F = "(?<F>\\d{4)-\\d{2}-\\d{2})",
       OO = "(?<OO>[-+]\\d{2}:\\d{2})",
-      Oo = "(?<Oo>[-+]\\d{2})"
-      )
+      Oo = "(?<Oo>[-+]\\d{2})")
 
   nms <- c("T", "R", "r")
-  if( length(p) == 0L ){
+  if (length(p) == 0L) {
     ## in some locales %p = ""
     num <- c(num,
              T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]),
@@ -316,17 +318,16 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   }else{
     num <- c(num,
              T = sprintf("((%s\\D+%s\\D+%s\\D*%s)|(%s\\D+%s\\D+%s))",
-                 num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]),
+                         num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]),
              R = sprintf("((%s\\D+%s\\D*%s)|(%s\\D+%s))",
-                 num[["I"]], num[["M"]], alpha[["p"]], num[["H"]], num[["M"]]),
+                         num[["I"]], num[["M"]], alpha[["p"]], num[["H"]], num[["M"]]),
              r = sprintf("((%s\\D*%s)|%s)",
-                 num[["I"]], alpha[["p"]], num[["H"]]))
+                         num[["I"]], alpha[["p"]], num[["H"]]))
 
     num[nms] <- sub("<M", "<M_T",
                     sub("<S", "<S_T",
                         sub("<OS", "<OS_T", num[nms])))
   }
-
 
   ## don't let special nms be confused with standard formats
   num[nms] <- gsub("(<[IMSpHS]|<OS)", "\\1_s", num[nms])
