@@ -564,6 +564,21 @@ test_that("a and A formats are handled correctly (#254)", {
                parse_date_time(x = dates, orders = c("Adby")))
 })
 
+test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
+  ## https://github.com/hadley/lubridate/issues/326
+  expect_equal(parse_date_time(c('12/17/1996 04:00:00','4/18/1950 0130'),
+                               c('%m/%d/%Y %I:%M:%S','%m/%d/%Y %H%M'),
+                               exact = T),
+               as.POSIXct(c("1996-12-17 04:00:00 UTC", "1950-04-18 01:30:00 UTC"), tz = "UTC"))
+
+  x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
+
+  expect_equal(parse_date_time(x, c("%m-%d-%y", "%m%d%y", "%m-%d-%y %H:%M"), exact = TRUE),
+               as.POSIXct(c("2001-09-01 00:00:00 UTC", "2002-09-01 00:00:00 UTC",
+                            NA,  "2003-09-01 12:02:00 UTC"),
+                          tz = "UTC"))
+})
+
 ## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00",
 ##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00",
 ##   "2012-12-04 17:16:05.097000-08:00")

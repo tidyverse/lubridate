@@ -315,11 +315,13 @@ hms <- function(..., quiet = FALSE) {
 ##' of \code{strptime} whenever the trained from input data formats are all
 ##' numeric.
 ##'
-##' Here are all the formats recognized by lubridate. For numeric formats
-##' leading 0s are optional. As compared to \code{strptime}, some of the formats
-##' have been extended for efficiency reasons. They are marked with "*". Formats
-##' accepted by \code{parse_date_time2} and \code{fast_strptime} are marked with
-##' "!".
+##' Listed below are all the formats recognized by lubridate. For numeric
+##' formats leading 0s are optional. As compared to \code{strptime}, some of the
+##' formats have been extended for efficiency reasons. They are marked with
+##' "*". Formats accepted by \code{parse_date_time2} and \code{fast_strptime}
+##' are marked with "!". If \code{exact} is \code{TRUE} then the formats are
+##' interpreted with their standard \code{strptime} meaning. That is, no
+##' lubridate extension are supported with \code{exact=TRUE}.
 ##'
 ##' \describe{ \item{\code{a}}{Abbreviated weekday name in the current
 ##' locale. (Also matches full name)}
@@ -422,6 +424,9 @@ hms <- function(..., quiet = FALSE) {
 ##' default selection method fails to select the formats in the right order. By
 ##' default the formats with most formating tockens (\%) are selected and \%Y
 ##' counts as 2.5 tockens (so that it has a priority over \%y\%m). Se examples.
+##' @param exact logical. If \code{TRUE}, \code{orders} parameter is interpreted
+##'   as an exact \code{strptime} format and no trainign or guessing are
+##'   performed.
 ##' @return a vector of POSIXct date-time objects
 ##' @seealso \code{strptime}, \code{\link{ymd}}, \code{\link{ymd_hms}}
 ##' @keywords chron
@@ -433,28 +438,37 @@ hms <- function(..., quiet = FALSE) {
 ##' functions that don't perform format guessing (\code{strptime},
 ##' \code{fast_strptime} and \code{parse_date_time2}).
 ##' @examples
+##'
+##' ## ** orders are much easier to write **
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
 ##' parse_date_time(x, "ymd")
+##' parse_date_time(x, "y m d")
 ##' parse_date_time(x, "%y%m%d")
-##' parse_date_time(x, "%y %m %d")
 ##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 ##'
-##' ## ** heterogenuous formats **
+##' ## ** heterogenuous date-times **
 ##' x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
-##' parse_date_time(x, c("%y%m%d", "%y%m%d %H%M"))
+##' parse_date_time(x, c("ymd", "ymd HM"))
 ##'
-##' ## different ymd orders:
+##' ## ** different ymd orders **
 ##' x <- c("2009-01-01", "02022010", "02-02-2010")
-##' parse_date_time(x, c("%d%m%Y", "ymd"))
+##' parse_date_time(x, c("dmY", "ymd"))
 ##' ##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"
 ##'
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
-##' parse_date_time(x, "%Y%m%d %H%M%S", truncated = 3)
+##' parse_date_time(x, "Ymd HMS", truncated = 3)
 ##' parse_date_time(x, "ymd_hms", truncated = 3)
 ##' ## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
 ##' ## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##'
+##' ## ** specifying exact formats and avoiding training and guessing **
+##' parse_date_time(x, c("%m-%d-%y", "%m%d%y", "%m-%d-%y %H:%M"), exact = TRUE)
+##' ## [1] "2001-09-01 00:00:00 UTC" "2002-09-01 00:00:00 UTC" NA "2003-09-01 12:02:00 UT
+##' parse_date_time(c('12/17/1996 04:00:00','4/18/1950 0130'),
+##'                 c('%m/%d/%Y %I:%M:%S','%m/%d/%Y %H%M'), exact = T)
+##' ## [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"
+##' 
 ##' ## ** fast parsing **
 ##' \dontrun{
 ##'   options(digits.secs = 3)
@@ -472,7 +486,7 @@ hms <- function(..., quiet = FALSE) {
 ##'   all.equal(out, out3)
 ##' }
 ##' 
-##' ## ** how to use select_formats **
+##' ## ** how to use `select_formats` argument **
 ##' ## By default %Y has precedence:
 ##' parse_date_time(c("27-09-13", "27-09-2013"), "dmy")
 ##' ## [1] "13-09-27 UTC"   "2013-09-27 UTC"
@@ -487,7 +501,8 @@ hms <- function(..., quiet = FALSE) {
 ##' parse_date_time(c("27-09-13", "27-09-2013"), "dmy", select_formats = my_select)
 ##' ## '[1] "2013-09-27 UTC" "2013-09-27 UTC"
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
-  locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats){
+                            locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
+                            exact = FALSE){
 
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
@@ -498,8 +513,13 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
     orders <- .add_truncated(orders, truncated)
 
   .local_parse <- function(x, first = FALSE){
-    train <- .get_train_set(x)
-    formats <- .best_formats(train, orders, locale = locale, select_formats)
+    formats <-
+      if(exact){
+        orders
+      } else {
+        train <- .get_train_set(x)
+        .best_formats(train, orders, locale = locale, select_formats)
+      }
     if( length(formats) > 0 ){
       out <- .parse_date_time(x, formats, tz = tz, quiet = quiet)
       new_na <- is.na(out)
@@ -534,9 +554,10 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
 ##' @rdname parse_date_time
 ##' @export parse_date_time2
-parse_date_time2 <- function(x, orders, tz = "UTC"){
+parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE){
   if( length(orders) > 1) warning("Multiple orders supplied. Only the first one is used")
-  orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
+  if(!exact)
+    orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
   .POSIXct(.Call("parse_dt", x, orders, FALSE), tz = tz)
 }
 
@@ -555,7 +576,6 @@ fast_strptime <- function(x, format, tz = "UTC"){
 
 ### INTERNAL
 .parse_date_time <- function(x, formats, tz, quiet){
-  ## recursive parsing
   out <- .strptime(x, formats[[1]], tz = tz, quiet = quiet)
   na <- is.na(out)
   newx <- x[na]
@@ -564,6 +584,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
   if( !is.null(verbose) && verbose )
     message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
+  ## recursive parsing
   if( length(formats) > 1 && length(newx) > 0 )
     out[na] <- .parse_date_time(newx, formats[-1], tz = tz, quiet = quiet)
 
@@ -574,7 +595,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
 .strptime <- function(x, fmt, tz = "UTC", quiet = FALSE){
 
   ## Depending on fmt we might need to preprocess x.
-  ## ISO8601 and fasttime are the only cases so far.
+  ## ISO8601 and internal parser are the only cases so far.
   ## %Ou: "2013-04-16T04:59:59Z"
   ## %Oo: "2013-04-16T04:59:59+01"
   ## %Oz: "2013-04-16T04:59:59+0100"
@@ -594,7 +615,7 @@ fast_strptime <- function(x, format, tz = "UTC"){
           message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
         with_tz(fast_strptime(x, fmt, tz = "UTC"), tzone = tz)
       } else {
-        ## as compared to the parsing, this is so unbelievably slow  :(
+        ## force_tz is very slow :(
         force_tz(fast_strptime(x, fmt, tz = "UTC"), tzone = tz)
       }
     } else {
