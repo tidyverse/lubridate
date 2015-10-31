@@ -4,7 +4,7 @@
 \name{origin}
 \alias{origin}
 \title{1970-01-01 UTC}
-\format{\preformatted{ POSIXt[1:1], format: "1970-01-01"
+\format{\preformatted{ POSIXct[1:1], format: "1970-01-01"
 }}
 \usage{
 origin

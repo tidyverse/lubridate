@@ -466,7 +466,7 @@ hms <- function(..., quiet = FALSE) {
 ##' parse_date_time(x, c("%m-%d-%y", "%m%d%y", "%m-%d-%y %H:%M"), exact = TRUE)
 ##' ## [1] "2001-09-01 00:00:00 UTC" "2002-09-01 00:00:00 UTC" NA "2003-09-01 12:02:00 UT
 ##' parse_date_time(c('12/17/1996 04:00:00','4/18/1950 0130'),
-##'                 c('%m/%d/%Y %I:%M:%S','%m/%d/%Y %H%M'), exact = T)
+##'                 c('%m/%d/%Y %I:%M:%S','%m/%d/%Y %H%M'), exact = TRUE)
 ##' ## [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"
 ##' 
 ##' ## ** fast parsing **

@@ -8,9 +8,10 @@
 formats.}
 \usage{
 parse_date_time(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
-  locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats)
+  locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
+  exact = FALSE)
 
-parse_date_time2(x, orders, tz = "UTC")
+parse_date_time2(x, orders, tz = "UTC", exact = FALSE)
 
 fast_strptime(x, format, tz = "UTC")
 }
@@ -55,6 +56,10 @@ default selection method fails to select the formats in the right order. By
 default the formats with most formating tockens (\%) are selected and \%Y
 counts as 2.5 tockens (so that it has a priority over \%y\%m). Se examples.}
 
+\item{exact}{logical. If \code{TRUE}, \code{orders} parameter is interpreted
+as an exact \code{strptime} format and no trainign or guessing are
+performed.}
+
 \item{format}{a character string of formats. It should include all the
 separators and each format must be prefixed with %, just as in the format
 argument of \code{strptime}.}
@@ -84,11 +89,13 @@ recursively on the input vector.
 of \code{strptime} whenever the trained from input data formats are all
 numeric.
 
-Here are all the formats recognized by lubridate. For numeric formats
-leading 0s are optional. As compared to \code{strptime}, some of the formats
-have been extended for efficiency reasons. They are marked with "*". Formats
-accepted by \code{parse_date_time2} and \code{fast_strptime} are marked with
-"!".
+Listed below are all the formats recognized by lubridate. For numeric
+formats leading 0s are optional. As compared to \code{strptime}, some of the
+formats have been extended for efficiency reasons. They are marked with
+"*". Formats accepted by \code{parse_date_time2} and \code{fast_strptime}
+are marked with "!". If \code{exact} is \code{TRUE} then the formats are
+interpreted with their standard \code{strptime} meaning. That is, no
+lubridate extension are supported with \code{exact=TRUE}.
 
 \describe{ \item{\code{a}}{Abbreviated weekday name in the current
 locale. (Also matches full name)}
@@ -166,27 +173,35 @@ functions that don't perform format guessing (\code{strptime},
 \code{fast_strptime} and \code{parse_date_time2}).
 }
 \examples{
+## ** orders are much easier to write **
 x <- c("09-01-01", "09-01-02", "09-01-03")
 parse_date_time(x, "ymd")
+parse_date_time(x, "y m d")
 parse_date_time(x, "\%y\%m\%d")
-parse_date_time(x, "\%y \%m \%d")
 #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 
-## ** heterogenuous formats **
+## ** heterogenuous date-times **
 x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
-parse_date_time(x, c("\%y\%m\%d", "\%y\%m\%d \%H\%M"))
+parse_date_time(x, c("ymd", "ymd HM"))
 
-## different ymd orders:
+## ** different ymd orders **
 x <- c("2009-01-01", "02022010", "02-02-2010")
-parse_date_time(x, c("\%d\%m\%Y", "ymd"))
+parse_date_time(x, c("dmY", "ymd"))
 ##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"
 
 ## ** truncated time-dates **
 x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
-parse_date_time(x, "\%Y\%m\%d \%H\%M\%S", truncated = 3)
+parse_date_time(x, "Ymd HMS", truncated = 3)
 parse_date_time(x, "ymd_hms", truncated = 3)
 ## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
 ## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
+
+## ** specifying exact formats and avoiding training and guessing **
+parse_date_time(x, c("\%m-\%d-\%y", "\%m\%d\%y", "\%m-\%d-\%y \%H:\%M"), exact = TRUE)
+## [1] "2001-09-01 00:00:00 UTC" "2002-09-01 00:00:00 UTC" NA "2003-09-01 12:02:00 UT
+parse_date_time(c('12/17/1996 04:00:00','4/18/1950 0130'),
+                c('\%m/\%d/\%Y \%I:\%M:\%S','\%m/\%d/\%Y \%H\%M'), exact = TRUE)
+## [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"
 
 ## ** fast parsing **
 \dontrun{
@@ -205,7 +220,7 @@ parse_date_time(x, "ymd_hms", truncated = 3)
   all.equal(out, out3)
 }
 
-## ** how to use select_formats **
+## ** how to use `select_formats` argument **
 ## By default \%Y has precedence:
 parse_date_time(c("27-09-13", "27-09-2013"), "dmy")
 ## [1] "13-09-27 UTC"   "2013-09-27 UTC"
