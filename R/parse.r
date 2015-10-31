@@ -309,19 +309,17 @@ hms <- function(..., quiet = FALSE) {
 ##' When several format-orders are specified \code{parse_date_time} sorts the
 ##' supplied format-orders based on a training set and then applies them
 ##' recursively on the input vector.
-##'
+##' 
 ##' \code{parse_date_time}, and hence all the derived functions, such as
 ##' \code{ymd_hms}, \code{ymd} etc, will drop into \code{fast_strptime} instead
-##' of \code{strptime} whenever the trained from input data formats are all
+##' of \code{strptime} whenever the guesed from the input data formats are all
 ##' numeric.
-##'
-##' Listed below are all the formats recognized by lubridate. For numeric
-##' formats leading 0s are optional. As compared to \code{strptime}, some of the
-##' formats have been extended for efficiency reasons. They are marked with
-##' "*". Formats accepted by \code{parse_date_time2} and \code{fast_strptime}
-##' are marked with "!". If \code{exact} is \code{TRUE} then the formats are
-##' interpreted with their standard \code{strptime} meaning. That is, no
-##' lubridate extension are supported with \code{exact=TRUE}.
+##' 
+##' The list below contains formats recognized by lubridate. For numeric formats
+##' leading 0s are optional. In contrast to \code{strptime}, some of the formats
+##' have been extended for efficiency reasons. They are marked with "*". Fast
+##' perasers,  \code{parse_date_time2} and \code{fast_strptime}, currently
+##' accept only formats marked with "!".
 ##'
 ##' \describe{ \item{\code{a}}{Abbreviated weekday name in the current
 ##' locale. (Also matches full name)}
@@ -340,7 +338,7 @@ hms <- function(..., quiet = FALSE) {
 ##' 
 ##' \item{\code{H}!}{Hours as decimal number (00--24 or 0--24).}
 ##' 
-##' \item{\code{I}}{Hours as decimal number (01--12 or 0--12).}
+##' \item{\code{I}}{Hours as decimal number (01--12 or 1--12).}
 ##' 
 ##' \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
 ##' 
