@@ -108,7 +108,7 @@ months(6) + days(1)
 \seealso{
 \code{\link{new_duration}} for creating duration objects and
   \code{\link{new_period}} for creating period objects, and
-  \code{\link{new_interval}} for creating interval objects
+  \code{\link{interval}} for creating interval objects
 }
 \keyword{chron}
 \keyword{classes}

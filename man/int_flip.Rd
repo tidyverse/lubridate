@@ -18,7 +18,7 @@ new interval takes place during the same timespan as the original interval,
 but has the opposite direction.
 }
 \examples{
-int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 # 2001-01-01 UTC--2002-01-01 UTC
 int_flip(int)
 # 2002-01-01 UTC--2001-01-01 UTC

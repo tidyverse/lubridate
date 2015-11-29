@@ -14,7 +14,7 @@ If an interval is not positive, int_standardize flips it so that it
 retains its endpoints but becomes positive.
 }
 \examples{
-int <- new_interval(ymd("2002-01-01"), ymd("2001-01-01"))
+int <- interval(ymd("2002-01-01"), ymd("2001-01-01"))
 # 2002-01-01 UTC--2001-01-01 UTC
 int_standardize(int)
 # 2001-01-01 UTC--2002-01-01 UTC

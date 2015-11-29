@@ -67,19 +67,19 @@ setting the global \code{lubridate.verbose} option to FALSE with
 \code{options(lubridate.verbose = FALSE)}.
 }
 \examples{
-span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
+span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
 # 2009-01-01 CST--2010-02-02 01:01:01 CST
 as.period(span)
 # "1y 1m 1d 1H 1M 1S"
 as.period(span, units = "day")
 "397d 1H 1M 1S"
-leap <- new_interval(ymd("2016-01-01"), ymd("2017-01-01"))
+leap <- interval(ymd("2016-01-01"), ymd("2017-01-01"))
 # 2016-01-01 UTC--2017-01-01 UTC
 as.period(leap, unit = "days")
 # "366d 0H 0M 0S"
 as.period(leap, unit = "years")
 # "1y 0m 0d 0H 0M 0S"
-dst <- new_interval(ymd("2016-11-06", tz = "America/Chicago"),
+dst <- interval(ymd("2016-11-06", tz = "America/Chicago"),
 ymd("2016-11-07", tz = "America/Chicago"))
 # 2016-11-06 CDT--2016-11-07 CST
 # as.period(dst, unit = "seconds")

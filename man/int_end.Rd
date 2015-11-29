@@ -18,7 +18,7 @@ Note that changing the end date of an interval will change the length of
 the interval, since the start date will remain the same.
 }
 \examples{
-int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 # 2001-01-01 UTC--2002-01-01 UTC
 int_end(int)
 # "2002-01-01 UTC"

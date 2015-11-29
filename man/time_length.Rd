@@ -32,7 +32,7 @@ or \code{\link{difftime}} object, length in months or years is based on their
 most common lengths in seconds (see \code{\link{timespan}}).
 }
 \examples{
-int <- new_interval(ymd("1980-01-01"), ymd("2014-09-18"))
+int <- interval(ymd("1980-01-01"), ymd("2014-09-18"))
 time_length(int, "week")
 
 # Exact age
@@ -42,7 +42,7 @@ time_length(int, "year")
 trunc(time_length(int, "year"))
 
 # Example of difference between intervals and durations
-int <- new_interval(ymd("1900-01-01"), ymd("1999-12-31"))
+int <- interval(ymd("1900-01-01"), ymd("1999-12-31"))
 time_length(int, "year")
 time_length(as.duration(int), "year")
 }

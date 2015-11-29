@@ -17,7 +17,7 @@ Is x a difftime object?
 }
 \examples{
 is.difftime(as.Date("2009-08-03")) # FALSE
-is.difftime(new_difftime(days = 12.4)) # TRUE
+is.difftime(make_difftime(days = 12.4)) # TRUE
 }
 \seealso{
 \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.interval}},

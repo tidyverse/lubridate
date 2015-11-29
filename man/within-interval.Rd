@@ -22,9 +22,9 @@ If a is an interval, both its start and end dates must fall within b
 to return TRUE.
 }
 \examples{
-int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 # 2001-01-01 UTC--2002-01-01 UTC
-int2 <- new_interval(ymd("2001-06-01"), ymd("2002-01-01"))
+int2 <- interval(ymd("2001-06-01"), ymd("2002-01-01"))
 # 2001-06-01 UTC--2002-01-01 UTC
 
 ymd("2001-05-03") \%within\% int # TRUE

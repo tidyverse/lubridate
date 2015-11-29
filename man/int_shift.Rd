@@ -21,7 +21,7 @@ interval if the interval is shifted by a Period object. Intervals shifted by a
 Duration or difftime object will retain their exact length in seconds.
 }
 \examples{
-int <- new_interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 # 2001-01-01 UTC--2002-01-01 UTC
 int_shift(int, new_duration(days = 11))
 # 2001-01-12 UTC--2002-01-12 UTC

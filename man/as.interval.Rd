@@ -9,7 +9,7 @@
 \alias{as.interval,difftime-method}
 \alias{as.interval,logical-method}
 \alias{as.interval,numeric-method}
-\title{Change an object to an interval.}
+\title{Change an object to an \code{interval}.}
 \usage{
 as.interval(x, start, ...)
 }
@@ -63,7 +63,7 @@ as.interval(3600, ymd("2009-01-01")) #numeric
 # 2009-01-01 UTC--2009-01-01 01:00:00 UTC
 }
 \seealso{
-\code{\link{interval}}, \code{\link{new_interval}}
+\code{\link{interval}}
 }
 \keyword{chron}
 \keyword{classes}

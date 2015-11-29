@@ -5,7 +5,7 @@
 \alias{is.duration}
 \title{Create a duration object.}
 \usage{
-duration(num = 0, units = "seconds")
+duration(num = NULL, units = "seconds", ...)
 
 is.duration(x)
 }
@@ -14,24 +14,29 @@ is.duration(x)
 
 \item{units}{a character string that specifies the type of units that num refers to.}
 
+\item{...}{a list of time units to be included in the duration and their amounts. Seconds,
+minutes, hours, days, and weeks are supported.}
+
 \item{x}{an R object}
 }
 \value{
 a duration object
 }
 \description{
-duration creates a duration object with the specified values. duration
-provides the behavior of \code{\link{new_duration}} in a way that is more
-suitable for automating within a function.
-}
-\details{
-Durations display as the number of seconds in a
+new_duration creates a duration object with the specified values. Entries for
+different units are cumulative. durations display as the number of seconds in a
 time span. When this number is large, durations also display an estimate in
 larger units,; however, the underlying object is
 always recorded as a fixed number of seconds. For display and creation
 purposes, units are converted to seconds using their most common lengths in
 seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds,
-weeks = 604800.
+weeks = 604800. Units larger than weeks are not used due to their
+variability.
+}
+\details{
+new_duration is meant to be used interactively on the command line. See
+\code{\link{duration}}, for a version that is better suited to automating
+within a function.
 
 Durations record the exact number of seconds in a time span. They measure the
 exact passage of time but do not always align with measurements
@@ -47,17 +52,29 @@ Duration objects can be easily created with the helper functions
 times to create a user interface similar to object oriented programming.
 }
 \examples{
+duration(day = -1)
+# -86400s (~-1 days)
 duration(90, "seconds")
 # 90s
 duration(1.5, "minutes")
 # 90s
 duration(-1, "days")
 # -86400s (~-1 days)
+duration(second = 90)
+# 90s
+duration(minute = 1.5)
+# 90s
+duration(mins = 1.5)
+# 90s
+duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
+# 1130493s (~13.08 days)
+duration(hour = 1, minute = -60)
+# 0s
 is.duration(as.Date("2009-08-03")) # FALSE
 is.duration(new_duration(days = 12.4)) # TRUE
 }
 \seealso{
-\code{\link{new_duration}}, \code{\link{as.duration}}
+\code{\link{as.duration}}
 }
 \keyword{chron}
 \keyword{classes}
