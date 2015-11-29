@@ -143,7 +143,7 @@
 #' 
 #' Functions for working with intervals include 
 #' \code{\link{is.interval}}, \code{\link{as.interval}},  
-#' \code{\link{new_interval}}, \code{\link{int_shift}},
+#' \code{\link{interval}}, \code{\link{int_shift}},
 #' \code{\link{int_flip}}, \code{\link{int_aligns}},
 #' \code{\link{int_overlaps}}, and
 #' \code{\link{\%within\%}}. Intervals can also be manipulated with 
@@ -166,6 +166,6 @@
 #' @import stringr
 #' @importFrom methods setClass setGeneric new show
 #' @docType package
-#' @name lubridate
+#' @name lubridate-package
 #' @aliases lubridate lubridate-package
 NULL
