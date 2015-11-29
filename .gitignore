@@ -13,3 +13,6 @@ src/*.so
 src/*.o
 .Rhistory
 .RData
+TAGS
+test.R
+paper/auto/
