@@ -6,3 +6,5 @@ INSPIRATIONS
 ^\.travis\.yml$
 .dir-locals.el
 ^.*\.Rproj$
+TAGS
+test.R
