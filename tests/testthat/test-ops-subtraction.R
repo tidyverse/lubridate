@@ -45,7 +45,7 @@ test_that("subtraction with instants returns correct class",{
 test_that("subtraction works as expected for periods",{
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-02-02 00:00:00", tz = "UTC")
-  int <- new_interval(time1, time2)
+  int <- interval(time1, time2)
   
   expect_equal(years(1) - 1, new_period(seconds = -1, years = 1))
   expect_error(years(1) - as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
@@ -67,7 +67,7 @@ test_that("subtraction with periods returns correct class",{
 test_that("subtraction works as expected for durations",{
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
-  int <- new_interval(time1, time2) 
+  int <- interval(time1, time2) 
   
   expect_equal(dyears(1) - 1, duration(31535999))
   expect_error(dyears(1) - as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
@@ -89,7 +89,7 @@ test_that("subtraction works as expected for intervals",{
   time1 <- as.POSIXct("2008-08-03 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   time3 <- as.POSIXct("2008-11-02 00:00:00", tz = "UTC") 
-  int <- new_interval(time1, time2)
+  int <- interval(time1, time2)
   int2 <- interval(time3, time2)
   
   expect_error(time2 - int)  

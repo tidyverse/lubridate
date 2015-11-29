@@ -84,7 +84,7 @@ is.timespan <- function(x) is(x, "Timespan")
 #' @name timespan
 #' @seealso \code{\link{new_duration}} for creating duration objects and
 #'   \code{\link{new_period}} for creating period objects, and
-#'   \code{\link{new_interval}} for creating interval objects
+#'   \code{\link{interval}} for creating interval objects
 #' @keywords classes chron
 #' @examples
 #' duration(3690, "seconds")
@@ -151,7 +151,7 @@ NULL
 #' @seealso \code{\link{timespan}}
 #' @keywords chron math period methods
 #' @examples
-#' int <- new_interval(ymd("1980-01-01"), ymd("2014-09-18"))
+#' int <- interval(ymd("1980-01-01"), ymd("2014-09-18"))
 #' time_length(int, "week")
 #' 
 #' # Exact age
@@ -161,7 +161,7 @@ NULL
 #' trunc(time_length(int, "year"))
 #' 
 #' # Example of difference between intervals and durations
-#' int <- new_interval(ymd("1900-01-01"), ymd("1999-12-31"))
+#' int <- interval(ymd("1900-01-01"), ymd("1999-12-31"))
 #' time_length(int, "year")
 #' time_length(as.duration(int), "year")
 #' @export

@@ -8,7 +8,7 @@ test_that("is.instant/is.timepoint works as expected",{
     is_true())
   expect_that(is.instant(Sys.Date()), is_true())
   expect_that(is.instant(minutes(1)), is_false())
-  expect_that(is.timespan(new_interval(
+  expect_that(is.timespan(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_true())
 })

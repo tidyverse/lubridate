@@ -9,7 +9,7 @@ test_that("is.timespan works as expected",{
   expect_that(is.timespan(Sys.Date()), is_false())
   expect_that(is.timespan(minutes(1)), is_true())
   expect_that(is.timespan(dminutes(1)), is_true())
-  expect_that(is.timespan(new_interval(
+  expect_that(is.timespan(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_true())
 })

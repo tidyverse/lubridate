@@ -112,8 +112,6 @@ stamp <- function(x, orders = lubridate_formats,
   }
 }
 
-
-
 .format_offset <- function(x, fmt="%Oz"){
   ## .format_offset
   ##
@@ -175,7 +173,6 @@ stamp <- function(x, orders = lubridate_formats,
   return(result)
 }
 
-
 ##'
 ##' @rdname stamp
 ##' @export
@@ -189,12 +186,7 @@ stamp_date <- function(x, locale = Sys.getlocale("LC_TIME"))
 stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"))
   stamp(x, orders = c("hms", "hm", "ms", "h", "m", "s"), locale = locale)
 
-##' Lubridate format orders used in \code{stamp}
-##'
-##' @format  character vector of formats.
-##' @docType data
-##' @seealso \code{\link{parse_date_time}}, \code{\link{ymd}}, \code{\link{ymd_hms}}
-##' @keywords chron
+
 lubridate_formats <- local({
   xxx <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
   names(xxx) <- xxx

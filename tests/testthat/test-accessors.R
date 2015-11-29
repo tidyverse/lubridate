@@ -194,8 +194,7 @@ test_that("accessors handle vectors",{
 })
 
 test_that("accessors handle Period objects",{ 
-  per <- new_period(seconds = 1, minutes = 2, hours = 3, days = 4, months = 5, 
-    years = 6)
+  per <- new_period(seconds = 1, minutes = 2, hours = 3, days = 4, months = 5,  years = 6)
   pers <- c(per, per)
   
   expect_equal(second(per), 1)

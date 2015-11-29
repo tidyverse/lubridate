@@ -9,19 +9,19 @@ test_that("is.interval works as expected",{
   expect_that(is.interval(Sys.Date()), is_false())
   expect_that(is.interval(minutes(1)), is_false())
   expect_that(is.interval(dminutes(1)), is_false())
-  expect_that(is.interval(new_interval(
+  expect_that(is.interval(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_true())
 })
 
 test_that("is.interval handles vectors",{
-  expect_that(is.interval(new_interval(
+  expect_that(is.interval(interval(
     as.POSIXct(c("2008-08-03 13:01:59", "2009-08-03 13:01:59"), tz = "UTC"),  
     as.POSIXct("2010-08-03 13:01:59", tz = "UTC"))), is_true())
 })
 
 
-test_that("new_interval works as expected", {
+test_that("interval works as expected", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
   int <- interval(time1, time2)
@@ -33,7 +33,7 @@ test_that("new_interval works as expected", {
     
 })
 
-test_that("new_interval handles vector input", {
+test_that("interval handles vector input", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
   time3 <- as.POSIXct("2009-08-04 13:01:59", tz = "UTC")
@@ -113,7 +113,7 @@ test_that("format.Interval correctly displays intervals of length 0", {
 
 test_that("interval handles correctly time zones of Date objects", {
   expect_equal(interval(as.Date('2011-01-01'), as.Date('2013-01-01')),
-               new_interval(ymd('2011-01-01'), ymd('2013-01-01')))
+               interval(ymd('2011-01-01'), ymd('2013-01-01')))
 })
 
 test_that("summary.Interval creates useful summary", {
@@ -125,7 +125,7 @@ test_that("summary.Interval creates useful summary", {
 })
 
 test_that("as.interval handles NAs", {
-  expect_equal(as.interval(NA), new_interval(NA, NA))
+  expect_equal(as.interval(NA), interval(NA, NA))
 })
 
 
@@ -559,12 +559,12 @@ test_that("intersect on intervals propagates NAs (#226)", {
 test_that("Reduce works with intervals (#348)", {
 
   ints <- c(
-    new_interval(ymd("2001-01-01"), ymd("2002-01-01")),
-    new_interval(ymd("2001-01-01"), ymd("2004-01-01")),
-    new_interval(ymd("2001-02-01"), ymd("2002-01-01"))
+    interval(ymd("2001-01-01"), ymd("2002-01-01")),
+    interval(ymd("2001-01-01"), ymd("2004-01-01")),
+    interval(ymd("2001-02-01"), ymd("2002-01-01"))
   )
 
   expect_equal(Reduce(union, ints),
-               new_interval(ymd("2001-01-01"), ymd("2004-01-01")))
+               interval(ymd("2001-01-01"), ymd("2004-01-01")))
   
 })

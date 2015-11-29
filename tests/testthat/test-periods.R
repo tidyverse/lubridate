@@ -10,7 +10,7 @@ test_that("is.period works as expected",{
   expect_that(is.period(Sys.Date()), is_false())
   expect_that(is.period(minutes(1)), is_true())
   expect_that(is.period(dminutes(1)), is_false())
-  expect_that(is.period(new_interval(
+  expect_that(is.period(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_false())
 })
@@ -80,20 +80,20 @@ test_that("format.Period works as expected", {
 test_that("as.period handles interval objects", {
   start <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
   end <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
-  int <- new_interval(start, end)
-  int_neg <- new_interval(end, start)
+  int <- interval(start, end)
+  int_neg <- interval(end, start)
     
   expect_that(as.period(int), equals(years(1)))
   expect_that(as.period(int_neg), equals(years(-1)))
 })
 
 test_that("as.period handles vector interval objects (#349)", {
-  ints <- c(new_interval(ymd("2001-01-01"), ymd("2002-01-01")),
-            new_interval(ymd("2001-01-01"), ymd("2004-01-01")))
+  ints <- c(interval(ymd("2001-01-01"), ymd("2002-01-01")),
+            interval(ymd("2001-01-01"), ymd("2004-01-01")))
   expect_equal(as.period(ints), new_period(years = c(1, 3)))
 
-  ints <- c(new_interval(ymd("2001-01-01"), ymd("2002-03-05")),
-            new_interval(ymd("2001-01-01"), ymd_hms("2004-12-31 3:2:1")))
+  ints <- c(interval(ymd("2001-01-01"), ymd("2002-03-05")),
+            interval(ymd("2001-01-01"), ymd_hms("2004-12-31 3:2:1")))
   expect_equal(as.period(ints),
                new_period(years = c(1, 3), months = c(2, 11), days = c(4, 30),
                           hours = c(0, 3), minutes = c(0, 2), seconds = c(0, 1)))
@@ -112,7 +112,7 @@ test_that("as.period handles don't produce negative periods", {
 test_that("as.period handles interval objects with special start dates", {
     start <- ymd('1992-02-29')
     end <- ymd('2010-12-05')
-    int <- new_interval(start, end)
+    int <- interval(start, end)
 
     expect_that(as.period(int), equals(period(c(18, 9, 6), c("year", "month", "day"))))
     expect_that(as.period(int) + start, equals(end))
@@ -122,7 +122,7 @@ test_that("as.period handles interval objects with special start dates", {
 test_that("as.period with different units handles interval objects", {
     start <- ymd('1992-02-29')
     end <- ymd_hms('2010-12-05 01:02:03')
-    int <- new_interval(start, end)
+    int <- interval(start, end)
 
     expect_that(as.period(int),
                 equals(period(c(18, 9, 6, 1, 2, 3), c("year", "month", "day", "hour", "minute", "second"))))
@@ -146,7 +146,7 @@ test_that("as.period with different units handles interval objects", {
 test_that("as.period with different units handles negative interval objects", {
     end <- ymd('1992-02-29')
     start <- ymd_hms('2010-12-05 01:02:03')
-    int <- new_interval(start, end)
+    int <- interval(start, end)
 
     expect_that(as.period(int),
                 equals(period(-c(18, 9, 5, 1, 2, 3), c("year", "month", "day", "hour", "minute", "second"))))
@@ -266,13 +266,13 @@ test_that("as.period handles tricky negative intervals", {
 test_that("as.period handles NA in interval objects", {
 
   one_missing_date <- as.POSIXct(NA_real_, origin = origin)
-  one_missing_interval <- new_interval(one_missing_date, 
+  one_missing_interval <- interval(one_missing_date, 
     one_missing_date)
   several_missing_dates <- rep(as.POSIXct(NA_real_, origin = origin), 2)
-  several_missing_intervals <- new_interval(several_missing_dates, 
+  several_missing_intervals <- interval(several_missing_dates, 
     several_missing_dates)
-  start_missing_intervals <- new_interval(several_missing_dates, origin)
-  end_missing_intervals <- new_interval(origin, several_missing_dates)
+  start_missing_intervals <- interval(several_missing_dates, origin)
+  end_missing_intervals <- interval(origin, several_missing_dates)
   na.per <- new_period(sec= NA, min = NA, hour = NA, day = NA, 
     month = NA, year = NA)
   
@@ -300,7 +300,7 @@ test_that("as.period handles vectors", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
   time3 <- as.POSIXct("2010-08-03 13:01:59", tz = "UTC")
-  int <- new_interval(c(time2, time1), time3)
+  int <- interval(c(time2, time1), time3)
     
   dur <- new_duration(seconds = 5, minutes = c(30,59))
     

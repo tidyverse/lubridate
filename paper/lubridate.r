@@ -82,9 +82,9 @@ as.period(span)  #1 year
 ## Section 5.5. Division with timespans
 halloween <- ymd("2010-10-31") 
 christmas <- ymd("2010-12-25") 
-interval <- new_interval(halloween, christmas)  #2010-10-31 - 2010-12-25 
+interval <- interval(halloween, christmas)  #2010-10-31 - 2010-12-25 
 interval / dweeks(1)  #7.857143 
-interval / new_interval(halloween, halloween + weeks(1))  #7.857143 
+interval / interval(halloween, halloween + weeks(1))  #7.857143 
 interval %% months(1)  #24 days
 interval / months(1)  #1
 interval %/% months(1)  #1

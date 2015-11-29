@@ -200,10 +200,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 
 
 
-
-
-
-#' Change an object to an interval.
+#' Change an object to an \code{interval}.
 #'
 #' as.interval changes difftime, Duration, Period and numeric class objects to 
 #' intervals that begin at the specified date-time. Numeric objects are first 
@@ -222,7 +219,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' @param start a POSIXt or Date object that describes when the interval begins   
 #' @param ... additional arguments to pass to as.interval
 #' @return an interval object
-#' @seealso \code{\link{interval}}, \code{\link{new_interval}}
+#' @seealso \code{\link{interval}}
 #' @keywords classes manip methods chron
 #' @examples
 #' diff <- new_difftime(days = 31) #difftime
@@ -279,9 +276,9 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
   else stopifnot(is.instant(start))
   
 	if (is.instant(x))
-		return(new_interval(x, start))
+		return(interval(x, start))
 	else
-		new_interval(start, start + x)
+		interval(start, start + x)
 }
 
 
@@ -336,19 +333,19 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' @seealso \code{\link{Period-class}}, \code{\link{new_period}}
 #' @keywords classes manip methods chron
 #' @examples
-#' span <- new_interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
+#' span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
 #' # 2009-01-01 CST--2010-02-02 01:01:01 CST
 #' as.period(span)
 #' # "1y 1m 1d 1H 1M 1S"
 #' as.period(span, units = "day")
 #' "397d 1H 1M 1S"
-#' leap <- new_interval(ymd("2016-01-01"), ymd("2017-01-01"))
+#' leap <- interval(ymd("2016-01-01"), ymd("2017-01-01"))
 #' # 2016-01-01 UTC--2017-01-01 UTC
 #' as.period(leap, unit = "days")
 #' # "366d 0H 0M 0S"
 #' as.period(leap, unit = "years")
 #' # "1y 0m 0d 0H 0M 0S"
-#' dst <- new_interval(ymd("2016-11-06", tz = "America/Chicago"), 
+#' dst <- interval(ymd("2016-11-06", tz = "America/Chicago"), 
 #' ymd("2016-11-07", tz = "America/Chicago"))
 #' # 2016-11-06 CDT--2016-11-07 CST
 #' # as.period(dst, unit = "seconds")

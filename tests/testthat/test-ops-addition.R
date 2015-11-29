@@ -195,7 +195,7 @@ test_that("adding vectors works as expected for periods",{
     
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
-  int <- new_interval(time1, time2)
+  int <- interval(time1, time2)
 
   expect_error(years(1:2) + int)
 })
@@ -214,7 +214,7 @@ test_that("adding vectors works as expected for durations",{
     
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
-  int <- new_interval(time1, time2)
+  int <- interval(time1, time2)
     
   expect_error(dyears(1:2) + int)
 

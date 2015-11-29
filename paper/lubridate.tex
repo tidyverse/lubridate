@@ -523,7 +523,7 @@ We can also capture the current time as an instant with \code{now()}, and the cu
 
 Intervals, durations, and periods are all ways of recording timespans. Of these, intervals are the most simple. An interval is a span of time that occurs between two specific instants. The length of an interval is never ambiguous, because we know when it occurs. Moreover, we can calculate the exact length of any unit of time that occurs during it.\pkg{lubridate} introduces the \code{interval} object class for modelling intervals.
 
-We can create \code{interval} objects by subtracting two instants or by using the command \code{new_interval()}.
+We can create \code{interval} objects by subtracting two instants or by using the command \code{interval()}.
 
 \begin{CodeInput}
 R> start_2011 <- ymd_hms("2011-01-01 12:00:00")
@@ -723,7 +723,7 @@ To illustrate this, we make an interval that lasts from Halloween until Christma
 \begin{CodeInput}
 R> halloween <- ymd("2010-10-31")
 R> christmas <- ymd("2010-12-25")
-R> interval <- new_interval(halloween, christmas)
+R> interval <- interval(halloween, christmas)
 \end{CodeInput}
 \begin{CodeOutput}
 [1] 2010-10-31 -- 2010-12-25
@@ -741,7 +741,7 @@ R> interval / dweeks(1)
 Intervals are also exact measures of timespans. Although it is more work, we could divide an interval by another interval to get an exact answer. This gives the same answer as above because \pkg{lubridate} automatically coerces \code{interval} objects in the denominator to \code{duration} objects.
 
 \begin{CodeInput}
-R> interval / new_interval(halloween, halloween + weeks(1))
+R> interval / interval(halloween, halloween + weeks(1))
 \end{CodeInput}
 \begin{CodeOutput}
 interval denominator coerced to duration

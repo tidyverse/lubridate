@@ -264,75 +264,6 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 
 #' Create a period object.
 #'
-#' new_period creates a period object with the specified values. Within a 
-#' Period object, time units do not have a fixed length (except for seconds) 
-#' until they are added to a date-time. The length of each time unit will 
-#' depend on the date-time to which it is added. For example, a year that 
-#' begins on 2009-01-01 will be 365 days long.  A year that begins on 
-#' 2012-01-01 will be 366 days long. When math is performed with a period 
-#' object, each unit is applied separately. How the length of a period is 
-#' distributed among 
-#' its units is non-trivial. For example, when leap seconds occur 1 minute 
-#' is longer than 60 seconds.
-#'
-#' Periods track the change in the "clock time" between two date-times. They 
-#' are measured in common time related units: years, months, days, hours, 
-#' minutes, and seconds. Each unit except for seconds must be expressed in 
-#' integer values. 
-#'
-#' Period objects can be easily created with the helper functions 
-#' \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}}, 
-#' \code{\link{days}}, \code{\link{hours}}, \code{\link{minutes}}, 
-#' and \code{\link{seconds}}. These objects can be added to and subtracted 
-#' to date-times to create a user interface similar to object oriented programming.
-#'
-#' new_period is meant to be used interactively on the command line. See 
-#' \code{\link{period}}, for a version that is better suited to automating 
-#' within a function.
-#'
-#' @export new_period
-#' @aliases new_period
-#' @param ... a list of time units to be included in the period and their amounts. Seconds, minutes, 
-#'   hours, days, weeks, months, and years are supported.
-#' @return a period object
-#' @seealso \code{\link{period}}, \code{\link{as.period}}
-#' @keywords chron classes
-#' @examples
-#' new_period (second = 90, minute = 5)
-#' # "5M 90S"
-#' new_period(day = -1)
-#' # "-1d 0H 0M 0S"
-#' new_period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
-#' # "20d 2H 1M 3S"
-#' new_period(hour = 1, minute = -60)
-#' # "1H -60M 0S"
-#' new_period(second = 0)
-#' # "0S"
-new_period <- function(...) {
-  pieces <- data.frame(lapply(list(...), as.numeric))
-
-  ## fixme: syncronize this with the initialize method
-  names(pieces) <- standardise_date_names(names(pieces))
-  defaults <- data.frame(
-    second = 0, minute = 0, hour = 0, day = 0, week = 0, 
-    month = 0, year = 0
-  )
-  
-  pieces <- cbind(pieces, defaults[setdiff(names(defaults), names(pieces))])
-  ## pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")] 
-  
-  pieces$day <- pieces$day + pieces$week * 7
-
-  na <- is.na(rowSums(pieces))
-  pieces$second[na] <- NA ## if any of supplied pieces is NA whole vector should be NA
-
-  new("Period", pieces$second, year = pieces$year, month = pieces$month, 
-  	day = pieces$day, hour = pieces$hour, minute = pieces$minute)
-}
-
-
-#' Create a period object.
-#'
 #' \code{period} creates a period object with the specified values. period
 #' provides the behaviour of \code{\link{new_period}} in a way that is more
 #' suitable for automating within a function.
@@ -361,6 +292,10 @@ new_period <- function(...) {
 #' @param num a numeric vector that lists the number of time units to be included in the period
 #' @param units a character vector that lists the type of units to be used. The units in units 
 #' are matched to the values in num according to their order.
+#' @param ... a list of time units to be included in the period and their
+#'   amounts. Seconds, minutes,  hours, days, weeks, months, and years are
+#'   supported. Normally only one of \code{num} or \code{...} are present. If
+#'   both are present, the periods are concatenated.
 #' @return a period object
 #' @keywords chron classes
 #' @examples
@@ -374,21 +309,69 @@ new_period <- function(...) {
 #' # "1H -60M 0S"
 #' period(0, "second")
 #' # "0S"
-period <- function(num, units = "second") {
-	if (length(units) %% length(num) != 0)
+#' period (second = 90, minute = 5)
+#' # "5M 90S"
+#' period(day = -1)
+#' # "-1d 0H 0M 0S"
+#' period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
+#' # "20d 2H 1M 3S"
+#' period(hour = 1, minute = -60)
+#' # "1H -60M 0S"
+#' period(second = 0)
+#' # "0S"
+#' period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
+#' # "1H -60M 0S" "1H 3M 0S"   "2H 4M 0S"  
+period <- function(num = NULL, units = "second", ...) {
+  nums <- list(...)
+  if(!is.null(num) && length(nums) > 0){
+    c(.period_from_num(num, units), .period_from_units(nums))
+  } else if(!is.null(num)){
+    .period_from_num(num, units)
+  } else if(length(nums)){
+    .period_from_units(nums)
+  } else {
+    stop("No valid values have been passed to 'period' constructor")
+  }
+}
+
+.period_from_num <- function(num, units){
+
+  if (length(units) %% length(num) != 0)
 		stop("arguments must have same length")
-		
+  
 	num <- num + rep(0, length(units))
 	unit <- standardise_date_names(units)
 	pieces <- setNames(as.list(num), unit)
 	
 	defaults <- list(second = 0, minute = 0, hour = 0, day = 0, week = 0, 
-    	month = 0, year = 0)
-    pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
-    pieces$day <- pieces$day + 7 * pieces$week
-		
+                   month = 0, year = 0)
+  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
+  pieces$day <- pieces$day + 7 * pieces$week
+  
 	new("Period", pieces$second, year = pieces$year, month = pieces$month, 
   		day = pieces$day, hour = pieces$hour, minute = pieces$minute)
+}
+
+.period_from_units <- function(units) {
+  pieces <- data.frame(lapply(units, as.numeric))
+
+  ## fixme: syncronize this with the initialize method
+  names(pieces) <- standardise_date_names(names(pieces))
+  defaults <- data.frame(
+    second = 0, minute = 0, hour = 0, day = 0, week = 0, 
+    month = 0, year = 0
+  )
+  
+  pieces <- cbind(pieces, defaults[setdiff(names(defaults), names(pieces))])
+  ## pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")] 
+  
+  pieces$day <- pieces$day + pieces$week * 7
+
+  na <- is.na(rowSums(pieces))
+  pieces$second[na] <- NA ## if any of supplied pieces is NA whole vector should be NA
+
+  new("Period", pieces$second, year = pieces$year, month = pieces$month, 
+      day = pieces$day, hour = pieces$hour, minute = pieces$minute)
 }
 
 #' @rdname period

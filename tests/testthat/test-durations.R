@@ -110,7 +110,7 @@ test_that("is.duration works as expected",{
   expect_that(is.duration(minutes(1)), is_false())
   expect_that(is.duration(dminutes(1)), is_true())
   expect_that(is.duration(new_difftime(1000)), is_false())
-  expect_that(is.duration(new_interval(lt_time, ct_time)), is_false())
+  expect_that(is.duration(interval(lt_time, ct_time)), is_false())
 })
 
 test_that("is.duration handle vectors",{
@@ -162,13 +162,13 @@ test_that("compute_estimate works with NA values", {
 
 test_that("as.duration handles NA interval objects", {
   one_missing_date <- as.POSIXct(NA_real_, origin = origin)
-  one_missing_interval <- new_interval(one_missing_date, 
+  one_missing_interval <- interval(one_missing_date, 
                                        one_missing_date)
   several_missing_dates <- rep(as.POSIXct(NA_real_, origin = origin), 2)
-  several_missing_intervals <- new_interval(several_missing_dates, 
+  several_missing_intervals <- interval(several_missing_dates, 
                                             several_missing_dates)
-  start_missing_intervals <- new_interval(several_missing_dates, origin)
-  end_missing_intervals <- new_interval(origin, several_missing_dates)
+  start_missing_intervals <- interval(several_missing_dates, origin)
+  end_missing_intervals <- interval(origin, several_missing_dates)
   na.dur <- dseconds(NA)
   
   expect_equal(as.duration(one_missing_interval), na.dur)

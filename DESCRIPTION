@@ -61,6 +61,7 @@ Collate:
     'constants.r'
     'data.r'
     'decimal-dates.r'
+    'deprecated.r'
     'epochs.r'
     'guess.r'
     'help.r'
