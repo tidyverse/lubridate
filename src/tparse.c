@@ -1,7 +1,7 @@
 /*
  *  time date parser for lubridate
  *  Author: Vitalie Spinu
- *  Copyright (C) 2013--2014  Vitalie Spinu, Garrett Grolemund, Hadley Wickham,
+ *  Copyright (C) 2013--2015  Vitalie Spinu, Garrett Grolemund, Hadley Wickham,
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU General Public License as published by the Free
@@ -33,7 +33,7 @@
 
 // start of each month in seconds in a common year (1 indexed)
 static const int sm[] = {0, 0, 2678400, 5097600, 7776000, 10368000, 13046400, 15638400,
-			 18316800, 20995200, 23587200, 26265600, 28857600, 31536000 };
+						 18316800, 20995200, 23587200, 26265600, 28857600, 31536000 };
 // days in months
 static const int mdays[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 // seconds in a day: 24*60*60
@@ -53,7 +53,7 @@ static const long long yearlen = 31536000; // common year in sec: 365*24*60*60
 
 // STR: character vector of date-times.
 // ORD: formats (as in strptime) or orders (as in parse_date_time)
-// FORMATS: TRUE if ord are formats as in strptime, otherwise they are orders.
+// FORMATS: TRUE if ord is a string of formats (as in strptime)
 SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
 
   if ( !isString(str) ) error("Date-time must be a character vector");
@@ -61,7 +61,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
     error("Format argument must be a character vector of length 1");
 
   R_len_t tN, n = LENGTH(str);
-  int *fmt = LOGICAL(formats);
+  int is_fmt = *LOGICAL(formats);
   const char *O = CHAR(STRING_ELT(ord, 0));
 
   SEXP res;
@@ -80,27 +80,27 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
     int succeed = 1, O_format=0;
     double secs = 0.0; // main accumulator
 
-    while( *o && succeed ){
+    while( *o && succeed ) {
 	
-      if( *fmt && (*o != '%')) {
-        // when formats, non formatting character should match exactly
+      if( is_fmt && (*o != '%')) {
+        // with formats, non formatting characters should match exactly
         if ( *c == *o ) { c++; o++; } else succeed = 0;
 
       } else {
 
-        if ( *fmt ) o++; // skip %
+        if ( is_fmt ) o++; // skip %
         else if ( *o != 'O' && *o != 'z' ) {
-          // O and z formats are specially treated
+          // O and z formats are treated specially below
           while (*c && !DIGIT(*c)) c++; // skip non-digits
-	}
+		}
 	
-        if ( *o == 'O' ){
-	  // Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08)
+        if ( *o == 'O' ) {
+		  // Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08)
           O_format = 1;
           o++;
         } else {
-	  O_format = 0;
-	}
+		  O_format = 0;
+		}
 	
         if ( !( DIGIT(*c) || O_format || *o == 'z') ){
           succeed = 0;
@@ -111,10 +111,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             break;
           case 'y': // year in yy format
             PARSENUM(y, 2);
-	    if ( y <= 68 )
-	      y += 2000;
-	    else
-	      y += 1900;
+			if ( y <= 68 )
+			  y += 2000;
+			else
+			  y += 1900;
             break;
           case 'm': // month
             PARSENUM(m, 2);
@@ -137,7 +137,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
             else succeed = 0;
             break;
           case 'S': // second
-            if( O_format && !*fmt ){
+            if( O_format && !is_fmt ){
               while (*c && !DIGIT(*c)) c++;
               if ( !*c ) {succeed = 0; break;}
             }
@@ -155,24 +155,24 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
               }
             } else succeed = 0;
             break;
-	  // %O_ and %z follow
-	  case 'u':
-	    // %Ou: "2013-04-16T04:59:59Z"
+		  // special treatment of %O_ and %z follow
+		  case 'u':
+			// %Ou: "2013-04-16T04:59:59Z"
             if( O_format )
-              if( *c == 'Z' ) c++;
+              if( *c == 'Z' || *c == 'z') c++;
               else succeed = 0;
             else succeed  = 0;
             break;
           case 'z':
             // for %z: "+O100" or "+O1" or "+01:00"
             if( !O_format ){
-              if( !*fmt ) {
+              if( !is_fmt ) {
                 while (*c && *c != '+' && *c != '-' && *c != 'Z') c++; // skip non + -
                 if( !*c ) { succeed = 0; break; };
               }
 
               int Z = 0, sig;
-              if( *c == 'Z') break;
+              if( *c == 'Z') {c++; break;}
               else if ( *c == '+' ) sig = -1;
               else if ( *c == '-') sig = 1;
               else { succeed = 0; break; }
@@ -209,8 +209,8 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
 
               if( *o == 'O'){
                 if ( *c == ':') c++;
-		else { succeed = 0; break; }
-	      }
+				else { succeed = 0; break; }
+			  }
               if ( *o != 'o' ){
                 Z = 0;
                 PARSENUM(Z, 2);
@@ -226,9 +226,9 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
       }
     }
 
-    if( ! *fmt ) while (*c && !DIGIT(*c)) c++;
+    if( !is_fmt ) while (*c && !DIGIT(*c)) c++;
 
-    // if at least one not finished, consider as a failure
+    // failure: if at least one subparser hasn't finished
     if ( *c || *o ) succeed = 0;
       
     if ( succeed ){
@@ -261,13 +261,13 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats) {
       // 2) check month
 
       if ( m == 2 ){
-	// no check for d > 0 because we allow missing days in parsing
-	if ( leap )
-	  succeed = d < 30;
-	else
-	  succeed = d < 29;
+		// no check for d > 0 because we allow missing days in parsing
+		if ( leap )
+		  succeed = d < 30;
+		else
+		  succeed = d < 29;
       } else {
-	succeed = d <= mdays[m];
+		succeed = d <= mdays[m];
       }
     }
     

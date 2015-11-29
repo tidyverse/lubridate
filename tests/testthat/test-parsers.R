@@ -418,6 +418,12 @@ test_that("ISO8601: %z format (aka lubridate %Ou, %OO and %Oo formats) is correc
   expect_that(
     parse_date_time(c("2012-12-04 15:06:06.95-08", "2012-12-04 15:06:06.95+08:00"), "YmdHMOSz"),
     equals(as.POSIXct(c("2012-12-04 23:06:06.95 UTC", "2012-12-04 07:06:06.95 UTC"), tz = "UTC")))
+  expect_that(
+    fast_strptime("2014-03-12T09:32:44Z", "%Y-%m-%dT%H:%M:%S%z"),
+    equals(as.POSIXct("2014-03-12 09:32:44 UTC", tz = "UTC")))
+  expect_that(
+    fast_strptime("2014-03-12T09:32:44.33Z", "%Y-%m-%dT%H:%M:%OS%z"),
+    equals(as.POSIXct("2014-03-12 09:32:44.33 UTC", tz = "UTC")))
 })
 
 test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo formats.", {
