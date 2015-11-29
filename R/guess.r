@@ -229,9 +229,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 .get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
   ## build locale specific regexps for all posible orders  
 
-  ## if (exists(locale, envir = .locale_reg_cache, inherits = FALSE))
-  ##   return(get(locale, envir = .locale_reg_cache))
-  
+  if (exists(locale, envir = .locale_reg_cache, inherits = FALSE))
+    return(get(locale, envir = .locale_reg_cache))
+
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   orig_opt <- options(warn = 5)
