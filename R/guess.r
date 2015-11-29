@@ -239,7 +239,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
            options(orig_opt)})
 
   format <- "%a@%A@%b@%B@%p@"
-  L <- unique(format(.date_template, format = format))
+  L <- enc2utf8(unique(format(.date_template, format = format)))
   mat <- do.call(rbind, strsplit(L, "@", fixed = TRUE))
   mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) ## escaping all meta chars
   names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
