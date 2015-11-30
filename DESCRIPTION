@@ -29,7 +29,7 @@ Depends:
     methods,
     R (>= 3.0.0)
 Imports:
-    stringr	
+    stringr
 Suggests:
     testthat,
     knitr
@@ -38,11 +38,11 @@ VignetteBuilder: knitr
 Collate:
     'Dates.r'
     'POSIXt.r'
-    'util.r'
     'timespans.r'
     'intervals.r'
     'difftimes.r'
     'durations.r'
+    'util.r'
     'periods.r'
     'accessors-day.r'
     'accessors-dst.r'
@@ -79,3 +79,4 @@ Collate:
     'round.r'
     'stamp.r'
     'update.r'
+RoxygenNote: 5.0.1

@@ -215,7 +215,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' described. See 
 #' \code{\link{as.duration}}, \code{\link{as.period}}.
 #'
-#'  as.interval@param x a duration, difftime, period, or numeric object that describes the length of the interval
+#' @param x a duration, difftime, period, or numeric object that describes the length of the interval
 #' @param start a POSIXt or Date object that describes when the interval begins   
 #' @param ... additional arguments to pass to as.interval
 #' @return an interval object

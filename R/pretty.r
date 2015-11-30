@@ -44,7 +44,7 @@ pretty_dates <- function(x, n, ...){
   breaks
 }
   
-  
+#' @export
 pretty.unit <- function(x, ...){
   if (x > 3600*24*365)
     return("year")
@@ -60,12 +60,14 @@ pretty.unit <- function(x, ...){
     return("sec")
 }
 
+#' @export
 pretty.sec <- function(x, n, ...){
   lengths <- c(1,2,5,10,15,30,60)
   fit <- abs(x - lengths*n)
   lengths[which.min(fit)]
 }
 
+#' @export
 pretty.min <- function(x, n, ...){
   span <- x/60
   lengths <- c(1,2,5,10,15,30,60)
@@ -73,6 +75,7 @@ pretty.min <- function(x, n, ...){
   lengths[which.min(fit)]
 }
 
+#' @export
 pretty.hour <- function(x, n, ...){
   span <- x / 3600
   lengths <- c(1,2,3,4,6,8,12,24)
@@ -80,11 +83,13 @@ pretty.hour <- function(x, n, ...){
   lengths[which.min(fit)]
 }
 
+#' @export
 pretty.day <- function(x, n, ...){
   span <- x / (3600 * 24)
   pretty(1:span, n = n)[2]
 }
 
+#' @export
 pretty.month <- function(x, n, ...){
   span <- x / (3600 * 24 * 30)
   lengths <- c(1,2,3,4,6,12)
@@ -92,11 +97,13 @@ pretty.month <- function(x, n, ...){
   lengths[which.min(fit)]
 }
   
+#' @export
 pretty.year <- function(x, n, ...){
   span <- x / (3600 * 24 * 365)
   pretty(1:span, n = n)[2]
 }
 
+#' @export
 pretty.point <- function(x, units, length, start = TRUE, ...){
   x <- as.POSIXct(x)
 
