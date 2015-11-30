@@ -16,3 +16,4 @@ src/*.o
 TAGS
 test.R
 paper/auto/
+revdep/

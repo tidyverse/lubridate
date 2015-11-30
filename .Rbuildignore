@@ -8,3 +8,4 @@ INSPIRATIONS
 ^.*\.Rproj$
 TAGS
 test.R
+revdep/
