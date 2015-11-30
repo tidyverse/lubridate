@@ -83,7 +83,7 @@ is.timespan <- function(x) is(x, "Timespan")
 #' @aliases timespan timespans
 #' @name timespan
 #' @seealso \code{\link{new_duration}} for creating duration objects and
-#'   \code{\link{new_period}} for creating period objects, and
+#'   \code{\link{period}} for creating period objects, and
 #'   \code{\link{interval}} for creating interval objects
 #' @keywords classes chron
 #' @examples
@@ -91,7 +91,7 @@ is.timespan <- function(x) is(x, "Timespan")
 #' # 3690s (~1.02 hours)
 #' period(3690, "seconds")
 #' # "3690S"
-#' new_period(second = 30, minute = 1, hour = 1)
+#' period(second = 30, minute = 1, hour = 1)
 #' # "1H 1M 30S"
 #' interval(ymd_hms("2009-08-09 13:01:30"), ymd_hms("2009-08-09 12:00:00"))
 #' # 2009-08-09 12:00:00 -- 2009-08-09 13:01:30

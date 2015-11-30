@@ -265,7 +265,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' Create a period object.
 #'
 #' \code{period} creates a period object with the specified values. period
-#' provides the behaviour of \code{\link{new_period}} in a way that is more
+#' provides the behaviour of \code{\link{period}} in a way that is more
 #' suitable for automating within a function.
 #'
 #' Within a Period object, time units do not have a fixed length (except for
@@ -378,7 +378,7 @@ period <- function(num = NULL, units = "second", ...) {
 #' @param x an R object   
 #' @examples
 #' is.period(as.Date("2009-08-03")) # FALSE
-#' is.period(new_period(months= 1, days = 15)) # TRUE
+#' is.period(period(months= 1, days = 15)) # TRUE
 #' @export
 is.period <- function(x) is(x,"Period")
 
@@ -444,17 +444,17 @@ is.period <- function(x) is(x,"Period")
 #' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 
 #' # seconds later)
 #' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
-seconds <- function(x = 1) new_period(second = x)
+seconds <- function(x = 1) period(second = x)
 #' @rdname quick_periods
-minutes <- function(x = 1) new_period(minute = x)
+minutes <- function(x = 1) period(minute = x)
 #' @rdname quick_periods
-hours <- function(x = 1) new_period(hour = x)
+hours <- function(x = 1) period(hour = x)
 #' @rdname quick_periods
-days <- function(x = 1) new_period(day = x)  
+days <- function(x = 1) period(day = x)  
 #' @rdname quick_periods
-weeks <- function(x = 1) new_period(week = x)
+weeks <- function(x = 1) period(week = x)
 #' @rdname quick_periods
-years <- function(x = 1) new_period(year = x)
+years <- function(x = 1) period(year = x)
 #' @rdname quick_periods
 milliseconds <- function(x = 1) seconds(x/1000)
 #' @rdname quick_periods
@@ -467,7 +467,7 @@ picoseconds <- function(x = 1) seconds(x/1e12)
 #' @rdname quick_periods
 #' @export
 months.numeric <- function(x, abbreviate) {
-  new_period(month = x)
+  period(month = x)
 }
 
 #' Contrive a period to/from a given number of seconds.
@@ -495,7 +495,7 @@ period_to_seconds <- function(x) {
 seconds_to_period <- function(x) {
   span <- as.double(x)
   remainder <- abs(span)
-  newper <- new_period(second = rep(0, length(x)))
+  newper <- period(second = rep(0, length(x)))
   
   ## slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
   ## remainder <- remainder %% (3600 * 24 * 365.25)

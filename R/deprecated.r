@@ -27,9 +27,8 @@ NULL
             call. = FALSE)
   } else if (cv[[1,3]] > v[[1,3]]) {
     ## If only subminor number is greater, give message
-    message(sprintf("'%s' is deprecated use '%s' instead. Last used in version '%s'.",
-                    name, replacement, version),
-            call. = FALSE)
+    message(sprintf("'%s' is deprecated; use '%s' instead. Last used in version '%s'.",
+                    name, replacement, version))
   }
   invisible()
 }

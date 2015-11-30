@@ -226,7 +226,7 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' ## [1] "6M 5S"
 ms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "MS", quiet = quiet)
-  new_period(minute = out["M", ], second = out["S", ])
+  period(minute = out["M", ], second = out["S", ])
 }
 
 
@@ -252,7 +252,7 @@ ms <- function(..., quiet = FALSE) {
 ##' ## [1] "6H 5M 0S"
 hm <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HM", quiet = quiet)
-  new_period(hour = out["H", ], minute = out["M", ])
+  period(hour = out["H", ], minute = out["M", ])
 }
 
 ##' Create a period with the specified hours, minutes, and seconds
@@ -279,7 +279,7 @@ hm <- function(..., quiet = FALSE) {
 ##' ## [1] "7H 6M 5S" "3H 23M 2S" "2H 23M 33S" "9H 20M 4S"
 hms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HMS", quiet = quiet)
-  new_period(hour = out["H", ], minute = out["M", ], second = out["S", ])
+  period(hour = out["H", ], minute = out["M", ], second = out["S", ])
 }
 
 .parse_hms <- function(..., order, quiet = FALSE){

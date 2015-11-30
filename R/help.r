@@ -128,7 +128,7 @@
 #'
 #' Functions for working with periods include 
 #' \code{\link{is.period}}, \code{\link{as.period}} and 
-#' \code{\link{new_period}}. \code{\link{seconds}}, 
+#' \code{\link{period}}. \code{\link{seconds}}, 
 #' \code{\link{minutes}}, \code{\link{hours}}, \code{\link{days}}, 
 #' \code{\link{weeks}}, \code{\link{months}} and 
 #' \code{\link{years}} quickly create periods of convenient 

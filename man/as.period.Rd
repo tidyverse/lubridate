@@ -32,7 +32,7 @@ to Period class objects with the specified units.
 \details{
 Users must specify which time units to measure the period in. The exact length of 
 each time unit in a period will depend on when it occurs. See 
-\code{\link{Period-class}} and \code{\link{new_period}}. 
+\code{\link{Period-class}} and \code{\link{period}}. 
 The choice of units is not trivial; units that are 
 normally equal may differ in length depending on when the time period 
 occurs. For example, when a leap second occurs one minute is longer than 60 
@@ -88,7 +88,7 @@ as.period(dst, unit = "hours")
 # "24H 0M 0S"
 }
 \seealso{
-\code{\link{Period-class}}, \code{\link{new_period}}
+\code{\link{Period-class}}, \code{\link{period}}
 }
 \keyword{chron}
 \keyword{classes}

@@ -234,7 +234,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' as.interval(dur, ymd("2009-02-01"))
 #' # 2009-02-01 UTC--2009-03-04 UTC
 #'
-#' per <- new_period(months = 1) #period
+#' per <- period(months = 1) #period
 #' as.interval(per, ymd("2009-01-01"))
 #' # 2009-01-01 UTC--2009-02-01 UTC 
 #' as.interval(per, ymd("2009-02-01"))
@@ -289,7 +289,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #'
 #' Users must specify which time units to measure the period in. The exact length of 
 #' each time unit in a period will depend on when it occurs. See 
-#' \code{\link{Period-class}} and \code{\link{new_period}}. 
+#' \code{\link{Period-class}} and \code{\link{period}}. 
 #' The choice of units is not trivial; units that are 
 #' normally equal may differ in length depending on when the time period 
 #' occurs. For example, when a leap second occurs one minute is longer than 60 
@@ -330,7 +330,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' unit. 
 #' @param ... additional arguments to pass to as.period
 #' @return a period object
-#' @seealso \code{\link{Period-class}}, \code{\link{new_period}}
+#' @seealso \code{\link{Period-class}}, \code{\link{period}}
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
@@ -507,7 +507,7 @@ setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) 
   }
   span <- x@.Data
   remainder <- abs(span)
-  newper <- new_period(second = rep(0, length(x)))
+  newper <- period(second = rep(0, length(x)))
   
   slot(newper, "year") <- remainder %/% (3600 * 24 * 365)
   remainder <- remainder %% (3600 * 24 * 365)

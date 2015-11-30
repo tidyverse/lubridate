@@ -62,7 +62,7 @@ test_that("addition works as expected for periods",{
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   int <- interval(time1, time2)
   
-  expect_that(years(1) + 1, equals(new_period(seconds = 1, 
+  expect_that(years(1) + 1, equals(period(seconds = 1, 
     years = 1)))
 
   expect_that(years(1) + as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
@@ -71,7 +71,7 @@ test_that("addition works as expected for periods",{
   expect_that(years(1) + as.POSIXlt("2008-01-01 00:00:00", tz = "UTC"),
     equals(as.POSIXlt("2009-01-01 00:00:00", tz = "UTC")))
 
-  expect_that(years(1) + minutes(3),equals(new_period(minutes = 3, 
+  expect_that(years(1) + minutes(3),equals(period(minutes = 3, 
     years = 1)))
   
   expect_error(years(1) + dyears(1)) 
@@ -176,7 +176,7 @@ test_that("adding vectors works as expected for instants",{
 
 test_that("adding vectors works as expected for periods",{
   
-  expect_that(years(1:2) + 1, equals(new_period(seconds = 1, 
+  expect_that(years(1:2) + 1, equals(period(seconds = 1, 
     years = c(1,2))))
 
   expect_that(years(1:2) + as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
@@ -188,7 +188,7 @@ test_that("adding vectors works as expected for periods",{
     "2010-01-01 00:00:00"), tz = "UTC")))
 
 
-  expect_that(years(1:2) + minutes(3), equals(new_period(
+  expect_that(years(1:2) + minutes(3), equals(period(
     minutes = 3, years = c(1, 2))))
   
   expect_error(years(1:2) + dyears(1))
@@ -248,21 +248,21 @@ test_that("%m+% correctly adds years without rollover",{
   next2 <- ymd("2013-03-29")
   
   expect_equal(leap %m+% years(1), next1)
-  expect_equal(leap %m+% new_period(years = 1, months = 1), next2)
+  expect_equal(leap %m+% period(years = 1, months = 1), next2)
 })
 
 test_that("%m+% correctly adds years, months, days and HMS (#286)",{
   date <- ymd("2012-02-29")
-  per_all <- new_period(years = 1, months = 1, days = 2, hours = 1, minutes = 20, seconds = 30)
-  per_major <- new_period(years = 1, months = 1)
-  per_minor <- new_period(days = 2, hours = 1, minutes = 20, seconds = 30)
+  per_all <- period(years = 1, months = 1, days = 2, hours = 1, minutes = 20, seconds = 30)
+  per_major <- period(years = 1, months = 1)
+  per_minor <- period(days = 2, hours = 1, minutes = 20, seconds = 30)
   expect_equal(date %m+% per_all,
                date %m+% per_major + per_minor)
 
   date <- ymd("2012-03-31")
-  per_all <- new_period(months = 3, days = 30, hours = 1, minutes = 20, seconds = 30)
-  per_major <- new_period(months = 3)
-  per_minor <- new_period(days = 30, hours = 1, minutes = 20, seconds = 30)
+  per_all <- period(months = 3, days = 30, hours = 1, minutes = 20, seconds = 30)
+  per_major <- period(months = 3)
+  per_minor <- period(days = 30, hours = 1, minutes = 20, seconds = 30)
   expect_equal(date %m+% per_all,
                date %m+% per_major + per_minor)
 })
@@ -281,8 +281,8 @@ test_that("%m+% correctly adds negative years without rollover",{
   next3 <- ymd("2011-03-29")
   
   expect_equal(leap %m+% years(-1), next1)
-  expect_equal(leap %m+% new_period(years = -1, months = -1), next2)
-  expect_equal(leap %m+% new_period(years = -1, months = 1), next3)
+  expect_equal(leap %m+% period(years = -1, months = -1), next2)
+  expect_equal(leap %m+% period(years = -1, months = 1), next3)
 })
 
 

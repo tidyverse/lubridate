@@ -27,7 +27,7 @@ a period object
 }
 \description{
 \code{period} creates a period object with the specified values. period
-provides the behaviour of \code{\link{new_period}} in a way that is more
+provides the behaviour of \code{\link{period}} in a way that is more
 suitable for automating within a function.
 }
 \details{
@@ -75,7 +75,7 @@ period(second = 0)
 period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
 # "1H -60M 0S" "1H 3M 0S"   "2H 4M 0S"  
 is.period(as.Date("2009-08-03")) # FALSE
-is.period(new_period(months= 1, days = 15)) # TRUE
+is.period(period(months= 1, days = 15)) # TRUE
 }
 \keyword{chron}
 \keyword{classes}

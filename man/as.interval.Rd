@@ -51,7 +51,7 @@ as.interval(dur, ymd("2009-01-01"))
 as.interval(dur, ymd("2009-02-01"))
 # 2009-02-01 UTC--2009-03-04 UTC
 
-per <- new_period(months = 1) #period
+per <- period(months = 1) #period
 as.interval(per, ymd("2009-01-01"))
 # 2009-01-01 UTC--2009-02-01 UTC 
 as.interval(per, ymd("2009-02-01"))

@@ -212,7 +212,7 @@ unique.Interval <- function(x, ...){
 #' span <- interval(ymd(20090101), ymd(20090201))
 #' # 2009-01-01 UTC--2009-02-01 UTC
 #' 
-#' is.interval(new_period(months= 1, days = 15)) # FALSE
+#' is.interval(period(months= 1, days = 15)) # FALSE
 #' is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
 interval <- function(start, end, tzone = attr(start, "tzone")){
 	if (is.null(tzone)) {

@@ -53,7 +53,7 @@ interval(date1, date2)
 span <- interval(ymd(20090101), ymd(20090201))
 # 2009-01-01 UTC--2009-02-01 UTC
 
-is.interval(new_period(months= 1, days = 15)) # FALSE
+is.interval(period(months= 1, days = 15)) # FALSE
 is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
 }
 \seealso{
