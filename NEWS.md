@@ -1,8 +1,9 @@
 
-Version 1.5.0
 -------------
+Version 1.5.0
+=============
 
-## NEW FEATURES
+### NEW FEATURES
 * New `time_length` method.
 * Added `isoyear` function to line up with `isoweek`.
 * [#326](https://github.com/hadley/lubridate/issues/326) Added `exact = TRUE`
@@ -16,7 +17,7 @@ Version 1.5.0
 * [#348](https://github.com/hadley/lubridate/issues/348) New `as.list.Interval` S3 method.
 * [#278](https://github.com/hadley/lubridate/issues/278) Added settors and accessors for `qday` (quarter day).
 
-## CHANGES
+### CHANGES
 * New maintainer Vitalie Spinu (@vspinu)
 * Time span constructors were re-factored; `new_interval`, `new_period`,
   `new_duration`, `new_difftime` were deprecated in favour of the more powerful
@@ -32,7 +33,7 @@ Version 1.5.0
   with negative periods are behaving asymmetrically with respect to their
   positive counterparts.
 * Made necessary changes to accommodate new zoo-based `fst` objects.
-  
+
 ### BUG FIXES
 * [#360](https://github.com/hadley/lubridate/issues/360) Fix c parser for Z (zulu) indicator.
 * [#322](https://github.com/hadley/lubridate/issues/322) Explicitly encode formatted string with `enc2utf8`.
@@ -55,8 +56,9 @@ Version 1.5.0
 * Values on `$<-` assignment for periods are now properly recycled.
 * Correctly handle NA subscripting in `round_date`.
 
-Version 1.4.0
 -------------
+Version 1.4.0
+=============
 
 ### CHANGES
 * [#219](//github.com/hadley/lubridate/issues/219) In `interval` use UTC when tzone is missing. 
@@ -78,10 +80,11 @@ Version 1.4.0
 * Fixed setdiff for discontinuous intervals.
 
 
-Version 1.3.3
 -------------
+Version 1.3.3
+=============
 
-CHANGES
+### CHANGES
 
 * New low level C parser for numeric formats and two new front-end R functions
   parse_date_time2 and fast_strptime. The achieved speed up is 50-100x as
@@ -90,27 +93,26 @@ CHANGES
   The user level parser functions of ymd_hms family drop to these C routines
   whenever plain numeric formats are detected.
 
-BUG FIXES
+### BUG FIXES
 
 * olson_time_zones now supports Solaris OS
 * infinite recursion on parsing non-existing leap times was fixed
 
-Version 1.3.2
+
 -------------
+Version 1.3.2
+=============
 
 * Lubridate's s4 methods no longer use the representation argument, which has
   been deprecated in R 3.0.0 (see ?setClass). As a result, lubridate is no
   longer backwards compatible with R <3.0.0.
 
 
-Version 1.3.1
 -------------
-
-
 Version 1.3.0
--------------
+=============
 
-CHANGES
+### CHANGES
 
 * v1.3.0. treats math with month and year Periods more consistently. If adding 
 or subtracting n months would result in a non-existent date, lubridate will 
@@ -131,7 +133,7 @@ Periods).
 http://korea.gnu.org/gnustats/
 
 
-NEW FEATURES
+### NEW FEATURES
 
 * lubridate parser and stamp functions now handle ISO8601 date format (e.g., 
 2013-01-24 19:39:07.880-06:00, 2013-01-24 19:39:07.880Z)
@@ -166,7 +168,7 @@ to use in lubridate
 * date_decimal converts a date written as a decimal of a year into a POSIXct 
 date-time
 
-BUG FIXES
+### BUG FIXES
 
 * fixed bug in way update.POSIXct and update.POSIXlt handle dates that occur in 
 the fall daylight savings overlap. update will choose the date-time closest to 
@@ -189,10 +191,11 @@ zero
 
 * `decimal_date` no longer returns NaN for first second of the year
 
-
-Version 1.2.0
 -------------
-CHANGES
+Version 1.2.0
+=============
+
+### CHANGES
 
 * lubridate 1.2.0 is significantly faster than lubridate 1.1.0. This is 
 largely thanks to a parser rewrite submitted by Vitalie Spinu. Thank you, 
@@ -205,7 +208,7 @@ Vitalie. Some metrics:
 months. `rollback` rolls dates back to the last day of the previous month. 
 provides more options for working with months. `days_in_month` finds the 
 number of days in a date's month. And, `%m+%` and `%m-%` provide a new way to 
-handle unequal month lengths while doing arithmetic. See NEW FEATURES for more 
+### handle unequal month lengths while doing arithmetic. See NEW FEATURES for more 
 details
 
 * date parsing can now parse multiple date formats within the same vector of 
@@ -221,7 +224,7 @@ and international friendly.
 
 * S3 update methods are now exported
 
-NEW FEATURES
+### NEW FEATURES
 
 * `stamp` allows users to print dates in whatever form they like. Contributed 
 by Vitalie Spinu. Thank you, Vitalie.
@@ -264,7 +267,7 @@ separately. An example of the new behavior:
 * `quarter` returns the fiscal quarter that a date occurs in. Like `quartes` 
 in base R, but returns a numeric instead of a character string.
 
-BUG FIXES
+### BUG FIXES
 
 * date parsers now handle NAs
 
@@ -287,11 +290,11 @@ days argument
 displays objects of length 0.
 
 
-
-
-Version 1.1.0
 -------------
-CHANGES
+Version 1.1.0
+=============
+
+### CHANGES
 
 * lubridate no longer overwrites base R methods for +, - , *, /, %%, and %/%. 
 To recreate the previous experience of subtracting two date times to create an 
@@ -314,7 +317,7 @@ multiple time classes will produce informative error messages.
 https://github.com/hadley/lubridate to make lubridate more development friendly.
 
 
-NEW FEATURES
+### NEW FEATURES
 
 * intervals are now more useful and lubridate has more ways to manipulate them.
 Intervals can be created with %--%; modified with int_shift(), int_flip(), and 
@@ -351,33 +354,39 @@ tz argument to directly parse times into the desired time zone.
 
 * logical comparison methods now work for period objects.
 
-Version 0.2.6
 -------------
+Version 0.2.6
+=============
+
 
 * use `test_package` to avoid incompatibility with current version of
   `testthat`
   
 * other minor fixes to pass `R CMD check`
 
-Version 0.2.5
 -------------
+Version 0.2.5
+=============
 
 * added ymdThms() for parsing ISO 8061 formatted combned dates and times
 
-BUG FIXES
+### BUG FIXES
 
 * removed bug in parsing dates with "T" in them
 
 * modified as.period.interval() to display periods in positive units
 
-Version 0.2.4
 -------------
+Version 0.2.4
+=============
 
 * Add citations to JSS article
 
-Version 0.2.3
 -------------
-NEW FEATURES
+Version 0.2.3
+=============
+
+### NEW FEATURES
 
 * ymd_hms(), hms(), and ms() functions can now parse dates that include 
 decimal values in the seconds element.
@@ -388,16 +397,18 @@ dnanoseconds(), and dpicoseconds() make duration objects of the specified
 lengths.
 
 
-BUG FIXES
+### BUG FIXES
 
 * lubridate no longer overwrites months(), start(), and end() from base R. 
 Start and end have been replaced with int_start() and int_end(). 
 
 * lubridate imports plyr and stringr packages, instead of depending on them.
 
-Version 0.2.2
 -------------
-NEW FEATURES
+Version 0.2.2
+=============
+
+### NEW FEATURES
 
 * made division, modulo, and integer division operations compatible with 
 difftimes
@@ -405,29 +416,31 @@ difftimes
 * created c() methods for periods and durations
 
 
-BUG FIXES
+### BUG FIXES
 
 * fixed bug in division, modulo, and integer operations with timespans
 
 
-Version 0.2.1
 -------------
+Version 0.2.1
+=============
 
-NEW FEATURES
+### NEW FEATURES
 
 * created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm 
 mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().
 
-BUG FIXES
+### BUG FIXES
 
 * fixed bug in add_dates(). duration objects can now be successfully added to 
 numeric objects.
 
 
-Version 0.2
 -----------
+Version 0.2
+===========
 
-NEW FEATURES
+### NEW FEATURES
 
 * division between timespans: each timespan class (durations, periods, 
 intervals) can be divided by other timespans. For example, how many weeks are 
@@ -454,7 +467,7 @@ date-times of an interval
 
 
 
-MINOR CHANGES
+### MINOR ### CHANGES
 
 * added a package help page with functions listed by purpose
 
@@ -465,7 +478,7 @@ make it easier to remember they are duration objects.
 
 
 
-BUG FIXES
+### BUG FIXES
 
 * rewrote as.period() to create only positive periods.
 
