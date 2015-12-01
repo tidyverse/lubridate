@@ -38,11 +38,11 @@ VignetteBuilder: knitr
 Collate:
     'Dates.r'
     'POSIXt.r'
-    'util.r'
     'timespans.r'
     'intervals.r'
     'difftimes.r'
     'durations.r'
+    'util.r'
     'periods.r'
     'accessors-day.r'
     'accessors-dst.r'

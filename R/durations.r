@@ -327,59 +327,6 @@ dnanoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000)
 #' @rdname quick_durations
 dpicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000 / 1000)
 
-#' @export eseconds eminutes ehours edays eweeks eyears emilliseconds emicroseconds enanoseconds epicoseconds
-#' @rdname quick_durations
-eseconds <- function(x = 1){
-  .Deprecated("dseconds")
-  new("Duration", x)
-}
-#' @rdname quick_durations
-eminutes <- function(x = 1){
-  .Deprecated("dminutes")
-  new("Duration", x * 60)
-}
-#' @rdname quick_durations
-ehours <- function(x = 1){
-  .Deprecated("dhours")
-  new("Duration", x * 3600)
-}
-#' @rdname quick_durations
-edays <- function(x = 1){
-  .Deprecated("ddays")
-  new("Duration", x * 86400)
-}
-#' @rdname quick_durations
-eweeks <- function(x = 1){
-  .Deprecated("dweeks")
-  new("Duration", x * 604800)
-}
-#' @rdname quick_durations
-eyears <- function(x = 1){
-  .Deprecated("dyears")
-  new("Duration", x * 60 * 60 * 24 * 365)
-}
-#' @rdname quick_durations
-emilliseconds <- function(x = 1){
-  .Deprecated("dmilliseconds")
-  new("Duration", x / 1000)
-}
-#' @rdname quick_durations
-emicroseconds <- function(x = 1){
-  .Deprecated("dmicroseconds")
-  new("Duration", x / 1000 / 1000)
-}
-#' @rdname quick_durations
-enanoseconds <- function(x = 1){
-  .Deprecated("dnanoseconds")
-  new("Duration", x / 1000 / 1000 / 1000)
-}
-#' @rdname quick_durations
-epicoseconds <- function(x = 1){
-  .Deprecated("dpicoseconds")
-  new("Duration", x / 1000 / 1000 / 1000 / 1000)
-}
-
-
 #' @rdname duration
 #' @param x an R object
 #' @export

@@ -1,4 +1,5 @@
 ##' Deprecated function in \code{lubridate} package
+##' @param x numeric value to be converted into duration
 ##' @param ... arguments to be passed to the functions
 ##'     (obscured to enforce the usage of new functions)
 ##' @rdname Deprecated
@@ -59,6 +60,76 @@ new_duration <- function(...) {
 new_difftime <- function(...) {
   .deprecated("make_difftime", "1.4.0")
   make_difftime(...)
+}
+
+#' @export
+#' @rdname Deprecated
+eseconds <- function(x = 1){
+  .deprecated("dseconds", "1.4.0")
+  new("Duration", x)
+}
+
+#' @export
+#' @rdname Deprecated
+eminutes <- function(x = 1){
+  .deprecated("dminutes", "1.4.0")
+  new("Duration", x * 60)
+}
+
+#' @export
+#' @rdname Deprecated
+ehours <- function(x = 1){
+  .deprecated("dhours", "1.4.0")
+  new("Duration", x * 3600)
+}
+
+#' @export
+#' @rdname Deprecated
+edays <- function(x = 1){
+  .deprecated("ddays", "1.4.0")
+  new("Duration", x * 86400)
+}
+
+#' @export
+#' @rdname Deprecated
+eweeks <- function(x = 1){
+  .deprecated("dweeks", "1.4.0")
+  new("Duration", x * 604800)
+}
+
+#' @export
+#' @rdname Deprecated
+eyears <- function(x = 1){
+  .deprecated("dyears", "1.4.0")
+  new("Duration", x * 60 * 60 * 24 * 365)
+}
+
+#' @export
+#' @rdname Deprecated
+emilliseconds <- function(x = 1){
+  .deprecated("dmilliseconds", "1.4.0")
+  new("Duration", x / 1000)
+}
+
+#' @export
+#' @rdname Deprecated
+emicroseconds <- function(x = 1){
+  .deprecated("dmicroseconds", "1.4.0")
+  new("Duration", x / 1000 / 1000)
+}
+
+#' @export
+#' @rdname Deprecated
+enanoseconds <- function(x = 1){
+  .deprecated("dnanoseconds", "1.4.0")
+  new("Duration", x / 1000 / 1000 / 1000)
+}
+
+#' @export
+#' @rdname Deprecated
+epicoseconds <- function(x = 1){
+  .deprecated("dpicoseconds", "1.4.0")
+  new("Duration", x / 1000 / 1000 / 1000 / 1000)
 }
 
 
