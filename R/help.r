@@ -164,7 +164,9 @@
 #'   Easy with lubridate. Journal of Statistical Software, 40(3), 1-25. 
 #'   \url{http://www.jstatsoft.org/v40/i03/}.
 #' @import stringr
-#' @importFrom methods setClass setGeneric new show
+#' @importFrom methods setClass setGeneric new show allNames callGeneric is slot slot<- slotNames validObject
+#' @importFrom utils packageVersion read.delim
+#' @importFrom stats na.omit setNames update
 #' @docType package
 #' @name lubridate-package
 #' @aliases lubridate lubridate-package
