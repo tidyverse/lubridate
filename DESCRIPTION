@@ -1,7 +1,7 @@
 Package: lubridate
 Maintainer: Vitalie Spinu <spinuvit@gmail.com>
 License: GPL
-Title: Make dealing with dates a little easier
+Title: Make Dealing with Dates a Little Easier
 LazyData: true
 Type: Package
 Authors@R: c(person("Garrett", "Grolemund", role = "aut"),
@@ -14,14 +14,12 @@ Authors@R: c(person("Garrett", "Grolemund", role = "aut"),
              person("Joseph", "Larmarange", role="ctb"),
              person("Jonathan", "Boiser", role="ctb"),
              person("Chel Hee", "Lee", role = "ctb"))
-Description: Lubridate makes it easier to work with dates
-    and times by providing functions to identify and parse
-    date-time data, extract and modify components of a
-    date-time (years, months, days, hours, minutes, and
-    seconds), perform accurate math on date-times, handle
-    time zones and Daylight Savings Time. Lubridate has a
-    consistent, memorable syntax, that makes working with
-    dates fun instead of frustrating.
+Description: Functions to work with date-times and timespans: fast and user
+    friendly parsing of date-time data, extraction and updating of components of
+    a date-time (years, months, days, hours, minutes, and seconds), algebraic
+    manipulation on date-time and timespan objects. The 'lubridate' package has
+    a consistent and memorable syntax that makes working with dates easy and
+    fun.
 Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries,
     fts, tseries
 Version: 1.4.3
