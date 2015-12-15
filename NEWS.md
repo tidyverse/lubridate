@@ -1,3 +1,13 @@
+-------------
+Version 1.5.0.9000 (development)
+============
+
+### NEW FEATURES
+
+### CHANGES
+* [#364](https://github.com/hadley/lubridate/issues/364) Remove epoch functions
+
+### BUG FIXES
 
 -------------
 Version 1.5.0
