@@ -47,13 +47,13 @@ period. With the exception of seconds(), x must be an integer.}
 a period object
 }
 \description{
-Quickly create Period objects for easy date-time manipulation. The units of 
-the period created depend on the name of the function called. For Period 
-objects, units do not have a fixed length until they are added to a specific 
-date time, contrast this with \code{\link{new_duration}}. This makes periods 
-useful for manipulations with clock times because units expand or contract 
-in length to accomodate conventions such as leap years, leap seconds, and 
-Daylight Savings Time.
+Quickly create Period objects for easy date-time manipulation. The units of
+the period created depend on the name of the function called. For Period
+objects, units do not have a fixed length until they are added to a specific
+date time, contrast this with \code{\link{duration}}. This makes periods useful
+for manipulations with clock times because units expand or contract in length
+to accomodate conventions such as leap years, leap seconds, and Daylight
+Savings Time.
 }
 \details{
 When paired with date-times, these functions allow date-times to be 

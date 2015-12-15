@@ -50,7 +50,7 @@ as.duration(10) # numeric
 # 10s
 }
 \seealso{
-\code{\link{Duration-class}}, \code{\link{new_duration}}
+\code{\link{Duration-class}}, \code{\link{duration}}
 }
 \keyword{chron}
 \keyword{classes}

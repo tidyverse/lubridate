@@ -153,7 +153,7 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #'
 #' @param x Object to be coerced to a duration  
 #' @return A duration object
-#' @seealso \code{\link{Duration-class}}, \code{\link{new_duration}}
+#' @seealso \code{\link{Duration-class}}, \code{\link{duration}}
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
@@ -222,13 +222,13 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' @seealso \code{\link{interval}}
 #' @keywords classes manip methods chron
 #' @examples
-#' diff <- new_difftime(days = 31) #difftime
+#' diff <- make_difftime(days = 31) #difftime
 #' as.interval(diff, ymd("2009-01-01"))
 #' # 2009-01-01 UTC--2009-02-01 UTC
 #' as.interval(diff, ymd("2009-02-01"))
 #' # 2009-02-01 UTC--2009-03-04 UTC
 #' 
-#' dur <- new_duration(days = 31) #duration
+#' dur <- duration(days = 31) #duration
 #' as.interval(dur, ymd("2009-01-01"))
 #' # 2009-01-01 UTC--2009-02-01 UTC
 #' as.interval(dur, ymd("2009-02-01"))

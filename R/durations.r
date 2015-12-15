@@ -158,19 +158,14 @@ setMethod("Compare", c(e1 = "Duration", e2 = "Duration"),
 
 #' Create a duration object.
 #'
-#' new_duration creates a duration object with the specified values. Entries for
-#' different units are cumulative. durations display as the number of seconds in a
-#' time span. When this number is large, durations also display an estimate in
-#' larger units,; however, the underlying object is
-#' always recorded as a fixed number of seconds. For display and creation
-#' purposes, units are converted to seconds using their most common lengths in
-#' seconds. Minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds,
-#' weeks = 604800. Units larger than weeks are not used due to their
-#' variability.
-#'
-#' new_duration is meant to be used interactively on the command line. See
-#' \code{\link{duration}}, for a version that is better suited to automating
-#' within a function.
+#' \code{duration} creates a duration object with the specified values. Entries
+#' for different units are cumulative. durations display as the number of
+#' seconds in a time span. When this number is large, durations also display an
+#' estimate in larger units,; however, the underlying object is always recorded
+#' as a fixed number of seconds. For display and creation purposes, units are
+#' converted to seconds using their most common lengths in seconds. Minutes = 60
+#' seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units
+#' larger than weeks are not used due to their variability.
 #'
 #' Durations record the exact number of seconds in a time span. They measure the
 #' exact passage of time but do not always align with measurements
@@ -186,11 +181,11 @@ setMethod("Compare", c(e1 = "Duration", e2 = "Duration"),
 #' times to create a user interface similar to object oriented programming.
 #'
 #' @param num the number of time units to include in the duration
-#' @param units a character string that specifies the type of units that num refers to.
-#' @param ... a list of time units to be included in the duration and their amounts. Seconds,
-#'   minutes, hours, days, and weeks are supported.
+#' @param units a character string that specifies the type of units that num
+#'   refers to.
+#' @param ... a list of time units to be included in the duration and their
+#'   amounts. Seconds, minutes, hours, days, and weeks are supported.
 #' @return a duration object
-# new_duration
 #' @seealso \code{\link{as.duration}}
 #' @keywords chron classes
 #' @examples
@@ -271,7 +266,7 @@ duration <- function(num = NULL, units = "seconds", ...){
 #' @name quick_durations
 #' @param x numeric value of the number of units to be contained in the duration.
 #' @return a duration object
-#' @seealso \code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
+#' @seealso \code{\link{duration}}, \code{\link{days}}
 #' @keywords chron manip
 #' @examples
 #' dseconds(1)
@@ -332,7 +327,7 @@ dpicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000 / 1000)
 #' @export
 #' @examples
 #' is.duration(as.Date("2009-08-03")) # FALSE
-#' is.duration(new_duration(days = 12.4)) # TRUE
+#' is.duration(duration(days = 12.4)) # TRUE
 is.duration <- function(x) is(x, "Duration")
 
 #' @export

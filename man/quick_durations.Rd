@@ -92,7 +92,7 @@ boundary + ddays(1) # duration
 # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
 }
 \seealso{
-\code{\link{duration}}, \code{\link{new_duration}}, \code{\link{days}}
+\code{\link{duration}}, \code{\link{days}}
 }
 \keyword{chron}
 \keyword{manip}

@@ -106,9 +106,9 @@ months(6) + days(1)
 # "6m 1d 0H 0M 0S"
 }
 \seealso{
-\code{\link{new_duration}} for creating duration objects and
+\code{\link{duration}} for creating duration objects and
   \code{\link{period}} for creating period objects, and
-  \code{\link{interval}} for creating interval objects
+  \code{\link{interval}} for creating interval objects.
 }
 \keyword{chron}
 \keyword{classes}

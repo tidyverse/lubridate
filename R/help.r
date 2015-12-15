@@ -105,26 +105,21 @@
 #'
 #' Durations
 #'
-#' Durations measure the exact amount of time that 
-#' occurs between two instants. This can create 
-#' unexpected results in relation to clock times if a 
-#' leap second, leap year, or change in 
-#' daylight savings time (DST) occurs in the interval. 
+#' Durations measure the exact amount of time that occurs between two
+#' instants. This can create unexpected results in relation to clock times if a
+#' leap second, leap year, or change in daylight savings time (DST) occurs in
+#' the interval.
 #'
-#' Functions for working with durations include 
-#' \code{\link{is.duration}}, \code{\link{as.duration}} and 
-#' \code{\link{new_duration}}. \code{\link{dseconds}}, 
-#' \code{\link{dminutes}}, \code{\link{dhours}}, 
-#' \code{\link{ddays}}, \code{\link{dweeks}}, \code{\link{dyears}} 
-#' and \code{\link{new_duration}} quickly create durations of 
-#' convenient lengths.
+#' Functions for working with durations include \code{\link{is.duration}},
+#' \code{\link{as.duration}} and \code{\link{duration}}. \code{\link{dseconds}},
+#' \code{\link{dminutes}}, \code{\link{dhours}},  \code{\link{ddays}},
+#' \code{\link{dweeks}} and \code{\link{dyears}} convenient lengths.
 #'
 #' Periods
 #'
-#' Periods measure the change in clock time that 
-#' occurs between two instants. Periods provide robust predictions 
-#' of clock time in the presence of leap seconds, leap years, and 
-#' changes in DST.
+#' Periods measure the change in clock time that occurs between two
+#' instants. Periods provide robust predictions of clock time in the presence of
+#' leap seconds, leap years, and changes in DST.
 #'
 #' Functions for working with periods include 
 #' \code{\link{is.period}}, \code{\link{as.period}} and 

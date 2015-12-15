@@ -17,7 +17,7 @@ Is x a length of time?
 }
 \examples{
 is.timespan(as.Date("2009-08-03")) # FALSE
-is.timespan(new_duration(second = 1)) # TRUE
+is.timespan(duration(second = 1)) # TRUE
 }
 \seealso{
 \code{\link{is.instant}}, \code{\link{is.duration}}, \code{\link{is.difftime}}, \code{\link{is.period}}, \code{\link{is.interval}}

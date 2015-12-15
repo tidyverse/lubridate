@@ -21,7 +21,7 @@ setClass("Timespan")
 #' @keywords logic chron
 #' @examples
 #' is.timespan(as.Date("2009-08-03")) # FALSE
-#' is.timespan(new_duration(second = 1)) # TRUE
+#' is.timespan(duration(second = 1)) # TRUE
 is.timespan <- function(x) is(x, "Timespan")
 
 
@@ -82,9 +82,9 @@ is.timespan <- function(x) is(x, "Timespan")
 #'
 #' @aliases timespan timespans
 #' @name timespan
-#' @seealso \code{\link{new_duration}} for creating duration objects and
+#' @seealso \code{\link{duration}} for creating duration objects and
 #'   \code{\link{period}} for creating period objects, and
-#'   \code{\link{interval}} for creating interval objects
+#'   \code{\link{interval}} for creating interval objects.
 #' @keywords classes chron
 #' @examples
 #' duration(3690, "seconds")

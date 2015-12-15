@@ -39,13 +39,13 @@ described. See
 \code{\link{as.duration}}, \code{\link{as.period}}.
 }
 \examples{
-diff <- new_difftime(days = 31) #difftime
+diff <- make_difftime(days = 31) #difftime
 as.interval(diff, ymd("2009-01-01"))
 # 2009-01-01 UTC--2009-02-01 UTC
 as.interval(diff, ymd("2009-02-01"))
 # 2009-02-01 UTC--2009-03-04 UTC
 
-dur <- new_duration(days = 31) #duration
+dur <- duration(days = 31) #duration
 as.interval(dur, ymd("2009-01-01"))
 # 2009-01-01 UTC--2009-02-01 UTC
 as.interval(dur, ymd("2009-02-01"))
