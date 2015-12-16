@@ -589,7 +589,7 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
 ##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00",
 ##   "2012-12-04 17:16:05.097000-08:00")
 
-## ### speed:
+### speed:
 ## options(digits.secs = 3)
 ## ## random times between 1400 and 3000
 ## tt <- as.character(.POSIXct(runif(1e6, -17987443200, 32503680000)))
@@ -599,15 +599,18 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
 ## system.time(out3 <- fast_strptime(tt, "%Y-%m-%d %H:%M:%OS"))
 
 ## N <- 1e6
-## y <- runif(N, 1800, 2200)
-## m <- runif(N, 1, 12)
-## d <- runif(N, 1, 28)
-## h <- runif(N, 0, 23)
-## m <- runif(N, 0, 59)
-## s <- runif(N, 0, 59)
+## y <- as.integer(runif(N, 1800, 2200))
+## m <- as.integer(runif(N, 1, 12))
+## d <- as.integer(runif(N, 1, 28))
+## H <- as.integer(runif(N, 0, 23))
+## M <- as.integer(runif(N, 0, 59))
+## S <- as.integer(runif(N, 0, 59))
 
-## system.time(out <- ISOdatetime(y, m, d, h, m, s))
-## system.time(out <- make_datetime(y, m, d, h, m, s))
+## system.time(out1 <- ISOdatetime(y, m, d, H, M, S, tz = "UTC"))
+## system.time(out2 <- make_datetime(y, m, d, H, M, S))
+## identical(out1, out2)
+
+## cbind(out1, out2)[which(out1 != out2), ]
 
 ## all.equal(out, out1)
 ## all.equal(out, out2)
