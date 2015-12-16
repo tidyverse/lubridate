@@ -80,3 +80,35 @@ today <- function(tzone = "") {
 #' origin
 #' # "1970-01-01 GMT"
 origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
+
+
+##' Create date-times from numeric representations.
+##'
+##' \code{make_datetime} is a much faster drop-in replacement for
+##' \code{base::ISOdate} and \code{base::ISOdatetime}.
+##'
+##' Note: this function is work in progress
+##' (https://github.com/hadley/lubridate/issues/365)
+##' 
+##' @param year numeric year
+##' @param month numeric month
+##' @param day numeric day
+##' @param hour numeric hour
+##' @param min numeric minute
+##' @param sec numeric second
+##' @param tz time zone. Defaults to UTC.
+##' @export
+##' @examples
+##' make_datetime(year = 1999, month = 12, day = 22, sec = 10)
+##' ## "1999-12-22 00:00:10 UTC"
+##' make_datetime(year = 1999, month = 12, day = 22, sec = c(10, 11))
+##' ## "1999-12-22 00:00:10 UTC" "1999-12-22 00:00:11 UTC"
+make_datetime <- function(year = 1970, month = 1L, day = 1L, hour = 0, min = 0, sec = 0, tz = "UTC"){
+  if (min(vapply(list(year, month, day, hour, min, sec), length, 
+                 1, USE.NAMES = FALSE)) == 0L) 
+    .POSIXct(numeric(), tz = tz)
+  else {
+    x <- paste(year, month, day, hour, min, sec, sep = "-")
+    fast_strptime(x, "%Y-%m-%d-%H-%M-%OS", tz = tz)
+  }
+}

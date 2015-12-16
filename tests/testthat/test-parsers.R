@@ -597,6 +597,18 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
 ## system.time(out1 <- ymd_hms(tt)) ## format learning overhead
 ## system.time(out2 <- parse_date_time2(tt, "YmdHMOS"))
 ## system.time(out3 <- fast_strptime(tt, "%Y-%m-%d %H:%M:%OS"))
+
+## N <- 1e6
+## y <- runif(N, 1800, 2200)
+## m <- runif(N, 1, 12)
+## d <- runif(N, 1, 28)
+## h <- runif(N, 0, 23)
+## m <- runif(N, 0, 59)
+## s <- runif(N, 0, 59)
+
+## system.time(out <- ISOdatetime(y, m, d, h, m, s))
+## system.time(out <- make_datetime(y, m, d, h, m, s))
+
 ## all.equal(out, out1)
 ## all.equal(out, out2)
 ## all.equal(out, out3)
