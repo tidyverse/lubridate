@@ -11,7 +11,7 @@ NULL
 #' @param x a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can be converted 
 #' with as.POSIXlt
-#' @param with_year logical indicating whether or not to include they quarter's year.
+#' @param with_year logical indicating whether or not to include the quarter's year.
 #' @keywords utilities manip chron methods
 #' @return numeric the fiscal quarter that the date-time occurs in
 #' @examples
