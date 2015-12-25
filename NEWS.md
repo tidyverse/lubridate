@@ -3,6 +3,7 @@ Version 1.5.0.9000 (development)
 ============
 
 ### NEW FEATURES
+* [#365](https://github.com/hadley/lubridate/issues/364) New, very fast datetime constructor `make_datetime` (dropin replacement of `ISOdatetime`)
 
 ### CHANGES
 * [#364](https://github.com/hadley/lubridate/issues/364) Remove epoch functions
