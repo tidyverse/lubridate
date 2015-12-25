@@ -13,7 +13,9 @@ week(x) <- value
 isoweek(x)
 }
 \arguments{
-\item{x}{a date-time object}
+\item{x}{a date-time object. Must be a POSIXct, POSIXlt, Date, chron,
+yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, or
+fts object.}
 
 \item{value}{a numeric object}
 }
@@ -21,13 +23,8 @@ isoweek(x)
 the weeks element of x as an integer number
 }
 \description{
-Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo,
-zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
-}
-\details{
 \code{week} returns the number of complete seven day periods that have
-occured between the date and January 1st, plus one.
-
+occured between the date and January 1st, plus one.\cr
 \code{isoweek} returns the week as it would appear in the ISO 8601 system,
 which uses a reoccuring leap week.
 }
@@ -40,6 +37,9 @@ week(x) > 3
 }
 \references{
 \url{http://en.wikipedia.org/wiki/ISO_week_date}
+}
+\seealso{
+\code{\link{isoyear}}
 }
 \keyword{chron}
 \keyword{manip}

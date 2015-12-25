@@ -11,7 +11,7 @@ quarter(x, with_year = FALSE)
 zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can be converted 
 with as.POSIXlt}
 
-\item{with_year}{logical indicating whether or not to include they quarter's year.}
+\item{with_year}{logical indicating whether or not to include the quarter's year.}
 }
 \value{
 numeric the fiscal quarter that the date-time occurs in
