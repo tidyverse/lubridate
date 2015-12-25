@@ -82,13 +82,14 @@ today <- function(tzone = "") {
 origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 
 
-##' Create date-times from numeric representations.
+##' Efficient creation of date-times from numeric representations.
 ##'
-##' \code{make_datetime} is a much faster drop-in replacement for
+##' \code{make_datetime} is a very fast drop-in replacement for
 ##' \code{base::ISOdate} and \code{base::ISOdatetime}.
 ##'
-##' Note: this function is work in progress
-##' (https://github.com/hadley/lubridate/issues/365)
+##' Input vectors are silently recycled. All inputs except \code{sec} are
+##' silently converted to integer vectors. Seconds \code{sec} can be either
+##' integer or double.
 ##' 
 ##' @param year numeric year
 ##' @param month numeric month
@@ -98,17 +99,25 @@ origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 ##' @param sec numeric second
 ##' @param tz time zone. Defaults to UTC.
 ##' @export
+##' @useDynLib lubridate make_dt
 ##' @examples
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = 10)
 ##' ## "1999-12-22 00:00:10 UTC"
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = c(10, 11))
 ##' ## "1999-12-22 00:00:10 UTC" "1999-12-22 00:00:11 UTC"
 make_datetime <- function(year = 1970, month = 1L, day = 1L, hour = 0, min = 0, sec = 0, tz = "UTC"){
-  if (min(vapply(list(year, month, day, hour, min, sec), length, 
-                 1, USE.NAMES = FALSE)) == 0L) 
+  lengths <- vapply(list(year, month, day, hour, min, sec), length, 1, USE.NAMES = FALSE)
+  if (min(lengths) == 0L){
     .POSIXct(numeric(), tz = tz)
-  else {
-    x <- paste(year, month, day, hour, min, sec, sep = "-")
-    fast_strptime(x, "%Y-%m-%d-%H-%M-%OS", tz = tz)
+  } else {
+    N <- max(lengths)
+    .POSIXct(.Call("make_dt",
+                   rep_len(as.integer(year), N),
+                   rep_len(as.integer(month), N),
+                   rep_len(as.integer(day), N),
+                   rep_len(as.integer(hour), N),
+                   rep_len(as.integer(min), N),
+                   rep_len(sec, N)),
+             tz = tz)
   }
 }

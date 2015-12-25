@@ -598,17 +598,27 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
 ## system.time(out2 <- parse_date_time2(tt, "YmdHMOS"))
 ## system.time(out3 <- fast_strptime(tt, "%Y-%m-%d %H:%M:%OS"))
 
-## N <- 1e6
+## N <- 1e4
 ## y <- as.integer(runif(N, 1800, 2200))
 ## m <- as.integer(runif(N, 1, 12))
 ## d <- as.integer(runif(N, 1, 28))
 ## H <- as.integer(runif(N, 0, 23))
 ## M <- as.integer(runif(N, 0, 59))
-## S <- as.integer(runif(N, 0, 59))
+## S <- as.double(runif(N, 0, 59))
+## ## S <- as.integer(S)
+
+## library(microbenchmark)
+## microbenchmark(R = ISOdatetime(y, m, d, H, M, S, tz = "UTC"),
+##                L = make_datetime(y, m, d, H, M, S))
 
 ## system.time(out1 <- ISOdatetime(y, m, d, H, M, S, tz = "UTC"))
 ## system.time(out2 <- make_datetime(y, m, d, H, M, S))
-## identical(out1, out2)
+## all.equal(out1, out2)
+
+## table(out1 == out2)
+## tt <- cbind(y, m, d, H, M, S, as.character(out1), as.character(out2), out1 == out2)
+## tt <- cbind(y, m, d, H, M, S, out1, out2, out1 - out2, out1 == out2)
+## head(tt, 40)
 
 ## cbind(out1, out2)[which(out1 != out2), ]
 
