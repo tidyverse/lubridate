@@ -1,4 +1,4 @@
--------------
+
 Version 1.5.0.9000 (development)
 ============
 
@@ -10,7 +10,7 @@ Version 1.5.0.9000 (development)
 
 ### BUG FIXES
 
--------------
+
 Version 1.5.0
 =============
 
@@ -67,7 +67,7 @@ Version 1.5.0
 * Values on `$<-` assignment for periods are now properly recycled.
 * Correctly handle NA subscripting in `round_date`.
 
--------------
+
 Version 1.4.0
 =============
 
@@ -91,7 +91,7 @@ Version 1.4.0
 * Fixed setdiff for discontinuous intervals.
 
 
--------------
+
 Version 1.3.3
 =============
 
@@ -110,7 +110,7 @@ Version 1.3.3
 * infinite recursion on parsing non-existing leap times was fixed
 
 
--------------
+
 Version 1.3.2
 =============
 
@@ -119,7 +119,7 @@ Version 1.3.2
   longer backwards compatible with R <3.0.0.
 
 
--------------
+
 Version 1.3.0
 =============
 
@@ -202,7 +202,7 @@ zero
 
 * `decimal_date` no longer returns NaN for first second of the year
 
--------------
+
 Version 1.2.0
 =============
 
@@ -301,7 +301,7 @@ days argument
 displays objects of length 0.
 
 
--------------
+
 Version 1.1.0
 =============
 
@@ -343,9 +343,7 @@ as well as positive intervals. Intervals also now display with a time zone.
 
 * Modulo methods for timespans have been changed to return a timespan. this 
 allows modulo methods to be used with integer division in an intuitive manner, 
-e.g.
-
-a = a %/% b * b + a %% b
+e.g. `a = a %/% b * b + a %% b`
 
 Users can still acheive a numerical result by using as.numeric() on input 
 before performing modulo.
@@ -365,7 +363,7 @@ tz argument to directly parse times into the desired time zone.
 
 * logical comparison methods now work for period objects.
 
--------------
+
 Version 0.2.6
 =============
 
@@ -375,7 +373,7 @@ Version 0.2.6
   
 * other minor fixes to pass `R CMD check`
 
--------------
+
 Version 0.2.5
 =============
 
@@ -387,13 +385,13 @@ Version 0.2.5
 
 * modified as.period.interval() to display periods in positive units
 
--------------
+
 Version 0.2.4
 =============
 
 * Add citations to JSS article
 
--------------
+
 Version 0.2.3
 =============
 
@@ -415,7 +413,7 @@ Start and end have been replaced with int_start() and int_end().
 
 * lubridate imports plyr and stringr packages, instead of depending on them.
 
--------------
+
 Version 0.2.2
 =============
 
@@ -432,7 +430,7 @@ difftimes
 * fixed bug in division, modulo, and integer operations with timespans
 
 
--------------
+
 Version 0.2.1
 =============
 
@@ -478,7 +476,7 @@ date-times of an interval
 
 
 
-### MINOR ### CHANGES
+### MINOR CHANGES
 
 * added a package help page with functions listed by purpose
 
