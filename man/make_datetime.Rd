@@ -2,7 +2,7 @@
 % Please edit documentation in R/instants.r
 \name{make_datetime}
 \alias{make_datetime}
-\title{Create date-times from numeric representations.}
+\title{Efficient creation of date-times from numeric representations.}
 \usage{
 make_datetime(year = 1970, month = 1L, day = 1L, hour = 0, min = 0,
   sec = 0, tz = "UTC")
@@ -23,12 +23,13 @@ make_datetime(year = 1970, month = 1L, day = 1L, hour = 0, min = 0,
 \item{tz}{time zone. Defaults to UTC.}
 }
 \description{
-\code{make_datetime} is a much faster drop-in replacement for
+\code{make_datetime} is a very fast drop-in replacement for
 \code{base::ISOdate} and \code{base::ISOdatetime}.
 }
 \details{
-Note: this function is work in progress
-(https://github.com/hadley/lubridate/issues/365)
+Input vectors are silently recycled. All inputs except \code{sec} are
+silently converted to integer vectors. Seconds \code{sec} can be either
+integer or double.
 }
 \examples{
 make_datetime(year = 1999, month = 12, day = 22, sec = 10)
