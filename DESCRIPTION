@@ -42,6 +42,7 @@ Collate:
     'durations.r'
     'util.r'
     'periods.r'
+    'accessors-date.R'
     'accessors-day.r'
     'accessors-dst.r'
     'accessors-hour.r'
