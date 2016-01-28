@@ -125,26 +125,26 @@
 \alias{year<-,Period-method}
 \title{Period class}
 \description{
-Period is an S4 class that extends the \code{\link{Timespan-class}} class. 
-Periods track the change in the "clock time" between two date-times. They 
-are measured in common time related units: years, months, days, hours, 
-minutes, and seconds. Each unit except for seconds must be expressed in 
+Period is an S4 class that extends the \code{\link{Timespan-class}} class.
+Periods track the change in the "clock time" between two date-times. They
+are measured in common time related units: years, months, days, hours,
+minutes, and seconds. Each unit except for seconds must be expressed in
 integer values.
 }
 \details{
-The exact length of a period is not defined until the period is placed at a 
-specific moment of time. This is because the precise length of one year, 
+The exact length of a period is not defined until the period is placed at a
+specific moment of time. This is because the precise length of one year,
 month, day, etc. can change depending on when it occurs due to daylight savings,
-leap years, and other conventions. A period can be 
-associated with a specific moment in time by coercing it to an 
-\code{\link{Interval-class}} object with \code{\link{as.interval}} or by adding 
+leap years, and other conventions. A period can be
+associated with a specific moment in time by coercing it to an
+\code{\link{Interval-class}} object with \code{\link{as.interval}} or by adding
 it to a date-time with "+".
 
-Periods provide a method for measuring generalized timespans when we wish 
-to model clock times. Periods will attain intuitive results at this task 
-even when leap years, leap seconds, gregorian days, daylight savings 
-changes, and other events happen during the period. See 
-\code{\link{Duration-class}} for an alternative way to measure timespans that 
+Periods provide a method for measuring generalized timespans when we wish
+to model clock times. Periods will attain intuitive results at this task
+even when leap years, leap seconds, gregorian days, daylight savings
+changes, and other events happen during the period. See
+\code{\link{Duration-class}} for an alternative way to measure timespans that
 allows precise comparisons between timespans.
 
 The logic that guides arithmetic with periods can be unintuitive. Starting
@@ -161,12 +161,12 @@ way that rolls the results back to the last day of a month (when appropriate)
 use the special operators, \code{\link{\%m+\%}},  \code{\link{\%m-\%}} or a
 bit more flexible \code{\link{add_with_rollback}}.
 
-Period class objects have six slots. 1) .Data, a numeric object. The 
-apparent amount of seconds to add to the period. 2) minute, a numeric object. 
-The apparent amount of minutes to add to the period. 3) hour, a numeric object. 
-The apparent amount of hours to add to the period.4) day, a numeric object. 
-The apparent amount of days to add to the period.5) month, a numeric object. 
-The apparent amount of months to add to the period. 6) year, a numeric object. 
+Period class objects have six slots. 1) .Data, a numeric object. The
+apparent amount of seconds to add to the period. 2) minute, a numeric object.
+The apparent amount of minutes to add to the period. 3) hour, a numeric object.
+The apparent amount of hours to add to the period.4) day, a numeric object.
+The apparent amount of days to add to the period.5) month, a numeric object.
+The apparent amount of months to add to the period. 6) year, a numeric object.
 The apparent amount of years to add to the period.
 }
 

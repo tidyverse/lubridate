@@ -56,31 +56,31 @@ to accomodate conventions such as leap years, leap seconds, and Daylight
 Savings Time.
 }
 \details{
-When paired with date-times, these functions allow date-times to be 
-manipulated in a method similar to object oriented programming. Period 
-objects can be added to Date, POSIXct, and POSIXlt objects to calculate new 
+When paired with date-times, these functions allow date-times to be
+manipulated in a method similar to object oriented programming. Period
+objects can be added to Date, POSIXct, and POSIXlt objects to calculate new
 date-times.
 }
 \examples{
 
-x <- as.POSIXct("2009-08-03") 
+x <- as.POSIXct("2009-08-03")
 # "2009-08-03 CDT"
 x + days(1) + hours(6) + minutes(30)
 # "2009-08-04 06:30:00 CDT"
-x + days(100) - hours(8) 
+x + days(100) - hours(8)
 # "2009-11-10 15:00:00 CST"
 
 class(as.Date("2009-08-09") + days(1)) # retains Date class
 # "Date"
-as.Date("2009-08-09") + hours(12) 
+as.Date("2009-08-09") + hours(12)
 # "2009-08-09 12:00:00 UTC"
-class(as.Date("2009-08-09") + hours(12)) 
+class(as.Date("2009-08-09") + hours(12))
 # "POSIXt"  "POSIXct"
 # converts to POSIXt class to accomodate time units
 
-years(1) - months(7) 
+years(1) - months(7)
 # "1y -7m 0d 0H 0M 0S"
-c(1:3) * hours(1) 
+c(1:3) * hours(1)
 # "1H 0M 0S" "2H 0M 0S" "3H 0M 0S"
 hours(1:3)
 # "1H 0M 0S" "2H 0M 0S" "3H 0M 0S"
@@ -98,7 +98,7 @@ boundary <- as.POSIXct("2009-03-08 01:59:59")
 boundary + days(1) # period
 # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 boundary + ddays(1) # duration
-# "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 
+# "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400
 # seconds later)
 }
 \seealso{
