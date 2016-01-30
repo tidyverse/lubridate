@@ -128,8 +128,8 @@ test_that("isoyear accessor extracts correct ISO8601 year",{
 
 })
 
-test_that("dates accessor extracts correct date",{
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "Etc/GMT+8", format
+test_that("date accessor extracts correct date",{
+  poslt <- as.POSIXlt("2010-02-03 23:45:59", tz = "Etc/GMT+8", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)

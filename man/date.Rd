@@ -12,23 +12,23 @@ date(x) <- value
 \arguments{
 \item{x}{a date-time object}
 
-\item{value}{a numeric object}
+\item{value}{an object for which the \code{date()} function is defined}
 }
 \value{
-the date element of x as a Date
+the date of x as a Date
 }
 \description{
 Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo,
 zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 }
 \details{
-date does not yet support years before 0 C.E. date is not defined for Period
-objects.
+\code{date} does not yet support years before 0 C.E.
+Also \code{date} is not defined for Period objects.
 }
 \examples{
-x <- as.POSIXct("2012-03-26 15:14:13", tz = "Etc/GMT+8")
+x <- as.POSIXct("2012-03-26 23:12:13", tz = "Etc/GMT+8")
 date(x)
-as.Date(x)
+as.Date(x) # by default as.Date assumes you want to know the date in UTC
 as.Date(x, tz = "Etc/GMT+8")
 date(x) <- as.Date("2000-03-26")
 print(x)
