@@ -132,8 +132,8 @@ test_that("date accessor extracts correct date",{
   poslt <- as.POSIXlt("2010-02-03 23:45:59", tz = "Etc/GMT+8", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
 
+  date <- as.Date(poslt)
   expect_that(date(poslt), equals(as.Date("2010-02-03")))
   expect_that(date(posct), equals(as.Date("2010-02-03")))
   expect_that(date(date), equals(as.Date("2010-02-03")))
@@ -150,7 +150,6 @@ test_that("timezone accessor extracts correct timezone",{
   expect_that(tz(date), matches("UTC"))
 
 })
-
 
 test_that("accessors handle vectors",{
   poslt <- as.POSIXlt(c("2001-01-01 01:01:01",
@@ -233,7 +232,6 @@ test_that("accessors handle Period objects",{
   day(per) <- 5
   month(per) <- 6
   year(per) <- 7
-  expect_error(date(per) <- as.Date("7-6-5"), "date<- is undefined for Period objects")
 
   expect_equal(per@.Data, 2)
   expect_equal(per@minute, 3)

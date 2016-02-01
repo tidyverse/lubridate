@@ -30,8 +30,8 @@ x <- as.POSIXct("2012-03-26 23:12:13", tz = "Etc/GMT+8")
 date(x)
 as.Date(x) # by default as.Date assumes you want to know the date in UTC
 as.Date(x, tz = "Etc/GMT+8")
-date(x) <- as.Date("2000-03-26")
-print(x)
+date(x) <- as.Date("2000-01-02")
+x
 }
 \keyword{chron}
 \keyword{manip}
