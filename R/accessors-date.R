@@ -18,8 +18,8 @@ NULL
 #' date(x)
 #' as.Date(x) # by default as.Date assumes you want to know the date in UTC
 #' as.Date(x, tz = "Etc/GMT+8")
-#' date(x) <- as.Date("2000-03-26")
-#' print(x)
+#' date(x) <- as.Date("2000-01-02")
+#' x
 #' @export
 date <- function(x)
   UseMethod("date")
@@ -31,7 +31,7 @@ date.default <- function(x) {
   month <- x$mon + 1
   day <- x$mday
 
-  as.Date(paste(year, month, day, sep = "-"))
+  as.Date(make_datetime(year, month, day))
 }
 #' @export
 date.Period <- function(x)
