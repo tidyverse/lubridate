@@ -128,6 +128,17 @@ test_that("isoyear accessor extracts correct ISO8601 year",{
 
 })
 
+test_that("date accessor extracts correct date",{
+  poslt <- as.POSIXlt("2010-02-03 23:45:59", tz = "Etc/GMT+8", format
+     = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct(poslt)
+
+  date <- as.Date(poslt)
+  expect_that(date(poslt), equals(as.Date("2010-02-03")))
+  expect_that(date(posct), equals(as.Date("2010-02-03")))
+  expect_that(date(date), equals(as.Date("2010-02-03")))
+})
+
 test_that("timezone accessor extracts correct timezone",{
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
@@ -139,7 +150,6 @@ test_that("timezone accessor extracts correct timezone",{
   expect_that(tz(date), matches("UTC"))
 
 })
-
 
 test_that("accessors handle vectors",{
   poslt <- as.POSIXlt(c("2001-01-01 01:01:01",
@@ -188,6 +198,10 @@ test_that("accessors handle vectors",{
   expect_that(year(posct), equals(c(2001,2002,2003)))
   expect_that(year(date), equals(c(2001,2002,2003)))
 
+  expect_that(date(poslt), equals(as.Date(c("2001-01-01","2002-02-02","2003-03-03"))))
+  expect_that(date(posct), equals(as.Date(c("2001-01-01","2002-02-02","2003-03-03"))))
+  expect_that(date(date), equals(as.Date(c("2001-01-01","2002-02-02","2003-03-03"))))
+
   expect_that(tz(poslt), matches("UTC"))
   expect_that(tz(posct), matches("UTC"))
   expect_that(tz(date), matches("UTC"))
@@ -203,6 +217,7 @@ test_that("accessors handle Period objects",{
   expect_equal(day(per), 4)
   expect_equal(month(per), 5)
   expect_equal(year(per), 6)
+  expect_error(date(per), "date is undefined for Period objects")
 
   expect_equal(second(pers), c(1, 1))
   expect_equal(minute(pers), c(2, 2))
@@ -238,10 +253,7 @@ test_that("accessors handle Period objects",{
   expect_equal(pers@day, c(5, 6))
   expect_equal(pers@month, c(6, 7))
   expect_equal(pers@year, c(7, 8))
-
 })
-
-
 
 context("test days_in_month")
 

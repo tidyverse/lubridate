@@ -110,6 +110,7 @@ check_period <- function(object){
 #' minute<-,Period-method hour,Period-method hour<-,Period-method
 #' day,Period-method day<-,Period-method month,Period-method
 #' month<-,Period-method year,Period-method year<-,Period-method
+#' date,Period-method date<-,Period-method
 #' as.numeric,Period-method show,Period-method c,Period-method rep,Period-method
 #' [,Period-method [<-,Period,ANY,ANY,Period-method [[,Period-method
 #' [[<-,Period,ANY,ANY,Period-method $,Period-method $<-,Period-method

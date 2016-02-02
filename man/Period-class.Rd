@@ -109,6 +109,8 @@
 \alias{as.difftime,Period-method}
 \alias{as.numeric,Period-method}
 \alias{c,Period-method}
+\alias{date,Period-method}
+\alias{date<-,Period-method}
 \alias{day,Period-method}
 \alias{day<-,Period-method}
 \alias{hour,Period-method}
