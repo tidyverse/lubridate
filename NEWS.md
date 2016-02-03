@@ -3,6 +3,7 @@ Version 1.5.0.9000 (development)
 ============
 
 ### NEW FEATURES
+* [#373](https://github.com/hadley/lubridate/issues/373) New `date` and `date<-` additions to the `year`, `month` etc family of accessors. 
 * [#365](https://github.com/hadley/lubridate/issues/364) New, very fast datetime constructor `make_datetime` (dropin replacement of `ISOdatetime`)
 
 ### CHANGES
