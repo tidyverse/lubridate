@@ -933,6 +933,63 @@ test_that("years settor retains object class",{
 })
 
 
+test_that("dates settor correctly performs simple updates",{
+  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
+     = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct(poslt)
+  date <- as.Date(poslt)
+
+  date(poslt) <- as.Date("2000-01-01")
+  date(posct) <- as.Date("2000-01-01")
+  date(date) <- as.Date("2000-01-01")
+
+  expect_that(date(poslt), equals(as.Date("2000-01-01")))
+  expect_that(date(posct), equals(as.Date("2000-01-01")))
+  expect_that(date(date), equals(as.Date("2000-01-01")))
+})
+
+test_that("dates settor does not change time zone",{
+  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
+     = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct(poslt)
+  date <- as.Date(poslt)
+
+  date(poslt) <- as.Date("2000-01-01")
+  date(posct) <- as.Date("2000-01-01")
+  date(date) <- as.Date("2000-01-01")
+
+  expect_that(tz(poslt), matches("GMT"))
+  expect_that(tz(posct), matches("GMT"))
+  expect_that(tz(date), matches("UTC"))
+})
+
+test_that("dates settor returns NA for spring dst gap",{
+  poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
+     = "%Y-%m-%d %H:%M:%S")
+  poslt <- force_tz(poslt, tz = "America/New_York")
+  posct <- as.POSIXct(poslt)
+
+  date(poslt) <- as.Date("2010-03-14")
+  date(posct) <- as.Date("2010-03-14")
+
+  expect_that(is.na(poslt), is_true())
+  expect_that(is.na(posct), is_true())
+})
+
+test_that("dates settor retains object class",{
+  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
+     = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct(poslt)
+  date <- as.Date(poslt)
+
+  date(poslt) <- as.Date("2000-01-01")
+  date(posct) <- as.Date("2000-01-01")
+  date(date) <- as.Date("2000-01-01")
+
+  expect_that(poslt, is_a("POSIXlt"))
+  expect_that(posct, is_a("POSIXct"))
+  expect_that(date, is_a("Date"))
+})
 
 
 test_that("time zone settor correctly performs simple updates",{
@@ -1057,6 +1114,14 @@ test_that("settors handle vectors",{
   expect_that(year(poslt), equals(c(2001,2001,2001)))
   expect_that(year(posct), equals(c(2001,2001,2001)))
   expect_that(year(date), equals(c(2001,2001,2001)))
+
+  date(poslt) <- as.Date("2001-01-01")
+  date(posct) <- as.Date("2001-01-01")
+  date(date) <- as.Date("2001-01-01")
+
+  expect_that(date(poslt), equals(as.Date(c("2001-01-01","2001-01-01","2001-01-01"))))
+  expect_that(date(posct), equals(as.Date(c("2001-01-01","2001-01-01","2001-01-01"))))
+  expect_that(date(date), equals(as.Date(c("2001-01-01","2001-01-01","2001-01-01"))))
   
   tz(poslt) <- "GMT"
   tz(posct) <- "GMT"
