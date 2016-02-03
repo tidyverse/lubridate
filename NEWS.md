@@ -3,11 +3,13 @@ Version 1.5.0.9000 (development)
 ============
 
 ### NEW FEATURES
+
 * [#373](https://github.com/hadley/lubridate/issues/373) New `date` and `date<-` additions to the `year`, `month` etc family of accessors. 
-* [#365](https://github.com/hadley/lubridate/issues/364) New, very fast datetime constructor `make_datetime` (dropin replacement of `ISOdatetime`)
+* [#365](https://github.com/hadley/lubridate/issues/364) New very fast datetime constructor `make_datetime` (dropin replacement of `ISOdatetime`).
 
 ### CHANGES
-* [#364](https://github.com/hadley/lubridate/issues/364) Remove epoch functions
+
+* [#364](https://github.com/hadley/lubridate/issues/364) Remove epoch functions.
 
 ### BUG FIXES
 
@@ -16,6 +18,7 @@ Version 1.5.0
 =============
 
 ### NEW FEATURES
+
 * New `time_length` method.
 * Added `isoyear` function to line up with `isoweek`.
 * [#326](https://github.com/hadley/lubridate/issues/326) Added `exact = TRUE`
@@ -23,13 +26,14 @@ Version 1.5.0
   formats.
 * New `simple` argument to `fit_to_timeline` and `update` methods mostly
   intended for internal use.
-* [#315](https://github.com/hadley/lubridate/issues/315) implement `unique` method for `interval` class 
+* [#315](https://github.com/hadley/lubridate/issues/315) Implement `unique` method for `interval` class.
 * [#295](https://github.com/hadley/lubridate/issues/295) New args `preserve_hms` and `roll_to_first` in `rollback` function.
 * [#303](https://github.com/hadley/lubridate/issues/303) New `quarter` option in `floor_date` and friends. 
 * [#348](https://github.com/hadley/lubridate/issues/348) New `as.list.Interval` S3 method.
 * [#278](https://github.com/hadley/lubridate/issues/278) Added settors and accessors for `qday` (quarter day).
 
 ### CHANGES
+
 * New maintainer Vitalie Spinu (@vspinu)
 * Time span constructors were re-factored; `new_interval`, `new_period`,
   `new_duration`, `new_difftime` were deprecated in favour of the more powerful
@@ -47,9 +51,10 @@ Version 1.5.0
 * Made necessary changes to accommodate new zoo-based `fst` objects.
 
 ### BUG FIXES
+
 * [#360](https://github.com/hadley/lubridate/issues/360) Fix c parser for Z (zulu) indicator.
 * [#322](https://github.com/hadley/lubridate/issues/322) Explicitly encode formatted string with `enc2utf8`.
-* [#302](https://github.com/hadley/lubridate/issues/302) Allow parsing long numbers such as 20140911000000 as date+time 
+* [#302](https://github.com/hadley/lubridate/issues/302) Allow parsing long numbers such as 20140911000000 as date+time.
 * [#349](https://github.com/hadley/lubridate/issues/349) Fix broken interval -> period conversion.
 * [#336](https://github.com/hadley/lubridate/issues/336) Fix broken interval-> period conversion with negative diffs.
 * [#227](https://github.com/hadley/lubridate/issues/227) Treat "days" and "years" units specially for pretty.point.
@@ -73,6 +78,7 @@ Version 1.4.0
 =============
 
 ### CHANGES
+
 * [#219](//github.com/hadley/lubridate/issues/219) In `interval` use UTC when tzone is missing. 
 * [#255](//github.com/hadley/lubridate/issues/255) Parse yy > 68 as 19yy to comply with `strptime`.
 
@@ -90,7 +96,6 @@ Version 1.4.0
 * [#229](//github.com/hadley/lubridate/issues/229) `guess_formats` now matches flex regexp first. 
 * `dmilliseconds` now correctly returns a `Duration` object. 
 * Fixed setdiff for discontinuous intervals.
-
 
 
 Version 1.3.3
