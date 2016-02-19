@@ -1,6 +1,6 @@
 Package: lubridate
 Maintainer: Vitalie Spinu <spinuvit@gmail.com>
-License: GPL
+License: GPL-2
 Title: Make Dealing with Dates a Little Easier
 LazyData: true
 Type: Package
