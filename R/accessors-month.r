@@ -6,14 +6,15 @@ NULL
 #' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
 #'
-#' @param x a date-time object  
-#' @param label logical. TRUE will display the month as a character string
-#'   such as "January." FALSE will display the month as a number.
-#' @param abbr logical. FALSE will display the month as a character string #'
-#'   label, such as #' "January". TRUE will display an abbreviated version of
-#'   the label, such as "Jan". abbr is #' disregarded if label = FALSE.
+#' @param x a date-time object
+#' @param label logical. TRUE will display the month as a character string such
+#'   as "January." FALSE will display the month as a number.
+#' @param abbr logical. FALSE will display the month as a character string
+#'   label, such as "January". TRUE will display an abbreviated version of the
+#'   label, such as "Jan". abbr is disregarded if label = FALSE.
 #' @param value a numeric object
-#' @return the months element of x as a number (1-12) or character string. 1 = January.
+#' @return the months element of x as a number (1-12) or character string. 1 =
+#'   January.
 #' @keywords utilities manip chron methods
 #' @examples
 #' x <- ymd("2012-03-26")

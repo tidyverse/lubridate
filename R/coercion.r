@@ -101,7 +101,7 @@ period_to_difftime <- function(per){
 #' @export
 reclass_timespan <- function(new, orig) standardGeneric("reclass_timespan")
 
-#' #' @export
+#' @export
 setGeneric("reclass_timespan")
 
 #' @export
