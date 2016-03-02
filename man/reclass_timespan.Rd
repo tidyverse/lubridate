@@ -9,13 +9,9 @@
 \title{Convenience method to reclass timespans post-modification.}
 \usage{
 reclass_timespan(new, orig)
-
-reclass_timespan(new, orig)
 }
 \description{
 Convenience method to reclass timespans post-modification.
-
-#' @export
 }
 \keyword{internal}
 

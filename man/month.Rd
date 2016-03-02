@@ -12,17 +12,18 @@ month(x) <- value
 \arguments{
 \item{x}{a date-time object}
 
-\item{label}{logical. TRUE will display the month as a character string
-such as "January." FALSE will display the month as a number.}
+\item{label}{logical. TRUE will display the month as a character string such
+as "January." FALSE will display the month as a number.}
 
-\item{abbr}{logical. FALSE will display the month as a character string #'
-label, such as #' "January". TRUE will display an abbreviated version of
-the label, such as "Jan". abbr is #' disregarded if label = FALSE.}
+\item{abbr}{logical. FALSE will display the month as a character string
+label, such as "January". TRUE will display an abbreviated version of the
+label, such as "Jan". abbr is disregarded if label = FALSE.}
 
 \item{value}{a numeric object}
 }
 \value{
-the months element of x as a number (1-12) or character string. 1 = January.
+the months element of x as a number (1-12) or character string. 1 =
+  January.
 }
 \description{
 Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 

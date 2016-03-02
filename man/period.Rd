@@ -84,7 +84,7 @@ is.period(as.Date("2009-08-03")) # FALSE
 is.period(period(months= 1, days = 15)) # TRUE
 }
 \seealso{
-\code{\link{Period-class}}, \code{\link{quick_period}},
+\code{\link{Period-class}}, \code{\link{quick_periods}},
   \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
 }
 \keyword{chron}
