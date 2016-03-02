@@ -289,14 +289,22 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' and \code{\link{seconds}}. These objects can be added to and subtracted
 #' to date-times to create a user interface similar to object oriented programming.
 #'
+#' Note: Arithmetic with periods can results in undefined behavior when
+#' non-existent dates are involved (such as February 29th). Please see
+#' \code{\link{Period-class}} for more details and \code{\link{\%m+\%}} and
+#' \code{\link{add_with_rollback}} for alternative operations.
+#'
 #' @export
-#' @param num a numeric vector that lists the number of time units to be included in the period
-#' @param units a character vector that lists the type of units to be used. The units in units
-#' are matched to the values in num according to their order.
+#' @param num a numeric vector that lists the number of time units to be
+#'   included in the period
+#' @param units a character vector that lists the type of units to be used. The
+#'   units in units are matched to the values in num according to their order.
 #' @param ... a list of time units to be included in the period and their
 #'   amounts. Seconds, minutes,  hours, days, weeks, months, and years are
 #'   supported. Normally only one of \code{num} or \code{...} are present. If
 #'   both are present, the periods are concatenated.
+#' @seealso \code{\link{Period-class}}, \code{\link{quick_period}},
+#'   \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
 #' @return a period object
 #' @keywords chron classes
 #' @examples
@@ -398,12 +406,19 @@ is.period <- function(x) is(x,"Period")
 #' objects can be added to Date, POSIXct, and POSIXlt objects to calculate new
 #' date-times.
 #'
+#' Note: Arithmetic with periods can results in undefined behavior when
+#' non-existent dates are involved (such as February 29th in non-leap
+#' years). Please see \code{\link{Period-class}} for more details and
+#' \code{\link{%m+%}} and \code{\link{add_with_rollback}} for alternative
+#' operations.
+#'
 #' @name quick_periods
 #' @param x numeric value of the number of units to be contained in the
-#'          period. With the exception of seconds(), x must be an integer.
+#'   period. With the exception of seconds(), x must be an integer.
 #' @param abbreviate Ignored. For consistency with S3 generic in base namespace.
 #' @return a period object
-#' @seealso \code{\link{Period-class}}, \code{\link{period}}, \code{\link{ddays}}
+#' @seealso \code{\link{Period-class}}, \code{\link{period}},
+#'   \code{\link{ddays}}, \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
 #' @keywords chron manip
 #' @examples
 #'

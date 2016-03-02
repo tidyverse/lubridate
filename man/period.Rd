@@ -10,10 +10,11 @@ period(num = NULL, units = "second", ...)
 is.period(x)
 }
 \arguments{
-\item{num}{a numeric vector that lists the number of time units to be included in the period}
+\item{num}{a numeric vector that lists the number of time units to be
+included in the period}
 
-\item{units}{a character vector that lists the type of units to be used. The units in units
-are matched to the values in num according to their order.}
+\item{units}{a character vector that lists the type of units to be used. The
+units in units are matched to the values in num according to their order.}
 
 \item{...}{a list of time units to be included in the period and their
 amounts. Seconds, minutes,  hours, days, weeks, months, and years are
@@ -50,6 +51,11 @@ Period objects can be easily created with the helper functions
 \code{\link{days}}, \code{\link{hours}}, \code{\link{minutes}},
 and \code{\link{seconds}}. These objects can be added to and subtracted
 to date-times to create a user interface similar to object oriented programming.
+
+Note: Arithmetic with periods can results in undefined behavior when
+non-existent dates are involved (such as February 29th). Please see
+\code{\link{Period-class}} for more details and \code{\link{\%m+\%}} and
+\code{\link{add_with_rollback}} for alternative operations.
 }
 \examples{
 period(c(90, 5), c("second", "minute"))
@@ -76,6 +82,10 @@ period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
 # "1H -60M 0S" "1H 3M 0S"   "2H 4M 0S"
 is.period(as.Date("2009-08-03")) # FALSE
 is.period(period(months= 1, days = 15)) # TRUE
+}
+\seealso{
+\code{\link{Period-class}}, \code{\link{quick_period}},
+  \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
 }
 \keyword{chron}
 \keyword{classes}

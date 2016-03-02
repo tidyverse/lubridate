@@ -55,12 +55,6 @@ for manipulations with clock times because units expand or contract in length
 to accomodate conventions such as leap years, leap seconds, and Daylight
 Savings Time.
 }
-\details{
-When paired with date-times, these functions allow date-times to be
-manipulated in a method similar to object oriented programming. Period
-objects can be added to Date, POSIXct, and POSIXlt objects to calculate new
-date-times.
-}
 \examples{
 
 x <- as.POSIXct("2009-08-03")
@@ -102,7 +96,8 @@ boundary + ddays(1) # duration
 # seconds later)
 }
 \seealso{
-\code{\link{Period-class}}, \code{\link{period}}, \code{\link{ddays}}
+\code{\link{Period-class}}, \code{\link{period}},
+  \code{\link{ddays}}, \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
 }
 \keyword{chron}
 \keyword{manip}
