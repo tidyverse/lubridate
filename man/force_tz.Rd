@@ -7,11 +7,13 @@
 force_tz(time, tzone = "")
 }
 \arguments{
-\item{time}{a POSIXct, POSIXlt, Date, or chron date-time object.}
+\item{time}{a POSIXct, POSIXlt, Date, chron date-time object, or a data.frame
+object. When a data.frame all POSIXt elements of a data.frame are processed
+with \code{force_tz} and new data.frame is returned.}
 
-\item{tzone}{a character string containing the time zone to convert to. R 
-must recognize the name 
-contained in the string as a time zone on your system.}
+\item{tzone}{a character string containing the time zone to convert to. R
+must recognize the name contained in the string as a time zone on your
+system.}
 }
 \value{
 a POSIXct object in the updated time zone

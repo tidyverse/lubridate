@@ -85,7 +85,7 @@ test_that("as.period handles interval objects", {
   expect_that(as.period(int_neg), equals(years(-1)))
 })
 
-test_that("as.period handles intervals across years correctly (#371)", {
+test_that("as.period handles intervals across years correctly", {
   ## https://github.com/hadley/lubridate/issues/371
   
   t1 <- ymd("1985-11-30")
@@ -113,7 +113,8 @@ test_that("as.period handles intervals across years correctly (#371)", {
   expect_equal(t2, t1 + as.period(interval(t1, t2)))
 })
 
-test_that("as.period handles vector interval objects (#349)", {
+test_that("as.period handles vector interval objects", {
+  ## https://github.com/hadley/lubridate/issues/349
   ints <- c(interval(ymd("2001-01-01"), ymd("2002-01-01")),
             interval(ymd("2001-01-01"), ymd("2004-01-01")))
   expect_equal(as.period(ints), period(years = c(1, 3)))
