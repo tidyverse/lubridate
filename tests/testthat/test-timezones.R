@@ -27,6 +27,15 @@ test_that("with_tz handles various date-time classes", {
                as.POSIXlt(format(as.POSIXct(x), tz = "UTC"), tz = "UTC"))
 })
 
+test_that("with_tz handles data.frames", {
+  x <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
+  df <- data.frame(x = x, y = as.POSIXlt(x), z = "blabla")
+  df <- with_tz(df, "UTC")
+  x_out <- as.POSIXct(format(as.POSIXct(x), tz = "UTC"), tz = "UTC")
+  expect_that(df$x, equals(x_out))
+  expect_that(df$y, equals(x_out))
+})
+
 test_that("force_tz works as expected", {
   x <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
   
@@ -48,6 +57,14 @@ test_that("force_tz handles various date-time classes", {
     as.POSIXlt(format(x), tz = "UTC"))
 })
 
+test_that("force_tz handles data.frames", {
+  x <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
+  x_out <- as.POSIXct(format(as.POSIXct(x)), tz = "UTC")
+  df <- data.frame(x = x, y = as.POSIXlt(x), z = "blabla")
+  df <- force_tz(df, "UTC")
+  expect_that(df$x, equals(x_out))
+  expect_that(df$y, equals(x_out))
+})
 
 test_that("force_tz doesn't return NA just because new time zone uses DST", {
   poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format

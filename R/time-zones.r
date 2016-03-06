@@ -7,10 +7,12 @@
 #' for more information on how R recognizes time zones.
 #'
 #' @export with_tz
-#' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
-#' @param tzone a character string containing the time zone to convert to. R 
-#' must recognize the name 
-#'   contained in the string as a time zone on your system.
+#' @param time a POSIXct, POSIXlt, Date, chron date-time object or a data.frame
+#'   object. When a data.frame all POSIXt elements of a data.frame are processed
+#'   with \code{with_tz} and new data.frame is returned.
+#' @param tzone a character string containing the time zone to convert to. R
+#'   must recognize the name contained in the string as a time zone on your
+#'   system.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
 #' @seealso \code{\link{force_tz}}
@@ -19,11 +21,20 @@
 #' with_tz(x, "GMT")
 #' # "2009-08-07 04:00:01 GMT"
 with_tz <- function (time, tzone = ""){
-  check_tz(tzone)
-  if (is.POSIXlt(time)) new <- as.POSIXct(time)
-  else new <- time
-  attr(new, "tzone") <- tzone
-  reclass_date(new, time)
+  if(is.data.frame(time)){
+    for(nm in names(time)){
+      if(is.POSIXt(time[[nm]])){
+        time[[nm]] <- with_tz(time[[nm]], tzone = tzone)
+      }
+    }
+    time
+  } else {
+    check_tz(tzone)
+    if (is.POSIXlt(time)) new <- as.POSIXct(time)
+    else new <- time
+    attr(new, "tzone") <- tzone
+    reclass_date(new, time)
+  }
 }
 
 #' Replace time zone to create new date-time
@@ -39,10 +50,12 @@ with_tz <- function (time, tzone = ""){
 #'
 #' @export force_tz
 #'
-#' @param time a POSIXct, POSIXlt, Date, or chron date-time object.
-#' @param tzone a character string containing the time zone to convert to. R 
-#' must recognize the name 
-#' contained in the string as a time zone on your system.
+#' @param time a POSIXct, POSIXlt, Date, chron date-time object, or a data.frame
+#'   object. When a data.frame all POSIXt elements of a data.frame are processed
+#'   with \code{force_tz} and new data.frame is returned.
+#' @param tzone a character string containing the time zone to convert to. R
+#'   must recognize the name contained in the string as a time zone on your
+#'   system.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
 #' @seealso \code{\link{with_tz}}
@@ -50,9 +63,18 @@ with_tz <- function (time, tzone = ""){
 #' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_York")
 #' force_tz(x, "GMT")
 #' # "2009-08-07 00:00:01 GMT"
-force_tz <- function(time, tzone = ""){  
-  check_tz(tzone)
-  update(time, tz = tzone)
+force_tz <- function(time, tzone = ""){
+  if(is.data.frame(time)){
+    for(nm in names(time)){
+      if(is.POSIXt(time[[nm]])){
+        time[[nm]] <- force_tz(time[[nm]], tzone = tzone)
+      }
+    }
+    time
+  } else {
+    check_tz(tzone)
+    update(time, tz = tzone)
+  }
 }
 
 check_tz <- function(tz) {}

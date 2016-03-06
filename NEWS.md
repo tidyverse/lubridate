@@ -6,6 +6,7 @@ Version 1.5.0.9000 (development)
 
 * [#373](https://github.com/hadley/lubridate/issues/373) New `date` and `date<-` additions to the `year`, `month` etc family of accessors. 
 * [#365](https://github.com/hadley/lubridate/issues/365) New very fast datetime constructor `make_datetime` (dropin replacement of `ISOdatetime`).
+* [#344](https://github.com/hadley/lubridate/issues/344) `force_tz` and `with_tz` can handle data.frames component-wise
 
 ### CHANGES
 
