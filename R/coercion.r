@@ -423,7 +423,6 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
     per[[nm]] <- ifelse(negs, start[[nm]] - end[[nm]], end[[nm]] - start[[nm]])
   }
 
-  pero <- per
   names(per) <- c("second", "minute", "hour", "day", "month", "year")
 
   ## Remove negative ...
@@ -454,9 +453,6 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
     ## compute nr days in previous month
     add_months <- rep.int(-1L, sum(ndays))
 
-    ## no need to substract a month for negative months. For ex:
-    ## as.period(interval(ymd("1985-12-31"), ymd("1986-02-01")))
-    add_months[per$month[ndays] < 0] <- 0L
     pmonth <- end$mon[ndays]
     pmonth[pmonth == 0L] <- 1L #dec == jan == 31 days
     prev_month_days <- .days_in_month(pmonth, end$year[ndays])
@@ -472,9 +468,6 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   if (any(ndays)) {
 
     add_months <- rep.int(1L, sum(ndays))
-    ## no need to substract for negative months as in
-    ## as.period(interval(ymd("1986-02-01"), ymd("1985-12-31")))
-    add_months[per$month[ndays] < 0] <- 0L
     this_month_days <- .days_in_month(end$mon[ndays] + 1L, end$year[ndays])
 
     ## Compute nr of days:

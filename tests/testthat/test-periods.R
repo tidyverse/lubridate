@@ -19,8 +19,6 @@ test_that("is.period handles vectors",{
   expect_that(is.period(minutes(1:3)), is_true())
 })
 
-
-
 test_that("period works as expected", {
   per <- period(second = 90, minute = 5)
   
@@ -87,6 +85,34 @@ test_that("as.period handles interval objects", {
   expect_that(as.period(int_neg), equals(years(-1)))
 })
 
+test_that("as.period handles intervals across years correctly (#371)", {
+  ## https://github.com/hadley/lubridate/issues/371
+  
+  t1 <- ymd("1985-11-30")
+  t2 <- ymd("1986-02-01")
+  expect_equal(t2, t1 + as.period(interval(t1, t2)))
+
+  ## negative
+  t1 <- ymd("1986-02-01")
+  t2 <- ymd("1985-11-30")
+  expect_equal(t2, t1 + as.period(interval(t1, t2)))
+
+  t1 <- "185-11-01"
+  t2 <- "2007-08-01"
+  as.period(interval(t1, t2))
+  ymd(t1) + as.period(interval(t1, t2,  "UTC"))
+
+  ## negative
+  t1 <- "2007-08-01"
+  t2 <- "1985-11-01"
+  as.period(interval(t1, t2))
+  ymd(t1) + as.period(interval(t1, t2,  "UTC"))
+
+  t1 <- ymd("1986-02-01")
+  t2 <- ymd("1986-01-05")
+  expect_equal(t2, t1 + as.period(interval(t1, t2)))
+})
+
 test_that("as.period handles vector interval objects (#349)", {
   ints <- c(interval(ymd("2001-01-01"), ymd("2002-01-01")),
             interval(ymd("2001-01-01"), ymd("2004-01-01")))
@@ -101,11 +127,10 @@ test_that("as.period handles vector interval objects (#349)", {
 
 test_that("as.period handles don't produce negative periods", {
   p2 <- as.period(interval(ymd("1985-12-31"),ymd("1986-02-01")))
-  expect_equal(month(p2), 2)
-  ## expect_equal(day(p2), 1)
+  expect_equal(month(p2), 1)
 
   p3 <- as.period(interval(ymd("1985-12-31"),ymd("1986-03-01")))
-  expect_equal(month(p3), 3)
+  expect_equal(month(p3), 2)
   expect_equal(day(p3), 1)
 })
 
@@ -243,7 +268,7 @@ test_that("as.period handles tricky negative intervals", {
 
   expect_equal(
     as.period(interval(ymd("1986-02-01"), ymd("1985-12-31")))
-  , period(months = -2, days = -1))
+  , period(months = -1, days = -1))
 
   expect_equal(
     as.period(interval(ymd("1984-03-01"), ymd("1984-01-31")))

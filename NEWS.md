@@ -13,7 +13,8 @@ Version 1.5.0.9000 (development)
 
 ### BUG FIXES
 
-* `interval` constructor now treats time zones correctly
+* `interval` constructor treats timezones correctly and  works with UTC whenever meaningful
+* [#371](https://github.com/hadley/lubridate/issues/371) `as.period` correctly computes months with intervals spanning multiple years
 
 Version 1.5.0
 =============
