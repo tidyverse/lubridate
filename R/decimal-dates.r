@@ -18,9 +18,8 @@ decimal_date.default <- function(date){
 
   date <- force_tz(as.POSIXlt(date), tzone = "UTC")
   Y <- year(date)
-  ## parsing is much faster than updating
-  start <- parse_date_time2(paste(Y, "1", "1"), "Ymd")
-  end <- parse_date_time2(paste(Y + 1L, "1", "1"), "Ymd")
+  start <- make_datetime(Y, 1L, 1L)
+  end <- make_datetime(Y + 1L, 1L, 1L)
   sofar <- as.numeric(difftime(date, start, units = "secs"))
   total <- as.numeric(difftime(end, start, units = "secs"))
   Y + sofar/total
@@ -52,8 +51,8 @@ decimal_date.its <- function(date)
 date_decimal <- function(decimal, tz = NULL) {
   Y <- trunc(decimal)
   ## parsing is much faster than updating
-  start <- parse_date_time2(paste(Y, "01", "01"), "Ymd")
-  end <- parse_date_time2(paste(Y + 1L, "01", "01"), "Ymd")
+  start <- make_datetime(Y, 1L, 1L)
+  end <- make_datetime(Y + 1L, 1L, 1L)
   seconds <- as.numeric(difftime(end, start, units = "secs"))
   frac <- decimal - Y
   start <- start + seconds * frac
