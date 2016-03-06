@@ -120,7 +120,7 @@ test_that("is.duration handle vectors",{
 test_that("format.Duration correctly displays intervals of length 0", {
   dur <- new_duration(seconds = 5)
   
-  expect_output(dur[FALSE], "Duration\\(0)")
+  expect_output(print(dur[FALSE]), "Duration\\(0)")
 })
 
 test_that("format.Duration correctly displays durations with an NA", {

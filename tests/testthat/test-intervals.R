@@ -139,7 +139,7 @@ test_that("[<- can subset intervals", {
 
 test_that("format.Interval correctly displays intervals of length 0", {
   int <- interval(ymd(18800101), ymd(18810101))
-  expect_output(int[FALSE], "Interval\\(0)")
+  expect_output(print(int[FALSE]), "Interval\\(0)")
 })
 
 test_that("interval handles correctly time zones of Date objects", {

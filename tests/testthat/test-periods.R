@@ -372,7 +372,7 @@ test_that("format.period correctly displays negative units", {
 
 test_that("format.Period correctly displays intervals of length 0", {
   per <- period(seconds = 5)
-  expect_output(per[FALSE], "Period\\(0)")
+  expect_output(print(per[FALSE]), "Period\\(0)")
 })
 
 test_that("c.Period correctly handles NAs", {
