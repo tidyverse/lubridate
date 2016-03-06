@@ -63,6 +63,38 @@ test_that("format.Interval works as expected", {
   expect_match(format(int), "2008-08-03 13:01:59 UTC--2009-08-03 13:01:59 UTC")
 })
 
+test_that("interval handles character inputs", {
+  t1 <- c("2007-01-01")
+  t2 <- c("2007-08-01")
+  expect_equal(interval(t1, t2),
+               new("Interval", 18316800,
+                   start = as.POSIXct("2007-01-01", tz = "UTC"),
+                   tzone = "UTC"))
+  
+  t1 <- c("2007-01-01")
+  t2 <- c("2007-08-01 00:01:02")
+  expect_equal(interval(t1, t2),
+               new("Interval", 18316862,
+                   start = as.POSIXct("2007-01-01", tz = "UTC"),
+                   tzone = "UTC"))  
+})
+
+
+test_that("interval handles POSIXlt inputs", {
+  t1 <- as.POSIXlt("2007-01-01")
+  t2 <- as.POSIXlt("2007-08-01")
+  expect_equal(interval(t1, t2),
+               new("Interval", 18316800,
+                   start = as.POSIXct("2007-01-01", tz = "UTC"),
+                   tzone = "UTC"))
+
+  t1 <- as.POSIXlt("2007-01-01")
+  t2 <- as.POSIXlt("2007-08-01 00:01:02")
+  expect_equal(interval(t1, t2),
+               new("Interval", 18316862,
+                   start = as.POSIXct("2007-01-01", tz = "UTC"),
+                   tzone = "UTC"))
+})
 
 test_that("as.interval works as expected", {
   a <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")

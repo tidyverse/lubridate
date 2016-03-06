@@ -215,16 +215,17 @@ unique.Interval <- function(x, ...){
 #' is.interval(period(months= 1, days = 15)) # FALSE
 #' is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
 interval <- function(start, end, tzone = attr(start, "tzone")){
-	if (is.null(tzone)) {
-		if (is.null(attr(end, "tzone"))) tzone <- "UTC"
-		else tzone <- attr(end, "tzone")
+  if (is.null(tzone)) {
+		tzone <-
+      if (is.null(attr(end, "tzone"))) "UTC"
+      else attr(end, "tzone")
 	}
 	
 	if (is.Date(start)) start <- with_tz(as.POSIXct(start), "UTC")
 	if (is.Date(end)) end <- with_tz(as.POSIXct(end), "UTC")
-	
-	if (!is.POSIXct(start)) start <- as.POSIXct(start)
-	if (!is.POSIXct(end)) end <- as.POSIXct(end)
+
+  if (!is.POSIXct(start)) start <- as.POSIXct(start, tz = tzone)
+	if (!is.POSIXct(end)) end <- as.POSIXct(end, tz = tzone)
 	
 	span <- as.numeric(end) - as.numeric(start)
 	starts <- start + rep(0, length(span))

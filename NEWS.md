@@ -13,6 +13,7 @@ Version 1.5.0.9000 (development)
 
 ### BUG FIXES
 
+* `interval` constructor now treats time zones correctly
 
 Version 1.5.0
 =============
