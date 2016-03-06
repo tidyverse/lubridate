@@ -543,9 +543,10 @@ test_that("fast_strptime and parse_date_time2 deal correctly with leap years", {
                as.POSIXct(c("2000-02-29 UTC", NA, "2400-02-29 UTC"), tz = "UTC"))
 })
 
-test_that("fast_strptime and parse_date_time2 detect excesive days (#289)", {
+test_that("fast_strptime and parse_date_time2 detect excesive days", {
+  ## https://github.com/hadley/lubridate/issues/#289
   expect_equal(ymd(c("2000-01-32", "2000-02-30", "2100-03-32", "2400-12-32"), quiet = T),
-               as.POSIXct(c(NA, NA, NA, NA), tz = "UTC"))
+               .POSIXct(as.numeric(c(NA, NA, NA, NA)), tz = "UTC"))
 })
 
 test_that("fast_strptime and parse_date_time2 aggree with strptime", {

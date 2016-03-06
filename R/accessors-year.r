@@ -49,5 +49,4 @@ isoyear <- function(x) {
   dn <- 1 + (wday(x) + 5) %% 7
   nth <- xday + ddays(4 - dn)
   year(nth) 
-  
 }

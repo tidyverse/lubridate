@@ -55,10 +55,10 @@ date_decimal <- function(decimal, tz = NULL) {
   end <- make_datetime(Y + 1L, 1L, 1L)
   seconds <- as.numeric(difftime(end, start, units = "secs"))
   frac <- decimal - Y
-  start <- start + seconds * frac
+  end <- start + seconds*frac
   if (!is.null(tz))
-    force_tz(start, tz)
+    force_tz(end, tz)
   else
-    start
+    end
 }
 

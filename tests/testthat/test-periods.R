@@ -97,7 +97,7 @@ test_that("as.period handles intervals across years correctly", {
   t2 <- ymd("1985-11-30")
   expect_equal(t2, t1 + as.period(interval(t1, t2)))
 
-  t1 <- "185-11-01"
+  t1 <- "1985-11-01"
   t2 <- "2007-08-01"
   as.period(interval(t1, t2))
   ymd(t1) + as.period(interval(t1, t2,  "UTC"))
@@ -372,7 +372,6 @@ test_that("format.period correctly displays negative units", {
 
 test_that("format.Period correctly displays intervals of length 0", {
   per <- period(seconds = 5)
-  
   expect_output(per[FALSE], "Period\\(0)")
 })
 
