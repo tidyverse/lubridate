@@ -3,7 +3,7 @@
 #' @export am pm
 #' @aliases am pm
 #' @param x a date-time object  
-#' @return TRUE or FALSE depending on whethe x occurs in the am or pm 
+#' @return TRUE or FALSE depending on whether x occurs in the am or pm 
 #' @keywords chron 
 #' @examples
 #' x <- ymd("2012-03-26")
