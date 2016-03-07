@@ -104,9 +104,9 @@ setMethod("%m-%", signature(e2 = "ANY"),
 #' @export
 add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE) {
   
-  HMS <- any(e2@.Data != 0) || any(e2@minute != 0) || any(e2@hour != 0) || any(e2@day != 0)
-  
-  if (any(e2@year != 0)) {
+  any_HMS <- any(e2@.Data != 0) || any(e2@minute != 0) || any(e2@hour != 0) || any(e2@day != 0)
+  any_year <- any(e2@year != 0)
+  if (!is.na(any_year) && any_year) {
     e2$month <- 12 * e2@year + e2@month
     e2$year <- 0L
   }
@@ -115,7 +115,7 @@ add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE
   roll <- day(new) < day(e1)
   new[roll] <- rollback(new[roll], roll_to_first = roll_to_first, preserve_hms = preserve_hms)
 
-  if(HMS) {
+  if(!is.na(any_HMS) && any_HMS) {
     e2$month <- 0L
     new + e2
   } else {

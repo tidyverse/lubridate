@@ -37,6 +37,10 @@ test_that("time_length works as expected",{
               equals(time_length(int_flip(interval(ymd('1900-01-01'), ymd('2000-01-01'))), "days")))
 })
 
+test_that("time_length works with missing intervals", {
+  expect_equal(time_length(interval(NA,ymd("2016-01-01")), unit = "year"), NA_real_)
+})
+
 test_that("time_length works with birth date 29 Feb ", {
   expect_that(round(time_length(interval(ymd('1992-02-29'), ymd('1999-02-28')), "years"), 4), 
               equals(6.9973))

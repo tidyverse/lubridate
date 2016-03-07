@@ -16,6 +16,7 @@ Version 1.5.0.9000 (development)
 
 * `interval` constructor treats timezones correctly and  works with UTC whenever meaningful
 * [#371](https://github.com/hadley/lubridate/issues/371) `as.period` correctly computes months with intervals spanning multiple years
+* [#388](https://github.com/hadley/lubridate/issues/388) `time_length` and `add_with_rollback` now work correctly with missing intervals
 
 Version 1.5.0
 =============
