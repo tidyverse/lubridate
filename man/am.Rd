@@ -11,7 +11,7 @@ am(x)
 \item{x}{a date-time object}
 }
 \value{
-TRUE or FALSE depending on whethe x occurs in the am or pm
+TRUE or FALSE depending on whether x occurs in the am or pm
 }
 \description{
 Does date time occur in the am or pm?

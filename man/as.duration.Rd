@@ -19,26 +19,26 @@ as.duration(x)
 A duration object
 }
 \description{
-as.duration changes Interval, Period and numeric class objects to 
-Duration objects. Numeric objects are changed to Duration objects 
+as.duration changes Interval, Period and numeric class objects to
+Duration objects. Numeric objects are changed to Duration objects
 with the seconds unit equal to the numeric value.
 }
 \details{
-Durations are exact time measurements, whereas periods are relative time 
-measurements. See \code{\link{Period-class}}. The length of a period depends on 
-when it occurs. Hence, a one to one mapping does not exist between durations 
-and periods. When used with a period object, as.duration provides an inexact 
-estimate of the length of the period; each time unit is assigned its most 
-common number of seconds. A period of one month is converted to 2628000 seconds 
-(approximately 30.42 days). This ensures that 12 months will sum to 365 days, or 
-one normal year. For an exact 
-transformation, first transform the period to an interval with 
+Durations are exact time measurements, whereas periods are relative time
+measurements. See \code{\link{Period-class}}. The length of a period depends on
+when it occurs. Hence, a one to one mapping does not exist between durations
+and periods. When used with a period object, as.duration provides an inexact
+estimate of the length of the period; each time unit is assigned its most
+common number of seconds. A period of one month is converted to 2628000 seconds
+(approximately 30.42 days). This ensures that 12 months will sum to 365 days, or
+one normal year. For an exact
+transformation, first transform the period to an interval with
 \code{\link{as.interval}}.
 
-as.duration.period displays the message "estimate only: 
-convert periods to 
-intervals for accuracy" by default. You can turn this message off by 
-setting the global \code{lubridate.verbose} option to FALSE with 
+as.duration.period displays the message "estimate only:
+convert periods to
+intervals for accuracy" by default. You can turn this message off by
+setting the global \code{lubridate.verbose} option to FALSE with
 \code{options(lubridate.verbose = FALSE)}.
 }
 \examples{
