@@ -608,3 +608,37 @@ setMethod("as.character", signature(x = "Duration"), function(x, ...){
 setMethod("as.character", signature(x = "Interval"), function(x, ...){
   format(x)
 })
+
+
+#' Change an object to a Date
+#'
+#' as_date changes \code{\link{POSIXt}},  numeric and character objects to
+#' \code{\link{Date}} objects.
+#'
+#' @param x a vector of \code{\link{POSIXt}} and numeric objects
+#' @return a vector of \code{\link{Date}} objects corresponding to \code{x}.
+#' @export
+setGeneric(name = "as_date", function(x, ...) standardGeneric("as_date"))
+
+#' @param tz a time zone name (default: time zone of the POSIXt object
+#'   \code{x}). See \code{\link{olson_time_zones}}.
+#' @export
+setMethod(f = "as_date", signature = "POSIXt", function (x, tz = tz(x)) {
+  as.Date(x, tz = tz)
+})
+
+#' @param origin a Date object, or something which can be coerced by
+#'   \code{as.Date(origin, ...)} to such an object (default:
+#'   \code{\link{origin}})
+#' @export
+setMethod(f = "as_date", signature = "numeric", function (x, origin = origin) {
+  as.Date(x, origin = origin)
+})
+
+#' @param format a character string (default: \code{\%Y-\%m-\%d}). See
+#'   \code{\link{strptime}} for alternative format specifications.
+#' @export
+setMethod(f = "as_date", signature = "character",
+  function (x, format = "%Y-%m-%d") {
+    as.Date(x, format = format)
+})
