@@ -608,3 +608,51 @@ setMethod("as.character", signature(x = "Duration"), function(x, ...){
 setMethod("as.character", signature(x = "Interval"), function(x, ...){
   format(x)
 })
+
+
+#' Change an object to a Date
+#'
+#' as_date changes \code{\link{POSIXt}}, numeric and character objects to
+#' \code{\link{Date}} objects.
+#'
+#' @param x a vector of \code{\link{POSIXt}}, numeric or character objects
+#' @param tz a time zone name (default: time zone of the POSIXt object
+#'   \code{x}). See \code{\link{olson_time_zones}}.
+#' @param origin a Date object, or something which can be coerced by
+#'   \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
+#'   "1970-01-01"). Note that in this instance, \code{x} is
+#'   assumed to reflect the number of days since \code{origin} at \code{"UTC"}.
+#' @param format a character string (default: \code{\%Y-\%m-\%d}). See
+#'   \code{\link{strptime}} for alternative format specifications.
+#' @param ... further arguments to be passed to specific methods (see above).
+#' @return a vector of \code{\link{Date}} objects corresponding to \code{x}.
+#' @export
+setGeneric(name = "as_date", function(x, ...) standardGeneric("as_date"))
+
+#' @rdname as_date
+#' @export
+setMethod(f = "as_date", signature = "POSIXt", function (x, tz = NULL) {
+  tz <- if (is.null(tz)) tz(x) else tz
+  as.Date(x, tz = tz)
+})
+
+#' @rdname as_date
+#' @export
+setMethod(f = "as_date", signature = "numeric", function (x, origin = NULL) {
+  origin <- if (is.null(origin)) "1970-01-01" else origin
+  as.Date(x, origin = origin)
+})
+
+#' @rdname as_date
+#' @export
+setMethod(f = "as_date", signature = "character", function (x, format = NULL) {
+  format <- if (is.null(format)) "%Y-%m-%d" else format
+  as.Date(x, format = format)
+})
+
+#' @rdname as_date
+#' @export
+setMethod(f = "as_date", signature = "ANY", function (x, ...) {
+  as.Date(x, ...)
+})
+

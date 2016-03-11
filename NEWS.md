@@ -9,7 +9,8 @@ Version 1.5.0.9000 (development)
 * `parse_date_time2` and `fast_strptime` gain new `lt` argument to control type of output.
 * [#373](https://github.com/hadley/lubridate/issues/373) New `date` and `date<-` additions to the `year`, `month` etc family of accessors.
 * [#365](https://github.com/hadley/lubridate/issues/365) New very fast datetime constructor `make_datetime` (dropin replacement of `ISOdatetime`).
-* [#344](https://github.com/hadley/lubridate/issues/344) `force_tz` and `with_tz` can handle data.frames component-wise.
+* [#344](https://github.com/hadley/lubridate/issues/344) `force_tz` and `with_tz` can handle data.frames component-wise
+* [#355](https://github.com/hadley/lubridate/issues/355) New `as_date` replacement of `as.Date` with more intuitive behavior with non-UTC timezones
 
 ### CHANGES
 
