@@ -10,26 +10,26 @@
 \usage{
 as_date(x, ...)
 
-\S4method{as_date}{POSIXt}(x, tzone = tz(x))
+\S4method{as_date}{POSIXt}(x, tz = NULL)
 
-\S4method{as_date}{numeric}(x, epoch = as.Date("1970-01-01"))
+\S4method{as_date}{numeric}(x, origin = NULL)
 
-\S4method{as_date}{character}(x, fmt = "\%Y-\%m-\%d")
+\S4method{as_date}{character}(x, format = NULL)
 }
 \arguments{
 \item{x}{a vector of \code{\link{POSIXt}}, numeric or character objects}
 
 \item{...}{further arguments to be passed to specific methods (see above).}
 
-\item{tzone}{a time zone name (default: time zone of the POSIXt object
+\item{tz}{a time zone name (default: time zone of the POSIXt object
 \code{x}). See \code{\link{olson_time_zones}}.}
 
-\item{epoch}{a Date object, or something which can be coerced by
-\code{as.Date(epoch, ...)} to such an object (default: the Unix epoch of 1
-Jan 1970 as a \code{Date} object). Note that in this instance, \code{x} is
-assumed to reflect the number of days since \code{eoch} at \code{"UTC"}.}
+\item{origin}{a Date object, or something which can be coerced by
+\code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
+"1970-01-01"). Note that in this instance, \code{x} is
+assumed to reflect the number of days since \code{origin} at \code{"UTC"}.}
 
-\item{fmt}{a character string (default: \code{\%Y-\%m-\%d}). See
+\item{format}{a character string (default: \code{\%Y-\%m-\%d}). See
 \code{\link{strptime}} for alternative format specifications.}
 }
 \value{
