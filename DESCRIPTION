@@ -30,7 +30,8 @@ Imports:
     stringr
 Suggests:
     testthat,
-    knitr
+    knitr,
+    covr
 BugReports: https://github.com/hadley/lubridate/issues
 VignetteBuilder: knitr
 Collate:
