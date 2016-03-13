@@ -17,8 +17,8 @@ a \%within\% b
 A logical
 }
 \description{
-%within% returns TRUE if a falls within interval b, FALSE otherwise. 
-If a is an interval, both its start and end dates must fall within b 
+%within% returns TRUE if a falls within interval b, FALSE otherwise.
+If a is an interval, both its start and end dates must fall within b
 to return TRUE.
 }
 \examples{

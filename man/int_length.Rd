@@ -10,7 +10,7 @@ int_length(int)
 \item{int}{An interval object}
 }
 \value{
-numeric The length of the interval in seconds. A negative number connotes 
+numeric The length of the interval in seconds. A negative number connotes
 a negative interval
 }
 \description{

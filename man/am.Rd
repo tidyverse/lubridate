@@ -18,8 +18,8 @@ Does date time occur in the am or pm?
 }
 \examples{
 x <- ymd("2012-03-26")
-am(x) 
-pm(x) 
+am(x)
+pm(x)
 }
 \keyword{chron}
 

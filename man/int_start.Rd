@@ -14,7 +14,7 @@ int_start(int)
 A POSIXct date object when used as an accessor. Nothing when used as a settor
 }
 \description{
-Note that changing the start date of an interval will change the length of 
+Note that changing the start date of an interval will change the length of
 the interval, since the end date will remain the same.
 }
 \examples{

@@ -17,7 +17,7 @@ is.instant(x)
 TRUE if x is a POSIXct, POSIXlt, or Date object, FALSE otherwise.
 }
 \description{
-An instant is a specific moment in time. Most common date-time 
+An instant is a specific moment in time. Most common date-time
 objects (e.g, POSIXct, POSIXlt, and Date objects) are instants.
 }
 \examples{

@@ -7,8 +7,8 @@
 today(tzone = "")
 }
 \arguments{
-\item{tzone}{a character vector specifying which time zone you would like to 
-find the current date of. tzone defaults to the system time zone set on your 
+\item{tzone}{a character vector specifying which time zone you would like to
+find the current date of. tzone defaults to the system time zone set on your
 computer.}
 }
 \value{

@@ -10,7 +10,7 @@ int_standardize(int)
 \item{int}{an Interval object}
 }
 \description{
-If an interval is not positive, int_standardize flips it so that it 
+If an interval is not positive, int_standardize flips it so that it
 retains its endpoints but becomes positive.
 }
 \examples{

@@ -13,8 +13,8 @@ int_flip(int)
 An interval object
 }
 \description{
-Reverses the order of the start date and end date in an interval. The 
-new interval takes place during the same timespan as the original interval, 
+Reverses the order of the start date and end date in an interval. The
+new interval takes place during the same timespan as the original interval,
 but has the opposite direction.
 }
 \examples{

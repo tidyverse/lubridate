@@ -23,26 +23,26 @@ is.interval(x)
 an Interval object
 }
 \description{
-interval creates an \code{\link{Interval-class}} object with the specified start and end 
-dates. If the start date occurs before the end date, the interval will be positive. 
+interval creates an \code{\link{Interval-class}} object with the specified start and end
+dates. If the start date occurs before the end date, the interval will be positive.
 Otherwise, it will be negative.
 }
 \details{
-Intervals are time spans bound by two real date-times.  Intervals can be 
-accurately converted to either period or duration objects using 
+Intervals are time spans bound by two real date-times.  Intervals can be
+accurately converted to either period or duration objects using
 \code{\link{as.period}}, \code{\link{as.duration}}. Since an interval is
 anchored to a fixed history of time, both the exact number of seconds that passed
 and the number of variable length time units that occurred during the interval can be
 calculated.
 
 \code{\%--\%} Creates an interval that covers the range spanned
-by two dates. It replaces the 
-original behavior of lubridate, which created an interval by default whenever 
+by two dates. It replaces the
+original behavior of lubridate, which created an interval by default whenever
 two date-times were subtracted.
 }
 \examples{
 interval(ymd(20090201), ymd(20090101))
-# 2009-02-01 UTC--2009-01-01 UTC 
+# 2009-02-01 UTC--2009-01-01 UTC
 
 date1 <- as.POSIXct("2009-03-08 01:59:59")
 date2 <- as.POSIXct("2000-02-29 12:00:00")

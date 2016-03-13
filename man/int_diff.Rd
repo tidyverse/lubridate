@@ -13,12 +13,12 @@ int_diff(times)
 An interval object that contains the n-1 intervals between the n date-time in times
 }
 \description{
-int_diff returns the intervals that occur between the elements of a vector of 
+int_diff returns the intervals that occur between the elements of a vector of
 date-times. int_diff is similar to the POSIXt and Date methods of
 \code{\link{diff}}, but returns an interval object instead of a difftime object.
 }
 \examples{
 dates <- now() + days(1:10)
-int_diff(dates) 
+int_diff(dates)
 }
 

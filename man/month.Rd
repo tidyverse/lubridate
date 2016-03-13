@@ -16,7 +16,7 @@ month(x) <- value
 as "January." FALSE will display the month as a number.}
 
 \item{abbr}{logical. FALSE will display the month as a character string
-label, such as "January". TRUE will display an abbreviated version of the
+ label, such as "January". TRUE will display an abbreviated version of the
 label, such as "Jan". abbr is disregarded if label = FALSE.}
 
 \item{value}{a numeric object}
@@ -26,13 +26,13 @@ the months element of x as a number (1-12) or character string. 1 =
   January.
 }
 \description{
-Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
+Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo,
 zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 }
 \examples{
 x <- ymd("2012-03-26")
-month(x) 
-month(x) <- 1  
+month(x)
+month(x) <- 1
 month(x) <- 13
 month(x) > 3
 

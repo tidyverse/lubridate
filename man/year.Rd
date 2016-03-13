@@ -21,7 +21,7 @@ isoyear(x)
 the years element of x as a decimal number
 }
 \description{
-Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
+Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo,
 zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 }
 \details{
@@ -29,8 +29,8 @@ year does not yet support years before 0 C.E.
 }
 \examples{
 x <- ymd("2012-03-26")
-year(x) 
-year(x) <- 2001  
+year(x)
+year(x) <- 2001
 year(x) > 1995
 }
 \keyword{chron}

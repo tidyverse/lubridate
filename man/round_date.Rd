@@ -18,7 +18,7 @@ ceiling_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
 \arguments{
 \item{x}{a vector of date-time objects}
 
-\item{unit}{a character string specifying the time unit to be rounded to. Should be one of 
+\item{unit}{a character string specifying the time unit to be rounded to. Should be one of
 "second", "minute", "hour", "day", "week", "month", "quarter", or "year."}
 }
 \value{
@@ -37,7 +37,7 @@ up. Note that this is in line with the behavior of R's base
 base \link[base]{round} function which "goes to the even digit" per IEC
 60559.
 
-\code{floor_date} takes a date-time object and rounds it down to the nearest integer 
+\code{floor_date} takes a date-time object and rounds it down to the nearest integer
 value of the specified time unit.
 
 \code{ceiling_date} takes a date-time object and rounds it up to the nearest

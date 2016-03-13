@@ -15,9 +15,9 @@ int_aligns(int1, int2)
 Logical. TRUE if int1 and int2 begin or end on the same moment. FALSE otherwise.
 }
 \description{
-int_aligns tests for the case where two intervals begin or end at the same 
-moment when arranged chronologically. The direction of each interval is ignored. 
-int_align tests whether the earliest or latest moments of each interval occur at 
+int_aligns tests for the case where two intervals begin or end at the same
+moment when arranged chronologically. The direction of each interval is ignored.
+int_align tests whether the earliest or latest moments of each interval occur at
 the same time.
 }
 \examples{

@@ -8,8 +8,8 @@
 \alias{\%/\%,difftime,Timespan-method}
 \title{Timespan class}
 \description{
-Timespan is an S4 class with no slots. It is extended by the 
-\code{\link{Interval-class}}, \code{\link{Period-class}}, and \code{\link{Duration-class}} 
+Timespan is an S4 class with no slots. It is extended by the
+\code{\link{Interval-class}}, \code{\link{Period-class}}, and \code{\link{Duration-class}}
 classes.
 }
 

@@ -14,7 +14,7 @@ int_end(int)
 A POSIXct date object when used as an accessor. Nothing when used as a settor
 }
 \description{
-Note that changing the end date of an interval will change the length of 
+Note that changing the end date of an interval will change the length of
 the interval, since the start date will remain the same.
 }
 \examples{
@@ -27,7 +27,7 @@ int
 # 2001-01-01 UTC--2002-06-01 UTC
 }
 \seealso{
-\code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}}, 
+\code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}},
 \code{\link{int_length}}
 }
 

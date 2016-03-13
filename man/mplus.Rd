@@ -27,11 +27,11 @@ e1 \%m+\% e2
 add_with_rollback(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE)
 }
 \arguments{
-\item{e1}{A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}} 
+\item{e1}{A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}}
 or \code{\link{Date}}.}
 
-\item{e2}{A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}} 
-or \code{\link{Date}}. Note that one of e1 and e2 must be a period and the other a 
+\item{e2}{A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}}
+or \code{\link{Date}}. Note that one of e1 and e2 must be a period and the other a
 date-time object.}
 
 \item{roll_to_first}{rollback to the first day of the month instead of the
@@ -54,10 +54,6 @@ always returns a date in the nth month after Date. If the new date would
 usually spill over into the n + 1th month, \%m+\% will return the last day of
 the nth month (\code{\link{rollback}}. Date \%m-\% months(n) always returns a
 date in the nth month before Date.
- 
-\%m+\% and \%m-\% handle periods with components less than a month by first
-adding/substracting months and then performing usual arithmetics with smaller
-units.
 
 \code{add_with_rollback} provides additional functionality to \%m+\% and
 \%m-\%. It allows rollback to first day of the month instead of the last day
@@ -65,6 +61,10 @@ of the previous month and controls whether HMS component of the end date is
 preserved or not.
 }
 \details{
+\%m+\% and \%m-\% handle periods with components less than a month by first
+adding/substracting months and then performing usual arithmetics with smaller
+units.
+
 \%m+\% and \%m-\% should be used with caution as they are not one-to-one
 operations and results for either will be sensitive to the order of
 operations.

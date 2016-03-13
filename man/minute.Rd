@@ -14,14 +14,14 @@ minute(x)
 the minutes element of x as a decimal number
 }
 \description{
-Date-time must be a  POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
+Date-time must be a  POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo,
 zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 }
 \examples{
 x <- ymd("2012-03-26")
 minute(x)
 minute(x) <- 1
-minute(x) <- 61 
+minute(x) <- 61
 minute(x) > 2
 }
 \keyword{chron}

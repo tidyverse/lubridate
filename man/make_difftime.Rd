@@ -15,7 +15,7 @@ default) the display units are computed automatically. This might create
 undesirable effects when converting \code{difftime} objects to numeric
 values in data processing.}
 
-\item{...}{a list of time units to be included in the difftime and their amounts. Seconds, 
+\item{...}{a list of time units to be included in the difftime and their amounts. Seconds,
 minutes, hours, days, and weeks are supported. Normally only one of \code{num} or \code{...} are present. If
 both are present, the \code{difftime} objects are concatenated.}
 }
@@ -30,11 +30,11 @@ convenience. The underlying object is always recorded as a fixed number of
 seconds.
 }
 \details{
-Conceptually, difftime objects are a type of duration. They measure the 
-exact passage of time but do not always align with measurements 
-made in larger units of time such as hours, months and years. 
-This is because the length of larger time units can be affected 
-by conventions such as leap years 
+Conceptually, difftime objects are a type of duration. They measure the
+exact passage of time but do not always align with measurements
+made in larger units of time such as hours, months and years.
+This is because the length of larger time units can be affected
+by conventions such as leap years
 and Daylight Savings Time. lubridate provides a second class for measuring durations, the Duration class.
 }
 \examples{

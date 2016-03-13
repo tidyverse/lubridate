@@ -7,8 +7,8 @@
 quarter(x, with_year = FALSE)
 }
 \arguments{
-\item{x}{a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
-zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can be converted 
+\item{x}{a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo,
+zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can be converted
 with as.POSIXlt}
 
 \item{with_year}{logical indicating whether or not to include the quarter's year.}
@@ -17,8 +17,8 @@ with as.POSIXlt}
 numeric the fiscal quarter that the date-time occurs in
 }
 \description{
-Fiscal quarters are a way of dividing the year into fourths. The first quarter (Q1) 
-comprises January, February and March; the second quarter (Q2) comprises April, May, 
+Fiscal quarters are a way of dividing the year into fourths. The first quarter (Q1)
+comprises January, February and March; the second quarter (Q2) comprises April, May,
 June; the third quarter (Q3) comprises July, August, September; the fourth quarter (Q4)
 October, November, December.
 }
