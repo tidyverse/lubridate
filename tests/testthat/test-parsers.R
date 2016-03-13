@@ -532,16 +532,21 @@ test_that("parse_date_time2 and fast_strptime correctly return lt objects", {
   expect_is(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", lt = FALSE), "POSIXct")
 })
 
-test_that("ymd_hms, parse_date_time2 and fast_strptime give the same result", {
+test_that("ymd_hms, parse_date_time2, fast_strptime and base:strptime give the same result", {
   ## random times between 1400 and 3000
+  set.seed(1000)
   X <- as.character(.POSIXct(runif(1000, -17987443200, 32503680000)))
   oposix <- as.POSIXct(X, tz = "UTC")
   opdt1 <- ymd_hms(X)
   opdt2 <- parse_date_time2(X, "YmdHMOS")
-  ostrptime <- fast_strptime(X, "%Y-%m-%d %H:%M:%OS")
+  ofstrptime <- fast_strptime(X, "%Y-%m-%d %H:%M:%OS")
   expect_equal(oposix, opdt1)
   expect_equal(oposix, opdt2)
-  expect_equal(oposix, ostrptime)
+  expect_equal(oposix, ofstrptime)
+
+  tzs <- strptime(X, "%Y-%m-%d %H:%M:%OS", tz = "America/New_York")
+  tzfs <- fast_strptime(X, "%Y-%m-%d %H:%M:%OS", tz = "America/New_York")
+  expect_equal(tzs, tzfs)
 })
 
 test_that("fast_strptime and parse_date_time2 parse correctly verbose formats", {
