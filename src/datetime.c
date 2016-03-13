@@ -21,6 +21,7 @@
 #define USE_RINTERNALS 1
 #include <Rinternals.h>
 #include <stdlib.h>
+#include "constants.h"
 #include "utils.h"
 
 SEXP make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP second) {
@@ -114,7 +115,7 @@ SEXP make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP secon
 		continue;
 	  }
 
-	  int is_leap = LEAP(y);
+	  int is_leap = IS_LEAP(y);
 
 	  if(check_ymd(y, m, d, is_leap)){
 
