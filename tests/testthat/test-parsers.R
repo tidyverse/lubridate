@@ -497,13 +497,13 @@ test_that("parse_date_time2 and fast_strptime parse ISO8601 timezones",{
 
 test_that("parse_date_time2 and fast_strptime correctly work with timezones", {
   ## https://github.com/hadley/lubridate/issues/394
-  expect_equal(parse_date_time("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"), 
+  expect_equal(parse_date_time("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"),
                parse_date_time2("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"))
-  expect_equal(as.POSIXct(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich")), 
+  expect_equal(as.POSIXct(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich")),
                parse_date_time2("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"))
-  expect_equal(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich"), 
+  expect_equal(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich"),
                fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich"))
-  expect_equal(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York"), 
+  expect_equal(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York"),
                fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York"))
 })
 
@@ -568,9 +568,9 @@ test_that("fast_strptime and parse_date_time2 aggree with strptime", {
 
 test_that("a and A formats are handled correctly (#254)", {
   dates <- c("Saturday 31 August 2013", "Sun 12 Jan 2014")
-  expect_equal(parse_date_time(x = dates, orders = c("dby")), 
+  expect_equal(parse_date_time(x = dates, orders = c("dby")),
                parse_date_time(x = dates, orders = c("adby")))
-  expect_equal(parse_date_time(x = dates, orders = c("dby")), 
+  expect_equal(parse_date_time(x = dates, orders = c("dby")),
                parse_date_time(x = dates, orders = c("Adby")))
 })
 
@@ -587,19 +587,22 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
                           tz = "UTC"))
 })
 
-## c("2012-12-04 15:06:06.952000-08:00", "2012-12-04 15:04:01.640000-08:00",
-##   "2012-12-02 17:58:31.141000-08:00", "2012-12-04 17:15:14.091000-08:00",
-##   "2012-12-04 17:16:05.097000-08:00")
+## library(microbenchmark)
+## library(lubridate)
 
-### speed:
+### PARSING
 ## options(digits.secs = 3)
-## ## random times between 1400 and 3000
-## tt <- as.character(.POSIXct(runif(1e6, -17987443200, 32503680000)))
-## system.time(out <- as.POSIXct(tt, tz = "UTC"))
-## system.time(out1 <- ymd_hms(tt)) ## format learning overhead
-## system.time(out2 <- parse_date_time2(tt, "YmdHMOS"))
-## system.time(out3 <- fast_strptime(tt, "%Y-%m-%d %H:%M:%OS"))
+## set.seed(100)
+## tt <- as.character(.POSIXct(runif(1e6, -17987443200, 32503680000))) # random times between 1400 and 3000
 
+## microbenchmark(#POSIXct = as.POSIXct(tt, tz = "UTC"),
+##                ymd_hms =  ymd_hms(tt),
+##                pdt2 = parse_date_time2(tt, "YmdHMOS"),
+##                fstrptime = fast_strptime(tt, "%Y-%m-%d %H:%M:%OS", lt = FALSE),
+##                readr = parse_datetime(tt, "%Y-%m-%d %H:%M:%OS"),
+##                times = 10)
+
+### MAKE DATETIMES
 ## N <- 1e4
 ## y <- as.integer(runif(N, 1800, 2200))
 ## m <- as.integer(runif(N, 1, 12))
@@ -609,7 +612,6 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
 ## S <- as.double(runif(N, 0, 59))
 ## ## S <- as.integer(S)
 
-## library(microbenchmark)
 ## microbenchmark(R = ISOdatetime(y, m, d, H, M, S, tz = "UTC"),
 ##                L = make_datetime(y, m, d, H, M, S))
 
