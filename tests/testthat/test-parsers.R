@@ -513,6 +513,24 @@ test_that("parse_date_time2 and fast_strptime parse ISO8601 timezones",{
     expect_equal(parse_date_time2(tm, "YmdHMSOO"), ptm)
 })
 
+test_that("parse_date_time2 and fast_strptime correctly work with timezones", {
+  ## https://github.com/hadley/lubridate/issues/394
+  expect_equal(parse_date_time("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"), 
+               parse_date_time2("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"))
+  expect_equal(as.POSIXct(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich")), 
+               parse_date_time2("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"))
+  expect_equal(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich"), 
+               fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich"))
+  expect_equal(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York"), 
+               fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York"))
+})
+
+test_that("parse_date_time2 and fast_strptime correctly return lt objects", {
+  expect_is(parse_date_time2("12/03/16 12:00",  "dmy HM"), "POSIXct")
+  expect_is(parse_date_time2("12/03/16 12:00",  "dmy HM", lt = TRUE), "POSIXlt")
+  expect_is(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M"), "POSIXlt")
+  expect_is(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", lt = FALSE), "POSIXct")
+})
 
 test_that("ymd_hms, parse_date_time2 and fast_strptime give the same result", {
   ## random times between 1400 and 3000

@@ -70,7 +70,6 @@ update.POSIXt <- function(object, ..., simple = FALSE){
   
   date[names(units)] <- units
   date[c("wday", "yday")] <- list(wday = NA, yday = NA)
-  if (is.null(date$zone)) date$zone <- NULL
 
   ## unbalanced POSIXlt often results in R crashes
   maxlen <- max(unlist(lapply(date, length)))
@@ -82,7 +81,8 @@ update.POSIXt <- function(object, ..., simple = FALSE){
   }
   
   class(date) <- c("POSIXlt", "POSIXt")
-  if (!is.na(new.tz)) attr(date, "tzone") <- new.tz
+  if (!is.na(new.tz))
+    attr(date, "tzone") <- new.tz
   
   ## fit to timeline
   ## POSIXct format avoids negative and NA elements in POSIXlt format

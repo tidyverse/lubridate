@@ -11,9 +11,9 @@ parse_date_time(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
   exact = FALSE)
 
-parse_date_time2(x, orders, tz = "UTC", exact = FALSE)
+parse_date_time2(x, orders, tz = "UTC", exact = FALSE, lt = FALSE)
 
-fast_strptime(x, format, tz = "UTC")
+fast_strptime(x, format, tz = "UTC", lt = TRUE)
 }
 \arguments{
 \item{x}{a character or numeric vector of dates}
@@ -30,18 +30,18 @@ parse the dates}
 
 \item{truncated}{integer, number of formats that can be missing. The most
 common type of irregularity in date-time data is the truncation due to
-rounding or unavailability of the time stamp. If \code{truncated} parameter is
-non-zero \code{parse_date_time} also checks for truncated formats. For
-example,  if the format order is "ymdhms" and \code{truncated = 3},
-\code{parse_date_time} will correctly parse incomplete dates like
-\code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:}
-\code{ymd} family of functions are based on \code{strptime} which currently
-fails to parse \code{\%y-\%m} formats.}
+rounding or unavailability of the time stamp. If \code{truncated}
+parameter is non-zero \code{parse_date_time} also checks for truncated
+formats. For example,  if the format order is "ymdhms" and \code{truncated
+= 3}, \code{parse_date_time} will correctly parse incomplete dates like
+\code{2012-06-01 12:23}, \code{2012-06-01 12} and
+\code{2012-06-01}. \bold{NOTE:} \code{ymd} family of functions are based
+on \code{strptime} which currently fails to parse \code{\%y-\%m} formats.}
 
-\item{quiet}{logical. When TRUE progress messages are not printed, and "no
-formats found" error is surpresed and the function simply returns a vector
-of NAs.  This mirrors the behavior of base R functions \code{strptime} and
-\code{as.POSIXct}. Default is FALSE.}
+\item{quiet}{logical. When TRUE progress messages are not printed, and
+"no formats found" error is surpresed and the function simply returns a
+vector of NAs.  This mirrors the behavior of base R functions
+\code{strptime} and \code{as.POSIXct}. Default is FALSE.}
 
 \item{locale}{locale to be used, see \link{locales}. On linux systems you
 can use \code{system("locale -a")} to list all the installed locales.}
@@ -49,16 +49,21 @@ can use \code{system("locale -a")} to list all the installed locales.}
 \item{select_formats}{A function to select actual formats for parsing from a
 set of formats which matched a training subset of \code{x}. it receives a
 named integer vector and returns a character vector of selected
-formats. Names of the input vector are formats (not orders) that matched the
-training set. Numeric values are the number of dates (in the training set)
-that matched the corresponding format. You should use this argument if the
-default selection method fails to select the formats in the right order. By
-default the formats with most formating tockens (\%) are selected and \%Y
-counts as 2.5 tockens (so that it has a priority over \%y\%m). Se examples.}
+formats. Names of the input vector are formats (not orders) that matched
+the training set. Numeric values are the number of dates (in the training
+set) that matched the corresponding format. You should use this argument
+if the default selection method fails to select the formats in the right
+order. By default the formats with most formating tockens (\%) are
+selected and \%Y counts as 2.5 tockens (so that it has a priority over
+\%y\%m). Se examples.}
 
 \item{exact}{logical. If \code{TRUE}, \code{orders} parameter is interpreted
 as an exact \code{strptime} format and no trainign or guessing are
 performed.}
+
+\item{lt}{logical. If TRUE returned object is of class POSIXlt, and POSIXct
+otherwise. For compatibility with base `strptime` function default is TRUE
+for `fast_strptime` and FALSE for `parse_date_time2`.}
 
 \item{format}{a character string of formats. It should include all the
 separators and each format must be prefixed with %, just as in the format
@@ -84,9 +89,9 @@ When several format-orders are specified \code{parse_date_time} sorts the
 supplied format-orders based on a training set and then applies them
 recursively on the input vector.
 
-\code{parse_date_time}, and hence all the derived functions, such as
-\code{ymd_hms}, \code{ymd} etc, will drop into \code{fast_strptime} instead
-of \code{strptime} whenever the guesed from the input data formats are all
+\code{parse_date_time}, and all derived functions, such as \code{ymd_hms},
+\code{ymd} etc, will drop into \code{fast_strptime} instead of
+\code{strptime} whenever the guesed from the input data formats are all
 numeric.
 
 The list below contains formats recognized by lubridate. For numeric formats
@@ -163,12 +168,22 @@ the timezone formats.}
 }
 \note{
 \code{parse_date_time} (and the derivatives \code{ymb}, \code{ymd_hms}
-etc) rely on a sparse guesser that takes at most 501 elements from the
-supplied character vector in order to identify appropriate formats from the
-supplied orders. If you get the error \code{All formats failed to parse} and
-you are confident that your vector contains valid dates, you should use
-functions that don't perform format guessing (\code{strptime},
-\code{fast_strptime} and \code{parse_date_time2}).
+  etc) rely on a sparse guesser that takes at most 501 elements from the
+  supplied character vector in order to identify appropriate formats from
+  the supplied orders. If you get the error \code{All formats failed to
+  parse} and you are confident that your vector contains valid dates, you
+  should either set \code{exact} argument to TRUE or use functions that
+  don't perform format guessing (\code{fast_strptime},
+  \code{parse_date_time2} or \code{strptime} ).
+
+For performance reasons, when timezone is not UTC,
+  \code{parse_date_time2} and \code{fast_strptime} perform no validity
+  checks for daylight savings time. Thus, if your input string contains an
+  invalid date time which falls into DST gap and \code{lt=TRUE} you will get
+  an \code{POSIXlt} object with a non-existen time. If \code{lt=FALSE} your
+  time instant will be adjusted to a valid time by adding an hour. See
+  examples. If you want to get NA for invalid date-times use
+  \code{\link{fit_to_timeline}} explicitely.
 }
 \examples{
 
@@ -232,7 +247,15 @@ my_select <-   function(trained){
 }
 
 parse_date_time(c("27-09-13", "27-09-2013"), "dmy", select_formats = my_select)
-## '[1] "2013-09-27 UTC" "2013-09-27 UTC"
+## [1] "2013-09-27 UTC" "2013-09-27 UTC"
+
+## ** invalid times with "fast" parcing **
+parse_date_time("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
+## [1] NA
+parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
+## [1] "2010-03-14 03:05:06 EDT"
+parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York", lt = TRUE)
+## [1] "2010-03-14 02:05:06 America/New_York"
 }
 \seealso{
 \code{strptime}, \code{\link{ymd}}, \code{\link{ymd_hms}}
