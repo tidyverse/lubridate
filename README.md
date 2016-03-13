@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/hadley/lubridate.png?branch=master)](https://travis-ci.org/hadley/lubridate) [![Coverage Status](https://img.shields.io/codecov/c/github/hadley/lubridate/master.svg)](https://codecov.io/github/hadley/lubridate?branch=master)
+[![Build Status](https://travis-ci.org/hadley/lubridate.png?branch=master)](https://travis-ci.org/hadley/lubridate)
+[![Coverage Status](https://img.shields.io/codecov/c/github/hadley/lubridate/master.svg)](https://codecov.io/github/hadley/lubridate?branch=master)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/lubridate)](http://cran.r-project.org/web/packages/lubridate/index.html)
+[![CRAN version](http://www.r-pkg.org/badges/version/lubridate)](http://cran.r-project.org/package=lubridate)
 
 # lubridate
 
