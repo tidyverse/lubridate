@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/hadley/lubridate.png?branch=master)](https://travis-ci.org/hadley/lubridate)
+[![Build Status](https://travis-ci.org/hadley/lubridate.png?branch=master)](https://travis-ci.org/hadley/lubridate) [![Coverage Status](https://img.shields.io/codecov/c/github/hadley/lubridate/master.svg)](https://codecov.io/github/hadley/lubridate?branch=master)
 
-# lubridate 
+# lubridate
 
 Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not. Specifically, lubridate provides:
 
