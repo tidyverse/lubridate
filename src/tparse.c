@@ -56,14 +56,14 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
   SEXP oYEAR, oMONTH, oDAY, oHOUR, oMIN, oSEC;
 
   if(out_lt){
-    oYEAR  = allocVector(INTSXP, n);
-    oMONTH = allocVector(INTSXP, n);
-    oDAY   = allocVector(INTSXP, n);
-    oHOUR  = allocVector(INTSXP, n);
-    oMIN   = allocVector(INTSXP, n);
-    oSEC   = allocVector(REALSXP, n);
+    oYEAR  = PROTECT(allocVector(INTSXP, n));
+    oMONTH = PROTECT(allocVector(INTSXP, n));
+    oDAY   = PROTECT(allocVector(INTSXP, n));
+    oHOUR  = PROTECT(allocVector(INTSXP, n));
+    oMIN   = PROTECT(allocVector(INTSXP, n));
+    oSEC   = PROTECT(allocVector(REALSXP, n));
   } else {
-    oSEC = allocVector(REALSXP, n);
+    oSEC = PROTECT(allocVector(REALSXP, n));
   }
 
   const char *O = CHAR(STRING_ELT(ord, 0));
@@ -298,9 +298,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
     SET_VECTOR_ELT(out, 4, oMONTH);
     SET_VECTOR_ELT(out, 5, oYEAR);
     setAttrib(out, R_NamesSymbol, names);
-    UNPROTECT(2);
+    UNPROTECT(8);
     return out;
   } else {
+    UNPROTECT(1);
     return oSEC;
   }
 
