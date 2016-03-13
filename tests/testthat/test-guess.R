@@ -5,35 +5,35 @@
 ##        "february  14, 2004",
 ##        "Sunday, May 1, 2000",
 ##        "Sunday, May 1, 2000",
-##        "february  14, 04",       
+##        "february  14, 04",
 ##        'Feb 20th 73',
 ##        "January 5 1999 at 7 pm",
 ##        "January 5 1999 at7pm",
 ##        "jan 3 2010",
-##        "Jan 1, 1999", 
+##        "Jan 1, 1999",
 ##        "jan 3   10",
 ##        "01 3 2010",
 ##        "1 3 10",
 ##        '1 13 89',
-##        "5/27/1979", 
-##        "12/31/99", 
-##        "DOB:12/11/00", 
-##        "-----------", 
+##        "5/27/1979",
+##        "12/31/99",
+##        "DOB:12/11/00",
+##        "-----------",
 ##        'Thu, 1 July 2004 22:30:00',
 ##        'Thu, 1st of July 2004 at 22:30:00',
 ##        'Thu, 1July 2004 at 22:30:00',
 ##        'Thu, 1July2004 22:30:00',
 ##        "21 Aug 2011, 11:15:34 pm",
-##        "-----------", 
+##        "-----------",
 ##        "1979-05-27 05:00:59",
-##        "1979-05-27", 
-##        "-----------", 
-##        "3 jan 2000", 
-##        "17 april 85", 
-##        "27/5/1979", 
-##        '20 01 89', 
+##        "1979-05-27",
+##        "-----------",
+##        "3 jan 2000",
+##        "17 april 85",
+##        "27/5/1979",
+##        '20 01 89',
 ##        '00/13/10',
-##        "-------", 
+##        "-------",
 ##        "14 12 00",
 ##        "03:23:22 pm")
 
@@ -73,7 +73,7 @@
 
 ## reg <- c("\\b((?<fixed>(?<Q_f>[0-2]?\\d)\\D*?(?<p_f>(AM|PM)))|(?<flex>(?<Q>[0-2]?\\d)\\D*?(?<p>(DD|BB))))")
 ## x <- c("aaa 12 DD aaa",
-##        "bbb 22 AM bbb", 
+##        "bbb 22 AM bbb",
 ##        "ccc 14 PM ccc")
 ## ## gsub(reg , "####",x , ignore.case=T, perl = TRUE)
 ## regexpr(reg[[1]], x, perl=T)
@@ -83,6 +83,5 @@ context("Guessing format")
 
 test_that(".get_train_set can find non NA dates",{
   x <- suppressWarnings(suppressMessages(ymd(c(rep(NA, 199), 20130213))))
-  expect_equal(x, as.POSIXct(c(rep(NA, 199), "2013-02-13"), tz = "UTC"))
+  expect_equal(x, as.Date(as.POSIXct(c(rep(NA, 199), "2013-02-13"), tz = "UTC")))
 })
-

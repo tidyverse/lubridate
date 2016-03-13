@@ -12,6 +12,7 @@ Version 1.5.0.9000 (development)
 
 ### CHANGES
 
+* [##391](https://github.com/hadley/lubridate/issues/391) `ymd` family of functions return `Date` object when `tz` argument is NULL (new default) and POSIXct otherwise.
 * [#364](https://github.com/hadley/lubridate/issues/364) Remove epoch functions.
 * For consistency with `base:strptime` `fast_strptime` now returns `POSIXlt` object. That is, its `lt` argument defaults to `TRUE`.
 

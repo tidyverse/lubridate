@@ -11,7 +11,7 @@
 \title{Parse dates according to the order in that year, month, and day elements
 appear in the input vector.}
 \usage{
-ymd(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+ymd(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
   truncated = 0)
 }
 \arguments{
@@ -20,9 +20,8 @@ ymd(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
 \item{quiet}{logical. When TRUE function evalueates without displaying
 customary messages.}
 
-\item{tz}{a character string that specifies which time zone to parse the
-date with. The string must be a time zone that is recognized by the user's
-OS.}
+\item{tz}{Time zone indicator. If NULL (default) a Date object is
+returned. Otherwise a POSIXct with time zone attribute set to \code{tz}.}
 
 \item{locale}{locale to be used, see \link{locales}. On linux systems you
 can use \code{system("locale -a")} to list all the installed locales.}
@@ -30,7 +29,8 @@ can use \code{system("locale -a")} to list all the installed locales.}
 \item{truncated}{integer. Number of formats that can be truncated.}
 }
 \value{
-a vector of class POSIXct
+a vector of class POSIXct if tz argument is non-NULL or Date if tz
+  is NULL (default)
 }
 \description{
 Transforms dates stored in character and numeric vectors to POSIXct
@@ -57,7 +57,7 @@ formats (like %Y-%b) will not be parsed. Numeric truncated formats (like
 
 As of version 1.3.0, lubridate's parse functions no longer return a
 message that displays which format they used to parse their input. You can
-change this by setting the \code{lubridate.verbose} option to true with
+change this by setting the \code{lubridate.verbose} option to TRUE with
 \code{options(lubridate.verbose = TRUE)}.
 }
 \examples{
@@ -87,7 +87,8 @@ ymd(x)
 dmy("0312-2010", "312-2010")}
 }
 \seealso{
-\code{\link{parse_date_time}} for an even more flexible low level mechanism.
+\code{\link{parse_date_time}} for an even more flexible low level
+  mechanism.
 }
 \keyword{chron}
 

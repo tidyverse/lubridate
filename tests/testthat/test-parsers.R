@@ -3,156 +3,146 @@ Sys.setlocale("LC_TIME", "C")
 
 test_that("ymd functions correctly parse dates separated by -", {
   expect_that(ymd("2010-01-02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd("10-01-02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ydm("2010-02-01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(mdy("01-02-2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(myd("01-2010-02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dmy("02-01-2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dym("02-2010-01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
-  expect_that(ymd(c("2010-01-02","2010-01-03")) ,
-    equals(as.POSIXct(c("2010-01-02","2010-01-03"), tz =
-    "UTC")))
+              equals(as.Date("2010-01-02")))
+  expect_that(ymd(c("2010-01-02","2010-01-03")),
+              equals(as.Date(c("2010-01-02","2010-01-03"))))
 })
 
 test_that("ymd functions correctly parse dates separated by /", {
   expect_that(ymd("2010/01/02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd("10/01/02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ydm("2010/02/01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(mdy("01/02/2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(myd("01/2010/02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dmy("02/01/2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dym("02/2010/01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd(c("2010/01/02","2010/01/03")) ,
-    equals(as.POSIXct(c("2010-01-02","2010-01-03"), tz =
-    "UTC")))
+              equals(as.Date(c("2010-01-02","2010-01-03"))))
 })
 
 
 test_that("ymd functions correctly parse dates separated by .", {
   expect_that(ymd("2010.01.02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd("10.01.02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ydm("2010.02.01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(mdy("01.02.2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(myd("01.2010.02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dmy("02.01.2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dym("02.2010.01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd(c("2010.01.02","2010.01.03")) ,
-    equals(as.POSIXct(c("2010-01-02","2010-01-03"), tz =
-    "UTC")))
+              equals(as.Date(c("2010-01-02","2010-01-03"))))
 })
 
 test_that("ymd functions correctly parse dates separated by ,", {
   expect_that(ymd("2010,01,02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd("10,01,02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ydm("2010,02,01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(mdy("01,02,2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(myd("01,2010,02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dmy("02,01,2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dym("02,2010,01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd(c("2010,01,02","2010,01,03")) ,
-    equals(as.POSIXct(c("2010-01-02","2010-01-03"), tz =
-    "UTC")))
+              equals(as.Date(c("2010-01-02","2010-01-03"))))
 })
 
 test_that("ymd functions correctly parse dates separated by :", {
   expect_that(ymd("2010:01:02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd("10:01:02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ydm("2010:02:01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(mdy("01:02:2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(myd("01:2010:02"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dmy("02:01:2010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dym("02:2010:01"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd(c("2010:01:02","2010:01:03")) ,
-    equals(as.POSIXct(c("2010-01-02","2010-01-03"), tz =
-    "UTC")))
+              equals(as.Date(c("2010-01-02","2010-01-03"))))
 })
 
 test_that("ymd functions correctly parse dates with no separators", {
   expect_that(ymd("20100102"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ydm("20100201"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(mdy("01022010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(myd("01201002"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dmy("02012010"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dym("02201001"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd(c("20100102","20100103")) ,
-    equals(as.POSIXct(c("2010-01-02","2010-01-03"), tz =
-    "UTC")))
+              equals(as.Date(c("2010-01-02","2010-01-03"))))
   expect_that(ymd("100102"),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
 })
 
 test_that("ymd function correctly parse b and B formats",{
-    expect_equal(ymd("2004-Jan-15"),
-                 as.POSIXct("2004-01-15", tz = "UTC"))
+    expect_equal(ymd("2004-Jan-15"), as.Date("2004-01-15"))
     expect_equal(ymd("2004-January-15"),
-                 as.POSIXct("2004-01-15", tz = "UTC"))
+                 as.Date("2004-01-15"))
     expect_equal(ymd("2004-Jan-15", "2004-Feb-15", "1904-Jan-15", "1904-Feb-15"),
-                 as.POSIXct(c("2004-01-15 UTC", "2004-02-15 UTC", "1904-01-15 UTC", "1904-02-15 UTC"),
-                            tz = "UTC"))
+                 as.Date(c("2004-01-15 UTC", "2004-02-15 UTC", "1904-01-15 UTC", "1904-02-15 UTC")))
     expect_equal(ymd("2004-Jan-15", "2004-Feb-15", "1904-January-15", "1904-February-15"),
-                 as.POSIXct(c("2004-01-15 UTC", "2004-02-15 UTC", "1904-01-15 UTC", "1904-02-15 UTC"),
-                            tz = "UTC"))
+                 as.Date(c("2004-01-15 UTC", "2004-02-15 UTC", "1904-01-15 UTC", "1904-02-15 UTC")))
 })
 
 test_that("ymd functions correctly parse dates with no separators and no quotes", {
   expect_that(ymd(20100102),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ydm(20100201),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(mdy(01022010),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(myd(01201002),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dmy(02012010),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(dym(02201001),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd(c(20100102, 20100103)) ,
-    equals(as.POSIXct(c("2010-01-02","2010-01-03"), tz =
-    "UTC")))
+              equals(as.Date(c("2010-01-02","2010-01-03"))))
   expect_that(ymd(100102),
-    equals(as.POSIXct("2010-01-02", tz = "UTC")))
+              equals(as.Date("2010-01-02")))
   expect_that(ymd_hms(20100102235959),
               equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
 })
@@ -169,7 +159,7 @@ test_that("all numbers are correctly converted into character for parsing", {
 
 test_that("ymd functions parse absurd formats as NA's", {
   ## should not through errors, just as as.POSIX and strptime
-  pna <- as.POSIXct(as.POSIXlt(NA, tz = "UTC"))
+  pna <- as.Date(NA)
   expect_that(ymd(201001023, quiet = TRUE), equals(pna))
   expect_that(ydm(20103201, quiet = TRUE),  equals(pna))
   expect_that(mdy(13022010, quiet = TRUE), equals(pna))
@@ -180,7 +170,7 @@ test_that("ymd functions parse absurd formats as NA's", {
   expect_that(ymd_hms("2010-01-023 23:59:59.34", quiet = TRUE), equals(pna))
   expect_that(ymd_hms("201001023235959.34", quiet = TRUE), equals(pna))
   expect_that(ymd(c(201001024, 20100103), quiet = TRUE),
-              equals(as.POSIXct(c(NA, "2010-01-03"), tz = "UTC")))
+              equals(as.Date(c(NA, "2010-01-03"))))
 })
 
 test_that("ymd functions give warning when parsing absurd formats", {
@@ -200,24 +190,24 @@ test_that("ymd functions give warning when parsing absurd formats", {
 test_that("0 month and 0 day in date produces NA",
           {
               expect_equal(ymd(c("2013-1-1", "2013-0-1"), quiet = TRUE),
-                           as.POSIXct(c("2013-01-01", NA), tz = "UTC"))
+                           as.Date(c("2013-01-01", NA)))
               expect_equal(ymd(c("2013-1-1", "2013-1-0"), quiet = TRUE),
-                           as.POSIXct(c("2013-01-01", NA), tz = "UTC"))
+                           as.Date(c("2013-01-01", NA)))
               expect_equal(ymd("2013-1-0", quiet = TRUE),
-                           as.POSIXct(as.character(NA), tz = "UTC"))
+                           as.Date(as.character(NA)))
           })
 
 test_that("ymd_hms correctly handles a variety of formats", {
-  expect_that(ymd_hms("2010-01-02 23:59:59"), equals(as.POSIXct(
-    "2010-01-02 23:59:59", tz = "UTC")))
-  expect_that(ymd_hms("2010,01,02 23.59.59"), equals(as.POSIXct(
-    "2010-01-02 23:59:59", tz = "UTC")))
-  expect_that(ymd_hms("2010,01,02 23.59.59.9"), equals(as.POSIXct(
-    "2010-01-02 23:59:59.9 UTC", tz = "UTC")))
-  expect_that(ymd_hms("2010/01/02 23/59/59"), equals(as.POSIXct(
-    "2010-01-02 23:59:59", tz = "UTC")))
-  expect_that(ymd_hms("2010:01:02-23:59:59"), equals(as.POSIXct(
-    "2010-01-02 23:59:59", tz = "UTC")))
+  expect_that(ymd_hms("2010-01-02 23:59:59"),
+              equals(as.POSIXct( "2010-01-02 23:59:59", tz = "UTC")))
+  expect_that(ymd_hms("2010,01,02 23.59.59"),
+              equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
+  expect_that(ymd_hms("2010,01,02 23.59.59.9"),
+              equals(as.POSIXct("2010-01-02 23:59:59.9 UTC", tz = "UTC")))
+  expect_that(ymd_hms("2010/01/02 23/59/59"),
+              equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
+  expect_that(ymd_hms("2010:01:02-23:59:59"),
+              equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
   ## VS: Next doesn't parse on my machine. It's OS specific.
   ## expect_that(ymd_hms("2010-01-02 23:59:61"), equals(as.POSIXct(
   ##   "2010-01-03 00:00:01", tz = "UTC")))
@@ -225,8 +215,8 @@ test_that("ymd_hms correctly handles a variety of formats", {
   ##   "2010-01-02 00:00:00")), equals(as.POSIXct(
   ##   c("2010-01-03 00:00:01", "2010-01-02 00:00:00"), tz =
   ##   "UTC")))
-  expect_that(ymd_hms("10-01-02 23:59:59"), equals(as.POSIXct(
-    "2010-01-02 23:59:59", tz = "UTC")))
+  expect_that(ymd_hms("10-01-02 23:59:59"),
+              equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
 })
 
 
@@ -317,9 +307,8 @@ test_that("hms functions give warning on shorter inputs", {
 test_that("heterogeneous formats are correctly parsed", {
   X <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4", "2009-1, 5", "2009....1--6", "200901-07", "200901-8")
   Y <- c("2009-01-01", "2009-01-02", "2009-01-03", "2009-01-04", "2009-01-05", "2009-01-06", "2009-01-07", "2009-01-08")
-  expect_that( ymd(X) ,equals( as.POSIXct(Y, tz = "UTC")))
+  expect_that(ymd(X) ,equals( as.Date(Y)))
   ## cbind(ymd(X), as.POSIXct(Y, tz = "UTC"))
-
   X <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
          "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6", "20090107 120107", "2009-01-08 1201-08",
          "2010-01-09 12:01:09", "2010-01-10 10:01:10 AM", "2010-01-11 10:01:11 PM")
@@ -386,9 +375,8 @@ test_that( "Vectors of NA's are parsed as vectors of NA's", {
               , hour = c(0, 0, 0)
               , minute = c(NA_real_, NA_real_, NA_real_)
   )
-
   expect_warning(ymd(NA, NA, NA))
-  expect_equal(ymd(NA, NA, NA, quiet = TRUE), mna)
+  expect_equal(ymd(NA, NA, NA, quiet = TRUE), as.Date(mna))
   expect_warning(ymd_hms(NA, NA, NA))
   expect_equal(ymd_hms(NA, NA, NA, quiet = TRUE), mna)
   expect_warning(ymd_hm(NA, NA, NA))
@@ -397,9 +385,8 @@ test_that( "Vectors of NA's are parsed as vectors of NA's", {
   expect_equal(hms(NA, NA, NA, quiet = TRUE), pna)
   expect_warning(ms(NA, NA, NA))
   expect_equal(ms(NA, NA, NA, quiet = TRUE), pna2)
-
   expect_warning(ymd(c(NA, NA, NA)))
-  expect_equal(ymd(c(NA, NA, NA), quiet = TRUE), mna)
+  expect_equal(ymd(c(NA, NA, NA), quiet = TRUE), as.Date(mna))
   expect_warning(ymd_hms(c(NA, NA, NA)))
   expect_equal(ymd_hms(c(NA, NA, NA), quiet = TRUE), mna)
   expect_warning(ymd_hm(c(NA, NA, NA)))
@@ -409,7 +396,6 @@ test_that( "Vectors of NA's are parsed as vectors of NA's", {
   expect_warning(ms(c(NA, NA, NA)))
   expect_equal(ms(c(NA, NA, NA), quiet = TRUE), pna2)
 })
-
 
 test_that("ISO8601: %z format (aka lubridate %Ou, %OO and %Oo formats) is correctly parsed",{
   expect_that(
@@ -435,7 +421,6 @@ test_that("ISO8601: xxx_hms functions work correctly with z, Ou, OO and Oo forma
                         "2013-01-24 19:39:07.88 UTC", "2013-01-25 01:39:07.88 UTC",
                         "2013-01-25 01:39:07.88 UTC", "2013-01-24 19:39:07.88 UTC"), tz = "UTC")))
 })
-
 
 test_that("ymd_hms treats time zones correctly", {
   expect_that(ymd_hms("2012-03-03 23:06:07", tz="America/Chicago"),
@@ -479,10 +464,8 @@ test_that("ymd_hms parses OO and Oo formats correctly", {
   ## vectorizes
   expect_that(ymd_hms(c("2012-03-04T05:06:07+01", "2012-03-04T05:06:07+01:30")),
               equals(ymd_hms(c("2012-03-04 04:06:07", "2012-03-04 03:36:07"), tz="UTC")))
-
   expect_that(ymd_hms("2012-03-04T05:06:07-01:30", tz="America/Chicago", quiet = T),
               equals(ymd_hms("2012-03-04 00:36:07", tz="America/Chicago")))
-
   expect_that(ymd_hms("2012-03-04T05:06:07-01:30", tz="America/Chicago"),
               shows_message("Date in ISO8601 format"))
 })
@@ -505,7 +488,6 @@ test_that("parse_date_time2 and fast_strptime parse ISO8601 timezones",{
     expect_equal(parse_date_time2(tm, "YmdHMSOz"), ptm)
     expect_equal(parse_date_time2(tm, "YmdHMOSz"), ptm)
     expect_equal(parse_date_time2(tm, "YmdHMOSOz"), ptm)
-
     tm <- "2001-02-03 11:22:33-06:30"
     expect_equal(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%OO"), ptm)
     expect_equal(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%z"), ptm)
@@ -543,7 +525,6 @@ test_that("ymd_hms, parse_date_time2, fast_strptime and base:strptime give the s
   expect_equal(oposix, opdt1)
   expect_equal(oposix, opdt2)
   expect_equal(oposix, ofstrptime)
-
   tzs <- strptime(X, "%Y-%m-%d %H:%M:%OS", tz = "America/New_York")
   tzfs <- fast_strptime(X, "%Y-%m-%d %H:%M:%OS", tz = "America/New_York")
   expect_equal(tzs, tzfs)
@@ -554,7 +535,6 @@ test_that("fast_strptime and parse_date_time2 parse correctly verbose formats", 
                as.POSIXct("2000-10-12", tz = "UTC"))
   expect_equal(fast_strptime("aa 2000 5555 bbb10ccc 12 zzz", "aa %Y 5555 bbb%mccc %d zzz"),
                as.POSIXct("2000-10-12", tz = "UTC"))
-
   expect_equal(parse_date_time2("aa 2000 bbb10ccc 12 zzz", "Ymd"),
                as.POSIXct("2000-10-12", tz = "UTC"))
   expect_equal(parse_date_time2("aa 2000 5555 bbb10ccc 12 zzz", "Ymd"),
@@ -563,13 +543,13 @@ test_that("fast_strptime and parse_date_time2 parse correctly verbose formats", 
 
 test_that("fast_strptime and parse_date_time2 deal correctly with leap years", {
   expect_equal(ymd(c("2000-02-29", "2100-02-29", "2400-02-29"), quiet = T),
-               as.POSIXct(c("2000-02-29 UTC", NA, "2400-02-29 UTC"), tz = "UTC"))
+               as.Date(c("2000-02-29 UTC", NA, "2400-02-29 UTC")))
 })
 
 test_that("fast_strptime and parse_date_time2 detect excesive days", {
   ## https://github.com/hadley/lubridate/issues/#289
   expect_equal(ymd(c("2000-01-32", "2000-02-30", "2100-03-32", "2400-12-32"), quiet = T),
-               .POSIXct(as.numeric(c(NA, NA, NA, NA)), tz = "UTC"))
+               as.Date(c(NA, NA, NA, NA)), tz = "UTC")
 })
 
 test_that("fast_strptime and parse_date_time2 aggree with strptime", {
@@ -600,9 +580,7 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
                                c('%m/%d/%Y %I:%M:%S','%m/%d/%Y %H%M'),
                                exact = T),
                as.POSIXct(c("1996-12-17 04:00:00 UTC", "1950-04-18 01:30:00 UTC"), tz = "UTC"))
-
   x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
-
   expect_equal(parse_date_time(x, c("%m-%d-%y", "%m%d%y", "%m-%d-%y %H:%M"), exact = TRUE),
                as.POSIXct(c("2001-09-01 00:00:00 UTC", "2002-09-01 00:00:00 UTC",
                             NA,  "2003-09-01 12:02:00 UTC"),

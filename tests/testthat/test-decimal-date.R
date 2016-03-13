@@ -28,10 +28,10 @@ test_that("date_decimal reverses decimal_date",{
   date <- ymd("2012-03-01")
   decimal <- decimal_date(date)
   expect_equal(date_decimal(decimal), date)
-  
-  date2 <- ymd("2012-03-01", tz = "America/Chicago")
+
+  date2 <- ymd("2012-03-01")
   decimal2 <- decimal_date(date2)
-  expect_equal(date_decimal(decimal2, tz = "America/Chicago"), date2)
+  expect_equal(as.Date(date_decimal(decimal2)), date2)
 
   ## before day light shift
   date3 <- ymd_hms("2008-02-03 10:01:59", tz = "America/New_York")

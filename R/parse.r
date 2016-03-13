@@ -24,22 +24,23 @@
 ##'
 ##' As of version 1.3.0, lubridate's parse functions no longer return a
 ##' message that displays which format they used to parse their input. You can
-##' change this by setting the \code{lubridate.verbose} option to true with
+##' change this by setting the \code{lubridate.verbose} option to TRUE with
 ##' \code{options(lubridate.verbose = TRUE)}.
 ##'
 ##' @export ymd myd dym ydm mdy dmy
 ##' @aliases yearmonthdate ymd myd dym ydm mdy dmy
 ##' @param ... a character or numeric vector of suspected dates
 ##' @param quiet logical. When TRUE function evalueates without displaying
-##' customary messages.
-##' @param tz a character string that specifies which time zone to parse the
-##' date with. The string must be a time zone that is recognized by the user's
-##' OS.
+##'   customary messages.
+##' @param tz Time zone indicator. If NULL (default) a Date object is
+##'   returned. Otherwise a POSIXct with time zone attribute set to \code{tz}.
 ##' @param locale locale to be used, see \link{locales}. On linux systems you
-##' can use \code{system("locale -a")} to list all the installed locales.
+##'   can use \code{system("locale -a")} to list all the installed locales.
 ##' @param truncated integer. Number of formats that can be truncated.
-##' @return a vector of class POSIXct
-##' @seealso \code{\link{parse_date_time}} for an even more flexible low level mechanism.
+##' @return a vector of class POSIXct if tz argument is non-NULL or Date if tz
+##'   is NULL (default)
+##' @seealso \code{\link{parse_date_time}} for an even more flexible low level
+##'   mechanism.
 ##' @keywords chron
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
@@ -66,17 +67,17 @@
 ##' ## formats are not in double digits might not be parsed correctly:
 ##' \dontrun{ymd("201002-01", "201002-1", "20102-1")
 ##' dmy("0312-2010", "312-2010")}
-ymd <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+ymd <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
-ydm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+ydm <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
-mdy <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+mdy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
-myd <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+myd <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
-dmy <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+dmy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
-dym <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
+dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
@@ -760,12 +761,18 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
   parse_date_time(dates, orders, tz = tz, quiet = quiet, locale = locale)
 }
 
-.parse_xxx <- function(..., orders, quiet, tz, locale = locale,  truncated){
+.parse_xxx <- function(..., orders, quiet, tz = NULL, locale = locale,  truncated){
+  ## if(!missing(tz))
+  ##   .deprecated_arg("tz", "1.5.6", 2)
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  parse_date_time(dates, orders, quiet = quiet, tz = tz,
-                  locale = locale, truncated = truncated)
+  if(is.null(tz)){
+    as.Date.POSIXct(parse_date_time(dates, orders, quiet = quiet, tz = "UTC",
+                                    locale = locale, truncated = truncated))
+  } else {
+    parse_date_time(dates, orders, quiet = quiet, tz = tz,
+                    locale = locale, truncated = truncated)
+  }
 }
-
 
 .num_to_date <- function(x) {
   if (is.numeric(x)) {
