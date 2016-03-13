@@ -33,7 +33,7 @@ SEXP make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP secon
   if(!isNumeric(second)) error("second must be numeric");
 
   R_len_t n = LENGTH(year);
-  
+
   if(n != LENGTH(month)) error("length of 'month' vector is not the same as that of 'year'");
   if(n != LENGTH(day)) error("length of 'day' vector is not the same as that of 'year'");
   if(n != LENGTH(hour)) error("length of 'hour' vector is not the same as that of 'year'");
@@ -77,19 +77,19 @@ SEXP make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP secon
 	  data[i] = NA_REAL;
 
 	} else {
-	  
+
 	  if ( 0 < m && m < 13 )
 		SECS += sm[m];
 	  else {
 		data[i] = NA_REAL;
 		continue;
 	  }
-	
+
 	  if ( 0 < d && d < 32 )
 		SECS += (d - 1) * 86400;
 	  else {
 		data[i] = NA_REAL;
-		continue; 
+		continue;
 	  }
 
 	  if( H < 25 )
@@ -98,7 +98,7 @@ SEXP make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP secon
 		data[i] = NA_REAL;
 		continue;
 	  }
-	
+
 	  if ( M < 61 )
 		SECS += M * 60;
 	  else{
@@ -117,19 +117,19 @@ SEXP make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP secon
 	  int is_leap = LEAP(y);
 
 	  if(check_ymd(y, m, d, is_leap)){
-	
+
 		SECS += d30;
 		y -= 2000;
 		SECS += y * yearlen;
 		SECS += adjust_leap_years(y, m, is_leap);
 
 		data[i] = SECS;
-	  
+
 	  } else {
 		data[i] = NA_REAL;
 	  }
 	}
   }
-  
+
   return res;
 }

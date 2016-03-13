@@ -22,25 +22,24 @@ multiply_period_by_number <- function(per, num){
 }
 
 
-#' @export	
+#' @export
 setMethod("*", signature(e1 = "Timespan", e2 = "Timespan"),
 	function(e1, e2) stop("cannot multiply time span by time span"))
 
-#' @export	
+#' @export
 setMethod("*", signature(e1 = "Duration"), function(e1, e2) multiply_duration_by_number(e1, e2))
 
-#' @export	
+#' @export
 setMethod("*", signature(e2 = "Duration"), function(e1, e2) multiply_duration_by_number(e2, e1))
 
-#' @export	
+#' @export
 setMethod("*", signature(e1 = "Interval"), function(e1, e2) multiply_interval_by_number(e1, e2))
 
-#' @export	
+#' @export
 setMethod("*", signature(e2 = "Interval"), function(e1, e2) multiply_interval_by_number(e2, e1))
 
-#' @export	
+#' @export
 setMethod("*", signature(e1 = "Period"), function(e1, e2) multiply_period_by_number(e1, e2))
 
-#' @export		
+#' @export
 setMethod("*", signature(e2 = "Period"), function(e1, e2) multiply_period_by_number(e2, e1))
-

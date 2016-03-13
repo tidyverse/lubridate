@@ -2,7 +2,7 @@
 #'
 #' Users can specify whether to round to the nearest second, minute, hour, day,
 #' week, month, quarter, or year.
-#' 
+#'
 #' \code{round_date} takes a date-time object and rounds it to the nearest
 #' integer value of the specified time unit. For rounding date-ties which is
 #' exactly halfway between two consecutive units, the convention is to round
@@ -10,18 +10,18 @@
 #' \link[base]{round.POSIXt} function but does not follow the convention of the
 #' base \link[base]{round} function which "goes to the even digit" per IEC
 #' 60559.
-#' 
-#' \code{floor_date} takes a date-time object and rounds it down to the nearest integer 
+#'
+#' \code{floor_date} takes a date-time object and rounds it down to the nearest integer
 #' value of the specified time unit.
-#' 
+#'
 #' \code{ceiling_date} takes a date-time object and rounds it up to the nearest
 #' integer value of the specified time unit.
 #'
 #' By convention the boundary for a month is the first second of the month. Thus
 #' \code{floor_date(ymd("2000-03-01"), "month")} gives "2000-03-01 UTC".
 #' @rdname round_date
-#' @param x a vector of date-time objects 
-#' @param unit a character string specifying the time unit to be rounded to. Should be one of 
+#' @param x a vector of date-time objects
+#' @param unit a character string specifying the time unit to be rounded to. Should be one of
 #'   "second", "minute", "hour", "day", "week", "month", "quarter", or "year."
 #' @return x with the appropriate units floored
 #' @keywords manip chron
@@ -84,10 +84,10 @@
 round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
 
   if(!length(x)) return(x)
-  
+
   unit <- match.arg(unit)
 
-  new <- 
+  new <-
     if(unit %in% c("second", "minute", "hour", "day")){
       round.POSIXt(x, units = lub2base_units[[unit]])
     } else {
@@ -100,7 +100,7 @@ round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
       new[wabove] <- above[wabove]
       .POSIXct(new, tz = tz(x))
     }
-  
+
   reclass_date(new, x)
 }
 
@@ -141,7 +141,7 @@ ceiling_date <- function(x, unit = c("second", "minute", "hour", "day", "week", 
     new <- update(x, seconds = second(x) - 1L, simple = T)
     new <- switch(unit,
                   minute  = update(new, minute = minute(new) + 1L, second = 0, simple = T),
-                  hour    = update(new, hour = hour(new) + 1L, minute = 0, second = 0, simple = T), 
+                  hour    = update(new, hour = hour(new) + 1L, minute = 0, second = 0, simple = T),
                   day     = update(new, day = day(new) + 1L, hour = 0, minute = 0, second = 0, simple = T),
                   week    = update(new, wday = 8, hour = 0, minute = 0, second = 0, simple = T),
                   month   = update(new, month = month(new) + 1L, mday = 1, hour = 0, minute = 0, second = 0, simple = T),
@@ -151,7 +151,7 @@ ceiling_date <- function(x, unit = c("second", "minute", "hour", "day", "week", 
   }
 }
 
-## fixme: this function is nowhere used 
+## fixme: this function is nowhere used
 parse_unit_spec <- function(unitspec) {
   parts <- strsplit(unitspec, " ")[[1]]
   if (length(parts) == 1) {
@@ -161,10 +161,10 @@ parse_unit_spec <- function(unitspec) {
     mult <- as.numeric(parts[[1]])
     unit <- parts[[2]]
   }
-  
+
   unit <- gsub("s$", "", unit)
-  unit <- match.arg(unit, 
+  unit <- match.arg(unit,
     c("second","minute","hour","day", "week", "month", "year"))
-  
+
   list(unit = unit, mult = mult)
 }

@@ -1,9 +1,9 @@
 ### Various Constants
 
 N_DAYS_IN_MONTHS <- c(
-    Jan = 31L, Feb = 28L, Mar = 31L, 
-    Apr = 30L, May = 31L, Jun = 30L, 
-    Jul = 31L, Aug = 31L, Sep = 30L, 
+    Jan = 31L, Feb = 28L, Mar = 31L,
+    Apr = 30L, May = 31L, Jun = 30L,
+    Jul = 31L, Aug = 31L, Sep = 30L,
     Oct = 31L, Nov = 30L, Dec = 31L)
 
 ## lower bound included, upper excluded
@@ -73,5 +73,3 @@ lub2base_units <- list(second = "secs", minute = "mins", hour = "hours", day = "
             3359, 3361, 3371, 3373, 3389, 3391, 3407, 3413 , 3433, 3449, 3457, 3461, 3463,
             3467, 3469, 3491, 3499, 3511, 3517, 3527, 3529, 3533, 3539, 3541, 3547, 3557,
             3559, 3571)
-
-

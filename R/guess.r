@@ -121,7 +121,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     names(out) <- NULL
     unlist(out)
   }
-  
+
   if (preproc_wday && !any(grepl("[aA]", orders))) {
     ## replace short/long weak days in current locale
     x2 <- gsub(reg$alpha_exact[["A"]], "%A", x, ignore.case = T, perl = T)
@@ -227,7 +227,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 .locale_reg_cache <- new.env(hash = FALSE)
 
 .get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
-  ## build locale specific regexps for all posible orders  
+  ## build locale specific regexps for all posible orders
 
   if (exists(locale, envir = .locale_reg_cache, inherits = FALSE))
     return(get(locale, envir = .locale_reg_cache))

@@ -26,20 +26,20 @@ divide_interval_by_duration <- function(int, dur){
 adjust <- function(est, int, per) {
 	start <- int_start(int)
 	end <- int_end(int)
-	
+
   while(any(which <- add_with_rollback(start, est * per) < end))
     est[which] <- est[which] + 1
-  
+
 	while(any(which <- add_with_rollback(start, est * per) > end))
 		est[which] <- est[which] - 1
-	
+
 	est
 }
 
 
 ## broken:
 ## lubridate:::divide_interval_by_period(interval(ymd(20000229), ymd(20100303)), years(1))
-## Error in while (any(which <- (start + est * per < end))) est[which] <- est[which] +  : 
+## Error in while (any(which <- (start + est * per < end))) est[which] <- est[which] +  :
 ##   missing value where TRUE/FALSE needed
 divide_interval_by_period <- function(int, per){
   message("Remainder cannot be expressed as fraction of a period.\n  Performing %/%.")
@@ -87,8 +87,8 @@ divide_period_by_period <- function(per1, per2){
 }
 
 divide_period_by_number <- function(per, num){
-	new("Period", per@.Data / num, year = per@year / num, 
-		month = per@month / num, day = per@day / num, hour = per@hour / num, 
+	new("Period", per@.Data / num, year = per@year / num,
+		month = per@month / num, day = per@day / num, hour = per@hour / num,
 		minute = per@minute / num)
 }
 
@@ -97,7 +97,7 @@ divide_period_by_number <- function(per, num){
 divide_difftime_by_duration <- function(dif, dur)
 	as.numeric(dif, units = "secs") / dur@.Data
 
-	
+
 
 
 
@@ -106,95 +106,95 @@ divide_difftime_by_duration <- function(dif, dur)
 setMethod("/", signature(e1 = "Duration", e2 = "Duration"),
 	function(e1, e2) divide_duration_by_duration(e1, e2))
 
-#' @export		
+#' @export
 setMethod("/", signature(e1 = "Duration", e2 = "Interval"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or put interval in numerator.")
 })
 
-#' @export	
+#' @export
 setMethod("/", signature(e1 = "Duration", e2 = "Period"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 })
 
-#' @export			
+#' @export
 setMethod("/", signature(e1 = "Duration", e2 = "difftime"),
 	function(e1, e2) divide_duration_by_difftime(e1, e2))
 
-#' @export	
-setMethod("/", signature(e1 = "Duration", e2 = "numeric"),	
+#' @export
+setMethod("/", signature(e1 = "Duration", e2 = "numeric"),
 	function(e1, e2) divide_duration_by_number(e1, e2))
-		
-		
-#' @export		
-setMethod("/", signature(e1 = "Interval", e2 = "Duration"), 
-	function(e1, e2) divide_interval_by_duration(e1, e2))	
 
-#' @export	
+
+#' @export
+setMethod("/", signature(e1 = "Interval", e2 = "Duration"),
+	function(e1, e2) divide_interval_by_duration(e1, e2))
+
+#' @export
 setMethod("/", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
 	stop("interval / interval not defined")
 })
 
-#' @export		
-setMethod("/", signature(e1 = "Interval", e2 = "Period"), 
+#' @export
+setMethod("/", signature(e1 = "Interval", e2 = "Period"),
           function(e1, e2)divide_interval_by_period(e1, e2))
 
-#' @export			
-setMethod("/", signature(e1 = "Interval", e2 = "difftime"), 
+#' @export
+setMethod("/", signature(e1 = "Interval", e2 = "difftime"),
 	function(e1, e2) divide_interval_by_difftime(e1, e2))
 
-#' @export		
-setMethod("/", signature(e1 = "Interval", e2 = "numeric"), 
+#' @export
+setMethod("/", signature(e1 = "Interval", e2 = "numeric"),
 	function(e1, e2) divide_interval_by_number(e1, e2))
 
 
-#' @export	
+#' @export
 setMethod("/", signature(e1 = "Period", e2 = "Duration"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 })
 
-#' @export	
+#' @export
 setMethod("/", signature(e1 = "Period", e2 = "Interval"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.period() or put interval in numerator.")
 })
 
-#' @export	
+#' @export
 setMethod("/", signature(e1 = "Period", e2 = "Period"),
 	function(e1, e2) divide_period_by_period(e1, e2))
 
-#' @export			
+#' @export
 setMethod("/", signature(e1 = "Period", e2 = "difftime"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 })
 
-#' @export		
+#' @export
 setMethod("/", signature(e1 = "Period", e2 = "numeric"),
 	function(e1, e2) divide_period_by_number(e1, e2))
 
 
-	
-#' @export	
+
+#' @export
 setMethod("/", signature(e1 = "difftime", e2 = "Duration"),
 	function(e1, e2) divide_difftime_by_duration(e1, e2))
 
-#' @export	
+#' @export
 setMethod("/", signature(e1 = "difftime", e2 = "Interval"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or put interval in numerator.")
 })
 
-#' @export	
+#' @export
 setMethod("/", signature(e1 = "difftime", e2 = "Period"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 })
-	
 
 
-#' @export	
+
+#' @export
 setMethod("/", signature(e1 = "numeric", e2 = "Duration"),
 	function(e1, e2) stop("Cannot divide numeric by duration"))
 
-#' @export	
-setMethod("/", signature(e1 = "numeric", e2 = "Interval"), 
+#' @export
+setMethod("/", signature(e1 = "numeric", e2 = "Interval"),
 	function(e1, e2) stop("Cannot divide numeric by interval"))
-#' @export	
+#' @export
 setMethod("/", signature(e1 = "numeric", e2 = "Period"),
 	function(e1, e2) stop("Cannot divide numeric by period"))

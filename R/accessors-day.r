@@ -4,15 +4,15 @@ NULL
 #' Get/set days component of a date-time.
 #'
 #' @details \code{day} and \code{day<-} are aliases for \code{mday} and \code{mday<-} respectively.
-#' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, 
-#'   jul, timeSeries, or fts object. 
-#' @param label logical. Only available for wday. TRUE will display the day of the week as an 
+#' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
+#'   jul, timeSeries, or fts object.
+#' @param label logical. Only available for wday. TRUE will display the day of the week as an
 #'   ordered factor of character strings, such as "Sunday." FALSE will display the day of the week as a number.
-#' @param abbr logical. Only available for wday. FALSE will display the day of the week as an 
-#'   ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the 
+#' @param abbr logical. Only available for wday. FALSE will display the day of the week as an
+#'   ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the
 #'   label, such as "Sun". abbr is disregarded if label = FALSE.
 #' @param value a numeric object
-#' @return wday returns the day of the week as a decimal number 
+#' @return wday returns the day of the week as a decimal number
 #'   (01-07, Sunday is 1) or an ordered factor (Sunday is first).
 #' @seealso \code{\link{yday}}, \code{\link{mday}}
 #' @keywords utilities manip chron methods
@@ -29,9 +29,9 @@ NULL
 #' # "Tues"
 #' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 #' wday(ymd(080101) + days(-2:4), label = TRUE, abbr = TRUE)
-#' # "Sun"   "Mon"   "Tues"  "Wed"   "Thurs" "Fri"   "Sat" 
+#' # "Sun"   "Mon"   "Tues"  "Wed"   "Thurs" "Fri"   "Sat"
 #' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
-#' 
+#'
 #' x <- as.Date("2009-09-02")
 #' yday(x) #245
 #' mday(x) #2
@@ -39,7 +39,7 @@ NULL
 #' yday(x) <- 366 #"2010-01-01"
 #' mday(x) > 3
 #' @export day mday
-day <- function(x) 
+day <- function(x)
   UseMethod("mday")
 
 #' @rdname day
@@ -48,7 +48,7 @@ mday <- day
 
 #' @rdname day
 #' @export
-wday <- function(x, label = FALSE, abbr = TRUE) 
+wday <- function(x, label = FALSE, abbr = TRUE)
   UseMethod("wday")
 
 #' @export
@@ -59,14 +59,14 @@ wday.default <- function(x, label = FALSE, abbr = TRUE){
 #' @export
 wday.numeric <- function(x, label = FALSE, abbr = TRUE) {
   if (!label) return(x)
-  
+
   if (abbr) {
     labels <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
   } else {
     labels <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
                 "Friday", "Saturday")
   }
-  ordered(x, levels = 1:7, labels = labels)  
+  ordered(x, levels = 1:7, labels = labels)
 }
 
 #' @export
@@ -89,7 +89,7 @@ qday.default <- function(x) {
 
 #' @rdname day
 #' @export
-yday <- function(x) 
+yday <- function(x)
   UseMethod("yday")
 
 #' @export
@@ -129,7 +129,7 @@ setMethod("day<-", signature("Period"), function(x, value){
 #' @export
 "wday<-" <- function(x, value){
   if (!is.numeric(value)) {
-  	value <- pmatch(tolower(value), c("sunday", "monday", "tuesday", 
+  	value <- pmatch(tolower(value), c("sunday", "monday", "tuesday",
                                       "wednesday", "thursday", "friday", "saturday"))
   }
   x <- x + days(value - wday(x))

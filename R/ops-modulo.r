@@ -17,7 +17,7 @@ modulo_period_by_period <- function(per, per2)
 	per - per %/% per2 * per2
 
 #' @export
-setMethod("%%", signature(e1 = "Duration", e2 = "Duration"), 
+setMethod("%%", signature(e1 = "Duration", e2 = "Duration"),
 	function(e1, e2) modulo_duration_by_duration(e1, e2))
 
 #' @export
@@ -31,17 +31,17 @@ setMethod("%%", signature(e1 = "Duration", e2 = "Period"), function(e1, e2) {
 })
 
 #' @export
-setMethod("%%", signature(e1 = "Interval", e2 = "Duration"), 
+setMethod("%%", signature(e1 = "Interval", e2 = "Duration"),
 	function(e1, e2) modulo_interval_by_duration(e1, e2))
 
 #' @export
-setMethod("%%", signature(e1 = "Interval", e2 = "Interval"), 
+setMethod("%%", signature(e1 = "Interval", e2 = "Interval"),
 	function(e1, e2) stop("%% not defined for Interval class\nConsider setdiff()"))
-	
+
 #' @export
-setMethod("%%", signature(e1 = "Interval", e2 = "Period"), 
+setMethod("%%", signature(e1 = "Interval", e2 = "Period"),
 	function(e1, e2) modulo_interval_by_period(e1, e2))
-	
+
 #' @export
 setMethod("%%", signature(e1 = "Period", e2 = "Duration"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
@@ -51,8 +51,7 @@ setMethod("%%", signature(e1 = "Period", e2 = "Duration"), function(e1, e2) {
 setMethod("%%", signature(e1 = "Period", e2 = "Interval"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.period() or put interval in numerator.")
 })
-	
-#' @export
-setMethod("%%", signature(e1 = "Period", e2 = "Period"), 
-	function(e1, e2) modulo_period_by_period(e1, e2))
 
+#' @export
+setMethod("%%", signature(e1 = "Period", e2 = "Period"),
+	function(e1, e2) modulo_period_by_period(e1, e2))

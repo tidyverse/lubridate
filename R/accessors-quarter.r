@@ -3,13 +3,13 @@ NULL
 
 #' Get the fiscal quarter of a date-time.
 #'
-#' Fiscal quarters are a way of dividing the year into fourths. The first quarter (Q1) 
-#' comprises January, February and March; the second quarter (Q2) comprises April, May, 
+#' Fiscal quarters are a way of dividing the year into fourths. The first quarter (Q1)
+#' comprises January, February and March; the second quarter (Q2) comprises April, May,
 #' June; the third quarter (Q3) comprises July, August, September; the fourth quarter (Q4)
 #' October, November, December.
 #'
-#' @param x a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, 
-#' zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can be converted 
+#' @param x a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo,
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can be converted
 #' with as.POSIXlt
 #' @param with_year logical indicating whether or not to include the quarter's year.
 #' @keywords utilities manip chron methods
@@ -23,17 +23,17 @@ NULL
 #' @export
 quarter <- function(x, with_year = FALSE) {
   m <- month(x)
-  quarters <- c("1" = 1, 
-                "2" = 1, 
-                "3" = 1, 
-                "4" = 2, 
-                "5" = 2, 
-                "6" = 2, 
-                "7" = 3, 
-                "8" = 3, 
-                "9" = 3, 
-                "10" = 4, 
-                "11" = 4, 
+  quarters <- c("1" = 1,
+                "2" = 1,
+                "3" = 1,
+                "4" = 2,
+                "5" = 2,
+                "6" = 2,
+                "7" = 3,
+                "8" = 3,
+                "9" = 3,
+                "10" = 4,
+                "11" = 4,
                 "12" = 4)
   if (isTRUE(with_year)){
     q <- unname(quarters[m])

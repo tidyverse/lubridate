@@ -303,7 +303,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #'   amounts. Seconds, minutes,  hours, days, weeks, months, and years are
 #'   supported. Normally only one of \code{num} or \code{...} are present. If
 #'   both are present, the periods are concatenated.
-#' @seealso \code{\link{Period-class}}, \code{\link{quick_periods}},
+#'@seealso \code{\link{Period-class}}, \code{\link{quick_periods}},
 #'   \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
 #' @return a period object
 #' @keywords chron classes

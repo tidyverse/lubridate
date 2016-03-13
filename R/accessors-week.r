@@ -18,8 +18,8 @@ NULL
 #' @seealso \code{\link{isoyear}}
 #' @examples
 #' x <- ymd("2012-03-26")
-#' week(x) 
-#' week(x) <- 1  
+#' week(x)
+#' week(x) <- 1
 #' week(x) <- 54
 #' week(x) > 3
 #' @export

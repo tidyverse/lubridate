@@ -42,22 +42,22 @@ add_period_to_date <- function(per, date){
   month(per) <- 0
   year(per) <- 0
   lt <- add_months(lt, ms)
-  
-  new <- update(lt, 
+
+  new <- update(lt,
                 days = mday(lt) + per@day,
                 hours = hour(lt) + per@hour,
                 minutes = minute(lt) + per@minute,
                 seconds = second(lt) + per@.Data)
-  
+
 	if (is.Date(date) && sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
-		return(new)	
-	
+		return(new)
+
 	reclass_date(new, date)
 }
 
 add_months <- function(mt, mos) {
   mt$mon <- mt$mon + mos
-  
+
   ndays <- as.numeric(format.POSIXlt(mt, "%d", usetz = FALSE))
   mt$mon[mt$mday != ndays] <- NA
   mt
@@ -79,181 +79,180 @@ setMethod("+", signature(e1 = "Duration", e2 = "Duration"),
 	function(e1, e2) add_duration_to_duration(e2, e1))
 
 #' @export
-setMethod("+", signature(e1 = "Duration", e2 = "Interval"), function(e1, e2){ 
+setMethod("+", signature(e1 = "Duration", e2 = "Interval"), function(e1, e2){
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration()")
 })
 
-#' @export	
+#' @export
 setMethod("+", signature(e1 = "Duration", e2 = "Period"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 })
 
-#' @export	
-setMethod("+", signature(e1 = "Duration", e2 = "Date"), 
-	function(e1, e2) add_duration_to_date(e1, e2)) 
+#' @export
+setMethod("+", signature(e1 = "Duration", e2 = "Date"),
+	function(e1, e2) add_duration_to_date(e1, e2))
 
-#' @export	
+#' @export
 setMethod("+", signature(e1 = "Duration", e2 = "difftime"),
 	function(e1, e2) add_duration_to_duration(as.duration(e2), e1))
-	
-#' @export	
+
+#' @export
 setMethod("+", signature(e1 = "Duration", e2 = "numeric"),
 	function(e1, e2) add_number_to_duration(e2, e1))
 
-#' @export  
-setMethod("+", signature(e1 = "Duration", e2 = "POSIXct"), 
-	function(e1, e2) add_duration_to_date(e1, e2)) 
-
-#' @export	
-setMethod("+", signature(e1 = "Duration", e2 = "POSIXlt"), 
-	function(e1, e2) add_duration_to_date(e1, e2)) 
+#' @export
+setMethod("+", signature(e1 = "Duration", e2 = "POSIXct"),
+	function(e1, e2) add_duration_to_date(e1, e2))
 
 #' @export
-setMethod("+", signature(e1 = "Interval", e2 = "Duration"), function(e1, e2){ 
+setMethod("+", signature(e1 = "Duration", e2 = "POSIXlt"),
+	function(e1, e2) add_duration_to_date(e1, e2))
+
+#' @export
+setMethod("+", signature(e1 = "Interval", e2 = "Duration"), function(e1, e2){
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration()")
 })
 
-#' @export	
+#' @export
 setMethod("+", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
 	stop("+ undefined for Interval class:\nConsider intersect(), union(), or setdiff()\nor change class with as.period() or as.duration()")
 })
 
-#' @export	
-setMethod("+", signature(e1 = "Interval", e2 = "Period"), function(e1, e2){ 
+#' @export
+setMethod("+", signature(e1 = "Interval", e2 = "Period"), function(e1, e2){
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.period()")
 })
 
-#' @export	
+#' @export
 setMethod("+", signature(e1 = "Interval", e2 = "Date"), function(e1, e2) {
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
 
-#' @export	
-setMethod("+", signature(e1 = "Interval", e2 = "difftime"), function(e1, e2){ 
+#' @export
+setMethod("+", signature(e1 = "Interval", e2 = "difftime"), function(e1, e2){
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration()")
 })
 
 
-#' @export 
+#' @export
 setMethod("+", signature(e1 = "Interval", e2 = "numeric"), function(e1, e2) {
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
-#' @export 
+#' @export
 setMethod("+", signature(e1 = "Interval", e2 = "POSIXct"), function(e1, e2) {
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
-#' @export 	
+#' @export
 setMethod("+", signature(e1 = "Interval", e2 = "POSIXlt"), function(e1, e2) {
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
 
-#' @export 
+#' @export
 setMethod("+", signature(e1 = "Period", e2 = "Duration"), function(e1, e2) {
   stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 })
 
-#' @export 	
-setMethod("+", signature(e1 = "Period", e2 = "Interval"), function(e1, e2){ 
+#' @export
+setMethod("+", signature(e1 = "Period", e2 = "Interval"), function(e1, e2){
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.period()")
 })
 
 
-#' @export 
-setMethod("+", signature(e1 = "Period", e2 = "Period"), 
+#' @export
+setMethod("+", signature(e1 = "Period", e2 = "Period"),
 	function(e1, e2) add_period_to_period(e2, e1))
 
-#' @export 
-setMethod("+", signature(e1 = "Period", e2 = "Date"), 
+#' @export
+setMethod("+", signature(e1 = "Period", e2 = "Date"),
 	function(e1, e2) add_period_to_date(e1, e2))
 
-#' @export 		
+#' @export
 setMethod("+", signature(e1 = "Period", e2 = "difftime"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 })
 
 
-#' @export 	
+#' @export
 setMethod("+", signature(e1 = "Period", e2 = "numeric"),
 	function(e1, e2) add_number_to_period(e2, e1))
 
-#' @export 
-setMethod("+", signature(e1 = "Period", e2 = "POSIXct"), 
+#' @export
+setMethod("+", signature(e1 = "Period", e2 = "POSIXct"),
 	function(e1, e2) add_period_to_date(e1, e2))
 
-#' @export 	
-setMethod("+", signature(e1 = "Period", e2 = "POSIXlt"), 
+#' @export
+setMethod("+", signature(e1 = "Period", e2 = "POSIXlt"),
 	function(e1, e2) add_period_to_date(e1, e2))
-	
 
-#' @export 
-setMethod("+", signature(e1 = "Date", e2 = "Duration"), 
+
+#' @export
+setMethod("+", signature(e1 = "Date", e2 = "Duration"),
 	function(e1, e2) add_duration_to_date(e2, e1))
 
-#' @export 	
+#' @export
 setMethod("+", signature(e1 = "Date", e2 = "Interval"), function(e1, e2) {
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
-#' @export 	
-setMethod("+", signature(e1 = "Date", e2 = "Period"), 
+#' @export
+setMethod("+", signature(e1 = "Date", e2 = "Period"),
 	function(e1, e2) add_period_to_date(e2, e1))
 
 
-	
-#' @export 
-setMethod("+", signature(e1 = "difftime", e2 = "Duration"), 
+
+#' @export
+setMethod("+", signature(e1 = "difftime", e2 = "Duration"),
 	function(e1, e2) as.difftime(e2, units = "secs") + e1)
 
-#' @export 	
-setMethod("+", signature(e1 = "difftime", e2 = "Interval"), function(e1, e2){ 
+#' @export
+setMethod("+", signature(e1 = "difftime", e2 = "Interval"), function(e1, e2){
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration()")
 })
 
-#' @export 
+#' @export
 setMethod("+", signature(e1 = "difftime", e2 = "Period"), function(e1, e2) {
 	stop("Incompatible timespan classes:\n  change class with as.duration() or as.period()")
 })
 
-	
 
-#' @export 
+
+#' @export
 setMethod("+", signature(e1 = "numeric", e2 = "Duration"),
-	function(e1, e2) add_number_to_duration(e1, e2)) 
+	function(e1, e2) add_number_to_duration(e1, e2))
 
-#' @export 	
+#' @export
 setMethod("+", signature(e1 = "numeric", e2 = "Interval"), function(e1, e2) {
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
 
-#' @export 
+#' @export
 setMethod("+", signature(e1 = "numeric", e2 = "Period"),
 	function(e1, e2) add_number_to_period(e1, e2))
 
-	
-	
-#' @export 
-setMethod("+", signature(e1 = "POSIXct", e2 = "Duration"), 
-	function(e1, e2) add_duration_to_date(e2, e1)) 
 
-#' @export 	
+
+#' @export
+setMethod("+", signature(e1 = "POSIXct", e2 = "Duration"),
+	function(e1, e2) add_duration_to_date(e2, e1))
+
+#' @export
 setMethod("+", signature(e1 = "POSIXct", e2 = "Interval"), function(e1, e2) {
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
 
-#' @export 	
-setMethod("+", signature(e1 = "POSIXct", e2 = "Period"), 
+#' @export
+setMethod("+", signature(e1 = "POSIXct", e2 = "Period"),
 	function(e1, e2) add_period_to_date(e2, e1))
-      
-      
-#' @export       
-setMethod("+", signature(e1 = "POSIXlt", e2 = "Duration"), 
-	function(e1, e2) add_duration_to_date(e2, e1)) 
 
-#' @export 
+
+#' @export
+setMethod("+", signature(e1 = "POSIXlt", e2 = "Duration"),
+	function(e1, e2) add_duration_to_date(e2, e1))
+
+#' @export
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Interval"), function(e1, e2) {
 	stop("+ undefined for Interval class:\n  manipulate with int_start(), int_end() and int_shift()\n  or change class with as.duration() or as.period()")
 })
 
-#' @export 	
-setMethod("+", signature(e1 = "POSIXlt", e2 = "Period"), 
+#' @export
+setMethod("+", signature(e1 = "POSIXlt", e2 = "Period"),
 	function(e1, e2) add_period_to_date(e2, e1))
-

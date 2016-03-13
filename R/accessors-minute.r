@@ -3,21 +3,21 @@ NULL
 
 #' Get/set minutes component of a date-time.
 #'
-#' Date-time must be a  POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo, 
-#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects. 
+#' Date-time must be a  POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo,
+#' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 #'
 #' @export
 #' @aliases minute minute<-
-#' @param x a date-time object   
+#' @param x a date-time object
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number
 #' @examples
 #' x <- ymd("2012-03-26")
 #' minute(x)
 #' minute(x) <- 1
-#' minute(x) <- 61 
+#' minute(x) <- 61
 #' minute(x) > 2
-minute <- function(x) 
+minute <- function(x)
   UseMethod("minute")
 
 #' @export
