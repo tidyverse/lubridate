@@ -1,4 +1,4 @@
-#' Round, flour and ceiling methods for date-time objects.
+#' Round, floor and ceiling methods for date-time objects.
 #'
 #' Users can specify whether to round to the nearest second, minute, hour, day,
 #' week, month, quarter, or year.
