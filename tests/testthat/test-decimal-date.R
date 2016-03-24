@@ -25,7 +25,7 @@ test_that("date_decimal handles vectors",{
 })
 
 test_that("date_decimal reverses decimal_date",{
-  date <- ymd("2012-03-01")
+  date <- ymd("2012-03-01", tz = "UTC")
   decimal <- decimal_date(date)
   expect_equal(date_decimal(decimal), date)
 

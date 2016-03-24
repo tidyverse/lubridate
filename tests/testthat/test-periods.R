@@ -5,13 +5,13 @@ test_that("is.period works as expected",{
   expect_that(is.period(234), is_false())
   expect_that(is.period(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
     is_false())
-  expect_that(is.period(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")), 
+  expect_that(is.period(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")),
     is_false())
   expect_that(is.period(Sys.Date()), is_false())
   expect_that(is.period(minutes(1)), is_true())
   expect_that(is.period(dminutes(1)), is_false())
   expect_that(is.period(interval(
-    as.POSIXct("2008-08-03 13:01:59", tz = "UTC"), 
+    as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_false())
 })
 
@@ -21,7 +21,7 @@ test_that("is.period handles vectors",{
 
 test_that("period works as expected", {
   per <- period(second = 90, minute = 5)
-  
+
   expect_is(per, "Period")
   expect_equal(period(hours = 25), hours(25))
   expect_equal(per@year, 0)
@@ -30,12 +30,12 @@ test_that("period works as expected", {
   expect_equal(per@hour, 0)
   expect_equal(per@minute, 5)
   expect_equal(per@.Data, 90)
-  
+
 })
 
 test_that("period works as expected", {
   per <- period(c(90, 5), c("second", "minute"))
-  
+
   expect_is(per, "Period")
   expect_equal(period(hours = 25), hours(25))
   expect_equal(per@year, 0)
@@ -44,12 +44,12 @@ test_that("period works as expected", {
   expect_equal(per@hour, 0)
   expect_equal(per@minute, 5)
   expect_equal(per@.Data, 90)
-  
+
 })
 
 test_that("period handles vector input", {
   per <- period(second = c(90,60), minute = 5)
-  
+
   expect_is(per, "Period")
   expect_equal(length(per), 2)
   expect_equal(per@year, c(0, 0))
@@ -76,18 +76,18 @@ test_that("format.Period works as expected", {
 })
 
 test_that("as.period handles interval objects", {
-  start <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
+  start <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   end <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
   int <- interval(start, end)
   int_neg <- interval(end, start)
-    
+
   expect_that(as.period(int), equals(years(1)))
   expect_that(as.period(int_neg), equals(years(-1)))
 })
 
 test_that("as.period handles intervals across years correctly", {
   ## https://github.com/hadley/lubridate/issues/371
-  
+
   t1 <- ymd("1985-11-30")
   t2 <- ymd("1986-02-01")
   expect_equal(t2, t1 + as.period(interval(t1, t2)))
@@ -170,7 +170,7 @@ test_that("as.period with different units handles interval objects", {
 
 
 test_that("as.period with different units handles negative interval objects", {
-    end <- ymd('1992-02-29')
+    end <- ymd('1992-02-29', tz = "UTC")
     start <- ymd_hms('2010-12-05 01:02:03')
     int <- interval(start, end)
 
@@ -242,7 +242,7 @@ test_that("as.period handles tricky intervals", {
 
 
 test_that("as.period handles tricky negative intervals", {
-  
+
   expect_equal(
     as.period(interval(ymd("1986-02-01"), ymd("1986-01-31")))
   , period(days = -1))
@@ -286,22 +286,22 @@ test_that("as.period handles tricky negative intervals", {
   expect_equal(
     as.period(interval(ymd_hms("1984-03-01 3:0:0"), ymd_hms("1984-01-28 5:0:0")))
   , period(months = -1, days = -3, hours = -22))
-  
+
 })
 
 test_that("as.period handles NA in interval objects", {
 
   one_missing_date <- as.POSIXct(NA_real_, origin = origin)
-  one_missing_interval <- interval(one_missing_date, 
+  one_missing_interval <- interval(one_missing_date,
     one_missing_date)
   several_missing_dates <- rep(as.POSIXct(NA_real_, origin = origin), 2)
-  several_missing_intervals <- interval(several_missing_dates, 
+  several_missing_intervals <- interval(several_missing_dates,
     several_missing_dates)
   start_missing_intervals <- interval(several_missing_dates, origin)
   end_missing_intervals <- interval(origin, several_missing_dates)
-  na.per <- period(sec= NA, min = NA, hour = NA, day = NA, 
+  na.per <- period(sec= NA, min = NA, hour = NA, day = NA,
     month = NA, year = NA)
-  
+
   expect_equal(as.period(one_missing_interval, "year"), na.per)
   expect_equal(as.period(several_missing_intervals, "year"), c(na.per, na.per))
   expect_equal(as.period(start_missing_intervals, "year"), c(na.per, na.per))
@@ -309,34 +309,34 @@ test_that("as.period handles NA in interval objects", {
 })
 
 test_that("as.period handles NA duration objects", {
-  na.per <- period(sec= NA, min = NA, hour = NA, day = NA, 
+  na.per <- period(sec= NA, min = NA, hour = NA, day = NA,
     month = NA, year = NA)
-  
+
   expect_equal(suppressMessages(as.period(dyears(NA))), na.per)
   expect_equal(suppressMessages(as.period(dyears(c(NA, NA)))), c(na.per, na.per))
   expect_equal(suppressMessages(as.period(dyears(c(1, NA)))), c(years(1), na.per))
 })
-  
-test_that("as.period handles NA objects", { 
+
+test_that("as.period handles NA objects", {
   na.per <- seconds(NA)
   expect_equal(as.period(NA), na.per)
 })
 
 test_that("as.period handles vectors", {
-  time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC") 
+  time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
   time3 <- as.POSIXct("2010-08-03 13:01:59", tz = "UTC")
   int <- interval(c(time2, time1), time3)
-    
+
   dur <- new_duration(seconds = 5, minutes = c(30,59))
-    
+
   expect_that(as.period(int), equals(years(1:2)))
-  expect_that(as.period(dur), equals(seconds(5) + 
+  expect_that(as.period(dur), equals(seconds(5) +
     minutes(c(30,59))))
 })
 
 test_that("as.period handles duration objects", {
-  dur <- new_duration(seconds = 5, minutes = 30)  
+  dur <- new_duration(seconds = 5, minutes = 30)
   expect_that(as.period(dur), equals(seconds(5) + minutes(30)))
 })
 
@@ -350,13 +350,13 @@ test_that("as.period handles period objects", {
 test_that("[<- can subset periods with new periods", {
   Time <- data.frame(Time = c(hms("01:01:01"), hms("02:02:02")))
   Time[1,1] <- Time[1,1] + hours(1)
-  
+
   times <- days(1:3)
   times[1] <- times[1] + hours(2)
-  
+
   expect_equal(Time[1,1], hms("02:01:01"))
   expect_equal(times[1], period(days = 1, hours = 2))
-  
+
 })
 
 test_that("period correctly handles week units", {
@@ -377,7 +377,7 @@ test_that("format.Period correctly displays intervals of length 0", {
 
 test_that("c.Period correctly handles NAs", {
   per <- period(seconds = 5)
-  
+
   expect_true(is.na(c(per, NA)[2]))
 })
 
@@ -385,7 +385,7 @@ test_that("summary.Period creates useful summary", {
   per <- period(minutes = 5)
   text <- c(rep("5M 0S", 6), 1)
   names(text) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max.", "NA's")
-  
+
   expect_equal(summary(c(per, NA)), text)
 })
 

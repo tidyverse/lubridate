@@ -166,6 +166,7 @@ test_that("ymd functions parse absurd formats as NA's", {
   expect_that(myd(01201033, quiet = TRUE), equals(pna))
   expect_that(dmy(02222010, quiet = TRUE), equals(pna))
   expect_that(dym(022010013, quiet = TRUE), equals(pna))
+  pna <- with_tz(as.POSIXct(NA), "UTC")
   expect_that(ymd_hms("2010-01-023 23:59:59", quiet = TRUE), equals(pna))
   expect_that(ymd_hms("2010-01-023 23:59:59.34", quiet = TRUE), equals(pna))
   expect_that(ymd_hms("201001023235959.34", quiet = TRUE), equals(pna))
