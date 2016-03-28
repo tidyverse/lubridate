@@ -182,6 +182,19 @@ test_that("round_date works for a variety of formats",{
 
 test_that("ceiling_date does not round up dates that are already on a boundary",{
   expect_equal(ceiling_date(as.Date("2012-09-27"), 'day'), as.Date("2012-09-27"))
+  expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month'), as.POSIXct("2012-09-01", tz = "UTC"))
+  expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'year'), as.POSIXct("2012-01-01", tz = "UTC"))
+  expect_equal(ceiling_date(ymd_hms("2012-01-01 01:00:00"), 'second'), ymd_hms("2012-01-01 01:00:00"))
+})
+
+test_that("ceiling_date does round up dates on a boundary with change_on_boundary=TRUE",{
+  expect_equal(ceiling_date(as.Date("2012-09-27"), 'day', TRUE), as.Date("2012-09-28"))
+  expect_equal(ceiling_date(as.Date("2012-09-01"), 'month', TRUE), as.Date("2012-10-01"))
+  expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month', TRUE), as.Date("2012-10-01"))
+  expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'year', TRUE), as.POSIXct("2013-01-01", tz = "UTC"))
+  expect_equal(ceiling_date(ymd_hms("2012-01-01 01:00:00"), 'hour', TRUE), ymd_hms("2012-01-01 02:00:00"))
+  expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'day', TRUE), ymd("2012-01-02", tz = "UTC"))
+  expect_equal(ceiling_date(ymd_hms("2012-01-01 01:00:00"), 'second', TRUE), ymd_hms("2012-01-01 01:00:01"))
 })
 
 test_that("floor_date does not round down dates that are already on a boundary",{

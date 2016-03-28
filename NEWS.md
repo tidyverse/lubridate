@@ -4,6 +4,7 @@ Version 1.5.0.9000 (development)
 
 ### NEW FEATURES
 
+* [#390](https://github.com/hadley/lubridate/issues/390) `ceiling_date` gains new argument `change_on_boundary` to allow ceiling on boundary of date-time objects.
 * C parser can now produce a list of date-time components suitable for POSIXlt constructors.
 * `parse_date_time2` and `fast_strptime` gain new `lt` argument to control type of output.
 * [#373](https://github.com/hadley/lubridate/issues/373) New `date` and `date<-` additions to the `year`, `month` etc family of accessors.
@@ -12,7 +13,7 @@ Version 1.5.0.9000 (development)
 
 ### CHANGES
 
-* [##391](https://github.com/hadley/lubridate/issues/391) `ymd` family of functions return `Date` object when `tz` argument is NULL (new default) and POSIXct otherwise.
+* [#391](https://github.com/hadley/lubridate/issues/391) `ymd` family of functions return `Date` object when `tz` argument is NULL (new default) and POSIXct otherwise.
 * [#364](https://github.com/hadley/lubridate/issues/364) Remove epoch functions.
 * For consistency with `base:strptime` `fast_strptime` now returns `POSIXlt` object. That is, its `lt` argument defaults to `TRUE`.
 

@@ -5,9 +5,9 @@
 #' and update.POSIXt do not add the specified values to the existing date, they
 #' substitute them for the appropriate parts of the existing date.
 #'
-#' 
+#'
 #' @name DateUpdate
-#' @param object a date-time object  
+#' @param object a date-time object
 #' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours,
 #' minutes, seconds, tzs (time zone compnent)
 #' @param simple logical, passed to \code{fit_to_timeline}. If TRUE a simple fit
@@ -17,9 +17,9 @@
 #'   retain its original class unless an element is updated which the original
 #'   class does not support. In this case, the date returned will be a POSIXlt
 #'   date object.
-#' @keywords manip chron 
+#' @keywords manip chron
 #' @examples
-#' date <- as.POSIXlt("2009-02-10") 
+#' date <- as.POSIXlt("2009-02-10")
 #' update(date, year = 2010, month = 1, mday = 1)
 #' # "2010-01-01 CST"
 #'
@@ -28,25 +28,25 @@
 #'
 #' update(date, minute = 10, second = 3)
 #' # "2009-02-10 00:10:03 CST"
-#' @export 
+#' @export
 update.POSIXt <- function(object, ..., simple = FALSE){
 
   if(!length(object)) return(object)
   date <- as.POSIXlt(object)
-  
+
   # adjudicate units input
   units <- list(...)
   names(units) <- standardise_lt_names(names(units))
-  
+
   new.tz <- NA
   if (!is.null(units$tz)) {
     new.tz <- units$tz
     units$tz <- NULL
   }
-  
+
   day.units <- c("day", "wday", "mday", "yday")
   wunit <- day.units %in% names(units)
-    
+
   if (n <- sum(wunit)) {
     if (n > 1) stop("conflicting days input")
     uname <- day.units[wunit]
@@ -61,13 +61,13 @@ update.POSIXt <- function(object, ..., simple = FALSE){
       names(units)[names(units) == uname] <- "mday"
     }
   }
-  
+
   if (!is.null(units$mon)) units$mon <- units$mon - 1
   if (!is.null(units$year)) units$year <- units$year - 1900
-  
+
   # make new date-times
   date <- unclass(date)
-  
+
   date[names(units)] <- units
   date[c("wday", "yday")] <- list(wday = NA, yday = NA)
 
@@ -79,23 +79,23 @@ update.POSIXt <- function(object, ..., simple = FALSE){
       if (length(date[[nm]]) != maxlen)
         date[[nm]] <- rep_len(date[[nm]], maxlen)
   }
-  
+
   class(date) <- c("POSIXlt", "POSIXt")
   if (!is.na(new.tz))
     attr(date, "tzone") <- new.tz
-  
+
   ## fit to timeline
   ## POSIXct format avoids negative and NA elements in POSIXlt format
   fit_to_timeline(date, class(object)[[1]], simple = simple)
 }
-  
+
 #' @export
-update.Date <- function(object, ...){ 
-  
+update.Date <- function(object, ...){
+
   lt <- as.POSIXlt(object, tz = "UTC")
-  
+
   new <- update(lt, ...)
-  
+
   if (sum(c(new$hour, new$min, new$sec), na.rm = TRUE)) {
     new
   } else {
@@ -104,13 +104,13 @@ update.Date <- function(object, ...){
 }
 
 #' Fit a POSIXlt date-time to the timeline
-#' 
+#'
 #' The POSIXlt format allows you to create instants that do not exist in real
 #' life due to daylight savings time and other conventions. fit_to_timeline
 #' matches POSIXlt date-times to a real times. If an instant does not exist, fit
 #' to timeline will replace it with an NA. If an instant does exist, but has
 #' been paired with an incorrect timezone/daylight savings time combination,
-#' fit_to_timeline returns the instant with the correct combination. 
+#' fit_to_timeline returns the instant with the correct combination.
 #'
 #'
 #' @param lt a POSIXlt date-time object.
@@ -125,42 +125,42 @@ update.Date <- function(object, ...){
 #' @examples
 #' \dontrun{
 #' tricky <- structure(list(sec   = c(5,    0,    0,    -1),
-#'                          min   = c(0L,   5L,   5L,   0L), 
+#'                          min   = c(0L,   5L,   5L,   0L),
 #'                          hour  = c(2L,   0L,   2L,   2L),
 #'                          mday  = c(4L,   4L,   14L,  4L),
-#'                          mon   = c(10L,  10L,  2L,   10L), 
+#'                          mon   = c(10L,  10L,  2L,   10L),
 #'                          year  = c(112L, 112L, 110L, 112L),
-#'                          wday  = c(0L,   0L,   0L,   0L), 
+#'                          wday  = c(0L,   0L,   0L,   0L),
 #'                          yday  = c(308L, 308L, 72L,  308L),
-#'                          isdst = c(1L,   0L,   0L,   1L)), 
+#'                          isdst = c(1L,   0L,   0L,   1L)),
 #'                     .Names = c("sec", "min", "hour", "mday", "mon",
 #'                                "year", "wday", "yday",  "isdst"),
 #'                     class = c("POSIXlt", "POSIXt"),
 #'                     tzone = c("America/Chicago", "CST", "CDT"))
 #' tricky
-#' ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist 
+#' ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist
 #' ## because clocks "fall back" to 1:00 CST
-#' 
-#' ## [2] "2012-11-04 00:05:00 CST" Times are still 
+#'
+#' ## [2] "2012-11-04 00:05:00 CST" Times are still
 #' ## CDT, not CST at this instant
-#' 
-#' ## [3] "2010-03-14 02:00:00 CDT" Doesn't exist 
-#' ##because clocks "spring forward" past this time 
+#'
+#' ## [3] "2010-03-14 02:00:00 CDT" Doesn't exist
+#' ##because clocks "spring forward" past this time
 #' ## for daylight savings
-#' 
-#' ## [4] "2012-11-04 01:59:59 CDT" Does exist, but 
+#'
+#' ## [4] "2012-11-04 01:59:59 CDT" Does exist, but
 #' ## has deceptive internal structure
-#' 
+#'
 #' fit_to_timeline(tricky)
 #' [1] "2012-11-04 02:00:05 CST" "2012-11-04 00:05:00 CDT"
 #' [4] NA                        "2012-11-04 01:59:59 CDT"
-#' 
-#' ## [1] "2012-11-04 02:00:00 CST" instant paired 
+#'
+#' ## [1] "2012-11-04 02:00:00 CST" instant paired
 #' ## with correct timezone & DST combination
-#' 
-#' ## [2] "2012-11-04 00:05:00 CDT" instant paired 
+#'
+#' ## [2] "2012-11-04 00:05:00 CDT" instant paired
 #' ## with correct timezone & DST combination
-#' 
+#'
 #' ## [3] NA fake time changed to NA (compare to as.POSIXct(tricky))
 #' ## [4] "2012-11-04 01:59:59 CDT" real instant, left as is
 #'
@@ -180,7 +180,7 @@ fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
     else as.POSIXlt(as.POSIXct(lt))
 
   } else {
-    
+
     ## fall break - DST only changes if it has to
     ct <- as.POSIXct(lt)
     lt2 <- as.POSIXlt(ct)
@@ -197,7 +197,7 @@ fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
 
       if (class == "POSIXct")
         ct[dstdiff] <- dct
-      else 
+      else
         lt2[dstdiff] <- dlt
 
       chours <- format.POSIXlt(as.POSIXlt(dct), "%H", usetz = FALSE)
@@ -207,7 +207,7 @@ fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
       if (!is.na(any) && any) {
         if (class == "POSIXct")
           ct[dstdiff][hdiff] <- NA
-        else 
+        else
           lt2[dstdiff][hdiff] <- NA
       }
     }
