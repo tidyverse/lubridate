@@ -148,14 +148,13 @@ ceiling_date <- function(x,
 
   if(unit == "second"){
     sec <- second(x)
+    csec <- ceiling(sec)
     if(change_on_boundary){
-      csec <- ceiling(sec)
       zsec <- which(csec == sec)
       if(length(zsec))
-        csec[zsec] <- csec[zsec] + 1
-      sec <- zsec
+        csec[zsec] <- csec[zsec] + 1L
     }
-    update(x, seconds = sec, simple = T)
+    update(x, seconds = csec, simple = T)
   }else if(is.POSIXt(x) & (unit %in% c("minute", "hour", "day"))){
     ## cannot use this for Date class, (local tz interferes with computation)
     new <- as.POSIXct(x, tz = tz(x))

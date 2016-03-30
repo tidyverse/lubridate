@@ -66,62 +66,43 @@ test_that("round_date works for each time element",{
 test_that("floor_date handles vectors",{
   x <- as.POSIXct(c("2009-08-03 12:01:59.23",
   	"2010-08-03 12:01:59.23"), tz = "UTC")
-
-  expect_identical(floor_date(x, "second"), as.POSIXct(c(
-    "2009-08-03 12:01:59", "2010-08-03 12:01:59"), tz =
-    "UTC"))
-  expect_identical(floor_date(x, "minute"), as.POSIXct(c(
-  	"2009-08-03 12:01:00", "2010-08-03 12:01:00"), tz =
-  	"UTC"))
-  expect_identical(floor_date(x, "hour"), as.POSIXct(c(
-    "2009-08-03 12:00:00", "2010-08-03 12:00:00"), tz =
-    "UTC"))
-  expect_identical(floor_date(x, "day"), as.POSIXct(c(
-  	"2009-08-03 00:00:00", "2010-08-03 00:00:00"), tz =
-  	"UTC"))
-  expect_identical(floor_date(x, "week"), as.POSIXct(c(
-  	"2009-08-02 00:00:00", "2010-08-01 00:00:00"), tz =
-  	"UTC"))
-  expect_identical(floor_date(x, "month"), as.POSIXct(c(
-  	"2009-08-01 00:00:00", "2010-08-01 00:00:00"), tz =
-  	"UTC"))
-  expect_identical(floor_date(x, "year"), as.POSIXct(c(
-  	"2009-01-01 00:00:00", "2010-01-01 00:00:00"), tz =
-  	"UTC"))
+  expect_identical(floor_date(x, "second"),
+                   as.POSIXct(c("2009-08-03 12:01:59", "2010-08-03 12:01:59"), tz = "UTC"))
+  expect_identical(floor_date(x, "minute"),
+                   as.POSIXct(c("2009-08-03 12:01:00", "2010-08-03 12:01:00"), tz = "UTC"))
+  expect_identical(floor_date(x, "hour"),
+                   as.POSIXct(c("2009-08-03 12:00:00", "2010-08-03 12:00:00"), tz = "UTC"))
+  expect_identical(floor_date(x, "day"),
+                   as.POSIXct(c("2009-08-03 00:00:00", "2010-08-03 00:00:00"), tz = "UTC"))
+  expect_identical(floor_date(x, "week"),
+                   as.POSIXct(c("2009-08-02 00:00:00", "2010-08-01 00:00:00"), tz = "UTC"))
+  expect_identical(floor_date(x, "month"),
+                   as.POSIXct(c("2009-08-01 00:00:00", "2010-08-01 00:00:00"), tz = "UTC"))
+  expect_identical(floor_date(x, "year"),
+                   as.POSIXct(c("2009-01-01 00:00:00", "2010-01-01 00:00:00"), tz = "UTC"))
 })
 
 test_that("ceiling_date handles vectors",{
-  x <- as.POSIXct(c("2009-08-03 12:01:59.23",
-  	"2010-08-03 12:01:59.23"), tz = "UTC")
-
-  expect_identical(ceiling_date(x, "second"), as.POSIXct(c(
-    "2009-08-03 12:02:00", "2010-08-03 12:02:00"), tz =
-    "UTC"))
-  expect_identical(ceiling_date(x, "minute"), as.POSIXct(c(
-  	"2009-08-03 12:02:00", "2010-08-03 12:02:00"), tz =
-  	"UTC"))
-  expect_identical(ceiling_date(x, "hour"), as.POSIXct(c(
-  	"2009-08-03 13:00:00", "2010-08-03 13:00:00"), tz =
-  	"UTC"))
-  expect_identical(ceiling_date(x, "day"), as.POSIXct(c(
-  	"2009-08-04 00:00:00", "2010-08-04 00:00:00"), tz =
-  	"UTC"))
-  expect_identical(ceiling_date(x, "week"), as.POSIXct(c(
-  	"2009-08-09 00:00:00", "2010-08-08 00:00:00"), tz =
-  	"UTC"))
-  expect_identical(ceiling_date(x, "month"), as.POSIXct(c(
-  	"2009-09-01 00:00:00", "2010-09-01 00:00:00"), tz =
-  	"UTC"))
-  expect_identical(ceiling_date(x, "year"), as.POSIXct(c(
-  	"2010-01-01 00:00:00", "2011-01-01 00:00:00"), tz =
-  	"UTC"))
+  x <- as.POSIXct(c("2009-08-03 12:01:59.23", "2010-08-03 12:01:59.23"), tz = "UTC")
+  expect_identical(ceiling_date(x, "second"),
+                   as.POSIXct(c("2009-08-03 12:02:00", "2010-08-03 12:02:00"), tz = "UTC"))
+  expect_identical(ceiling_date(x, "minute"),
+                   as.POSIXct(c( "2009-08-03 12:02:00", "2010-08-03 12:02:00"), tz = "UTC"))
+  expect_identical(ceiling_date(x, "hour"),
+                   as.POSIXct(c("2009-08-03 13:00:00", "2010-08-03 13:00:00"), tz = "UTC"))
+  expect_identical(ceiling_date(x, "day"),
+                   as.POSIXct(c( "2009-08-04 00:00:00", "2010-08-04 00:00:00"), tz = "UTC"))
+  expect_identical(ceiling_date(x, "week"),
+                   as.POSIXct(c("2009-08-09 00:00:00", "2010-08-08 00:00:00"), tz = "UTC"))
+  expect_identical(ceiling_date(x, "month"),
+                   as.POSIXct(c("2009-09-01 00:00:00", "2010-09-01 00:00:00"), tz = "UTC"))
+  expect_identical(ceiling_date(x, "year"),
+                   as.POSIXct(c("2010-01-01 00:00:00", "2011-01-01 00:00:00"), tz = "UTC"))
 })
 
 
 test_that("round_date handles vectors",{
-  x <- as.POSIXct(c("2009-08-03 12:01:59.23",
-  	"2010-08-03 12:01:59.23"), tz = "UTC")
-
+  x <- as.POSIXct(c("2009-08-03 12:01:59.23", "2010-08-03 12:01:59.23"), tz = "UTC")
   expect_identical(round_date(x, "second"),
     as.POSIXct(c("2009-08-03 12:01:59",
       "2010-08-03 12:01:59"), tz = "UTC"))
@@ -190,7 +171,7 @@ test_that("ceiling_date does not round up dates that are already on a boundary",
 test_that("ceiling_date does round up dates on a boundary with change_on_boundary=TRUE",{
   expect_equal(ceiling_date(as.Date("2012-09-27"), 'day', TRUE), as.Date("2012-09-28"))
   expect_equal(ceiling_date(as.Date("2012-09-01"), 'month', TRUE), as.Date("2012-10-01"))
-  expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month', TRUE), as.Date("2012-10-01"))
+  expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month', TRUE), ymd("2012-10-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'year', TRUE), as.POSIXct("2013-01-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 01:00:00"), 'hour', TRUE), ymd_hms("2012-01-01 02:00:00"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'day', TRUE), ymd("2012-01-02", tz = "UTC"))
