@@ -28,4 +28,5 @@ test_that("as_date works", {
   expect_equal(as_date(dt2), as.Date("2010-08-03"))
   expect_equal(as_date(dt3), as.Date("2010-11-03"))
   expect_equal(as_date(dt4), as.Date("2010-11-03"))
+  expect_equal(as_date(10), ymd("1970-01-11"))
 })
