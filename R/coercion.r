@@ -649,3 +649,10 @@ setMethod(f = "as_date", signature = "character", function (x, format = NULL) {
   format <- if (is.null(format)) "%Y-%m-%d" else format
   as.Date(x, format = format)
 })
+
+#' @rdname as_date
+#' @export
+setMethod(f = "as_date", signature = "ANY", function (x, ...) {
+  as.Date(x, ...)
+})
+

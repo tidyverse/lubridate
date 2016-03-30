@@ -3,6 +3,7 @@
 \docType{methods}
 \name{as_date}
 \alias{as_date}
+\alias{as_date,ANY-method}
 \alias{as_date,POSIXt-method}
 \alias{as_date,character-method}
 \alias{as_date,numeric-method}
@@ -15,6 +16,8 @@ as_date(x, ...)
 \S4method{as_date}{numeric}(x, origin = NULL)
 
 \S4method{as_date}{character}(x, format = NULL)
+
+\S4method{as_date}{ANY}(x, ...)
 }
 \arguments{
 \item{x}{a vector of \code{\link{POSIXt}}, numeric or character objects}
