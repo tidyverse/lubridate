@@ -161,6 +161,18 @@ test_that("round_date works for a variety of formats",{
     "UTC")))
 })
 
+
+test_that("rounding works across DST",{
+  ## https://github.com/hadley/lubridate/issues/399
+  tt <- ymd("2016-03-27", tz="Europe/Helsinki");
+  expect_equal(ceiling_date(tt, 'month'), as.POSIXct("2016-04-01", tz = "Europe/Helsinki"))
+  expect_equal(ceiling_date(tt, 'day'), as.POSIXct("2016-03-28", tz = "Europe/Helsinki"))
+  tt <- ymd("2016-03-28", tz="Europe/Helsinki");
+  expect_equal(floor_date(tt, 'month'), as.POSIXct("2016-03-01", tz = "Europe/Helsinki"))
+  tt <- ymd_hms("2016-03-27 05:00:00", tz="Europe/Helsinki");
+  expect_equal(floor_date(tt, 'day'), as.POSIXct("2016-03-27", tz = "Europe/Helsinki"))
+})
+
 test_that("ceiling_date does not round up dates that are already on a boundary",{
   expect_equal(ceiling_date(as.Date("2012-09-27"), 'day'), as.Date("2012-09-27"))
   expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month'), as.POSIXct("2012-09-01", tz = "UTC"))

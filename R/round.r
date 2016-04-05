@@ -113,11 +113,12 @@ floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
   if(unit %in% c("second", "minute", "hour", "day")){
     reclass_date(trunc(x, units = lub2base_units[[unit]]), x)
   } else {
+
     new <- switch(unit,
-                  week    = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
-                  month   = update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
-                  quarter = update(x, months = ((month(x)-1)%/%3)*3+1, mdays = 1, hours = 0, minutes = 0, seconds = 0, simple = T),
-                  year    = update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0, simple = T))
+                  week    = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  month   = update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  quarter = update(x, months = ((month(x)-1)%/%3)*3+1, mdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  year    = update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0))
     new
   }
 }
@@ -143,10 +144,13 @@ floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
 ceiling_date <- function(x,
                          unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter"),
                          change_on_boundary = getOption("lubridate.ceiling_date.change_on_boundary", FALSE)) {
-  if(!length(x)) return(x)
+  if(!length(x))
+    return(x)
+
   unit <- match.arg(unit)
 
   if(unit == "second"){
+
     sec <- second(x)
     csec <- ceiling(sec)
     if(change_on_boundary){
@@ -155,26 +159,32 @@ ceiling_date <- function(x,
         csec[zsec] <- csec[zsec] + 1L
     }
     update(x, seconds = csec, simple = T)
+
   }else if(is.POSIXt(x) & (unit %in% c("minute", "hour", "day"))){
+
     ## cannot use this for Date class, (local tz interferes with computation)
     new <- as.POSIXct(x, tz = tz(x))
     one <- as.numeric(change_on_boundary)
     new <- new + switch(unit, minute = 59 + one, hour = 3599 + one, day = 86399 + one)
     reclass_date(trunc.POSIXt(new, units = lub2base_units[[unit]]), x)
+
   } else {
+
     ## we need this to accomodate the case when date is on a boundary
     new <-
       if(change_on_boundary) x
       else update(x, seconds = second(x) - 0.00001, simple = T)
+
     new <- switch(unit,
                   minute  = update(new, minute = minute(new) + 1L, second = 0, simple = T),
                   hour    = update(new, hour = hour(new) + 1L, minute = 0, second = 0, simple = T),
-                  day     = update(new, day = day(new) + 1L, hour = 0, minute = 0, second = 0, simple = T),
-                  week    = update(new, wday = 8, hour = 0, minute = 0, second = 0, simple = T),
-                  month   = update(new, month = month(new) + 1L, mday = 1, hour = 0, minute = 0, second = 0, simple = T),
-                  quarter = update(new, month = ((month(new)-1)%/%3)*3+4, mday = 1, hour = 0, minute = 0, second = 0, simple = T),
-                  year    = update(new, year = year(new) + 1L, month = 1, mday = 1,  hour = 0, minute = 0, second = 0, simple = T))
+                  day     = update(new, day = day(new) + 1L, hour = 0, minute = 0, second = 0),
+                  week    = update(new, wday = 8, hour = 0, minute = 0, second = 0),
+                  month   = update(new, month = month(new) + 1L, mday = 1, hour = 0, minute = 0, second = 0),
+                  quarter = update(new, month = ((month(new)-1)%/%3)*3+4, mday = 1, hour = 0, minute = 0, second = 0),
+                  year    = update(new, year = year(new) + 1L, month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
     reclass_date(new, x)
+
   }
 }
 

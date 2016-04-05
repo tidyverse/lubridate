@@ -38,9 +38,7 @@ update.POSIXt <- function(object, ..., simple = FALSE){
   units <- list(...)
   names(units) <- standardise_lt_names(names(units))
 
-  new.tz <- NA
-  if (!is.null(units$tz)) {
-    new.tz <- units$tz
+  if (!is.null(new_tz <- units$tz)) {
     units$tz <- NULL
   }
 
@@ -81,8 +79,8 @@ update.POSIXt <- function(object, ..., simple = FALSE){
   }
 
   class(date) <- c("POSIXlt", "POSIXt")
-  if (!is.na(new.tz))
-    attr(date, "tzone") <- new.tz
+  if (!is.null(new_tz))
+    attr(date, "tzone") <- new_tz
 
   ## fit to timeline
   ## POSIXct format avoids negative and NA elements in POSIXlt format
