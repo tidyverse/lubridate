@@ -1,5 +1,4 @@
-
-Version 1.5.0.9000 (development)
+Version 1.5.6
 ============
 
 ### NEW FEATURES
@@ -9,8 +8,9 @@ Version 1.5.0.9000 (development)
 * `parse_date_time2` and `fast_strptime` gain new `lt` argument to control type of output.
 * [#373](https://github.com/hadley/lubridate/issues/373) New `date` and `date<-` additions to the `year`, `month` etc family of accessors.
 * [#365](https://github.com/hadley/lubridate/issues/365) New very fast datetime constructor `make_datetime` (dropin replacement of `ISOdatetime`).
-* [#344](https://github.com/hadley/lubridate/issues/344) `force_tz` and `with_tz` can handle data.frames component-wise
-* [#355](https://github.com/hadley/lubridate/issues/355) New `as_date` replacement of `as.Date` with more intuitive behavior with non-UTC timezones
+* [#344](https://github.com/hadley/lubridate/issues/344) `force_tz` and `with_tz` can handle data.frames component-wise.
+* [#355](https://github.com/hadley/lubridate/issues/355) New `as_date` replacement of `as.Date` with more intuitive behavior with non-UTC timezones.
+* [#333](https://github.com/hadley/lubridate/issues/333) `hms` parsers now handle negative components.
 
 ### CHANGES
 
@@ -24,6 +24,7 @@ Version 1.5.0.9000 (development)
 * [#371](https://github.com/hadley/lubridate/issues/371) `as.period` correctly computes months with intervals spanning multiple years.
 * [#388](https://github.com/hadley/lubridate/issues/388) `time_length` and `add_with_rollback` now work correctly with missing intervals.
 * [#394](https://github.com/hadley/lubridate/issues/394) `fast_strptime` and `parse_date_time2` correctly treat non-UTC time zones.
+* [#399](https://github.com/hadley/lubridate/issues/399) `floor_date` and `round_date` are not preserving tz component for larger than day units
 
 Version 1.5.0
 =============
