@@ -8,4 +8,5 @@ INSPIRATIONS
 ^.*\.Rproj$
 TAGS
 test.R
+CRAN_notes.md
 revdep/
