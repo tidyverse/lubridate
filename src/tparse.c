@@ -34,6 +34,7 @@
 
 /* quick way to check if the first char is a digit */
 #define DIGIT(X) ((X) >= '0' && (X) <= '9')
+#define SDIGIT(X) (((X) == '-') || ((X) >= '0' && (X) <= '9'))
 /* parse N characters from *c into integer X */
 #define PARSENUM(X, N) tN = N; while ( DIGIT(*c) && tN > 0) { X = X * 10 + (*c - '0'); c++; tN--; }
 static const char ltnames [][5] = {"sec", "min", "hour", "mday", "mon", "year"};
@@ -331,28 +332,34 @@ SEXP parse_hms(SEXP str, SEXP ord) {
     const char *c = CHAR(STRING_ELT(str, i));
     const char *o = O;
     int H=0, M=0, j=i*3;
+    int sign = 1;
     double S=0.0;
-    while (*c && !DIGIT(*c)) c++;
 
-    if (DIGIT(*c)) {
+    while (*c && !SDIGIT(*c)) c++;
+
+    if (SDIGIT(*c)) {
 
       while( *o ){
 
-        switch( *o ) {
+        if (*c == '-'){
+          sign = -1;
+          c++;
+        }
 
+        switch( *o ) {
         case 'H':
           if(!DIGIT(*c)) {data[j] = NA_REAL; break;}
-          while ( DIGIT(*c) ) { H = H * 10 + (*c - '0'); c++; }
-          data[j] = H;
+          while (DIGIT(*c)) { H = H * 10 + (*c - '0'); c++; }
+          data[j] = H * sign;
           break;
         case 'M':
           if(!DIGIT(*c)) {data[j+1] = NA_REAL; break;}
-          while ( DIGIT(*c) ) { M = M * 10 + (*c - '0'); c++; }
-          data[j+1]=M;
+          while (DIGIT(*c)) { M = M * 10 + (*c - '0'); c++; }
+          data[j+1]= M * sign;
           break;
         case 'S':
           if(!DIGIT(*c)) {data[j+2] = NA_REAL; break;}
-          while ( DIGIT(*c) ) { S = S * 10 + (*c - '0'); c++; }
+          while (DIGIT(*c) ) { S = S * 10 + (*c - '0'); c++; }
           // both . and , as decimal Seconds separator are allowed
           if( *c == '.' || *c == ','){
             double ms = 0.0, msfact = 0.1;
@@ -360,14 +367,15 @@ SEXP parse_hms(SEXP str, SEXP ord) {
             while (DIGIT(*c)) { ms = ms + (*c - '0')*msfact; msfact *= 0.1; c++; }
             S += ms;
           }
-          data[j+2] = S;
+          data[j+2] = S * sign;
           break;
         default:
           error("Unrecognized format %c supplied", *o);
         }
 
-        while (*c && !DIGIT(*c)) c++;
+        while (*c && !SDIGIT(*c)) c++;
 
+        sign = 1;
         o++;
       }
     }

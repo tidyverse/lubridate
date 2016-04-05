@@ -243,17 +243,6 @@ test_that("hms functions correctly handle . separators", {
   expect_that(hm("03.3"), equals(hours(3) + minutes(3)))
 })
 
-test_that("hms functions correctly handle - separators", {
-  expect_that(hms("3-3-3"), equals(hours(3) + minutes(3) +
-    seconds(3)))
-  expect_that(hms("03-03-03"), equals(hours(3) + minutes(3) +
-    seconds(3)))
-  expect_that(ms("03-03"), equals(minutes(3) +
-    seconds(3)))
-  expect_that(hm("03-03"), equals(hours(3) + minutes(3)))
-  expect_that(hm("03-3"), equals(hours(3) + minutes(3)))
-})
-
 test_that("hms functions correctly handle space separators", {
   expect_that(hms("3 3 3"), equals(hours(3) + minutes(3) +
     seconds(3)))
@@ -303,6 +292,13 @@ test_that("hms functions give warning on shorter inputs", {
   expect_warning(ms("03"))
   expect_warning(hm("03:03:01"))
   expect_warning(hm("03"))
+})
+
+test_that("hms functions correctly negative components separators", {
+  expect_that(hms("3-3-3"), equals(hours(3) - minutes(3) - seconds(3)))
+  expect_that(hms("03-03-03"), equals(hours(3) - minutes(3) - seconds(3)))
+  expect_that(ms("-03-03"), equals( - minutes(3) - seconds(3)))
+  expect_that(hm("03-3"), equals(hours(3) -  minutes(3)))
 })
 
 test_that("heterogeneous formats are correctly parsed", {

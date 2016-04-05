@@ -260,8 +260,9 @@ hm <- function(..., quiet = FALSE) {
 ##'
 ##' Transforms a character or numeric vector into a period object with the
 ##' specified number of hours, minutes, and seconds. hms() recognizes all
-##' non-numeric separators. After hours, minutes and seconds have been parsed,
-##' the remaining input is ingored.
+##' non-numeric characters except '-' as separators ('-' is used for negative
+##' durations).  After hours, minutes and seconds have been parsed, the
+##' remaining input is ingored.
 ##'
 ##' @export hms
 ##' @param ... a character vector of hour minute second triples
@@ -276,7 +277,7 @@ hm <- function(..., quiet = FALSE) {
 ##' hms(x)
 ##' ## [1] "9H 10M 1S" "9H 10M 2S" "9H 10M 3S"
 ##'
-##' hms("7 6 5", "3-23---2", "2 : 23 : 33", "Finished in 9 hours, 20 min and 4 seconds")
+##' hms("7 6 5", "3:23:::2", "2 : 23 : 33", "Finished in 9 hours, 20 min and 4 seconds")
 ##' ## [1] "7H 6M 5S" "3H 23M 2S" "2H 23M 33S" "9H 20M 4S"
 hms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HMS", quiet = quiet)
