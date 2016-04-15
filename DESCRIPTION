@@ -7,7 +7,7 @@ Type: Package
 Authors@R: c(person("Garrett", "Grolemund", role = "aut"),
              person("Vitalie", "Spinu", email = "spinuvit@gmail.com", role = c("aut","cre")),
              person("Hadley", "Wickham", role = "aut"),
-             person("Jan", "Lyttle", role="ctb"),
+             person("Ian", "Lyttle", role="ctb"),
              person("Imanuel", "Constigan", role = "ctb"),
              person("Jason", "Law", role="ctb"),
              person("Doug","Mitarotonda", role="ctb"),
