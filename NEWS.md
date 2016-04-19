@@ -1,3 +1,10 @@
+Version 1.5.6.9000 (development)
+============
+
+### CHANGES
+
+* [#403](https://github.com/hadley/lubridate/issues/403) Update on `Date` objects now return `POSIXct` instead of `POSIXlt`.
+
 Version 1.5.6
 ============
 
