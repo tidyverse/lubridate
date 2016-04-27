@@ -3,7 +3,7 @@
 ##'
 ##' @param x input vector of date-times
 ##' @param orders format orders to look for. See examples.
-##' @param locale locale to use, default to the current locale (also checks en_US)
+##' @param locale locale to use, default to the current locale
 ##' @param preproc_wday whether to preprocess week days names. Internal
 ##' optimization used by ymd_hms family of functions. If true week days are
 ##' substituted with %a or %A accordingly, so that there is no need to supply

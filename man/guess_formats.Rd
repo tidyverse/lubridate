@@ -12,7 +12,7 @@ guess_formats(x, orders, locale = Sys.getlocale("LC_TIME"),
 
 \item{orders}{format orders to look for. See examples.}
 
-\item{locale}{locale to use, default to the current locale (also checks en_US)}
+\item{locale}{locale to use, default to the current locale}
 
 \item{preproc_wday}{whether to preprocess week days names. Internal
 optimization used by ymd_hms family of functions. If true week days are
