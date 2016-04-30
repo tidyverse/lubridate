@@ -180,7 +180,7 @@ format.Period <- function(x, ...){
 
   show <- paste(x@year, "y ", x@month, "m ", x@day, "d ",
     x@hour, "H ", x@minute, "M ", x@.Data, "S", sep="")
-  start <- regexpr("[-1-9]", show)
+  start <- regexpr("[-1-9]|(0\\.)", show)
   show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
 
   show[na] <- NA
