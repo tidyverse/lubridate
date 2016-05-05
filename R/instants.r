@@ -124,6 +124,7 @@ make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0
 }
 
 ##' @rdname make_datetime
+##' @useDynLib lubridate make_d
 ##' @export
 make_date <- function(year = 1970L, month = 1L, day = 1L){
   lengths <- vapply(list(year, month, day), length, 1, USE.NAMES = FALSE)
@@ -131,13 +132,10 @@ make_date <- function(year = 1970L, month = 1L, day = 1L){
     as.Date(integer(), origin = origin)
   } else {
     N <- max(lengths)
-    secs <- .Call("make_dt",
+    secs <- .Call("make_d",
                   rep_len(as.integer(year), N),
                   rep_len(as.integer(month), N),
-                  rep_len(as.integer(day), N),
-                  rep_len(0L, N),
-                  rep_len(0L, N),
-                  rep_len(0L, N))
-    structure(floor(secs/86400), class = "Date")
+                  rep_len(as.integer(day), N))
+    structure(secs/86400L, class = "Date")
   }
 }
