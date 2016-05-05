@@ -1,6 +1,11 @@
 Version 1.5.6.9000 (development)
 ============
 
+### NEW FEATURES
+
+* [#412](https://github.com/hadley/lubridate/issues/412) New function `make_date` to produce Date objects. A counterpart of `make_datetime`.
+
+
 ### CHANGES
 
 * [#403](https://github.com/hadley/lubridate/issues/403) Update on `Date` objects now return `POSIXct` instead of `POSIXlt`.

@@ -82,14 +82,15 @@ today <- function(tzone = "") {
 origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 
 
-##' Efficient creation of date-times from numeric representations.
+##' Efficient creation of date-times from numeric representations
 ##'
 ##' \code{make_datetime} is a very fast drop-in replacement for
-##' \code{base::ISOdate} and \code{base::ISOdatetime}.
+##' \code{base::ISOdate} and \code{base::ISOdatetime}. \code{make_date} produces
+##' objects of class \code{Date}.
 ##'
 ##' Input vectors are silently recycled. All inputs except \code{sec} are
-##' silently converted to integer vectors. Seconds \code{sec} can be either
-##' integer or double.
+##' silently converted to integer vectors; \code{sec} can be either integer or
+##' double.
 ##'
 ##' @param year numeric year
 ##' @param month numeric month
@@ -105,7 +106,7 @@ origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 ##' ## "1999-12-22 00:00:10 UTC"
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = c(10, 11))
 ##' ## "1999-12-22 00:00:10 UTC" "1999-12-22 00:00:11 UTC"
-make_datetime <- function(year = 1970, month = 1L, day = 1L, hour = 0, min = 0, sec = 0, tz = "UTC"){
+make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0L, sec = 0, tz = "UTC"){
   lengths <- vapply(list(year, month, day, hour, min, sec), length, 1, USE.NAMES = FALSE)
   if (min(lengths) == 0L){
     .POSIXct(numeric(), tz = tz)
@@ -119,5 +120,24 @@ make_datetime <- function(year = 1970, month = 1L, day = 1L, hour = 0, min = 0, 
                    rep_len(as.integer(min), N),
                    rep_len(sec, N)),
              tz = tz)
+  }
+}
+
+##' @rdname make_datetime
+##' @export
+make_date <- function(year = 1970L, month = 1L, day = 1L){
+  lengths <- vapply(list(year, month, day), length, 1, USE.NAMES = FALSE)
+  if (min(lengths) == 0L){
+    character()
+  } else {
+    N <- max(lengths)
+    secs <- .Call("make_dt",
+                  rep_len(as.integer(year), N),
+                  rep_len(as.integer(month), N),
+                  rep_len(as.integer(day), N),
+                  rep_len(0L, N),
+                  rep_len(0L, N),
+                  rep_len(0L, N))
+    structure(floor(secs/86400), class = "Date")
   }
 }
