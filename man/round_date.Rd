@@ -7,13 +7,13 @@
 \title{Round, floor and ceiling methods for date-time objects.}
 \usage{
 round_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "year", "quarter"))
+  "bimonth", "quarter", "halfyear", "year"))
 
 floor_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "year", "quarter"))
+  "bimonth", "quarter", "halfyear", "year"))
 
 ceiling_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "year", "quarter"),
+  "bimonth", "quarter", "halfyear", "year"),
   change_on_boundary = getOption("lubridate.ceiling_date.change_on_boundary",
   FALSE))
 }
@@ -21,7 +21,7 @@ ceiling_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
 \item{x}{a vector of date-time objects}
 
 \item{unit}{a character string specifying the time unit to be rounded to. Should be one of
-"second", "minute", "hour", "day", "week", "month", "quarter", or "year."}
+"second", "minute", "hour", "day", "week", "month", "bimonth", "quarter", "halfyear", or "year."}
 
 \item{change_on_boundary}{logical. If FALSE (the default) \code{ceiling_date}
 don't alter date-times on the corresponding boundary. The boundary is unit
@@ -38,7 +38,7 @@ x with the appropriate units floored
 }
 \description{
 Users can specify whether to round to the nearest second, minute, hour, day,
-week, month, quarter, or year.
+week, month, bimonth, quarter, halfyear, or year.
 }
 \details{
 \code{round_date} takes a date-time object and rounds it to the nearest
@@ -72,7 +72,11 @@ round_date(x, "week")
 # "2009-08-02 CDT"
 round_date(x, "month")
 # "2009-08-01 CDT"
+round_date(x, "bimonth")
+# "2009-09-01 CDT"
 round_date(x, "quarter")
+# "2009-07-01 CDT"
+round_date(x, "halfyear")
 # "2009-07-01 CDT"
 round_date(x, "year")
 # "2010-01-01 CST"
@@ -90,7 +94,11 @@ floor_date(x, "week")
 # "2009-08-02 CDT"
 floor_date(x, "month")
 # "2009-08-01 CDT"
+floor_date(x, "bimonth")
+# "2009-07-01 CDT"
 floor_date(x, "quarter")
+# "2009-07-01 CDT"
+floor_date(x, "halfyear")
 # "2009-07-01 CDT"
 floor_date(x, "year")
 # "2009-01-01 CST"
@@ -108,8 +116,12 @@ ceiling_date(x, "week")
 # "2009-08-09 CDT"
 ceiling_date(x, "month")
 # "2009-09-01 CDT"
+ceiling_date(x, "bimonth")
+# "2009-09-01 CDT"
 ceiling_date(x, "quarter")
 # "2009-10-01 CDT"
+ceiling_date(x, "halfyear")
+# "2010-01-01 CDT"
 ceiling_date(x, "year")
 # "2010-01-01 CST"
 

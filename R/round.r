@@ -1,7 +1,7 @@
 #' Round, floor and ceiling methods for date-time objects.
 #'
 #' Users can specify whether to round to the nearest second, minute, hour, day,
-#' week, month, quarter, or year.
+#' week, month, bimonth, quarter, halfyear, or year.
 #'
 #' \code{round_date} takes a date-time object and rounds it to the nearest
 #' integer value of the specified time unit. For rounding date-ties which is
@@ -22,7 +22,7 @@
 #' @rdname round_date
 #' @param x a vector of date-time objects
 #' @param unit a character string specifying the time unit to be rounded to. Should be one of
-#'   "second", "minute", "hour", "day", "week", "month", "quarter", or "year."
+#'   "second", "minute", "hour", "day", "week", "month", "bimonth", "quarter", "halfyear", or "year."
 #' @return x with the appropriate units floored
 #' @keywords manip chron
 #' @seealso \link[base]{round}
@@ -40,7 +40,11 @@
 #' # "2009-08-02 CDT"
 #' round_date(x, "month")
 #' # "2009-08-01 CDT"
+#' round_date(x, "bimonth")
+#' # "2009-09-01 CDT"
 #' round_date(x, "quarter")
+#' # "2009-07-01 CDT"
+#' round_date(x, "halfyear")
 #' # "2009-07-01 CDT"
 #' round_date(x, "year")
 #' # "2010-01-01 CST"
@@ -58,7 +62,11 @@
 #' # "2009-08-02 CDT"
 #' floor_date(x, "month")
 #' # "2009-08-01 CDT"
+#' floor_date(x, "bimonth")
+#' # "2009-07-01 CDT"
 #' floor_date(x, "quarter")
+#' # "2009-07-01 CDT"
+#' floor_date(x, "halfyear")
 #' # "2009-07-01 CDT"
 #' floor_date(x, "year")
 #' # "2009-01-01 CST"
@@ -76,12 +84,16 @@
 #' # "2009-08-09 CDT"
 #' ceiling_date(x, "month")
 #' # "2009-09-01 CDT"
+#' ceiling_date(x, "bimonth")
+#' # "2009-09-01 CDT"
 #' ceiling_date(x, "quarter")
 #' # "2009-10-01 CDT"
+#' ceiling_date(x, "halfyear")
+#' # "2010-01-01 CDT"
 #' ceiling_date(x, "year")
 #' # "2010-01-01 CST"
 #' @export
-round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
+round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "bimonth", "quarter", "halfyear", "year")) {
 
   if(!length(x)) return(x)
 
@@ -106,8 +118,8 @@ round_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
 
 #' @rdname round_date
 #' @export
-floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter")) {
-	if(!length(x)) return(x)
+floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "month", "bimonth", "quarter", "halfyear", "year")) {
+  if(!length(x)) return(x)
   unit <- match.arg(unit)
 
   if(unit %in% c("second", "minute", "hour", "day")){
@@ -115,10 +127,12 @@ floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
   } else {
 
     new <- switch(unit,
-                  week    = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
-                  month   = update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0),
-                  quarter = update(x, months = ((month(x)-1)%/%3)*3+1, mdays = 1, hours = 0, minutes = 0, seconds = 0),
-                  year    = update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0))
+                  week     = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  month    = update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  bimonth  = update(x, months = floor_multi_months(month(x), 2), mdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  quarter  = update(x, months = floor_multi_months(month(x), 3), mdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  halfyear = update(x, months = floor_multi_months(month(x), 6), mdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  year     = update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0))
     new
   }
 }
@@ -142,7 +156,7 @@ floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
 #' ceiling_date(x, "month", change_on_boundary = TRUE)
 #' ## [1] "2000-02-01"
 ceiling_date <- function(x,
-                         unit = c("second", "minute", "hour", "day", "week", "month", "year", "quarter"),
+                         unit = c("second", "minute", "hour", "day", "week", "month", "bimonth", "quarter", "halfyear", "year"),
                          change_on_boundary = getOption("lubridate.ceiling_date.change_on_boundary", FALSE)) {
   if(!length(x))
     return(x)
@@ -176,32 +190,25 @@ ceiling_date <- function(x,
       else update(x, seconds = second(x) - 0.00001, simple = T)
 
     new <- switch(unit,
-                  minute  = update(new, minute = minute(new) + 1L, second = 0, simple = T),
-                  hour    = update(new, hour = hour(new) + 1L, minute = 0, second = 0, simple = T),
-                  day     = update(new, day = day(new) + 1L, hour = 0, minute = 0, second = 0),
-                  week    = update(new, wday = 8, hour = 0, minute = 0, second = 0),
-                  month   = update(new, month = month(new) + 1L, mday = 1, hour = 0, minute = 0, second = 0),
-                  quarter = update(new, month = ((month(new)-1)%/%3)*3+4, mday = 1, hour = 0, minute = 0, second = 0),
-                  year    = update(new, year = year(new) + 1L, month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
+                  minute   = update(new, minute = minute(new) + 1L, second = 0, simple = T),
+                  hour     = update(new, hour = hour(new) + 1L, minute = 0, second = 0, simple = T),
+                  day      = update(new, day = day(new) + 1L, hour = 0, minute = 0, second = 0),
+                  week     = update(new, wday = 8, hour = 0, minute = 0, second = 0),
+                  month    = update(new, month = month(new) + 1L, mday = 1, hour = 0, minute = 0, second = 0),
+                  bimonth  = update(new, month = ceil_multi_months(month(new), 2), mday = 1, hour = 0, minute = 0, second = 0),
+                  quarter  = update(new, month = ceil_multi_months(month(new), 3), mday = 1, hour = 0, minute = 0, second = 0),
+                  halfyear = update(new, month = ceil_multi_months(month(new), 6), mday = 1, hour = 0, minute = 0, second = 0),
+                  year     = update(new, year = year(new) + 1L, month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
     reclass_date(new, x)
 
   }
 }
 
-## fixme: this function is nowhere used
-parse_unit_spec <- function(unitspec) {
-  parts <- strsplit(unitspec, " ")[[1]]
-  if (length(parts) == 1) {
-    mult <- 1
-    unit <- unitspec
-  } else {
-    mult <- as.numeric(parts[[1]])
-    unit <- parts[[2]]
-  }
+# Utilities for calculating the floor/ceil month for units like bimonth, quarter, halfyear
+floor_multi_months <- function(month, len) {
+  (((month - 1) %/% len) * len) + 1
+}
 
-  unit <- gsub("s$", "", unit)
-  unit <- match.arg(unit,
-    c("second","minute","hour","day", "week", "month", "year"))
-
-  list(unit = unit, mult = mult)
+ceil_multi_months <- function(month, len) {
+  (((month - 1) %/% len) *  len) + (len + 1)
 }
