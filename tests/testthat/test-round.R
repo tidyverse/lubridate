@@ -15,7 +15,11 @@ test_that("floor_date works for each time element",{
   	"2009-08-02 00:00:00", tz = "UTC"))
   expect_identical(floor_date(x, "month"), as.POSIXct(
   	"2009-08-01 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "bimonth"), as.POSIXct(
+  	"2009-07-01 00:00:00", tz = "UTC"))
   expect_identical(floor_date(x, "quarter"), as.POSIXct(
+    "2009-07-01 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "halfyear"), as.POSIXct(
     "2009-07-01 00:00:00", tz = "UTC"))
   expect_identical(floor_date(x, "year"), as.POSIXct(
   	"2009-01-01 00:00:00", tz = "UTC"))
@@ -36,8 +40,12 @@ test_that("ceiling_date works for each time element",{
   	"2009-08-09 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(x, "month"), as.POSIXct(
   	"2009-09-01 00:00:00", tz = "UTC"))
+  expect_identical(ceiling_date(x, "bimonth"), as.POSIXct(
+  	"2009-09-01 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(x, "quarter"), as.POSIXct(
     "2009-10-01 00:00:00", tz = "UTC"))
+  expect_identical(ceiling_date(x, "halfyear"), as.POSIXct(
+  	"2010-01-01 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(x, "year"), as.POSIXct(
   	"2010-01-01 00:00:00", tz = "UTC"))
 })
@@ -57,8 +65,12 @@ test_that("round_date works for each time element",{
   	"2009-08-02 00:00:00", tz = "UTC"))
   expect_identical(round_date(x, "month"), as.POSIXct(
   	"2009-08-01 00:00:00", tz = "UTC"))
+  expect_identical(round_date(x, "bimonth"), as.POSIXct(
+  	"2009-09-01 00:00:00", tz = "UTC"))
   expect_identical(round_date(x, "quarter"), as.POSIXct(
     "2009-07-01 00:00:00", tz = "UTC"))
+  expect_identical(round_date(x, "halfyear"), as.POSIXct(
+  	"2009-07-01 00:00:00", tz = "UTC"))
   expect_identical(round_date(x, "year"), as.POSIXct(
   	"2010-01-01 00:00:00", tz = "UTC"))
 })
@@ -133,6 +145,12 @@ test_that("floor_date works for a variety of formats",{
     as.POSIXct("2009-08-03 12:01:00", tz = "UTC"))
   expect_identical(floor_date(as.Date(x), "month"),
     as.Date("2009-08-01"))
+  expect_identical(floor_date(as.Date(x), "bimonth"),
+    ymd("2009-07-01"))
+  expect_identical(floor_date(as.Date(x), "quarter"),
+    ymd("2009-07-01"))
+  expect_identical(floor_date(as.Date(x), "halfyear"),
+    ymd("2009-07-01"))
   expect_identical(floor_date(as.POSIXlt(x), "minute"),
     as.POSIXlt(as.POSIXct("2009-08-03 12:01:00", tz = "UTC")))
 })
@@ -144,6 +162,12 @@ test_that("ceiling_date works for a variety of formats",{
     as.POSIXct("2009-08-03 12:02:00", tz = "UTC"))
   expect_identical(ceiling_date(as.Date(x), "month"),
     as.Date("2009-09-01"))
+  expect_identical(ceiling_date(as.Date(x), "bimonth"),
+    ymd("2009-09-01"))
+  expect_identical(ceiling_date(as.Date(x), "quarter"),
+    ymd("2009-10-01"))
+  expect_identical(ceiling_date(as.Date(x), "halfyear"),
+    ymd("2010-01-01"))
   expect_identical(ceiling_date(as.POSIXlt(x), "minute"),
     as.POSIXlt(as.POSIXct("2009-08-03 12:02:00", tz =
     "UTC")))
@@ -178,12 +202,14 @@ test_that("ceiling_date does not round up dates that are already on a boundary",
   expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month'), as.POSIXct("2012-09-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'year'), as.POSIXct("2012-01-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 01:00:00"), 'second'), ymd_hms("2012-01-01 01:00:00"))
+  expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'bimonth'), ymd_hms("2012-01-01 00:00:00"))
 })
 
 test_that("ceiling_date does round up dates on a boundary with change_on_boundary=TRUE",{
   expect_equal(ceiling_date(as.Date("2012-09-27"), 'day', TRUE), as.Date("2012-09-28"))
   expect_equal(ceiling_date(as.Date("2012-09-01"), 'month', TRUE), as.Date("2012-10-01"))
   expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month', TRUE), ymd("2012-10-01", tz = "UTC"))
+  expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'bimonth', TRUE), ymd("2012-11-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'year', TRUE), as.POSIXct("2013-01-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 01:00:00"), 'hour', TRUE), ymd_hms("2012-01-01 02:00:00"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'day', TRUE), ymd("2012-01-02", tz = "UTC"))
