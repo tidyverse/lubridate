@@ -353,7 +353,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                            gsub(">", "_e>", num))) # append _e to avoid duplicates
 
   num_flex["m"] <- sprintf("((?<m>1[0-2]|0?[1-9](?!\\d))|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]]))
-  num_exact["m"] <- sprintf("((?<m_e>1[0-2]|0[1-9])|(%s))", gsub("_[bB]", "\\1_m_e>", alpha[["b"]]))
+  num_exact["m"] <- sprintf("((?<m_e>1[0-2]|0[1-9])|(%s))", gsub("_[bB]", "\\1_m_e", alpha[["b"]]))
 
   ## canoot be in num above because gsub("+", "*") messes it up
   num_flex["OS"] <- "(?<OS_f>[0-5]\\d\\.\\d+)"
