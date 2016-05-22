@@ -4,6 +4,7 @@ Version 1.5.6.9000 (development)
 ### CHANGES
 
 * [#403](https://github.com/hadley/lubridate/issues/403) Update on `Date` objects now return `POSIXct` instead of `POSIXlt`.
+* [#411](https://github.com/hadley/lubridate/issues/411) format `mdy` or `myd` beginning with `"January"` or `"Jan"` now parsing correctly
 
 Version 1.5.6
 ============
