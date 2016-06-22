@@ -33,17 +33,13 @@ a vector of class POSIXct if tz argument is non-NULL or Date if tz
   is NULL (default)
 }
 \description{
-Transforms dates stored in character and numeric vectors to POSIXct
-objects. These functions recognize arbitrary non-digit separators as well as
-no separator. As long as the order of formats is correct, these functions
-will parse dates correctly even when the input vectors contain differently
-formatted dates. See examples.
+Transforms dates stored in character and numeric vectors to Date or POSIXct
+objects (see \code{tz} argument). These functions recognize arbitrary
+non-digit separators as well as no separator. As long as the order of
+formats is correct, these functions will parse dates correctly even when the
+input vectors contain differently formatted dates. See examples.
 }
 \details{
-\code{ymd} family of functions automatically assign the Universal
-Coordinated Time Zone (UTC) to the parsed dates. This time zone can be
-changed with \code{\link{force_tz}}.
-
 If \code{truncated} parameter is non-zero \code{ymd} functions also check for
 truncated formats. For example \code{ymd} with \code{truncated = 2} will also
 parse incomplete dates like \code{2012-06} and \code{2012}.
