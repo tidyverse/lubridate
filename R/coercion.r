@@ -114,17 +114,17 @@ setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig){
 
 #' @export
 setMethod("reclass_timespan", signature(orig = "Duration"), function(new, orig){
-	suppressMessages(as.duration(new))
+  as.duration(new)
 })
 
 #' @export
 setMethod("reclass_timespan", signature(orig = "Interval"), function(new, orig){
-	suppressMessages(as.duration(new))
+  as.duration(new)
 })
 
 #' @export
 setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
-	suppressMessages(as.period(new))
+  as.period(new)
 })
 
 
@@ -135,21 +135,14 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' with the seconds unit equal to the numeric value.
 #'
 #' Durations are exact time measurements, whereas periods are relative time
-#' measurements. See \code{\link{Period-class}}. The length of a period depends on
-#' when it occurs. Hence, a one to one mapping does not exist between durations
-#' and periods. When used with a period object, as.duration provides an inexact
-#' estimate of the length of the period; each time unit is assigned its most
-#' common number of seconds. A period of one month is converted to 2628000 seconds
-#' (approximately 30.42 days). This ensures that 12 months will sum to 365 days, or
-#' one normal year. For an exact
-#' transformation, first transform the period to an interval with
-#' \code{\link{as.interval}}.
-#'
-#' as.duration.period displays the message "estimate only:
-#' convert periods to
-#' intervals for accuracy" by default. You can turn this message off by
-#' setting the global \code{lubridate.verbose} option to FALSE with
-#' \code{options(lubridate.verbose = FALSE)}.
+#' measurements. See \code{\link{Period-class}}. The length of a period depends
+#' on when it occurs. Hence, a one to one mapping does not exist between
+#' durations and periods. When used with a period object, as.duration provides
+#' an inexact estimate of the length of the period; each time unit is assigned
+#' its most common number of seconds. A period of one month is converted to
+#' 2628000 seconds (approximately 30.42 days). This ensures that 12 months will
+#' sum to 365 days, or one normal year. For an exact transformation, first
+#' transform the period to an interval with \code{\link{as.interval}}.
 #'
 #' @param x Object to be coerced to a duration
 #' @return A duration object
@@ -162,6 +155,11 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' # 18316800s (~212 days)
 #' as.duration(10) # numeric
 #' # 10s
+#' dur <- duration(hours = 10, minutes = 6)
+#' as.numeric(dur, "hours")
+#' # 10.1
+#' as.numeric(dur, "minutes")
+#' # 606
 #' @aliases as.duration,numeric-method as.duration,logical-method as.duration,difftime-method as.duration,Interval-method as.duration,Duration-method as.duration,Period-method
 #' @export
 as.duration <- function(x) standardGeneric("as.duration")
@@ -190,11 +188,11 @@ setMethod("as.duration", signature(x = "Duration"), function(x){
 })
 
 setMethod("as.duration", signature(x = "Period"), function(x){
-  verbose <- getOption("lubridate.verbose")
-  if (is.null(verbose) || verbose) {
-    message("estimate only: convert periods to intervals for accuracy")
-  }
-	new("Duration", period_to_seconds(x))
+  ## verbose <- getOption("lubridate.verbose")
+  ## if (is.null(verbose) || verbose) {
+  ##   message("estimate only: convert periods to intervals for accuracy")
+  ## }
+  new("Duration", period_to_seconds(x))
 })
 
 
@@ -317,12 +315,6 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' savings. These periods will show the "naive" change in seconds and minutes that is
 #' suggested by the differences in clock time. See the examples below.
 #'
-#' as.period.difftime and as.period.duration display the message "estimate only:
-#' convert difftimes (or duration) to
-#' intervals for accuracy" by default. You can turn this message off by
-#' setting the global \code{lubridate.verbose} option to FALSE with
-#' \code{options(lubridate.verbose = FALSE)}.
-#'
 #' @param x an interval, difftime, or numeric object
 #' @param unit A character string that specifies which time units to build period in.
 #' unit is only implemented for the as.period.numeric method and the as.period.interval method.
@@ -352,6 +344,11 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' # "86400S"
 #' as.period(dst, unit = "hours")
 #' # "24H 0M 0S"
+#' per <- period(hours = 10, minutes = 6)
+#' as.numeric(per, "hours")
+#' # 10.1
+#' as.numeric(per, "minutes")
+#' # 606
 #' @aliases as.period,numeric-method as.period,difftime-method as.period,Interval-method as.period,Duration-method as.period,Period-method as.period,logical-method
 #' @export
 as.period <- function(x, unit, ...) standardGeneric("as.period")
@@ -368,10 +365,10 @@ setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ..
 })
 
 setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
-  verbose <- getOption("lubridate.verbose")
-  if (is.null(verbose) || verbose) {
-    message("estimate only: convert difftimes to intervals for accuracy")
-  }
+  ## verbose <- getOption("lubridate.verbose")
+  ## if (is.null(verbose) || verbose) {
+  ##   message("estimate only: convert difftimes to intervals for accuracy")
+  ## }
   seconds_to_period(as.double(x, "secs"))
 })
 
@@ -494,10 +491,10 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 }
 
 setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) {
-  verbose <- getOption("lubridate.verbose")
-  if (is.null(verbose) || verbose) {
-    message("estimate only: convert durations to intervals for accuracy")
-  }
+  ## verbose <- getOption("lubridate.verbose")
+  ## if (is.null(verbose) || verbose) {
+  ##   message("estimate only: convert durations to intervals for accuracy")
+  ## }
   span <- x@.Data
   remainder <- abs(span)
   newper <- period(second = rep(0, length(x)))
@@ -562,35 +559,34 @@ setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X",
 
 setGeneric("as.numeric")
 
+seconds_to_unit <- function(secs, unit = "second"){
+  switch(unit,
+         second = secs,
+         minute = secs / 60,
+         hour   = secs / 3600,
+         day    = secs / 86400,
+         month  = secs / (86400 * 365.25)/12,
+         week   = secs / (86400 * 7),
+         year   = secs / (86400 * 365.25),
+         stop("invalid unit ", unit))
+}
+
 #' @export
 setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...){
-	units <- standardise_period_names(units)
-
-	if (units == "month") stop("cannot map durations to months")
-	num <- switch(units,
-		second = x@.Data,
-		minute = x@.Data / 60,
-		hour = x@.Data / (60 * 60),
-		day = x@.Data / (60 * 60 * 24),
-		week = x@.Data / (60 * 60 * 24 * 7),
-		year = x@.Data / (60 * 60 * 24 * 365.25))
-
-	as.numeric(num, ...)
+	unit <- standardise_period_names(units)
+	as.numeric(seconds_to_unit(x@.Data, unit), ...)
 })
 
 #' @export
 setMethod("as.numeric", signature(x = "Interval"), function(x, units = "secs", ...){
-	message("coercing interval to duration")
-	as.numeric(as.duration(x), units, ...)
+  as.numeric(as.duration(x), units, ...)
 })
 
 #' @export
 setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", ...){
-	units <- standardise_period_names(units)
-	if (units == "second") x@.Data
-	else slot(x, units)
+  unit <- standardise_period_names(units)
+  as.numeric(seconds_to_unit(period_to_seconds(x), unit = unit), ...)
 })
-
 
 as.POSIXt <- function(x) as.POSIXlt(x)
 

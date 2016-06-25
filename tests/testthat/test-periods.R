@@ -75,6 +75,15 @@ test_that("format.Period works as expected", {
   expect_equivalent(format(per3), as.character(NA))
 })
 
+test_that("as.numeric and as.duration correctly handle periods", {
+  tt <- period(24, "hours") + period(60, "minutes")
+  expect_equal(as.numeric(tt, "hour"), 25)
+  tt <- period(hours = 24, minutes = 6)
+  expect_equal(as.numeric(tt, "hour"), 24.1)
+  expect_equal(as.numeric(tt, "hour"),
+               as.numeric(as.duration(tt), "hour"))
+})
+
 test_that("as.period handles interval objects", {
   start <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   end <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")

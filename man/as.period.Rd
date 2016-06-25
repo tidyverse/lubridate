@@ -59,12 +59,6 @@ not use daylight savings. Hence, periods converted with seconds or minutes will 
 reflect the actual variation in seconds and minutes that occurs due to daylight
 savings. These periods will show the "naive" change in seconds and minutes that is
 suggested by the differences in clock time. See the examples below.
-
-as.period.difftime and as.period.duration display the message "estimate only:
-convert difftimes (or duration) to
-intervals for accuracy" by default. You can turn this message off by
-setting the global \code{lubridate.verbose} option to FALSE with
-\code{options(lubridate.verbose = FALSE)}.
 }
 \examples{
 span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
@@ -86,6 +80,11 @@ ymd("2016-11-07", tz = "America/Chicago"))
 # "86400S"
 as.period(dst, unit = "hours")
 # "24H 0M 0S"
+per <- period(hours = 10, minutes = 6)
+as.numeric(per, "hours")
+# 10.1
+as.numeric(per, "minutes")
+# 606
 }
 \seealso{
 \code{\link{Period-class}}, \code{\link{period}}

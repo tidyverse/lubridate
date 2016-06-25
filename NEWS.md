@@ -8,7 +8,9 @@ Version 1.5.6.9000 (development)
 
 
 ### CHANGES
-
+* `as.duration`, `as.numeric` don't show "only estimate" messages on conversion from periods. The occasional approximate conversion is documented and deemed common knowledge.
+* `as.numeric` with `unit="month"` now works on duration objects.
+* [#420](https://github.com/hadley/lubridate/issues/420) `as.numeric` correctly converts periods to (aproximate) numeric time lengths.
 * [#403](https://github.com/hadley/lubridate/issues/403) Update on `Date` objects now return `POSIXct` instead of `POSIXlt`.
 * [#411](https://github.com/hadley/lubridate/issues/411) format `mdy` or `myd` beginning with `"January"` or `"Jan"` now parsing correctly
 
