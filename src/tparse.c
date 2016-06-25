@@ -110,6 +110,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
           switch( *o ) {
           case 'Y': // year in yyyy format
             PARSENUM(y, 4);
+            if (tN > 0) succeed = 0;
             break;
           case 'y': // year in yy format
             PARSENUM(y, 2);

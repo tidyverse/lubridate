@@ -592,6 +592,16 @@ test_that("ymd_hms parses OO and Oo formats correctly", {
               shows_message("Date in ISO8601 format"))
 })
 
+test_that("ymd parses mixed y an Y formats", {
+  ## https://github.com/hadley/lubridate/issues/425
+  d3 <- c("6/25/15", "6/25/2015")
+  expect_equal(mdy(d3), as.Date(c("2015-06-25", "2015-06-25")))
+  d6 <- c("25/6/15", "25/6/2015")
+  expect_equal(dmy(d6), as.Date(c("2015-06-25", "2015-06-25")))
+  d9 <- c("15/6/25", "2015/6/25")
+  expect_equal(ymd(d9), as.Date(c("2015-06-25", "2015-06-25")))
+})
+
 test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats",{
   expect_that(ymd_hms(c("2012-03-04T05:06:07Z", "2001-02-03 04:05:06"),
                       tz="America/Chicago"),
