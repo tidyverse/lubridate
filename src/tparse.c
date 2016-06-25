@@ -128,24 +128,24 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
             break;
           case 'H': // hour 24
             PARSENUM(H, 2);
-            if (H > 23) succeed = 0;
+            if (H > 24) succeed = 0;
             break;
           case 'M': // minute
             PARSENUM(M, 2);
-            if ( M > 59 ) succeed = 0;
+            if (M > 59) succeed = 0;
             break;
           case 'S': // second
             if( O_format && !is_fmt ){
               while (*c && !DIGIT(*c)) c++;
-              if ( !*c ) {
+              if (!*c) {
                 succeed = 0;
                 break;
               }
             }
             PARSENUM(S, 2);
-            if ( S < 62 ){ // allow leap seconds
+            if (S < 62){ // allow leap seconds
               secs += S;
-              if( O_format ){
+              if (O_format){
                 // Parse milliseconds; both . and , as decimal separator are allowed
                 if( *c == '.' || *c == ','){
                   double ms = 0.0, msfact = 0.1;
