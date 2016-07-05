@@ -75,6 +75,28 @@ test_that("weeks accessor extracts correct week",{
 
 })
 
+test_that("quarters accessor extracts correct quarter", {
+  poslt <- as.POSIXlt("2010-11-03 13:45:59", tz = "UTC", format
+                      = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct(poslt)
+  date <- as.Date(poslt)
+
+  expect_that(quarter(poslt), equals(4))
+  expect_that(quarter(poslt, with_year = TRUE), equals(2010.4))
+  expect_that(quarter(poslt, shift = -2), equals(1))
+  expect_that(quarter(poslt, with_year = TRUE, shift = -2 ), equals(2011.1))
+
+  expect_that(quarter(posct), equals(4))
+  expect_that(quarter(posct, with_year = TRUE), equals(2010.4))
+  expect_that(quarter(posct, shift = -2), equals(1))
+  expect_that(quarter(posct, with_year = TRUE, shift = -2 ), equals(2011.1))
+
+  expect_that(quarter(date), equals(4))
+  expect_that(quarter(date, with_year = TRUE), equals(2010.4))
+  expect_that(quarter(date, shift = -2), equals(1))
+  expect_that(quarter(date, with_year = TRUE, shift = -2 ), equals(2011.1))
+})
+
 test_that("isoweek accessor extracts correct ISO8601 week",{
   poslt <- as.POSIXlt("2010-01-01 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
