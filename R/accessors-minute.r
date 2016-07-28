@@ -7,7 +7,6 @@ NULL
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 #'
 #' @export
-#' @aliases minute minute<-
 #' @param x a date-time object
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number
@@ -28,6 +27,7 @@ minute.default <- function(x)
 minute.Period <- function(x)
   slot(x, "minute")
 
+#' @rdname minute
 #' @export
 "minute<-" <- function(x, value)
   x <- x + minutes(value - minute(x))

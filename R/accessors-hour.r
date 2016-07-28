@@ -7,7 +7,6 @@ NULL
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 #'
 #' @export
-#' @aliases hour hour<-
 #' @param x a date-time object
 #' @keywords utilities manip chron methods
 #' @return the hours element of x as a decimal number
@@ -29,6 +28,7 @@ hour.Period <- function(x)
   slot(x, "hour")
 
 #' @export
+#' @rdname hour
 "hour<-" <- function(x, value)
   x <- x + hours(value - hour(x))
 

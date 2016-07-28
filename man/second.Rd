@@ -6,6 +6,8 @@
 \title{Get/set seconds component of a date-time.}
 \usage{
 second(x)
+
+second(x) <- value
 }
 \arguments{
 \item{x}{a date-time object}

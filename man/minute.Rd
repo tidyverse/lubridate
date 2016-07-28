@@ -6,6 +6,8 @@
 \title{Get/set minutes component of a date-time.}
 \usage{
 minute(x)
+
+minute(x) <- value
 }
 \arguments{
 \item{x}{a date-time object}

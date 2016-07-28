@@ -7,7 +7,6 @@ NULL
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 #'
 #' @export
-#' @aliases second second<-
 #' @param x a date-time object
 #' @return the seconds element of x as a decimal number
 #' @keywords utilities manip chron methods
@@ -28,6 +27,7 @@ second.default <- function(x)
 second.Period <- function(x)
   slot(x, ".Data")
 
+#' @rdname second
 #' @export
 "second<-" <- function(x, value)
   x <- x + seconds(value - second(x))

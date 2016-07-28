@@ -6,6 +6,8 @@
 \title{Get/set hours component of a date-time.}
 \usage{
 hour(x)
+
+hour(x) <- value
 }
 \arguments{
 \item{x}{a date-time object}
