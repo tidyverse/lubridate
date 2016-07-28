@@ -428,8 +428,7 @@ hms <- function(..., quiet = FALSE) {
 ##' \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 ##' }
 ##'
-##' @export parse_date_time
-##' @aliases parse_date_time2 fast_strptime
+##' @export
 ##' @param x a character or numeric vector of dates
 ##' @param orders a character vector of date-time formats. Each order string is
 ##'   series of formatting characters as listed \code{\link[base]{strptime}} but
@@ -611,7 +610,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 }
 
 ##' @rdname parse_date_time
-##' @export parse_date_time2
+##' @export
 ##' @param lt logical. If TRUE returned object is of class POSIXlt, and POSIXct
 ##'   otherwise. For compatibility with base `strptime` function default is TRUE
 ##'   for `fast_strptime` and FALSE for `parse_date_time2`.
@@ -633,7 +632,7 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE){
 
 ##' @useDynLib lubridate parse_dt
 ##' @rdname parse_date_time
-##' @export fast_strptime
+##' @export
 ##' @param format a character string of formats. It should include all the
 ##'   separators and each format must be prefixed with %, just as in the format
 ##'   argument of \code{strptime}.
