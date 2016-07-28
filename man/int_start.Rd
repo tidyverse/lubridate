@@ -6,6 +6,8 @@
 \title{Access and change the start date of an interval}
 \usage{
 int_start(int)
+
+int_start(int) <- value
 }
 \arguments{
 \item{int}{An interval object}

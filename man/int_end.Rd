@@ -6,6 +6,8 @@
 \title{Access and change the end date of an interval}
 \usage{
 int_end(int)
+
+int_end(int) <- value
 }
 \arguments{
 \item{int}{An interval object}

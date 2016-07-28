@@ -8,6 +8,8 @@
 \usage{
 interval(start, end, tzone = attr(start, "tzone"))
 
+start \%--\% end
+
 is.interval(x)
 }
 \arguments{
