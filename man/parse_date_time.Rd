@@ -91,13 +91,13 @@ recursively on the input vector.
 
 \code{parse_date_time}, and all derived functions, such as \code{ymd_hms},
 \code{ymd} etc, will drop into \code{fast_strptime} instead of
-\code{strptime} whenever the guesed from the input data formats are all
+\code{strptime} whenever the guessed from the input data formats are all
 numeric.
 
 The list below contains formats recognized by lubridate. For numeric formats
 leading 0s are optional. In contrast to \code{strptime}, some of the formats
 have been extended for efficiency reasons. They are marked with "*". Fast
-perasers,  \code{parse_date_time2} and \code{fast_strptime}, currently
+parsers,  \code{parse_date_time2} and \code{fast_strptime}, currently
 accept only formats marked with "!".
 
 \describe{ \item{\code{a}}{Abbreviated weekday name in the current
