@@ -10,3 +10,4 @@ TAGS
 test.R
 CRAN_notes.md
 revdep/
+^codecov\.yml$
