@@ -234,7 +234,7 @@ msgstr ""
 "기간(period)과 숫자(numeric)을 비교할 수 없습니다.:\n"
 "as.numeric으로 강제변환합니다."
 
-msgid "Couldn't quess formats of:"
+msgid "Couldn't guess formats of:"
 msgstr "Quess 할 수 없는 형식(format)입니다."
 
 msgid "Multiple formats matched:"

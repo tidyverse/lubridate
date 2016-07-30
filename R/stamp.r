@@ -53,7 +53,7 @@ stamp <- function(x, orders = lubridate_formats,
                   locale = Sys.getlocale("LC_TIME"), quiet = FALSE){
 
   fmts <- unique(guess_formats(x, orders, locale))
-  if( is.null(fmts) ) stop( "Couldn't quess formats of: ", x)
+  if( is.null(fmts) ) stop( "Couldn't guess formats of: ", x)
   if( length(fmts) == 1L ){
     FMT <- fmts[[1]]
   }else{
