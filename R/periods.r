@@ -106,6 +106,13 @@ check_period <- function(object){
 #' @name Period-class
 #' @rdname Period-class
 #' @exportClass Period
+setClass("Period", contains = c("Timespan", "numeric"),
+	slots = c(year = "numeric", month = "numeric", day = "numeric",
+		hour = "numeric", minute = "numeric"),
+	prototype = prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0),
+	validity = check_period)
+
+#' @name hidden_aliases
 #' @aliases second,Period-method second<-,Period-method minute,Period-method
 #' minute<-,Period-method hour,Period-method hour<-,Period-method
 #' day,Period-method day<-,Period-method month,Period-method
@@ -144,11 +151,7 @@ check_period <- function(object){
 #' >,Period,Duration >,Period,Period >,Period,numeric >,numeric,Period
 #' >=,Duration,Period >=,Period,Duration >=,Period,Period >=,Period,numeric
 #' >=,numeric,Period
-setClass("Period", contains = c("Timespan", "numeric"),
-	slots = c(year = "numeric", month = "numeric", day = "numeric",
-		hour = "numeric", minute = "numeric"),
-	prototype = prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0),
-	validity = check_period)
+NULL
 
 setMethod("initialize", "Period", function(.Object, ...){
   dots <- list(...)

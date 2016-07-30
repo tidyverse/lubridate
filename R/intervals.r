@@ -61,6 +61,10 @@ check_interval <- function(object){
 #' @name Interval-class
 #' @rdname Interval-class
 #' @exportClass Interval
+setClass("Interval", contains = c("Timespan", "numeric"),
+  slots = c(start = "POSIXct", 	tzone = "character"), validity = check_interval)
+
+#' @name hidden_aliases
 #' @aliases intersect,Interval,Interval-method union,Interval,Interval-method
 #' setdiff,Interval,Interval-method as.numeric,Interval-method
 #' show,Interval-method c,Interval-method rep,Interval-method [,Interval-method
@@ -85,8 +89,7 @@ check_interval <- function(object){
 #' %%,Interval,Period -,Date,Interval -,Duration,Interval -,Interval,Date
 #' -,Interval,Interval -,Interval,POSIXct -,Interval,POSIXlt -,Interval,numeric
 #' -,POSIXct,Interval -,POSIXlt,Interval -,numeric,Interval
-setClass("Interval", contains = c("Timespan", "numeric"),
-  slots = c(start = "POSIXct", 	tzone = "character"), validity = check_interval)
+NULL
 
 #' @export
 setMethod("show", signature(object = "Interval"), function(object){

@@ -31,6 +31,9 @@ check_duration <- function(object){
 #' @name Duration-class
 #' @rdname Duration-class
 #' @exportClass Duration
+setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
+
+#' @name hidden_aliases
 #' @aliases Compare,Duration,ANY-method Compare,Duration,Duration-method
 #' Compare,difftime,Duration-method as.numeric,Duration-method
 #' show,Duration-method c,Duration-method rep,Duration-method [,Duration-method
@@ -48,8 +51,7 @@ check_duration <- function(object){
 #' /,numeric,Duration-method *,Duration,ANY-method *,ANY,Duration-method
 #' %%,Duration,Duration-method %%,Duration,Interval-method
 #' %%,Duration,Period-method -,Duration,missing-method -,ANY,Duration-method
-setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
-
+NULL
 
 SECONDS_IN_ONE <- c(
   second = 1,

@@ -64,6 +64,7 @@ Collate:
     'deprecated.r'
     'guess.r'
     'help.r'
+    'hidden.r'
     'instants.r'
     'leap-years.r'
     'ops-addition.r'
