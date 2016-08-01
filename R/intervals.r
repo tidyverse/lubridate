@@ -251,7 +251,7 @@ is.interval <- function(x) is(x, c("Interval"))
 #' the interval, since the end date will remain the same.
 #'
 #' @export
-#' @param int An interval object
+#' @param int an interval object
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
 #' @seealso \code{\link{int_end}}, \code{\link{int_shift}}, \code{\link{int_flip}},
 #' \code{\link{int_length}}
@@ -266,6 +266,7 @@ is.interval <- function(x) is(x, c("Interval"))
 int_start <- function(int) int@start
 
 #' @rdname int_start
+#' @param value interval's start to be assigned to \code{int}
 #' @export
 "int_start<-" <- function(int, value){
 	value <- as.POSIXct(value)
@@ -297,6 +298,7 @@ int_start <- function(int) int@start
 int_end <- function(int) int@start + int@.Data
 
 #' @export
+#' @param value interval's end to be assigned to \code{int}
 #' @rdname int_end
 "int_end<-" <- function(int, value){
 	value <- as.POSIXct(value)

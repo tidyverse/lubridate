@@ -689,6 +689,6 @@ setMethod("as_datetime", "numeric",
 #' @export
 setMethod("as_datetime", "ANY",
   function(x, tz = "UTC") {
-    with_tz(as.POSIXct(x), tz = tz)
+    with_tz(as.POSIXct(x), tzone = tz)
   }
 )

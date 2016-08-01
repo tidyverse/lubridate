@@ -11,6 +11,8 @@ minute(x) <- value
 }
 \arguments{
 \item{x}{a date-time object}
+
+\item{value}{numeric value to be assigned}
 }
 \value{
 the minutes element of x as a decimal number

@@ -81,6 +81,7 @@ tz.irts <- function(x)
   return("GMT")
 
 #' @rdname tz
+#' @param value timezone value to be assigned to \code{x}'s \code{tzone} attribute
 #' @export
 "tz<-" <- function(x, value){
   new <- force_tz(x, value)

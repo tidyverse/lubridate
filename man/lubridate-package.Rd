@@ -156,7 +156,7 @@ Miscellaneous
 its year.
 \code{\link{leap_year}} tests whether an instant occurs during
 a leap year.
-\code{\link{pretty.dates}} provides a method of making pretty
+\code{\link{pretty_dates}} provides a method of making pretty
 breaks for date-times
 \code{\link{lakers}} is a data set that contains information
 about the Los Angeles Lakers 2008-2009 basketball season.

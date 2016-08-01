@@ -28,6 +28,7 @@ minute.Period <- function(x)
   slot(x, "minute")
 
 #' @rdname minute
+#' @param value numeric value to be assigned
 #' @export
 "minute<-" <- function(x, value)
   x <- x + minutes(value - minute(x))

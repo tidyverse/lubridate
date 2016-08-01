@@ -13,6 +13,8 @@ tz(x) <- value
 \item{x}{a date-time object of class a POSIXct, POSIXlt, Date, chron, yearmon,
 yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can
 be coerced to POSIXlt with as.POSIXlt}
+
+\item{value}{timezone value to be assigned to \code{x}'s \code{tzone} attribute}
 }
 \value{
 the first element of x's tzone attribute vector as a character string. If no tzone

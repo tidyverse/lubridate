@@ -28,6 +28,7 @@ second.Period <- function(x)
   slot(x, ".Data")
 
 #' @rdname second
+#' @param value numeric value to be assigned
 #' @export
 "second<-" <- function(x, value)
   x <- x + seconds(value - second(x))

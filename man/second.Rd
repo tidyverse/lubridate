@@ -11,6 +11,8 @@ second(x) <- value
 }
 \arguments{
 \item{x}{a date-time object}
+
+\item{value}{numeric value to be assigned}
 }
 \value{
 the seconds element of x as a decimal number
