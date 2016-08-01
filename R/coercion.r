@@ -606,14 +606,29 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...){
 })
 
 
-#' Convert an object to a Date
+#' Convert an object to a date or date-time
 #'
-#' A drop in replacement for base \code{as.Date} with two two
-#' differences. First, it ignores timezone attribute resulting in a more
-#' intuitive conversion (see examples). Second, it does not require origin
-#' argument which defaults to 1970-01-01.
+#'
+#' @section Compare to base R:
+#'
+#' These are drop in replacements for \code{as.Date} and \code{as.POSIXct},
+#' with a few tweaks to make them work more intuitively.
+#'
+#' \itemize{
+#'   \item \code{as_date} ignores the timezone attribute, resulting in
+#'      a more intuitive conversion (see examples)
+#'   \item Both functions provide a default origin argument for numeric
+#'      vectors.
+#'   \item \code{as_datetime} defaults to using UTC.
+#' }
 #'
 #' @param x a vector of \code{\link{POSIXt}}, numeric or character objects
+#' @param origin a Date object, or something which can be coerced by
+#'   \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
+#'   "1970-01-01"). Note that in this instance, \code{x} is assumed to reflect
+#'   the number of days since \code{origin} at \code{"UTC"}.
+#' @param tz a time zone name (default: time zone of the POSIXt object
+#'   \code{x}). See \code{\link{olson_time_zones}}.
 #' @param ... further arguments to be passed to specific methods (see above).
 #' @return a vector of \code{\link{Date}} objects corresponding to \code{x}.
 #' @examples
@@ -632,8 +647,14 @@ setGeneric(name = "as_date",
            useAsDefault = as.Date)
 
 #' @rdname as_date
-#' @param tz a time zone name (default: time zone of the POSIXt object
-#'   \code{x}). See \code{\link{olson_time_zones}}.
+#' @export
+setGeneric("as_datetime",
+  function(x, ...) {
+    standardGeneric("as_datetime")
+  }
+)
+
+#' @rdname as_date
 #' @export
 setMethod(f = "as_date", signature = "POSIXt",
           function (x, tz = NULL) {
@@ -642,12 +663,32 @@ setMethod(f = "as_date", signature = "POSIXt",
           })
 
 #' @rdname as_date
-#' @param origin a Date object, or something which can be coerced by
-#'   \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
-#'   "1970-01-01"). Note that in this instance, \code{x} is assumed to reflect
-#'   the number of days since \code{origin} at \code{"UTC"}.
-#' @export
 setMethod(f = "as_date", signature = "numeric",
           function (x, origin = lubridate::origin) {
             as.Date(x, origin = origin)
           })
+
+
+#' @rdname as_date
+#' @export
+setMethod("as_datetime", "POSIXt",
+  function(x, tz = "UTC") {
+    with_tz(x, tz)
+  }
+)
+
+#' @rdname as_date
+#' @export
+setMethod("as_datetime", "numeric",
+  function(x, origin = lubridate::origin, tz = "UTC") {
+    as.POSIXct(x, origin = origin, tz = tz)
+  }
+)
+
+#' @rdname as_date
+#' @export
+setMethod("as_datetime", "ANY",
+  function(x, tz = "UTC") {
+    with_tz(as.POSIXct(x), tz = tz)
+  }
+)
