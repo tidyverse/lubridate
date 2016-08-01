@@ -49,3 +49,14 @@ test_that("date_decimal reverses decimal_date",{
 test_that("decimal_date returns NA on NA date input", {
   expect_equal(decimal_date(as.Date(NA)), as.numeric(NA))
 })
+
+test_that("decimal_date correctly handles daylight savings time", {
+  date4 <- ymd_hms("2016-03-13 01:00:00", tz = 'America/New_York')
+  date4        <- date4 + dhours(-1:1)
+  decimal4     <- decimal_date(date4)
+  diff.decimal <- diff(decimal4)
+
+  expect_equal(diff.decimal[1], diff.decimal[2])
+
+  expect_equal(decimal4, decimal_date(with_tz(date4, 'UTC')))
+})
