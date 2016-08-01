@@ -409,7 +409,7 @@ is.period <- function(x) is(x,"Period")
 #' Note: Arithmetic with periods can results in undefined behavior when
 #' non-existent dates are involved (such as February 29th in non-leap
 #' years). Please see \code{\link{Period-class}} for more details and
-#' \code{\link{%m+%}} and \code{\link{add_with_rollback}} for alternative
+#' \code{\link{\%m+\%}} and \code{\link{add_with_rollback}} for alternative
 #' operations.
 #'
 #' @name quick_periods

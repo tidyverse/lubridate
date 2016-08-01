@@ -48,8 +48,8 @@ NOTE: \code{ymd} family of functions are based on `parse_date_time` and thus
 directly drop to internal C parser for numeric months, but use R's
 `strptime` for alphabetic months. This implies that some of the `strptime`'s
 limitations are inherited by lubridate's parser. For example truncated
-formats (like %Y-%b) will not be parsed. Numeric truncated formats (like
-%Y-%m) are handled correctly by lubridate's C parser.
+formats (like \%Y-\%b) will not be parsed. Numeric truncated formats (like
+\%Y-\%m) are handled correctly by lubridate's C parser.
 
 As of version 1.3.0, lubridate's parse functions no longer return a
 message that displays which format they used to parse their input. You can

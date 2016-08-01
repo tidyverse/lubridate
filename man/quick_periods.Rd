@@ -55,6 +55,18 @@ for manipulations with clock times because units expand or contract in length
 to accomodate conventions such as leap years, leap seconds, and Daylight
 Savings Time.
 }
+\details{
+When paired with date-times, these functions allow date-times to be
+manipulated in a method similar to object oriented programming. Period
+objects can be added to Date, POSIXct, and POSIXlt objects to calculate new
+date-times.
+
+Note: Arithmetic with periods can results in undefined behavior when
+non-existent dates are involved (such as February 29th in non-leap
+years). Please see \code{\link{Period-class}} for more details and
+\code{\link{\%m+\%}} and \code{\link{add_with_rollback}} for alternative
+operations.
+}
 \examples{
 
 x <- as.POSIXct("2009-08-03")
