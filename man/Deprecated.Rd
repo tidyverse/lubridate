@@ -12,6 +12,7 @@
 \alias{eseconds}
 \alias{eweeks}
 \alias{eyears}
+\alias{here}
 \alias{new_difftime}
 \alias{new_duration}
 \alias{new_interval}
@@ -46,6 +47,8 @@ emicroseconds(x = 1)
 enanoseconds(x = 1)
 
 epicoseconds(x = 1)
+
+here()
 
 olson_time_zones(order_by = c("name", "longitude"))
 }

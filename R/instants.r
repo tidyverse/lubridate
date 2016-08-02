@@ -36,19 +36,6 @@ is.instant <- is.timepoint <- function(x) inherits(x, c("POSIXt", "POSIXct", "PO
 now <- function(tzone = "")
   with_tz(Sys.time(), tzone)
 
-#' The current time in your local timezone
-#'
-#' @export here
-#' @return the current date and time as a POSIXct object
-#'
-#' @seealso \code{\link{now}}
-#'
-#' @keywords chron utilities
-#' @examples
-#' here()
-here <- function() now("")
-
-
 #' The current date
 #'
 #' @export today

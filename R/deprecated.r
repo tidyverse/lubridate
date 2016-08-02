@@ -146,6 +146,12 @@ epicoseconds <- function(x = 1){
   new("Duration", x / 1000 / 1000 / 1000 / 1000)
 }
 
+#' @export
+#' @rdname Deprecated
+here <- function(){
+  .deprecated_fun("now", "1.5.8")
+  now()
+}
 
 #' @export
 #' @rdname Deprecated
