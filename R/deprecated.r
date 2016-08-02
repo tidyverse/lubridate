@@ -154,6 +154,8 @@ here <- function(){
 }
 
 #' @export
+#' @param order_by Return names alphabetically (the default) or from West to
+#'   East.
 #' @rdname Deprecated
 olson_time_zones <- function(order_by = c("name", "longitude")) {
   .deprecated_fun("OlsonNames", "1.5.8")

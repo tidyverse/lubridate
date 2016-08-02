@@ -57,6 +57,9 @@ olson_time_zones(order_by = c("name", "longitude"))
 (obscured to enforce the usage of new functions)}
 
 \item{x}{numeric value to be converted into duration}
+
+\item{order_by}{Return names alphabetically (the default) or from West to
+East.}
 }
 \description{
 Deprecated function in \code{lubridate} package
