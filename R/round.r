@@ -157,7 +157,7 @@ floor_date <- function(x, unit = c("second", "minute", "hour", "day", "week", "m
 #' ## [1] "2000-02-01"
 ceiling_date <- function(x,
                          unit = c("second", "minute", "hour", "day", "week", "month", "bimonth", "quarter", "halfyear", "year"),
-                         change_on_boundary = getOption("lubridate.ceiling_date.change_on_boundary", FALSE)) {
+                         change_on_boundary = FALSE) {
   if(!length(x))
     return(x)
 
