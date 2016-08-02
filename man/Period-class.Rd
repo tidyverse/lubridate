@@ -2,8 +2,21 @@
 % Please edit documentation in R/periods.r
 \docType{class}
 \name{Period-class}
+\alias{Compare,Period,Duration-method}
+\alias{Compare,Period,Period-method}
+\alias{Compare,Period,numeric-method}
 \alias{Period-class}
 \title{Period class}
+\usage{
+\S4method{Compare}{Period,Period}(e1, e2)
+
+\S4method{Compare}{Period,Duration}(e1, e2)
+
+\S4method{Compare}{Period,numeric}(e1, e2)
+}
+\arguments{
+\item{e1, e2}{arguments in comparison operators for periods class}
+}
 \description{
 Period is an S4 class that extends the \code{\link{Timespan-class}} class.
 Periods track the change in the "clock time" between two date-times. They

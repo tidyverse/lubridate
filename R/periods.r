@@ -532,176 +532,26 @@ seconds_to_period <- function(x) {
   newper * sign(span)
 }
 
+#' @rdname Period-class
+#' @param e1,e2 arguments in comparison operators for periods class
 #' @export
-setMethod(">", signature(e1 = "Period", e2 = "Period"),
-	function(e1, e2) {
-	 period_to_seconds(e1) > period_to_seconds(e2)
-})
-
-#' @export
-setMethod(">=", signature(e1 = "Period", e2 = "Period"),
-	function(e1, e2) {
-	 period_to_seconds(e1) >= period_to_seconds(e2)
-})
-
-#' @export
-setMethod("==", signature(e1 = "Period", e2 = "Period"),
-	function(e1, e2) {
-	 period_to_seconds(e1) == period_to_seconds(e2)
-})
-
-#' @export
-setMethod("!=", signature(e1 = "Period", e2 = "Period"),
-	function(e1, e2) {
-	 period_to_seconds(e1) != period_to_seconds(e2)
-})
-
-#' @export
-setMethod("<=", signature(e1 = "Period", e2 = "Period"),
-	function(e1, e2) {
-	 period_to_seconds(e1) <= period_to_seconds(e2)
-})
-
-#' @export
-setMethod("<", signature(e1 = "Period", e2 = "Period"),
-	function(e1, e2) {
-	 period_to_seconds(e1) < period_to_seconds(e2)
-})
-
-#' @export
-setMethod(">", signature(e1 = "Period", e2 = "Duration"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
-})
-
-#' @export
-setMethod(">=", signature(e1 = "Period", e2 = "Duration"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")})
-
-#' @export
-setMethod("==", signature(e1 = "Period", e2 = "Duration"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")})
-
-#' @export
-setMethod("!=", signature(e1 = "Period", e2 = "Duration"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
-})
-
-#' @export
-setMethod("<=", signature(e1 = "Period", e2 = "Duration"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
-})
-
-#' @export
-setMethod("<", signature(e1 = "Period", e2 = "Duration"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")})
-
-#' @export
-setMethod(">", signature(e1 = "Duration", e2 = "Period"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
-})
-
-#' @export
-setMethod(">=", signature(e1 = "Duration", e2 = "Period"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")})
-
-#' @export
-setMethod("==", signature(e1 = "Duration", e2 = "Period"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
-})
-
-#' @export
-setMethod("!=", signature(e1 = "Duration", e2 = "Period"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
-})
-
-#' @export
-setMethod("<=", signature(e1 = "Duration", e2 = "Period"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
-})
-
-#' @export
-setMethod("<", signature(e1 = "Duration", e2 = "Period"),
-	function(e1, e2) {
-	 stop("cannot compare Period to Duration:\ncoerce with as.duration")
-})
-
-#' @export
-setMethod(">", signature(e1 = "Period", e2 = "numeric"),
+setMethod("Compare", signature(e1 = "Period", e2 = "Period"),
           function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+            callGeneric(period_to_seconds(e1), period_to_seconds(e2))
           })
 
+#' @rdname Period-class
 #' @export
-setMethod(">=", signature(e1 = "Period", e2 = "numeric"),
+setMethod("Compare", signature(e1 = "Period", e2 = "Duration"),
           function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
-
-#' @export
-setMethod("==", signature(e1 = "Period", e2 = "numeric"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
-
-#' @export
-setMethod("!=", signature(e1 = "Period", e2 = "numeric"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+            stop("cannot compare Period to Duration:\ncoerce with 'as.duration' first.")
           })
 
+#' @rdname Period-class
 #' @export
-setMethod("<=", signature(e1 = "Period", e2 = "numeric"),
+setMethod("Compare", signature(e1 = "Period", e2 = "numeric"),
           function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
-          })
-
-#' @export
-setMethod("<", signature(e1 = "Period", e2 = "numeric"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
-
-#' @export
-setMethod(">", signature(e1 = "numeric", e2 = "Period"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
-          })
-
-#' @export
-setMethod(">=", signature(e1 = "numeric", e2 = "Period"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")})
-
-#' @export
-setMethod("==", signature(e1 = "numeric", e2 = "Period"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
-          })
-
-#' @export
-setMethod("!=", signature(e1 = "numeric", e2 = "Period"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
-          })
-
-#' @export
-setMethod("<=", signature(e1 = "numeric", e2 = "Period"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
-          })
-
-#' @export
-setMethod("<", signature(e1 = "numeric", e2 = "Period"),
-          function(e1, e2) {
-            stop("cannot compare Period to numeric:\ncoerce with as.numeric")
+            stop("cannot compare Period to Duration:\ncoerce with 'as.numeric' first.")
           })
 
 #' @export
