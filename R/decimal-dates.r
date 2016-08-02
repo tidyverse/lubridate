@@ -55,4 +55,5 @@ date_decimal <- function(decimal, tz = "UTC") {
   seconds <- as.numeric(difftime(end, start, units = "secs"))
   frac <- decimal - Y
   end <- start + seconds*frac
+  return(end)
 }

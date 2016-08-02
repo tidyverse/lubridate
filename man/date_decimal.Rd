@@ -4,7 +4,7 @@
 \alias{date_decimal}
 \title{Converts a decimal to a date.}
 \usage{
-date_decimal(decimal, tz = NULL)
+date_decimal(decimal, tz = "UTC")
 }
 \arguments{
 \item{decimal}{a numeric object}
