@@ -8,10 +8,12 @@ Version 1.5.6.9000 (development)
 * [#268](https://github.com/hadley/lubridate/issues/268) `round_date`, `ceiling_date`, and `floor_date` now accept "quarter", "bimonth", and "halfyear" as `unit` options.
 
 ### CHANGES
+
 * `as.duration`, `as.numeric` don't show "only estimate" messages on conversion from periods. The occasional approximate conversion is documented and deemed common knowledge.
 * `as.numeric` with `unit="month"` now works on duration objects.
 * [#403](https://github.com/hadley/lubridate/issues/403) Update on `Date` objects now return `POSIXct` instead of `POSIXlt`.
 * [#411](https://github.com/hadley/lubridate/issues/411) format `mdy` or `myd` beginning with `"January"` or `"Jan"` now parsing correctly
+* `here` and `olson_time_zones` were deprecated in favor of `new` and base `OlsonNames` respectively.
 
 ### BUG FIXES
 * [#418](https://github.com/hadley/lubridate/issues/418) C level parsing functions understand 24:00:00 in datetime strings.

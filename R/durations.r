@@ -35,22 +35,24 @@ setClass("Duration", contains = c("Timespan", "numeric"), validity = check_durat
 
 #' @name hidden_aliases
 #' @aliases Compare,Duration,ANY-method Compare,Duration,Duration-method
-#' Compare,difftime,Duration-method as.numeric,Duration-method
-#' show,Duration-method c,Duration-method rep,Duration-method [,Duration-method
-#' [<-,Duration,ANY,ANY,ANY-method [[,Duration-method
-#' [[<-,Duration,ANY,ANY,ANY-method $,Duration-method $<-,Duration-method
-#' as.difftime,Duration-method as.character,Duration-method
-#' +,Duration,Duration-method +,Duration,Interval-method
-#' +,Duration,Period-method +,Duration,Date-method +,Date,Duration-method
-#' +,Duration,difftime-method +,difftime,Duration-method
-#' +,Duration,numeric-method +,numeric,Duration-method +,Duration,POSIXct-method
-#' +,POSIXct,Duration-method +,Duration,POSIXlt-method +,POSIXlt,Duration-method
-#' /,Duration,Duration-method /,Duration,Interval-method
-#' /,Duration,Period-method /,Duration,difftime-method
-#' /,difftime,Duration-method /,Duration,numeric-method
-#' /,numeric,Duration-method *,Duration,ANY-method *,ANY,Duration-method
-#' %%,Duration,Duration-method %%,Duration,Interval-method
-#' %%,Duration,Period-method -,Duration,missing-method -,ANY,Duration-method
+#'   Compare,difftime,Duration-method Compare,ANY,Duration-method
+#'   as.numeric,Duration-method show,Duration-method c,Duration-method
+#'   rep,Duration-method [,Duration-method [<-,Duration,ANY,ANY,ANY-method
+#'   [[,Duration-method [[<-,Duration,ANY,ANY,ANY-method $,Duration-method
+#'   $<-,Duration-method as.difftime,Duration-method
+#'   as.character,Duration-method +,Duration,Duration-method
+#'   +,Duration,Interval-method +,Duration,Period-method +,Duration,Date-method
+#'   +,Date,Duration-method +,Duration,difftime-method
+#'   +,difftime,Duration-method +,Duration,numeric-method
+#'   +,numeric,Duration-method +,Duration,POSIXct-method
+#'   +,POSIXct,Duration-method +,Duration,POSIXlt-method
+#'   +,POSIXlt,Duration-method -,Duration,ANY-method /,Duration,Duration-method
+#'   /,Duration,Interval-method /,Duration,Period-method
+#'   /,Duration,difftime-method /,difftime,Duration-method
+#'   /,Duration,numeric-method /,numeric,Duration-method *,Duration,ANY-method
+#'   *,ANY,Duration-method %%,Duration,Duration-method
+#'   %%,Duration,Interval-method %%,Duration,Period-method
+#'   -,Duration,missing-method -,ANY,Duration-method
 NULL
 
 SECONDS_IN_ONE <- c(
@@ -59,8 +61,7 @@ SECONDS_IN_ONE <- c(
   hour   = 3600,
   day    = 86400,
   week   = 604800,
-  year   = 31557600
-)
+  year   = 31557600)
 
 .readable_duration <- function(x, unit){
   if(unit == "second")
@@ -138,29 +139,6 @@ setMethod("[[<-", signature(x = "Duration"),
     x@.Data[i] <- as.numeric(value)
     new("Duration", x@.Data)
 })
-
-
-#' @export
-#' @importFrom methods Compare
-setMethod("Compare", c(e1 = "Duration", e2 = "ANY"),
-          function(e1, e2){
-            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration`.",
-                         class(e1), class(e2)),
-                 call. = FALSE)
-          })
-
-#' @export
-setMethod("Compare", c(e1 = "difftime", e2 = "Duration"),
-          function(e1, e2){
-            callGeneric(as.numeric(e1, "secs"),
-                        as.numeric(e2, "secs"))
-          })
-
-#' @export
-setMethod("Compare", c(e1 = "Duration", e2 = "Duration"),
-          function(e1, e2){
-            callGeneric(e1@.Data, e2@.Data)
-          })
 
 
 #' Create a duration object.
@@ -352,3 +330,32 @@ summary.Duration <- function(object, ...) {
     c(qq, `NA's` = sum(nas))
   else qq
 }
+
+#' @export
+setMethod("Compare", c(e1 = "Duration", e2 = "ANY"),
+          function(e1, e2){
+            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration`.",
+                         class(e1), class(e2)),
+                 call. = FALSE)
+          })
+
+#' @export
+setMethod("Compare", c(e1 = "ANY", e2 = "Duration"),
+          function(e1, e2){
+            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration`.",
+                         class(e1), class(e2)),
+                 call. = FALSE)
+          })
+
+#' @export
+setMethod("Compare", c(e1 = "difftime", e2 = "Duration"),
+          function(e1, e2){
+            callGeneric(as.numeric(e1, "secs"),
+                        as.numeric(e2, "secs"))
+          })
+
+#' @export
+setMethod("Compare", c(e1 = "Duration", e2 = "Duration"),
+          function(e1, e2){
+            callGeneric(e1@.Data, e2@.Data)
+          })

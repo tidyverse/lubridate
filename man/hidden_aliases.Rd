@@ -70,6 +70,7 @@
 \alias{-,ANY,Period-method}
 \alias{-,Date,Interval}
 \alias{-,Date,Interval-method}
+\alias{-,Duration,ANY-method}
 \alias{-,Duration,Interval}
 \alias{-,Duration,Interval-method}
 \alias{-,Duration,missing-method}
@@ -88,6 +89,7 @@
 \alias{-,POSIXct,Interval-method}
 \alias{-,POSIXlt,Interval}
 \alias{-,POSIXlt,Interval-method}
+\alias{-,Period,ANY-method}
 \alias{-,Period,Interval}
 \alias{-,Period,Interval-method}
 \alias{-,Period,missing}
@@ -166,6 +168,9 @@
 \alias{>=,Period,numeric-method}
 \alias{>=,numeric,Period}
 \alias{>=,numeric,Period-method}
+\alias{Arith,ANY,Interval-method}
+\alias{Arith,Interval,ANY-method}
+\alias{Compare,ANY,Duration-method}
 \alias{Compare,Duration,ANY-method}
 \alias{Compare,Duration,Duration-method}
 \alias{Compare,difftime,Duration-method}

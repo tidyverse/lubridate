@@ -72,3 +72,9 @@ standardise_lt_names <- function(x) {
   }
   res
 }
+
+undefined_arithmetic <- function(e1, e2){
+  msg <- sprintf("Arithmetic operators undefined for '%s' and '%s' classes:
+  convert one to numeric or a matching time-span class.", class(e1), class(e2))
+  stop(msg)
+}

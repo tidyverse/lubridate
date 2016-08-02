@@ -114,43 +114,44 @@ setClass("Period", contains = c("Timespan", "numeric"),
 
 #' @name hidden_aliases
 #' @aliases second,Period-method second<-,Period-method minute,Period-method
-#' minute<-,Period-method hour,Period-method hour<-,Period-method
-#' day,Period-method day<-,Period-method month,Period-method
-#' month<-,Period-method year,Period-method year<-,Period-method
-#' date,Period-method date<-,Period-method
-#' as.numeric,Period-method show,Period-method c,Period-method rep,Period-method
-#' [,Period-method [<-,Period,ANY,ANY,Period-method [[,Period-method
-#' [[<-,Period,ANY,ANY,Period-method $,Period-method $<-,Period-method
-#' as.difftime,Period-method as.character,Period-method +,Period,Duration-method
-#' +,Period,Interval-method +,Period,Period-method +,Period,Date-method
-#' +,Date,Period-method +,Period,difftime-method +,difftime,Period-method
-#' +,Period,numeric-method +,numeric,Period-method +,Period,POSIXct-method
-#' +,POSIXct,Period-method +,Period,POSIXlt-method +,POSIXlt,Period-method
-#' /,Period,Duration-method /,Period,Interval-method /,Period,Period-method
-#' /,Period,difftime-method /,difftime,Period-method /,Period,numeric-method
-#' /,numeric,Period-method *,Period,ANY-method *,ANY,Period-method
-#' -,Period,missing-method -,ANY,Period-method %%,Period,Duration-method
-#' %%,Period,Interval-method %%,Period,Period-method >,Period,Period-method
-#' >=,Period,Period-method ==,Period,Period-method !=,Period,Period-method
-#' <=,Period,Period-method <,Period,Period-method >,Period,Duration-method
-#' >=,Period,Duration-method ==,Period,Duration-method !=,Period,Duration-method
-#' <=,Period,Duration-method <,Period,Duration-method >,Duration,Period-method
-#' >=,Duration,Period-method ==,Duration,Period-method !=,Duration,Period-method
-#' <=,Duration,Period-method <,Duration,Period-method >,Period,numeric-method
-#' >=,Period,numeric-method ==,Period,numeric-method !=,Period,numeric-method
-#' <=,Period,numeric-method <,Period,numeric-method >,numeric,Period-method
-#' >=,numeric,Period-method ==,numeric,Period-method !=,numeric,Period-method
-#' <=,numeric,Period-method <,numeric,Period-method !=,Duration,Period
-#' !=,Period,Duration !=,Period,Period !=,Period,numeric !=,numeric,Period
-#' %%,Period,Duration %%,Period,Interval %%,Period,Period *,ANY,Period
-#' *,Period,ANY -,ANY,Period -,Period,Interval -,Period,missing /,numeric,Period
-#' <,Duration,Period <,Period,Duration <,Period,Period <,Period,numeric
-#' <,numeric,Period <=,Duration,Period <=,Period,Duration <=,Period,Period
-#' <=,Period,numeric <=,numeric,Period ==,Duration,Period ==,Period,Duration
-#' ==,Period,Period ==,Period,numeric ==,numeric,Period >,Duration,Period
-#' >,Period,Duration >,Period,Period >,Period,numeric >,numeric,Period
-#' >=,Duration,Period >=,Period,Duration >=,Period,Period >=,Period,numeric
-#' >=,numeric,Period
+#'   minute<-,Period-method hour,Period-method hour<-,Period-method
+#'   day,Period-method day<-,Period-method month,Period-method
+#'   month<-,Period-method year,Period-method year<-,Period-method
+#'   date,Period-method date<-,Period-method as.numeric,Period-method
+#'   show,Period-method c,Period-method rep,Period-method [,Period-method
+#'   [<-,Period,ANY,ANY,Period-method [[,Period-method
+#'   [[<-,Period,ANY,ANY,Period-method $,Period-method $<-,Period-method
+#'   as.difftime,Period-method as.character,Period-method
+#'   +,Period,Duration-method +,Period,Interval-method +,Period,Period-method
+#'   +,Period,Date-method +,Date,Period-method +,Period,difftime-method
+#'   +,difftime,Period-method +,Period,numeric-method +,numeric,Period-method
+#'   +,Period,POSIXct-method +,POSIXct,Period-method +,Period,POSIXlt-method
+#'   +,POSIXlt,Period-method /,Period,Duration-method /,Period,Interval-method
+#'   /,Period,Period-method /,Period,difftime-method /,difftime,Period-method
+#'   /,Period,numeric-method /,numeric,Period-method *,Period,ANY-method
+#'   *,ANY,Period-method -,Period,ANY-method -,Period,missing-method
+#'   -,ANY,Period-method %%,Period,Duration-method %%,Period,Interval-method
+#'   %%,Period,Period-method >,Period,Period-method >=,Period,Period-method
+#'   ==,Period,Period-method !=,Period,Period-method <=,Period,Period-method
+#'   <,Period,Period-method >,Period,Duration-method >=,Period,Duration-method
+#'   ==,Period,Duration-method !=,Period,Duration-method
+#'   <=,Period,Duration-method <,Period,Duration-method >,Duration,Period-method
+#'   >=,Duration,Period-method ==,Duration,Period-method
+#'   !=,Duration,Period-method <=,Duration,Period-method
+#'   <,Duration,Period-method >,Period,numeric-method >=,Period,numeric-method
+#'   ==,Period,numeric-method !=,Period,numeric-method <=,Period,numeric-method
+#'   <,Period,numeric-method >,numeric,Period-method >=,numeric,Period-method
+#'   ==,numeric,Period-method !=,numeric,Period-method <=,numeric,Period-method
+#'   <,numeric,Period-method !=,Duration,Period !=,Period,Duration
+#'   !=,Period,Period !=,Period,numeric !=,numeric,Period %%,Period,Duration
+#'   %%,Period,Interval %%,Period,Period *,ANY,Period *,Period,ANY -,ANY,Period
+#'   -,Period,Interval -,Period,missing /,numeric,Period <,Duration,Period
+#'   <,Period,Duration <,Period,Period <,Period,numeric <,numeric,Period
+#'   <=,Duration,Period <=,Period,Duration <=,Period,Period <=,Period,numeric
+#'   <=,numeric,Period ==,Duration,Period ==,Period,Duration ==,Period,Period
+#'   ==,Period,numeric ==,numeric,Period >,Duration,Period >,Period,Duration
+#'   >,Period,Period >,Period,numeric >,numeric,Period >=,Duration,Period
+#'   >=,Period,Duration >=,Period,Period >=,Period,numeric >=,numeric,Period
 NULL
 
 setMethod("initialize", "Period", function(.Object, ...){
@@ -532,8 +533,41 @@ seconds_to_period <- function(x) {
   newper * sign(span)
 }
 
+#' @export
+summary.Period <- function(object, ...) {
+  nas <- is.na(object)
+  object <- object[!nas]
+  persecs <- period_to_seconds(object)
+  qq <- stats::quantile(persecs)
+  qq <- c(qq[1L:3L], mean(persecs), qq[4L:5L])
+  qq <- seconds_to_period(qq)
+  qq <- as.character(qq)
+  names(qq) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.",
+                 "Max.")
+  if (any(nas))
+    c(qq, `NA's` = sum(nas))
+  else qq
+}
+
 #' @rdname Period-class
-#' @param e1,e2 arguments in comparison operators for periods class
+#' @param e1,e2 arguments to arithmetic operations
+#' @export
+setMethod("Arith", signature(e1 = "Period", e2 = "ANY"), undefined_arithmetic)
+
+#' @rdname Period-class
+#' @export
+setMethod("Arith", signature(e1 = "ANY", e2 = "Period"), undefined_arithmetic)
+
+## duration is.numeric. So we need these explicits here:
+#' @rdname Period-class
+#' @export
+setMethod("Arith", signature(e1 = "Duration", e2 = "Period"), undefined_arithmetic)
+
+#' @rdname Period-class
+#' @export
+setMethod("Arith", signature(e1 = "Period", e2 = "Duration"), undefined_arithmetic)
+
+#' @rdname Period-class
 #' @export
 setMethod("Compare", signature(e1 = "Period", e2 = "Period"),
           function(e1, e2) {
@@ -553,19 +587,3 @@ setMethod("Compare", signature(e1 = "Period", e2 = "numeric"),
           function(e1, e2) {
             stop("cannot compare Period to Duration:\ncoerce with 'as.numeric' first.")
           })
-
-#' @export
-summary.Period <- function(object, ...) {
-  nas <- is.na(object)
-  object <- object[!nas]
-  persecs <- period_to_seconds(object)
-  qq <- stats::quantile(persecs)
-  qq <- c(qq[1L:3L], mean(persecs), qq[4L:5L])
-  qq <- seconds_to_period(qq)
-  qq <- as.character(qq)
-  names(qq) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.",
-                 "Max.")
-  if (any(nas))
-    c(qq, `NA's` = sum(nas))
-  else qq
-}
