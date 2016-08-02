@@ -58,25 +58,34 @@ SECONDS_IN_ONE <- c(
   minute = 60,
   hour   = 3600,
   day    = 86400,
+  week   = 604800,
   year   = 31557600
 )
 
-compute_estimate <- function (x) {
-  seconds <- abs(na.omit(x))
-  unit <- if (length(seconds) == 0 || any(seconds < SECONDS_IN_ONE[["minute"]]))
-    "second"
-  else if (any(seconds < SECONDS_IN_ONE[["hour"]]))
-    "minute"
-  else if (any(seconds < SECONDS_IN_ONE[["day"]]))
-    "hour"
-  else if (any(seconds < SECONDS_IN_ONE[["year"]]))
-    "day"
-  else "year"
-  x <- x / SECONDS_IN_ONE[[unit]]
-  approx_prefix <- ifelse(unit != "second" & !is.na(x), "~", "")
-  paste(approx_prefix, round(x, 2), " ", unit, "s", sep = "")
+.readable_duration <- function(x, unit){
+  if(unit == "second")
+    paste0(x, "s")
+  else {
+    x2 <- round(x / SECONDS_IN_ONE[[unit]], 2)
+    sprintf("%ds (~%s %ss)", x, x2, unit, "s)")
+  }
 }
 
+.next_unit <- structure(as.list(c(names(SECONDS_IN_ONE[-1]), list(NULL))),
+                        names = names(SECONDS_IN_ONE))
+
+compute_estimate <- function (secs, unit = "second") {
+  next_unit <- .next_unit[[unit]]
+  if(is.null(next_unit))
+    return(.readable_duration(secs, "year"))
+  out <- character(length(secs))
+  tt <- secs < SECONDS_IN_ONE[[next_unit]]
+  if(any(tt))
+    out[tt] <- .readable_duration(secs[tt], unit)
+  wnext <- which(!tt)
+  out[wnext] <- compute_estimate(secs[wnext], next_unit)
+  out
+}
 
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
@@ -86,15 +95,11 @@ setMethod("show", signature(object = "Duration"), function(object){
 #' @export
 format.Duration <- function(x, ...) {
   if (length(x@.Data) == 0) return("Duration(0)")
-  show <- vector(mode = "character")
-  na <- is.na(x)
-
-	if (all(abs(na.omit(x@.Data)) < 120))
-		show <- paste(x@.Data, "s", sep = "")
-	else
-		show <- paste(x@.Data, "s", " (", compute_estimate(x@.Data), ")", sep = "")
-  show[na] <- NA
-  show
+  out <- vector("character", length(x@.Data))
+  nnas <- !is.na(x@.Data)
+  out[nnas] <- compute_estimate(abs(x@.Data[nnas]))
+  out[!nnas] <- NA
+  out
 }
 
 #' @export
