@@ -16,6 +16,7 @@
 \alias{new_duration}
 \alias{new_interval}
 \alias{new_period}
+\alias{olson_time_zones}
 \title{Deprecated function in \code{lubridate} package}
 \usage{
 new_period(...)
@@ -45,6 +46,8 @@ emicroseconds(x = 1)
 enanoseconds(x = 1)
 
 epicoseconds(x = 1)
+
+olson_time_zones(order_by = c("name", "longitude"))
 }
 \arguments{
 \item{...}{arguments to be passed to the functions

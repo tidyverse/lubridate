@@ -20,12 +20,12 @@ a POSIXct object in the updated time zone
 }
 \description{
 force_tz returns a the date-time that has the same clock time as x in the new
- time zone.  
-Although the new date-time has the same clock time (e.g. the 
-same values in the year, month, days, etc. elements) it is a 
-different moment of time than the input date-time. force_tz defaults to the 
-Universal Coordinated time zone (UTC) when an unrecognized time zone is 
-inputted. See \code{\link{Sys.timezone}} for more information on how R 
+ time zone.
+Although the new date-time has the same clock time (e.g. the
+same values in the year, month, days, etc. elements) it is a
+different moment of time than the input date-time. force_tz defaults to the
+Universal Coordinated time zone (UTC) when an unrecognized time zone is
+inputted. See \code{\link{Sys.timezone}} for more information on how R
 recognizes time zones.
 }
 \examples{

@@ -628,7 +628,7 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...){
 #'   "1970-01-01"). Note that in this instance, \code{x} is assumed to reflect
 #'   the number of days since \code{origin} at \code{"UTC"}.
 #' @param tz a time zone name (default: time zone of the POSIXt object
-#'   \code{x}). See \code{\link{olson_time_zones}}.
+#'   \code{x}). See \code{\link{OlsonNames}}.
 #' @param ... further arguments to be passed to specific methods (see above).
 #' @return a vector of \code{\link{Date}} objects corresponding to \code{x}.
 #' @examples

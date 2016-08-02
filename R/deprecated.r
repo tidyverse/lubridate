@@ -145,3 +145,78 @@ epicoseconds <- function(x = 1){
   .deprecated_fun("dpicoseconds", "1.5.0")
   new("Duration", x / 1000 / 1000 / 1000 / 1000)
 }
+
+
+#' @export
+#' @rdname Deprecated
+olson_time_zones <- function(order_by = c("name", "longitude")) {
+  .deprecated_fun("OlsonNames", "1.5.8")
+  order_by <- match.arg(order_by)
+
+  ## compile possible locations for zoneinfo/zone.tab
+  tzdirs <- c(
+    R.home("share"), # Windows
+    ## taken from OlsonNames in R3.0.3
+    "/usr/share", "/usr/share/lib","/usr/lib/zoneinfo",
+    "/usr/local/etc", "/etc", "/usr/etc")
+
+  tzfiles <- c(file.path(tzdirs, "zoneinfo", "zone.tab"),
+               ## special treatment of Soloaris > 9 (versions < 8 seem not to
+               ## have it at all)
+               "/usr/share/lib/zoneinfo/tab/zone_sun.tab")
+  tzfiles <- tzfiles[file.exists(tzfiles)]
+
+  if ( length(tzfiles) == 0 ){
+    warning("zone.tab file not found in any candidate locations: ",
+            str_join(tzdirs, collapse=" "))
+  }
+
+  tzfile <- tzfiles[[1]]
+
+  tzones <- read.delim(
+    tzfile,
+    row.names    = NULL,
+    header       = FALSE,
+    col.names    = c("country", "coords", "name", "comments"),
+    as.is        = TRUE,
+    fill         = TRUE,
+    comment.char = "#"
+  )
+  o <- order(switch(
+    order_by,
+    name      = tzones$name,
+    longitude =
+      {
+        longitude_string <- stringr::str_match(
+                                       tzones$coords,
+                                       "[+-][[:digit:]]+([+-][[:digit:]]+)"
+                                     )[, 2]
+        nch <- nchar(longitude_string)
+        sign <- ifelse(
+          substring(longitude_string, 1, 1) == "+",
+          1,
+          -1
+        )
+
+        nss <- function(first, last)
+        {
+          as.numeric(substring(longitude_string, first, last))
+        }
+
+        sign * ifelse(
+                 nch == 5,
+                 3600 * nss(2, 3) + 60 * nss(4, 5),
+               ifelse(
+                 nch == 6,
+                 3600 * nss(2, 4) + 60 * nss(6, 6),
+               ifelse(
+                 nch == 7,
+                 3600 * nss(2, 3) + 60 * nss(4, 5) + nss(6, 7),
+                 3600 * nss(2, 4) + 60 * nss(6, 6) + nss(7, 8)
+               )
+               )
+               )
+      }
+  ))
+  tzones$name[o]
+}

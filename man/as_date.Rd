@@ -31,7 +31,7 @@ as_datetime(x, ...)
 \item{...}{further arguments to be passed to specific methods (see above).}
 
 \item{tz}{a time zone name (default: time zone of the POSIXt object
-\code{x}). See \code{\link{olson_time_zones}}.}
+\code{x}). See \code{\link{OlsonNames}}.}
 
 \item{origin}{a Date object, or something which can be coerced by
 \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
