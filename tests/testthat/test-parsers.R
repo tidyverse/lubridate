@@ -458,6 +458,13 @@ test_that("truncation on non-dates results in NAs indeed", {
       }))
 })
 
+test_that("missing months and days are allowed", {
+  expect_equal(parse_date_time2("2016", orders = "Y"), ymd("2016-01-01", tz = "UTC"))
+  expect_equal(parse_date_time2("2016-02", orders = "Ym"), ymd("2016-02-01", tz = "UTC"))
+  expect_equal(parse_date_time("2016", orders = "Y"), ymd("2016-01-01", tz = "UTC"))
+  expect_equal(parse_date_time("2016-02", orders = "Ym"), ymd("2016-02-01", tz = "UTC"))
+})
+
 test_that("fractional formats are correctly parsed", {
   expect_that({
     x <- c("2011-12-31 12:59:59.23", "2010-01-01 12:11:10")

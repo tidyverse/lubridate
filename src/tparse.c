@@ -249,7 +249,11 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
       }
     }
 
-    if (succeed ) {
+    // allow missing months and days
+    if (m == 0) m = 1;
+    if (d == 0) d = 1;
+
+    if (succeed) {
       if(out_lt){
 
         INTEGER(oYEAR)[i] = y - 1900;
