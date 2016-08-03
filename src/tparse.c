@@ -40,7 +40,7 @@
 static const char ltnames [][5] = {"sec", "min", "hour", "mday", "mon", "year"};
 
 
-SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
+SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
   // STR: character vector of date-times.
   // ORD: formats (as in strptime) or orders (as in parse_date_time)
   // FORMATS: TRUE if ord is a string of formats (as in strptime)
@@ -75,7 +75,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
     const char *o = O;
 
     double secs = 0.0; // only accumulator for POSIXct case
-    int y = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
+    int y = 0, q = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
     int succeed = 1, O_format=0; // control booleans
 
     // read order/format character by character
@@ -118,6 +118,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
 			  y += 2000;
 			else
 			  y += 1900;
+            break;
+          case 'q': // quarter
+            PARSENUM(q, 2);
+            if (!(0 < q && q < 5)) succeed = 0;
             break;
           case 'm': // month
             PARSENUM(m, 2);
@@ -233,6 +237,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
 
     int is_leap;
 
+    // adjust months for quarter
+    if (q > 1)
+      m += (q - 1) * 3 + 1;
+
     if (succeed) {
       // leap year every 400 years; no leap every 100 years
       is_leap = IS_LEAP(y);
@@ -312,7 +320,6 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats,  SEXP lt) {
   }
 
 }
-
 
 
 // STR: string in HxMyS format where x and y are arbitrary non-numeric separators

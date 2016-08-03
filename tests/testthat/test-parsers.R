@@ -486,6 +486,13 @@ test_that( "NA's are parsed as NA's", {
   expect_true(is.na(ms(NA, quiet = TRUE)))
 })
 
+test_that("Quarters are parsed correctly", {
+  qs <- c("2016.1", "2016:2", "2016-3", "2016 4", "2016.5")
+  out <- ymd(c("2016-01-01 UTC", "2016-04-01 UTC", "2016-07-01 UTC", "2016-10-01 UTC", NA), tz = "UTC")
+  expect_equal(parse_date_time2(qs, orders = "Yq"), out)
+  expect_equal(parse_date_time(qs, orders = "Yq"), out)
+})
+
 test_that( "Vectors of NA's are parsed as vectors of NA's", {
   mna <- as.POSIXct(as.POSIXlt(c(NA,NA,NA), tz = "UTC"))
   pna <- new("Period"

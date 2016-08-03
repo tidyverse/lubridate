@@ -287,6 +287,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   ##  NUMERIC FORMATS
   num <- num_flex <- num_exact <- c(
       d = "(?<d>[012]?[1-9]|3[01]|[12]0)",
+      q = "(?<q>[0]?[1-4])",
       H = "(?<H>2[0-4]|[01]?\\d)",
       h = "(?<H>2[0-4]|[01]?\\d)",
       I = "(?<I>1[0-2]|0?[1-9])",
