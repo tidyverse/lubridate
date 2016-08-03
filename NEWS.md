@@ -19,6 +19,7 @@ Version 1.5.6.9000 (development)
 * Internally, S4 Compare and Ops generics were cleaned and simplified.
 
 ### BUG FIXES
+* [#450](https://github.com/hadley/lubridate/issues/450) Fix incorrect handling of DST gaps in `date_decimal` and `decimal_date`.
 * [#418](https://github.com/hadley/lubridate/issues/418) C level parsing functions understand 24:00:00 in datetime strings.
 * [#420](https://github.com/hadley/lubridate/issues/420) `as.numeric` correctly converts periods to (aproximate) numeric time lengths.
 
