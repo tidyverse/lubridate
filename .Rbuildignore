@@ -7,7 +7,8 @@ INSPIRATIONS
 .dir-locals.el
 ^.*\.Rproj$
 TAGS
-test.R
+^test.R$
+^tmp.R$
 CRAN_notes.md
 revdep/
 ^codecov\.yml$

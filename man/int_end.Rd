@@ -6,9 +6,13 @@
 \title{Access and change the end date of an interval}
 \usage{
 int_end(int)
+
+int_end(int) <- value
 }
 \arguments{
 \item{int}{An interval object}
+
+\item{value}{interval's end to be assigned to \code{int}}
 }
 \value{
 A POSIXct date object when used as an accessor. Nothing when used as a settor

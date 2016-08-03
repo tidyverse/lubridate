@@ -23,8 +23,7 @@
 ##' change this by setting the \code{lubridate.verbose} option to TRUE with
 ##' \code{options(lubridate.verbose = TRUE)}.
 ##'
-##' @export ymd myd dym ydm mdy dmy
-##' @aliases yearmonthdate ymd myd dym ydm mdy dmy
+##' @export
 ##' @param ... a character or numeric vector of suspected dates
 ##' @param quiet logical. When TRUE function evalueates without displaying
 ##'   customary messages.
@@ -65,14 +64,29 @@
 ##' dmy("0312-2010", "312-2010")}
 ymd <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd
 ydm <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd
 mdy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd
 myd <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd
 dmy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd
 dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
@@ -103,8 +117,7 @@ dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME")
 ##' change this by setting the \code{lubridate.verbose} option to true with
 ##' \code{options(lubridate.verbose = TRUE)}.
 ##'
-##' @export ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h
-##' @aliases ymd_hms ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h
+##' @export
 ##' @param ... a character vector of dates in year, month, day, hour, minute,
 ##'   second format
 ##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
@@ -174,29 +187,59 @@ dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME")
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
   .parse_xxx_hms(..., orders = c("ymdTz", "ymdT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 }
+
+#' @export
+#' @rdname ymd_hms
 ymd_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders =  "ymdR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd_hms
 ymd_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = "ymdr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
+#' @export
+#' @rdname ymd_hms
 dmy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = c("dmyTz", "dmyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd_hms
 dmy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd_hms
 dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
+#' @export
+#' @rdname ymd_hms
 mdy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = c("mdyTz", "mdyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd_hms
 mdy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = "mdyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd_hms
 mdy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = "mdyr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
+#' @export
+#' @rdname ymd_hms
 ydm_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = c("ydmTz", "ydmT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd_hms
 ydm_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+
+#' @export
+#' @rdname ymd_hms
 ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
@@ -385,8 +428,7 @@ hms <- function(..., quiet = FALSE) {
 ##' \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 ##' }
 ##'
-##' @export parse_date_time
-##' @aliases parse_date_time2 fast_strptime
+##' @export
 ##' @param x a character or numeric vector of dates
 ##' @param orders a character vector of date-time formats. Each order string is
 ##'   series of formatting characters as listed \code{\link[base]{strptime}} but
@@ -568,7 +610,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 }
 
 ##' @rdname parse_date_time
-##' @export parse_date_time2
+##' @export
 ##' @param lt logical. If TRUE returned object is of class POSIXlt, and POSIXct
 ##'   otherwise. For compatibility with base `strptime` function default is TRUE
 ##'   for `fast_strptime` and FALSE for `parse_date_time2`.
@@ -590,7 +632,7 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE){
 
 ##' @useDynLib lubridate parse_dt
 ##' @rdname parse_date_time
-##' @export fast_strptime
+##' @export
 ##' @param format a character string of formats. It should include all the
 ##'   separators and each format must be prefixed with %, just as in the format
 ##'   argument of \code{strptime}.

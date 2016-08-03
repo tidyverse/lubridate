@@ -17,6 +17,39 @@
 \usage{
 ymd_hms(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
   truncated = 0)
+
+ymd_hm(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+ymd_h(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+dmy_hms(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+dmy_hm(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+dmy_h(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+mdy_hms(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+mdy_hm(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+mdy_h(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+ydm_hms(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+ydm_hm(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+ydm_h(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
 }
 \arguments{
 \item{...}{a character vector of dates in year, month, day, hour, minute,

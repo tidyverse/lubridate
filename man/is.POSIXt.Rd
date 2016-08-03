@@ -7,6 +7,10 @@
 \title{Is x a POSIXct or POSIXlt object?}
 \usage{
 is.POSIXt(x)
+
+is.POSIXlt(x)
+
+is.POSIXct(x)
 }
 \arguments{
 \item{x}{an R object}

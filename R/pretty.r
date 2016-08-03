@@ -11,8 +11,7 @@
 #' @param ... additional arguments to pass to function
 #' @return a vector of date-times that can be used as axis tick marks or bin breaks
 #' @keywords dplot utilities chron
-#' @export pretty_dates pretty.unit pretty.sec pretty.min pretty.hour pretty.day pretty.month pretty.year pretty.point
-#' @aliases pretty.dates pretty.unit pretty.sec pretty.min pretty.hour pretty.day pretty.month pretty.year pretty.point
+#' @export
 #' @examples
 #' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
 #' # "2009-08-02" "2010-08-02"
@@ -31,21 +30,19 @@ pretty_dates <- function(x, n, ...){
   rng <- range(x)
   diff <- difftime(rng[2], rng[1], units = "secs")
 
-  binunits <- pretty.unit(diff/n)
+  binunits <- pretty_unit(diff/n)
 
-  f <- match.fun(paste("pretty", binunits, sep = "."))
+  f <- get(paste("pretty", binunits, sep = "_"), mode = "function")
   binlength <- f(diff, n)
 
-  start <- pretty.point(min(rng), binunits, binlength)
-  end <- pretty.point(max(rng), binunits, binlength, start = FALSE)
-
+  start <- pretty_point(min(rng), binunits, binlength)
+  end <- pretty_point(max(rng), binunits, binlength, start = FALSE)
 
   breaks <- seq.POSIXt(start, end, paste(binlength, binunits))
   breaks
 }
 
-#' @export
-pretty.unit <- function(x, ...){
+pretty_unit <- function(x, ...){
   if (x > 3600*24*365)
     return("year")
   if (x > 3600*24*30)
@@ -60,51 +57,44 @@ pretty.unit <- function(x, ...){
     return("sec")
 }
 
-#' @export
-pretty.sec <- function(x, n, ...){
+pretty_sec <- function(x, n, ...){
   lengths <- c(1,2,5,10,15,30,60)
   fit <- abs(x - lengths*n)
   lengths[which.min(fit)]
 }
 
-#' @export
-pretty.min <- function(x, n, ...){
+pretty_min <- function(x, n, ...){
   span <- x/60
   lengths <- c(1,2,5,10,15,30,60)
   fit <- abs(span - lengths*n)
   lengths[which.min(fit)]
 }
 
-#' @export
-pretty.hour <- function(x, n, ...){
+pretty_hour <- function(x, n, ...){
   span <- x / 3600
   lengths <- c(1,2,3,4,6,8,12,24)
   fit <- abs(span - lengths*n)
   lengths[which.min(fit)]
 }
 
-#' @export
-pretty.day <- function(x, n, ...){
+pretty_day <- function(x, n, ...){
   span <- x / (3600 * 24)
   pretty(1:span, n = n)[2]
 }
 
-#' @export
-pretty.month <- function(x, n, ...){
+pretty_month <- function(x, n, ...){
   span <- x / (3600 * 24 * 30)
   lengths <- c(1,2,3,4,6,12)
   fit <- abs(span - lengths*n)
   lengths[which.min(fit)]
 }
 
-#' @export
-pretty.year <- function(x, n, ...){
+pretty_year <- function(x, n, ...){
   span <- x / (3600 * 24 * 365)
   pretty(1:span, n = n)[2]
 }
 
-#' @export
-pretty.point <- function(x, units, length, start = TRUE, ...){
+pretty_point <- function(x, units, length, start = TRUE, ...){
   x <- as.POSIXct(x)
 
   if(units %in% c("day", "year")){

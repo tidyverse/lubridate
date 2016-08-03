@@ -199,7 +199,6 @@ unique.Interval <- function(x, ...){
 #' two date-times were subtracted.
 #'
 #' @export
-#' @aliases interval is.interval %--%
 #' @param start a POSIXt or Date date-time object
 #' @param end a POSIXt or Date date-time object
 #' @param tzone a recognized timezone to display the interval in
@@ -242,6 +241,7 @@ interval <- function(start, end, tzone = attr(start, "tzone")){
 }
 
 #' @export
+#' @rdname interval
 "%--%" <- function(start, end) interval(start, end)
 
 #' @rdname interval
@@ -254,9 +254,8 @@ is.interval <- function(x) is(x, c("Interval"))
 #' Note that changing the start date of an interval will change the length of
 #' the interval, since the end date will remain the same.
 #'
-#' @aliases int_start int_start<-
-#' @export int_start "int_start<-"
-#' @param int An interval object
+#' @export
+#' @param int an interval object
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
 #' @seealso \code{\link{int_end}}, \code{\link{int_shift}}, \code{\link{int_flip}},
 #' \code{\link{int_length}}
@@ -270,6 +269,9 @@ is.interval <- function(x) is(x, c("Interval"))
 #' # 2001-06-01 UTC--2002-01-01 UTC
 int_start <- function(int) int@start
 
+#' @rdname int_start
+#' @param value interval's start to be assigned to \code{int}
+#' @export
 "int_start<-" <- function(int, value){
 	value <- as.POSIXct(value)
 	span <- as.numeric(int@start + int@.Data - value, "secs")
@@ -284,8 +286,7 @@ int_start <- function(int) int@start
 #' Note that changing the end date of an interval will change the length of
 #' the interval, since the start date will remain the same.
 #'
-#' @aliases int_end int_end<-
-#' @export int_end "int_end<-"
+#' @export
 #' @param int An interval object
 #' @return A POSIXct date object when used as an accessor. Nothing when used as a settor
 #' @seealso \code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}},
@@ -300,6 +301,9 @@ int_start <- function(int) int@start
 #' # 2001-01-01 UTC--2002-06-01 UTC
 int_end <- function(int) int@start + int@.Data
 
+#' @export
+#' @param value interval's end to be assigned to \code{int}
+#' @rdname int_end
 "int_end<-" <- function(int, value){
 	value <- as.POSIXct(value)
 	span <- as.numeric(value - int@start, "secs")
@@ -549,7 +553,6 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 #'
 #' @export
 #' @rdname within-interval
-#' @usage a \%within\% b
 #' @aliases %within%,Interval,Interval-method %within%,ANY,Interval-method
 #' @param a An interval or date-time object
 #' @param b An interval

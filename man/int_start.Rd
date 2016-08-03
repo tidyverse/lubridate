@@ -6,9 +6,13 @@
 \title{Access and change the start date of an interval}
 \usage{
 int_start(int)
+
+int_start(int) <- value
 }
 \arguments{
-\item{int}{An interval object}
+\item{int}{an interval object}
+
+\item{value}{interval's start to be assigned to \code{int}}
 }
 \value{
 A POSIXct date object when used as an accessor. Nothing when used as a settor

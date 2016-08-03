@@ -6,12 +6,26 @@
 \alias{mdy}
 \alias{myd}
 \alias{ydm}
-\alias{yearmonthdate}
 \alias{ymd}
 \title{Parse dates according to the order in that year, month, and day elements
 appear in the input vector.}
 \usage{
 ymd(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+ydm(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+mdy(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+myd(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+dmy(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
+  truncated = 0)
+
+dym(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
   truncated = 0)
 }
 \arguments{

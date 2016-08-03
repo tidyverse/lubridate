@@ -5,10 +5,11 @@
 \alias{instants}
 \alias{is.instant}
 \alias{is.timepoint}
-\alias{timepoint}
 \title{Is x a date-time object?}
 \usage{
 is.instant(x)
+
+is.timepoint(x)
 }
 \arguments{
 \item{x}{an R object}

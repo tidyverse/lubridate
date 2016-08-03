@@ -6,6 +6,8 @@
 \title{Does date time occur in the am or pm?}
 \usage{
 am(x)
+
+pm(x)
 }
 \arguments{
 \item{x}{a date-time object}
