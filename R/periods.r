@@ -4,58 +4,58 @@
 NULL
 
 check_period <- function(object){
-	errors <- character()
-	if (!is.numeric(object@.Data)) {
-		msg <- "seconds (.Data) value must be numeric."
-		errors <- c(errors, msg)
-	}
-	if (!is.numeric(object@year)) {
-		msg <- "year value must be numeric."
-		errors <- c(errors, msg)
-	}
-	if (!is.numeric(object@month)) {
-		msg <- "year value must be numeric."
-		errors <- c(errors, msg)
-	}
-	if (!is.numeric(object@day)) {
-		msg <- "year value must be numeric."
-		errors <- c(errors, msg)
-	}
-	if (!is.numeric(object@hour)) {
-		msg <- "year value must be numeric."
-		errors <- c(errors, msg)
-	}
-	if (!is.numeric(object@minute)) {
-		msg <- "year value must be numeric."
-		errors <- c(errors, msg)
-	}
+  errors <- character()
+  if (!is.numeric(object@.Data)) {
+    msg <- "seconds (.Data) value must be numeric."
+    errors <- c(errors, msg)
+  }
+  if (!is.numeric(object@year)) {
+    msg <- "year value must be numeric."
+    errors <- c(errors, msg)
+  }
+  if (!is.numeric(object@month)) {
+    msg <- "year value must be numeric."
+    errors <- c(errors, msg)
+  }
+  if (!is.numeric(object@day)) {
+    msg <- "year value must be numeric."
+    errors <- c(errors, msg)
+  }
+  if (!is.numeric(object@hour)) {
+    msg <- "year value must be numeric."
+    errors <- c(errors, msg)
+  }
+  if (!is.numeric(object@minute)) {
+    msg <- "year value must be numeric."
+    errors <- c(errors, msg)
+  }
 
-	length(object@.Data) -> n
-	lengths <- c(length(object@year), length(object@month),
-		length(object@day), length(object@hour), length(object@minute))
+  length(object@.Data) -> n
+  lengths <- c(length(object@year), length(object@month),
+    length(object@day), length(object@hour), length(object@minute))
 
-	if (any(lengths != n)) {
-		msg <- paste("Inconsistent lengths: year = ", lengths[1],
-			", month = ", lengths[2],
-			", day = ", lengths[3],
-			", hour = ", lengths[4],
-			", minute = ", lengths[5],
-			", second = ", n,
-			sep = "")
-		errors <- c(errors, msg)
-	}
+  if (any(lengths != n)) {
+    msg <- paste("Inconsistent lengths: year = ", lengths[1],
+      ", month = ", lengths[2],
+      ", day = ", lengths[3],
+      ", hour = ", lengths[4],
+      ", minute = ", lengths[5],
+      ", second = ", n,
+      sep = "")
+    errors <- c(errors, msg)
+  }
 
   values <- c(object@year, object@month, object@day, object@hour, object@minute)
-	values <- na.omit(values)
-	if (sum(values - trunc(values))) {
-		msg <- "periods must have integer values"
-		errors <- c(errors, msg)
-	}
+  values <- na.omit(values)
+  if (sum(values - trunc(values))) {
+    msg <- "periods must have integer values"
+    errors <- c(errors, msg)
+  }
 
-	if (length(errors) == 0)
-		TRUE
-	else
-		errors
+  if (length(errors) == 0)
+    TRUE
+  else
+    errors
 }
 
 #' Period class
@@ -107,10 +107,10 @@ check_period <- function(object){
 #' @rdname Period-class
 #' @exportClass Period
 setClass("Period", contains = c("Timespan", "numeric"),
-	slots = c(year = "numeric", month = "numeric", day = "numeric",
-		hour = "numeric", minute = "numeric"),
-	prototype = prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0),
-	validity = check_period)
+  slots = c(year = "numeric", month = "numeric", day = "numeric",
+    hour = "numeric", minute = "numeric"),
+  prototype = prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0),
+  validity = check_period)
 
 #' @name hidden_aliases
 #' @aliases second,Period-method second<-,Period-method minute,Period-method
@@ -199,28 +199,28 @@ xtfrm.Period <- function(x){
 #' @export
 setMethod("c", signature(x = "Period"), function(x, ...){
   elements <- lapply(list(...), as.period)
-	seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
-	years <- c(x@year, unlist(lapply(elements, slot, "year")))
-	months <- c(x@month, unlist(lapply(elements, slot, "month")))
-	days <- c(x@day, unlist(lapply(elements, slot, "day")))
-	hours <- c(x@hour, unlist(lapply(elements, slot, "hour")))
-	minutes <- c(x@minute, unlist(lapply(elements, slot, "minute")))
-	new("Period", seconds, year = years, month = months, day = days,
-		hour = hours, minute = minutes)
+  seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
+  years <- c(x@year, unlist(lapply(elements, slot, "year")))
+  months <- c(x@month, unlist(lapply(elements, slot, "month")))
+  days <- c(x@day, unlist(lapply(elements, slot, "day")))
+  hours <- c(x@hour, unlist(lapply(elements, slot, "hour")))
+  minutes <- c(x@minute, unlist(lapply(elements, slot, "minute")))
+  new("Period", seconds, year = years, month = months, day = days,
+    hour = hours, minute = minutes)
 })
 
 #' @export
 setMethod("rep", signature(x = "Period"), function(x, ...){
-	new("Period", rep(x@.Data, ...), year = rep(x@year, ...),
-		month = rep(x@month, ...), day = rep(x@day, ...),
-		hour = rep(x@hour, ...), minute = rep(x@minute, ...))
+  new("Period", rep(x@.Data, ...), year = rep(x@year, ...),
+    month = rep(x@month, ...), day = rep(x@day, ...),
+    hour = rep(x@hour, ...), minute = rep(x@minute, ...))
 })
 
 #' @export
 setMethod("[", signature(x = "Period"),
   function(x, i, j, ..., drop = TRUE) {
     new("Period", x@.Data[i], year = x@year[i], month = x@month[i],
-    	day = x@day[i], hour = x@hour[i], minute = x@minute[i])
+      day = x@day[i], hour = x@hour[i], minute = x@minute[i])
 })
 
 #' @export
@@ -233,12 +233,12 @@ setMethod("[[", signature(x = "Period"),
 #' @export
 setMethod("[<-", signature(x = "Period", value = "Period"),
   function(x, i, j, ..., value) {
-  	x@.Data[i] <- value@.Data
-  	x@year[i] <- value@year
-  	x@month[i] <- value@month
-  	x@day[i] <- value@day
-  	x@hour[i] <- value@hour
-  	x@minute[i] <- value@minute
+    x@.Data[i] <- value@.Data
+    x@year[i] <- value@year
+    x@month[i] <- value@month
+    x@day[i] <- value@day
+    x@hour[i] <- value@hour
+    x@minute[i] <- value@minute
     x
 })
 
@@ -256,13 +256,13 @@ setMethod("[[<-", signature(x = "Period", value = "Period"),
 
 #' @export
 setMethod("$", signature(x = "Period"), function(x, name) {
-	if (name == "second") name <- ".Data"
+  if (name == "second") name <- ".Data"
     slot(x, name)
 })
 
 #' @export
 setMethod("$<-", signature(x = "Period"), function(x, name, value) {
-	if (name == "second") name <- ".Data"
+  if (name == "second") name <- ".Data"
     slot(x, name) <- rep_len(value, length(x))
     x
 })
@@ -350,19 +350,19 @@ period <- function(num = NULL, units = "second", ...) {
 .period_from_num <- function(num, units){
 
   if (length(units) %% length(num) != 0)
-		stop("arguments must have same length")
+    stop("arguments must have same length")
 
-	num <- num + rep(0, length(units))
-	unit <- standardise_date_names(units)
-	pieces <- setNames(as.list(num), unit)
+  num <- num + rep(0, length(units))
+  unit <- standardise_date_names(units)
+  pieces <- setNames(as.list(num), unit)
 
-	defaults <- list(second = 0, minute = 0, hour = 0, day = 0, week = 0,
+  defaults <- list(second = 0, minute = 0, hour = 0, day = 0, week = 0,
                    month = 0, year = 0)
   pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
   pieces$day <- pieces$day + 7 * pieces$week
 
-	new("Period", pieces$second, year = pieces$year, month = pieces$month,
-  		day = pieces$day, hour = pieces$hour, minute = pieces$minute)
+  new("Period", pieces$second, year = pieces$year, month = pieces$month,
+      day = pieces$day, hour = pieces$hour, minute = pieces$minute)
 }
 
 .period_from_units <- function(units) {
@@ -502,7 +502,7 @@ months.numeric <- function(x, abbreviate) {
 #' @return A number (period) that roughly equates to the period (seconds) given.
 #' @export
 period_to_seconds <- function(x) {
-	x@.Data +
+  x@.Data +
     60 * x@minute +
     60 * 60 * x@hour +
     60 * 60 * 24 * x@day +

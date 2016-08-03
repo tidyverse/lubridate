@@ -10,6 +10,7 @@ Version 1.5.6.9000 (development)
 
 ### CHANGES
 
+* `pretty.*` family of functions were renamed and are no longer exported. If you need to use them, use `lubridate:::pretty_*` versions.
 * `change_on_boundary` argument in `ceiling_date` does not allow for global option anymore.
 * `as.duration`, `as.numeric` don't show "only estimate" messages on conversion from periods. The occasional approximate conversion is documented and deemed common knowledge.
 * `as.numeric` with `unit="month"` now works on duration objects.

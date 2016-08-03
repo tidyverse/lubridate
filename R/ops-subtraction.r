@@ -9,11 +9,11 @@ NULL
 
 
 subtract_interval_from_date <- function(int, date){
-	end <- int@start + int@.Data
-	if (any(end != as.POSIXct(date)))
-	   message("interval does not align: coercing to duration")
-	dur <- as.duration(int)
-	add_duration_to_date(-dur, date)
+  end <- int@start + int@.Data
+  if (any(end != as.POSIXct(date)))
+     message("interval does not align: coercing to duration")
+  dur <- as.duration(int)
+  add_duration_to_date(-dur, date)
 }
 
 #' @export
@@ -22,7 +22,7 @@ setMethod("-", signature(e1 = "Duration", e2 = "missing"),
 
 #' @export
 setMethod("-", signature(e1 = "Interval", e2 = "missing"),
-	function(e1, e2) multiply_interval_by_number(e1, -1))
+  function(e1, e2) multiply_interval_by_number(e1, -1))
 
 #' @export
 setMethod("-", signature(e1 = "Period", e2 = "missing"),
@@ -30,7 +30,7 @@ setMethod("-", signature(e1 = "Period", e2 = "missing"),
 
 #' @export
 setMethod("-", signature(e1 = "ANY", e2 = "Duration"),
-	function(e1, e2) e1  + (-e2))
+  function(e1, e2) e1  + (-e2))
 
 #' @export
 setMethod("-", signature(e1 = "Duration", e2 = "ANY"),

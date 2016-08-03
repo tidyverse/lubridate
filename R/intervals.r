@@ -4,24 +4,24 @@ NULL
 
 
 check_interval <- function(object){
-	errors <- character()
-	if (!is.numeric(object@.Data)) {
-		msg <- "Span length must be numeric."
-		errors <- c(errors, msg)
-	}
-	if (!is(object@start, "POSIXct")) {
-		msg <- "Start date must be in POSIXct format."
-		errors <- c(errors, msg)
-	}
-	if (length(object@.Data) != length(object@start)) {
-		msg <- paste("Inconsistent lengths: spans = ", length(object@.Data),
-			", start dates = ", length(object@start), sep = "")
-		errors <- c(errors, msg)
-	}
-	if (length(errors) == 0)
-		TRUE
-	else
-		errors
+  errors <- character()
+  if (!is.numeric(object@.Data)) {
+    msg <- "Span length must be numeric."
+    errors <- c(errors, msg)
+  }
+  if (!is(object@start, "POSIXct")) {
+    msg <- "Start date must be in POSIXct format."
+    errors <- c(errors, msg)
+  }
+  if (length(object@.Data) != length(object@start)) {
+    msg <- paste("Inconsistent lengths: spans = ", length(object@.Data),
+      ", start dates = ", length(object@start), sep = "")
+    errors <- c(errors, msg)
+  }
+  if (length(errors) == 0)
+    TRUE
+  else
+    errors
 }
 
 .units_within_seconds <- function(secs, unit = "second"){
@@ -63,7 +63,7 @@ check_interval <- function(object){
 #' @rdname Interval-class
 #' @exportClass Interval
 setClass("Interval", contains = c("Timespan", "numeric"),
-  slots = c(start = "POSIXct", 	tzone = "character"), validity = check_interval)
+  slots = c(start = "POSIXct",   tzone = "character"), validity = check_interval)
 
 #' @name hidden_aliases
 #' @aliases Arith,Interval,ANY-method Arith,ANY,Interval-method
@@ -97,34 +97,34 @@ NULL
 
 #' @export
 setMethod("show", signature(object = "Interval"), function(object){
-	print(format.Interval(object), quote = F)
+  print(format.Interval(object), quote = F)
 })
 
 #' @export
 format.Interval <- function(x,...){
   if (length(x@.Data) == 0) return("Interval(0)")
-	paste(format(x@start, tz = x@tzone, usetz = TRUE), "--",
-		format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
+  paste(format(x@start, tz = x@tzone, usetz = TRUE), "--",
+    format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
 }
 
 #' @export
 setMethod("c", signature(x = "Interval"), function(x, ...){
   elements <- lapply(list(...), as.interval)
-	spans <- c(x@.Data, unlist(elements@.Data))
-	starts <- c(x@start, lapply(elements, int_start))
-	new("Interval", spans, start = starts, tzone = x@tzone)
+  spans <- c(x@.Data, unlist(elements@.Data))
+  starts <- c(x@start, lapply(elements, int_start))
+  new("Interval", spans, start = starts, tzone = x@tzone)
 })
 
 #' @export
 setMethod("rep", signature(x = "Interval"), function(x, ...){
-	new("Interval", rep(x@.Data, ...), start = rep(x@start,...), tzone = x@tzone)
+  new("Interval", rep(x@.Data, ...), start = rep(x@start,...), tzone = x@tzone)
 })
 
 #' @export
 setMethod("[", signature(x = "Interval"),
-	function(x, i, j, ..., drop = TRUE) {
-    	new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
-	}
+  function(x, i, j, ..., drop = TRUE) {
+      new("Interval", x@.Data[i], start = x@start[i], tzone = x@tzone)
+  }
 )
 
 #' @export
@@ -136,15 +136,15 @@ setMethod("[[", signature(x = "Interval"),
 
 #' @export
 setMethod("[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
-  	if (is.interval(value)){
-  		x@.Data[i] <- value@.Data
-  		x@start[i] <- value@start
-  		new("Interval", x@.Data, start = x@start, tzone = x@tzone)
-  	}
-  	else {
-  		x@.Data[i] <- value
-		new("Interval", x@.Data, start = x@start, tzone = x@tzone)
-	}
+    if (is.interval(value)){
+      x@.Data[i] <- value@.Data
+      x@start[i] <- value@start
+      new("Interval", x@.Data, start = x@start, tzone = x@tzone)
+    }
+    else {
+      x@.Data[i] <- value
+    new("Interval", x@.Data, start = x@start, tzone = x@tzone)
+  }
 })
 
 #' @export
@@ -163,15 +163,15 @@ setMethod("[[<-", signature(x = "Interval"), function(x, i, j, ..., value) {
 
 #' @export
 setMethod("$", signature(x = "Interval"), function(x, name) {
-	if(name == "span") name <- ".Data"
-	slot(x, name)
+  if(name == "span") name <- ".Data"
+  slot(x, name)
 })
 
 #' @export
 setMethod("$<-", signature(x = "Interval"), function(x, name, value) {
-	if(name == "span") name <- ".Data"
-	slot(x, name) <- value
-	x
+  if(name == "span") name <- ".Data"
+  slot(x, name) <- value
+  x
 })
 
 #' @export
@@ -222,22 +222,22 @@ unique.Interval <- function(x, ...){
 #' is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
 interval <- function(start, end, tzone = attr(start, "tzone")){
   if (is.null(tzone)) {
-		tzone <-
+    tzone <-
       if (is.null(attr(end, "tzone"))) "UTC"
       else attr(end, "tzone")
-	}
+  }
 
-	if (is.Date(start)) start <- with_tz(as.POSIXct(start), "UTC")
-	if (is.Date(end)) end <- with_tz(as.POSIXct(end), "UTC")
+  if (is.Date(start)) start <- with_tz(as.POSIXct(start), "UTC")
+  if (is.Date(end)) end <- with_tz(as.POSIXct(end), "UTC")
 
   if (!is.POSIXct(start)) start <- as.POSIXct(start, tz = tzone)
-	if (!is.POSIXct(end)) end <- as.POSIXct(end, tz = tzone)
+  if (!is.POSIXct(end)) end <- as.POSIXct(end, tz = tzone)
 
-	span <- as.numeric(end) - as.numeric(start)
-	starts <- start + rep(0, length(span))
-	if (tzone != tz(starts)) starts <- with_tz(starts, tzone)
+  span <- as.numeric(end) - as.numeric(start)
+  starts <- start + rep(0, length(span))
+  if (tzone != tz(starts)) starts <- with_tz(starts, tzone)
 
-	new("Interval", span, start = starts, tzone = tzone)
+  new("Interval", span, start = starts, tzone = tzone)
 }
 
 #' @export
@@ -273,11 +273,11 @@ int_start <- function(int) int@start
 #' @param value interval's start to be assigned to \code{int}
 #' @export
 "int_start<-" <- function(int, value){
-	value <- as.POSIXct(value)
-	span <- as.numeric(int@start + int@.Data - value, "secs")
-	equal.lengths <- data.frame(span, value)
-	int <- new("Interval", span, start = equal.lengths$value,
-		tzone = int@tzone)
+  value <- as.POSIXct(value)
+  span <- as.numeric(int@start + int@.Data - value, "secs")
+  equal.lengths <- data.frame(span, value)
+  int <- new("Interval", span, start = equal.lengths$value,
+    tzone = int@tzone)
 
 }
 
@@ -305,10 +305,10 @@ int_end <- function(int) int@start + int@.Data
 #' @param value interval's end to be assigned to \code{int}
 #' @rdname int_end
 "int_end<-" <- function(int, value){
-	value <- as.POSIXct(value)
-	span <- as.numeric(value - int@start, "secs")
-	int <- new("Interval", span, start = int@start,
-		tzone = int@tzone)
+  value <- as.POSIXct(value)
+  span <- as.numeric(value - int@start, "secs")
+  int <- new("Interval", span, start = int@start,
+    tzone = int@tzone)
 }
 
 #' Get the length of an interval in seconds
@@ -342,7 +342,7 @@ int_length <- function(int) int@.Data
 #' int_flip(int)
 #' # 2002-01-01 UTC--2001-01-01 UTC
 int_flip <- function(int){
-	new("Interval", -int@.Data, start = int@start + int@.Data, tzone = int@tzone)
+  new("Interval", -int@.Data, start = int@start + int@.Data, tzone = int@tzone)
 }
 
 #' Shift an interval along the timeline
@@ -366,10 +366,10 @@ int_flip <- function(int){
 #' int_shift(int, duration(hours = -1))
 #' # 2000-12-31 23:00:00 UTC--2001-12-31 23:00:00 UTC
 int_shift <- function(int, by){
-	if(!is.timespan(by)) stop("by is not a recognized timespan object")
-	if(is.interval(by)) stop("an interval cannot be shifted by another interval.
-		Convert second interval to a period or duration.")
-	interval(int@start + by, int_end(int) + by)
+  if(!is.timespan(by)) stop("by is not a recognized timespan object")
+  if(is.interval(by)) stop("an interval cannot be shifted by another interval.
+    Convert second interval to a period or duration.")
+  interval(int@start + by, int_end(int) + by)
 }
 
 
@@ -390,10 +390,10 @@ int_shift <- function(int, by){
 #' int_overlaps(int1, int2) # TRUE
 #' int_overlaps(int1, int3) # FALSE
 int_overlaps <- function(int1, int2){
-	stopifnot(c(is.interval(int1), is.interval(int2)))
+  stopifnot(c(is.interval(int1), is.interval(int2)))
   int1 <- int_standardize(int1)
   int2 <- int_standardize(int2)
-	int1@start <= int2@start + int2@.Data & int2@start <= int1@start + int1@.Data
+  int1@start <= int2@start + int2@.Data & int2@start <= int1@start + int1@.Data
 }
 
 #' Ensures all intervals in an interval object are positive
@@ -411,7 +411,7 @@ int_overlaps <- function(int1, int2){
 int_standardize <- function(int){
   negs <- !is.na(int@.Data) & int@.Data < 0
   int[negs] <- int_flip(int[negs])
-	int
+  int
 }
 
 
@@ -437,10 +437,10 @@ int_standardize <- function(int){
 #' int_aligns(int1, int2) # TRUE
 #' int_aligns(int1, int3) # FALSE
 int_aligns <- function(int1, int2){
-	int1 <- int_standardize(int1)
-	int2 <- int_standardize(int2)
+  int1 <- int_standardize(int1)
+  int2 <- int_standardize(int2)
 
-	int1@start == int2@start | (int1@start + int1@.Data) == (int2@start + int2@.Data)
+  int1@start == int2@start | (int1@start + int1@.Data) == (int2@start + int2@.Data)
 }
 
 #' Extract the intervals within a vector of date-times
@@ -464,18 +464,18 @@ setGeneric("intersect")
 
 #' @export
 setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x,y){
-	int1 <- int_standardize(x)
-	int2 <- int_standardize(y)
+  int1 <- int_standardize(x)
+  int2 <- int_standardize(y)
 
   starts <- pmax(int1@start, int2@start)
-	ends <- pmin(int1@start + int1@.Data, int2@start + int2@.Data)
-	spans <- as.numeric(ends) - as.numeric(starts)
+  ends <- pmin(int1@start + int1@.Data, int2@start + int2@.Data)
+  spans <- as.numeric(ends) - as.numeric(starts)
 
-	no.int <- ends < starts
-	spans[no.int] <- NA
-	starts[no.int] <- NA
+  no.int <- ends < starts
+  spans[no.int] <- NA
+  starts[no.int] <- NA
 
-	new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
+  new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
   new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
   new.int
 })
@@ -485,21 +485,21 @@ setGeneric("union")
 
 #' @export
 setMethod("union", signature(x = "Interval", y = "Interval"), function(x,y){
-	int1 <- int_standardize(x)
-	int2 <- int_standardize(y)
+  int1 <- int_standardize(x)
+  int2 <- int_standardize(y)
 
-	starts <- pmin(int1@start, int2@start)
-	ends <- pmax(int1@start + int1@.Data, int2@start + int2@.Data)
+  starts <- pmin(int1@start, int2@start)
+  ends <- pmax(int1@start + int1@.Data, int2@start + int2@.Data)
 
-	spans <- as.numeric(ends) - as.numeric(starts)
+  spans <- as.numeric(ends) - as.numeric(starts)
 
-	if(any(!int_overlaps(int1, int2)))
-		message("Union includes intervening time between intervals.")
+  if(any(!int_overlaps(int1, int2)))
+    message("Union includes intervening time between intervals.")
 
-	tz(starts) <- x@tzone
-	new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
-	new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
-	new.int
+  tz(starts) <- x@tzone
+  new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
+  new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
+  new.int
 })
 
 #' @export
@@ -520,28 +520,28 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
   makes2 <- !aligned & inside
 
   if(sum(makes2)) {
-		stop(paste("Cases", which(makes2),
-			"result in discontinuous intervals."))
-	}
+    stop(paste("Cases", which(makes2),
+      "result in discontinuous intervals."))
+  }
 
-	int1 <- int_standardize(x)
-	int2 <- int_standardize(y)
+  int1 <- int_standardize(x)
+  int2 <- int_standardize(y)
 
-	first.y <- int_start(int2)
-	last.y <- int_end(int2)
+  first.y <- int_start(int2)
+  last.y <- int_end(int2)
 
-	starts <- int_start(int1)
+  starts <- int_start(int1)
 
-	starts[(last.y + 1) %within% int1] <- last.y[(last.y + 1) %within% int1]
+  starts[(last.y + 1) %within% int1] <- last.y[(last.y + 1) %within% int1]
 
-	ends <- int_end(int1)
-	ends[(first.y - 1) %within% int1] <- first.y[(first.y - 1) %within% int1]
+  ends <- int_end(int1)
+  ends[(first.y - 1) %within% int1] <- first.y[(first.y - 1) %within% int1]
 
-	spans <- as.numeric(ends) - as.numeric(starts)
+  spans <- as.numeric(ends) - as.numeric(starts)
 
-	new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
-	new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
-	new.int
+  new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
+  new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
+  new.int
 })
 
 
@@ -572,16 +572,16 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x,y){
 setGeneric("%within%")
 
 setMethod("%within%", signature(b = "Interval"), function(a,b){
-	if(!is.instant(a)) stop("Argument 1 is not a recognized date-time")
-	a <- as.POSIXct(a)
-	as.numeric(a) - as.numeric(b@start) <= b@.Data & as.numeric(a) - as.numeric(b@start) >= 0
+  if(!is.instant(a)) stop("Argument 1 is not a recognized date-time")
+  a <- as.POSIXct(a)
+  as.numeric(a) - as.numeric(b@start) <= b@.Data & as.numeric(a) - as.numeric(b@start) >= 0
 })
 
 setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a,b){
   a <- int_standardize(a)
   b <- int_standardize(b)
   start.in <- as.numeric(a@start) >= as.numeric(b@start)
-	end.in <- (as.numeric(a@start) + a@.Data) <= (as.numeric(b@start) + b@.Data)
+  end.in <- (as.numeric(a@start) + a@.Data) <= (as.numeric(b@start) + b@.Data)
   start.in & end.in
 })
 

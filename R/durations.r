@@ -2,10 +2,10 @@
 #' @include difftimes.r
 
 check_duration <- function(object){
-	if (is.numeric(object@.Data))
-		TRUE
-	else
-		"Duration value is not a number. Should be numeric."
+  if (is.numeric(object@.Data))
+    TRUE
+  else
+    "Duration value is not a number. Should be numeric."
 }
 
 
@@ -90,7 +90,7 @@ compute_estimate <- function (secs, unit = "second") {
 
 #' @export
 setMethod("show", signature(object = "Duration"), function(object){
-	print(format.Duration(object), quote = TRUE)
+  print(format.Duration(object), quote = TRUE)
 })
 
 #' @export
@@ -105,13 +105,13 @@ format.Duration <- function(x, ...) {
 
 #' @export
 setMethod("c", signature(x = "Duration"), function(x, ...){
-	durs <- c(x@.Data, unlist(list(...)))
-	new("Duration", durs)
+  durs <- c(x@.Data, unlist(list(...)))
+  new("Duration", durs)
 })
 
 #' @export
 setMethod("rep", signature(x = "Duration"), function(x, ...){
-	new("Duration", rep(as.numeric(x), ...))
+  new("Duration", rep(as.numeric(x), ...))
 })
 
 #' @export
@@ -129,7 +129,7 @@ setMethod("[[", signature(x = "Duration"),
 #' @export
 setMethod("[<-", signature(x = "Duration"),
   function(x, i, j, ..., value) {
-  	x@.Data[i] <- value
+    x@.Data[i] <- value
     new("Duration", x@.Data)
 })
 
@@ -207,12 +207,12 @@ duration <- function(num = NULL, units = "seconds", ...){
 }
 
 .duration_from_num <- function(num, units){
-	unit <- standardise_date_names(units)
-	mult <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
-		wday = 86400, yday =86400, day = 86400, week = 604800,
-		month = 60 * 60 * 24 * 365 / 12, year = 60 * 60 * 24 * 365)
+  unit <- standardise_date_names(units)
+  mult <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
+    wday = 86400, yday =86400, day = 86400, week = 604800,
+    month = 60 * 60 * 24 * 365 / 12, year = 60 * 60 * 24 * 365)
 
-	new("Duration", num * unname(mult[unit]))
+  new("Duration", num * unname(mult[unit]))
 }
 
 .duration_from_units <- function(pieces){

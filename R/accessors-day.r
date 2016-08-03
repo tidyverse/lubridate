@@ -129,7 +129,7 @@ setMethod("day<-", signature("Period"), function(x, value){
 #' @export
 "wday<-" <- function(x, value){
   if (!is.numeric(value)) {
-  	value <- pmatch(tolower(value), c("sunday", "monday", "tuesday",
+    value <- pmatch(tolower(value), c("sunday", "monday", "tuesday",
                                       "wednesday", "thursday", "friday", "saturday"))
   }
   x <- x + days(value - wday(x))

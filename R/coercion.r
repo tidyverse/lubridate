@@ -90,7 +90,7 @@ reclass_date.Date <- function(new, orig) {
 
 
 period_to_difftime <- function(per){
-	as.difftime(per)
+  as.difftime(per)
 }
 
 #' Convenience method to reclass timespans post-modification.
@@ -106,10 +106,10 @@ setGeneric("reclass_timespan")
 
 #' @export
 setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig){
-	if (is.period(new))
-		as.difftime(new)
-	else
-		make_difftime(as.numeric(new))
+  if (is.period(new))
+    as.difftime(new)
+  else
+    make_difftime(as.numeric(new))
 })
 
 #' @export
@@ -168,7 +168,7 @@ as.duration <- function(x) standardGeneric("as.duration")
 setGeneric("as.duration")
 
 setMethod("as.duration", signature(x = "numeric"), function(x){
-	new("Duration", x)
+  new("Duration", x)
 })
 
 setMethod("as.duration", signature(x = "logical"), function(x){
@@ -176,15 +176,15 @@ setMethod("as.duration", signature(x = "logical"), function(x){
 })
 
 setMethod("as.duration", signature(x = "difftime"), function(x){
-	new("Duration", as.numeric(x, "secs"))
+  new("Duration", as.numeric(x, "secs"))
 })
 
 setMethod("as.duration", signature(x = "Interval"), function(x){
-	new("Duration", x@.Data)
+  new("Duration", x@.Data)
 })
 
 setMethod("as.duration", signature(x = "Duration"), function(x){
-	x
+  x
 })
 
 setMethod("as.duration", signature(x = "Period"), function(x){
@@ -273,10 +273,10 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
     start <- as.POSIXct(NA, origin = origin)
   else stopifnot(is.instant(start))
 
-	if (is.instant(x))
-		return(interval(x, start))
-	else
-		interval(start, start + x)
+  if (is.instant(x))
+    return(interval(x, start))
+  else
+    interval(start, start + x)
 }
 
 
@@ -544,17 +544,17 @@ setGeneric("as.difftime")
 
 #' @export
 setMethod("as.difftime", signature(tim = "Interval"), function(tim, format = "%X", units = "secs"){
-	as.difftime(as.numeric(tim, units), format, units)
+  as.difftime(as.numeric(tim, units), format, units)
 })
 
 #' @export
 setMethod("as.difftime", signature(tim = "Duration"), function(tim, format = "%X", units = "secs"){
-	as.difftime(tim@.Data, format, units)
+  as.difftime(tim@.Data, format, units)
 })
 
 #' @export
 setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X", units = "secs"){
-	as.difftime(period_to_seconds(tim), format, units)
+  as.difftime(period_to_seconds(tim), format, units)
 })
 
 setGeneric("as.numeric")
@@ -573,8 +573,8 @@ seconds_to_unit <- function(secs, unit = "second"){
 
 #' @export
 setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...){
-	unit <- standardise_period_names(units)
-	as.numeric(seconds_to_unit(x@.Data, unit), ...)
+  unit <- standardise_period_names(units)
+  as.numeric(seconds_to_unit(x@.Data, unit), ...)
 })
 
 #' @export

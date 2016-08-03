@@ -62,11 +62,11 @@ month.Period <- function(x, label = FALSE, abbr = TRUE)
 #' @rdname month
 #' @export
 "month<-" <- function(x, value) {
-	if (!is.numeric(value)) {
-			value <- pmatch(tolower(value), c("january", "february", "march",
-  		"june", "july", "august", "september", "october", "november", "december"))
-  	}
-  	x <- x + months(value - month(x))
+  if (!is.numeric(value)) {
+      value <- pmatch(tolower(value), c("january", "february", "march",
+      "june", "july", "august", "september", "october", "november", "december"))
+    }
+    x <- x + months(value - month(x))
  }
 
 setGeneric("month<-")

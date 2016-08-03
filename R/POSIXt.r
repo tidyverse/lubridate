@@ -24,7 +24,7 @@ is.POSIXct <- function(x) inherits(x, "POSIXct")
 
 #' @export
 c.POSIXct <- function (..., recursive = FALSE) {
-	.POSIXct(c(unlist(lapply(list(...), unclass))), tz = tz(list(...)[[1]]))
+  .POSIXct(c(unlist(lapply(list(...), unclass))), tz = tz(list(...)[[1]]))
 }
 
 #' @method c POSIXlt
