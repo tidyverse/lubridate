@@ -90,6 +90,10 @@ dmy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME")
 dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
   .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
+#' @export
+#' @rdname ymd
+yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
+  .parse_xxx(..., orders = "yq", quiet = quiet, tz = tz, locale = locale, truncated = 0)
 
 ##' Parse dates that have hours, minutes, or seconds elements.
 ##'
@@ -809,8 +813,6 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
 }
 
 .parse_xxx <- function(..., orders, quiet, tz = NULL, locale = locale,  truncated){
-  ## if(!missing(tz))
-  ##   .deprecated_arg("tz", "1.5.6", 2)
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
   if(is.null(tz)){
     as.Date.POSIXct(parse_date_time(dates, orders, quiet = quiet, tz = "UTC",

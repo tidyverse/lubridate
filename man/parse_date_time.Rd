@@ -95,10 +95,10 @@ recursively on the input vector.
 numeric.
 
 The list below contains formats recognized by lubridate. For numeric formats
-leading 0s are optional. In contrast to \code{strptime}, some of the formats
-have been extended for efficiency reasons. They are marked with "*". Fast
-parsers,  \code{parse_date_time2} and \code{fast_strptime}, currently
-accept only formats marked with "!".
+leading 0s are optional. As compared to base \code{strptime}, some of the
+formats are new or have been extended for efficiency reasons. These formats
+are marked with "*". Fast parsers, \code{parse_date_time2} and
+\code{fast_strptime}, currently accept only formats marked with "!".
 
 \describe{ \item{\code{a}}{Abbreviated weekday name in the current
 locale. (Also matches full name)}
@@ -120,6 +120,8 @@ automatically handled if \code{preproc_wday = TRUE}}
 \item{\code{I}}{Hours as decimal number (01--12 or 1--12).}
 
 \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
+
+\item{\code{q}!*}{Quarter (1-4). The quarter month is added to parsed month if \code{m} format is present.}
 
 \item{\code{m}!*}{Month as decimal number (01--12 or 1--12). For
 \code{parse_date_time}, also matches abbreviated and full months names as
@@ -216,6 +218,12 @@ parse_date_time(x, c("\%m-\%d-\%y", "\%m\%d\%y", "\%m-\%d-\%y \%H:\%M"), exact =
 parse_date_time(c('12/17/1996 04:00:00','4/18/1950 0130'),
                 c('\%m/\%d/\%Y \%I:\%M:\%S','\%m/\%d/\%Y \%H\%M'), exact = TRUE)
 ## [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"
+
+## ** quarters and partial dates **
+parse_date_time(c("2016.2", "2016-04"), orders = "Yq")
+## [1] "2016-04-01 UTC" "2016-10-01 UTC"
+parse_date_time(c("2016", "2016-04"), orders = c("Y", "Ym"))
+## [1] "2016-01-01 UTC" "2016-04-01 UTC"
 
 ## ** fast parsing **
 \dontrun{

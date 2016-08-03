@@ -7,6 +7,7 @@
 \alias{myd}
 \alias{ydm}
 \alias{ymd}
+\alias{yq}
 \title{Parse dates according to the order in that year, month, and day elements
 appear in the input vector.}
 \usage{
@@ -27,6 +28,8 @@ dmy(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
 
 dym(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
   truncated = 0)
+
+yq(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 }
 \arguments{
 \item{...}{a character or numeric vector of suspected dates}
