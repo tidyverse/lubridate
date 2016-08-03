@@ -3,6 +3,8 @@ Version 1.5.6.9000 (development)
 
 ### NEW FEATURES
 
+* [#422](https://github.com/hadley/lubridate/issues/422) New parsing function `yq` for parsing most common version of quarter strings.
+* [#422](https://github.com/hadley/lubridate/issues/422) New format `q` for parsing quarters in all lubridate parsing functions.
 * [#441](https://github.com/hadley/lubridate/issues/441) Comparison between POSIXt and Date objects is now possible.
 * [#437](https://github.com/hadley/lubridate/issues/437) New function `as_datetime` to coerce to POSIXct object. A counterpart of `as_date`.
 * [#412](https://github.com/hadley/lubridate/issues/412) New function `make_date` to produce Date objects. A counterpart of `make_datetime`.
@@ -20,6 +22,7 @@ Version 1.5.6.9000 (development)
 * Internally, S4 Compare and Ops generics were cleaned and simplified.
 
 ### BUG FIXES
+* [#448](https://github.com/hadley/lubridate/issues/448) Correctly handle missing months and days in C parser.
 * [#450](https://github.com/hadley/lubridate/issues/450) Fix incorrect handling of DST gaps in `date_decimal` and `decimal_date`.
 * [#418](https://github.com/hadley/lubridate/issues/418) C level parsing functions understand 24:00:00 in datetime strings.
 * [#420](https://github.com/hadley/lubridate/issues/420) `as.numeric` correctly converts periods to (aproximate) numeric time lengths.
