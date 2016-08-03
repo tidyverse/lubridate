@@ -13,9 +13,7 @@ floor_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
   "bimonth", "quarter", "halfyear", "year"))
 
 ceiling_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "bimonth", "quarter", "halfyear", "year"),
-  change_on_boundary = getOption("lubridate.ceiling_date.change_on_boundary",
-  FALSE))
+  "bimonth", "quarter", "halfyear", "year"), change_on_boundary = FALSE)
 }
 \arguments{
 \item{x}{a vector of date-time objects}

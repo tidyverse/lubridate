@@ -3,6 +3,7 @@ Version 1.5.6.9000 (development)
 
 ### NEW FEATURES
 
+* [#441](https://github.com/hadley/lubridate/issues/441) Comparison between POSIXt and Date objects is now possible.
 * [#437](https://github.com/hadley/lubridate/issues/437) New function `as_datetime` to coerce to POSIXct object. A counterpart of `as_date`.
 * [#412](https://github.com/hadley/lubridate/issues/412) New function `make_date` to produce Date objects. A counterpart of `make_datetime`.
 * [#268](https://github.com/hadley/lubridate/issues/268) `round_date`, `ceiling_date`, and `floor_date` now accept "quarter", "bimonth", and "halfyear" as `unit` options.
@@ -15,6 +16,7 @@ Version 1.5.6.9000 (development)
 * [#403](https://github.com/hadley/lubridate/issues/403) Update on `Date` objects now return `POSIXct` instead of `POSIXlt`.
 * [#411](https://github.com/hadley/lubridate/issues/411) format `mdy` or `myd` beginning with `"January"` or `"Jan"` now parsing correctly
 * `here` and `olson_time_zones` were deprecated in favor of `new` and base `OlsonNames` respectively.
+* Internally, S4 Compare and Ops generics were cleaned and simplified.
 
 ### BUG FIXES
 * [#418](https://github.com/hadley/lubridate/issues/418) C level parsing functions understand 24:00:00 in datetime strings.
