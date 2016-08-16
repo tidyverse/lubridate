@@ -6,11 +6,9 @@
 \alias{round_date}
 \title{Round, floor and ceiling methods for date-time objects.}
 \usage{
-round_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "bimonth", "quarter", "halfyear", "year"))
+round_date(x, unit = "second")
 
-floor_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "bimonth", "quarter", "halfyear", "year"))
+floor_date(x, unit = "seconds")
 
 ceiling_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
   "bimonth", "quarter", "halfyear", "year"), change_on_boundary = FALSE)
@@ -18,116 +16,89 @@ ceiling_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
 \arguments{
 \item{x}{a vector of date-time objects}
 
-\item{unit}{a character string specifying the time unit to be rounded to. Should be one of
-"second", "minute", "hour", "day", "week", "month", "bimonth", "quarter", "halfyear", or "year."}
+\item{unit}{a character string specifying the time unit or a multiple of a
+unit to be rounded to. Valid base units are second, minute, hour, day,
+week, month, bimonth, quarter, halfyear, or year. Unique abriviation or
+plurals are also supported (min, mins, secs etc). Rounding to multiple of
+units (except weeks) is suported from \code{v1.6.0}.}
 
 \item{change_on_boundary}{logical. If FALSE (the default) \code{ceiling_date}
-don't alter date-times on the corresponding boundary. The boundary is unit
-dependent. For second, minute, hour and day the boundary is `00` of next
-smaller unit. For week, month etc the boundary is on the first day within
-that unit. For example for the boundary date "2000-01-01"
+don't alter date-times on the boundary of the \code{unit}. The boundary is
+unit dependent - for second, minute, hour and day the boundary is `0` units
+of next smaller unit. For week, month and year the boundary is on the first
+day within that unit. For example for the boundary date "2000-01-01"
 \code{ceiling_date(ymd("2000-01-01"), "month")} is \code{"2000-01-01"}
-while `ceiling_date(ymd("2000-01-01"), "month", TRUE)` is "2000-02-01". You
-can change this option globally with
-\code{options(lubridate.ceiling_date.change_on_boundary = TRUE)}.}
+while `ceiling_date(ymd("2000-01-01"), "month", TRUE)` is "2000-02-01".}
 }
 \value{
 x with the appropriate units floored
 }
 \description{
-Users can specify whether to round to the nearest second, minute, hour, day,
-week, month, bimonth, quarter, halfyear, or year.
+Rounding to the nearest unit or multiple of a unit are supported. All
+meaningfull specifications in english are supported - secs, min, mins, 2
+minutes, 3 years etc.
 }
 \details{
-\code{round_date} takes a date-time object and rounds it to the nearest
-integer value of the specified time unit. For rounding date-ties which is
-exactly halfway between two consecutive units, the convention is to round
-up. Note that this is in line with the behavior of R's base
-\link[base]{round.POSIXt} function but does not follow the convention of the
-base \link[base]{round} function which "goes to the even digit" per IEC
-60559.
+\code{round_date} takes a date-time object and rounds it to the nearest value
+of the specified time unit. For rounding date-ties which is exactly halfway
+between two consecutive units, the convention is to round up. Note that this
+is in line with the behavior of R's base \link[base]{round.POSIXt} function
+but does not follow the convention of the base \link[base]{round} function
+which "goes to the even digit" per IEC 60559.
 
-\code{floor_date} takes a date-time object and rounds it down to the nearest integer
+\code{floor_date} takes a date-time object and rounds it down to the nearest
 value of the specified time unit.
 
 \code{ceiling_date} takes a date-time object and rounds it up to the nearest
-integer value of the specified time unit.
+value of the specified time unit.
 
-By convention the boundary for a month is the first second of the month. Thus
-\code{floor_date(ymd("2000-03-01"), "month")} gives "2000-03-01 UTC".
+By convention the boundary for a month is the 00 second of the month. Thus
+\code{ceiling_date(ymd("2000-03-01"), "month")} is equivalent to
+\code{ceiling_date(ymd_hms("2000-03-01 00:00:00"), "month")} and returns
+"2000-03-01 UTC". Use \code{change_on_boundary} to alter this behavior.
 }
 \examples{
 x <- as.POSIXct("2009-08-03 12:01:59.23")
 round_date(x, "second")
-# "2009-08-03 12:01:59 CDT"
 round_date(x, "minute")
-# "2009-08-03 12:02:00 CDT"
+round_date(x, "5 mins")
 round_date(x, "hour")
-# "2009-08-03 12:00:00 CDT"
+round_date(x, "2 hours")
 round_date(x, "day")
-# "2009-08-04 CDT"
 round_date(x, "week")
-# "2009-08-02 CDT"
 round_date(x, "month")
-# "2009-08-01 CDT"
 round_date(x, "bimonth")
-# "2009-09-01 CDT"
-round_date(x, "quarter")
-# "2009-07-01 CDT"
+round_date(x, "quarter") == round_date(x, "3 months")
 round_date(x, "halfyear")
-# "2009-07-01 CDT"
 round_date(x, "year")
-# "2010-01-01 CST"
 
 x <- as.POSIXct("2009-08-03 12:01:59.23")
 floor_date(x, "second")
-# "2009-08-03 12:01:59 CDT"
 floor_date(x, "minute")
-# "2009-08-03 12:01:00 CDT"
 floor_date(x, "hour")
-# "2009-08-03 12:00:00 CDT"
 floor_date(x, "day")
-# "2009-08-03 CDT"
 floor_date(x, "week")
-# "2009-08-02 CDT"
 floor_date(x, "month")
-# "2009-08-01 CDT"
 floor_date(x, "bimonth")
-# "2009-07-01 CDT"
 floor_date(x, "quarter")
-# "2009-07-01 CDT"
 floor_date(x, "halfyear")
-# "2009-07-01 CDT"
 floor_date(x, "year")
-# "2009-01-01 CST"
 
 x <- as.POSIXct("2009-08-03 12:01:59.23")
 ceiling_date(x, "second")
-# "2009-08-03 12:02:00 CDT"
 ceiling_date(x, "minute")
-# "2009-08-03 12:02:00 CDT"
+ceiling_date(x, "5 mins")
 ceiling_date(x, "hour")
-# "2009-08-03 13:00:00 CDT"
 ceiling_date(x, "day")
-# "2009-08-04 CDT"
 ceiling_date(x, "week")
-# "2009-08-09 CDT"
 ceiling_date(x, "month")
-# "2009-09-01 CDT"
-ceiling_date(x, "bimonth")
-# "2009-09-01 CDT"
+ceiling_date(x, "bimonth") == ceiling_date(x, "2 months")
 ceiling_date(x, "quarter")
-# "2009-10-01 CDT"
 ceiling_date(x, "halfyear")
-# "2010-01-01 CDT"
 ceiling_date(x, "year")
-# "2010-01-01 CST"
-
 x <- ymd("2000-01-01")
 ceiling_date(x, "month")
-## [1] "2000-01-01"
 ceiling_date(x, "month", change_on_boundary = TRUE)
-## [1] "2000-02-01"
 }
 \seealso{
 \link[base]{round}

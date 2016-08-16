@@ -3,6 +3,7 @@ Version 1.5.6.9000 (development)
 
 ### NEW FEATURES
 
+* [#442](https://github.com/hadley/lubridate/issues/442) `round_date`, `floor_date` and `ceiling_date` now support rounding to multiple of units.
 * [#422](https://github.com/hadley/lubridate/issues/422) New parsing function `yq` for parsing most common version of quarter strings.
 * [#422](https://github.com/hadley/lubridate/issues/422) New format `q` for parsing quarters in all lubridate parsing functions.
 * [#441](https://github.com/hadley/lubridate/issues/441) Comparison between POSIXt and Date objects is now possible.
