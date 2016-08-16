@@ -31,14 +31,13 @@ comp_posix_date <- function(e1, e2){
 
   if(is.POSIXct(e1)){
     if (is.Date(e2))
-      e2 <- .date_to_posix(e2, attr(e1, "tzone"))
+      e2 <- .date_to_posix(e2, tz(e1))
     check_tzones(e1, e2)
   } else if (is.Date(e1)) {
     if (is.POSIXt(e2)){
-      e1 <- .date_to_posix(e1, tz = attr(e2, "tzone"))
+      e1 <- .date_to_posix(e1, tz = tz(e2))
     }
   }
-
   NextMethod(.Generic)
 }
 
