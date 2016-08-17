@@ -3,6 +3,7 @@ Version 1.5.6.9000 (development)
 
 ### NEW FEATURES
 
+* [#445](https://github.com/hadley/lubridate/issues/445) Division of intervals by periods is now accurate.
 * [#442](https://github.com/hadley/lubridate/issues/442) `round_date`, `floor_date` and `ceiling_date` now support rounding to multiple of units.
 * [#422](https://github.com/hadley/lubridate/issues/422) New parsing function `yq` for parsing most common version of quarter strings.
 * [#422](https://github.com/hadley/lubridate/issues/422) New format `q` for parsing quarters in all lubridate parsing functions.
@@ -13,6 +14,7 @@ Version 1.5.6.9000 (development)
 
 ### CHANGES
 
+* [#445](https://github.com/hadley/lubridate/issues/445) No more warning on occasional imprecise period length conversions. Imprecise arithmetics with periods is extensively documented.
 * `pretty.*` family of functions were renamed and are no longer exported. If you need to use them, use `lubridate:::pretty_*` versions.
 * `change_on_boundary` argument in `ceiling_date` does not allow for global option anymore.
 * `as.duration`, `as.numeric` don't show "only estimate" messages on conversion from periods. The occasional approximate conversion is documented and deemed common knowledge.
@@ -21,6 +23,7 @@ Version 1.5.6.9000 (development)
 * [#411](https://github.com/hadley/lubridate/issues/411) format `mdy` or `myd` beginning with `"January"` or `"Jan"` now parsing correctly
 * `here` and `olson_time_zones` were deprecated in favor of `new` and base `OlsonNames` respectively.
 * Internally, S4 Compare and Ops generics were cleaned and simplified.
+* [#456](https://github.com/hadley/lubridate/issues/456) Evaluation output in documentation examples was removed.
 
 ### BUG FIXES
 * [#448](https://github.com/hadley/lubridate/issues/448) Correctly handle missing months and days in C parser.
