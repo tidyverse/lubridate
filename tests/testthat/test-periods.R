@@ -33,6 +33,18 @@ test_that("period works as expected", {
 
 })
 
+
+test_that("period works as expected", {
+  per <- period('3y')
+
+  expect_is(per, "Period")
+  expect_equal(per@year, 3)
+  expect_equal(per@month, 0)
+  expect_equal(per@day, 0)
+  expect_equal(per@hour, 0)
+  expect_equal(per@minute, 0)
+})
+
 test_that("period works as expected", {
   per <- period(c(90, 5), c("second", "minute"))
 
