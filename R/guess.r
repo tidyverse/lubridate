@@ -230,15 +230,18 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   n_fmts <-
     nchar(gsub("[^%]", "", nms)) + ## longer formats have priority
     grepl("%Y", nms)*1.5 + ## Y has priority over 0
+    grepl("%p", nms)*.1 + ## %p format
     grepl("%O", nms)*.2 ## c_parser formats have priority
+
+  print(structure(n_fmts, names = nms))
   names(trained[which.max(n_fmts)])
 }
 
 ## These are formats that are effectively matched by c parser. But we must get
 ## through the format guesser first for ymd_hms family.
-.c_parser_reg_flex <- list(Op = "(?<Op>AM|PM)?(?![[:alpha:]])",
+.c_parser_reg_flex <- list(Op = "(?<Op>(AM|PM))(?![[:alpha:]])",
                            Om = "((?<Om>1[0-2]|0?[1-9](?!\\d))|(((?<Om_b>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Om_B>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))")
-.c_parser_reg_exact <- list(Op = "(?<Op_e>AM|PM)?(?![[:alpha:]])",
+.c_parser_reg_exact <- list(Op = "(?<Op_e>AM|PM)(?![[:alpha:]])",
                             Om = "((?<Om_e>1[0-2]|0[1-9])|(((?<Om_b_e>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Om_B_e>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))")
 
 .locale_reg_cache <- new.env(hash = FALSE)

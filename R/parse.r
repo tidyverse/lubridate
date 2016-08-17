@@ -178,7 +178,7 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
 ##'
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
-  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT", "yOmdHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT", "yOmdHMS", "yOmdHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 }
 
 #' @export
@@ -194,7 +194,7 @@ ymd_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 dmy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT", "dOmyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT", "dOmyHMS", "dOmyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -209,7 +209,7 @@ dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 mdy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT", "OmdyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT", "OmdyHMS", "OmdyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -224,7 +224,7 @@ mdy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 ydm_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT", "ydOmHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT", "ydOmHMS", "ydOmHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
