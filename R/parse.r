@@ -237,46 +237,23 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
   .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
-##' Create a period with the specified number of minutes and seconds
-##'
-##' Transforms character or numeric vectors into a period object with the
-##' specified number of minutes and seconds. ms() Arbitrary text can separate
-##' minutes and seconds. Fractional separator is assumed to be ".". After
-##' minutes and seconds have been parsed, all numeric input is ignored.
-##'
-##' @export ms
-##' @param ... character or numeric vectors of minute second pairs
-##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
-##' @return a vector of class \code{Period}
-##' @seealso \code{\link{hms}, \link{hm}}
-##' @keywords period
+##' @rdname hms
 ##' @examples
 ##' ms(c("09:10", "09:02", "1:10"))
 ##' ms("7 6")
 ##' ms("6,5")
+##' @export
 ms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "MS", quiet = quiet)
   period(minute = out["M", ], second = out["S", ])
 }
 
-
-##' Create a period with the specified number of hours and minutes
-##'
-##' Transforms a character or numeric vectors into a period object with the
-##' specified number of hours and minutes. Arbitrary non-numeric text can
-##' separate hours and minutes.  After hours and minutes have been parsed, the
-##' remaining input is ignored.
-##'
-##' @export hm
-##' @param ... character or numeric vectors of hour minute pairs
-##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
-##' @return a vector of class \code{Period}
-##' @seealso \code{\link{hms}, \link{ms}}
-##' @keywords period
+##' @rdname hms
 ##' @examples
 ##' hm(c("09:10", "09:02", "1:10"))
 ##' hm("7 6")
 ##' hm("6,5")
+##' @export
 hm <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HM", quiet = quiet)
   period(hour = out["H", ], minute = out["M", ])
@@ -290,7 +267,6 @@ hm <- function(..., quiet = FALSE) {
 ##' durations).  After hours, minutes and seconds have been parsed, the
 ##' remaining input is ingored.
 ##'
-##' @export hms
 ##' @param ... a character vector of hour minute second triples
 ##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
 ##' @return a vector of period objects
@@ -303,6 +279,7 @@ hm <- function(..., quiet = FALSE) {
 ##' hms(x)
 ##'
 ##' hms("7 6 5", "3:23:::2", "2 : 23 : 33", "Finished in 9 hours, 20 min and 4 seconds")
+##' @export
 hms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HMS", quiet = quiet)
   period(hour = out["H", ], minute = out["M", ], second = out["S", ])

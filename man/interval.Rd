@@ -2,15 +2,48 @@
 % Please edit documentation in R/intervals.r
 \name{interval}
 \alias{\%--\%}
+\alias{int_aligns}
+\alias{int_diff}
+\alias{int_end}
+\alias{int_end<-}
+\alias{int_flip}
+\alias{int_length}
+\alias{int_overlaps}
+\alias{int_shift}
+\alias{int_standardize}
+\alias{int_start}
+\alias{int_start<-}
 \alias{interval}
 \alias{is.interval}
-\title{Create an \code{interval} object.}
+\title{Utilities for creation and manipulation of \code{Interval} objects.}
 \usage{
 interval(start, end, tzone = attr(start, "tzone"))
 
 start \%--\% end
 
 is.interval(x)
+
+int_start(int)
+
+int_start(int) <- value
+
+int_end(int)
+
+int_end(int) <- value
+
+int_length(int)
+
+int_flip(int)
+
+int_shift(int, by)
+
+int_overlaps(int1, int2)
+
+int_standardize(int)
+
+int_aligns(int1, int2)
+
+int_diff(times)
 }
 \arguments{
 \item{start}{a POSIXt or Date date-time object}
@@ -20,14 +53,78 @@ is.interval(x)
 \item{tzone}{a recognized timezone to display the interval in}
 
 \item{x}{an R object}
+
+\item{int}{an interval object}
+
+\item{value}{interval's start/end to be assigned to \code{int}}
+
+\item{by}{A period or duration object to shift by (for \code{int_shift})}
+
+\item{int1}{an Interval object (for \code{int_overlaps}, \code{int_aligns})}
+
+\item{int2}{an Interval object (for \code{int_overlaps}, \code{int_aligns})}
+
+\item{times}{A vector of POSIXct, POSIXlt or Date class date-times (for
+\code{int_diff})}
 }
 \value{
-an Interval object
+\code{interval} - \code{Interval} object.
+
+\code{int_start} and \code{int_end} return a POSIXct date object when
+  used as an accessor. Nothing when used as a setter.
+
+\code{int_length} - numeric length of the interval in
+  seconds. A negative number connotes a negative interval.
+
+\code{int_flip} - flipped interval object
+
+\code{int_shift} - interval object
+
+\code{int_overlaps} logical, TRUE if int1 and int2 overlap by at
+  least one second. FALSE otherwise
+
+\code{int_align} logical, TRUE if int1 and int2 begin or end on the
+  same moment. FALSE otherwise
+
+\code{int_diff} - interval object that contains the n-1 intervals
+  between the n date-time in times
 }
 \description{
-interval creates an \code{\link{Interval-class}} object with the specified start and end
-dates. If the start date occurs before the end date, the interval will be positive.
-Otherwise, it will be negative.
+\code{interval} creates an \code{\link{Interval-class}} object with the
+specified start and end dates. If the start date occurs before the end date,
+the interval will be positive. Otherwise, it will be negative.
+
+\code{\%--\%} Creates an interval that covers the range spanned by two
+dates. It replaces the original behavior of lubridate, which created an
+interval by default whenever two date-times were subtracted.
+
+\code{int_start} and \code{int_start<-} are accessors the start date of an
+interval. Note that changing the start date of an interval will change the
+length of the interval, since the end date will remain the same.
+
+\code{int_flip} reverses the order of the start date and end date in an
+interval. The new interval takes place during the same timespan as the
+original interval, but has the opposite direction.
+
+\code{int_shift} shifts the start and end dates of an interval up or down the
+timeline by a specified amount. Note that this may change the exact length of
+the interval if the interval is shifted by a Period object. Intervals shifted
+by a Duration or difftime object will retain their exact length in seconds.
+
+\code{int_overlaps} tests if two intervals overlap.
+
+\code{int_standardize} ensures all intervals in an interval object are
+positive. If an interval is not positive, flip it so that it retains its
+endpoints but becomes positive.
+
+\code{int_aligns} tests if two intervals share an endpoint. The direction of
+each interval is ignored. int_align tests whether the earliest or latest
+moments of each interval occur at the same time.
+
+\code{int_diff} returns the intervals that occur between the elements of a
+vector of date-times. \code{int_diff} is similar to the POSIXt and Date
+methods of \code{\link{diff}}, but returns an \code{Interval} object instead
+of a difftime object.
 }
 \details{
 Intervals are time spans bound by two real date-times.  Intervals can be
@@ -36,11 +133,6 @@ accurately converted to either period or duration objects using
 anchored to a fixed history of time, both the exact number of seconds that passed
 and the number of variable length time units that occurred during the interval can be
 calculated.
-
-\code{\%--\%} Creates an interval that covers the range spanned
-by two dates. It replaces the
-original behavior of lubridate, which created an interval by default whenever
-two date-times were subtracted.
 }
 \examples{
 interval(ymd(20090201), ymd(20090101))
@@ -53,8 +145,40 @@ span <- interval(ymd(20090101), ymd(20090201))
 
 is.interval(period(months= 1, days = 15)) # FALSE
 is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int_start(int)
+int_start(int) <- ymd("2001-06-01")
+int
+
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int_end(int)
+int_end(int) <- ymd("2002-06-01")
+int
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int_length(int)
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int_flip(int)
+int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int_shift(int, duration(days = 11))
+int_shift(int, duration(hours = -1))
+int1 <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int2 <- interval(ymd("2001-06-01"), ymd("2002-06-01"))
+int3 <- interval(ymd("2003-01-01"), ymd("2004-01-01"))
+
+int_overlaps(int1, int2) # TRUE
+int_overlaps(int1, int3) # FALSE
+int <- interval(ymd("2002-01-01"), ymd("2001-01-01"))
+int_standardize(int)
+int1 <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
+int2 <- interval(ymd("2001-06-01"), ymd("2002-01-01"))
+int3 <- interval(ymd("2003-01-01"), ymd("2004-01-01"))
+
+int_aligns(int1, int2) # TRUE
+int_aligns(int1, int3) # FALSE
+dates <- now() + days(1:10)
+int_diff(dates)
 }
 \seealso{
-\code{\link{Interval-class}}, \code{\link{as.interval}}
+\code{\link{Interval-class}}, \code{\link{as.interval}}, \code{\link{\%within\%}}
 }
 
