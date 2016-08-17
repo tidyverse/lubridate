@@ -6,16 +6,21 @@
 \alias{ms}
 \title{Create a period with the specified hours, minutes, and seconds}
 \usage{
-ms(..., quiet = FALSE)
+ms(..., quiet = FALSE, roll = FALSE)
 
-hm(..., quiet = FALSE)
+hm(..., quiet = FALSE, roll = FALSE)
 
-hms(..., quiet = FALSE)
+hms(..., quiet = FALSE, roll = FALSE)
 }
 \arguments{
 \item{...}{a character vector of hour minute second triples}
 
-\item{quiet}{logical. When TRUE function evalueates without displaying customary messages.}
+\item{quiet}{logical. When TRUE function evalueates without displaying
+customary messages.}
+
+\item{roll}{logica. When TRUE smaller units are rolled over to higher units
+if they exceed the conventional limit. For example \code{hms("01:59:120",
+roll=TRUE)} produces period "2H 1M 0S".}
 }
 \value{
 a vector of period objects

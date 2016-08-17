@@ -3,6 +3,7 @@ Version 1.5.6.9000 (development)
 
 ### NEW FEATURES
 
+* [#417](https://github.com/hadley/lubridate/issues/417) `hms`, `hm`, `ms` gained new argument `roll=TRUE` which rolls minutes and seconds bigger than 59 towards higher units.
 * [#445](https://github.com/hadley/lubridate/issues/445) Division of intervals by periods is now accurate.
 * [#442](https://github.com/hadley/lubridate/issues/442) `round_date`, `floor_date` and `ceiling_date` now support rounding to multiple of units.
 * [#422](https://github.com/hadley/lubridate/issues/422) New parsing function `yq` for parsing most common version of quarter strings.

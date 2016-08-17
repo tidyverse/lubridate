@@ -243,9 +243,14 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' ms("7 6")
 ##' ms("6,5")
 ##' @export
-ms <- function(..., quiet = FALSE) {
+ms <- function(..., quiet = FALSE, roll = FALSE) {
   out <- .parse_hms(..., order = "MS", quiet = quiet)
-  period(minute = out["M", ], second = out["S", ])
+  if(roll){
+    hms <- .roll_hms(min = out["M", ], sec = out["S", ])
+    period(hour = hms$hour, minute = hms$min, second = hms$sec)
+  } else {
+    period(minute = out["M", ], second = out["S", ])
+  }
 }
 
 ##' @rdname hms
@@ -254,9 +259,14 @@ ms <- function(..., quiet = FALSE) {
 ##' hm("7 6")
 ##' hm("6,5")
 ##' @export
-hm <- function(..., quiet = FALSE) {
+hm <- function(..., quiet = FALSE, roll = FALSE) {
   out <- .parse_hms(..., order = "HM", quiet = quiet)
-  period(hour = out["H", ], minute = out["M", ])
+  if(roll){
+    hms <- .roll_hms(hour = out["H", ], min = out["M", ])
+    period(hour = hms$hour, minute = hms$min, second = hms$sec)
+  } else {
+    period(hour = out["H", ], minute = out["M", ])
+  }
 }
 
 ##' Create a period with the specified hours, minutes, and seconds
@@ -268,7 +278,11 @@ hm <- function(..., quiet = FALSE) {
 ##' remaining input is ingored.
 ##'
 ##' @param ... a character vector of hour minute second triples
-##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
+##' @param quiet logical. When TRUE function evalueates without displaying
+##'   customary messages.
+##' @param roll logica. When TRUE smaller units are rolled over to higher units
+##'   if they exceed the conventional limit. For example \code{hms("01:59:120",
+##'   roll=TRUE)} produces period "2H 1M 0S".
 ##' @return a vector of period objects
 ##' @seealso \code{\link{hm}, \link{ms}}
 ##' @keywords period
@@ -280,9 +294,22 @@ hm <- function(..., quiet = FALSE) {
 ##'
 ##' hms("7 6 5", "3:23:::2", "2 : 23 : 33", "Finished in 9 hours, 20 min and 4 seconds")
 ##' @export
-hms <- function(..., quiet = FALSE) {
+hms <- function(..., quiet = FALSE, roll = FALSE) {
   out <- .parse_hms(..., order = "HMS", quiet = quiet)
-  period(hour = out["H", ], minute = out["M", ], second = out["S", ])
+  if(roll){
+    hms <- .roll_hms(out["H", ], out["M", ], out["S", ])
+    period(hour = hms$hour, minute = hms$min, second = hms$sec)
+  } else {
+    period(hour = out["H", ], minute = out["M", ], second = out["S", ])
+  }
+}
+
+.roll_hms <- function(hour = 0, min = 0, sec = 0){
+  min <- min + sec %/% 60
+  sec <- sec %% 60
+  hour <- hour + min %/% 60
+  min <- min %% 60
+  list(hour = hour, min = min, sec = sec)
 }
 
 .parse_hms <- function(..., order, quiet = FALSE){

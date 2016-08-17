@@ -401,6 +401,13 @@ test_that("hms functions correctly handle / separators", {
   expect_that(hm("03/3"), equals(hours(3) + minutes(3)))
 })
 
+
+test_that("hms functions correctly roll", {
+  expect_equal(hms("3:59:120", roll = T), period(hours = 4, minutes = 1))
+  expect_equal(ms("59:125", roll = T), period(hours = 1, minutes = 1, seconds = 5))
+  expect_equal(hm("159:125", roll = T), period(hours = 161, minutes = 5))
+})
+
 test_that("hms functions return NA on shorter inputs", {
   expect_that(is.na(hms("3:3:3:4", quiet = TRUE)), is_true())
   expect_that(is.na(hms("03:03", quiet = TRUE)), is_true())
