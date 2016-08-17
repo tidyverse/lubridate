@@ -150,16 +150,11 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
-#' # "2009-01-01 UTC--2009-08-01 UTC"
 #' as.duration(span)
-#' # 18316800s (~212 days)
 #' as.duration(10) # numeric
-#' # 10s
 #' dur <- duration(hours = 10, minutes = 6)
 #' as.numeric(dur, "hours")
-#' # 10.1
 #' as.numeric(dur, "minutes")
-#' # 606
 #' @aliases as.duration,numeric-method as.duration,logical-method as.duration,difftime-method as.duration,Interval-method as.duration,Duration-method as.duration,Period-method
 #' @export
 as.duration <- function(x) standardGeneric("as.duration")
@@ -222,24 +217,17 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' @examples
 #' diff <- make_difftime(days = 31) #difftime
 #' as.interval(diff, ymd("2009-01-01"))
-#' # 2009-01-01 UTC--2009-02-01 UTC
 #' as.interval(diff, ymd("2009-02-01"))
-#' # 2009-02-01 UTC--2009-03-04 UTC
 #'
 #' dur <- duration(days = 31) #duration
 #' as.interval(dur, ymd("2009-01-01"))
-#' # 2009-01-01 UTC--2009-02-01 UTC
 #' as.interval(dur, ymd("2009-02-01"))
-#' # 2009-02-01 UTC--2009-03-04 UTC
 #'
 #' per <- period(months = 1) #period
 #' as.interval(per, ymd("2009-01-01"))
-#' # 2009-01-01 UTC--2009-02-01 UTC
 #' as.interval(per, ymd("2009-02-01"))
-#' # 2009-02-01 UTC--2009-03-01 UTC
 #'
 #' as.interval(3600, ymd("2009-01-01")) #numeric
-#' # 2009-01-01 UTC--2009-01-01 01:00:00 UTC
 #' @aliases as.interval,numeric-method as.interval,difftime-method as.interval,Interval-method as.interval,Duration-method as.interval,Period-method as.interval,POSIXt-method as.interval,logical-method
 #' @export
 as.interval <- function(x, start, ...) standardGeneric("as.interval")
@@ -326,29 +314,19 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
-#' # 2009-01-01 CST--2010-02-02 01:01:01 CST
 #' as.period(span)
-#' # "1y 1m 1d 1H 1M 1S"
 #' as.period(span, units = "day")
 #' "397d 1H 1M 1S"
 #' leap <- interval(ymd("2016-01-01"), ymd("2017-01-01"))
-#' # 2016-01-01 UTC--2017-01-01 UTC
 #' as.period(leap, unit = "days")
-#' # "366d 0H 0M 0S"
 #' as.period(leap, unit = "years")
-#' # "1y 0m 0d 0H 0M 0S"
 #' dst <- interval(ymd("2016-11-06", tz = "America/Chicago"),
 #' ymd("2016-11-07", tz = "America/Chicago"))
-#' # 2016-11-06 CDT--2016-11-07 CST
 #' # as.period(dst, unit = "seconds")
-#' # "86400S"
 #' as.period(dst, unit = "hours")
-#' # "24H 0M 0S"
 #' per <- period(hours = 10, minutes = 6)
 #' as.numeric(per, "hours")
-#' # 10.1
 #' as.numeric(per, "minutes")
-#' # 606
 #' @aliases as.period,numeric-method as.period,difftime-method as.period,Interval-method as.period,Duration-method as.period,Period-method as.period,logical-method
 #' @export
 as.period <- function(x, unit, ...) standardGeneric("as.period")
@@ -635,12 +613,9 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...){
 #' dt_utc <- ymd_hms("2010-08-03 00:50:50")
 #' dt_europe <- ymd_hms("2010-08-03 00:50:50", tz="Europe/London")
 #' c(as_date(dt_utc), as.Date(dt_utc))
-#' ## [1] "2010-08-03" "2010-08-03"
 #' c(as_date(dt_europe), as.Date(dt_europe))
-#' ## [1] "2010-08-03" "2010-08-02"
 #' ## need not suply origin
 #' as_date(10)
-#' ## [1] "1970-01-11"
 #' @export
 setGeneric(name = "as_date",
            def = function(x, ...) standardGeneric("as_date"),

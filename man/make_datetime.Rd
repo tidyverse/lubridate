@@ -37,8 +37,6 @@ double.
 }
 \examples{
 make_datetime(year = 1999, month = 12, day = 22, sec = 10)
-## "1999-12-22 00:00:10 UTC"
 make_datetime(year = 1999, month = 12, day = 22, sec = c(10, 11))
-## "1999-12-22 00:00:10 UTC" "1999-12-22 00:00:11 UTC"
 }
 

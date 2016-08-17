@@ -62,11 +62,8 @@ with a few tweaks to make them work more intuitively.
 dt_utc <- ymd_hms("2010-08-03 00:50:50")
 dt_europe <- ymd_hms("2010-08-03 00:50:50", tz="Europe/London")
 c(as_date(dt_utc), as.Date(dt_utc))
-## [1] "2010-08-03" "2010-08-03"
 c(as_date(dt_europe), as.Date(dt_europe))
-## [1] "2010-08-03" "2010-08-02"
 ## need not suply origin
 as_date(10)
-## [1] "1970-01-11"
 }
 

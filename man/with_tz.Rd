@@ -28,7 +28,6 @@ for more information on how R recognizes time zones.
 \examples{
 x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_York")
 with_tz(x, "GMT")
-# "2009-08-07 04:00:01 GMT"
 }
 \seealso{
 \code{\link{force_tz}}

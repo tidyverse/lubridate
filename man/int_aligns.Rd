@@ -22,11 +22,8 @@ the same time.
 }
 \examples{
 int1 <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
-# 2001-01-01 UTC--2002-01-01 UTC
 int2 <- interval(ymd("2001-06-01"), ymd("2002-01-01"))
-# 2001-06-01 UTC--2002-01-01 UTC
 int3 <- interval(ymd("2003-01-01"), ymd("2004-01-01"))
-# 2003-01-01 UTC--2004-01-01 UTC
 
 int_aligns(int1, int2) # TRUE
 int_aligns(int1, int3) # FALSE

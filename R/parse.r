@@ -40,12 +40,9 @@
 ##' @examples
 ##' x <- c("09-01-01", "09-01-02", "09-01-03")
 ##' ymd(x)
-##' ## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 ##' x <- c("2009-01-01", "2009-01-02", "2009-01-03")
 ##' ymd(x)
-##' ## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 ##' ymd(090101, 90102)
-##' ## "2009-01-01 UTC" "2009-01-02 UTC"
 ##' now() > ymd(20090101)
 ##' ## TRUE
 ##' dmy(010210)
@@ -138,10 +135,8 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##'
 ##' x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
 ##' ymd_hms(x)
-##' # [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
 ##' ymd_hms(x)
-##' # [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
 ##'
 ##'
 ##' ## ** heterogenuous formats **
@@ -158,7 +153,6 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' ## ** fractional seconds **
 ##' op <- options(digits.secs=3)
 ##' dmy_hms("20/2/06 11:16:16.683")
-##' ## "2006-02-20 11:16:16.683 UTC"
 ##' options(op)
 ##'
 ##' ## ** different formats for ISO8601 timezone offset **
@@ -175,18 +169,13 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ##' ymd_hms(x, truncated = 3)
-##' ## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
-##' ## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##' x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
 ##' ymd_hm(x, truncated = 2)
-##' ## [1] "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC"
-##' ## [3] "2010-01-01 00:00:00 UTC"
 ##' ## ** What lubridate might not handle **
 ##' ## Extremely weird cases when one of the separators is "" and some of the
 ##' ## formats are not in double digits might not be parsed correctly:
 ##' \dontrun{
 ##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
-##' ## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 ##'
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
   .parse_xxx_hms(..., orders = c("ymdTz", "ymdT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
@@ -263,11 +252,8 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' @keywords period
 ##' @examples
 ##' ms(c("09:10", "09:02", "1:10"))
-##' ## [1] "9M 10S" "9M 2S"  "1M 10S"
 ##' ms("7 6")
-##' ## [1] "7M 6S"
 ##' ms("6,5")
-##' ## [1] "6M 5S"
 ms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "MS", quiet = quiet)
   period(minute = out["M", ], second = out["S", ])
@@ -289,11 +275,8 @@ ms <- function(..., quiet = FALSE) {
 ##' @keywords period
 ##' @examples
 ##' hm(c("09:10", "09:02", "1:10"))
-##' ## [1] "9H 10M 0S" "9H 2M 0S"  "1H 10M 0S"
 ##' hm("7 6")
-##' ## [1] "7H 6M 0S"
 ##' hm("6,5")
-##' ## [1] "6H 5M 0S"
 hm <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HM", quiet = quiet)
   period(hour = out["H", ], minute = out["M", ])
@@ -318,10 +301,8 @@ hm <- function(..., quiet = FALSE) {
 ##'
 ##' x <- c("09:10:01", "09:10:02", "09:10:03")
 ##' hms(x)
-##' ## [1] "9H 10M 1S" "9H 10M 2S" "9H 10M 3S"
 ##'
 ##' hms("7 6 5", "3:23:::2", "2 : 23 : 33", "Finished in 9 hours, 20 min and 4 seconds")
-##' ## [1] "7H 6M 5S" "3H 23M 2S" "2H 23M 33S" "9H 20M 4S"
 hms <- function(..., quiet = FALSE) {
   out <- .parse_hms(..., order = "HMS", quiet = quiet)
   period(hour = out["H", ], minute = out["M", ], second = out["S", ])
@@ -514,21 +495,15 @@ hms <- function(..., quiet = FALSE) {
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ##' parse_date_time(x, "Ymd HMS", truncated = 3)
 ##' parse_date_time(x, "ymd_hms", truncated = 3)
-##' ## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
-##' ## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 ##'
 ##' ## ** specifying exact formats and avoiding training and guessing **
 ##' parse_date_time(x, c("%m-%d-%y", "%m%d%y", "%m-%d-%y %H:%M"), exact = TRUE)
-##' ## [1] "2001-09-01 00:00:00 UTC" "2002-09-01 00:00:00 UTC" NA "2003-09-01 12:02:00 UT
 ##' parse_date_time(c('12/17/1996 04:00:00','4/18/1950 0130'),
 ##'                 c('%m/%d/%Y %I:%M:%S','%m/%d/%Y %H%M'), exact = TRUE)
-##' ## [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"
 ##'
 ##' ## ** quarters and partial dates **
 ##' parse_date_time(c("2016.2", "2016-04"), orders = "Yq")
-##' ## [1] "2016-04-01 UTC" "2016-10-01 UTC"
 ##' parse_date_time(c("2016", "2016-04"), orders = c("Y", "Ym"))
-##' ## [1] "2016-01-01 UTC" "2016-04-01 UTC"
 ##'
 ##' ## ** fast parsing **
 ##' \dontrun{
@@ -550,7 +525,6 @@ hms <- function(..., quiet = FALSE) {
 ##' ## ** how to use `select_formats` argument **
 ##' ## By default %Y has precedence:
 ##' parse_date_time(c("27-09-13", "27-09-2013"), "dmy")
-##' ## [1] "13-09-27 UTC"   "2013-09-27 UTC"
 ##'
 ##' ## to give priority to %y format, define your own select_format function:
 ##'
@@ -560,15 +534,11 @@ hms <- function(..., quiet = FALSE) {
 ##' }
 ##'
 ##' parse_date_time(c("27-09-13", "27-09-2013"), "dmy", select_formats = my_select)
-##' ## [1] "2013-09-27 UTC" "2013-09-27 UTC"
 ##'
 ##' ## ** invalid times with "fast" parcing **
 ##' parse_date_time("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
-##' ## [1] NA
 ##' parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
-##' ## [1] "2010-03-14 03:05:06 EDT"
 ##' parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York", lt = TRUE)
-##' ## [1] "2010-03-14 02:05:06 America/New_York"
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                             locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
                             exact = FALSE){

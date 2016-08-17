@@ -25,9 +25,7 @@ October, November, December.
 \examples{
 x <- ymd(c("2012-03-26", "2012-05-04", "2012-09-23", "2012-12-31"))
 quarter(x)
-# 1 2 3 4
 quarter(x, with_year = TRUE)
-# 2012.1 2012.2 2012.3 2012.4
 }
 \keyword{chron}
 \keyword{manip}

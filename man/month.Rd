@@ -37,13 +37,9 @@ month(x) <- 13
 month(x) > 3
 
 month(ymd(080101))
-# 1
 month(ymd(080101), label = TRUE)
-# "Jan"
 month(ymd(080101), label = TRUE, abbr = FALSE)
-# "January"
 month(ymd(080101) + months(0:11), label = TRUE)
-# "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 }
 \keyword{chron}
 \keyword{manip}

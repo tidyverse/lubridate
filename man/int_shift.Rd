@@ -22,11 +22,8 @@ Duration or difftime object will retain their exact length in seconds.
 }
 \examples{
 int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
-# 2001-01-01 UTC--2002-01-01 UTC
 int_shift(int, duration(days = 11))
-# 2001-01-12 UTC--2002-01-12 UTC
 int_shift(int, duration(hours = -1))
-# 2000-12-31 23:00:00 UTC--2001-12-31 23:00:00 UTC
 }
 \seealso{
 \code{\link{int_flip}},  \code{\link{int_start}}, \code{\link{int_end}},

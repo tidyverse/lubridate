@@ -18,9 +18,7 @@ Get the length of an interval in seconds
 }
 \examples{
 int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
-# 2001-01-01 UTC--2002-01-01 UTC
 int_length(int)
-# 31536000
 }
 \seealso{
 \code{\link{int_start}}, \code{\link{int_shift}}, \code{\link{int_flip}}

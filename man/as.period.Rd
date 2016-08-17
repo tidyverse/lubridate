@@ -62,29 +62,19 @@ suggested by the differences in clock time. See the examples below.
 }
 \examples{
 span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
-# 2009-01-01 CST--2010-02-02 01:01:01 CST
 as.period(span)
-# "1y 1m 1d 1H 1M 1S"
 as.period(span, units = "day")
 "397d 1H 1M 1S"
 leap <- interval(ymd("2016-01-01"), ymd("2017-01-01"))
-# 2016-01-01 UTC--2017-01-01 UTC
 as.period(leap, unit = "days")
-# "366d 0H 0M 0S"
 as.period(leap, unit = "years")
-# "1y 0m 0d 0H 0M 0S"
 dst <- interval(ymd("2016-11-06", tz = "America/Chicago"),
 ymd("2016-11-07", tz = "America/Chicago"))
-# 2016-11-06 CDT--2016-11-07 CST
 # as.period(dst, unit = "seconds")
-# "86400S"
 as.period(dst, unit = "hours")
-# "24H 0M 0S"
 per <- period(hours = 10, minutes = 6)
 as.numeric(per, "hours")
-# 10.1
 as.numeric(per, "minutes")
-# 606
 }
 \seealso{
 \code{\link{Period-class}}, \code{\link{period}}

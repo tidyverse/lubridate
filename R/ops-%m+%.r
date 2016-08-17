@@ -41,19 +41,15 @@ NULL
 #' @return A date-time object of class POSIXlt, POSIXct or Date
 #' @examples
 #' jan <- ymd_hms("2010-01-31 03:04:05")
-#' # "2010-01-31 03:04:05 UTC"
 #' jan + months(1:3) # Feb 31 and April 31 returned as NA
 #' # NA "2010-03-31 03:04:05 UTC" NA
 #' jan %m+% months(1:3) # No rollover
-#' # "2010-02-28 03:04:05 UTC" "2010-03-31 03:04:05 UTC" "2010-04-30 03:04:05 UTC"
 #'
 #' leap <- ymd("2012-02-29")
 #' "2012-02-29 UTC"
 #' leap %m+% years(1)
-#' # "2013-02-28 UTC"
 #' leap %m+% years(-1)
 #' leap %m-% years(1)
-#' # "2011-02-28 UTC"
 #' @export
 "%m+%" <- function(e1,e2) standardGeneric("%m+%")
 
@@ -149,24 +145,16 @@ add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE
 #' the month.
 #' @examples
 #' date <- ymd("2010-03-03")
-#' # "2010-03-03 UTC"
 #' rollback(date)
-#' # "2010-02-28 UTC"
 #'
 #' dates <- date + months(0:2)
-#' # "2010-03-03 UTC" "2010-04-03 UTC" "2010-05-03 UTC"
 #' rollback(dates)
-#' # "2010-02-28 UTC" "2010-03-31 UTC" "2010-04-30 UTC"
 #'
 #' date <- ymd_hms("2010-03-03 12:44:22")
 #' rollback(date)
-#' # "2010-02-28 12:44:22 UTC"
 #' rollback(date, roll_to_first = TRUE)
-#' # "2010-03-01 12:44:22 UTC"
 #' rollback(date, preserve_hms = FALSE)
-#' # "2010-02-28 UTC"
 #' rollback(date, roll_to_first = TRUE, preserve_hms = FALSE)
-#' # "2010-03-01 UTC"
 rollback <- function(dates, roll_to_first = FALSE, preserve_hms = TRUE) {
   if (length(dates) == 0)
     return(dates)

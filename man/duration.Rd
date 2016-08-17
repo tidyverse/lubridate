@@ -51,21 +51,14 @@ times to create a user interface similar to object oriented programming.
 duration(day = -1)
 # -86400s (~-1 days)
 duration(90, "seconds")
-# 90s
 duration(1.5, "minutes")
-# 90s
 duration(-1, "days")
 # -86400s (~-1 days)
 duration(second = 90)
-# 90s
 duration(minute = 1.5)
-# 90s
 duration(mins = 1.5)
-# 90s
 duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
-# 1130493s (~13.08 days)
 duration(hour = 1, minute = -60)
-# 0s
 is.duration(as.Date("2009-08-03")) # FALSE
 is.duration(duration(days = 12.4)) # TRUE
 }

@@ -98,10 +98,8 @@ change this by setting the \code{lubridate.verbose} option to true with
 
 x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
 ymd_hms(x)
-# [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"
 x <- c("2011-12-31 12:59:59", "2010-01-01 12:00:00")
 ymd_hms(x)
-# [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"
 
 
 ## ** heterogenuous formats **
@@ -118,7 +116,6 @@ ymd_hms(x)
 ## ** fractional seconds **
 op <- options(digits.secs=3)
 dmy_hms("20/2/06 11:16:16.683")
-## "2006-02-20 11:16:16.683 UTC"
 options(op)
 
 ## ** different formats for ISO8601 timezone offset **
@@ -135,18 +132,13 @@ ymd_hms(x_RO, locale = "ro_RO.utf8")
 ## ** truncated time-dates **
 x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ymd_hms(x, truncated = 3)
-## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
-## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 x <- c("2011-12-31 12:59", "2010-01-01 12", "2010-01-01")
 ymd_hm(x, truncated = 2)
-## [1] "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC"
-## [3] "2010-01-01 00:00:00 UTC"
 ## ** What lubridate might not handle **
 ## Extremely weird cases when one of the separators is "" and some of the
 ## formats are not in double digits might not be parsed correctly:
 \dontrun{
 ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
-## "2010-02-01 07:01:00 UTC" "2010-02-01 07:01:00 UTC"   NA
 
 }
 \seealso{

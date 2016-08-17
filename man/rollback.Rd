@@ -27,23 +27,15 @@ and second information.
 }
 \examples{
 date <- ymd("2010-03-03")
-# "2010-03-03 UTC"
 rollback(date)
-# "2010-02-28 UTC"
 
 dates <- date + months(0:2)
-# "2010-03-03 UTC" "2010-04-03 UTC" "2010-05-03 UTC"
 rollback(dates)
-# "2010-02-28 UTC" "2010-03-31 UTC" "2010-04-30 UTC"
 
 date <- ymd_hms("2010-03-03 12:44:22")
 rollback(date)
-# "2010-02-28 12:44:22 UTC"
 rollback(date, roll_to_first = TRUE)
-# "2010-03-01 12:44:22 UTC"
 rollback(date, preserve_hms = FALSE)
-# "2010-02-28 UTC"
 rollback(date, roll_to_first = TRUE, preserve_hms = FALSE)
-# "2010-03-01 UTC"
 }
 

@@ -36,16 +36,11 @@ transform the period to an interval with \code{\link{as.interval}}.
 }
 \examples{
 span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
-# "2009-01-01 UTC--2009-08-01 UTC"
 as.duration(span)
-# 18316800s (~212 days)
 as.duration(10) # numeric
-# 10s
 dur <- duration(hours = 10, minutes = 6)
 as.numeric(dur, "hours")
-# 10.1
 as.numeric(dur, "minutes")
-# 606
 }
 \seealso{
 \code{\link{Duration-class}}, \code{\link{duration}}

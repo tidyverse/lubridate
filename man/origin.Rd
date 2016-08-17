@@ -15,7 +15,6 @@ Date classes.
 }
 \examples{
 origin
-# "1970-01-01 GMT"
 }
 \keyword{chron}
 \keyword{data}

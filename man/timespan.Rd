@@ -61,49 +61,29 @@ and end points of the time span it represents.
 }
 \examples{
 duration(3690, "seconds")
-# 3690s (~1.02 hours)
 period(3690, "seconds")
-# "3690S"
 period(second = 30, minute = 1, hour = 1)
-# "1H 1M 30S"
 interval(ymd_hms("2009-08-09 13:01:30"), ymd_hms("2009-08-09 12:00:00"))
-# 2009-08-09 12:00:00 -- 2009-08-09 13:01:30
 
 date <- as.POSIXct("2009-03-08 01:59:59") # DST boundary
-# "2009-03-08 01:59:59 CST"
 date + days(1)
-# "2009-03-09 01:59:59 CDT" periods preserve clock time
 date + ddays(1)
-# "2009-03-09 02:59:59 CDT" durations preserve exact passage of time
 
 date2 <- as.POSIXct("2000-02-29 12:00:00")
 date2 + years(1)
-# "2001-03-01 12:00:00 CST"
 # self corrects to next real day
 
 date3 <- as.POSIXct("2009-01-31 01:00:00")
 date3 + c(0:11) * months(1)
-# [1] "2009-01-31 01:00:00 CST" "2009-03-03 01:00:00 CST"
-# [3] "2009-03-31 01:00:00 CDT" "2009-05-01 01:00:00 CDT"
-# [5] "2009-05-31 01:00:00 CDT" "2009-07-01 01:00:00 CDT"
-# [7] "2009-07-31 01:00:00 CDT" "2009-08-31 01:00:00 CDT"
-# [9] "2009-10-01 01:00:00 CDT" "2009-10-31 01:00:00 CDT"
-# [11] "2009-12-01 01:00:00 CST" "2009-12-31 01:00:00 CST"
 
 span <- date2 \%--\% date  #creates interval
-# "2000-02-29 12:00:00 CST--2009-03-08 01:59:59 CST"
 
 date <- as.POSIXct("2009-01-01 00:00:00")
-# "2009-01-01 GMT"
 date + years(1)
-# "2010-01-01 GMT"
 date - days(3) + hours(6)
-# "2008-12-29 06:00:00 GMT"
 date + 3 * seconds(10)
-# "2009-01-01 00:00:30 GMT"
 
 months(6) + days(1)
-# "6m 1d 0H 0M 0S"
 }
 \seealso{
 \code{\link{duration}} for creating duration objects and

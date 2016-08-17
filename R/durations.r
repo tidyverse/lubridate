@@ -177,21 +177,14 @@ setMethod("[[<-", signature(x = "Duration"),
 #' duration(day = -1)
 #' # -86400s (~-1 days)
 #' duration(90, "seconds")
-#' # 90s
 #' duration(1.5, "minutes")
-#' # 90s
 #' duration(-1, "days")
 #' # -86400s (~-1 days)
 #' duration(second = 90)
-#' # 90s
 #' duration(minute = 1.5)
-#' # 90s
 #' duration(mins = 1.5)
-#' # 90s
 #' duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
-#' # 1130493s (~13.08 days)
 #' duration(hour = 1, minute = -60)
-#' # 0s
 #' @export
 duration <- function(num = NULL, units = "seconds", ...){
   nums <- list(...)
@@ -255,37 +248,24 @@ duration <- function(num = NULL, units = "seconds", ...){
 #' @keywords chron manip
 #' @examples
 #' dseconds(1)
-#' # 1s
 #' dminutes(3.5)
-#' # 210s (~3.5 minutes)
 #'
 #' x <- as.POSIXct("2009-08-03")
-#' # "2009-08-03 CDT"
 #' x + ddays(1) + dhours(6) + dminutes(30)
-#' # "2009-08-04 06:30:00 CDT"
 #' x + ddays(100) - dhours(8)
-#' # "2009-11-10 15:00:00 CST"
 #'
 #' class(as.Date("2009-08-09") + ddays(1)) # retains Date class
-#' # "Date"
 #' as.Date("2009-08-09") + dhours(12)
-#' # "2009-08-09 12:00:00 UTC"
 #' class(as.Date("2009-08-09") + dhours(12))
-#' # "POSIXct" "POSIXt"
 #' # converts to POSIXt class to accomodate time units
 #'
 #' dweeks(1) - ddays(7)
-#' # 0s
 #' c(1:3) * dhours(1)
-#' # 3600s (~1 hours)  7200s (~2 hours)  10800s (~3 hours)
 #' #
 #' # compare DST handling to durations
 #' boundary <- as.POSIXct("2009-03-08 01:59:59")
-#' # "2009-03-08 01:59:59 CST"
 #' boundary + days(1) # period
-#' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + ddays(1) # duration
-#' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400 seconds later)
 #' @export dseconds dminutes dhours ddays dweeks dyears dmilliseconds dmicroseconds dnanoseconds dpicoseconds
 dseconds <- function(x = 1) new("Duration", x)
 #' @rdname quick_durations

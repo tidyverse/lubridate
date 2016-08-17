@@ -22,11 +22,8 @@ remaining input is ignored.
 }
 \examples{
 hm(c("09:10", "09:02", "1:10"))
-## [1] "9H 10M 0S" "9H 2M 0S"  "1H 10M 0S"
 hm("7 6")
-## [1] "7H 6M 0S"
 hm("6,5")
-## [1] "6H 5M 0S"
 }
 \seealso{
 \code{\link{hms}, \link{ms}}

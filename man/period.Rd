@@ -61,25 +61,15 @@ non-existent dates are involved (such as February 29th). Please see
 period(c(90, 5), c("second", "minute"))
 #  "5M 90S"
 period(-1, "days")
-# "-1d 0H 0M 0S"
 period(c(3, 1, 2, 13, 1), c("second", "minute", "hour", "day", "week"))
-# "20d 2H 1M 3S"
 period(c(1, -60), c("hour", "minute"))
-# "1H -60M 0S"
 period(0, "second")
-# "0S"
 period (second = 90, minute = 5)
-# "5M 90S"
 period(day = -1)
-# "-1d 0H 0M 0S"
 period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
-# "20d 2H 1M 3S"
 period(hour = 1, minute = -60)
-# "1H -60M 0S"
 period(second = 0)
-# "0S"
 period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
-# "1H -60M 0S" "1H 3M 0S"   "2H 4M 0S"
 is.period(as.Date("2009-08-03")) # FALSE
 is.period(period(months= 1, days = 15)) # TRUE
 }

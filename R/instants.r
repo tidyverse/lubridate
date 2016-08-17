@@ -69,7 +69,6 @@ today <- function(tzone = "") {
 #' @keywords data chron
 #' @examples
 #' origin
-#' # "1970-01-01 GMT"
 origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 
 
@@ -94,9 +93,7 @@ origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 ##' @useDynLib lubridate make_dt
 ##' @examples
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = 10)
-##' ## "1999-12-22 00:00:10 UTC"
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = c(10, 11))
-##' ## "1999-12-22 00:00:10 UTC" "1999-12-22 00:00:11 UTC"
 make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0L, sec = 0, tz = "UTC"){
   lengths <- vapply(list(year, month, day, hour, min, sec), length, 1, USE.NAMES = FALSE)
   if (min(lengths) == 0L){

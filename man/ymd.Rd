@@ -76,12 +76,9 @@ change this by setting the \code{lubridate.verbose} option to TRUE with
 \examples{
 x <- c("09-01-01", "09-01-02", "09-01-03")
 ymd(x)
-## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 x <- c("2009-01-01", "2009-01-02", "2009-01-03")
 ymd(x)
-## "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 ymd(090101, 90102)
-## "2009-01-01 UTC" "2009-01-02 UTC"
 now() > ymd(20090101)
 ## TRUE
 dmy(010210)

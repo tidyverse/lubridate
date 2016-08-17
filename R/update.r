@@ -21,13 +21,10 @@
 #' @examples
 #' date <- as.POSIXlt("2009-02-10")
 #' update(date, year = 2010, month = 1, mday = 1)
-#' # "2010-01-01 CST"
 #'
 #' update(date, year =2010, month = 13, mday = 1)
-#' # "2011-01-01 CST"
 #'
 #' update(date, minute = 10, second = 3)
-#' # "2009-02-10 00:10:03 CST"
 #' @export
 update.POSIXt <- function(object, ..., simple = FALSE){
 
@@ -136,36 +133,26 @@ update.Date <- function(object, ...){
 #'                     class = c("POSIXlt", "POSIXt"),
 #'                     tzone = c("America/Chicago", "CST", "CDT"))
 #' tricky
-#' ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist
 #' ## because clocks "fall back" to 1:00 CST
 #'
-#' ## [2] "2012-11-04 00:05:00 CST" Times are still
 #' ## CDT, not CST at this instant
 #'
-#' ## [3] "2010-03-14 02:00:00 CDT" Doesn't exist
 #' ##because clocks "spring forward" past this time
 #' ## for daylight savings
 #'
-#' ## [4] "2012-11-04 01:59:59 CDT" Does exist, but
 #' ## has deceptive internal structure
 #'
 #' fit_to_timeline(tricky)
 #' [1] "2012-11-04 02:00:05 CST" "2012-11-04 00:05:00 CDT"
 #' [4] NA                        "2012-11-04 01:59:59 CDT"
 #'
-#' ## [1] "2012-11-04 02:00:00 CST" instant paired
 #' ## with correct timezone & DST combination
 #'
-#' ## [2] "2012-11-04 00:05:00 CDT" instant paired
 #' ## with correct timezone & DST combination
 #'
-#' ## [3] NA fake time changed to NA (compare to as.POSIXct(tricky))
-#' ## [4] "2012-11-04 01:59:59 CDT" real instant, left as is
 #'
 #' fit_to_timeline(tricky, simple = TRUE)
 #' ## Reduce to valid time-dates by extrapolating CDT and CST zones
-#' ## [1] "2012-11-04 01:00:05 CST" "2012-11-04 01:05:00 CDT"
-#' ## [3] "2010-03-14 03:05:00 CDT" "2012-11-04 01:59:59 CDT"
 #' }
 #' @export
 fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {

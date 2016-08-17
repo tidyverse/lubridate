@@ -23,9 +23,7 @@ to return TRUE.
 }
 \examples{
 int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
-# 2001-01-01 UTC--2002-01-01 UTC
 int2 <- interval(ymd("2001-06-01"), ymd("2002-01-01"))
-# 2001-06-01 UTC--2002-01-01 UTC
 
 ymd("2001-05-03") \%within\% int # TRUE
 int2 \%within\% int # TRUE

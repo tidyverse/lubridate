@@ -41,24 +41,17 @@ described. See
 \examples{
 diff <- make_difftime(days = 31) #difftime
 as.interval(diff, ymd("2009-01-01"))
-# 2009-01-01 UTC--2009-02-01 UTC
 as.interval(diff, ymd("2009-02-01"))
-# 2009-02-01 UTC--2009-03-04 UTC
 
 dur <- duration(days = 31) #duration
 as.interval(dur, ymd("2009-01-01"))
-# 2009-01-01 UTC--2009-02-01 UTC
 as.interval(dur, ymd("2009-02-01"))
-# 2009-02-01 UTC--2009-03-04 UTC
 
 per <- period(months = 1) #period
 as.interval(per, ymd("2009-01-01"))
-# 2009-01-01 UTC--2009-02-01 UTC
 as.interval(per, ymd("2009-02-01"))
-# 2009-02-01 UTC--2009-03-01 UTC
 
 as.interval(3600, ymd("2009-01-01")) #numeric
-# 2009-01-01 UTC--2009-01-01 01:00:00 UTC
 }
 \seealso{
 \code{\link{interval}}

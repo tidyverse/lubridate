@@ -209,21 +209,15 @@ parse_date_time(x, c("dmY", "ymd"))
 x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 parse_date_time(x, "Ymd HMS", truncated = 3)
 parse_date_time(x, "ymd_hms", truncated = 3)
-## [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
-## [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"
 
 ## ** specifying exact formats and avoiding training and guessing **
 parse_date_time(x, c("\%m-\%d-\%y", "\%m\%d\%y", "\%m-\%d-\%y \%H:\%M"), exact = TRUE)
-## [1] "2001-09-01 00:00:00 UTC" "2002-09-01 00:00:00 UTC" NA "2003-09-01 12:02:00 UT
 parse_date_time(c('12/17/1996 04:00:00','4/18/1950 0130'),
                 c('\%m/\%d/\%Y \%I:\%M:\%S','\%m/\%d/\%Y \%H\%M'), exact = TRUE)
-## [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"
 
 ## ** quarters and partial dates **
 parse_date_time(c("2016.2", "2016-04"), orders = "Yq")
-## [1] "2016-04-01 UTC" "2016-10-01 UTC"
 parse_date_time(c("2016", "2016-04"), orders = c("Y", "Ym"))
-## [1] "2016-01-01 UTC" "2016-04-01 UTC"
 
 ## ** fast parsing **
 \dontrun{
@@ -245,7 +239,6 @@ parse_date_time(c("2016", "2016-04"), orders = c("Y", "Ym"))
 ## ** how to use `select_formats` argument **
 ## By default \%Y has precedence:
 parse_date_time(c("27-09-13", "27-09-2013"), "dmy")
-## [1] "13-09-27 UTC"   "2013-09-27 UTC"
 
 ## to give priority to \%y format, define your own select_format function:
 
@@ -255,15 +248,11 @@ my_select <-   function(trained){
 }
 
 parse_date_time(c("27-09-13", "27-09-2013"), "dmy", select_formats = my_select)
-## [1] "2013-09-27 UTC" "2013-09-27 UTC"
 
 ## ** invalid times with "fast" parcing **
 parse_date_time("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
-## [1] NA
 parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
-## [1] "2010-03-14 03:05:06 EDT"
 parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York", lt = TRUE)
-## [1] "2010-03-14 02:05:06 America/New_York"
 }
 \seealso{
 \code{strptime}, \code{\link{ymd}}, \code{\link{ymd_hms}}

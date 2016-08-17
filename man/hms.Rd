@@ -25,10 +25,8 @@ remaining input is ingored.
 
 x <- c("09:10:01", "09:10:02", "09:10:03")
 hms(x)
-## [1] "9H 10M 1S" "9H 10M 2S" "9H 10M 3S"
 
 hms("7 6 5", "3:23:::2", "2 : 23 : 33", "Finished in 9 hours, 20 min and 4 seconds")
-## [1] "7H 6M 5S" "3H 23M 2S" "2H 23M 33S" "9H 20M 4S"
 }
 \seealso{
 \code{\link{hm}, \link{ms}}

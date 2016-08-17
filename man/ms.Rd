@@ -22,11 +22,8 @@ minutes and seconds have been parsed, all numeric input is ignored.
 }
 \examples{
 ms(c("09:10", "09:02", "1:10"))
-## [1] "9M 10S" "9M 2S"  "1M 10S"
 ms("7 6")
-## [1] "7M 6S"
 ms("6,5")
-## [1] "6M 5S"
 }
 \seealso{
 \code{\link{hms}, \link{hm}}

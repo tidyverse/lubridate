@@ -14,12 +14,7 @@
 #' @export
 #' @examples
 #' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
-#' # "2009-08-02" "2010-08-02"
 #' pretty_dates(x, 12)
-#' ## [1] "2009-08-01 GMT" "2009-09-01 GMT" "2009-10-01 GMT" "2009-11-01 GMT"
-#' ## [5] "2009-12-01 GMT" "2010-01-01 GMT" "2010-02-01 GMT" "2010-03-01 GMT"
-#' ## [9] "2010-04-01 GMT" "2010-05-01 GMT" "2010-06-01 GMT" "2010-07-01 GMT"
-#' ## [13] "2010-08-01 GMT" "2010-09-01 GMT"
 pretty_dates <- function(x, n, ...){
   otz <- Sys.getenv("TZ")
   if (Sys.getenv("TZ") == "") otz <- "unset"

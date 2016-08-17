@@ -315,25 +315,15 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' period(c(90, 5), c("second", "minute"))
 #' #  "5M 90S"
 #' period(-1, "days")
-#' # "-1d 0H 0M 0S"
 #' period(c(3, 1, 2, 13, 1), c("second", "minute", "hour", "day", "week"))
-#' # "20d 2H 1M 3S"
 #' period(c(1, -60), c("hour", "minute"))
-#' # "1H -60M 0S"
 #' period(0, "second")
-#' # "0S"
 #' period (second = 90, minute = 5)
-#' # "5M 90S"
 #' period(day = -1)
-#' # "-1d 0H 0M 0S"
 #' period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
-#' # "20d 2H 1M 3S"
 #' period(hour = 1, minute = -60)
-#' # "1H -60M 0S"
 #' period(second = 0)
-#' # "0S"
 #' period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
-#' # "1H -60M 0S" "1H 3M 0S"   "2H 4M 0S"
 period <- function(num = NULL, units = "second", ...) {
   nums <- list(...)
   if(!is.null(num) && length(nums) > 0){
@@ -427,41 +417,26 @@ is.period <- function(x) is(x,"Period")
 #' @examples
 #'
 #' x <- as.POSIXct("2009-08-03")
-#' # "2009-08-03 CDT"
 #' x + days(1) + hours(6) + minutes(30)
-#' # "2009-08-04 06:30:00 CDT"
 #' x + days(100) - hours(8)
-#' # "2009-11-10 15:00:00 CST"
 #'
 #' class(as.Date("2009-08-09") + days(1)) # retains Date class
-#' # "Date"
 #' as.Date("2009-08-09") + hours(12)
-#' # "2009-08-09 12:00:00 UTC"
 #' class(as.Date("2009-08-09") + hours(12))
-#' # "POSIXt"  "POSIXct"
 #' # converts to POSIXt class to accomodate time units
 #'
 #' years(1) - months(7)
-#' # "1y -7m 0d 0H 0M 0S"
 #' c(1:3) * hours(1)
-#' # "1H 0M 0S" "2H 0M 0S" "3H 0M 0S"
 #' hours(1:3)
-#' # "1H 0M 0S" "2H 0M 0S" "3H 0M 0S"
 #'
 #' #sequencing
 #' y <- ymd(090101) # "2009-01-01 CST"
 #' y + months(0:11)
-#' # [1] "2009-01-01 CST" "2009-02-01 CST" "2009-03-01 CST" "2009-04-01 CDT"
-#' # [5] "2009-05-01 CDT" "2009-06-01 CDT" "2009-07-01 CDT" "2009-08-01 CDT"
-#' # [9] "2009-09-01 CDT" "2009-10-01 CDT" "2009-11-01 CDT" "2009-12-01 CST"
 #'
 #' # compare DST handling to durations
 #' boundary <- as.POSIXct("2009-03-08 01:59:59")
-#' # "2009-03-08 01:59:59 CST"
 #' boundary + days(1) # period
-#' # "2009-03-09 01:59:59 CDT" (clock time advances by a day)
 #' boundary + ddays(1) # duration
-#' # "2009-03-09 02:59:59 CDT" (clock time corresponding to 86400
 #' # seconds later)
 #' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
 seconds <- function(x = 1) period(second = x)

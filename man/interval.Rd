@@ -44,16 +44,12 @@ two date-times were subtracted.
 }
 \examples{
 interval(ymd(20090201), ymd(20090101))
-# 2009-02-01 UTC--2009-01-01 UTC
 
 date1 <- as.POSIXct("2009-03-08 01:59:59")
 date2 <- as.POSIXct("2000-02-29 12:00:00")
 interval(date2, date1)
-# 2000-02-29 12:00:00 CST--2009-03-08 01:59:59 CST
 interval(date1, date2)
-# 2009-03-08 01:59:59 CST--2000-02-29 12:00:00 CST
 span <- interval(ymd(20090101), ymd(20090201))
-# 2009-01-01 UTC--2009-02-01 UTC
 
 is.interval(period(months= 1, days = 15)) # FALSE
 is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE

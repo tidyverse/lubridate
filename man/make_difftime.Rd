@@ -55,7 +55,6 @@ make_difftime(day = -1)
 # Time difference of -1 days
 make_difftime(120, day = -1, units = "minute")
 # Time differences in mins
-# [1]     2 -1440
 }
 \seealso{
 \code{\link{duration}}, \code{\link{as.duration}}

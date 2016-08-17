@@ -31,7 +31,6 @@ recognizes time zones.
 \examples{
 x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_York")
 force_tz(x, "GMT")
-# "2009-08-07 00:00:01 GMT"
 }
 \seealso{
 \code{\link{with_tz}}

@@ -51,7 +51,6 @@ setOldClass("difftime")
 #' # Time difference of -1 days
 #' make_difftime(120, day = -1, units = "minute")
 #' # Time differences in mins
-#' # [1]     2 -1440
 make_difftime <- function(num = NULL, units = "auto", ...) {
   pieces <- list(...)
   if(!is.null(num) && length(pieces) > 0){
