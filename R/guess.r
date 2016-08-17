@@ -233,7 +233,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     grepl("%p", nms)*.1 + ## %p format
     grepl("%O", nms)*.2 ## c_parser formats have priority
 
-  print(structure(n_fmts, names = nms))
+
+  ## print(structure(n_fmts, names = nms)) # for debugging
+
   names(trained[which.max(n_fmts)])
 }
 

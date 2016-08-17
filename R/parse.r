@@ -655,7 +655,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
 
 .parse_date_time <- function(x, formats, tz, quiet){
 
-  ## catlog("Parsing with ", formats)
+  ## print(formats) # for debugging
 
   out <- .strptime(x, formats[[1]], tz = tz, quiet = quiet)
   na <- is.na(out)

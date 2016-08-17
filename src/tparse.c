@@ -128,7 +128,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
 
     double secs = 0.0; // only accumulator for POSIXct case
     int y = 0, q = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
-    int succeed = 1, O_format = 0, pm = 0; // control logical
+    int succeed = 1, O_format = 0, pm = 0, am = 0; // control logical
 
     // read order/format character by character
     while( *o && succeed ) {
@@ -247,6 +247,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
               pm = 1;
               c++;
             } else if (*c == 'A' ||  *c == 'a'){
+              am = 1;
               c++;
             } else {
               succeed = 0;
@@ -358,8 +359,15 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
     if(pm){
       if(H > 12)
         succeed = 0;
-      else
+      else if (H < 12)
         H += 12;
+    }
+
+    if (am){
+      if (H > 12)
+        succeed = 0;
+      else if (H == 12)
+        H = 0;
     }
 
     if (succeed) {
