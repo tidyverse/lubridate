@@ -96,7 +96,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   REGS <- unlist(lapply(osplits, function(fnames){
     ## fnames are names of smalest valid formats, like a, A, b, z, OS, OZ ...
-    which <- ! fnames %in% c(names(reg$alpha_flex), names(reg$num_flex), "Op")
+    which <- ! fnames %in% c(names(reg$alpha_flex),
+                             names(reg$num_flex),
+                             names(.c_parser_reg_exact))
     if( any( which ) )
       stop("Unknown formats supplied: ", paste(fnames[ which ], sep = ", "))
 
@@ -110,7 +112,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   }))
 
   ## print debugging info
-  if( print_matches ){
+  if (print_matches) {
     subs <- lapply(REGS, .substitute_formats, x, fmts_only = FALSE)
     names(subs) <- orders
     print(do.call(cbind, c(list(x), subs)))
@@ -232,8 +234,13 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   names(trained[which.max(n_fmts)])
 }
 
-.c_parser_reg_flex <- list(Op = "(?<Op>AM|PM)(?![[:alpha:]])")
-.c_parser_reg_exact <- list(Op = "(?<Op_e>AM|PM)(?![[:alpha:]])")
+## These are formats that are effectively matched by c parser. But we must get
+## through the format guesser first for ymd_hms family.
+.c_parser_reg_flex <- list(Op = "(?<Op>AM|PM)?(?![[:alpha:]])",
+                           Om = "((?<Om>1[0-2]|0?[1-9](?!\\d))|(((?<Om_b>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Om_B>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))")
+.c_parser_reg_exact <- list(Op = "(?<Op_e>AM|PM)?(?![[:alpha:]])",
+                            Om = "((?<Om_e>1[0-2]|0[1-9])|(((?<Om_b_e>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Om_B_e>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))")
+
 .locale_reg_cache <- new.env(hash = FALSE)
 
 .get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
@@ -254,15 +261,14 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) ## escaping all meta chars
   names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
 
-  ## Captures should be unique. Thus we build captures with the following rule.
-  ## Capture starts with the name of strptime format (B, b, y etc)
-  ## It ends with _e or _f indicating whether the expression is an exact or
-  ## fixed match, see below.
+  ## Captures should be unique. Thus we build captures with the following
+  ## rule. Capture starts with the name of strptime format (B, b, y etc) It ends
+  ## with _e if the expression is an exact match (as oposed to flex), see below.
 
   ## It can contain _x where x is a main format in which this format
   ## occurs. For example <B_b_e> is an exact capture in the strptime format B
   ## but that also matches b in lubridate. Try lubridate:::.get_loc_regs()
-  ## todo: elaborate this explanation
+  ## todo: elaborate
 
   ## ALPHABETIC FORMATS
   alpha <- list()

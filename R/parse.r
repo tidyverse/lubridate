@@ -178,7 +178,7 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
 ##'
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
-  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT", "ymdHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT", "yOmdHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 }
 
 #' @export
@@ -194,7 +194,7 @@ ymd_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 dmy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT", "dmyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT", "dOmyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -209,7 +209,7 @@ dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 mdy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT", "mdyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT", "OmdyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -224,7 +224,7 @@ mdy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 ydm_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT", "ydmHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT", "ydOmHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -360,31 +360,35 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' You need not specify \code{a} and \code{A} formats explicitly. Wday is
 ##' automatically handled if \code{preproc_wday = TRUE}}
 ##'
-##' \item{\code{b}}{Abbreviated month name in the current locale.  (Also matches full name.)}
+##' \item{\code{b}!}{Abbreviated month name in the current locale (also matches
+##' full name). C parser understands English months only.}
 ##'
-##' \item{\code{B}}{Full month name in the current locale.  (Also matches abbreviated name.)}
+##' \item{\code{B}!}{Same as b.}
 ##'
 ##' \item{\code{d}!}{Day of the month as decimal number (01--31 or 0--31)}
 ##'
 ##' \item{\code{H}!}{Hours as decimal number (00--24 or 0--24).}
 ##'
-##' \item{\code{I}}{Hours as decimal number (01--12 or 1--12).}
+##' \item{\code{I}!}{Hours as decimal number (01--12 or 1--12).}
 ##'
 ##' \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
 ##'
-##' \item{\code{q}!*}{Quarter (1-4). The quarter month is added to parsed month if \code{m} format is present.}
+##' \item{\code{q}!*}{Quarter (1-4). The quarter month is added to parsed month
+##' if \code{m} format is present.}
 ##'
 ##' \item{\code{m}!*}{Month as decimal number (01--12 or 1--12). For
-##' \code{parse_date_time}, also matches abbreviated and full months names as
-##' \code{b} and \code{B} formats.}
+##'                   \code{parse_date_time}. As lubridate extension, also
+##'                   matches abbreviated and full months names as \code{b} and
+##'                   \code{B} formats. C parser understands only English month
+##'                   names.}
 ##'
 ##' \item{\code{M}!}{Minute as decimal number (00--59 or 0--59).}
 ##'
 ##' \item{\code{p}!}{AM/PM indicator in the locale. Normally used in conjunction
 ##'                   with \code{I} and \bold{not} with \code{H}.  But lubridate
-##'                   C parser always accepts H format as long as hour is not
-##'                   greater than 12. C parser understands only English locale
-##'                   AM/PM indicator.}
+##'                   C parser accepts H format as long as hour is not greater
+##'                   than 12. C parser understands only English locale AM/PM
+##'                   indicator.}
 ##'
 ##' \item{\code{S}!}{Second as decimal number (00--61 or 0--61), allowing for up
 ##' to two leap-seconds (but POSIX-compliant implementations will ignore leap
@@ -650,6 +654,9 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
 }
 
 .parse_date_time <- function(x, formats, tz, quiet){
+
+  ## catlog("Parsing with ", formats)
+
   out <- .strptime(x, formats[[1]], tz = tz, quiet = quiet)
   na <- is.na(out)
   newx <- x[na]
@@ -677,7 +684,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
 
   ## is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
 
-  c_parser <- 0 < regexpr("^[^%0-9]*(%([YymdqHMSz]|O[SzuoOp])[^%0-9Z]*)+$", fmt)
+  c_parser <- 0 < regexpr("^[^%0-9]*(%([YymdqHMSz]|O[SzuoOpm])[^%0-9Z]*)+$", fmt)
   zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
   if (c_parser) {

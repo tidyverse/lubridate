@@ -109,31 +109,35 @@ abbreviated name).
 You need not specify \code{a} and \code{A} formats explicitly. Wday is
 automatically handled if \code{preproc_wday = TRUE}}
 
-\item{\code{b}}{Abbreviated month name in the current locale.  (Also matches full name.)}
+\item{\code{b}!}{Abbreviated month name in the current locale (also matches
+full name). C parser understands English months only.}
 
-\item{\code{B}}{Full month name in the current locale.  (Also matches abbreviated name.)}
+\item{\code{B}!}{Same as b.}
 
 \item{\code{d}!}{Day of the month as decimal number (01--31 or 0--31)}
 
 \item{\code{H}!}{Hours as decimal number (00--24 or 0--24).}
 
-\item{\code{I}}{Hours as decimal number (01--12 or 1--12).}
+\item{\code{I}!}{Hours as decimal number (01--12 or 1--12).}
 
 \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
 
-\item{\code{q}!*}{Quarter (1-4). The quarter month is added to parsed month if \code{m} format is present.}
+\item{\code{q}!*}{Quarter (1-4). The quarter month is added to parsed month
+if \code{m} format is present.}
 
 \item{\code{m}!*}{Month as decimal number (01--12 or 1--12). For
-\code{parse_date_time}, also matches abbreviated and full months names as
-\code{b} and \code{B} formats.}
+                  \code{parse_date_time}. As lubridate extension, also
+                  matches abbreviated and full months names as \code{b} and
+                  \code{B} formats. C parser understands only English month
+                  names.}
 
 \item{\code{M}!}{Minute as decimal number (00--59 or 0--59).}
 
 \item{\code{p}!}{AM/PM indicator in the locale. Normally used in conjunction
                   with \code{I} and \bold{not} with \code{H}.  But lubridate
-                  C parser always accepts H format as long as hour is not
-                  greater than 12. C parser understands only English locale
-                  AM/PM indicator.}
+                  C parser accepts H format as long as hour is not greater
+                  than 12. C parser understands only English locale AM/PM
+                  indicator.}
 
 \item{\code{S}!}{Second as decimal number (00--61 or 0--61), allowing for up
 to two leap-seconds (but POSIX-compliant implementations will ignore leap

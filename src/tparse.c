@@ -32,13 +32,65 @@
 #include "constants.h"
 #include "utils.h"
 
-/* quick way to check if the first char is a digit */
+/* quick checkers */
+#define ALPHA(X) (((X) >= 'a' && (X) <= 'z') || ((X) >= 'A' && (X) <= 'Z'))
 #define DIGIT(X) ((X) >= '0' && (X) <= '9')
 #define SDIGIT(X) (((X) == '-') || ((X) >= '0' && (X) <= '9'))
+
 /* parse N characters from *c into integer X */
 #define PARSENUM(X, N) tN = N; while ( DIGIT(*c) && tN > 0) { X = X * 10 + (*c - '0'); c++; tN--; }
-static const char ltnames [][5] = {"sec", "min", "hour", "mday", "mon", "year"};
 
+/* skippers */
+#define SKIP_NON_ALPHANUMS(X) while(*X && !(ALPHA(*X) || DIGIT(*X))) {X++;}
+#define SKIP_NON_DIGITS(X) while(*X && !(DIGIT(*X))) {X++;}
+
+static const char ltnames[][5] = {"sec", "min", "hour", "mday", "mon", "year"};
+static const char *en_months[] = {"January", "February","March","April","May","June",
+                                  "July","August","September","October","November","December"};
+
+// increment **c and return month ix in 1..12 if parsing was successful, 0 if not.
+int parse_alpha_month(const char **c){
+
+  // tracking array: all valid months are marked with 1, invalid with 0
+  int track[12];
+  for (int i = 0; i < 12; i++){
+    track[i] = 1;
+  }
+
+  int j = 0, go = 1, out = -1;
+  while (**c && !ALPHA(**c)) (*c)++;
+
+  while (**c && go) {
+    // stop when all tracks where exhausted
+    go = 0;
+    for (int i = 0; i < 12; i++){
+      if (track[i]){
+        // keep going while at least one valid track
+        if (en_months[i][j]){
+          if(**c == en_months[i][j]){
+            out = i;
+            go = 1;
+          } else {
+            // invalidate track i if not matching
+            track[i] = 0;
+          }
+        } else {
+          // reached to the end of month i; return it
+          go = 0;
+          out = i;
+          break;
+        }
+      }
+    }
+    if(go){
+      (*c)++;
+      j++;
+    }
+  }
+
+  if (out >= 0 && j > 2) return out + 1;
+  else return 0;
+}
 
 SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
   // STR: character vector of date-times.
@@ -89,7 +141,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
 
         if ( is_fmt ){
           o++; // skip %
-        } else if ( *o != 'O' && *o != 'z' && *o != 'p') {
+        } else if ( *o != 'O' && *o != 'z' && *o != 'p' && *o != 'm' && *o != 'b' && *o != 'B') {
           // skip non-digits
           // O, z, p formats are treated specially below
           while (*c && !DIGIT(*c)) c++;
@@ -104,9 +156,11 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
 		  O_format = 0;
 		}
 
-        if (!(DIGIT(*c) || O_format || *o == 'z' || *o == 'p')) {
+        if (!(DIGIT(*c) || O_format || *o == 'z' || *o == 'p' || *o == 'm' || *o == 'b' || *o == 'B')) {
           succeed = 0;
         } else {
+
+          /* Rprintf("c=%c o=%c\n", *c, *o); */
 
           switch( *o ) {
           case 'Y': // year in yyyy format
@@ -124,9 +178,25 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
             PARSENUM(q, 2);
             if (!(0 < q && q < 5)) succeed = 0;
             break;
-          case 'm': // month
+          case 'm': // month (allowing all months formats - m, b and B)
+            SKIP_NON_ALPHANUMS(c);
             PARSENUM(m, 2);
-            if (!(0 < m && m < 13)) succeed = 0;
+            if (m == 0) {
+              m = parse_alpha_month(&c);
+              if (m == 0) {
+                SKIP_NON_DIGITS(c);
+                PARSENUM(m, 2);
+              }
+            }
+            if (!(0 < m && m < 13))
+              succeed = 0;
+            break;
+          case 'b': // alpha English months (both abbreviated and long versions)
+          case 'B':
+            /* SKIP_NON_ALPHANUMS(c); */
+            m = parse_alpha_month(&c);
+            succeed = m;
+            /* Rprintf("succ=%d c=%c\n", succeed, *c); */
             break;
           case 'd': // day
             PARSENUM(d, 2);
@@ -167,7 +237,12 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
             } else succeed = 0;
             break;
           case 'p': // AM/PM Both standard 'p' and lubridate 'Op' format
-            while(!(*c == 'P' || *c == 'p' || *c == 'A' || *c == 'a')) c++;
+            SKIP_NON_ALPHANUMS(c);
+            if (O_format) {
+              // with Op format, p is optional (for order parsimony reasons)
+              if (!(*c == 'P' || *c == 'p' || *c == 'A' || *c == 'a'))
+                break;
+            }
             if (*c == 'P' || *c == 'p') {
               pm = 1;
               c++;

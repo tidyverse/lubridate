@@ -3,7 +3,8 @@ Version 1.5.6.9000 (development)
 
 ### NEW FEATURES
 
-* [#327](https://github.com/hadley/lubridate/issues/327) C-level and derivative parsers now handles English AM/PM indicator independently of the current locale.
+* [#287](https://github.com/hadley/lubridate/issues/287) C-level and derivative parsers now handle English months (%b and %B formats) irrespective of the current locale.
+* [#327](https://github.com/hadley/lubridate/issues/327) C-level and derivative parsers now handles English AM/PM indicator irrespective of the current locale.
 * [#417](https://github.com/hadley/lubridate/issues/417) `hms`, `hm`, `ms` gained new argument `roll=TRUE` which rolls minutes and seconds bigger than 59 towards higher units.
 * [#445](https://github.com/hadley/lubridate/issues/445) Division of intervals by periods is now accurate.
 * [#442](https://github.com/hadley/lubridate/issues/442) `round_date`, `floor_date` and `ceiling_date` now support rounding to multiple of units.
