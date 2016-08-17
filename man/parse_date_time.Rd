@@ -129,9 +129,11 @@ automatically handled if \code{preproc_wday = TRUE}}
 
 \item{\code{M}!}{Minute as decimal number (00--59 or 0--59).}
 
-\item{\code{p}}{AM/PM indicator in the locale.  Used in
-                  conjunction with \code{I} and \bold{not} with \code{H}.  An
-                  empty string in some locales.}
+\item{\code{p}!}{AM/PM indicator in the locale. Normally used in conjunction
+                  with \code{I} and \bold{not} with \code{H}.  But lubridate
+                  C parser always accepts H format as long as hour is not
+                  greater than 12. C parser understands only English locale
+                  AM/PM indicator.}
 
 \item{\code{S}!}{Second as decimal number (00--61 or 0--61), allowing for up
 to two leap-seconds (but POSIX-compliant implementations will ignore leap

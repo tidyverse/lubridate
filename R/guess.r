@@ -91,16 +91,21 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                     })
   reg <- .get_locale_regs(locale)
 
+  flex_regs <- c(reg$alpha_flex, reg$num_flex, .c_parser_reg_flex)
+  exact_regs <- c(reg$alpha_exact, reg$num_exact, .c_parser_reg_exact)
+
   REGS <- unlist(lapply(osplits, function(fnames){
     ## fnames are names of smalest valid formats, like a, A, b, z, OS, OZ ...
-    which <- ! fnames %in% c(names(reg$alpha_flex), names(reg$num_flex))
+    which <- ! fnames %in% c(names(reg$alpha_flex), names(reg$num_flex), "Op")
     if( any( which ) )
       stop("Unknown formats supplied: ", paste(fnames[ which ], sep = ", "))
 
     ## restriction: no numbers before or after
     ## fixme: using \\D*? because \\D+ doesn't work in flex match, why?
-    paste("^\\D*?\\b((", paste(unlist(c(reg$alpha_flex, reg$num_flex)[fnames]), collapse = "\\D*?"),
-          ")|(", paste(unlist(c(reg$alpha_exact, reg$num_exact)[fnames]), collapse = "\\D*?"),
+    paste("^\\D*?\\b((",
+          paste(unlist(flex_regs[fnames]), collapse = "\\D*?"),
+          ")|(",
+          paste(unlist(exact_regs[fnames]), collapse = "\\D*?"),
           "))\\D*$", sep = "")
   }))
 
@@ -220,10 +225,15 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
 .select_formats <- function(trained){
   nms <- names(trained)
-  n_fmts <- nchar(gsub("[^%]", "", nms)) + grepl("%Y", nms)*1.5
-  names(trained[ which.max(n_fmts) ])
+  n_fmts <-
+    nchar(gsub("[^%]", "", nms)) + ## longer formats have priority
+    grepl("%Y", nms)*1.5 + ## Y has priority over 0
+    grepl("%O", nms)*.2 ## c_parser formats have priority
+  names(trained[which.max(n_fmts)])
 }
 
+.c_parser_reg_flex <- list(Op = "(?<Op>AM|PM)(?![[:alpha:]])")
+.c_parser_reg_exact <- list(Op = "(?<Op_e>AM|PM)(?![[:alpha:]])")
 .locale_reg_cache <- new.env(hash = FALSE)
 
 .get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
@@ -308,14 +318,15 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
       OO = "(?<OO>[-+]\\d{2}:\\d{2})",
       Oo = "(?<Oo>[-+]\\d{2})")
 
+  ## special lubridate formats
   nms <- c("T", "R", "r")
+
+  ## in some locales %p = ""
   if (length(p) == 0L) {
-    ## in some locales %p = ""
     num <- c(num,
              T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]),
              R = sprintf("(%s\\D+%s)", num[["H"]], num[["M"]]),
              r = sprintf("(%s\\D+)", num[["H"]]))
-
   }else{
     num <- c(num,
              T = sprintf("((%s\\D+%s\\D+%s\\D*%s)|(%s\\D+%s\\D+%s))",

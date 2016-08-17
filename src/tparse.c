@@ -76,7 +76,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
 
     double secs = 0.0; // only accumulator for POSIXct case
     int y = 0, q = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
-    int succeed = 1, O_format=0; // control booleans
+    int succeed = 1, O_format = 0, pm = 0; // control logical
 
     // read order/format character by character
     while( *o && succeed ) {
@@ -89,9 +89,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
 
         if ( is_fmt ){
           o++; // skip %
-        } else if ( *o != 'O' && *o != 'z' ) {
-          // O and z formats are treated specially below
-          while (*c && !DIGIT(*c)) c++; // skip non-digits
+        } else if ( *o != 'O' && *o != 'z' && *o != 'p') {
+          // skip non-digits
+          // O, z, p formats are treated specially below
+          while (*c && !DIGIT(*c)) c++;
 		}
 
         if ( *o == 'O' ) {
@@ -103,7 +104,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
 		  O_format = 0;
 		}
 
-        if (!(DIGIT(*c) || O_format || *o == 'z')) {
+        if (!(DIGIT(*c) || O_format || *o == 'z' || *o == 'p')) {
           succeed = 0;
         } else {
 
@@ -135,6 +136,10 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
             PARSENUM(H, 2);
             if (H > 24) succeed = 0;
             break;
+          case 'I': // hour 12
+            PARSENUM(H, 2);
+            if (H > 12) succeed = 0;
+            break;
           case 'M': // minute
             PARSENUM(M, 2);
             if (M > 59) succeed = 0;
@@ -161,7 +166,21 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
               }
             } else succeed = 0;
             break;
-		  // special treatment of %O_ and %z follows
+          case 'p': // AM/PM Both standard 'p' and lubridate 'Op' format
+            while(!(*c == 'P' || *c == 'p' || *c == 'A' || *c == 'a')) c++;
+            if (*c == 'P' || *c == 'p') {
+              pm = 1;
+              c++;
+            } else if (*c == 'A' ||  *c == 'a'){
+              c++;
+            } else {
+              succeed = 0;
+            }
+            if (succeed && !(*c && (*c == 'M' || *c == 'm'))){
+              succeed = 0;
+            }
+            if (succeed) c++;
+            break;
 		  case 'u':
 			// %Ou: "2013-04-16T04:59:59Z"
             if( O_format )
@@ -260,6 +279,13 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
     // allow missing months and days
     if (m == 0) m = 1;
     if (d == 0) d = 1;
+
+    if(pm){
+      if(H > 12)
+        succeed = 0;
+      else
+        H += 12;
+    }
 
     if (succeed) {
       if(out_lt){

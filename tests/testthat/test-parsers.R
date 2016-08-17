@@ -433,19 +433,39 @@ test_that("hms functions correctly negative components separators", {
   expect_that(hm("03-3"), equals(hours(3) -  minutes(3)))
 })
 
+test_that("AM/PM indicators are parsed correctly", {
+  expect_equal(parse_date_time2('12/17/1996 04:00:00  PM', "mdYHMSp"),
+               ymd_hms('1996-12-17 16:00:00'))
+  expect_equal(parse_date_time2('12/17/1996 04:00:00  PM', "mdYHMSOp"),
+               ymd_hms('1996-12-17 16:00:00'))
+  expect_equal(parse_date_time2('12/17/1996 04:00:00  AM', "mdYHMSp"),
+               ymd_hms('1996-12-17 04:00:00'))
+  expect_equal(parse_date_time2('12/17/1996 04:00:00  PM', "mdYHMSp", tz = "CEST"),
+               ymd_hms('1996-12-17 16:00:00', tz = "CEST"))
+  expect_equal(parse_date_time2('12/17/1996 04:00:00  TM', "mdYHMSp"),
+               make_datetime(NA))
+  expect_equal(fast_strptime('1996-05-17 04:00:00 PM', "%Y-%m-%d %H:%M:%S %Op"),
+               ymd_hms('1996-05-17 16:00:00'))
+  expect_equal(ymd_hms('1996-05-17 04:00:00 PM'), ymd_hms('1996-05-17 16:00:00'))
+  expect_equal(ydm_hms('1996-17-05 04:00:00 PM'), ydm_hms('1996-17-05 16:00:00'))
+  expect_equal(dmy_hms('17-05-1996 04:00:00 PM'), dmy_hms('17-05-1996 16:00:00'))
+})
+
 test_that("heterogeneous formats are correctly parsed", {
   X <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4", "2009-1, 5", "2009....1--6", "200901-07", "200901-8")
   Y <- c("2009-01-01", "2009-01-02", "2009-01-03", "2009-01-04", "2009-01-05", "2009-01-06", "2009-01-07", "2009-01-08")
   expect_that(ymd(X) ,equals( as.Date(Y)))
   ## cbind(ymd(X), as.POSIXct(Y, tz = "UTC"))
-  X <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03", "2009-1-4 12-1-4",
-         "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6", "20090107 120107", "2009-01-08 1201-08",
-         "2010-01-09 12:01:09", "2010-01-10 10:01:10 AM", "2010-01-11 10:01:11 PM")
+  X <- c(20100101120101           , "2009-01-02 12-01-02", "2009.01.03 12:01:03",
+         "2009-1-4 12-1-4"        , "2009-1, 5 12:1, 5", "2009....1--6 - 12::1:6",
+         "20090107 120107"        , "2009-01-08 1201-08", "2010-01-09 12:01:09",
+         "2010-01-10 10:01:10 AM" , "2010-01-11 10:01:11 PM")
   Y <- c("2010-01-01 12:01:01", "2009-01-02 12:01:02", "2009-01-03 12:01:03",
          "2009-01-04 12:01:04", "2009-01-05 12:01:05", "2009-01-06 12:01:06",
          "2009-01-07 12:01:07", "2009-01-08 12:01:08", "2010-01-09 12:01:09",
          "2010-01-10 10:01:10", "2010-01-11 22:01:11")
-  expect_that( ymd_hms(X), equals(as.POSIXct(Y, tz = "UTC")))
+  ## cbind(as.character(ymd_hms(X)), as.character(as.POSIXct(Y, tz = "UTC")))
+  expect_that(ymd_hms(X), equals(as.POSIXct(Y, tz = "UTC")))
   cbind(as.character(ymd_hms(X)), as.character(as.POSIXct(Y, tz = "UTC")))
 })
 
