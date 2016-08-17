@@ -2,7 +2,7 @@
 NULL
 
 integer_divide_spans <- function(e1, e2){
-  trunc(suppressMessages(e1 / e2))
+  trunc(e1/e2)
 }
 
 #' @export

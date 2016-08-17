@@ -16,42 +16,44 @@ divide_duration_by_difftime <- function(dur, diff)
 divide_duration_by_number <- function(dur, num)
   new("Duration", dur@.Data / num)
 
-
-
 divide_interval_by_duration <- function(int, dur){
   int@.Data / dur@.Data
 }
 
-
-adjust <- function(est, int, per) {
+adjust_estimate <- function(est, int, per) {
   start <- int_start(int)
   end <- int_end(int)
 
-  while(any(which <- add_with_rollback(start, est * per) < end))
+  est <- ceiling(est)
+
+  up_date <- add_with_rollback(start, est * per)
+  while(length(which <- which(up_date < end))){
+    up_date[which] <- add_with_rollback(up_date[which], per)
     est[which] <- est[which] + 1
+  }
 
-  while(any(which <- add_with_rollback(start, est * per) > end))
-    est[which] <- est[which] - 1
+  low_date <- add_with_rollback(up_date, -per)
+  if(length(which <- which(low_date > end))){
+    low_date[which] <- add_with_rollback(low_date[which], - per)
+  }
 
-  est
+  frac <-
+    as.numeric(difftime(up_date, end, units = "secs"))/
+    as.numeric(difftime(up_date, low_date, units = "secs"))
+
+  est - frac
 }
 
-
-## broken:
-## lubridate:::divide_interval_by_period(interval(ymd(20000229), ymd(20100303)), years(1))
-## Error in while (any(which <- (start + est * per < end))) est[which] <- est[which] +  :
-##   missing value where TRUE/FALSE needed
 divide_interval_by_period <- function(int, per){
-  message("Remainder cannot be expressed as fraction of a period.\n  Performing %/%.")
-  estimate <- ceiling(int/as.duration(per))
+  estimate <- int/as.duration(per)
   not_nas <- !is.na(estimate)
   if (all(not_nas)) {
-    adjust(estimate, int, per)
+    adjust_estimate(estimate, int, per)
   } else {
     timespans <- match_lengths(int, per)
     int2 <- timespans[[1]][not_nas]
     per2 <- timespans[[2]][not_nas]
-    estimate[not_nas] <- adjust(estimate[not_nas], int2, per2)
+    estimate[not_nas] <- adjust_estimate(estimate[not_nas], int2, per2)
     estimate
   }
 }

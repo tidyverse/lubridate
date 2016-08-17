@@ -10,8 +10,6 @@ NULL
 
 subtract_interval_from_date <- function(int, date){
   end <- int@start + int@.Data
-  if (any(end != as.POSIXct(date)))
-     message("interval does not align: coercing to duration")
   dur <- as.duration(int)
   add_duration_to_date(-dur, date)
 }

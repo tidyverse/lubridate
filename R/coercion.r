@@ -183,14 +183,8 @@ setMethod("as.duration", signature(x = "Duration"), function(x){
 })
 
 setMethod("as.duration", signature(x = "Period"), function(x){
-  ## verbose <- getOption("lubridate.verbose")
-  ## if (is.null(verbose) || verbose) {
-  ##   message("estimate only: convert periods to intervals for accuracy")
-  ## }
   new("Duration", period_to_seconds(x))
 })
-
-
 
 
 #' Change an object to an \code{interval}.
@@ -343,10 +337,6 @@ setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ..
 })
 
 setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
-  ## verbose <- getOption("lubridate.verbose")
-  ## if (is.null(verbose) || verbose) {
-  ##   message("estimate only: convert difftimes to intervals for accuracy")
-  ## }
   seconds_to_period(as.double(x, "secs"))
 })
 
@@ -469,10 +459,6 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 }
 
 setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) {
-  ## verbose <- getOption("lubridate.verbose")
-  ## if (is.null(verbose) || verbose) {
-  ##   message("estimate only: convert durations to intervals for accuracy")
-  ## }
   span <- x@.Data
   remainder <- abs(span)
   newper <- period(second = rep(0, length(x)))
