@@ -46,6 +46,27 @@ test_that("floor_date works for multi-units",{
   expect_identical(floor_date(x, "2 year"),     as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
 })
 
+test_that("multi-unit rounding works the same for POSIX and Date objects", {
+  px <- ymd("2009-08-01", tz = "UTC")
+  dt <- ymd("2009-08-01")
+  expect_identical(floor_date(px, "5 mins"), floor_date(dt, "5 mins"))
+  expect_identical(floor_date(px, "5 mins"), floor_date(dt, "5 mins"))
+  expect_identical(ceiling_date(px, "5 mins"), ceiling_date(dt, "5 mins"))
+  expect_identical(ceiling_date(px, "5 mins", change_on_boundary = T), ceiling_date(dt, "5 mins", change_on_boundary = T))
+  expect_identical(ceiling_date(px, "5 hours"), ceiling_date(dt, "5 hours"))
+  expect_identical(ceiling_date(px, "5 hours", change_on_boundary = T), ceiling_date(dt, "5 hours", change_on_boundary = T))
+  expect_identical(ceiling_date(px, "2 hours"), ceiling_date(dt, "2 hours"))
+  expect_identical(as_date(floor_date(px, "2 days")), floor_date(dt, "2 days"))
+  expect_identical(as_date(ceiling_date(px, "2 days")), ceiling_date(dt, "2 days"))
+  expect_identical(as_date(floor_date(px, "5 days")), floor_date(dt, "5 days"))
+  expect_identical(as_date(ceiling_date(px, "5 days")), ceiling_date(dt, "5 days"))
+  expect_identical(as_date(floor_date(px, "2 months")), floor_date(dt, "2 months"))
+  expect_identical(as_date(ceiling_date(px, "2 months")), ceiling_date(dt, "2 months"))
+  expect_identical(as_date(floor_date(px, "5 months")), floor_date(dt, "5 months"))
+  expect_identical(as_date(ceiling_date(px, "5 months")), ceiling_date(dt, "5 months"))
+})
+
+
 test_that("ceiling_date works for multi-units",{
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
   y <- as.POSIXct("2009-08-03 12:01:30.23", tz = "UTC")

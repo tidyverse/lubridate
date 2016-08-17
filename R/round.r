@@ -108,7 +108,9 @@ floor_date <- function(x, unit = "seconds") {
 
   if(unit %in% c("second", "minute", "hour", "day")){
 
-    reclass_date(trunc_multi_unit(x, unit, n), x)
+    out <- trunc_multi_unit(x, unit, n)
+    if(is.Date(x) && unit != "day") as.POSIXct(out)
+    else reclass_date(out, x)
 
   } else {
 
@@ -159,9 +161,8 @@ floor_date <- function(x, unit = "seconds") {
 #' x <- ymd("2000-01-01")
 #' ceiling_date(x, "month")
 #' ceiling_date(x, "month", change_on_boundary = TRUE)
-ceiling_date <- function(x,
-                         unit = c("second", "minute", "hour", "day", "week", "month", "bimonth", "quarter", "halfyear", "year"),
-                         change_on_boundary = FALSE) {
+ceiling_date <- function(x, unit = "seconds", change_on_boundary = FALSE) {
+
   if(!length(x))
     return(x)
 
@@ -180,21 +181,24 @@ ceiling_date <- function(x,
     }
     update(x, seconds = csec, simple = T)
 
-  }else if(is.POSIXt(x) & (unit %in% c("minute", "hour", "day"))){
+  } else if (unit %in% c("minute", "hour", "day")){
 
-    ## cannot use this for Date class, (local tz interferes with computation)
-    new <- as.POSIXct(x, tz = tz(x))
+    ## cannot use this for minute/hour for Date class; local tz interferes with
+    ## the computation
+    new <- as_datetime(x, tz = tz(x))
     one <- as.numeric(change_on_boundary)
     new <- new + switch(unit,
                         minute = (59 + one)*n,
                         hour = (3599 + one)*n,
                         day = (86399 + one)*n)
-    reclass_date(trunc_multi_unit(new, unit, n), x)
+    new <- trunc_multi_unit(new, unit, n)
+
+    if (is.Date(x) && unit != "day") as.POSIXct(new)
+    else reclass_date(new, x)
 
   } else {
 
     if(n > 1 && unit == "week"){
-      ## fixme:
       warning("Multi-unit not supported for weeks. Ignoring.")
     }
 
@@ -214,7 +218,6 @@ ceiling_date <- function(x,
     new <- switch(unit,
                   minute = update(new, minute = ceil_multi_unit(minute(new), n), second = 0, simple = T),
                   hour   = update(new, hour = ceil_multi_unit(hour(new), n), minute = 0, second = 0, simple = T),
-                  day    = update(new, day = ceil_multi_unit1(day(new), n), hour = 0, minute = 0, second = 0),
                   week   = update(new, wday = 8, hour = 0, minute = 0, second = 0),
                   month  = update(new, month = ceil_multi_unit1(month(new), n), mdays = 1, hours = 0, minutes = 0, seconds = 0),
                   year   = update(new, year = ceil_multi_unit(year(new), n), month = 1, mday = 1,  hour = 0, minute = 0, second = 0))

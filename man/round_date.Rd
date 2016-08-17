@@ -10,8 +10,7 @@ round_date(x, unit = "second")
 
 floor_date(x, unit = "seconds")
 
-ceiling_date(x, unit = c("second", "minute", "hour", "day", "week", "month",
-  "bimonth", "quarter", "halfyear", "year"), change_on_boundary = FALSE)
+ceiling_date(x, unit = "seconds", change_on_boundary = FALSE)
 }
 \arguments{
 \item{x}{a vector of date-time objects}
