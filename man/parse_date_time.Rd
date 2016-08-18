@@ -32,7 +32,7 @@ parse the dates}
 common type of irregularity in date-time data is the truncation due to
 rounding or unavailability of the time stamp. If \code{truncated}
 parameter is non-zero \code{parse_date_time} also checks for truncated
-formats. For example,  if the format order is "ymdhms" and \code{truncated
+formats. For example,  if the format order is "ymdHMS" and \code{truncated
 = 3}, \code{parse_date_time} will correctly parse incomplete dates like
 \code{2012-06-01 12:23}, \code{2012-06-01 12} and
 \code{2012-06-01}. \bold{NOTE:} \code{ymd} family of functions are based
@@ -98,7 +98,7 @@ The list below contains formats recognized by lubridate. For numeric formats
 leading 0s are optional. As compared to base \code{strptime}, some of the
 formats are new or have been extended for efficiency reasons. These formats
 are marked with "*". Fast parsers, \code{parse_date_time2} and
-\code{fast_strptime}, currently accept only formats marked with "!".
+\code{fast_strptime}, accept only formats marked with "!".
 
 \describe{ \item{\code{a}}{Abbreviated weekday name in the current
 locale. (Also matches full name)}
@@ -169,6 +169,11 @@ these four orders as any other but it is rarely
 necessary. \code{parse_date_time2} and \code{fast_strptime} support all of
 the timezone formats.}
 
+\item{\code{Om}!*}{Matches numeric month and English alphabetic months
+                   (Both, long and abbreviated forms).}
+
+\item{\code{Op}!*}{Matches AM/PM English indicator.}
+
 \item{\code{r}*}{Matches \code{Ip} and \code{H} orders.}
 \item{\code{R}*}{Matches \code{HM} and\code{IMp} orders.}
 \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
@@ -214,7 +219,6 @@ parse_date_time(x, c("dmY", "ymd"))
 ## ** truncated time-dates **
 x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 parse_date_time(x, "Ymd HMS", truncated = 3)
-parse_date_time(x, "ymd_hms", truncated = 3)
 
 ## ** specifying exact formats and avoiding training and guessing **
 parse_date_time(x, c("\%m-\%d-\%y", "\%m\%d\%y", "\%m-\%d-\%y \%H:\%M"), exact = TRUE)

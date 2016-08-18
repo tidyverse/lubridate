@@ -368,6 +368,8 @@ test_that("C parser correctly handles month formats", {
   expect_equal(ymd_hms("2010-Dec-02 23:59:59"), as.POSIXct( "2010-12-02 23:59:59", tz = "UTC"))
   expect_equal(ymd_hms("2010-Dec-02 23:59:59"), parse_date_time2("2010-Dec-02 23:59:59", "YOmdHMS"))
   expect_equal(ymd_hms("2010-Dec-02 23:59:59"), parse_date_time2("2010-Dec-02 23:59:59", "YbdHMS"))
+  expect_equal(ymd_hms("2010-Dec-02 03:59:59 PM"), parse_date_time2("2010-Dec-02 15:59:59", "YbdHMS"))
+  expect_equal(ymd_hms("2010-Dec-02 03:59:59 PM"), parse_date_time2("2010-Dec-02 03:59:59 PM", "YOmdHMSOp"))
   expect_equal(ymd_hms("2010-Dec-02 23:59:59"), parse_date_time2("2010-December-02 23:59:59", "YBdHMS"))
 
   yy <- c("10-Feb-28 23:59:59", "10-May-28 23:59:59", "10-September-28 23:59:59")
@@ -486,6 +488,19 @@ test_that("AM/PM indicators are parsed correctly", {
   expect_equal(ymd_hms('1996-05-17 04:00:00 PM'), ymd_hms('1996-05-17 16:00:00'))
   expect_equal(ydm_hms('1996-17-05 04:00:00 PM'), ydm_hms('1996-17-05 16:00:00'))
   expect_equal(dmy_hms('17-05-1996 04:00:00 PM'), dmy_hms('17-05-1996 16:00:00'))
+
+
+  expect_equal(parse_date_time("2010-Dec-02 03:59:59 PM", "YmdT"),
+               parse_date_time2("2010-12-02 15:59:59", "YmdHMS"))
+
+  expect_equal(parse_date_time("2010-Dec-02 03:59:59 PM", "YmdT"),
+               parse_date_time2("2010-12-02 15:59:59", "YmdHMS"))
+
+  expect_equal(parse_date_time("2010-Dec-02 03:59 PM", "YmdR"),
+               parse_date_time2("2010-12-02 15:59:00", "YmdHMS"))
+
+  expect_equal(parse_date_time("2010-Dec-02 03 PM", "Ymdr"),
+               parse_date_time2("2010-12-02 15:00:00", "YmdHMS"))
 })
 
 test_that("AM/PM is parse correctly", {
@@ -570,7 +585,6 @@ test_that("AM/PM is parse correctly", {
   expect_equal(parse_date_time2(raw, "OmdYHMSOp"), tparse)
   ## this one ends in strptime
   expect_equal(parse_date_time(raw, "mdYT", locale = "C"), tparse)
-
 })
 
 test_that("heterogeneous formats are correctly parsed", {
@@ -612,6 +626,10 @@ test_that("missing months and days are allowed", {
   expect_equal(parse_date_time2("2016-02", orders = "Ym"), ymd("2016-02-01", tz = "UTC"))
   expect_equal(parse_date_time("2016", orders = "Y"), ymd("2016-01-01", tz = "UTC"))
   expect_equal(parse_date_time("2016-02", orders = "Ym"), ymd("2016-02-01", tz = "UTC"))
+  expect_equal(parse_date_time(c("3:15:00"), c("IMS")), as.POSIXct("00-01-01 03:15:00", tz = "UTC"))
+  expect_equal(parse_date_time(c("3:15:00"), c("HMS")), as.POSIXct("00-01-01 03:15:00", tz = "UTC"))
+  expect_equal(parse_date_time(c("3:15:00 PM"), c("HMSp")), as.POSIXct("00-01-01 15:15:00", tz = "UTC"))
+  expect_equal(parse_date_time(c("3:15:00 PM"), c("IMSp")), as.POSIXct("00-01-01 15:15:00", tz = "UTC"))
 })
 
 test_that("fractional formats are correctly parsed", {

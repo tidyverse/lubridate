@@ -178,7 +178,7 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
 ##'
 ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
-  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT", "yOmdHMS", "yOmdHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 }
 
 #' @export
@@ -194,7 +194,7 @@ ymd_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 dmy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT", "dOmyHMS", "dOmyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -209,7 +209,7 @@ dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 mdy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT", "OmdyHMS", "OmdyHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -224,7 +224,7 @@ mdy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 #' @export
 #' @rdname ymd_hms
 ydm_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT", "ydOmHMS", "ydOmHMSOp"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -349,7 +349,8 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' leading 0s are optional. As compared to base \code{strptime}, some of the
 ##' formats are new or have been extended for efficiency reasons. These formats
 ##' are marked with "*". Fast parsers, \code{parse_date_time2} and
-##' \code{fast_strptime}, currently accept only formats marked with "!".
+##' \code{fast_strptime}, accept only formats marked with "!".
+##'
 ##'
 ##' \describe{ \item{\code{a}}{Abbreviated weekday name in the current
 ##' locale. (Also matches full name)}
@@ -420,10 +421,16 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' necessary. \code{parse_date_time2} and \code{fast_strptime} support all of
 ##' the timezone formats.}
 ##'
+##' \item{\code{Om}!*}{Matches numeric month and English alphabetic months
+##'                    (Both, long and abbreviated forms).}
+##'
+##' \item{\code{Op}!*}{Matches AM/PM English indicator.}
+##'
 ##' \item{\code{r}*}{Matches \code{Ip} and \code{H} orders.}
 ##' \item{\code{R}*}{Matches \code{HM} and\code{IMp} orders.}
 ##' \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 ##' }
+##'
 ##'
 ##' @export
 ##' @param x a character or numeric vector of dates
@@ -439,7 +446,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   common type of irregularity in date-time data is the truncation due to
 ##'   rounding or unavailability of the time stamp. If \code{truncated}
 ##'   parameter is non-zero \code{parse_date_time} also checks for truncated
-##'   formats. For example,  if the format order is "ymdhms" and \code{truncated
+##'   formats. For example,  if the format order is "ymdHMS" and \code{truncated
 ##'   = 3}, \code{parse_date_time} will correctly parse incomplete dates like
 ##'   \code{2012-06-01 12:23}, \code{2012-06-01 12} and
 ##'   \code{2012-06-01}. \bold{NOTE:} \code{ymd} family of functions are based
@@ -504,7 +511,6 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' ## ** truncated time-dates **
 ##' x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
 ##' parse_date_time(x, "Ymd HMS", truncated = 3)
-##' parse_date_time(x, "ymd_hms", truncated = 3)
 ##'
 ##' ## ** specifying exact formats and avoiding training and guessing **
 ##' parse_date_time(x, c("%m-%d-%y", "%m%d%y", "%m-%d-%y %H:%M"), exact = TRUE)
@@ -684,7 +690,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
 
   ## is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
 
-  c_parser <- 0 < regexpr("^[^%0-9]*(%([YymdqHMSz]|O[SzuoOpm])[^%0-9Z]*)+$", fmt)
+  c_parser <- 0 < regexpr("^[^%0-9]*(%([YymdqIHMSz]|O[SzuoOpm])[^%0-9Z]*)+$", fmt)
   zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
   if (c_parser) {

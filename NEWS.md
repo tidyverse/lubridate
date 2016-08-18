@@ -17,6 +17,7 @@ Version 1.5.6.9000 (development)
 
 ### CHANGES
 
+* Low letters for representing HMS are no more allowed in parsing.
 * [#445](https://github.com/hadley/lubridate/issues/445) No more warning on occasional imprecise period length conversions. Imprecise arithmetics with periods is extensively documented.
 * `pretty.*` family of functions were renamed and are no longer exported. If you need to use them, use `lubridate:::pretty_*` versions.
 * `change_on_boundary` argument in `ceiling_date` does not allow for global option anymore.
@@ -29,6 +30,7 @@ Version 1.5.6.9000 (development)
 * [#456](https://github.com/hadley/lubridate/issues/456) Evaluation output in documentation examples was removed.
 
 ### BUG FIXES
+* [#458](https://github.com/hadley/lubridate/issues/458) When year is missing in parsing, return consistently year 0.
 * [#448](https://github.com/hadley/lubridate/issues/448) Correctly handle missing months and days in C parser.
 * [#450](https://github.com/hadley/lubridate/issues/450) Fix incorrect handling of DST gaps in `date_decimal` and `decimal_date`.
 * [#418](https://github.com/hadley/lubridate/issues/418) C level parsing functions understand 24:00:00 in datetime strings.
