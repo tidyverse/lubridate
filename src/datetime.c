@@ -161,7 +161,6 @@ SEXP make_d(SEXP year, SEXP month, SEXP day) {
 	int y = pyear[i];
 	int m = pmonth[i];
 	int d = pday[i];
-	int S = 0;
 
 	if(y == NA_INTEGER || m == NA_INTEGER || d == NA_INTEGER) {
 
