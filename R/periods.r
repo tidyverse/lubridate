@@ -326,7 +326,9 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
 period <- function(num = NULL, units = "second", ...) {
   nums <- list(...)
-  if(!is.null(num) && length(nums) > 0){
+  if(is.character(num)) {
+    .period_from_character(num)
+  } else if(!is.null(num) && length(nums) > 0){
     c(.period_from_num(num, units), .period_from_units(nums))
   } else if(!is.null(num)){
     .period_from_num(num, units)
@@ -335,6 +337,15 @@ period <- function(num = NULL, units = "second", ...) {
   } else {
     stop("No valid values have been passed to 'period' constructor")
   }
+}
+
+
+.period_from_character <- function(c) {
+  parsed <- parse_period_unit(toupper(c))
+  if(!(parsed$unit %in% .period_mapping)) {
+    stop(paste('unsupported period for input', c))
+  }
+  .period_mapping[[c]](parsed$n)
 }
 
 .period_from_num <- function(num, units){
@@ -464,6 +475,12 @@ picoseconds <- function(x = 1) seconds(x/1e12)
 months.numeric <- function(x, abbreviate) {
   period(month = x)
 }
+
+.period_mapping = list(
+  "Y" = years,
+  "M" = months,
+  "D" = days
+)
 
 #' Contrive a period to/from a given number of seconds.
 #'
