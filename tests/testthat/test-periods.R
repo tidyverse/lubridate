@@ -1,5 +1,8 @@
 context("Periods")
 
+test_that("period constructor doesn't accept non-numeric or non-character inputs", {
+  expect_error(period(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
+})
 
 test_that("is.period works as expected",{
   expect_that(is.period(234), is_false())

@@ -365,8 +365,12 @@ parse_period <- function(x){
 
 .period_from_num <- function(num, units){
 
+  if(isS4(num) || !is.numeric(num)){
+    stop(sprintf("First argument to `period` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
+  }
+
   if (length(units) %% length(num) != 0)
-    stop("arguments must have same length")
+    stop("Arguments `num` and `units` must have same length")
 
   num <- num + rep(0, length(units))
   unit <- standardise_date_names(units)
