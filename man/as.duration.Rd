@@ -5,15 +5,18 @@
 \alias{as.duration,Duration-method}
 \alias{as.duration,Interval-method}
 \alias{as.duration,Period-method}
+\alias{as.duration,character-method}
 \alias{as.duration,difftime-method}
 \alias{as.duration,logical-method}
 \alias{as.duration,numeric-method}
 \title{Change an object to a duration.}
 \usage{
-as.duration(x)
+as.duration(x, ...)
 }
 \arguments{
 \item{x}{Object to be coerced to a duration}
+
+\item{...}{Parameters passed to other methods. Currently unused.}
 }
 \value{
 A duration object
@@ -41,6 +44,7 @@ as.duration(10) # numeric
 dur <- duration(hours = 10, minutes = 6)
 as.numeric(dur, "hours")
 as.numeric(dur, "minutes")
+
 }
 \seealso{
 \code{\link{Duration-class}}, \code{\link{duration}}

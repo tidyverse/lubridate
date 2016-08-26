@@ -1,6 +1,9 @@
 #ifndef LUB_CONSTANTS_H
 #define LUB_CONSTANTS_H
 
+#define FALSE 0
+#define TRUE 1
+
 // start of each month in seconds in a common year (1 indexed)
 static const int sm[] = {0, 0, 2678400, 5097600, 7776000, 10368000, 13046400, 15638400,
 						 18316800, 20995200, 23587200, 26265600, 28857600, 31536000 };
@@ -14,6 +17,5 @@ static const int d30 = 946684800;
 // int64_t from stdint.h is a bit slower
 // potential problem: is long long 64 bit on all machines?
 static const long long yearlen = 31536000; // common year in sec: 365*24*60*60
-
 
 #endif /* !defined LUB_CONSTANTS_H */

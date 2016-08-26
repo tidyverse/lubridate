@@ -23,7 +23,6 @@ recognize <- function(x){
   return(FALSE)
 }
 
-
 standardise_date_names <- function(x) {
   dates <- c("second", "minute", "hour", "mday", "wday", "yday", "day", "week", "month", "year", "tz")
   y <- gsub("(.)s$", "\\1", x)

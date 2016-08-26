@@ -145,6 +145,7 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' transform the period to an interval with \code{\link{as.interval}}.
 #'
 #' @param x Object to be coerced to a duration
+#' @param ... Parameters passed to other methods. Currently unused.
 #' @return A duration object
 #' @seealso \code{\link{Duration-class}}, \code{\link{duration}}
 #' @keywords classes manip methods chron
@@ -155,12 +156,21 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' dur <- duration(hours = 10, minutes = 6)
 #' as.numeric(dur, "hours")
 #' as.numeric(dur, "minutes")
-#' @aliases as.duration,numeric-method as.duration,logical-method as.duration,difftime-method as.duration,Interval-method as.duration,Duration-method as.duration,Period-method
+#'
+#' @aliases as.duration,numeric-method as.duration,logical-method
+#'   as.duration,difftime-method as.duration,Interval-method
+#'   as.duration,Duration-method as.duration,Period-method
+#'   as.duration,character-method
 #' @export
-as.duration <- function(x) standardGeneric("as.duration")
+setGeneric("as.duration",
+           function(x, ...) standardGeneric("as.duration"),
+           useAsDefault = function(x, ...){
+             stop(sprintf("as.duration is not defined for class '%s'", class(x)))
+           })
 
-#' @export
-setGeneric("as.duration")
+setMethod("as.duration", signature(x = "character"), function(x){
+  as.duration(as.period(x))
+})
 
 setMethod("as.duration", signature(x = "numeric"), function(x){
   new("Duration", x)
@@ -321,12 +331,20 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' per <- period(hours = 10, minutes = 6)
 #' as.numeric(per, "hours")
 #' as.numeric(per, "minutes")
-#' @aliases as.period,numeric-method as.period,difftime-method as.period,Interval-method as.period,Duration-method as.period,Period-method as.period,logical-method
+#'
+#' @aliases as.period,numeric-method as.period,difftime-method
+#'   as.period,Interval-method as.period,Duration-method as.period,Period-method
+#'   as.period,logical-method as.period,character-method
 #' @export
-as.period <- function(x, unit, ...) standardGeneric("as.period")
+setGeneric("as.period",
+           function(x, unit, ...) standardGeneric("as.period"),
+           useAsDefault = function(x, unit, ...){
+             stop(sprintf("as.period is not defined for class '%s'", class(x)))
+           })
 
-#' @export
-setGeneric("as.period")
+setMethod("as.period", signature(x = "character"), function(x, ...){
+  parse_period(x)
+})
 
 setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ...){
   x <- as.numeric(x)

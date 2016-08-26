@@ -10,10 +10,13 @@ duration(num = NULL, units = "seconds", ...)
 is.duration(x)
 }
 \arguments{
-\item{num}{the number of time units to include in the duration}
+\item{num}{the number of time units to include in the duration. From v1.6.0
+\code{num} can also be a character vector that specifies durations in a
+convenient shorthand format. All unambiguous name units and abbreviations
+are supported. See examples.}
 
 \item{units}{a character string that specifies the type of units that num
-refers to.}
+refers to. When \code{num} is character, this argument is ignored.}
 
 \item{...}{a list of time units to be included in the duration and their
 amounts. Seconds, minutes, hours, days, and weeks are supported.}
@@ -59,6 +62,14 @@ duration(minute = 1.5)
 duration(mins = 1.5)
 duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
 duration(hour = 1, minute = -60)
+duration("2M 1sec")
+duration("2hours 2minutes 1second")
+duration("2d 2H 2M 2S")
+duration("2days 2hours 2mins 2secs")
+# Missing numerals default to 1. Repeated units are added up.
+duration("day day")
+# Comparison with characters is supported from v1.6.0.
+duration("day 2 sec") > "day 1sec"
 is.duration(as.Date("2009-08-03")) # FALSE
 is.duration(duration(days = 12.4)) # TRUE
 }

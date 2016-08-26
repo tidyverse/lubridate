@@ -2,33 +2,8 @@
 % Please edit documentation in R/periods.r
 \docType{class}
 \name{Period-class}
-\alias{Arith,ANY,Period-method}
-\alias{Arith,Duration,Period-method}
-\alias{Arith,Period,ANY-method}
-\alias{Arith,Period,Duration-method}
-\alias{Compare,Period,Duration-method}
-\alias{Compare,Period,Period-method}
-\alias{Compare,Period,numeric-method}
 \alias{Period-class}
 \title{Period class}
-\usage{
-\S4method{Arith}{Period,ANY}(e1, e2)
-
-\S4method{Arith}{ANY,Period}(e1, e2)
-
-\S4method{Arith}{Duration,Period}(e1, e2)
-
-\S4method{Arith}{Period,Duration}(e1, e2)
-
-\S4method{Compare}{Period,Period}(e1, e2)
-
-\S4method{Compare}{Period,Duration}(e1, e2)
-
-\S4method{Compare}{Period,numeric}(e1, e2)
-}
-\arguments{
-\item{e1, e2}{arguments to arithmetic operations}
-}
 \description{
 Period is an S4 class that extends the \code{\link{Timespan-class}} class.
 Periods track the change in the "clock time" between two date-times. They

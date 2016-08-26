@@ -5,6 +5,7 @@
 \alias{as.period,Duration-method}
 \alias{as.period,Interval-method}
 \alias{as.period,Period-method}
+\alias{as.period,character-method}
 \alias{as.period,difftime-method}
 \alias{as.period,logical-method}
 \alias{as.period,numeric-method}
@@ -75,6 +76,7 @@ as.period(dst, unit = "hours")
 per <- period(hours = 10, minutes = 6)
 as.numeric(per, "hours")
 as.numeric(per, "minutes")
+
 }
 \seealso{
 \code{\link{Period-class}}, \code{\link{period}}

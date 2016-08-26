@@ -1,8 +1,8 @@
 library("devtools")
 
 ## pkg <- "~/dev/lubridate"
-devtools::revdep_check_reset()
-devtools::revdep_check(ignore = c("aoristic", "ChainLadder"), libpath = "~/tmp/R-lib/")
+revdep_check_reset()
+revdep_check(ignore = c("aoristic", "ChainLadder"), libpath = "~/tmp/R-lib/")
 
 ## revdep_check_reset()
 ## revdep_check()

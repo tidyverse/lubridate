@@ -36,6 +36,8 @@ setClass("Duration", contains = c("Timespan", "numeric"), validity = check_durat
 #' @name hidden_aliases
 #' @aliases Compare,Duration,ANY-method Compare,Duration,Duration-method
 #'   Compare,difftime,Duration-method Compare,ANY,Duration-method
+#'   Compare,Duration,Period-method
+#'   Compare,character,Duration-method Compare,Duration,character-method
 #'   as.numeric,Duration-method show,Duration-method c,Duration-method
 #'   rep,Duration-method [,Duration-method [<-,Duration,ANY,ANY,ANY-method
 #'   [[,Duration-method [[<-,Duration,ANY,ANY,ANY-method $,Duration-method
@@ -165,9 +167,12 @@ setMethod("[[<-", signature(x = "Duration"),
 #' \code{\link{dseconds}}. These objects can be added to and subtracted to date-
 #' times to create a user interface similar to object oriented programming.
 #'
-#' @param num the number of time units to include in the duration
+#' @param num the number of time units to include in the duration. From v1.6.0
+#'   \code{num} can also be a character vector that specifies durations in a
+#'   convenient shorthand format. All unambiguous name units and abbreviations
+#'   are supported. See examples.
 #' @param units a character string that specifies the type of units that num
-#'   refers to.
+#'   refers to. When \code{num} is character, this argument is ignored.
 #' @param ... a list of time units to be included in the duration and their
 #'   amounts. Seconds, minutes, hours, days, and weeks are supported.
 #' @return a duration object
@@ -185,10 +190,20 @@ setMethod("[[<-", signature(x = "Duration"),
 #' duration(mins = 1.5)
 #' duration(second = 3, minute = 1.5, hour = 2, day = 6, week = 1)
 #' duration(hour = 1, minute = -60)
+#' duration("2M 1sec")
+#' duration("2hours 2minutes 1second")
+#' duration("2d 2H 2M 2S")
+#' duration("2days 2hours 2mins 2secs")
+#' # Missing numerals default to 1. Repeated units are added up.
+#' duration("day day")
+#' # Comparison with characters is supported from v1.6.0.
+#' duration("day 2 sec") > "day 1sec"
 #' @export
 duration <- function(num = NULL, units = "seconds", ...){
   nums <- list(...)
-  if(!is.null(num) && length(nums) > 0){
+  if(is.character(num)){
+    as.duration(parse_period(num))
+  } else if(!is.null(num) && length(nums) > 0){
     c(.duration_from_num(num, units), .duration_from_units(nums))
   } else if(!is.null(num)){
     .duration_from_num(num, units)
@@ -328,10 +343,15 @@ setMethod("Compare", c(e1 = "ANY", e2 = "Duration"),
           })
 
 #' @export
+setMethod("Compare", signature(e1 = "Duration", e2 = "character"),
+          function(e1, e2) {
+            callGeneric(e1, as.duration(e2))
+          })
+
+#' @export
 setMethod("Compare", c(e1 = "difftime", e2 = "Duration"),
           function(e1, e2){
-            callGeneric(as.numeric(e1, "secs"),
-                        as.numeric(e2, "secs"))
+            callGeneric(as.numeric(e1, "secs"), as.numeric(e2, "secs"))
           })
 
 #' @export

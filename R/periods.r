@@ -113,15 +113,19 @@ setClass("Period", contains = c("Timespan", "numeric"),
   validity = check_period)
 
 #' @name hidden_aliases
-#' @aliases second,Period-method second<-,Period-method minute,Period-method
+#' @aliases Arith,ANY,Period-method Arith,Duration,Period-method
+#'   Arith,Period,Duration-method Compare,Period,Duration-method
+#'   Compare,Period,Period-method Compare,Period,character-method
+#'   Compare,Period,numeric-method Compare,character,Period-method
+#'   second,Period-method second<-,Period-method minute,Period-method
 #'   minute<-,Period-method hour,Period-method hour<-,Period-method
-#'   day,Period-method day<-,Period-method month,Period-method
-#'   month<-,Period-method year,Period-method year<-,Period-method
-#'   date,Period-method date<-,Period-method as.numeric,Period-method
-#'   show,Period-method c,Period-method rep,Period-method [,Period-method
-#'   [<-,Period,ANY,ANY,Period-method [[,Period-method
-#'   [[<-,Period,ANY,ANY,Period-method $,Period-method $<-,Period-method
-#'   as.difftime,Period-method as.character,Period-method
+#'   Arith,Period,ANY-method day,Period-method day<-,Period-method
+#'   month,Period-method month<-,Period-method year,Period-method
+#'   year<-,Period-method date,Period-method date<-,Period-method
+#'   as.numeric,Period-method show,Period-method c,Period-method
+#'   rep,Period-method [,Period-method [<-,Period,ANY,ANY,Period-method
+#'   [[,Period-method [[<-,Period,ANY,ANY,Period-method $,Period-method
+#'   $<-,Period-method as.difftime,Period-method as.character,Period-method
 #'   +,Period,Duration-method +,Period,Interval-method +,Period,Period-method
 #'   +,Period,Date-method +,Date,Period-method +,Period,difftime-method
 #'   +,difftime,Period-method +,Period,numeric-method +,numeric,Period-method
@@ -298,11 +302,14 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' \code{\link{Period-class}} for more details and \code{\link{\%m+\%}} and
 #' \code{\link{add_with_rollback}} for alternative operations.
 #'
-#' @export
 #' @param num a numeric vector that lists the number of time units to be
-#'   included in the period
+#'   included in the period. From v1.6.0 \code{num} can also be a character
+#'   vector that specifies durations in a convenient shorthand format. All
+#'   unambiguous name units and abbreviations are supported. One letter "m"
+#'   stands for months, "M" stands for minutes. See examples.
 #' @param units a character vector that lists the type of units to be used. The
-#'   units in units are matched to the values in num according to their order.
+#'   units in units are matched to the values in num according to their
+#'   order. When \code{num} is character, this argument is ignored.
 #' @param ... a list of time units to be included in the period and their
 #'   amounts. Seconds, minutes,  hours, days, weeks, months, and years are
 #'   supported. Normally only one of \code{num} or \code{...} are present. If
@@ -324,9 +331,20 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' period(hour = 1, minute = -60)
 #' period(second = 0)
 #' period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
+#' period("2M 1sec")
+#' period("2hours 2minutes 1second")
+#' period("2d 2H 2M 2S")
+#' period("2days 2hours 2mins 2secs")
+#' # Missing numerals default to 1. Repeated units are added up.
+#' duration("day day")
+#' # Comparison with characters is supported from v1.6.0.
+#' duration("day 2 sec") > "day 1sec"
+#' @export
 period <- function(num = NULL, units = "second", ...) {
   nums <- list(...)
-  if(!is.null(num) && length(nums) > 0){
+  if(is.character(num)){
+    parse_period(num)
+  } else if(!is.null(num) && length(nums) > 0){
     c(.period_from_num(num, units), .period_from_units(nums))
   } else if(!is.null(num)){
     .period_from_num(num, units)
@@ -335,6 +353,14 @@ period <- function(num = NULL, units = "second", ...) {
   } else {
     stop("No valid values have been passed to 'period' constructor")
   }
+}
+
+##' @useDynLib lubridate c_parse_period
+parse_period <- function(x){
+  out <- matrix(.Call("c_parse_period", x),
+                nrow = 7L, dimnames = list(c("S", "M", "H", "d", "w", "m", "y"), NULL))
+  new("Period", out["S", ], year = out["y", ], month = out["m", ], day = out["d", ],
+      hour = out["H", ], minute = out["M", ])
 }
 
 .period_from_num <- function(num, units){
@@ -524,39 +550,49 @@ summary.Period <- function(object, ...) {
   else qq
 }
 
-#' @rdname Period-class
-#' @param e1,e2 arguments to arithmetic operations
 #' @export
 setMethod("Arith", signature(e1 = "Period", e2 = "ANY"), undefined_arithmetic)
 
-#' @rdname Period-class
 #' @export
 setMethod("Arith", signature(e1 = "ANY", e2 = "Period"), undefined_arithmetic)
 
 ## duration is.numeric. So we need these explicits here:
-#' @rdname Period-class
 #' @export
 setMethod("Arith", signature(e1 = "Duration", e2 = "Period"), undefined_arithmetic)
 
-#' @rdname Period-class
 #' @export
 setMethod("Arith", signature(e1 = "Period", e2 = "Duration"), undefined_arithmetic)
 
-#' @rdname Period-class
+#' @export
+setMethod("Compare", signature(e1 = "character", e2 = "Period"),
+          function(e1, e2) {
+            callGeneric(as.period(e1), e2)
+          })
+
+#' @export
+setMethod("Compare", signature(e1 = "Period", e2 = "character"),
+          function(e1, e2) {
+            callGeneric(e1, as.period(e2))
+          })
+
 #' @export
 setMethod("Compare", signature(e1 = "Period", e2 = "Period"),
           function(e1, e2) {
             callGeneric(period_to_seconds(e1), period_to_seconds(e2))
           })
 
-#' @rdname Period-class
 #' @export
 setMethod("Compare", signature(e1 = "Period", e2 = "Duration"),
           function(e1, e2) {
             stop("cannot compare Period to Duration:\ncoerce with 'as.duration' first.")
           })
 
-#' @rdname Period-class
+#' @export
+setMethod("Compare", signature(e1 = "Duration", e2 = "Period"),
+          function(e1, e2) {
+            callGeneric(as.duration(e1), e2)
+          })
+
 #' @export
 setMethod("Compare", signature(e1 = "Period", e2 = "numeric"),
           function(e1, e2) {
