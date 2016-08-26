@@ -10,7 +10,7 @@
 |language |                                       |
 |collate  |en_GB.UTF-8                            |
 |tz       |Europe/Amsterdam                       |
-|date     |2016-08-25                             |
+|date     |2016-08-26                             |
 
 ## Packages
 
@@ -18,12 +18,12 @@
 |:---------|:--|:----------|:----------|:------------------------|
 |covr      |   |2.2.1      |2016-08-10 |cran (@2.2.1)            |
 |knitr     |   |1.14       |2016-08-13 |cran (@1.14)             |
-|lubridate |*  |1.5.6.9000 |2016-08-25 |local (hadley/lubridate) |
+|lubridate |   |1.5.6.9000 |2016-08-26 |local (hadley/lubridate) |
 |stringr   |   |1.1.0      |2016-08-19 |cran (@1.1.0)            |
-|testthat  |*  |1.0.2      |2016-04-23 |CRAN (R 3.2.4)           |
+|testthat  |   |1.0.2      |2016-04-23 |CRAN (R 3.2.4)           |
 
 # Check results
-89 packages
+91 packages
 
 ## aemo (0.2.0)
 Maintainer: Imanuel Costigan <i.costigan@me.com>
@@ -41,6 +41,19 @@ checking files in ‘vignettes’ ... NOTE
 The following directory looks like a leftover from 'knitr':
   ‘figure’
 Please remove from your package.
+```
+
+## aoristic (0.6)
+Maintainer: George Kikuchi <gkikuchi@csufresno.edu>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘spatstat’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 ```
 
 ## APSIM (0.9.0)
@@ -109,12 +122,14 @@ Bug reports: https://github.com/geanders/countytimezones/issues
 ## crawl (2.0.1)
 Maintainer: Devin S. Johnson <devin.johnson@noaa.gov>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking whether package ‘crawl’ can be installed ... ERROR
-Installation failed.
-See ‘/store/Dropbox/dev/lubridate/revdep/checks/crawl.Rcheck/00install.out’ for details.
+checking installed package size ... NOTE
+  installed size is  9.4Mb
+  sub-directories of 1Mb or more:
+    doc    2.2Mb
+    libs   6.5Mb
 ```
 
 ## cricketr (0.0.13)
@@ -143,12 +158,9 @@ Bug reports: https://github.com/USGS-R/dataRetrieval/issues
 ## diversitree (0.9-8)
 Maintainer: Richard G. FitzJohn <rich.fitzjohn@gmail.com>
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘geiger’
-
 checking installed package size ... NOTE
   installed size is  5.7Mb
   sub-directories of 1Mb or more:
@@ -200,13 +212,7 @@ Last 13 lines of output:
 ## dtwSat (0.2.1)
 Maintainer: Victor Maus <vwmaus1@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘dtwSat’ can be installed ... ERROR
-Installation failed.
-See ‘/store/Dropbox/dev/lubridate/revdep/checks/dtwSat.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## dynatopmodel (1.1)
 Maintainer: Peter Metcalfe <p.metcalfe@lancaster.ac.uk>
@@ -225,7 +231,7 @@ Namespace in Imports field not imported from: ‘magrittr’
   All declared Imports should be used.
 ```
 
-## edeaR (0.4.2)
+## edeaR (0.4.3)
 Maintainer: Gert Janssenswillen <gert.janssenswillen@uhasselt.be>
 
 0 errors | 0 warnings | 0 notes
@@ -267,52 +273,17 @@ Package unavailable to check Rd xrefs: ‘ggrepel’
 Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
 Bug reports: https://bitbucket.org/aphalo/ggspectra
 
-1 error  | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking examples ... ERROR
-Running examples in ‘ggspectra-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.source_spct
-> ### Title: Plot method for light-source spectra.
-> ### Aliases: plot.source_spct
-> ### Keywords: hplot
-> 
-> ### ** Examples
-> 
-> library(photobiology)
-> plot(sun.spct)
-> plot(sun.spct, unit.out = "photon")
-> plot(sun.daily.spct)
-Error: Incompatible duration classes (character, Duration). Please coerce with `as.duration`.
-Execution halted
-
 checking Rd cross-references ... NOTE
 Package unavailable to check Rd xrefs: ‘ggrepel’
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Warning: It seems you should call rmarkdown::render() instead of knitr::knit2html() because user-guide.Rmd appears to be an R Markdown v2 document.
-Quitting from lines 791-792 (user-guide.Rmd) 
-Error: processing vignette 'user-guide.Rmd' failed with diagnostics:
-Incompatible duration classes (character, Duration). Please coerce with `as.duration`.
-Execution halted
-
 ```
 
 ## ggvis (0.4.3)
 Maintainer: Winston Chang <winston@rstudio.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘ggvis’ can be installed ... ERROR
-Installation failed.
-See ‘/store/Dropbox/dev/lubridate/revdep/checks/ggvis.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## githubinstall (0.1.0)
 Maintainer: Koji Makiyama <hoxo.smile@gmail.com>  
@@ -372,14 +343,39 @@ Last 13 lines of output:
 ## iClick (1.2)
 Maintainer: Ho Tsung-wu <tsungwu@mail.shu.edu.tw>
 
-1 error  | 0 warnings | 0 notes
+1 error  | 1 warning  | 0 notes
 
 ```
-checking package dependencies ... ERROR
-Package required but not available: ‘openair’
+checking examples ... ERROR
+Running examples in ‘iClick-Ex.R’ failed
+The error most likely occurred in:
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: iClick.ARIMA
+> ### Title: iClick GUI for ARIMA
+> ### Aliases: iClick.ARIMA
+> 
+> ### ** Examples
+> 
+> 
+> ##External data
+> #data("returnsDaily24")
+> #y=returnsDaily24[,c(1,5)]
+> 
+> ## Simulation data
+> dat=rnorm(100,5,1)
+> y=ts(dat, start = c(1970, 1), frequency = 12)
+> 
+> iClick.ARIMA(y)
+Error in structure(.External(.C_dotTclObjv, objv), class = "tclObj") : 
+  [tcl] invalid command name "toplevel".
+Calls: iClick.ARIMA ... tktoplevel -> tkwidget -> tcl -> .Tcl.objv -> structure
+Execution halted
+
+checking whether package ‘iClick’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/store/Dropbox/dev/lubridate/revdep/checks/iClick.Rcheck/00install.out’ for details.
 ```
 
 ## ie2miscdata (1.0.1)
@@ -425,15 +421,7 @@ See ‘/store/Dropbox/dev/lubridate/revdep/checks/ie2misc.Rcheck/00install.out�
 ## iki.dataclim (1.0)
 Maintainer: Boris Orlowsky <boris@climate-babel.org>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required but not available: ‘climdex.pcic’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
+0 errors | 0 warnings | 0 notes
 
 ## Lock5withR (1.2.2)
 Maintainer: Randall Pruim <rpruim@calvin.edu>
@@ -458,7 +446,7 @@ Bug reports: https://github.com/ProjectMOSAIC/mosaic/issues
 
 ```
 checking installed package size ... NOTE
-  installed size is  9.6Mb
+  installed size is  9.5Mb
   sub-directories of 1Mb or more:
     R     2.0Mb
     doc   6.9Mb
@@ -497,81 +485,13 @@ Maintainer: Abiel Reinhart <abielr@gmail.com>
 Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
 Bug reports: https://bitbucket.org/aphalo/photobiologyinout/
 
-2 errors | 0 warnings | 1 note 
-
-```
-checking examples ... ERROR
-Running examples in ‘photobiologyInOut-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: rspec2mspct
-> ### Title: Convert "pavo::rspec" objects
-> ### Aliases: rspec2mspct rspec2spct
-> 
-> ### ** Examples
-> 
-> 
-> library(pavo)
-Loading required package: rgl
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘httpuv’
-Error: package ‘rgl’ could not be loaded
-Execution halted
-
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  Read 4 items
-  testthat results ================================================================
-  OK: 101 SKIPPED: 0 FAILED: 7
-  1. Error: single spectrum (quantum) (@test-licor.R#9) 
-  2. Error: jazz (@test-oo.R#11) 
-  3. Error: jazz_raw (@test-oo.R#37) 
-  4. Error: SpectraSuite (@test-oo.R#62) 
-  5. Error: jazz-comma (@test-oo.R#90) 
-  6. Error: jazz_raw (@test-oo.R#117) 
-  7. Error: SpectraSuite (@test-oo.R#144) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Read 3 items
-Read 16 items
-Quitting from lines 172-174 (user-guide.Rnw) 
-Error: processing vignette 'user-guide.Rnw' failed with diagnostics:
-invalid regular expression '^\D*?\b((((?<m>1[0-2]|0?[1-9](?!\d))|(((?<b_m>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<B_m>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))\D*?(?<d>[012]?[1-9]|3[01]|[12]0)(?!\d)\D*?(?<H>2[0-4]|[01]?\d)(?!\d)\D*?((?<m>1[0-2]|0?[1-9](?!\d))|(((?<b_m>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<B_m>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))\D*?((?<OS_S>[0-5]?\d\.\d+)|(?<S>[0-6]?\d))(?!\d)\D*?((?<Y_y>\d{4})|(?<y>\d{2}))(?!\d))|(((?<m_e>1[0-2]|0[1-9])|(((?<b_m_e>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<B_m_e>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))\D*?(?<d_e>[012][1-9]|3[01]|[12]0)\D*?(?<H_e>2[0-4]|[01]\d)\D*?((?<m_e>1[0-2]|0[1-9])|(((?<b_m_e>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## photobiology (0.9.9)
 Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
 Bug reports: https://bitbucket.org/aphalo/photobiology/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘photobiology-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: setTimeUnit
-> ### Title: Set the "time.unit" attribute of an existing source_spct object
-> ### Aliases: setTimeUnit
-> 
-> ### ** Examples
-> 
-> my.spct <- sun.spct
-> setTimeUnit(my.spct, time.unit = "second")
-> setTimeUnit(my.spct, time.unit = lubridate::duration(1, "seconds"))
-Error: Incompatible duration classes (character, Duration). Please coerce with `as.duration`.
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## PhysActBedRest (1.0)
 Maintainer: J. Dustin Tracy <jtracy2@student.gsu.edu>
@@ -672,7 +592,7 @@ Bug reports: http://www.github.com/ropensci/rnoaa/issues
 Maintainer: Maëlle Salmon <maelle.salmon@yahoo.se>  
 Bug reports: http://github.com/ropenscilabs/ropenaq/issues
 
-1 error  | 0 warnings | 1 note 
+1 error  | 0 warnings | 0 notes
 
 ```
 checking tests ... ERROR
@@ -691,13 +611,16 @@ Last 13 lines of output:
   
   Error: testthat unit tests failed
   Execution halted
-
-checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘openair’
 ```
 
 ## rpdo (0.2.0)
 Maintainer: Joe Thorley <joe@poissonconsulting.ca>
+
+0 errors | 0 warnings | 0 notes
+
+## rplexos (1.1.8)
+Maintainer: Clayton Barrows <clayton.barrows@nrel.gov>  
+Bug reports: https://github.com/NREL/rplexos/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -795,15 +718,39 @@ Namespace in Imports field not imported from: ‘sp’
 Maintainer: Alex M Chubaty <alexander.chubaty@canada.ca>  
 Bug reports: https://github.com/PredictiveEcology/SpaDES/issues
 
-1 error  | 0 warnings | 1 note 
+0 errors | 1 warning  | 2 notes
 
 ```
-checking whether package ‘SpaDES’ can be installed ... ERROR
-Installation failed.
+checking whether package ‘SpaDES’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
 See ‘/store/Dropbox/dev/lubridate/revdep/checks/SpaDES.Rcheck/00install.out’ for details.
 
 checking package dependencies ... NOTE
 Packages suggested but not available for checking: ‘fastshp’ ‘tkrplot’
+
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+
+    RFoptions
+
+The following object is masked from 'package:raster':
+
+    atan2
+
+... 8 lines ...
+
+Attaching package: 'grid'
+
+The following object is masked from 'package:SpaDES':
+
+    gpar
+
+Quitting from lines 347-351 (ii-modules.Rmd) 
+Error: processing vignette 'ii-modules.Rmd' failed with diagnostics:
+there is no package called 'webshot'
+Execution halted
 ```
 
 ## spatsurv (0.9-12)
