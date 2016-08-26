@@ -19,7 +19,7 @@ Version 1.5.6.9000 (development)
 
 ### CHANGES
 
-* Low letters for representing HMS are no more allowed in parsing.
+* Low letter specs for HMS (hms,hm,h) are no more allowed in parsing.
 * [#445](https://github.com/hadley/lubridate/issues/445) No more warning on occasional imprecise period length conversions. Imprecise arithmetics with periods is extensively documented.
 * `pretty.*` family of functions were renamed and are no longer exported. If you need to use them, use `lubridate:::pretty_*` versions.
 * `change_on_boundary` argument in `ceiling_date` does not allow for global option anymore.

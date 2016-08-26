@@ -71,6 +71,13 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                           preproc_wday = TRUE, print_matches = FALSE){## remove all separators
   orders <- gsub("[^[:alpha:]]+", "", orders)
 
+  if (any(grepl("hms|hm|ms", orders))) {
+    .deprecated("hms, hm and ms usage", ", please use HMS, HM or MS instead", "1.5.6")
+    orders <- gsub("hms", "HMS", orders, ignore.case = TRUE)
+    orders <- gsub("hm", "HM", orders, ignore.case = TRUE)
+    orders <- gsub("ms", "MS", orders, ignore.case = TRUE)
+  }
+
   ## redirect some formats to C parser
   if(length(wp <- grepl("[^O]p", orders)))
     orders <- c(sub("p", "Op", orders[wp], fixed = T), orders)
@@ -153,7 +160,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   }
 
 }
-
 
 .substitute_formats <- function(reg, x, fmts_only = TRUE){
   ## Take date X and substitute year with %Y/%y, month with %B/%b etc.
