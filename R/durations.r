@@ -215,9 +215,14 @@ duration <- function(num = NULL, units = "seconds", ...){
 }
 
 .duration_from_num <- function(num, units){
-  if(isS4(num) || !is.numeric(num)){
+  if(!is.numeric(num)){
     stop(sprintf("First argument to `duration` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
+
+  ## qucik check for common wrongdoings: https://github.com/hadley/lubridate/issues/462
+  if(class(num)[[1]] %in% c("Interval", "Period"))
+    stop("Interval or Period objects cannot be used as input to 'period' constructor. Plese use 'as.duration'.")
+
   unit <- standardise_date_names(units)
   mult <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
     wday = 86400, yday =86400, day = 86400, week = 604800,

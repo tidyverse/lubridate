@@ -1,5 +1,9 @@
 context("Durations")
 
+test_that("duration constructor doesn't accept non-numeric or non-character inputs", {
+  expect_error(duration(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
+})
+
 test_that("new_difftime works as expected",{
   x <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   y <- difftime(x + 5 + 30*60 + 60*60 + 14*24*60*60, x, tz = "UTC")

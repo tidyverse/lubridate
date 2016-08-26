@@ -368,9 +368,12 @@ parse_period <- function(x){
 
 .period_from_num <- function(num, units){
 
-  if(isS4(num) || !is.numeric(num)){
+  if(!is.numeric(num)){
     stop(sprintf("First argument to `period` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
+
+  if(is.interval(num))
+    stop("Interval objects cannot be used as input to 'period' constructor. Plese use 'as.period'.")
 
   if (length(units) %% length(num) != 0)
     stop("Arguments `num` and `units` must have same length")
