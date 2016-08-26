@@ -4,6 +4,26 @@ test_that("period constructor doesn't accept non-numeric or non-character inputs
   expect_error(period(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
 })
 
+
+test_that("parsing works as expected", {
+  expect_equal(period("1min 2sec 2secs 1H 2M 1d"),
+               period(seconds = 4, minutes = 3, hours = 1, days = 1))
+  expect_equal(period("day day"),
+               period(days = 2))
+  expect_equal(period("S M H d m y"),
+               period(seconds = 1, minutes = 1, hours = 1, days = 1, months = 1, years = 1))
+})
+
+test_that("character comparison with periods works as expected", {
+  expect_true("day" == period(days = 1))
+  expect_true("2 days, 2 secs" == period(days = 2, seconds = 2))
+  expect_true(period("day 1s") >  period(days = 1))
+  expect_true("day 1s" >  period(days = 1))
+  expect_true("day 1S 2H" == period(days = 1, seconds = 1, hours = 2))
+  expect_false("day 1S 2H" < period(days = 1, hours = 2))
+  expect_true("day 1S 2H 3m 2y" >  period(days = 1, months = 3, years = 2, hours = 2))
+})
+
 test_that("is.period works as expected",{
   expect_that(is.period(234), is_false())
   expect_that(is.period(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),

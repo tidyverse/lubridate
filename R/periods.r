@@ -357,10 +357,13 @@ period <- function(num = NULL, units = "second", ...) {
 
 ##' @useDynLib lubridate c_parse_period
 parse_period <- function(x){
-  out <- matrix(.Call("c_parse_period", x),
-                nrow = 7L, dimnames = list(c("S", "M", "H", "d", "w", "m", "y"), NULL))
-  new("Period", out["S", ], year = out["y", ], month = out["m", ], day = out["d", ],
-      hour = out["H", ], minute = out["M", ])
+  out <- matrix(.Call("c_parse_period", x), nrow = 7L)
+  new("Period", out[1, ],
+      minute = out[2, ],
+      hour   = out[3, ],
+      day    = out[4, ] + 7L*out[5, ],
+      month  = out[6, ],
+      year   = out[7, ])
 }
 
 .period_from_num <- function(num, units){

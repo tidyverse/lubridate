@@ -3,6 +3,8 @@ Version 1.5.6.9000 (development)
 
 ### NEW FEATURES
 
+* [#459](https://github.com/hadley/lubridate/issues/459) Flexible C-level parsing for periods and durations has been implemented; `period` and `duration` constructors now accept string as first argument.
+* [#459](https://github.com/hadley/lubridate/issues/459) Comparison between character vectors and periods/durations is now possible.
 * [#287](https://github.com/hadley/lubridate/issues/287) C-level and derivative parsers now handle English months (%b and %B formats) irrespective of the current locale.
 * [#327](https://github.com/hadley/lubridate/issues/327) C-level and derivative parsers now handles English AM/PM indicator irrespective of the current locale.
 * [#417](https://github.com/hadley/lubridate/issues/417) `hms`, `hm`, `ms` gained new argument `roll=TRUE` which rolls minutes and seconds bigger than 59 towards higher units.
