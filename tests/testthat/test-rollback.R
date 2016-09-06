@@ -11,3 +11,8 @@ test_that("rollback returns correct results",{
                ymd_hms("2010-03-01 00:00:00"))
 })
 
+
+test_that("rollback works with missing numbers", {
+  expect_equal(ymd(c("20150131", NA)) %m+% months(1) ,
+               ymd(c("201502-28", NA)))
+})
