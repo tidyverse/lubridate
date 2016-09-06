@@ -3,6 +3,7 @@ Version 1.5.6.9000 (development)
 
 ### NEW FEATURES
 
+* [#464](https://github.com/hadley/lubridate/issues/464) New function `semester` to extract semesters form date-time objects.
 * [#459](https://github.com/hadley/lubridate/issues/459) Flexible C-level parsing for periods and durations has been implemented; `period` and `duration` constructors now accept string as first argument.
 * [#459](https://github.com/hadley/lubridate/issues/459) Comparison between character vectors and periods/durations is now possible.
 * [#287](https://github.com/hadley/lubridate/issues/287) C-level and derivative parsers now handle English months (%b and %B formats) irrespective of the current locale.
@@ -32,6 +33,7 @@ Version 1.5.6.9000 (development)
 * [#456](https://github.com/hadley/lubridate/issues/456) Evaluation output in documentation examples was removed.
 
 ### BUG FIXES
+
 * [#463](https://github.com/hadley/lubridate/issues/463) Fix NA subscripting error in %m+% when rollback is involved.
 * [#462](https://github.com/hadley/lubridate/issues/462) Non-numeric or non-character arguments are disallowed as arguments to `period` and `duration` constructors.
 * [#458](https://github.com/hadley/lubridate/issues/458) When year is missing in parsing, return consistently year 0.
