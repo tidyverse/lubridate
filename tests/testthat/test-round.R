@@ -51,15 +51,16 @@ test_that("multi-unit rounding works the same for POSIX and Date objects", {
   dt <- ymd("2009-08-01")
   expect_identical(floor_date(px, "5 mins"), floor_date(dt, "5 mins"))
   expect_identical(floor_date(px, "5 mins"), floor_date(dt, "5 mins"))
-  expect_identical(ceiling_date(px, "5 mins"), ceiling_date(dt, "5 mins"))
-  expect_identical(ceiling_date(px, "5 mins", change_on_boundary = T), ceiling_date(dt, "5 mins", change_on_boundary = T))
-  expect_identical(ceiling_date(px, "5 hours"), ceiling_date(dt, "5 hours"))
-  expect_identical(ceiling_date(px, "5 hours", change_on_boundary = T), ceiling_date(dt, "5 hours", change_on_boundary = T))
-  expect_identical(ceiling_date(px, "2 hours"), ceiling_date(dt, "2 hours"))
+  expect_identical(ceiling_date(px + 0.0001, "5 mins"), ceiling_date(dt, "5 mins"))
+  expect_identical(ceiling_date(px, "5 mins", change_on_boundary = T),
+                   ceiling_date(dt, "5 mins", change_on_boundary = T))
+  expect_identical(ceiling_date(px + 0.001, "5 hours"), ceiling_date(dt, "5 hours"))
+  expect_identical(ceiling_date(px + 0.0001, "5 hours", change_on_boundary = T), ceiling_date(dt, "5 hours", change_on_boundary = T))
+  expect_identical(ceiling_date(px + 0.001, "2 hours"), ceiling_date(dt, "2 hours"))
   expect_identical(as_date(floor_date(px, "2 days")), floor_date(dt, "2 days"))
-  expect_identical(as_date(ceiling_date(px, "2 days")), ceiling_date(dt, "2 days"))
+  expect_identical(as_date(ceiling_date(px + 0.001, "2 days")), ceiling_date(dt, "2 days"))
   expect_identical(as_date(floor_date(px, "5 days")), floor_date(dt, "5 days"))
-  expect_identical(as_date(ceiling_date(px, "5 days")), ceiling_date(dt, "5 days"))
+  expect_identical(as_date(ceiling_date(px + 0.001, "5 days")), ceiling_date(dt, "5 days"))
   expect_identical(as_date(floor_date(px, "2 months")), floor_date(dt, "2 months"))
   expect_identical(as_date(ceiling_date(px, "2 months")), ceiling_date(dt, "2 months"))
   expect_identical(as_date(floor_date(px, "5 months")), floor_date(dt, "5 months"))
@@ -86,7 +87,7 @@ test_that("ceiling_date works for multi-units",{
   expect_identical(ceiling_date(x, "3 days"),      as.POSIXct("2009-08-04 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(x, "10 days"),      as.POSIXct("2009-08-11 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(z, "5 days"),      as.POSIXct("2009-08-26 00:00:00", tz = "UTC"))
-  expect_identical(ceiling_date(z, "10 days"),      as.POSIXct("2009-09-01 00:00:00", tz = "UTC"))
+  expect_identical(ceiling_date(z, "10 days"),      as.POSIXct("2009-08-31 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(x, "2 month"),    as.POSIXct("2009-09-01 00:00:00", tz = "UTC"))
   expect_identical(ceiling_date(x, "2 bimonth"),  ceiling_date(x, "4 months"))
   expect_identical(ceiling_date(x, "2 quarter"),  ceiling_date(x, "6 months"))
@@ -241,15 +242,20 @@ test_that("rounding works across DST",{
   ## https://github.com/hadley/lubridate/issues/399
   tt <- ymd("2016-03-27", tz="Europe/Helsinki");
   expect_equal(ceiling_date(tt, 'month'), as.POSIXct("2016-04-01", tz = "Europe/Helsinki"))
-  expect_equal(ceiling_date(tt, 'day'), as.POSIXct("2016-03-28", tz = "Europe/Helsinki"))
+  expect_equal(ceiling_date(tt, 'day'), as.POSIXct("2016-03-27", tz = "Europe/Helsinki"))
   tt <- ymd("2016-03-28", tz="Europe/Helsinki");
   expect_equal(floor_date(tt, 'month'), as.POSIXct("2016-03-01", tz = "Europe/Helsinki"))
   tt <- ymd_hms("2016-03-27 05:00:00", tz="Europe/Helsinki");
   expect_equal(floor_date(tt, 'day'), as.POSIXct("2016-03-27", tz = "Europe/Helsinki"))
 })
 
+test_that("Ceiling for partials (Date) rounds up on boundary", {
+  expect_identical(ceiling_date(as.Date("2012-09-27"), 'day'), ymd("2012-09-28"))
+  expect_identical(ceiling_date(as.Date("2012-09-01"), 'day'), ymd("2012-09-02"))
+  expect_identical(ceiling_date(as.Date("2012-09-01"), '2 days'), ymd("2012-09-03"))
+})
+
 test_that("ceiling_date does not round up dates that are already on a boundary",{
-  expect_equal(ceiling_date(as.Date("2012-09-27"), 'day'), as.Date("2012-09-27"))
   expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month'), as.POSIXct("2012-09-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'year'), as.POSIXct("2012-01-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), '2 year'), as.POSIXct("2012-01-01", tz = "UTC"))

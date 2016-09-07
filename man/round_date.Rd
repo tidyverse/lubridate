@@ -10,51 +10,79 @@ round_date(x, unit = "second")
 
 floor_date(x, unit = "seconds")
 
-ceiling_date(x, unit = "seconds", change_on_boundary = FALSE)
+ceiling_date(x, unit = "seconds", change_on_boundary = NULL)
 }
 \arguments{
 \item{x}{a vector of date-time objects}
 
 \item{unit}{a character string specifying the time unit or a multiple of a
 unit to be rounded to. Valid base units are second, minute, hour, day,
-week, month, bimonth, quarter, halfyear, or year. Unique abriviation or
-plurals are also supported (min, mins, secs etc). Rounding to multiple of
-units (except weeks) is suported from \code{v1.6.0}.}
+week, month, bimonth, quarter, halfyear, or year. Arbitrary unique English
+abbreviations as in \code{\link{period}} constructor are also
+supported. Rounding to multiple of units (except weeks) is supported from
+\code{v1.6.0}.}
 
-\item{change_on_boundary}{logical. If FALSE (the default) \code{ceiling_date}
-don't alter date-times on the boundary of the \code{unit}. The boundary is
-unit dependent - for second, minute, hour and day the boundary is `0` units
-of next smaller unit. For week, month and year the boundary is on the first
-day within that unit. For example for the boundary date "2000-01-01"
-\code{ceiling_date(ymd("2000-01-01"), "month")} is \code{"2000-01-01"}
-while `ceiling_date(ymd("2000-01-01"), "month", TRUE)` is "2000-02-01".}
-}
-\value{
-x with the appropriate units floored
+\item{change_on_boundary}{If NULL (the default) don't change instants on the
+boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is
+\code{2000-01-01 00:00:00}), but round up \code{Date} objects to the next
+boundary (\code{ceiling_date(ymd("2000-01-01"), "month")} is
+\code{"2000-02-01"}). When \code{TRUE}, instants on the boundary are
+rounded up to the next boundary. When \code{FALSE}, date-time on the
+boundary are never rounded up (this was the default for \code{lubridate}
+prior to \code{v1.6.0}. See section \code{Rounding Up Date Objects} below
+for more details.}
 }
 \description{
 Rounding to the nearest unit or multiple of a unit are supported. All
-meaningfull specifications in english are supported - secs, min, mins, 2
-minutes, 3 years etc.
-}
-\details{
+meaningfull specifications in English language are supported - secs, min,
+mins, 2 minutes, 3 years etc.
+\cr
 \code{round_date} takes a date-time object and rounds it to the nearest value
-of the specified time unit. For rounding date-ties which is exactly halfway
+of the specified time unit. For rounding date-times which is exactly halfway
 between two consecutive units, the convention is to round up. Note that this
 is in line with the behavior of R's base \link[base]{round.POSIXt} function
 but does not follow the convention of the base \link[base]{round} function
-which "goes to the even digit" per IEC 60559.
-
+which "rounds to the even digit" per IEC 60559.
+\cr
 \code{floor_date} takes a date-time object and rounds it down to the nearest
-value of the specified time unit.
-
+boundary of the specified  time unit.
+\cr
 \code{ceiling_date} takes a date-time object and rounds it up to the nearest
-value of the specified time unit.
+boundary of the specified time unit.
+}
+\details{
+In \code{lubridate} rounding of a date-time objects tries to preserve the
+class of the input object whenever it is meaningful. This is done by first
+rounding to an instant and then converting to the original class by usual R
+conversions.
+}
+\section{Rounding Up Date Objects}{
 
-By convention the boundary for a month is the 00 second of the month. Thus
-\code{ceiling_date(ymd("2000-03-01"), "month")} is equivalent to
-\code{ceiling_date(ymd_hms("2000-03-01 00:00:00"), "month")} and returns
-"2000-03-01 UTC". Use \code{change_on_boundary} to alter this behavior.
+
+ By default rounding up \code{Date} objects follows 3 steps:
+
+   \enumerate{
+
+     \item Convert to an instant representing lower bound of the Date:
+          \code{2000-01-01} --> \code{2000-01-01 00:00:00}
+
+     \item Round up to the \strong{next} closest rounding unit boundary. For
+          example, if the rounding unit is \code{month} then next boundary
+          for \code{2000-01-01} will be \code{2000-02-01 00:00:00}.
+
+          The motivation for this behavior is that \code{2000-01-01} is
+          conceptually an interval \code{(2000-01-01 00:00:00 -- 2000-01-02
+          00:00:00)} and the day hasn't started clocking yet at the exact
+          boundary \code{00:00:00}. Thus, it seems wrong to round up a day to
+          its lower boundary.
+
+     \item If rounding unit is smaller than a day, return \code{POSIXct} from
+         step 2 above, otherwise return immediately following \code{Date}.
+
+    }
+
+ The behavior on the boundary in the second step above can be changed by
+ setting \code{change_on_boundary} to a non-\code{NULL} value.
 }
 \examples{
 x <- as.POSIXct("2009-08-03 12:01:59.23")

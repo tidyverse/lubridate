@@ -1,34 +1,72 @@
 #' Round, floor and ceiling methods for date-time objects.
 #'
 #' Rounding to the nearest unit or multiple of a unit are supported. All
-#' meaningfull specifications in english are supported - secs, min, mins, 2
-#' minutes, 3 years etc.
-#'
+#' meaningfull specifications in English language are supported - secs, min,
+#' mins, 2 minutes, 3 years etc.
+#' \cr
 #' \code{round_date} takes a date-time object and rounds it to the nearest value
-#' of the specified time unit. For rounding date-ties which is exactly halfway
+#' of the specified time unit. For rounding date-times which is exactly halfway
 #' between two consecutive units, the convention is to round up. Note that this
 #' is in line with the behavior of R's base \link[base]{round.POSIXt} function
 #' but does not follow the convention of the base \link[base]{round} function
-#' which "goes to the even digit" per IEC 60559.
-#'
+#' which "rounds to the even digit" per IEC 60559.
+#' \cr
 #' \code{floor_date} takes a date-time object and rounds it down to the nearest
-#' value of the specified time unit.
-#'
+#' boundary of the specified  time unit.
+#' \cr
 #' \code{ceiling_date} takes a date-time object and rounds it up to the nearest
-#' value of the specified time unit.
+#' boundary of the specified time unit.
 #'
-#' By convention the boundary for a month is the 00 second of the month. Thus
-#' \code{ceiling_date(ymd("2000-03-01"), "month")} is equivalent to
-#' \code{ceiling_date(ymd_hms("2000-03-01 00:00:00"), "month")} and returns
-#' "2000-03-01 UTC". Use \code{change_on_boundary} to alter this behavior.
+#' In \code{lubridate} rounding of a date-time objects tries to preserve the
+#' class of the input object whenever it is meaningful. This is done by first
+#' rounding to an instant and then converting to the original class by usual R
+#' conversions.
+#'
+#'
+#' @section Rounding Up Date Objects:
+#'
+#'  By default rounding up \code{Date} objects follows 3 steps:
+#'
+#'    \enumerate{
+#'
+#'      \item Convert to an instant representing lower bound of the Date:
+#'           \code{2000-01-01} --> \code{2000-01-01 00:00:00}
+#'
+#'      \item Round up to the \strong{next} closest rounding unit boundary. For
+#'           example, if the rounding unit is \code{month} then next boundary
+#'           for \code{2000-01-01} will be \code{2000-02-01 00:00:00}.
+#'
+#'           The motivation for this behavior is that \code{2000-01-01} is
+#'           conceptually an interval \code{(2000-01-01 00:00:00 -- 2000-01-02
+#'           00:00:00)} and the day hasn't started clocking yet at the exact
+#'           boundary \code{00:00:00}. Thus, it seems wrong to round up a day to
+#'           its lower boundary.
+#'
+#'      \item If rounding unit is smaller than a day, return \code{POSIXct} from
+#'          step 2 above, otherwise return immediately following \code{Date}.
+#'
+#'     }
+#'
+#'  The behavior on the boundary in the second step above can be changed by
+#'  setting \code{change_on_boundary} to a non-\code{NULL} value.
+#'
 #' @rdname round_date
 #' @param x a vector of date-time objects
 #' @param unit a character string specifying the time unit or a multiple of a
 #'   unit to be rounded to. Valid base units are second, minute, hour, day,
-#'   week, month, bimonth, quarter, halfyear, or year. Unique abriviation or
-#'   plurals are also supported (min, mins, secs etc). Rounding to multiple of
-#'   units (except weeks) is suported from \code{v1.6.0}.
-#' @return x with the appropriate units floored
+#'   week, month, bimonth, quarter, halfyear, or year. Arbitrary unique English
+#'   abbreviations as in \code{\link{period}} constructor are also
+#'   supported. Rounding to multiple of units (except weeks) is supported from
+#'   \code{v1.6.0}.
+#' @param change_on_boundary If NULL (the default) don't change instants on the
+#'   boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is
+#'   \code{2000-01-01 00:00:00}), but round up \code{Date} objects to the next
+#'   boundary (\code{ceiling_date(ymd("2000-01-01"), "month")} is
+#'   \code{"2000-02-01"}). When \code{TRUE}, instants on the boundary are
+#'   rounded up to the next boundary. When \code{FALSE}, date-time on the
+#'   boundary are never rounded up (this was the default for \code{lubridate}
+#'   prior to \code{v1.6.0}. See section \code{Rounding Up Date Objects} below
+#'   for more details.
 #' @keywords manip chron
 #' @seealso \link[base]{round}
 #' @examples
@@ -97,6 +135,11 @@ round_date <- function(x, unit = "second") {
   reclass_date(new, x)
 }
 
+reclass_date_maybe <- function(new, orig, unit){
+  if(is.Date(orig) && !unit %in% c("day", "month", "year")) as.POSIXct(new)
+  else reclass_date(new, orig)
+}
+
 #' @rdname round_date
 #' @export
 floor_date <- function(x, unit = "seconds") {
@@ -109,8 +152,7 @@ floor_date <- function(x, unit = "seconds") {
   if(unit %in% c("second", "minute", "hour", "day")){
 
     out <- trunc_multi_unit(x, unit, n)
-    if(is.Date(x) && unit != "day") as.POSIXct(out)
-    else reclass_date(out, x)
+    reclass_date_maybe(out, x, unit)
 
   } else {
 
@@ -150,18 +192,11 @@ floor_date <- function(x, unit = "seconds") {
 
 #' @rdname round_date
 #' @export
-#' @param change_on_boundary logical. If FALSE (the default) \code{ceiling_date}
-#'   don't alter date-times on the boundary of the \code{unit}. The boundary is
-#'   unit dependent - for second, minute, hour and day the boundary is `0` units
-#'   of next smaller unit. For week, month and year the boundary is on the first
-#'   day within that unit. For example for the boundary date "2000-01-01"
-#'   \code{ceiling_date(ymd("2000-01-01"), "month")} is \code{"2000-01-01"}
-#'   while `ceiling_date(ymd("2000-01-01"), "month", TRUE)` is "2000-02-01".
 #' @examples
 #' x <- ymd("2000-01-01")
 #' ceiling_date(x, "month")
 #' ceiling_date(x, "month", change_on_boundary = TRUE)
-ceiling_date <- function(x, unit = "seconds", change_on_boundary = FALSE) {
+ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL) {
 
   if(!length(x))
     return(x)
@@ -169,6 +204,10 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = FALSE) {
   parsed_unit <- parse_period_unit(unit)
   n <- parsed_unit$n
   unit <- standardise_period_names(parsed_unit$unit)
+
+  if(is.null(change_on_boundary)){
+    change_on_boundary <- is.Date(x)
+  }
 
   if(unit == "second"){
 
@@ -186,15 +225,17 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = FALSE) {
     ## cannot use this for minute/hour for Date class; local tz interferes with
     ## the computation
     new <- as_datetime(x, tz = tz(x))
-    one <- as.numeric(change_on_boundary)
-    new <- new + switch(unit,
-                        minute = (59 + one)*n,
-                        hour = (3599 + one)*n,
-                        day = (86399 + one)*n)
-    new <- trunc_multi_unit(new, unit, n)
-
-    if (is.Date(x) && unit != "day") as.POSIXct(new)
-    else reclass_date(new, x)
+    delta <- switch(unit, minute = 60, hour = 3600, day = 86400) * n
+    new <-
+      if(change_on_boundary){
+        trunc_multi_unit(new, unit, n) + delta
+      } else{
+        new1 <- trunc_multi_unit(new, unit, n)
+        not_same <- new1 != new
+        new1[not_same] <- new1[not_same] + delta
+        new1
+      }
+    reclass_date_maybe(new, x, unit)
 
   } else {
 
@@ -222,7 +263,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = FALSE) {
                   month  = update(new, month = ceil_multi_unit1(month(new), n), mdays = 1, hours = 0, minutes = 0, seconds = 0),
                   year   = update(new, year = ceil_multi_unit(year(new), n), month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
 
-    reclass_date(new, x)
+    reclass_date_maybe(new, x, unit)
   }
 }
 
