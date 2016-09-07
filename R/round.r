@@ -20,7 +20,7 @@
 #' In \code{lubridate} rounding of a date-time objects tries to preserve the
 #' class of the input object whenever it is meaningful. This is done by first
 #' rounding to an instant and then converting to the original class by usual R
-#' conversions.
+#' conventions.
 #'
 #'
 #' @section Rounding Up Date Objects:
@@ -42,8 +42,9 @@
 #'           boundary \code{00:00:00}. Thus, it seems wrong to round up a day to
 #'           its lower boundary.
 #'
-#'      \item If rounding unit is smaller than a day, return \code{POSIXct} from
-#'          step 2 above, otherwise return immediately following \code{Date}.
+#'      \item If rounding unit is smaller than a day, return the instant from
+#'          step 2 above (\code{POSIXct}), otherwise return the \code{Date}
+#'          immediately following that instant.
 #'
 #'     }
 #'
