@@ -10,5 +10,6 @@ TAGS
 ^test.R$
 ^tmp.R$
 CRAN_notes.md
+announcement.md
 revdep/
 ^codecov\.yml$

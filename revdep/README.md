@@ -10,20 +10,20 @@
 |language |                                       |
 |collate  |en_GB.UTF-8                            |
 |tz       |Europe/Amsterdam                       |
-|date     |2016-08-26                             |
+|date     |2016-09-12                             |
 
 ## Packages
 
-|package   |*  |version    |date       |source                   |
-|:---------|:--|:----------|:----------|:------------------------|
-|covr      |   |2.2.1      |2016-08-10 |cran (@2.2.1)            |
-|knitr     |   |1.14       |2016-08-13 |cran (@1.14)             |
-|lubridate |   |1.5.6.9000 |2016-08-26 |local (hadley/lubridate) |
-|stringr   |   |1.1.0      |2016-08-19 |cran (@1.1.0)            |
-|testthat  |   |1.0.2      |2016-04-23 |CRAN (R 3.2.4)           |
+|package   |*  |version |date       |source                   |
+|:---------|:--|:-------|:----------|:------------------------|
+|covr      |   |2.2.1   |2016-08-10 |cran (@2.2.1)            |
+|knitr     |   |1.14    |2016-08-13 |cran (@1.14)             |
+|lubridate |*  |1.6.0   |2016-09-12 |local (hadley/lubridate) |
+|stringr   |   |1.1.0   |2016-08-19 |cran (@1.1.0)            |
+|testthat  |*  |1.0.2   |2016-04-23 |CRAN (R 3.2.4)           |
 
 # Check results
-91 packages
+92 packages
 
 ## aemo (0.2.0)
 Maintainer: Imanuel Costigan <i.costigan@me.com>
@@ -438,6 +438,22 @@ Maintainer: Ben Baumer <ben.baumer@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
+## mdsr (0.1.3)
+Maintainer: Ben Baumer <ben.baumer@gmail.com>  
+Bug reports: https://github.com/beanumber/mdsr/issues
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking installed package size ... NOTE
+  installed size is  5.4Mb
+  sub-directories of 1Mb or more:
+    data   5.3Mb
+
+checking data for non-ASCII characters ... NOTE
+  Note: found 2698 marked UTF-8 strings
+```
+
 ## mosaic (0.14.4)
 Maintainer: Randall Pruim <rpruim@calvin.edu>  
 Bug reports: https://github.com/ProjectMOSAIC/mosaic/issues
@@ -457,6 +473,11 @@ Package unavailable to check Rd xrefs: ‘cubature’
 
 ## MRMR (0.1.4)
 Maintainer: Brian A. Fannin <FanninQED@Yahoo.com>
+
+0 errors | 0 warnings | 0 notes
+
+## musica (0.1.3)
+Maintainer: Martin Hanel <hanel@fzp.czu.cz>
 
 0 errors | 0 warnings | 0 notes
 
@@ -481,13 +502,7 @@ Maintainer: Abiel Reinhart <abielr@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## photobiologyInOut (0.4.9)
-Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
-Bug reports: https://bitbucket.org/aphalo/photobiologyinout/
-
-0 errors | 0 warnings | 0 notes
-
-## photobiology (0.9.9)
+## photobiology (0.9.11)
 Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
 Bug reports: https://bitbucket.org/aphalo/photobiology/issues
 
@@ -524,7 +539,7 @@ checking package dependencies ... NOTE
 Packages suggested but not available for checking: ‘actuar’ ‘ChainLadder’
 ```
 
-## RefManageR (0.10.13)
+## RefManageR (0.11.0)
 Maintainer: Mathew W. McLean <mathew.w.mclean@gmail.com>  
 Bug reports: https://github.com/mwmclean/RefManageR/issues
 
@@ -565,28 +580,30 @@ checking DESCRIPTION meta-information ... NOTE
 Malformed Description field: should contain one or more complete sentences.
 ```
 
-## riem (0.1.0)
+## riem (0.1.1)
 Maintainer: Maëlle Salmon <maelle.salmon@yahoo.se>  
 Bug reports: http://github.com/ropenscilabs/riem/issues
 
-0 errors | 0 warnings | 1 note 
-
-```
-checking DESCRIPTION meta-information ... NOTE
-Authors@R field gives persons with no valid roles:
-  Brooke Anderson [rev] (Brooke Anderson reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/39.)
-```
+0 errors | 0 warnings | 0 notes
 
 ## RmarineHeatWaves (0.13.1)
 Maintainer: Albertus J. Smit <albertus.smit@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## rnoaa (0.5.6)
+## rnoaa (0.6.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: http://www.github.com/ropensci/rnoaa/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  5.2Mb
+  sub-directories of 1Mb or more:
+    doc    3.0Mb
+    vign   1.2Mb
+```
 
 ## ropenaq (0.1.1)
 Maintainer: Maëlle Salmon <maelle.salmon@yahoo.se>  
@@ -718,9 +735,26 @@ Namespace in Imports field not imported from: ‘sp’
 Maintainer: Alex M Chubaty <alexander.chubaty@canada.ca>  
 Bug reports: https://github.com/PredictiveEcology/SpaDES/issues
 
-0 errors | 1 warning  | 2 notes
+1 error  | 1 warning  | 2 notes
 
 ```
+checking tests ... ERROR
+Running the tests in ‘tests/test-all.R’ failed.
+Last 13 lines of output:
+  names for target but not for current
+  
+  
+  testthat results ================================================================
+  OK: 976 SKIPPED: 16 FAILED: 3
+  1. Failure: simulation runs with simInit and spades (@test-simulation.R#82) 
+  2. Failure: simulation runs with simInit and spades (@test-simulation.R#83) 
+  3. Failure: simulation runs with simInit and spades (@test-simulation.R#84) 
+  
+  Error: testthat unit tests failed
+  In addition: Warning message:
+  no DISPLAY variable so Tk is not available 
+  Execution halted
+
 checking whether package ‘SpaDES’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: no DISPLAY variable so Tk is not available
@@ -801,7 +835,7 @@ checking installed package size ... NOTE
   installed size is  8.1Mb
 ```
 
-## stplanr (0.1.2)
+## stplanr (0.1.4)
 Maintainer: Robin Lovelace <rob00x@gmail.com>  
 Bug reports: https://github.com/ropensci/stplanr/issues
 
@@ -817,7 +851,7 @@ Content type 'text/html; charset=ISO-8859-1' length unknown
 .......... 
 downloaded 10 KB
 
-Quitting from lines 204-215 (introducing-stplanr.Rmd) 
+Quitting from lines 208-219 (introducing-stplanr.Rmd) 
 Error: processing vignette 'introducing-stplanr.Rmd' failed with diagnostics:
 there is no package called 'webshot'
 Execution halted
@@ -842,11 +876,26 @@ Last 13 lines of output:
   
   
   testthat results ================================================================
-  OK: 179 SKIPPED: 0 FAILED: 1
+  OK: 180 SKIPPED: 0 FAILED: 1
   1. Failure: Negative ages (@test-pin_age.R#36) 
   
   Error: testthat unit tests failed
   Execution halted
+```
+
+## tidyverse (1.0.0)
+Maintainer: Hadley Wickham <hadley@rstudio.com>  
+Bug reports: https://github.com/hadley/tidyverse/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking dependencies in R code ... NOTE
+Namespaces in Imports field not imported from:
+  ‘DBI’ ‘broom’ ‘forcats’ ‘ggplot2’ ‘haven’ ‘hms’ ‘httr’ ‘jsonlite’
+  ‘lubridate’ ‘modelr’ ‘readr’ ‘readxl’ ‘rvest’ ‘stringr’ ‘tidyr’
+  ‘xml2’
+  All declared Imports should be used.
 ```
 
 ## timelineS (0.1.1)
@@ -904,14 +953,8 @@ Maintainer: Pedro Gea <pgea@bayesforecast.com>
 
 0 errors | 0 warnings | 0 notes
 
-## TropFishR (0.1)
-Maintainer: Tobias K. Mildenberger <t.k.mildenberger@gmail.com>  
-Bug reports: https://github.com/tokami/TropFishR/issues
-
-0 errors | 0 warnings | 0 notes
-
-## TTAinterfaceTrendAnalysis (1.5.2)
-Maintainer: Alain LEFEBVRE <Alain.Lefebvre@ifremer.fr>
+## TTAinterfaceTrendAnalysis (1.5.3)
+Maintainer: David DEVREKER <David.Devreker@ifremer.fr>
 
 1 error  | 0 warnings | 0 notes
 

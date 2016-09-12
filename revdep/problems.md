@@ -10,17 +10,17 @@
 |language |                                       |
 |collate  |en_GB.UTF-8                            |
 |tz       |Europe/Amsterdam                       |
-|date     |2016-08-26                             |
+|date     |2016-09-12                             |
 
 ## Packages
 
-|package   |*  |version    |date       |source                   |
-|:---------|:--|:----------|:----------|:------------------------|
-|covr      |   |2.2.1      |2016-08-10 |cran (@2.2.1)            |
-|knitr     |   |1.14       |2016-08-13 |cran (@1.14)             |
-|lubridate |   |1.5.6.9000 |2016-08-26 |local (hadley/lubridate) |
-|stringr   |   |1.1.0      |2016-08-19 |cran (@1.1.0)            |
-|testthat  |   |1.0.2      |2016-04-23 |CRAN (R 3.2.4)           |
+|package   |*  |version |date       |source                   |
+|:---------|:--|:-------|:----------|:------------------------|
+|covr      |   |2.2.1   |2016-08-10 |cran (@2.2.1)            |
+|knitr     |   |1.14    |2016-08-13 |cran (@1.14)             |
+|lubridate |*  |1.6.0   |2016-09-12 |local (hadley/lubridate) |
+|stringr   |   |1.1.0   |2016-08-19 |cran (@1.1.0)            |
+|testthat  |*  |1.0.2   |2016-04-23 |CRAN (R 3.2.4)           |
 
 # Check results
 12 packages with problems
@@ -196,9 +196,26 @@ See ‘/store/Dropbox/dev/lubridate/revdep/checks/RSQLServer.Rcheck/00install.ou
 Maintainer: Alex M Chubaty <alexander.chubaty@canada.ca>  
 Bug reports: https://github.com/PredictiveEcology/SpaDES/issues
 
-0 errors | 1 warning  | 2 notes
+1 error  | 1 warning  | 2 notes
 
 ```
+checking tests ... ERROR
+Running the tests in ‘tests/test-all.R’ failed.
+Last 13 lines of output:
+  names for target but not for current
+  
+  
+  testthat results ================================================================
+  OK: 976 SKIPPED: 16 FAILED: 3
+  1. Failure: simulation runs with simInit and spades (@test-simulation.R#82) 
+  2. Failure: simulation runs with simInit and spades (@test-simulation.R#83) 
+  3. Failure: simulation runs with simInit and spades (@test-simulation.R#84) 
+  
+  Error: testthat unit tests failed
+  In addition: Warning message:
+  no DISPLAY variable so Tk is not available 
+  Execution halted
+
 checking whether package ‘SpaDES’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: no DISPLAY variable so Tk is not available
@@ -274,15 +291,15 @@ Last 13 lines of output:
   
   
   testthat results ================================================================
-  OK: 179 SKIPPED: 0 FAILED: 1
+  OK: 180 SKIPPED: 0 FAILED: 1
   1. Failure: Negative ages (@test-pin_age.R#36) 
   
   Error: testthat unit tests failed
   Execution halted
 ```
 
-## TTAinterfaceTrendAnalysis (1.5.2)
-Maintainer: Alain LEFEBVRE <Alain.Lefebvre@ifremer.fr>
+## TTAinterfaceTrendAnalysis (1.5.3)
+Maintainer: David DEVREKER <David.Devreker@ifremer.fr>
 
 1 error  | 0 warnings | 0 notes
 
