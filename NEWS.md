@@ -4,7 +4,7 @@ Version 1.5.6.9000 (development)
 ### NEW FEATURES
 
 * [#464](https://github.com/hadley/lubridate/issues/464) New function `semester` to extract semesters form date-time objects.
-* [#459](https://github.com/hadley/lubridate/issues/459) Flexible C-level parsing for periods and durations has been implemented; `period` and `duration` constructors now accept string as first argument.
+* [#459](https://github.com/hadley/lubridate/issues/459) Flexible C-level parsing for periods and durations has been implemented; `period` and `duration` constructors now accept string as first argument. Same parsing rules apply to the 'unit' parameter in rounding functions.
 * [#459](https://github.com/hadley/lubridate/issues/459) Comparison between character vectors and periods/durations is now possible.
 * [#287](https://github.com/hadley/lubridate/issues/287) C-level and derivative parsers now handle English months (%b and %B formats) irrespective of the current locale.
 * [#327](https://github.com/hadley/lubridate/issues/327) C-level and derivative parsers now handles English AM/PM indicator irrespective of the current locale.
@@ -16,11 +16,13 @@ Version 1.5.6.9000 (development)
 * [#441](https://github.com/hadley/lubridate/issues/441) Comparison between POSIXt and Date objects is now possible.
 * [#437](https://github.com/hadley/lubridate/issues/437) New function `as_datetime` to coerce to POSIXct object. A counterpart of `as_date`.
 * [#412](https://github.com/hadley/lubridate/issues/412) New function `make_date` to produce Date objects. A counterpart of `make_datetime`.
+* [#443](https://github.com/hadley/lubridate/issues/443) Behavior of `ceiling_date` for `Date` objects was changed to what most of the users expect. Rounding up by months now produces first day of the next months even for first day of the month.
 * [#268](https://github.com/hadley/lubridate/issues/268) `round_date`, `ceiling_date`, and `floor_date` now accept "quarter", "bimonth", and "halfyear" as `unit` options.
+* [#418](https://github.com/hadley/lubridate/issues/418) C level parsing functions understand 24:00:00 in datetime strings.
 
 ### CHANGES
 
-* Low letter specs for HMS (hms,hm,h) are no more allowed in parsing.
+* Low letter specs for HMS (hms,hm,ms) in `parse_date_time` and related functions are now deprecated.
 * [#445](https://github.com/hadley/lubridate/issues/445) No more warning on occasional imprecise period length conversions. Imprecise arithmetics with periods is extensively documented.
 * `pretty.*` family of functions were renamed and are no longer exported. If you need to use them, use `lubridate:::pretty_*` versions.
 * `change_on_boundary` argument in `ceiling_date` does not allow for global option anymore.
@@ -39,7 +41,6 @@ Version 1.5.6.9000 (development)
 * [#458](https://github.com/hadley/lubridate/issues/458) When year is missing in parsing, return consistently year 0.
 * [#448](https://github.com/hadley/lubridate/issues/448) Correctly handle missing months and days in C parser.
 * [#450](https://github.com/hadley/lubridate/issues/450) Fix incorrect handling of DST gaps in `date_decimal` and `decimal_date`.
-* [#418](https://github.com/hadley/lubridate/issues/418) C level parsing functions understand 24:00:00 in datetime strings.
 * [#420](https://github.com/hadley/lubridate/issues/420) `as.numeric` correctly converts periods to (aproximate) numeric time lengths.
 
 Version 1.5.6
