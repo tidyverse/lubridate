@@ -21,6 +21,8 @@ test_that("parsing works as expected", {
                duration(days = 2))
   expect_equal(duration("S M H d w"),
                duration(seconds = 1, minutes = 1, hours = 1, days = 1, weeks = 1))
+  expect_equal(duration("1S 2M 3H 4d 5w"),
+               duration(seconds = 1, minutes = 2, hours = 3, days = 4, weeks = 5))
 })
 
 test_that("character comparison with durrations works as expected", {

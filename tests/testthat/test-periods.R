@@ -12,6 +12,8 @@ test_that("parsing works as expected", {
                period(days = 2))
   expect_equal(period("S M H d m y"),
                period(seconds = 1, minutes = 1, hours = 1, days = 1, months = 1, years = 1))
+  expect_equal(period("2S 3M 4H 5d 6w 7m 8y"),
+               period(seconds = 2, minutes = 3, hours = 4, days = 5, weeks = 6, months = 7, years = 8))
 })
 
 test_that("character comparison with periods works as expected", {
