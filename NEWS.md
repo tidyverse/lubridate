@@ -1,5 +1,5 @@
-Version 1.5.6.9000 (development)
-============
+Version 1.6.0
+=============
 
 ### NEW FEATURES
 
