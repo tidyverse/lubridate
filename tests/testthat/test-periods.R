@@ -362,7 +362,7 @@ test_that("as.period handles vectors", {
   time3 <- as.POSIXct("2010-08-03 13:01:59", tz = "UTC")
   int <- interval(c(time2, time1), time3)
 
-  dur <- new_duration(seconds = 5, minutes = c(30,59))
+  dur <- duration(seconds = 5, minutes = c(30,59))
 
   expect_that(as.period(int), equals(years(1:2)))
   expect_that(as.period(dur), equals(seconds(5) +
@@ -370,7 +370,7 @@ test_that("as.period handles vectors", {
 })
 
 test_that("as.period handles duration objects", {
-  dur <- new_duration(seconds = 5, minutes = 30)
+  dur <- duration(seconds = 5, minutes = 30)
   expect_that(as.period(dur), equals(seconds(5) + minutes(30)))
 })
 

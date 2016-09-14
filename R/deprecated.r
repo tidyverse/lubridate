@@ -149,7 +149,7 @@ epicoseconds <- function(x = 1){
 #' @export
 #' @rdname Deprecated
 here <- function(){
-  .deprecated_fun("now", "1.5.8")
+  .deprecated_fun("now", "1.5.6")
   now()
 }
 
@@ -158,7 +158,7 @@ here <- function(){
 #'   East.
 #' @rdname Deprecated
 olson_time_zones <- function(order_by = c("name", "longitude")) {
-  .deprecated_fun("OlsonNames", "1.5.8")
+  .deprecated_fun("OlsonNames", "1.5.6")
   order_by <- match.arg(order_by)
 
   ## compile possible locations for zoneinfo/zone.tab
