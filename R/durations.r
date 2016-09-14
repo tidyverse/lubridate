@@ -70,7 +70,7 @@ SECONDS_IN_ONE <- c(
     paste0(x, "s")
   else {
     x2 <- round(x / SECONDS_IN_ONE[[unit]], 2)
-    sprintf("%ss (~%s %ss)", x, x2, unit)
+    sprintf("%ds (~%s %ss)", round(x), x2, unit)
   }
 }
 
