@@ -204,7 +204,7 @@ dmy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TI
 #' @export
 #' @rdname ymd_hms
 dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "dmyr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 #' @export
 #' @rdname ymd_hms
@@ -234,7 +234,7 @@ ydm_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TI
 #' @export
 #' @rdname ymd_hms
 ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+  .parse_xxx_hms(..., orders = "ydmr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
 
 
 ##' @rdname hms

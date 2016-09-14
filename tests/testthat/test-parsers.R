@@ -268,6 +268,7 @@ test_that("ymd functions correctly parse dates with no separators and b and B fo
               equals(as.Date("2010-01-02")))
 })
 
+
 test_that("ymd functions correctly parse dates with no separators and no quotes", {
   expect_that(ymd(20100102),
               equals(as.Date("2010-01-02")))
@@ -606,11 +607,28 @@ test_that("heterogeneous formats are correctly parsed", {
 })
 
 test_that("truncated formats are correctly parsed", {
+  x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
+
   expect_that({
-    x <- c("2011-12-31 12:59:59", "2010-01-01 12:11", "2010-01-01 12", "2010-01-01")
     ymd_hms(x, truncated = 3)
   }, equals(as.POSIXct(c("2011-12-31 12:59:59", "2010-01-01 12:11:00", "2010-01-01 12:00:00",
                          "2010-01-01 00:00:00"), tz = "UTC")))
+
+  x <- c("2011-12-31 12", "2010-01-01 12", "2010-01-01 12")
+  expect_equal(ymd_h(x),
+               as.POSIXct(c("2011-12-31 12:00:00 UTC", "2010-01-01 12:00:00 UTC", "2010-01-01 12:00:00 UTC"),
+                          tz = "UTC"))
+
+  x <- c("2011-12-31 12:01", "2010-01-01 12:02", "2010-01-01 12:03")
+  expect_equal(ymd_hm(x),
+               as.POSIXct(c("2011-12-31 12:01:00 UTC", "2010-01-01 12:02:00 UTC", "2010-01-01 12:03:00 UTC"),
+                          tz = "UTC"))
+
+
+  expect_equal(dmy_h("05-07-2011 13"), ymd_hms("2011-07-05 13:00:00"))
+  expect_equal(ymd_h("2011-07-05 13"), ymd_hms("2011-07-05 13:00:00"))
+  expect_equal(dmy_hm("05-07-2011 13:02"), ymd_hms("2011-07-05 13:02:00"))
+  expect_equal(ymd_hm("2011-07-05 13:02"), ymd_hms("2011-07-05 13:02:00"))
 })
 
 test_that("truncation on non-dates results in NAs indeed", {
