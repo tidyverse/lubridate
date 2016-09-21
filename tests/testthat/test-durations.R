@@ -153,6 +153,7 @@ test_that("format.Duration correctly displays durations with an NA", {
   expect_equivalent(format(dur), c("5s", NA))
 })
 
+
 test_that("summary.Duration creates useful summary", {
   dur <- dminutes(5)
   text <- c(rep("300s (~5 minutes)", 6), 1)
@@ -161,9 +162,12 @@ test_that("summary.Duration creates useful summary", {
 })
 
 test_that("format.Duration works with NA values", {
-  expect_equal(format(duration(c(NA, 1, 100, 10000, 100000, 100000000))),
-               c(NA, "1s", "100s (~1.67 minutes)", "10000s (~2.78 hours)", "100000s (~1.16 days)",
-                 "100000000s (~3.17 years)"))
+  expect_equal(format(duration(c(NA, 1, 100, 10000, 100000, 100000000, 75.25, 75.5001))),
+               c(NA, "1s", "100s (~1.67 minutes)", "10000s (~2.78 hours)", "1e+05s (~1.16 days)",
+                 "1e+08s (~3.17 years)",
+                 "75.25s (~1.25 minutes)", "75.5001s (~1.26 minutes)"))
+  expect_equal(format(duration(c(75.25, 75.5001))),
+               c("75.25s (~1.25 minutes)", "75.5001s (~1.26 minutes)"))
 })
 
 test_that("as.duration handles NA interval objects", {
