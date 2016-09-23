@@ -15,8 +15,7 @@
 
 .date_to_posix <- function(date, tz){
   utc <- .POSIXct(unclass(date) * 86400, tz = "UTC")
-  ## fixme: force_tz is heavy; could be done much faster by pre-computing the
-  ## offset of tz.
+  ## fixme: force_tz is extremely heavy; consider throwing a big warning instead
   if (tz == "UTC") utc
   else force_tz(utc, tz)
 }
@@ -24,19 +23,30 @@
 comp_posix_date <- function(e1, e2){
   if (nargs() == 1)
     stop(gettextf("unary '%s' not defined for \"%s\" objects",  .Generic, class(e1)), domain = NA)
-  if (inherits(e1, "POSIXlt") || is.character(e1))
+
+  if (inherits(e1, "POSIXlt"))
     e1 <- as.POSIXct(e1)
-  if (inherits(e2, "POSIXlt") || is.character(e2))
+  if (inherits(e2, "POSIXlt"))
     e2 <- as.POSIXct(e2)
 
-  if(is.POSIXct(e1)){
-    if (is.Date(e2))
-      e2 <- .date_to_posix(e2, tz(e1))
+  if (is.character(e1)){
+    e1 <-
+      if (is.Date(e2)) as.Date(e1)
+      else as.POSIXct(e1)
+  }
+
+  if (is.character(e2)){
+    e2 <-
+      if (is.Date(e1)) as.Date(e2)
+      else as.POSIXct(e2)
+  }
+
+  if(is.POSIXct(e1) && is.Date(e2)){
+    e2 <- .date_to_posix(e2, tz(e1))
     check_tzones(e1, e2)
-  } else if (is.Date(e1)) {
-    if (is.POSIXt(e2)){
-      e1 <- .date_to_posix(e1, tz = tz(e2))
-    }
+  } else if (is.Date(e1) && is.POSIXct(e2)) {
+    e1 <- .date_to_posix(e1, tz = tz(e2))
+    check_tzones(e1, e2)
   }
   NextMethod(.Generic)
 }

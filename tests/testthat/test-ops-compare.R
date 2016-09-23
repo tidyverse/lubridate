@@ -5,6 +5,8 @@ test_that("Comparison operators work with POSIX and Date objects", {
   expect_true(ymd_hms("2016-01-03 00:00:01", tz = "") > "2016-01-03 00:00:00")
   expect_true(ymd_hms("2016-01-03 00:00:00", tz = "") == "2016-01-03")
   expect_true(ymd("2016-01-03") == "2016-01-03")
+  expect_true(ymd("2016-01-03") >  "2016-01-02")
+  expect_true(ymd("2016-01-03") <  "2016-01-04")
   expect_true(ymd("2016-01-03") == ymd_hms("2016-01-03 00:00:00"))
   expect_true(ymd("2016-01-03") < ymd_hms("2016-01-03 00:00:01"))
   expect_true(ymd("2016-01-03") != ymd_hms("2016-01-03 00:00:01"))
