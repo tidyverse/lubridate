@@ -1,3 +1,15 @@
+Version 1.6.0.9000
+==================
+
+### NEW FEATURES
+* [#485](https://github.com/hadley/lubridate/pull/485) `quarter` gained a new argument `fiscal_start` to address the issue of different fiscal conventions.
+
+### BUG FIXES
+
+* [#466](https://github.com/hadley/lubridate/pull/466) Fix wrong formats within ymd_h family of functions.
+* [#472](https://github.com/hadley/lubridate/pull/472) Printing method for duration doesn't throw format error on fractional seconds.
+* [#475](https://github.com/hadley/lubridate/pull/475) character<> comparisons is no longer slow.
+
 Version 1.6.0
 =============
 
