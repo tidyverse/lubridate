@@ -260,6 +260,32 @@ test_that("Ceiling for partials (Date) rounds up on boundary", {
   expect_identical(ceiling_date(as.Date("2012-09-01"), '2 days'), ymd("2012-09-03"))
 })
 
+test_that("Ceiling for Date returns date when unit level is higher than day", {
+  expect_true(is.Date(ceiling_date(ymd("20160927"), "year")))
+  expect_true(is.Date(ceiling_date(ymd("20160927"), "halfyear")))
+  expect_true(is.Date(ceiling_date(ymd("20160927"), "quarter")))
+  expect_true(is.Date(ceiling_date(ymd("20160927"), "bimonth")))
+  expect_true(is.Date(ceiling_date(ymd("20160927"), "month")))
+  expect_true(is.Date(ceiling_date(ymd("20160927"), "week")))
+  expect_true(is.Date(ceiling_date(ymd("20160927"), "day")))
+  expect_true(is.POSIXct(ceiling_date(ymd("20160927"), "hour")))
+  expect_true(is.POSIXct(ceiling_date(ymd("20160927"), "minute")))
+  expect_true(is.POSIXct(ceiling_date(ymd("20160927"), "second")))
+})
+
+test_that("Ceiling for POSIXct always returns POSIXct", {
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "year")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "halfyear")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "quarter")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "bimonth")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "month")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "week")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "day")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "hour")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "minute")))
+  expect_true(is.POSIXct(ceiling_date(ymd_hms("20160927 00:00:00"), "second")))
+})
+
 test_that("ceiling_date does not round up dates that are already on a boundary",{
   expect_equal(ceiling_date(ymd_hms("2012-09-01 00:00:00"), 'month'), as.POSIXct("2012-09-01", tz = "UTC"))
   expect_equal(ceiling_date(ymd_hms("2012-01-01 00:00:00"), 'year'), as.POSIXct("2012-01-01", tz = "UTC"))
