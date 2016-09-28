@@ -137,7 +137,7 @@ round_date <- function(x, unit = "second") {
 }
 
 reclass_date_maybe <- function(new, orig, unit){
-  if(is.Date(orig) && !unit %in% c("day", "month", "year")) as.POSIXct(new)
+  if(is.Date(orig) && !unit %in% c("day", "week", "month", "year")) as.POSIXct(new)
   else reclass_date(new, orig)
 }
 
