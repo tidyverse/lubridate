@@ -10,7 +10,7 @@ Version 1.6.0.9000
 * [#472](https://github.com/hadley/lubridate/pull/472) Printing method for duration doesn't throw format error on fractional seconds.
 * [#475](https://github.com/hadley/lubridate/pull/475) character<> comparisons is no longer slow.
 * [#486](https://github.com/hadley/lubridate/issues/486) ceiling_date handles `NA` properly.
-
+* [#483](https://github.com/hadley/lubridate/pull/483) Fix add_duration_to_date error when duration first element is NA.
 
 Version 1.6.0
 =============

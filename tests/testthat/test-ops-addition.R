@@ -316,3 +316,26 @@ test_that("addition with period months and years returns NA when appropriate", {
   expect_equal(leap - years(0:4), yrs2)
 
 })
+
+test_that("addition with durations containing NA", {
+
+  dt <- ymd(20161018)
+  dt_1 <- ymd(20161019)
+
+  dd_1na  <- ddays(c(1,NA))
+  dd_na1  <- ddays(c(NA,1))
+  dd_nana <- ddays(c(NA,NA))
+
+  ans_1na  <- add_duration_to_date( dd_1na, dt )
+  ans_na1  <- add_duration_to_date( dd_na1, dt )
+  ans_nana <- add_duration_to_date( dd_nana, dt )
+
+  expect_is( ans_1na, "Date")
+  expect_is( ans_na1, "Date")
+  expect_is( ans_nana, "Date")
+
+  expect_equal( ans_1na, c(dt_1,NA) )
+  expect_equal( ans_na1, rev(c(dt_1,NA)) )
+  expect_equal( ans_nana, as.Date(c(NA,NA)) )
+
+})
