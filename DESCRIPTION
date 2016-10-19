@@ -13,7 +13,8 @@ Authors@R: c(person("Garrett", "Grolemund", role = "aut"),
              person("Doug","Mitarotonda", role="ctb"),
              person("Joseph", "Larmarange", role="ctb"),
              person("Jonathan", "Boiser", role="ctb"),
-             person("Chel Hee", "Lee", role = "ctb"))
+             person("Chel Hee", "Lee", role = "ctb"),
+             person("Christopher", "Brown", role = "ctb" ))
 Description: Functions to work with date-times and time-spans: fast and user
     friendly parsing of date-time data, extraction and updating of components of
     a date-time (years, months, days, hours, minutes, and seconds), algebraic
@@ -80,4 +81,4 @@ Collate:
     'round.r'
     'stamp.r'
     'update.r'
-RoxygenNote: 5.0.1
+RoxygenNote: 5.0.1.9000
