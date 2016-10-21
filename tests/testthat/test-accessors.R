@@ -83,18 +83,18 @@ test_that("quarters accessor extracts correct quarter", {
 
   expect_that(quarter(poslt), equals(4))
   expect_that(quarter(poslt, with_year = TRUE), equals(2010.4))
-  expect_that(quarter(poslt, shift = -2), equals(1))
-  expect_that(quarter(poslt, with_year = TRUE, shift = -2 ), equals(2011.1))
+  expect_that(quarter(poslt, fiscal_start = 11), equals(1))
+  expect_that(quarter(poslt, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
 
   expect_that(quarter(posct), equals(4))
   expect_that(quarter(posct, with_year = TRUE), equals(2010.4))
-  expect_that(quarter(posct, shift = -2), equals(1))
-  expect_that(quarter(posct, with_year = TRUE, shift = -2 ), equals(2011.1))
+  expect_that(quarter(posct, fiscal_start = 11), equals(1))
+  expect_that(quarter(posct, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
 
   expect_that(quarter(date), equals(4))
   expect_that(quarter(date, with_year = TRUE), equals(2010.4))
-  expect_that(quarter(date, shift = -2), equals(1))
-  expect_that(quarter(date, with_year = TRUE, shift = -2 ), equals(2011.1))
+  expect_that(quarter(date, fiscal_start = 11), equals(1))
+  expect_that(quarter(date, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
 })
 
 test_that("isoweek accessor extracts correct ISO8601 week",{

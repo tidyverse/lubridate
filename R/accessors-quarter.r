@@ -14,9 +14,7 @@ NULL
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can be converted
 #' with as.POSIXlt
 #' @param with_year logical indicating whether or not to include the quarter's year.
-#' @param shift numeric indicating the relative position of the fiscal year
-#' from the first month of the year. For example, a fiscal year that starts in November is shifted
-#' -2 from January.
+#' @param fiscal_start numeric indicating the month in which the fiscal year starts, e.g. 11 for November
 #' @keywords utilities manip chron methods
 #' @return numeric the fiscal quarter that the date-time occurs in
 #' @examples
@@ -25,10 +23,10 @@ NULL
 #' # 1 2 3 4
 #' quarter(x, with_year = TRUE)
 #' # 2012.1 2012.2 2012.3 2012.4
-#' quarter(x, with_year = TRUE, shift = -2)
+#' quarter(x, with_year = TRUE, fiscal_start = 11)
 #' # 2012.2 2012.3 2012.4 2013.1
 #' @export
-quarter <- function(x, with_year = FALSE, shift = 0) {
+quarter <- function(x, with_year = FALSE, fiscal_start = 1) {
   m <- month(x)
   quarters <- c("1" = 1,
                 "2" = 1,
@@ -42,7 +40,7 @@ quarter <- function(x, with_year = FALSE, shift = 0) {
                 "10" = 4,
                 "11" = 4,
                 "12" = 4)
-  shifted <- (seq(0,11) + shift) %% 12 + 1
+  shifted <- seq(fiscal_start - 1, 10 + fiscal_start) %% 12 + 1
   m_shifted <- match(m, shifted)
   if (isTRUE(with_year)){
     q <- unname(quarters[m_shifted])
