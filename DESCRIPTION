@@ -23,7 +23,7 @@ Description: Functions to work with date-times and time-spans: fast and user
     fun.
 Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries,
     fts, tseries
-Version: 1.6.0
+Version: 1.6.0.9000
 Depends:
     methods,
     R (>= 3.0.0)
