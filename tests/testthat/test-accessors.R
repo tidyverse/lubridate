@@ -105,25 +105,27 @@ test_that("months accessor extracts correct month",{
 })
 
 test_that("quarters accessor extracts correct quarter", {
-  poslt <- as.POSIXlt("2010-11-03 13:45:59", tz = "UTC", format
-                      = "%Y-%m-%d %H:%M:%S")
-  posct <- as.POSIXct(poslt)
+  posct <- ymd_hms("2010-11-03 13:45:59")
+  poslt <- as.POSIXlt(posct)
   date <- as.Date(poslt)
 
   expect_that(quarter(poslt), equals(4))
   expect_that(quarter(poslt, with_year = TRUE), equals(2010.4))
   expect_that(quarter(poslt, fiscal_start = 11), equals(1))
   expect_that(quarter(poslt, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
+  expect_that(quarter(poslt, with_year = TRUE, fiscal_start = 11 ), equals(2011.1))
 
   expect_that(quarter(posct), equals(4))
   expect_that(quarter(posct, with_year = TRUE), equals(2010.4))
   expect_that(quarter(posct, fiscal_start = 11), equals(1))
   expect_that(quarter(posct, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
+  expect_that(quarter(posct, with_year = TRUE, fiscal_start = 11 ), equals(2011.1))
 
   expect_that(quarter(date), equals(4))
   expect_that(quarter(date, with_year = TRUE), equals(2010.4))
   expect_that(quarter(date, fiscal_start = 11), equals(1))
   expect_that(quarter(date, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
+  expect_that(quarter(date, with_year = TRUE, fiscal_start = 11 ), equals(2011.1))
 })
 
 test_that("years accessor extracts correct year",{
