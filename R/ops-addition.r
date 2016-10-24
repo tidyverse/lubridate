@@ -16,8 +16,16 @@ add_duration_to_date <- function(dur, date) {
   if(is.Date(date)){
     date <- as.POSIXct(date)
     ans <- with_tz(date + dur@.Data, "UTC")
-    if (hour(ans) == 0 && minute(ans) == 0 && second(ans) == 0)
+
+    if ( all(is.na(ans) ) ) return(as.Date(ans))  # ALL NAs
+
+    if ( all( hour(na.omit(ans)) == 0    &
+              minute(na.omit(ans)) == 0  &
+              second(na.omit(ans)) == 0 )
+    ) {
       return(as.Date(ans))
+    }
+
     return(ans)
   }
   new <- date + dur@.Data
