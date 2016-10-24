@@ -386,13 +386,21 @@ test_that("round_date and ceiling_date skip day time gap", {
   expect_equal(round_date(x, "hour"),  y)
 })
 
-test_that("ceiling_date behaves correctly with NA", {
+test_that("ceiling_date, round_date and floor_date behave correctly with NA", {
   ## (bug #486)
-  x <- ymd_hms("2009-08-03 12:01:59", tz = "UTC") + (0:1)*days()
+  x <- ymd_hms("2009-08-03 12:01:59.23", tz = "UTC") + (0:1)*days()
   x[2] <- NA
-  y <- ymd("2009-08-04", tz = "UTC") + (0:1)*days()
-  y[2] <- NA
   expect_equal(ceiling_date(x, unit = "day"),
-               y)
+               c(ymd("2009-08-04", tz = "UTC"), NA))
+  expect_equal(ceiling_date(x, unit = "seconds"),
+               c(ymd_hms("2009-08-03 12:02:00", tz = "UTC"), NA))
+  expect_equal(ceiling_date(x, unit = "months"),
+               c(ymd("2009-09-01", tz = "UTC"), NA))
+  expect_equal(floor_date(x, unit = "day"),
+               c(ymd("2009-08-03", tz = "UTC"), NA))
+  expect_equal(floor_date(x, unit = "months"),
+               c(ymd("2009-08-01", tz = "UTC"), NA))
+  expect_equal(round_date(x, unit = "minute"),
+               c(ymd_hms("2009-08-03 12:02:00", tz = "UTC"), NA))
 })
 
