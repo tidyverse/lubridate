@@ -385,3 +385,14 @@ test_that("round_date and ceiling_date skip day time gap", {
 
   expect_equal(round_date(x, "hour"),  y)
 })
+
+test_that("ceiling_date behaves correctly with NA", {
+  ## (bug #486)
+  x <- ymd_hms("2009-08-03 12:01:59", tz = "UTC") + (0:1)*days()
+  x[2] <- NA
+  y <- ymd("2009-08-04", tz = "UTC") + (0:1)*days()
+  y[2] <- NA
+  expect_equal(ceiling_date(x, unit = "day"),
+               y)
+})
+

@@ -9,6 +9,8 @@ Version 1.6.0.9000
 * [#466](https://github.com/hadley/lubridate/pull/466) Fix wrong formats within ymd_h family of functions.
 * [#472](https://github.com/hadley/lubridate/pull/472) Printing method for duration doesn't throw format error on fractional seconds.
 * [#475](https://github.com/hadley/lubridate/pull/475) character<> comparisons is no longer slow.
+* [#486](https://github.com/hadley/lubridate/issues/486) ceiling_date handles `NA` properly.
+
 
 Version 1.6.0
 =============
