@@ -43,6 +43,7 @@ Version 1.6.0
 * [#448](https://github.com/hadley/lubridate/issues/448) Correctly handle missing months and days in C parser.
 * [#450](https://github.com/hadley/lubridate/issues/450) Fix incorrect handling of DST gaps in `date_decimal` and `decimal_date`.
 * [#420](https://github.com/hadley/lubridate/issues/420) `as.numeric` correctly converts periods to (aproximate) numeric time lengths.
+* [#483](https://github.com/hadley/lubridate/issues/483) Fix add_duration_to_date error when duration first element is NA.
 
 Version 1.5.6
 ============
