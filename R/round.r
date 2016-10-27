@@ -232,7 +232,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL) {
         trunc_multi_unit(new, unit, n) + delta
       } else{
         new1 <- trunc_multi_unit(new, unit, n)
-        not_same <- new1 != new
+        not_same <- which(new1 != new)
         new1[not_same] <- new1[not_same] + delta
         new1
       }
