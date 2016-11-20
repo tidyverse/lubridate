@@ -63,6 +63,35 @@ test_that("days accessors extract correct days",{
   expect_that(qday(poslt), equals(34))
 })
 
+test_that("wday works with various start values", {
+
+  days <- days2 <-
+    ymd(c("2005-01-01", "2005-01-02", "2005-12-31", "2007-01-01", "2007-12-30",
+          "2007-12-31", "2008-01-01", "2008-12-28", "2008-12-29", "2008-12-30",
+          "2008-12-31", "2009-01-01", "2009-12-31", "2010-01-01", "2010-01-02"))
+
+  expect_equal(as.character(wday(days, label = T, start = 1)),
+               as.character(wday(days, label = T, start = 3)))
+
+  expect_equal(as.character(wday(days, label = T, start = 1)),
+               as.character(wday(days, label = T, start = 7)))
+
+  expect_equal(wday(days, label = F, start = 1),
+               c(6, 7, 6, 1, 7, 1, 2, 7, 1, 2, 3, 4, 4, 5, 6))
+
+  expect_equal(wday(days, label = F, start = 7),
+               c(7, 1, 7, 2, 1, 2, 3, 1, 2, 3, 4, 5, 5, 6, 7))
+
+  set.seed(1000)
+  new_days <- sample(1:7, length(days2), replace = T)
+  wday(days2, start = 1) <- new_days
+  expect_equal(wday(days2, start = 1), new_days)
+  wday(days2, start = 7) <- new_days
+  expect_equal(wday(days2, start = 7), new_days)
+  wday(days2, start = 3) <- new_days
+  expect_equal(wday(days2, start = 3), new_days)
+})
+
 test_that("weeks accessor extracts correct week",{
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")

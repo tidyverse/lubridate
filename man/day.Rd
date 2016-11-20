@@ -17,7 +17,9 @@ day(x)
 
 mday(x)
 
-wday(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
+wday(x, label = FALSE, abbr = TRUE,
+  start = getOption("lubridate.week.start", 7),
+  locale = Sys.getlocale("LC_TIME"))
 
 qday(x)
 
@@ -29,34 +31,41 @@ mday(x) <- value
 
 qday(x) <- value
 
-wday(x) <- value
+wday(x, start = getOption("lubridate.week.start", 7)) <- value
 
 yday(x) <- value
 }
 \arguments{
-\item{x}{a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti,
-jul, timeSeries, or fts object.}
+\item{x}{a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
+timeDate, xts, its, ti, jul, timeSeries, or fts object.}
 
-\item{label}{logical. Only available for wday. TRUE will display the day of the week as an
-ordered factor of character strings, such as "Sunday." FALSE will display the day of the week as a number.}
+\item{label}{logical. Only available for wday. TRUE will display the day of
+the week as an ordered factor of character strings, such as "Sunday." FALSE
+will display the day of the week as a number.}
 
-\item{abbr}{logical. Only available for wday. FALSE will display the day of the week as an
-ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the
-label, such as "Sun". abbr is disregarded if label = FALSE.}
+\item{abbr}{logical. Only available for wday. FALSE will display the day of
+the week as an ordered factor of character strings, such as "Sunday." TRUE
+will display an abbreviated version of the label, such as "Sun". abbr is
+disregarded if label = FALSE.}
 
-\item{locale}{for wday, locale to use for day names. Default to current locale.}
+\item{start}{day on which week starts following ISO conventions - 1 means
+Monday, 7 means Sunday (default). You can set \code{lubridate.week.start}
+option to control this parameter globally.}
+
+\item{locale}{locale to use for day names. Default to current locale.}
 
 \item{value}{a numeric object}
 }
 \value{
-wday returns the day of the week as a decimal number
-  (01-07, Sunday is 1) or an ordered factor (Sunday is first).
+\code{wday} returns the day of the week as a decimal number or an
+  ordered factor if label is T.
 }
 \description{
 Get/set days component of a date-time.
 }
 \details{
-\code{day} and \code{day<-} are aliases for \code{mday} and \code{mday<-} respectively.
+\code{day} and \code{day<-} are aliases for \code{mday} and
+  \code{mday<-} respectively.
 }
 \examples{
 x <- as.Date("2009-09-02")
