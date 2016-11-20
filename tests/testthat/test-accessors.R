@@ -112,6 +112,68 @@ test_that("isoweek accessor extracts correct ISO8601 week",{
   expect_that(isoweek(poslt), equals(53))
   expect_that(isoweek(posct), equals(53))
   expect_that(isoweek(date), equals(53))
+
+  df <- read.table(textConnection(
+    "Sat 1 Jan 2005 	2005-01-01 	2004-W53-6
+     Sun 2 Jan 2005 	2005-01-02 	2004-W53-7
+     Sat 31 Dec 2005 	2005-12-31 	2005-W52-6
+     Mon 1 Jan 2007 	2007-01-01 	2007-W01-1 	Both years 2007 start with the same day.
+     Sun 30 Dec 2007 	2007-12-30 	2007-W52-7
+     Mon 31 Dec 2007 	2007-12-31 	2008-W01-1
+     Tue 1 Jan 2008 	2008-01-01 	2008-W01-2 	Gregorian year 2008 is a leap year. ISO year 2008 is 2 days shorter: 1 day longer at the start, 3 days shorter at the end.
+     Sun 28 Dec 2008 	2008-12-28 	2008-W52-7 	ISO year 2009 begins three days before the end of Gregorian 2008.
+     Mon 29 Dec 2008 	2008-12-29 	2009-W01-1
+     Tue 30 Dec 2008 	2008-12-30 	2009-W01-2
+     Wed 31 Dec 2008 	2008-12-31 	2009-W01-3
+     Thu 1 Jan 2009 	2009-01-01 	2009-W01-4
+     Thu 31 Dec 2009 	2009-12-31 	2009-W53-4 	ISO year 2009 has 53 weeks and ends three days into Gregorian year 2010.
+     Fri 1 Jan 2010 	2010-01-01 	2009-W53-5
+     Sat 2 Jan 2010 	2010-01-02 	2009-W53-6
+     Sun 3 Jan 2010 	2010-01-03 	2009-W53-7"),
+    sep = "\t", fill = T, stringsAsFactors = F, header = F)
+
+  names(df) <- c("Gregorian", "ymd", "iso", "note")
+
+  df <- within(df, {
+    ymd <- ymd(ymd)
+    isoweek <- as.numeric(gsub(".*W([0-9]+).*", "\\1", iso))
+    isoyear <- as.numeric(gsub("^([0-9]+).*", "\\1", iso))
+  })
+
+  expect_equal(isoweek(df$ymd), df$isoweek)
+  expect_equal(isoyear(df$ymd), df$isoyear)
+})
+
+test_that("epiweek computes dates correctly", {
+
+  df <- read.table(textConnection(
+    "ew	date	year
+     1	12/30/07	8
+     2	01/06/08	8
+     3	01/13/08	8
+     52	01/02/10	9
+     1	01/03/10	10
+     2	01/10/10	10
+     3	01/17/10	10
+     4	01/24/10	10
+     5	01/31/10	10
+     1	01/04/09	9
+     2	01/11/09	9
+     3	01/18/09	9
+     50 	12/13/09	9
+     51 	12/20/09	9
+     52 	12/27/09	9
+     50 	12/12/10	10
+     51 	12/19/10	10
+     52 	12/26/10	10
+     50 	12/07/08	8
+     51 	12/14/08	8
+     52 	12/21/08	8"),
+    header = T, sep = "\t", stringsAsFactors = F)
+
+  date <- mdy(df$date)
+  expect_equal(epiweek(date), df$ew)
+  expect_equal(epiyear(date), df$year + 2000)
 })
 
 test_that("isoweek returns correct value for non-UTC time zone (#311)", {
