@@ -17,7 +17,7 @@ day(x)
 
 mday(x)
 
-wday(x, label = FALSE, abbr = TRUE)
+wday(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
 
 qday(x)
 
@@ -44,6 +44,8 @@ ordered factor of character strings, such as "Sunday." FALSE will display the da
 ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the
 label, such as "Sun". abbr is disregarded if label = FALSE.}
 
+\item{locale}{for wday, locale to use for day names. Default to current locale.}
+
 \item{value}{a numeric object}
 }
 \value{
@@ -62,11 +64,8 @@ wday(x) #4
 
 wday(ymd(080101))
 wday(ymd(080101), label = TRUE, abbr = FALSE)
-# Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 wday(ymd(080101), label = TRUE, abbr = TRUE)
-# Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 wday(ymd(080101) + days(-2:4), label = TRUE, abbr = TRUE)
-# Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 
 x <- as.Date("2009-09-02")
 yday(x) #245

@@ -12,6 +12,7 @@ NULL
 #'   ordered factor of character strings, such as "Sunday." TRUE will display an abbreviated version of the
 #'   label, such as "Sun". abbr is disregarded if label = FALSE.
 #' @param value a numeric object
+#' @param locale for wday, locale to use for day names. Default to current locale.
 #' @return wday returns the day of the week as a decimal number
 #'   (01-07, Sunday is 1) or an ordered factor (Sunday is first).
 #' @seealso \code{\link{yday}}, \code{\link{mday}}
@@ -22,11 +23,8 @@ NULL
 #'
 #' wday(ymd(080101))
 #' wday(ymd(080101), label = TRUE, abbr = FALSE)
-#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 #' wday(ymd(080101), label = TRUE, abbr = TRUE)
-#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 #' wday(ymd(080101) + days(-2:4), label = TRUE, abbr = TRUE)
-#' # Levels: Sunday < Monday < Tuesday < Wednesday < Thursday < Friday < Saturday
 #'
 #' x <- as.Date("2009-09-02")
 #' yday(x) #245
@@ -44,24 +42,21 @@ mday <- day
 
 #' @rdname day
 #' @export
-wday <- function(x, label = FALSE, abbr = TRUE)
+wday <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
   UseMethod("wday")
 
 #' @export
-wday.default <- function(x, label = FALSE, abbr = TRUE){
-  wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr)
+wday.default <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")){
+  wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr, locale = locale)
 }
 
 #' @export
-wday.numeric <- function(x, label = FALSE, abbr = TRUE) {
+wday.numeric <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {
   if (!label) return(x)
 
-  if (abbr) {
-    labels <- c("Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat")
-  } else {
-    labels <- c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
-                "Friday", "Saturday")
-  }
+  names <- .get_locale_regs(locale)$wday_names
+  labels <- if (abbr) names$abr else names$full
+
   ordered(x, levels = 1:7, labels = labels)
 }
 
@@ -125,6 +120,7 @@ setMethod("day<-", signature("Period"), function(x, value){
 #' @export
 "wday<-" <- function(x, value){
   if (!is.numeric(value)) {
+    ## FIXME: how to make this localized and preserve backward compatibility? Guesser?
     value <- pmatch(tolower(value), c("sunday", "monday", "tuesday",
                                       "wednesday", "thursday", "friday", "saturday"))
   }
