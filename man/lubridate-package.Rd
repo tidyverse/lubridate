@@ -27,7 +27,7 @@ Lubridate can also parse partial dates from strings into
 \code{\link{Period-class}} objects with the functions
 \code{\link{hm}}, \code{\link{hms}} and \code{\link{ms}}.
 
-Lubridate has an inbuilt very fast POSIX parser. Most of the \coe{strptime}
+Lubridate has an inbuilt very fast POSIX parser. Most of the \code{strptime}
 formats and various extensions are supported for English locales. See
 \code{\link{parse_date_time}} for more details.
 

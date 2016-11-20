@@ -15,10 +15,10 @@ NULL
 #'   will display an abbreviated version of the label, such as "Sun". abbr is
 #'   disregarded if label = FALSE.
 #' @param value a numeric object
-#' @param locale locale to use for day names. Default to current locale.
 #' @param start day on which week starts following ISO conventions - 1 means
 #'   Monday, 7 means Sunday (default). You can set \code{lubridate.week.start}
 #'   option to control this parameter globally.
+#' @param locale locale to use for day names. Default to current locale.
 #' @return \code{wday} returns the day of the week as a decimal number or an
 #'   ordered factor if label is T.
 #' @seealso \code{\link{yday}}, \code{\link{mday}}
@@ -148,7 +148,7 @@ setMethod("day<-", signature("Period"), function(x, value){
 
 #' @rdname day
 #' @export
-"wday<-" <- function(x, value, start = getOption("lubridate.week.start", 7)){
+"wday<-" <- function(x, start = getOption("lubridate.week.start", 7), value){
   if (!is.numeric(value)) {
     ## FIXME: how to make this localized and preserve backward compatibility? Guesser?
     labels <- .shift_wday_names(c("sunday", "monday", "tuesday", "wednesday",
