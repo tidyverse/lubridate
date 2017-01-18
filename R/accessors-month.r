@@ -13,6 +13,7 @@ NULL
 #'   label, such as "January". TRUE will display an abbreviated version of the
 #'  label, such as "Jan". abbr is disregarded if label = FALSE.
 #' @param value a numeric object
+#' @param locale for month, locale to use for month names. Default to current locale.
 #' @return the months element of x as a number (1-12) or character string. 1 =
 #'   January.
 #' @keywords utilities manip chron methods
@@ -28,36 +29,31 @@ NULL
 #' month(ymd(080101), label = TRUE, abbr = FALSE)
 #' month(ymd(080101) + months(0:11), label = TRUE)
 #' @export
-month <- function(x, label = FALSE, abbr = TRUE)
+month <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
   UseMethod("month")
 
 #' @export
-month.default <- function(x, label = FALSE, abbr = TRUE)
-  month(as.POSIXlt(x, tz = tz(x))$mon + 1, label, abbr)
+month.default <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
+  month(as.POSIXlt(x, tz = tz(x))$mon + 1, label, abbr, locale = locale)
 
 #' @export
-month.numeric <- function(x, label = FALSE, abbr = TRUE) {
+month.numeric <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {
   if (!label) return(x)
 
-  if (abbr) {
-    labels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
-                "Oct", "Nov", "Dec")
-  } else {
-    labels <- c("January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November",
-                "December")
-  }
+  names <- .get_locale_regs(locale)$month_names
+  labels <- if (abbr) names$abr else names$full
 
   ordered(x, levels = 1:12, labels = labels)
 }
 
 #' @export
-month.Period <- function(x, label = FALSE, abbr = TRUE)
+month.Period <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
   slot(x, "month")
 
 #' @rdname month
 #' @export
 "month<-" <- function(x, value) {
+  ## FIXME: how to make this localized and preserve backward compatibility? Guesser?
   if (!is.numeric(value)) {
       value <- pmatch(tolower(value), c("january", "february", "march",
       "june", "july", "august", "september", "october", "november", "december"))
