@@ -25,6 +25,16 @@ test_that("parsing works as expected", {
                duration(seconds = 1, minutes = 2, hours = 3, days = 4, weeks = 5))
 })
 
+
+test_that("parsing with 0 units works as expected", {
+  expect_equal(as.numeric(duration("2d 0H 0M 1s")), 2*24*3600 + 1)
+  expect_equal(as.numeric(duration("0d 0H 0M 1s")), 1)
+  expect_equal(period("2d 0H 0M 1s"), days(2) + seconds(1))
+  expect_equal(period("y 0m 2d 0H 0M 1s"), years(1) + days(2) + seconds(1))
+})
+
+
+
 test_that("character comparison with durrations works as expected", {
   expect_true("day" == duration(days = 1))
   expect_true("2 days, 2 secs" == duration(days = 2, seconds = 2))
