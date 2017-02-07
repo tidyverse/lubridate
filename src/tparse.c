@@ -120,7 +120,9 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
             break;
           case 'y': // year in yy format
             y = parse_int(&c, 2, FALSE);
-			if (y <= 68)
+            if (y < 0)
+              succeed = 0;
+			else if (y <= 68)
 			  y += 2000;
 			else
 			  y += 1900;
@@ -132,9 +134,9 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
           case 'm': // month (allowing all months formats - m, b and B)
             SKIP_NON_ALPHANUMS(c);
             m = parse_int(&c, 2, FALSE);
-            if (m == 0) {
+            if (m == -1) { // failed
               m = parse_alpha_month(&c);
-              if (m == 0) {
+              if (m == 0) { // failed
                 SKIP_NON_DIGITS(c);
                 m = parse_int(&c, 2, FALSE);
               }
@@ -217,7 +219,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
             break;
           case 'z':
             // for %z: "+O100" or "+O1" or "+01:00"
-            if( !O_format ){
+            if( !O_format ) {
               if( !is_fmt ) {
                 while (*c && *c != '+' && *c != '-' && *c != 'Z') c++; // skip non + -
                 if( !*c ) { succeed = 0; break; };
@@ -226,13 +228,14 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
               if( *c == 'Z') {c++; break;}
               else if ( *c == '+' ) sig = -1;
               else if ( *c == '-') sig = 1;
-              else { succeed = 0; break; }
+              else {succeed = 0; break;}
               c++;
               Z = parse_int(&c, 2, FALSE);
+              if (Z < 0) {succeed = 0; break;}
               secs += sig*Z*3600;
               if( *c == ':' ){
                 c++;
-                if ( !DIGIT(*c) ){ succeed = 0; break; }
+                if ( !DIGIT(*c) ) {succeed = 0; break;}
               }
               if( DIGIT(*c) ){
                 Z = 0;
@@ -240,7 +243,8 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
                 secs += sig*Z*60;
               }
               break;
-            } // else %Oz: "+0100". Pass through.
+            }
+            // else O_format %Oz: "+0100"; pass through
           case 'O':
             // %OO: "+01:00"
           case 'o':
@@ -253,14 +257,15 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
               else { succeed = 0; break; }
               c++;
               Z = parse_int(&c, 2, FALSE);
+              if (Z < 0) {succeed = 0; break;}
               secs += sig*Z*3600;
               if( *o == 'O'){
                 if ( *c == ':') c++;
 				else { succeed = 0; break; }
 			  }
-              if ( *o != 'o' ){
-                Z = 0;
+              if ( *o != 'o' ){ // z or O
                 Z = parse_int(&c, 2, FALSE);
+                if (Z < 0) {succeed = 0; break;}
                 secs += sig*Z*60;
               }
             } else error("Unrecognized format '%c' supplied", *o);

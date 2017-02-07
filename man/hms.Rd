@@ -18,7 +18,7 @@ hms(..., quiet = FALSE, roll = FALSE)
 \item{quiet}{logical. When TRUE function evalueates without displaying
 customary messages.}
 
-\item{roll}{logica. When TRUE smaller units are rolled over to higher units
+\item{roll}{logical. When TRUE, smaller units are rolled over to higher units
 if they exceed the conventional limit. For example \code{hms("01:59:120",
 roll=TRUE)} produces period "2H 1M 0S".}
 }

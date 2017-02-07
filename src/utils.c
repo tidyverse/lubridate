@@ -47,14 +47,14 @@ int check_ymd(int y, int m, int d, int is_leap){
 /* parse N digit characters from **c. Return parsed non-negative integer. If
    failed to pass N chars, return -1.*/
 int parse_int (const char **c, const int N, const int strict) {
-  // maybe: fixme: this returns 0 if no parsing happened and strict = FALSE
   int tN = N, X = 0;
   while (DIGIT(**c) && tN > 0) {
     X = X * 10 + (**c - '0');
     (*c)++;
     tN--;
   }
-  if (strict && tN > 0) return -1;
+  if (strict && tN > 0) return -1; // not all numbers have been consumed
+  else if (tN == N) return -1; // no parsing happened
   else return X;
 }
 

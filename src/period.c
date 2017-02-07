@@ -35,21 +35,22 @@ static const char *en_units[] = {"SECS", "secs", "seconds",
 #define N_PERIOD_UNITS 7
 
 intUnit parse_period_unit (const char **c) {
-  // S=0,  M=1, H=2, d=3, w=4, m=5, y=6
-  //  why this macro doesn't work?
-  /* SKIP_NON_ALPHANUMS(*c); */
+  // units: invalid=-1, S=0,  M=1, H=2, d=3, w=4, m=5, y=6
+  // SKIP_NON_ALPHANUMS(*c);   //  why this macro doesn't work here?
   while(**c && !(ALPHA(**c) || DIGIT(**c))) (*c)++;;
+
   intUnit out;
   out.unit = -1;
-
   out.val = parse_int(c, 100, FALSE);
-  if(out.val == 0) out.val = 1;
 
   if(**c){
     out.unit = parse_alphanum(c, en_units, N_EN_UNITS);
     if (out.unit < 0){
       return out;
     } else {
+      // if only unit name supplied, default to 1 units
+      if(out.val == -1)
+        out.val = 1;
       if(out.unit < 3) out.unit = 0;
       else if (out.unit < 6) out.unit = 1;
       else if (out.unit < 8) out.unit = 2;
