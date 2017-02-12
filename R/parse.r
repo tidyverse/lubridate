@@ -468,7 +468,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   selected and \%Y counts as 2.5 tockens (so that it has a priority over
 ##'   \%y\%m). Se examples.
 ##' @param exact logical. If \code{TRUE}, \code{orders} parameter is interpreted
-##'   as an exact \code{strptime} format and no trainign or guessing are
+##'   as an exact \code{strptime} format and no training or guessing are
 ##'   performed.
 ##' @return a vector of POSIXct date-time objects
 ##' @seealso \code{strptime}, \code{\link{ymd}}, \code{\link{ymd_hms}}
