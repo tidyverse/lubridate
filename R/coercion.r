@@ -547,7 +547,7 @@ seconds_to_unit <- function(secs, unit = "second"){
          minute = secs / 60,
          hour   = secs / 3600,
          day    = secs / 86400,
-         month  = secs / (86400 * 365.25)/12,
+         month  = secs / (86400 * 365.25 / 12),
          week   = secs / (86400 * 7),
          year   = secs / (86400 * 365.25),
          stop("invalid unit ", unit))
