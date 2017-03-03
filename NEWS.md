@@ -16,6 +16,7 @@ Version 1.6.0.9000
 * [#475](https://github.com/hadley/lubridate/pull/475) character<> comparisons is no longer slow.
 * [#486](https://github.com/hadley/lubridate/issues/486) ceiling_date handles `NA` properly.
 * [#483](https://github.com/hadley/lubridate/pull/483) Fix add_duration_to_date error when duration first element is NA.
+* [#524](https://github.com/hadley/lubridate/pull/524) Correctly compute length of period in months (issue #490)
 
 Version 1.6.0
 =============
