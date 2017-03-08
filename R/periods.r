@@ -401,6 +401,8 @@ parse_period <- function(x){
     month = 0, year = 0
   )
 
+  if (nrow(pieces) == 0) defaults <- defaults[0, ]
+
   pieces <- cbind(pieces, defaults[setdiff(names(defaults), names(pieces))])
   ## pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")]
 
