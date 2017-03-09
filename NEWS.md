@@ -17,6 +17,7 @@ Version 1.6.0.9000
 * [#486](https://github.com/hadley/lubridate/issues/486) ceiling_date handles `NA` properly.
 * [#483](https://github.com/hadley/lubridate/pull/483) Fix add_duration_to_date error when duration first element is NA.
 * [#524](https://github.com/hadley/lubridate/pull/524) Correctly compute length of period in months (issue #490)
+* [#525](https://github.com/hadley/lubridate/pull/525) Fix to prevent `day<-`, `minute<-`, etc. from producing an error when length(x) is 0 (issue #517)
 
 Version 1.6.0
 =============
