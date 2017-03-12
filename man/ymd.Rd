@@ -34,7 +34,7 @@ yq(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 \arguments{
 \item{...}{a character or numeric vector of suspected dates}
 
-\item{quiet}{logical. When TRUE function evalueates without displaying
+\item{quiet}{logical. When TRUE function evaluates without displaying
 customary messages.}
 
 \item{tz}{Time zone indicator. If NULL (default) a Date object is
