@@ -27,4 +27,3 @@ leap_year(2000) # TRUE
 }
 \keyword{chron}
 \keyword{logic}
-

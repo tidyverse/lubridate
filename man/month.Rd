@@ -47,4 +47,3 @@ month(ymd(080101) + months(0:11), label = TRUE)
 \keyword{manip}
 \keyword{methods}
 \keyword{utilities}
-

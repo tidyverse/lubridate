@@ -38,4 +38,3 @@ rollback(date, roll_to_first = TRUE)
 rollback(date, preserve_hms = FALSE)
 rollback(date, roll_to_first = TRUE, preserve_hms = FALSE)
 }
-

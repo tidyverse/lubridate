@@ -24,4 +24,3 @@ is.timespan(duration(second = 1)) # TRUE
 }
 \keyword{chron}
 \keyword{logic}
-

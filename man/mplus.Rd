@@ -2,24 +2,24 @@
 % Please edit documentation in R/ops-%m+%.r
 \name{\%m+\%}
 \alias{\%m+\%}
-\alias{\%m+\%,ANY,ANY-method}
-\alias{\%m+\%,ANY,Duration-method}
-\alias{\%m+\%,ANY,Interval-method}
-\alias{\%m+\%,ANY,Period-method}
-\alias{\%m+\%,Duration,ANY-method}
-\alias{\%m+\%,Interval,ANY-method}
-\alias{\%m+\%,Period,ANY-method}
-\alias{\%m-\%}
-\alias{\%m-\%,ANY,ANY-method}
-\alias{\%m-\%,ANY,Duration-method}
-\alias{\%m-\%,ANY,Interval-method}
-\alias{\%m-\%,ANY,Period-method}
-\alias{\%m-\%,Duration,ANY-method}
-\alias{\%m-\%,Interval,ANY-method}
-\alias{\%m-\%,Period,ANY-method}
-\alias{add_with_rollback}
 \alias{m+}
 \alias{m-}
+\alias{\%m-\%}
+\alias{\%m+\%,ANY,ANY-method}
+\alias{\%m-\%,ANY,ANY-method}
+\alias{\%m+\%,Period,ANY-method}
+\alias{\%m+\%,ANY,Period-method}
+\alias{\%m-\%,Period,ANY-method}
+\alias{\%m-\%,ANY,Period-method}
+\alias{\%m+\%,Duration,ANY-method}
+\alias{\%m+\%,ANY,Duration-method}
+\alias{\%m-\%,Duration,ANY-method}
+\alias{\%m-\%,ANY,Duration-method}
+\alias{\%m+\%,Interval,ANY-method}
+\alias{\%m+\%,ANY,Interval-method}
+\alias{\%m-\%,Interval,ANY-method}
+\alias{\%m-\%,ANY,Interval-method}
+\alias{add_with_rollback}
 \title{Add and subtract months to a date without exceeding the last day of the new month}
 \usage{
 e1 \%m+\% e2
@@ -81,4 +81,3 @@ leap \%m+\% years(1)
 leap \%m+\% years(-1)
 leap \%m-\% years(1)
 }
-

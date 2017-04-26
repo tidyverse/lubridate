@@ -61,4 +61,3 @@ make_difftime(120, day = -1, units = "minute")
 }
 \keyword{chron}
 \keyword{classes}
-

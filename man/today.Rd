@@ -25,4 +25,3 @@ today() < as.Date("2999-01-01") # TRUE  (so far)
 }
 \keyword{chron}
 \keyword{utilities}
-

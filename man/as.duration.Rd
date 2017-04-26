@@ -2,13 +2,13 @@
 % Please edit documentation in R/coercion.r
 \name{as.duration}
 \alias{as.duration}
-\alias{as.duration,Duration-method}
+\alias{as.duration,numeric-method}
+\alias{as.duration,logical-method}
+\alias{as.duration,difftime-method}
 \alias{as.duration,Interval-method}
+\alias{as.duration,Duration-method}
 \alias{as.duration,Period-method}
 \alias{as.duration,character-method}
-\alias{as.duration,difftime-method}
-\alias{as.duration,logical-method}
-\alias{as.duration,numeric-method}
 \title{Change an object to a duration.}
 \usage{
 as.duration(x, ...)
@@ -53,4 +53,3 @@ as.numeric(dur, "minutes")
 \keyword{classes}
 \keyword{manip}
 \keyword{methods}
-

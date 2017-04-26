@@ -32,4 +32,3 @@ minute(x) > 2
 \keyword{manip}
 \keyword{methods}
 \keyword{utilities}
-

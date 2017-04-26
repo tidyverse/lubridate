@@ -22,4 +22,3 @@ decimal_date(date)  # 2009.11
 \keyword{chron}
 \keyword{manip}
 \keyword{methods}
-

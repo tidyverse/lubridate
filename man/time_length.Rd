@@ -53,4 +53,3 @@ time_length(as.duration(int), "year")
 \keyword{math}
 \keyword{methods}
 \keyword{period}
-

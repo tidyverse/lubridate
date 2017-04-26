@@ -2,8 +2,8 @@
 % Please edit documentation in R/help.r
 \docType{package}
 \name{lubridate-package}
-\alias{lubridate}
 \alias{lubridate-package}
+\alias{lubridate}
 \title{Dates and times made easy with lubridate}
 \description{
 Lubridate provides tools that make it easier to parse and
@@ -163,4 +163,3 @@ Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made
   Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.
   \url{http://www.jstatsoft.org/v40/i03/}.
 }
-

@@ -2,13 +2,13 @@
 % Please edit documentation in R/coercion.r
 \name{as.period}
 \alias{as.period}
-\alias{as.period,Duration-method}
-\alias{as.period,Interval-method}
-\alias{as.period,Period-method}
-\alias{as.period,character-method}
-\alias{as.period,difftime-method}
-\alias{as.period,logical-method}
 \alias{as.period,numeric-method}
+\alias{as.period,difftime-method}
+\alias{as.period,Interval-method}
+\alias{as.period,Duration-method}
+\alias{as.period,Period-method}
+\alias{as.period,logical-method}
+\alias{as.period,character-method}
 \title{Change an object to a period.}
 \usage{
 as.period(x, unit, ...)
@@ -85,4 +85,3 @@ as.numeric(per, "minutes")
 \keyword{classes}
 \keyword{manip}
 \keyword{methods}
-

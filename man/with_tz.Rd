@@ -34,4 +34,3 @@ with_tz(x, "GMT")
 }
 \keyword{chron}
 \keyword{manip}
-

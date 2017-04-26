@@ -3,12 +3,12 @@
 \docType{methods}
 \name{as_date}
 \alias{as_date}
+\alias{as_datetime}
 \alias{as_date,POSIXt-method}
 \alias{as_date,numeric-method}
-\alias{as_datetime}
-\alias{as_datetime,ANY-method}
 \alias{as_datetime,POSIXt-method}
 \alias{as_datetime,numeric-method}
+\alias{as_datetime,ANY-method}
 \title{Convert an object to a date or date-time}
 \usage{
 as_date(x, ...)
@@ -58,6 +58,7 @@ with a few tweaks to make them work more intuitively.
   \item \code{as_datetime} defaults to using UTC.
 }
 }
+
 \examples{
 dt_utc <- ymd_hms("2010-08-03 00:50:50")
 dt_europe <- ymd_hms("2010-08-03 00:50:50", tz="Europe/London")
@@ -66,4 +67,3 @@ c(as_date(dt_europe), as.Date(dt_europe))
 ## need not suply origin
 as_date(10)
 }
-

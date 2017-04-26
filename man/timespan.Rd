@@ -92,4 +92,3 @@ months(6) + days(1)
 }
 \keyword{chron}
 \keyword{classes}
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/timespans.r
 \docType{class}
 \name{Timespan-class}
-\alias{*,Timespan,Timespan-method}
 \alias{Timespan-class}
+\alias{*,Timespan,Timespan-method}
 \alias{\%/\%,Timespan,Timespan-method}
 \alias{\%/\%,difftime,Timespan-method}
 \title{Timespan class}
@@ -12,4 +12,3 @@ Timespan is an S4 class with no slots. It is extended by the
 \code{\link{Interval-class}}, \code{\link{Period-class}}, and \code{\link{Duration-class}}
 classes.
 }
-

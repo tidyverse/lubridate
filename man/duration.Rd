@@ -78,4 +78,3 @@ is.duration(duration(days = 12.4)) # TRUE
 }
 \keyword{chron}
 \keyword{classes}
-

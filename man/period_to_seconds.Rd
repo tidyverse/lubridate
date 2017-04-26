@@ -22,4 +22,3 @@ there are 364.25 days in a calendar year and 365.25/12 days in a month. \cr
 non-zero elements (days, hours, minutes, seconds). This computation is exact
 because it doesn't involve years or months.
 }
-

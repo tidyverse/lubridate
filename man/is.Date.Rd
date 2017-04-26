@@ -24,4 +24,3 @@ is.Date(difftime(now() + 5, now())) # FALSE
 }
 \keyword{chron}
 \keyword{logic}
-

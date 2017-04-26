@@ -2,13 +2,13 @@
 % Please edit documentation in R/coercion.r
 \name{as.interval}
 \alias{as.interval}
-\alias{as.interval,Duration-method}
-\alias{as.interval,Interval-method}
-\alias{as.interval,POSIXt-method}
-\alias{as.interval,Period-method}
-\alias{as.interval,difftime-method}
-\alias{as.interval,logical-method}
 \alias{as.interval,numeric-method}
+\alias{as.interval,difftime-method}
+\alias{as.interval,Interval-method}
+\alias{as.interval,Duration-method}
+\alias{as.interval,Period-method}
+\alias{as.interval,POSIXt-method}
+\alias{as.interval,logical-method}
 \title{Change an object to an \code{interval}.}
 \usage{
 as.interval(x, start, ...)
@@ -60,4 +60,3 @@ as.interval(3600, ymd("2009-01-01")) #numeric
 \keyword{classes}
 \keyword{manip}
 \keyword{methods}
-

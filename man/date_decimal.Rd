@@ -28,4 +28,3 @@ date_decimal(decimal) # "2009-02-10 UTC"
 \keyword{chron}
 \keyword{manip}
 \keyword{methods}
-

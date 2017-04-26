@@ -37,4 +37,3 @@ x
 \keyword{manip}
 \keyword{methods}
 \keyword{utilities}
-

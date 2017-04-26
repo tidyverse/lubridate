@@ -2,21 +2,21 @@
 % Please edit documentation in R/deprecated.r
 \name{Deprecated-lubridate}
 \alias{Deprecated-lubridate}
-\alias{edays}
-\alias{ehours}
-\alias{emicroseconds}
-\alias{emilliseconds}
-\alias{eminutes}
-\alias{enanoseconds}
-\alias{epicoseconds}
+\alias{new_period}
+\alias{new_interval}
+\alias{new_duration}
+\alias{new_difftime}
 \alias{eseconds}
+\alias{eminutes}
+\alias{ehours}
+\alias{edays}
 \alias{eweeks}
 \alias{eyears}
+\alias{emilliseconds}
+\alias{emicroseconds}
+\alias{enanoseconds}
+\alias{epicoseconds}
 \alias{here}
-\alias{new_difftime}
-\alias{new_duration}
-\alias{new_interval}
-\alias{new_period}
 \alias{olson_time_zones}
 \title{Deprecated function in \code{lubridate} package}
 \usage{
@@ -64,4 +64,3 @@ East.}
 \description{
 Deprecated function in \code{lubridate} package
 }
-

@@ -18,4 +18,3 @@ where each play was made.
 \url{http://www.basketballgeek.com/data/}
 }
 \keyword{data}
-

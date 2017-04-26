@@ -66,4 +66,3 @@ fit_to_timeline(tricky, simple = TRUE)
 ## Reduce to valid time-dates by extrapolating CDT and CST zones
 }
 }
-

@@ -31,4 +31,3 @@ now() > now() # FALSE
 }
 \keyword{chron}
 \keyword{utilities}
-

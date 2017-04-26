@@ -14,4 +14,3 @@ reclass_timespan(new, orig)
 Convenience method to reclass timespans post-modification.
 }
 \keyword{internal}
-

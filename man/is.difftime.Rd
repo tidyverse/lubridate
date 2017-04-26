@@ -25,4 +25,3 @@ is.difftime(make_difftime(days = 12.4)) # TRUE
 }
 \keyword{chron}
 \keyword{logic}
-

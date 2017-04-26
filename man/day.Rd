@@ -2,14 +2,14 @@
 % Please edit documentation in R/accessors-day.r
 \name{day}
 \alias{day}
-\alias{day<-}
 \alias{mday}
-\alias{mday<-}
-\alias{qday}
-\alias{qday<-}
 \alias{wday}
-\alias{wday<-}
+\alias{qday}
 \alias{yday}
+\alias{day<-}
+\alias{mday<-}
+\alias{qday<-}
+\alias{wday<-}
 \alias{yday<-}
 \title{Get/set days component of a date-time.}
 \usage{
@@ -90,4 +90,3 @@ mday(x) > 3
 \keyword{manip}
 \keyword{methods}
 \keyword{utilities}
-

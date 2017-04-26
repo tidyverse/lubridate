@@ -33,4 +33,3 @@ quarter(x, with_year = TRUE, fiscal_start = 11)
 semester(x)
 semester(x, with_year = TRUE)
 }
-

@@ -10,4 +10,3 @@ reclass_date(new, orig)
 Convenience method to reclass dates post-modification.
 }
 \keyword{internal}
-

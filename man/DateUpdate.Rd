@@ -39,4 +39,3 @@ update(date, minute = 10, second = 3)
 }
 \keyword{chron}
 \keyword{manip}
-
