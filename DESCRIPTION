@@ -27,6 +27,7 @@ Depends:
     methods,
     R (>= 3.0.0)
 Imports:
+    hms,
     stringr
 Suggests:
     testthat,

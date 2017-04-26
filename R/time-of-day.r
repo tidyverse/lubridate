@@ -5,6 +5,7 @@
 #' @return an object of class [Interval-class]
 #' @examples
 #' time_of_day(Sys.time())
+#' as.hms(time_of_day(Sys.time()))
 time_of_day <- function(x) {
   interval(floor_date(x, "days"), x)
 }

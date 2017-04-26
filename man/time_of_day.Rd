@@ -17,4 +17,5 @@ Extract time of day in the current time zone
 }
 \examples{
 time_of_day(Sys.time())
+as.hms(time_of_day(Sys.time()))
 }

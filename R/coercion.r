@@ -539,6 +539,25 @@ setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X",
   as.difftime(period_to_seconds(tim), format, units)
 })
 
+#' @importFrom hms as.hms
+#' @export
+setGeneric("as.hms")
+
+#' @export
+setMethod("as.hms", signature(x = "Interval"), function(x){
+  as.hms(as.difftime(x))
+})
+
+#' @export
+setMethod("as.hms", signature(x = "Duration"), function(x){
+  as.hms(as.difftime(x))
+})
+
+#' @export
+setMethod("as.hms", signature(x = "Period"), function(x){
+  as.hms(as.difftime(x))
+})
+
 setGeneric("as.numeric")
 
 seconds_to_unit <- function(secs, unit = "second"){
