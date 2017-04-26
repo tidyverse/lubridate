@@ -34,7 +34,7 @@ Suggests:
     covr
 BugReports: https://github.com/hadley/lubridate/issues
 VignetteBuilder: knitr
-Collate:
+Collate: 
     'Dates.r'
     'POSIXt.r'
     'util.r'
@@ -79,6 +79,7 @@ Collate:
     'pretty.r'
     'round.r'
     'stamp.r'
+    'time-of-day.r'
     'update.r'
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
