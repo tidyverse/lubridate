@@ -26,8 +26,8 @@ make_date(year = 1970L, month = 1L, day = 1L)
 \item{tz}{time zone. Defaults to UTC.}
 }
 \description{
-\code{make_datetime} is a very fast drop-in replacement for
-\code{base::ISOdate} and \code{base::ISOdatetime}. \code{make_date} produces
+\code{make_datetime()} is a very fast drop-in replacement for
+\code{\link[base:ISOdate]{base::ISOdate()}} and \code{\link[base:ISOdatetime]{base::ISOdatetime()}}. \code{make_date()} produces
 objects of class \code{Date}.
 }
 \details{

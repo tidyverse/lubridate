@@ -1,23 +1,19 @@
 #' Round, floor and ceiling methods for date-time objects.
 #'
+#' @description
 #' Rounding to the nearest unit or multiple of a unit are supported. All
 #' meaningfull specifications in English language are supported - secs, min,
 #' mins, 2 minutes, 3 years etc.
-#' \cr
-#' \code{round_date} takes a date-time object and rounds it to the nearest value
+#'
+#' `round_date()` takes a date-time object and rounds it to the nearest value
 #' of the specified time unit. For rounding date-times which is exactly halfway
 #' between two consecutive units, the convention is to round up. Note that this
-#' is in line with the behavior of R's base \link[base]{round.POSIXt} function
-#' but does not follow the convention of the base \link[base]{round} function
+#' is in line with the behavior of R's [base::round.POSIXt()] function
+#' but does not follow the convention of the base [base::round()] function
 #' which "rounds to the even digit" per IEC 60559.
-#' \cr
-#' \code{floor_date} takes a date-time object and rounds it down to the nearest
-#' boundary of the specified  time unit.
-#' \cr
-#' \code{ceiling_date} takes a date-time object and rounds it up to the nearest
-#' boundary of the specified time unit.
 #'
-#' In \code{lubridate} rounding of a date-time objects tries to preserve the
+#' @details
+#' In \pkg{lubridate}, rounding of a date-time objects tries to preserve the
 #' class of the input object whenever it is meaningful. This is done by first
 #' rounding to an instant and then converting to the original class by usual R
 #' conventions.
@@ -25,51 +21,48 @@
 #'
 #' @section Rounding Up Date Objects:
 #'
-#'  By default rounding up \code{Date} objects follows 3 steps:
+#' By default rounding up `Date` objects follows 3 steps:
 #'
-#'    \enumerate{
+#' 1. Convert to an instant representing lower bound of the Date:
+#'     `2000-01-01` --> `2000-01-01 00:00:00`
 #'
-#'      \item Convert to an instant representing lower bound of the Date:
-#'           \code{2000-01-01} --> \code{2000-01-01 00:00:00}
+#' 1. Round up to the \strong{next} closest rounding unit boundary. For
+#'     example, if the rounding unit is `month` then next boundary
+#'     for `2000-01-01` will be `2000-02-01 00:00:00`.
 #'
-#'      \item Round up to the \strong{next} closest rounding unit boundary. For
-#'           example, if the rounding unit is \code{month} then next boundary
-#'           for \code{2000-01-01} will be \code{2000-02-01 00:00:00}.
+#'     The motivation for this behavior is that `2000-01-01` is
+#'     conceptually an interval (`2000-01-01 00:00:00` --
+#'     `2000-01-02 00:00:00`)
+#'     and the day hasn't started clocking yet at the exact
+#'     boundary `00:00:00`. Thus, it seems wrong to round up a day to
+#'     its lower boundary.
 #'
-#'           The motivation for this behavior is that \code{2000-01-01} is
-#'           conceptually an interval \code{(2000-01-01 00:00:00 -- 2000-01-02
-#'           00:00:00)} and the day hasn't started clocking yet at the exact
-#'           boundary \code{00:00:00}. Thus, it seems wrong to round up a day to
-#'           its lower boundary.
-#'
-#'      \item If rounding unit is smaller than a day, return the instant from
-#'          step 2 above (\code{POSIXct}), otherwise return the \code{Date}
-#'          immediately following that instant.
-#'
-#'     }
+#' 1. If rounding unit is smaller than a day, return the instant from
+#'     step 2 above (`POSIXct`), otherwise return the `Date`
+#'     immediately following that instant.
 #'
 #'  The behavior on the boundary in the second step above can be changed by
-#'  setting \code{change_on_boundary} to a non-\code{NULL} value.
+#'  setting `change_on_boundary` to a non-`NULL` value.
 #'
 #' @rdname round_date
 #' @param x a vector of date-time objects
 #' @param unit a character string specifying the time unit or a multiple of a
 #'   unit to be rounded to. Valid base units are second, minute, hour, day,
 #'   week, month, bimonth, quarter, halfyear, or year. Arbitrary unique English
-#'   abbreviations as in \code{\link{period}} constructor are also
+#'   abbreviations as in [period()] constructor are also
 #'   supported. Rounding to multiple of units (except weeks) is supported from
-#'   \code{v1.6.0}.
+#'   `v1.6.0`.
 #' @param change_on_boundary If NULL (the default) don't change instants on the
-#'   boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is
-#'   \code{2000-01-01 00:00:00}), but round up \code{Date} objects to the next
-#'   boundary (\code{ceiling_date(ymd("2000-01-01"), "month")} is
-#'   \code{"2000-02-01"}). When \code{TRUE}, instants on the boundary are
-#'   rounded up to the next boundary. When \code{FALSE}, date-time on the
-#'   boundary are never rounded up (this was the default for \code{lubridate}
-#'   prior to \code{v1.6.0}. See section \code{Rounding Up Date Objects} below
+#'   boundary (`ceiling_date(ymd_hms('2000-01-01 00:00:00'))` is
+#'   `2000-01-01 00:00:00`), but round up `Date` objects to the next
+#'   boundary (`ceiling_date(ymd("2000-01-01"), "month")` is
+#'   `"2000-02-01"`). When `TRUE`, instants on the boundary are
+#'   rounded up to the next boundary. When `FALSE`, date-time on the
+#'   boundary are never rounded up (this was the default for \pkg{lubridate}
+#'   prior to `v1.6.0`. See section `Rounding Up Date Objects` below
 #'   for more details.
 #' @keywords manip chron
-#' @seealso \link[base]{round}
+#' @seealso [base::round()]
 #' @examples
 #' x <- as.POSIXct("2009-08-03 12:01:59.23")
 #' round_date(x, "second")
@@ -141,6 +134,9 @@ reclass_date_maybe <- function(new, orig, unit){
   else reclass_date(new, orig)
 }
 
+#' @description
+#' `floor_date()` takes a date-time object and rounds it down to the nearest
+#' boundary of the specified time unit.
 #' @rdname round_date
 #' @export
 floor_date <- function(x, unit = "seconds") {
@@ -191,6 +187,9 @@ floor_date <- function(x, unit = "seconds") {
   }
 }
 
+#' @description
+#' `ceiling_date()` takes a date-time object and rounds it up to the nearest
+#' boundary of the specified time unit.
 #' @rdname round_date
 #' @export
 #' @examples

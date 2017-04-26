@@ -7,7 +7,7 @@
 #' @export
 #' @param x an R object
 #' @return TRUE if x is a POSIXct, POSIXlt, or Date object, FALSE otherwise.
-#' @seealso \code{\link{is.timespan}}, \code{\link{is.POSIXt}}, \code{\link{is.Date}}
+#' @seealso [is.timespan()], [is.POSIXt()], [is.Date()]
 #' @keywords logic chron
 #' @examples
 #' is.instant(as.Date("2009-08-03")) # TRUE
@@ -27,14 +27,14 @@ is.timepoint <- is.instant
 #' with now("UTC").
 #' @return the current date and time as a POSIXct object
 #'
-#' @seealso \code{\link{here}}
+#' @seealso [here()]
 #'
 #' @keywords chron utilities
 #' @examples
 #' now()
 #' now("GMT")
 #' now("")
-#' now() == now() # would be true if computer processed both at the same instant
+#' now() == now() # would be TRUE if computer processed both at the same instant
 #' now() < now() # TRUE
 #' now() > now() # FALSE
 now <- function(tzone = "")
@@ -74,12 +74,12 @@ origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 
 ##' Efficient creation of date-times from numeric representations
 ##'
-##' \code{make_datetime} is a very fast drop-in replacement for
-##' \code{base::ISOdate} and \code{base::ISOdatetime}. \code{make_date} produces
-##' objects of class \code{Date}.
+##' `make_datetime()` is a very fast drop-in replacement for
+##' [base::ISOdate()] and [base::ISOdatetime()]. `make_date()` produces
+##' objects of class `Date`.
 ##'
-##' Input vectors are silently recycled. All inputs except \code{sec} are
-##' silently converted to integer vectors; \code{sec} can be either integer or
+##' Input vectors are silently recycled. All inputs except `sec` are
+##' silently converted to integer vectors; `sec` can be either integer or
 ##' double.
 ##'
 ##' @param year numeric year

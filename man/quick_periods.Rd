@@ -50,7 +50,7 @@ a period object
 Quickly create Period objects for easy date-time manipulation. The units of
 the period created depend on the name of the function called. For Period
 objects, units do not have a fixed length until they are added to a specific
-date time, contrast this with \code{\link{duration}}. This makes periods useful
+date time, contrast this with \code{\link[=duration]{duration()}}. This makes periods useful
 for manipulations with clock times because units expand or contract in length
 to accomodate conventions such as leap years, leap seconds, and Daylight
 Savings Time.
@@ -63,8 +63,8 @@ date-times.
 
 Note: Arithmetic with periods can results in undefined behavior when
 non-existent dates are involved (such as February 29th in non-leap
-years). Please see \code{\link{Period-class}} for more details and
-\code{\link{\%m+\%}} and \code{\link{add_with_rollback}} for alternative
+years). Please see \linkS4class{Period} for more details and
+\code{\link{\%m+\%}} and \code{\link[=add_with_rollback]{add_with_rollback()}} for alternative
 operations.
 }
 \examples{
@@ -93,8 +93,8 @@ boundary + ddays(1) # duration
 # seconds later)
 }
 \seealso{
-\code{\link{Period-class}}, \code{\link{period}},
-  \code{\link{ddays}}, \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
+\linkS4class{Period}, \code{\link[=period]{period()}},
+\code{\link[=ddays]{ddays()}}, \code{\link{\%m+\%}}, \code{\link[=add_with_rollback]{add_with_rollback()}}
 }
 \keyword{chron}
 \keyword{manip}

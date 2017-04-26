@@ -47,7 +47,7 @@ can use \code{system("locale -a")} to list all the installed locales.}
 }
 \value{
 a vector of class POSIXct if tz argument is non-NULL or Date if tz
-  is NULL (default)
+is NULL (default)
 }
 \description{
 Transforms dates stored in character and numeric vectors to Date or POSIXct
@@ -57,20 +57,20 @@ formats is correct, these functions will parse dates correctly even when the
 input vectors contain differently formatted dates. See examples.
 }
 \details{
-If \code{truncated} parameter is non-zero \code{ymd} functions also check for
-truncated formats. For example \code{ymd} with \code{truncated = 2} will also
+If the \code{truncated} parameter is non-zero, the \code{ymd} functions also check for
+truncated formats. For example \code{ymd()} with \code{truncated = 2} will also
 parse incomplete dates like \code{2012-06} and \code{2012}.
 
-NOTE: \code{ymd} family of functions are based on `parse_date_time` and thus
-directly drop to internal C parser for numeric months, but use R's
-`strptime` for alphabetic months. This implies that some of the `strptime`'s
-limitations are inherited by lubridate's parser. For example truncated
-formats (like \%Y-\%b) will not be parsed. Numeric truncated formats (like
-\%Y-\%m) are handled correctly by lubridate's C parser.
+NOTE: The \code{ymd} family of functions are based on \code{parse_date_time()} and thus
+directly drop to the internal C parser for numeric months, but use R's
+\code{strptime()} for alphabetic months. This implies that some of the \code{strptime()}'s
+limitations are inherited by \pkg{lubridate}'s parser. For example, truncated
+formats (like \code{\%Y-\%b}) will not be parsed. Numeric truncated formats (like
+\code{\%Y-\%m}) are handled correctly by \pkg{lubridate}'s C parser.
 
-As of version 1.3.0, lubridate's parse functions no longer return a
+As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a
 message that displays which format they used to parse their input. You can
-change this by setting the \code{lubridate.verbose} option to TRUE with
+change this by setting the \code{lubridate.verbose} option to \code{TRUE} with
 \code{options(lubridate.verbose = TRUE)}.
 }
 \examples{
@@ -97,7 +97,7 @@ ymd(x)
 dmy("0312-2010", "312-2010")}
 }
 \seealso{
-\code{\link{parse_date_time}} for an even more flexible low level
-  mechanism.
+\code{\link[=parse_date_time]{parse_date_time()}} for an even more flexible low level
+mechanism.
 }
 \keyword{chron}

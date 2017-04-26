@@ -26,12 +26,12 @@ as_datetime(x, ...)
 \S4method{as_datetime}{ANY}(x, tz = "UTC")
 }
 \arguments{
-\item{x}{a vector of \code{\link{POSIXt}}, numeric or character objects}
+\item{x}{a vector of \link{POSIXt}, numeric or character objects}
 
 \item{...}{further arguments to be passed to specific methods (see above).}
 
 \item{tz}{a time zone name (default: time zone of the POSIXt object
-\code{x}). See \code{\link{OlsonNames}}.}
+\code{x}). See \code{\link[=OlsonNames]{OlsonNames()}}.}
 
 \item{origin}{a Date object, or something which can be coerced by
 \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
@@ -39,7 +39,7 @@ as_datetime(x, ...)
 the number of days since \code{origin} at \code{"UTC"}.}
 }
 \value{
-a vector of \code{\link{Date}} objects corresponding to \code{x}.
+a vector of \link{Date} objects corresponding to \code{x}.
 }
 \description{
 Convert an object to a date or date-time
@@ -47,15 +47,15 @@ Convert an object to a date or date-time
 \section{Compare to base R}{
 
 
-These are drop in replacements for \code{as.Date} and \code{as.POSIXct},
+These are drop in replacements for \code{\link[=as.Date]{as.Date()}} and \code{\link[=as.POSIXct]{as.POSIXct()}},
 with a few tweaks to make them work more intuitively.
 
 \itemize{
-  \item \code{as_date} ignores the timezone attribute, resulting in
-     a more intuitive conversion (see examples)
-  \item Both functions provide a default origin argument for numeric
-     vectors.
-  \item \code{as_datetime} defaults to using UTC.
+\item \code{as_date()} ignores the timezone attribute, resulting in
+a more intuitive conversion (see examples)
+\item Both functions provide a default origin argument for numeric
+vectors.
+\item \code{as_datetime()} defaults to using UTC.
 }
 }
 

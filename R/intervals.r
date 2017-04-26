@@ -39,11 +39,11 @@ check_interval <- function(object){
 
 #' Interval class
 #'
-#' Interval is an S4 class that extends the \code{\link{Timespan-class}} class. An
+#' Interval is an S4 class that extends the [Timespan-class] class. An
 #' Interval object records one or more spans of time. Intervals record these
 #' timespans as a sequence of seconds that begin at a specified date. Since
 #' intervals are anchored to a precise moment of time, they can accurately be
-#' converted to \code{\link{Period-class}} or \code{\link{Duration-class}} class objects. This
+#' converted to [Period-class] or [Duration-class] class objects. This
 #' is because we can observe the length in seconds of each period that begins on a
 #' specific date. Contrast this to a generalized period, which may not have a
 #' consistent length in seconds (e.g. the number of seconds in a year will change
@@ -147,15 +147,15 @@ unique.Interval <- function(x, ...){
   new("Interval", df$data, start = df$start, tzone = x@tzone)
 }
 
-#' Utilities for creation and manipulation of \code{Interval} objects.
+#' Utilities for creation and manipulation of `Interval` objects.
 #'
-#' \code{interval} creates an \code{\link{Interval-class}} object with the
+#' `interval()` creates an [Interval-class] object with the
 #' specified start and end dates. If the start date occurs before the end date,
 #' the interval will be positive. Otherwise, it will be negative.
 #'
 #' Intervals are time spans bound by two real date-times.  Intervals can be
 #' accurately converted to either period or duration objects using
-#' \code{\link{as.period}}, \code{\link{as.duration}}. Since an interval is
+#' [as.period()], [as.duration()]. Since an interval is
 #' anchored to a fixed history of time, both the exact number of seconds that passed
 #' and the number of variable length time units that occurred during the interval can be
 #' calculated.
@@ -165,8 +165,8 @@ unique.Interval <- function(x, ...){
 #' @param end a POSIXt or Date date-time object
 #' @param tzone a recognized timezone to display the interval in
 #' @param x an R object
-#' @return \code{interval} - \code{Interval} object.
-#' @seealso \code{\link{Interval-class}}, \code{\link{as.interval}}, \code{\link{\%within\%}}
+#' @return `interval()` -- [Interval-class] object.
+#' @seealso [Interval-class], [as.interval()], \code{\link{\%within\%}}
 #' @examples
 #' interval(ymd(20090201), ymd(20090101))
 #'
@@ -199,7 +199,7 @@ interval <- function(start, end, tzone = attr(start, "tzone")){
 }
 #'
 #' \code{\%--\%} Creates an interval that covers the range spanned by two
-#' dates. It replaces the original behavior of lubridate, which created an
+#' dates. It replaces the original behavior of \pkg{lubridate}, which created an
 #' interval by default whenever two date-times were subtracted.
 #'
 #' @export
@@ -213,13 +213,13 @@ is.interval <- function(x) is(x, c("Interval"))
 
 #'
 #'
-#' \code{int_start} and \code{int_start<-} are accessors the start date of an
+#' `int_start()` and `int_start<-()` are accessors the start date of an
 #' interval. Note that changing the start date of an interval will change the
 #' length of the interval, since the end date will remain the same.
 #'
 #' @rdname interval
 #' @param int an interval object
-#' @return \code{int_start} and \code{int_end} return a POSIXct date object when
+#' @return `int_start()` and `int_end()` return a POSIXct date object when
 #'   used as an accessor. Nothing when used as a setter.
 #' @examples
 #' int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
@@ -235,7 +235,7 @@ is.interval <- function(x) is(x, c("Interval"))
 int_start <- function(int) int@start
 
 #' @rdname interval
-#' @param value interval's start/end to be assigned to \code{int}
+#' @param value interval's start/end to be assigned to `int`
 #' @export
 "int_start<-" <- function(int, value){
   value <- as.POSIXct(value)
@@ -245,6 +245,11 @@ int_start <- function(int) int@start
     tzone = int@tzone)
 }
 
+#' @description
+#' `int_end()` and `int_end<-()` are accessors the end date of an
+#' interval. Note that changing the end date of an interval will change the
+#' length of the interval, since the start date will remain the same.
+#'
 #' @rdname interval
 #' @export
 int_end <- function(int) int@start + int@.Data
@@ -259,7 +264,7 @@ int_end <- function(int) int@start + int@.Data
 }
 
 #' @rdname interval
-#' @return \code{int_length} - numeric length of the interval in
+#' @return `int_length()` -- numeric length of the interval in
 #'   seconds. A negative number connotes a negative interval.
 #' @examples
 #' int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
@@ -267,13 +272,13 @@ int_end <- function(int) int@start + int@.Data
 #' @export
 int_length <- function(int) int@.Data
 
-#'
-#' \code{int_flip} reverses the order of the start date and end date in an
+#' @description
+#' `int_flip()` reverses the order of the start date and end date in an
 #' interval. The new interval takes place during the same timespan as the
 #' original interval, but has the opposite direction.
 #'
 #' @rdname interval
-#' @return \code{int_flip} - flipped interval object
+#' @return `int_flip()` -- flipped interval object
 #' @examples
 #' int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' int_flip(int)
@@ -283,15 +288,15 @@ int_flip <- function(int){
 }
 
 
-#'
-#' \code{int_shift} shifts the start and end dates of an interval up or down the
+#' @description
+#' `int_shift()` shifts the start and end dates of an interval up or down the
 #' timeline by a specified amount. Note that this may change the exact length of
 #' the interval if the interval is shifted by a Period object. Intervals shifted
 #' by a Duration or difftime object will retain their exact length in seconds.
 #'
 #' @rdname interval
-#' @param by A period or duration object to shift by (for \code{int_shift})
-#' @return \code{int_shift} - interval object
+#' @param by A period or duration object to shift by (for `int_shift`)
+#' @return `int_shift()` -- an Interval object
 #' @examples
 #' int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' int_shift(int, duration(days = 11))
@@ -305,14 +310,13 @@ int_shift <- function(int, by){
 }
 
 
-#'
-#'
-#' \code{int_overlaps} tests if two intervals overlap.
+#' @description
+#' `int_overlaps()` tests if two intervals overlap.
 #'
 #' @rdname interval
-#' @param int1 an Interval object (for \code{int_overlaps}, \code{int_aligns})
-#' @param int2 an Interval object (for \code{int_overlaps}, \code{int_aligns})
-#' @return \code{int_overlaps} logical, TRUE if int1 and int2 overlap by at
+#' @param int1 an Interval object (for `int_overlaps()`, `int_aligns()`)
+#' @param int2 an Interval object (for `int_overlaps()`, `int_aligns()`)
+#' @return `int_overlaps()` -- logical, TRUE if int1 and int2 overlap by at
 #'   least one second. FALSE otherwise
 #' @examples
 #' int1 <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
@@ -330,8 +334,8 @@ int_overlaps <- function(int1, int2){
 }
 
 
-#'
-#' \code{int_standardize} ensures all intervals in an interval object are
+#' @description
+#' `int_standardize()` ensures all intervals in an interval object are
 #' positive. If an interval is not positive, flip it so that it retains its
 #' endpoints but becomes positive.
 #'
@@ -347,14 +351,13 @@ int_standardize <- function(int){
 }
 
 
-#'
-#'
-#' \code{int_aligns} tests if two intervals share an endpoint. The direction of
+#' @description
+#' `int_aligns()` tests if two intervals share an endpoint. The direction of
 #' each interval is ignored. int_align tests whether the earliest or latest
 #' moments of each interval occur at the same time.
 #'
 #' @rdname interval
-#' @return \code{int_align} logical, TRUE if int1 and int2 begin or end on the
+#' @return `int_aligns()` -- logical, TRUE if int1 and int2 begin or end on the
 #'   same moment. FALSE otherwise
 #' @examples
 #' int1 <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
@@ -371,17 +374,16 @@ int_aligns <- function(int1, int2){
   int1@start == int2@start | (int1@start + int1@.Data) == (int2@start + int2@.Data)
 }
 
-#'
-#'
-#' \code{int_diff} returns the intervals that occur between the elements of a
-#' vector of date-times. \code{int_diff} is similar to the POSIXt and Date
-#' methods of \code{\link{diff}}, but returns an \code{Interval} object instead
+#' @description
+#' `int_diff()` returns the intervals that occur between the elements of a
+#' vector of date-times. `int_diff()` is similar to the POSIXt and Date
+#' methods of [diff()], but returns an [Interval-class] object instead
 #' of a difftime object.
 #'
 #' @rdname interval
 #' @param times A vector of POSIXct, POSIXlt or Date class date-times (for
-#'   \code{int_diff})
-#' @return \code{int_diff} - interval object that contains the n-1 intervals
+#'   `int_diff()`)
+#' @return `int_diff()` -- interval object that contains the n-1 intervals
 #'   between the n date-time in times
 #' @examples
 #' dates <- now() + days(1:10)

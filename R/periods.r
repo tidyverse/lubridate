@@ -60,7 +60,7 @@ check_period <- function(object){
 
 #' Period class
 #'
-#' Period is an S4 class that extends the \code{\link{Timespan-class}} class.
+#' Period is an S4 class that extends the [Timespan-class] class.
 #' Periods track the change in the "clock time" between two date-times. They
 #' are measured in common time related units: years, months, days, hours,
 #' minutes, and seconds. Each unit except for seconds must be expressed in
@@ -71,29 +71,29 @@ check_period <- function(object){
 #' month, day, etc. can change depending on when it occurs due to daylight savings,
 #' leap years, and other conventions. A period can be
 #' associated with a specific moment in time by coercing it to an
-#' \code{\link{Interval-class}} object with \code{\link{as.interval}} or by adding
+#' [Interval-class] object with [as.interval()] or by adding
 #' it to a date-time with "+".
 #'
 #' Periods provide a method for measuring generalized timespans when we wish
 #' to model clock times. Periods will attain intuitive results at this task
 #' even when leap years, leap seconds, gregorian days, daylight savings
 #' changes, and other events happen during the period. See
-#' \code{\link{Duration-class}} for an alternative way to measure timespans that
+#' [Duration-class] for an alternative way to measure timespans that
 #' allows precise comparisons between timespans.
 #'
 #' The logic that guides arithmetic with periods can be unintuitive. Starting
-#' with version 1.3.0, lubridate enforces the reversible property of arithmetic
+#' with version 1.3.0, \pkg{lubridate} enforces the reversible property of arithmetic
 #' (e.g. a date + period - period = date) by returning an NA if you create an
 #' implausible date by adding periods with months or years units to a date. For
 #' example,  adding one month to January 31st, 2013 results in February 31st,
-#' 2013, which is not a real date. lubridate users have argued in the past that
+#' 2013, which is not a real date. \pkg{lubridate} users have argued in the past that
 #' February 31st, 2013 should be rolled over to March 3rd, 2013 or rolled back
 #' to February 28, 2013. However, each of these corrections would destroy the
 #' reversibility of addition (Mar 3 - one month == Feb 3 != Jan 31, Feb 28 - one
 #' month == Jan 28 != Jan 31). If you would like to add and subtract months in a
 #' way that rolls the results back to the last day of a month (when appropriate)
 #' use the special operators, \code{\link{\%m+\%}},  \code{\link{\%m-\%}} or a
-#' bit more flexible \code{\link{add_with_rollback}}.
+#' bit more flexible [add_with_rollback()].
 #'
 #' Period class objects have six slots. 1) .Data, a numeric object. The
 #' apparent amount of seconds to add to the period. 2) minute, a numeric object.
@@ -273,8 +273,8 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 
 #' Create a period object.
 #'
-#' \code{period} creates a period object with the specified values. period
-#' provides the behaviour of \code{\link{period}} in a way that is more
+#' `period()` creates a period object with the specified values. period
+#' provides the behaviour of [period()] in a way that is more
 #' suitable for automating within a function.
 #'
 #' Within a Period object, time units do not have a fixed length (except for
@@ -292,30 +292,30 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' integer values.
 #'
 #' Period objects can be easily created with the helper functions
-#' \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}},
-#' \code{\link{days}}, \code{\link{hours}}, \code{\link{minutes}},
-#' and \code{\link{seconds}}. These objects can be added to and subtracted
+#' [years()], [months()], [weeks()],
+#' [days()], [hours()], [minutes()],
+#' and [seconds()]. These objects can be added to and subtracted
 #' to date-times to create a user interface similar to object oriented programming.
 #'
 #' Note: Arithmetic with periods can results in undefined behavior when
 #' non-existent dates are involved (such as February 29th). Please see
-#' \code{\link{Period-class}} for more details and \code{\link{\%m+\%}} and
-#' \code{\link{add_with_rollback}} for alternative operations.
+#' [Period-class] for more details and \code{\link{\%m+\%}} and
+#' [add_with_rollback()] for alternative operations.
 #'
 #' @param num a numeric vector that lists the number of time units to be
-#'   included in the period. From v1.6.0 \code{num} can also be a character
+#'   included in the period. From v1.6.0 `num` can also be a character
 #'   vector that specifies durations in a convenient shorthand format. All
 #'   unambiguous name units and abbreviations are supported. One letter "m"
 #'   stands for months, "M" stands for minutes. See examples.
 #' @param units a character vector that lists the type of units to be used. The
 #'   units in units are matched to the values in num according to their
-#'   order. When \code{num} is character, this argument is ignored.
+#'   order. When `num` is character, this argument is ignored.
 #' @param ... a list of time units to be included in the period and their
 #'   amounts. Seconds, minutes,  hours, days, weeks, months, and years are
-#'   supported. Normally only one of \code{num} or \code{...} are present. If
+#'   supported. Normally only one of `num` or `...` are present. If
 #'   both are present, the periods are concatenated.
-#'@seealso \code{\link{Period-class}}, \code{\link{quick_periods}},
-#'   \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
+#'@seealso [Period-class], [quick_periods()],
+#'   \code{\link{\%m+\%}}, [add_with_rollback()]
 #' @return a period object
 #' @keywords chron classes
 #' @examples
@@ -428,7 +428,7 @@ is.period <- function(x) is(x,"Period")
 #' Quickly create Period objects for easy date-time manipulation. The units of
 #' the period created depend on the name of the function called. For Period
 #' objects, units do not have a fixed length until they are added to a specific
-#' date time, contrast this with \code{\link{duration}}. This makes periods useful
+#' date time, contrast this with [duration()]. This makes periods useful
 #' for manipulations with clock times because units expand or contract in length
 #' to accomodate conventions such as leap years, leap seconds, and Daylight
 #' Savings Time.
@@ -440,8 +440,8 @@ is.period <- function(x) is(x,"Period")
 #'
 #' Note: Arithmetic with periods can results in undefined behavior when
 #' non-existent dates are involved (such as February 29th in non-leap
-#' years). Please see \code{\link{Period-class}} for more details and
-#' \code{\link{\%m+\%}} and \code{\link{add_with_rollback}} for alternative
+#' years). Please see [Period-class] for more details and
+#' \code{\link{\%m+\%}} and [add_with_rollback()] for alternative
 #' operations.
 #'
 #' @name quick_periods
@@ -449,8 +449,8 @@ is.period <- function(x) is(x,"Period")
 #'   period. With the exception of seconds(), x must be an integer.
 #' @param abbreviate Ignored. For consistency with S3 generic in base namespace.
 #' @return a period object
-#' @seealso \code{\link{Period-class}}, \code{\link{period}},
-#'   \code{\link{ddays}}, \code{\link{\%m+\%}}, \code{\link{add_with_rollback}}
+#' @seealso [Period-class], [period()],
+#'   [ddays()], \code{\link{\%m+\%}}, [add_with_rollback()]
 #' @keywords chron manip
 #' @examples
 #'
@@ -505,11 +505,8 @@ months.numeric <- function(x, abbreviate) {
 
 #' Contrive a period to/from a given number of seconds.
 #'
-#' \code{period_to_seconds} approximately converts a period to seconds assuming
-#' there are 364.25 days in a calendar year and 365.25/12 days in a month. \cr
-#' \code{seconds_to_period} create a period that has the maximum number of
-#' non-zero elements (days, hours, minutes, seconds). This computation is exact
-#' because it doesn't involve years or months.
+#' `period_to_seconds()` approximately converts a period to seconds assuming
+#' there are 365.25 days in a calendar year and 365.25/12 days in a month.
 #'
 #' @param x A numeric object. The number of seconds to coerce into a period.
 #' @return A number (period) that roughly equates to the period (seconds) given.
@@ -523,6 +520,10 @@ period_to_seconds <- function(x) {
     60 * 60 * 24 * 365.25 * x@year
 }
 
+#' @description
+#' `seconds_to_period()` create a period that has the maximum number of
+#' non-zero elements (days, hours, minutes, seconds). This computation is exact
+#' because it doesn't involve years or months.
 #' @rdname period_to_seconds
 #' @export
 seconds_to_period <- function(x) {

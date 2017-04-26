@@ -3,7 +3,7 @@
 \name{timespan}
 \alias{timespan}
 \alias{timespans}
-\title{Description of time span classes in lubridate.}
+\title{Description of time span classes in lubridate}
 \description{
 A time span can be measured in three ways: as a duration, an interval, or a
 period.
@@ -15,7 +15,7 @@ made in larger units of time such as hours, months and years.
 This is because the exact length of larger time units can be affected
 by conventions such as leap years
 and Daylight Savings Time. Base R measures durations with the
-difftime class. lubridate provides an additional class, the duration class,
+difftime class. \pkg{lubridate} provides an additional class, the duration class,
 to facilitate working with durations.
 
 durations display as the number of seconds that occur during a time span. If the number is large, a duration object will also display the length in a more convenient unit, but these measurements are only estimates
@@ -26,8 +26,8 @@ hours = 3600 seconds, days = 86400 seconds. Units larger than
 days are not used due to their variability.
 
 duration objects can be easily created with the helper functions
-\code{\link{dweeks}}, \code{\link{ddays}}, \code{\link{dhours}}, \code{\link{dminutes}} and
-\code{\link{dseconds}}. These objects can be added to and subtracted from date-
+\code{\link[=dweeks]{dweeks()}}, \code{\link[=ddays]{ddays()}}, \code{\link[=dhours]{dhours()}}, \code{\link[=dminutes]{dminutes()}} and
+\code{\link[=dseconds]{dseconds()}}. These objects can be added to and subtracted from date-
 times to create a user interface similar to object oriented programming.
 Duration objects can be added to Date, POSIXct, and POSIXlt objects to return a
 new date-time.
@@ -41,12 +41,12 @@ contract a unit of time depending on when it occurs.  For this reason, periods
 do not have a fixed length until they are paired with a start date. Periods
 can be used to track changes in clock time. Because periods
 have a variable length, they must be paired with a start date
-as an interval (\code{\link{as.interval}}) before they can be
+as an interval (\code{\link[=as.interval]{as.interval()}}) before they can be
 accurately converted to and from durations.
 
 Period objects can be easily created with the helper functions
-\code{\link{years}}, \code{\link{months}}, \code{\link{weeks}},
-\code{\link{days}}, \code{\link{minutes}}, \code{\link{seconds}}. These objects
+\code{\link[=years]{years()}}, \code{\link[=months]{months()}}, \code{\link[=weeks]{weeks()}},
+\code{\link[=days]{days()}}, \code{\link[=minutes]{minutes()}}, \code{\link[=seconds]{seconds()}}. These objects
 can be added to and subtracted to date-times to create a user interface
 similar to object oriented programming. Period objects can be added to Date,
 POSIXct, and POSIXlt objects to return a new date-time.
@@ -56,7 +56,7 @@ accurately converted to periods and durations. Since an interval is anchored
 to a fixed moment of time, the exact length of all units of
 time during the interval can be calculated. To
 accurately convert between periods and durations, a period or duration should
-first be converted to an interval with \code{\link{as.interval}}. An interval displays as the start
+first be converted to an interval with \code{\link[=as.interval]{as.interval()}}. An interval displays as the start
 and end points of the time span it represents.
 }
 \examples{
@@ -86,9 +86,9 @@ date + 3 * seconds(10)
 months(6) + days(1)
 }
 \seealso{
-\code{\link{duration}} for creating duration objects and
-  \code{\link{period}} for creating period objects, and
-  \code{\link{interval}} for creating interval objects.
+\code{\link[=duration]{duration()}} for creating duration objects and
+\code{\link[=period]{period()}} for creating period objects, and
+\code{\link[=interval]{interval()}} for creating interval objects.
 }
 \keyword{chron}
 \keyword{classes}

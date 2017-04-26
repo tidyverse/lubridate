@@ -13,18 +13,18 @@
 \item{...}{named arguments: years, months, ydays, wdays, mdays, days, hours,
 minutes, seconds, tzs (time zone compnent)}
 
-\item{simple}{logical, passed to \code{fit_to_timeline}. If TRUE a simple fit
+\item{simple}{logical, passed to \code{fit_to_timeline()}. If TRUE a simple fit
 to time line is performed and no NA are produced for invalid dates. Invalid
 dates are converted to meaningful dates by extrapolating the timezones.}
 }
 \value{
 a date object with the requested elements updated. The object will
-  retain its original class unless an element is updated which the original
-  class does not support. In this case, the date returned will be a POSIXlt
-  date object.
+retain its original class unless an element is updated which the original
+class does not support. In this case, the date returned will be a POSIXlt
+date object.
 }
 \description{
-\code{update.Date} and \code{update.POSIXt} return a date with the specified
+\code{update.Date()} and \code{update.POSIXt()} return a date with the specified
 elements updated.  Elements not specified will be left unaltered. update.Date
 and update.POSIXt do not add the specified values to the existing date, they
 substitute them for the appropriate parts of the existing date.

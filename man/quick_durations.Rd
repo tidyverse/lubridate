@@ -52,10 +52,10 @@ When paired with date-times, these functions allow date-times to be
 manipulated in a method similar to object oriented programming. Duration
 objects can be added to Date, POSIXt, and Interval objects.
 
-Since version 1.4.0 the following functions are deprecated: \code{eseconds},
-\code{eminutes}, \code{ehours}, \code{edays}, \code{eweeks}, \code{eyears},
-\code{emilliseconds}, \code{emicroseconds}, \code{enanoseconds},
-\code{epicoseconds}
+Since version 1.4.0 the following functions are deprecated: \code{eseconds()},
+\code{eminutes()}, \code{ehours()}, \code{edays()}, \code{eweeks()}, \code{eyears()},
+\code{emilliseconds()}, \code{emicroseconds()}, \code{enanoseconds()},
+\code{epicoseconds()}
 }
 \examples{
 dseconds(1)
@@ -79,7 +79,7 @@ boundary + days(1) # period
 boundary + ddays(1) # duration
 }
 \seealso{
-\code{\link{duration}}, \code{\link{days}}
+\code{\link[=duration]{duration()}}, \code{\link[=days]{days()}}
 }
 \keyword{chron}
 \keyword{manip}

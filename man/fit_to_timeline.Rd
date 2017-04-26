@@ -13,7 +13,7 @@ fit_to_timeline(lt, class = "POSIXct", simple = FALSE)
 POSIXlt or POSIXct. Defaults to POSIXct. This is an optimization to avoid
 needless conversions.}
 
-\item{simple}{if TRUE, \code{lubridate} makes no attempt to detect
+\item{simple}{if TRUE, \pkg{lubridate} makes no attempt to detect
 meaningless time-dates or to correct time zones. No NAs are produced and
 the most meaningful valid dates are returned instead. See examples.}
 }

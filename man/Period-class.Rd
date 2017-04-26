@@ -5,7 +5,7 @@
 \alias{Period-class}
 \title{Period class}
 \description{
-Period is an S4 class that extends the \code{\link{Timespan-class}} class.
+Period is an S4 class that extends the \linkS4class{Timespan} class.
 Periods track the change in the "clock time" between two date-times. They
 are measured in common time related units: years, months, days, hours,
 minutes, and seconds. Each unit except for seconds must be expressed in
@@ -17,29 +17,29 @@ specific moment of time. This is because the precise length of one year,
 month, day, etc. can change depending on when it occurs due to daylight savings,
 leap years, and other conventions. A period can be
 associated with a specific moment in time by coercing it to an
-\code{\link{Interval-class}} object with \code{\link{as.interval}} or by adding
+\linkS4class{Interval} object with \code{\link[=as.interval]{as.interval()}} or by adding
 it to a date-time with "+".
 
 Periods provide a method for measuring generalized timespans when we wish
 to model clock times. Periods will attain intuitive results at this task
 even when leap years, leap seconds, gregorian days, daylight savings
 changes, and other events happen during the period. See
-\code{\link{Duration-class}} for an alternative way to measure timespans that
+\linkS4class{Duration} for an alternative way to measure timespans that
 allows precise comparisons between timespans.
 
 The logic that guides arithmetic with periods can be unintuitive. Starting
-with version 1.3.0, lubridate enforces the reversible property of arithmetic
+with version 1.3.0, \pkg{lubridate} enforces the reversible property of arithmetic
 (e.g. a date + period - period = date) by returning an NA if you create an
 implausible date by adding periods with months or years units to a date. For
 example,  adding one month to January 31st, 2013 results in February 31st,
-2013, which is not a real date. lubridate users have argued in the past that
+2013, which is not a real date. \pkg{lubridate} users have argued in the past that
 February 31st, 2013 should be rolled over to March 3rd, 2013 or rolled back
 to February 28, 2013. However, each of these corrections would destroy the
 reversibility of addition (Mar 3 - one month == Feb 3 != Jan 31, Feb 28 - one
 month == Jan 28 != Jan 31). If you would like to add and subtract months in a
 way that rolls the results back to the last day of a month (when appropriate)
 use the special operators, \code{\link{\%m+\%}},  \code{\link{\%m-\%}} or a
-bit more flexible \code{\link{add_with_rollback}}.
+bit more flexible \code{\link[=add_with_rollback]{add_with_rollback()}}.
 
 Period class objects have six slots. 1) .Data, a numeric object. The
 apparent amount of seconds to add to the period. 2) minute, a numeric object.

@@ -18,7 +18,7 @@
 \alias{epicoseconds}
 \alias{here}
 \alias{olson_time_zones}
-\title{Deprecated function in \code{lubridate} package}
+\title{Deprecated functions in the lubridate package}
 \usage{
 new_period(...)
 
@@ -62,5 +62,5 @@ olson_time_zones(order_by = c("name", "longitude"))
 East.}
 }
 \description{
-Deprecated function in \code{lubridate} package
+Deprecated functions in the lubridate package
 }

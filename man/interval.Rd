@@ -60,76 +60,80 @@ int_diff(times)
 
 \item{by}{A period or duration object to shift by (for \code{int_shift})}
 
-\item{int1}{an Interval object (for \code{int_overlaps}, \code{int_aligns})}
+\item{int1}{an Interval object (for \code{int_overlaps()}, \code{int_aligns()})}
 
-\item{int2}{an Interval object (for \code{int_overlaps}, \code{int_aligns})}
+\item{int2}{an Interval object (for \code{int_overlaps()}, \code{int_aligns()})}
 
 \item{times}{A vector of POSIXct, POSIXlt or Date class date-times (for
-\code{int_diff})}
+\code{int_diff()})}
 }
 \value{
-\code{interval} - \code{Interval} object.
+\code{interval()} -- \linkS4class{Interval} object.
 
-\code{int_start} and \code{int_end} return a POSIXct date object when
-  used as an accessor. Nothing when used as a setter.
+\code{int_start()} and \code{int_end()} return a POSIXct date object when
+used as an accessor. Nothing when used as a setter.
 
-\code{int_length} - numeric length of the interval in
-  seconds. A negative number connotes a negative interval.
+\code{int_length()} -- numeric length of the interval in
+seconds. A negative number connotes a negative interval.
 
-\code{int_flip} - flipped interval object
+\code{int_flip()} -- flipped interval object
 
-\code{int_shift} - interval object
+\code{int_shift()} -- an Interval object
 
-\code{int_overlaps} logical, TRUE if int1 and int2 overlap by at
-  least one second. FALSE otherwise
+\code{int_overlaps()} -- logical, TRUE if int1 and int2 overlap by at
+least one second. FALSE otherwise
 
-\code{int_align} logical, TRUE if int1 and int2 begin or end on the
-  same moment. FALSE otherwise
+\code{int_aligns()} -- logical, TRUE if int1 and int2 begin or end on the
+same moment. FALSE otherwise
 
-\code{int_diff} - interval object that contains the n-1 intervals
-  between the n date-time in times
+\code{int_diff()} -- interval object that contains the n-1 intervals
+between the n date-time in times
 }
 \description{
-\code{interval} creates an \code{\link{Interval-class}} object with the
+\code{interval()} creates an \linkS4class{Interval} object with the
 specified start and end dates. If the start date occurs before the end date,
 the interval will be positive. Otherwise, it will be negative.
 
 \code{\%--\%} Creates an interval that covers the range spanned by two
-dates. It replaces the original behavior of lubridate, which created an
+dates. It replaces the original behavior of \pkg{lubridate}, which created an
 interval by default whenever two date-times were subtracted.
 
-\code{int_start} and \code{int_start<-} are accessors the start date of an
+\code{int_start()} and \code{int_start<-()} are accessors the start date of an
 interval. Note that changing the start date of an interval will change the
 length of the interval, since the end date will remain the same.
 
-\code{int_flip} reverses the order of the start date and end date in an
+\code{int_end()} and \code{int_end<-()} are accessors the end date of an
+interval. Note that changing the end date of an interval will change the
+length of the interval, since the start date will remain the same.
+
+\code{int_flip()} reverses the order of the start date and end date in an
 interval. The new interval takes place during the same timespan as the
 original interval, but has the opposite direction.
 
-\code{int_shift} shifts the start and end dates of an interval up or down the
+\code{int_shift()} shifts the start and end dates of an interval up or down the
 timeline by a specified amount. Note that this may change the exact length of
 the interval if the interval is shifted by a Period object. Intervals shifted
 by a Duration or difftime object will retain their exact length in seconds.
 
-\code{int_overlaps} tests if two intervals overlap.
+\code{int_overlaps()} tests if two intervals overlap.
 
-\code{int_standardize} ensures all intervals in an interval object are
+\code{int_standardize()} ensures all intervals in an interval object are
 positive. If an interval is not positive, flip it so that it retains its
 endpoints but becomes positive.
 
-\code{int_aligns} tests if two intervals share an endpoint. The direction of
+\code{int_aligns()} tests if two intervals share an endpoint. The direction of
 each interval is ignored. int_align tests whether the earliest or latest
 moments of each interval occur at the same time.
 
-\code{int_diff} returns the intervals that occur between the elements of a
-vector of date-times. \code{int_diff} is similar to the POSIXt and Date
-methods of \code{\link{diff}}, but returns an \code{Interval} object instead
+\code{int_diff()} returns the intervals that occur between the elements of a
+vector of date-times. \code{int_diff()} is similar to the POSIXt and Date
+methods of \code{\link[=diff]{diff()}}, but returns an \linkS4class{Interval} object instead
 of a difftime object.
 }
 \details{
 Intervals are time spans bound by two real date-times.  Intervals can be
 accurately converted to either period or duration objects using
-\code{\link{as.period}}, \code{\link{as.duration}}. Since an interval is
+\code{\link[=as.period]{as.period()}}, \code{\link[=as.duration]{as.duration()}}. Since an interval is
 anchored to a fixed history of time, both the exact number of seconds that passed
 and the number of variable length time units that occurred during the interval can be
 calculated.
@@ -179,5 +183,5 @@ dates <- now() + days(1:10)
 int_diff(dates)
 }
 \seealso{
-\code{\link{Interval-class}}, \code{\link{as.interval}}, \code{\link{\%within\%}}
+\linkS4class{Interval}, \code{\link[=as.interval]{as.interval()}}, \code{\link{\%within\%}}
 }

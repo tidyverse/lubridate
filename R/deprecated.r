@@ -1,4 +1,4 @@
-##' Deprecated function in \code{lubridate} package
+##' Deprecated functions in the lubridate package
 ##' @param x numeric value to be converted into duration
 ##' @param ... arguments to be passed to the functions
 ##'     (obscured to enforce the usage of new functions)

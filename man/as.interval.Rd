@@ -36,7 +36,7 @@ time must be supplied to make the conversion. Lubridate uses
 this start date to look up how many seconds each variable
 length unit (e.g. month, year) lasted for during the time span
 described. See
-\code{\link{as.duration}}, \code{\link{as.period}}.
+\code{\link[=as.duration]{as.duration()}}, \code{\link[=as.period]{as.period()}}.
 }
 \examples{
 diff <- make_difftime(days = 31) #difftime
@@ -54,7 +54,7 @@ as.interval(per, ymd("2009-02-01"))
 as.interval(3600, ymd("2009-01-01")) #numeric
 }
 \seealso{
-\code{\link{interval}}
+\code{\link[=interval]{interval()}}
 }
 \keyword{chron}
 \keyword{classes}

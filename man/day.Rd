@@ -57,15 +57,15 @@ option to control this parameter globally.}
 \item{value}{a numeric object}
 }
 \value{
-\code{wday} returns the day of the week as a decimal number or an
-  ordered factor if label is T.
+\code{wday()} returns the day of the week as a decimal number or an
+ordered factor if label is \code{TRUE}.
 }
 \description{
 Get/set days component of a date-time.
 }
 \details{
-\code{day} and \code{day<-} are aliases for \code{mday} and
-  \code{mday<-} respectively.
+\code{day()} and \code{day<-()} are aliases for \code{mday()} and
+\code{mday<-()} respectively.
 }
 \examples{
 x <- as.Date("2009-09-02")
@@ -84,7 +84,7 @@ yday(x) <- 366 #"2010-01-01"
 mday(x) > 3
 }
 \seealso{
-\code{\link{yday}}, \code{\link{mday}}
+\code{\link[=yday]{yday()}}, \code{\link[=mday]{mday()}}
 }
 \keyword{chron}
 \keyword{manip}

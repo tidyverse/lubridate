@@ -23,13 +23,13 @@ connotes a negative interval or duration
 Compute the exact length of a time span.
 }
 \details{
-When \code{x} is an \code{\link{Interval-class}} object and
-\code{unit} are years or months, \code{timespan_length} takes into account
+When \code{x} is an \linkS4class{Interval} object and
+\code{unit} are years or months, \code{time_length()} takes into account
 the fact that all months and years don't have the same number of days.
 
-When \code{x} is a \code{\link{Duration-class}}, \code{\link{Period-class}}
-or \code{\link{difftime}} object, length in months or years is based on their
-most common lengths in seconds (see \code{\link{timespan}}).
+When \code{x} is a \linkS4class{Duration}, \linkS4class{Period}
+or \code{\link[=difftime]{difftime()}} object, length in months or years is based on their
+most common lengths in seconds (see \code{\link[=timespan]{timespan()}}).
 }
 \examples{
 int <- interval(ymd("1980-01-01"), ymd("2014-09-18"))
@@ -47,7 +47,7 @@ time_length(int, "year")
 time_length(as.duration(int), "year")
 }
 \seealso{
-\code{\link{timespan}}
+\code{\link[=timespan]{timespan()}}
 }
 \keyword{chron}
 \keyword{math}

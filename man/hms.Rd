@@ -19,8 +19,8 @@ hms(..., quiet = FALSE, roll = FALSE)
 customary messages.}
 
 \item{roll}{logical. When TRUE, smaller units are rolled over to higher units
-if they exceed the conventional limit. For example \code{hms("01:59:120",
-roll=TRUE)} produces period "2H 1M 0S".}
+if they exceed the conventional limit. For example,
+\code{hms("01:59:120", roll=TRUE)} produces period "2H 1M 0S".}
 }
 \value{
 a vector of period objects
@@ -46,6 +46,6 @@ hms(x)
 hms("7 6 5", "3:23:::2", "2 : 23 : 33", "Finished in 9 hours, 20 min and 4 seconds")
 }
 \seealso{
-\code{\link{hm}, \link{ms}}
+\code{\link[=hm]{hm()}}, \code{\link[=ms]{ms()}}
 }
 \keyword{period}

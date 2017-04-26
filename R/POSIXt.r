@@ -7,7 +7,7 @@ setOldClass("POSIXlt")
 #' @export
 #' @param x an R object
 #' @return TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.Date}}
+#' @seealso [is.instant()], [is.timespan()], [is.Date()]
 #' @keywords logic chron
 #' @examples
 #' is.POSIXt(as.Date("2009-08-03")) # FALSE

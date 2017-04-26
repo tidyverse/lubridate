@@ -27,18 +27,18 @@ e1 \%m+\% e2
 add_with_rollback(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE)
 }
 \arguments{
-\item{e1}{A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}}
-or \code{\link{Date}}.}
+\item{e1}{A period or a date-time object of class \link{POSIXlt}, \link{POSIXct}
+or \link{Date}.}
 
-\item{e2}{A period or a date-time object of class \code{\link{POSIXlt}}, \code{\link{POSIXct}}
-or \code{\link{Date}}. Note that one of e1 and e2 must be a period and the other a
+\item{e2}{A period or a date-time object of class \link{POSIXlt}, \link{POSIXct}
+or \link{Date}. Note that one of e1 and e2 must be a period and the other a
 date-time object.}
 
 \item{roll_to_first}{rollback to the first day of the month instead of the
-last day of the previous month (passed to \code{\link{rollback}})}
+last day of the previous month (passed to \code{\link[=rollback]{rollback()}})}
 
 \item{preserve_hms}{retains the same hour, minute, and second information? If
-FALSE, the new date will be at 00:00:00 (passed to \code{\link{rollback}})}
+FALSE, the new date will be at 00:00:00 (passed to \code{\link[=rollback]{rollback()}})}
 }
 \value{
 A date-time object of class POSIXlt, POSIXct or Date
@@ -49,23 +49,23 @@ different lengths. With other elements, it is helpful for arithmetic to
 perform automatic roll over. For example, 12:00:00 + 61 seconds becomes
 12:01:01. However, people often prefer that this behavior NOT occur with
 months. For example, we sometimes want January 31 + 1 month = February 28 and
-not March 3. \%m+\% performs this type of arithmetic. Date \%m+\% months(n)
+not March 3. \code{\%m+\%} performs this type of arithmetic. Date \code{\%m+\%} months(n)
 always returns a date in the nth month after Date. If the new date would
-usually spill over into the n + 1th month, \%m+\% will return the last day of
-the nth month (\code{\link{rollback}}. Date \%m-\% months(n) always returns a
+usually spill over into the n + 1th month, \code{\%m+\%} will return the last day of
+the nth month (\code{\link[=rollback]{rollback()}}). Date \code{\%m-\%} months(n) always returns a
 date in the nth month before Date.
 
-\code{add_with_rollback} provides additional functionality to \%m+\% and
-\%m-\%. It allows rollback to first day of the month instead of the last day
+\code{add_with_rollback()} provides additional functionality to \code{\%m+\%} and
+\code{\%m-\%}. It allows rollback to first day of the month instead of the last day
 of the previous month and controls whether HMS component of the end date is
 preserved or not.
 }
 \details{
-\%m+\% and \%m-\% handle periods with components less than a month by first
+\code{\%m+\%} and \code{\%m-\%} handle periods with components less than a month by first
 adding/substracting months and then performing usual arithmetics with smaller
 units.
 
-\%m+\% and \%m-\% should be used with caution as they are not one-to-one
+\code{\%m+\%} and \code{\%m-\%} should be used with caution as they are not one-to-one
 operations and results for either will be sensitive to the order of
 operations.
 }

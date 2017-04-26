@@ -5,7 +5,7 @@ setOldClass("Date")
 #' @export is.Date
 #' @param x an R object
 #' @return TRUE if x is a Date object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.POSIXt}}
+#' @seealso [is.instant()], [is.timespan()], [is.POSIXt()]
 #' @keywords logic chron
 #' @examples
 #' is.Date(as.Date("2009-08-03")) # TRUE

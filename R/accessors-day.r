@@ -3,8 +3,8 @@ NULL
 
 #' Get/set days component of a date-time.
 #'
-#' @details \code{day} and \code{day<-} are aliases for \code{mday} and
-#'   \code{mday<-} respectively.
+#' @details `day()` and `day<-()` are aliases for `mday()` and
+#'   `mday<-()` respectively.
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
 #'   timeDate, xts, its, ti, jul, timeSeries, or fts object.
 #' @param label logical. Only available for wday. TRUE will display the day of
@@ -16,12 +16,12 @@ NULL
 #'   disregarded if label = FALSE.
 #' @param value a numeric object
 #' @param start day on which week starts following ISO conventions - 1 means
-#'   Monday, 7 means Sunday (default). You can set \code{lubridate.week.start}
+#'   Monday, 7 means Sunday (default). You can set `lubridate.week.start`
 #'   option to control this parameter globally.
 #' @param locale locale to use for day names. Default to current locale.
-#' @return \code{wday} returns the day of the week as a decimal number or an
-#'   ordered factor if label is T.
-#' @seealso \code{\link{yday}}, \code{\link{mday}}
+#' @return `wday()` returns the day of the week as a decimal number or an
+#'   ordered factor if label is `TRUE`.
+#' @seealso [yday()], [mday()]
 #' @keywords utilities manip chron methods
 #' @examples
 #' x <- as.Date("2009-09-02")

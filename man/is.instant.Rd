@@ -26,7 +26,7 @@ is.instant(as.Date("2009-08-03")) # TRUE
 is.timepoint(5) # FALSE
 }
 \seealso{
-\code{\link{is.timespan}}, \code{\link{is.POSIXt}}, \code{\link{is.Date}}
+\code{\link[=is.timespan]{is.timespan()}}, \code{\link[=is.POSIXt]{is.POSIXt()}}, \code{\link[=is.Date]{is.Date()}}
 }
 \keyword{chron}
 \keyword{logic}

@@ -1,7 +1,7 @@
 #' Timespan class
 #'
 #' Timespan is an S4 class with no slots. It is extended by the
-#' \code{\link{Interval-class}}, \code{\link{Period-class}}, and \code{\link{Duration-class}}
+#' [Interval-class], [Period-class], and [Duration-class]
 #' classes.
 #'
 #'
@@ -17,7 +17,7 @@ setClass("Timespan")
 #' @aliases is.timespan
 #' @param x an R object
 #' @return TRUE if x is a period, interval, duration, or difftime object, FALSE otherwise.
-#' @seealso \code{\link{is.instant}}, \code{\link{is.duration}}, \code{\link{is.difftime}}, \code{\link{is.period}}, \code{\link{is.interval}}
+#' @seealso [is.instant()], [is.duration()], [is.difftime()], [is.period()], [is.interval()]
 #' @keywords logic chron
 #' @examples
 #' is.timespan(as.Date("2009-08-03")) # FALSE
@@ -25,7 +25,7 @@ setClass("Timespan")
 is.timespan <- function(x) is(x, "Timespan")
 
 
-#' Description of time span classes in lubridate.
+#' Description of time span classes in lubridate
 #'
 #' A time span can be measured in three ways: as a duration, an interval, or a
 #' period.
@@ -36,7 +36,7 @@ is.timespan <- function(x) is(x, "Timespan")
 #' This is because the exact length of larger time units can be affected
 #' by conventions such as leap years
 #' and Daylight Savings Time. Base R measures durations with the
-#' difftime class. lubridate provides an additional class, the duration class,
+#' difftime class. \pkg{lubridate} provides an additional class, the duration class,
 #' to facilitate working with durations.
 #'
 #' durations display as the number of seconds that occur during a time span. If the number is large, a duration object will also display the length in a more convenient unit, but these measurements are only estimates
@@ -47,8 +47,8 @@ is.timespan <- function(x) is(x, "Timespan")
 #' days are not used due to their variability.
 #'
 #' duration objects can be easily created with the helper functions
-#' \code{\link{dweeks}}, \code{\link{ddays}}, \code{\link{dhours}}, \code{\link{dminutes}} and
-#' \code{\link{dseconds}}. These objects can be added to and subtracted from date-
+#' [dweeks()], [ddays()], [dhours()], [dminutes()] and
+#' [dseconds()]. These objects can be added to and subtracted from date-
 #' times to create a user interface similar to object oriented programming.
 #' Duration objects can be added to Date, POSIXct, and POSIXlt objects to return a
 #' new date-time.
@@ -62,12 +62,12 @@ is.timespan <- function(x) is(x, "Timespan")
 #' do not have a fixed length until they are paired with a start date. Periods
 #' can be used to track changes in clock time. Because periods
 #' have a variable length, they must be paired with a start date
-#' as an interval (\code{\link{as.interval}}) before they can be
+#' as an interval ([as.interval()]) before they can be
 #' accurately converted to and from durations.
 #'
 #' Period objects can be easily created with the helper functions
-#' \code{\link{years}}, \code{\link{months}}, \code{\link{weeks}},
-#' \code{\link{days}}, \code{\link{minutes}}, \code{\link{seconds}}. These objects
+#' [years()], [months()], [weeks()],
+#' [days()], [minutes()], [seconds()]. These objects
 #' can be added to and subtracted to date-times to create a user interface
 #' similar to object oriented programming. Period objects can be added to Date,
 #' POSIXct, and POSIXlt objects to return a new date-time.
@@ -77,14 +77,14 @@ is.timespan <- function(x) is(x, "Timespan")
 #' to a fixed moment of time, the exact length of all units of
 #' time during the interval can be calculated. To
 #' accurately convert between periods and durations, a period or duration should
-#' first be converted to an interval with \code{\link{as.interval}}. An interval displays as the start
+#' first be converted to an interval with [as.interval()]. An interval displays as the start
 #' and end points of the time span it represents.
 #'
 #' @aliases timespan timespans
 #' @name timespan
-#' @seealso \code{\link{duration}} for creating duration objects and
-#'   \code{\link{period}} for creating period objects, and
-#'   \code{\link{interval}} for creating interval objects.
+#' @seealso [duration()] for creating duration objects and
+#'   [period()] for creating period objects, and
+#'   [interval()] for creating interval objects.
 #' @keywords classes chron
 #' @examples
 #' duration(3690, "seconds")
@@ -121,14 +121,14 @@ NULL
 #' @return the length of the interval in the specified unit. A negative number
 #' connotes a negative interval or duration
 #'
-#' @details When \code{x} is an \code{\link{Interval-class}} object and
-#' \code{unit} are years or months, \code{timespan_length} takes into account
+#' @details When `x` is an [Interval-class] object and
+#' `unit` are years or months, `time_length()` takes into account
 #' the fact that all months and years don't have the same number of days.
 #'
-#' When \code{x} is a \code{\link{Duration-class}}, \code{\link{Period-class}}
-#' or \code{\link{difftime}} object, length in months or years is based on their
-#' most common lengths in seconds (see \code{\link{timespan}}).
-#' @seealso \code{\link{timespan}}
+#' When `x` is a [Duration-class], [Period-class]
+#' or [difftime()] object, length in months or years is based on their
+#' most common lengths in seconds (see [timespan()]).
+#' @seealso [timespan()]
 #' @keywords chron math period methods
 #' @examples
 #' int <- interval(ymd("1980-01-01"), ymd("2014-09-18"))

@@ -28,7 +28,7 @@ hour.Period <- function(x)
   slot(x, "hour")
 
 #' @export
-#' @param value numeric value to be assigned to \code{hour} component
+#' @param value numeric value to be assigned to the `hour` component
 #' @rdname hour
 "hour<-" <- function(x, value)
   x <- x + hours(value - hour(x))

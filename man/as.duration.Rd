@@ -28,14 +28,14 @@ with the seconds unit equal to the numeric value.
 }
 \details{
 Durations are exact time measurements, whereas periods are relative time
-measurements. See \code{\link{Period-class}}. The length of a period depends
+measurements. See \linkS4class{Period}. The length of a period depends
 on when it occurs. Hence, a one to one mapping does not exist between
 durations and periods. When used with a period object, as.duration provides
 an inexact estimate of the length of the period; each time unit is assigned
 its most common number of seconds. A period of one month is converted to
 2628000 seconds (approximately 30.42 days). This ensures that 12 months will
 sum to 365 days, or one normal year. For an exact transformation, first
-transform the period to an interval with \code{\link{as.interval}}.
+transform the period to an interval with \code{\link[=as.interval]{as.interval()}}.
 }
 \examples{
 span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
@@ -47,7 +47,7 @@ as.numeric(dur, "minutes")
 
 }
 \seealso{
-\code{\link{Duration-class}}, \code{\link{duration}}
+\linkS4class{Duration}, \code{\link[=duration]{duration()}}
 }
 \keyword{chron}
 \keyword{classes}

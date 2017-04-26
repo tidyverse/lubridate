@@ -23,7 +23,7 @@ both are present, the \code{difftime} objects are concatenated.}
 a difftime object
 }
 \description{
-\code{make_difftime} creates a difftime object with the specified number of
+\code{make_difftime()} creates a difftime object with the specified number of
 units. Entries for different units are cumulative. difftime displays
 durations in various units,  but these units are estimates given for
 convenience. The underlying object is always recorded as a fixed number of
@@ -35,7 +35,7 @@ exact passage of time but do not always align with measurements
 made in larger units of time such as hours, months and years.
 This is because the length of larger time units can be affected
 by conventions such as leap years
-and Daylight Savings Time. lubridate provides a second class for measuring durations, the Duration class.
+and Daylight Savings Time. \pkg{lubridate} provides a second class for measuring durations, the Duration class.
 }
 \examples{
 make_difftime(1)
@@ -57,7 +57,7 @@ make_difftime(120, day = -1, units = "minute")
 # Time differences in mins
 }
 \seealso{
-\code{\link{duration}}, \code{\link{as.duration}}
+\code{\link[=duration]{duration()}}, \code{\link[=as.duration]{as.duration()}}
 }
 \keyword{chron}
 \keyword{classes}
