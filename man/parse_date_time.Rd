@@ -178,8 +178,10 @@ the timezone formats.}
 
 \item{\code{Op}!*}{Matches AM/PM English indicator.}
 
-\item{\code{r}\emph{}{Matches \code{Ip} and \code{H} orders.}
-\item{\code{R}}}{Matches \code{HM} and\code{IMp} orders.}
+\item{\code{r}*}{Matches \code{Ip} and \code{H} orders.}
+
+\item{\code{R}*}{Matches \code{HM} and\code{IMp} orders.}
+
 \item{\code{T}*}{Matches \code{IMSp}, \code{HMS}, and \code{HMOS} orders.}
 }
 }

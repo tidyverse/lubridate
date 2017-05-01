@@ -425,7 +425,9 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' \item{`Op`!*}{Matches AM/PM English indicator.}
 ##'
 ##' \item{`r`*}{Matches `Ip` and `H` orders.}
+##'
 ##' \item{`R`*}{Matches `HM` and`IMp` orders.}
+##'
 ##' \item{`T`*}{Matches `IMSp`, `HMS`, and `HMOS` orders.}
 ##' }
 ##'
