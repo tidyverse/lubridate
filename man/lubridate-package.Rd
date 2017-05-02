@@ -2,8 +2,8 @@
 % Please edit documentation in R/help.r
 \docType{package}
 \name{lubridate-package}
-\alias{lubridate}
 \alias{lubridate-package}
+\alias{lubridate}
 \title{Dates and times made easy with lubridate}
 \description{
 Lubridate provides tools that make it easier to parse and
@@ -18,41 +18,41 @@ Lubridate's parsing functions read strings into R as POSIXct
 date-time objects. Users should choose the function whose name
 models the order in which the year ('y'), month ('m') and day
 ('d') elements appear the string to be parsed:
-\code{\link{dmy}}, \code{\link{myd}}, \code{\link{ymd}},
-\code{\link{ydm}}, \code{\link{dym}}, \code{\link{mdy}},
-\code{\link{ymd_hms}}). A very flexible and user friendly parser
-is provided by \code{\link{parse_date_time}}.
+\code{\link[=dmy]{dmy()}}, \code{\link[=myd]{myd()}}, \code{\link[=ymd]{ymd()}},
+\code{\link[=ydm]{ydm()}}, \code{\link[=dym]{dym()}}, \code{\link[=mdy]{mdy()}},
+\code{\link[=ymd_hms]{ymd_hms()}}). A very flexible and user friendly parser
+is provided by \code{\link[=parse_date_time]{parse_date_time()}}.
 
 Lubridate can also parse partial dates from strings into
-\code{\link{Period-class}} objects with the functions
-\code{\link{hm}}, \code{\link{hms}} and \code{\link{ms}}.
+\linkS4class{Period} objects with the functions
+\code{\link[=hm]{hm()}}, \code{\link[=hms]{hms()}} and \code{\link[=ms]{ms()}}.
 
-Lubridate has an inbuilt very fast POSIX parser. Most of the \code{strptime}
+Lubridate has an inbuilt very fast POSIX parser. Most of the \code{\link[=strptime]{strptime()}}
 formats and various extensions are supported for English locales. See
-\code{\link{parse_date_time}} for more details.
+\code{\link[=parse_date_time]{parse_date_time()}} for more details.
 
 Manipulating dates
 
 Lubridate distinguishes between moments in time (known as
-\code{\link{instants}}) and spans of time (known as time spans, see
-\code{\link{Timespan-class}}). Time spans are further separated into
-\code{\link{Duration-class}}, \code{\link{Period-class}} and
-\code{\link{Interval-class}} objects.
+\code{\link[=instants]{instants()}}) and spans of time (known as time spans, see
+\linkS4class{Timespan}). Time spans are further separated into
+\linkS4class{Duration}, \linkS4class{Period} and
+\linkS4class{Interval} objects.
 
 Instants
 
 Instants are specific moments of time. Date, POSIXct, and
 POSIXlt are the three object classes Base R recognizes as
-instants. \code{\link{is.Date}} tests whether an object
-inherits from the Date class. \code{\link{is.POSIXt}} tests
+instants. \code{\link[=is.Date]{is.Date()}} tests whether an object
+inherits from the Date class. \code{\link[=is.POSIXt]{is.POSIXt()}} tests
 whether an object inherits from the POSIXlt or POSIXct classes.
-\code{\link{is.instant}} tests whether an object inherits from
+\code{\link[=is.instant]{is.instant()}} tests whether an object inherits from
 any of the three classes.
 
-\code{\link{now}} returns the current system time as a POSIXct
-object. \code{\link{today}} returns the current system date.
+\code{\link[=now]{now()}} returns the current system time as a POSIXct
+object. \code{\link[=today]{today()}} returns the current system date.
 For convenience, 1970-01-01 00:00:00 is saved to
-\code{\link{origin}}. This is the instant from which POSIXct
+\code{\link[=origin]{origin()}}. This is the instant from which POSIXct
 times are calculated. Try unclass(now()) to see the numeric structure that
 underlies POSIXct objects. Each POSIXct object is saved as the number of seconds
 it occurred after 1970-01-01 00:00:00.
@@ -60,29 +60,29 @@ it occurred after 1970-01-01 00:00:00.
 Conceptually, instants are a combination of measurements on different units
 (i.e, years, months, days, etc.). The individual values for
 these units can be extracted from an instant and set with the
-accessor functions \code{\link{second}}, \code{\link{minute}},
-\code{\link{hour}}, \code{\link{day}}, \code{\link{yday}},
-\code{\link{mday}}, \code{\link{wday}}, \code{\link{week}},
-\code{\link{month}}, \code{\link{year}}, \code{\link{tz}},
-and \code{\link{dst}}.
+accessor functions \code{\link[=second]{second()}}, \code{\link[=minute]{minute()}},
+\code{\link[=hour]{hour()}}, \code{\link[=day]{day()}}, \code{\link[=yday]{yday()}},
+\code{\link[=mday]{mday()}}, \code{\link[=wday]{wday()}}, \code{\link[=week]{week()}},
+\code{\link[=month]{month()}}, \code{\link[=year]{year()}}, \code{\link[=tz]{tz()}},
+and \code{\link[=dst]{dst()}}.
 Note: the accessor functions are named after the singular form
 of an element. They shouldn't be confused with the period
 helper functions that have the plural form of the units as a
-name (e.g, \code{\link{seconds}}).
+name (e.g, \code{\link[=seconds]{seconds()}}).
 
 Rounding dates
 
 Instants can be rounded to a convenient unit using the
-functions \code{\link{ceiling_date}}, \code{\link{floor_date}}
-and \code{\link{round_date}}.
+functions \code{\link[=ceiling_date]{ceiling_date()}}, \code{\link[=floor_date]{floor_date()}}
+and \code{\link[=round_date]{round_date()}}.
 
 Time zones
 
 Lubridate provides two helper functions for working with time
-zones. \code{\link{with_tz}} changes the time zone in which an
+zones. \code{\link[=with_tz]{with_tz()}} changes the time zone in which an
 instant is displayed. The clock time displayed for the instant
 changes, but the moment of time described remains the same.
-\code{\link{force_tz}} changes only the time zone element of an
+\code{\link[=force_tz]{force_tz()}} changes only the time zone element of an
 instant. The clock time displayed remains the same, but the
 resulting instant describes a new moment of time.
 
@@ -96,13 +96,13 @@ Sometimes the passage of time is a monotone progression of instants that should
 be as mathematically reliable as the number line. On other occasions time must
 follow complex conventions and rules so that the clock times we see reflect what
 we expect to observe in terms of daylight, season, and congruence with the
-atomic clock. To better navigate the nuances of time, lubridate creates three
+atomic clock. To better navigate the nuances of time, \pkg{lubridate} creates three
 additional timespan classes, each with its own specific and consistent behavior:
-\code{\link{Interval-class}}, \code{\link{Period-class}} and
-\code{\link{Duration-class}}.
+\linkS4class{Interval}, \linkS4class{Period} and
+\linkS4class{Duration}.
 
-\code{\link{is.difftime}} tests whether an object
-inherits from the difftime class. \code{\link{is.timespan}}
+\code{\link[=is.difftime]{is.difftime()}} tests whether an object
+inherits from the difftime class. \code{\link[=is.timespan]{is.timespan()}}
 tests whether an object inherits from any of the four timespan
 classes.
 
@@ -113,10 +113,10 @@ instants. This can create unexpected results in relation to clock times if a
 leap second, leap year, or change in daylight savings time (DST) occurs in
 the interval.
 
-Functions for working with durations include \code{\link{is.duration}},
-\code{\link{as.duration}} and \code{\link{duration}}. \code{\link{dseconds}},
-\code{\link{dminutes}}, \code{\link{dhours}},  \code{\link{ddays}},
-\code{\link{dweeks}} and \code{\link{dyears}} convenient lengths.
+Functions for working with durations include \code{\link[=is.duration]{is.duration()}},
+\code{\link[=as.duration]{as.duration()}} and \code{\link[=duration]{duration()}}. \code{\link[=dseconds]{dseconds()}},
+\code{\link[=dminutes]{dminutes()}}, \code{\link[=dhours]{dhours()}},  \code{\link[=ddays]{ddays()}},
+\code{\link[=dweeks]{dweeks()}} and \code{\link[=dyears]{dyears()}} convenient lengths.
 
 Periods
 
@@ -125,11 +125,11 @@ instants. Periods provide robust predictions of clock time in the presence of
 leap seconds, leap years, and changes in DST.
 
 Functions for working with periods include
-\code{\link{is.period}}, \code{\link{as.period}} and
-\code{\link{period}}. \code{\link{seconds}},
-\code{\link{minutes}}, \code{\link{hours}}, \code{\link{days}},
-\code{\link{weeks}}, \code{\link{months}} and
-\code{\link{years}} quickly create periods of convenient
+\code{\link[=is.period]{is.period()}}, \code{\link[=as.period]{as.period()}} and
+\code{\link[=period]{period()}}. \code{\link[=seconds]{seconds()}},
+\code{\link[=minutes]{minutes()}}, \code{\link[=hours]{hours()}}, \code{\link[=days]{days()}},
+\code{\link[=weeks]{weeks()}}, \code{\link[=months]{months()}} and
+\code{\link[=years]{years()}} quickly create periods of convenient
 lengths.
 
 Intervals
@@ -140,27 +140,26 @@ timespan. They provide the only reliable way to convert between
 periods and durations.
 
 Functions for working with intervals include
-\code{\link{is.interval}}, \code{\link{as.interval}},
-\code{\link{interval}}, \code{\link{int_shift}},
-\code{\link{int_flip}}, \code{\link{int_aligns}},
-\code{\link{int_overlaps}}, and
+\code{\link[=is.interval]{is.interval()}}, \code{\link[=as.interval]{as.interval()}},
+\code{\link[=interval]{interval()}}, \code{\link[=int_shift]{int_shift()}},
+\code{\link[=int_flip]{int_flip()}}, \code{\link[=int_aligns]{int_aligns()}},
+\code{\link[=int_overlaps]{int_overlaps()}}, and
 \code{\link{\%within\%}}. Intervals can also be manipulated with
 intersect, union, and setdiff().
 
 Miscellaneous
 
-\code{\link{decimal_date}} converts an instant to a decimal of
+\code{\link[=decimal_date]{decimal_date()}} converts an instant to a decimal of
 its year.
-\code{\link{leap_year}} tests whether an instant occurs during
+\code{\link[=leap_year]{leap_year()}} tests whether an instant occurs during
 a leap year.
-\code{\link{pretty_dates}} provides a method of making pretty
+\code{\link[=pretty_dates]{pretty_dates()}} provides a method of making pretty
 breaks for date-times
-\code{\link{lakers}} is a data set that contains information
+\link{lakers} is a data set that contains information
 about the Los Angeles Lakers 2008-2009 basketball season.
 }
 \references{
 Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made
-  Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.
-  \url{http://www.jstatsoft.org/v40/i03/}.
+Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.
+\url{http://www.jstatsoft.org/v40/i03/}.
 }
-

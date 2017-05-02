@@ -20,8 +20,7 @@ is.Date(as.Date("2009-08-03")) # TRUE
 is.Date(difftime(now() + 5, now())) # FALSE
 }
 \seealso{
-\code{\link{is.instant}}, \code{\link{is.timespan}}, \code{\link{is.POSIXt}}
+\code{\link[=is.instant]{is.instant()}}, \code{\link[=is.timespan]{is.timespan()}}, \code{\link[=is.POSIXt]{is.POSIXt()}}
 }
 \keyword{chron}
 \keyword{logic}
-

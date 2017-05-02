@@ -27,7 +27,7 @@ amounts. Seconds, minutes, hours, days, and weeks are supported.}
 a duration object
 }
 \description{
-\code{duration} creates a duration object with the specified values. Entries
+\code{duration()} creates a duration object with the specified values. Entries
 for different units are cumulative. durations display as the number of
 seconds in a time span. When this number is large, durations also display an
 estimate in larger units,; however, the underlying object is always recorded
@@ -46,8 +46,8 @@ and Daylight Savings Time. Base R provides a second class for measuring
 durations, the difftime class.
 
 Duration objects can be easily created with the helper functions
-\code{\link{dweeks}}, \code{\link{ddays}}, \code{\link{dminutes}},
-\code{\link{dseconds}}. These objects can be added to and subtracted to date-
+\code{\link[=dweeks]{dweeks()}}, \code{\link[=ddays]{ddays()}}, \code{\link[=dminutes]{dminutes()}},
+\code{\link[=dseconds]{dseconds()}}. These objects can be added to and subtracted to date-
 times to create a user interface similar to object oriented programming.
 }
 \examples{
@@ -74,8 +74,7 @@ is.duration(as.Date("2009-08-03")) # FALSE
 is.duration(duration(days = 12.4)) # TRUE
 }
 \seealso{
-\code{\link{as.duration}}
+\code{\link[=as.duration]{as.duration()}}
 }
 \keyword{chron}
 \keyword{classes}
-

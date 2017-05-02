@@ -11,7 +11,7 @@ check_duration <- function(object){
 
 #' Duration class
 #'
-#' Duration is an S4 class that extends the \code{\link{Timespan-class}} class.
+#' Duration is an S4 class that extends the [Timespan-class] class.
 #' Durations record the exact number of seconds in a time span. They measure the
 #' exact passage of time but do not always align with measurements
 #' made in larger units of time such as hours, months and years.
@@ -22,7 +22,7 @@ check_duration <- function(object){
 #' Durations provide a method for measuring generalized timespans when we wish to
 #' treat time as a mathematical quantity that increases in a uniform, monotone manner
 #' along a continuous numberline. They allow exact comparisons with other durations.
-#' See \code{\link{Period-class}} for an alternative way to measure timespans that better
+#' See [Period-class] for an alternative way to measure timespans that better
 #' preserves clock times.
 #'
 #' Durations class objects have one slot: .Data, a numeric object equal to the number
@@ -145,7 +145,7 @@ setMethod("[[<-", signature(x = "Duration"),
 
 #' Create a duration object.
 #'
-#' \code{duration} creates a duration object with the specified values. Entries
+#' `duration()` creates a duration object with the specified values. Entries
 #' for different units are cumulative. durations display as the number of
 #' seconds in a time span. When this number is large, durations also display an
 #' estimate in larger units,; however, the underlying object is always recorded
@@ -163,20 +163,20 @@ setMethod("[[<-", signature(x = "Duration"),
 #' durations, the difftime class.
 #'
 #' Duration objects can be easily created with the helper functions
-#' \code{\link{dweeks}}, \code{\link{ddays}}, \code{\link{dminutes}},
-#' \code{\link{dseconds}}. These objects can be added to and subtracted to date-
+#' [dweeks()], [ddays()], [dminutes()],
+#' [dseconds()]. These objects can be added to and subtracted to date-
 #' times to create a user interface similar to object oriented programming.
 #'
 #' @param num the number of time units to include in the duration. From v1.6.0
-#'   \code{num} can also be a character vector that specifies durations in a
+#'   `num` can also be a character vector that specifies durations in a
 #'   convenient shorthand format. All unambiguous name units and abbreviations
 #'   are supported. See examples.
 #' @param units a character string that specifies the type of units that num
-#'   refers to. When \code{num} is character, this argument is ignored.
+#'   refers to. When `num` is character, this argument is ignored.
 #' @param ... a list of time units to be included in the duration and their
 #'   amounts. Seconds, minutes, hours, days, and weeks are supported.
 #' @return a duration object
-#' @seealso \code{\link{as.duration}}
+#' @seealso [as.duration()]
 #' @keywords chron classes
 #' @examples
 #' duration(day = -1)
@@ -259,15 +259,15 @@ duration <- function(num = NULL, units = "seconds", ...){
 #' manipulated in a method similar to object oriented programming. Duration
 #' objects can be added to Date, POSIXt, and Interval objects.
 #'
-#' Since version 1.4.0 the following functions are deprecated: \code{eseconds},
-#' \code{eminutes}, \code{ehours}, \code{edays}, \code{eweeks}, \code{eyears},
-#' \code{emilliseconds}, \code{emicroseconds}, \code{enanoseconds},
-#' \code{epicoseconds}
+#' Since version 1.4.0 the following functions are deprecated: `eseconds()`,
+#' `eminutes()`, `ehours()`, `edays()`, `eweeks()`, `eyears()`,
+#' `emilliseconds()`, `emicroseconds()`, `enanoseconds()`,
+#' `epicoseconds()`
 #'
 #' @name quick_durations
 #' @param x numeric value of the number of units to be contained in the duration.
 #' @return a duration object
-#' @seealso \code{\link{duration}}, \code{\link{days}}
+#' @seealso [duration()], [days()]
 #' @keywords chron manip
 #' @examples
 #' dseconds(1)

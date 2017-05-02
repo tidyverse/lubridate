@@ -22,8 +22,8 @@ Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo,
 zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 }
 \details{
-\code{date} does not yet support years before 0 C.E.
-Also \code{date} is not defined for Period objects.
+\code{date()} does not yet support years before 0 C.E.
+Also \code{date()} is not defined for Period objects.
 }
 \examples{
 x <- as.POSIXct("2012-03-26 23:12:13", tz = "Etc/GMT+8")
@@ -37,4 +37,3 @@ x
 \keyword{manip}
 \keyword{methods}
 \keyword{utilities}
-

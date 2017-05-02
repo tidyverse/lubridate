@@ -6,11 +6,11 @@ NULL
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo,
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 #'
-#' \code{date} does not yet support years before 0 C.E.
-#' Also \code{date} is not defined for Period objects.
+#' `date()` does not yet support years before 0 C.E.
+#' Also `date()` is not defined for Period objects.
 #'
 #' @param x a date-time object
-#' @param value an object for which the \code{date()} function is defined
+#' @param value an object for which the `date()` function is defined
 #' @return the date of x as a Date
 #' @keywords utilities manip chron methods
 #' @examples

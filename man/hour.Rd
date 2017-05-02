@@ -12,7 +12,7 @@ hour(x) <- value
 \arguments{
 \item{x}{a date-time object}
 
-\item{value}{numeric value to be assigned to \code{hour} component}
+\item{value}{numeric value to be assigned to the \code{hour} component}
 }
 \value{
 the hours element of x as a decimal number
@@ -32,4 +32,3 @@ hour(x) > 2
 \keyword{manip}
 \keyword{methods}
 \keyword{utilities}
-

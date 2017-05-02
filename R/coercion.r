@@ -135,19 +135,19 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' with the seconds unit equal to the numeric value.
 #'
 #' Durations are exact time measurements, whereas periods are relative time
-#' measurements. See \code{\link{Period-class}}. The length of a period depends
+#' measurements. See [Period-class]. The length of a period depends
 #' on when it occurs. Hence, a one to one mapping does not exist between
 #' durations and periods. When used with a period object, as.duration provides
 #' an inexact estimate of the length of the period; each time unit is assigned
 #' its most common number of seconds. A period of one month is converted to
 #' 2628000 seconds (approximately 30.42 days). This ensures that 12 months will
 #' sum to 365 days, or one normal year. For an exact transformation, first
-#' transform the period to an interval with \code{\link{as.interval}}.
+#' transform the period to an interval with [as.interval()].
 #'
 #' @param x Object to be coerced to a duration
 #' @param ... Parameters passed to other methods. Currently unused.
 #' @return A duration object
-#' @seealso \code{\link{Duration-class}}, \code{\link{duration}}
+#' @seealso [Duration-class], [duration()]
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
@@ -197,7 +197,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 })
 
 
-#' Change an object to an \code{interval}.
+#' Change an object to an `interval`.
 #'
 #' as.interval changes difftime, Duration, Period and numeric class objects to
 #' intervals that begin at the specified date-time. Numeric objects are first
@@ -210,13 +210,13 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 #' this start date to look up how many seconds each variable
 #' length unit (e.g. month, year) lasted for during the time span
 #' described. See
-#' \code{\link{as.duration}}, \code{\link{as.period}}.
+#' [as.duration()], [as.period()].
 #'
 #' @param x a duration, difftime, period, or numeric object that describes the length of the interval
 #' @param start a POSIXt or Date object that describes when the interval begins
 #' @param ... additional arguments to pass to as.interval
 #' @return an interval object
-#' @seealso \code{\link{interval}}
+#' @seealso [interval()]
 #' @keywords classes manip methods chron
 #' @examples
 #' diff <- make_difftime(days = 31) #difftime
@@ -279,7 +279,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #'
 #' Users must specify which time units to measure the period in. The exact length of
 #' each time unit in a period will depend on when it occurs. See
-#' \code{\link{Period-class}} and \code{\link{period}}.
+#' [Period-class] and [period()].
 #' The choice of units is not trivial; units that are
 #' normally equal may differ in length depending on when the time period
 #' occurs. For example, when a leap second occurs one minute is longer than 60
@@ -287,14 +287,14 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #'
 #' Because periods do not have a fixed length, they can not be accurately
 #' converted to and from Duration objects. Duration objects measure time spans
-#' in exact numbers of seconds, see \code{\link{Duration-class}}. Hence, a one to one
+#' in exact numbers of seconds, see [Duration-class]. Hence, a one to one
 #' mapping does not exist between durations and periods. When used with a
 #' Duration object, as.period provides an inexact estimate; the duration is
 #' broken into time units based on the most common lengths of time units, in
 #' seconds. Because the length of months are particularly variable, a period
 #' with a months unit can not be coerced from a duration object. For an exact
 #' transformation, first transform the duration to an interval with
-#' \code{\link{as.interval}}.
+#' [as.interval()].
 #'
 #' Coercing an interval to a period may cause surprising behavior if you request
 #' periods with small units. A leap year is 366 days long, but one year long. Such
@@ -314,7 +314,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' unit.
 #' @param ... additional arguments to pass to as.period
 #' @return a period object
-#' @seealso \code{\link{Period-class}}, \code{\link{period}}
+#' @seealso [Period-class], [period()]
 #' @keywords classes manip methods chron
 #' @examples
 #' span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
@@ -593,26 +593,26 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...){
 #'
 #' @section Compare to base R:
 #'
-#' These are drop in replacements for \code{as.Date} and \code{as.POSIXct},
+#' These are drop in replacements for [as.Date()] and [as.POSIXct()],
 #' with a few tweaks to make them work more intuitively.
 #'
 #' \itemize{
-#'   \item \code{as_date} ignores the timezone attribute, resulting in
+#'   \item `as_date()` ignores the timezone attribute, resulting in
 #'      a more intuitive conversion (see examples)
 #'   \item Both functions provide a default origin argument for numeric
 #'      vectors.
-#'   \item \code{as_datetime} defaults to using UTC.
+#'   \item `as_datetime()` defaults to using UTC.
 #' }
 #'
-#' @param x a vector of \code{\link{POSIXt}}, numeric or character objects
+#' @param x a vector of [POSIXt], numeric or character objects
 #' @param origin a Date object, or something which can be coerced by
-#'   \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
-#'   "1970-01-01"). Note that in this instance, \code{x} is assumed to reflect
-#'   the number of days since \code{origin} at \code{"UTC"}.
+#'   `as.Date(origin, ...)` to such an object (default: the Unix epoch of
+#'   "1970-01-01"). Note that in this instance, `x` is assumed to reflect
+#'   the number of days since `origin` at `"UTC"`.
 #' @param tz a time zone name (default: time zone of the POSIXt object
-#'   \code{x}). See \code{\link{OlsonNames}}.
+#'   `x`). See [OlsonNames()].
 #' @param ... further arguments to be passed to specific methods (see above).
-#' @return a vector of \code{\link{Date}} objects corresponding to \code{x}.
+#' @return a vector of [Date] objects corresponding to `x`.
 #' @examples
 #' dt_utc <- ymd_hms("2010-08-03 00:50:50")
 #' dt_europe <- ymd_hms("2010-08-03 00:50:50", tz="Europe/London")

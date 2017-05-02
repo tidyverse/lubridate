@@ -24,4 +24,3 @@ am(x)
 pm(x)
 }
 \keyword{chron}
-

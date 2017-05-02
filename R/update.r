@@ -1,6 +1,6 @@
 #' Changes the components of a date object
 #'
-#' \code{update.Date} and \code{update.POSIXt} return a date with the specified
+#' `update.Date()` and `update.POSIXt()` return a date with the specified
 #' elements updated.  Elements not specified will be left unaltered. update.Date
 #' and update.POSIXt do not add the specified values to the existing date, they
 #' substitute them for the appropriate parts of the existing date.
@@ -10,7 +10,7 @@
 #' @param object a date-time object
 #' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours,
 #' minutes, seconds, tzs (time zone compnent)
-#' @param simple logical, passed to \code{fit_to_timeline}. If TRUE a simple fit
+#' @param simple logical, passed to `fit_to_timeline()`. If TRUE a simple fit
 #' to time line is performed and no NA are produced for invalid dates. Invalid
 #' dates are converted to meaningful dates by extrapolating the timezones.
 #' @return a date object with the requested elements updated. The object will
@@ -112,7 +112,7 @@ update.Date <- function(object, ...){
 #' @param class a character string that describes what type of object to return,
 #'   POSIXlt or POSIXct. Defaults to POSIXct. This is an optimization to avoid
 #'   needless conversions.
-#' @param simple if TRUE, \code{lubridate} makes no attempt to detect
+#' @param simple if TRUE, \pkg{lubridate} makes no attempt to detect
 #'   meaningless time-dates or to correct time zones. No NAs are produced and
 #'   the most meaningful valid dates are returned instead. See examples.
 #' @return a POSIXct or POSIXlt object that contains no illusory date-times

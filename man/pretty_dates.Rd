@@ -30,4 +30,3 @@ pretty_dates(x, 12)
 \keyword{chron}
 \keyword{dplot}
 \keyword{utilities}
-

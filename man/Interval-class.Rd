@@ -5,11 +5,11 @@
 \alias{Interval-class}
 \title{Interval class}
 \description{
-Interval is an S4 class that extends the \code{\link{Timespan-class}} class. An
+Interval is an S4 class that extends the \linkS4class{Timespan} class. An
 Interval object records one or more spans of time. Intervals record these
 timespans as a sequence of seconds that begin at a specified date. Since
 intervals are anchored to a precise moment of time, they can accurately be
-converted to \code{\link{Period-class}} or \code{\link{Duration-class}} class objects. This
+converted to \linkS4class{Period} or \linkS4class{Duration} class objects. This
 is because we can observe the length in seconds of each period that begins on a
 specific date. Contrast this to a generalized period, which may not have a
 consistent length in seconds (e.g. the number of seconds in a year will change
@@ -23,4 +23,3 @@ Interval class objects have two slots: .Data, a numeric object equal to the numb
 of seconds in the interval; and start, a POSIXct object that specifies the time
 when the interval starts.
 }
-

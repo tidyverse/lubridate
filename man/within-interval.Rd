@@ -2,8 +2,8 @@
 % Please edit documentation in R/intervals.r
 \name{\%within\%}
 \alias{\%within\%}
-\alias{\%within\%,ANY,Interval-method}
 \alias{\%within\%,Interval,Interval-method}
+\alias{\%within\%,ANY,Interval-method}
 \title{Tests whether a date or interval falls within an interval}
 \usage{
 a \%within\% b
@@ -29,4 +29,3 @@ ymd("2001-05-03") \%within\% int # TRUE
 int2 \%within\% int # TRUE
 ymd("1999-01-01") \%within\% int # FALSE
 }
-

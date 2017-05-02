@@ -15,7 +15,7 @@ guess_formats(x, orders, locale = Sys.getlocale("LC_TIME"),
 \item{locale}{locale to use, default to the current locale}
 
 \item{preproc_wday}{whether to preprocess week days names. Internal
-optimization used by ymd_hms family of functions. If true week days are
+optimization used by ymd_hms family of functions. If TRUE, weekdays are
 substituted with %a or %A accordingly, so that there is no need to supply
 this format explicitly.}
 
@@ -84,4 +84,3 @@ guess_formats(x, c("dBY HMS", "dbY HMS", "dmyHMS", "BdY H"), print_matches = TRU
 guess_formats(x, c("ymd HMS"), print_matches = TRUE)
 
 }
-

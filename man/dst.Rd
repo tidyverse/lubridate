@@ -27,4 +27,3 @@ dst(x)
 \keyword{chron}
 \keyword{methods}
 \keyword{utilities}
-

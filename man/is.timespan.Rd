@@ -20,8 +20,7 @@ is.timespan(as.Date("2009-08-03")) # FALSE
 is.timespan(duration(second = 1)) # TRUE
 }
 \seealso{
-\code{\link{is.instant}}, \code{\link{is.duration}}, \code{\link{is.difftime}}, \code{\link{is.period}}, \code{\link{is.interval}}
+\code{\link[=is.instant]{is.instant()}}, \code{\link[=is.duration]{is.duration()}}, \code{\link[=is.difftime]{is.difftime()}}, \code{\link[=is.period]{is.period()}}, \code{\link[=is.interval]{is.interval()}}
 }
 \keyword{chron}
 \keyword{logic}
-

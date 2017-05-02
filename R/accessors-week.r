@@ -3,12 +3,10 @@ NULL
 
 #' Get/set weeks component of a date-time.
 #'
-#' \code{week} returns the number of complete seven day periods that have
-#' occured between the date and January 1st, plus one.\cr \code{isoweek} returns
-#' the week as it would appear in the ISO 8601 system, which uses a reoccuring
-#' leap week. \code{epiweek} returns the week as it conventional in
-#' epidemiology. Epiweek follows same rules as isoweek but starts on Sunday.
-#'
+#' @description
+#' `week()` returns the number of complete seven day periods that have
+#' occurred between the date and January 1st, plus one.
+
 #' @param x a date-time object. Must be a POSIXct, POSIXlt, Date, chron,
 #'   yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, or
 #'   fts object.
@@ -18,7 +16,7 @@ NULL
 #' @references
 #'    \url{http://en.wikipedia.org/wiki/ISO_week_date}
 #'    \url{http://www.cmmcp.org/epiweek.htm}
-#' @seealso \code{\link{isoyear}}
+#' @seealso [isoyear()]
 #' @examples
 #' x <- ymd("2012-03-26")
 #' week(x)
@@ -43,12 +41,20 @@ week <- function(x)
   1L + (as.numeric(date) - jan1) %/% 7L
 }
 
+#' @description
+#' `isoweek()` returns
+#' the week as it would appear in the ISO 8601 system, which uses a reoccurring
+#' leap week.
 #' @rdname week
 #' @export
 isoweek <- function(x){
   .other_week(x, 1)
 }
 
+#' @description
+#' `epiweek()` returns the week as it conventional in
+#' epidemiology. Epiweek follows same rules as `isoweek()` but starts on Sunday.
+#'
 #' @rdname week
 #' @export
 epiweek <- function(x) {

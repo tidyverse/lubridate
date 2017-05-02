@@ -5,8 +5,7 @@ NULL
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr,
 #' zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts
-#' objects. \code{isoyear} and \code{epiyear} return years acording to ISO 8601
-#' week and epidimilogical week calendars.
+#' objects.
 #'
 #' year does not yet support years before 0 C.E.
 #'
@@ -55,12 +54,16 @@ setMethod("year<-", signature("Period"), function(x, value){
 }
 
 #' @rdname year
+#' @description
+#' `isoyear()` returns years according to the ISO 8601 week calendar.
 #' @export
 isoyear <- function(x) {
   .other_year(x, 1)
 }
 
 #' @rdname year
+#' @description
+#' `epiyear()` returns years according to the epidemilogical week calendars.
 #' @export
 epiyear <- function(x) {
   .other_year(x, 7)

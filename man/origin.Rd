@@ -18,4 +18,3 @@ origin
 }
 \keyword{chron}
 \keyword{data}
-
