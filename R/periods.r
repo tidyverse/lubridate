@@ -273,9 +273,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 
 #' Create a period object.
 #'
-#' `period()` creates a period object with the specified values. period
-#' provides the behaviour of [period()] in a way that is more
-#' suitable for automating within a function.
+#' `period()` creates a period object with the specified values.
 #'
 #' Within a Period object, time units do not have a fixed length (except for
 #' seconds) until they are added to a date-time. The length of each time unit
