@@ -9,8 +9,9 @@
 *~
 tmp*
 temp*
-src/*.so
-src/*.o
+*.so
+*.o
+*.a
 .Rhistory
 .RData
 TAGS

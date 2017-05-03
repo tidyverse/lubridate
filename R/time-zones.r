@@ -71,7 +71,9 @@ force_tz <- function(time, tzone = ""){
     time
   } else {
     check_tz(tzone)
-    update(time, tz = tzone)
+    out <- C_force_tz(as.POSIXct(time), tz = as.character(tzone))
+    reclass_date(out, time)
+    ## update(time, tz = tzone)
   }
 }
 

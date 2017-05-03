@@ -159,6 +159,8 @@
 #' @importFrom methods setClass setGeneric new show allNames callGeneric is slot slot<- slotNames validObject Compare Arith
 #' @importFrom utils packageVersion read.delim
 #' @importFrom stats na.omit setNames update
+#' @importFrom Rcpp sourceCpp
+#' @importFrom RcppCCTZ parseDatetime
 #' @docType package
 #' @name lubridate-package
 #' @aliases lubridate lubridate-package

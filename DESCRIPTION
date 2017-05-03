@@ -27,7 +27,12 @@ Depends:
     methods,
     R (>= 3.0.0)
 Imports:
-    stringr
+    stringr,
+    Rcpp (>= 0.11),
+    RcppCCTZ (>= 0.2.2)
+LinkingTo:
+    Rcpp,
+    RcppCCTZ
 Suggests:
     testthat,
     knitr,
@@ -37,6 +42,7 @@ VignetteBuilder: knitr
 Collate:
     'Dates.r'
     'POSIXt.r'
+    'RcppExports.R'
     'util.r'
     'timespans.r'
     'intervals.r'

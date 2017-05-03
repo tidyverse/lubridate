@@ -1,0 +1,21 @@
+CXX_STD = CXX11
+PKG_CPPFLAGS= -I.
+PKG_LIBS= -L. -lcctz
+
+LIBCCTZ=cctz/time_tool.o \
+	cctz/time_zone_fixed.o \
+    cctz/time_zone_format.o \
+    cctz/time_zone_if.o \
+    cctz/time_zone_impl.o \
+    cctz/time_zone_info.o \
+    cctz/time_zone_libc.o \
+    cctz/time_zone_lookup.o \
+    cctz/time_zone_posix.o
+
+$(SHLIB): libcctz.a
+
+libcctz.a: $(LIBCCTZ)
+	$(AR) rcs libcctz.a $(LIBCCTZ)
+
+clean:
+	rm -f $(SHLIB) $(LIBCCTZ) $(OBJECTS) libcctz.a
