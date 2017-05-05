@@ -31,9 +31,7 @@ both are present, the periods are concatenated.}
 a period object
 }
 \description{
-\code{period()} creates a period object with the specified values. period
-provides the behaviour of \code{\link[=period]{period()}} in a way that is more
-suitable for automating within a function.
+\code{period()} creates a period object with the specified values.
 }
 \details{
 Within a Period object, time units do not have a fixed length (except for
