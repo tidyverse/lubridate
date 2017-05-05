@@ -55,13 +55,20 @@ with_tz <- function (time, tzone = ""){
 #' @param tzone a character string containing the time zone to convert to. R
 #'   must recognize the name contained in the string as a time zone on your
 #'   system.
+#' @param roll logical. If TRUE, and `time` falls into DST skip assume the next
+#'   valid civil time, otherwise return NA. See examples.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
 #' @seealso [with_tz()]
 #' @examples
-#' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_York")
-#' force_tz(x, "GMT")
-force_tz <- function(time, tzone = ""){
+#' x <- ymd_hms("2009-08-07 00:00:01", tz = "America/New_York")
+#' force_tz(x, "UTC")
+#' force_tz(x, "Europe/Amsterdam")
+#' ## DST skip:
+#' y <- ymd_hms("2010-03-14 02:05:05 UTC")
+#' force_tz(y, "America/New_York", roll=FALSE)
+#' force_tz(y, "America/New_York", roll=TRUE)
+force_tz <- function(time, tzone = "", roll = FALSE){
   if(is.data.frame(time)){
     for(nm in names(time)){
       if(is.POSIXt(time[[nm]])){
@@ -71,7 +78,7 @@ force_tz <- function(time, tzone = ""){
     time
   } else {
     check_tz(tzone)
-    out <- C_force_tz(as.POSIXct(time), tz = as.character(tzone))
+    out <- C_force_tz(as.POSIXct(time), tz = as.character(tzone), roll)
     reclass_date(out, time)
     ## update(time, tz = tzone)
   }
