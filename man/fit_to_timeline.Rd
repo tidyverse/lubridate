@@ -30,6 +30,7 @@ fit_to_timeline returns the instant with the correct combination.
 }
 \examples{
 \dontrun{
+
 tricky <- structure(list(sec   = c(5,    0,    0,    -1),
                          min   = c(0L,   5L,   5L,   0L),
                          hour  = c(2L,   0L,   2L,   2L),
@@ -43,10 +44,11 @@ tricky <- structure(list(sec   = c(5,    0,    0,    -1),
                                "year", "wday", "yday",  "isdst"),
                     class = c("POSIXlt", "POSIXt"),
                     tzone = c("America/Chicago", "CST", "CDT"))
+
 tricky
 ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST
 ## [2] "2012-11-04 00:05:00 CST" Times are still CDT, not CST at this instant
-## [3] "2010-03-14 02:00:00 CDT" Doesn't exist because clocks "spring forward" past this time for daylight savings
+## [3] "2010-03-14 02:00:00 CDT" DST gap
 ## [4] "2012-11-04 01:59:59 CDT" Does exist, but has deceptive internal structure
 
 fit_to_timeline(tricky)
