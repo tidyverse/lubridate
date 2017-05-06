@@ -1,1 +1,1 @@
-rm -f src/*.a src/*.o src/*.so src/*.dylib src/*~ *~ /src/cctz/*.o
+rm -f src/*.a src/*.o src/*.so src/*.dylib src/*~ *~ ./src/*/*/*.o lubridate*.tar.gz
