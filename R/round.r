@@ -12,11 +12,10 @@
 #' but does not follow the convention of the base [base::round()] function
 #' which "rounds to the even digit" per IEC 60559.
 #'
-#' @details
-#' In \pkg{lubridate}, rounding of a date-time objects tries to preserve the
-#' class of the input object whenever it is meaningful. This is done by first
-#' rounding to an instant and then converting to the original class by usual R
-#' conventions.
+#' @details In \pkg{lubridate}, rounding of a date-time objects tries to
+#'   preserve the class of the input object whenever possible. This is done by
+#'   first rounding to an instant and then converting to the original class by
+#'   usual R conventions.
 #'
 #'
 #' @section Rounding Up Date Objects:
@@ -24,25 +23,22 @@
 #' By default rounding up `Date` objects follows 3 steps:
 #'
 #' 1. Convert to an instant representing lower bound of the Date:
-#'     `2000-01-01` --> `2000-01-01 00:00:00`
+#'    `2000-01-01` --> `2000-01-01 00:00:00`
 #'
-#' 1. Round up to the \strong{next} closest rounding unit boundary. For
-#'     example, if the rounding unit is `month` then next boundary
-#'     for `2000-01-01` will be `2000-02-01 00:00:00`.
+#' 2. Round up to the \strong{next} closest rounding unit boundary. For example,
+#'    if the rounding unit is `month` then next closest boundary of `2000-01-01`
+#'    is `2000-02-01 00:00:00`.
 #'
-#'     The motivation for this behavior is that `2000-01-01` is
-#'     conceptually an interval (`2000-01-01 00:00:00` --
-#'     `2000-01-02 00:00:00`)
-#'     and the day hasn't started clocking yet at the exact
-#'     boundary `00:00:00`. Thus, it seems wrong to round up a day to
-#'     its lower boundary.
+#'    The motivation for this is that the "partial" `2000-01-01` is conceptually
+#'    an interval (`2000-01-01 00:00:00` -- `2000-01-02 00:00:00`) and the day
+#'    hasn't started clocking yet at the exact boundary `00:00:00`. Thus, it
+#'    seems wrong to round up a day to its lower boundary.
 #'
-#' 1. If rounding unit is smaller than a day, return the instant from
-#'     step 2 above (`POSIXct`), otherwise return the `Date`
-#'     immediately following that instant.
+#'    The behavior on the boundary can be changed by setting
+#'    `change_on_boundary` to a non-`NULL` value.
 #'
-#'  The behavior on the boundary in the second step above can be changed by
-#'  setting `change_on_boundary` to a non-`NULL` value.
+#' 3. If rounding unit is smaller than a day, return the instant from step 2
+#'     (`POSIXct`), otherwise convert to and return a `Date` object.
 #'
 #' @rdname round_date
 #' @param x a vector of date-time objects
