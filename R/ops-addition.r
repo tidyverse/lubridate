@@ -35,11 +35,11 @@ add_duration_to_date <- function(dur, date) {
 
 add_period_to_period <- function(per2, per1){
   new("Period", per1@.Data + per2@.Data,
-    year = per1@year + per2@year,
-    month = per1@month + per2@month,
-    day = per1@day + per2@day,
-    hour = per1@hour + per2@hour,
-    minute = per1@minute + per2@minute)
+      year = per1@year + per2@year,
+      month = per1@month + per2@month,
+      day = per1@day + per2@day,
+      hour = per1@hour + per2@hour,
+      minute = per1@minute + per2@minute)
 }
 
 add_period_to_date <- function(per, date){

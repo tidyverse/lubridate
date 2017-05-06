@@ -12,6 +12,7 @@ Version 1.6.0.9000
 
 ### BUG FIXES
 
+* [#534](https://github.com/hadley/lubridate/issues/534) Fix arithmetics with large numbers
 * [#507](https://github.com/hadley/lubridate/issues/507) Period and duration parsers now understand 0 units.
 * [#466](https://github.com/hadley/lubridate/pull/466) Fix wrong formats within ymd_h family of functions.
 * [#472](https://github.com/hadley/lubridate/pull/472) Printing method for duration doesn't throw format error on fractional seconds.

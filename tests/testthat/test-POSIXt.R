@@ -49,3 +49,10 @@ test_that("changes timezone of POSIXct", {
   dt <- as_datetime(make_datetime(tz = "America/Chicago"))
   expect_equal(tz(dt), "UTC")
 })
+
+test_that("addition of large seconds doesn't overflow", {
+  from_period <- origin + seconds(2^31 + c(-2:2))
+  from_char <- ymd_hms(c("2038-01-19 03:14:06", "2038-01-19 03:14:07", "2038-01-19 03:14:08",
+                         "2038-01-19 03:14:09", "2038-01-19 03:14:10"))
+  expect_equal(from_period, from_char)
+})

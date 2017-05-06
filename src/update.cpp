@@ -70,7 +70,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
                          wday.size(), hour.size(), minute.size(), second.size()};
 
   // tz is always there, so the output is at least length 1
-  size_t N = std::max(*std::max_element(sizes.begin(), sizes.end()), dt.size());
+  R_xlen_t N = std::max(*std::max_element(sizes.begin(), sizes.end()), dt.size());
 
   bool do_year = sizes[0] > 0, do_month = sizes[1] > 0,
     do_yday = sizes[2] > 0, do_mday = sizes[3] > 0, do_wday = sizes[4] > 0,
@@ -124,7 +124,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
       cctz::time_point<cctz::sys_seconds> tp1(ss);
       cctz::civil_second ct1 = cctz::convert(tp1, tzone1);
 
-      int
+      long int
         y = ct1.year(), m = ct1.month(), d = ct1.day(),
         H = ct1.hour(), M = ct1.minute(), S = ct1.second();
 
@@ -195,8 +195,6 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
 Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
                                    const Rcpp::CharacterVector tz,
                                    const bool roll = false) {
-
-  typedef std::chrono::duration<double, std::ratio<1>> dseconds;
 
   size_t n = dt.size();
 
