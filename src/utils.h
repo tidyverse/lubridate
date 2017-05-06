@@ -20,7 +20,7 @@ typedef struct {
 
 int adjust_leap_years(int y, int m, int is_leap);
 int check_ymd(int y, int m, int d, int is_leap);
-int parse_alphanum(const char **c, const char **strings, const int strings_len);
+int parse_alphanum(const char **c, const char **strings, const int strings_len, const char ignore_case);
 int parse_int (const char **c, const int N, const int strict);
 
 #endif /* !defined LUB_UTILS_H */

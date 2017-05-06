@@ -34,12 +34,12 @@
 
 
 static const char ltnames[][5] = {"sec", "min", "hour", "mday", "mon", "year"};
-static const char *en_months[] = {"January", "February","March","April","May","June",
-                                  "July","August","September","October","November","December"};
+static const char *en_months[] = {"january", "february","march","april","may","june",
+                                  "july","august","september","october","november","december"};
 
 // increment **c and return month ix in 1..12 if parsing was successful, 0 if not.
 int parse_alpha_month(const char **c){
-  return (parse_alphanum(c, en_months, 12) + 1);
+  return (parse_alphanum(c, en_months, 12, TRUE) + 1);
 }
 
 SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {

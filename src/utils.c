@@ -1,6 +1,7 @@
 #include "constants.h"
 #include "utils.h"
 #include <stdio.h>
+#include <ctype.h>
 
 // return adjustment (in seconds) due to leap years
 // y: years after (positive) or before (negative) 2000-01-01 00:00:00
@@ -59,13 +60,13 @@ int parse_int (const char **c, const int N, const int strict) {
 }
 
 
-// Increment **c and return index in 0..length(strings) if match was found, -1
+// Increment *c and return index in 0..length(strings) if match was found, -1
 // if not.
 //
-// - **c: pointer to a character in a C string (automatically incremented)
+// - *c: pointer to a character in a C string (incremented by side effect)
 // - *stings: pointer to an array of C strings to be matched to.
 // - strings_len: length of strings array.
-int parse_alphanum(const char **c, const char **strings, const int strings_len){
+int parse_alphanum(const char **c, const char **strings, const int strings_len, const char ignore_case){
 
   // tracking array: all valid objects are marked with 1, invalid with 0
   int track[strings_len];
@@ -83,7 +84,7 @@ int parse_alphanum(const char **c, const char **strings, const int strings_len){
       if (track[i]){
         // keep going while at least one valid track
         if (strings[i][j]){
-          if(**c == strings[i][j]){
+          if(**c == strings[i][j] || (ignore_case && (tolower(**c) == strings[i][j]))){
             out = i;
             go = 1;
           } else {

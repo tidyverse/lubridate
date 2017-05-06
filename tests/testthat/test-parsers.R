@@ -924,7 +924,12 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
                           tz = "UTC"))
 })
 
-
+test_that("parser ignores case", {
+  ref <- ymd_hms("2016-01-04 07:40:00", "2016-01-04 07:40:00", "2016-01-04 07:40:00 UTC")
+  dts <- c("04jan2016:07:40:00", "04JAN2016:07:40:00", "04Jan2016:07:40:00")
+  expect_equal(ref, parse_date_time2(dts, "dBYHMS"))
+  expect_equal(ref, dmy_hms(dts))
+})
 
 ## library(microbenchmark)
 ## library(lubridate)

@@ -2,6 +2,7 @@ Version 1.6.0.9000
 ==================
 
 ### NEW FEATURES
+* [#529](https://github.com/hadley/lubridate/issues/529) Internal parser now ignores the case of alpha months (B format)
 * [#535](https://github.com/hadley/lubridate/issues/535) Rounding to `season` is now supported.
 * [#536](https://github.com/hadley/lubridate/issues/536) `as_date` and `as_datetime` now understand character vectors.
 * [#508](https://github.com/hadley/lubridate/pull/508) New parameter `locale` in `month`. Labels of the returned factors (when `label=TRUE`) now respect current locale.
@@ -11,7 +12,6 @@ Version 1.6.0.9000
 * [#401](https://github.com/hadley/lubridate/issues/401) New parameter `locale` in `wday`. Labels of the returned factors (when `label=TRUE`) now respect current locale.
 
 ### BUG FIXES
-
 * [#530](https://github.com/hadley/lubridate/issues/530) `parse_date_time` now throw warnings only for actual parsing errors (input with all NAs are silent)
 * [#534](https://github.com/hadley/lubridate/issues/534) Fix arithmetics with large numbers
 * [#507](https://github.com/hadley/lubridate/issues/507) Period and duration parsers now understand 0 units.

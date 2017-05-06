@@ -44,7 +44,7 @@ intUnit parse_period_unit (const char **c) {
   out.val = parse_int(c, 100, FALSE);
 
   if(**c){
-    out.unit = parse_alphanum(c, en_units, N_EN_UNITS);
+    out.unit = parse_alphanum(c, en_units, N_EN_UNITS, 0);
     if (out.unit < 0){
       return out;
     } else {
