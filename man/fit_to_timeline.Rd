@@ -47,11 +47,9 @@ tricky
 ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST
 ## [2] "2012-11-04 00:05:00 CST" Times are still CDT, not CST at this instant
 ## [3] "2010-03-14 02:00:00 CDT" Doesn't exist because clocks "spring forward" past this time for daylight savings
-## [4] "2012-11-04 01:59:59 CDT" does exist, but has deceptive internal structure
+## [4] "2012-11-04 01:59:59 CDT" Does exist, but has deceptive internal structure
 
 fit_to_timeline(tricky)
-[1] "2012-11-04 02:00:05 CST" "2012-11-04 00:05:00 CDT"
-[4] NA                        "2012-11-04 01:59:59 CDT"
 ## Returns:
 ## [1] "2012-11-04 02:00:00 CST" instant paired with correct tz & DST combination
 ## [2] "2012-11-04 00:05:00 CDT" instant paired with correct tz & DST combination

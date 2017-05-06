@@ -2,27 +2,16 @@ context("Rounding")
 
 test_that("floor_date works for each time element",{
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
-
-  expect_identical(floor_date(x, "second"), as.POSIXct(
-  	"2009-08-03 12:01:59", tz = "UTC"))
-  expect_identical(floor_date(x, "minute"), as.POSIXct(
-  	"2009-08-03 12:01:00", tz = "UTC"))
-  expect_identical(floor_date(x, "hour"), as.POSIXct(
-  	"2009-08-03 12:00:00", tz = "UTC"))
-  expect_identical(floor_date(x, "day"), as.POSIXct(
-  	"2009-08-03 00:00:00", tz = "UTC"))
-  expect_identical(floor_date(x, "week"), as.POSIXct(
-  	"2009-08-02 00:00:00", tz = "UTC"))
-  expect_identical(floor_date(x, "month"), as.POSIXct(
-  	"2009-08-01 00:00:00", tz = "UTC"))
-  expect_identical(floor_date(x, "bimonth"), as.POSIXct(
-  	"2009-07-01 00:00:00", tz = "UTC"))
-  expect_identical(floor_date(x, "quarter"),
-                   as.POSIXct("2009-07-01 00:00:00", tz = "UTC"))
-  expect_identical(floor_date(x, "halfyear"), as.POSIXct(
-    "2009-07-01 00:00:00", tz = "UTC"))
-  expect_identical(floor_date(x, "year"), as.POSIXct(
-  	"2009-01-01 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "second"), as.POSIXct("2009-08-03 12:01:59", tz = "UTC"))
+  expect_identical(floor_date(x, "minute"), as.POSIXct("2009-08-03 12:01:00", tz = "UTC"))
+  expect_identical(floor_date(x, "hour"), as.POSIXct("2009-08-03 12:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "day"), as.POSIXct("2009-08-03 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "week"), as.POSIXct("2009-08-02 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "month"), as.POSIXct("2009-08-01 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "bimonth"), as.POSIXct("2009-07-01 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "quarter"), as.POSIXct("2009-07-01 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "halfyear"), as.POSIXct("2009-07-01 00:00:00", tz = "UTC"))
+  expect_identical(floor_date(x, "year"), as.POSIXct("2009-01-01 00:00:00", tz = "UTC"))
 })
 
 
@@ -321,19 +310,16 @@ test_that("round_date does not round dates that are already on a boundary",{
 
 test_that("ceiling_date returns input of length zero when given input of length zero",{
   x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))
-
   expect_equal(ceiling_date(x), x)
 })
 
 test_that("floor_date returns input of length zero when given input of length zero",{
   x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))
-
   expect_equal(floor_date(x), x)
 })
 
 test_that("round_date returns input of length zero when given input of length zero",{
   x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))
-
   expect_equal(round_date(x), x)
 })
 
@@ -390,17 +376,10 @@ test_that("ceiling_date, round_date and floor_date behave correctly with NA", {
   ## (bug #486)
   x <- ymd_hms("2009-08-03 12:01:59.23", tz = "UTC") + (0:1)*days()
   x[2] <- NA
-  expect_equal(ceiling_date(x, unit = "day"),
-               c(ymd("2009-08-04", tz = "UTC"), NA))
-  expect_equal(ceiling_date(x, unit = "seconds"),
-               c(ymd_hms("2009-08-03 12:02:00", tz = "UTC"), NA))
-  expect_equal(ceiling_date(x, unit = "months"),
-               c(ymd("2009-09-01", tz = "UTC"), NA))
-  expect_equal(floor_date(x, unit = "day"),
-               c(ymd("2009-08-03", tz = "UTC"), NA))
-  expect_equal(floor_date(x, unit = "months"),
-               c(ymd("2009-08-01", tz = "UTC"), NA))
-  expect_equal(round_date(x, unit = "minute"),
-               c(ymd_hms("2009-08-03 12:02:00", tz = "UTC"), NA))
+  expect_equal(ceiling_date(x, unit = "day"), ymd(c("2009-08-04", NA), tz = "UTC"))
+  expect_equal(ceiling_date(x, unit = "seconds"), ymd_hms(c("2009-08-03 12:02:00", NA), tz = "UTC"))
+  expect_equal(ceiling_date(x, unit = "months"), ymd(c("2009-09-01", NA), tz = "UTC"))
+  expect_equal(floor_date(x, unit = "day"), ymd(c("2009-08-03", NA), tz = "UTC"))
+  expect_equal(floor_date(x, unit = "months"), ymd(c("2009-08-01", NA), tz = "UTC"))
+  expect_equal(round_date(x, unit = "minute"), ymd_hms(c("2009-08-03 12:02:00", NA), tz = "UTC"))
 })
-

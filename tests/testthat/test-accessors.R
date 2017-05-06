@@ -37,8 +37,7 @@ test_that("hours accessor extracts correct hour",{
 })
 
 test_that("days accessors extract correct days",{
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 

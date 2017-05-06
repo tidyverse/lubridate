@@ -51,10 +51,10 @@ boundary of the specified time unit.
 boundary of the specified time unit.
 }
 \details{
-In \pkg{lubridate}, rounding of a date-time objects tries to preserve the
-class of the input object whenever it is meaningful. This is done by first
-rounding to an instant and then converting to the original class by usual R
-conventions.
+In \pkg{lubridate}, rounding of a date-time objects tries to
+preserve the class of the input object whenever possible. This is done by
+first rounding to an instant and then converting to the original class by
+usual R conventions.
 }
 \section{Rounding Up Date Objects}{
 
@@ -63,23 +63,20 @@ By default rounding up \code{Date} objects follows 3 steps:
 \enumerate{
 \item Convert to an instant representing lower bound of the Date:
 \code{2000-01-01} --> \code{2000-01-01 00:00:00}
-\item Round up to the \strong{next} closest rounding unit boundary. For
-example, if the rounding unit is \code{month} then next boundary
-for \code{2000-01-01} will be \code{2000-02-01 00:00:00}.
+\item Round up to the \strong{next} closest rounding unit boundary. For example,
+if the rounding unit is \code{month} then next closest boundary of \code{2000-01-01}
+is \code{2000-02-01 00:00:00}.
 
-The motivation for this behavior is that \code{2000-01-01} is
-conceptually an interval (\code{2000-01-01 00:00:00} --
-\code{2000-01-02 00:00:00})
-and the day hasn't started clocking yet at the exact
-boundary \code{00:00:00}. Thus, it seems wrong to round up a day to
-its lower boundary.
-\item If rounding unit is smaller than a day, return the instant from
-step 2 above (\code{POSIXct}), otherwise return the \code{Date}
-immediately following that instant.
+The motivation for this is that the "partial" \code{2000-01-01} is conceptually
+an interval (\code{2000-01-01 00:00:00} -- \code{2000-01-02 00:00:00}) and the day
+hasn't started clocking yet at the exact boundary \code{00:00:00}. Thus, it
+seems wrong to round up a day to its lower boundary.
+
+The behavior on the boundary can be changed by setting
+\code{change_on_boundary} to a non-\code{NULL} value.
+\item If rounding unit is smaller than a day, return the instant from step 2
+(\code{POSIXct}), otherwise convert to and return a \code{Date} object.
 }
-
-The behavior on the boundary in the second step above can be changed by
-setting \code{change_on_boundary} to a non-\code{NULL} value.
 }
 
 \examples{

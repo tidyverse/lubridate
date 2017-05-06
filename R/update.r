@@ -9,10 +9,12 @@
 #' @name DateUpdate
 #' @param object a date-time object
 #' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours,
-#' minutes, seconds, tzs (time zone compnent)
-#' @param simple logical, passed to `fit_to_timeline()`. If TRUE a simple fit
-#' to time line is performed and no NA are produced for invalid dates. Invalid
-#' dates are converted to meaningful dates by extrapolating the timezones.
+#'   minutes, seconds, tzs (time zone compnent)
+#' @param roll logical. If `TRUE`, and the resulting date-time lands on a
+#'   non-existent civil time instant (DST, 29th February, etc.) roll the date
+#'   till next valid point. When `FALSE`, the default, produce NA for non
+#'   existing date-times.
+#' @param simple logical. Deprecated. Same as `roll`.
 #' @return a date object with the requested elements updated. The object will
 #'   retain its original class unless an element is updated which the original
 #'   class does not support. In this case, the date returned will be a POSIXlt

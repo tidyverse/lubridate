@@ -5,7 +5,7 @@
 \alias{update.POSIXt}
 \title{Changes the components of a date object}
 \usage{
-\method{update}{POSIXt}(object, ..., simple = FALSE)
+\method{update}{POSIXt}(object, ..., roll = FALSE, simple = NULL)
 }
 \arguments{
 \item{object}{a date-time object}
@@ -13,9 +13,12 @@
 \item{...}{named arguments: years, months, ydays, wdays, mdays, days, hours,
 minutes, seconds, tzs (time zone compnent)}
 
-\item{simple}{logical, passed to \code{fit_to_timeline()}. If TRUE a simple fit
-to time line is performed and no NA are produced for invalid dates. Invalid
-dates are converted to meaningful dates by extrapolating the timezones.}
+\item{roll}{logical. If \code{TRUE}, and the resulting date-time lands on a
+non-existent civil time instant (DST, 29th February, etc.) roll the date
+till next valid point. When \code{FALSE}, the default, produce NA for non
+existing date-times.}
+
+\item{simple}{logical. Deprecated. Same as \code{roll}.}
 }
 \value{
 a date object with the requested elements updated. The object will

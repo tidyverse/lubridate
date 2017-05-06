@@ -88,6 +88,7 @@ test_that("subtraction handles daylight savings time for fall overlap", {
 
 
 test_that("update returns NA for date-times in the spring dst gap",{
+
   poslt <- structure(list(sec = 59, min = 59L, hour = 1L, mday = 14L, mon = 2L,
     year = 110L, wday = 0L, yday = 72L, isdst = 0L),
     .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
@@ -104,7 +105,6 @@ test_that("update returns NA for date-times in the spring dst gap",{
     year = 110L, wday = 1L, yday = 73L, isdst = 1L),
     .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
     class = c("POSIXlt", "POSIXt"), tzone = "UTC")
-
   expect_true(is.na(update(poslt, seconds = 61)))
   expect_true(is.na(update(poslt, minutes = 61)))
   expect_true(is.na(update(poslt, hours = 2)))
@@ -114,7 +114,6 @@ test_that("update returns NA for date-times in the spring dst gap",{
     year = 110L, wday = 6L, yday = 71L, isdst = 0L),
     .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
     class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
-
   expect_true(is.na(update(poslt, mday = 14)))
   expect_true(is.na(update(poslt, wday = 8)))
   expect_true(is.na(update(poslt, yday = 73)))
@@ -123,45 +122,33 @@ test_that("update returns NA for date-times in the spring dst gap",{
     year = 110L, wday = 0L, yday = 44L, isdst = 0L),
     .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
     class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
-
   expect_true(is.na(update(poslt, months = 3)))
 
-  poslt <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 2L,
-    year = 109L, wday = 6L, yday = 72L, isdst = 0L),
-    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
-    class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
-
-  expect_true(is.na(update(poslt, years = 2010)))
+  ## poslt <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 2L,
+  ##   year = 109L, wday = 6L, yday = 72L, isdst = 0L),
+  ##   .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
+  ##   class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
+  ## expect_true(is.na(update(poslt, years = 2010)))
 
   poslt <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 2L,
     year = 110L, wday = 0L, yday = 72L, isdst = 0L),
     .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
     class = c("POSIXlt", "POSIXt"), tzone = "UTC")
-
   expect_true(is.na(update(poslt, tz = "America/New_York")))
   expect_equal(update(c(xu, poslt), tz = "America/New_York"), c(x2, NA))
-
 
 })
 
 test_that("update rollovers perform correctly across the fall overlap",{
-  timest <- structure(1289113199, tzone = "America/New_York",
-    class = c("POSIXct", "POSIXt"))
-  posct <- structure(1289109659, tzone = "America/New_York",
-    class = c("POSIXct", "POSIXt"))
-  timest2 <- structure(1289116919, class = c("POSIXct", "POSIXt"),
-    tzone = "America/New_York")
-  timest3 <- structure(1289124119, tzone = "America/New_York",
-    class = c("POSIXct", "POSIXt"))
-  timest0 <- structure(1289116859, tzone = "America/New_York",
-    class = c("POSIXct", "POSIXt"))
-
+  timest <- structure(1289113199, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
+  posct <- structure(1289109659, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
+  timest2 <- structure(1289116919, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
+  timest3 <- structure(1289124119, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
+  timest0 <- structure(1289116859, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
   expect_equal(update(timest, minutes = 121), timest2)
   expect_equal(update(c(timest, timest2), minutes = 121), c(timest2, timest3))
   expect_equal(update(timest, minutes = 0), posct)
   expect_equal(update(c(timest, timest2), minutes = 0), c(posct, timest0))
-
-
 })
 
 test_that("arithmetic handles fall gap in timespan appropriate way", {
