@@ -5,6 +5,27 @@
 
 using namespace Rcpp;
 
+// C_update_dt
+Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt, const Rcpp::IntegerVector& year, const Rcpp::IntegerVector& month, const Rcpp::IntegerVector& yday, const Rcpp::IntegerVector& mday, const Rcpp::IntegerVector& wday, const Rcpp::IntegerVector& hour, const Rcpp::IntegerVector& minute, const Rcpp::NumericVector& second, const SEXP tz, const bool roll);
+RcppExport SEXP lubridate_C_update_dt(SEXP dtSEXP, SEXP yearSEXP, SEXP monthSEXP, SEXP ydaySEXP, SEXP mdaySEXP, SEXP wdaySEXP, SEXP hourSEXP, SEXP minuteSEXP, SEXP secondSEXP, SEXP tzSEXP, SEXP rollSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type dt(dtSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type year(yearSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type month(monthSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type yday(ydaySEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type mday(mdaySEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type wday(wdaySEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type hour(hourSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type minute(minuteSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type second(secondSEXP);
+    Rcpp::traits::input_parameter< const SEXP >::type tz(tzSEXP);
+    Rcpp::traits::input_parameter< const bool >::type roll(rollSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_update_dt(dt, year, month, yday, mday, wday, hour, minute, second, tz, roll));
+    return rcpp_result_gen;
+END_RCPP
+}
 // C_force_tz
 Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt, const Rcpp::CharacterVector tz, const bool roll);
 RcppExport SEXP lubridate_C_force_tz(SEXP dtSEXP, SEXP tzSEXP, SEXP rollSEXP) {

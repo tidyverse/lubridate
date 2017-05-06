@@ -26,12 +26,47 @@
 #'
 #' update(date, minute = 10, second = 3)
 #' @export
-update.POSIXt <- function(object, ..., simple = FALSE){
+update.POSIXt <- function(object, ..., roll = FALSE, simple = NULL){
+  if (!is.null(simple)) roll <- simple
+  do.call(update_date_time, c(list(object, roll = roll), list(...)))
+}
+
+update_date_time <- function(object, years = integer(), months = integer(),
+                             days = integer(), mdays = integer(), ydays = integer(), wdays = integer(),
+                             hours = integer(), minutes = integer(), seconds = double(), tzs = NULL,
+                             roll = FALSE) {
+
+  if(!length(object)) return(object)
+
+  if (length(days) > 0) mdays = days;
+  updates <- list(year = years, month = months,
+                  yday = ydays, mday = mdays, wday = wdays,
+                  hour = hours, minute = minutes, second = seconds)
+  maxlen <- max(unlist(lapply(updates, length)))
+
+  if (maxlen > 1) {
+    for (nm in names(updates)) {
+      len <- length(updates[[nm]])
+      ## len == 1 is treated at C_level
+      if (len != maxlen && len > 1)
+        updates[[nm]] <- rep_len(updates[[nm]], maxlen)
+    }
+  }
+
+  ## todo: check if the following lines make any unnecessary copies
+  updates[["dt"]] <- as.POSIXct(object)
+  updates[["roll"]] <- roll
+  updates[["tz"]] <- tzs
+  reclass_date(do.call(C_update_dt, updates), object)
+}
+
+## prior to v1.7.0
+update_posixt_old <- function(object, ..., simple = FALSE){
 
   if(!length(object)) return(object)
   date <- as.POSIXlt(object)
 
-  # adjudicate units input
+  ## adjudicate units input
   units <- list(...)
   names(units) <- standardise_lt_names(names(units))
 
@@ -60,7 +95,7 @@ update.POSIXt <- function(object, ..., simple = FALSE){
   if (!is.null(units$mon)) units$mon <- units$mon - 1
   if (!is.null(units$year)) units$year <- units$year - 1900
 
-  # make new date-times
+  ## make new date-times
   date <- unclass(date)
 
   date[names(units)] <- units
@@ -136,11 +171,9 @@ update.Date <- function(object, ...){
 #' ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST
 #' ## [2] "2012-11-04 00:05:00 CST" Times are still CDT, not CST at this instant
 #' ## [3] "2010-03-14 02:00:00 CDT" Doesn't exist because clocks "spring forward" past this time for daylight savings
-#' ## [4] "2012-11-04 01:59:59 CDT" does exist, but has deceptive internal structure
+#' ## [4] "2012-11-04 01:59:59 CDT" Does exist, but has deceptive internal structure
 #'
 #' fit_to_timeline(tricky)
-#' [1] "2012-11-04 02:00:05 CST" "2012-11-04 00:05:00 CDT"
-#' [4] NA                        "2012-11-04 01:59:59 CDT"
 #' ## Returns:
 #' ## [1] "2012-11-04 02:00:00 CST" instant paired with correct tz & DST combination
 #' ## [2] "2012-11-04 00:05:00 CDT" instant paired with correct tz & DST combination
