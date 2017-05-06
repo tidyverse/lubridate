@@ -12,6 +12,7 @@ Version 1.6.0.9000
 
 ### BUG FIXES
 
+* [#530](https://github.com/hadley/lubridate/issues/530) `parse_date_time` now throw warnings only for actual parsing errors (input with all NAs are silent)
 * [#534](https://github.com/hadley/lubridate/issues/534) Fix arithmetics with large numbers
 * [#507](https://github.com/hadley/lubridate/issues/507) Period and duration parsers now understand 0 units.
 * [#466](https://github.com/hadley/lubridate/pull/466) Fix wrong formats within ymd_h family of functions.

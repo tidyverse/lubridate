@@ -313,13 +313,17 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
   list(hour = hour, min = min, sec = sec)
 }
 
-.parse_hms <- function(..., order, quiet = FALSE){
+.parse_hms <- function(..., order, quiet = FALSE) {
   ## wraper for C level parse_hms
   hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
   out <- matrix(.Call("parse_hms", hms, order),
                 nrow = 3L, dimnames = list(c("H", "M", "S"), NULL))
-  if(!quiet && all(is.na(out[substr(order, ln <- nchar(order), ln), ])))
-    warning("Some strings failed to parse")
+  if(!quiet){
+    ## fixme: this warning should be dropped to C and thrown only when there are
+    ## real parsing errors #530
+    if(any(is.na(out[substr(order, ln <- nchar(order), ln), ])))
+      warning("Some strings failed to parse, or all strings are NAs")
+  }
   out
 }
 
@@ -596,13 +600,15 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   failed <- 0L
   warned <- FALSE
-  to_parse <- !is.na(x) & nzchar(x) ## missing data might be ""
+  to_parse <- which(!is.na(x) & nzchar(x)) ## missing data might be ""
   ## prepare an NA vector
-  out <- .POSIXct(rep.int(NA, length(x)), tz = tz)
-  out[to_parse] <- .local_parse(x[to_parse], TRUE)
+  out <- .POSIXct(rep.int(NA_real_, length(x)), tz = tz)
 
-  if( failed > 0 && !quiet && !warned )
+  if (length(to_parse)) {
+    out[to_parse] <- .local_parse(x[to_parse], TRUE)
+    if( failed > 0 && !quiet && !warned)
     warning(" ", failed, " failed to parse.", call. = FALSE)
+  }
 
   out
 }
