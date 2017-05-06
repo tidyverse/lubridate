@@ -15,22 +15,19 @@ ceiling_date(x, unit = "seconds", change_on_boundary = NULL)
 \arguments{
 \item{x}{a vector of date-time objects}
 
-\item{unit}{a character string specifying the time unit or a multiple of a
-unit to be rounded to. Valid base units are second, minute, hour, day,
-week, month, bimonth, quarter, halfyear, or year. Arbitrary unique English
-abbreviations as in \code{\link[=period]{period()}} constructor are also
-supported. Rounding to multiple of units (except weeks) is supported from
-\code{v1.6.0}.}
+\item{unit}{a character string specifying a time unit or a multiple of a unit
+to be rounded to. Valid base units are \code{second}, \code{minute}, \code{hour}, \code{day},
+\code{week}, \code{month}, \code{bimonth}, \code{quarter}, \code{season}, \code{halfyear} and
+\code{year}. Arbitrary unique English abbreviations as in the \code{\link[=period]{period()}}
+constructor are allowed. Rounding to multiple of units (except weeks) is
+supported.}
 
 \item{change_on_boundary}{If NULL (the default) don't change instants on the
-boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is
-\code{2000-01-01 00:00:00}), but round up \code{Date} objects to the next
-boundary (\code{ceiling_date(ymd("2000-01-01"), "month")} is
-\code{"2000-02-01"}). When \code{TRUE}, instants on the boundary are
-rounded up to the next boundary. When \code{FALSE}, date-time on the
-boundary are never rounded up (this was the default for \pkg{lubridate}
-prior to \code{v1.6.0}. See section \code{Rounding Up Date Objects} below
-for more details.}
+boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is \code{2000-01-01 00:00:00}), but round up \code{Date} objects to the next boundary
+(\code{ceiling_date(ymd("2000-01-01"), "month")} is \code{"2000-02-01"}). When
+\code{TRUE}, instants on the boundary are rounded up to the next boundary. When
+\code{FALSE}, date-time on the boundary are never rounded up (this was the
+default for \pkg{lubridate} prior to \code{v1.6.0}. See section \code{Rounding Up Date Objects} below for more details.}
 }
 \description{
 Rounding to the nearest unit or multiple of a unit are supported. All
@@ -103,6 +100,7 @@ floor_date(x, "week")
 floor_date(x, "month")
 floor_date(x, "bimonth")
 floor_date(x, "quarter")
+floor_date(x, "season")
 floor_date(x, "halfyear")
 floor_date(x, "year")
 
@@ -116,6 +114,7 @@ ceiling_date(x, "week")
 ceiling_date(x, "month")
 ceiling_date(x, "bimonth") == ceiling_date(x, "2 months")
 ceiling_date(x, "quarter")
+ceiling_date(x, "season")
 ceiling_date(x, "halfyear")
 ceiling_date(x, "year")
 x <- ymd("2000-01-01")

@@ -42,21 +42,20 @@
 #'
 #' @rdname round_date
 #' @param x a vector of date-time objects
-#' @param unit a character string specifying the time unit or a multiple of a
-#'   unit to be rounded to. Valid base units are second, minute, hour, day,
-#'   week, month, bimonth, quarter, halfyear, or year. Arbitrary unique English
-#'   abbreviations as in [period()] constructor are also
-#'   supported. Rounding to multiple of units (except weeks) is supported from
-#'   `v1.6.0`.
+#' @param unit a character string specifying a time unit or a multiple of a unit
+#'   to be rounded to. Valid base units are `second`, `minute`, `hour`, `day`,
+#'   `week`, `month`, `bimonth`, `quarter`, `season`, `halfyear` and
+#'   `year`. Arbitrary unique English abbreviations as in the [period()]
+#'   constructor are allowed. Rounding to multiple of units (except weeks) is
+#'   supported.
 #' @param change_on_boundary If NULL (the default) don't change instants on the
-#'   boundary (`ceiling_date(ymd_hms('2000-01-01 00:00:00'))` is
-#'   `2000-01-01 00:00:00`), but round up `Date` objects to the next
-#'   boundary (`ceiling_date(ymd("2000-01-01"), "month")` is
-#'   `"2000-02-01"`). When `TRUE`, instants on the boundary are
-#'   rounded up to the next boundary. When `FALSE`, date-time on the
-#'   boundary are never rounded up (this was the default for \pkg{lubridate}
-#'   prior to `v1.6.0`. See section `Rounding Up Date Objects` below
-#'   for more details.
+#'   boundary (`ceiling_date(ymd_hms('2000-01-01 00:00:00'))` is `2000-01-01
+#'   00:00:00`), but round up `Date` objects to the next boundary
+#'   (`ceiling_date(ymd("2000-01-01"), "month")` is `"2000-02-01"`). When
+#'   `TRUE`, instants on the boundary are rounded up to the next boundary. When
+#'   `FALSE`, date-time on the boundary are never rounded up (this was the
+#'   default for \pkg{lubridate} prior to `v1.6.0`. See section `Rounding Up
+#'   Date Objects` below for more details.
 #' @keywords manip chron
 #' @seealso [base::round()]
 #' @examples
@@ -83,6 +82,7 @@
 #' floor_date(x, "month")
 #' floor_date(x, "bimonth")
 #' floor_date(x, "quarter")
+#' floor_date(x, "season")
 #' floor_date(x, "halfyear")
 #' floor_date(x, "year")
 #'
@@ -96,6 +96,7 @@
 #' ceiling_date(x, "month")
 #' ceiling_date(x, "bimonth") == ceiling_date(x, "2 months")
 #' ceiling_date(x, "quarter")
+#' ceiling_date(x, "season")
 #' ceiling_date(x, "halfyear")
 #' ceiling_date(x, "year")
 #' @export
@@ -154,21 +155,24 @@ floor_date <- function(x, unit = "seconds") {
       warning("Multi-unit not supported for weeks. Ignoring.")
     }
 
-    if(unit %in% c("bimonth", "quarter", "halfyear")){
-      switch(unit,
-             bimonth = n <- 2 * n,
-             quarter = n <- 3 * n,
-             halfyear = n <- 6 * n)
+    if(unit %in% c("bimonth", "quarter", "halfyear", "season") ||
+       (n > 1 && unit == "month")){
+      new_months <-
+        switch(unit,
+               month    = floor_multi_unit1(month(x), n),
+               bimonth  = floor_multi_unit1(month(x), 2 * n),
+               quarter  = floor_multi_unit1(month(x), 3 * n),
+               halfyear = floor_multi_unit1(month(x), 6 * n),
+               season   = floor_multi_unit(month(x), 3 * n))
+      n <- Inf
       unit <- "month"
     }
 
     switch(unit,
            week     = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
            month    = {
-             if(n > 1)
-               update(x, months = floor_multi_unit1(month(x), n), mdays = 1, hours = 0, minutes = 0, seconds = 0)
-             else
-               update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0)
+             if(n > 1) update(x, months = new_months, mdays = 1, hours = 0, minutes = 0, seconds = 0)
+             else      update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0)
            },
            year     = {
              ## due to bug https://github.com/hadley/lubridate/issues/319 we
@@ -244,11 +248,14 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL) {
       if(change_on_boundary) x
       else update(x, seconds = second(x) - 0.00001, simple = T)
 
-    if(unit %in% c("bimonth", "quarter", "halfyear")){
-      switch(unit,
-             bimonth = n <- 2 * n,
-             quarter = n <- 3 * n,
-             halfyear = n <- 6 * n)
+    if(unit %in% c("month", "bimonth", "quarter", "halfyear", "season")){
+      new_month <-
+        switch(unit,
+               month    = ceil_multi_unit1(month(new), n),
+               bimonth  = ceil_multi_unit1(month(new), 2 * n),
+               quarter  = ceil_multi_unit1(month(new), 3 * n),
+               halfyear = ceil_multi_unit1(month(new), 6 * n),
+               season   = ceil_multi_unit(month(new), 3 * n))
       unit <- "month"
     }
 
@@ -256,7 +263,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL) {
                   minute = update(new, minute = ceil_multi_unit(minute(new), n), second = 0, simple = T),
                   hour   = update(new, hour = ceil_multi_unit(hour(new), n), minute = 0, second = 0, simple = T),
                   week   = update(new, wday = 8, hour = 0, minute = 0, second = 0),
-                  month  = update(new, month = ceil_multi_unit1(month(new), n), mdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  month  = update(new, month = new_month, mdays = 1, hours = 0, minutes = 0, seconds = 0),
                   year   = update(new, year = ceil_multi_unit(year(new), n), month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
 
     reclass_date_maybe(new, x, unit)

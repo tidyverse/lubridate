@@ -221,14 +221,9 @@ test_that("ceiling_date works for a variety of formats",{
 
 test_that("round_date works for a variety of formats",{
   x <- as.POSIXct("2009-08-03 12:01:59", tz = "UTC")
-
-  expect_equal(round_date(x, "minute"),
-    as.POSIXct("2009-08-03 12:02:00", tz = "UTC"))
-  expect_equal(round_date(as.Date(x), "month"),
-    as.Date("2009-08-01"))
-  expect_equal(round_date(as.POSIXlt(x), "minute"),
-    as.POSIXlt(as.POSIXct("2009-08-03 12:02:00", tz =
-    "UTC")))
+  expect_equal(round_date(x, "minute"), as.POSIXct("2009-08-03 12:02:00", tz = "UTC"))
+  expect_equal(round_date(as.Date(x), "month"), as.Date("2009-08-01"))
+  expect_equal(round_date(as.POSIXlt(x), "minute"), as.POSIXlt(as.POSIXct("2009-08-03 12:02:00", tz = "UTC")))
 })
 
 
@@ -382,4 +377,19 @@ test_that("ceiling_date, round_date and floor_date behave correctly with NA", {
   expect_equal(floor_date(x, unit = "day"), ymd(c("2009-08-03", NA), tz = "UTC"))
   expect_equal(floor_date(x, unit = "months"), ymd(c("2009-08-01", NA), tz = "UTC"))
   expect_equal(round_date(x, unit = "minute"), ymd_hms(c("2009-08-03 12:02:00", NA), tz = "UTC"))
+})
+
+
+test_that("floor_date works for seasons", {
+  dts <- ymd_hms(sprintf("2017-%d-02 0:34:3", 1:12))
+  expect_equal(month(floor_date(dts, "season")), c(12, 12, 3, 3, 3, 6, 6, 6, 9, 9, 9, 12))
+  dts <- force_tz(dts, "America/New_York")
+  expect_equal(month(floor_date(dts, "season")), c(12, 12, 3, 3, 3, 6, 6, 6, 9, 9, 9, 12))
+})
+
+test_that("ceiling_date works for seasons", {
+  dts <- ymd_hms(sprintf("2017-%d-02 0:34:3", 1:12))
+  expect_equal(month(ceiling_date(dts, "season")), c(3, 3, 6, 6, 6, 9, 9, 9, 12, 12, 12, 3))
+  dts <- force_tz(dts, "America/New_York")
+  expect_equal(month(ceiling_date(dts, "season")), c(3, 3, 6, 6, 6, 9, 9, 9, 12, 12, 12, 3))
 })

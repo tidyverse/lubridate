@@ -49,7 +49,7 @@ standardise_difftime_names <- function(x) {
 standardise_period_names <- function(x) {
   dates <- c("second", "minute", "hour", "day", "week", "month", "year",
              ## these ones are used for rounding only
-             "bimonth", "quarter", "halfyear")
+             "bimonth", "quarter", "halfyear", "season")
   y <- gsub("(.)s$", "\\1", x)
   y <- substr(y, 1, 3)
   res <- dates[pmatch(y, dates)]

@@ -650,7 +650,7 @@ setMethod("as_date", "character",
 #' @rdname as_date
 #' @export
 setGeneric("as_datetime",
-           function(x, ..., tz = "UTC") {
+           function(x, ...) {
              standardGeneric("as_datetime")
            })
 

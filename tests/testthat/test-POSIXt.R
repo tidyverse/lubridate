@@ -20,7 +20,6 @@ test_that("is.POSIXt handles vectors",{
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_true())
 })
 
-
 # as_datetime -------------------------------------------------------------
 
 test_that("converts numeric", {
@@ -43,7 +42,7 @@ test_that("converts character", {
   expect_s3_class(dt, "POSIXct")
   expect_equal(tz(dt), "UTC")
   expect_equal(dt, ymd_hms(chars))
-  expect_equal(as_datetime(dt, tz = "Europe/Amsterdam"), ymd_hms(chars, tz = "Europe/Amsterdam"))
+  expect_equal(as_datetime(chars, tz = "Europe/Amsterdam"), ymd_hms(chars, tz = "Europe/Amsterdam", quiet = TRUE))
 })
 
 test_that("changes timezone of POSIXct", {

@@ -3,25 +3,31 @@
 \docType{methods}
 \name{as_date}
 \alias{as_date}
-\alias{as_datetime}
 \alias{as_date,POSIXt-method}
 \alias{as_date,numeric-method}
+\alias{as_date,character-method}
+\alias{as_datetime}
 \alias{as_datetime,POSIXt-method}
 \alias{as_datetime,numeric-method}
+\alias{as_datetime,character-method}
 \alias{as_datetime,ANY-method}
 \title{Convert an object to a date or date-time}
 \usage{
 as_date(x, ...)
 
-as_datetime(x, ...)
-
 \S4method{as_date}{POSIXt}(x, tz = NULL)
 
 \S4method{as_date}{numeric}(x, origin = lubridate::origin)
 
+\S4method{as_date}{character}(x, tz = NULL)
+
+as_datetime(x, ...)
+
 \S4method{as_datetime}{POSIXt}(x, tz = "UTC")
 
 \S4method{as_datetime}{numeric}(x, origin = lubridate::origin, tz = "UTC")
+
+\S4method{as_datetime}{character}(x, tz = "UTC")
 
 \S4method{as_datetime}{ANY}(x, tz = "UTC")
 }
