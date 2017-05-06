@@ -1,3 +1,4 @@
 [submodule "lib/cctz"]
 	path = lib/cctz
 	url = git@github.com:google/cctz.git
+    ignore = dirty
