@@ -813,7 +813,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
   parse_date_time(dates, orders, tz = tz, quiet = quiet, locale = locale)
 }
 
-.parse_xxx <- function(..., orders, quiet, tz = NULL, locale = locale,  truncated){
+.parse_xxx <- function(..., orders, quiet, tz, locale,  truncated){
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
   if(is.null(tz)){
     as.Date.POSIXct(parse_date_time(dates, orders, quiet = quiet, tz = "UTC",

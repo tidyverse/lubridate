@@ -627,14 +627,6 @@ setGeneric(name = "as_date",
 
 #' @rdname as_date
 #' @export
-setGeneric("as_datetime",
-  function(x, ...) {
-    standardGeneric("as_datetime")
-  }
-)
-
-#' @rdname as_date
-#' @export
 setMethod(f = "as_date", signature = "POSIXt",
           function (x, tz = NULL) {
             tz <- if (is.null(tz)) tz(x) else tz
@@ -650,24 +642,43 @@ setMethod(f = "as_date", signature = "numeric",
 
 #' @rdname as_date
 #' @export
+setMethod("as_date", "character",
+          function(x, tz = NULL) {
+            ymd(x, tz = tz)
+          })
+
+#' @rdname as_date
+#' @export
+setGeneric("as_datetime",
+           function(x, ..., tz = "UTC") {
+             standardGeneric("as_datetime")
+           })
+
+#' @rdname as_date
+#' @export
 setMethod("as_datetime", "POSIXt",
   function(x, tz = "UTC") {
     with_tz(x, tz)
-  }
-)
+  })
 
 #' @rdname as_date
 #' @export
 setMethod("as_datetime", "numeric",
   function(x, origin = lubridate::origin, tz = "UTC") {
     as.POSIXct(x, origin = origin, tz = tz)
-  }
-)
+  })
+
+
+#' @rdname as_date
+#' @export
+setMethod("as_datetime", "character",
+          function(x, tz = "UTC") {
+            parse_date_time(x, orders = c("ymdTz", "ymdT"), tz = tz)
+          })
 
 #' @rdname as_date
 #' @export
 setMethod("as_datetime", "ANY",
   function(x, tz = "UTC") {
     with_tz(as.POSIXct(x), tzone = tz)
-  }
-)
+  })

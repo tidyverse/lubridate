@@ -37,6 +37,15 @@ test_that("converts date", {
   expect_equal(unclass(dt)[[1]], 0)
 })
 
+test_that("converts character", {
+  chars <- c("2017-03-22T15:48:00.000Z", "2017-03-01 0:0:0", "2017-03-01 0:0:0.23", "2017-03-01 0:0:0.23")
+  dt <- as_datetime(chars)
+  expect_s3_class(dt, "POSIXct")
+  expect_equal(tz(dt), "UTC")
+  expect_equal(dt, ymd_hms(chars))
+  expect_equal(as_datetime(dt, tz = "Europe/Amsterdam"), ymd_hms(chars, tz = "Europe/Amsterdam"))
+})
+
 test_that("changes timezone of POSIXct", {
   dt <- as_datetime(make_datetime(tz = "America/Chicago"))
   expect_equal(tz(dt), "UTC")

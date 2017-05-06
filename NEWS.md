@@ -2,6 +2,7 @@ Version 1.6.0.9000
 ==================
 
 ### NEW FEATURES
+* [#536](https://github.com/hadley/lubridate/issues/536) `as_date` and `as_datetime` now understand character vectors.
 * [#508](https://github.com/hadley/lubridate/pull/508) New parameter `locale` in `month`. Labels of the returned factors (when `label=TRUE`) now respect current locale.
 * [#485](https://github.com/hadley/lubridate/pull/485) `quarter` gained a new argument `fiscal_start` to address the issue of different fiscal conventions.
 * [#492](https://github.com/hadley/lubridate/issues/492) New functions `epiweek` and `epiyear`.
