@@ -14,4 +14,6 @@
 ^revdep/
 ^codecov\.yml$
 ^tmp*
-^lib/
+^src/cctz/Makefile
+^src/cctz/.git
+^src/cctz/examples

@@ -1,4 +1,4 @@
-[submodule "lib/cctz"]
-	path = lib/cctz
+[submodule "src/cctz"]
+	path = src/cctz
 	url = git@github.com:google/cctz.git
     ignore = dirty

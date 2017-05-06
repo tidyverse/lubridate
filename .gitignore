@@ -20,3 +20,5 @@ paper/auto/
 revdep/
 CRAN_notes.md
 announcement.md
+*.Rcheck
+*.tar.gz

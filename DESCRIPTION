@@ -29,10 +29,8 @@ Depends:
 Imports:
     stringr,
     Rcpp (>= 0.11),
-    RcppCCTZ (>= 0.2.2)
 LinkingTo:
     Rcpp,
-    RcppCCTZ
 Suggests:
     testthat,
     knitr,
@@ -86,5 +84,6 @@ Collate:
     'round.r'
     'stamp.r'
     'update.r'
+    'zzz.R'
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
