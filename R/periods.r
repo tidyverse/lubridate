@@ -5,34 +5,34 @@ NULL
 
 check_period <- function(object){
   errors <- character()
-  if (!is.numeric(object@.Data)) {
-    msg <- "seconds (.Data) value must be numeric."
-    errors <- c(errors, msg)
-  }
-  if (!is.numeric(object@year)) {
-    msg <- "year value must be numeric."
-    errors <- c(errors, msg)
-  }
-  if (!is.numeric(object@month)) {
-    msg <- "year value must be numeric."
-    errors <- c(errors, msg)
-  }
-  if (!is.numeric(object@day)) {
-    msg <- "year value must be numeric."
-    errors <- c(errors, msg)
-  }
-  if (!is.numeric(object@hour)) {
-    msg <- "year value must be numeric."
-    errors <- c(errors, msg)
-  }
-  if (!is.numeric(object@minute)) {
-    msg <- "year value must be numeric."
-    errors <- c(errors, msg)
-  }
+  ## if (!is.numeric(object@.Data)) {
+  ##   msg <- "seconds (.Data) value must be numeric."
+  ##   errors <- c(errors, msg)
+  ## }
+  ## if (!is.numeric(object@year)) {
+  ##   msg <- "year value must be numeric."
+  ##   errors <- c(errors, msg)
+  ## }
+  ## if (!is.numeric(object@month)) {
+  ##   msg <- "year value must be numeric."
+  ##   errors <- c(errors, msg)
+  ## }
+  ## if (!is.numeric(object@day)) {
+  ##   msg <- "year value must be numeric."
+  ##   errors <- c(errors, msg)
+  ## }
+  ## if (!is.numeric(object@hour)) {
+  ##   msg <- "year value must be numeric."
+  ##   errors <- c(errors, msg)
+  ## }
+  ## if (!is.numeric(object@minute)) {
+  ##   msg <- "year value must be numeric."
+  ##   errors <- c(errors, msg)
+  ## }
 
   length(object@.Data) -> n
   lengths <- c(length(object@year), length(object@month),
-    length(object@day), length(object@hour), length(object@minute))
+               length(object@day), length(object@hour), length(object@minute))
 
   if (any(lengths != n)) {
     msg <- paste("Inconsistent lengths: year = ", lengths[1],
