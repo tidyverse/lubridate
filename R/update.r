@@ -28,15 +28,18 @@
 #'
 #' update(date, minute = 10, second = 3)
 #' @export
-update.POSIXt <- function(object, ..., roll = FALSE, simple = NULL){
+update.POSIXt <- function(object, ..., roll = FALSE,
+                          week_start = getOption("lubridate.week.start", 7),
+                          simple = NULL){
   if (!is.null(simple)) roll <- simple
-  do.call(update_date_time, c(list(object, roll = roll), list(...)))
+  do.call(update_date_time, c(list(object, roll = roll, week_start = week_start),
+                              list(...)))
 }
 
 update_date_time <- function(object, years = integer(), months = integer(),
                              days = integer(), mdays = integer(), ydays = integer(), wdays = integer(),
                              hours = integer(), minutes = integer(), seconds = double(), tzs = NULL,
-                             roll = FALSE) {
+                             roll = FALSE, week_start = 7) {
 
   if(!length(object)) return(object)
 
@@ -58,7 +61,8 @@ update_date_time <- function(object, years = integer(), months = integer(),
   ## todo: check if the following lines make any unnecessary copies
   updates[["dt"]] <- as.POSIXct(object)
   updates[["roll"]] <- roll
-  updates[["tz"]] <- tzs
+  updates[["tz"]] <- if (is.null(tzs)) tz(object) else tzs
+  updates[["week_start"]] <- week_start
   reclass_date(do.call(C_update_dt, updates), object)
 }
 
@@ -124,14 +128,14 @@ update_posixt_old <- function(object, ..., simple = FALSE){
 #' @export
 update.Date <- function(object, ...){
 
-  lt <- as.POSIXlt(object, tz = "UTC")
-
-  new <- update(lt, ...)
-
-  if (sum(c(new$hour, new$min, new$sec), na.rm = TRUE)) {
-    as.POSIXct(new)
+  ct <- as_datetime(object, tz = "UTC")
+  new <- update(ct, ...)
+  ## fixme: figure out a way to avoid this, or write specialized update for Date
+  new_lt <- as.POSIXlt(new, tz = "UTC")
+  if (sum(c(new_lt$hour, new_lt$min, new_lt$sec), na.rm = TRUE)) {
+    new
   } else {
-    as.Date(new)
+    make_date(new_lt$year + 1900, new_lt$mon + 1, new_lt$mday)
   }
 }
 
