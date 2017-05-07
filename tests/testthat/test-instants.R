@@ -31,9 +31,7 @@ test_that("today() works correctly",{
 
 
 test_that("make_datetime returns same values as ISOdatetime", {
-
   set.seed(1000)
-
   N <- 1e4
   y <- as.integer(runif(N, 1800, 2200))
   m <- as.integer(runif(N, 1, 12))
@@ -41,17 +39,13 @@ test_that("make_datetime returns same values as ISOdatetime", {
   H <- as.integer(runif(N, 0, 23))
   M <- as.integer(runif(N, 0, 59))
   S <- runif(N, 0, 59)
-
   out1 <- ISOdatetime(y, m, d, H, M, S, tz = "UTC")
   out2 <- make_datetime(y, m, d, H, M, S)
   expect_equal(out1, out2)
-
   S <- as.integer(runif(N, 0, 59))
-
   out1 <- ISOdatetime(y, m, d, H, M, S, tz = "UTC")
   out2 <- make_datetime(y, m, d, H, M, S)
   expect_equal(out1, out2)
-
   out3 <- make_date(y, m, d)
   expect_equal(as.Date(out1), out3)
 })
@@ -59,6 +53,12 @@ test_that("make_datetime returns same values as ISOdatetime", {
 test_that("make_datetime replicates as expected", {
   expect_equal(make_datetime(year = 1999, month = c(11, 12), day = 22, sec = c(10, 11)),
                as.POSIXct(c("1999-11-22 00:00:10 UTC", "1999-12-22 00:00:11 UTC"), tz = "UTC"))
+  expect_equal(make_datetime(year = c(1999, 2000, 3000), month = c(11, 12), day = 22, sec = c(10, 11, 13, 13)),
+               ymd_hms(c("1999-11-22 00:00:10", "2000-12-22 00:00:11", "3000-11-22 00:00:13", "1999-12-22 00:00:13"), tz = "UTC"))
+  expect_equal(make_datetime(year = c(1999, 2000, 3000), month = c(11, 12), day = 22, sec = c(10, 11, 13, 13),
+                             tz = "America/New_York"),
+               ymd_hms(c("1999-11-22 00:00:10", "2000-12-22 00:00:11", "3000-11-22 00:00:13", "1999-12-22 00:00:13"),
+                       tz = "America/New_York"))
 })
 
 test_that("make_datetime propagates NAs as expected", {

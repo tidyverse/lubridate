@@ -54,9 +54,8 @@ test_that("decimal_date correctly handles daylight savings time", {
   date4 <- ymd_hms("2016-03-13 01:00:00", tz = 'America/New_York')
   date4        <- date4 + dhours(-1:1)
   decimal4     <- decimal_date(date4)
+  expect_equal(c(2016.196721, 2016.1968351, 2016.196948), decimal4)
   diff.decimal <- diff(decimal4)
-
   expect_equal(diff.decimal[1], diff.decimal[2])
-
-  expect_equal(decimal4, decimal_date(with_tz(date4, 'UTC')))
+  expect_equal(c(2016.197290, 2016.197404, 2016.1975182), decimal_date(with_tz(date4, 'UTC')))
 })

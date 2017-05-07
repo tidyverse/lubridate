@@ -71,6 +71,17 @@ today <- function(tzone = "") {
 #' origin
 origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 
+.rep_maybe <- function(x, N) {
+  if (N > 1 && length(x) > 1 && length(x) != N) {
+    out <- rep_len(x, N)
+    ## repl_len doesn't preserve attributes
+    if (is.POSIXct(x))
+      attributes(out) <- attributes(x)
+    out
+  } else {
+    x
+  }
+}
 
 ##' Efficient creation of date-times from numeric representations
 ##'
@@ -100,14 +111,10 @@ make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0
     .POSIXct(numeric(), tz = tz)
   } else {
     N <- max(lengths)
-    .POSIXct(.Call("make_dt",
-                   rep_len(as.integer(year), N),
-                   rep_len(as.integer(month), N),
-                   rep_len(as.integer(day), N),
-                   rep_len(as.integer(hour), N),
-                   rep_len(as.integer(min), N),
-                   rep_len(sec, N)),
-             tz = tz)
+    C_update_dt(.rep_maybe(origin, N), year = .rep_maybe(year, N), month = .rep_maybe(month, N),
+                yday = integer(), mday = .rep_maybe(day, N), wday = integer(),
+                hour = .rep_maybe(hour, N), minute = .rep_maybe(min, N),
+                second = .rep_maybe(sec, N), tz = tz)
   }
 }
 
