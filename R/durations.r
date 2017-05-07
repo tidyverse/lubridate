@@ -272,6 +272,7 @@ duration <- function(num = NULL, units = "seconds", ...){
 }
 
 #' @export dseconds dminutes dhours ddays dweeks dyears dmilliseconds dmicroseconds dnanoseconds dpicoseconds
+#' @rdname duration
 dseconds <- function(x = 1) new("Duration", x)
 #' @rdname duration
 dminutes <- function(x = 1) new("Duration", x * 60)
@@ -293,7 +294,6 @@ dnanoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000)
 dpicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000 / 1000)
 
 #' @rdname duration
-#' @param x an R object
 #' @export
 #' @examples
 #' is.duration(as.Date("2009-08-03")) # FALSE

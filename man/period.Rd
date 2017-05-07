@@ -3,6 +3,7 @@
 \name{period}
 \alias{period}
 \alias{is.period}
+\alias{seconds}
 \alias{minutes}
 \alias{hours}
 \alias{days}
@@ -18,6 +19,8 @@
 period(num = NULL, units = "second", ...)
 
 is.period(x)
+
+seconds(x = 1)
 
 minutes(x = 1)
 

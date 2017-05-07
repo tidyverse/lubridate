@@ -2,6 +2,7 @@
 % Please edit documentation in R/durations.r
 \name{duration}
 \alias{duration}
+\alias{dseconds}
 \alias{dminutes}
 \alias{dhours}
 \alias{ddays}
@@ -15,6 +16,8 @@
 \title{Create a duration object.}
 \usage{
 duration(num = NULL, units = "seconds", ...)
+
+dseconds(x = 1)
 
 dminutes(x = 1)
 
@@ -50,8 +53,6 @@ amounts. Seconds, minutes, hours, days, and weeks are supported.}
 
 \item{x}{numeric value of the number of units to be contained in the
 duration.}
-
-\item{x}{an R object}
 }
 \value{
 a duration object

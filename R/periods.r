@@ -456,6 +456,7 @@ parse_period <- function(x){
 is.period <- function(x) is(x,"Period")
 
 #' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
+#' @rdname period
 seconds <- function(x = 1) period(second = x)
 #' @rdname period
 minutes <- function(x = 1) period(minute = x)
