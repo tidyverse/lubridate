@@ -227,10 +227,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   trials <- lapply(formats, function(fmt) .strptime(x, fmt))
   successes <- unlist(lapply(trials, function(x) sum(!is.na(x))), use.names = FALSE)
   names(successes) <- formats
-  successes
+  sort(successes, decreasing = TRUE)
 }
 
-.best_formats <- function(x, orders, locale, .select_formats){
+.best_formats <- function(x, orders, locale, .select_formats, drop = FALSE){
   ## return a vector of formats that matched X at least once.
   ## Can be zero length vector, if none matched
 
@@ -238,25 +238,34 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   if(length(fmts)){
     trained <- .train_formats(x, fmts, locale = locale)
 
-    ## print(trained)
-
-    trained <- trained[ trained > 0 ]
-    .select_formats(trained)
+    if (drop)
+      trained <- trained[ trained > 0 ]
+    .select_formats(trained, drop)
   }
 }
 
-.select_formats <- function(trained){
+.select_formats <- function(trained, drop = FALSE){
   nms <- names(trained)
+
   n_fmts <-
     nchar(gsub("[^%]", "", nms)) + ## longer formats have priority
-    grepl("%Y", nms)*1.5 + ## Y has priority over 0
+    grepl("%Y", nms, fixed = T)*1.5 + ## Y has priority over 0
+    grepl("%y[^%]", nms)*1.6 + ## y has priority over Y, but only when followed by non %
     ## C parser formats
     grepl("%Om", nms)*.1 + grepl("%Op", nms)*.1 +
     grepl("%O", nms)*.2
 
-  ## print(structure(n_fmts, names = nms)) # for debugging
+  ## ties are broken by `trained`
+  n0 <- trained != 0
+  if (drop) {
+    n_fmts <- n_fmts[n0]
+    trained <- trained[n0]
+  } else {
+    n_fmts[!n0] <- -100
+  }
 
-  names(trained[which.max(n_fmts)])
+  ## names(trained[which.max(n_fmts)])
+  names(trained)[order(n_fmts, trained, decreasing = T)]
 }
 
 ## These are formats that are effectively matched by c parser. But we must get

@@ -338,9 +338,11 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' format-orders to handle heterogeneous date-time character
 ##' representations.
 ##'
-##' When several format-orders are specified, `parse_date_time()` sorts the
-##' supplied format-orders based on a training set and then applies them
-##' recursively on the input vector.
+##' When several format-orders are specified, `parse_date_time()` selects
+##' (guesses) format-orders based on a training sub-set of the input
+##' strings. After guessing the formats are ordered according to the performance
+##' on the training set and applied recursively on the entire input vector. You
+##' can disable training with `train=FALSE`.
 ##'
 ##' `parse_date_time()`, and all derived functions, such as `ymd_hms()`,
 ##' `ymd()` etc, will drop into `fast_strptime()` instead of
@@ -439,60 +441,69 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' @export
 ##' @param x a character or numeric vector of dates
 ##' @param orders a character vector of date-time formats. Each order string is
-##'   series of formatting characters as listed [base::strptime()] but
-##'   might not include the "\%" prefix, for example "ymd" will match all the
-##'   possible dates in year, month, day order.  Formatting orders might include
+##'   series of formatting characters as listed [base::strptime()] but might not
+##'   include the "\%" prefix, for example "ymd" will match all the possible
+##'   dates in year, month, day order.  Formatting orders might include
 ##'   arbitrary separators. These are discarded.  See details for implemented
 ##'   formats.
 ##' @param tz a character string that specifies the time zone with which to
 ##'   parse the dates
 ##' @param truncated integer, number of formats that can be missing. The most
 ##'   common type of irregularity in date-time data is the truncation due to
-##'   rounding or unavailability of the time stamp. If the `truncated`
-##'   parameter is non-zero `parse_date_time()` also checks for truncated
-##'   formats. For example,  if the format order is "ymdHMS" and `truncated = 3`,
-##'   `parse_date_time()` will correctly parse incomplete dates like
-##'   `2012-06-01 12:23`, `2012-06-01 12` and
-##'   `2012-06-01`. \bold{NOTE:} The `ymd` family of functions are based
-##'   on `strptime()` which currently fails to parse \code{\%Y-\%m} formats.
+##'   rounding or unavailability of the time stamp. If the `truncated` parameter
+##'   is non-zero `parse_date_time()` also checks for truncated formats. For
+##'   example,  if the format order is "ymdHMS" and `truncated = 3`,
+##'   `parse_date_time()` will correctly parse incomplete dates like `2012-06-01
+##'   12:23`, `2012-06-01 12` and `2012-06-01`. \bold{NOTE:} The `ymd` family of
+##'   functions are based on `strptime()` which currently fails to parse
+##'   \code{\%Y-\%m} formats.
 ##' @param quiet logical. When TRUE progress messages are not printed, and
 ##'   "no formats found" error is surpresed and the function simply returns a
-##'   vector of NAs.  This mirrors the behavior of base R functions
-##'   `strptime()` and `as.POSIXct()`. Default is `FALSE`.
+##'   vector of NAs.  This mirrors the behavior of base R functions `strptime()`
+##'   and `as.POSIXct()`. Default is `FALSE`.
 ##' @param locale locale to be used, see \link{locales}. On linux systems you
 ##'   can use `system("locale -a")` to list all the installed locales.
 ##' @param select_formats A function to select actual formats for parsing from a
-##'   set of formats which matched a training subset of `x`. it receives a
-##'   named integer vector and returns a character vector of selected
-##'   formats. Names of the input vector are formats (not orders) that matched
-##'   the training set. Numeric values are the number of dates (in the training
-##'   set) that matched the corresponding format. You should use this argument
-##'   if the default selection method fails to select the formats in the right
+##'   set of formats which matched a training subset of `x`. it receives a named
+##'   integer vector and returns a character vector of selected formats. Names
+##'   of the input vector are formats (not orders) that matched the training
+##'   set. Numeric values are the number of dates (in the training set) that
+##'   matched the corresponding format. You should use this argument if the
+##'   default selection method fails to select the formats in the right
 ##'   order. By default the formats with most formating tockens (\%) are
 ##'   selected and \%Y counts as 2.5 tockens (so that it has a priority over
 ##'   \%y\%m). Se examples.
-##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted
-##'   as an exact `strptime()` format and no training or guessing are
-##'   performed.
+##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted as an
+##'   exact `strptime()` format and no training or guessing are performed
+##'   (i.e. `train`, `drop` parameters are irrelevant).
+##' @param train logical, default TRUE. Whether to train formats on a subset of
+##'   the input vector. The result of this is that supplied orders are sorted
+##'   according to performance on this training set, which commonly results in
+##'   increased performance.
+##' @param drop logical, default FALSE. Whether to drop formats that didn't
+##'   match on the training set. If FALSE, unmatched on the training set formats
+##'   are tried as a last resort at the end of the parsing queue. Applies only
+##'   when `train=TRUE`. Seating this parameter to TRUE might slightly speed up
+##'   parsing in situations involving many formats. Prior to v1.7.0 this
+##'   parameter was implicitly TRUE, which resulted in occasional surprising
+##'   behavior when rare patterns where not present in the training set.
 ##' @return a vector of POSIXct date-time objects
 ##' @seealso `strptime()`, [ymd()], [ymd_hms()]
 ##' @keywords chron
-##' @note `parse_date_time()` (and the derivatives `ymd()`, `ymd_hms()`
-##'   etc) rely on a sparse guesser that takes at most 501 elements from the
-##'   supplied character vector in order to identify appropriate formats from
-##'   the supplied orders. If you get the error
-##'   `All formats failed to parse` and you are confident that your vector contains valid dates, you
-##'   should either set `exact` argument to TRUE or use functions that
-##'   don't perform format guessing (`fast_strptime()`,
-##'   `parse_date_time2()` or `strptime()`).
+##' @note `parse_date_time()` (and the derivatives `ymd()`, `ymd_hms()` etc)
+##'   rely on a sparse guesser that takes at most 501 elements from the supplied
+##'   character vector in order to identify appropriate formats from the
+##'   supplied orders. If you get the error `All formats failed to parse` and
+##'   you are confident that your vector contains valid dates, you should either
+##'   set `exact` argument to TRUE or use functions that don't perform format
+##'   guessing (`fast_strptime()`, `parse_date_time2()` or `strptime()`).
 ##' @note For performance reasons, when timezone is not UTC,
-##'   `parse_date_time2()` and `fast_strptime()` perform no validity
-##'   checks for daylight savings time. Thus, if your input string contains an
-##'   invalid date time which falls into DST gap and `lt = TRUE` you will get
-##'   an `POSIXlt` object with a non-existen time. If `lt = FALSE` your
-##'   time instant will be adjusted to a valid time by adding an hour. See
-##'   examples. If you want to get NA for invalid date-times use
-##'   [fit_to_timeline()] explicitely.
+##'   `parse_date_time2()` and `fast_strptime()` perform no validity checks for
+##'   daylight savings time. Thus, if your input string contains an invalid date
+##'   time which falls into DST gap and `lt = TRUE` you will get an `POSIXlt`
+##'   object with a non-existen time. If `lt = FALSE` your time instant will be
+##'   adjusted to a valid time by adding an hour. See examples. If you want to
+##'   get NA for invalid date-times use [fit_to_timeline()] explicitly.
 ##'
 ##' @examples
 ##'
@@ -561,7 +572,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York", lt = TRUE)
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                             locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
-                            exact = FALSE){
+                            exact = FALSE, train = TRUE, drop = FALSE){
 
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
@@ -577,7 +588,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
         orders
       } else {
         train <- .get_train_set(x)
-        .best_formats(train, orders, locale = locale, select_formats)
+        .best_formats(train, orders, locale = locale, select_formats, drop = drop)
       }
     if( length(formats) > 0 ){
       out <- .parse_date_time(x, formats, tz = tz, quiet = quiet)

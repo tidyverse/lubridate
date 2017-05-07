@@ -9,7 +9,7 @@ formats.}
 \usage{
 parse_date_time(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
-  exact = FALSE)
+  exact = FALSE, train = TRUE, drop = FALSE)
 
 parse_date_time2(x, orders, tz = "UTC", exact = FALSE, lt = FALSE)
 
@@ -19,9 +19,9 @@ fast_strptime(x, format, tz = "UTC", lt = TRUE)
 \item{x}{a character or numeric vector of dates}
 
 \item{orders}{a character vector of date-time formats. Each order string is
-series of formatting characters as listed \code{\link[base:strptime]{base::strptime()}} but
-might not include the "\%" prefix, for example "ymd" will match all the
-possible dates in year, month, day order.  Formatting orders might include
+series of formatting characters as listed \code{\link[base:strptime]{base::strptime()}} but might not
+include the "\%" prefix, for example "ymd" will match all the possible
+dates in year, month, day order.  Formatting orders might include
 arbitrary separators. These are discarded.  See details for implemented
 formats.}
 
@@ -30,36 +30,48 @@ parse the dates}
 
 \item{truncated}{integer, number of formats that can be missing. The most
 common type of irregularity in date-time data is the truncation due to
-rounding or unavailability of the time stamp. If the \code{truncated}
-parameter is non-zero \code{parse_date_time()} also checks for truncated
-formats. For example,  if the format order is "ymdHMS" and \code{truncated = 3},
-\code{parse_date_time()} will correctly parse incomplete dates like
-\code{2012-06-01 12:23}, \code{2012-06-01 12} and
-\code{2012-06-01}. \bold{NOTE:} The \code{ymd} family of functions are based
-on \code{strptime()} which currently fails to parse \code{\%Y-\%m} formats.}
+rounding or unavailability of the time stamp. If the \code{truncated} parameter
+is non-zero \code{parse_date_time()} also checks for truncated formats. For
+example,  if the format order is "ymdHMS" and \code{truncated = 3},
+\code{parse_date_time()} will correctly parse incomplete dates like \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:} The \code{ymd} family of
+functions are based on \code{strptime()} which currently fails to parse
+\code{\%Y-\%m} formats.}
 
 \item{quiet}{logical. When TRUE progress messages are not printed, and
 "no formats found" error is surpresed and the function simply returns a
-vector of NAs.  This mirrors the behavior of base R functions
-\code{strptime()} and \code{as.POSIXct()}. Default is \code{FALSE}.}
+vector of NAs.  This mirrors the behavior of base R functions \code{strptime()}
+and \code{as.POSIXct()}. Default is \code{FALSE}.}
 
 \item{locale}{locale to be used, see \link{locales}. On linux systems you
 can use \code{system("locale -a")} to list all the installed locales.}
 
 \item{select_formats}{A function to select actual formats for parsing from a
-set of formats which matched a training subset of \code{x}. it receives a
-named integer vector and returns a character vector of selected
-formats. Names of the input vector are formats (not orders) that matched
-the training set. Numeric values are the number of dates (in the training
-set) that matched the corresponding format. You should use this argument
-if the default selection method fails to select the formats in the right
+set of formats which matched a training subset of \code{x}. it receives a named
+integer vector and returns a character vector of selected formats. Names
+of the input vector are formats (not orders) that matched the training
+set. Numeric values are the number of dates (in the training set) that
+matched the corresponding format. You should use this argument if the
+default selection method fails to select the formats in the right
 order. By default the formats with most formating tockens (\%) are
 selected and \%Y counts as 2.5 tockens (so that it has a priority over
 \%y\%m). Se examples.}
 
-\item{exact}{logical. If \code{TRUE}, the \code{orders} parameter is interpreted
-as an exact \code{strptime()} format and no training or guessing are
-performed.}
+\item{exact}{logical. If \code{TRUE}, the \code{orders} parameter is interpreted as an
+exact \code{strptime()} format and no training or guessing are performed
+(i.e. \code{train}, \code{drop} parameters are irrelevant).}
+
+\item{train}{logical, default TRUE. Whether to train formats on a subset of
+the input vector. The result of this is that supplied orders are sorted
+according to performance on this training set, which commonly results in
+increased performance.}
+
+\item{drop}{logical, default FALSE. Whether to drop formats that didn't
+match on the training set. If FALSE, unmatched on the training set formats
+are tried as a last resort at the end of the parsing queue. Applies only
+when \code{train=TRUE}. Seating this parameter to TRUE might slightly speed up
+parsing in situations involving many formats. Prior to v1.7.0 this
+parameter was implicitly TRUE, which resulted in occasional surprising
+behavior when rare patterns where not present in the training set.}
 
 \item{lt}{logical. If TRUE returned object is of class POSIXlt, and POSIXct
 otherwise. For compatibility with base \code{strptime} function default is TRUE
@@ -89,9 +101,11 @@ that accepts explicit format arguments, just as
 \code{\link[base:strptime]{base::strptime()}}.
 }
 \details{
-When several format-orders are specified, \code{parse_date_time()} sorts the
-supplied format-orders based on a training set and then applies them
-recursively on the input vector.
+When several format-orders are specified, \code{parse_date_time()} selects
+(guesses) format-orders based on a training sub-set of the input
+strings. After guessing the formats are ordered according to the performance
+on the training set and applied recursively on the entire input vector. You
+can disable training with \code{train=FALSE}.
 
 \code{parse_date_time()}, and all derived functions, such as \code{ymd_hms()},
 \code{ymd()} etc, will drop into \code{fast_strptime()} instead of
@@ -186,23 +200,21 @@ the timezone formats.}
 }
 }
 \note{
-\code{parse_date_time()} (and the derivatives \code{ymd()}, \code{ymd_hms()}
-etc) rely on a sparse guesser that takes at most 501 elements from the
-supplied character vector in order to identify appropriate formats from
-the supplied orders. If you get the error
-\code{All formats failed to parse} and you are confident that your vector contains valid dates, you
-should either set \code{exact} argument to TRUE or use functions that
-don't perform format guessing (\code{fast_strptime()},
-\code{parse_date_time2()} or \code{strptime()}).
+\code{parse_date_time()} (and the derivatives \code{ymd()}, \code{ymd_hms()} etc)
+rely on a sparse guesser that takes at most 501 elements from the supplied
+character vector in order to identify appropriate formats from the
+supplied orders. If you get the error \code{All formats failed to parse} and
+you are confident that your vector contains valid dates, you should either
+set \code{exact} argument to TRUE or use functions that don't perform format
+guessing (\code{fast_strptime()}, \code{parse_date_time2()} or \code{strptime()}).
 
 For performance reasons, when timezone is not UTC,
-\code{parse_date_time2()} and \code{fast_strptime()} perform no validity
-checks for daylight savings time. Thus, if your input string contains an
-invalid date time which falls into DST gap and \code{lt = TRUE} you will get
-an \code{POSIXlt} object with a non-existen time. If \code{lt = FALSE} your
-time instant will be adjusted to a valid time by adding an hour. See
-examples. If you want to get NA for invalid date-times use
-\code{\link[=fit_to_timeline]{fit_to_timeline()}} explicitely.
+\code{parse_date_time2()} and \code{fast_strptime()} perform no validity checks for
+daylight savings time. Thus, if your input string contains an invalid date
+time which falls into DST gap and \code{lt = TRUE} you will get an \code{POSIXlt}
+object with a non-existen time. If \code{lt = FALSE} your time instant will be
+adjusted to a valid time by adding an hour. See examples. If you want to
+get NA for invalid date-times use \code{\link[=fit_to_timeline]{fit_to_timeline()}} explicitly.
 }
 \examples{
 

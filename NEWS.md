@@ -2,6 +2,10 @@ Version 1.6.0.9000
 ==================
 
 ### NEW FEATURES
+* New parsing parameters to `parse_date_time` - `train=TRUE` and `drop=FALSE`
+  which allow more refined control of the format guessing. Formats are no longer
+  droped in the process by default, process which resulted in surprising
+  behavior on several occasions ([#516](https://github.com/hadley/lubridate/issues/516),[#308](https://github.com/hadley/lubridate/issues/308),[#307](https://github.com/hadley/lubridate/issues/307)).
 * [#529](https://github.com/hadley/lubridate/issues/529) Internal parser now ignores the case of alpha months (B format)
 * [#535](https://github.com/hadley/lubridate/issues/535) Rounding to `season` is now supported.
 * [#536](https://github.com/hadley/lubridate/issues/536) `as_date` and `as_datetime` now understand character vectors.
