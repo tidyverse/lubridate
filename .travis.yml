@@ -1,5 +1,6 @@
-language: R
+dist: trusty
 sudo: false
+language: R
 cache: packages
 
 after_success:
