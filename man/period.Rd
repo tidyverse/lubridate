@@ -3,18 +3,49 @@
 \name{period}
 \alias{period}
 \alias{is.period}
+\alias{minutes}
+\alias{hours}
+\alias{days}
+\alias{weeks}
+\alias{years}
+\alias{milliseconds}
+\alias{microseconds}
+\alias{nanoseconds}
+\alias{picoseconds}
+\alias{months.numeric}
 \title{Create a period object.}
 \usage{
 period(num = NULL, units = "second", ...)
 
 is.period(x)
+
+minutes(x = 1)
+
+hours(x = 1)
+
+days(x = 1)
+
+weeks(x = 1)
+
+years(x = 1)
+
+milliseconds(x = 1)
+
+microseconds(x = 1)
+
+nanoseconds(x = 1)
+
+picoseconds(x = 1)
+
+\method{months}{numeric}(x, abbreviate)
 }
 \arguments{
 \item{num}{a numeric vector that lists the number of time units to be
-included in the period. From v1.6.0 \code{num} can also be a character
-vector that specifies durations in a convenient shorthand format. All
-unambiguous name units and abbreviations are supported. One letter "m"
-stands for months, "M" stands for minutes. See examples.}
+included in the period. From v1.6.0 \code{num} can also be a character vector
+that specifies durations in a convenient shorthand format. All unambiguous
+name units and abbreviations are supported, "m" stands for months, "M" for
+minutes; see examples. Fractional units are supported but the fractional
+part is always converted to seconds.}
 
 \item{units}{a character vector that lists the type of units to be used. The
 units in units are matched to the values in num according to their
@@ -22,10 +53,14 @@ order. When \code{num} is character, this argument is ignored.}
 
 \item{...}{a list of time units to be included in the period and their
 amounts. Seconds, minutes,  hours, days, weeks, months, and years are
-supported. Normally only one of \code{num} or \code{...} are present. If
-both are present, the periods are concatenated.}
+supported. Normally only one of \code{num} or \code{...} are present. If both are
+present, the periods are concatenated.}
 
-\item{x}{an R object}
+\item{x}{Any R object for \code{is.periods} and a numeric value of the number of
+units for elementary constructors. With the exception of seconds(), x must
+be an integer.}
+
+\item{abbreviate}{Ignored. For consistency with S3 generic in base namespace.}
 }
 \value{
 a period object
@@ -57,9 +92,14 @@ to date-times to create a user interface similar to object oriented programming.
 Note: Arithmetic with periods can results in undefined behavior when
 non-existent dates are involved (such as February 29th). Please see
 \linkS4class{Period} for more details and \code{\link{\%m+\%}} and
-\code{\link[=add_with_rollback]{add_with_rollback()}} for alternative operations.
+\code{\link[=add_with_rollback]{add_with_rollback()}} for alternative operations. Note: Arithmetic with
+periods can results in undefined behavior when non-existent dates are
+involved (such as February 29th in non-leap years). Please see \linkS4class{Period}
+for more details and \code{\link{\%m+\%}} and \code{\link[=add_with_rollback]{add_with_rollback()}} for
+alternative operations.
 }
 \examples{
+
 period(c(90, 5), c("second", "minute"))
 #  "5M 90S"
 period(-1, "days")
@@ -80,12 +120,36 @@ period("2days 2hours 2mins 2secs")
 duration("day day")
 # Comparison with characters is supported from v1.6.0.
 duration("day 2 sec") > "day 1sec"
+
+### ELEMENTARY CONSTRUCTORS
+
+x <- as.POSIXct("2009-08-03")
+x + days(1) + hours(6) + minutes(30)
+x + days(100) - hours(8)
+
+class(as.Date("2009-08-09") + days(1)) # retains Date class
+as.Date("2009-08-09") + hours(12)
+class(as.Date("2009-08-09") + hours(12))
+# converts to POSIXt class to accomodate time units
+
+years(1) - months(7)
+c(1:3) * hours(1)
+hours(1:3)
+
+#sequencing
+y <- ymd(090101) # "2009-01-01 CST"
+y + months(0:11)
+
+# compare DST handling to durations
+boundary <- as.POSIXct("2009-03-08 01:59:59")
+boundary + days(1) # period
+boundary + ddays(1) # duration
 is.period(as.Date("2009-08-03")) # FALSE
 is.period(period(months= 1, days = 15)) # TRUE
 }
 \seealso{
-\linkS4class{Period}, \code{\link[=quick_periods]{quick_periods()}},
-\code{\link{\%m+\%}}, \code{\link[=add_with_rollback]{add_with_rollback()}}
+\linkS4class{Period}, \code{\link[=period]{period()}}, \code{\link{\%m+\%}},
+\code{\link[=add_with_rollback]{add_with_rollback()}}
 }
 \keyword{chron}
 \keyword{classes}

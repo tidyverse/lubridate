@@ -298,8 +298,13 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' Note: Arithmetic with periods can results in undefined behavior when
 #' non-existent dates are involved (such as February 29th). Please see
 #' [Period-class] for more details and \code{\link{\%m+\%}} and
-#' [add_with_rollback()] for alternative operations.
+#' [add_with_rollback()] for alternative operations. Note: Arithmetic with
+#' periods can results in undefined behavior when non-existent dates are
+#' involved (such as February 29th in non-leap years). Please see [Period-class]
+#' for more details and \code{\link{\%m+\%}} and [add_with_rollback()] for
+#' alternative operations.
 #'
+#' @name period
 #' @param num a numeric vector that lists the number of time units to be
 #'   included in the period. From v1.6.0 `num` can also be a character vector
 #'   that specifies durations in a convenient shorthand format. All unambiguous
@@ -313,11 +318,16 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #'   amounts. Seconds, minutes,  hours, days, weeks, months, and years are
 #'   supported. Normally only one of `num` or `...` are present. If both are
 #'   present, the periods are concatenated.
-#'@seealso [Period-class], [quick_periods()], \code{\link{\%m+\%}},
+#' @param x Any R object for `is.periods` and a numeric value of the number of
+#'   units for elementary constructors. With the exception of seconds(), x must
+#'   be an integer.
+#' @param abbreviate Ignored. For consistency with S3 generic in base namespace.
+#' @seealso [Period-class], [period()], \code{\link{\%m+\%}},
 #'   [add_with_rollback()]
 #' @return a period object
 #' @keywords chron classes
 #' @examples
+#'
 #' period(c(90, 5), c("second", "minute"))
 #' #  "5M 90S"
 #' period(-1, "days")
@@ -338,6 +348,30 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' duration("day day")
 #' # Comparison with characters is supported from v1.6.0.
 #' duration("day 2 sec") > "day 1sec"
+#'
+#' ### ELEMENTARY CONSTRUCTORS
+#'
+#' x <- as.POSIXct("2009-08-03")
+#' x + days(1) + hours(6) + minutes(30)
+#' x + days(100) - hours(8)
+#'
+#' class(as.Date("2009-08-09") + days(1)) # retains Date class
+#' as.Date("2009-08-09") + hours(12)
+#' class(as.Date("2009-08-09") + hours(12))
+#' # converts to POSIXt class to accomodate time units
+#'
+#' years(1) - months(7)
+#' c(1:3) * hours(1)
+#' hours(1:3)
+#'
+#' #sequencing
+#' y <- ymd(090101) # "2009-01-01 CST"
+#' y + months(0:11)
+#'
+#' # compare DST handling to durations
+#' boundary <- as.POSIXct("2009-03-08 01:59:59")
+#' boundary + days(1) # period
+#' boundary + ddays(1) # duration
 #' @export
 period <- function(num = NULL, units = "second", ...) {
   nums <- list(...)
@@ -415,88 +449,34 @@ parse_period <- function(x){
 }
 
 #' @rdname period
-#' @param x an R object
 #' @examples
 #' is.period(as.Date("2009-08-03")) # FALSE
 #' is.period(period(months= 1, days = 15)) # TRUE
 #' @export
 is.period <- function(x) is(x,"Period")
 
-#' Quickly create period objects.
-#'
-#' Quickly create Period objects for easy date-time manipulation. The units of
-#' the period created depend on the name of the function called. For Period
-#' objects, units do not have a fixed length until they are added to a specific
-#' date time, contrast this with [duration()]. This makes periods useful
-#' for manipulations with clock times because units expand or contract in length
-#' to accomodate conventions such as leap years, leap seconds, and Daylight
-#' Savings Time.
-#'
-#' When paired with date-times, these functions allow date-times to be
-#' manipulated in a method similar to object oriented programming. Period
-#' objects can be added to Date, POSIXct, and POSIXlt objects to calculate new
-#' date-times.
-#'
-#' Note: Arithmetic with periods can results in undefined behavior when
-#' non-existent dates are involved (such as February 29th in non-leap
-#' years). Please see [Period-class] for more details and
-#' \code{\link{\%m+\%}} and [add_with_rollback()] for alternative
-#' operations.
-#'
-#' @name quick_periods
-#' @param x numeric value of the number of units to be contained in the
-#'   period. With the exception of seconds(), x must be an integer.
-#' @param abbreviate Ignored. For consistency with S3 generic in base namespace.
-#' @return a period object
-#' @seealso [Period-class], [period()],
-#'   [ddays()], \code{\link{\%m+\%}}, [add_with_rollback()]
-#' @keywords chron manip
-#' @examples
-#'
-#' x <- as.POSIXct("2009-08-03")
-#' x + days(1) + hours(6) + minutes(30)
-#' x + days(100) - hours(8)
-#'
-#' class(as.Date("2009-08-09") + days(1)) # retains Date class
-#' as.Date("2009-08-09") + hours(12)
-#' class(as.Date("2009-08-09") + hours(12))
-#' # converts to POSIXt class to accomodate time units
-#'
-#' years(1) - months(7)
-#' c(1:3) * hours(1)
-#' hours(1:3)
-#'
-#' #sequencing
-#' y <- ymd(090101) # "2009-01-01 CST"
-#' y + months(0:11)
-#'
-#' # compare DST handling to durations
-#' boundary <- as.POSIXct("2009-03-08 01:59:59")
-#' boundary + days(1) # period
-#' boundary + ddays(1) # duration
-#' # seconds later)
 #' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
 seconds <- function(x = 1) period(second = x)
-#' @rdname quick_periods
+#' @rdname period
 minutes <- function(x = 1) period(minute = x)
-#' @rdname quick_periods
+#' @rdname period
 hours <- function(x = 1) period(hour = x)
-#' @rdname quick_periods
+#' @rdname period
 days <- function(x = 1) period(day = x)
-#' @rdname quick_periods
+#' @rdname period
 weeks <- function(x = 1) period(week = x)
-#' @rdname quick_periods
+#' @rdname period
 years <- function(x = 1) period(year = x)
-#' @rdname quick_periods
+#' @rdname period
 milliseconds <- function(x = 1) seconds(x/1000)
-#' @rdname quick_periods
+#' @rdname period
 microseconds <- function(x = 1) seconds(x/1000000)
-#' @rdname quick_periods
+#' @rdname period
 nanoseconds <- function(x = 1) seconds(x/1e9)
-#' @rdname quick_periods
+#' @rdname period
 picoseconds <- function(x = 1) seconds(x/1e12)
 
-#' @rdname quick_periods
+#' @rdname period
 #' @export
 months.numeric <- function(x, abbreviate) {
   period(month = x)

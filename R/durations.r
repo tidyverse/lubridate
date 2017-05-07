@@ -162,23 +162,26 @@ setMethod("[[<-", signature(x = "Duration"),
 #' and Daylight Savings Time. Base R provides a second class for measuring
 #' durations, the difftime class.
 #'
-#' Duration objects can be easily created with the helper functions
-#' [dweeks()], [ddays()], [dminutes()],
-#' [dseconds()]. These objects can be added to and subtracted to date-
-#' times to create a user interface similar to object oriented programming.
+#' Duration objects can be easily created with the helper functions [dweeks()],
+#' [ddays()], [dminutes()], [dseconds()]. These objects can be added to and
+#' subtracted to date- times to create a user interface similar to object
+#' oriented programming.
 #'
-#' @param num the number of time units to include in the duration. From v1.6.0
-#'   `num` can also be a character vector that specifies durations in a
-#'   convenient shorthand format. All unambiguous name units and abbreviations
-#'   are supported. See examples.
+#' @param num the number or a character vector of time units. In string
+#'   representation all unambiguous name units and abbreviations are supported;
+#'   'm' stands for month and 'M' for minutes, see examples. Fractional units
+#'   are supported.
 #' @param units a character string that specifies the type of units that num
 #'   refers to. When `num` is character, this argument is ignored.
 #' @param ... a list of time units to be included in the duration and their
 #'   amounts. Seconds, minutes, hours, days, and weeks are supported.
+#' @param x numeric value of the number of units to be contained in the
+#'   duration.
 #' @return a duration object
-#' @seealso [as.duration()]
+#' @seealso [as.duration()] [Duration.class]
 #' @keywords chron classes
 #' @examples
+#'
 #' duration(day = -1)
 #' # -86400s (~-1 days)
 #' duration(90, "seconds")
@@ -198,6 +201,28 @@ setMethod("[[<-", signature(x = "Duration"),
 #' duration("day day")
 #' # Comparison with characters is supported from v1.6.0.
 #' duration("day 2 sec") > "day 1sec"
+#'
+#' ## ELEMENTARY CONSTRUCTORS:
+#'
+#' dseconds(1)
+#' dminutes(3.5)
+#'
+#' x <- as.POSIXct("2009-08-03")
+#' x + ddays(1) + dhours(6) + dminutes(30)
+#' x + ddays(100) - dhours(8)
+#'
+#' class(as.Date("2009-08-09") + ddays(1)) # retains Date class
+#' as.Date("2009-08-09") + dhours(12)
+#' class(as.Date("2009-08-09") + dhours(12))
+#' # converts to POSIXt class to accomodate time units
+#'
+#' dweeks(1) - ddays(7)
+#' c(1:3) * dhours(1)
+#'
+#' # compare DST handling to durations
+#' boundary <- as.POSIXct("2009-03-08 01:59:59")
+#' boundary + days(1) # period
+#' boundary + ddays(1) # duration
 #' @export
 duration <- function(num = NULL, units = "seconds", ...){
   nums <- list(...)
@@ -246,68 +271,25 @@ duration <- function(num = NULL, units = "seconds", ...){
   new("Duration", x)
 }
 
-
-#' Quickly create duration objects.
-#'
-#' Quickly create Duration objects for easy date-time manipulation. The units of
-#' the duration created depend on the name of the function called. For Duration
-#' objects, units are equal to their most common lengths in seconds (i.e.
-#' minutes = 60 seconds, hours = 3600 seconds, days = 86400 seconds, weeks =
-#' 604800, years = 31536000).
-#'
-#' When paired with date-times, these functions allow date-times to be
-#' manipulated in a method similar to object oriented programming. Duration
-#' objects can be added to Date, POSIXt, and Interval objects.
-#'
-#' Since version 1.4.0 the following functions are deprecated: `eseconds()`,
-#' `eminutes()`, `ehours()`, `edays()`, `eweeks()`, `eyears()`,
-#' `emilliseconds()`, `emicroseconds()`, `enanoseconds()`,
-#' `epicoseconds()`
-#'
-#' @name quick_durations
-#' @param x numeric value of the number of units to be contained in the duration.
-#' @return a duration object
-#' @seealso [duration()], [days()]
-#' @keywords chron manip
-#' @examples
-#' dseconds(1)
-#' dminutes(3.5)
-#'
-#' x <- as.POSIXct("2009-08-03")
-#' x + ddays(1) + dhours(6) + dminutes(30)
-#' x + ddays(100) - dhours(8)
-#'
-#' class(as.Date("2009-08-09") + ddays(1)) # retains Date class
-#' as.Date("2009-08-09") + dhours(12)
-#' class(as.Date("2009-08-09") + dhours(12))
-#' # converts to POSIXt class to accomodate time units
-#'
-#' dweeks(1) - ddays(7)
-#' c(1:3) * dhours(1)
-#' #
-#' # compare DST handling to durations
-#' boundary <- as.POSIXct("2009-03-08 01:59:59")
-#' boundary + days(1) # period
-#' boundary + ddays(1) # duration
 #' @export dseconds dminutes dhours ddays dweeks dyears dmilliseconds dmicroseconds dnanoseconds dpicoseconds
 dseconds <- function(x = 1) new("Duration", x)
-#' @rdname quick_durations
+#' @rdname duration
 dminutes <- function(x = 1) new("Duration", x * 60)
-#' @rdname quick_durations
+#' @rdname duration
 dhours <- function(x = 1) new("Duration", x * 3600)
-#' @rdname quick_durations
+#' @rdname duration
 ddays <- function(x = 1) new("Duration", x * 86400)
-#' @rdname quick_durations
+#' @rdname duration
 dweeks <- function(x = 1) new("Duration", x * 604800)
-#' @rdname quick_durations
+#' @rdname duration
 dyears <- function(x = 1) new("Duration", x * 60 * 60 * 24 * 365)
-#' @rdname quick_durations
+#' @rdname duration
 dmilliseconds <- function(x = 1) new("Duration", x / 1000)
-#' @rdname quick_durations
+#' @rdname duration
 dmicroseconds <- function(x = 1) new("Duration", x / 1000 / 1000)
-#' @rdname quick_durations
+#' @rdname duration
 dnanoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000)
-#' @rdname quick_durations
+#' @rdname duration
 dpicoseconds <- function(x = 1) new("Duration", x / 1000 / 1000 / 1000 / 1000)
 
 #' @rdname duration
