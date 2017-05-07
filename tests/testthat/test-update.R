@@ -102,6 +102,50 @@ test_that("update.POSIXt performs simple operation as expected",{
   expect_that(tz(update(posct, tz = "UTC")), matches("UTC"))
 })
 
+test_that("update.POSIXt works on wdays",{
+
+  date <- ymd("2017-05-07") ## sunday
+  ct <- as.POSIXct("2010-02-03 13:45:59", tz = "America/New_York", format = "%Y-%m-%d %H:%M:%S") ## Wednesday
+  expect_equal(wday(update(ct, wday = 1)), 1)
+  expect_equal(wday(update(ct, wday = 2)), 2)
+  expect_equal(wday(update(ct, wday = 5)), 5)
+  expect_equal(wday(update(ct, wday = 7)), 7)
+  expect_equal(wday(update(date, wday = 1)), 1)
+  expect_equal(wday(update(date, wday = 2)), 2)
+  expect_equal(wday(update(date, wday = 5)), 5)
+  expect_equal(wday(update(date, wday = 7)), 7)
+
+  ws <- 1
+  expect_equal(wday(update(ct, wday = 1, week_start = ws)), 2)
+  expect_equal(wday(update(ct, wday = 2, week_start = ws)), 3)
+  expect_equal(wday(update(ct, wday = 5, week_start = ws)), 6)
+  expect_equal(wday(update(ct, wday = 7, week_start = ws)), 1)
+  expect_equal(wday(update(date, wday = 1, week_start = ws)), 2)
+  expect_equal(wday(update(date, wday = 2, week_start = ws)), 3)
+  expect_equal(wday(update(date, wday = 5, week_start = ws)), 6)
+  expect_equal(wday(update(date, wday = 7, week_start = ws)), 1)
+
+  ws <- 1
+  expect_equal(wday(update(ct, wday = 1, week_start = ws), start = ws), 1)
+  expect_equal(wday(update(ct, wday = 2, week_start = ws), start = ws), 2)
+  expect_equal(wday(update(ct, wday = 5, week_start = ws), start = ws), 5)
+  expect_equal(wday(update(ct, wday = 7, week_start = ws), start = ws), 7)
+  expect_equal(wday(update(date, wday = 1, week_start = ws), start = ws), 1)
+  expect_equal(wday(update(date, wday = 2, week_start = ws), start = ws), 2)
+  expect_equal(wday(update(date, wday = 5, week_start = ws), start = ws), 5)
+  expect_equal(wday(update(date, wday = 7, week_start = ws), start = ws), 7)
+
+  ws <- 3
+  expect_equal(wday(update(ct, wday = 1, week_start = ws), start = ws), 1)
+  expect_equal(wday(update(ct, wday = 2, week_start = ws), start = ws), 2)
+  expect_equal(wday(update(ct, wday = 5, week_start = ws), start = ws), 5)
+  expect_equal(wday(update(ct, wday = 7, week_start = ws), start = ws), 7)
+  expect_equal(wday(update(date, wday = 1, week_start = ws), start = ws), 1)
+  expect_equal(wday(update(date, wday = 2, week_start = ws), start = ws), 2)
+  expect_equal(wday(update(date, wday = 5, week_start = ws), start = ws), 5)
+  expect_equal(wday(update(date, wday = 7, week_start = ws), start = ws), 7)
+
+})
 
 test_that("update performs roll overs correctly for Date objects",{
   date <- as.Date("05/05/2010", "%m/%d/%Y")

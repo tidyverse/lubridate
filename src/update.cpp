@@ -61,7 +61,8 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
                                     const Rcpp::IntegerVector& minute,
                                     const Rcpp::NumericVector& second,
                                     const SEXP tz = R_NilValue,
-                                    const bool roll = false) {
+                                    const bool roll = false,
+                                    const int week_start = 7) {
 
   if (dt.size() == 0) return(Rcpp::newDatetimeVector(dt));
 
@@ -153,8 +154,8 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
         if (loop_yday) d += yday[i]; else d += yday[0];
       }
       if (do_wday) {
-        // wday is 1 based and starts on Sunday
-        int cur_wday = (static_cast<int>(cctz::get_weekday(cctz::civil_day(ct1))) + 1) % 7;
+        // wday is 1 based and starts on week_start
+        int cur_wday = (static_cast<int>(cctz::get_weekday(cctz::civil_day(ct1))) + 8 - week_start) % 7;
         d = d - cur_wday - 1;
         if (loop_wday) d += wday[i]; else d += wday[0];
       }

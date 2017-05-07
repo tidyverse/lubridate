@@ -393,3 +393,46 @@ test_that("ceiling_date works for seasons", {
   dts <- force_tz(dts, "America/New_York")
   expect_equal(month(ceiling_date(dts, "season")), c(3, 3, 6, 6, 6, 9, 9, 9, 12, 12, 12, 3))
 })
+
+
+test_that("round on week respects week_start",{
+  date <- ymd("2017-05-07") ## sunday
+  ct <- as.POSIXct("2010-02-03 13:45:59", tz = "America/New_York", format = "%Y-%m-%d %H:%M:%S") ## Wednesday
+
+  expect_equal(wday(floor_date(ct, "week", week_start = 1)), 2)
+  expect_equal(wday(floor_date(ct, "week", week_start = 2)), 3)
+  expect_equal(wday(floor_date(ct, "week", week_start = 5)), 6)
+  expect_equal(wday(floor_date(ct, "week", week_start = 7)), 1)
+  expect_equal(wday(floor_date(date, "week", week_start = 1)), 2)
+  expect_equal(wday(floor_date(date, "week", week_start = 2)), 3)
+  expect_equal(wday(floor_date(date, "week", week_start = 5)), 6)
+  expect_equal(wday(floor_date(date, "week", week_start = 7)), 1)
+
+  expect_equal(wday(floor_date(ct, "week", week_start = 1), start = 1), 1)
+  expect_equal(wday(floor_date(ct, "week", week_start = 2), start = 2), 1)
+  expect_equal(wday(floor_date(ct, "week", week_start = 5), start = 5), 1)
+  expect_equal(wday(floor_date(ct, "week", week_start = 7), start = 7), 1)
+  expect_equal(wday(floor_date(date, "week", week_start = 1), start = 1), 1)
+  expect_equal(wday(floor_date(date, "week", week_start = 2), start = 2), 1)
+  expect_equal(wday(floor_date(date, "week", week_start = 5), start = 5), 1)
+  expect_equal(wday(floor_date(date, "week", week_start = 7), start = 7), 1)
+
+  expect_equal(wday(ceiling_date(ct, "week", week_start = 1)), 2)
+  expect_equal(wday(ceiling_date(ct, "week", week_start = 2)), 3)
+  expect_equal(wday(ceiling_date(ct, "week", week_start = 5)), 6)
+  expect_equal(wday(ceiling_date(ct, "week", week_start = 7)), 1)
+  expect_equal(wday(ceiling_date(date, "week", week_start = 1)), 2)
+  expect_equal(wday(ceiling_date(date, "week", week_start = 2)), 3)
+  expect_equal(wday(ceiling_date(date, "week", week_start = 5)), 6)
+  expect_equal(wday(ceiling_date(date, "week", week_start = 7)), 1)
+
+  expect_equal(wday(ceiling_date(ct, "week", week_start = 1), start = 1), 1)
+  expect_equal(wday(ceiling_date(ct, "week", week_start = 2), start = 2), 1)
+  expect_equal(wday(ceiling_date(ct, "week", week_start = 5), start = 5), 1)
+  expect_equal(wday(ceiling_date(ct, "week", week_start = 7), start = 7), 1)
+  expect_equal(wday(ceiling_date(date, "week", week_start = 1), start = 1), 1)
+  expect_equal(wday(ceiling_date(date, "week", week_start = 2), start = 2), 1)
+  expect_equal(wday(ceiling_date(date, "week", week_start = 5), start = 5), 1)
+  expect_equal(wday(ceiling_date(date, "week", week_start = 7), start = 7), 1)
+
+})

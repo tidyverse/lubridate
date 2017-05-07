@@ -56,6 +56,7 @@
 #'   `FALSE`, date-time on the boundary are never rounded up (this was the
 #'   default for \pkg{lubridate} prior to `v1.6.0`. See section `Rounding Up
 #'   Date Objects` below for more details.
+#' @param week_start when unit is `weeks` specify the reference day; 7 being Sunday.
 #' @keywords manip chron
 #' @seealso [base::round()]
 #' @examples
@@ -100,7 +101,7 @@
 #' ceiling_date(x, "halfyear")
 #' ceiling_date(x, "year")
 #' @export
-round_date <- function(x, unit = "second") {
+round_date <- function(x, unit = "second", week_start = getOption("lubridate.week.start", 7)) {
 
   if(!length(x)) return(x)
 
@@ -136,7 +137,7 @@ reclass_date_maybe <- function(new, orig, unit){
 #' boundary of the specified time unit.
 #' @rdname round_date
 #' @export
-floor_date <- function(x, unit = "seconds") {
+floor_date <- function(x, unit = "seconds", week_start = getOption("lubridate.week.start", 7)) {
   if(!length(x)) return(x)
 
   parsed_unit <- parse_period_unit(unit)
@@ -169,7 +170,7 @@ floor_date <- function(x, unit = "seconds") {
     }
 
     switch(unit,
-           week     = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0),
+           week     = update(x, wdays = 1, hours = 0, minutes = 0, seconds = 0, week_start = week_start),
            month    = {
              if(n > 1) update(x, months = new_months, mdays = 1, hours = 0, minutes = 0, seconds = 0)
              else      update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0)
@@ -196,7 +197,7 @@ floor_date <- function(x, unit = "seconds") {
 #' x <- ymd("2000-01-01")
 #' ceiling_date(x, "month")
 #' ceiling_date(x, "month", change_on_boundary = TRUE)
-ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL) {
+ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_start = getOption("lubridate.week.start", 7)) {
 
   if(!length(x))
     return(x)
@@ -262,7 +263,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL) {
     new <- switch(unit,
                   minute = update(new, minute = ceil_multi_unit(minute(new), n), second = 0, simple = T),
                   hour   = update(new, hour = ceil_multi_unit(hour(new), n), minute = 0, second = 0, simple = T),
-                  week   = update(new, wday = 8, hour = 0, minute = 0, second = 0),
+                  week   = update(new, wday = 8, hour = 0, minute = 0, second = 0, week_start = week_start),
                   month  = update(new, month = new_month, mdays = 1, hours = 0, minutes = 0, seconds = 0),
                   year   = update(new, year = ceil_multi_unit(year(new), n), month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
 

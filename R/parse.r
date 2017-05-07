@@ -559,7 +559,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'
 ##' ## to give priority to %y format, define your own select_format function:
 ##'
-##' my_select <-   function(trained){
+##' my_select <-   function(trained, drop=FALSE, ...){
 ##'    n_fmts <- nchar(gsub("[^%]", "", names(trained))) + grepl("%y", names(trained))*1.5
 ##'    names(trained[ which.max(n_fmts) ])
 ##' }

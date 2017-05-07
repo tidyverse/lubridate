@@ -178,7 +178,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #' @param x numeric value of the number of units to be contained in the
 #'   duration.
 #' @return a duration object
-#' @seealso [as.duration()] [Duration.class]
+#' @seealso [as.duration()] [Duration-class]
 #' @keywords chron classes
 #' @examples
 #'

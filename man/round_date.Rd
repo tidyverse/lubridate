@@ -6,11 +6,14 @@
 \alias{ceiling_date}
 \title{Round, floor and ceiling methods for date-time objects.}
 \usage{
-round_date(x, unit = "second")
+round_date(x, unit = "second",
+  week_start = getOption("lubridate.week.start", 7))
 
-floor_date(x, unit = "seconds")
+floor_date(x, unit = "seconds",
+  week_start = getOption("lubridate.week.start", 7))
 
-ceiling_date(x, unit = "seconds", change_on_boundary = NULL)
+ceiling_date(x, unit = "seconds", change_on_boundary = NULL,
+  week_start = getOption("lubridate.week.start", 7))
 }
 \arguments{
 \item{x}{a vector of date-time objects}
@@ -21,6 +24,8 @@ to be rounded to. Valid base units are \code{second}, \code{minute}, \code{hour}
 \code{year}. Arbitrary unique English abbreviations as in the \code{\link[=period]{period()}}
 constructor are allowed. Rounding to multiple of units (except weeks) is
 supported.}
+
+\item{week_start}{when unit is \code{weeks} specify the reference day; 7 being Sunday.}
 
 \item{change_on_boundary}{If NULL (the default) don't change instants on the
 boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is \code{2000-01-01 00:00:00}), but round up \code{Date} objects to the next boundary

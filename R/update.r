@@ -6,7 +6,7 @@
 #' substitute them for the appropriate parts of the existing date.
 #'
 #'
-#' @name DateUpdate
+#' @name DateTimeUpdate
 #' @param object a date-time object
 #' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours,
 #'   minutes, seconds, tzs (time zone compnent)
@@ -14,6 +14,8 @@
 #'   non-existent civil time instant (DST, 29th February, etc.) roll the date
 #'   till next valid point. When `FALSE`, the default, produce NA for non
 #'   existing date-times.
+#' @param week_start week starting day (Default is 7, Sunday). Set
+#'   `lubridate.week.start` option to control this.
 #' @param simple logical. Deprecated. Same as `roll`.
 #' @return a date object with the requested elements updated. The object will
 #'   retain its original class unless an element is updated which the original
