@@ -147,6 +147,21 @@ test_that("update.POSIXt works on wdays",{
 
 })
 
+test_that("updates on ydays works correctly with leap years", {
+  expect_equal(update(ymd("15-02-03", tz = "UTC"), year = 2000, yday = 1),
+               ymd("2000-01-01", tz = "UTC"))
+  expect_equal(update(ymd("15-02-03", tz = "UTC"), year = 2015, yday = 1),
+               ymd("2015-01-01", tz = "UTC"))
+  expect_equal(update(ymd("15-02-03", tz = "UTC"), year = 2016, yday = 10),
+               ymd("2016-01-10", tz = "UTC"))
+  expect_equal(update(ymd("15-02-03", tz = "America/New_York"), year = 2000, yday = 1),
+               ymd("2000-01-01", tz = "America/New_York"))
+  expect_equal(update(ymd("15-02-03", tz = "America/New_York"), year = 2015, yday = 1),
+               ymd("2015-01-01", tz = "America/New_York"))
+  expect_equal(update(ymd("15-02-03", tz = "America/New_York"), year = 2016, yday = 10),
+               ymd("2016-01-10", tz = "America/New_York"))
+ })
+
 test_that("update performs roll overs correctly for Date objects",{
   date <- as.Date("05/05/2010", "%m/%d/%Y")
   expect_that(second(update(date, seconds = 61)), equals(1))

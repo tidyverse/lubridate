@@ -13,7 +13,7 @@ typedef struct {
 } fractionUnit;
 
 // leap year every 400 years; no leap every 100 years
-#define IS_LEAP(y) ((y) % 4 == 0) && !((y) % 100 == 0 && (y) % 400 != 0);
+#define IS_LEAP(y) (((y) % 4 == 0) && !((y) % 100 == 0 && (y) % 400 != 0))
 
 /* quick checkers */
 #define ALPHA(X) (((X) >= 'a' && (X) <= 'z') || ((X) >= 'A' && (X) <= 'Z'))

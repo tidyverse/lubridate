@@ -3,6 +3,7 @@
 #include "time_zone.h"
 #include "time_zone_if.h"
 #include <unordered_map>
+#include "utils.h"
 
 // CIVIL TIME:
 // https://github.com/google/cctz/blob/master/include/civil_time.h
@@ -151,6 +152,8 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
       if (do_yday) {
         // yday and d are 1 based
         d = d - cctz::get_yearday(cctz::civil_day(ct1));
+        if (IS_LEAP(y) && ct1.month() > 2)
+          d -= 1;
         if (loop_yday) d += yday[i]; else d += yday[0];
       }
       if (do_wday) {
