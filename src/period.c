@@ -31,17 +31,26 @@ static const char *en_units[] = {"SECS", "secs", "seconds",
                                  "weeks",
                                  "months",
                                  "years"};
+
+// S=0,  M=1, H=2, d=3, w=4, m=5, y=6
 #define N_EN_UNITS 12
+
 #define N_PERIOD_UNITS 7
 
-intUnit parse_period_unit (const char **c) {
+fractionUnit parse_period_unit (const char **c) {
   // units: invalid=-1, S=0,  M=1, H=2, d=3, w=4, m=5, y=6
   // SKIP_NON_ALPHANUMS(*c);   //  why this macro doesn't work here?
-  while(**c && !(ALPHA(**c) || DIGIT(**c))) (*c)++;;
+  while(**c && !(ALPHA(**c) || DIGIT(**c) || **c == '.')) (*c)++;;
 
-  intUnit out;
+  fractionUnit out;
   out.unit = -1;
   out.val = parse_int(c, 100, FALSE);
+  if (**c == '.') {
+    (*c)++;
+    out.fraction = parse_fractional(c);
+  } else {
+    out.fraction = 0.0;
+  }
 
   if(**c){
     out.unit = parse_alphanum(c, en_units, N_EN_UNITS, 0);
@@ -51,7 +60,7 @@ intUnit parse_period_unit (const char **c) {
       // if only unit name supplied, default to 1 units
       if(out.val == -1)
         out.val = 1;
-      if(out.unit < 3) out.unit = 0;
+      if (out.unit < 3) out.unit = 0;
       else if (out.unit < 6) out.unit = 1;
       else if (out.unit < 8) out.unit = 2;
       else out.unit = out.unit - 5;
@@ -62,13 +71,17 @@ intUnit parse_period_unit (const char **c) {
   }
 }
 
-void parse_period_1 (const char **c, int ret[N_PERIOD_UNITS]){
+void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
   while (**c) {
-    intUnit iu = parse_period_unit(c);
-    if (iu.unit >= 0) {
-      ret[iu.unit] = ret[iu.unit] + iu.val;
+    fractionUnit fu = parse_period_unit(c);
+    if (fu.unit >= 0) {
+      ret[fu.unit] += fu.val;
+      if (fu.fraction > 0) {
+        if (fu.unit == 0) ret[fu.unit] += fu.fraction;
+        else ret[0] += fu.fraction * SECONDS_IN_ONE[fu.unit];
+      }
     } else {
-      ret[0] = NA_INTEGER;
+      ret[0] = NA_REAL;
       break;
     }
   }
@@ -77,13 +90,14 @@ void parse_period_1 (const char **c, int ret[N_PERIOD_UNITS]){
 SEXP c_parse_period(SEXP str) {
   if (TYPEOF(str) != STRSXP) error("STR argument must be a character vector");
   int n = LENGTH(str);
-  SEXP out = allocVector(INTSXP, n * N_PERIOD_UNITS);
-  int *data = INTEGER(out);
+  // store parsed units in N_PERIOD_UNITS x n matrix
+  SEXP out = allocVector(REALSXP, n * N_PERIOD_UNITS);
+  double *data = REAL(out);
 
   for (int i = 0; i < n; i++) {
     const char *c = CHAR(STRING_ELT(str, i));
 
-    int ret[N_PERIOD_UNITS] = {0};
+    double ret[N_PERIOD_UNITS] = {0};
     parse_period_1(&c, ret);
     int j = i * N_PERIOD_UNITS;
     for(int k = 0; k < N_PERIOD_UNITS; k++) {

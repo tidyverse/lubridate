@@ -6,6 +6,12 @@ typedef struct {
   int unit;
 } intUnit;
 
+typedef struct {
+  int  val;
+  double fraction;
+  int unit;
+} fractionUnit;
+
 // leap year every 400 years; no leap every 100 years
 #define IS_LEAP(y) ((y) % 4 == 0) && !((y) % 100 == 0 && (y) % 400 != 0);
 
@@ -21,6 +27,7 @@ typedef struct {
 int adjust_leap_years(int y, int m, int is_leap);
 int check_ymd(int y, int m, int d, int is_leap);
 int parse_alphanum(const char **c, const char **strings, const int strings_len, const char ignore_case);
+double parse_fractional (const char **c);
 int parse_int (const char **c, const int N, const int strict);
 
 #endif /* !defined LUB_UTILS_H */

@@ -301,19 +301,20 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' [add_with_rollback()] for alternative operations.
 #'
 #' @param num a numeric vector that lists the number of time units to be
-#'   included in the period. From v1.6.0 `num` can also be a character
-#'   vector that specifies durations in a convenient shorthand format. All
-#'   unambiguous name units and abbreviations are supported. One letter "m"
-#'   stands for months, "M" stands for minutes. See examples.
+#'   included in the period. From v1.6.0 `num` can also be a character vector
+#'   that specifies durations in a convenient shorthand format. All unambiguous
+#'   name units and abbreviations are supported, "m" stands for months, "M" for
+#'   minutes; see examples. Fractional units are supported but the fractional
+#'   part is always converted to seconds.
 #' @param units a character vector that lists the type of units to be used. The
 #'   units in units are matched to the values in num according to their
 #'   order. When `num` is character, this argument is ignored.
 #' @param ... a list of time units to be included in the period and their
 #'   amounts. Seconds, minutes,  hours, days, weeks, months, and years are
-#'   supported. Normally only one of `num` or `...` are present. If
-#'   both are present, the periods are concatenated.
-#'@seealso [Period-class], [quick_periods()],
-#'   \code{\link{\%m+\%}}, [add_with_rollback()]
+#'   supported. Normally only one of `num` or `...` are present. If both are
+#'   present, the periods are concatenated.
+#'@seealso [Period-class], [quick_periods()], \code{\link{\%m+\%}},
+#'   [add_with_rollback()]
 #' @return a period object
 #' @keywords chron classes
 #' @examples

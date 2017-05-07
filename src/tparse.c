@@ -181,10 +181,8 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
               if (O_format){
                 // Parse milliseconds; both . and , as decimal separator are allowed
                 if( *c == '.' || *c == ','){
-                  double ms = 0.0, msfact = 0.1;
                   c++;
-                  while (DIGIT(*c)) { ms = ms + (*c - '0')*msfact; msfact *= 0.1; c++; }
-                  secs += ms;
+                  secs += parse_fractional(&c);
                 }
               }
             } else succeed = 0;

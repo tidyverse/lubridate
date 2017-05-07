@@ -4,6 +4,16 @@
 #define FALSE 0
 #define TRUE 1
 
+
+static const int SECONDS_IN_ONE[] = {
+    1, // second
+    60, // minute
+    3600, // hour
+    86400, // day
+    604800, // week
+    31557600 // year
+};
+
 // start of each month in seconds in a common year (1 indexed)
 static const int sm[] = {0, 0, 2678400, 5097600, 7776000, 10368000, 13046400, 15638400,
 						 18316800, 20995200, 23587200, 26265600, 28857600, 31536000 };

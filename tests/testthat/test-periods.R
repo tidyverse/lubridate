@@ -16,6 +16,13 @@ test_that("parsing works as expected", {
                period(seconds = 2, minutes = 3, hours = 4, days = 5, weeks = 6, months = 7, years = 8))
 })
 
+test_that("fractional parsing works as expected", {
+  expect_equal(period("1.1min 2.3sec 2.3secs 1.0H 2.2M 1.5d"),
+               period(seconds = 43222.6, minutes = 3, hours = 1, days = 1))
+  expect_equal(period("day 1.2days"),
+               period(days = 2, seconds = 17280))
+})
+
 test_that("character comparison with periods works as expected", {
   expect_true("day" == period(days = 1))
   expect_true("2 days, 2 secs" == period(days = 2, seconds = 2))

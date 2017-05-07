@@ -5,6 +5,7 @@ Version 1.6.0.9000
 * [#529](https://github.com/hadley/lubridate/issues/529) Internal parser now ignores the case of alpha months (B format)
 * [#535](https://github.com/hadley/lubridate/issues/535) Rounding to `season` is now supported.
 * [#536](https://github.com/hadley/lubridate/issues/536) `as_date` and `as_datetime` now understand character vectors.
+* [#519](https://github.com/hadley/lubridate/issues/519) Support fractional units in duration and period string constructors.
 * [#508](https://github.com/hadley/lubridate/pull/508) New parameter `locale` in `month`. Labels of the returned factors (when `label=TRUE`) now respect current locale.
 * [#485](https://github.com/hadley/lubridate/pull/485) `quarter` gained a new argument `fiscal_start` to address the issue of different fiscal conventions.
 * [#492](https://github.com/hadley/lubridate/issues/492) New functions `epiweek` and `epiyear`.

@@ -45,6 +45,13 @@ int check_ymd(int y, int m, int d, int is_leap){
   return succeed;
 }
 
+// parse fractional part
+double parse_fractional(const char **c) {
+  double out = 0.0, factor = 0.1;
+  while (DIGIT(**c)) { out = out + (**c - '0')*factor; factor *= 0.1; (*c)++; }
+  return out;
+}
+
 /* parse N digit characters from **c. Return parsed non-negative integer. If
    failed to pass N chars, return -1.*/
 int parse_int (const char **c, const int N, const int strict) {
