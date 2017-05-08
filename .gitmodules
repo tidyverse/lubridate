@@ -1,4 +1,0 @@
-[submodule "src/cctz"]
-	path = src/cctz
-	url = https://github.com/google/cctz.git
-    ignore = dirty

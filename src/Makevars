@@ -2,15 +2,15 @@ CXX_STD = CXX11
 PKG_CPPFLAGS= -I. -I./cctz/include/ -I./cctz/src/
 PKG_LIBS= -L. -lcctz
 
-LIBCCTZ=cctz/src/time_zone_fixed.o \
-    cctz/src/time_zone_if.o \
-    cctz/src/time_zone_impl.o \
-    cctz/src/time_zone_info.o \
-    cctz/src/time_zone_libc.o \
-    cctz/src/time_zone_lookup.o \
-    cctz/src/time_zone_posix.o \
-    # cctz/src/time_zone_format.o \
-    # cctz/src/time_tool.o
+LIBCCTZ=./cctz/src/time_zone_fixed.o \
+    ./cctz/src/time_zone_if.o \
+    ./cctz/src/time_zone_impl.o \
+    ./cctz/src/time_zone_info.o \
+    ./cctz/src/time_zone_libc.o \
+    ./cctz/src/time_zone_lookup.o \
+    ./cctz/src/time_zone_posix.o \
+    # ./cctz/src/time_zone_format.o \
+    # ./cctz/src/time_tool.o
 
 $(SHLIB): libcctz.a
 
