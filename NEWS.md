@@ -18,6 +18,7 @@ Version 1.6.0.9000
   behavior on several occasions ([#516](https://github.com/hadley/lubridate/issues/516),[#308](https://github.com/hadley/lubridate/issues/308),[#307](https://github.com/hadley/lubridate/issues/307)).
 
 ### BUG FIXES
+* [#545](https://github.com/hadley/lubridate/pull/545) Fix wrong locale selection in stamp.
 * [#466](https://github.com/hadley/lubridate/pull/466) Fix wrong formats within ymd_h family of functions.
 * [#472](https://github.com/hadley/lubridate/pull/472) Printing method for duration doesn't throw format error on fractional seconds.
 * [#475](https://github.com/hadley/lubridate/pull/475) character<> comparisons is no longer slow.

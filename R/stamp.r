@@ -70,6 +70,18 @@ stamp <- function(x, orders = lubridate_formats,
   if( !quiet )
       message("Using: \"", FMT, "\"")
 
+
+  ## format doesn't accept 'locale' argument; need a hard reset
+  reset_local_expr <-
+    quote(
+    {
+      old_lc_time <- Sys.getlocale("LC_TIME")
+      if (old_lc_time != locale){
+        Sys.setlocale("LC_TIME", locale)
+        on.exit(Sys.setlocale("LC_TIME", old_lc_time))
+      }
+    })
+
   ## ISO8601
   ## %Ou: "2013-04-16T04:59:59Z"
   ## %Oo: "2013-04-16T04:59:59+01"
@@ -91,10 +103,11 @@ stamp <- function(x, orders = lubridate_formats,
                  sub("%Ou", "Z", FMT, fixed = TRUE))
 
       eval(bquote(
-        function(x){
+        function(x, locale = .(locale)){
           ## %z ignores timezone
           if(tz(x[[1]]) != "UTC")
             x <- with_tz(x, tzone = "UTC")
+          .(reset_local_expr)
           format(x, format = .(FMT))
         }))
 
@@ -102,15 +115,22 @@ stamp <- function(x, orders = lubridate_formats,
       FMT <- sub("%O[oOz]$", "", FMT)
 
       eval(bquote(
-        function(x) paste0(format(x, format = .(FMT)),
-                           .format_offset(x, fmt = .(oOz_end)))))
+        function(x, locale = .(locale)) {
+          .(reset_local_expr)
+          paste0(format(x, format = .(FMT)),
+                 .format_offset(x, fmt = .(oOz_end)))
+        }))
     }
 
   } else {
     ## most common case
-    eval(bquote(function(x) format(x, format = .(FMT))))
+    eval(bquote(function(x, locale = .(locale)) {
+      .(reset_local_expr)
+      format(x, format = .(FMT))
+    }))
   }
 }
+
 
 .format_offset <- function(x, fmt="%Oz"){
   ## .format_offset
