@@ -591,7 +591,7 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
         .best_formats(train, orders, locale = locale, select_formats, drop = drop)
       }
     if( length(formats) > 0 ){
-      out <- .parse_date_time(x, formats, tz = tz, quiet = quiet)
+      out <- .parse_date_time(x, formats, tz = tz, quiet = quiet, locale = locale)
       new_na <- is.na(out)
       if( any(new_na) ){
         x <- x[new_na]
@@ -686,11 +686,11 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
   .POSIXlt(dtlist, tz = tz)
 }
 
-.parse_date_time <- function(x, formats, tz, quiet){
+.parse_date_time <- function(x, formats, tz, quiet, locale){
 
   ## print(formats) # for debugging
 
-  out <- .strptime(x, formats[[1]], tz = tz, quiet = quiet)
+  out <- .strptime(x, formats[[1]], tz = tz, quiet = quiet, locale = locale)
   na <- is.na(out)
   newx <- x[na]
 
@@ -700,13 +700,13 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
 
   ## recursive parsing
   if( length(formats) > 1 && length(newx) > 0 )
-    out[na] <- .parse_date_time(newx, formats[-1], tz = tz, quiet = quiet)
+    out[na] <- .parse_date_time(newx, formats[-1], tz = tz, quiet = quiet, locale = locale)
 
   ## return POSIXlt
   out
 }
 
-.strptime <- function(x, fmt, tz = "UTC", quiet = FALSE){
+.strptime <- function(x, fmt, tz = "UTC", quiet = FALSE, locale = NULL){
 
   ## Depending on fmt we might need to preprocess x.
   ## ISO8601 and internal parser are the only cases so far.
@@ -741,6 +741,15 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
 
   } else {
     ## STRPTIME PARSER:
+
+    ## strptime doesn't accept 'locale' argument; need a hard reset
+    if (!is.null(locale)) {
+      old_lc_time <- Sys.getlocale("LC_TIME")
+      if (old_lc_time != locale){
+        Sys.setlocale("LC_TIME", locale)
+        on.exit(Sys.setlocale("LC_TIME", old_lc_time))
+      }
+    }
 
     if( zpos > 0 ){
       ## If ISO8601 -> pre-process x and fmt

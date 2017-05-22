@@ -224,7 +224,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   ## the number of matched elements in X
   ## can return NULL if formats is NULL
 
-  trials <- lapply(formats, function(fmt) .strptime(x, fmt))
+  trials <- lapply(formats, function(fmt) .strptime(x, fmt, locale = locale))
   successes <- unlist(lapply(trials, function(x) sum(!is.na(x))), use.names = FALSE)
   names(successes) <- formats
   sort(successes, decreasing = TRUE)
@@ -251,6 +251,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     nchar(gsub("[^%]", "", nms)) + ## longer formats have priority
     grepl("%Y", nms, fixed = T)*1.5 + ## Y has priority over 0
     grepl("%y[^%]", nms)*1.6 + ## y has priority over Y, but only when followed by non %
+    grepl("%B", nms)*.31 + ## B format should get more weight than %Om
     ## C parser formats
     grepl("%Om", nms)*.1 + grepl("%Op", nms)*.1 +
     grepl("%O", nms)*.2

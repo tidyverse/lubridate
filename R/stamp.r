@@ -57,7 +57,7 @@ stamp <- function(x, orders = lubridate_formats,
   if( length(fmts) == 1L ){
     FMT <- fmts[[1]]
   }else{
-    trained <- .train_formats(x, fmts)
+    trained <- .train_formats(x, fmts, locale = locale)
     formats <- .select_formats(trained)
     FMT <- formats[[1]]
     if( !quiet && length(trained) > 1 ) {

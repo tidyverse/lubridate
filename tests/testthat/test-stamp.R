@@ -131,6 +131,13 @@ test_that("stamp works with ISO-8601 formats", {
   ##              "2012-12-31T18:30:00+0000 KK")
 })
 
+test_that("stamp recognizes correctly B orders", {
+  formater <- stamp("Sunday, November 30, 23:15", "ABdHM")
+  x <- ymd_hm(c("2017-01-20 15:15", "2017-02-11 10:10"))
+  expect_equal(formater(x), c("Friday, January 20, 15:15", "Saturday, February 11, 10:10"))
+})
+
+
 
 ## ## Don't delete this. We need it for interactive testing
 ## y <- c('February 20th 1973',
