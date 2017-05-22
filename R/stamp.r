@@ -17,7 +17,7 @@
 ##' specialized stamp_date and stamp_time. The core function `stamp()` give
 ##' priority to longer date-time formats.
 ##'
-##' Another option is to proved a vector of several values as `x`
+##' Another option is to provide a vector of several values as `x`
 ##' parameter. Then \pkg{lubridate} will choose the format which fits `x` the
 ##' best. Note that longer formats are preferred. If you have "22:23:00 PM" then
 ##' "HMSp" format will be given priority to shorter "HMS" order which also fits
