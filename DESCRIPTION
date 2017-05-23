@@ -35,7 +35,6 @@ Suggests:
     testthat,
     knitr,
     covr
-BugReports: https://github.com/hadley/lubridate/issues
 VignetteBuilder: knitr
 Collate:
     'Dates.r'
@@ -87,3 +86,5 @@ Collate:
     'zzz.R'
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
+URL: https://github.com/tidyverse/lubridate
+BugReports: https://github.com/tidyverse/lubridate/issues
