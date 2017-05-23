@@ -55,7 +55,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../articles/lubridate.html">Intro</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -82,63 +82,19 @@
 
     
     <p>A time span can be measured in three ways: as a duration, an interval, or a
-period.</p>
+period.</p><ul>
+<li><p>durations record the exact number of seconds in a time span.
+They measure the exact passage of time but do not always align with
+human measurements like hours, months and years.</p></li>
+<li><p>periods record the change in the clock time between two date-times.
+They are measured in human units: years, months, days, hours, minutes,
+and seconds.</p></li>
+<li><p>intervals are time spans bound by two real date-times. Intervals can be
+accurately converted to periods and durations.</p></li>
+</ul>
     
 
         
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Durations record the exact number of seconds in a time span. They measure the
-exact passage of time but do not always align with measurements
-made in larger units of time such as hours, months and years.
-This is because the exact length of larger time units can be affected
-by conventions such as leap years
-and Daylight Savings Time. Base R measures durations with the
-difftime class. <span class="pkg">lubridate</span> provides an additional class, the duration class,
-to facilitate working with durations.</p>
-<p>durations display as the number of seconds that occur during a time span. If the number is large, a duration object will also display the length in a more convenient unit, but these measurements are only estimates
-given for convenience. The underlying object is always recorded as a fixed
-number of seconds. For display and creation purposes, units are converted to
-seconds using their most common lengths in seconds. Minutes = 60 seconds,
-hours = 3600 seconds, days = 86400 seconds. Units larger than
-days are not used due to their variability.</p>
-<p>duration objects can be easily created with the helper functions
-<code><a href='duration.html'>dweeks()</a></code>, <code><a href='duration.html'>ddays()</a></code>, <code><a href='duration.html'>dhours()</a></code>, <code><a href='duration.html'>dminutes()</a></code> and
-<code><a href='duration.html'>dseconds()</a></code>. These objects can be added to and subtracted from date-
-times to create a user interface similar to object oriented programming.
-Duration objects can be added to Date, POSIXct, and POSIXlt objects to return a
-new date-time.</p>
-<p>Periods record the change in the clock time between two date-times. They are
-measured in common time related units: years, months, days, hours, minutes,
-and seconds. Each unit except for seconds must be expressed in integer
-values. With the exception of seconds, none of these units have a fixed
-length. Leap years, leap seconds, and Daylight Savings Time can expand or
-contract a unit of time depending on when it occurs.  For this reason, periods
-do not have a fixed length until they are paired with a start date. Periods
-can be used to track changes in clock time. Because periods
-have a variable length, they must be paired with a start date
-as an interval (<code><a href='as.interval.html'>as.interval()</a></code>) before they can be
-accurately converted to and from durations.</p>
-<p>Period objects can be easily created with the helper functions
-<code><a href='period.html'>years()</a></code>, <code>months()</code>, <code><a href='period.html'>weeks()</a></code>,
-<code><a href='period.html'>days()</a></code>, <code><a href='period.html'>minutes()</a></code>, <code><a href='period.html'>seconds()</a></code>. These objects
-can be added to and subtracted to date-times to create a user interface
-similar to object oriented programming. Period objects can be added to Date,
-POSIXct, and POSIXlt objects to return a new date-time.</p>
-<p>Intervals are time spans bound by two real date-times.  Intervals can be
-accurately converted to periods and durations. Since an interval is anchored
-to a fixed moment of time, the exact length of all units of
-time during the interval can be calculated. To
-accurately convert between periods and durations, a period or duration should
-first be converted to an interval with <code><a href='as.interval.html'>as.interval()</a></code>. An interval displays as the start
-and end points of the time span it represents.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><code><a href='duration.html'>duration()</a></code> for creating duration objects and
-<code><a href='period.html'>period()</a></code> for creating period objects, and
-<code><a href='interval.html'>interval()</a></code> for creating interval objects.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='duration.html'>duration</a></span>(<span class='fl'>3690</span>, <span class='st'>"seconds"</span>)</div><div class='output co'>#&gt; [1] "3690s (~1.02 hours)"</div><div class='input'><span class='fu'><a href='period.html'>period</a></span>(<span class='fl'>3690</span>, <span class='st'>"seconds"</span>)</div><div class='output co'>#&gt; [1] "3690S"</div><div class='input'><span class='fu'><a href='period.html'>period</a></span>(<span class='kw'>second</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "1H 1M 30S"</div><div class='input'><span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2009-08-09 13:01:30"</span>), <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2009-08-09 12:00:00"</span>))</div><div class='output co'>#&gt; [1] 2009-08-09 13:01:30 UTC--2009-08-09 12:00:00 UTC</div><div class='input'>
@@ -163,11 +119,7 @@ and end points of the time span it represents.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

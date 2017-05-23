@@ -105,3 +105,17 @@ reference:
   contents:
   - lakers
 
+
+navbar:
+  title: ~
+  type: default
+  left:
+  - text: Reference
+    href: reference/index.html
+  - text: Intro
+    href: articles/lubridate.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/tidyverse/lubridate
