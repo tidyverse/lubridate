@@ -21,6 +21,7 @@ reference:
 - title: Setting, getting and rounding
   contents:
   - year
+  - date_decimal
   - quarter
   - month
   - week
@@ -49,7 +50,7 @@ reference:
   - now
   - today
   - origin
-  - date_decimal
+  - decimal_date
 
 - title: Times
   contents:
