@@ -1,15 +1,19 @@
-<!--
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{Lubridate}
--->
+---
+title: "Do more with dates and times in R"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Do more with dates and times in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-# Do more with dates and times in R with lubridate 1.3.0
+```{r, include = FALSE}
+knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
+```
 
-_note: This vignette is an updated version of the blog post first published at [r-statistics](http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/)_
+(This vignette is an updated version of the blog post first published at [r-statistics](http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/)_
 
-Lubridate is an R package that makes it easier to work with dates and times. Below is a concise tour of some of the things lubridate can do for you. 
-
-Lubridate was created by Garrett Grolemund and Hadley Wickham.
+Lubridate is an R package that makes it easier to work with dates and times. Below is a concise tour of some of the things lubridate can do for you. Lubridate was created by Garrett Grolemund and Hadley Wickham, and is now maintained by Vitalie Spinu.
 
 ## Parsing dates and times
 
