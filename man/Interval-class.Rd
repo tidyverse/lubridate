@@ -23,3 +23,4 @@ Interval class objects have two slots: .Data, a numeric object equal to the numb
 of seconds in the interval; and start, a POSIXct object that specifies the time
 when the interval starts.
 }
+\keyword{internal}

@@ -56,10 +56,8 @@ check_interval <- function(object){
 #' of seconds in the interval; and start, a POSIXct object that specifies the time
 #' when the interval starts.
 #'
-#'
-#' @name Interval-class
-#' @rdname Interval-class
-#' @exportClass Interval
+#' @export
+#' @keywords internal
 setClass("Interval", contains = c("Timespan", "numeric"),
   slots = c(start = "POSIXct",   tzone = "character"), validity = check_interval)
 

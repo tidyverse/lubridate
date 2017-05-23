@@ -49,3 +49,4 @@ The apparent amount of days to add to the period.5) month, a numeric object.
 The apparent amount of months to add to the period. 6) year, a numeric object.
 The apparent amount of years to add to the period.
 }
+\keyword{internal}

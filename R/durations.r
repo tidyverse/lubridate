@@ -28,9 +28,8 @@ check_duration <- function(object){
 #' Durations class objects have one slot: .Data, a numeric object equal to the number
 #' of seconds in the duration.
 #'
-#' @name Duration-class
-#' @rdname Duration-class
-#' @exportClass Duration
+#' @export
+#' @keywords internal
 setClass("Duration", contains = c("Timespan", "numeric"), validity = check_duration)
 
 #' @name hidden_aliases

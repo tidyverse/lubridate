@@ -12,3 +12,4 @@ Timespan is an S4 class with no slots. It is extended by the
 \linkS4class{Interval}, \linkS4class{Period}, and \linkS4class{Duration}
 classes.
 }
+\keyword{internal}

@@ -4,10 +4,8 @@
 #' [Interval-class], [Period-class], and [Duration-class]
 #' classes.
 #'
-#'
-#' @name Timespan-class
-#' @rdname Timespan-class
-#' @exportClass Timespan
+#' @export
+#' @keywords internal
 #' @aliases *,Timespan,Timespan-method %/%,Timespan,Timespan-method %/%,difftime,Timespan-method
 setClass("Timespan")
 

@@ -23,3 +23,4 @@ preserves clock times.
 Durations class objects have one slot: .Data, a numeric object equal to the number
 of seconds in the duration.
 }
+\keyword{internal}
