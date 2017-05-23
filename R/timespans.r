@@ -22,67 +22,24 @@ setClass("Timespan")
 #' is.timespan(duration(second = 1)) # TRUE
 is.timespan <- function(x) is(x, "Timespan")
 
-
 #' Description of time span classes in lubridate
 #'
+#' @description
 #' A time span can be measured in three ways: as a duration, an interval, or a
 #' period.
 #'
-#' Durations record the exact number of seconds in a time span. They measure the
-#' exact passage of time but do not always align with measurements
-#' made in larger units of time such as hours, months and years.
-#' This is because the exact length of larger time units can be affected
-#' by conventions such as leap years
-#' and Daylight Savings Time. Base R measures durations with the
-#' difftime class. \pkg{lubridate} provides an additional class, the duration class,
-#' to facilitate working with durations.
+#' * [durations] record the exact number of seconds in a time span.
+#'   They measure the exact passage of time but do not always align with
+#'   human measurements like hours, months and years.
 #'
-#' durations display as the number of seconds that occur during a time span. If the number is large, a duration object will also display the length in a more convenient unit, but these measurements are only estimates
-#' given for convenience. The underlying object is always recorded as a fixed
-#' number of seconds. For display and creation purposes, units are converted to
-#' seconds using their most common lengths in seconds. Minutes = 60 seconds,
-#' hours = 3600 seconds, days = 86400 seconds. Units larger than
-#' days are not used due to their variability.
+#' * [periods] record the change in the clock time between two date-times.
+#'   They are measured in human units: years, months, days, hours, minutes,
+#'   and seconds.
 #'
-#' duration objects can be easily created with the helper functions
-#' [dweeks()], [ddays()], [dhours()], [dminutes()] and
-#' [dseconds()]. These objects can be added to and subtracted from date-
-#' times to create a user interface similar to object oriented programming.
-#' Duration objects can be added to Date, POSIXct, and POSIXlt objects to return a
-#' new date-time.
+#' * [intervals] are time spans bound by two real date-times. Intervals can be
+#'   accurately converted to periods and durations.
 #'
-#' Periods record the change in the clock time between two date-times. They are
-#' measured in common time related units: years, months, days, hours, minutes,
-#' and seconds. Each unit except for seconds must be expressed in integer
-#' values. With the exception of seconds, none of these units have a fixed
-#' length. Leap years, leap seconds, and Daylight Savings Time can expand or
-#' contract a unit of time depending on when it occurs.  For this reason, periods
-#' do not have a fixed length until they are paired with a start date. Periods
-#' can be used to track changes in clock time. Because periods
-#' have a variable length, they must be paired with a start date
-#' as an interval ([as.interval()]) before they can be
-#' accurately converted to and from durations.
-#'
-#' Period objects can be easily created with the helper functions
-#' [years()], [months()], [weeks()],
-#' [days()], [minutes()], [seconds()]. These objects
-#' can be added to and subtracted to date-times to create a user interface
-#' similar to object oriented programming. Period objects can be added to Date,
-#' POSIXct, and POSIXlt objects to return a new date-time.
-#'
-#' Intervals are time spans bound by two real date-times.  Intervals can be
-#' accurately converted to periods and durations. Since an interval is anchored
-#' to a fixed moment of time, the exact length of all units of
-#' time during the interval can be calculated. To
-#' accurately convert between periods and durations, a period or duration should
-#' first be converted to an interval with [as.interval()]. An interval displays as the start
-#' and end points of the time span it represents.
-#'
-#' @aliases timespan timespans
-#' @name timespan
-#' @seealso [duration()] for creating duration objects and
-#'   [period()] for creating period objects, and
-#'   [interval()] for creating interval objects.
+#' @aliases timespans
 #' @keywords classes chron
 #' @examples
 #' duration(3690, "seconds")
@@ -109,6 +66,7 @@ is.timespan <- function(x) is(x, "Timespan")
 #' date + 3 * seconds(10)
 #'
 #' months(6) + days(1)
+#' @name timespan
 NULL
 
 #' Compute the exact length of a time span.
