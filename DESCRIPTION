@@ -96,5 +96,5 @@ Collate:
     'zzz.R'
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/tidyverse/lubridate
+URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
 BugReports: https://github.com/tidyverse/lubridate/issues
