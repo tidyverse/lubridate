@@ -47,7 +47,7 @@ situation is to provide unambiguous formats like 22/05/81 instead of
 specialized stamp_date and stamp_time. The core function \code{stamp()} give
 priority to longer date-time formats.
 
-Another option is to proved a vector of several values as \code{x}
+Another option is to provide a vector of several values as \code{x}
 parameter. Then \pkg{lubridate} will choose the format which fits \code{x} the
 best. Note that longer formats are preferred. If you have "22:23:00 PM" then
 "HMSp" format will be given priority to shorter "HMS" order which also fits
