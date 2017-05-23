@@ -1,28 +1,27 @@
 Package: lubridate
-Maintainer: Vitalie Spinu <spinuvit@gmail.com>
-License: GPL-2
-Title: Make Dealing with Dates a Little Easier
-LazyData: true
 Type: Package
-Authors@R: c(person("Garrett", "Grolemund", role = "aut"),
-             person("Vitalie", "Spinu", email = "spinuvit@gmail.com", role = c("aut","cre")),
-             person("Hadley", "Wickham", role = "aut"),
-             person("Ian", "Lyttle", role="ctb"),
-             person("Imanuel", "Constigan", role = "ctb"),
-             person("Jason", "Law", role="ctb"),
-             person("Doug","Mitarotonda", role="ctb"),
-             person("Joseph", "Larmarange", role="ctb"),
-             person("Jonathan", "Boiser", role="ctb"),
-             person("Chel Hee", "Lee", role = "ctb"))
+Version: 1.6.0.9009
+Title: Make Dealing with Dates a Little Easier
 Description: Functions to work with date-times and time-spans: fast and user
     friendly parsing of date-time data, extraction and updating of components of
     a date-time (years, months, days, hours, minutes, and seconds), algebraic
     manipulation on date-time and time-span objects. The 'lubridate' package has
     a consistent and memorable syntax that makes working with dates easy and
     fun.
-Enhances: chron, timeDate, zoo, xts, its, tis, timeSeries,
-    fts, tseries
-Version: 1.6.0.9009
+Authors@R: c(
+    person("Garrett", "Grolemund", role = "aut"),
+    person("Vitalie", "Spinu", email = "spinuvit@gmail.com", role = c("aut","cre")),
+    person("Hadley", "Wickham", role = "aut"),
+    person("Ian", "Lyttle", role="ctb"),
+    person("Imanuel", "Constigan", role = "ctb"),
+    person("Jason", "Law", role="ctb"),
+    person("Doug","Mitarotonda", role="ctb"),
+    person("Joseph", "Larmarange", role="ctb"),
+    person("Jonathan", "Boiser", role="ctb"),
+    person("Chel Hee", "Lee", role = "ctb")
+    )
+Maintainer: Vitalie Spinu <spinuvit@gmail.com>
+License: GPL-2
 Depends:
     methods,
     R (>= 3.0.0)
@@ -35,7 +34,18 @@ Suggests:
     testthat,
     knitr,
     covr
+Enhances: 
+    chron, 
+    fts, 
+    its, 
+    timeSeries,
+    timeDate, 
+    tis, 
+    tseries,
+    xts, 
+    zoo
 VignetteBuilder: knitr
+LazyData: true
 Collate:
     'Dates.r'
     'POSIXt.r'
