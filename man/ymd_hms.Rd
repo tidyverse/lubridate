@@ -13,7 +13,8 @@
 \alias{ydm_hms}
 \alias{ydm_hm}
 \alias{ydm_h}
-\title{Parse dates that have hours, minutes, or seconds elements.}
+\title{Parse date-times with \strong{y}ear, \strong{m}onth, and \strong{d}ay, \strong{h}our,
+\strong{m}inute, and \strong{s}econd components.}
 \usage{
 ymd_hms(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),
   truncated = 0)

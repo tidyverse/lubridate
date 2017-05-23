@@ -2,7 +2,7 @@
 % Please edit documentation in R/decimal-dates.r
 \name{decimal_date}
 \alias{decimal_date}
-\title{Converts a date to a decimal of its year.}
+\title{Converts a date to a decimal of its year}
 \usage{
 decimal_date(date)
 }
@@ -13,7 +13,7 @@ decimal_date(date)
 a numeric object where the date is expressed as a fraction of its year
 }
 \description{
-Converts a date to a decimal of its year.
+Converts a date to a decimal of its year
 }
 \examples{
 date <- ymd("2009-02-10")

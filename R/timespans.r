@@ -69,7 +69,7 @@ is.timespan <- function(x) is(x, "Timespan")
 #' @name timespan
 NULL
 
-#' Compute the exact length of a time span.
+#' Compute the exact length of a time span
 #'
 #'
 #' @param x a duration, period, difftime or interval

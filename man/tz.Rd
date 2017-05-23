@@ -3,7 +3,7 @@
 \name{tz}
 \alias{tz}
 \alias{tz<-}
-\title{Get/set time zone component of a date-time.}
+\title{Get/set time zone component of a date-time}
 \usage{
 tz(x)
 

@@ -1,7 +1,7 @@
 #' @include periods.r
 NULL
 
-#' Get/set months component of a date-time.
+#' Get/set months component of a date-time
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo,
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
@@ -69,7 +69,7 @@ setMethod("month<-", signature("Period"), function(x, value){
   x
 })
 
-#' Get the number of days in the month of a date-time.
+#' Get the number of days in the month of a date-time
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr,
 #' zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.

@@ -145,7 +145,7 @@ unique.Interval <- function(x, ...){
   new("Interval", df$data, start = df$start, tzone = x@tzone)
 }
 
-#' Utilities for creation and manipulation of `Interval` objects.
+#' Utilities for creation and manipulation of `Interval` objects
 #'
 #' `interval()` creates an [Interval-class] object with the
 #' specified start and end dates. If the start date occurs before the end date,

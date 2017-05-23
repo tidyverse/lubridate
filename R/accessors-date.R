@@ -1,7 +1,7 @@
 #' @include periods.r
 NULL
 
-#' Get/set Date component of a date-time.
+#' Get/set date component of a date-time
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo,
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.

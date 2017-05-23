@@ -128,7 +128,7 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 })
 
 
-#' Change an object to a duration.
+#' Change an object to a duration
 #'
 #' as.duration changes Interval, Period and numeric class objects to
 #' Duration objects. Numeric objects are changed to Duration objects
@@ -197,7 +197,7 @@ setMethod("as.duration", signature(x = "Period"), function(x){
 })
 
 
-#' Change an object to an `interval`.
+#' Change an object to an `interval`
 #'
 #' as.interval changes difftime, Duration, Period and numeric class objects to
 #' intervals that begin at the specified date-time. Numeric objects are first
@@ -272,7 +272,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 }
 
 
-#' Change an object to a period.
+#' Change an object to a period
 #'
 #' as.period changes Interval, Duration, difftime and numeric class objects
 #' to Period class objects with the specified units.

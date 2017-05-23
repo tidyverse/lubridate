@@ -14,7 +14,7 @@
 \alias{nanoseconds}
 \alias{picoseconds}
 \alias{months.numeric}
-\title{Create a period object.}
+\title{Create a period object}
 \usage{
 period(num = NULL, units = "second", ...)
 

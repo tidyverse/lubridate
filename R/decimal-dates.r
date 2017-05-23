@@ -1,4 +1,4 @@
-#' Converts a date to a decimal of its year.
+#' Converts a date to a decimal of its year
 #'
 #' @export
 #' @param date a POSIXt or Date object
@@ -33,7 +33,7 @@ decimal_date.its <- function(date)
   decimal_date.default(attr(date, "dates"))
 
 
-#' Converts a decimal to a date.
+#' Converts a decimal to a date
 #'
 #' @export
 #' @param decimal a numeric object

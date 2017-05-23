@@ -4,7 +4,7 @@
 \alias{ms}
 \alias{hm}
 \alias{hms}
-\title{Create a period with the specified hours, minutes, and seconds}
+\title{Parse periods with \strong{h}our, \strong{m}inute, and \strong{s}econd components}
 \usage{
 ms(..., quiet = FALSE, roll = FALSE)
 

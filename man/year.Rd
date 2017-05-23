@@ -5,7 +5,7 @@
 \alias{year<-}
 \alias{isoyear}
 \alias{epiyear}
-\title{Get/set years component of a date-time.}
+\title{Get/set years component of a date-time}
 \usage{
 year(x)
 

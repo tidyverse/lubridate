@@ -4,7 +4,7 @@
 \alias{round_date}
 \alias{floor_date}
 \alias{ceiling_date}
-\title{Round, floor and ceiling methods for date-time objects.}
+\title{Round, floor and ceiling methods for date-time objects}
 \usage{
 round_date(x, unit = "second",
   week_start = getOption("lubridate.week.start", 7))

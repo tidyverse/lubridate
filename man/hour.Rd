@@ -3,7 +3,7 @@
 \name{hour}
 \alias{hour}
 \alias{hour<-}
-\title{Get/set hours component of a date-time.}
+\title{Get/set hours component of a date-time}
 \usage{
 hour(x)
 

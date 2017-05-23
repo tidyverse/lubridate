@@ -3,7 +3,7 @@
 \name{quarter}
 \alias{quarter}
 \alias{semester}
-\title{Get the fiscal quarter and semester of a date-time.}
+\title{Get the fiscal quarter and semester of a date-time}
 \usage{
 quarter(x, with_year = FALSE, fiscal_start = 1)
 

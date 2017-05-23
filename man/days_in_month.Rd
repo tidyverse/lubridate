@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessors-month.r
 \name{days_in_month}
 \alias{days_in_month}
-\title{Get the number of days in the month of a date-time.}
+\title{Get the number of days in the month of a date-time}
 \usage{
 days_in_month(x)
 }

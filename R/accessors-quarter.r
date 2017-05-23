@@ -1,7 +1,7 @@
 #' @include accessors-month.r
 NULL
 
-#' Get the fiscal quarter and semester of a date-time.
+#' Get the fiscal quarter and semester of a date-time
 #'
 #' Quarters divide the year into fourths. Semesters divide the year into halfs.
 #'

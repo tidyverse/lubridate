@@ -10,7 +10,7 @@ home:
     href: http://r4ds.had.co.nz/dates-and-times.html
 
 reference:
-- title: Parsing
+- title: Date/time parsing
   contents:
   - ymd
   - ymd_hms
@@ -18,10 +18,9 @@ reference:
   - parse_date_time
   - guess_formats
 
-- title: Setting, getting and rounding
+- title: Setting, getting, and rounding
   contents:
   - year
-  - date_decimal
   - quarter
   - month
   - week
@@ -30,16 +29,8 @@ reference:
   - minute
   - second
   - tz
-  - round_date
-  - pretty_dates
-  - DateTimeUpdate
-  - fit_to_timeline
 
-  - rollback
-  - "`%m+%`"
-
-- title: Instants
-  desc: Instants are specific moments of time
+- title: Date-time helpers
   contents:
   - make_datetime
   - make_date
@@ -51,42 +42,66 @@ reference:
   - today
   - origin
   - decimal_date
+  - is.Date
+  - as_date
 
-- title: Times
+- title: Durations
+  desc: >
+    A period is a timespan measured in seconds.
   contents:
-  - am
-  - with_tz
-  - force_tz
+  - duration
+  - is.difftime
+  - make_difftime
+  - as.duration
+
+- title: Periods
+  desc: >
+    A period is a timespan defined by human units like years, months, and
+    days.
+  contents:
+  - as.period
+  - period
+  - period_to_seconds
+
+- title: Intervals
+  desc: >
+    An interval is a timespan defined by two date-times.
+  contents:
+  - interval
+  - as.interval
+  - "`%within%`"
 
 - title: Timespans
+  desc: >
+    Timespans are the generic concept that underlies durations, periods,
+    and intervals.
   contents:
-  - "`Timespan-class`"
-  - "`Interval-class`"
-  - "`Period-class`"
-  - "`Duration-class`"
-  - is.Date
-  - is.difftime
-  - is.timespan
-  - make_difftime
   - timespan
-  - as_date
-  - as.period
-  - as.interval
-  - as.duration
-  - duration
-  - interval
-  - "`%within%`"
-  - period_to_seconds
-  - period
   - time_length
+  - is.timespan
+
+
+- title: Other modification functions
+  contents:
+  - DateTimeUpdate
+  - fit_to_timeline
+  - with_tz
+  - force_tz
+  - round_date
+  - pretty_dates
+  - rollback
+  - "`%m+%`"
+
+- title: Other date-time components
+  contents:
+  - am
+  - days_in_month
+  - dst
+  - leap_year
+  - stamp
+  - date_decimal
 
 - title: Data
   contents:
   - lakers
 
-- title: Misc
-  contents:
-  - days_in_month
-  - dst
-  - leap_year
-  - stamp

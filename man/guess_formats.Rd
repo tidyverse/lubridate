@@ -2,7 +2,7 @@
 % Please edit documentation in R/guess.r
 \name{guess_formats}
 \alias{guess_formats}
-\title{Guess formats from the supplied date-time character vector.}
+\title{Guess possible date-times formats from a character vector}
 \usage{
 guess_formats(x, orders, locale = Sys.getlocale("LC_TIME"),
   preproc_wday = TRUE, print_matches = FALSE)
@@ -26,7 +26,7 @@ of matched templates.}
 a vector of matched formats
 }
 \description{
-Guess formats from the supplied date-time character vector.
+Guess possible date-times formats from a character vector
 }
 \examples{
 

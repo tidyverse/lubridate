@@ -11,7 +11,7 @@
 \alias{qday<-}
 \alias{wday<-}
 \alias{yday<-}
-\title{Get/set days component of a date-time.}
+\title{Get/set days component of a date-time}
 \usage{
 day(x)
 
@@ -61,7 +61,7 @@ option to control this parameter globally.}
 ordered factor if label is \code{TRUE}.
 }
 \description{
-Get/set days component of a date-time.
+Get/set days component of a date-time
 }
 \details{
 \code{day()} and \code{day<-()} are aliases for \code{mday()} and

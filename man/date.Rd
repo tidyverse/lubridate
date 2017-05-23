@@ -3,7 +3,7 @@
 \name{date}
 \alias{date}
 \alias{date<-}
-\title{Get/set Date component of a date-time.}
+\title{Get/set date component of a date-time}
 \usage{
 date(x)
 

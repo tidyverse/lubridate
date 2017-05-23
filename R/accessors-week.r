@@ -1,7 +1,7 @@
 #' @include periods.r
 NULL
 
-#' Get/set weeks component of a date-time.
+#' Get/set weeks component of a date-time
 #'
 #' @description
 #' `week()` returns the number of complete seven day periods that have

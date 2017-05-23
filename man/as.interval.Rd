@@ -9,7 +9,7 @@
 \alias{as.interval,Period-method}
 \alias{as.interval,POSIXt-method}
 \alias{as.interval,logical-method}
-\title{Change an object to an \code{interval}.}
+\title{Change an object to an \code{interval}}
 \usage{
 as.interval(x, start, ...)
 }

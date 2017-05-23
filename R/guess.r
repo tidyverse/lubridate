@@ -1,5 +1,4 @@
-##' Guess formats from the supplied date-time character vector.
-##'
+##' Guess possible date-times formats from a character vector
 ##'
 ##' @param x input vector of date-times
 ##' @param orders format orders to look for. See examples.

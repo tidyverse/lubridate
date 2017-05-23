@@ -1,4 +1,4 @@
-##' Format dates and times based on human-friendly templates.
+##' Format dates and times based on human-friendly templates
 ##'
 ##' Stamps are just like [format()], but based on human-frendly
 ##' templates like "Recorded at 10 am, September 2002" or "Meeting, Sunday May

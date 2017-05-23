@@ -9,7 +9,7 @@
 \alias{as.period,Period-method}
 \alias{as.period,logical-method}
 \alias{as.period,character-method}
-\title{Change an object to a period.}
+\title{Change an object to a period}
 \usage{
 as.period(x, unit, ...)
 }

@@ -1,4 +1,4 @@
-#' Round, floor and ceiling methods for date-time objects.
+#' Round, floor and ceiling methods for date-time objects
 #'
 #' @description
 #' Rounding to the nearest unit or multiple of a unit are supported. All

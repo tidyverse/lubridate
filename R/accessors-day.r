@@ -1,7 +1,7 @@
 #' @include periods.r
 NULL
 
-#' Get/set days component of a date-time.
+#' Get/set days component of a date-time
 #'
 #' @details `day()` and `day<-()` are aliases for `mday()` and
 #'   `mday<-()` respectively.

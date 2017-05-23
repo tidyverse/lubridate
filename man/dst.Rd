@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessors-dst.r
 \name{dst}
 \alias{dst}
-\title{Get Daylight Savings Time indicator of a date-time.}
+\title{Get \strong{d}aylight \strong{s}avings \strong{t}ime indicator of a date-time}
 \usage{
 dst(x)
 }

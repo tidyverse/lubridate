@@ -4,8 +4,7 @@
 \alias{parse_date_time}
 \alias{parse_date_time2}
 \alias{fast_strptime}
-\title{Parse character and numeric date-time vectors with user friendly order
-formats.}
+\title{User friendly date-time parsing functions}
 \usage{
 parse_date_time(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,

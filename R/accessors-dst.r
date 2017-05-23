@@ -1,4 +1,4 @@
-#' Get Daylight Savings Time indicator of a date-time.
+#' Get **d**aylight **s**avings **t**ime indicator of a date-time
 #'
 #' Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo,
 #' zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.

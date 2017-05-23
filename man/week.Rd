@@ -5,7 +5,7 @@
 \alias{week<-}
 \alias{isoweek}
 \alias{epiweek}
-\title{Get/set weeks component of a date-time.}
+\title{Get/set weeks component of a date-time}
 \usage{
 week(x)
 

@@ -270,7 +270,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
     x
 })
 
-#' Create a period object.
+#' Create a period object
 #'
 #' `period()` creates a period object with the specified values.
 #'
@@ -482,7 +482,7 @@ months.numeric <- function(x, abbreviate) {
   period(month = x)
 }
 
-#' Contrive a period to/from a given number of seconds.
+#' Contrive a period to/from a given number of seconds
 #'
 #' `period_to_seconds()` approximately converts a period to seconds assuming
 #' there are 365.25 days in a calendar year and 365.25/12 days in a month.

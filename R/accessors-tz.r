@@ -1,4 +1,4 @@
-#' Get/set time zone component of a date-time.
+#' Get/set time zone component of a date-time
 #'
 #' Time zones are stored as character strings in an
 #' attribute of date-time objects. tz returns a date's time zone attribute.

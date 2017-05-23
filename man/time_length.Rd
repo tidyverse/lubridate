@@ -4,7 +4,7 @@
 \name{time_length}
 \alias{time_length}
 \alias{time_length,Interval-method}
-\title{Compute the exact length of a time span.}
+\title{Compute the exact length of a time span}
 \usage{
 time_length(x, unit = "second")
 
@@ -20,7 +20,7 @@ the length of the interval in the specified unit. A negative number
 connotes a negative interval or duration
 }
 \description{
-Compute the exact length of a time span.
+Compute the exact length of a time span
 }
 \details{
 When \code{x} is an \linkS4class{Interval} object and

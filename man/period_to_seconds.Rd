@@ -3,7 +3,7 @@
 \name{period_to_seconds}
 \alias{period_to_seconds}
 \alias{seconds_to_period}
-\title{Contrive a period to/from a given number of seconds.}
+\title{Contrive a period to/from a given number of seconds}
 \usage{
 period_to_seconds(x)
 

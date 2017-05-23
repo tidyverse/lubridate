@@ -1,5 +1,4 @@
-##' Parse dates according to the order in that year, month, and day elements
-##' appear in the input vector.
+##' Parse dates with **y**ear, **m**onth, and **d**ay components
 ##'
 ##' Transforms dates stored in character and numeric vectors to Date or POSIXct
 ##' objects (see `tz` argument). These functions recognize arbitrary
@@ -92,7 +91,8 @@ dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME")
 yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
   .parse_xxx(..., orders = "yq", quiet = quiet, tz = tz, locale = locale, truncated = 0)
 
-##' Parse dates that have hours, minutes, or seconds elements.
+##' Parse date-times with **y**ear, **m**onth, and **d**ay, **h**our,
+##' **m**inute, and **s**econd components.
 ##'
 ##' Transform dates stored as character or numeric vectors to POSIXct
 ##' objects. ymd_hms family of functions recognize all non-alphanumeric
@@ -270,7 +270,7 @@ hm <- function(..., quiet = FALSE, roll = FALSE) {
   }
 }
 
-##' Create a period with the specified hours, minutes, and seconds
+##' Parse periods with **h**our, **m**inute, and **s**econd components
 ##'
 ##' Transforms a character or numeric vector into a period object with the
 ##' specified number of hours, minutes, and seconds. hms() recognizes all
@@ -327,8 +327,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
   out
 }
 
-##' Parse character and numeric date-time vectors with user friendly order
-##' formats.
+##' User friendly date-time parsing functions
 ##'
 ##' `parse_date_time()` parses an input vector into POSIXct date-time
 ##' object. It differs from [base::strptime()] in two respects. First,

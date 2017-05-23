@@ -8,8 +8,7 @@
 \alias{dmy}
 \alias{dym}
 \alias{yq}
-\title{Parse dates according to the order in that year, month, and day elements
-appear in the input vector.}
+\title{Parse dates with \strong{y}ear, \strong{m}onth, and \strong{d}ay components}
 \usage{
 ymd(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
   truncated = 0)

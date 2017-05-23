@@ -9,7 +9,7 @@
 \alias{as.duration,Duration-method}
 \alias{as.duration,Period-method}
 \alias{as.duration,character-method}
-\title{Change an object to a duration.}
+\title{Change an object to a duration}
 \usage{
 as.duration(x, ...)
 }
