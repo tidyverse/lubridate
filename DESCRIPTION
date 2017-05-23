@@ -9,8 +9,8 @@ Description: Functions to work with date-times and time-spans: fast and user
     a consistent and memorable syntax that makes working with dates easy and
     fun.
 Authors@R: c(
-    person("Garrett", "Grolemund", role = "aut"),
     person("Vitalie", "Spinu", email = "spinuvit@gmail.com", role = c("aut","cre")),
+    person("Garrett", "Grolemund", role = "aut"),
     person("Hadley", "Wickham", role = "aut"),
     person("Ian", "Lyttle", role="ctb"),
     person("Imanuel", "Constigan", role = "ctb"),
