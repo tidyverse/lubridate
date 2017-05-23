@@ -70,12 +70,61 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not. Specifically, lubridate provides:</p>
+<p>Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.</p>
+<p>If you are new to lubridate, the best place to start is the <a href="http://r4ds.had.co.nz/dates-and-times.html">date and times chapter</a> in R for data science.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get lubridate is to install the whole tidyverse:</span>
+<span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)
+
+<span class="co"># Alternatively, install just lubridate:</span>
+<span class="kw">install.packages</span>(<span class="st">"lubridate"</span>)
+
+<span class="co"># Or the the development version from GitHub:</span>
+<span class="co"># install.packages("devtools")</span>
+devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/lubridate"</span>)</code></pre></div>
+</div>
+<div id="features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h2>
 <ul>
-<li><p>a set of intuitive date-time related functions that work the same way for all common date-time classes (including those from <code>chron</code>, <code>timeDate</code>, <code>zoo</code>, <code>xts</code>, <code>its</code>, <code>tis</code>, <code>timeSeries</code>, <code>fts</code>, and <code>tseries</code>)</p></li>
-<li><p>easy and very fast parsing of date-times: <code><a href="reference/ymd.html">ymd()</a></code>, <code>ymd_hms</code>, <code><a href="reference/ymd.html">dmy()</a></code>, <code>dmy_hms</code>, <code><a href="reference/ymd.html">mdy()</a></code>, …</p></li>
-<li><p>simple functions to extract and modify components of a date-time, such as years, months, days, hours, minutes, and seconds: <code><a href="reference/year.html">year()</a></code>, <code><a href="reference/month.html">month()</a></code>, <code><a href="reference/day.html">day()</a></code>, …</p></li>
-<li><p>helper functions for handling time zones: <code><a href="reference/with_tz.html">with_tz()</a></code>, <code><a href="reference/force_tz.html">force_tz()</a></code></p></li>
+<li>
+<p>Easy and fast parsing of date-times: <code><a href="reference/ymd.html">ymd()</a></code>, <code>ymd_hms</code>, <code><a href="reference/ymd.html">dmy()</a></code>, <code>dmy_hms</code>, <code><a href="reference/ymd.html">mdy()</a></code>, …</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/ymd.html">ymd</a></span>(<span class="dv">20101215</span>)
+<span class="co">#&gt; [1] "2010-12-15"</span>
+<span class="kw"><a href="reference/ymd.html">mdy</a></span>(<span class="st">"4/1/17"</span>)
+<span class="co">#&gt; [1] "2017-04-01"</span></code></pre></div>
+</li>
+<li>
+<p>Simple functions to get and set components of a date-time, such as <code><a href="reference/year.html">year()</a></code>, <code><a href="reference/month.html">month()</a></code>, <code><a href="reference/day.html">mday()</a></code>, <code><a href="reference/hour.html">hour()</a></code>, <code><a href="reference/minute.html">minute()</a></code> and <code><a href="reference/second.html">second()</a></code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bday &lt;-<span class="st"> </span><span class="kw"><a href="reference/ymd.html">dmy</a></span>(<span class="st">"14/10/1979"</span>)
+<span class="kw"><a href="reference/month.html">month</a></span>(bday)
+<span class="co">#&gt; [1] 10</span>
+<span class="kw"><a href="reference/day.html">wday</a></span>(bday, <span class="dt">label =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] Sun</span>
+<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span>
+
+<span class="kw"><a href="reference/year.html">year</a></span>(bday) &lt;-<span class="st"> </span><span class="dv">2016</span>
+<span class="kw"><a href="reference/day.html">wday</a></span>(bday, <span class="dt">label =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] Fri</span>
+<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></code></pre></div>
+</li>
+<li>
+<p>Helper functions for handling time zones: <code><a href="reference/with_tz.html">with_tz()</a></code>, <code><a href="reference/force_tz.html">force_tz()</a></code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">time &lt;-<span class="st"> </span><span class="kw"><a href="reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2010-12-13 15:30:30"</span>)
+time
+<span class="co">#&gt; [1] "2010-12-13 15:30:30 UTC"</span>
+
+<span class="co"># Changes printing</span>
+<span class="kw"><a href="reference/with_tz.html">with_tz</a></span>(time, <span class="st">"America/Chicago"</span>)
+<span class="co">#&gt; [1] "2010-12-13 09:30:30 CST"</span>
+
+<span class="co"># Changes time</span>
+<span class="kw"><a href="reference/force_tz.html">force_tz</a></span>(time, <span class="st">"America/Chicago"</span>)
+<span class="co">#&gt; [1] "2010-12-13 15:30:30 CST"</span></code></pre></div>
+</li>
 </ul>
 <p>Lubridate also expands the type of mathematical operations that can be performed with date-time objects. It introduces three new time span classes borrowed from <a href="http://joda.org" class="uri">http://joda.org</a>.</p>
 <ul>
@@ -96,6 +145,8 @@
 <li>Browse source code at <br><a href="https://github.com/tidyverse/lubridate">https://​github.com/​tidyverse/​lubridate</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/tidyverse/lubridate/issues">https://​github.com/​tidyverse/​lubridate/​issues</a>
+</li>
+<li>Learn more at <br><a href="http://r4ds.had.co.nz/dates-and-times.html">http://​r4ds.had.co.nz/​dates-and-times.html</a>
 </li>
 </ul>
 <h2>License</h2>

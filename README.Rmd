@@ -4,12 +4,13 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures"
 )
+library(lubridate)
 ```
 
 
@@ -23,22 +24,67 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not. Specifically, lubridate provides:
+Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not. 
 
-* a set of intuitive date-time related functions that work the same way for
-  all common date-time classes (including those from `chron`, `timeDate`,
-  `zoo`, `xts`, `its`, `tis`, `timeSeries`, `fts`, and `tseries`)
+If you are new to lubridate, the best place to start is the 
+[date and times chapter](http://r4ds.had.co.nz/dates-and-times.html) in R 
+for data science.
 
-* easy and very fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`, `dmy_hms`, `mdy()`, ...
 
-* simple functions to extract and modify components of a date-time, such as years, months, days, hours, minutes, and seconds: `year()`, `month()`,  `day()`, ...
+## Installation
 
-* helper functions for handling time zones: `with_tz()`, `force_tz()`
+```{r, eval = FALSE}
+# The easiest way to get lubridate is to install the whole tidyverse:
+install.packages("tidyverse")
+
+# Alternatively, install just lubridate:
+install.packages("lubridate")
+
+# Or the the development version from GitHub:
+# install.packages("devtools")
+devtools::install_github("tidyverse/lubridate")
+```
+
+## Features
+
+*   Easy and fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`, `dmy_hms`, 
+    `mdy()`, ...
+    
+    ```{r}
+    ymd(20101215)
+    mdy("4/1/17")
+    ```
+
+*   Simple functions to get and set components of a date-time, such as `year()`,
+    `month()`, `mday()`, `hour()`, `minute()` and `second()`:
+    
+    ```{r}
+    bday <- dmy("14/10/1979")
+    month(bday)
+    wday(bday, label = TRUE)
+    
+    year(bday) <- 2016
+    wday(bday, label = TRUE)
+    ```
+
+*   Helper functions for handling time zones: `with_tz()`, `force_tz()`
+
+    ```{r}
+    time <- ymd_hms("2010-12-13 15:30:30")
+    time
+    
+    # Changes printing
+    with_tz(time, "America/Chicago")
+    
+    # Changes time
+    force_tz(time, "America/Chicago")
+    ```
 
 Lubridate also expands the type of mathematical operations that can be performed with date-time objects. It introduces three new time span classes borrowed from http://joda.org.
 
 * `durations`, which measure the exact amount of time between two points
 
-* `periods`, which accurately track clock times despite leap years, leap seconds, and day light savings time
+* `periods`, which accurately track clock times despite leap years, leap 
+  seconds, and day light savings time
 
 * `intervals`, a protean summary of the time information between two points
