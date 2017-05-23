@@ -3,6 +3,7 @@
 ##' @param ... arguments to be passed to the functions
 ##'     (obscured to enforce the usage of new functions)
 ##' @rdname Deprecated
+##' @keywords internal
 ##' @name Deprecated-lubridate
 NULL
 

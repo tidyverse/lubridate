@@ -9,3 +9,83 @@ home:
   - text: Learn more
     href: http://r4ds.had.co.nz/dates-and-times.html
 
+reference:
+- title: Parsing
+  contents:
+  - ymd
+  - ymd_hms
+  - hms
+  - parse_date_time
+  - guess_formats
+
+- title: Setting, getting and rounding
+  contents:
+  - year
+  - quarter
+  - month
+  - week
+  - wday
+  - hour
+  - minute
+  - second
+  - tz
+  - round_date
+  - pretty_dates
+  - DateTimeUpdate
+  - fit_to_timeline
+
+  - rollback
+  - "`%m+%`"
+
+- title: Instants
+  desc: Instants are specific moments of time
+  contents:
+  - make_datetime
+  - make_date
+  - date
+  - is.instant
+  - is.Date
+  - is.POSIXt
+  - now
+  - today
+  - origin
+  - date_decimal
+
+- title: Times
+  contents:
+  - am
+  - with_tz
+  - force_tz
+
+- title: Timespans
+  contents:
+  - "`Timespan-class`"
+  - "`Interval-class`"
+  - "`Period-class`"
+  - "`Duration-class`"
+  - is.Date
+  - is.difftime
+  - is.timespan
+  - make_difftime
+  - timespan
+  - as_date
+  - as.period
+  - as.interval
+  - as.duration
+  - duration
+  - interval
+  - "`%within%`"
+  - period_to_seconds
+  - period
+  - time_length
+
+- title: Data
+  contents:
+  - lakers
+
+- title: Misc
+  contents:
+  - days_in_month
+  - dst
+  - leap_year
+  - stamp

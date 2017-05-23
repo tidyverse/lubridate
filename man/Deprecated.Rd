@@ -64,3 +64,4 @@ East.}
 \description{
 Deprecated functions in the lubridate package
 }
+\keyword{internal}
