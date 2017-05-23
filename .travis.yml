@@ -3,5 +3,10 @@ sudo: false
 language: R
 cache: packages
 
+r:
+- oldrel
+- release
+- devel
+
 after_success:
   - Rscript -e 'covr::codecov()'
