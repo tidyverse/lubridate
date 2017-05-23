@@ -119,3 +119,7 @@ navbar:
   right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverse/lubridate
+
+authors:
+  "Vitalie Spinu":
+    href: http://vitalie.spinu.info
