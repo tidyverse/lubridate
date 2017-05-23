@@ -5,7 +5,7 @@
 #' purpose. More information about each function can be found in
 #' its help documentation.
 #'
-#' Parsing dates
+#' @section Parsing dates:
 #'
 #' Lubridate's parsing functions read strings into R as POSIXct
 #' date-time objects. Users should choose the function whose name
@@ -24,7 +24,7 @@
 #' formats and various extensions are supported for English locales. See
 #' [parse_date_time()] for more details.
 #'
-#' Manipulating dates
+#' @section Manipulating dates:
 #'
 #' Lubridate distinguishes between moments in time (known as
 #' [instants()]) and spans of time (known as time spans, see
@@ -32,7 +32,7 @@
 #' [Duration-class], [Period-class] and
 #' [Interval-class] objects.
 #'
-#' Instants
+#' @section Instants:
 #'
 #' Instants are specific moments of time. Date, POSIXct, and
 #' POSIXlt are the three object classes Base R recognizes as
@@ -63,13 +63,13 @@
 #' helper functions that have the plural form of the units as a
 #' name (e.g, [seconds()]).
 #'
-#' Rounding dates
+#' @section Rounding dates:
 #'
 #' Instants can be rounded to a convenient unit using the
 #' functions [ceiling_date()], [floor_date()]
 #' and [round_date()].
 #'
-#' Time zones
+#' @section Time zones:
 #'
 #' Lubridate provides two helper functions for working with time
 #' zones. [with_tz()] changes the time zone in which an
@@ -79,7 +79,7 @@
 #' instant. The clock time displayed remains the same, but the
 #' resulting instant describes a new moment of time.
 #'
-#' Timespans
+#' @section Timespans:
 #'
 #' A timespan is a length of time that may or may not be connected to
 #' a particular instant. For example, three months is a timespan. So is an hour and
@@ -99,8 +99,7 @@
 #' tests whether an object inherits from any of the four timespan
 #' classes.
 #'
-#'
-#' Durations
+#' @section Durations:
 #'
 #' Durations measure the exact amount of time that occurs between two
 #' instants. This can create unexpected results in relation to clock times if a
@@ -112,7 +111,7 @@
 #' [dminutes()], [dhours()],  [ddays()],
 #' [dweeks()] and [dyears()] convenient lengths.
 #'
-#' Periods
+#' @section Periods:
 #'
 #' Periods measure the change in clock time that occurs between two
 #' instants. Periods provide robust predictions of clock time in the presence of
@@ -126,7 +125,7 @@
 #' [years()] quickly create periods of convenient
 #' lengths.
 #'
-#' Intervals
+#' @section Intervals:
 #'
 #' Intervals are timespans that begin at a specific instant and
 #' end at a specific instant. Intervals retain complete information about a
@@ -141,7 +140,7 @@
 #' \code{\link{\%within\%}}. Intervals can also be manipulated with
 #' intersect, union, and setdiff().
 #'
-#' Miscellaneous
+#' @section Miscellaneous:
 #'
 #' [decimal_date()] converts an instant to a decimal of
 #' its year.
@@ -160,7 +159,5 @@
 #' @importFrom utils packageVersion read.delim
 #' @importFrom stats na.omit setNames update
 #' @importFrom Rcpp sourceCpp
-#' @docType package
-#' @name lubridate-package
-#' @aliases lubridate lubridate-package
-NULL
+#' @keywords internal
+"_PACKAGE"

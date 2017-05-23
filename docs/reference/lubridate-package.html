@@ -88,10 +88,10 @@ its help documentation.</p>
     
 
         
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="parsing-dates"><a class="anchor" href="#parsing-dates"></a>Parsing dates</h2>
 
-    <p>Parsing dates</p>
-<p>Lubridate's parsing functions read strings into R as POSIXct
+    
+    <p>Lubridate's parsing functions read strings into R as POSIXct
 date-time objects. Users should choose the function whose name
 models the order in which the year ('y'), month ('m') and day
 ('d') elements appear the string to be parsed:
@@ -105,14 +105,20 @@ is provided by <code><a href='parse_date_time.html'>parse_date_time()</a></code>
 <p>Lubridate has an inbuilt very fast POSIX parser. Most of the <code>strptime()</code>
 formats and various extensions are supported for English locales. See
 <code><a href='parse_date_time.html'>parse_date_time()</a></code> for more details.</p>
-<p>Manipulating dates</p>
-<p>Lubridate distinguishes between moments in time (known as
+    
+    <h2 class="hasAnchor" id="manipulating-dates"><a class="anchor" href="#manipulating-dates"></a>Manipulating dates</h2>
+
+    
+    <p>Lubridate distinguishes between moments in time (known as
 <code><a href='is.instant.html'>instants()</a></code>) and spans of time (known as time spans, see
 <a href='Timespan-class.html'>Timespan</a>). Time spans are further separated into
 <a href='Duration-class.html'>Duration</a>, <a href='Period-class.html'>Period</a> and
 <a href='Interval-class.html'>Interval</a> objects.</p>
-<p>Instants</p>
-<p>Instants are specific moments of time. Date, POSIXct, and
+    
+    <h2 class="hasAnchor" id="instants"><a class="anchor" href="#instants"></a>Instants</h2>
+
+    
+    <p>Instants are specific moments of time. Date, POSIXct, and
 POSIXlt are the three object classes Base R recognizes as
 instants. <code><a href='is.Date.html'>is.Date()</a></code> tests whether an object
 inherits from the Date class. <code><a href='is.POSIXt.html'>is.POSIXt()</a></code> tests
@@ -138,20 +144,29 @@ Note: the accessor functions are named after the singular form
 of an element. They shouldn't be confused with the period
 helper functions that have the plural form of the units as a
 name (e.g, <code><a href='period.html'>seconds()</a></code>).</p>
-<p>Rounding dates</p>
-<p>Instants can be rounded to a convenient unit using the
+    
+    <h2 class="hasAnchor" id="rounding-dates"><a class="anchor" href="#rounding-dates"></a>Rounding dates</h2>
+
+    
+    <p>Instants can be rounded to a convenient unit using the
 functions <code><a href='round_date.html'>ceiling_date()</a></code>, <code><a href='round_date.html'>floor_date()</a></code>
 and <code><a href='round_date.html'>round_date()</a></code>.</p>
-<p>Time zones</p>
-<p>Lubridate provides two helper functions for working with time
+    
+    <h2 class="hasAnchor" id="time-zones"><a class="anchor" href="#time-zones"></a>Time zones</h2>
+
+    
+    <p>Lubridate provides two helper functions for working with time
 zones. <code><a href='with_tz.html'>with_tz()</a></code> changes the time zone in which an
 instant is displayed. The clock time displayed for the instant
 changes, but the moment of time described remains the same.
 <code><a href='force_tz.html'>force_tz()</a></code> changes only the time zone element of an
 instant. The clock time displayed remains the same, but the
 resulting instant describes a new moment of time.</p>
-<p>Timespans</p>
-<p>A timespan is a length of time that may or may not be connected to
+    
+    <h2 class="hasAnchor" id="timespans"><a class="anchor" href="#timespans"></a>Timespans</h2>
+
+    
+    <p>A timespan is a length of time that may or may not be connected to
 a particular instant. For example, three months is a timespan. So is an hour and
 a half. Base R uses difftime class objects to record timespans.
 However, people are not always consistent in how they expect time to behave.
@@ -167,8 +182,11 @@ additional timespan classes, each with its own specific and consistent behavior:
 inherits from the difftime class. <code><a href='is.timespan.html'>is.timespan()</a></code>
 tests whether an object inherits from any of the four timespan
 classes.</p>
-<p>Durations</p>
-<p>Durations measure the exact amount of time that occurs between two
+    
+    <h2 class="hasAnchor" id="durations"><a class="anchor" href="#durations"></a>Durations</h2>
+
+    
+    <p>Durations measure the exact amount of time that occurs between two
 instants. This can create unexpected results in relation to clock times if a
 leap second, leap year, or change in daylight savings time (DST) occurs in
 the interval.</p>
@@ -176,8 +194,11 @@ the interval.</p>
 <code><a href='as.duration.html'>as.duration()</a></code> and <code><a href='duration.html'>duration()</a></code>. <code><a href='duration.html'>dseconds()</a></code>,
 <code><a href='duration.html'>dminutes()</a></code>, <code><a href='duration.html'>dhours()</a></code>,  <code><a href='duration.html'>ddays()</a></code>,
 <code><a href='duration.html'>dweeks()</a></code> and <code><a href='duration.html'>dyears()</a></code> convenient lengths.</p>
-<p>Periods</p>
-<p>Periods measure the change in clock time that occurs between two
+    
+    <h2 class="hasAnchor" id="periods"><a class="anchor" href="#periods"></a>Periods</h2>
+
+    
+    <p>Periods measure the change in clock time that occurs between two
 instants. Periods provide robust predictions of clock time in the presence of
 leap seconds, leap years, and changes in DST.</p>
 <p>Functions for working with periods include
@@ -187,8 +208,11 @@ leap seconds, leap years, and changes in DST.</p>
 <code><a href='period.html'>weeks()</a></code>, <code>months()</code> and
 <code><a href='period.html'>years()</a></code> quickly create periods of convenient
 lengths.</p>
-<p>Intervals</p>
-<p>Intervals are timespans that begin at a specific instant and
+    
+    <h2 class="hasAnchor" id="intervals"><a class="anchor" href="#intervals"></a>Intervals</h2>
+
+    
+    <p>Intervals are timespans that begin at a specific instant and
 end at a specific instant. Intervals retain complete information about a
 timespan. They provide the only reliable way to convert between
 periods and durations.</p>
@@ -199,8 +223,11 @@ periods and durations.</p>
 <code><a href='interval.html'>int_overlaps()</a></code>, and
 <code><a href='within-interval.html'>%within%</a></code>. Intervals can also be manipulated with
 intersect, union, and setdiff().</p>
-<p>Miscellaneous
-    <code><a href='decimal_date.html'>decimal_date()</a></code> converts an instant to a decimal of
+    
+    <h2 class="hasAnchor" id="miscellaneous"><a class="anchor" href="#miscellaneous"></a>Miscellaneous</h2>
+
+    
+    <p><code><a href='decimal_date.html'>decimal_date()</a></code> converts an instant to a decimal of
 its year.
 <code><a href='leap_year.html'>leap_year()</a></code> tests whether an instant occurs during
 a leap year.
@@ -215,16 +242,66 @@ about the Los Angeles Lakers 2008-2009 basketball season.</p>
 Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.
 <a href = 'http://www.jstatsoft.org/v40/i03/'>http://www.jstatsoft.org/v40/i03/</a>.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>Useful links:</p><ul>
+<li><p><a href = 'http://lubridate.tidyverse.org'>http://lubridate.tidyverse.org</a></p></li>
+<li><p><a href = 'https://github.com/tidyverse/lubridate'>https://github.com/tidyverse/lubridate</a></p></li>
+<li><p>Report bugs at <a href = 'https://github.com/tidyverse/lubridate/issues'>https://github.com/tidyverse/lubridate/issues</a></p></li>
+</ul>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#parsing-dates">Parsing dates</a></li>
+
+      <li><a href="#manipulating-dates">Manipulating dates</a></li>
+
+      <li><a href="#instants">Instants</a></li>
+
+      <li><a href="#rounding-dates">Rounding dates</a></li>
+
+      <li><a href="#time-zones">Time zones</a></li>
+
+      <li><a href="#timespans">Timespans</a></li>
+
+      <li><a href="#durations">Durations</a></li>
+
+      <li><a href="#periods">Periods</a></li>
+
+      <li><a href="#intervals">Intervals</a></li>
+
+      <li><a href="#miscellaneous">Miscellaneous</a></li>
 
       <li><a href="#references">References</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
+
+    <h2>Author</h2>
+    
+<strong>Maintainer</strong>: Vitalie Spinu <a href='mailto:spinuvit@gmail.com'>spinuvit@gmail.com</a>
+
+Authors:
+<ul>
+<li><p>Garrett Grolemund</p></li>
+<li><p>Hadley Wickham</p></li>
+</ul>
+
+Other contributors:
+<ul>
+<li><p>Ian Lyttle [contributor]</p></li>
+<li><p>Imanuel Constigan [contributor]</p></li>
+<li><p>Jason Law [contributor]</p></li>
+<li><p>Doug Mitarotonda [contributor]</p></li>
+<li><p>Joseph Larmarange [contributor]</p></li>
+<li><p>Jonathan Boiser [contributor]</p></li>
+<li><p>Chel Hee Lee [contributor]</p></li>
+</ul>
+
 
   </div>
 </div>

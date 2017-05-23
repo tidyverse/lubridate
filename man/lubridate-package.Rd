@@ -2,8 +2,8 @@
 % Please edit documentation in R/help.r
 \docType{package}
 \name{lubridate-package}
-\alias{lubridate-package}
 \alias{lubridate}
+\alias{lubridate-package}
 \title{Dates and times made easy with lubridate}
 \description{
 Lubridate provides tools that make it easier to parse and
@@ -11,8 +11,8 @@ manipulate dates. These tools are grouped below by common
 purpose. More information about each function can be found in
 its help documentation.
 }
-\details{
-Parsing dates
+\section{Parsing dates}{
+
 
 Lubridate's parsing functions read strings into R as POSIXct
 date-time objects. Users should choose the function whose name
@@ -30,16 +30,20 @@ Lubridate can also parse partial dates from strings into
 Lubridate has an inbuilt very fast POSIX parser. Most of the \code{\link[=strptime]{strptime()}}
 formats and various extensions are supported for English locales. See
 \code{\link[=parse_date_time]{parse_date_time()}} for more details.
+}
 
-Manipulating dates
+\section{Manipulating dates}{
+
 
 Lubridate distinguishes between moments in time (known as
 \code{\link[=instants]{instants()}}) and spans of time (known as time spans, see
 \linkS4class{Timespan}). Time spans are further separated into
 \linkS4class{Duration}, \linkS4class{Period} and
 \linkS4class{Interval} objects.
+}
 
-Instants
+\section{Instants}{
+
 
 Instants are specific moments of time. Date, POSIXct, and
 POSIXlt are the three object classes Base R recognizes as
@@ -69,14 +73,18 @@ Note: the accessor functions are named after the singular form
 of an element. They shouldn't be confused with the period
 helper functions that have the plural form of the units as a
 name (e.g, \code{\link[=seconds]{seconds()}}).
+}
 
-Rounding dates
+\section{Rounding dates}{
+
 
 Instants can be rounded to a convenient unit using the
 functions \code{\link[=ceiling_date]{ceiling_date()}}, \code{\link[=floor_date]{floor_date()}}
 and \code{\link[=round_date]{round_date()}}.
+}
 
-Time zones
+\section{Time zones}{
+
 
 Lubridate provides two helper functions for working with time
 zones. \code{\link[=with_tz]{with_tz()}} changes the time zone in which an
@@ -85,8 +93,10 @@ changes, but the moment of time described remains the same.
 \code{\link[=force_tz]{force_tz()}} changes only the time zone element of an
 instant. The clock time displayed remains the same, but the
 resulting instant describes a new moment of time.
+}
 
-Timespans
+\section{Timespans}{
+
 
 A timespan is a length of time that may or may not be connected to
 a particular instant. For example, three months is a timespan. So is an hour and
@@ -105,8 +115,10 @@ additional timespan classes, each with its own specific and consistent behavior:
 inherits from the difftime class. \code{\link[=is.timespan]{is.timespan()}}
 tests whether an object inherits from any of the four timespan
 classes.
+}
 
-Durations
+\section{Durations}{
+
 
 Durations measure the exact amount of time that occurs between two
 instants. This can create unexpected results in relation to clock times if a
@@ -117,8 +129,10 @@ Functions for working with durations include \code{\link[=is.duration]{is.durati
 \code{\link[=as.duration]{as.duration()}} and \code{\link[=duration]{duration()}}. \code{\link[=dseconds]{dseconds()}},
 \code{\link[=dminutes]{dminutes()}}, \code{\link[=dhours]{dhours()}},  \code{\link[=ddays]{ddays()}},
 \code{\link[=dweeks]{dweeks()}} and \code{\link[=dyears]{dyears()}} convenient lengths.
+}
 
-Periods
+\section{Periods}{
+
 
 Periods measure the change in clock time that occurs between two
 instants. Periods provide robust predictions of clock time in the presence of
@@ -131,8 +145,10 @@ Functions for working with periods include
 \code{\link[=weeks]{weeks()}}, \code{\link[=months]{months()}} and
 \code{\link[=years]{years()}} quickly create periods of convenient
 lengths.
+}
 
-Intervals
+\section{Intervals}{
+
 
 Intervals are timespans that begin at a specific instant and
 end at a specific instant. Intervals retain complete information about a
@@ -146,8 +162,10 @@ Functions for working with intervals include
 \code{\link[=int_overlaps]{int_overlaps()}}, and
 \code{\link{\%within\%}}. Intervals can also be manipulated with
 intersect, union, and setdiff().
+}
 
-Miscellaneous
+\section{Miscellaneous}{
+
 
 \code{\link[=decimal_date]{decimal_date()}} converts an instant to a decimal of
 its year.
@@ -158,8 +176,40 @@ breaks for date-times
 \link{lakers} is a data set that contains information
 about the Los Angeles Lakers 2008-2009 basketball season.
 }
+
 \references{
 Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made
 Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.
 \url{http://www.jstatsoft.org/v40/i03/}.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://lubridate.tidyverse.org}
+  \item \url{https://github.com/tidyverse/lubridate}
+  \item Report bugs at \url{https://github.com/tidyverse/lubridate/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Vitalie Spinu \email{spinuvit@gmail.com}
+
+Authors:
+\itemize{
+  \item Garrett Grolemund
+  \item Hadley Wickham
+}
+
+Other contributors:
+\itemize{
+  \item Ian Lyttle [contributor]
+  \item Imanuel Constigan [contributor]
+  \item Jason Law [contributor]
+  \item Doug Mitarotonda [contributor]
+  \item Joseph Larmarange [contributor]
+  \item Jonathan Boiser [contributor]
+  \item Chel Hee Lee [contributor]
+}
+
+}
+\keyword{internal}
