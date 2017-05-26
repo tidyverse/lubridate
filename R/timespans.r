@@ -28,11 +28,11 @@ is.timespan <- function(x) is(x, "Timespan")
 #' A time span can be measured in three ways: as a duration, an interval, or a
 #' period.
 #'
-#' * [durations] record the exact number of seconds in a time span.
+#' * [duration]s record the exact number of seconds in a time span.
 #'   They measure the exact passage of time but do not always align with
 #'   human measurements like hours, months and years.
 #'
-#' * [periods] record the change in the clock time between two date-times.
+#' * [period]s record the change in the clock time between two date-times.
 #'   They are measured in human units: years, months, days, hours, minutes,
 #'   and seconds.
 #'

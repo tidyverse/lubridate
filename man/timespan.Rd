@@ -8,10 +8,10 @@
 A time span can be measured in three ways: as a duration, an interval, or a
 period.
 \itemize{
-\item \link{durations} record the exact number of seconds in a time span.
+\item \link{duration}s record the exact number of seconds in a time span.
 They measure the exact passage of time but do not always align with
 human measurements like hours, months and years.
-\item \link{periods} record the change in the clock time between two date-times.
+\item \link{period}s record the change in the clock time between two date-times.
 They are measured in human units: years, months, days, hours, minutes,
 and seconds.
 \item \link{intervals} are time spans bound by two real date-times. Intervals can be
