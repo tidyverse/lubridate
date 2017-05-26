@@ -69,29 +69,29 @@ test_that("wday works with various start values", {
           "2007-12-31", "2008-01-01", "2008-12-28", "2008-12-29", "2008-12-30",
           "2008-12-31", "2009-01-01", "2009-12-31", "2010-01-01", "2010-01-02"))
 
-  expect_equal(as.character(wday(days, label = T, start = 1)),
-               as.character(wday(days, label = T, start = 3)))
+  expect_equal(as.character(wday(days, label = T, week_start = 1)),
+               as.character(wday(days, label = T, week_start = 3)))
 
-  expect_equal(as.character(wday(days, label = T, start = 1)),
-               as.character(wday(days, label = T, start = 7)))
+  expect_equal(as.character(wday(days, label = T, week_start = 1)),
+               as.character(wday(days, label = T, week_start = 7)))
 
   expect_equal(as.character(wday(days, label = T))[1], "Sat")
   expect_equal(as.character(wday(days, label = T, abbr = FALSE))[1], "Saturday")
 
-  expect_equal(wday(days, label = F, start = 1),
+  expect_equal(wday(days, label = F, week_start = 1),
                c(6, 7, 6, 1, 7, 1, 2, 7, 1, 2, 3, 4, 4, 5, 6))
 
-  expect_equal(wday(days, label = F, start = 7),
+  expect_equal(wday(days, label = F, week_start = 7),
                c(7, 1, 7, 2, 1, 2, 3, 1, 2, 3, 4, 5, 5, 6, 7))
 
   set.seed(1000)
   new_days <- sample(1:7, length(days2), replace = T)
-  wday(days2, start = 1) <- new_days
-  expect_equal(wday(days2, start = 1), new_days)
-  wday(days2, start = 7) <- new_days
-  expect_equal(wday(days2, start = 7), new_days)
-  wday(days2, start = 3) <- new_days
-  expect_equal(wday(days2, start = 3), new_days)
+  wday(days2, week_start = 1) <- new_days
+  expect_equal(wday(days2, week_start = 1), new_days)
+  wday(days2, week_start = 7) <- new_days
+  expect_equal(wday(days2, week_start = 7), new_days)
+  wday(days2, week_start = 3) <- new_days
+  expect_equal(wday(days2, week_start = 3), new_days)
 })
 
 test_that("weeks accessor extracts correct week",{

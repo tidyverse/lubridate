@@ -2,7 +2,7 @@ Version 1.6.0.9000
 ==================
 
 ### NEW FEATURES
-* [#257](https://github.com/hadley/lubridate/issues/257) New `start` parameter in `wday` and `wday<-` to set week start.
+* [#257](https://github.com/hadley/lubridate/issues/257) New `week_start` parameter in `wday` and `wday<-` to set week start.
 * [#401](https://github.com/hadley/lubridate/issues/401) New parameter `locale` in `wday`. Labels of the returned factors (when `label=TRUE`) now respect current locale.
 * [#485](https://github.com/hadley/lubridate/pull/485) `quarter` gained a new argument `fiscal_start` to address the issue of different fiscal conventions.
 * [#492](https://github.com/hadley/lubridate/issues/492) New functions `epiweek` and `epiyear`.

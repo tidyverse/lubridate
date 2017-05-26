@@ -413,7 +413,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   num_flex["z"] <- sprintf("(%s|%s|%s|%s)", alpha_flex[["Ou"]], num_flex[["Oz"]], num_flex[["OO"]], num_flex[["Oo"]])
   num_exact["z"] <- sprintf("(%s|%s|%s|%s)", alpha_exact[["Ou"]], num_exact[["Oz"]], num_exact[["OO"]], num_exact[["Oo"]])
 
-  wday_order <- order(wday(.date_template, start = 7))
+  wday_order <- order(wday(.date_template, week_start = 7))
   wday_names <- list(abr = unique(mat[, "a"][wday_order]),
                      full = unique(mat[, "A"][wday_order]))
 

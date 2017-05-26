@@ -18,7 +18,7 @@ day(x)
 mday(x)
 
 wday(x, label = FALSE, abbr = TRUE,
-  start = getOption("lubridate.week.start", 7),
+  week_start = getOption("lubridate.week.start", 7),
   locale = Sys.getlocale("LC_TIME"))
 
 qday(x)
@@ -31,7 +31,7 @@ mday(x) <- value
 
 qday(x) <- value
 
-wday(x, start = getOption("lubridate.week.start", 7)) <- value
+wday(x, week_start = getOption("lubridate.week.start", 7)) <- value
 
 yday(x) <- value
 }
@@ -48,8 +48,8 @@ the week as an ordered factor of character strings, such as "Sunday." TRUE
 will display an abbreviated version of the label, such as "Sun". abbr is
 disregarded if label = FALSE.}
 
-\item{start}{day on which week starts following ISO conventions - 1 means
-Monday, 7 means Sunday (default). You can set \code{lubridate.week.start}
+\item{week_start}{day on which week starts following ISO conventions - 1
+means Monday, 7 means Sunday (default). You can set \code{lubridate.week.start}
 option to control this parameter globally.}
 
 \item{locale}{locale to use for day names. Default to current locale.}
@@ -64,8 +64,8 @@ ordered factor if label is \code{TRUE}.
 Get/set days component of a date-time
 }
 \details{
-\code{day()} and \code{day<-()} are aliases for \code{mday()} and
-\code{mday<-()} respectively.
+\code{day()} and \code{day<-()} are aliases for \code{mday()} and \code{mday<-()}
+respectively.
 }
 \examples{
 x <- as.Date("2009-09-02")

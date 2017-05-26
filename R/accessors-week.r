@@ -32,10 +32,10 @@ week <- function(x)
 "week<-" <- function(x, value)
   x <- x + days((value - week(x)) * 7)
 
-.other_week <- function(x, start){
+.other_week <- function(x, week_start){
   x <- as.POSIXlt(x)
   date <- make_date(year(x), month(x), day(x))
-  wday <- wday(x, start = start)
+  wday <- wday(x, week_start = week_start)
   date <- date + (4 - wday)
   jan1 <- as.numeric(make_date(year(date), 1, 1))
   1L + (as.numeric(date) - jan1) %/% 7L

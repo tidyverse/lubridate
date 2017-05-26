@@ -46,10 +46,10 @@ setMethod("year<-", signature("Period"), function(x, value){
   x
 })
 
-.other_year <- function(x, start = 1){
+.other_year <- function(x, week_start = 1){
   x <- as.POSIXlt(x)
   date <- make_date(year(x), month(x), day(x))
-  isodate <- date + ddays(4 - wday(date, start = start))
+  isodate <- date + ddays(4 - wday(date, week_start = week_start))
   year(isodate)
 }
 

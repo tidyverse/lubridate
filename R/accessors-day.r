@@ -3,8 +3,8 @@ NULL
 
 #' Get/set days component of a date-time
 #'
-#' @details `day()` and `day<-()` are aliases for `mday()` and
-#'   `mday<-()` respectively.
+#' @details `day()` and `day<-()` are aliases for `mday()` and `mday<-()`
+#'   respectively.
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
 #'   timeDate, xts, its, ti, jul, timeSeries, or fts object.
 #' @param label logical. Only available for wday. TRUE will display the day of
@@ -15,8 +15,8 @@ NULL
 #'   will display an abbreviated version of the label, such as "Sun". abbr is
 #'   disregarded if label = FALSE.
 #' @param value a numeric object
-#' @param start day on which week starts following ISO conventions - 1 means
-#'   Monday, 7 means Sunday (default). You can set `lubridate.week.start`
+#' @param week_start day on which week starts following ISO conventions - 1
+#'   means Monday, 7 means Sunday (default). You can set `lubridate.week.start`
 #'   option to control this parameter globally.
 #' @param locale locale to use for day names. Default to current locale.
 #' @return `wday()` returns the day of the week as a decimal number or an
@@ -49,20 +49,20 @@ mday <- day
 #' @rdname day
 #' @export
 wday <- function(x, label = FALSE, abbr = TRUE,
-                 start = getOption("lubridate.week.start", 7),
+                 week_start = getOption("lubridate.week.start", 7),
                  locale = Sys.getlocale("LC_TIME"))
   UseMethod("wday")
 
 #' @export
 wday.default <- function(x, label = FALSE, abbr = TRUE,
-                         start = getOption("lubridate.week.start", 7),
+                         week_start = getOption("lubridate.week.start", 7),
                          locale = Sys.getlocale("LC_TIME")){
-  wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr, locale = locale, start = start)
+  wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr, locale = locale, week_start = week_start)
 }
 
-.shift_wday_names <- function(names, start = 7){
-  if(start != 7){
-    c(names[(start + 1):7], names[1:start])
+.shift_wday_names <- function(names, week_start = 7){
+  if(week_start != 7){
+    c(names[(week_start + 1):7], names[1:week_start])
   } else {
     names
   }
@@ -70,12 +70,12 @@ wday.default <- function(x, label = FALSE, abbr = TRUE,
 
 #' @export
 wday.numeric <- function(x, label = FALSE, abbr = TRUE,
-                         start = getOption("lubridate.week.start", 7),
+                         week_start = getOption("lubridate.week.start", 7),
                          locale = Sys.getlocale("LC_TIME")) {
 
-  start <- as.integer(start)
+  start <- as.integer(week_start)
 
-  if (start > 7 || start < 1) stop("Invalid 'start' argument; must be between 1 and 7")
+  if (start > 7 || start < 1) stop("Invalid 'week_start' argument; must be between 1 and 7")
 
   if (start != 7) {
     x <- 1 + (x + (6 - start)) %% 7
@@ -87,7 +87,7 @@ wday.numeric <- function(x, label = FALSE, abbr = TRUE,
 
   names <- .get_locale_regs(locale)$wday_names
   labels <- if (abbr) names$abr else names$full
-  ordered(x, levels = 1:7, labels = .shift_wday_names(labels, start = start))
+  ordered(x, levels = 1:7, labels = .shift_wday_names(labels, week_start = start))
 }
 
 #' @export
@@ -148,15 +148,15 @@ setMethod("day<-", signature("Period"), function(x, value){
 
 #' @rdname day
 #' @export
-"wday<-" <- function(x, start = getOption("lubridate.week.start", 7), value){
+"wday<-" <- function(x, week_start = getOption("lubridate.week.start", 7), value){
   if (!is.numeric(value)) {
     ## FIXME: how to make this localized and preserve backward compatibility? Guesser?
     labels <- .shift_wday_names(c("sunday", "monday", "tuesday", "wednesday",
                                   "thursday", "friday", "saturday"),
-                                start)
+                                week_start)
     value <- pmatch(tolower(value), labels)
   }
-  x <- x + days(value - wday(x, start = start))
+  x <- x + days(value - wday(x, week_start = week_start))
 }
 
 #' @rdname day
