@@ -72,7 +72,7 @@
 <h2 class="hasAnchor">
 <a href="#parsing-dates-and-times" class="anchor"></a>Parsing dates and times</h2>
 <p>Getting R to agree that your data contains the dates and times you think it does can be tricky. Lubridate simplifies that. Identify the order in which the year, month, and day appears in your dates. Now arrange “y”, “m”, and “d” in the same order. This is the name of the function in lubridate that will parse your dates. For example,</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'lubridate'</span>
 <span class="co">#&gt; The following object is masked from 'package:base':</span>
@@ -83,21 +83,21 @@
 <span class="kw"><a href="../reference/ymd.html">mdy</a></span>(<span class="st">"06-04-2011"</span>)
 <span class="co">#&gt; [1] "2011-06-04"</span>
 <span class="kw"><a href="../reference/ymd.html">dmy</a></span>(<span class="st">"04/06/2011"</span>)
-<span class="co">#&gt; [1] "2011-06-04"</span></code></pre></div>
+<span class="co">#&gt; [1] "2011-06-04"</span></code></pre>
 <p>Lubridate’s parse functions handle a wide variety of formats and separators, which simplifies the parsing process.</p>
 <p>If your date includes time information, add h, m, and/or s to the name of the function. <code>ymd_hms</code> is probably the most common date time format. To read the dates in with a certain time zone, supply the official name of that time zone in the <code>tz</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">arrive &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-06-04 12:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)
+<pre class="sourceCode r"><code class="sourceCode r">arrive &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-06-04 12:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)
 arrive
 <span class="co">#&gt; [1] "2011-06-04 12:00:00 NZST"</span>
 leave &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-08-10 14:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)
 leave
-<span class="co">#&gt; [1] "2011-08-10 14:00:00 NZST"</span></code></pre></div>
+<span class="co">#&gt; [1] "2011-08-10 14:00:00 NZST"</span></code></pre>
 </div>
 <div id="setting-and-extracting-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setting-and-extracting-information" class="anchor"></a>Setting and Extracting information</h2>
 <p>Extract information from date times with the functions <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>wday</code>, <code>yday</code>, <code>week</code>, <code>month</code>, <code>year</code>, and <code>tz</code>. You can also use each of these to set (i.e, change) the given information. Notice that this will alter the date time. <code>wday</code> and <code>month</code> have an optional <code>label</code> argument, which replaces their numeric output with the name of the weekday or month.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/second.html">second</a></span>(arrive)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/second.html">second</a></span>(arrive)
 <span class="co">#&gt; [1] 0</span>
 <span class="kw"><a href="../reference/second.html">second</a></span>(arrive) &lt;-<span class="st"> </span><span class="dv">25</span>
 arrive
@@ -108,55 +108,55 @@ arrive
 <span class="co">#&gt; [1] 7</span>
 <span class="kw"><a href="../reference/day.html">wday</a></span>(arrive, <span class="dt">label =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; [1] Sat</span>
-<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></code></pre></div>
+<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></code></pre>
 </div>
 <div id="time-zones" class="section level2">
 <h2 class="hasAnchor">
 <a href="#time-zones" class="anchor"></a>Time Zones</h2>
 <p>There are two very useful things to do with dates and time zones. First, display the same moment in a different time zone. Second, create a new moment by combining an existing clock time with a new time zone. These are accomplished by <code>with_tz</code> and <code>force_tz</code>.</p>
 <p>For example, a while ago I was in Auckland, New Zealand. I arranged to meet the co-author of lubridate, Hadley, over skype at 9:00 in the morning Auckland time. What time was that for Hadley who was back in Houston, TX?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meeting &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-07-01 09:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)
+<pre class="sourceCode r"><code class="sourceCode r">meeting &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-07-01 09:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)
 <span class="kw"><a href="../reference/with_tz.html">with_tz</a></span>(meeting, <span class="st">"America/Chicago"</span>)
-<span class="co">#&gt; [1] "2011-06-30 16:00:00 CDT"</span></code></pre></div>
+<span class="co">#&gt; [1] "2011-06-30 16:00:00 CDT"</span></code></pre>
 <p>So the meetings occurred at 4:00 Hadley’s time (and the day before no less). Of course, this was the same actual moment of time as 9:00 in New Zealand. It just appears to be a different day due to the curvature of the Earth.</p>
 <p>What if Hadley made a mistake and signed on at 9:00 his time? What time would it then be my time?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mistake &lt;-<span class="st"> </span><span class="kw"><a href="../reference/force_tz.html">force_tz</a></span>(meeting, <span class="st">"America/Chicago"</span>)
+<pre class="sourceCode r"><code class="sourceCode r">mistake &lt;-<span class="st"> </span><span class="kw"><a href="../reference/force_tz.html">force_tz</a></span>(meeting, <span class="st">"America/Chicago"</span>)
 <span class="kw"><a href="../reference/with_tz.html">with_tz</a></span>(mistake, <span class="st">"Pacific/Auckland"</span>)
-<span class="co">#&gt; [1] "2011-07-02 02:00:00 NZST"</span></code></pre></div>
+<span class="co">#&gt; [1] "2011-07-02 02:00:00 NZST"</span></code></pre>
 <p>His call would arrive at 2:00 am my time! Luckily he never did that.</p>
 </div>
 <div id="time-intervals" class="section level2">
 <h2 class="hasAnchor">
 <a href="#time-intervals" class="anchor"></a>Time Intervals</h2>
 <p>You can save an interval of time as an Interval class object with lubridate. This is quite useful! For example, my stay in Auckland lasted from June 4, 2011 to August 10, 2011 (which we’ve already saved as arrive and leave). We can create this interval in one of two ways:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(arrive, leave) 
+<pre class="sourceCode r"><code class="sourceCode r">auckland &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(arrive, leave) 
 auckland
 <span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span>
 auckland &lt;-<span class="st"> </span>arrive %--%<span class="st"> </span>leave
 auckland
-<span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></code></pre></div>
+<span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></code></pre>
 <p>My mentor at the University of Auckland, Chris, traveled to various conferences that year including the Joint Statistical Meetings (JSM). This took him out of the country from July 20 until the end of August.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">jsm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110720</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>), <span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110831</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>))
+<pre class="sourceCode r"><code class="sourceCode r">jsm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110720</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>), <span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110831</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>))
 jsm
-<span class="co">#&gt; [1] 2011-07-20 NZST--2011-08-31 NZST</span></code></pre></div>
+<span class="co">#&gt; [1] 2011-07-20 NZST--2011-08-31 NZST</span></code></pre>
 <p>Will my visit overlap with and his travels? Yes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/interval.html">int_overlaps</a></span>(jsm, auckland)
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/interval.html">int_overlaps</a></span>(jsm, auckland)
+<span class="co">#&gt; [1] TRUE</span></code></pre>
 <p>Then I better make hay while the sun shines! For what part of my visit will Chris be there?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setdiff</span>(auckland, jsm)
-<span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-07-20 NZST</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setdiff</span>(auckland, jsm)
+<span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-07-20 NZST</span></code></pre>
 <p>Other functions that work with intervals include <code>int_start</code>, <code>int_end</code>, <code>int_flip</code>, <code>int_shift</code>, <code>int_aligns</code>, <code>union</code>, <code>intersect</code>, <code>setdiff</code>, and <code>%within%</code>.</p>
 </div>
 <div id="arithmetic-with-date-times" class="section level2">
 <h2 class="hasAnchor">
 <a href="#arithmetic-with-date-times" class="anchor"></a>Arithmetic with date times</h2>
 <p>Intervals are specific time spans (because they are tied to specific dates), but lubridate also supplies two general time span classes: Durations and Periods. Helper functions for creating periods are named after the units of time (plural). Helper functions for creating durations follow the same format but begin with a “d” (for duration) or, if you prefer, and “e” (for exact).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/period.html">minutes</a></span>(<span class="dv">2</span>) ## period
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/period.html">minutes</a></span>(<span class="dv">2</span>) ## period
 <span class="co">#&gt; [1] "2M 0S"</span>
 <span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">2</span>) ## duration
-<span class="co">#&gt; [1] "120s (~2 minutes)"</span></code></pre></div>
+<span class="co">#&gt; [1] "120s (~2 minutes)"</span></code></pre>
 <p>Why two classes? Because the timeline is not as reliable as the number line. The Duration class will always supply mathematically precise results. A duration year will always equal 365 days. Periods, on the other hand, fluctuate the same way the timeline does to give intuitive results. This makes them useful for modeling clock times. For example, durations will be honest in the face of a leap year, but periods may return what you want:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2011</span>) ## regular year
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2011</span>) ## regular year
 <span class="co">#&gt; [1] FALSE</span>
 <span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) +<span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] "2012-01-01"</span>
@@ -168,32 +168,32 @@ jsm
 <span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) +<span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] "2012-12-31"</span>
 <span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) +<span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)
-<span class="co">#&gt; [1] "2013-01-01"</span></code></pre></div>
+<span class="co">#&gt; [1] "2013-01-01"</span></code></pre>
 <p>You can use periods and durations to do basic arithmetic with date times. For example, if I wanted to set up a reoccuring weekly skype meeting with Hadley, it would occur on:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meetings &lt;-<span class="st"> </span>meeting +<span class="st"> </span><span class="kw"><a href="../reference/period.html">weeks</a></span>(<span class="dv">0</span>:<span class="dv">5</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">meetings &lt;-<span class="st"> </span>meeting +<span class="st"> </span><span class="kw"><a href="../reference/period.html">weeks</a></span>(<span class="dv">0</span>:<span class="dv">5</span>)</code></pre>
 <p>Hadley travelled to conferences at the same time as Chris. Which of these meetings would be affected? The last two.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meetings %within%<span class="st"> </span>jsm
-<span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">meetings %within%<span class="st"> </span>jsm
+<span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE</span></code></pre>
 <p>How long was my stay in Auckland?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland /<span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">1</span>)
+<pre class="sourceCode r"><code class="sourceCode r">auckland /<span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] 67.08333</span>
 auckland /<span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">2</span>)
 <span class="co">#&gt; [1] 33.54167</span>
 auckland /<span class="st"> </span><span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">1</span>)
-<span class="co">#&gt; [1] 96600</span></code></pre></div>
+<span class="co">#&gt; [1] 96600</span></code></pre>
 <p>And so on. Alternatively, we can do modulo and integer division. Sometimes this is more sensible than division - it is not obvious how to express a remainder as a fraction of a month because the length of a month constantly changes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland %/%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
+<pre class="sourceCode r"><code class="sourceCode r">auckland %/%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
 <span class="co">#&gt; Note: method with signature 'Timespan#Timespan' chosen for function '%/%',</span>
 <span class="co">#&gt;  target signature 'Interval#Period'.</span>
 <span class="co">#&gt;  "Interval#ANY", "ANY#Period" would also be valid</span>
 <span class="co">#&gt; [1] 2</span>
 auckland %%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
-<span class="co">#&gt; [1] 2011-08-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></code></pre></div>
+<span class="co">#&gt; [1] 2011-08-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></code></pre>
 <p>Modulo with an timespan returns the remainder as a new (smaller) interval. You can turn this or any interval into a generalized time span with <code>as.period</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland %%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland %%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>))
 <span class="co">#&gt; [1] "6d 2H 0M 0S"</span>
 <span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland)
-<span class="co">#&gt; [1] "2m 6d 2H 0M 0S"</span></code></pre></div>
+<span class="co">#&gt; [1] "2m 6d 2H 0M 0S"</span></code></pre>
 <div id="if-anyone-drove-a-time-machine-they-would-crash" class="section level3">
 <h3 class="hasAnchor">
 <a href="#if-anyone-drove-a-time-machine-they-would-crash" class="anchor"></a>If anyone drove a time machine, they would crash</h3>
@@ -208,7 +208,7 @@ auckland %%<span class="st"> </span><span class="kw">months</span>(<span class="
 </ol>
 <p>A basic property of arithmetic is that <code>a + b - b = a</code>. Only solution 1 obeys this property, but it is an invalid date. I’ve tried to make lubridate as consistent as possible by invoking the following rule <em>if adding or subtracting a month or a year creates an invalid date, lubridate will return an NA</em>. This is new with version 1.3.0, so if you’re an old hand with lubridate be sure to remember this!</p>
 <p>If you thought solution 2 or 3 was more useful, no problem. You can still get those results with clever arithmetic, or by using the special <code>%m+%</code> and <code>%m-%</code> operators. <code>%m+%</code> and <code>%m-%</code> automatically roll dates back to the last day of the month, should that be necessary.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">jan31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="st">"2013-01-31"</span>)
+<pre class="sourceCode r"><code class="sourceCode r">jan31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="st">"2013-01-31"</span>)
 jan31 +<span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span>:<span class="dv">11</span>)
 <span class="co">#&gt;  [1] "2013-01-31" NA           "2013-03-31" NA           "2013-05-31"</span>
 <span class="co">#&gt;  [6] NA           "2013-07-31" "2013-08-31" NA           "2013-10-31"</span>
@@ -220,7 +220,7 @@ jan31 +<span class="st"> </span><span class="kw">months</span>(<span class="dv">
 jan31 %m+%<span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span>:<span class="dv">11</span>)
 <span class="co">#&gt;  [1] "2012-12-31" "2013-02-28" "2013-02-28" "2013-03-31" "2013-04-30"</span>
 <span class="co">#&gt;  [6] "2013-05-31" "2013-06-30" "2013-07-31" "2013-08-31" "2013-09-30"</span>
-<span class="co">#&gt; [11] "2013-10-31" "2013-11-30"</span></code></pre></div>
+<span class="co">#&gt; [11] "2013-10-31" "2013-11-30"</span></code></pre>
 <p>Notice that this will only affect arithmetic with months (and arithmetic with years if your start date it Feb 29).</p>
 </div>
 </div>
@@ -228,9 +228,9 @@ jan31 %m+%<span class="st"> </span><span class="kw">months</span>(<span class="d
 <h2 class="hasAnchor">
 <a href="#vectorization" class="anchor"></a>Vectorization</h2>
 <p>The code in lubridate is vectorized and ready to be used in both interactive settings and within functions. As an example, I offer a function for advancing a date to the last day of the month</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_day &lt;-<span class="st"> </span>function(date) {
+<pre class="sourceCode r"><code class="sourceCode r">last_day &lt;-<span class="st"> </span>function(date) {
   <span class="kw"><a href="../reference/round_date.html">ceiling_date</a></span>(date, <span class="st">"month"</span>) -<span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">1</span>)
-}</code></pre></div>
+}</code></pre>
 </div>
 <div id="further-resources" class="section level2">
 <h2 class="hasAnchor">

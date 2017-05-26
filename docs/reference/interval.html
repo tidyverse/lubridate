@@ -237,7 +237,7 @@ calculated.</p>
     <pre class="examples"><div class='input'><span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090201</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090101</span>))</div><div class='output co'>#&gt; [1] 2009-02-01 UTC--2009-01-01 UTC</div><div class='input'>
 <span class='no'>date1</span> <span class='kw'>&lt;-</span> <span class='fu'>as.POSIXct</span>(<span class='st'>"2009-03-08 01:59:59"</span>)
 <span class='no'>date2</span> <span class='kw'>&lt;-</span> <span class='fu'>as.POSIXct</span>(<span class='st'>"2000-02-29 12:00:00"</span>)
-<span class='fu'>interval</span>(<span class='no'>date2</span>, <span class='no'>date1</span>)</div><div class='output co'>#&gt; [1] 2000-02-29 12:00:00 CST--2009-03-08 01:59:59 CST</div><div class='input'><span class='fu'>interval</span>(<span class='no'>date1</span>, <span class='no'>date2</span>)</div><div class='output co'>#&gt; [1] 2009-03-08 01:59:59 CST--2000-02-29 12:00:00 CST</div><div class='input'><span class='no'>span</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090101</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090201</span>))
+<span class='fu'>interval</span>(<span class='no'>date2</span>, <span class='no'>date1</span>)</div><div class='output co'>#&gt; [1] 2000-02-29 12:00:00 PST--2009-03-08 01:59:59 PST</div><div class='input'><span class='fu'>interval</span>(<span class='no'>date1</span>, <span class='no'>date2</span>)</div><div class='output co'>#&gt; [1] 2009-03-08 01:59:59 PST--2000-02-29 12:00:00 PST</div><div class='input'><span class='no'>span</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090101</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090201</span>))
 
 <span class='fu'>is.interval</span>(<span class='fu'><a href='period.html'>period</a></span>(<span class='kw'>months</span><span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>15</span>)) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.interval</span>(<span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090801</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090809</span>))) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
 <span class='fu'>int_start</span>(<span class='no'>int</span>)</div><div class='output co'>#&gt; [1] "2001-01-01 UTC"</div><div class='input'><span class='fu'>int_start</span>(<span class='no'>int</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>)
@@ -257,15 +257,15 @@ calculated.</p>
 <span class='no'>int3</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2003-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2004-01-01"</span>))
 
 <span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int2</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int3</span>) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='now.html'>now</a></span>() + <span class='fu'><a href='period.html'>days</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2017-05-24 15:28:26 CDT--2017-05-25 15:28:26 CDT
-#&gt; [2] 2017-05-25 15:28:26 CDT--2017-05-26 15:28:26 CDT
-#&gt; [3] 2017-05-26 15:28:26 CDT--2017-05-27 15:28:26 CDT
-#&gt; [4] 2017-05-27 15:28:26 CDT--2017-05-28 15:28:26 CDT
-#&gt; [5] 2017-05-28 15:28:26 CDT--2017-05-29 15:28:26 CDT
-#&gt; [6] 2017-05-29 15:28:26 CDT--2017-05-30 15:28:26 CDT
-#&gt; [7] 2017-05-30 15:28:26 CDT--2017-05-31 15:28:26 CDT
-#&gt; [8] 2017-05-31 15:28:26 CDT--2017-06-01 15:28:26 CDT
-#&gt; [9] 2017-06-01 15:28:26 CDT--2017-06-02 15:28:26 CDT</div></pre>
+<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2017-05-27 10:13:04 PDT--2017-05-28 10:13:04 PDT
+#&gt; [2] 2017-05-28 10:13:04 PDT--2017-05-29 10:13:04 PDT
+#&gt; [3] 2017-05-29 10:13:04 PDT--2017-05-30 10:13:04 PDT
+#&gt; [4] 2017-05-30 10:13:04 PDT--2017-05-31 10:13:04 PDT
+#&gt; [5] 2017-05-31 10:13:04 PDT--2017-06-01 10:13:04 PDT
+#&gt; [6] 2017-06-01 10:13:04 PDT--2017-06-02 10:13:04 PDT
+#&gt; [7] 2017-06-02 10:13:04 PDT--2017-06-03 10:13:04 PDT
+#&gt; [8] 2017-06-03 10:13:04 PDT--2017-06-04 10:13:04 PDT
+#&gt; [9] 2017-06-04 10:13:04 PDT--2017-06-05 10:13:04 PDT</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

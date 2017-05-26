@@ -502,7 +502,7 @@
 <li><p><code>force_tz</code> speed up - 3x faster</p></li>
 <li>
 <p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a date’s month. And, <code>%m+%</code> and <code>%m-%</code> provide a new way to</p>
-<h3 id="handle-unequal-month-lengths-while-doing-arithmetic.-see-new-features-for-more">handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
+<h3>handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
 <p>details</p>
 </li>
 <li><p>date parsing can now parse multiple date formats within the same vector of date-times. Parsing can also recognize a greater variety of date-time formats as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. Thank you, Vitalie.</p></li>
@@ -524,13 +524,13 @@
 <li>
 <p><code>%m+%</code> and <code>%m-%</code> perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can’t be used with periods smaller than a month, which should be handled separately. An example of the new behavior:</p>
 <p>ymd(“2010-01-31”) %m+% months(1)</p>
-<h1 id="utc">“2010-02-28 UTC”</h1>
+<h1>“2010-02-28 UTC”</h1>
 <p>ymd(“2010-01-31”) + months(1)</p>
-<h1 id="utc-1">“2010-03-03 UTC”</h1>
+<h1>“2010-03-03 UTC”</h1>
 <p>ymd(“2010-03-31”) %m-% months(1)</p>
-<h1 id="utc-2">“2010-02-28 UTC”</h1>
+<h1>“2010-02-28 UTC”</h1>
 <p>ymd(“2010-01-31”) - months(1)</p>
-<h1 id="utc-3">“2010-03-03 UTC”</h1>
+<h1>“2010-03-03 UTC”</h1>
 </li>
 <li><p><code>rollback</code> rolls a date back to the last day of the previous month.</p></li>
 <li><p><code>quarter</code> returns the fiscal quarter that a date occurs in. Like <code>quartes</code> in base R, but returns a numeric instead of a character string.</p></li>
