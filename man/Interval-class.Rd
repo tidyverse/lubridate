@@ -3,6 +3,7 @@
 \docType{class}
 \name{Interval-class}
 \alias{Interval-class}
+\alias{intervals}
 \title{Interval class}
 \description{
 Interval is an S4 class that extends the \linkS4class{Timespan} class. An
@@ -23,4 +24,3 @@ Interval class objects have two slots: .Data, a numeric object equal to the numb
 of seconds in the interval; and start, a POSIXct object that specifies the time
 when the interval starts.
 }
-\keyword{internal}

@@ -40,3 +40,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+RcppExport SEXP c_parse_period(SEXP);
+RcppExport SEXP make_d(SEXP, SEXP, SEXP);
+RcppExport SEXP parse_dt(SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP parse_hms(SEXP, SEXP);
+
+static const R_CallMethodDef CallEntries[] = {
+    {"lubridate_C_update_dt", (DL_FUNC) &lubridate_C_update_dt, 12},
+    {"lubridate_C_force_tz", (DL_FUNC) &lubridate_C_force_tz, 3},
+    {"c_parse_period",        (DL_FUNC) &c_parse_period,         1},
+    {"make_d",                (DL_FUNC) &make_d,                 3},
+    {"parse_dt",              (DL_FUNC) &parse_dt,               4},
+    {"parse_hms",             (DL_FUNC) &parse_hms,              2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_lubridate(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

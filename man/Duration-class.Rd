@@ -3,6 +3,7 @@
 \docType{class}
 \name{Duration-class}
 \alias{Duration-class}
+\alias{durations}
 \title{Duration class}
 \description{
 Duration is an S4 class that extends the \linkS4class{Timespan} class.
@@ -23,4 +24,3 @@ preserves clock times.
 Durations class objects have one slot: .Data, a numeric object equal to the number
 of seconds in the duration.
 }
-\keyword{internal}

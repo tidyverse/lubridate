@@ -2,6 +2,7 @@
 % Please edit documentation in R/periods.r
 \name{period}
 \alias{period}
+\alias{periods}
 \alias{is.period}
 \alias{seconds}
 \alias{minutes}

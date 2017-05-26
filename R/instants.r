@@ -101,7 +101,6 @@ origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 ##' @param sec numeric second
 ##' @param tz time zone. Defaults to UTC.
 ##' @export
-##' @useDynLib lubridate make_dt
 ##' @examples
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = 10)
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = c(10, 11))

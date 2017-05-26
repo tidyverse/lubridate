@@ -304,6 +304,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' alternative operations.
 #'
 #' @name period
+#' @aliases periods
 #' @param num a numeric vector that lists the number of time units to be
 #'   included in the period. From v1.6.0 `num` can also be a character vector
 #'   that specifies durations in a convenient shorthand format. All unambiguous
