@@ -276,7 +276,7 @@ hm <- function(..., quiet = FALSE, roll = FALSE) {
 ##' specified number of hours, minutes, and seconds. hms() recognizes all
 ##' non-numeric characters except '-' as separators ('-' is used for negative
 ##' durations).  After hours, minutes and seconds have been parsed, the
-##' remaining input is ingored.
+##' remaining input is ignored.
 ##'
 ##' @param ... a character vector of hour minute second triples
 ##' @param quiet logical. When TRUE function evalueates without displaying
