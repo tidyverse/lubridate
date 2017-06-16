@@ -30,6 +30,7 @@ Version 1.6.0.9000
 * [#525](https://github.com/hadley/lubridate/pull/525) Fix to prevent `day<-`, `minute<-`, etc. from producing an error when length(x) is 0 (issue #517)
 * [#530](https://github.com/hadley/lubridate/issues/530) `parse_date_time` now throw warnings only for actual parsing errors (input with all NAs are silent)
 * [#534](https://github.com/hadley/lubridate/issues/534) Fix arithmetics with large numbers
+* [#554](https://github.com/hadley/lubridate/pull/554) Fix tests when running in non-English locales
 
 Version 1.6.0
 =============

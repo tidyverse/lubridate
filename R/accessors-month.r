@@ -78,7 +78,7 @@ setMethod("month<-", signature("Period"), function(x, value){
 #' @param x a date-time object
 #' @return An integer of the number of days in the month component of the date-time object.
 days_in_month <- function(x) {
-  month_x <- month(x, label = TRUE)
+  month_x <- month(x, label = TRUE, locale = "C")
   n_days <- N_DAYS_IN_MONTHS[month_x]
   n_days[month_x == "Feb" & leap_year(x)] <- 29L
   n_days

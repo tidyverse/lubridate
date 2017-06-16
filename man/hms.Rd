@@ -30,7 +30,7 @@ Transforms a character or numeric vector into a period object with the
 specified number of hours, minutes, and seconds. hms() recognizes all
 non-numeric characters except '-' as separators ('-' is used for negative
 durations).  After hours, minutes and seconds have been parsed, the
-remaining input is ingored.
+remaining input is ignored.
 }
 \examples{
 ms(c("09:10", "09:02", "1:10"))

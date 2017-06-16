@@ -75,8 +75,8 @@ test_that("wday works with various start values", {
   expect_equal(as.character(wday(days, label = T, week_start = 1)),
                as.character(wday(days, label = T, week_start = 7)))
 
-  expect_equal(as.character(wday(days, label = T))[1], "Sat")
-  expect_equal(as.character(wday(days, label = T, abbr = FALSE))[1], "Saturday")
+  expect_equal(as.character(wday(days, label = T, locale = "C"))[1], "Sat")
+  expect_equal(as.character(wday(days, label = T, abbr = FALSE, locale = "C"))[1], "Saturday")
 
   expect_equal(wday(days, label = F, week_start = 1),
                c(6, 7, 6, 1, 7, 1, 2, 7, 1, 2, 3, 4, 4, 5, 6))
@@ -195,8 +195,8 @@ test_that("months accessor extracts correct month",{
   expect_that(month(posct), equals(2))
   expect_that(month(date), equals(2))
 
-  expect_that(as.character(month(date, label = TRUE)), equals("Feb"))
-  expect_that(as.character(month(date, label = TRUE, abbr = FALSE)),
+  expect_that(as.character(month(date, label = TRUE, locale = "C")), equals("Feb"))
+  expect_that(as.character(month(date, label = TRUE, abbr = FALSE, locale = "C")),
               equals("February"))
 
 })
