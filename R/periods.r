@@ -74,12 +74,14 @@ check_period <- function(object){
 #' [Interval-class] object with [as.interval()] or by adding
 #' it to a date-time with "+".
 #'
-#' Periods provide a method for measuring generalized timespans when we wish
-#' to model clock times. Periods will attain intuitive results at this task
-#' even when leap years, leap seconds, gregorian days, daylight savings
-#' changes, and other events happen during the period. See
-#' [Duration-class] for an alternative way to measure timespans that
-#' allows precise comparisons between timespans.
+#' Periods provide a method for measuring generalized timespans when we wish to
+#' model clock times. Periods will attain intuitive results at this task even
+#' when leap years, leap seconds, gregorian days, daylight savings changes, and
+#' other events happen during the period.
+#'
+#' Because Period represents imprecise amount of time it cannot be compared to
+#' precise timestamps as Durations and Intervals are. You need to explicitely
+#' conver to durations. See [Duration-class].
 #'
 #' The logic that guides arithmetic with periods can be unintuitive. Starting
 #' with version 1.3.0, \pkg{lubridate} enforces the reversible property of arithmetic
