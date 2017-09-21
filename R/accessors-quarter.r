@@ -30,17 +30,17 @@ quarter <- function(x, with_year = FALSE, fiscal_start = 1) {
   if (with_year) {
     uq <- quarters[m]
     inc_year <- q == 1 & uq == 4
-    year(x) + inc_year + q/10
+    year(x) + inc_year + q / 10
   }
   else q
 }
 
 #' @rdname quarter
 #' @export
-semester <- function(x, with_year = FALSE){
+semester <- function(x, with_year = FALSE) {
   m <- month(x)
   semesters <- rep(1:2, each = 6)
   s <- semesters[m]
-  if (with_year) year(x) + s/10
+  if (with_year) year(x) + s / 10
   else  s
 }

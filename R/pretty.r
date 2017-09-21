@@ -15,7 +15,7 @@
 #' @examples
 #' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
 #' pretty_dates(x, 12)
-pretty_dates <- function(x, n, ...){
+pretty_dates <- function(x, n, ...) {
   otz <- Sys.getenv("TZ")
   if (Sys.getenv("TZ") == "") otz <- "unset"
   Sys.setenv(TZ = tz(x[1]))
@@ -25,7 +25,7 @@ pretty_dates <- function(x, n, ...){
   rng <- range(x)
   diff <- difftime(rng[2], rng[1], units = "secs")
 
-  binunits <- pretty_unit(diff/n)
+  binunits <- pretty_unit(diff / n)
 
   f <- get(paste("pretty", binunits, sep = "_"), mode = "function")
   binlength <- f(diff, n)
@@ -37,12 +37,12 @@ pretty_dates <- function(x, n, ...){
   breaks
 }
 
-pretty_unit <- function(x, ...){
-  if (x > 3600*24*365)
+pretty_unit <- function(x, ...) {
+  if (x > 3600 * 24 * 365)
     return("year")
-  if (x > 3600*24*30)
+  if (x > 3600 * 24 * 30)
     return("month")
-  if (x > 3600*24)
+  if (x > 3600 * 24)
     return("day")
   if (x > 3600)
     return("hour")
@@ -52,49 +52,49 @@ pretty_unit <- function(x, ...){
     return("sec")
 }
 
-pretty_sec <- function(x, n, ...){
-  lengths <- c(1,2,5,10,15,30,60)
-  fit <- abs(x - lengths*n)
+pretty_sec <- function(x, n, ...) {
+  lengths <- c(1, 2, 5, 10, 15, 30, 60)
+  fit <- abs(x - lengths * n)
   lengths[which.min(fit)]
 }
 
-pretty_min <- function(x, n, ...){
-  span <- x/60
-  lengths <- c(1,2,5,10,15,30,60)
-  fit <- abs(span - lengths*n)
+pretty_min <- function(x, n, ...) {
+  span <- x / 60
+  lengths <- c(1, 2, 5, 10, 15, 30, 60)
+  fit <- abs(span - lengths * n)
   lengths[which.min(fit)]
 }
 
-pretty_hour <- function(x, n, ...){
+pretty_hour <- function(x, n, ...) {
   span <- x / 3600
-  lengths <- c(1,2,3,4,6,8,12,24)
-  fit <- abs(span - lengths*n)
+  lengths <- c(1, 2, 3, 4, 6, 8, 12, 24)
+  fit <- abs(span - lengths * n)
   lengths[which.min(fit)]
 }
 
-pretty_day <- function(x, n, ...){
+pretty_day <- function(x, n, ...) {
   span <- x / (3600 * 24)
   pretty(1:span, n = n)[2]
 }
 
-pretty_month <- function(x, n, ...){
+pretty_month <- function(x, n, ...) {
   span <- x / (3600 * 24 * 30)
-  lengths <- c(1,2,3,4,6,12)
-  fit <- abs(span - lengths*n)
+  lengths <- c(1, 2, 3, 4, 6, 12)
+  fit <- abs(span - lengths * n)
   lengths[which.min(fit)]
 }
 
-pretty_year <- function(x, n, ...){
+pretty_year <- function(x, n, ...) {
   span <- x / (3600 * 24 * 365)
   pretty(1:span, n = n)[2]
 }
 
-pretty_point <- function(x, units, length, start = TRUE, ...){
+pretty_point <- function(x, units, length, start = TRUE, ...) {
   x <- as.POSIXct(x)
 
-  if(units %in% c("day", "year")){
+  if (units %in% c("day", "year")) {
 
-    if(start) return(floor_date(x, units))
+    if (start) return(floor_date(x, units))
     else return(ceiling_date(x, units))
 
   } else {

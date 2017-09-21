@@ -1,6 +1,6 @@
 context("POSIXt")
 
-test_that("is.POSIXt works as expected",{
+test_that("is.POSIXt works as expected", {
   expect_that(is.POSIXt(234), is_false())
   expect_that(is.POSIXt(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
     is_true())
@@ -11,13 +11,13 @@ test_that("is.POSIXt works as expected",{
   expect_that(is.POSIXt(dminutes(1)), is_false())
   expect_that(is.POSIXt(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_false())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_false())
 })
 
-test_that("is.POSIXt handles vectors",{
+test_that("is.POSIXt handles vectors", {
   expect_that(is.POSIXt(c(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_true())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_true())
 })
 
 # as_datetime -------------------------------------------------------------
@@ -51,7 +51,7 @@ test_that("changes timezone of POSIXct", {
 })
 
 test_that("addition of large seconds doesn't overflow", {
-  from_period <- origin + seconds(2^31 + c(-2:2))
+  from_period <- origin + seconds(2 ^ 31 + c(-2:2))
   from_char <- ymd_hms(c("2038-01-19 03:14:06", "2038-01-19 03:14:07", "2038-01-19 03:14:08",
                          "2038-01-19 03:14:09", "2038-01-19 03:14:10"))
   expect_equal(from_period, from_char)

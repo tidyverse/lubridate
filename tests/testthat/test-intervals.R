@@ -1,6 +1,6 @@
 context("Intervals")
 
-test_that("is.interval works as expected",{
+test_that("is.interval works as expected", {
   expect_that(is.interval(234), is_false())
   expect_that(is.interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
     is_false())
@@ -11,10 +11,10 @@ test_that("is.interval works as expected",{
   expect_that(is.interval(dminutes(1)), is_false())
   expect_that(is.interval(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC") )), is_true())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_true())
 })
 
-test_that("is.interval handles vectors",{
+test_that("is.interval handles vectors", {
   expect_that(is.interval(interval(
     as.POSIXct(c("2008-08-03 13:01:59", "2009-08-03 13:01:59"), tz = "UTC"),
     as.POSIXct("2010-08-03 13:01:59", tz = "UTC"))), is_true())
@@ -37,7 +37,7 @@ test_that("interval handles vector input", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
   time3 <- as.POSIXct("2009-08-04 13:01:59", tz = "UTC")
-  int <- interval(c(time1,time2), time3)
+  int <- interval(c(time1, time2), time3)
   num <- as.numeric(time3) -  as.numeric(c(time1, time2))
 
 
@@ -110,17 +110,17 @@ test_that("as.interval handles vector input", {
     b <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
     pint <- interval(a, a + days(1:2))
     dint <- interval(a, a + ddays(1:2))
-    pint1 <- interval(c(a,b), c(a,b) + days(1:2))
-    dint1 <- interval(c(a,b), c(a,b) + ddays(1:2))
-    pint2 <- interval(c(a,b), c(a,b) + days(1))
-    dint2 <- interval(c(a,b), c(a,b) + ddays(1))
+    pint1 <- interval(c(a, b), c(a, b) + days(1:2))
+    dint1 <- interval(c(a, b), c(a, b) + ddays(1:2))
+    pint2 <- interval(c(a, b), c(a, b) + days(1))
+    dint2 <- interval(c(a, b), c(a, b) + ddays(1))
 
   expect_equal(pint, as.interval(days(1:2), a))
   expect_equal(dint, as.interval(ddays(1:2), a))
-  expect_equal(pint1, as.interval(days(1:2), c(a,b)))
-  expect_equal(dint1, as.interval(days(1:2), c(a,b)))
-  expect_equal(pint2, as.interval(days(1), c(a,b)))
-  expect_equal(dint2, as.interval(days(1), c(a,b)))
+  expect_equal(pint1, as.interval(days(1:2), c(a, b)))
+  expect_equal(dint1, as.interval(days(1:2), c(a, b)))
+  expect_equal(pint2, as.interval(days(1), c(a, b)))
+  expect_equal(dint2, as.interval(days(1), c(a, b)))
 
 })
 
@@ -128,12 +128,12 @@ test_that("[<- can subset intervals", {
   ints <- data.frame(spans = c(interval(ymd(20090201), ymd(20090101)),
                                interval(ymd(20090201), ymd(20090101))))
   my_int <- interval(ymd(18800101), ymd(18810101))
-  ints[1,1] <- 31536000
-  ints[2,1] <- my_int
+  ints[1, 1] <- 31536000
+  ints[2, 1] <- my_int
   int2 <- interval(ymd(20090201), ymd(20100201))
 
-  expect_equal(ints[1,1], int2)
-  expect_equal(ints[2,1], my_int)
+  expect_equal(ints[1, 1], int2)
+  expect_equal(ints[2, 1], my_int)
 
 })
 
@@ -143,8 +143,8 @@ test_that("format.Interval correctly displays intervals of length 0", {
 })
 
 test_that("interval handles correctly time zones of Date objects", {
-  expect_equal(interval(as.Date('2011-01-01'), as.Date('2013-01-01')),
-               interval(ymd('2011-01-01'), ymd('2013-01-01')))
+  expect_equal(interval(as.Date("2011-01-01"), as.Date("2013-01-01")),
+               interval(ymd("2011-01-01"), ymd("2013-01-01")))
 })
 
 test_that("summary.Interval creates useful summary", {
@@ -213,11 +213,11 @@ test_that("int_shift works as expected", {
   int <- interval(time1, time2)
   int2 <- interval(time2, time1)
 
-  dur <- duration(seconds = 11*24*60*60)
+  dur <- duration(seconds = 11 * 24 * 60 * 60)
   dur2 <- duration(seconds = -3600)
 
-  dint <- interval(time1 + 11*24*60*60, time2 + 11*24*60*60)
-  dint2 <- interval(time2 + 11*24*60*60, time1 + 11*24*60*60)
+  dint <- interval(time1 + 11 * 24 * 60 * 60, time2 + 11 * 24 * 60 * 60)
+  dint2 <- interval(time2 + 11 * 24 * 60 * 60, time1 + 11 * 24 * 60 * 60)
 
   nint <- interval(time1 - 3600, time2 - 3600)
   nint2 <- interval(time2 - 3600, time1 - 3600)
@@ -577,14 +577,14 @@ test_that("summary.Interval creates useful summary", {
 test_that("intersect on intervals propagates NAs (#226)", {
   expect_equal(intersect(c(interval("2014-01-15", "2014-01-16"),
                            interval("2014-01-15", "2014-01-16")),
-                         c(interval(NA,NA),interval(NA,NA))),
-               c(interval(NA,NA),interval(NA,NA)))
+                         c(interval(NA, NA), interval(NA, NA))),
+               c(interval(NA, NA), interval(NA, NA)))
   expect_equal(intersect(c(interval("2014-01-15", "2014-01-16"),
                            interval("2014-01-15", "2014-01-16"),
                            interval("2014-01-01", "2014-01-30")),
-                         c(interval(NA,NA), interval(NA,NA),
+                         c(interval(NA, NA), interval(NA, NA),
                            interval("2014-01-15", "2014-02-16"))),
-               c(interval(NA,NA),interval(NA,NA), interval("2014-01-15", "2014-01-30")))
+               c(interval(NA, NA), interval(NA, NA), interval("2014-01-15", "2014-01-30")))
 })
 
 test_that("Reduce works with intervals (#348)", {

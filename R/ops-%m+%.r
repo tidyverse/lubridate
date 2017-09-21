@@ -51,7 +51,7 @@ NULL
 #' leap %m+% years(-1)
 #' leap %m-% years(1)
 #' @export
-"%m+%" <- function(e1,e2) standardGeneric("%m+%")
+"%m+%" <- function(e1, e2) standardGeneric("%m+%")
 
 #' @export
 setGeneric("%m+%")
@@ -70,7 +70,7 @@ setMethod("%m+%", signature(e2 = "ANY"),
             stop("%m+% handles only Period objects as second argument"))
 
 #' @export
-"%m-%" <- function(e1,e2) standardGeneric("%m-%")
+"%m-%" <- function(e1, e2) standardGeneric("%m-%")
 
 #' @export
 setGeneric("%m-%")
@@ -112,7 +112,7 @@ add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE
   roll <- !is.na(roll) & roll
   new[roll] <- rollback(new[roll], roll_to_first = roll_to_first, preserve_hms = preserve_hms)
 
-  if(!is.na(any_HMS) && any_HMS) {
+  if (!is.na(any_HMS) && any_HMS) {
     e2$month <- 0L
     new + e2
   } else {

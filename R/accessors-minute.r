@@ -36,7 +36,7 @@ minute.Period <- function(x)
 setGeneric("minute<-")
 
 #' @export
-setMethod("minute<-", signature("Period"), function(x, value){
+setMethod("minute<-", signature("Period"), function(x, value) {
   slot(x, "minute") <- value
   x
 })
