@@ -70,7 +70,7 @@ divide_interval_by_number <- function(int, num) {
 
 
 divisible_period <- function(per, anchor) {
-  per@month <- per@month + 12* per@year
+  per@month <- per@month + 12*per@year
   per@year <- rep(0, length(per@year))
 
   secs.in.months <- as.numeric(anchor + months(per@month)) - as.numeric(anchor)

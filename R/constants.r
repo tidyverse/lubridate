@@ -9,7 +9,7 @@ N_DAYS_IN_MONTHS <- c(
 ## lower bound included, upper excluded
 N_DAYS_BETWEEN_MONTHS_LOWER <- matrix(0L, 12, 12)
 for (i in 1:12)
- for (j in 1:12) {
+  for (j in 1:12) {
     N_DAYS_BETWEEN_MONTHS_LOWER[[i, j]] <-
       if (i < j) sum(N_DAYS_IN_MONTHS[i:(j - 1)])
       else if (j < i) sum(N_DAYS_IN_MONTHS[-(j:(i - 1))])
@@ -19,7 +19,7 @@ for (i in 1:12)
 ## upper bound included, lower excluded
 N_DAYS_BETWEEN_MONTHS_UPPER <- matrix(0L, 12, 12)
 for (i in 1:12)
- for (j in 1:12) {
+  for (j in 1:12) {
     N_DAYS_BETWEEN_MONTHS_UPPER[[i, j]] <-
       if (i < j) sum(N_DAYS_IN_MONTHS[(i + 1):j])
       else if (j < i) sum(N_DAYS_IN_MONTHS[-((j + 1):i)])

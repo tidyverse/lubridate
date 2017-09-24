@@ -15,9 +15,9 @@ test_that("multiplication throws error for intervals", {
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   int <- interval(time1, time2)
   diff <- difftime(time2, time1)
-  int2 <- interval(time1, time1 + 2 *diff)
+  int2 <- interval(time1, time1 + 2*diff)
 
-  expect_that(2 * int, equals(int2))
+  expect_that(2*int, equals(int2))
 })
 
 test_that("multiplication works as expected for periods", {
