@@ -1,6 +1,6 @@
 context("Updating dates")
 
-test_that("update.Date returns a date object", {
+test_that("update.Date returns a date object",{
   date <- as.Date("05/05/2010", "%m/%d/%Y")
   expect_that(update(date, days = 1), is_a("Date"))
   expect_that(update(date, yday = 1), is_a("Date"))
@@ -11,14 +11,14 @@ test_that("update.Date returns a date object", {
   expect_that(update(date, tz = "UTC"), is_a("Date"))
 })
 
-test_that("update.Date returns a posix object if time is manipulated", {
+test_that("update.Date returns a posix object if time is manipulated",{
   date <- as.Date("05/05/2010", "%m/%d/%Y")
   expect_that(update(date, seconds = 1), is_a("POSIXt"))
   expect_that(update(date, minutes = 1), is_a("POSIXt"))
   expect_that(update(date, hours = 1), is_a("POSIXt"))
 })
 
-test_that("update.POSIXlt returns a POSIXlt object", {
+test_that("update.POSIXlt returns a POSIXlt object",{
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "GMT", format
      = "%Y-%m-%d %H:%M:%S")
   expect_that(update(poslt, seconds = 1), is_a("POSIXlt"))
@@ -33,7 +33,7 @@ test_that("update.POSIXlt returns a POSIXlt object", {
   expect_that(update(poslt, tz = "UTC"), is_a("POSIXlt"))
 })
 
-test_that("update.POSIXct returns a POSIXct object", {
+test_that("update.POSIXct returns a POSIXct object",{
   posct <- as.POSIXct("2010-02-03 13:45:59", tz = "GMT", format
      = "%Y-%m-%d %H:%M:%S")
   expect_that(update(posct, seconds = 1), is_a("POSIXct"))
@@ -48,7 +48,7 @@ test_that("update.POSIXct returns a POSIXct object", {
   expect_that(update(posct, tz = "UTC"), is_a("POSIXct"))
 })
 
-test_that("update.Date performs simple operation as expected", {
+test_that("update.Date performs simple operation as expected",{
   date <- as.Date("05/05/2010", "%m/%d/%Y")
   expect_that(second(update(date, seconds = 1)), equals(1))
   expect_that(minute(update(date, minutes = 1)), equals(1))
@@ -67,7 +67,7 @@ test_that("update.Date performs simple operation as expected", {
   expect_that(tz(update(date, tz = "UTC")), matches("UTC"))
 })
 
-test_that("update.POSIXt performs simple operation as expected", {
+test_that("update.POSIXt performs simple operation as expected",{
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "GMT", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct("2010-02-03 13:45:59", tz = "GMT", format = "%Y-%m-%d %H:%M:%S")
   expect_that(second(update(poslt, seconds = 1)), equals(1))
@@ -102,7 +102,7 @@ test_that("update.POSIXt performs simple operation as expected", {
   expect_that(tz(update(posct, tz = "UTC")), matches("UTC"))
 })
 
-test_that("update.POSIXt works on wdays", {
+test_that("update.POSIXt works on wdays",{
 
   date <- ymd("2017-05-07") ## sunday
   ct <- as.POSIXct("2010-02-03 13:45:59", tz = "America/New_York", format = "%Y-%m-%d %H:%M:%S") ## Wednesday
@@ -162,7 +162,7 @@ test_that("updates on ydays works correctly with leap years", {
                ymd("2016-01-10", tz = "America/New_York"))
  })
 
-test_that("update performs roll overs correctly for Date objects", {
+test_that("update performs roll overs correctly for Date objects",{
   date <- as.Date("05/05/2010", "%m/%d/%Y")
   expect_that(second(update(date, seconds = 61)), equals(1))
   expect_that(minute(update(date, seconds = 61)), equals(1))
@@ -183,7 +183,7 @@ test_that("update performs roll overs correctly for Date objects", {
   expect_that(tz(update(date, month = 13)), matches("UTC"))
 })
 
-test_that("update performs roll overs correctly for POSIXlt objects", {
+test_that("update performs roll overs correctly for POSIXlt objects",{
   poslt <- as.POSIXlt("2010-05-05 00:00:00", tz = "GMT", format = "%Y-%m-%d %H:%M:%S")
   expect_that(second(update(poslt, seconds = 61)), equals(1))
   expect_that(minute(update(poslt, seconds = 61)), equals(1))
@@ -204,7 +204,7 @@ test_that("update performs roll overs correctly for POSIXlt objects", {
   expect_that(tz(update(poslt, month = 13)), matches("GMT"))
 })
 
-test_that("update performs roll overs correctly for POSIXct objects", {
+test_that("update performs roll overs correctly for POSIXct objects",{
   posct <- as.POSIXct("2010-05-05 00:00:00", tz = "GMT", format = "%Y-%m-%d %H:%M:%S")
   expect_that(second(update(posct, seconds = 61)), equals(1))
   expect_that(minute(update(posct, seconds = 61)), equals(1))
@@ -226,7 +226,7 @@ test_that("update performs roll overs correctly for POSIXct objects", {
 })
 
 test_that("update performs consecutive roll overs correctly for
-  Date objects regardless of order", {
+  Date objects regardless of order",{
   date <- update(as.Date("11/01/2010", "%m/%d/%Y"),
     months = 13, days = 32, hours = 25, minutes = 61, seconds
      = 61)
@@ -254,7 +254,7 @@ test_that("update performs consecutive roll overs correctly for
 })
 
 test_that("update performs consecutive roll overs correctly for
-  POSIXlt objects", {
+  POSIXlt objects",{
   posl <- as.POSIXlt("2010-11-01 00:00:00", tz = "GMT", format
      = "%Y-%m-%d %H:%M:%S")
   poslt <- update(posl, months = 13, days = 32, hours = 25,
@@ -284,7 +284,7 @@ test_that("update performs consecutive roll overs correctly for
   expect_that(tz(poslt2), matches("GMT"))
 })
 
-test_that("update performs consecutive roll overs correctly for POSIXct objects", {
+test_that("update performs consecutive roll overs correctly for POSIXct objects",{
   posc <- as.POSIXct("2010-11-01 00:00:00", tz = "GMT", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- update(posc, months = 13, days = 32, hours = 25,
@@ -314,7 +314,7 @@ test_that("update performs consecutive roll overs correctly for POSIXct objects"
   expect_that(tz(posct2), matches("GMT"))
 })
 
-test_that("update returns NA for date-times in the spring dst gap", {
+test_that("update returns NA for date-times in the spring dst gap",{
   poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   expect_that(is.na(update(poslt, seconds = 65)), is_true())
@@ -335,50 +335,50 @@ test_that("update returns NA for date-times in the spring dst gap", {
   expect_that(is.na(update(poslt, tz = "America/New_York")), is_true())
 })
 
-test_that("update handles vectors of dates", {
+test_that("update handles vectors of dates",{
   poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 01:59:59"),
                       tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
-  expect_that(second(update(poslt, seconds = 1)), equals(c(1, 1, 1)))
-  expect_that(second(update(posct, seconds = 1)), equals(c(1, 1, 1)))
-  expect_that(day(update(date, days = 1)), equals(c(1, 1, 1)))
+  expect_that(second(update(poslt, seconds = 1)), equals(c(1,1,1)))
+  expect_that(second(update(posct, seconds = 1)), equals(c(1,1,1)))
+  expect_that(day(update(date, days = 1)), equals(c(1,1,1)))
 })
 
-test_that("update handles vectors of dates and conformable vector of inputs", {
+test_that("update handles vectors of dates and conformable vector of inputs",{
   poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16
     01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
-  expect_that(second(update(poslt, seconds = c(1, 2, 3))), equals(c(1, 2, 3)))
-  expect_that(second(update(posct, seconds = c(1, 2, 3))), equals(c(1, 2, 3)))
-  expect_that(day(update(date, days = c(1, 2, 3))), equals(c(1, 2, 3)))
+  expect_that(second(update(poslt, seconds = c(1, 2, 3))), equals(c(1,2,3)))
+  expect_that(second(update(posct, seconds = c(1, 2, 3))), equals(c(1,2,3)))
+  expect_that(day(update(date, days = c(1, 2, 3))), equals(c(1,2,3)))
 })
 
-test_that("update handles single vector of inputs", {
+test_that("update handles single vector of inputs",{
   poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
-  expect_that(second(update(poslt, seconds = c(1, 2, 3))), equals(c(1, 2, 3)))
-  expect_that(second(update(posct, seconds = c(1, 2, 3))), equals(c(1, 2, 3)))
-  expect_that(day(update(date, days = c(1, 2, 3))), equals(c(1, 2, 3)))
+  expect_that(second(update(poslt, seconds = c(1, 2, 3))), equals(c(1,2,3)))
+  expect_that(second(update(posct, seconds = c(1, 2, 3))), equals(c(1,2,3)))
+  expect_that(day(update(date, days = c(1, 2, 3))), equals(c(1,2,3)))
 })
 
-test_that("update handles conformable vectors of inputs", {
+test_that("update handles conformable vectors of inputs",{
   poslt <- as.POSIXlt("2010-03-10 01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
-  expect_that(second(update(poslt, seconds = c(1, 2), minutes = c(1, 2, 3, 4))), equals(c(1, 2, 1, 2)))
-  expect_that(second(update(posct, seconds = c(1, 2), minutes = c(1, 2, 3, 4))), equals(c(1, 2, 1, 2)))
-  expect_that(day(update(date, days = c(1, 2), months = c(1, 2, 3, 4))), equals(c(1, 2, 1, 2)))
+  expect_that(second(update(poslt, seconds = c(1,2), minutes = c(1,2,3,4))), equals(c(1,2,1,2)))
+  expect_that(second(update(posct, seconds = c(1,2), minutes = c(1,2,3,4))), equals(c(1,2,1,2)))
+  expect_that(day(update(date, days = c(1,2), months = c(1,2,3,4))), equals(c(1,2,1,2)))
 })
 
-test_that("update.POSIXct returns input of length zero when given input of length zero", {
+test_that("update.POSIXct returns input of length zero when given input of length zero",{
   x <- structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt"))
   expect_equal(update(x, days = 1), x)
 })
 
-test_that("update.POSIXlt returns input of length zero when given input of length zero", {
+test_that("update.POSIXlt returns input of length zero when given input of length zero",{
   x <- as.POSIXlt(structure(vector(mode = "numeric"), class = c("POSIXct", "POSIXt")))
   expect_equal(update(x, days = 1), x)
 })

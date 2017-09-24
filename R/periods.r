@@ -3,7 +3,7 @@
 #' @include durations.r
 NULL
 
-check_period <- function(object) {
+check_period <- function(object){
   errors <- character()
   ## if (!is.numeric(object@.Data)) {
   ##   msg <- "seconds (.Data) value must be numeric."
@@ -159,16 +159,16 @@ setClass("Period", contains = c("Timespan", "numeric"),
 #'   >=,Period,Duration >=,Period,Period >=,Period,numeric >=,numeric,Period
 NULL
 
-setMethod("initialize", "Period", function(.Object, ...) {
+setMethod("initialize", "Period", function(.Object, ...){
   dots <- list(...)
   names(dots)[!nzchar(allNames(dots))] <- ".Data"
   len <- max(unlist(lapply(dots, length), F, F))
-  for (nm in slotNames(.Object)) {
+  for(nm in slotNames(.Object)){
     slot(.Object, nm) <-
-      if (is.null(obj <- dots[[nm]])) {
+      if(is.null(obj <- dots[[nm]])){
         rep.int(0L, len)
       } else {
-        if (length(obj) < len) rep_len(obj, len)
+        if(length(obj) < len) rep_len(obj, len)
         else obj
       }
   }
@@ -177,18 +177,18 @@ setMethod("initialize", "Period", function(.Object, ...) {
 })
 
 #' @export
-setMethod("show", signature(object = "Period"), function(object) {
+setMethod("show", signature(object = "Period"), function(object){
   print(format(object))
 })
 
 #' @export
-format.Period <- function(x, ...) {
+format.Period <- function(x, ...){
   if (length(x@.Data) == 0) return("Period(0)")
   show <- vector(mode = "character")
   na <- is.na(x)
 
   show <- paste(x@year, "y ", x@month, "m ", x@day, "d ",
-    x@hour, "H ", x@minute, "M ", x@.Data, "S", sep = "")
+    x@hour, "H ", x@minute, "M ", x@.Data, "S", sep="")
   start <- regexpr("[-1-9]|(0\\.)", show)
   show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
 
@@ -197,12 +197,12 @@ format.Period <- function(x, ...) {
 }
 
 #' @export
-xtfrm.Period <- function(x) {
+xtfrm.Period <- function(x){
   xtfrm(period_to_seconds(x))
 }
 
 #' @export
-setMethod("c", signature(x = "Period"), function(x, ...) {
+setMethod("c", signature(x = "Period"), function(x, ...){
   elements <- lapply(list(...), as.period)
   seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
   years <- c(x@year, unlist(lapply(elements, slot, "year")))
@@ -215,7 +215,7 @@ setMethod("c", signature(x = "Period"), function(x, ...) {
 })
 
 #' @export
-setMethod("rep", signature(x = "Period"), function(x, ...) {
+setMethod("rep", signature(x = "Period"), function(x, ...){
   new("Period", rep(x@.Data, ...), year = rep(x@year, ...),
     month = rep(x@month, ...), day = rep(x@day, ...),
     hour = rep(x@hour, ...), minute = rep(x@minute, ...))
@@ -377,13 +377,13 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' @export
 period <- function(num = NULL, units = "second", ...) {
   nums <- list(...)
-  if (is.character(num)) {
+  if(is.character(num)){
     parse_period(num)
-  } else if (!is.null(num) && length(nums) > 0) {
+  } else if(!is.null(num) && length(nums) > 0){
     c(.period_from_num(num, units), .period_from_units(nums))
-  } else if (!is.null(num)) {
+  } else if(!is.null(num)){
     .period_from_num(num, units)
-  } else if (length(nums)) {
+  } else if(length(nums)){
     .period_from_units(nums)
   } else {
     stop("No valid values have been passed to 'period' constructor")
@@ -391,23 +391,23 @@ period <- function(num = NULL, units = "second", ...) {
 }
 
 ##' @useDynLib lubridate c_parse_period
-parse_period <- function(x) {
+parse_period <- function(x){
   out <- matrix(.Call("c_parse_period", x), nrow = 7L)
   new("Period", out[1, ],
       minute = out[2, ],
       hour   = out[3, ],
-      day    = out[4, ] + 7L * out[5, ],
+      day    = out[4, ] + 7L*out[5, ],
       month  = out[6, ],
       year   = out[7, ])
 }
 
-.period_from_num <- function(num, units) {
+.period_from_num <- function(num, units){
 
-  if (!is.numeric(num)) {
+  if(!is.numeric(num)){
     stop(sprintf("First argument to `period` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
-  if (is.interval(num))
+  if(is.interval(num))
     stop("Interval objects cannot be used as input to 'period' constructor. Plese use 'as.period'.")
 
   if (length(units) %% length(num) != 0)
@@ -455,7 +455,7 @@ parse_period <- function(x) {
 #' is.period(as.Date("2009-08-03")) # FALSE
 #' is.period(period(months= 1, days = 15)) # TRUE
 #' @export
-is.period <- function(x) is(x, "Period")
+is.period <- function(x) is(x,"Period")
 
 #' @export seconds minutes hours days weeks years milliseconds microseconds microseconds nanoseconds picoseconds
 #' @rdname period
@@ -471,13 +471,13 @@ weeks <- function(x = 1) period(week = x)
 #' @rdname period
 years <- function(x = 1) period(year = x)
 #' @rdname period
-milliseconds <- function(x = 1) seconds(x / 1000)
+milliseconds <- function(x = 1) seconds(x/1000)
 #' @rdname period
-microseconds <- function(x = 1) seconds(x / 1000000)
+microseconds <- function(x = 1) seconds(x/1000000)
 #' @rdname period
-nanoseconds <- function(x = 1) seconds(x / 1e9)
+nanoseconds <- function(x = 1) seconds(x/1e9)
 #' @rdname period
-picoseconds <- function(x = 1) seconds(x / 1e12)
+picoseconds <- function(x = 1) seconds(x/1e12)
 
 #' @rdname period
 #' @export
@@ -516,7 +516,7 @@ seconds_to_period <- function(x) {
   ## slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
   ## remainder <- remainder %% (3600 * 24 * 365.25)
 
-  slot(newper, "day") <- remainder %/% (3600 * 24)
+  slot(newper,"day") <- remainder %/% (3600 * 24)
   remainder <- remainder %% (3600 * 24)
 
   slot(newper, "hour") <- remainder %/% (3600)

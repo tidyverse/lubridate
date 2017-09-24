@@ -1,7 +1,7 @@
 context("integer division operations")
 
-test_that("integer division works for interval numerator", {
-  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01")
+test_that("integer division works for interval numerator",{
+  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
   expect_error(int1 %/% int2)
   expect_equal(int1 %/% months(1), 12)
   expect_error(months(12) %/% int1)
@@ -10,8 +10,8 @@ test_that("integer division works for interval numerator", {
 })
 
 
-test_that("integer division works for interval numerator with vectors", {
-  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01")
+test_that("integer division works for interval numerator with vectors",{
+  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
   int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
   int3 <- ymd("2009-01-01") %--% ymd("2010-01-01")
   expect_error(int2 %/% c(int1, int3))
@@ -23,16 +23,16 @@ test_that("integer division works for interval numerator with vectors", {
 })
 
 
-test_that("integer division works for period numerator", {
-  int1 <- ymd("2010-01-01") %--% ymd("2010-12-31")
+test_that("integer division works for period numerator",{
+  int1 <- ymd("2010-01-01") %--% ymd("2010-12-31") 
   expect_error(years(2) %/% int1)
   expect_equal(years(1) %/% days(1), 365)
   expect_equal(months(13) %/% years(1), 1)
   expect_error(months(1) %/% ddays(1))
 })
 
-test_that("integer division works for period numerator with vectors", {
-  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01")
+test_that("integer division works for period numerator with vectors",{
+  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
   int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
   expect_error(years(2) %/% c(int1, int2))
   expect_error(years(1:2) %/% int1)
@@ -42,15 +42,15 @@ test_that("integer division works for period numerator with vectors", {
   expect_error(years(1:2) %/% ddays(2))
 })
 
-test_that("integer division works for duration numerator", {
-  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01")
-  expect_error(dyears(2) %/% int1)
+test_that("integer division works for duration numerator",{
+  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
+  expect_error(dyears(2) %/% int1)  
   expect_error(dyears(1) %/% months(1))
   expect_equal(dyears(1) %/% ddays(1), 365)
 })
 
-test_that("integer division works for duration numerator with vectors", {
-  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01")
+test_that("integer division works for duration numerator with vectors",{
+  int1 <- ymd("2010-01-01") %--% ymd("2011-01-01") 
   int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
   expect_error(dyears(2) %/% c(int1, int2))
   expect_error(dyears(1:2) %/% int1)

@@ -32,7 +32,7 @@
 #' @export
 update.POSIXt <- function(object, ..., roll = FALSE,
                           week_start = getOption("lubridate.week.start", 7),
-                          simple = NULL) {
+                          simple = NULL){
   if (!is.null(simple)) roll <- simple
   do.call(update_date_time, c(list(object, roll = roll, week_start = week_start),
                               list(...)))
@@ -43,7 +43,7 @@ update_date_time <- function(object, years = integer(), months = integer(),
                              hours = integer(), minutes = integer(), seconds = double(), tzs = NULL,
                              roll = FALSE, week_start = 7) {
 
-  if (!length(object)) return(object)
+  if(!length(object)) return(object)
 
   if (length(days) > 0) mdays = days;
   updates <- list(year = years, month = months,
@@ -69,9 +69,9 @@ update_date_time <- function(object, years = integer(), months = integer(),
 }
 
 ## prior to v1.7.0
-update_posixt_old <- function(object, ..., simple = FALSE) {
+update_posixt_old <- function(object, ..., simple = FALSE){
 
-  if (!length(object)) return(object)
+  if(!length(object)) return(object)
   date <- as.POSIXlt(object)
 
   ## adjudicate units input
@@ -90,7 +90,7 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
     uname <- day.units[wunit]
     if (uname != "mday") {
       ## we compute everything with mdays (operating with ydays doesn't work)
-      if (uname != "day") {
+      if (uname != "day"){
         if (uname == "yday" & !is.null(units$year))
           warning("Updating on both 'year' and 'yday' can lead to wrong results. See bug #319.", call. = F)
         diff <- units[[uname]] - date[[uname]] - 1
@@ -114,7 +114,7 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
 
   if (maxlen > 1) {
     for (nm in names(date))
- if (length(date[[nm]]) != maxlen)
+      if (length(date[[nm]]) != maxlen)
         date[[nm]] <- rep_len(date[[nm]], maxlen)
   }
 
@@ -128,7 +128,7 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
 }
 
 #' @export
-update.Date <- function(object, ...) {
+update.Date <- function(object, ...){
 
   ct <- as_datetime(object, tz = "UTC")
   new <- update(ct, ...)
@@ -200,9 +200,9 @@ fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
   if (class != "POSIXlt" && class != "POSIXct")
     stop("class argument must be POSIXlt or POSIXct")
 
-  if (simple) {
+  if(simple){
 
-    if (class == "POSIXct") as.POSIXct(lt)
+    if(class == "POSIXct") as.POSIXct(lt)
     else as.POSIXlt(as.POSIXct(lt))
 
   } else {

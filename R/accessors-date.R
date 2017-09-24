@@ -45,6 +45,6 @@ date.Period <- function(x)
 setGeneric("date<-")
 
 #' @export
-setMethod("date<-", signature("Period"), function(x, value) {
+setMethod("date<-", signature("Period"), function(x, value){
   stop("date<- is undefined for Period objects")
 })

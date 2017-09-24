@@ -1,6 +1,6 @@
 context("difftimes")
 
-test_that("is.difftime works as expected", {
+test_that("is.difftime works as expected",{
   ct_time <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   lt_time <- as.POSIXlt("2009-08-03 13:01:59", tz = "UTC")
 
@@ -17,6 +17,6 @@ test_that("is.difftime works as expected", {
 
 })
 
-test_that("is.difftime handle vectors", {
+test_that("is.difftime handle vectors",{
   expect_true(is.difftime(make_difftime(1:3)))
 })

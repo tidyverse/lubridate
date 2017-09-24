@@ -64,7 +64,7 @@ month.Period <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("
 setGeneric("month<-")
 
 #' @export
-setMethod("month<-", signature("Period"), function(x, value) {
+setMethod("month<-", signature("Period"), function(x, value){
   slot(x, "month") <- value
   x
 })
@@ -85,14 +85,14 @@ days_in_month <- function(x) {
 }
 
 ## fixme: integrate with above, this oen is needed internally
-.days_in_month <- function(m, y) {
+.days_in_month <- function(m, y){
   n_days <- N_DAYS_IN_MONTHS[m]
   n_days[m == 2L & leap_year(y)] <- 29L
   n_days
 }
 
 ## tothink: export?
-days_in_months_so_far <- function(month, leap) {
+days_in_months_so_far <- function(month, leap){
   ## if month is negative, compute from the end of the year
   cum_days_pos <- c(0, cumsum(N_DAYS_IN_MONTHS)[-12])
   cum_days_neg <- c(0, cumsum(rev(N_DAYS_IN_MONTHS))[-12])

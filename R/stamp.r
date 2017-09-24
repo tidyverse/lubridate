@@ -50,24 +50,24 @@
 ##' stamp("2013-01-01T00:00:00-06")(D)
 ##' stamp("2013-01-01T00:00:00-08:00")(force_tz(D, "America/Chicago"))
 stamp <- function(x, orders = lubridate_formats,
-                  locale = Sys.getlocale("LC_TIME"), quiet = FALSE) {
+                  locale = Sys.getlocale("LC_TIME"), quiet = FALSE){
 
   fmts <- unique(guess_formats(x, orders, locale))
-  if (is.null(fmts)) stop("Couldn't guess formats of: ", x)
-  if (length(fmts) == 1L) {
+  if( is.null(fmts) ) stop( "Couldn't guess formats of: ", x)
+  if( length(fmts) == 1L ){
     FMT <- fmts[[1]]
-  } else {
+  }else{
     trained <- .train_formats(x, fmts, locale = locale)
     formats <- .select_formats(trained)
     FMT <- formats[[1]]
-    if (!quiet && length(trained) > 1) {
+    if( !quiet && length(trained) > 1 ) {
       message("Multiple formats matched: ",
-              paste("\"", names(trained), "\"(", trained, ")", sep = "",
-                    collapse = ", "))
+              paste("\"", names(trained),"\"(", trained, ")", sep = "",
+                    collapse= ", "))
     }
   }
 
-  if (!quiet)
+  if( !quiet )
       message("Using: \"", FMT, "\"")
 
 
@@ -76,7 +76,7 @@ stamp <- function(x, orders = lubridate_formats,
     quote(
     {
       old_lc_time <- Sys.getlocale("LC_TIME")
-      if (old_lc_time != locale) {
+      if (old_lc_time != locale){
         Sys.setlocale("LC_TIME", locale)
         on.exit(Sys.setlocale("LC_TIME", old_lc_time))
       }
@@ -89,7 +89,7 @@ stamp <- function(x, orders = lubridate_formats,
   ## %OO: "2013-04-16T04:59:59+01:00"
 
   ## Is a timezone format?
-  if (grepl("%O[oOzu]|%z", FMT)) {
+  if( grepl("%O[oOzu]|%z", FMT) ){
     ## We need to post-process x in the case of %Oo, %OO and %Oz formats
     ## because standard %z output format ignores timezone.
 
@@ -98,14 +98,14 @@ stamp <- function(x, orders = lubridate_formats,
 
     oOz_end <- str_extract(FMT, "%O[oOz]$")
 
-    if (is.na(oOz_end)) {
+    if(is.na(oOz_end)){
       FMT <- sub("%O[oOz]", "%z",
                  sub("%Ou", "Z", FMT, fixed = TRUE))
 
       eval(bquote(
-        function(x, locale = .(locale)) {
+        function(x, locale = .(locale)){
           ## %z ignores timezone
-          if (tz(x[[1]]) != "UTC")
+          if(tz(x[[1]]) != "UTC")
             x <- with_tz(x, tzone = "UTC")
           .(reset_local_expr)
           format(x, format = .(FMT))
@@ -132,7 +132,7 @@ stamp <- function(x, orders = lubridate_formats,
 }
 
 
-.format_offset <- function(x, fmt="%Oz") {
+.format_offset <- function(x, fmt="%Oz"){
   ## .format_offset
   ##
   ## function to format the offset of a time from UTC
@@ -172,13 +172,13 @@ stamp <- function(x, orders = lubridate_formats,
   offset_duration <- abs(offset_duration)
 
   ## determine hour
-  .hr <- floor(offset_duration / dhours(1))
+  .hr <- floor(offset_duration/dhours(1))
 
   ## determine minutes
-  .min <- floor((offset_duration - dhours(.hr)) / dminutes(1))
+  .min <- floor((offset_duration-dhours(.hr))/dminutes(1))
 
   ## warning if we need minutes, but are using format without minutes
-  if (any(.min > 0) & fmt == "%Oo") {
+  if (any(.min > 0) & fmt=="%Oo"){
     warning("timezone offset-minutes are non-zero - changing format to %Oz")
     fmt <- "%Oz"
   }
@@ -206,10 +206,10 @@ stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"))
 
 
 lubridate_formats <- local({
-  xxx <- c("ymd", "ydm", "mdy", "myd", "dmy", "dym")
+  xxx <- c( "ymd", "ydm", "mdy", "myd", "dmy", "dym")
   names(xxx) <- xxx
   out <- character()
-  for (D in xxx) {
+  for(D in xxx){
     out[[paste(D, "_hms", sep = "")]] <- paste(xxx[[D]], "T", sep = "")
     out[[paste(D, "_hm", sep = "")]] <- paste(xxx[[D]], "R", sep = "")
     out[[paste(D, "_h", sep = "")]] <- paste(xxx[[D]], "r", sep = "")
@@ -219,7 +219,7 @@ lubridate_formats <- local({
            hms = "T", hm = "R", ms = "MS", h = "r", m = "m", y = "y")
 
   ## adding ISO8601
-  out <- c(ymd_hmsz = "ymdTz", out)
+  out <- c(ymd_hmsz="ymdTz", out)
 
   out
 })

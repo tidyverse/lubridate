@@ -60,14 +60,14 @@ tz <- function (x)
 
 #' @export
 tz.default <- function(x) {
-  if (is.null(attr(x, "tzone")) && !is.POSIXt(x))
+  if (is.null(attr(x,"tzone")) && !is.POSIXt(x))
     return("UTC")
-  tzs <- attr(as.POSIXlt(x), "tzone")
+  tzs <- attr(as.POSIXlt(x),"tzone")
   tzs[1]
 }
 
 #' @export
-tz.zoo <- function(x) {
+tz.zoo <- function(x){
   tzs <- attr(as.POSIXlt(zoo::index(x)), "tzone")
   tzs[1]
 }
@@ -83,7 +83,7 @@ tz.irts <- function(x)
 #' @rdname tz
 #' @param value timezone value to be assigned to `x`'s `tzone` attribute
 #' @export
-"tz<-" <- function(x, value) {
+"tz<-" <- function(x, value){
   new <- force_tz(x, value)
   reclass_date(new, x)
 }

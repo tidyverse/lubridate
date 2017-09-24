@@ -56,12 +56,12 @@ wday <- function(x, label = FALSE, abbr = TRUE,
 #' @export
 wday.default <- function(x, label = FALSE, abbr = TRUE,
                          week_start = getOption("lubridate.week.start", 7),
-                         locale = Sys.getlocale("LC_TIME")) {
+                         locale = Sys.getlocale("LC_TIME")){
   wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr, locale = locale, week_start = week_start)
 }
 
-.shift_wday_names <- function(names, week_start = 7) {
-  if (week_start != 7) {
+.shift_wday_names <- function(names, week_start = 7){
+  if(week_start != 7){
     c(names[(week_start + 1):7], names[1:week_start])
   } else {
     names
@@ -119,11 +119,11 @@ yday.default <- function(x)
 
 #' @rdname day
 #' @export
-`day<-` <- function(x, value) standardGeneric("day<-")
+`day<-` <- function(x, value)  standardGeneric("day<-")
 
 #' @rdname day
 #' @export
-`mday<-` <- function(x, value) {
+`mday<-` <- function(x, value){
   day(x) <- value
   x
 }
@@ -141,14 +141,14 @@ setGeneric("day<-", useAsDefault = function(x, value)
   x <- x + days(value - mday(x)))
 
 #' @export
-setMethod("day<-", signature("Period"), function(x, value) {
+setMethod("day<-", signature("Period"), function(x, value){
   slot(x, "day") <- value
   x
 })
 
 #' @rdname day
 #' @export
-"wday<-" <- function(x, week_start = getOption("lubridate.week.start", 7), value) {
+"wday<-" <- function(x, week_start = getOption("lubridate.week.start", 7), value){
   if (!is.numeric(value)) {
     ## FIXME: how to make this localized and preserve backward compatibility? Guesser?
     labels <- .shift_wday_names(c("sunday", "monday", "tuesday", "wednesday",

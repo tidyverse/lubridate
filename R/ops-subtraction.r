@@ -8,7 +8,7 @@
 NULL
 
 
-subtract_interval_from_date <- function(int, date) {
+subtract_interval_from_date <- function(int, date){
   end <- int@start + int@.Data
   dur <- as.duration(int)
   add_duration_to_date(-dur, date)
