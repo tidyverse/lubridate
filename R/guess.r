@@ -67,7 +67,7 @@
 ##' guess_formats(x, c("ymd HMS"), print_matches = TRUE)
 ##'
 guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
-                          preproc_wday = TRUE, print_matches = FALSE){## remove all separators
+                          preproc_wday = TRUE, print_matches = FALSE) { ## remove all separators
   orders <- gsub("[^[:alpha:]]+", "", orders)
 
   if (any(grepl("hms|hm|ms", orders))) {
@@ -78,15 +78,15 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   }
 
   ## redirect some formats to C parser
-  if(length(wp <- grepl("[^O]p", orders)))
+  if (length(wp <- grepl("[^O]p", orders)))
     orders <- c(sub("p", "Op", orders[wp], fixed = T), orders)
-  if(length(wm <- grepl("[^O][mbB]", orders)))
+  if (length(wm <- grepl("[^O][mbB]", orders)))
     orders <- c(sub("[mbB]", "Om", orders[wm]), orders)
-  if(length(wT <- grepl("T", orders, fixed = T)))
+  if (length(wT <- grepl("T", orders, fixed = T)))
     orders <- c(sub("T", "HMSOp", orders[wT], fixed = T), orders)
-  if(length(wR <- grepl("R", orders, fixed = T)))
+  if (length(wR <- grepl("R", orders, fixed = T)))
     orders <- c(sub("R", "HMOp", orders[wR], fixed = T), orders)
-  if(length(wr <- grepl("r", orders, fixed = T)))
+  if (length(wr <- grepl("r", orders, fixed = T)))
     orders <- c(sub("r", "HOp", orders[wR], fixed = T), orders)
 
   ## We split into characterst first and then paste together formats that start
@@ -94,11 +94,11 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   ## but it doesn't.
   osplits <- strsplit(orders, "", fixed = TRUE)
   osplits <- lapply(osplits,
-                    function(ospt){
-                      if( length(which_O <- which(ospt == "O")) > 0 ){
+                    function(ospt) {
+                      if (length(which_O <- which(ospt == "O")) > 0) {
                         ospt[which_O + 1] <- paste("O", ospt[which_O + 1], sep = "")
                         ospt[-which_O]
-                      }else
+                      } else
                         ospt
                     })
 
@@ -107,12 +107,12 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   flex_regs <- c(reg$alpha_flex, reg$num_flex, .c_parser_reg_flex)
   exact_regs <- c(reg$alpha_exact, reg$num_exact, .c_parser_reg_exact)
 
-  REGS <- unlist(lapply(osplits, function(fnames){
+  REGS <- unlist(lapply(osplits, function(fnames) {
     ## fnames are names of smalest valid formats, like a, A, b, z, OS, OZ ...
-    which <- ! fnames %in% c(names(reg$alpha_flex),
+    which <- !fnames %in% c(names(reg$alpha_flex),
                              names(reg$num_flex),
                              names(.c_parser_reg_exact))
-    if( any( which ) )
+    if (any(which))
       stop("Unknown formats supplied: ", paste(fnames[ which ], sep = ", "))
 
     ## restriction: no numbers before or after
@@ -131,13 +131,13 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     print(do.call(cbind, c(list(x), subs)))
   }
 
-  .build_formats <- function(regs, orders, x){
+  .build_formats <- function(regs, orders, x) {
     out <- mapply(
-      function(reg, name){
+      function(reg, name) {
         out <- .substitute_formats(reg, x)
-        if( !is.null(out) ) names(out) <- rep.int(name, length(out))
+        if (!is.null(out)) names(out) <- rep.int(name, length(out))
         out
-      }, REGS, orders, SIMPLIFY= F, USE.NAMES= F)
+      }, REGS, orders, SIMPLIFY = F, USE.NAMES = F)
     names(out) <- NULL
     unlist(out)
   }
@@ -160,7 +160,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
 }
 
-.substitute_formats <- function(reg, x, fmts_only = TRUE){
+.substitute_formats <- function(reg, x, fmts_only = TRUE) {
   ## Take date X and substitute year with %Y/%y, month with %B/%b etc.
   ## Return the formatted string if REG matched, or null otherwise.
   ## REG should be with captures as build by .build_locale_regs
@@ -172,7 +172,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   ## print(regs[[1]])
   matched <- m > 0
 
-  if ( any(matched) ){
+  if (any(matched)) {
     nms <- attr(m, "capture.names")
     nms <- nms[nzchar(nms)]
     ## e <- grepl("_e", nms, fixed = TRUE)
@@ -183,19 +183,19 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     end <- start + attr(m, "capture.length")[matched, , drop = FALSE] - 1L
 
     lout <- x[matched]
-    for( n in rev(nms) ){  ## start from the end
+    for (n in rev(nms)) {  ## start from the end
       w <- end[, n] > 0 ## -1 if unmatched  subpatern
       str_sub(lout[w], start[w, n], end[w, n]) <- paste("%", gsub("_.*$", "", n), sep = "")
     }
-    if(fmts_only)
+    if (fmts_only)
       lout
-    else{
+    else {
       ## developer
       out <- character(length(x)) ## dev only
       out[matched] <- lout
       out
     }
-  }else if (fmts_only)
+  } else if (fmts_only)
     NULL
   else character(length(x))
 }
@@ -206,16 +206,16 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 .enclosed.na <- function(x)
   x == "@NA@"
 
-.get_train_set <- function(x){
+.get_train_set <- function(x) {
   ## the best irregular guesser I could come up with
   x <- x[!.enclosed.na(x)]
   len <- length(x)
-  if( len < 100)
+  if (len < 100)
     x
-  else if( len < 3571 )
+  else if (len < 3571)
     x[.primes[.primes  <= length(x) ] ]
   else
-    x[ .primes * (length(x) %/% 3571) ] #501 primes
+    x[ .primes * (length(x) %/% 3571) ] # 501 primes
 }
 
 .train_formats <- function(x, formats, locale) {
@@ -229,12 +229,12 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   sort(successes, decreasing = TRUE)
 }
 
-.best_formats <- function(x, orders, locale, .select_formats, drop = FALSE){
+.best_formats <- function(x, orders, locale, .select_formats, drop = FALSE) {
   ## return a vector of formats that matched X at least once.
   ## Can be zero length vector, if none matched
 
   fmts <- unique(guess_formats(x, orders, locale = locale, preproc_wday = TRUE)) # orders as names
-  if(length(fmts)){
+  if (length(fmts)) {
     trained <- .train_formats(x, fmts, locale = locale)
 
     if (drop)
@@ -243,7 +243,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   }
 }
 
-.select_formats <- function(trained, drop = FALSE){
+.select_formats <- function(trained, drop = FALSE) {
   nms <- names(trained)
 
   n_fmts <-
@@ -277,7 +277,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
 .locale_reg_cache <- new.env(hash = FALSE)
 
-.get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")){
+.get_locale_regs <- function(locale = Sys.getlocale("LC_TIME")) {
   ## build locale specific regexps for all posible orders
 
   if (exists(locale, envir = .locale_reg_cache, inherits = FALSE))
@@ -329,7 +329,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   p <- unique(mat[, "p"])
   p <- p[nzchar(p)]
   alpha["p"] <-
-    if ( length(p) == 0L ) ""
+    if (length(p) == 0L) ""
     else sprintf("(?<p>%s)(?![[:alpha:]])", paste(p, collapse = "|"))
 
   alpha <- unlist(alpha)
@@ -367,7 +367,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
              T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]),
              R = sprintf("(%s\\D+%s)", num[["H"]], num[["M"]]),
              r = sprintf("(%s\\D+)", num[["H"]]))
-  }else{
+  } else {
     num <- c(num,
              T = sprintf("((%s\\D+%s\\D+%s\\D*%s)|(%s\\D+%s\\D+%s))",
                          num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]),

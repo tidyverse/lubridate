@@ -37,7 +37,7 @@ quarter <- function(x, with_year = FALSE, fiscal_start = 1) {
 
 #' @rdname quarter
 #' @export
-semester <- function(x, with_year = FALSE){
+semester <- function(x, with_year = FALSE) {
   m <- month(x)
   semesters <- rep(1:2, each = 6)
   s <- semesters[m]

@@ -41,12 +41,12 @@ year.Period <- function(x)
 setGeneric("year<-")
 
 #' @export
-setMethod("year<-", signature("Period"), function(x, value){
+setMethod("year<-", signature("Period"), function(x, value) {
   slot(x, "year") <- value
   x
 })
 
-.other_year <- function(x, week_start = 1){
+.other_year <- function(x, week_start = 1) {
   x <- as.POSIXlt(x)
   date <- make_date(year(x), month(x), day(x))
   isodate <- date + ddays(4 - wday(date, week_start = week_start))

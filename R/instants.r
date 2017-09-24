@@ -104,9 +104,9 @@ origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
 ##' @examples
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = 10)
 ##' make_datetime(year = 1999, month = 12, day = 22, sec = c(10, 11))
-make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0L, sec = 0, tz = "UTC"){
+make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0L, sec = 0, tz = "UTC") {
   lengths <- vapply(list(year, month, day, hour, min, sec), length, 1, USE.NAMES = FALSE)
-  if (min(lengths) == 0L){
+  if (min(lengths) == 0L) {
     .POSIXct(numeric(), tz = tz)
   } else {
     N <- max(lengths)
@@ -120,9 +120,9 @@ make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0
 ##' @rdname make_datetime
 ##' @useDynLib lubridate make_d
 ##' @export
-make_date <- function(year = 1970L, month = 1L, day = 1L){
+make_date <- function(year = 1970L, month = 1L, day = 1L) {
   lengths <- vapply(list(year, month, day), length, 1, USE.NAMES = FALSE)
-  if (min(lengths) == 0L){
+  if (min(lengths) == 0L) {
     as.Date(integer(), origin = origin)
   } else {
     N <- max(lengths)

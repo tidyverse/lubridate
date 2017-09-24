@@ -1,7 +1,6 @@
 context("Stamp")
 
-test_that("stamp selects the correct format",{
-
+test_that("stamp selects the correct format", {
   test_dates <- read.table(header = T, stringsAsFactors=F,
                            textConnection("
     date                                expected
@@ -36,11 +35,10 @@ test_that("stamp selects the correct format",{
    '14 12 00'                          '13 08 12'
    '03:23:22 pm'                       '11:37:53 AM'
    '2001-12-31T04:05:06Z'              '2012-08-13T11:37:53Z'
-   "))
-
+    "))
   D <- as.POSIXct("2012-08-13 11:37:53", tz = "UTC")
 
-  for( i in seq_along(test_dates$date) )
+  for (i in seq_along(test_dates$date))
     test_that(stamp(test_dates[[i, "date"]])(D), equals(test_dates[[i, "expected"]]))
 
 })
@@ -48,40 +46,40 @@ test_that("stamp selects the correct format",{
 test_that(".format_offset works as expected", {
 
   df_winter <- data.frame(
-    tz=c("America/Chicago", "UTC", "Europe/Paris"),
-    Oo=c("-06", "+00", "+01"),
-    Oz=c("-0600", "+0000", "+0100"),
-    OO=c("-06:00", "+00:00", "+01:00"),
-    stringsAsFactors=FALSE
+    tz = c("America/Chicago", "UTC", "Europe/Paris"),
+    Oo = c("-06", "+00", "+01"),
+    Oz = c("-0600", "+0000", "+0100"),
+    OO = c("-06:00", "+00:00", "+01:00"),
+    stringsAsFactors = FALSE
   )
 
   with(df_winter,
-       for (i in 1:nrow(df_winter)){
-           expect_equal(.format_offset(ymd("2013-01-01", tz=tz[i]), "%Oo"), Oo[i])
-           expect_equal(.format_offset(ymd("2013-01-01", tz=tz[i]), "%Oz"), Oz[i])
-           expect_equal(.format_offset(ymd("2013-01-01", tz=tz[i]), "%OO"), OO[i])
+       for (i in 1:nrow(df_winter)) {
+           expect_equal(.format_offset(ymd("2013-01-01", tz = tz[i]), "%Oo"), Oo[i])
+           expect_equal(.format_offset(ymd("2013-01-01", tz = tz[i]), "%Oz"), Oz[i])
+           expect_equal(.format_offset(ymd("2013-01-01", tz = tz[i]), "%OO"), OO[i])
        })
 
   df_summer <- data.frame(
-    tz=c("America/Chicago", "UTC", "Europe/Paris"),
-    Oo=c("-05", "+00", "+02"),
-    Oz=c("-0500", "+0000", "+0200"),
-    OO=c("-05:00", "+00:00", "+02:00"),
-    stringsAsFactors=FALSE
+    tz = c("America/Chicago", "UTC", "Europe/Paris"),
+    Oo = c("-05", "+00", "+02"),
+    Oz = c("-0500", "+0000", "+0200"),
+    OO = c("-05:00", "+00:00", "+02:00"),
+    stringsAsFactors = FALSE
   )
 
   with(df_summer,
-       for (i in 1:nrow(df_summer)){
-           expect_equal(.format_offset(ymd("2013-07-01", tz=tz[i]), "%Oo"), Oo[i])
-           expect_equal(.format_offset(ymd("2013-07-01", tz=tz[i]), "%Oz"), Oz[i])
-           expect_equal(.format_offset(ymd("2013-07-01", tz=tz[i]), "%OO"), OO[i])
+       for (i in 1:nrow(df_summer)) {
+           expect_equal(.format_offset(ymd("2013-07-01", tz = tz[i]), "%Oo"), Oo[i])
+           expect_equal(.format_offset(ymd("2013-07-01", tz = tz[i]), "%Oz"), Oz[i])
+           expect_equal(.format_offset(ymd("2013-07-01", tz = tz[i]), "%OO"), OO[i])
        })
 
   ## half-hour timezone
-  expect_warning(.format_offset(ymd("2013-07-01", tz="Asia/Kolkata"), "%Oo"))
-  expect_equal(suppressWarnings(.format_offset(ymd("2013-07-01", tz="Asia/Kolkata"), "%Oo")), "+0530")
-  expect_equal(.format_offset(ymd("2013-07-01", tz="Asia/Kolkata"), "%Oz"), "+0530")
-  expect_equal(.format_offset(ymd("2013-07-01", tz="Asia/Kolkata"), "%OO"), "+05:30")
+  expect_warning(.format_offset(ymd("2013-07-01", tz = "Asia/Kolkata"), "%Oo"))
+  expect_equal(suppressWarnings(.format_offset(ymd("2013-07-01", tz = "Asia/Kolkata"), "%Oo")), "+0530")
+  expect_equal(.format_offset(ymd("2013-07-01", tz = "Asia/Kolkata"), "%Oz"), "+0530")
+  expect_equal(.format_offset(ymd("2013-07-01", tz = "Asia/Kolkata"), "%OO"), "+05:30")
 })
 
 test_that("stamp works with ISO-8601 formats", {
@@ -100,26 +98,26 @@ test_that("stamp works with ISO-8601 formats", {
 
   ## cbind(tz, Ou, Oo, Oz, OO) # if you want to see them
 
-  for (i in seq_along(tz)){
-    expect_equal(stamp_Ou(ymd("2013-01-01", tz=tz[i])), Ou[i])
-    expect_equal(stamp_Oo(ymd("2013-01-01", tz=tz[i])), Oo[i])
-    expect_equal(stamp_Oz(ymd("2013-01-01", tz=tz[i])), Oz[i])
-    expect_equal(stamp_OO(ymd("2013-01-01", tz=tz[i])), OO[i])
+  for (i in seq_along(tz)) {
+    expect_equal(stamp_Ou(ymd("2013-01-01", tz = tz[i])), Ou[i])
+    expect_equal(stamp_Oo(ymd("2013-01-01", tz = tz[i])), Oo[i])
+    expect_equal(stamp_Oz(ymd("2013-01-01", tz = tz[i])), Oz[i])
+    expect_equal(stamp_OO(ymd("2013-01-01", tz = tz[i])), OO[i])
   }
 
   ## half-hour timezone
-  expect_equal(suppressWarnings(stamp_Ou(ymd("2013-01-01", tz="Asia/Kolkata"))),
+  expect_equal(suppressWarnings(stamp_Ou(ymd("2013-01-01", tz = "Asia/Kolkata"))),
                "2012-12-31T18:30:00Z")
-  expect_warning(stamp_Oo(ymd("2013-01-01", tz="Asia/Kolkata")))
-  expect_equal(suppressWarnings(stamp_Oo(ymd("2013-01-01", tz="Asia/Kolkata"))),
+  expect_warning(stamp_Oo(ymd("2013-01-01", tz = "Asia/Kolkata")))
+  expect_equal(suppressWarnings(stamp_Oo(ymd("2013-01-01", tz = "Asia/Kolkata"))),
                "2013-01-01T00:00:00+0530")
-  expect_equal(stamp_Oz(ymd("2013-01-01", tz="Asia/Kolkata")),
+  expect_equal(stamp_Oz(ymd("2013-01-01", tz = "Asia/Kolkata")),
                "2013-01-01T00:00:00+0530")
-  expect_equal(stamp_OO(ymd("2013-01-01", tz="Asia/Kolkata")),
+  expect_equal(stamp_OO(ymd("2013-01-01", tz = "Asia/Kolkata")),
                "2013-01-01T00:00:00+05:30")
 
   ## vectorization
-  expect_equal(stamp_OO(ymd(c("2013-01-01", "2010-01-01"), tz="Asia/Kolkata")),
+  expect_equal(stamp_OO(ymd(c("2013-01-01", "2010-01-01"), tz = "Asia/Kolkata")),
                c("2013-01-01T00:00:00+05:30", "2010-01-01T00:00:00+05:30"))
 
   ## format not at end of template (fails on windows 7, %z output format is

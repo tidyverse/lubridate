@@ -1,6 +1,6 @@
 context("Daylight savings times")
 
-test_that("force_tz returns NA for a time that falls in the spring gap",{
+test_that("force_tz returns NA for a time that falls in the spring gap", {
   x <- structure(1268532305, class = c("POSIXct", "POSIXt"), tzone = "UTC")
   y <- structure(1268618705, class = c("POSIXct", "POSIXt"), tzone = "UTC")
   z <- structure(1268633105, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
@@ -8,7 +8,7 @@ test_that("force_tz returns NA for a time that falls in the spring gap",{
   expect_equal(force_tz(c(y, x), "America/New_York"), c(z, NA))
 })
 
-test_that("force_tz behaves consistently for the fall overlap",{
+test_that("force_tz behaves consistently for the fall overlap", {
 
   y <- structure(1289111405, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
   y2 <- structure(1289115005, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
@@ -87,7 +87,7 @@ test_that("subtraction handles daylight savings time for fall overlap", {
 })
 
 
-test_that("update returns NA for date-times in the spring dst gap",{
+test_that("update returns NA for date-times in the spring dst gap", {
 
   poslt <- structure(list(sec = 59, min = 59L, hour = 1L, mday = 14L, mon = 2L,
     year = 110L, wday = 0L, yday = 72L, isdst = 0L),
@@ -139,7 +139,7 @@ test_that("update returns NA for date-times in the spring dst gap",{
 
 })
 
-test_that("update rollovers perform correctly across the fall overlap",{
+test_that("update rollovers perform correctly across the fall overlap", {
   timest <- structure(1289113199, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
   posct <- structure(1289109659, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
   timest2 <- structure(1289116919, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")

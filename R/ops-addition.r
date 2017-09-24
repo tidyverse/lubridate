@@ -13,15 +13,15 @@ add_duration_to_duration <- function(dur2, dur1)
   new("Duration", dur1@.Data + dur2@.Data)
 
 add_duration_to_date <- function(dur, date) {
-  if(is.Date(date)){
+  if (is.Date(date)) {
     date <- as.POSIXct(date)
     ans <- with_tz(date + dur@.Data, "UTC")
 
-    if ( all(is.na(ans) ) ) return(as.Date(ans))  # ALL NAs
+    if (all(is.na(ans))) return(as.Date(ans))  # ALL NAs
 
-    if ( all( hour(na.omit(ans)) == 0  &
+    if (all(hour(na.omit(ans)) == 0  &
               minute(na.omit(ans)) == 0 &
-              second(na.omit(ans)) == 0 )
+              second(na.omit(ans)) == 0)
     ) {
       return(as.Date(ans))
     }
@@ -33,7 +33,7 @@ add_duration_to_date <- function(dur, date) {
   reclass_date(new, date)
 }
 
-add_period_to_period <- function(per2, per1){
+add_period_to_period <- function(per2, per1) {
   new("Period", per1@.Data + per2@.Data,
       year = per1@year + per2@year,
       month = per1@month + per2@month,
@@ -42,7 +42,7 @@ add_period_to_period <- function(per2, per1){
       minute = per1@minute + per2@minute)
 }
 
-add_period_to_date <- function(per, date){
+add_period_to_date <- function(per, date) {
   lt <- as.POSIXlt(date)
 
   ## add months and years with no backwards rollover
@@ -72,11 +72,11 @@ add_months <- function(mt, mos) {
 }
 
 
-add_number_to_duration <- function(num, dur){
+add_number_to_duration <- function(num, dur) {
     new("Duration", dur@.Data + num)
 }
 
-add_number_to_period <- function(num, per){
+add_number_to_period <- function(num, per) {
   slot(per, ".Data") <- per@.Data + num
   per
 }
