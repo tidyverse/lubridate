@@ -67,7 +67,9 @@
 ##' guess_formats(x, c("ymd HMS"), print_matches = TRUE)
 ##'
 guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
-                          preproc_wday = TRUE, print_matches = FALSE) { ## remove all separators
+                          preproc_wday = TRUE, print_matches = FALSE) {
+
+  ## remove all separators
   orders <- gsub("[^[:alpha:]]+", "", orders)
 
   if (any(grepl("hms|hm|ms", orders))) {

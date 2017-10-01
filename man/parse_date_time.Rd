@@ -62,7 +62,10 @@ exact \code{strptime()} format and no training or guessing are performed
 \item{train}{logical, default TRUE. Whether to train formats on a subset of
 the input vector. The result of this is that supplied orders are sorted
 according to performance on this training set, which commonly results in
-increased performance.}
+increased performance. Please note that even when \code{train} is \code{FALSE} (and
+\code{exact} is \code{FALSE}) guessing of the actual formats is still performed on a
+pseudo-random subset of the original input vector. This might result in
+\code{All formats failed to parse} error. See notes below.}
 
 \item{drop}{logical, default FALSE. Whether to drop formats that didn't
 match on the training set. If FALSE, unmatched on the training set formats

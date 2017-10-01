@@ -477,7 +477,10 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' @param train logical, default TRUE. Whether to train formats on a subset of
 ##'   the input vector. The result of this is that supplied orders are sorted
 ##'   according to performance on this training set, which commonly results in
-##'   increased performance.
+##'   increased performance. Please note that even when `train` is `FALSE` (and
+##'   `exact` is `FALSE`) guessing of the actual formats is still performed on a
+##'   pseudo-random subset of the original input vector. This might result in
+##'   `All formats failed to parse` error. See notes below.
 ##' @param drop logical, default FALSE. Whether to drop formats that didn't
 ##'   match on the training set. If FALSE, unmatched on the training set formats
 ##'   are tried as a last resort at the end of the parsing queue. Applies only
@@ -570,25 +573,25 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York", lt = TRUE)
 parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                             locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
-                            exact = FALSE, train = TRUE, drop = FALSE){
+                            exact = FALSE, train = TRUE, drop = FALSE) {
 
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   on.exit(Sys.setlocale("LC_TIME", orig_locale))
 
   x <- as.character(.num_to_date(x))
-  if( truncated != 0 )
+  if (truncated != 0)
     orders <- .add_truncated(orders, truncated)
 
-  .local_parse <- function(x, first = FALSE){
+  .local_parse <- function(x, first = FALSE) {
     formats <-
-      if(exact){
+      if (exact) {
         orders
       } else {
         train <- .get_train_set(x)
         .best_formats(train, orders, locale = locale, select_formats, drop = drop)
       }
-    if( length(formats) > 0 ){
+    if (length(formats) > 0) {
       out <- .parse_date_time(x, formats, tz = tz, quiet = quiet, locale = locale)
       new_na <- is.na(out)
       if( any(new_na) ){
@@ -597,8 +600,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
           out[new_na] <- .local_parse(x)
       }
       out
-    }else{
-      if ( first && !quiet) {
+    } else {
+      if (first && !quiet) {
         warning("All formats failed to parse. No formats found.", call. = FALSE)
         warned <<- TRUE
       }
