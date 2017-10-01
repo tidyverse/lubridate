@@ -8,11 +8,11 @@ NULL
 multiply_duration_by_number <- function(dur, num)
   new("Duration", dur@.Data * num)
 
-multiply_interval_by_number <- function(int, num){
+multiply_interval_by_number <- function(int, num) {
   new("Interval", int@.Data * num, start = int@start, tzone = int@tzone)
 }
 
-multiply_period_by_number <- function(per, num){
+multiply_period_by_number <- function(per, num) {
   new("Period", per@.Data * num,
     year = per@year * num,
     month = per@month * num,

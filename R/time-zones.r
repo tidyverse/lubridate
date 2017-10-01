@@ -19,10 +19,10 @@
 #' @examples
 #' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_York")
 #' with_tz(x, "GMT")
-with_tz <- function (time, tzone = ""){
-  if(is.data.frame(time)){
-    for(nm in names(time)){
-      if(is.POSIXt(time[[nm]])){
+with_tz <- function (time, tzone = "") {
+  if (is.data.frame(time)) {
+    for (nm in names(time)) {
+      if (is.POSIXt(time[[nm]])) {
         time[[nm]] <- with_tz(time[[nm]], tzone = tzone)
       }
     }
@@ -68,10 +68,10 @@ with_tz <- function (time, tzone = ""){
 #' y <- ymd_hms("2010-03-14 02:05:05 UTC")
 #' force_tz(y, "America/New_York", roll=FALSE)
 #' force_tz(y, "America/New_York", roll=TRUE)
-force_tz <- function(time, tzone = "", roll = FALSE){
-  if(is.data.frame(time)){
-    for(nm in names(time)){
-      if(is.POSIXt(time[[nm]])){
+force_tz <- function(time, tzone = "", roll = FALSE) {
+  if (is.data.frame(time)) {
+    for (nm in names(time)) {
+      if (is.POSIXt(time[[nm]])) {
         time[[nm]] <- force_tz(time[[nm]], tzone = tzone)
       }
     }

@@ -32,7 +32,7 @@ week <- function(x)
 "week<-" <- function(x, value)
   x <- x + days((value - week(x)) * 7)
 
-.other_week <- function(x, week_start){
+.other_week <- function(x, week_start) {
   x <- as.POSIXlt(x)
   date <- make_date(year(x), month(x), day(x))
   wday <- wday(x, week_start = week_start)
@@ -47,7 +47,7 @@ week <- function(x)
 #' leap week.
 #' @rdname week
 #' @export
-isoweek <- function(x){
+isoweek <- function(x) {
   .other_week(x, 1)
 }
 

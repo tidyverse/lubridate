@@ -1,7 +1,7 @@
 #' @include timespans.r
 NULL
 
-integer_divide_spans <- function(e1, e2){
+integer_divide_spans <- function(e1, e2) {
   trunc(e1/e2)
 }
 

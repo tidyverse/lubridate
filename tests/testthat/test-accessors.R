@@ -1,6 +1,6 @@
 context("Accessors")
 
-test_that("seconds accessor extracts correct second",{
+test_that("seconds accessor extracts correct second", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
@@ -12,7 +12,7 @@ test_that("seconds accessor extracts correct second",{
 
 })
 
-test_that("minutes accessor extracts correct minute",{
+test_that("minutes accessor extracts correct minute", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
@@ -24,7 +24,7 @@ test_that("minutes accessor extracts correct minute",{
 
 })
 
-test_that("hours accessor extracts correct hour",{
+test_that("hours accessor extracts correct hour", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
@@ -36,7 +36,7 @@ test_that("hours accessor extracts correct hour",{
 
 })
 
-test_that("days accessors extract correct days",{
+test_that("days accessors extract correct days", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
@@ -94,7 +94,7 @@ test_that("wday works with various start values", {
   expect_equal(wday(days2, week_start = 3), new_days)
 })
 
-test_that("weeks accessor extracts correct week",{
+test_that("weeks accessor extracts correct week", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
@@ -106,7 +106,7 @@ test_that("weeks accessor extracts correct week",{
 
 })
 
-test_that("isoweek accessor extracts correct ISO8601 week",{
+test_that("isoweek accessor extracts correct ISO8601 week", {
   poslt <- as.POSIXlt("2010-01-01 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
@@ -179,13 +179,13 @@ test_that("epiweek computes dates correctly", {
 })
 
 test_that("isoweek returns correct value for non-UTC time zone (#311)", {
-  cest <- ymd_hms("2015-04-14 16:45:00", tz="Europe/Copenhagen")
-  utc <-  ymd_hms("2015-04-14 16:45:00", tz="UTC")
+  cest <- ymd_hms("2015-04-14 16:45:00", tz = "Europe/Copenhagen")
+  utc <-  ymd_hms("2015-04-14 16:45:00", tz = "UTC")
   expect_equal(isoweek(cest), 16L)
   expect_equal(isoweek(utc), 16L)
 })
 
-test_that("months accessor extracts correct month",{
+test_that("months accessor extracts correct month", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
@@ -209,23 +209,23 @@ test_that("quarters accessor extracts correct quarter", {
   expect_that(quarter(poslt), equals(4))
   expect_that(quarter(poslt, with_year = TRUE), equals(2010.4))
   expect_that(quarter(poslt, fiscal_start = 11), equals(1))
-  expect_that(quarter(poslt, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
-  expect_that(quarter(poslt, with_year = TRUE, fiscal_start = 11 ), equals(2011.1))
+  expect_that(quarter(poslt, with_year = TRUE, fiscal_start = -2), equals(2011.1))
+  expect_that(quarter(poslt, with_year = TRUE, fiscal_start = 11), equals(2011.1))
 
   expect_that(quarter(posct), equals(4))
   expect_that(quarter(posct, with_year = TRUE), equals(2010.4))
   expect_that(quarter(posct, fiscal_start = 11), equals(1))
-  expect_that(quarter(posct, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
-  expect_that(quarter(posct, with_year = TRUE, fiscal_start = 11 ), equals(2011.1))
+  expect_that(quarter(posct, with_year = TRUE, fiscal_start = -2), equals(2011.1))
+  expect_that(quarter(posct, with_year = TRUE, fiscal_start = 11), equals(2011.1))
 
   expect_that(quarter(date), equals(4))
   expect_that(quarter(date, with_year = TRUE), equals(2010.4))
   expect_that(quarter(date, fiscal_start = 11), equals(1))
-  expect_that(quarter(date, with_year = TRUE, fiscal_start = -2 ), equals(2011.1))
-  expect_that(quarter(date, with_year = TRUE, fiscal_start = 11 ), equals(2011.1))
+  expect_that(quarter(date, with_year = TRUE, fiscal_start = -2), equals(2011.1))
+  expect_that(quarter(date, with_year = TRUE, fiscal_start = 11), equals(2011.1))
 })
 
-test_that("years accessor extracts correct year",{
+test_that("years accessor extracts correct year", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
@@ -237,19 +237,19 @@ test_that("years accessor extracts correct year",{
 
 })
 
-test_that("isoyear accessor extracts correct ISO8601 year",{
+test_that("isoyear accessor extracts correct ISO8601 year", {
   poslt <- c(as.POSIXlt("2014-12-28 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"),
              as.POSIXlt("2014-12-29 01:12:08", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
-  expect_that(isoyear(poslt), equals(c(2014,2015)))
-  expect_that(isoyear(posct), equals(c(2014,2015)))
-  expect_that(isoyear(date), equals(c(2014,2015)))
+  expect_that(isoyear(poslt), equals(c(2014, 2015)))
+  expect_that(isoyear(posct), equals(c(2014, 2015)))
+  expect_that(isoyear(date), equals(c(2014, 2015)))
 
 })
 
-test_that("date accessor extracts correct date",{
+test_that("date accessor extracts correct date", {
   poslt <- as.POSIXlt("2010-02-03 23:45:59", tz = "Etc/GMT+8", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
@@ -260,7 +260,7 @@ test_that("date accessor extracts correct date",{
   expect_that(date(date), equals(as.Date("2010-02-03")))
 })
 
-test_that("timezone accessor extracts correct timezone",{
+test_that("timezone accessor extracts correct timezone", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
@@ -273,63 +273,63 @@ test_that("timezone accessor extracts correct timezone",{
 })
 
 
-test_that("accessors handle vectors",{
+test_that("accessors handle vectors", {
   poslt <- as.POSIXlt(c("2001-01-01 01:01:01",
     "2002-02-02 02:02:02", "2003-03-03 03:03:03"),
     tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
-  expect_that(second(poslt), equals(c(1,2,3)))
-  expect_that(second(posct), equals(c(1,2,3)))
-  expect_that(second(date), equals(c(0,0,0)))
+  expect_that(second(poslt), equals(c(1, 2, 3)))
+  expect_that(second(posct), equals(c(1, 2, 3)))
+  expect_that(second(date), equals(c(0, 0, 0)))
 
-  expect_that(minute(poslt), equals(c(1,2,3)))
-  expect_that(minute(posct), equals(c(1,2,3)))
-  expect_that(minute(date), equals(c(0,0,0)))
+  expect_that(minute(poslt), equals(c(1, 2, 3)))
+  expect_that(minute(posct), equals(c(1, 2, 3)))
+  expect_that(minute(date), equals(c(0, 0, 0)))
 
-  expect_that(hour(poslt), equals(c(1,2,3)))
-  expect_that(hour(posct), equals(c(1,2,3)))
-  expect_that(hour(date), equals(c(0,0,0)))
+  expect_that(hour(poslt), equals(c(1, 2, 3)))
+  expect_that(hour(posct), equals(c(1, 2, 3)))
+  expect_that(hour(date), equals(c(0, 0, 0)))
 
-  expect_that(mday(poslt), equals(c(1,2,3)))
-  expect_that(mday(posct), equals(c(1,2,3)))
-  expect_that(mday(date), equals(c(1,2,3)))
+  expect_that(mday(poslt), equals(c(1, 2, 3)))
+  expect_that(mday(posct), equals(c(1, 2, 3)))
+  expect_that(mday(date), equals(c(1, 2, 3)))
 
-  expect_that(wday(poslt), equals(c(2,7,2)))
-  expect_that(wday(posct), equals(c(2,7,2)))
-  expect_that(wday(date), equals(c(2,7,2)))
+  expect_that(wday(poslt), equals(c(2, 7, 2)))
+  expect_that(wday(posct), equals(c(2, 7, 2)))
+  expect_that(wday(date), equals(c(2, 7, 2)))
 
-  expect_that(yday(poslt), equals(c(1,33,62)))
-  expect_that(yday(posct), equals(c(1,33,62)))
-  expect_that(yday(date), equals(c(1,33,62)))
+  expect_that(yday(poslt), equals(c(1, 33, 62)))
+  expect_that(yday(posct), equals(c(1, 33, 62)))
+  expect_that(yday(date), equals(c(1, 33, 62)))
 
-  expect_that(week(poslt), equals(c(1,5,9)))
-  expect_that(week(posct), equals(c(1,5,9)))
-  expect_that(week(date), equals(c(1,5,9)))
+  expect_that(week(poslt), equals(c(1, 5, 9)))
+  expect_that(week(posct), equals(c(1, 5, 9)))
+  expect_that(week(date), equals(c(1, 5, 9)))
 
-  expect_that(isoweek(poslt), equals(c(1,5,10)))
-  expect_that(isoweek(posct), equals(c(1,5,10)))
-  expect_that(isoweek(date), equals(c(1,5,10)))
+  expect_that(isoweek(poslt), equals(c(1, 5, 10)))
+  expect_that(isoweek(posct), equals(c(1, 5, 10)))
+  expect_that(isoweek(date), equals(c(1, 5, 10)))
 
-  expect_that(month(poslt), equals(c(1,2,3)))
-  expect_that(month(posct), equals(c(1,2,3)))
-  expect_that(month(date), equals(c(1,2,3)))
+  expect_that(month(poslt), equals(c(1, 2, 3)))
+  expect_that(month(posct), equals(c(1, 2, 3)))
+  expect_that(month(date), equals(c(1, 2, 3)))
 
-  expect_that(year(poslt), equals(c(2001,2002,2003)))
-  expect_that(year(posct), equals(c(2001,2002,2003)))
-  expect_that(year(date), equals(c(2001,2002,2003)))
+  expect_that(year(poslt), equals(c(2001, 2002, 2003)))
+  expect_that(year(posct), equals(c(2001, 2002, 2003)))
+  expect_that(year(date), equals(c(2001, 2002, 2003)))
 
-  expect_that(date(poslt), equals(as.Date(c("2001-01-01","2002-02-02","2003-03-03"))))
-  expect_that(date(posct), equals(as.Date(c("2001-01-01","2002-02-02","2003-03-03"))))
-  expect_that(date(date), equals(as.Date(c("2001-01-01","2002-02-02","2003-03-03"))))
+  expect_that(date(poslt), equals(as.Date(c("2001-01-01", "2002-02-02", "2003-03-03"))))
+  expect_that(date(posct), equals(as.Date(c("2001-01-01", "2002-02-02", "2003-03-03"))))
+  expect_that(date(date), equals(as.Date(c("2001-01-01", "2002-02-02", "2003-03-03"))))
 
   expect_that(tz(poslt), matches("UTC"))
   expect_that(tz(posct), matches("UTC"))
   expect_that(tz(date), matches("UTC"))
 })
 
-test_that("accessors handle Period objects",{
+test_that("accessors handle Period objects", {
   per <- period(seconds = 1, minutes = 2, hours = 3, days = 4, months = 5,  years = 6)
   pers <- c(per, per)
 

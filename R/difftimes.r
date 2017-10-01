@@ -53,11 +53,11 @@ setOldClass("difftime")
 #' # Time differences in mins
 make_difftime <- function(num = NULL, units = "auto", ...) {
   pieces <- list(...)
-  if(!is.null(num) && length(pieces) > 0){
+  if (!is.null(num) && length(pieces) > 0) {
     .difftime_from_num(c(num, .difftime_from_pieces(pieces)), units)
-  } else if(!is.null(num)){
+  } else if (!is.null(num)) {
     .difftime_from_num(num, units)
-  } else if(length(pieces)){
+  } else if (length(pieces)) {
     .difftime_from_num(.difftime_from_pieces(pieces), units)
   } else {
     stop("No valid values have been passed to 'make_difftime' constructor")
@@ -66,7 +66,7 @@ make_difftime <- function(num = NULL, units = "auto", ...) {
 
 .difftime_from_num <- function(num, units = "auto") {
   seconds <- abs(na.omit(num))
-  if(units == "auto"){
+  if (units == "auto") {
     if (any(seconds < 60))
       units <- "secs"
     else if (any(seconds < 3600))
@@ -85,7 +85,7 @@ make_difftime <- function(num = NULL, units = "auto", ...) {
          stop(sprintf("invalid units '%s'. Only 'second', 'minute', 'hour' and 'day' are supported.", units)))
 }
 
-.difftime_from_pieces <- function(pieces){
+.difftime_from_pieces <- function(pieces) {
   names(pieces) <- standardise_difftime_names(names(pieces))
 
   defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)

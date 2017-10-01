@@ -3,7 +3,7 @@ match_lengths <- function(x, y) {
   n.y <- length(y)
   n.max <- max(n.x, n.y)
   n.min <- min(n.x, n.y)
-  if (n.max %% n.min != 0L){
+  if (n.max %% n.min != 0L) {
     stop("longer object length is not a multiple of shorter object length")
   } else {
     if (n.x < n.y) {
@@ -15,7 +15,7 @@ match_lengths <- function(x, y) {
   list(x, y)
 }
 
-recognize <- function(x){
+recognize <- function(x) {
   recognized <- c("POSIXt", "POSIXlt", "POSIXct", "yearmon", "yearqtr", "Date")
 
   if (all(class(x) %in% recognized))
@@ -61,7 +61,7 @@ standardise_period_names <- function(x) {
 }
 
 standardise_lt_names <- function(x) {
-  if(length(x) == 0L)
+  if (length(x) == 0L)
     stop("No unit names supplied.")
   dates <- c("sec", "min", "hour", "day", "mday", "wday", "yday", "mon", "year", "tz")
   y <- gsub("(.)s$", "\\1", x)
@@ -89,7 +89,7 @@ parse_period_unit <- function(unit) {
     period_units <- c("second", "minute", "hour", "day", "week", "month", "year")
 
     wp <- which(p > 0)
-    if(length(wp) > 1){
+    if (length(wp) > 1) {
       stop("Multi unit periods are not yet supported")
     }
 
@@ -99,13 +99,13 @@ parse_period_unit <- function(unit) {
 
     ## this is for backward compatibility and allows for bimonth, halfyear and quarter
     m <- regexpr(" *(?<n>[0-9.,]+)? *(?<unit>[^ \t\n]+)", unit[[1]], perl = T)
-    if(m > 0){
+    if (m > 0) {
       ## should always match
       nms <- attr(m, "capture.names")
       nms <- nms[nzchar(nms)]
       start <- attr(m, "capture.start")
       end <- start + attr(m, "capture.length") - 1L
-      n <- if(end[[1]] >= start[[1]]){
+      n <- if (end[[1]] >= start[[1]]) {
              as.integer(str_sub(unit, start[[1]], end[[1]]))
            } else {
              1
@@ -119,7 +119,7 @@ parse_period_unit <- function(unit) {
   }
 }
 
-undefined_arithmetic <- function(e1, e2){
+undefined_arithmetic <- function(e1, e2) {
   msg <- sprintf("Arithmetic operators undefined for '%s' and '%s' classes:
   convert one to numeric or a matching time-span class.", class(e1), class(e2))
   stop(msg)

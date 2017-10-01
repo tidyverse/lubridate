@@ -89,7 +89,7 @@ reclass_date.Date <- function(new, orig) {
 }
 
 
-period_to_difftime <- function(per){
+period_to_difftime <- function(per) {
   as.difftime(per)
 }
 
@@ -105,7 +105,7 @@ reclass_timespan <- function(new, orig) standardGeneric("reclass_timespan")
 setGeneric("reclass_timespan")
 
 #' @export
-setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig){
+setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig) {
   if (is.period(new))
     as.difftime(new)
   else
@@ -113,17 +113,17 @@ setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig){
 })
 
 #' @export
-setMethod("reclass_timespan", signature(orig = "Duration"), function(new, orig){
+setMethod("reclass_timespan", signature(orig = "Duration"), function(new, orig) {
   as.duration(new)
 })
 
 #' @export
-setMethod("reclass_timespan", signature(orig = "Interval"), function(new, orig){
+setMethod("reclass_timespan", signature(orig = "Interval"), function(new, orig) {
   as.duration(new)
 })
 
 #' @export
-setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
+setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig) {
   as.period(new)
 })
 
@@ -164,35 +164,35 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig){
 #' @export
 setGeneric("as.duration",
            function(x, ...) standardGeneric("as.duration"),
-           useAsDefault = function(x, ...){
+           useAsDefault = function(x, ...) {
              stop(sprintf("as.duration is not defined for class '%s'", class(x)))
            })
 
-setMethod("as.duration", signature(x = "character"), function(x){
+setMethod("as.duration", signature(x = "character"), function(x) {
   as.duration(as.period(x))
 })
 
-setMethod("as.duration", signature(x = "numeric"), function(x){
+setMethod("as.duration", signature(x = "numeric"), function(x) {
   new("Duration", x)
 })
 
-setMethod("as.duration", signature(x = "logical"), function(x){
+setMethod("as.duration", signature(x = "logical"), function(x) {
   new("Duration", as.numeric(x))
 })
 
-setMethod("as.duration", signature(x = "difftime"), function(x){
+setMethod("as.duration", signature(x = "difftime"), function(x) {
   new("Duration", as.numeric(x, "secs"))
 })
 
-setMethod("as.duration", signature(x = "Interval"), function(x){
+setMethod("as.duration", signature(x = "Interval"), function(x) {
   new("Duration", x@.Data)
 })
 
-setMethod("as.duration", signature(x = "Duration"), function(x){
+setMethod("as.duration", signature(x = "Duration"), function(x) {
   x
 })
 
-setMethod("as.duration", signature(x = "Period"), function(x){
+setMethod("as.duration", signature(x = "Period"), function(x) {
   new("Duration", period_to_seconds(x))
 })
 
@@ -239,11 +239,11 @@ as.interval <- function(x, start, ...) standardGeneric("as.interval")
 #' @export
 setGeneric("as.interval")
 
-setMethod("as.interval", signature(x = "numeric"), function(x, start, ...){
+setMethod("as.interval", signature(x = "numeric"), function(x, start, ...) {
   .number_to_interval(x, start, ...)
 })
 
-setMethod("as.interval", signature(x = "difftime"), function(x, start, ...){
+setMethod("as.interval", signature(x = "difftime"), function(x, start, ...) {
   .number_to_interval(x, start, ...)
 })
 
@@ -260,7 +260,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
   .number_to_interval(as.numeric(x), start, ...)
 })
 
-.number_to_interval <- function(x, start, ...){
+.number_to_interval <- function(x, start, ...) {
   if (missing(start) & all(is.na(x)))
     start <- as.POSIXct(NA, origin = origin)
   else stopifnot(is.instant(start))
@@ -338,15 +338,15 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' @export
 setGeneric("as.period",
            function(x, unit, ...) standardGeneric("as.period"),
-           useAsDefault = function(x, unit, ...){
+           useAsDefault = function(x, unit, ...) {
              stop(sprintf("as.period is not defined for class '%s'", class(x)))
            })
 
-setMethod("as.period", signature(x = "character"), function(x, ...){
+setMethod("as.period", signature(x = "character"), function(x, ...) {
   parse_period(x)
 })
 
-setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ...){
+setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ...) {
   x <- as.numeric(x)
   if (missing(unit)) unit <- "second"
   unit <- standardise_date_names(unit)
@@ -354,7 +354,7 @@ setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ..
   f(x)
 })
 
-setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...){
+setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...) {
   seconds_to_period(as.double(x, "secs"))
 })
 
@@ -369,7 +369,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   ## https://github.com/hadley/lubridate/issues/285 for motivation.
 
   unit <-
-    if (missing(unit))  "year"
+    if (missing(unit)) "year"
     else standardise_period_names(unit)
 
   switch(unit,
@@ -393,7 +393,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
          stop("Unsuported unit ", unit))
 })
 
-.int_to_period <- function(x){
+.int_to_period <- function(x) {
   ## this function is called only for conversion with units > day
   start <- as.POSIXlt(x@start)
   end <- as.POSIXlt(start + x@.Data)
@@ -402,7 +402,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 
   per <- list()
 
-  for(nm in c("sec", "min", "hour", "mday", "mon", "year")){
+  for (nm in c("sec", "min", "hour", "mday", "mon", "year")) {
     per[[nm]] <- ifelse(negs, start[[nm]] - end[[nm]], end[[nm]] - start[[nm]])
   }
 
@@ -437,7 +437,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
     add_months <- rep.int(-1L, sum(ndays))
 
     pmonth <- end$mon[ndays]
-    pmonth[pmonth == 0L] <- 1L #dec == jan == 31 days
+    pmonth[pmonth == 0L] <- 1L # dec == jan == 31 days
     prev_month_days <- .days_in_month(pmonth, end$year[ndays])
 
     ## difference in days:
@@ -497,7 +497,7 @@ setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) 
 })
 
 setMethod("as.period", signature("Period"),
-          function(x, unit = NULL, ...){
+          function(x, unit = NULL, ...) {
             if (missing(unit) || is.null(unit)) {
               x
             } else {
@@ -525,23 +525,23 @@ setMethod("as.period", signature("logical"), function(x, unit = NULL, ...) {
 setGeneric("as.difftime")
 
 #' @export
-setMethod("as.difftime", signature(tim = "Interval"), function(tim, format = "%X", units = "secs"){
+setMethod("as.difftime", signature(tim = "Interval"), function(tim, format = "%X", units = "secs") {
   as.difftime(as.numeric(tim, units), format, units)
 })
 
 #' @export
-setMethod("as.difftime", signature(tim = "Duration"), function(tim, format = "%X", units = "secs"){
+setMethod("as.difftime", signature(tim = "Duration"), function(tim, format = "%X", units = "secs") {
   as.difftime(tim@.Data, format, units)
 })
 
 #' @export
-setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X", units = "secs"){
+setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X", units = "secs") {
   as.difftime(period_to_seconds(tim), format, units)
 })
 
 setGeneric("as.numeric")
 
-seconds_to_unit <- function(secs, unit = "second"){
+seconds_to_unit <- function(secs, unit = "second") {
   switch(unit,
          second = secs,
          minute = secs / 60,
@@ -554,18 +554,18 @@ seconds_to_unit <- function(secs, unit = "second"){
 }
 
 #' @export
-setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...){
+setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...) {
   unit <- standardise_period_names(units)
   as.numeric(seconds_to_unit(x@.Data, unit), ...)
 })
 
 #' @export
-setMethod("as.numeric", signature(x = "Interval"), function(x, units = "secs", ...){
+setMethod("as.numeric", signature(x = "Interval"), function(x, units = "secs", ...) {
   as.numeric(as.duration(x), units, ...)
 })
 
 #' @export
-setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", ...){
+setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", ...) {
   unit <- standardise_period_names(units)
   as.numeric(seconds_to_unit(period_to_seconds(x), unit = unit), ...)
 })
@@ -573,17 +573,17 @@ setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", .
 as.POSIXt <- function(x) as.POSIXlt(x)
 
 #' @export
-setMethod("as.character", signature(x = "Period"), function(x, ...){
+setMethod("as.character", signature(x = "Period"), function(x, ...) {
   format(x)
 })
 
 #' @export
-setMethod("as.character", signature(x = "Duration"), function(x, ...){
+setMethod("as.character", signature(x = "Duration"), function(x, ...) {
   format(x)
 })
 
 #' @export
-setMethod("as.character", signature(x = "Interval"), function(x, ...){
+setMethod("as.character", signature(x = "Interval"), function(x, ...) {
   format(x)
 })
 

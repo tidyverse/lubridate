@@ -26,7 +26,7 @@ date <- function(x)
 
 #' @export
 date.default <- function(x) {
-  x <-  as.POSIXlt(x, tz = tz(x))
+  x <- as.POSIXlt(x, tz = tz(x))
   year <- x$year + 1900
   month <- x$mon + 1
   day <- x$mday
@@ -45,6 +45,6 @@ date.Period <- function(x)
 setGeneric("date<-")
 
 #' @export
-setMethod("date<-", signature("Period"), function(x, value){
+setMethod("date<-", signature("Period"), function(x, value) {
   stop("date<- is undefined for Period objects")
 })
