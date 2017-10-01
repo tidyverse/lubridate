@@ -390,9 +390,8 @@ period <- function(num = NULL, units = "second", ...) {
   }
 }
 
-##' @useDynLib lubridate c_parse_period
 parse_period <- function(x) {
-  out <- matrix(.Call("c_parse_period", x), nrow = 7L)
+  out <- matrix(.Call(C_parse_period, as.character(x)), nrow = 7L)
   new("Period", out[1, ],
       minute = out[2, ],
       hour   = out[3, ],

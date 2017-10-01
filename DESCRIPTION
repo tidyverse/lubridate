@@ -46,7 +46,7 @@ Enhances:
     zoo
 VignetteBuilder: knitr
 LazyData: true
-Collate:
+Collate: 
     'Dates.r'
     'POSIXt.r'
     'RcppExports.R'
@@ -76,7 +76,6 @@ Collate:
     'decimal-dates.r'
     'deprecated.r'
     'guess.r'
-    'help.r'
     'hidden.r'
     'instants.r'
     'leap-years.r'
@@ -88,6 +87,7 @@ Collate:
     'ops-modulo.r'
     'ops-multiplication.r'
     'ops-subtraction.r'
+    'package.r'
     'parse.r'
     'pretty.r'
     'round.r'

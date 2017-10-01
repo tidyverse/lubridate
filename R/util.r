@@ -82,7 +82,7 @@ parse_period_unit <- function(unit) {
     unit <- unit[[1]]
   }
 
-  p <- .Call("c_parse_period", as.character(unit))
+  p <- .Call(C_parse_period, as.character(unit))
 
   if (!is.na(p[[1]])) {
 

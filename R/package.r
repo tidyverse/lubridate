@@ -159,5 +159,12 @@
 #' @importFrom utils packageVersion read.delim
 #' @importFrom stats na.omit setNames update
 #' @importFrom Rcpp sourceCpp
+#' @useDynLib lubridate, .registration=TRUE
 #' @keywords internal
 "_PACKAGE"
+
+
+## NOTE ON EXPORTS: `useDynLib` from above exports all registered functions (see
+## ../src/RcppExports.cpp). _lubridate_C_xyz in there are Rcpp functions. All
+## other `C_xyz` functions, are from plain .C files and are added manually with
+## the help of tools::package_native_routine_registration_skeleton(".", character_only = FALSE).

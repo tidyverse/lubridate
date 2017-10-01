@@ -87,7 +87,7 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
   }
 }
 
-SEXP c_parse_period(SEXP str) {
+SEXP C_parse_period(SEXP str) {
   if (TYPEOF(str) != STRSXP) error("STR argument must be a character vector");
   int n = LENGTH(str);
   // store parsed units in N_PERIOD_UNITS x n matrix

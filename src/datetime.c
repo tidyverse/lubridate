@@ -24,7 +24,7 @@
 #include "constants.h"
 #include "utils.h"
 
-SEXP make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP second) {
+SEXP C_make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP second) {
 
   if(!isInteger(year)) error("year must be integer");
   if(!isInteger(month)) error("month must be integer");
@@ -136,7 +136,7 @@ SEXP make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP secon
 }
 
 
-SEXP make_d(SEXP year, SEXP month, SEXP day) {
+SEXP C_make_d(SEXP year, SEXP month, SEXP day) {
 
   if(!isInteger(year)) error("year must be integer");
   if(!isInteger(month)) error("month must be integer");

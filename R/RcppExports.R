@@ -2,10 +2,10 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 C_update_dt <- function(dt, year, month, yday, mday, wday, hour, minute, second, tz = NULL, roll = FALSE, week_start = 7L) {
-    .Call('lubridate_C_update_dt', PACKAGE = 'lubridate', dt, year, month, yday, mday, wday, hour, minute, second, tz, roll, week_start)
+    .Call(`_lubridate_C_update_dt`, dt, year, month, yday, mday, wday, hour, minute, second, tz, roll, week_start)
 }
 
 C_force_tz <- function(dt, tz, roll = FALSE) {
-    .Call('lubridate_C_force_tz', PACKAGE = 'lubridate', dt, tz, roll)
+    .Call(`_lubridate_C_force_tz`, dt, tz, roll)
 }
 

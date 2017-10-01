@@ -287,7 +287,6 @@ hm <- function(..., quiet = FALSE, roll = FALSE) {
 ##' @return a vector of period objects
 ##' @seealso [hm()], [ms()]
 ##' @keywords period
-##' @useDynLib lubridate parse_hms
 ##' @examples
 ##'
 ##' x <- c("09:10:01", "09:10:02", "09:10:03")
@@ -316,7 +315,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 .parse_hms <- function(..., order, quiet = FALSE) {
   ## wraper for C level parse_hms
   hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
-  out <- matrix(.Call("parse_hms", hms, order),
+  out <- matrix(.Call(C_parse_hms, hms, order),
                 nrow = 3L, dimnames = list(c("H", "M", "S"), NULL))
   if(!quiet){
     ## fixme: this warning should be dropped to C and thrown only when there are
@@ -638,12 +637,12 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE){
   if(!exact)
     orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
   if(lt){
-    .mklt(.Call("parse_dt", x, orders, FALSE, TRUE), tz)
+    .mklt(.Call(C_parse_dt, x, orders, FALSE, TRUE), tz)
   } else {
     if (tz == "UTC"){
-      .POSIXct(.Call("parse_dt", x, orders, FALSE, FALSE), tz = "UTC")
+      .POSIXct(.Call(C_parse_dt, x, orders, FALSE, FALSE), tz = "UTC")
     } else {
-      as.POSIXct(.mklt(.Call("parse_dt", x, orders, FALSE, TRUE), tz))
+      as.POSIXct(.mklt(.Call(C_parse_dt, x, orders, FALSE, TRUE), tz))
     }
   }
 }
@@ -652,7 +651,6 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE){
 ##' `fast_strptime()` is a fast C parser of numeric formats only
 ##' that accepts explicit format arguments, just as
 ##' [base::strptime()].
-##' @useDynLib lubridate parse_dt
 ##' @rdname parse_date_time
 ##' @export
 ##' @param format a character string of formats. It should include all the
@@ -663,12 +661,12 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
     warning("Multiple formats supplied. Only first format is used.")
   format <- as.character(format[[1]])
   if(lt){
-    .mklt(.Call("parse_dt", x, format, TRUE, TRUE), tz)
+    .mklt(.Call(C_parse_dt, x, format, TRUE, TRUE), tz)
   } else{
     if(tz == "UTC"){
-      .POSIXct(.Call("parse_dt", x, format, TRUE, FALSE), "UTC")
+      .POSIXct(.Call(C_parse_dt, x, format, TRUE, FALSE), "UTC")
     } else {
-      as.POSIXct(.mklt(.Call("parse_dt", x, format, TRUE, TRUE), tz))
+      as.POSIXct(.mklt(.Call(C_parse_dt, x, format, TRUE, TRUE), tz))
     }
   }
 }

@@ -42,7 +42,7 @@ int parse_alpha_month(const char **c){
   return (parse_alphanum(c, en_months, 12, TRUE) + 1);
 }
 
-SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
+SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
   // STR: character vector of date-times.
   // ORD: formats (as in strptime) or orders (as in parse_date_time)
   // FORMATS: TRUE if ord is a string of formats (as in strptime)
@@ -388,7 +388,7 @@ SEXP parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
 // STR: string in HxMyS format where x and y are arbitrary non-numeric separators
 // ORD: orders. Can be any combination of "h", "m" and "s"
 // RETURN: numeric vector (H1 M1 S1 H2 M2 S2 ...)
-SEXP parse_hms(SEXP str, SEXP ord) {
+SEXP C_parse_hms(SEXP str, SEXP ord) {
 
   if (TYPEOF(str) != STRSXP) error("HMS argument must be a character vector");
   if ((TYPEOF(ord) != STRSXP) || (LENGTH(ord) > 1))
