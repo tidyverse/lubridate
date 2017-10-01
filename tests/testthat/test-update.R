@@ -160,7 +160,18 @@ test_that("updates on ydays works correctly with leap years", {
                ymd("2015-01-01", tz = "America/New_York"))
   expect_equal(update(ymd("15-02-03", tz = "America/New_York"), year = 2016, yday = 10),
                ymd("2016-01-10", tz = "America/New_York"))
- })
+
+  expect_equal(update(ymd(c("2016-02-29", "2016-03-01")), yday = 1),
+               ymd(c("2016-01-01", "2016-01-01")))
+  expect_equal(update(ymd(c("2016-02-29", "2016-03-01"), tz = "America/New_York"), yday = 1),
+               ymd(c("2016-01-01", "2016-01-01"), tz = "America/New_York"))
+  expect_equal(update(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30")), yday = 1),
+               ymd_hms(c("2016-01-01 1:2:3", "2016-01-01 10:20:30")))
+  expect_equal(update(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30"), tz = "America/New_York"), yday = 1),
+               ymd_hms(c("2016-01-01 1:2:3", "2016-01-01 10:20:30"), tz = "America/New_York"))
+
+})
+
 
 test_that("update performs roll overs correctly for Date objects", {
   date <- as.Date("05/05/2010", "%m/%d/%Y")

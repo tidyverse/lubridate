@@ -92,7 +92,8 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   if (sizes[6] > 1 && !loop_minute) Rcpp::stop("C_update_dt: Invalid size of 'minute' vector");
   if (sizes[7] > 1 && !loop_second) Rcpp::stop("C_update_dt: Invalid size of 'second' vector");
 
-  if (dt.size() > 1 && !loop_dt) Rcpp::stop("C_update_dt: length of dt vector must be 1 or match the length of updating vectors");
+  if (dt.size() > 1 && !loop_dt)
+    Rcpp::stop("C_update_dt: length of dt vector must be 1 or match the length of updating vectors");
 
   if (do_yday + do_mday + do_wday > 1)
     Rcpp::stop("Conflicting days input, only one of yday, mday and wday must be supplied");
@@ -152,10 +153,10 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
       if (do_yday) {
         // yday and d are 1 based
         d = d - cctz::get_yearday(cctz::civil_day(ct1));
-        if (IS_LEAP(y) && ct1.month() > 2)
-          d -= 1;
+        /* if (IS_LEAP(y) && ct1.month() > 2) d -= 1; */
         if (loop_yday) d += yday[i]; else d += yday[0];
       }
+
       if (do_wday) {
         // wday is 1 based and starts on week_start
         int cur_wday = (static_cast<int>(cctz::get_weekday(cctz::civil_day(ct1))) + 8 - week_start) % 7;

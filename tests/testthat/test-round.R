@@ -103,6 +103,20 @@ test_that("round_date works for each time element", {
   expect_equal(round_date(x, "year"), as.POSIXct("2010-01-01 00:00:00", tz = "UTC"))
 })
 
+test_that("floor_date and ceiling_date work with leap years", {
+
+  expect_equal(floor_date(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30")), "year"),
+               ymd_hms(c("2016-01-01 0:0:0", "2016-01-01 0:0:0")))
+  expect_equal(floor_date(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30"), tz = "America/New_York"), "year"),
+               ymd_hms(c("2016-01-01 0:0:0", "2016-01-01 0:0:0"), tz = "America/New_York"))
+
+  expect_equal(ceiling_date(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30")), "year"),
+               ymd_hms(c("2017-01-01 0:0:0", "2017-01-01 0:0:0")))
+  expect_equal(ceiling_date(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30"), tz = "America/New_York"), "year"),
+               ymd_hms(c("2017-01-01 0:0:0", "2017-01-01 0:0:0"), tz = "America/New_York"))
+
+})
+
 test_that("round_date works for multi-units", {
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
   expect_equal(round_date(x, "2 second"), as.POSIXct("2009-08-03 12:02:00", tz = "UTC"))
