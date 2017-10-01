@@ -19,6 +19,7 @@ Version 1.6.0.9000
 
 ### BUG FIXES
 
+* [#570](https://github.com/tidyverse/lubridate/issues/570) Fix broken `date()` when called with missing argument.
 * [#567](https://github.com/tidyverse/lubridate/issues/567) Fix year update and rounding for leap years.
 * [#545](https://github.com/tidyverse/lubridate/pull/545) Fix wrong locale selection in stamp.
 * [#466](https://github.com/tidyverse/lubridate/pull/466) Fix wrong formats within ymd_h family of functions.

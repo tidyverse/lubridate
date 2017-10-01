@@ -26,12 +26,15 @@ date <- function(x)
 
 #' @export
 date.default <- function(x) {
-  x <- as.POSIXlt(x, tz = tz(x))
-  year <- x$year + 1900
-  month <- x$mon + 1
-  day <- x$mday
-
-  as.Date(make_datetime(year, month, day))
+  if (missing(x)) {
+    base::date()
+  } else {
+    x <- as.POSIXlt(x, tz = tz(x))
+    year <- x$year + 1900
+    month <- x$mon + 1
+    day <- x$mday
+    as.Date(make_datetime(year, month, day))
+  }
 }
 #' @export
 date.Period <- function(x)

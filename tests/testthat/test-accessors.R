@@ -62,6 +62,10 @@ test_that("days accessors extract correct days", {
   expect_that(qday(poslt), equals(34))
 })
 
+test_that("empty argument date() works", {
+  expect_silent(date())
+})
+
 test_that("wday works with various start values", {
 
   days <- days2 <-
