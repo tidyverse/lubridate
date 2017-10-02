@@ -99,7 +99,7 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
 
         if ( *o == 'O' ) {
           // Special two letter orders/formats:
-		  // Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08)
+		  // Ou (Z), Oz (-0800), OO (-08:00), Oo (-08) and Ob (alpha-month)
           O_format = 1;
           o++;
         } else {

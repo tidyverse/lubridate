@@ -717,12 +717,11 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
 
   ## is_posix <-  0 < regexpr("^[^%]*%Y[^%]+%m[^%]+%d[^%]+(%H[^%](%M[^%](%S)?)?)?[^%Z]*$", fmt)
 
-  c_parser <- 0 < regexpr("^[^%0-9]*(%([YymdqIHMSz]|O[SzuoOpm])[^%0-9Z]*)+$", fmt)
+  c_parser <- 0 < regexpr("^[^%0-9]*(%([YymdqIHMSz]|O[SzuoOpmb])[^%0-9Z]*)+$", fmt)
   zpos <- regexpr("%O((?<z>z)|(?<u>u)|(?<o>o)|(?<O>O))", fmt, perl = TRUE)
 
   if (c_parser) {
     ## C PARSER:
-
     out <- fast_strptime(x, fmt, tz = "UTC", lt = FALSE)
 
     if ( tz != "UTC" ){

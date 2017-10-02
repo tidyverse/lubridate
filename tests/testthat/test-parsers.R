@@ -388,6 +388,19 @@ test_that("parse_date_time handles multiple month formats correctly", {
   expect_equal(parse_date_time("09-01-17", orders = c("mdy", "dby", "dbY")),
                ymd(c("2017-09-01"), tz = "UTC"))
 
+})
+
+test_that("parse_date_time handles multiple partial month formats correctly", {
+
+  expect_equal(parse_date_time("May-2010", orders="%b-%Y"),
+               ymd("2010-05-01", tz = "UTC"))
+
+  expect_equal(parse_date_time(c("02-May-2010", "May-2010", "2010"), orders=c("dbY", "bY", "Y")),
+               ymd(c("2010-05-02", "2010-05-01", "2010-01-01"), tz = "UTC"))
+
+  expect_equal(parse_date_time(c("02-May-2010", "May-03-2010", "05-03-2010", "May-2010", "2010"),
+                               orders=c("dbY", "bdY", "mdY", "bY", "Y")),
+               ymd(c("2010-05-02", "2010-05-03", "2010-05-03", "2010-05-01", "2010-01-01"), tz = "UTC"))
 
 })
 
