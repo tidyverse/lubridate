@@ -363,8 +363,8 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' You don't need to specify `a` and `A` formats explicitly. Wday is
 ##' automatically handled if `preproc_wday = TRUE`}
 ##'
-##' \item{`b`!}{Abbreviated month name in the current locale (also matches
-##' full name). The C parser understands English months only.}
+##' \item{`b`!}{Abbreviated or full month name in the current locale. The C
+##' parser currently understands only English month names.}
 ##'
 ##' \item{`B`!}{Same as b.}
 ##'
@@ -618,8 +618,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   if (length(to_parse)) {
     out[to_parse] <- .local_parse(x[to_parse], TRUE)
-    if( failed > 0 && !quiet && !warned)
-    warning(" ", failed, " failed to parse.", call. = FALSE)
+    if (failed > 0 && !quiet && !warned)
+      warning(" ", failed, " failed to parse.", call. = FALSE)
   }
 
   out
