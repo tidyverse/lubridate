@@ -255,9 +255,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     grepl("%Y", nms, fixed = T)*1.5 + ## Y has priority over y
     grepl("%y[^%]", nms)*1.6 + ## y has priority over Y, but only when followed by non %
     grepl("%[Bb]", nms)*.31 + ## B/b format has priority over %Om
-    ## C parser formats
-    grepl("%Om", nms)*.1 + grepl("%Op", nms)*.1 +
-    grepl("%O", nms)*.2
+    ## C parser formats have higher priority
+    grepl("%Om", nms)*.3 +
+    grepl("%Op", nms)*.3 +
+    grepl("%Ob", nms)*.32  ## Ob has higher priority than B/b
 
   ## ties are broken by `trained`
   n0 <- trained != 0
@@ -275,9 +276,12 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 ## These are formats that are effectively matched by c parser. But we must get
 ## through the format guesser first for ymd_hms family.
 .c_parser_reg_flex <- list(Op = "(?<Op>(AM|PM))(?![[:alpha:]])",
-                           Om = "((?<Om>1[0-2]|0?[1-9](?!\\d))|(((?<Om_b>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Om_B>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))")
+                           Om = "((?<Om>1[0-2]|0?[1-9](?!\\d))|(((?<Om_b>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Om_B>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))",
+                           Ob = "(((?<Ob_b>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Ob_B>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]]))")
+
 .c_parser_reg_exact <- list(Op = "(?<Op_e>AM|PM)(?![[:alpha:]])",
-                            Om = "((?<Om_e>1[0-2]|0[1-9])|(((?<Om_b_e>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Om_B_e>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))")
+                            Om = "((?<Om_e>1[0-2]|0[1-9])|(((?<Om_b_e>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Om_B_e>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]])))",
+                            Ob = "(((?<Ob_b_e>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|(?<Ob_B_e>January|February|March|April|May|June|July|August|September|October|November|December))(?![[:alpha:]]))")
 
 .locale_reg_cache <- new.env(hash = FALSE)
 
