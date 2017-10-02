@@ -67,8 +67,11 @@ int parse_int (const char **c, const int N, const int strict) {
 }
 
 
-// Increment *c and return index in 0..length(strings) if match was found, -1
-// if not.
+// Find partial match in `strings`.
+//
+// Increment *c and return index in 0..(length(strings)-1) if match was found,
+// -1 if not. Matching starts from *c, with all non-alpha-numeric characters
+// pre-skipped.
 //
 // - *c: pointer to a character in a C string (incremented by side effect)
 // - *stings: pointer to an array of C strings to be matched to.
@@ -82,7 +85,7 @@ int parse_alphanum(const char **c, const char **strings, const int strings_len, 
   }
 
   int j = 0, go = 1, out = -1;
-  while (**c && !ALPHA(**c)) (*c)++;
+  while (**c && !ALPHA(**c) && !DIGIT(**c)) (*c)++;
 
   while (**c && go) {
     // stop when all tracks where exhausted
