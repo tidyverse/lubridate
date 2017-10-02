@@ -17,6 +17,10 @@ Version 1.6.0.9000
   droped in the process by default, process which resulted in surprising
   behavior on several occasions ([#516](https://github.com/tidyverse/lubridate/issues/516),[#308](https://github.com/tidyverse/lubridate/issues/308),[#307](https://github.com/tidyverse/lubridate/issues/307)).
 
+### CHANGES
+
+* [#572](https://github.com/tidyverse/lubridate/issues/572) `B` and `b` formats no longer match numeric months. This corresponds to the original intent, and was always documented as such.
+
 ### BUG FIXES
 
 * [#570](https://github.com/tidyverse/lubridate/issues/570), [#574](https://github.com/tidyverse/lubridate/issues/574) Fix broken `date()` when called with missing argument.

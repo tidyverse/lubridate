@@ -363,6 +363,34 @@ test_that("ymd_hms correctly handles a variety of formats", {
               equals(as.POSIXct("2010-01-02 23:59:59", tz = "UTC")))
 })
 
+test_that("parse_date_time handles multiple month formats correctly", {
+
+  dates <- c("09-01-17", "02-Sep-17")
+
+  expect_equal(parse_date_time(dates, orders = c("dmy"), locale = "C"),
+               ymd(c("2017-01-09", "2017-09-02"), tz = "UTC"))
+
+  expect_equal(parse_date_time(dates, orders = c("dby"), locale = "C", quiet = T),
+               ymd(c(NA, "2017-09-02"), tz = "UTC"))
+
+  ## mdy & dby
+  expect_equal(parse_date_time(dates, orders = c("mdy", "dby")),
+               ymd(c("2017-09-01", "2017-09-02"), tz = "UTC"))
+
+  ## mdY & dby/Y
+  expect_equal(parse_date_time(c("09-01-2017", "02-Sep-17"), orders = c("mdY", "dby")),
+               ymd(c("2017-09-01", "2017-09-02"), tz = "UTC"))
+
+  expect_equal(parse_date_time(c("09-01-2017", "02-Sep-2017"), orders = c("mdY", "dbY")),
+               ymd(c("2017-09-01", "2017-09-02"), tz = "UTC"))
+
+  ## mdy/Y & dby/Y, with no mdy/Y in x
+  expect_equal(parse_date_time("09-01-17", orders = c("mdy", "dby", "dbY")),
+               ymd(c("2017-09-01"), tz = "UTC"))
+
+
+})
+
 test_that("C parser correctly handles month formats", {
   expect_equal(ymd_hms("2010-Jan-02 23:59:59"), as.POSIXct("2010-01-02 23:59:59", tz = "UTC"))
   expect_equal(ymd_hms("2010-January-02 23:59:59"), as.POSIXct("2010-01-02 23:59:59", tz = "UTC"))

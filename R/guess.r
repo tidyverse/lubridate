@@ -82,8 +82,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   ## redirect some formats to C parser
   if (length(wp <- grepl("[^O]p", orders)))
     orders <- c(sub("p", "Op", orders[wp], fixed = T), orders)
-  if (length(wm <- grepl("[^O][mbB]", orders)))
-    orders <- c(sub("[mbB]", "Om", orders[wm]), orders)
+  if (length(wm <- grepl("[^O]m", orders)))
+    orders <- c(sub("m", "Om", orders[wm]), orders)
   if (length(wT <- grepl("T", orders, fixed = T)))
     orders <- c(sub("T", "HMSOp", orders[wT], fixed = T), orders)
   if (length(wR <- grepl("R", orders, fixed = T)))
@@ -250,9 +250,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   n_fmts <-
     nchar(gsub("[^%]", "", nms)) + ## longer formats have priority
-    grepl("%Y", nms, fixed = T)*1.5 + ## Y has priority over 0
+    grepl("%Y", nms, fixed = T)*1.5 + ## Y has priority over y
     grepl("%y[^%]", nms)*1.6 + ## y has priority over Y, but only when followed by non %
-    grepl("%B", nms)*.31 + ## B format should get more weight than %Om
+    grepl("%[Bb]", nms)*.31 + ## B/b format has priority over %Om
     ## C parser formats
     grepl("%Om", nms)*.1 + grepl("%Op", nms)*.1 +
     grepl("%O", nms)*.2
