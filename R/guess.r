@@ -79,11 +79,13 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     orders <- gsub("ms", "MS", orders, ignore.case = TRUE)
   }
 
-  ## redirect some formats to C parser
-  if (length(wp <- grepl("[^O]p", orders)))
+  ## redirect some formats to C parser (using perl's lookbehind)
+  if (length(wp <- grepl("(?<!O)p", orders, perl = T)))
     orders <- c(sub("p", "Op", orders[wp], fixed = T), orders)
-  if (length(wm <- grepl("[^O]m", orders)))
+  if (length(wm <- grepl("(?<!O)m", orders, perl = T)))
     orders <- c(sub("m", "Om", orders[wm]), orders)
+  if (length(wm <- grepl("(?<!O)[bB]", orders, perl = T)))
+    orders <- c(sub("b", "Ob", orders[wm]), orders)
   if (length(wT <- grepl("T", orders, fixed = T)))
     orders <- c(sub("T", "HMSOp", orders[wT], fixed = T), orders)
   if (length(wR <- grepl("R", orders, fixed = T)))
