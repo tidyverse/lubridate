@@ -23,6 +23,7 @@ Version 1.6.0.9000
 
 ### BUG FIXES
 
+* [#559](https://github.com/tidyverse/lubridate/issues/559) Parsing of alpha-months in English locales now drops correctly to low level C parsing. Thus, parsing with multiple orders containing `m` and `b` formats now works correctly.
 * [#570](https://github.com/tidyverse/lubridate/issues/570), [#574](https://github.com/tidyverse/lubridate/issues/574) Fix broken `date()` when called with missing argument.
 * [#567](https://github.com/tidyverse/lubridate/issues/567) Fix year update and rounding for leap years.
 * [#545](https://github.com/tidyverse/lubridate/pull/545) Fix wrong locale selection in stamp.

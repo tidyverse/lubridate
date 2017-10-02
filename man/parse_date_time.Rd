@@ -129,8 +129,8 @@ abbreviated name).
 You don't need to specify \code{a} and \code{A} formats explicitly. Wday is
 automatically handled if \code{preproc_wday = TRUE}}
 
-\item{\code{b}!}{Abbreviated month name in the current locale (also matches
-full name). The C parser understands English months only.}
+\item{\code{b}!}{Abbreviated or full month name in the current locale. The C
+parser currently understands only English month names.}
 
 \item{\code{B}!}{Same as b.}
 
