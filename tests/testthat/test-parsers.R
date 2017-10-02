@@ -404,6 +404,13 @@ test_that("parse_date_time handles multiple partial month formats correctly", {
 
 })
 
+test_that("parse_date_time gives higher priority to y than to Y format", {
+  expect_equal(parse_date_time(c("apr.12.50","apr.2.2016"), orders = "mdy"),
+               ymd(c("2050-04-12 UTC", "2016-04-02 UTC"), tz = "UTC"))
+  expect_equal(parse_date_time(c("50.apr.12","2016.apr.2"), orders = "ymd"),
+               ymd(c("2050-04-12 UTC", "2016-04-02 UTC"), tz = "UTC"))
+})
+
 test_that("C parser correctly handles month formats", {
   expect_equal(ymd_hms("2010-Jan-02 23:59:59"), as.POSIXct("2010-01-02 23:59:59", tz = "UTC"))
   expect_equal(ymd_hms("2010-January-02 23:59:59"), as.POSIXct("2010-01-02 23:59:59", tz = "UTC"))

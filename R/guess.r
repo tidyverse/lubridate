@@ -250,10 +250,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 .select_formats <- function(trained, drop = FALSE) {
   nms <- names(trained)
 
-  n_fmts <-
+  score <-
     nchar(gsub("[^%]", "", nms)) + ## longer formats have priority
-    grepl("%Y", nms, fixed = T)*1.5 + ## Y has priority over y
-    grepl("%y[^%]", nms)*1.6 + ## y has priority over Y, but only when followed by non %
+    grepl("%Y", nms, fixed = T)*1.5 +
+    grepl("%y(?!%)", nms, perl = T)*1.6 + ## y has priority over Y, but only when not followed by %
     grepl("%[Bb]", nms)*.31 + ## B/b format has priority over %Om
     ## C parser formats have higher priority
     grepl("%Om", nms)*.3 +
@@ -263,14 +263,14 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   ## ties are broken by `trained`
   n0 <- trained != 0
   if (drop) {
-    n_fmts <- n_fmts[n0]
+    score <- score[n0]
     trained <- trained[n0]
   } else {
-    n_fmts[!n0] <- -100
+    score[!n0] <- -100
   }
 
-  ## names(trained[which.max(n_fmts)])
-  names(trained)[order(n_fmts, trained, decreasing = T)]
+  ## print(rbind(trained, score))
+  names(trained)[order(score, trained, decreasing = T)]
 }
 
 ## These are formats that are effectively matched by c parser. But we must get
