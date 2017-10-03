@@ -41,19 +41,18 @@ week <- function(x)
   1L + (as.numeric(date) - jan1) %/% 7L
 }
 
-#' @description
-#' `isoweek()` returns
-#' the week as it would appear in the ISO 8601 system, which uses a reoccurring
-#' leap week.
+#' @description `isoweek()` returns the week as it would appear in the ISO 8601
+#'   system, which uses a reoccurring leap week.
 #' @rdname week
 #' @export
 isoweek <- function(x) {
   .other_week(x, 1)
 }
 
-#' @description
-#' `epiweek()` returns the week as it conventional in
-#' epidemiology. Epiweek follows same rules as `isoweek()` but starts on Sunday.
+#' @description `epiweek()` is the US CDC version of epidemiological week. It
+#'   follows same rules as `isoweek()` but starts on Sunday. In other parts of
+#'   the world the convention is to start epidemiological weeks on Monday,
+#'   which is the same as `isoweek`.
 #'
 #' @rdname week
 #' @export
