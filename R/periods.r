@@ -584,7 +584,7 @@ setMethod("Compare", signature(e1 = "Period", e2 = "Duration"),
 #' @export
 setMethod("Compare", signature(e1 = "Duration", e2 = "Period"),
           function(e1, e2) {
-            callGeneric(as.duration(e1), e2)
+            callGeneric(e1, as.duration(e2))
           })
 
 #' @export
