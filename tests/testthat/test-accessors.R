@@ -66,6 +66,15 @@ test_that("empty argument date() works", {
   expect_silent(date())
 })
 
+test_that("day accessors work on character inputs", {
+  x <- "2017-05-07 GMT"
+  d <- ymd(x)
+  expect_equal(wday(x), wday(d))
+  expect_equal(mday(x), mday(d))
+  expect_equal(qday(x), qday(d))
+  expect_equal(yday(x), yday(d))
+})
+
 test_that("wday works with various start values", {
 
   days <- days2 <-

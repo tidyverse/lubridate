@@ -105,6 +105,7 @@ qday <- function(x)
 
 #' @export
 qday.default <- function(x) {
+  x <- as_date(x)
   as.integer(x - floor_date(x, "quarter")) + 1
 }
 
