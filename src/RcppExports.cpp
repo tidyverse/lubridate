@@ -42,7 +42,7 @@ END_RCPP
 }
 
 RcppExport SEXP C_make_d(SEXP, SEXP, SEXP);
-RcppExport SEXP C_parse_dt(SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP C_parse_dt(SEXP, SEXP, SEXP, SEXP, SEXP);
 RcppExport SEXP C_parse_hms(SEXP, SEXP);
 RcppExport SEXP C_parse_period(SEXP);
 
@@ -50,7 +50,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lubridate_C_update_dt", (DL_FUNC) &_lubridate_C_update_dt, 12},
     {"_lubridate_C_force_tz", (DL_FUNC) &_lubridate_C_force_tz, 3},
     {"C_make_d",               (DL_FUNC) &C_make_d,                3},
-    {"C_parse_dt",             (DL_FUNC) &C_parse_dt,              4},
+    {"C_parse_dt",             (DL_FUNC) &C_parse_dt,              5},
     {"C_parse_hms",            (DL_FUNC) &C_parse_hms,             2},
     {"C_parse_period",         (DL_FUNC) &C_parse_period,          1},
     {NULL, NULL, 0}

@@ -42,19 +42,22 @@ int parse_alpha_month(const char **c){
   return (parse_alphanum(c, en_months, 12, TRUE) + 1);
 }
 
-SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
-  // STR: character vector of date-times.
-  // ORD: formats (as in strptime) or orders (as in parse_date_time)
-  // FORMATS: TRUE if ord is a string of formats (as in strptime)
-  // LT: TRUE - return POSIXlt type list, FALSE - return POSIXct seconds
+SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
+  // str: character vector of date-times.
+  // ord: formats (as in strptime) or orders (as in parse_date_time)
+  // formats: TRUE if ord is a string of formats (as in strptime)
+  // lt: TRUE - return POSIXlt type list, FALSE - return POSIXct seconds
+  // cutoff_2000: for `y` format years smaller or equal are read as 20th
+  // sentry's, otherwise 19ths. R's default is 68.
 
-  if ( !isString(str) ) error("Date-time must be a character vector");
+  if ( !isString(str) ) error("Argument to parsing functions must be a character vector.");
   if ( !isString(ord) || (LENGTH(ord) > 1))
-    error("Format argument must be a character vector of length 1");
+    error("Format/orders argument must be a character vector of length 1");
 
   R_len_t n = LENGTH(str);
   int is_fmt = *LOGICAL(formats);
   int out_lt = *LOGICAL(lt);
+  int cut2000 = *INTEGER(cutoff_2000);
 
   SEXP oYEAR, oMONTH, oDAY, oHOUR, oMIN, oSEC;
 
@@ -122,7 +125,7 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt) {
             y = parse_int(&c, 2, FALSE);
             if (y < 0)
               succeed = 0;
-			else if (y <= 68)
+			else if (y <= cut2000)
 			  y += 2000;
 			else
 			  y += 1900;

@@ -10,9 +10,10 @@ parse_date_time(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
   exact = FALSE, train = TRUE, drop = FALSE)
 
-parse_date_time2(x, orders, tz = "UTC", exact = FALSE, lt = FALSE)
+parse_date_time2(x, orders, tz = "UTC", exact = FALSE, lt = FALSE,
+  cutoff_2000 = 68L)
 
-fast_strptime(x, format, tz = "UTC", lt = TRUE)
+fast_strptime(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L)
 }
 \arguments{
 \item{x}{a character or numeric vector of dates}
@@ -78,6 +79,10 @@ behavior when rare patterns where not present in the training set.}
 \item{lt}{logical. If TRUE returned object is of class POSIXlt, and POSIXct
 otherwise. For compatibility with base \code{strptime} function default is TRUE
 for \code{fast_strptime} and FALSE for \code{parse_date_time2}.}
+
+\item{cutoff_2000}{integer. For \code{y} format,  two-digit numbers smaller or equal to
+\code{cutoff_2000} are parsed as 20th's century, 19th's otherwise. Available only
+for functions relying on \code{lubridate}s internal parser.}
 
 \item{format}{a character string of formats. It should include all the
 separators and each format must be prefixed with %, just as in the format

@@ -625,6 +625,10 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
   out
 }
 
+parse_dt <- function(x, orders, is_format = FALSE, return_lt = FALSE, cutoff_2000 = 68L) {
+  .Call(C_parse_dt, x, orders, as.logical(is_format), as.logical(return_lt), as.integer(cutoff_2000))
+}
+
 ##' @description
 ##' `parse_date_time2()` is a fast C parser of numeric
 ##' orders.
@@ -634,18 +638,21 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 ##' @param lt logical. If TRUE returned object is of class POSIXlt, and POSIXct
 ##'   otherwise. For compatibility with base `strptime` function default is TRUE
 ##'   for `fast_strptime` and FALSE for `parse_date_time2`.
-parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE){
+##' @param cutoff_2000 integer. For `y` format,  two-digit numbers smaller or equal to
+##'   `cutoff_2000` are parsed as 20th's century, 19th's otherwise. Available only
+##'   for functions relying on `lubridate`s internal parser.
+parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L){
   if(length(orders) > 1)
     warning("Multiple orders supplied. Only first order is used.")
   if(!exact)
     orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
   if(lt){
-    .mklt(.Call(C_parse_dt, x, orders, FALSE, TRUE), tz)
+    .mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz)
   } else {
     if (tz == "UTC"){
-      .POSIXct(.Call(C_parse_dt, x, orders, FALSE, FALSE), tz = "UTC")
+      .POSIXct(parse_dt(x, orders, FALSE, FALSE, cutoff_2000), tz = "UTC")
     } else {
-      as.POSIXct(.mklt(.Call(C_parse_dt, x, orders, FALSE, TRUE), tz))
+      as.POSIXct(.mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz))
     }
   }
 }
@@ -659,21 +666,20 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE){
 ##' @param format a character string of formats. It should include all the
 ##'   separators and each format must be prefixed with %, just as in the format
 ##'   argument of `strptime()`.
-fast_strptime <- function(x, format, tz = "UTC", lt = TRUE){
+fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   if(length(format) > 1)
     warning("Multiple formats supplied. Only first format is used.")
   format <- as.character(format[[1]])
-  if(lt){
-    .mklt(.Call(C_parse_dt, x, format, TRUE, TRUE), tz)
+  if(lt) {
+    .mklt(parse_dt(x, format, TRUE, TRUE, cutoff_2000), tz)
   } else{
-    if(tz == "UTC"){
-      .POSIXct(.Call(C_parse_dt, x, format, TRUE, FALSE), "UTC")
+    if (tz == "UTC") {
+      .POSIXct(parse_dt(x, format, TRUE, FALSE, cutoff_2000), "UTC")
     } else {
-      as.POSIXct(.mklt(.Call(C_parse_dt, x, format, TRUE, TRUE), tz))
+      as.POSIXct(.mklt(parse_dt(x, format, TRUE, TRUE, cutoff_2000), tz))
     }
   }
 }
-
 
 
 

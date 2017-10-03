@@ -331,6 +331,27 @@ test_that("ymd functions give warning when parsing absurd formats", {
   expect_warning(ymd(c(201001024, 20100103)))
 })
 
+test_that("cutoff_2000 works as expected", {
+
+  dates <- c("20-02-03", "67-02-03", "68-02-03", "69-02-03", "99-02-03", "00-02-03")
+
+  expect_equal(parse_date_time2(dates, "ymd"),
+               ymd(c("2020-02-03", "2067-02-03", "2068-02-03", "1969-02-03", "1999-02-03", "2000-02-03"), tz = "UTC"))
+
+  expect_equal(parse_date_time2(dates, "ymd", cutoff_2000 = 67),
+               ymd(c("2020-02-03", "2067-02-03", "1968-02-03", "1969-02-03", "1999-02-03", "2000-02-03"), tz = "UTC"))
+
+  expect_equal(parse_date_time2(dates, "ymd", cutoff_2000 = 20),
+               ymd(c("2020-02-03", "1967-02-03", "1968-02-03", "1969-02-03", "1999-02-03", "2000-02-03"), tz = "UTC"))
+
+  expect_equal(parse_date_time2(dates, "ymd", cutoff_2000 = 0),
+               ymd(c("1920-02-03", "1967-02-03", "1968-02-03", "1969-02-03", "1999-02-03", "2000-02-03"), tz = "UTC"))
+
+  expect_equal(parse_date_time2(dates, "ymd", cutoff_2000 = -1),
+               ymd(c("1920-02-03", "1967-02-03", "1968-02-03", "1969-02-03", "1999-02-03", "1900-02-03"), tz = "UTC"))
+
+})
+
 test_that("0 month and 0 day in date produces NA",
           {
               expect_equal(ymd(c("2013-1-1", "2013-0-1"), quiet = TRUE),
