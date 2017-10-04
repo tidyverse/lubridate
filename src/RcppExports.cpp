@@ -54,6 +54,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// C_local_time
+Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt, const Rcpp::CharacterVector tzs);
+RcppExport SEXP _lubridate_C_local_time(SEXP dtSEXP, SEXP tzsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type dt(dtSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::CharacterVector >::type tzs(tzsSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_local_time(dt, tzs));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 RcppExport SEXP C_make_d(SEXP, SEXP, SEXP);
 RcppExport SEXP C_parse_dt(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -64,6 +76,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lubridate_C_update_dt", (DL_FUNC) &_lubridate_C_update_dt, 12},
     {"_lubridate_C_force_tz", (DL_FUNC) &_lubridate_C_force_tz, 3},
     {"_lubridate_C_force_tzs", (DL_FUNC) &_lubridate_C_force_tzs, 4},
+    {"_lubridate_C_local_time", (DL_FUNC) &_lubridate_C_local_time, 2},
     {"C_make_d",               (DL_FUNC) &C_make_d,                3},
     {"C_parse_dt",             (DL_FUNC) &C_parse_dt,              5},
     {"C_parse_hms",            (DL_FUNC) &C_parse_hms,             2},

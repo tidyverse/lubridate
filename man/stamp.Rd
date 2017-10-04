@@ -71,5 +71,5 @@ stamp("2013-01-01T00:00:00-06")(D)
 stamp("2013-01-01T00:00:00-08:00")(force_tz(D, "America/Chicago"))
 }
 \seealso{
-\link{guess_formats}, \link{parse_date_time}, \link{strptime}
+\code{\link[=guess_formats]{guess_formats()}}, \code{\link[=parse_date_time]{parse_date_time()}}, \code{\link[=strptime]{strptime()}}
 }

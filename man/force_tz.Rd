@@ -62,7 +62,7 @@ force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"))
 force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"), tzone_out = "America/New_York")
 }
 \seealso{
-\code{\link[=with_tz]{with_tz()}}
+\code{\link[=with_tz]{with_tz()}}, \code{\link[=local_time]{local_time()}}
 }
 \keyword{chron}
 \keyword{manip}

@@ -13,3 +13,7 @@ C_force_tzs <- function(dt, tzs, tz_out, roll = FALSE) {
     .Call(`_lubridate_C_force_tzs`, dt, tzs, tz_out, roll)
 }
 
+C_local_time <- function(dt, tzs) {
+    .Call(`_lubridate_C_local_time`, dt, tzs)
+}
+

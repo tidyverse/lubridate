@@ -272,7 +272,7 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
   load_tz_or_fail(tzfrom_name, tzfrom, "Invalid timezone of input vector: \"%s\"");
   load_tz_or_fail(tzout_name, tzout, "Unrecognized timezone: \"%s\"");
 
-  std::string tzto_old_name("");
+  std::string tzto_old_name("not-a-tz");
   size_t n = dt.size();
   Rcpp::NumericVector out(n);
 
@@ -296,4 +296,39 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
     }
 
   return Rcpp::newDatetimeVector(out, tzout_name.c_str());
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt,
+                                 const Rcpp::CharacterVector tzs) {
+
+  if (tzs.size() != dt.size())
+    Rcpp::stop("`tzs` and `dt` arguments must be of the same length");
+
+  std::string tzfrom_name = get_tzone_attr(dt);
+  std::string tzto_old_name("not-a-tz");
+  cctz::time_zone tzto;
+
+  size_t n = dt.size();
+  Rcpp::NumericVector out(n);
+
+  for (size_t i = 0; i < n; i++)
+    {
+      std::string tzto_name(tzs[i]);
+      if (tzto_name != tzto_old_name) {
+        load_tz_or_fail(tzto_name, tzto, "Unrecognized timezone: \"%s\"");
+        tzto_old_name = tzto_name;
+      }
+
+      int_fast64_t secs = std::floor(dt[i]);
+      double rem = dt[i] - secs;
+
+      sys_seconds secsfrom(secs);
+      time_point tpfrom(secsfrom);
+      cctz::civil_second cs = cctz::convert(tpfrom, tzto);
+      cctz::civil_second cs_floor = cctz::civil_second(cctz::civil_day(cs));
+      out[i] = cs - cs_floor + rem;
+    }
+
+  return out;
 }

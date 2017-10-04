@@ -37,17 +37,30 @@ test_that("with_tz handles data.frames", {
 })
 
 test_that("force_tzs works as expected", {
-
+  x <- ymd_hms(c("2009-08-07 00:00:01", "2009-08-07 00:00:01"))
   expect_equal(force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam")),
                ymd_hms("2009-08-07 04:00:01 UTC", "2009-08-06 22:00:01 UTC"))
-
   expect_equal(force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"), tzone_out = "America/New_York"),
                ymd_hms("2009-08-07 00:00:01 EDT", "2009-08-06 18:00:01 EDT", tz = "America/New_York"))
-
   ## recycling
   expect_equal(force_tzs(x, tzones = "America/New_York", tzone_out = "UTC"),
                ymd_hms("2009-08-07 04:00:01 UTC", "2009-08-07 04:00:01 UTC"))
+})
 
+test_that("local_time works as expected", {
+  x <- ymd_hms(c("2009-08-07 01:02:03", "2009-08-07 10:20:30"))
+  expect_equal(local_time(x, units = "secs"),
+               as.difftime(c(3723, 37230), units = "secs"))
+  expect_equal(local_time(x, units = "hours"),
+               as.difftime(c(3723, 37230)/3600, units = "hours"))
+  expect_equal(local_time(x, "Europe/Amsterdam"),
+               local_time(with_tz(x, "Europe/Amsterdam")))
+
+  x <- ymd_hms("2009-08-07 01:02:03")
+  expect_equal(local_time(x, c("America/New_York", "Europe/Amsterdam", "Asia/Shanghai")),
+               c(local_time(with_tz(x, "America/New_York")),
+                 local_time(with_tz(x, "Europe/Amsterdam")),
+                 local_time(with_tz(x, "Asia/Shanghai"))))
 })
 
 test_that("force_tz works as expected", {

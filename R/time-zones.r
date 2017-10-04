@@ -59,7 +59,7 @@ with_tz <- function (time, tzone = "") {
 #'   the next valid civil time, otherwise return NA. See examples.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
-#' @seealso [with_tz()]
+#' @seealso [with_tz()], [local_time()]
 #' @examples
 #' x <- ymd_hms("2009-08-07 00:00:01", tz = "America/New_York")
 #' force_tz(x, "UTC")
@@ -103,4 +103,40 @@ force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
     tzones <- rep_len(tzones, length(time))
   out <- C_force_tzs(as.POSIXct(time), tzones, tzone_out, roll)
   reclass_date(out, time)
+}
+
+#' Get local time from a date-time vector.
+#'
+#' `local_time` retrieves day clock time in specified time zones. Computation is
+#' vectorized over both `dt` and `tz` arguments, the shortest is recycled in
+#' accordance with standard R rules.
+#'
+#' @param dt a date-time object.
+#' @param tz a character vector of timezones for which to compute the local time.
+#' @param units passed directly to [as.difftime()].
+#' @examples
+#'
+#' x <- ymd_hms(c("2009-08-07 01:02:03", "2009-08-07 10:20:30"))
+#' local_time(x, units = "secs")
+#' local_time(x, units = "hours")
+#' local_time(x, "Europe/Amsterdam")
+#' local_time(x, "Europe/Amsterdam") == local_time(with_tz(x, "Europe/Amsterdam"))
+#'
+#' x <- ymd_hms("2009-08-07 01:02:03")
+#' local_time(x, c("America/New_York", "Europe/Amsterdam", "Asia/Shanghai"), unit = "hours")
+#' @export
+local_time <- function(dt, tz = NULL, units = "secs") {
+  if (is.null(tz))
+    tz <- tz(dt)
+  if (length(tz) < length(dt))
+    tz <- rep_len(tz, length(dt))
+  else if (length(tz) > length(dt)) {
+    attr <- attributes(dt)
+    dt <- rep_len(dt, length(tz))
+    attributes(dt) <- attr
+  }
+  secs <- C_local_time(as.POSIXct(dt), tz)
+  out <- structure(secs, units = "secs", class = "difftime")
+  units(out) <- units
+  out
 }
