@@ -3,6 +3,7 @@ Version 1.6.0.9000
 
 ### NEW FEATURES
 
+* [#438](https://github.com/tidyverse/lubridate/issues/438) New function `force_tzs` for "enforcement" of heterogeneous time zones.
 * [#560](https://github.com/tidyverse/lubridate/issues/560) New argument `cutoff_2000` for parsing functions to indicate 20th century cutoff for `y` format.
 * [#257](https://github.com/tidyverse/lubridate/issues/257) New `week_start` parameter in `wday` and `wday<-` to set week start.
 * [#401](https://github.com/tidyverse/lubridate/issues/401) New parameter `locale` in `wday`. Labels of the returned factors (when `label=TRUE`) now respect current locale.

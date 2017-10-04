@@ -15,6 +15,8 @@
 // https://raw.githubusercontent.com/devjgm/papers/master/resources/struct-civil_lookup.png
 
 namespace chrono = std::chrono;
+using sys_seconds = chrono::duration<int_fast64_t>;
+using time_point = chrono::time_point<std::chrono::system_clock, sys_seconds>;
 
 const std::unordered_map<std::string, int> TZMAP {
   {"CEST", 2}, {"CET", 1}, {"EDT", -4}, {"EEST", 3}, {"EET", 2}, {"EST", -5},
@@ -28,7 +30,7 @@ void load_tz_or_fail(std::string tzstr, cctz::time_zone& tz, std::string error_m
     if (!cctz::load_time_zone(tzstr, &tz)) {
       auto el = TZMAP.find(tzstr);
       if (el != TZMAP.end()) {
-        tz = cctz::fixed_time_zone(std::chrono::hours(el->second));
+        tz = cctz::fixed_time_zone(chrono::hours(el->second));
       } else {
         Rcpp::stop(error_msg.c_str(), tzstr);
       }
@@ -50,6 +52,46 @@ const char* get_tzone(SEXP tz) {
 std::string get_tzone_attr(SEXP tz){
   return get_tzone(Rf_getAttrib(tz, Rf_install("tzone")));
 }
+
+
+// Helper for conversion functions. Get seconds from civil_lookup, but relies on
+// use original time pre/post time if cl_new falls in repeated interval.
+double get_secs_from_civil_lookup(const cctz::time_zone::civil_lookup& cl_new, // new lookup
+                                  const cctz::time_zone& tz_orig,              // original time zone
+                                  const time_point& tp_orig,                   // original time point
+                                  const cctz::civil_second& cs_orig,           // original time in secs
+                                  bool roll, double remainder = 0.0) {
+
+  time_point tp_new;
+
+  if (cl_new.kind == cctz::time_zone::civil_lookup::UNIQUE) {
+    // UNIQUE
+    tp_new = cl_new.pre;
+  } else if (cl_new.kind == cctz::time_zone::civil_lookup::SKIPPED) {
+    // SKIPPED
+    if (roll)
+      tp_new = cl_new.trans;
+    else {
+      return NA_REAL;
+    }
+  } else {
+    // REPEATED
+    // match pre or post time of original time
+    const cctz::time_zone::civil_lookup cl_old = tz_orig.lookup(cs_orig);
+    if (tp_orig >= cl_old.trans){
+      tp_new = cl_new.post;
+    } else {
+      tp_new = cl_new.pre;
+    }
+    /* Rcpp::Rcout << cctz::format("tp:%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl; */
+    /* Rcpp::Rcout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl1.pre, tz1) << std::endl; */
+    /* Rcpp::Rcout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl1.trans, tz1) << std::endl; */
+    /* Rcpp::Rcout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl1.post, tz1) << std::endl; */
+  }
+
+  return tp_new.time_since_epoch().count() + remainder;
+}
+
 
 // [[Rcpp::export]]
 Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
@@ -98,18 +140,18 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   if (do_yday + do_mday + do_wday > 1)
     Rcpp::stop("Conflicting days input, only one of yday, mday and wday must be supplied");
 
-  std::string fromtz = get_tzone_attr(dt);
+  std::string tzfrom = get_tzone_attr(dt);
   cctz::time_zone tzone1;
-  load_tz_or_fail(fromtz, tzone1, "Invalid timezone of input vector: \"%s\"");
+  load_tz_or_fail(tzfrom, tzone1, "Invalid timezone of input vector: \"%s\"");
 
-  std::string totz;
+  std::string tzto;
   cctz::time_zone tzone2;
   if (Rf_isNull(tz)) {
-    totz = fromtz;
+    tzto = tzfrom;
   } else {
-    totz = get_tzone(tz);
+    tzto = get_tzone(tz);
   }
-  load_tz_or_fail(totz, tzone2, "Unrecognized tzone in 'tz' argument: \"%s\"");
+  load_tz_or_fail(tzto, tzone2, "Unrecognized tzone in 'tz' argument: \"%s\"");
 
   Rcpp::NumericVector out(N);
 
@@ -121,10 +163,10 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
         out[i] = NA_REAL;
         continue;
       }
-      int secs = std::floor(dti);
+      int_fast64_t secs = std::floor(dti);
       double rem = do_second ? 0.0 : dti - secs;
-      cctz::sys_seconds ss(secs);
-      cctz::time_point<cctz::sys_seconds> tp1(ss);
+      sys_seconds ss(secs);
+      time_point tp1(ss);
       cctz::civil_second ct1 = cctz::convert(tp1, tzone1);
 
       long int
@@ -166,33 +208,12 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
 
       const cctz::civil_second cs2(y, m, d, H, M, S);
       const cctz::time_zone::civil_lookup cl2 = tzone2.lookup(cs2);
-      cctz::time_point<cctz::sys_seconds> tp2;
-      if (cl2.kind == cctz::time_zone::civil_lookup::UNIQUE) {
-        tp2 = cl2.pre;
-      } else if (cl2.kind == cctz::time_zone::civil_lookup::SKIPPED) {
-        if (roll) {
-          tp2 = cl2.trans;
-        } else {
-          out[i] = NA_REAL;
-          continue;
-        }
-      } else { // REPEATED
-        // match pre or post time of ct1
-        const cctz::time_zone::civil_lookup cl1 = tzone1.lookup(ct1);
-        /* Rcpp::Rcout << cctz::format("tp:%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl; */
-        /* Rcpp::Rcout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl1.pre, tz1) << std::endl; */
-        /* Rcpp::Rcout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl1.trans, tz1) << std::endl; */
-        /* Rcpp::Rcout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl1.post, tz1) << std::endl; */
-        if (tp1 >= cl1.trans){
-          tp2 = cl2.post;
-        } else {
-          tp2 = cl2.pre;
-        }
-      }
-      out[i] = tp2.time_since_epoch().count() + rem;
+
+      out[i] = get_secs_from_civil_lookup(cl2, tzone1, tp1, ct1, roll, rem);
+
     }
 
-  return Rcpp::newDatetimeVector(out, totz.c_str());
+  return Rcpp::newDatetimeVector(out, tzto.c_str());
 
 }
 
@@ -200,57 +221,79 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
 Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
                                    const Rcpp::CharacterVector tz,
                                    const bool roll = false) {
+  // roll: logical, if `true`, and `time` falls into the DST-break, assume the
+  // next valid civil time, otherwise return NA
+
+  if (tz.size() != 1)
+    Rcpp::stop("`tz` argument must be a single character string");
+
+  std::string tzfrom_name = get_tzone_attr(dt);
+  std::string tzto_name(tz[0]);
+  cctz::time_zone tzfrom, tzto;
+  load_tz_or_fail(tzfrom_name, tzfrom, "Invalid timezone of input vector: \"%s\"");
+  load_tz_or_fail(tzto_name, tzto, "Unrecognized timezone: \"%s\"");
 
   size_t n = dt.size();
-
-  std::string tzfrom = get_tzone_attr(dt);
-  std::string tzto(tz[0]);
-
-  if (tz.size() > 1)
-    Rcpp::stop("In 'force_tz' tz argument must be a single character string");
-
-  cctz::time_zone tz1, tz2;   // two time zone objects
-  load_tz_or_fail(tzfrom, tz1, "Invalid timezone of input vector: \"%s\"");
-  load_tz_or_fail(tzto, tz2, "Unrecognized timezone: \"%s\"");
-
   Rcpp::NumericVector out(n);
 
   for (size_t i = 0; i < n; i++)
     {
-      int secs = std::floor(dt[i]);
+      int_fast64_t secs = std::floor(dt[i]);
       double rem = dt[i] - secs;
-      cctz::sys_seconds d1(secs);
-      cctz::time_point<cctz::sys_seconds> tp1(d1);
-      cctz::civil_second ct1 = cctz::convert(tp1, tz1);
-      const cctz::time_zone::civil_lookup cl2 = tz2.lookup(ct1);
-
-      cctz::time_point<cctz::sys_seconds> tp2;
-      if (cl2.kind == cctz::time_zone::civil_lookup::UNIQUE) {
-        // UNIQUE
-        tp2 = cl2.pre;
-      } else if (cl2.kind == cctz::time_zone::civil_lookup::SKIPPED) {
-        if (roll)
-          tp2 = cl2.trans;
-        else {
-          out[i] = NA_REAL;
-          continue;
-        }
-      } else { // REPEATED
-        // match pre or post time of ct1
-        const cctz::time_zone::civil_lookup cl1 = tz1.lookup(ct1);
-        if (tp1 >= cl1.trans){
-          tp2 = cl2.post;
-        } else {
-          tp2 = cl2.pre;
-        }
-        /* Rcpp::Rcout << cctz::format("tp:%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl; */
-        /* Rcpp::Rcout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl1.pre, tz1) << std::endl; */
-        /* Rcpp::Rcout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl1.trans, tz1) << std::endl; */
-        /* Rcpp::Rcout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl1.post, tz1) << std::endl; */
-      }
-
-      out[i] = tp2.time_since_epoch().count() + rem;
+      sys_seconds d1(secs);
+      time_point tp1(d1);
+      cctz::civil_second ct1 = cctz::convert(tp1, tzfrom);
+      const cctz::time_zone::civil_lookup cl2 = tzto.lookup(ct1);
+      out[i] = get_secs_from_civil_lookup(cl2, tzfrom, tp1, ct1, roll, rem);
     }
 
-  return Rcpp::newDatetimeVector(out, tzto.c_str());
+  return Rcpp::newDatetimeVector(out, tzto_name.c_str());
+}
+
+
+// [[Rcpp::export]]
+Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
+                                    const Rcpp::CharacterVector tzs,
+                                    const Rcpp::CharacterVector tz_out,
+                                    const bool roll = false) {
+  // roll: logical, if `true`, and `time` falls into the DST-break, assume the
+  // next valid civil time, otherwise return NA
+
+  if (tz_out.size() != 1)
+    Rcpp::stop("In 'tzout' argument must be of length 1");
+
+  if (tzs.size() != dt.size())
+    Rcpp::stop("In 'C_force_tzs' tzs and dt arguments must be of the same length");
+
+  std::string tzfrom_name = get_tzone_attr(dt);
+  std::string tzout_name(tz_out[0]);
+
+  cctz::time_zone tzfrom, tzto, tzout;
+  load_tz_or_fail(tzfrom_name, tzfrom, "Invalid timezone of input vector: \"%s\"");
+  load_tz_or_fail(tzout_name, tzout, "Unrecognized timezone: \"%s\"");
+
+  std::string tzto_old_name("");
+  size_t n = dt.size();
+  Rcpp::NumericVector out(n);
+
+  for (size_t i = 0; i < n; i++)
+    {
+      std::string tzto_name(tzs[i]);
+      if (tzto_name != tzto_old_name) {
+        load_tz_or_fail(tzto_name, tzto, "Unrecognized timezone: \"%s\"");
+        tzto_old_name = tzto_name;
+      }
+
+      int_fast64_t secs = std::floor(dt[i]);
+      double rem = dt[i] - secs;
+      sys_seconds secsfrom(secs);
+      time_point tpfrom(secsfrom);
+      cctz::civil_second csfrom = cctz::convert(tpfrom, tzfrom);
+
+      const cctz::time_zone::civil_lookup clto = tzto.lookup(csfrom);
+      out[i] = get_secs_from_civil_lookup(clto, tzfrom, tpfrom, csfrom, roll, rem);
+
+    }
+
+  return Rcpp::newDatetimeVector(out, tzout_name.c_str());
 }

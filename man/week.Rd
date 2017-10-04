@@ -29,12 +29,13 @@ the weeks element of x as an integer number
 \code{week()} returns the number of complete seven day periods that have
 occurred between the date and January 1st, plus one.
 
-\code{isoweek()} returns
-the week as it would appear in the ISO 8601 system, which uses a reoccurring
-leap week.
+\code{isoweek()} returns the week as it would appear in the ISO 8601
+system, which uses a reoccurring leap week.
 
-\code{epiweek()} returns the week as it conventional in
-epidemiology. Epiweek follows same rules as \code{isoweek()} but starts on Sunday.
+\code{epiweek()} is the US CDC version of epidemiological week. It
+follows same rules as \code{isoweek()} but starts on Sunday. In other parts of
+the world the convention is to start epidemiological weeks on Monday,
+which is the same as \code{isoweek}.
 }
 \examples{
 x <- ymd("2012-03-26")

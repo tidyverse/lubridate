@@ -9,3 +9,7 @@ C_force_tz <- function(dt, tz, roll = FALSE) {
     .Call(`_lubridate_C_force_tz`, dt, tz, roll)
 }
 
+C_force_tzs <- function(dt, tzs, tz_out, roll = FALSE) {
+    .Call(`_lubridate_C_force_tzs`, dt, tzs, tz_out, roll)
+}
+
