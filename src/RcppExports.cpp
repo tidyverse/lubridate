@@ -77,10 +77,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lubridate_C_force_tz", (DL_FUNC) &_lubridate_C_force_tz, 3},
     {"_lubridate_C_force_tzs", (DL_FUNC) &_lubridate_C_force_tzs, 4},
     {"_lubridate_C_local_time", (DL_FUNC) &_lubridate_C_local_time, 2},
-    {"C_make_d",               (DL_FUNC) &C_make_d,                3},
-    {"C_parse_dt",             (DL_FUNC) &C_parse_dt,              5},
-    {"C_parse_hms",            (DL_FUNC) &C_parse_hms,             2},
-    {"C_parse_period",         (DL_FUNC) &C_parse_period,          1},
+    {"C_make_d",                (DL_FUNC) &C_make_d,                 3},
+    {"C_parse_dt",              (DL_FUNC) &C_parse_dt,               5},
+    {"C_parse_hms",             (DL_FUNC) &C_parse_hms,              2},
+    {"C_parse_period",          (DL_FUNC) &C_parse_period,           1},
     {NULL, NULL, 0}
 };
 

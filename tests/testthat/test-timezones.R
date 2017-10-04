@@ -47,6 +47,16 @@ test_that("force_tzs works as expected", {
                ymd_hms("2009-08-07 04:00:01 UTC", "2009-08-07 04:00:01 UTC"))
 })
 
+test_that("force_tzs is robusts against overflow", {
+  x <- ymd_hms(c("2038-01-19 03:14:06", "2038-01-19 03:14:07", "2038-01-19 03:14:08",
+                 "2038-01-19 03:14:09", "2038-01-19 03:14:10"))
+  expect_equal(force_tzs(x, tzones = "America/New_York"),
+               with_tz(ymd_hms(c("2038-01-19 03:14:06", "2038-01-19 03:14:07", "2038-01-19 03:14:08",
+                                 "2038-01-19 03:14:09", "2038-01-19 03:14:10"),
+                               tz = "America/New_York"),
+                       "UTC"))
+})
+
 test_that("local_time works as expected", {
   x <- ymd_hms(c("2009-08-07 01:02:03", "2009-08-07 10:20:30"))
   expect_equal(local_time(x, units = "secs"),
