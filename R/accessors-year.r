@@ -35,8 +35,9 @@ year.Period <- function(x)
 
 #' @rdname year
 #' @export
-"year<-" <- function(x, value)
+"year<-" <- function(x, value) {
   x <- x + years(value - year(x))
+}
 
 setGeneric("year<-")
 

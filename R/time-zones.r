@@ -55,8 +55,8 @@ with_tz <- function (time, tzone = "") {
 #' @param tzone a character string containing the time zone to convert to. R
 #'   must recognize the name contained in the string as a time zone on your
 #'   system.
-#' @param roll logical. If TRUE, and `time` falls into DST skip assume the next
-#'   valid civil time, otherwise return NA. See examples.
+#' @param roll logical. If TRUE, and `time` falls into the DST-break, assume
+#'   the next valid civil time, otherwise return NA. See examples.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
 #' @seealso [with_tz()]
