@@ -86,21 +86,29 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
 }
 
 #' @param tzones character vector of timezones to be "enforced" on `time` time
-#'   stamps. If `time` and `tzones` lengths differ, usuall R recycling rules
-#'   apply.
+#'   stamps. If `time` and `tzones` lengths differ, the smaller one is recycled
+#'   in accordance with usual R conventions.
 #' @param tzone_out timezone of the returned date-time vector
 #' @rdname force_tz
 #' @examples
 #'
 #' ## Heterogeneous time-zones:
 #'
-#' x <- ymd_hms(c("2009-08-07 00:00:01", "2009-08-07 00:00:01"))
+#' x <- ymd_hms(c("2009-08-07 00:00:01", "2009-08-07 01:02:03"))
 #' force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"))
 #' force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"), tzone_out = "America/New_York")
+#'
+#' x <- ymd_hms("2009-08-07 00:00:01")
+#' force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"))
 #' @export
 force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
-  if (length(time) != length(tzones))
+  if (length(tzones) < length(time))
     tzones <- rep_len(tzones, length(time))
+  else if (length(tzones) > length(time)) {
+    attr <- attributes(time)
+    time <- rep_len(time, length(tzones))
+    attributes(time) <- attr
+  }
   out <- C_force_tzs(as.POSIXct(time), tzones, tzone_out, roll)
   reclass_date(out, time)
 }

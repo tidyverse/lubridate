@@ -45,6 +45,11 @@ test_that("force_tzs works as expected", {
   ## recycling
   expect_equal(force_tzs(x, tzones = "America/New_York", tzone_out = "UTC"),
                ymd_hms("2009-08-07 04:00:01 UTC", "2009-08-07 04:00:01 UTC"))
+  x <- ymd_hms("2009-08-07 00:00:01")
+  expect_equal(force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam")),
+               ymd_hms("2009-08-07 04:00:01 UTC", "2009-08-06 22:00:01 UTC"))
+  expect_equal(force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"), tzone_out = "America/New_York"),
+               ymd_hms("2009-08-07 00:00:01 EDT", "2009-08-06 18:00:01 EDT", tz = "America/New_York"))
 })
 
 test_that("force_tzs is robusts against overflow", {

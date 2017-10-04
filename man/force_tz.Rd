@@ -22,8 +22,8 @@ system.}
 the next valid civil time, otherwise return NA. See examples.}
 
 \item{tzones}{character vector of timezones to be "enforced" on \code{time} time
-stamps. If \code{time} and \code{tzones} lengths differ, usuall R recycling rules
-apply.}
+stamps. If \code{time} and \code{tzones} lengths differ, the smaller one is recycled
+in accordance with usual R conventions.}
 
 \item{tzone_out}{timezone of the returned date-time vector}
 }
@@ -57,9 +57,12 @@ force_tz(y, "America/New_York", roll=TRUE)
 
 ## Heterogeneous time-zones:
 
-x <- ymd_hms(c("2009-08-07 00:00:01", "2009-08-07 00:00:01"))
+x <- ymd_hms(c("2009-08-07 00:00:01", "2009-08-07 01:02:03"))
 force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"))
 force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"), tzone_out = "America/New_York")
+
+x <- ymd_hms("2009-08-07 00:00:01")
+force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"))
 }
 \seealso{
 \code{\link[=with_tz]{with_tz()}}, \code{\link[=local_time]{local_time()}}
