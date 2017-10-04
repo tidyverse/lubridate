@@ -27,6 +27,7 @@ Version 1.6.0.9000
 
 ### BUG FIXES
 
+* [#314](https://github.com/tidyverse/lubridate/issues/314), [#407](https://github.com/tidyverse/lubridate/issues/407), [#499](https://github.com/tidyverse/lubridate/issues/499) Make `days`, `dhours`, `round_date` work when the methods package is not loaded.
 * [#543](https://github.com/tidyverse/lubridate/issues/543) Make `wday` work on character inputs as it is the case with all other day accessors.
 * [#566](https://github.com/tidyverse/lubridate/issues/566) Comparing durations and periods no-longer infloops.
 * [#556](https://github.com/tidyverse/lubridate/issues/556) Fix incorrect scoring of `y` format when it's the last in format order (as in `mdy`).
