@@ -13,6 +13,7 @@ Version 1.6.0.9000
 * [#508](https://github.com/tidyverse/lubridate/pull/508) New parameter `locale` in `month`. Labels of the returned factors (when `label=TRUE`) now respect current locale.
 * [#509](https://github.com/tidyverse/lubridate/issues/509) New parameter `week_start` to `floor_date`, `ceiling_date` and `round_date`.
 * [#519](https://github.com/tidyverse/lubridate/issues/519) Support fractional units in duration and period string constructors.
+* [#502](https://github.com/tidyverse/lubridate/issues/502) Support rounding to fractions of a seconds.
 * [#529](https://github.com/tidyverse/lubridate/issues/529) Internal parser now ignores the case of alpha months (B format)
 * [#535](https://github.com/tidyverse/lubridate/issues/535) Rounding to `season` is now supported.
 * [#536](https://github.com/tidyverse/lubridate/issues/536) `as_date` and `as_datetime` now understand character vectors.

@@ -5,6 +5,10 @@
 #' meaningfull specifications in English language are supported - secs, min,
 #' mins, 2 minutes, 3 years etc.
 #'
+#' Rounding to fractional seconds is supported. Please note that rounding to
+#' fractions smaller than 1s can lead to large precision errors due to the
+#' floating point representation of the POSIXct objects. See examples.
+#'
 #' `round_date()` takes a date-time object and rounds it to the nearest value
 #' of the specified time unit. For rounding date-times which is exactly halfway
 #' between two consecutive units, the convention is to round up. Note that this
@@ -60,7 +64,13 @@
 #' @keywords manip chron
 #' @seealso [base::round()]
 #' @examples
+#'
+#' ## print fractional seconds
+#' options(digits.secs=6)
+#'
 #' x <- as.POSIXct("2009-08-03 12:01:59.23")
+#' round_date(x, ".5s")
+#' round_date(x, "sec")
 #' round_date(x, "second")
 #' round_date(x, "minute")
 #' round_date(x, "5 mins")
@@ -75,6 +85,7 @@
 #' round_date(x, "year")
 #'
 #' x <- as.POSIXct("2009-08-03 12:01:59.23")
+#' floor_date(x, ".1s")
 #' floor_date(x, "second")
 #' floor_date(x, "minute")
 #' floor_date(x, "hour")
@@ -88,6 +99,7 @@
 #' floor_date(x, "year")
 #'
 #' x <- as.POSIXct("2009-08-03 12:01:59.23")
+#' ceiling_date(x, ".1 sec") # imprecise representation at 0.1 sec !!!
 #' ceiling_date(x, "second")
 #' ceiling_date(x, "minute")
 #' ceiling_date(x, "5 mins")
@@ -100,6 +112,11 @@
 #' ceiling_date(x, "season")
 #' ceiling_date(x, "halfyear")
 #' ceiling_date(x, "year")
+#'
+#' ## POSIXct precision is pretty much limited to seconds:
+#' as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
+#' ceiling_date(x, ".1 sec") ## -> "2009-08-03 12:01:59.2 CEST"
+#'
 #' @export
 round_date <- function(x, unit = "second", week_start = getOption("lubridate.week.start", 7)) {
 
@@ -297,18 +314,18 @@ trunc_multi_unit <- function(x, unit, n) {
   y
 }
 
-floor_multi_unit <- function(n, len) {
-  (n %/% len) * len
+floor_multi_unit <- function(x, n) {
+  (x %/% n) * n
 }
 
-floor_multi_unit1 <- function(n, len) {
-  (((n - 1) %/% len) * len) + 1L
+floor_multi_unit1 <- function(x, n) {
+  (((x - 1) %/% n) * n) + 1L
 }
 
-ceil_multi_unit <- function(n, len) {
-  (n %/% len) * len + len
+ceil_multi_unit <- function(x, n) {
+  (x %/% n) * n + n
 }
 
-ceil_multi_unit1 <- function(n, len) {
-  (((n - 1) %/% len) *  len) + len + 1L
+ceil_multi_unit1 <- function(x, n) {
+  (((x - 1) %/% n) *  n) + n + 1L
 }

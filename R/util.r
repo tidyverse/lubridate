@@ -74,7 +74,7 @@ standardise_lt_names <- function(x) {
   res
 }
 
-## return list(n=nr_untis,  unti="unit_name")
+## return list(n=nr_units, unit="unit_name")
 parse_period_unit <- function(unit) {
 
   if (length(unit) > 1) {
@@ -90,14 +90,17 @@ parse_period_unit <- function(unit) {
 
     wp <- which(p > 0)
     if (length(wp) > 1) {
-      stop("Multi unit periods are not yet supported")
+      ## Fractional units are actually supported but only when it leads to one
+      ## final unit.
+      stop("Cannot't parse heterogenuous or fractional units larger than one minute.")
     }
 
     list(n = p[wp], unit = period_units[wp])
 
   } else {
+    ## this part is for backward compatibility and allows for bimonth, halfyear
+    ## and quarter
 
-    ## this is for backward compatibility and allows for bimonth, halfyear and quarter
     m <- regexpr(" *(?<n>[0-9.,]+)? *(?<unit>[^ \t\n]+)", unit[[1]], perl = T)
     if (m > 0) {
       ## should always match

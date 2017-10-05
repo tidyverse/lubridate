@@ -14,7 +14,6 @@ test_that("floor_date works for each time element", {
   expect_identical(floor_date(x, "year"), as.POSIXct("2009-01-01 00:00:00", tz = "UTC"))
 })
 
-
 test_that("ceiling_date works with multi-units", {
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz =        "UTC")
 })
@@ -38,6 +37,16 @@ test_that("floor_date works for multi-units", {
   expect_identical(floor_date(x, "2 quarter"),  floor_date(x, "6 months"))
   expect_identical(floor_date(x, "2 halfyear"), floor_date(x, "year"))
   expect_identical(floor_date(x, "2 year"),     as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
+})
+
+test_that("floor_date works for fractional multi-units", {
+  x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
+  expect_identical(floor_date(x, ".2 secs"),   as.POSIXct("2009-08-03 12:01:59.2", tz = "UTC"))
+  expect_identical(floor_date(x, ".1s"),   as.POSIXct("2009-08-03 12:01:59.2", tz = "UTC"))
+  expect_identical(floor_date(x, ".05s"),   as.POSIXct("2009-08-03 12:01:59.2", tz = "UTC"))
+  expect_identical(floor_date(x, ".01s"),   as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC"))
+  expect_identical(floor_date(x, ".005s"),   as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC"))
+  expect_identical(floor_date(x, ".5 mins"),   as.POSIXct("2009-08-03 12:01:30", tz = "UTC"))
 })
 
 test_that("multi-unit rounding works the same for POSIX and Date objects", {
@@ -89,6 +98,14 @@ test_that("ceiling_date works for multi-units", {
   expect_identical(ceiling_date(x, "2 year"),     as.POSIXct("2010-01-01 00:00:00", tz = "UTC"))
 })
 
+test_that("ceiling_date works for fractional multi-units", {
+  x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
+  expect_identical(ceiling_date(x, ".2 secs"),   as.POSIXct("2009-08-03 12:01:59.4", tz = "UTC"))
+  expect_identical(ceiling_date(x, ".1s"),   as.POSIXct("2009-08-03 12:01:59.3", tz = "UTC"))
+  expect_identical(ceiling_date(x, ".05s"),   as.POSIXct("2009-08-03 12:01:59.25", tz = "UTC"))
+  expect_identical(ceiling_date(x, ".5 mins"),   as.POSIXct("2009-08-03 12:02:00", tz = "UTC"))
+})
+
 test_that("round_date works for each time element", {
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
   expect_equal(round_date(x, "second"), as.POSIXct("2009-08-03 12:01:59", tz = "UTC"))
@@ -104,17 +121,14 @@ test_that("round_date works for each time element", {
 })
 
 test_that("floor_date and ceiling_date work with leap years", {
-
   expect_equal(floor_date(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30")), "year"),
                ymd_hms(c("2016-01-01 0:0:0", "2016-01-01 0:0:0")))
   expect_equal(floor_date(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30"), tz = "America/New_York"), "year"),
                ymd_hms(c("2016-01-01 0:0:0", "2016-01-01 0:0:0"), tz = "America/New_York"))
-
   expect_equal(ceiling_date(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30")), "year"),
                ymd_hms(c("2017-01-01 0:0:0", "2017-01-01 0:0:0")))
   expect_equal(ceiling_date(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30"), tz = "America/New_York"), "year"),
                ymd_hms(c("2017-01-01 0:0:0", "2017-01-01 0:0:0"), tz = "America/New_York"))
-
 })
 
 test_that("round_date works for multi-units", {
@@ -133,6 +147,14 @@ test_that("round_date works for multi-units", {
   expect_equal(round_date(x, "halfyear"), round_date(x, "6 months"))
   expect_equal(round_date(x, "3 years"), as.POSIXct("2010-01-01 00:00:00", tz = "UTC"))
   expect_equal(round_date(x, "4 years"), as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
+})
+
+test_that("round_date works for fractional multi-units", {
+  x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
+  expect_identical(round_date(x, ".2 secs"),   as.POSIXct("2009-08-03 12:01:59.2", tz = "UTC"))
+  expect_identical(round_date(x, ".1s"),   as.POSIXct("2009-08-03 12:01:59.2", tz = "UTC"))
+  expect_identical(round_date(x, ".05s"),   as.POSIXct("2009-08-03 12:01:59.25", tz = "UTC"))
+  expect_identical(round_date(x, ".5 mins"),   as.POSIXct("2009-08-03 12:02:00", tz = "UTC"))
 })
 
 test_that("floor_date handles vectors", {
