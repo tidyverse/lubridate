@@ -5,6 +5,17 @@
 
 using namespace Rcpp;
 
+// C_valid_tz
+Rcpp::LogicalVector C_valid_tz(const Rcpp::CharacterVector& tz_name);
+RcppExport SEXP _lubridate_C_valid_tz(SEXP tz_nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type tz_name(tz_nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_valid_tz(tz_name));
+    return rcpp_result_gen;
+END_RCPP
+}
 // C_update_dt
 Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt, const Rcpp::IntegerVector& year, const Rcpp::IntegerVector& month, const Rcpp::IntegerVector& yday, const Rcpp::IntegerVector& mday, const Rcpp::IntegerVector& wday, const Rcpp::IntegerVector& hour, const Rcpp::IntegerVector& minute, const Rcpp::NumericVector& second, const SEXP tz, const bool roll, const int week_start);
 RcppExport SEXP _lubridate_C_update_dt(SEXP dtSEXP, SEXP yearSEXP, SEXP monthSEXP, SEXP ydaySEXP, SEXP mdaySEXP, SEXP wdaySEXP, SEXP hourSEXP, SEXP minuteSEXP, SEXP secondSEXP, SEXP tzSEXP, SEXP rollSEXP, SEXP week_startSEXP) {
@@ -73,6 +84,7 @@ RcppExport SEXP C_parse_hms(SEXP, SEXP);
 RcppExport SEXP C_parse_period(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_lubridate_C_valid_tz", (DL_FUNC) &_lubridate_C_valid_tz, 1},
     {"_lubridate_C_update_dt", (DL_FUNC) &_lubridate_C_update_dt, 12},
     {"_lubridate_C_force_tz", (DL_FUNC) &_lubridate_C_force_tz, 3},
     {"_lubridate_C_force_tzs", (DL_FUNC) &_lubridate_C_force_tzs, 4},

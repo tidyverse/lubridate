@@ -23,7 +23,8 @@ const std::unordered_map<std::string, int> TZMAP {
   {"PDT", -7}, {"PST", -8}, {"WEST", 1}, {"WET", 0}
 };
 
-void load_tz_or_fail(std::string tzstr, cctz::time_zone& tz, std::string error_msg) {
+bool load_tz(std::string tzstr, cctz::time_zone& tz) {
+  // return `true` if loaded, else false
   if (tzstr.size() == 0){
     tz = cctz::local_time_zone();
   } else {
@@ -32,12 +33,25 @@ void load_tz_or_fail(std::string tzstr, cctz::time_zone& tz, std::string error_m
       if (el != TZMAP.end()) {
         tz = cctz::fixed_time_zone(chrono::hours(el->second));
       } else {
-        Rcpp::stop(error_msg.c_str(), tzstr);
+        return false;
       }
     }
   }
+  return true;
 }
 
+// [[Rcpp::export]]
+Rcpp::LogicalVector C_valid_tz(const Rcpp::CharacterVector& tz_name) {
+  cctz::time_zone tz;
+  std::string tzstr(tz_name[0]);
+  return load_tz(tzstr, tz);
+}
+
+void load_tz_or_fail(std::string tzstr, cctz::time_zone& tz, std::string error_msg) {
+  if (!load_tz(tzstr, tz)) {
+    Rcpp::stop(error_msg.c_str(), tzstr);
+  }
+}
 
 const char* get_tzone(SEXP tz) {
   if (Rf_isNull(tz)) {
@@ -91,7 +105,6 @@ double get_secs_from_civil_lookup(const cctz::time_zone::civil_lookup& cl_new, /
 
   return tp_new.time_since_epoch().count() + remainder;
 }
-
 
 // [[Rcpp::export]]
 Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
