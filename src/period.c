@@ -47,6 +47,9 @@ fractionUnit parse_period_unit (const char **c) {
   out.val = parse_int(c, 100, FALSE);
   if (**c == '.') {
     (*c)++;
+    // allow fractions without leading 0
+    if (out.val == -1)
+      out.val = 0;
     out.fraction = parse_fractional(c);
   } else {
     out.fraction = 0.0;

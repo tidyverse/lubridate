@@ -32,6 +32,16 @@ test_that("fractional parsing works as expected", {
                duration(days = 2, seconds = 17280))
 })
 
+test_that("sub-unit fractional parsing works as expected", {
+
+  expect_identical(duration(".1min .3sec .3secs .0H .2M .5d"),
+                   duration("0.1min 0.3sec 0.3secs 0.0H 0.2M 0.5d"))
+
+  expect_identical(duration(".1min .3sec .3secs .0H .2M .5d"),
+                   duration(seconds = 6.6, minutes = .2, hours = 12))
+
+})
+
 test_that("parsing with 0 units works as expected", {
   expect_equal(as.numeric(duration("2d 0H 0M 1s")), 2*24*3600 + 1)
   expect_equal(as.numeric(duration("0d 0H 0M 1s")), 1)
