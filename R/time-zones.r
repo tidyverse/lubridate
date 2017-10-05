@@ -6,7 +6,6 @@
 #' when an unrecognized time zone is inputted. See [Sys.timezone()]
 #' for more information on how R recognizes time zones.
 #'
-#' @export with_tz
 #' @param time a POSIXct, POSIXlt, Date, chron date-time object or a data.frame
 #'   object. When a data.frame all POSIXt elements of a data.frame are processed
 #'   with `with_tz()` and new data.frame is returned.
@@ -19,20 +18,28 @@
 #' @examples
 #' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_York")
 #' with_tz(x, "GMT")
+#' @export
 with_tz <- function (time, tzone = "") {
+  if (!C_valid_tz(tzone))
+    warning(sprintf("Unrecognized time zone '%s'", tzone))
   if (is.data.frame(time)) {
     for (nm in names(time)) {
       if (is.POSIXt(time[[nm]])) {
-        time[[nm]] <- with_tz(time[[nm]], tzone = tzone)
+        time[[nm]] <- .with_tz(time[[nm]], tzone = tzone)
       }
     }
     time
   } else {
-    if (is.POSIXlt(time)) new <- as.POSIXct(time)
-    else new <- time
-    attr(new, "tzone") <- tzone
-    reclass_date(new, time)
+    .with_tz(time, tzone)
   }
+}
+
+.with_tz <- function (time, tzone = "") {
+  new <-
+    if (is.POSIXlt(time)) as.POSIXct(time)
+    else time
+  attr(new, "tzone") <- tzone
+  reclass_date(new, time)
 }
 
 #' Replace time zone to create new date-time

@@ -20,7 +20,6 @@ is.timepoint <- is.instant
 
 #' The current time
 #'
-#' @export now
 #' @param tzone a character vector specifying which time zone you would like
 #' the current time in. tzone defaults to your computer's system timezone.
 #' You can retrieve the current time in the Universal Coordinated Time (UTC)
@@ -37,12 +36,12 @@ is.timepoint <- is.instant
 #' now() == now() # would be TRUE if computer processed both at the same instant
 #' now() < now() # TRUE
 #' now() > now() # FALSE
+#' @export
 now <- function(tzone = "")
   with_tz(Sys.time(), tzone)
 
 #' The current date
 #'
-#' @export today
 #' @param tzone a character vector specifying which time zone you would like to
 #'   find the current date of. tzone defaults to the system time zone set on your
 #'   computer.
@@ -54,10 +53,10 @@ now <- function(tzone = "")
 #' today("GMT")
 #' today() == today("GMT") # not always true
 #' today() < as.Date("2999-01-01") # TRUE  (so far)
+#' @export
 today <- function(tzone = "") {
   as_date(now(tzone))
 }
-
 
 #' 1970-01-01 UTC
 #'
@@ -65,11 +64,11 @@ today <- function(tzone = "") {
 #' is the origin for the numbering system used by POSIXct, POSIXlt, chron, and
 #' Date classes.
 #'
-#' @export origin
 #' @keywords data chron
 #' @examples
 #' origin
-origin <- with_tz(structure(0, class = c("POSIXct", "POSIXt")), "UTC")
+#' @export origin
+origin <- structure(0, class = c("POSIXct", "POSIXt"), tzone = "UTC")
 
 .rep_maybe <- function(x, N) {
   if (N > 1 && length(x) > 1 && length(x) != N) {

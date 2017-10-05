@@ -23,6 +23,7 @@ Version 1.6.0.9000
 
 ### CHANGES
 
+* [#469](https://github.com/tidyverse/lubridate/issues/469) Throw warning in `with_tz` on invalid timezone.
 * [#572](https://github.com/tidyverse/lubridate/issues/572) `B` and `b` formats no longer match numeric months. This corresponds to the original intent, and was always documented as such.
 
 ### BUG FIXES

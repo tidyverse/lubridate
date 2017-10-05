@@ -78,6 +78,13 @@ test_that("local_time works as expected", {
                  local_time(with_tz(x, "Asia/Shanghai"))))
 })
 
+test_that("with_tz throws warning on unrecognized time zones", {
+  expect_warning(with_tz(now(), "blablabla"))
+  expect_silent(with_tz(now(), "UTC"))
+  expect_silent(with_tz(now(), ""))
+  expect_silent(with_tz(now(), "America/New_York"))
+})
+
 test_that("force_tz works as expected", {
   x <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
   expect_that(force_tz(x, "UTC"),
