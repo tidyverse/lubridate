@@ -247,7 +247,6 @@ test_that("%m+% correctly adds years without rollover", {
   leap <- ymd("2012-02-29")
   next1 <- ymd("2013-02-28")
   next2 <- ymd("2013-03-29")
-
   expect_equal(leap %m+% years(1), next1)
   expect_equal(leap %m+% period(years = 1, months = 1), next2)
 })

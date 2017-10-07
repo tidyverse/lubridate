@@ -83,8 +83,7 @@ test_that("seconds settor does not change time zone", {
 
 
 test_that("seconds settor returns NA for spring dst gap", {
-  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   poslt <- force_tz(poslt, tz = "America/New_York")
   posxct <- as.POSIXct(poslt)
 
@@ -1038,8 +1037,8 @@ test_that("time zone settor retains object class", {
 
 
 test_that("settors handle vectors", {
-  poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 
-    01:59:59"), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 01:59:59"),
+                      tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
