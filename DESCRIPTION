@@ -34,19 +34,18 @@ Suggests:
     testthat,
     knitr,
     covr
-Enhances: 
-    chron, 
-    fts, 
-    its, 
+Enhances:
+    chron,
+    fts,
     timeSeries,
-    timeDate, 
-    tis, 
+    timeDate,
+    tis,
     tseries,
-    xts, 
+    xts,
     zoo
 VignetteBuilder: knitr
 LazyData: true
-Collate: 
+Collate:
     'Dates.r'
     'POSIXt.r'
     'RcppExports.R'

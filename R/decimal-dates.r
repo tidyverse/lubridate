@@ -28,9 +28,9 @@ decimal_date.default <- function(date) {
 decimal_date.zoo <- function(date)
   decimal_date(zoo::index(date))
 
-#' @export
-decimal_date.its <- function(date)
-  decimal_date.default(attr(date, "dates"))
+## #' @export
+## decimal_date.its <- function(date)
+##   decimal_date.default(attr(date, "dates"))
 
 
 #' Converts a decimal to a date

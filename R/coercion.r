@@ -21,10 +21,10 @@ as.POSIXct.fts <- function(x, tz = "", ...) as.POSIXct(zoo::index(x))
 #' @export
 as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(zoo::index(x))
 
-#' @export
-as.POSIXlt.its <- function(x, tz = "", ...) as.POSIXlt(attr(x, "dates"))
-#' @export
-as.POSIXct.its <- function(x, tz = "", ...) as.POSIXct(attr(x, "dates"))
+## #' @export
+## as.POSIXlt.its <- function(x, tz = "", ...) as.POSIXlt(attr(x, "dates"))
+## #' @export
+## as.POSIXct.its <- function(x, tz = "", ...) as.POSIXct(attr(x, "dates"))
 
 #' @export
 as.POSIXlt.timeSeries <- function(x, tz = "", ...) {
@@ -75,10 +75,10 @@ reclass_date.chron <- function(new, orig) {
 reclass_date.timeDate <- function(new, orig) {
   timeDate::as.timeDate(new)
 }
-#' @export
-reclass_date.its <- function(new, orig) {
-  its::its(new, format = "%Y-%m-%d %X")
-}
+## #' @export
+## reclass_date.its <- function(new, orig) {
+##   its::its(new, format = "%Y-%m-%d %X")
+## }
 #' @export
 reclass_date.ti <- function(new, orig) {
   tis::as.ti(new, tis::tifName(orig))
