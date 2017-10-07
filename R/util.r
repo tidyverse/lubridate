@@ -127,3 +127,9 @@ undefined_arithmetic <- function(e1, e2) {
   convert one to numeric or a matching time-span class.", class(e1), class(e2))
   stop(msg)
 }
+
+date_to_posix <- function(date, tz = "UTC") {
+  utc <- .POSIXct(unclass(date) * 86400, tz = "UTC")
+  if (tz == "UTC") utc
+  else force_tz(utc, tz)
+}

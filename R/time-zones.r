@@ -79,6 +79,7 @@ with_tz <- function (time, tzone = "") {
 #' force_tz(y, "America/New_York", roll=TRUE)
 #' @export
 force_tz <- function(time, tzone = "", roll = FALSE) {
+  tzone <- as.character(tzone)
   if (is.data.frame(time)) {
     for (nm in names(time)) {
       if (is.POSIXt(time[[nm]])) {
@@ -87,8 +88,14 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
     }
     time
   } else {
-    out <- C_force_tz(as.POSIXct(time), tz = as.character(tzone), roll)
-    reclass_date(out, time)
+    if (is.POSIXct(time))
+      C_force_tz(time, tz = tzone, roll)
+    else if (is.Date(time))
+      as_date(C_force_tz(date_to_posix(time), tz = tzone, roll))
+    else {
+      out <- C_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll)
+      reclass_date(out, time)
+    }
   }
 }
 
