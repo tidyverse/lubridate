@@ -164,7 +164,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   } else {
     tzto = get_tzone(tz);
   }
-  load_tz_or_fail(tzto, tzone2, "Unrecognized tzone in 'tz' argument: \"%s\"");
+  load_tz_or_fail(tzto, tzone2, "CCTZ: Unrecognized tzone: \"%s\"");
 
   Rcpp::NumericVector out(N);
 
@@ -243,8 +243,11 @@ Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
   std::string tzfrom_name = get_tzone_attr(dt);
   std::string tzto_name(tz[0]);
   cctz::time_zone tzfrom, tzto;
-  load_tz_or_fail(tzfrom_name, tzfrom, "Invalid timezone of input vector: \"%s\"");
-  load_tz_or_fail(tzto_name, tzto, "Unrecognized timezone: \"%s\"");
+  load_tz_or_fail(tzfrom_name, tzfrom, "CCTZ: Unrecognized timezone of the input vector: \"%s\"");
+  load_tz_or_fail(tzto_name, tzto, "CCTZ: Unrecognized output timezone: \"%s\"");
+
+  /* std::cout << "TZ from:" << tzfrom.name() << std::endl; */
+  /* std::cout << "TZ to:" << tzto.name() << std::endl; */
 
   size_t n = dt.size();
   Rcpp::NumericVector out(n);
@@ -282,8 +285,8 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
   std::string tzout_name(tz_out[0]);
 
   cctz::time_zone tzfrom, tzto, tzout;
-  load_tz_or_fail(tzfrom_name, tzfrom, "Invalid timezone of input vector: \"%s\"");
-  load_tz_or_fail(tzout_name, tzout, "Unrecognized timezone: \"%s\"");
+  load_tz_or_fail(tzfrom_name, tzfrom, "CCTZ: Unrecognized timezone of input vector: \"%s\"");
+  load_tz_or_fail(tzout_name, tzout, "CCTZ: Unrecognized timezone: \"%s\"");
 
   std::string tzto_old_name("not-a-tz");
   size_t n = dt.size();
@@ -293,7 +296,7 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
     {
       std::string tzto_name(tzs[i]);
       if (tzto_name != tzto_old_name) {
-        load_tz_or_fail(tzto_name, tzto, "Unrecognized timezone: \"%s\"");
+        load_tz_or_fail(tzto_name, tzto, "CCTZ: Unrecognized timezone: \"%s\"");
         tzto_old_name = tzto_name;
       }
 
@@ -329,7 +332,7 @@ Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt,
     {
       std::string tzto_name(tzs[i]);
       if (tzto_name != tzto_old_name) {
-        load_tz_or_fail(tzto_name, tzto, "Unrecognized timezone: \"%s\"");
+        load_tz_or_fail(tzto_name, tzto, "CCTZ: Unrecognized timezone: \"%s\"");
         tzto_old_name = tzto_name;
       }
 
