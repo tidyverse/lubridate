@@ -20,9 +20,8 @@ add_duration_to_date <- function(dur, date) {
     if (all(is.na(ans))) return(as.Date(ans))  # ALL NAs
 
     if (all(hour(na.omit(ans)) == 0  &
-              minute(na.omit(ans)) == 0 &
-              second(na.omit(ans)) == 0)
-    ) {
+            minute(na.omit(ans)) == 0 &
+            second(na.omit(ans)) == 0)) {
       return(as.Date(ans))
     }
 
@@ -69,9 +68,8 @@ add_months <- function(mt, mos) {
   mt
 }
 
-
 add_number_to_duration <- function(num, dur) {
-    new("Duration", dur@.Data + num)
+  new("Duration", dur@.Data + num)
 }
 
 add_number_to_period <- function(num, per) {
@@ -81,80 +79,80 @@ add_number_to_period <- function(num, per) {
 
 #' @export
 setMethod("+", signature(e1 = "Duration", e2 = "Duration"),
-  function(e1, e2) add_duration_to_duration(e2, e1))
+          function(e1, e2) add_duration_to_duration(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "Duration", e2 = "Date"),
-  function(e1, e2) add_duration_to_date(e1, e2))
+          function(e1, e2) add_duration_to_date(e1, e2))
 
 #' @export
 setMethod("+", signature(e1 = "Duration", e2 = "difftime"),
-  function(e1, e2) add_duration_to_duration(as.duration(e2), e1))
+          function(e1, e2) add_duration_to_duration(as.duration(e2), e1))
 
 #' @export
 setMethod("+", signature(e1 = "Duration", e2 = "numeric"),
-  function(e1, e2) add_number_to_duration(e2, e1))
+          function(e1, e2) add_number_to_duration(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXct"),
-  function(e1, e2) add_duration_to_date(e1, e2))
+          function(e1, e2) add_duration_to_date(e1, e2))
 
 #' @export
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXlt"),
-  function(e1, e2) add_duration_to_date(e1, e2))
+          function(e1, e2) add_duration_to_date(e1, e2))
 
 #' @export
 setMethod("+", signature(e1 = "Period", e2 = "Period"),
-  function(e1, e2) add_period_to_period(e2, e1))
+          function(e1, e2) add_period_to_period(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "Period", e2 = "Date"),
-  function(e1, e2) add_period_to_date(e1, e2))
+          function(e1, e2) add_period_to_date(e1, e2))
 
 #' @export
 setMethod("+", signature(e1 = "Period", e2 = "numeric"),
-  function(e1, e2) add_number_to_period(e2, e1))
+          function(e1, e2) add_number_to_period(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "Period", e2 = "POSIXct"),
-  function(e1, e2) add_period_to_date(e1, e2))
+          function(e1, e2) add_period_to_date(e1, e2))
 
 #' @export
 setMethod("+", signature(e1 = "Period", e2 = "POSIXlt"),
-  function(e1, e2) add_period_to_date(e1, e2))
+          function(e1, e2) add_period_to_date(e1, e2))
 
 #' @export
 setMethod("+", signature(e1 = "Date", e2 = "Duration"),
-  function(e1, e2) add_duration_to_date(e2, e1))
+          function(e1, e2) add_duration_to_date(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "Date", e2 = "Period"),
-  function(e1, e2) add_period_to_date(e2, e1))
+          function(e1, e2) add_period_to_date(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "difftime", e2 = "Duration"),
-  function(e1, e2) as.difftime(e2, units = "secs") + e1)
+          function(e1, e2) as.difftime(e2, units = "secs") + e1)
 
 #' @export
 setMethod("+", signature(e1 = "numeric", e2 = "Duration"),
-  function(e1, e2) add_number_to_duration(e1, e2))
+          function(e1, e2) add_number_to_duration(e1, e2))
 
 #' @export
 setMethod("+", signature(e1 = "numeric", e2 = "Period"),
-  function(e1, e2) add_number_to_period(e1, e2))
+          function(e1, e2) add_number_to_period(e1, e2))
 
 #' @export
 setMethod("+", signature(e1 = "POSIXct", e2 = "Duration"),
-  function(e1, e2) add_duration_to_date(e2, e1))
+          function(e1, e2) add_duration_to_date(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "POSIXct", e2 = "Period"),
-  function(e1, e2) add_period_to_date(e2, e1))
+          function(e1, e2) add_period_to_date(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Duration"),
-  function(e1, e2) add_duration_to_date(e2, e1))
+          function(e1, e2) add_duration_to_date(e2, e1))
 
 #' @export
 setMethod("+", signature(e1 = "POSIXlt", e2 = "Period"),
-  function(e1, e2) add_period_to_date(e2, e1))
+          function(e1, e2) add_period_to_date(e2, e1))

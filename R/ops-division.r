@@ -92,8 +92,8 @@ divide_period_by_period <- function(per1, per2) {
 
 divide_period_by_number <- function(per, num) {
   new("Period", per@.Data / num, year = per@year / num,
-    month = per@month / num, day = per@day / num, hour = per@hour / num,
-    minute = per@minute / num)
+      month = per@month / num, day = per@day / num, hour = per@hour / num,
+      minute = per@minute / num)
 }
 
 
@@ -108,7 +108,7 @@ divide_difftime_by_duration <- function(dif, dur)
 
 #' @export
 setMethod("/", signature(e1 = "Duration", e2 = "Duration"),
-  function(e1, e2) divide_duration_by_duration(e1, e2))
+          function(e1, e2) divide_duration_by_duration(e1, e2))
 
 #' @export
 setMethod("/", signature(e1 = "Duration", e2 = "Interval"), function(e1, e2) {
@@ -122,16 +122,16 @@ setMethod("/", signature(e1 = "Duration", e2 = "Period"), function(e1, e2) {
 
 #' @export
 setMethod("/", signature(e1 = "Duration", e2 = "difftime"),
-  function(e1, e2) divide_duration_by_difftime(e1, e2))
+          function(e1, e2) divide_duration_by_difftime(e1, e2))
 
 #' @export
 setMethod("/", signature(e1 = "Duration", e2 = "numeric"),
-  function(e1, e2) divide_duration_by_number(e1, e2))
+          function(e1, e2) divide_duration_by_number(e1, e2))
 
 
 #' @export
 setMethod("/", signature(e1 = "Interval", e2 = "Duration"),
-  function(e1, e2) divide_interval_by_duration(e1, e2))
+          function(e1, e2) divide_interval_by_duration(e1, e2))
 
 #' @export
 setMethod("/", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
@@ -144,11 +144,11 @@ setMethod("/", signature(e1 = "Interval", e2 = "Period"),
 
 #' @export
 setMethod("/", signature(e1 = "Interval", e2 = "difftime"),
-  function(e1, e2) divide_interval_by_difftime(e1, e2))
+          function(e1, e2) divide_interval_by_difftime(e1, e2))
 
 #' @export
 setMethod("/", signature(e1 = "Interval", e2 = "numeric"),
-  function(e1, e2) divide_interval_by_number(e1, e2))
+          function(e1, e2) divide_interval_by_number(e1, e2))
 
 
 #' @export
@@ -163,7 +163,7 @@ setMethod("/", signature(e1 = "Period", e2 = "Interval"), function(e1, e2) {
 
 #' @export
 setMethod("/", signature(e1 = "Period", e2 = "Period"),
-  function(e1, e2) divide_period_by_period(e1, e2))
+          function(e1, e2) divide_period_by_period(e1, e2))
 
 #' @export
 setMethod("/", signature(e1 = "Period", e2 = "difftime"), function(e1, e2) {
@@ -172,13 +172,13 @@ setMethod("/", signature(e1 = "Period", e2 = "difftime"), function(e1, e2) {
 
 #' @export
 setMethod("/", signature(e1 = "Period", e2 = "numeric"),
-  function(e1, e2) divide_period_by_number(e1, e2))
+          function(e1, e2) divide_period_by_number(e1, e2))
 
 
 
 #' @export
 setMethod("/", signature(e1 = "difftime", e2 = "Duration"),
-  function(e1, e2) divide_difftime_by_duration(e1, e2))
+          function(e1, e2) divide_difftime_by_duration(e1, e2))
 
 #' @export
 setMethod("/", signature(e1 = "difftime", e2 = "Interval"), function(e1, e2) {
@@ -194,11 +194,11 @@ setMethod("/", signature(e1 = "difftime", e2 = "Period"), function(e1, e2) {
 
 #' @export
 setMethod("/", signature(e1 = "numeric", e2 = "Duration"),
-  function(e1, e2) stop("Cannot divide numeric by duration"))
+          function(e1, e2) stop("Cannot divide numeric by duration"))
 
 #' @export
 setMethod("/", signature(e1 = "numeric", e2 = "Interval"),
-  function(e1, e2) stop("Cannot divide numeric by interval"))
+          function(e1, e2) stop("Cannot divide numeric by interval"))
 #' @export
 setMethod("/", signature(e1 = "numeric", e2 = "Period"),
-  function(e1, e2) stop("Cannot divide numeric by period"))
+          function(e1, e2) stop("Cannot divide numeric by period"))

@@ -18,20 +18,20 @@ modulo_period_by_period <- function(per, per2)
 
 #' @export
 setMethod("%%", signature(e1 = "Duration", e2 = "Duration"),
-  function(e1, e2) modulo_duration_by_duration(e1, e2))
+          function(e1, e2) modulo_duration_by_duration(e1, e2))
 
 #' @export
 setMethod("%%", signature(e1 = "Interval", e2 = "Duration"),
-  function(e1, e2) modulo_interval_by_duration(e1, e2))
+          function(e1, e2) modulo_interval_by_duration(e1, e2))
 
 #' @export
 setMethod("%%", signature(e1 = "Interval", e2 = "Interval"),
-  function(e1, e2) stop("%% not defined for Interval class\nConsider setdiff()"))
+          function(e1, e2) stop("%% not defined for Interval class\nConsider setdiff()"))
 
 #' @export
 setMethod("%%", signature(e1 = "Interval", e2 = "Period"),
-  function(e1, e2) modulo_interval_by_period(e1, e2))
+          function(e1, e2) modulo_interval_by_period(e1, e2))
 
 #' @export
 setMethod("%%", signature(e1 = "Period", e2 = "Period"),
-  function(e1, e2) modulo_period_by_period(e1, e2))
+          function(e1, e2) modulo_period_by_period(e1, e2))

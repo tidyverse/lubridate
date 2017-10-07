@@ -14,17 +14,17 @@ multiply_interval_by_number <- function(int, num) {
 
 multiply_period_by_number <- function(per, num) {
   new("Period", per@.Data * num,
-    year = per@year * num,
-    month = per@month * num,
-    day = per@day * num,
-    hour = per@hour * num,
-    minute = per@minute * num)
+      year = per@year * num,
+      month = per@month * num,
+      day = per@day * num,
+      hour = per@hour * num,
+      minute = per@minute * num)
 }
 
 
 #' @export
 setMethod("*", signature(e1 = "Timespan", e2 = "Timespan"),
-  function(e1, e2) stop("cannot multiply time span by time span"))
+          function(e1, e2) stop("cannot multiply time span by time span"))
 
 #' @export
 setMethod("*", signature(e1 = "Duration"), function(e1, e2) multiply_duration_by_number(e1, e2))

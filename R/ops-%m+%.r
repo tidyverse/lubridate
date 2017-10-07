@@ -58,11 +58,11 @@ setGeneric("%m+%")
 
 #' @export
 setMethod("%m+%", signature(e2 = "Period"),
-  function(e1, e2) add_with_rollback(e1, e2))
+          function(e1, e2) add_with_rollback(e1, e2))
 
 #' @export
 setMethod("%m+%", signature(e1 = "Period"),
-  function(e1, e2) add_with_rollback(e2, e1))
+          function(e1, e2) add_with_rollback(e2, e1))
 
 #' @export
 setMethod("%m+%", signature(e2 = "ANY"),
@@ -77,11 +77,11 @@ setGeneric("%m-%")
 
 #' @export
 setMethod("%m-%", signature(e2 = "Period"),
-  function(e1, e2) add_with_rollback(e1, -e2))
+          function(e1, e2) add_with_rollback(e1, -e2))
 
 #' @export
 setMethod("%m-%", signature(e1 = "Period"),
-  function(e1, e2) add_with_rollback(e2, -e1))
+          function(e1, e2) add_with_rollback(e2, -e1))
 
 #' @export
 setMethod("%m-%", signature(e2 = "ANY"),
