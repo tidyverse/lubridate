@@ -12,6 +12,7 @@ temp*
 *.so
 *.o
 *.a
+*.dll
 .Rhistory
 .RData
 TAGS
