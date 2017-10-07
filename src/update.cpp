@@ -203,7 +203,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
       time_point tp1(ss);
       cctz::civil_second ct1 = cctz::convert(tp1, tzone1);
 
-      long int
+      int_fast64_t
         y = ct1.year(), m = ct1.month(), d = ct1.day(),
         H = ct1.hour(), M = ct1.minute(), S = ct1.second();
 
