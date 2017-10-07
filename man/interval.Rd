@@ -17,7 +17,7 @@
 \alias{int_diff}
 \title{Utilities for creation and manipulation of \code{Interval} objects}
 \usage{
-interval(start, end, tzone = attr(start, "tzone"))
+interval(start, end, tzone = tz(start))
 
 start \%--\% end
 

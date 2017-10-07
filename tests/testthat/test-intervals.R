@@ -81,19 +81,23 @@ test_that("interval handles character inputs", {
 
 
 test_that("interval handles POSIXlt inputs", {
+
+  Sys.setenv(TZ = "America/Los_Angeles")
   t1 <- as.POSIXlt("2007-01-01")
   t2 <- as.POSIXlt("2007-08-01")
-  expect_equal(interval(t1, t2),
-               new("Interval", 18316800,
-                   start = as.POSIXct("2007-01-01", tz = "UTC"),
-                   tzone = "UTC"))
+  expect_equal(unclass(interval(t1, t2)),
+               unclass(new("Interval", 18313200,
+                           start = as.POSIXct("2007-01-01"),
+                           tzone = Sys.timezone())))
 
   t1 <- as.POSIXlt("2007-01-01")
   t2 <- as.POSIXlt("2007-08-01 00:01:02")
-  expect_equal(interval(t1, t2),
-               new("Interval", 18316862,
-                   start = as.POSIXct("2007-01-01", tz = "UTC"),
-                   tzone = "UTC"))
+  expect_equal(unclass(interval(t1, t2)),
+               unclass(new("Interval", 18313262,
+                           start = as.POSIXct("2007-01-01"),
+                           tzone = Sys.timezone())))
+
+  Sys.setenv(TZ = "")
 })
 
 test_that("as.interval works as expected", {
