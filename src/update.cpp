@@ -169,7 +169,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   Rcpp::NumericVector out(N);
 
   // all vectors are either size N or 1
-  for (size_t i = 0; i < N; i++)
+  for (R_xlen_t i = 0; i < N; i++)
     {
       double dti = loop_dt ? dt[i] : dt[0];
       if (ISNA(dti)) {
