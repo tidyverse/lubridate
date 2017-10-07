@@ -23,34 +23,37 @@ divide_interval_by_duration <- function(int, dur) {
 adjust_estimate <- function(est, int, per) {
   start <- int_start(int)
   end <- int_end(int)
-
   est <- ceiling(est)
 
   up_date <- add_with_rollback(start, est * per)
   while (length(which <- which(up_date < end))) {
-    up_date[which] <- add_with_rollback(up_date[which], per)
+    up_date[which] <- add_with_rollback(up_date[which], per[which])
     est[which] <- est[which] + 1
   }
 
-  low_date <- add_with_rollback(up_date, -per)
-  if (length(which <- which(low_date > end))) {
-    low_date[which] <- add_with_rollback(low_date[which], -per)
+  low_date <- up_date ## add_with_rollback(up_date, -per)
+  while (length(which <- which(low_date > end))) {
+    up_date[which] <- low_date[which]
+    low_date[which] <- add_with_rollback(low_date[which], -per[which])
+    est[which] <- est[which] - 1
   }
 
   frac <-
-    as.numeric(difftime(up_date, end, units = "secs"))/
+    as.numeric(difftime(end, low_date, units = "secs"))/
     as.numeric(difftime(up_date, low_date, units = "secs"))
 
-  est - frac
+  frac[low_date == up_date] <- 0
+
+  est + frac
 }
 
 divide_interval_by_period <- function(int, per) {
   estimate <- int/as.duration(per)
   not_nas <- !is.na(estimate)
+  timespans <- match_lengths(int, per)
   if (all(not_nas)) {
-    adjust_estimate(estimate, int, per)
+    adjust_estimate(estimate, timespans[[1]], timespans[[2]])
   } else {
-    timespans <- match_lengths(int, per)
     int2 <- timespans[[1]][not_nas]
     per2 <- timespans[[2]][not_nas]
     estimate[not_nas] <- adjust_estimate(estimate[not_nas], int2, per2)
@@ -66,7 +69,6 @@ divide_interval_by_number <- function(int, num) {
   starts <- int@start + rep(0, length(num))
   new("Interval", int@.Data / num, start = starts, tzone = int@tzone)
 }
-
 
 
 divisible_period <- function(per, anchor) {

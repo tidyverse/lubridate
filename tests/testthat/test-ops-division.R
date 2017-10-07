@@ -32,6 +32,15 @@ test_that("division works for interval numerator with vectors", {
   expect_equal(c(int2, int2) / 2, c(int3, int3))
 })
 
+test_that("arguments are recycled in interval division", {
+expect_equal(interval(c('2015-03-01', '2015-03-02', '2015-03-03'), '2016-10-01') / months(1),
+             c(19.00000000, 18.96666667, 18.93333333))
+expect_equal(interval(c('2015-03-01', '2015-03-02', '2015-03-03', '2015-03-04'), '2016-10-01') / months(1:2),
+             interval(c('2015-03-01', '2015-03-02', '2015-03-03', '2015-03-04'), '2016-10-01') / months(c(1:2, 1:2)))
+expect_equal(interval('2015-03-02', '2016-10-01') / months(1:3),
+             interval(c('2015-03-02', '2015-03-02', '2015-03-02'), '2016-10-01') / months(1:3))
+})
+
 test_that("division works for interval numerator with period denominator", {
   int1 <- ymd("2010-01-01") %--% ymd("2011-01-01")
   int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
