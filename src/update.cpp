@@ -14,6 +14,9 @@
 // https://github.com/devjgm/papers/blob/master/d0216r1.md
 // https://raw.githubusercontent.com/devjgm/papers/master/resources/struct-civil_lookup.png
 
+// R's timezone registry:
+// https://github.com/SurajGupta/r-source/blob/master/src/extra/tzone/registryTZ.c
+
 namespace chrono = std::chrono;
 using sys_seconds = chrono::duration<int_fast64_t>;
 using time_point = chrono::time_point<std::chrono::system_clock, sys_seconds>;
@@ -23,10 +26,28 @@ const std::unordered_map<std::string, int> TZMAP {
   {"PDT", -7}, {"PST", -8}, {"WEST", 1}, {"WET", 0}
 };
 
+namespace {
+// initialize once per session
+Rcpp::Environment _base = Rcpp::Environment::base_namespace();
+Rcpp::Function _sys_tz = _base["Sys.timezone"];
+const std::string LOCAL_TZ(CHAR(STRING_ELT(_sys_tz(), 0)));
+}
+
+// Memoized local time zone
+std::string local_tz() {
+  // Check for $TZ in case user overridden it
+  const char* tz_env = std::getenv("TZ");
+  if (tz_env)
+    return tz_env;
+  return LOCAL_TZ;
+}
+
 bool load_tz(std::string tzstr, cctz::time_zone& tz) {
   // return `true` if loaded, else false
   if (tzstr.size() == 0){
-    tz = cctz::local_time_zone();
+    // CCTZ doesn't work on windows https://github.com/google/cctz/issues/53
+    /* std::cout << "Local TZ: " << local_tz() << std::endl; */
+    cctz::load_time_zone(local_tz(), &tz);
   } else {
     if (!cctz::load_time_zone(tzstr, &tz)) {
       auto el = TZMAP.find(tzstr);
