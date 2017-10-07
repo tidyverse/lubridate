@@ -43,12 +43,11 @@ add_period_to_period <- function(per2, per1) {
 }
 
 add_period_to_date <- function(per, date) {
+
   lt <- as.POSIXlt(date)
 
   ## add months and years with no backwards rollover
   ms <- month(per) + year(per) * 12
-  month(per) <- 0
-  year(per) <- 0
   lt <- add_months(lt, ms)
 
   new <- update(lt,
@@ -65,7 +64,6 @@ add_period_to_date <- function(per, date) {
 
 add_months <- function(mt, mos) {
   mt$mon <- mt$mon + mos
-
   ndays <- as.numeric(format.POSIXlt(mt, "%d", usetz = FALSE))
   mt$mon[mt$mday != ndays] <- NA
   mt
