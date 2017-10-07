@@ -62,14 +62,12 @@ tz <- function (x)
 tz.default <- function(x) {
   if (is.null(attr(x, "tzone")) && !is.POSIXt(x))
     return("UTC")
-  tzs <- attr(as.POSIXlt(x), "tzone")
-  tzs[1]
+  attr(as.POSIXlt(x), "tzone")[[1]]
 }
 
 #' @export
 tz.zoo <- function(x) {
-  tzs <- attr(as.POSIXlt(zoo::index(x)), "tzone")
-  tzs[1]
+  attr(as.POSIXlt(zoo::index(x)), "tzone")[[1]]
 }
 
 #' @export
