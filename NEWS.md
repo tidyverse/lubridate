@@ -17,13 +17,11 @@ Version 1.6.0.9000
 * [#529](https://github.com/tidyverse/lubridate/issues/529) Internal parser now ignores the case of alpha months (B format)
 * [#535](https://github.com/tidyverse/lubridate/issues/535) Rounding to `season` is now supported.
 * [#536](https://github.com/tidyverse/lubridate/issues/536) `as_date` and `as_datetime` now understand character vectors.
-* New parsing parameters to `parse_date_time` - `train=TRUE` and `drop=FALSE`
-  which allow more refined control of the format guessing. Formats are no longer
-  droped in the process by default, process which resulted in surprising
-  behavior on several occasions ([#516](https://github.com/tidyverse/lubridate/issues/516),[#308](https://github.com/tidyverse/lubridate/issues/308),[#307](https://github.com/tidyverse/lubridate/issues/307)).
+* New parsing parameters to `parse_date_time` - `train=TRUE` and `drop=FALSE` which allow more refined control of the format guessing. Formats are no longer dropped in the process by default, process which resulted in surprising behavior on several occasions ([#516](https://github.com/tidyverse/lubridate/issues/516),[#308](https://github.com/tidyverse/lubridate/issues/308),[#307](https://github.com/tidyverse/lubridate/issues/307)).
 
 ### CHANGES
 
+* [#401](https://github.com/tidyverse/lubridate/issues/401) **Breaking change** `wday` labels are in current locale. The abbreviated labels in English locales have been also changed to standard abbreviations (Tues -> Tue, Thurs -> Thu etc.).
 * [#469](https://github.com/tidyverse/lubridate/issues/469) Throw warning in `with_tz` on invalid timezone.
 * [#572](https://github.com/tidyverse/lubridate/issues/572) `B` and `b` formats no longer match numeric months. This corresponds to the original intent, and was always documented as such.
 
