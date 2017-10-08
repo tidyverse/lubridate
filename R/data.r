@@ -11,6 +11,6 @@
 #'
 #' @name lakers
 #' @docType data
-#' @references \url{http://www.basketballgeek.com/data/}
+#' @references Originally taken from www.basketballgeek.com/data/.
 #' @keywords data
 NULL

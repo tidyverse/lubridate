@@ -15,6 +15,6 @@ play, the result of the play, and the location on the court
 where each play was made.
 }
 \references{
-\url{http://www.basketballgeek.com/data/}
+Originally taken from www.basketballgeek.com/data/.
 }
 \keyword{data}
