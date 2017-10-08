@@ -29,9 +29,9 @@ NULL
   replacement <- if (is.null(replacement)) "" else replacement
 
   ## If current major number is greater than last-good major number, or if
-  ##  current minor number is more than 1 greater than last-good minor number,
-  ##  give error.
-  if (cv[[1, 1]] > v[[1, 1]]  ||  cv[[1, 2]] > v[[1, 2]] + 1) {
+  ## current minor number is more than 2 greater than last-good minor number,
+  ## give error.
+  if (cv[[1, 1]] > v[[1, 1]]  ||  cv[[1, 2]] > v[[1, 2]] + 2) {
     stop(sprintf("%s is defunct%s. Deprecated in version '%s'.",
                  name, replacement, version),
          call. = FALSE)
