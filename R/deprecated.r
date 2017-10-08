@@ -177,7 +177,7 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
 
   if (length(tzfiles) == 0) {
     warning("zone.tab file not found in any candidate locations: ",
-            str_join(tzdirs, collapse = " "))
+            paste(tzdirs, collapse = " "))
   }
 
   tzfile <- tzfiles[[1]]
@@ -196,10 +196,7 @@ olson_time_zones <- function(order_by = c("name", "longitude")) {
     name      = tzones$name,
     longitude =
       {
-        longitude_string <- stringr::str_match(
-                                       tzones$coords,
-                                       "[+-][[:digit:]]+([+-][[:digit:]]+)"
-                                     )[, 2]
+        longitude_string <- sub("^[+-][[:digit:]]+", "", tzones$coords)
         nch <- nchar(longitude_string)
         sign <- ifelse(
           substring(longitude_string, 1, 1) == "+",
