@@ -394,7 +394,7 @@ test_that("accessors handle Period objects", {
 
 
 
-context("test days_in_month")
+context("Test days_in_month")
 
 test_that(
   "days in month works for non leap years",

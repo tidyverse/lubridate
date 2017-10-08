@@ -1,4 +1,4 @@
-context("subtraction operations")
+context("Subtraction operations")
 
 ###### subtraction for everything
 

@@ -1,4 +1,4 @@
-context("modulo operations")
+context("Modulo operations")
 
 test_that("modulo operations return correct class", {
         int <- ymd("2010-01-01") %--% ymd("2011-01-01")

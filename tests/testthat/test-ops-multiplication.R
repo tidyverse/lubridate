@@ -1,4 +1,4 @@
-context("multiplication operations")
+context("Multiplication operations")
 
 
 # multiplication for everything

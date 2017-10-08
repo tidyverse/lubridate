@@ -1,4 +1,4 @@
-context("integer division operations")
+context("Integer division operations")
 
 test_that("integer division works for interval numerator", {
   int1 <- ymd("2010-01-01") %--% ymd("2011-01-01")

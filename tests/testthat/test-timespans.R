@@ -1,4 +1,4 @@
-context("timespans")
+context("Timespans")
 
 test_that("is.timespan works as expected", {
   expect_that(is.timespan(234), is_false())

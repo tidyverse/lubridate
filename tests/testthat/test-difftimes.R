@@ -1,4 +1,4 @@
-context("difftimes")
+context("Difftimes")
 
 test_that("is.difftime works as expected", {
   ct_time <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")

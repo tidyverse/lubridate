@@ -1,4 +1,4 @@
-context("am/pm")
+context("AM/PM")
 
 test_that("am and pm correctly identify time of day", {
   x <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")

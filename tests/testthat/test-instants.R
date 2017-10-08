@@ -1,4 +1,4 @@
-context("instants")
+context("Instants")
 
 test_that("is.instant/is.timepoint works as expected", {
   expect_that(is.instant(234), is_false())
