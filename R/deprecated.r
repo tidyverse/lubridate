@@ -10,7 +10,7 @@ NULL
 ## modified ggplot2:::gg_dep
 .deprecated_fun <- function(replacement, version, n_call = 1) {
   name <- as.character(sys.call(-(n_call))[[1]])
-  name <- sprintf("'%s'", name)
+  name <- sprintf("'%s'", name[[length(name)]])
   replacement <- sprintf("; use '%s' instead", replacement)
   .deprecated(name, replacement, version)
 }
