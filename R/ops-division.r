@@ -48,6 +48,9 @@ adjust_estimate <- function(est, int, per) {
 }
 
 divide_interval_by_period <- function(int, per) {
+  if (length(int) == 0 || length(per) == 0)
+    return(numeric())
+
   estimate <- int/as.duration(per)
   not_nas <- !is.na(estimate)
   timespans <- match_lengths(int, per)

@@ -41,6 +41,13 @@ expect_equal(interval('2015-03-02', '2016-10-01') / months(1:3),
              interval(c('2015-03-02', '2015-03-02', '2015-03-02'), '2016-10-01') / months(1:3))
 })
 
+test_that("NA and Interval(0) propagate in interval division", {
+  int0 <- interval(character(0), now())
+  expect_equal(int0/days(3), numeric(0))
+  intNA <- interval(NA, now())
+  expect_equal(intNA/days(3), NA_real_)
+})
+
 test_that("division works for interval numerator with period denominator", {
   int1 <- ymd("2010-01-01") %--% ymd("2011-01-01")
   int2 <- ymd("2009-01-01") %--% ymd("2011-01-01")
