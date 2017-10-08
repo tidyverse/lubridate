@@ -112,7 +112,7 @@
 |[ggvis](problems.md#ggvis)                                         |0.4.3   |       |        |1    |
 |githubinstall                                                      |0.2.1   |       |        |     |
 |gk                                                                 |0.5.0   |       |        |     |
-|[grattan](problems.md#grattan)                                     |1.5.1.2 |       |        |1    |
+|[grattan](problems.md#grattan)                                     |1.5.1.2 |       |-1      |1    |
 |GSODR                                                              |1.0.6   |       |        |     |
 |[hansard](problems.md#hansard)                                     |0.5.2   |1      |        |     |
 |happybiRthday                                                      |0.0.1   |       |        |     |
@@ -192,7 +192,7 @@
 |ropenaq                                                            |0.2.2   |       |        |     |
 |rpdo                                                               |0.2.2   |       |        |     |
 |[rplos](problems.md#rplos)                                         |0.6.4   |1      |        |1    |
-|[rsoi](problems.md#rsoi)                                           |0.3.0   |1      |        |1    |
+|[rsoi](problems.md#rsoi)                                           |0.3.0   |2      |        |1    |
 |rtide                                                              |0.0.4   |       |        |     |
 |[rtimes](problems.md#rtimes)                                       |0.5.0   |1      |        |     |
 |[rtimicropem](problems.md#rtimicropem)                             |1.3     |       |        |1    |
@@ -211,7 +211,7 @@
 |[stationaRy](problems.md#stationary)                               |0.4.1   |       |        |1    |
 |[statsDK](problems.md#statsdk)                                     |0.1.1   |       |        |1    |
 |[stormwindmodel](problems.md#stormwindmodel)                       |0.1.0   |       |1       |1    |
-|[stplanr](problems.md#stplanr)                                     |0.1.9   |-1     |        |1    |
+|[stplanr](problems.md#stplanr)                                     |0.1.9   |       |        |1    |
 |sugrrants                                                          |0.1.0   |       |        |     |
 |[sweep](problems.md#sweep)                                         |0.2.0   |       |        |1    |
 |sweidnumbr                                                         |1.4.1   |       |        |     |

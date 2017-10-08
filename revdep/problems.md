@@ -458,6 +458,34 @@ Version: 0.4.3
 
 Version: 1.5.1.2
 
+## Newly fixed
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    
+    The following objects are masked from 'package:data.table':
+    
+        between, first, last
+    
+    The following objects are masked from 'package:stats':
+    
+        filter, lag
+    
+    The following objects are masked from 'package:base':
+    
+        intersect, setdiff, setequal, union
+    
+    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
+      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
+    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
+      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
+    Error: processing vignette 'differential-uprating.Rmd' failed with diagnostics:
+    cannot popen '/usr/bin/which 'pandoc-citeproc' 2>/dev/null', probable reason 'Cannot allocate memory'
+    Execution halted
+    Warning: system call failed: Cannot allocate memory
+    ```
+
 ## In both
 
 *   checking package dependencies ... NOTE
@@ -1013,18 +1041,18 @@ Version: 0.7.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      
       testthat results ================================================================
-      OK: 163 SKIPPED: 1 FAILED: 10
-      1.  Error: check_response returns an error (@test-check_response.r#7) 
-      2.  Error: check_response returns the correct error messages (@test-check_response.r#26) 
-      3.  Error: homr works (@test-homr.R#11) 
-      4.  Error: ncdc returns the correct ... (@test-ncdc.r#8) 
-      5.  Error: ncdc_datacats returns the correct ... (@test-ncdc_datacats.r#7) 
-      6.  Error: ncdc_datasets returns the correct class (@test-ncdc_datasets.r#7) 
-      7.  Error: ncdc_datatypes returns the correct class (@test-ncdc_datatypes.r#7) 
-      8.  Error: ncdc_locs returns the correct class (@test-ncdc_locs.r#7) 
-      9.  Error: ncdc_locs_cats returns the correct ... (@test-ncdc_locs_cats.r#7) 
-      10. Error: ncdc_stations returns the correct... (@test-ncdc_stations.r#7) 
+      OK: 181 SKIPPED: 1 FAILED: 9
+      1. Error: check_response returns an error (@test-check_response.r#7) 
+      2. Error: check_response returns the correct error messages (@test-check_response.r#26) 
+      3. Error: ncdc returns the correct ... (@test-ncdc.r#8) 
+      4. Error: ncdc_datacats returns the correct ... (@test-ncdc_datacats.r#7) 
+      5. Error: ncdc_datasets returns the correct class (@test-ncdc_datasets.r#7) 
+      6. Error: ncdc_datatypes returns the correct class (@test-ncdc_datatypes.r#7) 
+      7. Error: ncdc_locs returns the correct class (@test-ncdc_locs.r#7) 
+      8. Error: ncdc_locs_cats returns the correct ... (@test-ncdc_locs_cats.r#7) 
+      9. Error: ncdc_stations returns the correct... (@test-ncdc_stations.r#7) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1041,15 +1069,15 @@ Version: 2.4.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      Testing term SO:0001076 
-      Testing term SO:0000025 
-      Testing term SO:1000151 
-      Testing term SO:0001198 
-      Testing term SO:0000039 
-      Testing term SO:0002157 
-      Testing term SO:0001901 
-      Testing term SO:0001141 
-      Testing term SO:1000083 
+      Testing term SO:0000464 
+      Testing term SO:1000072 
+      Testing term SO:1000115 
+      Testing term SO:0000870 
+      Testing term SO:0001845 
+      Testing term SO:1000145 
+      Testing term SO:0005857 
+      Testing term SO:0000030 
+      Testing term SO:0005843 
       testthat results ================================================================
       OK: 196 SKIPPED: 0 FAILED: 1
       1. Failure: constructors (@test_Terms.R#57) 
@@ -1111,19 +1139,50 @@ Version: 0.3.0
 
 *   checking examples ... ERROR
     ```
+    ...
     Running examples in ‘rsoi-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: download_soi
-    > ### Title: Download Southern Oscillation Index data
-    > ### Aliases: download_soi
+    > ### Name: download_enso
+    > ### Title: Download Southern Oscillation Index and Oceanic Nino Index data
+    > ### Aliases: download_enso
     > 
     > ### ** Examples
     > 
-    > soi <- download_soi()
+    > enso <- download_enso()
+    Parsed with column specification:
+    cols(
+      Year = col_integer(),
+      Month = col_integer(),
+      TOTAL = col_double(),
+      ClimAdjust = col_double(),
+      dSST3.4 = col_double()
+    )
     Error in open.connection(con, "rb") : HTTP error 502.
-    Calls: download_soi ... read_delimited -> read_connection -> open -> open.connection
+    Calls: download_enso ... read_delimited -> read_connection -> open -> open.connection
     Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      3. Error: Does download_enso() download a data.frame? (@test_download_enso.R#4) 
+      4. Error: Test whether SOI values have not changed from February 2017 (@test_download_enso.R#11) 
+      5. Error: Test that download_enso matches most recent value from alternate dataset - 3 months to account for slight data changes (@test_download_enso.R#23) 
+      
+      Error: testthat unit tests failed
+      In addition: Warning messages:
+      1: In match.fun(FUN) :
+        closing unused connection 3 (https://www.ncdc.noaa.gov/teleconnections/enso/indicators/soi/data.csv)
+      2: In character(0) :
+        closing unused connection 3 (http://www.o3d.org/npgo/data/NPGO.txt)
+      3: In match(x, table, nomatch = 0L) :
+        closing unused connection 3 (https://www.ncdc.noaa.gov/teleconnections/enso/indicators/soi/data.csv)
+      4: In oni$Month[x] :
+        closing unused connection 3 (https://www.ncdc.noaa.gov/teleconnections/enso/indicators/soi/data.csv)
+      Execution halted
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -1425,7 +1484,7 @@ Version: 0.5.3
 ** preparing package for lazy loading
 R session is headless; GTK+ not initialized.
 
-(R:8899): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:22829): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 Error : .onLoad failed in loadNamespace() for 'cairoDevice', details:
   call: fun(libname, pkgname)
   error: GDK display not found - please make sure X11 is running
@@ -1445,7 +1504,7 @@ ERROR: lazy loading failed for package ‘stacomiR’
 ** preparing package for lazy loading
 R session is headless; GTK+ not initialized.
 
-(R:8811): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:22774): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 Error : .onLoad failed in loadNamespace() for 'cairoDevice', details:
   call: fun(libname, pkgname)
   error: GDK display not found - please make sure X11 is running
@@ -1517,28 +1576,6 @@ Version: 0.1.0
 # stplanr
 
 Version: 0.1.9
-
-## Newly fixed
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘stplanr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: geo_code
-    > ### Title: Convert text strings into points on the map
-    > ### Aliases: geo_code
-    > 
-    > ### ** Examples
-    > 
-    > address = "LS7 3HB"
-    > geo_code(address = address)
-          lon       lat 
-    -1.534372 53.819472 
-    > geo_code(address = address, return_all = TRUE)
-    Error: is.data.frame(x) is not TRUE
-    Execution halted
-    ```
 
 ## In both
 
