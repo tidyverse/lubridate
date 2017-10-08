@@ -575,6 +575,9 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
                             locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
                             exact = FALSE, train = TRUE, drop = FALSE) {
 
+  ## backward compatible hack
+  if (is.null(tz)) tz <- ""
+
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   on.exit(Sys.setlocale("LC_TIME", orig_locale))
