@@ -68,7 +68,7 @@ Collate:
     'instants.r'
     'leap-years.r'
     'ops-addition.r'
-    'ops-%m+%.r'
+    'ops-m+.r'
     'ops-compare.r'
     'ops-division.r'
     'ops-integer-division.r'
