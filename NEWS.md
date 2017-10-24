@@ -3,6 +3,7 @@ Version 1.6.0.9000
 
 ### NEW FEATURES
 
+* Reduced memory footprint on `trunc_multi_unit` so that it overwrites the vector argument `x` versus making a new vector `y`.
 * [#438](https://github.com/tidyverse/lubridate/issues/438) New function `force_tzs` for "enforcement" of heterogeneous time zones.
 * [#438](https://github.com/tidyverse/lubridate/issues/438) New function `local_time` for the retrieval of local day time in different time zones.
 * [#560](https://github.com/tidyverse/lubridate/issues/560) New argument `cutoff_2000` for parsing functions to indicate 20th century cutoff for `y` format.

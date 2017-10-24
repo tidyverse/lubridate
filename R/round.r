@@ -289,29 +289,29 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
 }
 
 trunc_multi_unit <- function(x, unit, n) {
-  y <- as.POSIXlt(x)
+  x <- as.POSIXlt(x)
   switch(unit,
          second = {
-           y$sec <- if (n == 1) trunc(y$sec) else floor_multi_unit(y$sec, n)
+           x$sec <- if (n == 1) trunc(x$sec) else floor_multi_unit(x$sec, n)
          },
          minute = {
-           y$sec[] <- 0
-           y$min <- floor_multi_unit(y$min, n)
+           x$sec[] <- 0
+           x$min <- floor_multi_unit(x$min, n)
          },
          hour = {
-           y$sec[] <- 0
-           y$min[] <- 0L
-           y$hour <- floor_multi_unit(y$hour, n)
+           x$sec[] <- 0
+           x$min[] <- 0L
+           x$hour <- floor_multi_unit(x$hour, n)
          },
          day = {
-           y$sec[] <- 0
-           y$min[] <- 0L
-           y$hour[] <- 0L
-           y$isdst[] <- -1L
-           y$mday <- floor_multi_unit1(y$mday, n)
+           x$sec[] <- 0
+           x$min[] <- 0L
+           x$hour[] <- 0L
+           x$isdst[] <- -1L
+           x$mday <- floor_multi_unit1(x$mday, n)
          },
          stop("Invalid unit ", unit))
-  y
+  x
 }
 
 floor_multi_unit <- function(x, n) {
