@@ -1,5 +1,5 @@
-Version 1.6.0.9000
-==================
+Version 1.7.0
+=============
 
 ### NEW FEATURES
 
@@ -21,7 +21,7 @@ Version 1.6.0.9000
 
 ### CHANGES
 
-* [#401](https://github.com/tidyverse/lubridate/issues/401) **Breaking change** `wday` labels are in current locale. The abbreviated labels in English locales have been also changed to standard abbreviations (Tues -> Tue, Thurs -> Thu etc.).
+* [#401](https://github.com/tidyverse/lubridate/issues/401) **[Breaking Change]** Labels returned by `wday` and `month` are now in current locale. The abbreviated labels in English locales have been changed to standard abbreviations (Tues -> Tue, Thurs -> Thu etc.).
 * [#469](https://github.com/tidyverse/lubridate/issues/469) Throw warning in `with_tz` on invalid timezone.
 * [#572](https://github.com/tidyverse/lubridate/issues/572) `B` and `b` formats no longer match numeric months. This corresponds to the original intent, and was always documented as such.
 
