@@ -26,7 +26,7 @@ when an unrecognized time zone is inputted. See \code{\link[=Sys.timezone]{Sys.t
 for more information on how R recognizes time zones.
 }
 \examples{
-x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_York")
+x <- ymd_hms("2009-08-07 00:00:01", tz = "America/New_York")
 with_tz(x, "GMT")
 }
 \seealso{

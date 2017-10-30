@@ -62,7 +62,7 @@ savings. These periods will show the "naive" change in seconds and minutes that 
 suggested by the differences in clock time. See the examples below.
 }
 \examples{
-span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
+span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01")) #interval
 as.period(span)
 as.period(span, units = "day")
 "397d 1H 1M 1S"

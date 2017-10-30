@@ -37,7 +37,7 @@ and update.POSIXt do not add the specified values to the existing date, they
 substitute them for the appropriate parts of the existing date.
 }
 \examples{
-date <- as.POSIXlt("2009-02-10")
+date <- ymd("2009-02-10")
 update(date, year = 2010, month = 1, mday = 1)
 
 update(date, year =2010, month = 13, mday = 1)

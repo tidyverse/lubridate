@@ -141,8 +141,8 @@ calculated.
 \examples{
 interval(ymd(20090201), ymd(20090101))
 
-date1 <- as.POSIXct("2009-03-08 01:59:59")
-date2 <- as.POSIXct("2000-02-29 12:00:00")
+date1 <- ymd_hms("2009-03-08 01:59:59")
+date2 <- ymd_hms("2000-02-29 12:00:00")
 interval(date2, date1)
 interval(date1, date2)
 span <- interval(ymd(20090101), ymd(20090201))

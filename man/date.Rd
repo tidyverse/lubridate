@@ -26,10 +26,10 @@ zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 Also \code{date()} is not defined for Period objects.
 }
 \examples{
-x <- as.POSIXct("2012-03-26 23:12:13", tz = "Etc/GMT+8")
+x <- ymd_hms("2012-03-26 23:12:13", tz = "America/New_York")
 date(x)
 as.Date(x) # by default as.Date assumes you want to know the date in UTC
-as.Date(x, tz = "Etc/GMT+8")
+as.Date(x, tz = "America/New_York")
 date(x) <- as.Date("2000-01-02")
 x
 }
