@@ -206,7 +206,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #' dseconds(1)
 #' dminutes(3.5)
 #'
-#' x <- as.POSIXct("2009-08-03")
+#' x <- ymd_hms("2009-08-03", tz="America/Chicago")
 #' x + ddays(1) + dhours(6) + dminutes(30)
 #' x + ddays(100) - dhours(8)
 #'
@@ -219,7 +219,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #' c(1:3) * dhours(1)
 #'
 #' # compare DST handling to durations
-#' boundary <- as.POSIXct("2009-03-08 01:59:59")
+#' boundary <- ymd_hms("2009-03-08 01:59:59", tz="America/Chicago")
 #' boundary + days(1) # period
 #' boundary + ddays(1) # duration
 #' @export

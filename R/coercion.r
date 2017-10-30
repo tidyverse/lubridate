@@ -317,7 +317,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' @seealso [Period-class], [period()]
 #' @keywords classes manip methods chron
 #' @examples
-#' span <- interval(as.POSIXct("2009-01-01"), as.POSIXct("2010-02-02 01:01:01")) #interval
+#' span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01")) #interval
 #' as.period(span)
 #' as.period(span, units = "day")
 #' "397d 1H 1M 1S"

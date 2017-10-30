@@ -353,7 +353,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #'
 #' ### ELEMENTARY CONSTRUCTORS
 #'
-#' x <- as.POSIXct("2009-08-03")
+#' x <- ymd("2009-08-03")
 #' x + days(1) + hours(6) + minutes(30)
 #' x + days(100) - hours(8)
 #'
@@ -371,7 +371,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' y + months(0:11)
 #'
 #' # compare DST handling to durations
-#' boundary <- as.POSIXct("2009-03-08 01:59:59")
+#' boundary <- ymd_hms("2009-03-08 01:59:59", tz="America/Chicago")
 #' boundary + days(1) # period
 #' boundary + ddays(1) # duration
 #' @export

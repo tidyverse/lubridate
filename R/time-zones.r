@@ -16,7 +16,7 @@
 #' @keywords chron manip
 #' @seealso [force_tz()]
 #' @examples
-#' x <- as.POSIXct("2009-08-07 00:00:01", tz = "America/New_York")
+#' x <- ymd_hms("2009-08-07 00:00:01", tz = "America/New_York")
 #' with_tz(x, "GMT")
 #' @export
 with_tz <- function (time, tzone = "") {

@@ -23,7 +23,7 @@
 #'   date object.
 #' @keywords manip chron
 #' @examples
-#' date <- as.POSIXlt("2009-02-10")
+#' date <- ymd("2009-02-10")
 #' update(date, year = 2010, month = 1, mday = 1)
 #'
 #' update(date, year =2010, month = 13, mday = 1)
