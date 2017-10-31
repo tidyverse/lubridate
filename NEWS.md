@@ -1,3 +1,10 @@
+Version 1.7.0.9000
+==================
+
+## BUG FIXES
+
+* [#597](https://github.com/tidyverse/lubridate/issues/597) Fix incorrect parsing of `ymd` strings by `as_datetime`.
+
 Version 1.7.0
 =============
 

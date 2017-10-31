@@ -673,7 +673,7 @@ setMethod("as_datetime", "numeric",
 #' @export
 setMethod("as_datetime", "character",
           function(x, tz = "UTC") {
-            parse_date_time(x, orders = c("ymdTz", "ymdT"), tz = tz)
+            parse_date_time(x, orders = c("ymdTz", "ymdT", "ymd"), tz = tz, train = FALSE)
           })
 
 #' @rdname as_date

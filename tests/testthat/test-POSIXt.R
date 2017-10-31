@@ -56,3 +56,28 @@ test_that("addition of large seconds doesn't overflow", {
                          "2038-01-19 03:14:09", "2038-01-19 03:14:10"))
   expect_equal(from_period, from_char)
 })
+
+test_that("as_datetime works correctly", {
+
+  x <- c("17-01-20", "2017-01-20 01:02:03", "2017-03-22T15:48:00.000Z",
+         "2017-01-20", "2017-01-20 01:02:03", "2017-03-22T15:48:00.000Z")
+
+  y <- c("2017-01-20 00:00:00 UTC", "2017-01-20 01:02:03 UTC",
+         "2017-03-22 15:48:00 UTC", "2017-01-20 00:00:00 UTC",
+         "2017-01-20 01:02:03 UTC", "2017-03-22 15:48:00 UTC")
+
+  zns <- c(3, 6)
+  putc <- ymd_hms(y)
+  pus <- ymd_hms(y[-zns], tz = "America/Chicago")
+  expect_equal(as_datetime(x), putc)
+  expect_equal(as_datetime(x[-zns], tz = "America/Chicago"), pus)
+
+  for (i in seq_along(x)) {
+    expect_equal(as_datetime(x[[i]]), putc[[i]])
+  }
+
+  for (i in seq_along(pus)) {
+    expect_equal(as_datetime(x[-zns][[i]], tz = "America/Chicago"), pus[[i]])
+  }
+
+})
