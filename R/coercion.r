@@ -644,7 +644,7 @@ setMethod(f = "as_date", signature = "numeric",
 #' @export
 setMethod("as_date", "character",
           function(x, tz = NULL) {
-            ymd(x, tz = tz)
+            as_date(as_datetime(x, tz = "UTC"))
           })
 
 #' @rdname as_date
