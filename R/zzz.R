@@ -19,7 +19,7 @@
         else NULL
       }
     if (!is.null(tzdir)) {
-      Sys.setenv("TZDIR", tzdir)
+      Sys.setenv(TZDIR = tzdir)
     }
   }
 }
