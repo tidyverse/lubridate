@@ -8,6 +8,9 @@ Description: Functions to work with date-times and time-spans: fast and user
     manipulation on date-time and time-span objects. The 'lubridate' package has
     a consistent and memorable syntax that makes working with dates easy and
     fun.
+    Parts of the 'CCTZ' source code, released under the Apache 2.0 License,
+    are included in this package. See <https://github.com/google/cctz> for more
+    details.
 Authors@R: c(
     person("Vitalie", "Spinu", email = "spinuvit@gmail.com", role = c("aut","cre")),
     person("Garrett", "Grolemund", role = "aut"),
@@ -43,6 +46,9 @@ Enhances:
     tseries,
     xts,
     zoo
+SystemRequirements: A system with zoneinfo data (e.g. /usr/share/zoneinfo) as
+    well as a recent-enough C++11 compiler (such as g++-4.8 or later). On
+    Windows the zoneinfo included with R is used.
 VignetteBuilder: knitr
 LazyData: true
 Collate:
