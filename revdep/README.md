@@ -9,13 +9,13 @@
 |language |                                            |
 |collate  |en_GB.UTF-8                                 |
 |tz       |Europe/Amsterdam                            |
-|date     |2017-10-08                                  |
+|date     |2017-11-02                                  |
 
 # Dependencies
 
 |package   |old   |new     |Δ  |
 |:---------|:-----|:-------|:--|
-|lubridate |1.6.0 |1.7.0   |*  |
+|lubridate |1.6.0 |1.7.1   |*  |
 |magrittr  |1.5   |1.5     |   |
 |Rcpp      |NA    |0.12.13 |*  |
 |stringi   |1.1.5 |1.1.5   |   |
@@ -25,42 +25,44 @@
 
 ## Couldn't check (8)
 
-|package                                        |version |error |warning |note |
-|:----------------------------------------------|:-------|:-----|:-------|:----|
-|[countyfloods](problems.md#countyfloods)       |0.0.2   |1     |        |     |
-|[dataPreparation](problems.md#datapreparation) |0.2     |1     |        |     |
-|[dataRetrieval](problems.md#dataretrieval)     |2.7.3   |1     |        |     |
-|[hansard](problems.md#hansard)                 |0.5.2   |1     |        |     |
-|[iClick](problems.md#iclick)                   |1.2     |1     |        |     |
-|[SpaDES.core](problems.md#spades.core)         |0.1.0   |1     |        |1    |
-|[stacomiR](problems.md#stacomir)               |0.5.3   |1     |        |     |
-|[xtractomatic](problems.md#xtractomatic)       |3.3.2   |1     |        |     |
+|package                                    |version |error |warning |note |
+|:------------------------------------------|:-------|:-----|:-------|:----|
+|[countyfloods](problems.md#countyfloods)   |0.1.0   |1     |        |1    |
+|[dataRetrieval](problems.md#dataretrieval) |2.7.3   |1     |        |     |
+|[hansard](problems.md#hansard)             |0.5.5   |1     |        |     |
+|[iClick](problems.md#iclick)               |1.2     |1     |        |     |
+|[ropenaq](problems.md#ropenaq)             |0.2.2   |1     |        |     |
+|[SpaDES.core](problems.md#spadescore)      |0.1.0   |1     |        |1    |
+|[stacomiR](problems.md#stacomir)           |0.5.3   |1     |        |     |
+|[xtractomatic](problems.md#xtractomatic)   |3.3.2   |1     |        |     |
 
-## Broken (3)
+## Broken (4)
 
-|package                        |version |error  |warning |note |
-|:------------------------------|:-------|:------|:-------|:----|
-|[FedData](problems.md#feddata) |2.4.6   |__+1__ |        |     |
-|[fmdates](problems.md#fmdates) |0.1.2   |__+1__ |        |     |
-|[openair](problems.md#openair) |2.1-5   |__+1__ |        |     |
+|package                          |version |error  |warning |note |
+|:--------------------------------|:-------|:------|:-------|:----|
+|[bikedata](problems.md#bikedata) |0.0.4   |__+1__ |1       |1    |
+|[GSODR](problems.md#gsodr)       |1.1.0   |__+1__ |        |     |
+|[SensusR](problems.md#sensusr)   |2.2.0   |__+1__ |        |     |
+|[stplanr](problems.md#stplanr)   |0.1.9   |__+1__ |        |1    |
 
-## All (192)
+## All (194)
 
 |package                                                            |version |error  |warning |note |
 |:------------------------------------------------------------------|:-------|:------|:-------|:----|
+|actogrammr                                                         |0.2.3   |       |        |     |
 |AdhereR                                                            |0.1.0   |       |        |     |
 |aemo                                                               |0.2.0   |       |        |     |
-|alfred                                                             |0.1.3   |       |        |     |
+|alfred                                                             |0.1.4   |       |        |     |
 |[alphavantager](problems.md#alphavantager)                         |0.1.0   |       |        |1    |
 |antaresRead                                                        |1.1.4   |       |        |     |
 |[antaresViz](problems.md#antaresviz)                               |0.11    |1      |        |     |
 |[aoristic](problems.md#aoristic)                                   |0.6     |       |        |2    |
 |APSIM                                                              |0.9.2   |       |        |     |
 |[apsimr](problems.md#apsimr)                                       |1.2     |       |        |1    |
-|[archivist](problems.md#archivist)                                 |2.1.2   |       |        |2    |
+|[archivist](problems.md#archivist)                                 |2.1.2   |1      |        |2    |
 |[basictabler](problems.md#basictabler)                             |0.1.0   |       |1       |1    |
-|BETS                                                               |0.3.2   |       |        |     |
-|[bikedata](problems.md#bikedata)                                   |0.0.4   |       |        |1    |
+|BETS                                                               |0.3.3   |       |        |     |
+|[bikedata](problems.md#bikedata)                                   |0.0.4   |__+1__ |1       |1    |
 |Biograph                                                           |2.0.6   |       |        |     |
 |boxoffice                                                          |0.1.1   |       |        |     |
 |[bsam](problems.md#bsam)                                           |1.1.2   |1      |        |     |
@@ -71,7 +73,7 @@
 |clifro                                                             |3.1-5   |       |        |     |
 |climwin                                                            |1.1.0   |       |        |     |
 |[congressbr](problems.md#congressbr)                               |0.1.1   |       |        |1    |
-|[countyfloods](problems.md#countyfloods)                           |0.0.2   |1      |        |     |
+|[countyfloods](problems.md#countyfloods)                           |0.1.0   |1      |        |1    |
 |[countytimezones](problems.md#countytimezones)                     |1.0.0   |       |1       |1    |
 |[countyweather](problems.md#countyweather)                         |0.1.0   |1      |        |     |
 |[CRANsearcher](problems.md#cransearcher)                           |1.0.0   |       |        |1    |
@@ -81,11 +83,11 @@
 |cruts                                                              |0.3     |       |        |     |
 |datadogr                                                           |0.1.1   |       |        |     |
 |[dataonderivatives](problems.md#dataonderivatives)                 |0.3.0   |1      |        |1    |
-|[dataPreparation](problems.md#datapreparation)                     |0.2     |1      |        |     |
+|dataPreparation                                                    |0.3.2   |       |        |     |
 |[dataRetrieval](problems.md#dataretrieval)                         |2.7.3   |1      |        |     |
-|[dgo](problems.md#dgo)                                             |0.2.10  |1      |        |     |
+|[dgo](problems.md#dgo)                                             |0.2.11  |1      |        |     |
 |[diversitree](problems.md#diversitree)                             |0.9-10  |       |        |1    |
-|drake                                                              |4.2.0   |       |        |     |
+|drake                                                              |4.3.0   |       |        |     |
 |drsmooth                                                           |1.9.0   |       |        |     |
 |dtwSat                                                             |0.2.3   |       |        |     |
 |dynatopmodel                                                       |1.1     |       |        |     |
@@ -97,11 +99,11 @@
 |esmprep                                                            |0.1.0   |       |        |     |
 |etl                                                                |0.3.7   |       |        |     |
 |fecR                                                               |0.0.2   |       |        |     |
-|[FedData](problems.md#feddata)                                     |2.4.6   |__+1__ |        |     |
+|FedData                                                            |2.4.6   |       |        |     |
 |feedeR                                                             |0.0.7   |       |        |     |
 |[fivethirtyeight](problems.md#fivethirtyeight)                     |0.3.0   |       |        |2    |
 |fmbasics                                                           |0.2.0   |       |        |     |
-|[fmdates](problems.md#fmdates)                                     |0.1.2   |__+1__ |        |     |
+|fmdates                                                            |0.1.3   |       |        |     |
 |ForecastFramework                                                  |0.9.0   |       |        |     |
 |FREddyPro                                                          |1.0     |       |        |     |
 |geomerge                                                           |0.3.0   |       |        |     |
@@ -112,22 +114,22 @@
 |[ggvis](problems.md#ggvis)                                         |0.4.3   |       |        |1    |
 |githubinstall                                                      |0.2.1   |       |        |     |
 |gk                                                                 |0.5.0   |       |        |     |
-|[grattan](problems.md#grattan)                                     |1.5.1.2 |       |-1      |1    |
-|GSODR                                                              |1.0.6   |       |        |     |
-|[hansard](problems.md#hansard)                                     |0.5.2   |1      |        |     |
-|happybiRthday                                                      |0.0.1   |       |        |     |
+|[GSODR](problems.md#gsodr)                                         |1.1.0   |__+1__ |        |     |
+|[hansard](problems.md#hansard)                                     |0.5.5   |1      |        |     |
+|[happybiRthday](problems.md#happybirthday)                         |0.0.1   |1      |        |     |
 |heims                                                              |0.2.4   |       |        |     |
 |[highcharter](problems.md#highcharter)                             |0.5.0   |       |1       |1    |
 |[HistData](problems.md#histdata)                                   |0.8-2   |       |        |1    |
+|[HMMoce](problems.md#hmmoce)                                       |1.0.0   |1      |        |     |
 |hms                                                                |0.3     |       |        |     |
 |[htmlTable](problems.md#htmltable)                                 |1.9     |       |        |1    |
 |HURDAT                                                             |0.1.0   |       |        |     |
 |[hurricaneexposure](problems.md#hurricaneexposure)                 |0.0.1   |       |        |1    |
 |[iClick](problems.md#iclick)                                       |1.2     |1      |        |     |
 |[ie2misc](problems.md#ie2misc)                                     |0.8.5   |1      |        |     |
-|[iki.dataclim](problems.md#iki.dataclim)                           |1.0     |       |        |1    |
+|[iki.dataclim](problems.md#ikidataclim)                            |1.0     |       |        |1    |
 |imaginator                                                         |0.1.1   |       |        |     |
-|[incR](problems.md#incr)                                           |0.3.1   |       |        |1    |
+|[incR](problems.md#incr)                                           |1.0.1   |       |        |1    |
 |[itunesr](problems.md#itunesr)                                     |0.1     |       |        |1    |
 |Knoema                                                             |0.1.9   |       |        |     |
 |kntnr                                                              |0.4.1   |       |        |     |
@@ -148,13 +150,14 @@
 |nowcasting                                                         |0.0.90  |       |        |     |
 |[npphen](problems.md#npphen)                                       |1.1-0   |       |        |1    |
 |nscprepr                                                           |0.1.1   |       |        |     |
+|[nyctaxi](problems.md#nyctaxi)                                     |0.0.1   |       |1       |     |
 |[oce](problems.md#oce)                                             |0.9-22  |       |        |1    |
-|[openair](problems.md#openair)                                     |2.1-5   |__+1__ |        |     |
+|openair                                                            |2.1-5   |       |        |     |
 |[opendotaR](problems.md#opendotar)                                 |0.1.4   |       |        |1    |
 |orgR                                                               |0.9.0   |       |        |     |
 |[osmdata](problems.md#osmdata)                                     |0.0.5   |1      |        |2    |
 |padr                                                               |0.3.0   |       |        |     |
-|pdfetch                                                            |0.2.2   |       |        |     |
+|pdfetch                                                            |0.2.3   |       |        |     |
 |photobiology                                                       |0.9.17  |       |        |     |
 |photobiologyInOut                                                  |0.4.13  |       |        |     |
 |PhysActBedRest                                                     |1.0     |       |        |     |
@@ -167,10 +170,10 @@
 |[primerTree](problems.md#primertree)                               |1.0.3   |       |        |1    |
 |ProjectTemplate                                                    |0.8     |       |        |     |
 |[PWFSLSmoke](problems.md#pwfslsmoke)                               |0.99.9  |1      |        |     |
-|qualtRics                                                          |2.0     |       |        |     |
+|qualtRics                                                          |2.2     |       |        |     |
 |[quanteda](problems.md#quanteda)                                   |0.99.12 |       |        |2    |
 |radiant.data                                                       |0.8.1   |       |        |     |
-|[radiant.model](problems.md#radiant.model)                         |0.8.0   |       |        |1    |
+|[radiant.model](problems.md#radiantmodel)                          |0.8.0   |       |        |1    |
 |[rAmCharts](problems.md#ramcharts)                                 |2.1.5   |       |        |1    |
 |raw                                                                |0.1.5   |       |        |     |
 |rclimateca                                                         |0.2     |       |        |     |
@@ -179,7 +182,7 @@
 |[rdpla](problems.md#rdpla)                                         |0.2.0   |1      |        |     |
 |recipes                                                            |0.1.0   |       |        |     |
 |RefManageR                                                         |0.14.20 |       |        |     |
-|respirometry                                                       |0.4.0   |       |        |     |
+|respirometry                                                       |0.5.0   |       |        |     |
 |RGA                                                                |0.4.2   |       |        |     |
 |[RGoogleAnalytics](problems.md#rgoogleanalytics)                   |0.1.1   |       |        |1    |
 |RGoogleAnalyticsPremium                                            |0.1.1   |       |        |     |
@@ -187,12 +190,12 @@
 |RmarineHeatWaves                                                   |0.15.7  |       |        |     |
 |Rnightlights                                                       |0.1.2   |       |        |     |
 |[rnoaa](problems.md#rnoaa)                                         |0.7.0   |1      |        |     |
-|roadoi                                                             |0.4     |       |        |     |
+|roadoi                                                             |0.4.1   |       |        |     |
 |[rols](problems.md#rols)                                           |2.4.0   |1      |1       |     |
-|ropenaq                                                            |0.2.2   |       |        |     |
+|[ropenaq](problems.md#ropenaq)                                     |0.2.2   |1      |        |     |
 |rpdo                                                               |0.2.2   |       |        |     |
 |[rplos](problems.md#rplos)                                         |0.6.4   |1      |        |1    |
-|[rsoi](problems.md#rsoi)                                           |0.3.0   |2      |        |1    |
+|[rsoi](problems.md#rsoi)                                           |0.3.0   |       |        |1    |
 |rtide                                                              |0.0.4   |       |        |     |
 |[rtimes](problems.md#rtimes)                                       |0.5.0   |1      |        |     |
 |[rtimicropem](problems.md#rtimicropem)                             |1.3     |       |        |1    |
@@ -200,8 +203,8 @@
 |[SanFranBeachWater](problems.md#sanfranbeachwater)                 |0.1.0   |       |        |1    |
 |[SciencesPo](problems.md#sciencespo)                               |1.4.1   |       |1       |1    |
 |[seawaveQ](problems.md#seawaveq)                                   |1.0.0   |       |        |3    |
-|SensusR                                                            |2.2.0   |       |        |     |
-|[SpaDES.core](problems.md#spades.core)                             |0.1.0   |1      |        |1    |
+|[SensusR](problems.md#sensusr)                                     |2.2.0   |__+1__ |        |     |
+|[SpaDES.core](problems.md#spadescore)                              |0.1.0   |1      |        |1    |
 |spatsurv                                                           |1.1     |       |        |     |
 |[splashr](problems.md#splashr)                                     |0.4.0   |1      |        |     |
 |[spocc](problems.md#spocc)                                         |0.7.0   |1      |        |     |
@@ -211,12 +214,12 @@
 |[stationaRy](problems.md#stationary)                               |0.4.1   |       |        |1    |
 |[statsDK](problems.md#statsdk)                                     |0.1.1   |       |        |1    |
 |[stormwindmodel](problems.md#stormwindmodel)                       |0.1.0   |       |1       |1    |
-|[stplanr](problems.md#stplanr)                                     |0.1.9   |       |        |1    |
+|[stplanr](problems.md#stplanr)                                     |0.1.9   |__+1__ |        |1    |
 |sugrrants                                                          |0.1.0   |       |        |     |
 |[sweep](problems.md#sweep)                                         |0.2.0   |       |        |1    |
 |sweidnumbr                                                         |1.4.1   |       |        |     |
 |tibbletime                                                         |0.0.2   |       |        |     |
-|[tidyquant](problems.md#tidyquant)                                 |0.5.3   |       |        |1    |
+|[tidyquant](problems.md#tidyquant)                                 |0.5.3   |1      |1       |1    |
 |[tidyRSS](problems.md#tidyrss)                                     |1.2.2   |       |        |1    |
 |tidyverse                                                          |1.1.1   |       |        |     |
 |timelineR                                                          |0.1.0   |       |        |     |

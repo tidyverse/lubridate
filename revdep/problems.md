@@ -78,6 +78,28 @@ Version: 2.1.2
 
 ## In both
 
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             user = user, repo = repo, branch = branch, subdir = subdir)
+      3: stop_for_status(req)
+      
+      Directory /tmp/RtmpNYuxVk/file34446e9b2a2b did not exist. Forced to create a new directory.Directory repository did not exist. Forced to create a new directory.Directory repository did not exist. Forced to create a new directory.Directory repository did not exist. Forced to create a new directory.3. Error: zip*Repo reacts properly on proper arguments  (@test_zip.R#12) -------
+      Forbidden (HTTP 403).
+      1: stop_for_status(req) at testthat/test_zip.R:12
+      
+      testthat results ================================================================
+      OK: 211 SKIPPED: 0 FAILED: 3
+      1. Error: createMD works (@test_createMD.R#14) 
+      2. Error: copying from other repositories and showRepo (@test_jss_artilce.R#41) 
+      3. Error: zip*Repo reacts properly on proper arguments  (@test_zip.R#12) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 *   checking package dependencies ... NOTE
     ```
     Package which this enhances but not available for checking: ‘archivist.github’
@@ -116,7 +138,61 @@ Version: 0.1.0
 
 Version: 0.0.4
 
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    
+    Unzipping raw data files for ch ...
+    Reading files for ch ...
+    reading file 1/1: /tmp/Rtmp5bc5qp/Divvy_Trips_sample.csv
+    Trips read for ch = 200
+    
+    Unzipping raw data files for dc ...
+    Reading files for dc ...
+    reading file 1/1: /tmp/Rtmp5bc5qp/2017-Q1-Trips-History-Data.csv
+    Trips read for dc = 200
+    
+    Unzipping raw data files for la ...
+    Reading files for la ...
+    reading file 1/1: /tmp/Rtmp5bc5qp/la_metro_gbfs_trips_Q1_2017.csv
+    Trips read for la = 198
+    
+    Reading files for lo ...
+    Error in rcpp_import_stn_df(bikedb, lo_stns, "lo") : 
+      Index out of bounds: [index='id'].
+    Calls: store_bikedata -> rcpp_import_stn_df -> .Call
+    Execution halted
+    ```
+
 ## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    10: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos,     debug = debug, last = i == length(out), use_try = stop_on_error !=         2L, keep_warning = keep_warning, keep_message = keep_message,     output_handler = output_handler, include_timing = include_timing)
+    11: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning),     keep_message = !isFALSE(options$message), stop_on_error = if (options$error &&         options$include) 0L else 2L, output_handler = knit_handlers(options$render,         options))
+    12: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE,     keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message),     stop_on_error = if (options$error && options$include) 0L else 2L,     output_handler = knit_handlers(options$render, options)))
+    13: block_exec(params)
+    14: call_block(x)
+    15: process_group.block(group)
+    16: process_group(group)
+    17: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group),     error = function(e) {        setwd(wd)        cat(res, sep = "\n", file = output %n% "")        message("Quitting from lines ", paste(current_lines(i),             collapse = "-"), " (", knit_concord$get("infile"),             ") ")    })
+    18: process_file(text, output)
+    19: knit(input, text = text, envir = envir, encoding = encoding,     quiet = quiet)
+    20: knit2html(..., force_v1 = TRUE)
+    21: (if (grepl("\\.[Rr]md$", file)) knit2html_v1 else if (grepl("\\.[Rr]rst$",     file)) knit2pandoc else knit)(file, encoding = encoding,     quiet = quiet, envir = globalenv())
+    22: vweave(...)
+    23: engine$weave(file, quiet = quiet, encoding = enc)
+    24: doTryCatch(return(expr), name, parentenv, handler)
+    25: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+    26: tryCatchList(expr, classes, parentenv, handlers)
+    27: tryCatch({    engine$weave(file, quiet = quiet, encoding = enc)    setwd(startdir)    find_vignette_product(name, by = "weave", engine = engine)}, error = function(e) {    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s",         file, conditionMessage(e)), domain = NA, call. = FALSE)})
+    28: buildVignettes(dir = "/store/Dropbox/dev/lubridate/revdep/checks/bikedata/new/bikedata.Rcheck/vign_test/bikedata")
+    An irrecoverable exception occurred. R is aborting now ...
+    Segmentation fault (core dumped)
+    ```
 
 *   checking installed package size ... NOTE
     ```
@@ -164,12 +240,18 @@ Version: 0.1.1
 
 # countyfloods
 
-Version: 0.0.2
+Version: 0.1.0
 
 ## In both
 
 *   R CMD check timed out
     
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘maps’
+      All declared Imports should be used.
+    ```
 
 # countytimezones
 
@@ -233,9 +315,9 @@ Version: 2.1.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  7.5Mb
+      installed size is  7.6Mb
       sub-directories of 1Mb or more:
-        libs   6.9Mb
+        libs   7.0Mb
     ```
 
 # dataonderivatives
@@ -272,56 +354,6 @@ Version: 0.3.0
       All declared Imports should be used.
     ```
 
-# dataPreparation
-
-Version: 0.2
-
-## In both
-
-*   checking whether package ‘dataPreparation’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/store/Dropbox/dev/lubridate/revdep/checks/dataPreparation/new/dataPreparation.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘dataPreparation’ ...
-** package ‘dataPreparation’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: S3 methods ‘as.character.tclObj’, ‘as.character.tclVar’, ‘as.double.tclObj’, ‘as.integer.tclObj’, ‘as.logical.tclObj’, ‘as.raw.tclObj’, ‘print.tclObj’, ‘[[.tclArray’, ‘[[<-.tclArray’, ‘$.tclArray’, ‘$<-.tclArray’, ‘names.tclArray’, ‘names<-.tclArray’, ‘length.tclArray’, ‘length<-.tclArray’, ‘tclObj.tclVar’, ‘tclObj<-.tclVar’, ‘tclvalue.default’, ‘tclvalue.tclObj’, ‘tclvalue.tclVar’, ‘tclvalue<-.default’, ‘tclvalue<-.tclVar’, ‘close.tkProgressBar’ were declared in NAMESPACE but not found
-Error : .onLoad failed in loadNamespace() for 'tcltk', details:
-  call: fun(libname, pkgname)
-  error: Tcl/Tk support is not available on this system
-ERROR: lazy loading failed for package ‘dataPreparation’
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/dataPreparation/new/dataPreparation.Rcheck/dataPreparation’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘dataPreparation’ ...
-** package ‘dataPreparation’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-Warning: S3 methods ‘as.character.tclObj’, ‘as.character.tclVar’, ‘as.double.tclObj’, ‘as.integer.tclObj’, ‘as.logical.tclObj’, ‘as.raw.tclObj’, ‘print.tclObj’, ‘[[.tclArray’, ‘[[<-.tclArray’, ‘$.tclArray’, ‘$<-.tclArray’, ‘names.tclArray’, ‘names<-.tclArray’, ‘length.tclArray’, ‘length<-.tclArray’, ‘tclObj.tclVar’, ‘tclObj<-.tclVar’, ‘tclvalue.default’, ‘tclvalue.tclObj’, ‘tclvalue.tclVar’, ‘tclvalue<-.default’, ‘tclvalue<-.tclVar’, ‘close.tkProgressBar’ were declared in NAMESPACE but not found
-Error : .onLoad failed in loadNamespace() for 'tcltk', details:
-  call: fun(libname, pkgname)
-  error: Tcl/Tk support is not available on this system
-ERROR: lazy loading failed for package ‘dataPreparation’
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/dataPreparation/old/dataPreparation.Rcheck/dataPreparation’
-
-```
 # dataRetrieval
 
 Version: 2.7.3
@@ -333,7 +365,7 @@ Version: 2.7.3
 
 # dgo
 
-Version: 0.2.10
+Version: 0.2.11
 
 ## In both
 
@@ -370,34 +402,6 @@ Version: 1.11.0
       All declared Imports should be used.
     ```
 
-# FedData
-
-Version: 2.4.6
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      Attaching package: 'raster'
-      
-      The following objects are masked from 'package:aqp':
-      
-          metadata, metadata<-
-      
-      testthat results ================================================================
-      OK: 24 SKIPPED: 0 FAILED: 1
-      1. Error: ITRDB version files are available (@test.ITRDB.R#23) 
-      
-      Error: testthat unit tests failed
-      In addition: Warning message:
-      In paste0(strrep(char, width - nchar(x)), x) :
-        closing unused connection 3 (ftp://ftp.ncdc.noaa.gov/pub/data/paleo/treering/chronologies/)
-      Execution halted
-    ```
-
 # fivethirtyeight
 
 Version: 0.3.0
@@ -415,34 +419,6 @@ Version: 0.3.0
       Note: found 371 marked UTF-8 strings
     ```
 
-# fmdates
-
-Version: 0.1.2
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      testthat results ================================================================
-      OK: 152 SKIPPED: 0 FAILED: 9
-      1. Failure: Melbourne calendar is correct (@test-calendars.R#48) 
-      2. Failure: Melbourne calendar is correct (@test-calendars.R#49) 
-      3. Failure: NYC calendar is correct (@test-calendars.R#77) 
-      4. Failure: NYC calendar is correct (@test-calendars.R#78) 
-      5. Failure: Auckland and Wellington calendars are correct (@test-calendars.R#150) 
-      6. Failure: Auckland and Wellington calendars are correct (@test-calendars.R#151) 
-      7. Failure: Toyko calendars are correct (@test-calendars.R#181) 
-      8. Failure: Hong Kong calendars are correct (@test-calendars.R#232) 
-      9. Failure: Joint calendars work effectively (@test-calendars.R#266) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 # ggvis
 
 Version: 0.4.3
@@ -454,53 +430,67 @@ Version: 0.4.3
     Package unavailable to check Rd xrefs: ‘plyr’
     ```
 
-# grattan
+# GSODR
 
-Version: 1.5.1.2
+Version: 1.1.0
 
-## Newly fixed
+## Newly broken
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking tests ...
     ```
-    ...
-    
-    The following objects are masked from 'package:data.table':
-    
-        between, first, last
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Error: processing vignette 'differential-uprating.Rmd' failed with diagnostics:
-    cannot popen '/usr/bin/which 'pandoc-citeproc' 2>/dev/null', probable reason 'Cannot allocate memory'
-    Execution halted
-    Warning: system call failed: Cannot allocate memory
-    ```
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘taxstats’
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             skip = skip, comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
+      4: read_connection(file)
+      5: open(con, "rb")
+      6: open.connection(con, "rb")
+      
+      testthat results ================================================================
+      OK: 50 SKIPPED: 0 FAILED: 4
+      1. Error: .download_files properly works, subsetting for country and
+                  agroclimatology works and .process_gz returns a data table (@test-process_gz.R#23) 
+      2. Error: reformat_GSOD file_list parameter reformats data properly (@test-reformat_GSOD.R#15) 
+      3. Error: Timeout options are reset on update_station_list() exit (@test-update_station_list.R#6) 
+      4. Error: update_station_list() downloads and imports proper file (@test-update_station_list.R#13) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 # hansard
 
-Version: 0.5.2
+Version: 0.5.5
 
 ## In both
 
 *   R CMD check timed out
     
+
+# happybiRthday
+
+Version: 0.0.1
+
+## In both
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘happybiRthday-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: celebrate
+    > ### Title: Celebrating software birthdays
+    > ### Aliases: celebrate
+    > 
+    > ### ** Examples
+    > 
+    > celebrate("Bohdan-Khomtchouk")
+    Error in gh::gh("/users/:username/repos", username = github_username,  : 
+      GitHub API error (403): 403 Forbidden
+      API rate limit exceeded for 143.176.214.220. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
+    Calls: celebrate -> <Anonymous> -> gh_process_response
+    Execution halted
+    ```
 
 # highcharter
 
@@ -539,6 +529,20 @@ Version: 0.8-2
 *   checking Rd cross-references ... NOTE
     ```
     Packages unavailable to check Rd xrefs: ‘psych’, ‘Guerry’, ‘alr3’, ‘agridat’, ‘coin’
+    ```
+
+# HMMoce
+
+Version: 1.0.0
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Package required but not available: ‘RNetCDF’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # htmlTable
@@ -665,7 +669,7 @@ Version: 1.0
 
 # incR
 
-Version: 0.3.1
+Version: 1.0.1
 
 ## In both
 
@@ -784,6 +788,38 @@ Version: 1.1-0
       All declared Imports should be used.
     ```
 
+# nyctaxi
+
+Version: 0.0.1
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+         ## Not run:
+         
+         taxi <- etl("nyctaxi", dir = "~/Desktop/nyctaxi/")
+         taxi %>% 
+            etl_extract(years = 2016, months = 1:2, types = c("yellow","green")) %>% 
+            etl_transform(years = 2016, months = 1:2, types = c("yellow","green")) %>% 
+            etl_load(years = 2016, months = 1:2, types = c("yellow","green")) 
+         ## End(Not run)
+         
+    
+    
+    Attaching package: 'lubridate'
+    
+    The following object is masked from 'package:base':
+    
+        date
+    
+    Quitting from lines 61-71 (nyc_taxi.Rmd) 
+    Error: processing vignette 'nyc_taxi.Rmd' failed with diagnostics:
+    there is no package called 'webshot'
+    Execution halted
+    ```
+
 # oce
 
 Version: 0.9-22
@@ -795,35 +831,6 @@ Version: 0.9-22
       installed size is  5.7Mb
       sub-directories of 1Mb or more:
         help   2.2Mb
-    ```
-
-# openair
-
-Version: 2.1-5
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘openair-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: selectByDate
-    > ### Title: Subset a data frame based on date
-    > ### Aliases: selectByDate
-    > ### Keywords: methods
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > ## select all of 1999
-    > data.1999 <- selectByDate(mydata, start = "1/1/1999", end = "31/12/1999")
-    Warning: All formats failed to parse. No formats found.
-    Warning: All formats failed to parse. No formats found.
-    Error in C_force_tz(time, tz = tzone, roll) : 
-      CCTZ: Unrecognized output timezone: "%d/%m/%Y"
-    Calls: selectByDate ... >=.Date -> date_to_posix -> force_tz -> C_force_tz -> .Call
-    Execution halted
     ```
 
 # opendotaR
@@ -946,9 +953,9 @@ Version: 0.99.12
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 22.1Mb
+      installed size is 22.5Mb
       sub-directories of 1Mb or more:
-        libs  19.8Mb
+        libs  20.2Mb
     ```
 
 *   checking data for non-ASCII characters ... NOTE
@@ -1041,18 +1048,18 @@ Version: 0.7.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      
       testthat results ================================================================
-      OK: 181 SKIPPED: 1 FAILED: 9
-      1. Error: check_response returns an error (@test-check_response.r#7) 
-      2. Error: check_response returns the correct error messages (@test-check_response.r#26) 
-      3. Error: ncdc returns the correct ... (@test-ncdc.r#8) 
-      4. Error: ncdc_datacats returns the correct ... (@test-ncdc_datacats.r#7) 
-      5. Error: ncdc_datasets returns the correct class (@test-ncdc_datasets.r#7) 
-      6. Error: ncdc_datatypes returns the correct class (@test-ncdc_datatypes.r#7) 
-      7. Error: ncdc_locs returns the correct class (@test-ncdc_locs.r#7) 
-      8. Error: ncdc_locs_cats returns the correct ... (@test-ncdc_locs_cats.r#7) 
-      9. Error: ncdc_stations returns the correct... (@test-ncdc_stations.r#7) 
+      OK: 178 SKIPPED: 1 FAILED: 10
+      1.  Error: check_response returns an error (@test-check_response.r#7) 
+      2.  Error: check_response returns the correct error messages (@test-check_response.r#26) 
+      3.  Error: ncdc returns the correct ... (@test-ncdc.r#8) 
+      4.  Error: ncdc_datacats returns the correct ... (@test-ncdc_datacats.r#7) 
+      5.  Error: ncdc_datasets returns the correct class (@test-ncdc_datasets.r#7) 
+      6.  Error: ncdc_datatypes returns the correct class (@test-ncdc_datatypes.r#7) 
+      7.  Error: ncdc_locs returns the correct class (@test-ncdc_locs.r#7) 
+      8.  Error: ncdc_locs_cats returns the correct ... (@test-ncdc_locs_cats.r#7) 
+      9.  Error: ncdc_stations returns the correct... (@test-ncdc_stations.r#7) 
+      10. Error: seaice functions work (@test-seaice.R#8) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1069,18 +1076,18 @@ Version: 2.4.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      Testing term SO:0000464 
-      Testing term SO:1000072 
-      Testing term SO:1000115 
-      Testing term SO:0000870 
-      Testing term SO:0001845 
-      Testing term SO:1000145 
-      Testing term SO:0005857 
-      Testing term SO:0000030 
-      Testing term SO:0005843 
+      Testing term SO:0001457 
+      Testing term SO:0000562 
+      Testing term SO:0002112 
+      Testing term SO:0002087 
+      Testing term SO:0000235 
+      Testing term SO:0001073 
+      Testing term SO:0000088 
+      Testing term SO:0000442 
       testthat results ================================================================
-      OK: 196 SKIPPED: 0 FAILED: 1
-      1. Failure: constructors (@test_Terms.R#57) 
+      OK: 195 SKIPPED: 0 FAILED: 2
+      1. Failure: Ontology accessors (@test_Onologies.R#71) 
+      2. Failure: constructors (@test_Terms.R#57) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1098,6 +1105,15 @@ Version: 2.4.0
     Execution halted
     ```
 
+# ropenaq
+
+Version: 0.2.2
+
+## In both
+
+*   R CMD check timed out
+    
+
 # rplos
 
 Version: 0.6.4
@@ -1109,18 +1125,18 @@ Version: 0.6.4
      ERROR
     Running the tests in ‘tests/test-all.R’ failed.
     Last 13 lines of output:
-      1: searchplos(q = "*:*", fl = "id", fq = "cross_published_journal_key:PLoSONE", start = 0, 
-             limit = 15) at testthat/test-searchplos.R:8
-      2: check_response(tt)
-      3: stop(sprintf("(%s) - %s", x$status_code, jsonlite::fromJSON(utf8cont(x), FALSE)$error$msg), 
-             call. = FALSE)
-      
       testthat results ================================================================
-      OK: 224 SKIPPED: 0 FAILED: 4
-      1. Error: journalnamekey returns the correct value (@test-journalnamekey.R#7) 
-      2. Error: journalnamekey returns the correct class (@test-journalnamekey.R#13) 
-      3. Error: journalnamekey returns the correct length vector (@test-journalnamekey.R#19) 
-      4. Error: searchplos returns the correct (@test-searchplos.R#8) 
+      OK: 165 SKIPPED: 0 FAILED: 19
+      1. Error: check_response catches no data found correctly (@test-check_response.R#20) 
+      2. Error: citations (@test-citations.R#15) 
+      3. Failure: facetplos (@test-facetplos.R#54) 
+      4. Error: facetplos (@test-facetplos.R#55) 
+      5. Error: full_text_urls - NA's on annotation DOIs (@test-fulltext.R#31) 
+      6. Error: plos_fulltext works (@test-fulltext.R#43) 
+      7. Error: highplos (@test-highplos.R#35) 
+      8. Error: journalnamekey returns the correct value (@test-journalnamekey.R#7) 
+      9. Error: journalnamekey returns the correct class (@test-journalnamekey.R#13) 
+      1. ...
       
       Error: testthat unit tests failed
       Execution halted
@@ -1136,54 +1152,6 @@ Version: 0.6.4
 Version: 0.3.0
 
 ## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Running examples in ‘rsoi-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: download_enso
-    > ### Title: Download Southern Oscillation Index and Oceanic Nino Index data
-    > ### Aliases: download_enso
-    > 
-    > ### ** Examples
-    > 
-    > enso <- download_enso()
-    Parsed with column specification:
-    cols(
-      Year = col_integer(),
-      Month = col_integer(),
-      TOTAL = col_double(),
-      ClimAdjust = col_double(),
-      dSST3.4 = col_double()
-    )
-    Error in open.connection(con, "rb") : HTTP error 502.
-    Calls: download_enso ... read_delimited -> read_connection -> open -> open.connection
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      3. Error: Does download_enso() download a data.frame? (@test_download_enso.R#4) 
-      4. Error: Test whether SOI values have not changed from February 2017 (@test_download_enso.R#11) 
-      5. Error: Test that download_enso matches most recent value from alternate dataset - 3 months to account for slight data changes (@test_download_enso.R#23) 
-      
-      Error: testthat unit tests failed
-      In addition: Warning messages:
-      1: In match.fun(FUN) :
-        closing unused connection 3 (https://www.ncdc.noaa.gov/teleconnections/enso/indicators/soi/data.csv)
-      2: In character(0) :
-        closing unused connection 3 (http://www.o3d.org/npgo/data/NPGO.txt)
-      3: In match(x, table, nomatch = 0L) :
-        closing unused connection 3 (https://www.ncdc.noaa.gov/teleconnections/enso/indicators/soi/data.csv)
-      4: In oni$Month[x] :
-        closing unused connection 3 (https://www.ncdc.noaa.gov/teleconnections/enso/indicators/soi/data.csv)
-      Execution halted
-    ```
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -1337,6 +1305,38 @@ Version: 1.0.0
     to your NAMESPACE file.
     ```
 
+# SensusR
+
+Version: 2.2.0
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    [1] "93% done merging data for SpeedDatum (15 of 16)."
+    [1] "100% done merging data for SpeedDatum (16 of 16)."
+    [1] "Creating data frame for SpeedDatum."
+    [1] "100% done merging data for TelephonyDatum (1 of 1)."
+    [1] "Creating data frame for TelephonyDatum."
+    [1] "14% done merging data for WlanDatum (1 of 7)."
+    [1] "28% done merging data for WlanDatum (2 of 7)."
+    [1] "42% done merging data for WlanDatum (3 of 7)."
+    [1] "57% done merging data for WlanDatum (4 of 7)."
+    [1] "71% done merging data for WlanDatum (5 of 7)."
+    [1] "85% done merging data for WlanDatum (6 of 7)."
+    [1] "100% done merging data for WlanDatum (7 of 7)."
+    [1] "Creating data frame for WlanDatum."
+    > plot(data$LocationDatum)
+    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=38.0676352725243,-78.9510441850485&zoom=10&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
+    Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=38.0676352725243,-78.9510441850485&sensor=false
+    Warning: geocode failed with status OVER_QUERY_LIMIT, location = "38.0676352725243,-78.9510441850485"
+    Error in data.frame(ll.lat = ll[1], ll.lon = ll[2], ur.lat = ur[1], ur.lon = ur[2]) : 
+      arguments imply differing number of rows: 0, 1
+    Calls: plot ... <Anonymous> -> ggmap -> get_map -> get_googlemap -> data.frame
+    Execution halted
+    ```
+
 # SpaDES.core
 
 Version: 0.1.0
@@ -1428,17 +1428,17 @@ Version: 0.7.0
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       
-      5. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#66) 
+      
+      4. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#66) 
       Names of ee$bison$data ('') don't match '175304'
       
       
       testthat results ================================================================
-      OK: 246 SKIPPED: 0 FAILED: 5
-      1. Failure: occ works for each data source (@test-occ.R#71) 
-      2. Failure: passing in options to occ works (@test-options.R#39) 
-      3. Failure: passing in options to occ works (@test-options.R#40) 
-      4. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#64) 
-      5. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#66) 
+      OK: 244 SKIPPED: 0 FAILED: 4
+      1. Failure: passing in options to occ works (@test-options.R#39) 
+      2. Failure: passing in options to occ works (@test-options.R#40) 
+      3. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#64) 
+      4. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#66) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1484,7 +1484,7 @@ Version: 0.5.3
 ** preparing package for lazy loading
 R session is headless; GTK+ not initialized.
 
-(R:22829): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:25130): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 Error : .onLoad failed in loadNamespace() for 'cairoDevice', details:
   call: fun(libname, pkgname)
   error: GDK display not found - please make sure X11 is running
@@ -1504,7 +1504,7 @@ ERROR: lazy loading failed for package ‘stacomiR’
 ** preparing package for lazy loading
 R session is headless; GTK+ not initialized.
 
-(R:22774): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:25117): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 Error : .onLoad failed in loadNamespace() for 'cairoDevice', details:
   call: fun(libname, pkgname)
   error: GDK display not found - please make sure X11 is running
@@ -1577,6 +1577,28 @@ Version: 0.1.0
 
 Version: 0.1.9
 
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘stplanr-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: geo_code
+    > ### Title: Convert text strings into points on the map
+    > ### Aliases: geo_code
+    > 
+    > ### ** Examples
+    > 
+    > address = "LS7 3HB"
+    > geo_code(address = address)
+          lon       lat 
+    -1.534372 53.819472 
+    > geo_code(address = address, return_all = TRUE)
+    Error: is.data.frame(x) is not TRUE
+    Execution halted
+    ```
+
 ## In both
 
 *   checking package dependencies ... NOTE
@@ -1602,6 +1624,54 @@ Version: 0.2.0
 Version: 0.5.3
 
 ## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      
+      
+      testthat results ================================================================
+      OK: 179 SKIPPED: 0 FAILED: 3
+      1. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#15) 
+      2. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#17) 
+      3. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#19) 
+      
+      Error: testthat unit tests failed
+      In addition: Warning messages:
+      1: In download.file(url, destfile = tmp, quiet = TRUE) :
+        cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+      2: x = 'AAPL', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
+       
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    Warning in download.file(url, destfile = tmp, quiet = TRUE) :
+      cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+    Warning: x = 'AAPL', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
+    
+    Warning in download.file(url, destfile = tmp, quiet = TRUE) :
+      cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+    Warning: x = 'AAPL', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
+     Removing AAPL.
+    Warning in download.file(url, destfile = tmp, quiet = TRUE) :
+      cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=FB&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+    Warning: x = 'FB', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=FB&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
+     Removing FB.
+    Warning in download.file(url, destfile = tmp, quiet = TRUE) :
+      cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=GOOG&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+    Warning: x = 'GOOG', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=GOOG&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
+     Removing GOOG.
+    Warning in value[[3L]](cond) : Returning as nested data frame.
+    Quitting from lines 211-214 (TQ01-core-functions-in-tidyquant.Rmd) 
+    Error: processing vignette 'TQ01-core-functions-in-tidyquant.Rmd' failed with diagnostics:
+    object 'Ask' not found
+    Execution halted
+    ```
 
 *   checking dependencies in R code ... NOTE
     ```

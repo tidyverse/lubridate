@@ -1,7 +1,11 @@
 
 remove.packages(c("rlang", "revdepcheck", "crayon", "boxes", "progress", "callr", "rcmdcheck"))
 
+## source("https://install-github.me/r-lib/boxes")
+## source("https://install-github.me/r-lib/crancache")
 source("https://install-github.me/r-lib/revdepcheck")
+
+devtools::install("~/tmp/revdepcheck")
 
 library(revdepcheck)
 revdep_reset()
@@ -13,11 +17,13 @@ revdep_todo()
 revdep_add_broken()
 revdep_check()
 
-revdep_details(revdep = "FedData")
-revdep_details(revdep = "fmdates")
-revdep_details(revdep = "openair")
+library(revdepcheck)
+
+revdep_details(revdep = "bikedata")
+revdep_details(revdep = "GSODR")
+revdep_details(revdep = "stplanr")
 
 ## crancache::get_cache_package_dirs()
-revdep_report_summary(pkg = ".", file = "./revdep/README.md")
-revdep_report_problems(pkg = ".", file = "./revdep/problems.md")
-revdep_report_cran()
+## revdep_report_summary(pkg = ".", file = "./revdep/README.md")
+## revdep_report_problems(pkg = ".", file = "./revdep/problems.md")
+## revdep_report_cran()
