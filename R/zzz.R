@@ -1,5 +1,5 @@
 
-.onAttach <- function(libname, pkgname) {
+.onLoad <- function(libname, pkgname) {
   ## CCTZ needs zoneinfo. On windows we set it to R's own zoneinfo. On unix like
   ## it's in "/usr/share/zoneinfo" where CCTZ looks by default. On some systems
   ## (solaris?) it might be in a different location. So, help ourselves by
