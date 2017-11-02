@@ -1,9 +1,9 @@
-Version 1.7.0.9000
-==================
+Version 1.7.1
+=============
 
 ## BUG FIXES
 
-* [#575](https://github.com/tidyverse/lubridate/issues/598), [#600](https://github.com/tidyverse/lubridate/issues/598) Fix zoneinfo lookup on windows and solaris.
+* [#575](https://github.com/tidyverse/lubridate/issues/598), [#600](https://github.com/tidyverse/lubridate/issues/600), [#602](https://github.com/tidyverse/lubridate/issues/602) Fix zoneinfo lookup on windows and solaris.
 * [#598](https://github.com/tidyverse/lubridate/issues/598) Fix broken parsing of `ymd_hms` strings by `as_date`.
 * [#597](https://github.com/tidyverse/lubridate/issues/597) Fix broken parsing of `ymd` strings by `as_datetime`.
 
