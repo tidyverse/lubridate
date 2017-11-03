@@ -40,7 +40,6 @@ test_that("interval handles vector input", {
   int <- interval(c(time1, time2), time3)
   num <- as.numeric(time3) -  as.numeric(c(time1, time2))
 
-
   expect_equal(int@.Data, num)
   expect_equal(int@start, c(time1, time2))
   expect_is(int, "Interval")
@@ -601,5 +600,25 @@ test_that("Reduce works with intervals (#348)", {
 
   expect_equal(Reduce(union, ints),
                interval(ymd("2001-01-01"), ymd("2004-01-01")))
+
+})
+
+test_that("Intervals handles missing numbers", {
+
+  int <- new("Interval"
+           , .Data = c(NA, NA, NA, 123552000, 71020800, 82425600)
+           , start = structure(c(NA, NA, NA, 1174953600, 1364428800, 1183334400),
+                               class = c("POSIXct", "POSIXt"), tzone = "UTC")
+           , tzone = "UTC")
+
+  out <- new("Interval"
+           , .Data = c(NA, NA, NA, 31622400, NA, 31622400)
+           , start = structure(c(NA, NA, NA, 1199145600, NA, 1199145600), tzone = "UTC",
+                               class = c("POSIXct", "POSIXt"))
+           , tzone = "UTC")
+
+  expect_equal(intersect(int, interval("2008-01-01", "2009-01-01")), out)
+
+  expect_equal(intersect(int, int), int)
 
 })

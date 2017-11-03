@@ -405,11 +405,13 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x, y)
   spans <- as.numeric(ends) - as.numeric(starts)
 
   no.int <- ends < starts
+  no.int <- is.na(no.int) | no.int
   spans[no.int] <- NA
   starts[no.int] <- NA
 
   new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
-  new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
+  negix <- !is.na(x@.Data) & (sign(x@.Data) == -1)
+  new.int[negix] <- int_flip(new.int[negix])
   new.int
 })
 

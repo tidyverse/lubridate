@@ -1,3 +1,8 @@
+Version 1.7.1.9000
+=============
+
+* Fix intersection of intervals with missing values.
+
 Version 1.7.1
 =============
 
