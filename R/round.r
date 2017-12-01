@@ -281,7 +281,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
                   minute = update(new, minute = ceil_multi_unit(minute(new), n), second = 0, simple = T),
                   hour   = update(new, hour = ceil_multi_unit(hour(new), n), minute = 0, second = 0, simple = T),
                   week   = update(new, wday = 8, hour = 0, minute = 0, second = 0, week_start = week_start),
-                  month  = update(new, month = new_month, mdays = 1, hours = 0, minutes = 0, seconds = 0),
+                  month  = update(new, months = new_month, mdays = 1, hours = 0, minutes = 0, seconds = 0),
                   year   = update(new, year = ceil_multi_unit(year(new), n), month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
 
     reclass_date_maybe(new, x, unit)
