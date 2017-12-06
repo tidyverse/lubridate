@@ -284,7 +284,7 @@ my_select <-   function(trained, drop=FALSE, ...){
 
 parse_date_time(c("27-09-13", "27-09-2013"), "dmy", select_formats = my_select)
 
-## ** invalid times with "fast" parcing **
+## ** invalid times with "fast" parsing **
 parse_date_time("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
 parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
 parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York", lt = TRUE)

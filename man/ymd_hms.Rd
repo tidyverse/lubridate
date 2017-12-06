@@ -127,7 +127,7 @@ ymd_hms(c("2013-01-24 19:39:07.880-0600",
 ## ** internationalization **
 \dontrun{
 x_RO <- "Ma 2012 august 14 11:28:30 "
-ymd_hms(x_RO, locale = "ro_RO.utf8")
+  ymd_hms(x_RO, locale = "ro_RO.utf8")
 }
 
 ## ** truncated time-dates **

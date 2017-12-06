@@ -164,7 +164,7 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' ## ** internationalization **
 ##' \dontrun{
 ##' x_RO <- "Ma 2012 august 14 11:28:30 "
-##' ymd_hms(x_RO, locale = "ro_RO.utf8")
+##'   ymd_hms(x_RO, locale = "ro_RO.utf8")
 ##' }
 ##'
 ##' ## ** truncated time-dates **

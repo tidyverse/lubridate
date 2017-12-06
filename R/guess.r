@@ -291,11 +291,12 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   if (exists(locale, envir = .locale_reg_cache, inherits = FALSE))
     return(get(locale, envir = .locale_reg_cache))
 
-  orig_locale <- Sys.getlocale("LC_TIME")
-  Sys.setlocale("LC_TIME", locale)
   orig_opt <- options(warn = 5)
   on.exit({Sys.setlocale("LC_TIME", orig_locale)
            options(orig_opt)})
+  orig_locale <- Sys.getlocale("LC_TIME")
+  Sys.setlocale("LC_TIME", locale)
+  options(orig_opt)
 
   format <- "%a@%A@%b@%B@%p@"
   L <- enc2utf8(unique(format(.date_template, format = format)))
