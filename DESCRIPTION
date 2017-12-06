@@ -30,7 +30,7 @@ Depends:
     R (>= 3.0.0)
 Imports:
     stringr,
-    Rcpp (>= 0.11),
+    Rcpp (>= 0.12.13),
 LinkingTo:
     Rcpp,
 Suggests:
