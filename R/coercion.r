@@ -618,7 +618,7 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' dt_europe <- ymd_hms("2010-08-03 00:50:50", tz="Europe/London")
 #' c(as_date(dt_utc), as.Date(dt_utc))
 #' c(as_date(dt_europe), as.Date(dt_europe))
-#' ## need not suply origin
+#' ## need not supply origin
 #' as_date(10)
 #' @export
 setGeneric(name = "as_date",
