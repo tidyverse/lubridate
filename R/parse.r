@@ -462,15 +462,15 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' @param locale locale to be used, see \link{locales}. On linux systems you
 ##'   can use `system("locale -a")` to list all the installed locales.
 ##' @param select_formats A function to select actual formats for parsing from a
-##'   set of formats which matched a training subset of `x`. it receives a named
+##'   set of formats which matched a training subset of `x`. It receives a named
 ##'   integer vector and returns a character vector of selected formats. Names
 ##'   of the input vector are formats (not orders) that matched the training
 ##'   set. Numeric values are the number of dates (in the training set) that
 ##'   matched the corresponding format. You should use this argument if the
 ##'   default selection method fails to select the formats in the right
-##'   order. By default the formats with most formating tockens (\%) are
-##'   selected and \%Y counts as 2.5 tockens (so that it has a priority over
-##'   \%y\%m). Se examples.
+##'   order. By default the formats with most formating tokens (\%) are
+##'   selected and \%Y counts as 2.5 tokens (so that it has a priority over
+##'   \%y\%m). See examples.
 ##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted as an
 ##'   exact `strptime()` format and no training or guessing are performed
 ##'   (i.e. `train`, `drop` parameters are irrelevant).
