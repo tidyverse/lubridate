@@ -89,7 +89,7 @@
 <span class='fu'>mday</span>(<span class='no'>x</span>)
 
 <span class='fu'>wday</span>(<span class='no'>x</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>abbr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>),
+  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>),
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'>Sys.getlocale</span>(<span class='st'>"LC_TIME"</span>))
 
 <span class='fu'>qday</span>(<span class='no'>x</span>)
@@ -102,7 +102,7 @@
 
 <span class='fu'>qday</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
-<span class='fu'>wday</span>(<span class='no'>x</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>)) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'>wday</span>(<span class='no'>x</span>, <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>)) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
 <span class='fu'>yday</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
@@ -128,9 +128,9 @@ will display an abbreviated version of the label, such as "Sun". abbr is
 disregarded if label = FALSE.</p></td>
     </tr>
     <tr>
-      <th>start</th>
-      <td><p>day on which week starts following ISO conventions - 1 means
-Monday, 7 means Sunday (default). You can set <code>lubridate.week.start</code>
+      <th>week_start</th>
+      <td><p>day on which week starts following ISO conventions - 1
+means Monday, 7 means Sunday (default). You can set <code>lubridate.week.start</code>
 option to control this parameter globally.</p></td>
     </tr>
     <tr>
@@ -150,8 +150,8 @@ ordered factor if label is <code>TRUE</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>day()</code> and <code>day&lt;-()</code> are aliases for <code>mday()</code> and
-<code>mday&lt;-()</code> respectively.</p>
+    <p><code>day()</code> and <code>day&lt;-()</code> are aliases for <code>mday()</code> and <code>mday&lt;-()</code>
+respectively.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -194,7 +194,7 @@ ordered factor if label is <code>TRUE</code>.</p>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

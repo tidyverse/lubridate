@@ -146,7 +146,7 @@ is NULL (default)</p>
     <p>If the <code>truncated</code> parameter is non-zero, the <code>ymd</code> functions also check for
 truncated formats. For example <code>ymd()</code> with <code>truncated = 2</code> will also
 parse incomplete dates like <code>2012-06</code> and <code>2012</code>.</p>
-<p>NOTE: The <code>ymd</code> family of functions are based on <code>parse_date_time()</code> and thus
+<p>NOTE: The <code>ymd</code> family of functions are based on <code><a href='parse_date_time.html'>parse_date_time()</a></code> and thus
 directly drop to the internal C parser for numeric months, but use R's
 <code>strptime()</code> for alphabetic months. This implies that some of the <code>strptime()</code>'s
 limitations are inherited by <span class="pkg">lubridate</span>'s parser. For example, truncated
@@ -173,14 +173,14 @@ mechanism.</p>
        <span class='st'>"2009-1, 5"</span>, <span class='st'>"Created on 2009 1 6"</span>, <span class='st'>"200901 !!! 07"</span>)
 <span class='fu'>ymd</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02" "2009-01-03" "2009-01-04" "2009-01-05"
 #&gt; [6] "2009-01-06" "2009-01-07"</div><div class='input'>
-<span class='co'>## What lubridate might not handle:</span>
+## What lubridate might not handle:
 
-<span class='co'>## Extremely weird cases when one of the separators is "" and some of the</span>
-<span class='co'>## formats are not in double digits might not be parsed correctly:</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>ymd</span>(<span class='st'>"201002-01"</span>, <span class='st'>"201002-1"</span>, <span class='st'>"20102-1"</span>)
-  <span class='fu'>dmy</span>(<span class='st'>"0312-2010"</span>, <span class='st'>"312-2010"</span>)
-})</div></pre>
+## Extremely weird cases when one of the separators is "" and some of the
+## formats are not in double digits might not be parsed correctly:
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>ymd</span>(<span class='st'>"201002-01"</span>, <span class='st'>"201002-1"</span>, <span class='st'>"20102-1"</span>)
+<span class='fu'>dmy</span>(<span class='st'>"0312-2010"</span>, <span class='st'>"312-2010"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -206,7 +206,7 @@ mechanism.</p>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

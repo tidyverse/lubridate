@@ -211,26 +211,26 @@ change this by setting the <code>lubridate.verbose</code> option to <code>TRUE</
 <span class='co'>## ** different formats for ISO8601 timezone offset **</span>
 <span class='fu'>ymd_hms</span>(<span class='fu'>c</span>(<span class='st'>"2013-01-24 19:39:07.880-0600"</span>,
 <span class='st'>"2013-01-24 19:39:07.880"</span>, <span class='st'>"2013-01-24 19:39:07.880-06:00"</span>,
-<span class='st'>"2013-01-24 19:39:07.880-06"</span>, <span class='st'>"2013-01-24 19:39:07.880Z"</span>))</div><div class='output co'>#&gt; [1] "2013-01-25 01:39:07 UTC" "2013-01-24 19:39:07 UTC"
-#&gt; [3] "2013-01-25 01:39:07 UTC" "2013-01-25 01:39:07 UTC"
-#&gt; [5] "2013-01-24 19:39:07 UTC"</div><div class='input'>
-<span class='co'>## ** internationalization **</span>
-<span class='fu'>not_run</span>({
-  <span class='no'>x_RO</span> <span class='kw'>&lt;-</span> <span class='st'>"Ma 2012 august 14 11:28:30 "</span>
+<span class='st'>"2013-01-24 19:39:07.880-06"</span>, <span class='st'>"2013-01-24 19:39:07.880Z"</span>))</div><div class='output co'>#&gt; [1] "2013-01-25 01:39:07.88 UTC" "2013-01-24 19:39:07.88 UTC"
+#&gt; [3] "2013-01-25 01:39:07.88 UTC" "2013-01-25 01:39:07.88 UTC"
+#&gt; [5] "2013-01-24 19:39:07.88 UTC"</div><div class='input'>
+## ** internationalization **
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>x_RO</span> <span class='kw'>&lt;-</span> <span class='st'>"Ma 2012 august 14 11:28:30 "</span>
   <span class='fu'>ymd_hms</span>(<span class='no'>x_RO</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='st'>"ro_RO.utf8"</span>)
-})
-
+<span class='co'># }</span><div class='input'>
 <span class='co'>## ** truncated time-dates **</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"2011-12-31 12:59:59"</span>, <span class='st'>"2010-01-01 12:11"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span>)
 <span class='fu'>ymd_hms</span>(<span class='no'>x</span>, <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
 #&gt; [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"2011-12-31 12:59"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span>)
 <span class='fu'>ymd_hm</span>(<span class='no'>x</span>, <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC"
-#&gt; [3] "2010-01-01 00:00:00 UTC"</div><div class='input'><span class='co'>## ** What lubridate might not handle **</span>
-<span class='co'>## Extremely weird cases when one of the separators is "" and some of the</span>
-<span class='co'>## formats are not in double digits might not be parsed correctly:</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>ymd_hm</span>(<span class='st'>"20100201 07-01"</span>, <span class='st'>"20100201 07-1"</span>, <span class='st'>"20100201 7-01"</span>)
-})</div></pre>
+#&gt; [3] "2010-01-01 00:00:00 UTC"</div><div class='input'>## ** What lubridate might not handle **
+## Extremely weird cases when one of the separators is "" and some of the
+## formats are not in double digits might not be parsed correctly:
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>ymd_hm</span>(<span class='st'>"20100201 07-01"</span>, <span class='st'>"20100201 07-1"</span>, <span class='st'>"20100201 7-01"</span>)
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -256,7 +256,7 @@ change this by setting the <code>lubridate.verbose</code> option to <code>TRUE</
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

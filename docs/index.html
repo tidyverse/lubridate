@@ -76,7 +76,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get lubridate is to install the whole tidyverse:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The easiest way to get lubridate is to install the whole tidyverse:</span>
 <span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)
 
 <span class="co"># Alternatively, install just lubridate:</span>
@@ -84,7 +84,7 @@
 
 <span class="co"># Or the the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/lubridate"</span>)</code></pre>
+devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/lubridate"</span>)</code></pre></div>
 </div>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
@@ -92,14 +92,14 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/lub
 <ul>
 <li>
 <p>Easy and fast parsing of date-times: <code><a href="reference/ymd.html">ymd()</a></code>, <code>ymd_hms</code>, <code><a href="reference/ymd.html">dmy()</a></code>, <code>dmy_hms</code>, <code><a href="reference/ymd.html">mdy()</a></code>, …</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/ymd.html">ymd</a></span>(<span class="dv">20101215</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/ymd.html">ymd</a></span>(<span class="dv">20101215</span>)
 <span class="co">#&gt; [1] "2010-12-15"</span>
 <span class="kw"><a href="reference/ymd.html">mdy</a></span>(<span class="st">"4/1/17"</span>)
-<span class="co">#&gt; [1] "2017-04-01"</span></code></pre>
+<span class="co">#&gt; [1] "2017-04-01"</span></code></pre></div>
 </li>
 <li>
 <p>Simple functions to get and set components of a date-time, such as <code><a href="reference/year.html">year()</a></code>, <code><a href="reference/month.html">month()</a></code>, <code><a href="reference/day.html">mday()</a></code>, <code><a href="reference/hour.html">hour()</a></code>, <code><a href="reference/minute.html">minute()</a></code> and <code><a href="reference/second.html">second()</a></code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">bday &lt;-<span class="st"> </span><span class="kw"><a href="reference/ymd.html">dmy</a></span>(<span class="st">"14/10/1979"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bday &lt;-<span class="st"> </span><span class="kw"><a href="reference/ymd.html">dmy</a></span>(<span class="st">"14/10/1979"</span>)
 <span class="kw"><a href="reference/month.html">month</a></span>(bday)
 <span class="co">#&gt; [1] 10</span>
 <span class="kw"><a href="reference/day.html">wday</a></span>(bday, <span class="dt">label =</span> <span class="ot">TRUE</span>)
@@ -109,11 +109,11 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/lub
 <span class="kw"><a href="reference/year.html">year</a></span>(bday) &lt;-<span class="st"> </span><span class="dv">2016</span>
 <span class="kw"><a href="reference/day.html">wday</a></span>(bday, <span class="dt">label =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; [1] Fri</span>
-<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></code></pre>
+<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></code></pre></div>
 </li>
 <li>
 <p>Helper functions for handling time zones: <code><a href="reference/with_tz.html">with_tz()</a></code>, <code><a href="reference/force_tz.html">force_tz()</a></code></p>
-<pre class="sourceCode r"><code class="sourceCode r">time &lt;-<span class="st"> </span><span class="kw"><a href="reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2010-12-13 15:30:30"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">time &lt;-<span class="st"> </span><span class="kw"><a href="reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2010-12-13 15:30:30"</span>)
 time
 <span class="co">#&gt; [1] "2010-12-13 15:30:30 UTC"</span>
 
@@ -123,7 +123,7 @@ time
 
 <span class="co"># Changes time</span>
 <span class="kw"><a href="reference/force_tz.html">force_tz</a></span>(time, <span class="st">"America/Chicago"</span>)
-<span class="co">#&gt; [1] "2010-12-13 15:30:30 CST"</span></code></pre>
+<span class="co">#&gt; [1] "2010-12-13 15:30:30 CST"</span></code></pre></div>
 </li>
 </ul>
 <p>Lubridate also expands the type of mathematical operations that can be performed with date-time objects. It introduces three new time span classes borrowed from <a href="http://joda.org" class="uri">http://joda.org</a>.</p>
@@ -138,7 +138,8 @@ time
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Links</h2>
+    <h2 class="hasAnchor">
+<a href="#sidebar" class="anchor"></a>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cran.r-project.org/package=lubridate">https://​cran.r-project.org/​package=lubridate</a>
 </li>
@@ -151,6 +152,10 @@ time
 </ul>
 <h2>License</h2>
 <p><a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a></p>
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing lubridate</a></li>
+</ul>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
@@ -179,7 +184,7 @@ time
 
 <div class="author">
   <p>Developed by <a href="http://vitalie.spinu.info">Vitalie Spinu</a>, Garrett Grolemund, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

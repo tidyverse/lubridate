@@ -82,64 +82,126 @@
     </div>
 
     <div class="contents">
-    <div id="version-1-6-0-9000" class="section level1">
+    <div id="version-1-7-1-9000" class="section level1">
 <h1 class="hasAnchor">
-<a href="#version-1-6-0-9000" class="anchor"></a>Version 1.6.0.9000</h1>
+<a href="#version-1-7-1-9000" class="anchor"></a>Version 1.7.1.9000</h1>
+<ul>
+<li>Fix intersection of intervals with missing values.</li>
+</ul>
+</div>
+    <div id="version-1-7-1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#version-1-7-1" class="anchor"></a>Version 1.7.1</h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h2>
+<ul>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/598">#575</a>, <a href="https://github.com/tidyverse/lubridate/issues/600">#600</a>, <a href="https://github.com/tidyverse/lubridate/issues/602">#602</a> Fix zoneinfo lookup on windows and solaris.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/598">#598</a> Fix broken parsing of <code>ymd_hms</code> strings by <code>as_date</code>.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/597">#597</a> Fix broken parsing of <code>ymd</code> strings by <code>as_datetime</code>.</li>
+</ul>
+</div>
+</div>
+    <div id="version-1-7-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#version-1-7-0" class="anchor"></a>Version 1.7.0</h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
 <ul>
+<li>Reduced memory footprint on <code>trunc_multi_unit</code> so that it overwrites the vector argument <code>x</code> versus making a new vector <code>y</code>.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/257">#257</a> New <code>start</code> parameter in <code>wday</code> and <code>wday&lt;-</code> to set week start.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/438">#438</a> New function <code>force_tzs</code> for “enforcement” of heterogeneous time zones.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/401">#401</a> New parameter <code>locale</code> in <code>wday</code>. Labels of the returned factors (when <code>label=TRUE</code>) now respect current locale.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/438">#438</a> New function <code>local_time</code> for the retrieval of local day time in different time zones.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/485">#485</a> <code>quarter</code> gained a new argument <code>fiscal_start</code> to address the issue of different fiscal conventions.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/560">#560</a> New argument <code>cutoff_2000</code> for parsing functions to indicate 20th century cutoff for <code>y</code> format.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/492">#492</a> New functions <code>epiweek</code> and <code>epiyear</code>.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/257">#257</a> New <code>week_start</code> parameter in <code>wday</code> and <code>wday&lt;-</code> to set week start.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/508">#508</a> New parameter <code>locale</code> in <code>month</code>. Labels of the returned factors (when <code>label=TRUE</code>) now respect current locale.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/401">#401</a> New parameter <code>locale</code> in <code>wday</code>. Labels of the returned factors (when <code>label=TRUE</code>) now respect current locale.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/509">#509</a> New parameter <code>week_start</code> to <code>floor_date</code>, <code>ceiling_date</code> and <code>round_date</code>.</li>
+<a href="https://github.com/tidyverse/lubridate/pull/485">#485</a> <code>quarter</code> gained a new argument <code>fiscal_start</code> to address the issue of different fiscal conventions.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/519">#519</a> Support fractional units in duration and period string constructors.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/492">#492</a> New functions <code>epiweek</code> and <code>epiyear</code>.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/529">#529</a> Internal parser now ignores the case of alpha months (B format)</li>
+<a href="https://github.com/tidyverse/lubridate/pull/508">#508</a> New parameter <code>locale</code> in <code>month</code>. Labels of the returned factors (when <code>label=TRUE</code>) now respect current locale.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/535">#535</a> Rounding to <code>season</code> is now supported.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/509">#509</a> New parameter <code>week_start</code> to <code>floor_date</code>, <code>ceiling_date</code> and <code>round_date</code>.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/536">#536</a> <code>as_date</code> and <code>as_datetime</code> now understand character vectors.</li>
-<li>New parsing parameters to <code>parse_date_time</code> - <code>train=TRUE</code> and <code>drop=FALSE</code> which allow more refined control of the format guessing. Formats are no longer droped in the process by default, process which resulted in surprising behavior on several occasions (<a href="https://github.com/hadley/lubridate/issues/516">#516</a>,<a href="https://github.com/hadley/lubridate/issues/308">#308</a>,<a href="https://github.com/hadley/lubridate/issues/307">#307</a>).</li>
+<a href="https://github.com/tidyverse/lubridate/issues/519">#519</a> Support fractional units in duration and period string constructors.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/502">#502</a> Support rounding to fractions of a seconds.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/529">#529</a> Internal parser now ignores the case of alpha months (B format)</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/535">#535</a> Rounding to <code>season</code> is now supported.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/536">#536</a> <code>as_date</code> and <code>as_datetime</code> now understand character vectors.</li>
+<li>New parsing parameters to <code>parse_date_time</code> - <code>train=TRUE</code> and <code>drop=FALSE</code> which allow more refined control of the format guessing. Formats are no longer dropped in the process by default, process which resulted in surprising behavior on several occasions (<a href="https://github.com/tidyverse/lubridate/issues/516">#516</a>,<a href="https://github.com/tidyverse/lubridate/issues/308">#308</a>,<a href="https://github.com/tidyverse/lubridate/issues/307">#307</a>).</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level3">
+<div id="changes" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<a href="#changes" class="anchor"></a>CHANGES</h3>
 <ul>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/545">#545</a> Fix wrong locale selection in stamp.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/401">#401</a> <strong>[Breaking Change]</strong> Labels returned by <code>wday</code> and <code>month</code> are now in current locale. The abbreviated labels in English locales have been changed to standard abbreviations (Tues -&gt; Tue, Thurs -&gt; Thu etc.).</li>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/466">#466</a> Fix wrong formats within ymd_h family of functions.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/469">#469</a> Throw warning in <code>with_tz</code> on invalid timezone.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/472">#472</a> Printing method for duration doesn’t throw format error on fractional seconds.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/572">#572</a> <code>B</code> and <code>b</code> formats no longer match numeric months. This corresponds to the original intent, and was always documented as such.</li>
+</ul>
+</div>
+<div id="bug-fixes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+<ul>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/475">#475</a> character&lt;&gt; comparisons is no longer slow.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/314">#314</a>, <a href="https://github.com/tidyverse/lubridate/issues/407">#407</a>, <a href="https://github.com/tidyverse/lubridate/issues/499">#499</a> Make <code>days</code>, <code>dhours</code>, <code>round_date</code> work when the methods package is not loaded.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/483">#483</a> Fix add_duration_to_date error when duration first element is NA.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/543">#543</a> Make <code>wday</code> work on character inputs as it is the case with all other day accessors.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/486">#486</a> ceiling_date handles <code>NA</code> properly.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/566">#566</a> Comparing durations and periods no-longer infloops.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/491">#491</a> <code>make_datetime</code> respects <code>tz</code> argument and is much faster now.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/556">#556</a> Fix incorrect scoring of <code>y</code> format when it’s the last in format order (as in <code>mdy</code>).</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/507">#507</a> Period and duration parsers now understand 0 units.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/584">#584</a> Fix interval by period division.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/524">#524</a> Correctly compute length of period in months (issue #490)</li>
+<a href="https://github.com/tidyverse/lubridate/issues/559">#559</a> Parsing of alpha-months in English locales now drops correctly to low level C parsing. Thus, parsing with multiple orders containing <code>m</code> and <code>b</code> formats now works correctly.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/pull/525">#525</a> Fix to prevent <code>day&lt;-</code>, <code>minute&lt;-</code>, etc. from producing an error when length(x) is 0 (issue #517)</li>
+<a href="https://github.com/tidyverse/lubridate/issues/570">#570</a>, <a href="https://github.com/tidyverse/lubridate/issues/574">#574</a> Fix broken <code><a href="../reference/date.html">date()</a></code> when called with missing argument.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/530">#530</a> <code>parse_date_time</code> now throw warnings only for actual parsing errors (input with all NAs are silent)</li>
+<a href="https://github.com/tidyverse/lubridate/issues/567">#567</a> Fix year update and rounding for leap years.</li>
 <li>
-<a href="https://github.com/hadley/lubridate/issues/534">#534</a> Fix arithmetics with large numbers</li>
+<a href="https://github.com/tidyverse/lubridate/pull/545">#545</a> Fix wrong locale selection in stamp.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/pull/466">#466</a> Fix wrong formats within ymd_h family of functions.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/pull/472">#472</a> Printing method for duration doesn’t throw format error on fractional seconds.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/pull/475">#475</a> character&lt;&gt; comparisons is no longer slow.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/pull/483">#483</a> Fix add_duration_to_date error when duration first element is NA.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/486">#486</a> ceiling_date handles <code>NA</code> properly.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/491">#491</a> <code>make_datetime</code> respects <code>tz</code> argument and is much faster now.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/507">#507</a> Period and duration parsers now understand 0 units.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/pull/524">#524</a> Correctly compute length of period in months (issue #490)</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/pull/525">#525</a> Fix to prevent <code>day&lt;-</code>, <code>minute&lt;-</code>, etc. from producing an error when length(x) is 0 (issue #517)</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/530">#530</a> <code>parse_date_time</code> now throw warnings only for actual parsing errors (input with all NAs are silent)</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/534">#534</a> Fix arithmetics with large numbers</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/pull/554">#554</a> Fix tests when running in non-English locales</li>
 </ul>
 </div>
 </div>
@@ -184,9 +246,9 @@
 <a href="https://github.com/hadley/lubridate/issues/418">#418</a> C level parsing functions understand 24:00:00 in datetime strings.</li>
 </ul>
 </div>
-<div id="changes" class="section level3">
+<div id="changes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes" class="anchor"></a>CHANGES</h3>
+<a href="#changes-1" class="anchor"></a>CHANGES</h3>
 <ul>
 <li>Low letter specs for HMS (hms,hm,ms) in <code>parse_date_time</code> and related functions are now deprecated.</li>
 <li>
@@ -210,9 +272,9 @@
 <a href="https://github.com/hadley/lubridate/issues/456">#456</a> Evaluation output in documentation examples was removed.</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/hadley/lubridate/issues/479">#479</a> Fix the inconsistent behavior in <code>ceiling_date</code> when <code>unit = "week"</code>
@@ -256,9 +318,9 @@
 <a href="https://github.com/hadley/lubridate/issues/333">#333</a> <code>hms</code> parsers now handle negative components.</li>
 </ul>
 </div>
-<div id="changes-1" class="section level3">
+<div id="changes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-1" class="anchor"></a>CHANGES</h3>
+<a href="#changes-2" class="anchor"></a>CHANGES</h3>
 <ul>
 <li>
 <a href="https://github.com/hadley/lubridate/issues/391">#391</a> <code>ymd</code> family of functions return <code>Date</code> object when <code>tz</code> argument is NULL (new default) and POSIXct otherwise.</li>
@@ -267,9 +329,9 @@
 <li>For consistency with <code>base:strptime</code> <code>fast_strptime</code> now returns <code>POSIXlt</code> object. That is, its <code>lt</code> argument defaults to <code>TRUE</code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <code>interval</code> constructor treats timezones correctly and works with UTC whenever meaningful.</li>
@@ -308,9 +370,9 @@
 <a href="https://github.com/hadley/lubridate/issues/278">#278</a> Added settors and accessors for <code>qday</code> (quarter day).</li>
 </ul>
 </div>
-<div id="changes-2" class="section level3">
+<div id="changes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-2" class="anchor"></a>CHANGES</h3>
+<a href="#changes-3" class="anchor"></a>CHANGES</h3>
 <ul>
 <li>New maintainer Vitalie Spinu (@vspinu)</li>
 <li>Time span constructors were re-factored; <code>new_interval</code>, <code>new_period</code>, <code>new_duration</code>, <code>new_difftime</code> were deprecated in favour of the more powerful <code>interval</code>, <code>period</code>, <code>duration</code> and <code>make_difftime</code> functions.</li>
@@ -326,9 +388,9 @@
 <li>Made necessary changes to accommodate new zoo-based <code>fst</code> objects.</li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/hadley/lubridate/issues/360">#360</a> Fix c parser for Z (zulu) indicator.</li>
@@ -375,9 +437,9 @@
     <div id="version-1-4-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#version-1-4-0" class="anchor"></a>Version 1.4.0</h1>
-<div id="changes-3" class="section level3">
+<div id="changes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-3" class="anchor"></a>CHANGES</h3>
+<a href="#changes-4" class="anchor"></a>CHANGES</h3>
 <ul>
 <li>
 <a href="//github.com/hadley/lubridate/issues/219">#219</a> In <code>interval</code> use UTC when tzone is missing.</li>
@@ -385,9 +447,9 @@
 <a href="//github.com/hadley/lubridate/issues/255">#255</a> Parse yy &gt; 68 as 19yy to comply with <code>strptime</code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level3">
+<div id="bug-fixes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="//github.com/hadley/lubridate/issues/266">#266</a> Include <code>time-zones.R</code> in <code>coercion.R</code>.</li>
@@ -418,17 +480,17 @@
     <div id="version-1-3-3" class="section level1">
 <h1 class="hasAnchor">
 <a href="#version-1-3-3" class="anchor"></a>Version 1.3.3</h1>
-<div id="changes-4" class="section level3">
+<div id="changes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-4" class="anchor"></a>CHANGES</h3>
+<a href="#changes-5" class="anchor"></a>CHANGES</h3>
 <ul>
 <li>New low level C parser for numeric formats and two new front-end R functions parse_date_time2 and fast_strptime. The achieved speed up is 50-100x as compared to standard as.POSIXct and strptime functions.</li>
 </ul>
 <p>The user level parser functions of ymd_hms family drop to these C routines whenever plain numeric formats are detected.</p>
 </div>
-<div id="bug-fixes-5" class="section level3">
+<div id="bug-fixes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>olson_time_zones now supports Solaris OS</li>
 <li>infinite recursion on parsing non-existing leap times was fixed</li>
@@ -445,9 +507,9 @@
     <div id="version-1-3-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#version-1-3-0" class="anchor"></a>Version 1.3.0</h1>
-<div id="changes-5" class="section level3">
+<div id="changes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-5" class="anchor"></a>CHANGES</h3>
+<a href="#changes-6" class="anchor"></a>CHANGES</h3>
 <ul>
 <li>v1.3.0. treats math with month and year Periods more consistently. If adding or subtracting n months would result in a non-existent date, lubridate will return an NA instead of a day in the following month or year. For example, <code>ymd("2013-01-31") + months(1)</code> will return <code>NA</code> instead of <code>2013-03-04</code> as in v1.2.0. <code>ymd("2012-02-29") + years(1)</code> will also return an <code>NA</code>. This rule change helps ensure that date + timespan - timespan = date (or NA). If you’d prefer that such arithmetic just returns the last day of the resulting month, see <code>%m+%</code> and <code>%m-%</code>.</li>
 <li>update.POSIXct and update.POSIXlt have been rewritten to be 7x faster than their versions in v1.2.0. The speed gain is felt in <code>force_tz</code>, <code>with_tz</code>, <code>floor_date</code>, <code>ceiling_date</code>, <code>second&lt;-</code>, <code>minute&lt;-</code>, <code>hour&lt;-</code>, <code>day&lt;-</code>, <code>month&lt;-</code>, <code>year&lt;-</code>, and other functions that rely on update (such as math with Periods).</li>
@@ -472,9 +534,9 @@
 <li>date_decimal converts a date written as a decimal of a year into a POSIXct date-time</li>
 </ul>
 </div>
-<div id="bug-fixes-6" class="section level3">
+<div id="bug-fixes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed bug in way update.POSIXct and update.POSIXlt handle dates that occur in the fall daylight savings overlap. update will choose the date-time closest to the original date time (on the timeline) when two identical clock times exist due to the DST overlap.</li>
 <li>fixed bugs that created unintuitive results for <code>as.interval</code>, <code>int_overlaps</code>, <code>%within%</code> and the interval methods of <code>c</code>, <code>intersect</code>, <code>union</code>, <code>setdiff</code>, and <code>summary</code>.</li>
@@ -491,9 +553,9 @@
     <div id="version-1-2-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#version-1-2-0" class="anchor"></a>Version 1.2.0</h1>
-<div id="changes-6" class="section level3">
+<div id="changes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-6" class="anchor"></a>CHANGES</h3>
+<a href="#changes-7" class="anchor"></a>CHANGES</h3>
 <ul>
 <li>lubridate 1.2.0 is significantly faster than lubridate 1.1.0. This is largely thanks to a parser rewrite submitted by Vitalie Spinu. Thank you, Vitalie. Some metrics:</li>
 <li>parser speed up - 60x faster</li>
@@ -502,7 +564,7 @@
 <li><p><code>force_tz</code> speed up - 3x faster</p></li>
 <li>
 <p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a date’s month. And, <code>%m+%</code> and <code>%m-%</code> provide a new way to</p>
-<h3>handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
+<h3 id="handle-unequal-month-lengths-while-doing-arithmetic.-see-new-features-for-more">handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
 <p>details</p>
 </li>
 <li><p>date parsing can now parse multiple date formats within the same vector of date-times. Parsing can also recognize a greater variety of date-time formats as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. Thank you, Vitalie.</p></li>
@@ -524,21 +586,21 @@
 <li>
 <p><code>%m+%</code> and <code>%m-%</code> perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can’t be used with periods smaller than a month, which should be handled separately. An example of the new behavior:</p>
 <p>ymd(“2010-01-31”) %m+% months(1)</p>
-<h1>“2010-02-28 UTC”</h1>
+<h1 id="utc">“2010-02-28 UTC”</h1>
 <p>ymd(“2010-01-31”) + months(1)</p>
-<h1>“2010-03-03 UTC”</h1>
+<h1 id="utc-1">“2010-03-03 UTC”</h1>
 <p>ymd(“2010-03-31”) %m-% months(1)</p>
-<h1>“2010-02-28 UTC”</h1>
+<h1 id="utc-2">“2010-02-28 UTC”</h1>
 <p>ymd(“2010-01-31”) - months(1)</p>
-<h1>“2010-03-03 UTC”</h1>
+<h1 id="utc-3">“2010-03-03 UTC”</h1>
 </li>
 <li><p><code>rollback</code> rolls a date back to the last day of the previous month.</p></li>
 <li><p><code>quarter</code> returns the fiscal quarter that a date occurs in. Like <code>quartes</code> in base R, but returns a numeric instead of a character string.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-7" class="section level3">
+<div id="bug-fixes-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>date parsers now handle NAs</p></li>
 <li><p>periods now handle NAs</p></li>
@@ -554,9 +616,9 @@
     <div id="version-1-1-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#version-1-1-0" class="anchor"></a>Version 1.1.0</h1>
-<div id="changes-7" class="section level3">
+<div id="changes-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-7" class="anchor"></a>CHANGES</h3>
+<a href="#changes-8" class="anchor"></a>CHANGES</h3>
 <ul>
 <li><p>lubridate no longer overwrites base R methods for +, - , *, /, %%, and %/%. To recreate the previous experience of subtracting two date times to create an interval, we’ve added the interval creation function %–%.</p></li>
 <li><p>lubridate has moved to an S4 object system. Timespans, Intervals, Durations, and Periods have each been redefined as an S4 class with its own methods.</p></li>
@@ -596,9 +658,9 @@
 <ul>
 <li>added ymdThms() for parsing ISO 8061 formatted combned dates and times</li>
 </ul>
-<div id="bug-fixes-8" class="section level3">
+<div id="bug-fixes-9" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-9" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>removed bug in parsing dates with “T” in them</p></li>
 <li><p>modified as.period.interval() to display periods in positive units</p></li>
@@ -623,9 +685,9 @@
 <li><p>milliseconds(), microseconds(), nanoseconds(), and picoseconds() create period objects of the specified lengths. dmilliseconds(), dmicroseconds(), dnanoseconds(), and dpicoseconds() make duration objects of the specified lengths.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-9" class="section level3">
+<div id="bug-fixes-10" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-9" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-10" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>lubridate no longer overwrites months(), start(), and end() from base R. Start and end have been replaced with int_start() and int_end().</p></li>
 <li><p>lubridate imports plyr and stringr packages, instead of depending on them.</p></li>
@@ -643,9 +705,9 @@
 <li><p>created c() methods for periods and durations</p></li>
 </ul>
 </div>
-<div id="bug-fixes-10" class="section level3">
+<div id="bug-fixes-11" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-10" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-11" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed bug in division, modulo, and integer operations with timespans</li>
 </ul>
@@ -661,9 +723,9 @@
 <li>created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().</li>
 </ul>
 </div>
-<div id="bug-fixes-11" class="section level3">
+<div id="bug-fixes-12" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-11" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-12" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed bug in add_dates(). duration objects can now be successfully added to numeric objects.</li>
 </ul>
@@ -696,9 +758,9 @@
 <li><p>changed leap.years() to leap_years() to maintain consistent naming scheme</p></li>
 </ul>
 </div>
-<div id="bug-fixes-12" class="section level3">
+<div id="bug-fixes-13" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-12" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-13" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>rewrote as.period() to create only positive periods.</p></li>
 <li><p>fixed rollover bug in update.POSIXct()</p></li>
@@ -713,7 +775,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#version-1-6-0-9000">1.6.0.9000</a></li>
+        <li><a href="#version-1-7-1-9000">1.7.1.9000</a></li>
+        <li><a href="#version-1-7-1">1.7.1</a></li>
+        <li><a href="#version-1-7-0">1.7.0</a></li>
         <li><a href="#version-1-6-0">1.6.0</a></li>
         <li><a href="#version-1-5-6">1.5.6</a></li>
         <li><a href="#version-1-5-0">1.5.0</a></li>
@@ -743,7 +807,7 @@
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

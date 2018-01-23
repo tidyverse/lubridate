@@ -194,8 +194,8 @@ alternative operations.</p>
 <span class='fu'><a href='duration.html'>duration</a></span>(<span class='st'>"day 2 sec"</span>) <span class='kw'>&gt;</span> <span class='st'>"day 1sec"</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'>### ELEMENTARY CONSTRUCTORS</span>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as.POSIXct</span>(<span class='st'>"2009-08-03"</span>)
-<span class='no'>x</span> + <span class='fu'>days</span>(<span class='fl'>1</span>) + <span class='fu'>hours</span>(<span class='fl'>6</span>) + <span class='fu'>minutes</span>(<span class='fl'>30</span>)</div><div class='output co'>#&gt; [1] "2009-08-04 06:30:00 PDT"</div><div class='input'><span class='no'>x</span> + <span class='fu'>days</span>(<span class='fl'>100</span>) - <span class='fu'>hours</span>(<span class='fl'>8</span>)</div><div class='output co'>#&gt; [1] "2009-11-10 16:00:00 PST"</div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2009-08-03"</span>)
+<span class='no'>x</span> + <span class='fu'>days</span>(<span class='fl'>1</span>) + <span class='fu'>hours</span>(<span class='fl'>6</span>) + <span class='fu'>minutes</span>(<span class='fl'>30</span>)</div><div class='output co'>#&gt; [1] "2009-08-04 06:30:00 UTC"</div><div class='input'><span class='no'>x</span> + <span class='fu'>days</span>(<span class='fl'>100</span>) - <span class='fu'>hours</span>(<span class='fl'>8</span>)</div><div class='output co'>#&gt; [1] "2009-11-10 16:00:00 UTC"</div><div class='input'>
 <span class='fu'>class</span>(<span class='fu'>as.Date</span>(<span class='st'>"2009-08-09"</span>) + <span class='fu'>days</span>(<span class='fl'>1</span>)) <span class='co'># retains Date class</span></div><div class='output co'>#&gt; [1] "Date"</div><div class='input'><span class='fu'>as.Date</span>(<span class='st'>"2009-08-09"</span>) + <span class='fu'>hours</span>(<span class='fl'>12</span>)</div><div class='output co'>#&gt; [1] "2009-08-09 12:00:00 UTC"</div><div class='input'><span class='fu'>class</span>(<span class='fu'>as.Date</span>(<span class='st'>"2009-08-09"</span>) + <span class='fu'>hours</span>(<span class='fl'>12</span>))</div><div class='output co'>#&gt; [1] "POSIXlt" "POSIXt" </div><div class='input'><span class='co'># converts to POSIXt class to accomodate time units</span>
 
 <span class='fu'>years</span>(<span class='fl'>1</span>) - <span class='fu'>months</span>(<span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='message'>Note: method with signature ‘Period#ANY’ chosen for function ‘-’,</span>
@@ -207,8 +207,8 @@ alternative operations.</p>
 #&gt;  [6] "2009-06-01" "2009-07-01" "2009-08-01" "2009-09-01" "2009-10-01"
 #&gt; [11] "2009-11-01" "2009-12-01"</div><div class='input'>
 <span class='co'># compare DST handling to durations</span>
-<span class='no'>boundary</span> <span class='kw'>&lt;-</span> <span class='fu'>as.POSIXct</span>(<span class='st'>"2009-03-08 01:59:59"</span>)
-<span class='no'>boundary</span> + <span class='fu'>days</span>(<span class='fl'>1</span>) <span class='co'># period</span></div><div class='output co'>#&gt; [1] "2009-03-09 01:59:59 PDT"</div><div class='input'><span class='no'>boundary</span> + <span class='fu'><a href='duration.html'>ddays</a></span>(<span class='fl'>1</span>) <span class='co'># duration</span></div><div class='output co'>#&gt; [1] "2009-03-09 02:59:59 PDT"</div><div class='input'><span class='fu'>is.period</span>(<span class='fu'>as.Date</span>(<span class='st'>"2009-08-03"</span>)) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.period</span>(<span class='fu'>period</span>(<span class='kw'>months</span><span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>15</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
+<span class='no'>boundary</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2009-03-08 01:59:59"</span>, <span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"America/Chicago"</span>)
+<span class='no'>boundary</span> + <span class='fu'>days</span>(<span class='fl'>1</span>) <span class='co'># period</span></div><div class='output co'>#&gt; [1] "2009-03-09 01:59:59 CDT"</div><div class='input'><span class='no'>boundary</span> + <span class='fu'><a href='duration.html'>ddays</a></span>(<span class='fl'>1</span>) <span class='co'># duration</span></div><div class='output co'>#&gt; [1] "2009-03-09 02:59:59 CDT"</div><div class='input'><span class='fu'>is.period</span>(<span class='fu'>as.Date</span>(<span class='st'>"2009-08-03"</span>)) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.period</span>(<span class='fu'>period</span>(<span class='kw'>months</span><span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>15</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -234,7 +234,7 @@ alternative operations.</p>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

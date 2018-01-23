@@ -1,0 +1,6 @@
+urls:
+  reference: http://lubridate.tidyverse.org/reference
+  article: http://lubridate.tidyverse.org/articles
+articles:
+  lubridate: lubridate.html
+

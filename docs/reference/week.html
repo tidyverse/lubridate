@@ -84,12 +84,13 @@
     <p><code>week()</code> returns the number of complete seven day periods that have
 occurred between the date and January 1st, plus one.
 
-    <code>isoweek()</code> returns
-the week as it would appear in the ISO 8601 system, which uses a reoccurring
-leap week.
+    <code>isoweek()</code> returns the week as it would appear in the ISO 8601
+system, which uses a reoccurring leap week.
 
-    <code>epiweek()</code> returns the week as it conventional in
-epidemiology. Epiweek follows same rules as <code>isoweek()</code> but starts on Sunday.</p>
+    <code>epiweek()</code> is the US CDC version of epidemiological week. It
+follows same rules as <code>isoweek()</code> but starts on Sunday. In other parts of
+the world the convention is to start epidemiological weeks on Monday,
+which is the same as <code>isoweek</code>.</p>
     
 
     <pre class="usage"><span class='fu'>week</span>(<span class='no'>x</span>)
@@ -121,8 +122,8 @@ fts object.</p></td>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><a href = 'http://en.wikipedia.org/wiki/ISO_week_date'>http://en.wikipedia.org/wiki/ISO_week_date</a>
-<a href = 'http://www.cmmcp.org/epiweek.htm'>http://www.cmmcp.org/epiweek.htm</a></p>
+    <p><a href='http://en.wikipedia.org/wiki/ISO_week_date'>http://en.wikipedia.org/wiki/ISO_week_date</a>
+<a href='http://www.cmmcp.org/epiweek.htm'>http://www.cmmcp.org/epiweek.htm</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -159,7 +160,7 @@ fts object.</p></td>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>

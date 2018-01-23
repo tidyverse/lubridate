@@ -101,9 +101,10 @@ that accepts explicit format arguments, just as
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'>Sys.getlocale</span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>select_formats</span> <span class='kw'>=</span> <span class='no'>.select_formats</span>,
   <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>train</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>parse_date_time2</span>(<span class='no'>x</span>, <span class='no'>orders</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>parse_date_time2</span>(<span class='no'>x</span>, <span class='no'>orders</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>cutoff_2000</span> <span class='kw'>=</span> <span class='fl'>68L</span>)
 
-<span class='fu'>fast_strptime</span>(<span class='no'>x</span>, <span class='no'>format</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>fast_strptime</span>(<span class='no'>x</span>, <span class='no'>format</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cutoff_2000</span> <span class='kw'>=</span> <span class='fl'>68L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -173,7 +174,10 @@ exact <code>strptime()</code> format and no training or guessing are performed
       <td><p>logical, default TRUE. Whether to train formats on a subset of
 the input vector. The result of this is that supplied orders are sorted
 according to performance on this training set, which commonly results in
-increased performance.</p></td>
+increased performance. Please note that even when <code>train</code> is <code>FALSE</code> (and
+<code>exact</code> is <code>FALSE</code>) guessing of the actual formats is still performed on a
+pseudo-random subset of the original input vector. This might result in
+<code>All formats failed to parse</code> error. See notes below.</p></td>
     </tr>
     <tr>
       <th>drop</th>
@@ -190,6 +194,12 @@ behavior when rare patterns where not present in the training set.</p></td>
       <td><p>logical. If TRUE returned object is of class POSIXlt, and POSIXct
 otherwise. For compatibility with base <code>strptime</code> function default is TRUE
 for <code>fast_strptime</code> and FALSE for <code>parse_date_time2</code>.</p></td>
+    </tr>
+    <tr>
+      <th>cutoff_2000</th>
+      <td><p>integer. For <code>y</code> format,  two-digit numbers smaller or equal to
+<code>cutoff_2000</code> are parsed as 20th's century, 19th's otherwise. Available only
+for functions relying on <code>lubridate</code>s internal parser.</p></td>
     </tr>
     <tr>
       <th>format</th>
@@ -210,8 +220,8 @@ argument of <code>strptime()</code>.</p></td>
 strings. After guessing the formats are ordered according to the performance
 on the training set and applied recursively on the entire input vector. You
 can disable training with <code>train=FALSE</code>.
-    <code>parse_date_time()</code>, and all derived functions, such as <code>ymd_hms()</code>,
-<code>ymd()</code> etc, will drop into <code>fast_strptime()</code> instead of
+    <code>parse_date_time()</code>, and all derived functions, such as <code><a href='ymd_hms.html'>ymd_hms()</a></code>,
+<code><a href='ymd.html'>ymd()</a></code> etc, will drop into <code>fast_strptime()</code> instead of
 <code>strptime()</code> whenever the guessed from the input data formats are all
 numeric.</p>
 <p>The list below contains formats recognized by <span class="pkg">lubridate</span>. For numeric formats
@@ -225,8 +235,8 @@ locale. (Also matches full name)</p></dd>
 abbreviated name).
     You don't need to specify <code>a</code> and <code>A</code> formats explicitly. Wday is
 automatically handled if <code>preproc_wday = TRUE</code></p></dd>
-    <dt><code>b</code>!</dt><dd><p>Abbreviated month name in the current locale (also matches
-full name). The C parser understands English months only.</p></dd>
+    <dt><code>b</code>!</dt><dd><p>Abbreviated or full month name in the current locale. The C
+parser currently understands only English month names.</p></dd>
     <dt><code>B</code>!</dt><dd><p>Same as b.</p></dd>
     <dt><code>d</code>!</dt><dd><p>Day of the month as decimal number (01--31 or 0--31)</p></dd>
     <dt><code>H</code>!</dt><dd><p>Hours as decimal number (00--24 or 0--24).</p></dd>
@@ -277,7 +287,7 @@ the timezone formats.</p></dd>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p><code>parse_date_time()</code> (and the derivatives <code>ymd()</code>, <code>ymd_hms()</code> etc)
+    <p><code>parse_date_time()</code> (and the derivatives <code><a href='ymd.html'>ymd()</a></code>, <code><a href='ymd_hms.html'>ymd_hms()</a></code> etc)
 rely on a sparse guesser that takes at most 501 elements from the supplied
 character vector in order to identify appropriate formats from the
 supplied orders. If you get the error <code>All formats failed to parse</code> and
@@ -320,23 +330,22 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
                 <span class='fu'>c</span>(<span class='st'>'%m/%d/%Y %I:%M:%S'</span>,<span class='st'>'%m/%d/%Y %H%M'</span>), <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"</div><div class='input'>
 <span class='co'>## ** quarters and partial dates **</span>
 <span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>"2016.2"</span>, <span class='st'>"2016-04"</span>), <span class='kw'>orders</span> <span class='kw'>=</span> <span class='st'>"Yq"</span>)</div><div class='output co'>#&gt; [1] "2016-04-01 UTC" "2016-10-01 UTC"</div><div class='input'><span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>"2016"</span>, <span class='st'>"2016-04"</span>), <span class='kw'>orders</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Y"</span>, <span class='st'>"Ym"</span>))</div><div class='output co'>#&gt; [1] "2016-01-01 UTC" "2016-04-01 UTC"</div><div class='input'>
-<span class='co'>## ** fast parsing **</span>
-<span class='fu'>not_run</span>({
-    <span class='fu'>options</span>(<span class='kw'>digits.secs</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-    <span class='co'>## random times between 1400 and 3000</span>
-    <span class='no'>tt</span> <span class='kw'>&lt;-</span> <span class='fu'>as.character</span>(<span class='fu'>.POSIXct</span>(<span class='fu'>runif</span>(<span class='fl'>1000</span>, -<span class='fl'>17987443200</span>, <span class='fl'>32503680000</span>)))
-    <span class='no'>tt</span> <span class='kw'>&lt;-</span> <span class='fu'>rep.int</span>(<span class='no'>tt</span>, <span class='fl'>1000</span>)
+## ** fast parsing **
+</div><span class='co'># NOT RUN {</span>
+  <span class='fu'>options</span>(<span class='kw'>digits.secs</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+  <span class='co'>## random times between 1400 and 3000</span>
+  <span class='no'>tt</span> <span class='kw'>&lt;-</span> <span class='fu'>as.character</span>(<span class='fu'>.POSIXct</span>(<span class='fu'>runif</span>(<span class='fl'>1000</span>, -<span class='fl'>17987443200</span>, <span class='fl'>32503680000</span>)))
+  <span class='no'>tt</span> <span class='kw'>&lt;-</span> <span class='fu'>rep.int</span>(<span class='no'>tt</span>, <span class='fl'>1000</span>)
 
-    <span class='fu'>system.time</span>(<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>as.POSIXct</span>(<span class='no'>tt</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>))
-    <span class='fu'>system.time</span>(<span class='no'>out1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='no'>tt</span>)) <span class='co'># constant overhead on long vectors</span>
-    <span class='fu'>system.time</span>(<span class='no'>out2</span> <span class='kw'>&lt;-</span> <span class='fu'>parse_date_time2</span>(<span class='no'>tt</span>, <span class='st'>"YmdHMOS"</span>))
-    <span class='fu'>system.time</span>(<span class='no'>out3</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_strptime</span>(<span class='no'>tt</span>, <span class='st'>"%Y-%m-%d %H:%M:%OS"</span>))
+  <span class='fu'>system.time</span>(<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>as.POSIXct</span>(<span class='no'>tt</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>))
+  <span class='fu'>system.time</span>(<span class='no'>out1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='no'>tt</span>)) <span class='co'># constant overhead on long vectors</span>
+  <span class='fu'>system.time</span>(<span class='no'>out2</span> <span class='kw'>&lt;-</span> <span class='fu'>parse_date_time2</span>(<span class='no'>tt</span>, <span class='st'>"YmdHMOS"</span>))
+  <span class='fu'>system.time</span>(<span class='no'>out3</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_strptime</span>(<span class='no'>tt</span>, <span class='st'>"%Y-%m-%d %H:%M:%OS"</span>))
 
-    <span class='fu'>all.equal</span>(<span class='no'>out</span>, <span class='no'>out1</span>)
-    <span class='fu'>all.equal</span>(<span class='no'>out</span>, <span class='no'>out2</span>)
-    <span class='fu'>all.equal</span>(<span class='no'>out</span>, <span class='no'>out3</span>)
-})
-
+  <span class='fu'>all.equal</span>(<span class='no'>out</span>, <span class='no'>out1</span>)
+  <span class='fu'>all.equal</span>(<span class='no'>out</span>, <span class='no'>out2</span>)
+  <span class='fu'>all.equal</span>(<span class='no'>out</span>, <span class='no'>out3</span>)
+<span class='co'># }</span><div class='input'>
 <span class='co'>## ** how to use `select_formats` argument **</span>
 <span class='co'>## By default %Y has precedence:</span>
 <span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span>), <span class='st'>"dmy"</span>)</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
@@ -348,8 +357,8 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
 }
 
 <span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span>), <span class='st'>"dmy"</span>, <span class='kw'>select_formats</span> <span class='kw'>=</span> <span class='no'>my_select</span>)</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
-<span class='co'>## ** invalid times with "fast" parcing **</span>
-<span class='fu'>parse_date_time</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
+<span class='co'>## ** invalid times with "fast" parsing **</span>
+<span class='fu'>parse_date_time</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 03:05:06 EDT"</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -377,7 +386,7 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
 <script>
