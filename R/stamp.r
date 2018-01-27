@@ -77,8 +77,8 @@ stamp <- function(x, orders = lubridate_formats,
     {
       old_lc_time <- Sys.getlocale("LC_TIME")
       if (old_lc_time != locale) {
-        Sys.setlocale("LC_TIME", locale)
         on.exit(Sys.setlocale("LC_TIME", old_lc_time))
+        Sys.setlocale("LC_TIME", locale)
       }
     })
 
