@@ -396,7 +396,8 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 .int_to_period <- function(x) {
   ## this function is called only for conversion with units > day
   start <- as.POSIXlt(x@start)
-  end <- as.POSIXlt(start + x@.Data)
+  end <- unclass(as.POSIXlt(start + x@.Data))
+  start <- unclass(start)
 
   negs <- x@.Data < 0 & !is.na(x@.Data)
 
