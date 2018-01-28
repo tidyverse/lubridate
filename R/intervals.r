@@ -188,8 +188,8 @@ interval <- function(start, end, tzone = tz(start)) {
   if (is.Date(start)) start <- date_to_posix(start)
   if (is.Date(end)) end <- date_to_posix(end)
 
-  if (!is.POSIXct(start)) start <- as.POSIXct(start, tz = tzone)
-  if (!is.POSIXct(end)) end <- as.POSIXct(end, tz = tzone)
+  start <- as_POSIXct(start, tzone)
+  end <- as_POSIXct(end, tzone)
 
   span <- as.numeric(end) - as.numeric(start)
   starts <- start + rep(0, length(span))
