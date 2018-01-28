@@ -5,7 +5,7 @@ test_that("period constructor doesn't accept non-numeric or non-character inputs
 })
 
 
-test_that("parsing works as expected", {
+test_that("period parsing works", {
   expect_equal(period("1min 2sec 2secs 1H 2M 1d"),
                period(seconds = 4, minutes = 3, hours = 1, days = 1))
   expect_equal(period("day day"),
@@ -14,6 +14,23 @@ test_that("parsing works as expected", {
                period(seconds = 1, minutes = 1, hours = 1, days = 1, months = 1, years = 1))
   expect_equal(period("2S 3M 4H 5d 6w 7m 8y"),
                period(seconds = 2, minutes = 3, hours = 4, days = 5, weeks = 6, months = 7, years = 8))
+  expect_equal(period("K")@.Data, NA_real_)
+  expect_equal(period("ksfdsfds")@.Data, NA_real_)
+})
+
+test_that("ISO ISO 8601 period parsing works", {
+  expect_equal(period("")@.Data, NA_real_)
+  expect_equal(period("P")@.Data, NA_real_)
+  expect_equal(period("P3Y6M4DT12H30M5S"),
+               period(years = 3, months = 6, days = 4, hours = 12, minutes = 30, seconds = 5))
+  expect_equal(period("P23DT23H"),
+               period(days = 23, hours = 23))
+  expect_equal(period("P23DT60H"),
+               period(days = 23, hours = 60))
+  expect_equal(period("P23DT60H20minutes 100 sec"),
+               period(days = 23, hours = 60, minutes = 20, seconds = 100))
+  expect_equal(period(c("P23DT23H", "PT0S", "P0D")),
+               period(days = c(23, 0, 0), hours = c(23, 0, 0)))
 })
 
 test_that("fractional parsing works as expected", {

@@ -14,7 +14,7 @@ test_that("make_difftime works as expected", {
   expect_that(diff, equals(y))
 })
 
-test_that("parsing works as expected", {
+test_that("Duration parsing works", {
   expect_equal(duration("1min 2sec 2secs 1H 2M 1d"),
                duration(seconds = 4, minutes = 3, hours = 1, days = 1))
   expect_equal(duration("day day"),
