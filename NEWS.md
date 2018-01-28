@@ -1,6 +1,18 @@
 Version 1.7.1.9000
 =============
 
+### NEW FEATURES
+
+* [#362](https://github.com/tidyverse/lubridate/issues/362) Add support for ISO 8601 formats in interval constructor
+* [#622](https://github.com/tidyverse/lubridate/issues/622) Add support for ISO 8601 formats in periods and durations constructor
+* `interval` constructor accepts start and end character vectors in ISO 8601 format
+
+### CHANGES
+
+* Correct license to the originally intended GPL (>= 2)
+
+### BUG FIXES
+
 * Fix intersection of intervals with missing values.
 
 Version 1.7.1
