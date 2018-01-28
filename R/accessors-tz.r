@@ -50,11 +50,12 @@
 #' x
 #' tz(x) <- "Europe/Berlin"
 #' x
-#' }
-#' Sys.setenv(TZ = "GMT")
+#'
+#' Sys.setenv(TZ = "UTC")
 #' now()
 #' tz(now())
 #' Sys.unsetenv("TZ")
+#' }
 tz <- function (x)
   UseMethod("tz")
 
