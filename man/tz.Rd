@@ -65,11 +65,12 @@ tz(x) <- "Europe/London"
 x
 tz(x) <- "Europe/Berlin"
 x
-}
-Sys.setenv(TZ = "GMT")
+
+Sys.setenv(TZ = "UTC")
 now()
 tz(now())
 Sys.unsetenv("TZ")
+}
 }
 \keyword{chron}
 \keyword{manip}
