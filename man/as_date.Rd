@@ -19,7 +19,7 @@ as_date(x, ...)
 
 \S4method{as_date}{numeric}(x, origin = lubridate::origin)
 
-\S4method{as_date}{character}(x, tz = NULL)
+\S4method{as_date}{character}(x, tz = NULL, format = NULL)
 
 as_datetime(x, ...)
 
@@ -27,7 +27,7 @@ as_datetime(x, ...)
 
 \S4method{as_datetime}{numeric}(x, origin = lubridate::origin, tz = "UTC")
 
-\S4method{as_datetime}{character}(x, tz = "UTC")
+\S4method{as_datetime}{character}(x, tz = "UTC", format = NULL)
 
 \S4method{as_datetime}{ANY}(x, tz = "UTC")
 }
@@ -36,13 +36,17 @@ as_datetime(x, ...)
 
 \item{...}{further arguments to be passed to specific methods (see above).}
 
-\item{tz}{a time zone name (default: time zone of the POSIXt object
-\code{x}). See \code{\link[=OlsonNames]{OlsonNames()}}.}
+\item{tz}{a time zone name (default: time zone of the POSIXt object \code{x}). See
+\code{\link[=OlsonNames]{OlsonNames()}}.}
 
 \item{origin}{a Date object, or something which can be coerced by
 \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
-"1970-01-01"). Note that in this instance, \code{x} is assumed to reflect
-the number of days since \code{origin} at \code{"UTC"}.}
+"1970-01-01"). Note that in this instance, \code{x} is assumed to reflect the
+number of days since \code{origin} at \code{"UTC"}.}
+
+\item{format}{format argument for character methods. When supplied parsing is
+performed by \code{\link[=strptime]{strptime()}}. For this reason consider using specialized
+parsing functions in lubridate.}
 }
 \value{
 a vector of \link{Date} objects corresponding to \code{x}.
@@ -53,8 +57,8 @@ Convert an object to a date or date-time
 \section{Compare to base R}{
 
 
-These are drop in replacements for \code{\link[=as.Date]{as.Date()}} and \code{\link[=as.POSIXct]{as.POSIXct()}},
-with a few tweaks to make them work more intuitively.
+These are drop in replacements for \code{\link[=as.Date]{as.Date()}} and \code{\link[=as.POSIXct]{as.POSIXct()}}, with a few
+tweaks to make them work more intuitively.
 
 \itemize{
 \item \code{as_date()} ignores the timezone attribute, resulting in

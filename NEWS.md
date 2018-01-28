@@ -13,6 +13,7 @@ Version 1.7.1.9000
 
 ### BUG FIXES
 
+* [#607](https://github.com/tidyverse/lubridate/issues/607) Re-instate `format` argument to `as_date` and `as_datetime` (regression in v1.7.1)
 * Fix intersection of intervals with missing values.
 
 Version 1.7.1
