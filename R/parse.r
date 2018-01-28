@@ -869,4 +869,15 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   }else as.character(x)
 }
 
+.parse_iso_dt <- function(x, tz) {
+  parse_date_time(x, orders = c("ymdTz", "ymdT", "ymd"), tz = tz, train = FALSE)
+}
+
+as_POSIXct <- function(x, tz) {
+  if (is.character(x))
+    .parse_iso_dt(x, tz = tz)
+  else if (!is.POSIXct(x))
+    as.POSIXct(x, tz = tz)
+  else x
+}
 ## parse.r ends here

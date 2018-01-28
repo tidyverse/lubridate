@@ -1,4 +1,5 @@
 #' @include timespans.r
+#' @include parse.r
 #' @include util.r
 NULL
 

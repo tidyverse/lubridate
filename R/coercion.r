@@ -673,9 +673,7 @@ setMethod("as_datetime", "numeric",
 #' @rdname as_date
 #' @export
 setMethod("as_datetime", "character",
-          function(x, tz = "UTC") {
-            parse_date_time(x, orders = c("ymdTz", "ymdT", "ymd"), tz = tz, train = FALSE)
-          })
+          function(x, tz = "UTC") .parse_iso_dt(x, tz))
 
 #' @rdname as_date
 #' @export
