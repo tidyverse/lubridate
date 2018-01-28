@@ -148,20 +148,23 @@ unique.Interval <- function(x, ...) {
 
 #' Utilities for creation and manipulation of `Interval` objects
 #'
-#' `interval()` creates an [Interval-class] object with the
-#' specified start and end dates. If the start date occurs before the end date,
-#' the interval will be positive. Otherwise, it will be negative.
+#' `interval()` creates an [Interval-class] object with the specified start and
+#' end dates. If the start date occurs before the end date, the interval will be
+#' positive. Otherwise, it will be negative. Character vectors in ISO 8601
+#' format are suported from v1.7.2.
 #'
 #' Intervals are time spans bound by two real date-times.  Intervals can be
 #' accurately converted to either period or duration objects using
-#' [as.period()], [as.duration()]. Since an interval is
-#' anchored to a fixed history of time, both the exact number of seconds that passed
-#' and the number of variable length time units that occurred during the interval can be
+#' [as.period()], [as.duration()]. Since an interval is anchored to a fixed
+#' history of time, both the exact number of seconds that passed and the number
+#' of variable length time units that occurred during the interval can be
 #' calculated.
 #'
 #' @export
-#' @param start a POSIXt or Date date-time object
-#' @param end a POSIXt or Date date-time object
+#' @param start,end POSIXt, Date or a character vectors. When `start` is a
+#'   character vector and end is `NULL`, ISO 8601 specification is assumed but
+#'   with much more permisive lubridate style parsing both for dates and periods
+#'   (see examples).
 #' @param tzone a recognized timezone to display the interval in
 #' @param x an R object
 #' @return `interval()` -- [Interval-class] object.
@@ -175,14 +178,29 @@ unique.Interval <- function(x, ...) {
 #' interval(date1, date2)
 #' span <- interval(ymd(20090101), ymd(20090201))
 #'
+#' ### ISO Intervals
+#'
+#' interval("2007-03-01T13:00:00Z/2008-05-11T15:30:00Z")
+#' interval("2007-03-01T13:00:00Z/P1Y2M10DT2H30M")
+#' interval("P1Y2M10DT2H30M/2008-05-11T15:30:00Z")
+#' interval("2008-05-11/P2H30M")
+#'
+#' ### More permisive parsing (as long as there are no intermittent / characters)
+#' interval("2008 05 11/P2hours 30minutes")
+#' interval("08 05 11/P 2h 30m")
+#'
 #' is.interval(period(months= 1, days = 15)) # FALSE
 #' is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
-interval <- function(start, end, tzone = tz(start)) {
+interval <- function(start, end = NULL, tzone = tz(start)) {
 
   if (is.null(tzone)) {
     tzone <- tz(end)
     if (is.null(tzone))
       tzone <- "UTC"
+  }
+
+  if (is.character(start) && is.null(end)) {
+    return(parse_interval(start, tzone))
   }
 
   if (is.Date(start)) start <- date_to_posix(start)
@@ -197,6 +215,26 @@ interval <- function(start, end, tzone = tz(start)) {
 
   new("Interval", span, start = starts, tzone = tzone)
 }
+
+parse_interval <- function(x, tz) {
+  mat <- str_split_fixed(x, "/", 2)
+  pstart <- grepl("^P", mat[, 1])
+  pend <- grepl("^P",  mat[, 2])
+
+  if (any(pstart & pend)) {
+    stop(sprintf("Interval specified with period endpoints (%s)", x[pstart & pend][[1]]))
+  }
+
+  start <- .POSIXct(rep.int(NA_real_, length(x)), tz = tz)
+  end <- .POSIXct(rep.int(NA_real_, length(x)), tz = tz)
+
+  start[!pstart] <- .parse_iso_dt(mat[!pstart, 1], tz)
+  end[!pend] <- .parse_iso_dt(mat[!pend, 2], tz = tz)
+  end[pend] <- start[pend] + parse_period(mat[pend, 2])
+  start[pstart] <- end[pstart] - parse_period(mat[pstart, 1])
+  interval(start, end, tz)
+}
+
 #'
 #' \code{\%--\%} Creates an interval that covers the range spanned by two
 #' dates. It replaces the original behavior of \pkg{lubridate}, which created an
