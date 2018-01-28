@@ -89,15 +89,15 @@ int parse_int (const char **c, const int N, const int strict) {
 }
 
 
-// Find partial match in `strings`.
+// Find maximal partial match in `strings`.
 //
 // Increment *c and return index in 0..(length(strings)-1) if match was found,
 // -1 if not. Matching starts from *c, with all non-alpha-numeric characters
 // pre-skipped.
 //
 // - *c: pointer to a character in a C string (incremented by side effect)
-// - *stings: pointer to an array of C strings to be matched to.
-// - strings_len: length of strings array.
+// - *stings: pointer to an array of C strings to be matched to
+// - strings_len: length of strings array
 int parse_alphanum(const char **c, const char **strings, const int strings_len, const char ignore_case){
 
   // tracking array: all valid objects are marked with 1, invalid with 0
@@ -106,36 +106,33 @@ int parse_alphanum(const char **c, const char **strings, const int strings_len, 
     track[i] = 1;
   }
 
-  int j = 0, go = 1, out = -1;
+  int j = 0, out = -1, good_tracks = strings_len;
   while (**c && !ALPHA(**c) && !DIGIT(**c)) (*c)++;
 
-  while (**c && go) {
-    // stop when all tracks where exhausted
-    go = 0;
+  while (**c && good_tracks) {
+    // stop when all tracks have been exhausted
     for (int i = 0; i < strings_len; i++){
+
+      // keep going while at least one valid track
       if (track[i]){
-        // keep going while at least one valid track
-        if (strings[i][j]){
-          if(**c == strings[i][j] || (ignore_case && (tolower(**c) == strings[i][j]))){
+
+        if (strings[i][j]) {
+          if (**c == strings[i][j] || (ignore_case && (tolower(**c) == strings[i][j]))) {
             out = i;
-            go = 1;
-          } else {
-            // invalidate track i if not matching
+          } else { // invalidate track i if not matching
             track[i] = 0;
+            good_tracks--;
           }
-        } else {
-          // reached to the end of string i; return it
-          go = 0;
+        } else { // reached to the end of string i; return it if the last track
+          good_tracks--;
           out = i;
-          break;
         }
       }
     }
-    if(go){
+    if (good_tracks) {
       (*c)++;
       j++;
     }
   }
-  if (out >= 0) return out;
-  else return -1;
+  return out;
 }

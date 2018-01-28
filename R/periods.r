@@ -272,9 +272,9 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
     x
 })
 
-#' Create a period object
+#' Create or parse period objects
 #'
-#' `period()` creates a period object with the specified values.
+#' `period()` creates or parses a period object with the specified values.
 #'
 #' Within a Period object, time units do not have a fixed length (except for
 #' seconds) until they are added to a date-time. The length of each time unit
@@ -290,11 +290,11 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' minutes, and seconds. Each unit except for seconds must be expressed in
 #' integer values.
 #'
-#' Period objects can be easily created with the helper functions
-#' [years()], [months()], [weeks()],
-#' [days()], [hours()], [minutes()],
-#' and [seconds()]. These objects can be added to and subtracted
-#' to date-times to create a user interface similar to object oriented programming.
+#' Besides the main constructor and parser [period()], period objects can also
+#' be created with the specialized functions [years()], [months()], [weeks()],
+#' [days()], [hours()], [minutes()], and [seconds()]. These objects can be added
+#' to and subtracted to date-times to create a user interface similar to object
+#' oriented programming.
 #'
 #' Note: Arithmetic with periods can results in undefined behavior when
 #' non-existent dates are involved (such as February 29th). Please see
@@ -307,12 +307,12 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #'
 #' @name period
 #' @aliases periods
-#' @param num a numeric vector that lists the number of time units to be
-#'   included in the period. From v1.6.0 `num` can also be a character vector
-#'   that specifies durations in a convenient shorthand format. All unambiguous
-#'   name units and abbreviations are supported, "m" stands for months, "M" for
-#'   minutes; see examples. Fractional units are supported but the fractional
-#'   part is always converted to seconds.
+#' @param num a numeric or character vector. A character vector can specify
+#'   periods in a convenient shorthand format or ISO 8601 specification. All
+#'   unambiguous name units and abbreviations are supported, "m" stands for
+#'   months, "M" for minutes unless ISO 8601 "P" modifier is present (see
+#'   examples). Fractional units are supported but the fractional part is always
+#'   converted to seconds.
 #' @param units a character vector that lists the type of units to be used. The
 #'   units in units are matched to the values in num according to their
 #'   order. When `num` is character, this argument is ignored.
@@ -330,28 +330,46 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' @keywords chron classes
 #' @examples
 #'
+#' ### Separate period and units vectors
+#'
 #' period(c(90, 5), c("second", "minute"))
 #' #  "5M 90S"
 #' period(-1, "days")
 #' period(c(3, 1, 2, 13, 1), c("second", "minute", "hour", "day", "week"))
 #' period(c(1, -60), c("hour", "minute"))
 #' period(0, "second")
+#'
+#' ### Units as arguments
+#'
 #' period (second = 90, minute = 5)
 #' period(day = -1)
 #' period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
 #' period(hour = 1, minute = -60)
 #' period(second = 0)
 #' period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
+#'
+#' ### Lubridate style parsing
+#'
 #' period("2M 1sec")
 #' period("2hours 2minutes 1second")
 #' period("2d 2H 2M 2S")
 #' period("2days 2hours 2mins 2secs")
+#' period("2 days, 2 hours, 2 mins, 2 secs")
 #' # Missing numerals default to 1. Repeated units are added up.
 #' duration("day day")
-#' # Comparison with characters is supported from v1.6.0.
+#'
+#' ### ISO 8601 parsing
+#'
+#' period("P3Y6M4DT12H30M5S")
+#' period("P23DT23H") # M stands for months
+#' period("10DT10M") # M stands for minutes
+#' period("P23DT60H 20min 100 sec") # mixing ISO and lubridate style parsing
+#'
+#' ### Comparison with characters (from v1.6.0)
+#'
 #' duration("day 2 sec") > "day 1sec"
 #'
-#' ### ELEMENTARY CONSTRUCTORS
+#' ### Elementary Constructors
 #'
 #' x <- ymd("2009-08-03")
 #' x + days(1) + hours(6) + minutes(30)
@@ -366,7 +384,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' c(1:3) * hours(1)
 #' hours(1:3)
 #'
-#' #sequencing
+#' # sequencing
 #' y <- ymd(090101) # "2009-01-01 CST"
 #' y + months(0:11)
 #'
@@ -391,8 +409,9 @@ period <- function(num = NULL, units = "second", ...) {
 }
 
 parse_period <- function(x) {
-  out <- matrix(.Call(C_parse_period, as.character(x)), nrow = 7L)
-  new("Period", out[1, ],
+  out <- .Call(C_parse_period, as.character(x))
+  new("Period",
+      out[1, ],
       minute = out[2, ],
       hour   = out[3, ],
       day    = out[4, ] + 7L*out[5, ],
