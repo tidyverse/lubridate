@@ -1,7 +1,8 @@
 /*
- *  period and duration parser for lubridate
+ *  Period and Duration Parser for lubridate
+ *
  *  Author: Vitalie Spinu
- *  Copyright (C) 2013--2016  Vitalie Spinu, Garrett Grolemund, Hadley Wickham,
+ *  Copyright (C) 2013--2018  Vitalie Spinu, Garrett Grolemund, Hadley Wickham,
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU General Public License as published by the Free

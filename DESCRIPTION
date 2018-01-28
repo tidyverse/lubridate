@@ -24,7 +24,7 @@ Authors@R: c(
     person("Chel Hee", "Lee", role = "ctb")
     )
 Maintainer: Vitalie Spinu <spinuvit@gmail.com>
-License: GPL-2
+License: GPL (>= 2)
 Depends:
     methods,
     R (>= 3.0.0)
