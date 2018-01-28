@@ -17,7 +17,7 @@
 \alias{int_diff}
 \title{Utilities for creation and manipulation of \code{Interval} objects}
 \usage{
-interval(start, end, tzone = tz(start))
+interval(start, end = NULL, tzone = tz(start))
 
 start \%--\% end
 
@@ -46,9 +46,10 @@ int_aligns(int1, int2)
 int_diff(times)
 }
 \arguments{
-\item{start}{a POSIXt or Date date-time object}
-
-\item{end}{a POSIXt or Date date-time object}
+\item{start, end}{POSIXt, Date or a character vectors. When \code{start} is a
+character vector and end is \code{NULL}, ISO 8601 specification is assumed but
+with much more permisive lubridate style parsing both for dates and periods
+(see examples).}
 
 \item{tzone}{a recognized timezone to display the interval in}
 
@@ -90,9 +91,10 @@ same moment. FALSE otherwise
 between the n date-time in times
 }
 \description{
-\code{interval()} creates an \linkS4class{Interval} object with the
-specified start and end dates. If the start date occurs before the end date,
-the interval will be positive. Otherwise, it will be negative.
+\code{interval()} creates an \linkS4class{Interval} object with the specified start and
+end dates. If the start date occurs before the end date, the interval will be
+positive. Otherwise, it will be negative. Character vectors in ISO 8601
+format are suported from v1.7.2.
 
 \code{\%--\%} Creates an interval that covers the range spanned by two
 dates. It replaces the original behavior of \pkg{lubridate}, which created an
@@ -133,9 +135,9 @@ of a difftime object.
 \details{
 Intervals are time spans bound by two real date-times.  Intervals can be
 accurately converted to either period or duration objects using
-\code{\link[=as.period]{as.period()}}, \code{\link[=as.duration]{as.duration()}}. Since an interval is
-anchored to a fixed history of time, both the exact number of seconds that passed
-and the number of variable length time units that occurred during the interval can be
+\code{\link[=as.period]{as.period()}}, \code{\link[=as.duration]{as.duration()}}. Since an interval is anchored to a fixed
+history of time, both the exact number of seconds that passed and the number
+of variable length time units that occurred during the interval can be
 calculated.
 }
 \examples{
@@ -146,6 +148,17 @@ date2 <- ymd_hms("2000-02-29 12:00:00")
 interval(date2, date1)
 interval(date1, date2)
 span <- interval(ymd(20090101), ymd(20090201))
+
+### ISO Intervals
+
+interval("2007-03-01T13:00:00Z/2008-05-11T15:30:00Z")
+interval("2007-03-01T13:00:00Z/P1Y2M10DT2H30M")
+interval("P1Y2M10DT2H30M/2008-05-11T15:30:00Z")
+interval("2008-05-11/P2H30M")
+
+### More permisive parsing (as long as there are no intermittent / characters)
+interval("2008 05 11/P2hours 30minutes")
+interval("08 05 11/P 2h 30m")
 
 is.interval(period(months= 1, days = 15)) # FALSE
 is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE

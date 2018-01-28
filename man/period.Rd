@@ -15,7 +15,7 @@
 \alias{nanoseconds}
 \alias{picoseconds}
 \alias{months.numeric}
-\title{Create a period object}
+\title{Create or parse period objects}
 \usage{
 period(num = NULL, units = "second", ...)
 
@@ -44,12 +44,12 @@ picoseconds(x = 1)
 \method{months}{numeric}(x, abbreviate)
 }
 \arguments{
-\item{num}{a numeric vector that lists the number of time units to be
-included in the period. From v1.6.0 \code{num} can also be a character vector
-that specifies durations in a convenient shorthand format. All unambiguous
-name units and abbreviations are supported, "m" stands for months, "M" for
-minutes; see examples. Fractional units are supported but the fractional
-part is always converted to seconds.}
+\item{num}{a numeric or character vector. A character vector can specify
+periods in a convenient shorthand format or ISO 8601 specification. All
+unambiguous name units and abbreviations are supported, "m" stands for
+months, "M" for minutes unless ISO 8601 "P" modifier is present (see
+examples). Fractional units are supported but the fractional part is always
+converted to seconds.}
 
 \item{units}{a character vector that lists the type of units to be used. The
 units in units are matched to the values in num according to their
@@ -70,7 +70,7 @@ be an integer.}
 a period object
 }
 \description{
-\code{period()} creates a period object with the specified values.
+\code{period()} creates or parses a period object with the specified values.
 }
 \details{
 Within a Period object, time units do not have a fixed length (except for
@@ -87,11 +87,11 @@ are measured in common time related units: years, months, days, hours,
 minutes, and seconds. Each unit except for seconds must be expressed in
 integer values.
 
-Period objects can be easily created with the helper functions
-\code{\link[=years]{years()}}, \code{\link[=months]{months()}}, \code{\link[=weeks]{weeks()}},
-\code{\link[=days]{days()}}, \code{\link[=hours]{hours()}}, \code{\link[=minutes]{minutes()}},
-and \code{\link[=seconds]{seconds()}}. These objects can be added to and subtracted
-to date-times to create a user interface similar to object oriented programming.
+Besides the main constructor and parser \code{\link[=period]{period()}}, period objects can also
+be created with the specialized functions \code{\link[=years]{years()}}, \code{\link[=months]{months()}}, \code{\link[=weeks]{weeks()}},
+\code{\link[=days]{days()}}, \code{\link[=hours]{hours()}}, \code{\link[=minutes]{minutes()}}, and \code{\link[=seconds]{seconds()}}. These objects can be added
+to and subtracted to date-times to create a user interface similar to object
+oriented programming.
 
 Note: Arithmetic with periods can results in undefined behavior when
 non-existent dates are involved (such as February 29th). Please see
@@ -104,28 +104,46 @@ alternative operations.
 }
 \examples{
 
+### Separate period and units vectors
+
 period(c(90, 5), c("second", "minute"))
 #  "5M 90S"
 period(-1, "days")
 period(c(3, 1, 2, 13, 1), c("second", "minute", "hour", "day", "week"))
 period(c(1, -60), c("hour", "minute"))
 period(0, "second")
+
+### Units as arguments
+
 period (second = 90, minute = 5)
 period(day = -1)
 period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
 period(hour = 1, minute = -60)
 period(second = 0)
 period(c(1, -60), c("hour", "minute"), hour = c(1, 2), minute = c(3, 4))
+
+### Lubridate style parsing
+
 period("2M 1sec")
 period("2hours 2minutes 1second")
 period("2d 2H 2M 2S")
 period("2days 2hours 2mins 2secs")
+period("2 days, 2 hours, 2 mins, 2 secs")
 # Missing numerals default to 1. Repeated units are added up.
 duration("day day")
-# Comparison with characters is supported from v1.6.0.
+
+### ISO 8601 parsing
+
+period("P10M23DT23H") # M stands for months
+period("10DT10M") # M stands for minutes
+period("P3Y6M4DT12H30M5S") # M for both minutes and months
+period("P23DT60H 20min 100 sec") # mixing ISO and lubridate style parsing
+
+### Comparison with characters (from v1.6.0)
+
 duration("day 2 sec") > "day 1sec"
 
-### ELEMENTARY CONSTRUCTORS
+### Elementary Constructors
 
 x <- ymd("2009-08-03")
 x + days(1) + hours(6) + minutes(30)
@@ -140,7 +158,7 @@ years(1) - months(7)
 c(1:3) * hours(1)
 hours(1:3)
 
-#sequencing
+# sequencing
 y <- ymd(090101) # "2009-01-01 CST"
 y + months(0:11)
 
