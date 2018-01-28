@@ -51,11 +51,12 @@ SystemRequirements: A system with zoneinfo data (e.g. /usr/share/zoneinfo) as
     Windows the zoneinfo included with R is used.
 VignetteBuilder: knitr
 LazyData: true
-Collate:
+Collate: 
     'Dates.r'
     'POSIXt.r'
     'RcppExports.R'
     'util.r'
+    'parse.r'
     'timespans.r'
     'intervals.r'
     'difftimes.r'
@@ -93,7 +94,6 @@ Collate:
     'ops-multiplication.r'
     'ops-subtraction.r'
     'package.r'
-    'parse.r'
     'pretty.r'
     'round.r'
     'stamp.r'

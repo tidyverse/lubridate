@@ -360,9 +360,9 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #'
 #' ### ISO 8601 parsing
 #'
-#' period("P3Y6M4DT12H30M5S")
-#' period("P23DT23H") # M stands for months
+#' period("P10M23DT23H") # M stands for months
 #' period("10DT10M") # M stands for minutes
+#' period("P3Y6M4DT12H30M5S") # M for both minutes and months
 #' period("P23DT60H 20min 100 sec") # mixing ISO and lubridate style parsing
 #'
 #' ### Comparison with characters (from v1.6.0)
