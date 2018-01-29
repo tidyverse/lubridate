@@ -116,17 +116,19 @@ setClass("Period", contains = c("Timespan", "numeric"),
 #' @name hidden_aliases
 #' @aliases Arith,ANY,Period-method Arith,Duration,Period-method
 #'   Arith,Period,Duration-method Compare,Period,Duration-method
-#'   Compare,Period,Period-method Compare,Period,character-method
-#'   Compare,Period,numeric-method Compare,character,Period-method
-#'   second,Period-method second<-,Period-method minute,Period-method
-#'   minute<-,Period-method hour,Period-method hour<-,Period-method
-#'   Arith,Period,ANY-method day,Period-method day<-,Period-method
-#'   month,Period-method month<-,Period-method year,Period-method
-#'   year<-,Period-method date,Period-method date<-,Period-method
-#'   as.numeric,Period-method show,Period-method c,Period-method
-#'   rep,Period-method [,Period-method [<-,Period,ANY,ANY,Period-method
-#'   [[,Period-method [[<-,Period,ANY,ANY,Period-method $,Period-method
-#'   $<-,Period-method as.difftime,Period-method as.character,Period-method
+#'   Compare,numeric,Period-method Compare,difftime,Period-method
+#'   Compare,Period,difftime-method Compare,Period,Period-method
+#'   Compare,Period,character-method Compare,Period,numeric-method
+#'   Compare,character,Period-method second,Period-method second<-,Period-method
+#'   minute,Period-method minute<-,Period-method hour,Period-method
+#'   hour<-,Period-method Arith,Period,ANY-method day,Period-method
+#'   day<-,Period-method month,Period-method month<-,Period-method
+#'   year,Period-method year<-,Period-method date,Period-method
+#'   date<-,Period-method as.numeric,Period-method show,Period-method
+#'   c,Period-method rep,Period-method [,Period-method
+#'   [<-,Period,ANY,ANY,Period-method [[,Period-method
+#'   [[<-,Period,ANY,ANY,Period-method $,Period-method $<-,Period-method
+#'   as.difftime,Period-method as.character,Period-method
 #'   +,Period,Duration-method +,Period,Interval-method +,Period,Period-method
 #'   +,Period,Date-method +,Date,Period-method +,Period,difftime-method
 #'   +,difftime,Period-method +,Period,numeric-method +,numeric,Period-method
@@ -577,9 +579,9 @@ setMethod("Arith", signature(e1 = "Duration", e2 = "Period"), undefined_arithmet
 setMethod("Arith", signature(e1 = "Period", e2 = "Duration"), undefined_arithmetic)
 
 #' @export
-setMethod("Compare", signature(e1 = "character", e2 = "Period"),
+setMethod("Compare", signature(e1 = "Period", e2 = "Period"),
           function(e1, e2) {
-            callGeneric(as.period(e1), e2)
+            callGeneric(period_to_seconds(e1), period_to_seconds(e2))
           })
 
 #' @export
@@ -589,15 +591,15 @@ setMethod("Compare", signature(e1 = "Period", e2 = "character"),
           })
 
 #' @export
-setMethod("Compare", signature(e1 = "Period", e2 = "Period"),
+setMethod("Compare", signature(e1 = "character", e2 = "Period"),
           function(e1, e2) {
-            callGeneric(period_to_seconds(e1), period_to_seconds(e2))
+            callGeneric(as.period(e1), e2)
           })
 
 #' @export
 setMethod("Compare", signature(e1 = "Period", e2 = "Duration"),
           function(e1, e2) {
-            stop("cannot compare Period to Duration:\ncoerce with 'as.duration' first.")
+            callGeneric(as.duration(e1), e2)
           })
 
 #' @export
@@ -609,5 +611,23 @@ setMethod("Compare", signature(e1 = "Duration", e2 = "Period"),
 #' @export
 setMethod("Compare", signature(e1 = "Period", e2 = "numeric"),
           function(e1, e2) {
-            stop("cannot compare Period to Duration:\ncoerce with 'as.numeric' first.")
+            callGeneric(as.numeric(e1, "secs"), e2)
+          })
+
+#' @export
+setMethod("Compare", signature(e1 = "numeric", e2 = "Period"),
+          function(e1, e2) {
+            callGeneric(e1, as.numeric(e2, "secs"))
+          })
+
+#' @export
+setMethod("Compare", c(e1 = "Period", e2 = "difftime"),
+          function(e1, e2) {
+            callGeneric(as.numeric(e1, "secs"), as.numeric(e2, "secs"))
+          })
+
+#' @export
+setMethod("Compare", c(e1 = "difftime", e2 = "Period"),
+          function(e1, e2) {
+            callGeneric(as.numeric(e1, "secs"), as.numeric(e2, "secs"))
           })

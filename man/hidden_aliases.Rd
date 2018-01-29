@@ -77,6 +77,7 @@
 \alias{Compare,difftime,Duration-method}
 \alias{Compare,ANY,Duration-method}
 \alias{Compare,Duration,Period-method}
+\alias{Compare,Duration,difftime-method}
 \alias{Compare,character,Duration-method}
 \alias{Compare,Duration,character-method}
 \alias{as.numeric,Duration-method}
@@ -124,6 +125,9 @@
 \alias{Arith,Duration,Period-method}
 \alias{Arith,Period,Duration-method}
 \alias{Compare,Period,Duration-method}
+\alias{Compare,numeric,Period-method}
+\alias{Compare,difftime,Period-method}
+\alias{Compare,Period,difftime-method}
 \alias{Compare,Period,Period-method}
 \alias{Compare,Period,character-method}
 \alias{Compare,Period,numeric-method}

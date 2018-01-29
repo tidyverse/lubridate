@@ -35,7 +35,7 @@ setClass("Duration", contains = c("Timespan", "numeric"), validity = check_durat
 #' @name hidden_aliases
 #' @aliases Compare,Duration,ANY-method Compare,Duration,Duration-method
 #'   Compare,difftime,Duration-method Compare,ANY,Duration-method
-#'   Compare,Duration,Period-method
+#'   Compare,Duration,Period-method Compare,Duration,difftime-method
 #'   Compare,character,Duration-method Compare,Duration,character-method
 #'   as.numeric,Duration-method show,Duration-method c,Duration-method
 #'   rep,Duration-method [,Duration-method [<-,Duration,ANY,ANY,ANY-method
@@ -363,7 +363,14 @@ setMethod("Compare", signature(e1 = "character", e2 = "Duration"),
 #' @export
 setMethod("Compare", c(e1 = "difftime", e2 = "Duration"),
           function(e1, e2) {
-            callGeneric(as.numeric(e1, "secs"), as.numeric(e2, "secs"))
+            callGeneric(as.numeric(e1, "secs"), e2@.Data)
+          })
+
+
+#' @export
+setMethod("Compare", c(e1 = "Duration", e2 = "difftime"),
+          function(e1, e2) {
+            callGeneric(e1@.Data, as.numeric(e2, "secs"))
           })
 
 #' @export

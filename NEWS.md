@@ -3,9 +3,10 @@ Version 1.7.1.9000
 
 ### NEW FEATURES
 
+* Durations, Periods and difftimes are now comparable with each other.
+* `interval` constructor accepts start and end character vectors in ISO 8601 format
 * [#362](https://github.com/tidyverse/lubridate/issues/362) Add support for ISO 8601 formats in interval constructor
 * [#622](https://github.com/tidyverse/lubridate/issues/622) Add support for ISO 8601 formats in periods and durations constructor
-* `interval` constructor accepts start and end character vectors in ISO 8601 format
 
 ### CHANGES
 
@@ -13,6 +14,7 @@ Version 1.7.1.9000
 
 ### BUG FIXES
 
+* [#605](https://github.com/tidyverse/lubridate/issues/605) Fix wrong ceiling of days during DST transition.
 * [#607](https://github.com/tidyverse/lubridate/issues/607) Re-instate `format` argument to `as_date` and `as_datetime` (regression in v1.7.1)
 * Fix intersection of intervals with missing values.
 
