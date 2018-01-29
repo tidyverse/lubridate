@@ -238,7 +238,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
     }
     update(x, seconds = csec, simple = T)
 
-  } else if (unit %in% c("minute", "hour", "day")) {
+  } else if (unit %in% c("minute", "hour")) {
 
     ## cannot use this for minute/hour for Date class; local tz interferes with
     ## the computation
@@ -280,6 +280,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
     new <- switch(unit,
                   minute = update(new, minute = ceil_multi_unit(minute(new), n), second = 0, simple = T),
                   hour   = update(new, hour = ceil_multi_unit(hour(new), n), minute = 0, second = 0, simple = T),
+                  day    = update(new, day = ceil_multi_unit1(day(new), n), hour = 0, minute = 0, second = 0),
                   week   = update(new, wday = 8, hour = 0, minute = 0, second = 0, week_start = week_start),
                   month  = update(new, months = new_month, mdays = 1, hours = 0, minutes = 0, seconds = 0),
                   year   = update(new, year = ceil_multi_unit(year(new), n), month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
