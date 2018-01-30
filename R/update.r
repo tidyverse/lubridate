@@ -60,10 +60,13 @@ update_date_time <- function(object, years = integer(), months = integer(),
     }
   }
 
+  if (is.null(tzs))
+    tzs <- tz(object)
+
   ## todo: check if the following lines make any unnecessary copies
   updates[["dt"]] <- as.POSIXct(object)
   updates[["roll"]] <- roll
-  updates[["tz"]] <- if (is.null(tzs)) tz(object) else tzs
+  updates[["tz"]] <- tzs
   updates[["week_start"]] <- week_start
   reclass_date(do.call(C_update_dt, updates), object)
 }
