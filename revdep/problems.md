@@ -1,27 +1,32 @@
-# alphavantager
+# aire.zmvm
 
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘devtools’
-      All declared Imports should be used.
-    ```
-
-# antaresViz
-
-Version: 0.11
+Version: 0.5.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking data for non-ASCII characters ... NOTE
     ```
-    Package required but not available: ‘geojsonio’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+      Note: found 38 marked UTF-8 strings
+    ```
+
+# antaresRead
+
+Version: 2.0.2
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
+      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
+    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
+      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
+    Quitting from lines 39-73 (antaresH5.Rmd) 
+    Error: processing vignette 'antaresH5.Rmd' failed with diagnostics:
+    there is no package called 'webshot'
+    Execution halted
     ```
 
 # aoristic
@@ -74,31 +79,9 @@ Version: 1.2
 
 # archivist
 
-Version: 2.1.2
+Version: 2.2
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             user = user, repo = repo, branch = branch, subdir = subdir)
-      3: stop_for_status(req)
-      
-      Directory /tmp/RtmpNYuxVk/file34446e9b2a2b did not exist. Forced to create a new directory.Directory repository did not exist. Forced to create a new directory.Directory repository did not exist. Forced to create a new directory.Directory repository did not exist. Forced to create a new directory.3. Error: zip*Repo reacts properly on proper arguments  (@test_zip.R#12) -------
-      Forbidden (HTTP 403).
-      1: stop_for_status(req) at testthat/test_zip.R:12
-      
-      testthat results ================================================================
-      OK: 211 SKIPPED: 0 FAILED: 3
-      1. Error: createMD works (@test_createMD.R#14) 
-      2. Error: copying from other repositories and showRepo (@test_jss_artilce.R#41) 
-      3. Error: zip*Repo reacts properly on proper arguments  (@test_zip.R#12) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 *   checking package dependencies ... NOTE
     ```
@@ -136,69 +119,16 @@ Version: 0.1.0
 
 # bikedata
 
-Version: 0.0.4
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    Unzipping raw data files for ch ...
-    Reading files for ch ...
-    reading file 1/1: /tmp/Rtmp5bc5qp/Divvy_Trips_sample.csv
-    Trips read for ch = 200
-    
-    Unzipping raw data files for dc ...
-    Reading files for dc ...
-    reading file 1/1: /tmp/Rtmp5bc5qp/2017-Q1-Trips-History-Data.csv
-    Trips read for dc = 200
-    
-    Unzipping raw data files for la ...
-    Reading files for la ...
-    reading file 1/1: /tmp/Rtmp5bc5qp/la_metro_gbfs_trips_Q1_2017.csv
-    Trips read for la = 198
-    
-    Reading files for lo ...
-    Error in rcpp_import_stn_df(bikedb, lo_stns, "lo") : 
-      Index out of bounds: [index='id'].
-    Calls: store_bikedata -> rcpp_import_stn_df -> .Call
-    Execution halted
-    ```
+Version: 0.1.0
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    10: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos,     debug = debug, last = i == length(out), use_try = stop_on_error !=         2L, keep_warning = keep_warning, keep_message = keep_message,     output_handler = output_handler, include_timing = include_timing)
-    11: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALSE(options$warning),     keep_message = !isFALSE(options$message), stop_on_error = if (options$error &&         options$include) 0L else 2L, output_handler = knit_handlers(options$render,         options))
-    12: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE,     keep_warning = !isFALSE(options$warning), keep_message = !isFALSE(options$message),     stop_on_error = if (options$error && options$include) 0L else 2L,     output_handler = knit_handlers(options$render, options)))
-    13: block_exec(params)
-    14: call_block(x)
-    15: process_group.block(group)
-    16: process_group(group)
-    17: withCallingHandlers(if (tangle) process_tangle(group) else process_group(group),     error = function(e) {        setwd(wd)        cat(res, sep = "\n", file = output %n% "")        message("Quitting from lines ", paste(current_lines(i),             collapse = "-"), " (", knit_concord$get("infile"),             ") ")    })
-    18: process_file(text, output)
-    19: knit(input, text = text, envir = envir, encoding = encoding,     quiet = quiet)
-    20: knit2html(..., force_v1 = TRUE)
-    21: (if (grepl("\\.[Rr]md$", file)) knit2html_v1 else if (grepl("\\.[Rr]rst$",     file)) knit2pandoc else knit)(file, encoding = encoding,     quiet = quiet, envir = globalenv())
-    22: vweave(...)
-    23: engine$weave(file, quiet = quiet, encoding = enc)
-    24: doTryCatch(return(expr), name, parentenv, handler)
-    25: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-    26: tryCatchList(expr, classes, parentenv, handlers)
-    27: tryCatch({    engine$weave(file, quiet = quiet, encoding = enc)    setwd(startdir)    find_vignette_product(name, by = "weave", engine = engine)}, error = function(e) {    stop(gettextf("processing vignette '%s' failed with diagnostics:\n%s",         file, conditionMessage(e)), domain = NA, call. = FALSE)})
-    28: buildVignettes(dir = "/store/Dropbox/dev/lubridate/revdep/checks/bikedata/new/bikedata.Rcheck/vign_test/bikedata")
-    An irrecoverable exception occurred. R is aborting now ...
-    Segmentation fault (core dumped)
-    ```
-
 *   checking installed package size ... NOTE
     ```
-      installed size is  7.0Mb
+      installed size is  9.2Mb
       sub-directories of 1Mb or more:
-        libs   5.6Mb
+        doc    2.6Mb
+        libs   5.9Mb
     ```
 
 # bsam
@@ -243,9 +173,6 @@ Version: 0.1.1
 Version: 0.1.0
 
 ## In both
-
-*   R CMD check timed out
-    
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -315,9 +242,22 @@ Version: 2.1.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  7.6Mb
+      installed size is  7.9Mb
       sub-directories of 1Mb or more:
-        libs   7.0Mb
+        libs   7.3Mb
+    ```
+
+# crypto
+
+Version: 0.1.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘base’ ‘doParallel’ ‘plyr’ ‘purrr’
+      All declared Imports should be used.
     ```
 
 # dataonderivatives
@@ -326,55 +266,10 @@ Version: 0.3.0
 
 ## In both
 
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      `df2` inherits from `NULL` not `data.frame`.
-      
-      
-      3. Failure: BSDR API accesible (@test-bsdr.R#9) --------------------------------
-      nrow(df1) <= nrow(df2) isn't true.
-      
-      
-      testthat results ================================================================
-      OK: 24 SKIPPED: 0 FAILED: 3
-      1. Failure: BSDR API accesible (@test-bsdr.R#6) 
-      2. Failure: BSDR API accesible (@test-bsdr.R#8) 
-      3. Failure: BSDR API accesible (@test-bsdr.R#9) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 *   checking dependencies in R code ... NOTE
     ```
     Namespace in Imports field not imported from: ‘stats’
       All declared Imports should be used.
-    ```
-
-# dataRetrieval
-
-Version: 2.7.3
-
-## In both
-
-*   R CMD check timed out
-    
-
-# dgo
-
-Version: 0.2.11
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘rstan’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
     ```
 
 # diversitree
@@ -385,9 +280,22 @@ Version: 0.9-10
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.3Mb
+      installed size is  6.2Mb
       sub-directories of 1Mb or more:
-        libs   5.5Mb
+        libs   5.4Mb
+    ```
+
+# dynatopmodel
+
+Version: 1.2.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘maptools’ ‘tools’
+      All declared Imports should be used.
     ```
 
 # ecoengine
@@ -400,6 +308,17 @@ Version: 1.11.0
     ```
     Namespace in Imports field not imported from: ‘magrittr’
       All declared Imports should be used.
+    ```
+
+# etl
+
+Version: 0.3.7
+
+## In both
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘macleish’
     ```
 
 # fivethirtyeight
@@ -419,6 +338,31 @@ Version: 0.3.0
       Note: found 371 marked UTF-8 strings
     ```
 
+# ggformula
+
+Version: 0.6.1
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
+      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
+    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
+      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
+    Quitting from lines 180-186 (ggformula.Rmd) 
+    Error: processing vignette 'ggformula.Rmd' failed with diagnostics:
+    there is no package called 'mosaicModel'
+    Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Packages suggested but not available for checking: ‘mosaic’ ‘mosaicModel’
+    ```
+
 # ggvis
 
 Version: 0.4.3
@@ -430,33 +374,42 @@ Version: 0.4.3
     Package unavailable to check Rd xrefs: ‘plyr’
     ```
 
-# GSODR
+# githubinstall
 
-Version: 1.1.0
+Version: 0.2.1
 
-## Newly broken
+## In both
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-             skip = skip, comment = comment, n_max = n_max, guess_max = guess_max, progress = progress)
-      4: read_connection(file)
-      5: open(con, "rb")
-      6: open.connection(con, "rb")
-      
-      testthat results ================================================================
-      OK: 50 SKIPPED: 0 FAILED: 4
-      1. Error: .download_files properly works, subsetting for country and
-                  agroclimatology works and .process_gz returns a data table (@test-process_gz.R#23) 
-      2. Error: reformat_GSOD file_list parameter reformats data properly (@test-reformat_GSOD.R#15) 
-      3. Error: Timeout options are reset on update_station_list() exit (@test-update_station_list.R#6) 
-      4. Error: update_station_list() downloads and imports proper file (@test-update_station_list.R#13) 
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 34 SKIPPED: 0 FAILED: 12
+      1. Error: Install: ask no (@test-gh_install_packages.R#27) 
+      2. Error: Install: ask yes (@test-gh_install_packages.R#37) 
+      3. Error: recommend_dependencies: ask = TRUE (@test-utils_for_install.R#49) 
+      4. Error: select_repository: multi candidates (@test-utils_for_install.R#130) 
+      5. Error: select_repository: cancel (@test-utils_for_install.R#142) 
+      6. Error: remove_conflict_repos: no installed (@test-utils_for_install.R#169) 
+      7. Error: remove_conflict_repos: not conflict (@test-utils_for_install.R#183) 
+      8. Error: remove_conflict_repos: conflict GitHub, ask yes (@test-utils_for_install.R#198) 
+      9. Error: remove_conflict_repos: conflict GitHub, ask no (@test-utils_for_install.R#213) 
+      1. ...
       
       Error: testthat unit tests failed
       Execution halted
     ```
+
+# GSODR
+
+Version: 1.1.2
+
+## In both
+
+*   R CMD check timed out
+    
 
 # hansard
 
@@ -473,24 +426,8 @@ Version: 0.0.1
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘happybiRthday-Ex.R’ failed
-    The error most likely occurred in:
+*   R CMD check timed out
     
-    > ### Name: celebrate
-    > ### Title: Celebrating software birthdays
-    > ### Aliases: celebrate
-    > 
-    > ### ** Examples
-    > 
-    > celebrate("Bohdan-Khomtchouk")
-    Error in gh::gh("/users/:username/repos", username = github_username,  : 
-      GitHub API error (403): 403 Forbidden
-      API rate limit exceeded for 143.176.214.220. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-    Calls: celebrate -> <Anonymous> -> gh_process_response
-    Execution halted
-    ```
 
 # highcharter
 
@@ -547,7 +484,7 @@ Version: 1.0.0
 
 # htmlTable
 
-Version: 1.9
+Version: 1.11.2
 
 ## In both
 
@@ -569,70 +506,64 @@ Version: 0.0.1
 
 # iClick
 
-Version: 1.2
+Version: 1.3
 
 ## In both
 
-*   checking whether package ‘iClick’ can be installed ... ERROR
+*   checking examples ... ERROR
     ```
-    Installation failed.
+    ...
+    
+    > ### Name: iClick.ARIMA
+    > ### Title: iClick GUI for ARIMA
+    > ### Aliases: iClick.ARIMA
+    > 
+    > ### ** Examples
+    > 
+    > 
+    > ##External data
+    > data("returnsDaily24")
+    > y=returnsDaily24[,c(1,5)]
+    > 
+    > ## Simulation data
+    > #dat=rnorm(200,5,1)
+    > #y=ts(dat, start = c(1970, 1), frequency = 12)
+    > 
+    > iClick.ARIMA(y)
+    Error in structure(.External(.C_dotTclObjv, objv), class = "tclObj") : 
+      [tcl] invalid command name "toplevel".
+    Calls: iClick.ARIMA ... tktoplevel -> tkwidget -> tcl -> .Tcl.objv -> structure
+    Execution halted
+    ```
+
+*   checking whether package ‘iClick’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: no DISPLAY variable so Tk is not available
     See ‘/store/Dropbox/dev/lubridate/revdep/checks/iClick/new/iClick.Rcheck/00install.out’ for details.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘iClick’ ...
-** package ‘iClick’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** preparing package for lazy loading
-Warning: S3 methods ‘as.character.tclObj’, ‘as.character.tclVar’, ‘as.double.tclObj’, ‘as.integer.tclObj’, ‘as.logical.tclObj’, ‘as.raw.tclObj’, ‘print.tclObj’, ‘[[.tclArray’, ‘[[<-.tclArray’, ‘$.tclArray’, ‘$<-.tclArray’, ‘names.tclArray’, ‘names<-.tclArray’, ‘length.tclArray’, ‘length<-.tclArray’, ‘tclObj.tclVar’, ‘tclObj<-.tclVar’, ‘tclvalue.default’, ‘tclvalue.tclObj’, ‘tclvalue.tclVar’, ‘tclvalue<-.default’, ‘tclvalue<-.tclVar’, ‘close.tkProgressBar’ were declared in NAMESPACE but not found
-Error: package or namespace load failed for ‘tcltk’:
- .onLoad failed in loadNamespace() for 'tcltk', details:
-  call: fun(libname, pkgname)
-  error: Tcl/Tk support is not available on this system
-Error : package ‘tcltk’ could not be loaded
-ERROR: lazy loading failed for package ‘iClick’
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/iClick/new/iClick.Rcheck/iClick’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘iClick’ ...
-** package ‘iClick’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** preparing package for lazy loading
-Warning: S3 methods ‘as.character.tclObj’, ‘as.character.tclVar’, ‘as.double.tclObj’, ‘as.integer.tclObj’, ‘as.logical.tclObj’, ‘as.raw.tclObj’, ‘print.tclObj’, ‘[[.tclArray’, ‘[[<-.tclArray’, ‘$.tclArray’, ‘$<-.tclArray’, ‘names.tclArray’, ‘names<-.tclArray’, ‘length.tclArray’, ‘length<-.tclArray’, ‘tclObj.tclVar’, ‘tclObj<-.tclVar’, ‘tclvalue.default’, ‘tclvalue.tclObj’, ‘tclvalue.tclVar’, ‘tclvalue<-.default’, ‘tclvalue<-.tclVar’, ‘close.tkProgressBar’ were declared in NAMESPACE but not found
-Error: package or namespace load failed for ‘tcltk’:
- .onLoad failed in loadNamespace() for 'tcltk', details:
-  call: fun(libname, pkgname)
-  error: Tcl/Tk support is not available on this system
-Error : package ‘tcltk’ could not be loaded
-ERROR: lazy loading failed for package ‘iClick’
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/iClick/old/iClick.Rcheck/iClick’
-
-```
 # ie2misc
 
 Version: 0.8.5
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking whether package ‘ie2misc’ can be installed ... WARNING
     ```
-    Package required but not available: ‘gWidgets2tcltk’
-    
+    Found the following significant warnings:
+      Warning: no DISPLAY variable so Tk is not available
+    See ‘/store/Dropbox/dev/lubridate/revdep/checks/ie2misc/new/ie2misc.Rcheck/00install.out’ for details.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
     Package suggested but not available for checking: ‘ie2miscdata’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘moments’
     ```
 
 # iki.dataclim
@@ -669,7 +600,7 @@ Version: 1.0
 
 # incR
 
-Version: 1.0.1
+Version: 1.0.2
 
 ## In both
 
@@ -692,21 +623,9 @@ Version: 0.1
       All declared Imports should be used.
     ```
 
-# macleish
-
-Version: 0.3.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘DBI’
-      All declared Imports should be used.
-    ```
-
 # MazamaSpatialUtils
 
-Version: 0.5.1
+Version: 0.5.2
 
 ## In both
 
@@ -720,7 +639,7 @@ Version: 0.5.1
 
 # mdsr
 
-Version: 0.1.4
+Version: 0.1.5
 
 ## In both
 
@@ -731,20 +650,27 @@ Version: 0.1.4
         data   5.4Mb
     ```
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tidyverse’
-      All declared Imports should be used.
-    ```
-
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 2698 marked UTF-8 strings
+      Note: found 2694 marked UTF-8 strings
+    ```
+
+# MetamapsDB
+
+Version: 0.0.2
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘Matrix’ ‘shiny’
+      All declared Imports should be used.
     ```
 
 # mosaic
 
-Version: 1.1.0
+Version: 1.1.1
 
 ## In both
 
@@ -758,6 +684,46 @@ Version: 1.1.0
 *   checking Rd cross-references ... NOTE
     ```
     Package unavailable to check Rd xrefs: ‘cubature’
+    ```
+
+# mudata2
+
+Version: 1.0.0
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/test-all.R’ failed.
+    Last 13 lines of output:
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 898 SKIPPED: 0 FAILED: 12
+      1. Error: mudata_prepare_column and mudata_parse_column are opposites (@test_mudata.io.R#205) 
+      2. Error: mudata_prepare_tbl works as intended (@test_mudata.io.R#249) 
+      3. Error: mudata_prepare_tbl and mudata_parse_tbl are opposites (@test_mudata.io.R#283) 
+      4. Failure: as_* functions produce the expected output type (@test_types.R#204) 
+      5. Failure: wkt parsing returns an sf::sfc (@test_types.R#238) 
+      6. Failure: wkt parsing works when there are parsing errors/NA values (@test_types.R#245) 
+      7. Error: wkt parsing works when there are parsing errors/NA values (@test_types.R#247) 
+      8. Failure: wkt parsing works with zero-length input (@test_types.R#271) 
+      9. Failure: objects generate the correct type strings (@test_types.R#292) 
+      1. ...
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘sf’
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘hms’ ‘methods’
+      All declared Imports should be used.
     ```
 
 # noaastormevents
@@ -775,6 +741,15 @@ Version: 0.1.0
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
     ```
+
+# nowcasting
+
+Version: 0.1.1
+
+## In both
+
+*   R CMD check timed out
+    
 
 # npphen
 
@@ -822,13 +797,13 @@ Version: 0.0.1
 
 # oce
 
-Version: 0.9-22
+Version: 0.9-23
 
 ## In both
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.7Mb
+      installed size is  5.8Mb
       sub-directories of 1Mb or more:
         help   2.2Mb
     ```
@@ -860,7 +835,7 @@ Version: 0.0.5
       7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
       8: value[[3L]](cond)
       
-      testthat results ================================================================
+      ══ testthat results  ═══════════════════════════════════════════════════════════
       OK: 94 SKIPPED: 0 FAILED: 6
       1. Error: multipolygon (@test-sf-osm.R#9) 
       2. Error: multilinestring (@test-sf-osm.R#47) 
@@ -933,7 +908,7 @@ Version: 1.0.3
 
 # PWFSLSmoke
 
-Version: 0.99.9
+Version: 1.0.10
 
 ## In both
 
@@ -947,20 +922,27 @@ Version: 0.99.9
 
 # quanteda
 
-Version: 0.99.12
+Version: 1.0.0
 
 ## In both
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 22.5Mb
+      installed size is 18.3Mb
       sub-directories of 1Mb or more:
-        libs  20.2Mb
+        data   1.2Mb
+        libs  16.0Mb
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘digest’
+      All declared Imports should be used.
     ```
 
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 1415 marked UTF-8 strings
+      Note: found 71 marked UTF-8 strings
     ```
 
 # radiant.model
@@ -987,6 +969,17 @@ Version: 2.1.5
         htmlwidgets   6.4Mb
     ```
 
+# rclimateca
+
+Version: 1.0.0
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 24 marked UTF-8 strings
+    ```
+
 # RDML
 
 Version: 0.9-9
@@ -998,32 +991,16 @@ Version: 0.9-9
     Package suggested but not available for checking: ‘V8’
     ```
 
-# rdpla
+# redcapAPI
 
-Version: 0.2.0
+Version: 2.0
 
 ## In both
 
-*   checking tests ...
+*   checking dependencies in R code ... NOTE
     ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      testthat results ================================================================
-      OK: 5 SKIPPED: 0 FAILED: 24
-      1. Error: dpla_collections basic functionality works (@test-dpla_collections.R#6) 
-      2. Error: dpla_items - pagination works (@test-dpla_collections.R#20) 
-      3. Error: dpla_items - fields requests work (@test-dpla_collections.R#35) 
-      4. Failure: dpla_items fails well (@test-dpla_collections.R#46) 
-      5. Failure: dpla_items fails well (@test-dpla_collections.R#49) 
-      6. Error: dpla_collections_ basic functionality works (@test-dpla_collections_.R#6) 
-      7. Error: dpla_items - pagination works (@test-dpla_collections_.R#22) 
-      8. Error: dpla_items - fields requests work (@test-dpla_collections_.R#37) 
-      9. Failure: dpla_items fails well (@test-dpla_collections_.R#48) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
+    Namespace in Imports field not imported from: ‘DBI’
+      All declared Imports should be used.
     ```
 
 # RGoogleAnalytics
@@ -1037,34 +1014,6 @@ Version: 0.1.1
     Malformed Description field: should contain one or more complete sentences.
     ```
 
-# rnoaa
-
-Version: 0.7.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      testthat results ================================================================
-      OK: 178 SKIPPED: 1 FAILED: 10
-      1.  Error: check_response returns an error (@test-check_response.r#7) 
-      2.  Error: check_response returns the correct error messages (@test-check_response.r#26) 
-      3.  Error: ncdc returns the correct ... (@test-ncdc.r#8) 
-      4.  Error: ncdc_datacats returns the correct ... (@test-ncdc_datacats.r#7) 
-      5.  Error: ncdc_datasets returns the correct class (@test-ncdc_datasets.r#7) 
-      6.  Error: ncdc_datatypes returns the correct class (@test-ncdc_datatypes.r#7) 
-      7.  Error: ncdc_locs returns the correct class (@test-ncdc_locs.r#7) 
-      8.  Error: ncdc_locs_cats returns the correct ... (@test-ncdc_locs_cats.r#7) 
-      9.  Error: ncdc_stations returns the correct... (@test-ncdc_stations.r#7) 
-      10. Error: seaice functions work (@test-seaice.R#8) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 # rols
 
 Version: 2.4.0
@@ -1076,18 +1025,18 @@ Version: 2.4.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      Testing term SO:0001457 
-      Testing term SO:0000562 
-      Testing term SO:0002112 
-      Testing term SO:0002087 
-      Testing term SO:0000235 
-      Testing term SO:0001073 
-      Testing term SO:0000088 
-      Testing term SO:0000442 
-      testthat results ================================================================
-      OK: 195 SKIPPED: 0 FAILED: 2
+             ...) 
+         stop("invalid call in method dispatch to 'termId' (no default method)", domain = NA))(object, 
+             ...), class = structure("standardGeneric", package = "methods")), <environment>)
+      6: stop(gettextf("unable to find an inherited method for function %s for signature %s", 
+             sQuote(fdef@generic), sQuote(cnames)), domain = NA)
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 183 SKIPPED: 0 FAILED: 4
       1. Failure: Ontology accessors (@test_Onologies.R#71) 
       2. Failure: constructors (@test_Terms.R#57) 
+      3. Failure: partOf and derivesFrom (@test_Terms.R#177) 
+      4. Error: partOf and derivesFrom (@test_Terms.R#178) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -1105,48 +1054,6 @@ Version: 2.4.0
     Execution halted
     ```
 
-# ropenaq
-
-Version: 0.2.2
-
-## In both
-
-*   R CMD check timed out
-    
-
-# rplos
-
-Version: 0.6.4
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      testthat results ================================================================
-      OK: 165 SKIPPED: 0 FAILED: 19
-      1. Error: check_response catches no data found correctly (@test-check_response.R#20) 
-      2. Error: citations (@test-citations.R#15) 
-      3. Failure: facetplos (@test-facetplos.R#54) 
-      4. Error: facetplos (@test-facetplos.R#55) 
-      5. Error: full_text_urls - NA's on annotation DOIs (@test-fulltext.R#31) 
-      6. Error: plos_fulltext works (@test-fulltext.R#43) 
-      7. Error: highplos (@test-highplos.R#35) 
-      8. Error: journalnamekey returns the correct value (@test-journalnamekey.R#7) 
-      9. Error: journalnamekey returns the correct class (@test-journalnamekey.R#13) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘tm’
-    ```
-
 # rsoi
 
 Version: 0.3.0
@@ -1157,34 +1064,6 @@ Version: 0.3.0
     ```
     Namespace in Imports field not imported from: ‘utils’
       All declared Imports should be used.
-    ```
-
-# rtimes
-
-Version: 0.5.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      6: Filter(Negate(is.null), x)
-      7: unlist(lapply(x, f))
-      8: lapply(x, f)
-      9: check_key(key)
-      10: stop("need an API key for ", y, call. = FALSE)
-      
-      testthat results ================================================================
-      OK: 2 SKIPPED: 0 FAILED: 4
-      1. Error: returns the correct stuff (@test-as_search.R#8) 
-      2. Error: returns the correct stuff (@test-geo_search.R#8) 
-      3. Failure: fails well (@test-geo_search.R#48) 
-      4. Error: fails well (@test-geo_search.R#50) 
-      
-      Error: testthat unit tests failed
-      Execution halted
     ```
 
 # rtimicropem
@@ -1339,109 +1218,59 @@ Version: 2.2.0
 
 # SpaDES.core
 
+Version: 0.1.1
+
+## In both
+
+*   checking whether package ‘SpaDES.core’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: no DISPLAY variable so Tk is not available
+    See ‘/store/Dropbox/dev/lubridate/revdep/checks/SpaDES.core/new/SpaDES.core.Rcheck/00install.out’ for details.
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    
+    The following object is masked from 'package:igraph':
+    
+        %>%
+    
+    Warning: no DISPLAY variable so Tk is not available
+    Loading required package: RColorBrewer
+    Loading required package: raster
+    Loading required package: sp
+    Loading required package: grid
+    
+    Attaching package: 'grid'
+    
+    The following object is masked from 'package:quickPlot':
+    
+        gpar
+    
+    Quitting from lines 357-361 (ii-modules.Rmd) 
+    Error: processing vignette 'ii-modules.Rmd' failed with diagnostics:
+    there is no package called 'webshot'
+    Execution halted
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘sp’
+      All declared Imports should be used.
+    ```
+
+# SpatialBall
+
 Version: 0.1.0
 
 ## In both
 
-*   checking whether package ‘SpaDES.core’ can be installed ... ERROR
+*   checking dependencies in R code ... NOTE
     ```
-    Installation failed.
-    See ‘/store/Dropbox/dev/lubridate/revdep/checks/SpaDES.core/new/SpaDES.core.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘tkrplot’
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘SpaDES.core’ ...
-** package ‘SpaDES.core’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: S3 methods ‘as.character.tclObj’, ‘as.character.tclVar’, ‘as.double.tclObj’, ‘as.integer.tclObj’, ‘as.logical.tclObj’, ‘as.raw.tclObj’, ‘print.tclObj’, ‘[[.tclArray’, ‘[[<-.tclArray’, ‘$.tclArray’, ‘$<-.tclArray’, ‘names.tclArray’, ‘names<-.tclArray’, ‘length.tclArray’, ‘length<-.tclArray’, ‘tclObj.tclVar’, ‘tclObj<-.tclVar’, ‘tclvalue.default’, ‘tclvalue.tclObj’, ‘tclvalue.tclVar’, ‘tclvalue<-.default’, ‘tclvalue<-.tclVar’, ‘close.tkProgressBar’ were declared in NAMESPACE but not found
-Error : .onLoad failed in loadNamespace() for 'tcltk', details:
-  call: fun(libname, pkgname)
-  error: Tcl/Tk support is not available on this system
-ERROR: lazy loading failed for package ‘SpaDES.core’
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/SpaDES.core/new/SpaDES.core.Rcheck/SpaDES.core’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘SpaDES.core’ ...
-** package ‘SpaDES.core’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: S3 methods ‘as.character.tclObj’, ‘as.character.tclVar’, ‘as.double.tclObj’, ‘as.integer.tclObj’, ‘as.logical.tclObj’, ‘as.raw.tclObj’, ‘print.tclObj’, ‘[[.tclArray’, ‘[[<-.tclArray’, ‘$.tclArray’, ‘$<-.tclArray’, ‘names.tclArray’, ‘names<-.tclArray’, ‘length.tclArray’, ‘length<-.tclArray’, ‘tclObj.tclVar’, ‘tclObj<-.tclVar’, ‘tclvalue.default’, ‘tclvalue.tclObj’, ‘tclvalue.tclVar’, ‘tclvalue<-.default’, ‘tclvalue<-.tclVar’, ‘close.tkProgressBar’ were declared in NAMESPACE but not found
-Error : .onLoad failed in loadNamespace() for 'tcltk', details:
-  call: fun(libname, pkgname)
-  error: Tcl/Tk support is not available on this system
-ERROR: lazy loading failed for package ‘SpaDES.core’
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/SpaDES.core/old/SpaDES.core.Rcheck/SpaDES.core’
-
-```
-# splashr
-
-Version: 0.4.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-       /usr/bin/python3
-       /home/vspinu/.pyenvs/cv/bin/python
-      
-      1: install_splash() at testthat/test-splash.R:25
-      2: docker::docker$from_env
-      3: `$.python.builtin.module`(docker::docker, from_env)
-      4: py_resolve_module_proxy(x)
-      5: stop(message, call. = FALSE)
-      
-      testthat results ================================================================
-      OK: 0 SKIPPED: 0 FAILED: 1
-      1. Error: we can do something (@test-splash.R#25) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# spocc
-
-Version: 0.7.0
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      
-      4. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#66) 
-      Names of ee$bison$data ('') don't match '175304'
-      
-      
-      testthat results ================================================================
-      OK: 244 SKIPPED: 0 FAILED: 4
-      1. Failure: passing in options to occ works (@test-options.R#39) 
-      2. Failure: passing in options to occ works (@test-options.R#40) 
-      3. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#64) 
-      4. Failure: taxize based searches works with get_tsn input (@test-taxize-integration.R#66) 
-      
-      Error: testthat unit tests failed
-      Execution halted
+    Namespace in Imports field not imported from: ‘lubridate’
+      All declared Imports should be used.
     ```
 
 # ss3sim
@@ -1450,17 +1279,16 @@ Version: 0.9.5
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking whether package ‘ss3sim’ can be installed ... WARNING
     ```
-    Package required but not available: ‘r4ss’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    Found the following significant warnings:
+      Warning: no DISPLAY variable so Tk is not available
+    See ‘/store/Dropbox/dev/lubridate/revdep/checks/ss3sim/new/ss3sim.Rcheck/00install.out’ for details.
     ```
 
 # stacomiR
 
-Version: 0.5.3
+Version: 0.5.3.1
 
 ## In both
 
@@ -1484,7 +1312,7 @@ Version: 0.5.3
 ** preparing package for lazy loading
 R session is headless; GTK+ not initialized.
 
-(R:25130): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:10996): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 Error : .onLoad failed in loadNamespace() for 'cairoDevice', details:
   call: fun(libname, pkgname)
   error: GDK display not found - please make sure X11 is running
@@ -1504,7 +1332,7 @@ ERROR: lazy loading failed for package ‘stacomiR’
 ** preparing package for lazy loading
 R session is headless; GTK+ not initialized.
 
-(R:25117): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:10871): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 Error : .onLoad failed in loadNamespace() for 'cairoDevice', details:
   call: fun(libname, pkgname)
   error: GDK display not found - please make sure X11 is running
@@ -1575,35 +1403,18 @@ Version: 0.1.0
 
 # stplanr
 
-Version: 0.1.9
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘stplanr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: geo_code
-    > ### Title: Convert text strings into points on the map
-    > ### Aliases: geo_code
-    > 
-    > ### ** Examples
-    > 
-    > address = "LS7 3HB"
-    > geo_code(address = address)
-          lon       lat 
-    -1.534372 53.819472 
-    > geo_code(address = address, return_all = TRUE)
-    Error: is.data.frame(x) is not TRUE
-    Execution halted
-    ```
+Version: 0.2.2
 
 ## In both
 
-*   checking package dependencies ... NOTE
+*   checking package dependencies ... ERROR
     ```
-    Package suggested but not available for checking: ‘tmap’
+    Package required but not available: ‘sf’
+    
+    Package which this enhances but not available for checking: ‘tmap’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
     ```
 
 # sweep
@@ -1630,43 +1441,43 @@ Version: 0.5.3
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+         })
+      9: expr_type_of(.x)
+      10: typeof(x)
+      11: duplicate(quo)
       
-      
-      testthat results ================================================================
-      OK: 179 SKIPPED: 0 FAILED: 3
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 149 SKIPPED: 2 FAILED: 5
       1. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#15) 
       2. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#17) 
       3. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#19) 
+      4. Error: Test error on invalid data inputs. (@test_tq_mutate.R#142) 
+      5. Error: Test error on invalid data inputs. (@test_tq_transmute.R#121) 
       
       Error: testthat unit tests failed
-      In addition: Warning messages:
-      1: In download.file(url, destfile = tmp, quiet = TRUE) :
-        cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
-      2: x = 'AAPL', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
-       
       Execution halted
     ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
+    
     Warning in download.file(url, destfile = tmp, quiet = TRUE) :
-      cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+      URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': status was 'Couldn't resolve host name'
     Warning: x = 'AAPL', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
     
     Warning in download.file(url, destfile = tmp, quiet = TRUE) :
-      cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+      URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': status was 'Couldn't resolve host name'
     Warning: x = 'AAPL', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
      Removing AAPL.
     Warning in download.file(url, destfile = tmp, quiet = TRUE) :
-      cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=FB&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+      URL 'http://download.finance.yahoo.com/d/quotes.csv?s=FB&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': status was 'Couldn't resolve host name'
     Warning: x = 'FB', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=FB&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
      Removing FB.
     Warning in download.file(url, destfile = tmp, quiet = TRUE) :
-      cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=GOOG&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': HTTP status was '999 Unknown Error'
+      URL 'http://download.finance.yahoo.com/d/quotes.csv?s=GOOG&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': status was 'Couldn't resolve host name'
     Warning: x = 'GOOG', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=GOOG&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
      Removing GOOG.
-    Warning in value[[3L]](cond) : Returning as nested data frame.
     Quitting from lines 211-214 (TQ01-core-functions-in-tidyquant.Rmd) 
     Error: processing vignette 'TQ01-core-functions-in-tidyquant.Rmd' failed with diagnostics:
     object 'Ask' not found
@@ -1682,13 +1493,26 @@ Version: 0.5.3
 
 # tidyRSS
 
-Version: 1.2.2
+Version: 1.2.3
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
     Namespace in Imports field not imported from: ‘testthat’
+      All declared Imports should be used.
+    ```
+
+# tidyverse
+
+Version: 1.2.1
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘dbplyr’ ‘reprex’ ‘rlang’
       All declared Imports should be used.
     ```
 
@@ -1761,23 +1585,23 @@ Version: 0.1.0
       All declared Imports should be used.
     ```
 
-# TTAinterfaceTrendAnalysis
+# togglr
 
-Version: 1.5.3
+Version: 0.1.3
 
 ## In both
 
 *   checking package dependencies ... ERROR
     ```
-    Package required but not available: ‘tcltk2’
+    Package required but not available: ‘keyring’
     
     See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
     manual.
     ```
 
-# twilio
+# tsibble
 
-Version: 0.1.0
+Version: 0.1.2
 
 ## In both
 
@@ -1786,23 +1610,104 @@ Version: 0.1.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      3. Error: tw_send_message() can send messages (@test_tw_send_message.R#11) -----
-      Please set environmental variable TWILIO_SID.
-      1: tw_send_message("2127872000", "+15005550006", "Half a pound of whitefish salad please.") at testthat/test_tw_send_message.R:11
-      2: paste("2010-04-01", "Accounts", get_sid(), "Messages.json", sep = "/")
-      3: get_sid()
-      4: stop("Please set environmental variable TWILIO_SID.", call. = FALSE)
+      ── 1. Error: (unknown) (@test-tsibble.R#94)  ───────────────────────────────────
+      'to' must be a finite number
+      1: seq.POSIXt(ymd_h("2017-01-01 0"), ymd_h("2017-01-01 12"), by = "3 hour") at testthat/test-tsibble.R:94
       
-      testthat results ================================================================
-      OK: 4 SKIPPED: 0 FAILED: 3
-      1. Error: tw_get_message_media() can retrieve a photo (@test_tw_get_message_media.R#6) 
-      2. Error: Test that tw_get_messages_list() will retrieve messages (@test_tw_get_messages_list.R#6) 
-      3. Error: tw_send_message() can send messages (@test_tw_send_message.R#11) 
+      ── 2. Failure: From seconds to higher date (@test-tsummarise.R#35)  ────────────
+      as_tibble(res3) not equal to tibble(date_min = ymd_h("2017-01-01 0"), value = 5).
+      Rows in x but not y: 1. Rows in y but not x: 1. 
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 245 SKIPPED: 0 FAILED: 2
+      1. Error: (unknown) (@test-tsibble.R#94) 
+      2. Failure: From seconds to higher date (@test-tsummarise.R#35) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
+# TSstudio
+
+Version: 0.1.0
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    ** building package indices
+    ** installing vignettes
+    ** testing if installed package can be loaded
+    ```
+
+# TTAinterfaceTrendAnalysis
+
+Version: 1.5.3
+
+## In both
+
+*   checking whether package ‘TTAinterfaceTrendAnalysis’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/store/Dropbox/dev/lubridate/revdep/checks/TTAinterfaceTrendAnalysis/new/TTAinterfaceTrendAnalysis.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘TTAinterfaceTrendAnalysis’ ...
+** package ‘TTAinterfaceTrendAnalysis’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** preparing package for lazy loading
+Warning: no DISPLAY variable so Tk is not available
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+Warning: no DISPLAY variable so Tk is not available
+Error: package or namespace load failed for ‘TTAinterfaceTrendAnalysis’:
+ .onAttach failed in attachNamespace() for 'TTAinterfaceTrendAnalysis', details:
+  call: structure(.External(.C_dotTcl, ...), class = "tclObj")
+  error: [tcl] invalid command name "ttk::style".
+
+Error: loading failed
+Execution halted
+ERROR: loading failed
+* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/TTAinterfaceTrendAnalysis/new/TTAinterfaceTrendAnalysis.Rcheck/TTAinterfaceTrendAnalysis’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘TTAinterfaceTrendAnalysis’ ...
+** package ‘TTAinterfaceTrendAnalysis’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** preparing package for lazy loading
+Warning: no DISPLAY variable so Tk is not available
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+Warning: no DISPLAY variable so Tk is not available
+Error: package or namespace load failed for ‘TTAinterfaceTrendAnalysis’:
+ .onAttach failed in attachNamespace() for 'TTAinterfaceTrendAnalysis', details:
+  call: structure(.External(.C_dotTcl, ...), class = "tclObj")
+  error: [tcl] invalid command name "ttk::style".
+
+Error: loading failed
+Execution halted
+ERROR: loading failed
+* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/TTAinterfaceTrendAnalysis/old/TTAinterfaceTrendAnalysis.Rcheck/TTAinterfaceTrendAnalysis’
+
+```
 # unvotes
 
 Version: 0.2.0
@@ -1812,17 +1717,6 @@ Version: 0.2.0
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 4494 marked UTF-8 strings
-    ```
-
-# UsingR
-
-Version: 2.0-5
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘aplpack’
     ```
 
 # vetools
@@ -1885,23 +1779,29 @@ Version: 0.10.3
 
 # wbstats
 
-Version: 0.1.1
+Version: 0.2
 
 ## In both
 
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 1371 marked UTF-8 strings
+      Note: found 1528 marked UTF-8 strings
     ```
 
 # xtractomatic
 
-Version: 3.3.2
+Version: 3.4.1
 
 ## In both
 
 *   R CMD check timed out
     
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘dplyr’
+      All declared Imports should be used.
+    ```
 
 # ztype
 

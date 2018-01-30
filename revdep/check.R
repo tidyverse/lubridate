@@ -5,7 +5,7 @@ remove.packages(c("rlang", "revdepcheck", "crayon", "boxes", "progress", "callr"
 ## source("https://install-github.me/r-lib/crancache")
 source("https://install-github.me/r-lib/revdepcheck")
 
-devtools::install("~/tmp/revdepcheck")
+## devtools::install("~/tmp/revdepcheck")
 
 library(revdepcheck)
 revdep_reset()
