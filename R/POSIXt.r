@@ -22,7 +22,7 @@ is.POSIXlt <- function(x) inherits(x, "POSIXlt")
 #' @export
 is.POSIXct <- function(x) inherits(x, "POSIXct")
 
-#' @export
+#' @method c POSIXct
 c.POSIXct <- function (..., recursive = FALSE) {
   dots <- list(...)
   .POSIXct(c(unlist(lapply(dots, unclass))), tz = tz(dots[[1]]))
@@ -32,3 +32,8 @@ c.POSIXct <- function (..., recursive = FALSE) {
 c.POSIXlt <- function (..., recursive = FALSE) {
   as.POSIXlt(do.call("c.POSIXct", lapply(list(...), as.POSIXct)))
 }
+
+evalqOnLoad({
+    registerS3method("c", "POSIXct", c.POSIXct)
+    ## registerS3method("c", "POSIXlt", c.POSIXlt)
+})
