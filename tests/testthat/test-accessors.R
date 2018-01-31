@@ -279,9 +279,9 @@ test_that("timezone accessor extracts correct timezone", {
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
-  expect_that(tz(poslt), matches("UTC"))
-  expect_that(tz(posct), matches("UTC"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "UTC")
+  expect_match(tz(posct), "UTC")
+  expect_match(tz(date), "UTC")
 
 })
 
@@ -337,9 +337,9 @@ test_that("accessors handle vectors", {
   expect_that(date(posct), equals(as.Date(c("2001-01-01", "2002-02-02", "2003-03-03"))))
   expect_that(date(date), equals(as.Date(c("2001-01-01", "2002-02-02", "2003-03-03"))))
 
-  expect_that(tz(poslt), matches("UTC"))
-  expect_that(tz(posct), matches("UTC"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "UTC")
+  expect_match(tz(posct), "UTC")
+  expect_match(tz(date), "UTC")
 })
 
 test_that("accessors handle Period objects", {

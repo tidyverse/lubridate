@@ -64,7 +64,7 @@ test_that("update.Date performs simple operation as expected", {
   expect_that(mday(update(date, wday = 1)), equals(2))
   expect_that(month(update(date, months = 1)), equals(1))
   expect_that(year(update(date, years = 2000)), equals(2000))
-  expect_that(tz(update(date, tz = "UTC")), matches("UTC"))
+  expect_match(tz(update(date, tz = "UTC")), "UTC")
 })
 
 test_that("update.POSIXt performs simple operation as expected", {
@@ -84,7 +84,7 @@ test_that("update.POSIXt performs simple operation as expected", {
   expect_that(mday(update(poslt, wday = 1)), equals(31))
   expect_that(month(update(poslt, months = 1)), equals(1))
   expect_that(year(update(poslt, years = 2000)), equals(2000))
-  expect_that(tz(update(poslt, tz = "UTC")), matches("UTC"))
+  expect_match(tz(update(poslt, tz = "UTC")), "UTC")
   expect_that(second(update(posct, seconds = 1)), equals(1))
   expect_that(minute(update(posct, minutes = 1)), equals(1))
   expect_that(hour(update(posct, hours = 1)), equals(1))
@@ -99,7 +99,7 @@ test_that("update.POSIXt performs simple operation as expected", {
   expect_that(mday(update(posct, wday = 1)), equals(31))
   expect_that(month(update(posct, months = 1)), equals(1))
   expect_that(year(update(posct, years = 2000)), equals(2000))
-  expect_that(tz(update(posct, tz = "UTC")), matches("UTC"))
+  expect_match(tz(update(posct, tz = "UTC")), "UTC")
 })
 
 test_that("update.POSIXt works on wdays", {
@@ -191,7 +191,7 @@ test_that("update performs roll overs correctly for Date objects", {
   expect_that(month(update(date, yday = 366)), equals(1))
   expect_that(month(update(date, month = 13)), equals(1))
   expect_that(year(update(date, month = 13)), equals(2011))
-  expect_that(tz(update(date, month = 13)), matches("UTC"))
+  expect_match(tz(update(date, month = 13)), "UTC")
 })
 
 test_that("update performs roll overs correctly for POSIXlt objects", {
@@ -212,7 +212,7 @@ test_that("update performs roll overs correctly for POSIXlt objects", {
   expect_that(month(update(poslt, yday = 366)), equals(1))
   expect_that(month(update(poslt, month = 13)), equals(1))
   expect_that(year(update(poslt, month = 13)), equals(2011))
-  expect_that(tz(update(poslt, month = 13)), matches("GMT"))
+  expect_match(tz(update(poslt, month = 13)), "GMT")
 })
 
 test_that("update performs roll overs correctly for POSIXct objects", {
@@ -233,7 +233,7 @@ test_that("update performs roll overs correctly for POSIXct objects", {
   expect_that(month(update(posct, yday = 366)), equals(1))
   expect_that(month(update(posct, month = 13)), equals(1))
   expect_that(year(update(posct, month = 13)), equals(2011))
-  expect_that(tz(update(posct, month = 13)), matches("GMT"))
+  expect_match(tz(update(posct, month = 13)), "GMT")
 })
 
 test_that("update performs consecutive roll overs correctly for
@@ -249,7 +249,7 @@ test_that("update performs consecutive roll overs correctly for
   expect_that(yday(date), equals(33))
   expect_that(month(date), equals(2))
   expect_that(year(date), equals(2011))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(date), "UTC")
   date2 <- update(as.Date("11/01/2010", "%m/%d/%Y"),
     seconds = 61, minutes = 61, hours = 25, days = 32, months
      = 13)
@@ -261,7 +261,7 @@ test_that("update performs consecutive roll overs correctly for
   expect_that(yday(date2), equals(33))
   expect_that(month(date2), equals(2))
   expect_that(year(date2), equals(2011))
-  expect_that(tz(date2), matches("UTC"))
+  expect_match(tz(date2), "UTC")
 })
 
 test_that("update performs consecutive roll overs correctly for
@@ -279,7 +279,7 @@ test_that("update performs consecutive roll overs correctly for
   expect_that(yday(poslt), equals(33))
   expect_that(month(poslt), equals(2))
   expect_that(year(poslt), equals(2011))
-  expect_that(tz(poslt), matches("GMT"))
+  expect_match(tz(poslt), "GMT")
 
   poslt2 <- update(posl, seconds = 61, minutes = 61, hours = 25,
     days = 32, months = 13)
@@ -292,7 +292,7 @@ test_that("update performs consecutive roll overs correctly for
   expect_that(yday(poslt2), equals(33))
   expect_that(month(poslt2), equals(2))
   expect_that(year(poslt2), equals(2011))
-  expect_that(tz(poslt2), matches("GMT"))
+  expect_match(tz(poslt2), "GMT")
 })
 
 test_that("update performs consecutive roll overs correctly for POSIXct objects", {
@@ -309,7 +309,7 @@ test_that("update performs consecutive roll overs correctly for POSIXct objects"
   expect_that(yday(posct), equals(33))
   expect_that(month(posct), equals(2))
   expect_that(year(posct), equals(2011))
-  expect_that(tz(posct), matches("GMT"))
+  expect_match(tz(posct), "GMT")
 
   posct2 <- update(posc, seconds = 61, minutes = 61, hours = 25,
     days = 32, months = 13)
@@ -322,7 +322,7 @@ test_that("update performs consecutive roll overs correctly for POSIXct objects"
   expect_that(yday(posct2), equals(33))
   expect_that(month(posct2), equals(2))
   expect_that(year(posct2), equals(2011))
-  expect_that(tz(posct2), matches("GMT"))
+  expect_match(tz(posct2), "GMT")
 })
 
 test_that("update returns NA for date-times in the spring dst gap", {

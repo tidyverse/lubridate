@@ -116,7 +116,7 @@ test_that("interval handles POSIXlt inputs", {
   expect_equal(unclass(interval(t1, t2)),
                unclass(new("Interval", 18313200,
                            start = as.POSIXct("2007-01-01"),
-                           tzone = Sys.timezone())))
+                           tzone = "America/Los_Angeles")))
 
   t1 <- as.POSIXlt("2007-01-01")
   t2 <- as.POSIXlt("2007-08-01 00:01:02")
@@ -124,7 +124,7 @@ test_that("interval handles POSIXlt inputs", {
   expect_equal(unclass(interval(t1, t2)),
                unclass(new("Interval", 18313262,
                            start = as.POSIXct("2007-01-01"),
-                           tzone = Sys.timezone())))
+                           tzone = "America/Los_Angeles")))
 
 })
 

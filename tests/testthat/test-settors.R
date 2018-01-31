@@ -68,17 +68,17 @@ test_that("seconds settor does not change time zone", {
   second(posct) <- 1
   second(date) <- 1
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 
   second(poslt) <- 69
   second(posct) <- 69
   second(date) <- 69
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -189,17 +189,17 @@ test_that("minutes settor does not change time zone", {
   minute(posct) <- 1
   minute(date) <- 1
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 
   minute(poslt) <- 70
   minute(posct) <- 70
   minute(date) <- 70
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -309,17 +309,17 @@ test_that("hours settor does not change time zone", {
   hour(posct) <- 1
   hour(date) <- 1
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 
   hour(poslt) <- 70
   hour(posct) <- 70
   hour(date) <- 70
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -439,17 +439,17 @@ test_that("mdays settor does not change time zone", {
   mday(posct) <- 1
   mday(date) <- 1
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 
   mday(poslt) <- 32
   mday(posct) <- 32
   mday(date) <- 32
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -568,17 +568,17 @@ test_that("ydays settor does not change time zone", {
   yday(posct) <- 1
   yday(date) <- 1
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 
   yday(poslt) <- 366
   yday(posct) <- 366
   yday(date) <- 366
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -698,17 +698,17 @@ test_that("wdays settor does not change time zone", {
   wday(posct) <- 2
   wday(date) <- 2
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 
   wday(poslt) <- 8
   wday(posct) <- 8
   wday(date) <- 8
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -818,17 +818,17 @@ test_that("months settor does not change time zone", {
   month(posct) <- 1
   month(date) <- 1
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 
     month(poslt) <- 13
   month(posct) <- 13
   month(date) <- 13
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -896,9 +896,9 @@ test_that("years settor does not change time zone", {
   year(posct) <- 2000
   year(date) <- 2000
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -957,9 +957,9 @@ test_that("dates settor does not change time zone", {
   date(posct) <- as.Date("2000-01-01")
   date(date) <- as.Date("2000-01-01")
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 test_that("dates settor returns NA for spring dst gap", {
@@ -1001,9 +1001,9 @@ test_that("time zone settor correctly performs simple updates", {
   tz(posct) <- "GMT"
   tz(date) <- "GMT" # dates do not have a tz attribute
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("UTC"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "UTC")
 })
 
 
@@ -1126,9 +1126,9 @@ test_that("settors handle vectors", {
   tz(posct) <- "GMT"
   tz(date) <- "GMT" # date has been made POSIXlt with sec, etc
 
-  expect_that(tz(poslt), matches("GMT"))
-  expect_that(tz(posct), matches("GMT"))
-  expect_that(tz(date), matches("GMT"))
+  expect_match(tz(poslt), "GMT")
+  expect_match(tz(posct), "GMT")
+  expect_match(tz(date), "GMT")
   })
 
 test_that("qdays settors correctly performs simple updates and rolls over as expected", {
