@@ -14,10 +14,6 @@ test_that("floor_date works for each time element", {
   expect_identical(floor_date(x, "year"), as.POSIXct("2009-01-01 00:00:00", tz = "UTC"))
 })
 
-test_that("ceiling_date works with multi-units", {
-  x <- as.POSIXct("2009-08-03 12:01:59.23", tz =        "UTC")
-})
-
 test_that("floor_date works for multi-units", {
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
   expect_identical(floor_date(x, "2 secs"),   as.POSIXct("2009-08-03 12:01:58", tz = "UTC"))

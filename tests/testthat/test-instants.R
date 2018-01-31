@@ -24,10 +24,10 @@ test_that("now() handles time zone input correctly", {
     as.POSIXct(Sys.time()), tz = "UTC"), tz = "UTC"), "minute"))
 })
 
-test_that("today() works correctly", {
-  ## Sys.Date is not correct
-  ## expect_identical(today(), Sys.Date())
-})
+## test_that("today() works correctly", {
+##   ## Sys.Date is not correct
+##   ## expect_identical(today(), Sys.Date())
+## })
 
 
 test_that("make_datetime returns same values as ISOdatetime", {
