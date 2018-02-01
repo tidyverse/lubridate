@@ -18,14 +18,8 @@
 // R's timezone registry:
 // https://github.com/SurajGupta/r-source/blob/master/src/extra/tzone/registryTZ.c
 
-namespace chrono = std::chrono;
-using sys_seconds = chrono::duration<int_fast64_t>;
-using time_point = chrono::time_point<std::chrono::system_clock, sys_seconds>;
-
-const std::unordered_map<std::string, int> TZMAP {
-  {"CEST", 2}, {"CET", 1}, {"EDT", -4}, {"EEST", 3}, {"EET", 2}, {"EST", -5},
-  {"PDT", -7}, {"PST", -8}, {"WEST", 1}, {"WET", 0}
-};
+
+/// floor
 
 int_fast64_t NA_INT32 = static_cast<int_fast64_t>(NA_INTEGER);
 int_fast64_t NA_INT64 = INT_FAST64_MIN;
@@ -45,25 +39,75 @@ int_fast64_t floor_to_int64(double x) {
   return static_cast<int_fast64_t>(x);
 }
 
-namespace {
-// initialize once per session
-Rcpp::Environment _base = Rcpp::Environment::base_namespace();
-Rcpp::Function _sys_timezone(_base["Sys.timezone"]);
-SEXP _sys_tz = STRING_ELT(_sys_timezone(), 0);
-// if NA we default to UTC
-const std::string SYS_TZ(_sys_tz == NA_STRING ? "UTC" : CHAR(_sys_tz));
+
+/// tzone utilities
+
+namespace chrono = std::chrono;
+using sys_seconds = chrono::duration<int_fast64_t>;
+using time_point = chrono::time_point<std::chrono::system_clock, sys_seconds>;
+
+const std::unordered_map<std::string, int> TZMAP {
+  {"CEST", 2}, {"CET", 1}, {"EDT", -4}, {"EEST", 3}, {"EET", 2}, {"EST", -5},
+  {"PDT", -7}, {"PST", -8}, {"WEST", 1}, {"WET", 0}
+};
+
+const char* get_tzone(SEXP tz) {
+  if (Rf_isNull(tz)) {
+    return "";
+  } else {
+    if (!Rf_isString(tz))
+      Rf_error("'tz' is not a character vector");
+    const char* tz0 = CHAR(STRING_ELT(tz, 0));
+    if (strlen(tz0) == 0) {
+      if (LENGTH(tz) > 1) {
+        return CHAR(STRING_ELT(tz, 1));
+      }
+    }
+    return tz0;
+  }
 }
 
-// Memoized local time zone
-std::string local_tz() {
+const char* get_tzone_attr(SEXP tz){
+  return get_tzone(Rf_getAttrib(tz, Rf_install("tzone")));
+}
+
+const char* get_current_tz() {
+  // ugly workaround to get local time zone (abbreviation) as seen by R
+  Rcpp::NumericVector origin = Rcpp::NumericVector::create(0);
+  origin.attr("class") = Rcpp::CharacterVector::create("POSIXct", "POSIXt");
+  Rcpp::Environment base = Rcpp::Environment::base_namespace();
+  Rcpp::Function as_posixlt(base["as.POSIXlt.POSIXct"]);
+  return get_tzone_attr(as_posixlt(origin));
+}
+
+const char* get_system_tz() {
+  Rcpp::Environment base = Rcpp::Environment::base_namespace();
+  Rcpp::Function sys_timezone(base["Sys.timezone"]);
+  SEXP sys_tz = STRING_ELT(sys_timezone(), 0);
+  if (sys_tz == NA_STRING || strlen(CHAR(sys_tz)) == 0) {
+    Rf_warning("System timezone name is unknown. Please set environment variable TZ.");
+    return "UTC";
+  } else {
+    return CHAR(sys_tz);
+  }
+}
+
+// initialize once per session
+const char* SYS_TZ(get_system_tz());
+
+const char* local_tz() {
   const char* tz_env = std::getenv("TZ");
   if (tz_env == NULL) {
     // if unset, use Sys.timezone
     return SYS_TZ;
-  } else if (*tz_env == '\0') {
-    // if set but empty, treat as UTC
-    return "UTC";
-  } else {
+  } else if (strlen(tz_env) == 0) {
+    // FIXME:
+    // if set but empty, it's system specific ...
+    // Is there a way way to get TZ name as R sees it?
+    Rf_warning("Environment variable TZ is set to \"\". Things might break.");
+    return get_current_tz();
+  }
+  else {
     return tz_env;
   }
 }
@@ -88,6 +132,11 @@ bool load_tz(std::string tzstr, cctz::time_zone& tz) {
 }
 
 // [[Rcpp::export]]
+Rcpp::CharacterVector C_local_tz() {
+    return Rf_mkString(local_tz());
+}
+
+// [[Rcpp::export]]
 Rcpp::LogicalVector C_valid_tz(const Rcpp::CharacterVector& tz_name) {
   cctz::time_zone tz;
   std::string tzstr(tz_name[0]);
@@ -99,21 +148,6 @@ void load_tz_or_fail(std::string tzstr, cctz::time_zone& tz, std::string error_m
     Rcpp::stop(error_msg.c_str(), tzstr);
   }
 }
-
-const char* get_tzone(SEXP tz) {
-  if (Rf_isNull(tz)) {
-    return "";
-  } else {
-    if (!Rf_isString(tz))
-      Rcpp::stop("'tz' is not a character vector");
-    return CHAR(STRING_ELT(tz, 0));
-  }
-}
-
-std::string get_tzone_attr(SEXP tz){
-  return get_tzone(Rf_getAttrib(tz, Rf_install("tzone")));
-}
-
 
 // Helper for conversion functions. Get seconds from civil_lookup, but relies on
 // use original time pre/post time if cl_new falls in repeated interval.
