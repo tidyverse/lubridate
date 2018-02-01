@@ -48,22 +48,29 @@ int_fast64_t floor_to_int64(double x) {
 namespace {
 // initialize once per session
 Rcpp::Environment _base = Rcpp::Environment::base_namespace();
-Rcpp::Function _sys_tz = _base["Sys.timezone"];
-const std::string LOCAL_TZ(CHAR(STRING_ELT(_sys_tz(), 0)));
+Rcpp::Function _sys_timezone(_base["Sys.timezone"]);
+SEXP _sys_tz = STRING_ELT(_sys_timezone(), 0);
+// if NA we default to UTC
+const std::string SYS_TZ(_sys_tz == NA_STRING ? "UTC" : CHAR(_sys_tz));
 }
 
 // Memoized local time zone
 std::string local_tz() {
-  // Check for $TZ in case user overridden it
   const char* tz_env = std::getenv("TZ");
-  if (tz_env)
+  if (tz_env == NULL) {
+    // if unset, use Sys.timezone
+    return SYS_TZ;
+  } else if (*tz_env == '\0') {
+    // if set but empty, treat as UTC
+    return "UTC";
+  } else {
     return tz_env;
-  return LOCAL_TZ;
+  }
 }
 
 bool load_tz(std::string tzstr, cctz::time_zone& tz) {
   // return `true` if loaded, else false
-  if (tzstr.size() == 0){
+  if (tzstr.size() == 0) {
     // CCTZ doesn't work on windows https://github.com/google/cctz/issues/53
     /* std::cout << "Local TZ: " << local_tz() << std::endl; */
     cctz::load_time_zone(local_tz(), &tz);
