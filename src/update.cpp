@@ -1,4 +1,5 @@
 #include <Rcpp.h>
+#include <inttypes.h>
 #include "civil_time.h"
 #include "time_zone.h"
 #include "time_zone_if.h"
@@ -25,6 +26,24 @@ const std::unordered_map<std::string, int> TZMAP {
   {"CEST", 2}, {"CET", 1}, {"EDT", -4}, {"EEST", 3}, {"EET", 2}, {"EST", -5},
   {"PDT", -7}, {"PST", -8}, {"WEST", 1}, {"WET", 0}
 };
+
+int_fast64_t NA_INT32 = static_cast<int_fast64_t>(NA_INTEGER);
+int_fast64_t NA_INT64 = INT_FAST64_MIN;
+double fINT64_MAX = static_cast<double>(INT_FAST64_MAX);
+double fINT64_MIN = static_cast<double>(INT_FAST64_MIN);
+
+int_fast64_t floor_to_int64(double x) {
+  // maybe fixme: no warning yet on integer overflow
+  if (ISNAN(x))
+    return NA_INT64;
+
+  x = std::floor(x);
+  if (x > fINT64_MAX || x <= fINT64_MIN) {
+    return NA_INT64;
+  }
+
+  return static_cast<int_fast64_t>(x);
+}
 
 namespace {
 // initialize once per session
@@ -193,12 +212,14 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   for (R_xlen_t i = 0; i < N; i++)
     {
       double dti = loop_dt ? dt[i] : dt[0];
-      if (ISNA(dti)) {
+      int_fast64_t secs = floor_to_int64(dti);
+
+      if (ISNAN(dti) || secs == NA_INT64) {
         out[i] = NA_REAL;
         continue;
       }
-      int_fast64_t secs = std::floor(dti);
-      double rem = do_second ? 0.0 : dti - secs;
+
+      double rem = 0.0;
       sys_seconds ss(secs);
       time_point tp1(ss);
       cctz::civil_second ct1 = cctz::convert(tp1, tzone1);
@@ -207,23 +228,35 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
         y = ct1.year(), m = ct1.month(), d = ct1.day(),
         H = ct1.hour(), M = ct1.minute(), S = ct1.second();
 
-      if (loop_year) y = year[i]; else if (do_year) y = year[0];
-      if (loop_month) m = month[i]; else if (do_month) m = month[0];
-      if (loop_mday) d = mday[i]; else if (do_mday) d = mday[0];
-      if (loop_hour) H = hour[i]; else if (do_hour) H = hour[0];
-      if (loop_minute) M = minute[i]; else if (do_minute) M = minute[0];
-      if (loop_second) {
-        S = std::floor(second[i]);
-        rem = second[i] - S;
-      } else if (do_second) {
-        S = std::floor(second[0]);
-        rem = second[0] - S;
+      if (do_year) {
+        y = loop_year ? year[i] : year[0];
+        if (y == NA_INT32) {out[i] = NA_REAL; continue; }
       }
-
-      if (y == NA_INTEGER || m == NA_INTEGER || d == NA_INTEGER ||
-          H == NA_INTEGER || M == NA_INTEGER || S == NA_INTEGER) {
-        out[i] = NA_REAL;
-        continue;
+      if (do_month) {
+        m = loop_month ? month[i] : month[0];
+        if (m == NA_INT32) {out[i] = NA_REAL; continue; }
+      }
+      if (do_mday) {
+        d = loop_mday ? mday[i] : mday[0];
+        if (d == NA_INT32) {out[i] = NA_REAL; continue; }
+      }
+      if (do_hour) {
+        H = loop_hour ? hour[i] : hour[0];
+        if (H == NA_INT32) {out[i] = NA_REAL; continue; }
+      }
+      if (do_minute) {
+        M = loop_minute ? minute[i] : minute[0];
+        if (M == NA_INT32) {out[i] = NA_REAL; continue; }
+      }
+      if (do_second) {
+        if (loop_second) {
+          S = floor_to_int64(second[i]);
+          rem = second[i] - S;
+        } else {
+          S = floor_to_int64(second[0]);
+          rem = second[0] - S;
+        }
+        if (S == NA_INT64) {out[i] = NA_REAL; continue; }
       }
 
       if (do_yday) {
@@ -275,7 +308,9 @@ Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
 
   for (size_t i = 0; i < n; i++)
     {
-      int_fast64_t secs = std::floor(dt[i]);
+      int_fast64_t secs = floor_to_int64(dt[i]);
+      /* printf("na: %i na64: %+" PRIiFAST64 "  secs: %+" PRIiFAST64 "  dt: %f\n", NA_INTEGER, INT_FAST64_MIN, secs, dt[i]); */
+      if (secs == NA_INT64) {out[i] = NA_REAL; continue; }
       double rem = dt[i] - secs;
       sys_seconds d1(secs);
       time_point tp1(d1);
@@ -321,7 +356,8 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
         tzto_old_name = tzto_name;
       }
 
-      int_fast64_t secs = std::floor(dt[i]);
+      int_fast64_t secs = floor_to_int64(dt[i]);
+      if (secs == NA_INT64) { out[i] = NA_REAL; continue; }
       double rem = dt[i] - secs;
       sys_seconds secsfrom(secs);
       time_point tpfrom(secsfrom);
@@ -357,7 +393,8 @@ Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt,
         tzto_old_name = tzto_name;
       }
 
-      int_fast64_t secs = std::floor(dt[i]);
+      int_fast64_t secs = floor_to_int64(dt[i]);
+      if (secs == NA_INT64) { out[i] = NA_REAL; continue; }
       double rem = dt[i] - secs;
 
       sys_seconds secsfrom(secs);

@@ -19,8 +19,7 @@ test_that("update.Date returns a posix object if time is manipulated", {
 })
 
 test_that("update.POSIXlt returns a POSIXlt object", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "GMT", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "GMT", format = "%Y-%m-%d %H:%M:%S")
   expect_that(update(poslt, seconds = 1), is_a("POSIXlt"))
   expect_that(update(poslt, minutes = 1), is_a("POSIXlt"))
   expect_that(update(poslt, hours = 1), is_a("POSIXlt"))
