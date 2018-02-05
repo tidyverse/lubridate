@@ -1,7 +1,10 @@
 context("Pretty formatting of dates")
 
-test_that("pretty_dates works for years",
-{
+test_that("pretty_dates works for years", {
+
+  ## skip anything that uses setenv(TZ) on CRAN for now
+  skip_on_cran()
+
   ## https://github.com/hadley/lubridate/issues/227
   expect_equal(pretty_dates(c(as.Date("1993-12-05"), as.Date("2007-12-01")), 7),
                ymd(c("1993-01-01 UTC", "1995-01-01 UTC", "1997-01-01 UTC",

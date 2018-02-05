@@ -105,6 +105,7 @@ test_that("interval handles character inputs", {
 
 
 test_that("interval handles POSIXlt inputs", {
+  skip_on_cran()
 
   oldtz <- Sys.getenv("TZ")
   Sys.setenv(TZ = "America/Los_Angeles")

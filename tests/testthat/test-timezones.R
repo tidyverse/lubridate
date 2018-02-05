@@ -1,7 +1,6 @@
 context("Time zones")
 
 test_that("R timezone semantics stays unchanged", {
-
   skip_on_cran()
 
   ## hour checks are inspired by https://github.com/tidyverse/lubridate/issues/619
@@ -11,7 +10,7 @@ test_that("R timezone semantics stays unchanged", {
   sys_tz <- Sys.timezone()
   posix_tz <- attr(as.POSIXlt(tt, tz = sys_tz), "tzone")[[2]]
 
-  ## ## This is sytem specific :(
+  ## ## TZ="" is sytem specific :(
   ## Sys.setenv(TZ = "")
   ## expect_equal(attr(as.POSIXlt(tt), "tzone")[[2]], "UTC")
 
