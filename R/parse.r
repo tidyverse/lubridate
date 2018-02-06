@@ -733,7 +733,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
     ## C PARSER:
     out <- fast_strptime(x, fmt, tz = "UTC", lt = FALSE)
 
-    if ( tz != "UTC" ){
+    if ( tz != "UTC" ) {
       out <-
         if( zpos > 0 ){
           if( !quiet )

@@ -51,7 +51,7 @@ const std::unordered_map<std::string, int> TZMAP {
   {"PDT", -7}, {"PST", -8}, {"WEST", 1}, {"WET", 0}
 };
 
-const char* get_tzone(SEXP tz) {
+const char* tz_from_R_tzone(SEXP tz) {
   if (Rf_isNull(tz)) {
     return "";
   } else {
@@ -67,17 +67,17 @@ const char* get_tzone(SEXP tz) {
   }
 }
 
-const char* get_tzone_attr(SEXP tz){
-  return get_tzone(Rf_getAttrib(tz, Rf_install("tzone")));
+const char* tz_from_tzone_attr(SEXP x){
+  return tz_from_R_tzone(Rf_getAttrib(x, Rf_install("tzone")));
 }
 
 const char* get_current_tz() {
-  // ugly workaround to get local time zone (abbreviation) as seen by R
+  // ugly workaround to get local time zone (abbreviation) as seen by R (not used)
   Rcpp::NumericVector origin = Rcpp::NumericVector::create(0);
   origin.attr("class") = Rcpp::CharacterVector::create("POSIXct", "POSIXt");
   Rcpp::Environment base = Rcpp::Environment::base_namespace();
   Rcpp::Function as_posixlt(base["as.POSIXlt.POSIXct"]);
-  return get_tzone_attr(as_posixlt(origin));
+  return tz_from_R_tzone(as_posixlt(origin));
 }
 
 const char* get_system_tz() {
@@ -93,12 +93,15 @@ const char* get_system_tz() {
 }
 
 // initialize once per session
-const char* SYS_TZ(get_system_tz());
+const char* SYS_TZ; // = get_system_tz();
 
 const char* local_tz() {
   const char* tz_env = std::getenv("TZ");
   if (tz_env == NULL) {
-    // if unset, use Sys.timezone
+    // memoize once per session
+    if (SYS_TZ == NULL) {
+      SYS_TZ = get_system_tz();
+    }
     return SYS_TZ;
   } else if (strlen(tz_env) == 0) {
     // FIXME:
@@ -234,7 +237,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   if (do_yday + do_mday + do_wday > 1)
     Rcpp::stop("Conflicting days input, only one of yday, mday and wday must be supplied");
 
-  std::string tzfrom = get_tzone_attr(dt);
+  std::string tzfrom = tz_from_tzone_attr(dt);
   cctz::time_zone tzone1;
   load_tz_or_fail(tzfrom, tzone1, "Invalid timezone of input vector: \"%s\"");
 
@@ -243,7 +246,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   if (Rf_isNull(tz)) {
     tzto = tzfrom;
   } else {
-    tzto = get_tzone(tz);
+    tzto = tz_from_R_tzone(tz);
   }
   load_tz_or_fail(tzto, tzone2, "CCTZ: Unrecognized tzone: \"%s\"");
 
@@ -335,7 +338,7 @@ Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
   if (tz.size() != 1)
     Rcpp::stop("`tz` argument must be a single character string");
 
-  std::string tzfrom_name = get_tzone_attr(dt);
+  std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzto_name(tz[0]);
   cctz::time_zone tzfrom, tzto;
   load_tz_or_fail(tzfrom_name, tzfrom, "CCTZ: Unrecognized timezone of the input vector: \"%s\"");
@@ -378,7 +381,7 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
   if (tzs.size() != dt.size())
     Rcpp::stop("In 'C_force_tzs' tzs and dt arguments must be of the same length");
 
-  std::string tzfrom_name = get_tzone_attr(dt);
+  std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzout_name(tz_out[0]);
 
   cctz::time_zone tzfrom, tzto, tzout;
@@ -419,7 +422,7 @@ Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt,
   if (tzs.size() != dt.size())
     Rcpp::stop("`tzs` and `dt` arguments must be of the same length");
 
-  std::string tzfrom_name = get_tzone_attr(dt);
+  std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzto_old_name("not-a-tz");
   cctz::time_zone tzto;
 

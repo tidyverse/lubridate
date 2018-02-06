@@ -623,11 +623,11 @@ setMethod("Compare", signature(e1 = "numeric", e2 = "Period"),
 #' @export
 setMethod("Compare", c(e1 = "Period", e2 = "difftime"),
           function(e1, e2) {
-            callGeneric(as.numeric(e1, "secs"), as.numeric(e2, "secs"))
+            callGeneric(as.numeric(e1, units = "secs"), as.numeric(e2, units = "secs"))
           })
 
 #' @export
 setMethod("Compare", c(e1 = "difftime", e2 = "Period"),
           function(e1, e2) {
-            callGeneric(as.numeric(e1, "secs"), as.numeric(e2, "secs"))
+            callGeneric(as.numeric(e1, units = "secs"), as.numeric(e2, units = "secs"))
           })
