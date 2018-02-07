@@ -1,4 +1,5 @@
-Version 1.7.1.9000
+
+Version 1.7.2
 =============
 
 ### NEW FEATURES
@@ -17,6 +18,7 @@ Version 1.7.1.9000
 * [#605](https://github.com/tidyverse/lubridate/issues/605) Fix wrong ceiling of days during DST transition.
 * [#607](https://github.com/tidyverse/lubridate/issues/607) Re-instate `format` argument to `as_date` and `as_datetime` (regression in v1.7.1)
 * Fix intersection of intervals with missing values.
+* Fix UBSAN errors in update.cpp
 
 Version 1.7.1
 =============
