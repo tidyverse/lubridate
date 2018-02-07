@@ -406,6 +406,15 @@ test_that("update correctly handles 60 seconds on 59 minute (bug #313)", {
                ymd_hms("2015-01-01 01:00:00"))
 })
 
+test_that("Updateing on seconds doesn't affect hours", {
+  ## https://github.com/tidyverse/lubridate/issues/619
+
+  tt <- Sys.time()
+  tt2 <- tt
+  second(tt2) <- 5
+  expect_equal(hour(tt), hour(tt2))
+})
+
 
 ## ## bug #319
 ## x <- structure(list(sec = 0, min = 0, hour = 0, mday = -212, mon = 7L,

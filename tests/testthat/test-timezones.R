@@ -1,32 +1,5 @@
 context("Time zones")
 
-test_that("R timezone semantics stays unchanged", {
-  skip_on_cran()
-
-  ## hour checks are inspired by https://github.com/tidyverse/lubridate/issues/619
-
-  tt <- Sys.time()
-
-  sys_tz <- Sys.timezone()
-  posix_tz <- attr(as.POSIXlt(tt, tz = sys_tz), "tzone")[[2]]
-
-  ## ## TZ="" is sytem specific :(
-  ## Sys.setenv(TZ = "")
-  ## expect_equal(attr(as.POSIXlt(tt), "tzone")[[2]], "UTC")
-
-  ## tt2 <- tt
-  ## second(tt2) <- 5
-  ## expect_equal(hour(tt), hour(tt2))
-
-  ## System TZ if unset
-  Sys.unsetenv("TZ")
-  expect_equal(attr(as.POSIXlt(tt), "tzone")[[2]], posix_tz)
-
-  tt3 <- tt
-  second(tt3) <- 5
-  expect_equal(hour(tt), hour(tt3))
-
-})
 
 
 test_that("with_tz works as expected", {
