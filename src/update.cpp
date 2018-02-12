@@ -1,10 +1,11 @@
-#include <Rcpp.h>
-#include <inttypes.h>
+#define __STDC_LIMIT_MACROS
+#include <cstdint>
+#include <unordered_map>
 #include "civil_time.h"
 #include "time_zone.h"
 #include "time_zone_if.h"
-#include <unordered_map>
 #include "utils.h"
+#include <Rcpp.h>
 
 // CIVIL TIME:
 // https://github.com/google/cctz/blob/master/include/civil_time.h
