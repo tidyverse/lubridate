@@ -1,5 +1,5 @@
-#define __STDC_LIMIT_MACROS
 #include <cstdint>
+#include <limits>
 #include <unordered_map>
 #include "civil_time.h"
 #include "time_zone.h"
@@ -23,9 +23,9 @@
 /// floor
 
 int_fast64_t NA_INT32 = static_cast<int_fast64_t>(NA_INTEGER);
-int_fast64_t NA_INT64 = INT_FAST64_MIN;
-double fINT64_MAX = static_cast<double>(INT_FAST64_MAX);
-double fINT64_MIN = static_cast<double>(INT_FAST64_MIN);
+int_fast64_t NA_INT64 = std::numeric_limits<int_fast64_t>::min();
+double fINT64_MAX = static_cast<double>(std::numeric_limits<int_fast64_t>::max());
+double fINT64_MIN = static_cast<double>(std::numeric_limits<int_fast64_t>::min());
 
 int_fast64_t floor_to_int64(double x) {
   // maybe fixme: no warning yet on integer overflow
