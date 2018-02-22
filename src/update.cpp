@@ -93,16 +93,11 @@ const char* get_system_tz() {
   }
 }
 
-// initialize once per session
-const char* SYS_TZ; // = get_system_tz();
-
 const char* local_tz() {
+  // initialize once per session
+  static const char* SYS_TZ = get_system_tz();
   const char* tz_env = std::getenv("TZ");
   if (tz_env == NULL) {
-    // memoize once per session
-    if (SYS_TZ == NULL) {
-      SYS_TZ = get_system_tz();
-    }
     return SYS_TZ;
   } else if (strlen(tz_env) == 0) {
     // FIXME:
