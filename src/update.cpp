@@ -116,7 +116,7 @@ bool load_tz(std::string tzstr, cctz::time_zone& tz) {
   if (tzstr.size() == 0) {
     // CCTZ doesn't work on windows https://github.com/google/cctz/issues/53
     /* std::cout << "Local TZ: " << local_tz() << std::endl; */
-    cctz::load_time_zone(local_tz(), &tz);
+    return cctz::load_time_zone(local_tz(), &tz);
   } else {
     if (!cctz::load_time_zone(tzstr, &tz)) {
       auto el = TZMAP.find(tzstr);
@@ -126,8 +126,8 @@ bool load_tz(std::string tzstr, cctz::time_zone& tz) {
         return false;
       }
     }
+    return true;
   }
-  return true;
 }
 
 // [[Rcpp::export]]
