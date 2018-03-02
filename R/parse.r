@@ -704,7 +704,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   newx <- x[na]
 
   verbose <- getOption("lubridate.verbose")
-  if( !is.null(verbose) && verbose )
+  if( isTRUE(verbose) )
     message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   ## recursive parsing

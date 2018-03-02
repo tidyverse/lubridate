@@ -89,7 +89,10 @@ divisible_period <- function(per, anchor) {
 
 
 divide_period_by_period <- function(per1, per2) {
-  message("estimate only: convert to intervals for accuracy")
+  verbose <- getOption("lubridate.verbose")
+  if( isTRUE(verbose) )
+    message("estimate only: convert to intervals for accuracy")
+
   period_to_seconds(per1) / period_to_seconds(per2)
 }
 
