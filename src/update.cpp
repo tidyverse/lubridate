@@ -95,7 +95,7 @@ const char* get_system_tz() {
 
 const char* local_tz() {
   // initialize once per session
-  static const char* SYS_TZ = get_system_tz();
+  static const char* SYS_TZ = strdup(get_system_tz());
   const char* tz_env = std::getenv("TZ");
   if (tz_env == NULL) {
     return SYS_TZ;
