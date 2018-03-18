@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include "civil_time.h"
 #include "time_zone.h"
-#include "time_zone_if.h"
 #include "utils.h"
 #include <Rcpp.h>
 
