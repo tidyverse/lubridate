@@ -319,7 +319,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' @examples
 #' span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01")) #interval
 #' as.period(span)
-#' as.period(span, units = "day")
+#' as.period(span, unit = "day")
 #' "397d 1H 1M 1S"
 #' leap <- interval(ymd("2016-01-01"), ymd("2017-01-01"))
 #' as.period(leap, unit = "days")
