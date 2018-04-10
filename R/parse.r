@@ -260,7 +260,7 @@ ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIM
 ##' @export
 ms <- function(..., quiet = FALSE, roll = FALSE) {
   out <- .parse_hms(..., order = "MS", quiet = quiet)
-  if(roll){
+  if (roll) {
     hms <- .roll_hms(min = out["M", ], sec = out["S", ])
     period(hour = hms$hour, minute = hms$min, second = hms$sec)
   } else {
@@ -276,7 +276,7 @@ ms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' @export
 hm <- function(..., quiet = FALSE, roll = FALSE) {
   out <- .parse_hms(..., order = "HM", quiet = quiet)
-  if(roll){
+  if (roll) {
     hms <- .roll_hms(hour = out["H", ], min = out["M", ])
     period(hour = hms$hour, minute = hms$min, second = hms$sec)
   } else {
@@ -310,7 +310,7 @@ hm <- function(..., quiet = FALSE, roll = FALSE) {
 ##' @export
 hms <- function(..., quiet = FALSE, roll = FALSE) {
   out <- .parse_hms(..., order = "HMS", quiet = quiet)
-  if(roll){
+  if (roll) {
     hms <- .roll_hms(out["H", ], out["M", ], out["S", ])
     period(hour = hms$hour, minute = hms$min, second = hms$sec)
   } else {
@@ -331,10 +331,10 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
   hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
   out <- matrix(.Call(C_parse_hms, hms, order),
                 nrow = 3L, dimnames = list(c("H", "M", "S"), NULL))
-  if(!quiet){
+  if (!quiet) {
     ## fixme: this warning should be dropped to C and thrown only when there are
     ## real parsing errors #530
-    if(any(is.na(out[substr(order, ln <- nchar(order), ln), ])))
+    if (any(is.na(out[substr(order, ln <- nchar(order), ln), ])))
       warning("Some strings failed to parse, or all strings are NAs")
   }
   out
@@ -611,9 +611,9 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
     if (length(formats) > 0) {
       out <- .parse_date_time(x, formats, tz = tz, quiet = quiet, locale = locale)
       new_na <- is.na(out)
-      if( any(new_na) ){
+      if (any(new_na)) {
         x <- x[new_na]
-        if(length(x) < length(out)) # don't recur if failed for all
+        if (length(x) < length(out)) # don't recur if failed for all
           out[new_na] <- .local_parse(x)
       }
       out
@@ -659,11 +659,11 @@ parse_dt <- function(x, orders, is_format = FALSE, return_lt = FALSE, cutoff_200
 ##'   `cutoff_2000` are parsed as 20th's century, 19th's otherwise. Available only
 ##'   for functions relying on `lubridate`s internal parser.
 parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L){
-  if(length(orders) > 1)
+  if (length(orders) > 1)
     warning("Multiple orders supplied. Only first order is used.")
-  if(!exact)
+  if (!exact)
     orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
-  if(lt){
+  if (lt) {
     .mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz)
   } else {
     if (tz == "UTC"){
@@ -684,10 +684,10 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, c
 ##'   separators and each format must be prefixed with %, just as in the format
 ##'   argument of `strptime()`.
 fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
-  if(length(format) > 1)
+  if (length(format) > 1)
     warning("Multiple formats supplied. Only first format is used.")
   format <- as.character(format[[1]])
-  if(lt) {
+  if (lt) {
     .mklt(parse_dt(x, format, TRUE, TRUE, cutoff_2000), tz)
   } else{
     if (tz == "UTC") {
@@ -718,11 +718,11 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   newx <- x[na]
 
   verbose <- getOption("lubridate.verbose")
-  if( !is.null(verbose) && verbose )
-    message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
+  if (!is.null(verbose) && verbose)
+    message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   ## recursive parsing
-  if( length(formats) > 1 && length(newx) > 0 )
+  if (length(formats) > 1 && length(newx) > 0)
     out[na] <- .parse_date_time(newx, formats[-1], tz = tz, quiet = quiet, locale = locale)
 
   ## return POSIXlt
@@ -863,7 +863,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 
 .parse_xxx <- function(..., orders, quiet, tz, locale,  truncated){
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  if(is.null(tz)){
+  if (is.null(tz)) {
     as.Date.POSIXct(parse_date_time(dates, orders, quiet = quiet, tz = "UTC",
                                     locale = locale, truncated = truncated))
   } else {
