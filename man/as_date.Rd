@@ -3,6 +3,7 @@
 \docType{methods}
 \name{as_date}
 \alias{as_date}
+\alias{as_date,ANY-method}
 \alias{as_date,POSIXt-method}
 \alias{as_date,numeric-method}
 \alias{as_date,character-method}
@@ -14,6 +15,8 @@
 \title{Convert an object to a date or date-time}
 \usage{
 as_date(x, ...)
+
+\S4method{as_date}{ANY}(x, ...)
 
 \S4method{as_date}{POSIXt}(x, tz = NULL)
 

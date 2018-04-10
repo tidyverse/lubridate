@@ -626,20 +626,40 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' as_date(10)
 #' @export
 setGeneric(name = "as_date",
-           def = function(x, ...) standardGeneric("as_date"),
-           useAsDefault = as.Date)
+           def = function(x, ...) standardGeneric("as_date"))
+
+#' @rdname as_date
+#' @export
+setMethod("as_date", "ANY",
+          function(x, ...) {
+            ## From: Kurt Hornik <Kurt.Hornik@wu.ac.at>
+            ## Date: Tue, 3 Apr 2018 18:53:19
+            ##
+            ## `zoo` has its own as.Date for which it registers its yearmon
+            ## method (and base::as.Date as the default S3 method).  In fact,
+            ## zoo also exports as.Date.yearmon etc, but the above
+            ##
+            ##    lubridate::as_date(zoo::as.yearmon("2011-01-07"))
+            ##
+            ## does not attach the zoo exports, hence does not find
+            ## as.Date.yearmon on the search path.
+            if (inherits(x, c("yearmon", "yearqtr")))
+              zoo::as.Date(x, ...)
+            else
+              base::as.Date(x, ...)
+          })
 
 #' @rdname as_date
 #' @export
 setMethod(f = "as_date", signature = "POSIXt",
-          function (x, tz = NULL) {
+          function(x, tz = NULL) {
             tz <- if (is.null(tz)) tz(x) else tz
             as.Date(x, tz = tz)
           })
 
 #' @rdname as_date
 setMethod(f = "as_date", signature = "numeric",
-          function (x, origin = lubridate::origin) {
+          function(x, origin = lubridate::origin) {
             as.Date(x, origin = origin)
           })
 
