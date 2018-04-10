@@ -594,6 +594,27 @@ test_that("%within% works as expected", {
 
 })
 
+
+test_that("%with% recycles both arguments", {
+  blackouts<- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+                interval(ymd("2014-12-30"), ymd("2015-01-03")))
+  testdates <-c(ymd("2014-12-20", ymd("2014-12-30"), ymd("2015-01-01"), ymd("2015-01-03")))
+  expect_equal(testdates %within% blackouts, c(F, T, F, T))
+})
+
+test_that("%with% works with list of intervals", {
+
+  testdates <-ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+  blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+                   interval(ymd("2014-12-30"), ymd("2015-01-03")))
+  expect_equal(testdates %within% blackouts, c(F, T, T, T))
+  testdates <-c(ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"), tz = "UTC"))
+  blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+                   interval(ymd("2014-12-30"), ymd("2015-01-03")))
+  expect_equal(testdates %within% blackouts, c(F, T, T, T))
+
+})
+
 test_that("summary.Interval creates useful summary", {
   time1 <- as.POSIXct("2001-01-01", tz = "UTC")
   time2 <- as.POSIXct("2003-01-01", tz = "UTC")

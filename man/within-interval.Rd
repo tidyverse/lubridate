@@ -11,21 +11,35 @@ a \%within\% b
 \arguments{
 \item{a}{An interval or date-time object}
 
-\item{b}{An interval}
+\item{b}{An interval or a list of intervals (see examples)}
 }
 \value{
 A logical
 }
 \description{
-%within% returns TRUE if a falls within interval b, FALSE otherwise.
-If a is an interval, both its start and end dates must fall within b
-to return TRUE.
+%within% returns TRUE if \code{a} falls within interval \code{b}. Both \code{a} and \code{b} are
+recycled according to standard R rules. If \code{b} is a list of intervals, \code{a} is
+checked if it falls within any of the intervals in \code{b}. If a is an interval,
+both its start and end dates must fall within b to return TRUE.
 }
 \examples{
+
 int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 int2 <- interval(ymd("2001-06-01"), ymd("2002-01-01"))
 
 ymd("2001-05-03") \%within\% int # TRUE
 int2 \%within\% int # TRUE
 ymd("1999-01-01") \%within\% int # FALSE
+
+## recycling
+dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+blackouts<- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+              interval(ymd("2014-12-30"), ymd("2015-01-03")))
+testdates \%within\% blackouts
+
+## within ANY of the intervals of a list
+dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+                 interval(ymd("2014-12-30"), ymd("2015-01-03")))
+testdates \%within\% blackouts
 }

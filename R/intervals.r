@@ -521,32 +521,51 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
 
 #' Tests whether a date or interval falls within an interval
 #'
-#' %within% returns TRUE if a falls within interval b, FALSE otherwise.
-#' If a is an interval, both its start and end dates must fall within b
-#' to return TRUE.
+#' %within% returns TRUE if `a` falls within interval `b`. Both `a` and `b` are
+#' recycled according to standard R rules. If `b` is a list of intervals, `a` is
+#' checked if it falls within any of the intervals in `b`. If a is an interval,
+#' both its start and end dates must fall within b to return TRUE.
 #'
 #' @export
 #' @rdname within-interval
 #' @aliases %within%,Interval,Interval-method %within%,ANY,Interval-method
 #' @param a An interval or date-time object
-#' @param b An interval
+#' @param b An interval or a list of intervals (see examples)
 #' @return A logical
 #' @examples
+#'
 #' int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' int2 <- interval(ymd("2001-06-01"), ymd("2002-01-01"))
 #'
 #' ymd("2001-05-03") %within% int # TRUE
 #' int2 %within% int # TRUE
 #' ymd("1999-01-01") %within% int # FALSE
+#'
+#' ## recycling
+#' dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+#' blackouts<- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+#'               interval(ymd("2014-12-30"), ymd("2015-01-03")))
+#' testdates %within% blackouts
+#'
+#' ## within ANY of the intervals of a list
+#' dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+#' blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+#'                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
+#' testdates %within% blackouts
+
 "%within%" <- function(a, b) standardGeneric("%within%")
 
 #' @export
 setGeneric("%within%")
 
+.within <- function(a, int) {
+  as.numeric(a) - as.numeric(int@start) <= int@.Data & as.numeric(a) - as.numeric(int@start) >= 0
+}
+
 setMethod("%within%", signature(b = "Interval"), function(a, b) {
   if (!is.instant(a)) stop("Argument 1 is not a recognized date-time")
   a <- as.POSIXct(a)
-  as.numeric(a) - as.numeric(b@start) <= b@.Data & as.numeric(a) - as.numeric(b@start) >= 0
+  .within(a, b)
 })
 
 setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a, b) {
@@ -556,6 +575,28 @@ setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a, b) 
   end.in <- (as.numeric(a@start) + a@.Data) <= (as.numeric(b@start) + b@.Data)
   start.in & end.in
 })
+
+setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a, b) {
+  a <- int_standardize(a)
+  b <- int_standardize(b)
+  start.in <- as.numeric(a@start) >= as.numeric(b@start)
+  end.in <- (as.numeric(a@start) + a@.Data) <= (as.numeric(b@start) + b@.Data)
+  start.in & end.in
+})
+
+.within_instant <- function(a, b) {
+  if (!all(sapply(b, is.interval)))
+    stop("When second argument to %within% is a list it must contain interval objects only")
+  a <- as.POSIXct(a)
+  out <- FALSE
+  for (int in b) {
+    out <- out | .within(a, int)
+  }
+  out
+}
+
+setMethod("%within%", signature(a = "POSIXt", b = "list"), .within_instant)
+setMethod("%within%", signature(a = "Date", b = "list"), .within_instant)
 
 #' @export
 as.list.Interval <- function(x, ...) {

@@ -1,6 +1,10 @@
 Version 1.7.3.9000
 ==================
 
+### NEW FEATURES
+
+* [#658](https://github.com/tidyverse/lubridate/issues/658) `%within%` now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.
+
 ### CHANGES
 
 * [#661](https://github.com/tidyverse/lubridate/issues/661) Throw error on invalid multi-unit rounding.
