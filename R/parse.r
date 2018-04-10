@@ -613,8 +613,12 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
       new_na <- is.na(out)
       if (any(new_na)) {
         x <- x[new_na]
-        if (length(x) < length(out)) # don't recur if failed for all
+        if (length(x) == length(out)) {
+          # don't recur if failed for all
+          failed <<- length(x)
+        } else {
           out[new_na] <- .local_parse(x)
+        }
       }
       out
     } else {

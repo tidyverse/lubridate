@@ -167,6 +167,10 @@ test_that("ymd functions correctly parse dates with no separators", {
               equals(as.Date("2010-01-02")))
 })
 
+test_that("ymd parser warns on failed parsing", {
+  expect_warning(ymd("2018-02-30", quiet = FALSE), ".*failed to parse")
+})
+
 test_that("ymd function correctly parse b and B formats", {
     expect_equal(ymd("2004-Jan-15"), as.Date("2004-01-15"))
     expect_equal(ymd("2004-January-15"),
@@ -990,7 +994,7 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
                                exact = T),
                as.POSIXct(c("1996-12-17 04:00:00 UTC", "1950-04-18 01:30:00 UTC"), tz = "UTC"))
   x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
-  expect_equal(parse_date_time(x, c("%m-%d-%y", "%m%d%y", "%m-%d-%y %H:%M"), exact = TRUE),
+  expect_equal(parse_date_time(x, c("%m-%d-%y", "%m%d%y", "%m-%d-%y %H:%M"), exact = TRUE, quiet = T),
                as.POSIXct(c("2001-09-01 00:00:00 UTC", "2002-09-01 00:00:00 UTC",
                             NA,  "2003-09-01 12:02:00 UTC"),
                           tz = "UTC"))
