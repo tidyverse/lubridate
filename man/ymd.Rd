@@ -56,6 +56,13 @@ formats is correct, these functions will parse dates correctly even when the
 input vectors contain differently formatted dates. See examples.
 }
 \details{
+In case of heterogeneous date formats \code{ymd()} family guesses formats based
+on a sub-set of the input vector.  If the input vector contains many missing
+values or non-date strings, the sub-set might not contain meaningful dates
+and the date-time format won't be guessed resulting in
+"All formats failed to parse" error. In such cases please see
+\code{\link[=parse_date_time]{parse_date_time()}} for a more flexible parsing interface.
+
 If the \code{truncated} parameter is non-zero, the \code{ymd} functions also check for
 truncated formats. For example \code{ymd()} with \code{truncated = 2} will also
 parse incomplete dates like \code{2012-06} and \code{2012}.

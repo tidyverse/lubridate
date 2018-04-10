@@ -25,15 +25,15 @@ the next valid civil time, otherwise return NA. See examples.}
 stamps. If \code{time} and \code{tzones} lengths differ, the smaller one is recycled
 in accordance with usual R conventions.}
 
-\item{tzone_out}{timezone of the returned date-time vector}
+\item{tzone_out}{timezone of the returned date-time vector (for \code{force_tzs}).}
 }
 \value{
 a POSIXct object in the updated time zone
 }
 \description{
 \code{force_tz} returns the date-time that has the same clock time as input time,
-but in the new time zone. \code{force_tzs} is the parallel version of \code{force_tz}
-in a sense that every element from \code{time} argument is matched with the
+but in the new time zone. \code{force_tzs} is the parallel version of \code{force_tz},
+meaning that every element from \code{time} argument is matched with the
 corresponding time zone in \code{tzones} argument.
 }
 \details{

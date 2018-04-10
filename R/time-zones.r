@@ -45,8 +45,8 @@ with_tz <- function (time, tzone = "") {
 #' Replace time zone to create new date-time
 #'
 #' `force_tz` returns the date-time that has the same clock time as input time,
-#'  but in the new time zone. `force_tzs` is the parallel version of `force_tz`
-#'  in a sense that every element from `time` argument is matched with the
+#'  but in the new time zone. `force_tzs` is the parallel version of `force_tz`,
+#'  meaning that every element from `time` argument is matched with the
 #'  corresponding time zone in `tzones` argument.
 #'
 #'  Although the new date-time has the same clock time (e.g. the same values in
@@ -102,7 +102,7 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
 #' @param tzones character vector of timezones to be "enforced" on `time` time
 #'   stamps. If `time` and `tzones` lengths differ, the smaller one is recycled
 #'   in accordance with usual R conventions.
-#' @param tzone_out timezone of the returned date-time vector
+#' @param tzone_out timezone of the returned date-time vector (for `force_tzs`).
 #' @rdname force_tz
 #' @examples
 #'

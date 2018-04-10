@@ -90,6 +90,13 @@ incomplete dates like \code{2012-06-01 12:23}, \code{2012-06-01 12} and
 \code{2012-06-01}. NOTE: The \code{ymd} family of functions are based on
 \code{\link[=strptime]{strptime()}} which currently fails to parse \code{\%y-\%m} formats.
 
+In case of heterogeneous date formats \code{ymd_hms()} family guesses formats
+based on a sub-set of the input vector. If the input vector contains many
+missing values or non-date strings, the sub-set might not contain meaningful
+dates and the date-time format won't be guessed resulting in
+"All formats failed to parse" error. In such cases please see
+\code{\link[=parse_date_time]{parse_date_time()}} for a more flexible parsing interface.
+
 As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a
 message that displays which format they used to parse their input. You can
 change this by setting the \code{lubridate.verbose} option to \code{TRUE} with

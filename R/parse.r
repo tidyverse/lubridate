@@ -6,6 +6,13 @@
 ##' formats is correct, these functions will parse dates correctly even when the
 ##' input vectors contain differently formatted dates. See examples.
 ##'
+##' In case of heterogeneous date formats `ymd()` family guesses formats based
+##' on a sub-set of the input vector.  If the input vector contains many missing
+##' values or non-date strings, the sub-set might not contain meaningful dates
+##' and the date-time format won't be guessed resulting in
+##' "All formats failed to parse" error. In such cases please see
+##' [parse_date_time()] for a more flexible parsing interface.
+##'
 ##' If the `truncated` parameter is non-zero, the `ymd` functions also check for
 ##' truncated formats. For example `ymd()` with `truncated = 2` will also
 ##' parse incomplete dates like `2012-06` and `2012`.
@@ -112,6 +119,13 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' incomplete dates like `2012-06-01 12:23`, `2012-06-01 12` and
 ##' `2012-06-01`. NOTE: The `ymd` family of functions are based on
 ##' [strptime()] which currently fails to parse \code{\%y-\%m} formats.
+##'
+##' In case of heterogeneous date formats `ymd_hms()` family guesses formats
+##' based on a sub-set of the input vector. If the input vector contains many
+##' missing values or non-date strings, the sub-set might not contain meaningful
+##' dates and the date-time format won't be guessed resulting in
+##' "All formats failed to parse" error. In such cases please see
+##' [parse_date_time()] for a more flexible parsing interface.
 ##'
 ##' As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a
 ##' message that displays which format they used to parse their input. You can
