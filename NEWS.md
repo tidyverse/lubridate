@@ -11,6 +11,10 @@ Version 1.7.3.9000
 * [#633](https://github.com/tidyverse/lubridate/issues/633) `%%` on intervals relies on `%m+` arithmetic and doesn't produce NAs when intermediate computations result in non-existent dates.
 * `tz()` always returns "UTC" when `tzone` attribute cannot be inferred.
 
+### BUG FIXES
+
+* [#664](https://github.com/tidyverse/lubridate/issues/664) Fix lookup of period functions in `as.period`
+
 Version 1.7.3
 =============
 

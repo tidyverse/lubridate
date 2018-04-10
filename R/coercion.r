@@ -350,7 +350,9 @@ setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ..
   x <- as.numeric(x)
   if (missing(unit)) unit <- "second"
   unit <- standardise_date_names(unit)
-  f <- match.fun(paste(unit, "s", sep = ""))
+  f <- get(paste(unit, "s", sep = ""),
+           envir = asNamespace("lubridate"),
+           mode = "function", inherits = FALSE)
   f(x)
 })
 
