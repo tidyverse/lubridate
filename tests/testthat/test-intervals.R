@@ -109,7 +109,7 @@ test_that("interval handles POSIXlt inputs", {
 
   oldtz <- Sys.getenv("TZ")
   Sys.setenv(TZ = "America/Los_Angeles")
-  on.exit(Sys.setenv(TZ = oldtz))
+  on.exit(if (oldtz == "") Sys.unsetenv("TZ") else Sys.setenv(TZ = oldtz))
 
   t1 <- as.POSIXlt("2007-01-01")
   t2 <- as.POSIXlt("2007-08-01")
@@ -612,6 +612,20 @@ test_that("%with% works with list of intervals", {
   blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
                    interval(ymd("2014-12-30"), ymd("2015-01-03")))
   expect_equal(testdates %within% blackouts, c(F, T, T, T))
+
+})
+
+test_that("%% on interval uses m+ arithmetic", {
+
+  ## From https://github.com/tidyverse/lubridate/issues/633
+  start <- c("2016-04-29 12:00:00 GMT", "2013-10-31 12:00:00 GMT", "2012-05-31 12:00:00 GMT", "2010-06-29 12:00:00 GMT",
+             "2014-12-31 12:00:00 GMT", "2015-08-31 12:00:00 GMT", "2013-03-29 12:00:00 GMT", "2014-07-31 12:00:00 GMT")
+  end <- c("2017-03-25", "2014-03-16", "2012-12-15", "2011-03-25", "2015-10-16", "2016-03-16", "2014-03-28", "2015-07-22")
+
+  x <- as.POSIXct(start)
+  int <- interval(x, end)
+  n <- int %/% months(1)
+  expect_true(!any(is.na(int %% months(1))))
 
 })
 

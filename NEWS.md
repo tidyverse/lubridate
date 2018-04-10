@@ -8,6 +8,8 @@ Version 1.7.3.9000
 ### CHANGES
 
 * [#661](https://github.com/tidyverse/lubridate/issues/661) Throw error on invalid multi-unit rounding.
+* [#633](https://github.com/tidyverse/lubridate/issues/633) `%%` on intervals relies on `%m+` arithmetic and doesn't produce NAs when intermediate computations result in non-existent dates.
+* `tz()` always returns "UTC" when `tzone` attribute cannot be inferred.
 
 Version 1.7.3
 =============
