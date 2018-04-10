@@ -60,7 +60,9 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
   int out_lt = *LOGICAL(lt);
   int cut2000 = *INTEGER(cutoff_2000);
 
-  SEXP oYEAR, oMONTH, oDAY, oHOUR, oMIN, oSEC;
+  // initialize to avoid -Wmaybe-uninitialized gcc warnings
+  SEXP oYEAR = R_NilValue, oMONTH = R_NilValue, oDAY = R_NilValue,
+    oHOUR = R_NilValue, oMIN = R_NilValue, oSEC = R_NilValue;
 
   if(out_lt){
     oYEAR  = PROTECT(allocVector(INTSXP, n));
@@ -288,7 +290,7 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
     // If at least one subparser hasn't finished it's a failure.
     if ( *c || *o ) succeed = 0;
 
-    int is_leap;
+    int is_leap = 0;
 
     // adjust months for quarter
     if (q > 1)
