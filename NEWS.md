@@ -1,5 +1,5 @@
-Version 1.7.3.9000
-==================
+Version 1.7.4
+=============
 
 ### NEW FEATURES
 
@@ -14,6 +14,7 @@ Version 1.7.3.9000
 ### BUG FIXES
 
 * [#664](https://github.com/tidyverse/lubridate/issues/664) Fix lookup of period functions in `as.period`
+* [#649](https://github.com/tidyverse/lubridate/issues/664) Fix system timezone memoization
 
 Version 1.7.3
 =============
