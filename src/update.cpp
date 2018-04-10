@@ -234,7 +234,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
 
   std::string tzfrom = tz_from_tzone_attr(dt);
   cctz::time_zone tzone1;
-  load_tz_or_fail(tzfrom, tzone1, "Invalid timezone of input vector: \"%s\"");
+  load_tz_or_fail(tzfrom, tzone1, "CCTZ: Invalid timezone of the input vector: \"%s\"");
 
   std::string tzto;
   cctz::time_zone tzone2;

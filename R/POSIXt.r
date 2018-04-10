@@ -23,13 +23,13 @@ is.POSIXlt <- function(x) inherits(x, "POSIXlt")
 is.POSIXct <- function(x) inherits(x, "POSIXct")
 
 #' @method c POSIXct
-c.POSIXct <- function (..., recursive = FALSE) {
+c.POSIXct <- function(..., recursive = FALSE) {
   dots <- list(...)
   .POSIXct(c(unlist(lapply(dots, unclass))), tz = tz(dots[[1]]))
 }
 
 #' @method c POSIXlt
-c.POSIXlt <- function (..., recursive = FALSE) {
+c.POSIXlt <- function(..., recursive = FALSE) {
   as.POSIXlt(do.call("c.POSIXct", lapply(list(...), as.POSIXct)))
 }
 
