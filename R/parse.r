@@ -747,10 +747,10 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
     ## C PARSER:
     out <- fast_strptime(x, fmt, tz = "UTC", lt = FALSE)
 
-    if ( tz != "UTC" ) {
+    if (tz != "UTC") {
       out <-
-        if( zpos > 0 ){
-          if( !quiet )
+        if (zpos > 0){
+          if (!quiet)
             message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
           with_tz(out, tzone = tz)
         } else {
@@ -773,7 +773,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
       }
     }
 
-    if( zpos > 0 ){
+    if (zpos > 0){
       ## If ISO8601 -> pre-process x and fmt
       capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
       repl <- switch(capt,
@@ -790,8 +790,8 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
       str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
 
       ## user has supplied tz argument -> convert to tz
-      if( tz != "UTC" ){
-        if( !quiet )
+      if (tz != "UTC"){
+        if (!quiet)
           message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
         return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))
       }
@@ -809,7 +809,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 .add_truncated <- function(orders, truncated){
   out <- orders
 
-  if ( truncated > 0 ) {
+  if (truncated > 0) {
     trunc_one <- function(order) {
       alphas <- gregexpr("[a-zA-Z]", order)[[1]]
       start <- max(0, length(alphas) - truncated)
@@ -846,13 +846,13 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 
 .parse_xxx_hms <- function(..., orders, truncated, quiet, tz, locale){
   ## !!! NOTE: truncated operates on first element in ORDERS !
-  if( truncated > 0 ){
+  if (truncated > 0){
     ## Take first 3 formats and append formats from .xxx_hms_truncations
     ## co responding to the 4th format letter in order[[1]] -- T, R or r.
     xxx <- substr(orders[[1]], 1, 3) ##
     add <- paste(xxx, .xxx_hms_truncations[[substr(orders[[1]], 4, 4)]], sep = "")
     rest <- length(add) - truncated
-    if( rest  < 0 )
+    if (rest  < 0)
       orders <- c(orders, add, .add_truncated(xxx, abs(rest)))
     else
       orders <- c(orders, add[1:truncated])
