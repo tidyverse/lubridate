@@ -66,7 +66,10 @@ tz.default <- function(x) {
     return("UTC")
   if (is.character(tzone) && nzchar(tzone))
     return(tzone)
-  attr(as.POSIXlt(x[1]), "tzone")[[1]]
+  tzone <- attr(as.POSIXlt(x[1]), "tzone")[[1]]
+  if (is.null(tzone))
+    return("UTC")
+  tzone
 }
 
 #' @export
