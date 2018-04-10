@@ -289,8 +289,13 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
   }
 }
 
+trunc_multi_limits <- c(second = 60L, minute = 60L, hour = 24, day = 31)
+
 trunc_multi_unit <- function(x, unit, n) {
   x <- as.POSIXlt(x)
+  if (n > trunc_multi_limits[[unit]])
+    stop(sprintf("Rounding with %s > %d is not supported", unit, trunc_multi_limits[[unit]]))
+
   switch(unit,
          second = {
            x$sec <- if (n == 1) trunc(x$sec) else floor_multi_unit(x$sec, n)

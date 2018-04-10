@@ -1,3 +1,10 @@
+Version 1.7.3.9000
+==================
+
+### CHANGES
+
+* [#661](https://github.com/tidyverse/lubridate/issues/661) Throw error on invalid multi-unit rounding.
+
 Version 1.7.3
 =============
 

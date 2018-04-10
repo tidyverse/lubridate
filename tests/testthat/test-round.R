@@ -14,6 +14,15 @@ test_that("floor_date works for each time element", {
   expect_identical(floor_date(x, "year"), as.POSIXct("2009-01-01 00:00:00", tz = "UTC"))
 })
 
+test_that("floor_date and round_date throw on invalid multi-unit spec", {
+  x <- ymd_hms("2009-08-03 12:01:57.11")
+
+  expect_error(floor_date(x, "120 sec"))
+  expect_error(floor_date(x, "120 min"))
+  expect_error(floor_date(x, "25 h"))
+  expect_error(floor_date(x, "32 days"))
+})
+
 test_that("floor_date works for multi-units", {
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
   expect_identical(floor_date(x, "2 secs"),   as.POSIXct("2009-08-03 12:01:58", tz = "UTC"))
