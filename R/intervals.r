@@ -529,6 +529,7 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
 #' @export
 #' @rdname within-interval
 #' @aliases %within%,Interval,Interval-method %within%,ANY,Interval-method
+#'   %within%,Date,list-method %within%,POSIXt,list-method
 #' @param a An interval or date-time object
 #' @param b An interval or a list of intervals (see examples)
 #' @return A logical
@@ -545,13 +546,13 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
 #' dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
 #' blackouts<- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
 #'               interval(ymd("2014-12-30"), ymd("2015-01-03")))
-#' testdates %within% blackouts
+#' dates %within% blackouts
 #'
 #' ## within ANY of the intervals of a list
 #' dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
 #' blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
 #'                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
-#' testdates %within% blackouts
+#' dates %within% blackouts
 
 "%within%" <- function(a, b) standardGeneric("%within%")
 
