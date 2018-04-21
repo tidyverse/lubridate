@@ -465,7 +465,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   rounding or unavailability of the time stamp. If the `truncated` parameter
 ##'   is non-zero `parse_date_time()` also checks for truncated formats. For
 ##'   example,  if the format order is "ymdHMS" and `truncated = 3`,
-##'   `parse_date_time()` will correctly parse incomplete dates like `2012-06-01
+##'   `parse_date_time()` will correctly parse incomplete date-times like `2012-06-01
 ##'   12:23`, `2012-06-01 12` and `2012-06-01`. \bold{NOTE:} The `ymd` family of
 ##'   functions are based on `strptime()` which currently fails to parse
 ##'   \code{\%Y-\%m} formats.
