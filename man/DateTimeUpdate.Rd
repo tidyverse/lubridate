@@ -12,7 +12,7 @@
 \item{object}{a date-time object}
 
 \item{...}{named arguments: years, months, ydays, wdays, mdays, days, hours,
-minutes, seconds, tzs (time zone compnent)}
+minutes, seconds, tzs (time zone component)}
 
 \item{roll}{logical. If \code{TRUE}, and the resulting date-time lands on a
 non-existent civil time instant (DST, 29th February, etc.) roll the date

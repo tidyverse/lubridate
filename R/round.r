@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Rounding to the nearest unit or multiple of a unit are supported. All
-#' meaningfull specifications in English language are supported - secs, min,
+#' meaningful specifications in English language are supported - secs, min,
 #' mins, 2 minutes, 3 years etc.
 #'
 #' Rounding to fractional seconds is supported. Please note that rounding to

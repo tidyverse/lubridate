@@ -36,7 +36,7 @@ default for \pkg{lubridate} prior to \code{v1.6.0}. See section \code{Rounding U
 }
 \description{
 Rounding to the nearest unit or multiple of a unit are supported. All
-meaningfull specifications in English language are supported - secs, min,
+meaningful specifications in English language are supported - secs, min,
 mins, 2 minutes, 3 years etc.
 
 Rounding to fractional seconds is supported. Please note that rounding to
