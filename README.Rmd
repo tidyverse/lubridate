@@ -88,3 +88,7 @@ Lubridate also expands the type of mathematical operations that can be performed
   seconds, and day light savings time
 
 * `intervals`, a protean summary of the time information between two points
+
+See a list of functions on the [cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/lubridate.pdf):
+
+<a href="https://github.com/rstudio/cheatsheets/blob/master/lubridate.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"/></a>  
