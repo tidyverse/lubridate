@@ -42,6 +42,10 @@ install.packages("lubridate")
 devtools::install_github("tidyverse/lubridate")
 ```
 
+## Cheatsheet
+
+<a href="https://github.com/rstudio/cheatsheets/blob/master/lubridate.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"/></a>
+
 ## Features
 
   - Easy and fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`,
@@ -99,8 +103,3 @@ classes borrowed from <http://joda.org>.
 
   - `intervals`, a protean summary of the time information between two
     points
-
-See a list of functions on the [cheat
-sheet](https://github.com/rstudio/cheatsheets/blob/master/lubridate.pdf):
-
-<a href="https://github.com/rstudio/cheatsheets/blob/master/lubridate.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"/></a>
