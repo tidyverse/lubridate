@@ -45,6 +45,10 @@ install.packages("lubridate")
 devtools::install_github("tidyverse/lubridate")
 ```
 
+## Cheatsheet
+
+<a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"/></a>  
+
 ## Features
 
 *   Easy and fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`, `dmy_hms`,
@@ -88,3 +92,4 @@ Lubridate also expands the type of mathematical operations that can be performed
   seconds, and day light savings time
 
 * `intervals`, a protean summary of the time information between two points
+
