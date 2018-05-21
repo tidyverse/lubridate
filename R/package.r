@@ -45,8 +45,8 @@
 #' [now()] returns the current system time as a POSIXct
 #' object. [today()] returns the current system date.
 #' For convenience, 1970-01-01 00:00:00 is saved to
-#' [origin()]. This is the instant from which POSIXct
-#' times are calculated. Try unclass(now()) to see the numeric structure that
+#' [origin]. This is the instant from which POSIXct
+#' times are calculated. Try `unclass(now())` to see the numeric structure that
 #' underlies POSIXct objects. Each POSIXct object is saved as the number of seconds
 #' it occurred after 1970-01-01 00:00:00.
 #'
@@ -147,7 +147,7 @@
 #' [leap_year()] tests whether an instant occurs during
 #' a leap year.
 #' [pretty_dates()] provides a method of making pretty
-#' breaks for date-times
+#' breaks for date-times.
 #' [lakers] is a data set that contains information
 #' about the Los Angeles Lakers 2008-2009 basketball season.
 #'
