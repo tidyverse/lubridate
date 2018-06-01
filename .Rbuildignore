@@ -18,3 +18,4 @@
 ^README-.*\.png$
 ^docs$
 ^_pkgdown\.yml$
+^\.github$
