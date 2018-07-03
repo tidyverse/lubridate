@@ -30,7 +30,8 @@ quarter <- function(x, with_year = FALSE, fiscal_start = 1) {
   if (with_year) {
     uq <- quarters[m]
     inc_year <- q == 1 & uq == 4
-    year(x) + inc_year + q/10
+    dec_year <- q == 4 & uq == 1
+    year(x) + inc_year - dec_year + q/10
   }
   else q
 }

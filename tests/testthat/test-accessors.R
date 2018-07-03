@@ -236,6 +236,12 @@ test_that("quarters accessor extracts correct quarter", {
   expect_that(quarter(date, fiscal_start = 11), equals(1))
   expect_that(quarter(date, with_year = TRUE, fiscal_start = -2), equals(2011.1))
   expect_that(quarter(date, with_year = TRUE, fiscal_start = 11), equals(2011.1))
+
+  x <- ymd(c("2012-03-26", "2012-05-04", "2012-09-23", "2012-03-01", "2012-12-31"))
+  expect_equal(quarter(x, with_year = TRUE, fiscal_start = 4),
+               c(2011.4, 2012.1, 2012.2, 2011.4, 2012.3))
+  expect_equal(quarter(x, with_year = TRUE, fiscal_start = 11),
+               c(2012.2, 2012.3, 2012.4, 2012.2, 2013.1))
 })
 
 test_that("years accessor extracts correct year", {
