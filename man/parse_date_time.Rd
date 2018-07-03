@@ -33,7 +33,7 @@ common type of irregularity in date-time data is the truncation due to
 rounding or unavailability of the time stamp. If the \code{truncated} parameter
 is non-zero \code{parse_date_time()} also checks for truncated formats. For
 example,  if the format order is "ymdHMS" and \code{truncated = 3},
-\code{parse_date_time()} will correctly parse incomplete dates like \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:} The \code{ymd} family of
+\code{parse_date_time()} will correctly parse incomplete date-times like \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:} The \code{ymd} family of
 functions are based on \code{strptime()} which currently fails to parse
 \code{\%Y-\%m} formats.}
 

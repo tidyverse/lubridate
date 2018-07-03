@@ -1,6 +1,12 @@
 Version 1.7.4.9000
 ==================
 
+### NEW FEATURES
+
+* [#681](https://github.com/tidyverse/lubridate/issues/681) New constants `NA_Date_` and `NA_POSIXct_` which parallel built-in primitive constants.
+* [#681](https://github.com/tidyverse/lubridate/issues/681) New constructors `Date()` and `POSIXct()` which parallel built-in primitive constructors.
+
+
 ### BUG FIXES
 
 * [#682](https://github.com/tidyverse/lubridate/issues/682) Fix quarter extraction with small `fiscal_start`s.
