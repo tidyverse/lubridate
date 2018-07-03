@@ -1,3 +1,3 @@
 # CODEOWNERS for lubridate
 # https://www.tidyverse.org/development/understudies
-* @vspinu @hadley
+.github/CODEOWNERS @vspinu @hadley
