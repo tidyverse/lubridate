@@ -46,7 +46,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -74,22 +74,26 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get/set months component of a date-time</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/accessors-month.r'><code>R/accessors-month.r</code></a></small>
+    <div class="hidden name"><code>month.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo,
 zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>month</span>(<span class='no'>x</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>abbr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'>Sys.getlocale</span>(<span class='st'>"LC_TIME"</span>))
 
 <span class='fu'>month</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -128,10 +132,10 @@ January.</p>
 <span class='fu'>month</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 3</div><div class='input'><span class='fu'>month</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='fu'>month</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fl'>13</span>
 <span class='fu'>month</span>(<span class='no'>x</span>) <span class='kw'>&gt;</span> <span class='fl'>3</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='fu'>month</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>080101</span>))</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>month</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>080101</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] Jan
-#&gt; 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</div><div class='input'><span class='fu'>month</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>080101</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>abbr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] January
-#&gt; 12 Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; ... &lt; December</div><div class='input'><span class='fu'>month</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>080101</span>) + <span class='fu'>months</span>(<span class='fl'>0</span>:<span class='fl'>11</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1] Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-#&gt; 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</div></pre>
+<span class='fu'>month</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>080101</span>))</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>month</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>080101</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] jan
+#&gt; 12 Levels: jan &lt; feb &lt; mrt &lt; apr &lt; mei &lt; jun &lt; jul &lt; aug &lt; sep &lt; ... &lt; dec</div><div class='input'><span class='fu'>month</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>080101</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>abbr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] januari
+#&gt; 12 Levels: januari &lt; februari &lt; maart &lt; april &lt; mei &lt; juni &lt; ... &lt; december</div><div class='input'><span class='fu'>month</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>080101</span>) + <span class='fu'>months</span>(<span class='fl'>0</span>:<span class='fl'>11</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1] jan feb mrt apr mei jun jul aug sep okt nov dec
+#&gt; 12 Levels: jan &lt; feb &lt; mrt &lt; apr &lt; mei &lt; jun &lt; jul &lt; aug &lt; sep &lt; ... &lt; dec</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -148,25 +152,27 @@ January.</p>
 
       <footer>
       <div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

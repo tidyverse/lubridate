@@ -46,7 +46,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -74,12 +74,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add and subtract months to a date without exceeding the last day of the new month</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/ops-m+.r'><code>R/ops-m+.r</code></a></small>
+    <div class="hidden name"><code>mplus.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Adding months frustrates basic arithmetic because consecutive months have
 different lengths. With other elements, it is helpful for arithmetic to
@@ -90,30 +93,30 @@ not March 3. <code>%m+%</code> performs this type of arithmetic. Date <code>%m+%
 always returns a date in the nth month after Date. If the new date would
 usually spill over into the n + 1th month, <code>%m+%</code> will return the last day of
 the nth month (<code><a href='rollback.html'>rollback()</a></code>). Date <code>%m-%</code> months(n) always returns a
-date in the nth month before Date.
-
-    <code>add_with_rollback()</code> provides additional functionality to <code>%m+%</code> and
+date in the nth month before Date.</p>
+<p><code>add_with_rollback()</code> provides additional functionality to <code>%m+%</code> and
 <code>%m-%</code>. It allows rollback to first day of the month instead of the last day
 of the previous month and controls whether HMS component of the end date is
 preserved or not.</p>
     
+    </div>
 
     <pre class="usage"><span class='no'>e1</span> <span class='kw'>%m+%</span> <span class='no'>e2</span>
 
 <span class='fu'>add_with_rollback</span>(<span class='no'>e1</span>, <span class='no'>e2</span>, <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>e1</th>
-      <td><p>A period or a date-time object of class POSIXlt, POSIXct
-or Date.</p></td>
+      <td><p>A period or a date-time object of class POSIXlt, <a href='posix_utils.html'>POSIXct</a>
+or <a href='date_utils.html'>Date</a>.</p></td>
     </tr>
     <tr>
       <th>e2</th>
-      <td><p>A period or a date-time object of class POSIXlt, POSIXct
-or Date. Note that one of e1 and e2 must be a period and the other a
+      <td><p>A period or a date-time object of class POSIXlt, <a href='posix_utils.html'>POSIXct</a>
+or <a href='date_utils.html'>Date</a>. Note that one of e1 and e2 must be a period and the other a
 date-time object.</p></td>
     </tr>
     <tr>
@@ -136,8 +139,8 @@ FALSE, the new date will be at 00:00:00 (passed to <code><a href='rollback.html'
 
     <p><code>%m+%</code> and <code>%m-%</code> handle periods with components less than a month by first
 adding/substracting months and then performing usual arithmetics with smaller
-units.
-    <code>%m+%</code> and <code>%m-%</code> should be used with caution as they are not one-to-one
+units.</p>
+<p><code>%m+%</code> and <code>%m-%</code> should be used with caution as they are not one-to-one
 operations and results for either will be sensitive to the order of
 operations.</p>
     
@@ -168,25 +171,27 @@ operations.</p>
 
       <footer>
       <div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

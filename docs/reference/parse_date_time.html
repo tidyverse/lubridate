@@ -46,7 +46,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -74,12 +74,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>User friendly date-time parsing functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/parse.r'><code>R/parse.r</code></a></small>
+    <div class="hidden name"><code>parse_date_time.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>parse_date_time()</code> parses an input vector into POSIXct date-time
 object. It differs from <code><a href='http://www.rdocumentation.org/packages/base/topics/strptime'>base::strptime()</a></code> in two respects. First,
@@ -87,15 +90,14 @@ it allows specification of the order in which the formats occur without the
 need to include separators and <code>%</code> prefix. Such a formating argument is
 refered to as "order". Second, it allows the user to specify several
 format-orders to handle heterogeneous date-time character
-representations.
-
-    <code>parse_date_time2()</code> is a fast C parser of numeric
-orders.
-
-    <code>fast_strptime()</code> is a fast C parser of numeric formats only
+representations.</p>
+<p><code>parse_date_time2()</code> is a fast C parser of numeric
+orders.</p>
+<p><code>fast_strptime()</code> is a fast C parser of numeric formats only
 that accepts explicit format arguments, just as
 <code><a href='http://www.rdocumentation.org/packages/base/topics/strptime'>base::strptime()</a></code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>parse_date_time</span>(<span class='no'>x</span>, <span class='no'>orders</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'>Sys.getlocale</span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>select_formats</span> <span class='kw'>=</span> <span class='no'>.select_formats</span>,
@@ -106,7 +108,7 @@ that accepts explicit format arguments, just as
 
 <span class='fu'>fast_strptime</span>(<span class='no'>x</span>, <span class='no'>format</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cutoff_2000</span> <span class='kw'>=</span> <span class='fl'>68L</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -134,7 +136,7 @@ common type of irregularity in date-time data is the truncation due to
 rounding or unavailability of the time stamp. If the <code>truncated</code> parameter
 is non-zero <code>parse_date_time()</code> also checks for truncated formats. For
 example,  if the format order is "ymdHMS" and <code>truncated = 3</code>,
-<code>parse_date_time()</code> will correctly parse incomplete dates like <code>2012-06-01 12:23</code>, <code>2012-06-01 12</code> and <code>2012-06-01</code>. <b>NOTE:</b> The <code>ymd</code> family of
+<code>parse_date_time()</code> will correctly parse incomplete date-times like <code>2012-06-01 12:23</code>, <code>2012-06-01 12</code> and <code>2012-06-01</code>. <b>NOTE:</b> The <code>ymd</code> family of
 functions are based on <code>strptime()</code> which currently fails to parse
 <code>%Y-%m</code> formats.</p></td>
     </tr>
@@ -153,15 +155,15 @@ can use <code>system("locale -a")</code> to list all the installed locales.</p><
     <tr>
       <th>select_formats</th>
       <td><p>A function to select actual formats for parsing from a
-set of formats which matched a training subset of <code>x</code>. it receives a named
+set of formats which matched a training subset of <code>x</code>. It receives a named
 integer vector and returns a character vector of selected formats. Names
 of the input vector are formats (not orders) that matched the training
 set. Numeric values are the number of dates (in the training set) that
 matched the corresponding format. You should use this argument if the
 default selection method fails to select the formats in the right
-order. By default the formats with most formating tockens (%) are
-selected and %Y counts as 2.5 tockens (so that it has a priority over
-%y%m). Se examples.</p></td>
+order. By default the formats with most formating tokens (%) are
+selected and %Y counts as 2.5 tokens (so that it has a priority over
+%y%m). See examples.</p></td>
     </tr>
     <tr>
       <th>exact</th>
@@ -219,8 +221,8 @@ argument of <code>strptime()</code>.</p></td>
 (guesses) format-orders based on a training sub-set of the input
 strings. After guessing the formats are ordered according to the performance
 on the training set and applied recursively on the entire input vector. You
-can disable training with <code>train=FALSE</code>.
-    <code>parse_date_time()</code>, and all derived functions, such as <code><a href='ymd_hms.html'>ymd_hms()</a></code>,
+can disable training with <code>train=FALSE</code>.</p>
+<p><code>parse_date_time()</code>, and all derived functions, such as <code><a href='ymd_hms.html'>ymd_hms()</a></code>,
 <code><a href='ymd.html'>ymd()</a></code> etc, will drop into <code>fast_strptime()</code> instead of
 <code>strptime()</code> whenever the guessed from the input data formats are all
 numeric.</p>
@@ -228,7 +230,8 @@ numeric.</p>
 leading 0s are optional. As compared to base <code>strptime()</code>, some of the
 formats are new or have been extended for efficiency reasons. These formats
 are marked with "*". The fast parsers <code>parse_date_time2()</code> and
-<code>fast_strptime()</code> accept only formats marked with "!".</p><dl class='dl-horizontal'>
+<code>fast_strptime()</code> accept only formats marked with "!".</p>
+<dl class='dl-horizontal'>
 <dt><code>a</code></dt><dd><p>Abbreviated weekday name in the current
 locale. (Also matches full name)</p></dd>
     <dt><code>A</code></dt><dd><p>Full weekday name in the current locale.  (Also matches
@@ -304,7 +307,7 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>strptime()</code>, <code><a href='ymd.html'>ymd()</a></code>, <code><a href='ymd_hms.html'>ymd_hms()</a></code></p>
+    <div class='dont-index'><p><code>strptime()</code>, <code><a href='ymd.html'>ymd()</a></code>, <code><a href='ymd_hms.html'>ymd_hms()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -326,7 +329,7 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
 <span class='fu'>parse_date_time</span>(<span class='no'>x</span>, <span class='st'>"Ymd HMS"</span>, <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
 #&gt; [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"</div><div class='input'>
 <span class='co'>## ** specifying exact formats and avoiding training and guessing **</span>
-<span class='fu'>parse_date_time</span>(<span class='no'>x</span>, <span class='fu'>c</span>(<span class='st'>"%m-%d-%y"</span>, <span class='st'>"%m%d%y"</span>, <span class='st'>"%m-%d-%y %H:%M"</span>), <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] NA NA NA NA</div><div class='input'><span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>'12/17/1996 04:00:00'</span>,<span class='st'>'4/18/1950 0130'</span>),
+<span class='fu'>parse_date_time</span>(<span class='no'>x</span>, <span class='fu'>c</span>(<span class='st'>"%m-%d-%y"</span>, <span class='st'>"%m%d%y"</span>, <span class='st'>"%m-%d-%y %H:%M"</span>), <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  4 failed to parse.</span></div><div class='output co'>#&gt; [1] NA NA NA NA</div><div class='input'><span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>'12/17/1996 04:00:00'</span>,<span class='st'>'4/18/1950 0130'</span>),
                 <span class='fu'>c</span>(<span class='st'>'%m/%d/%Y %I:%M:%S'</span>,<span class='st'>'%m/%d/%Y %H%M'</span>), <span class='kw'>exact</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"</div><div class='input'>
 <span class='co'>## ** quarters and partial dates **</span>
 <span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>"2016.2"</span>, <span class='st'>"2016-04"</span>), <span class='kw'>orders</span> <span class='kw'>=</span> <span class='st'>"Yq"</span>)</div><div class='output co'>#&gt; [1] "2016-04-01 UTC" "2016-10-01 UTC"</div><div class='input'><span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>"2016"</span>, <span class='st'>"2016-04"</span>), <span class='kw'>orders</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Y"</span>, <span class='st'>"Ym"</span>))</div><div class='output co'>#&gt; [1] "2016-01-01 UTC" "2016-04-01 UTC"</div><div class='input'>
@@ -358,7 +361,7 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
 
 <span class='fu'>parse_date_time</span>(<span class='fu'>c</span>(<span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span>), <span class='st'>"dmy"</span>, <span class='kw'>select_formats</span> <span class='kw'>=</span> <span class='no'>my_select</span>)</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
 <span class='co'>## ** invalid times with "fast" parsing **</span>
-<span class='fu'>parse_date_time</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 03:05:06 EDT"</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
+<span class='fu'>parse_date_time</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 03:05:06 EDT"</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -381,25 +384,27 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
 
       <footer>
       <div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -15,7 +15,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -27,7 +27,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -57,15 +57,18 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Do more with dates and times in R</h1>
             
-          </div>
+      
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/lubridate/blob/master/vignettes/lubridate.Rmd"><code>vignettes/lubridate.Rmd</code></a></small>
+      <div class="hidden name"><code>lubridate.Rmd</code></div>
+
+    </div>
 
     
     
-<div class="contents">
 <p>(This vignette is an updated version of the blog post first published at <a href="http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/">r-statistics</a>_</p>
 <p>Lubridate is an R package that makes it easier to work with dates and times. Below is a concise tour of some of the things lubridate can do for you. Lubridate was created by Garrett Grolemund and Hadley Wickham, and is now maintained by Vitalie Spinu.</p>
 <div id="parsing-dates-and-times" class="section level2">
@@ -107,8 +110,8 @@ arrive
 <span class="kw"><a href="../reference/day.html">wday</a></span>(arrive)
 <span class="co">#&gt; [1] 7</span>
 <span class="kw"><a href="../reference/day.html">wday</a></span>(arrive, <span class="dt">label =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; [1] Sat</span>
-<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></code></pre></div>
+<span class="co">#&gt; [1] za</span>
+<span class="co">#&gt; Levels: zo &lt; ma &lt; di &lt; wo &lt; do &lt; vr &lt; za</span></code></pre></div>
 </div>
 <div id="time-zones" class="section level2">
 <h2 class="hasAnchor">
@@ -132,7 +135,7 @@ arrive
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(arrive, leave) 
 auckland
 <span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span>
-auckland &lt;-<span class="st"> </span>arrive %--%<span class="st"> </span>leave
+auckland &lt;-<span class="st"> </span>arrive <span class="op">%--%</span><span class="st"> </span>leave
 auckland
 <span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></code></pre></div>
 <p>My mentor at the University of Auckland, Chris, traveled to various conferences that year including the Joint Statistical Meetings (JSM). This took him out of the country from July 20 until the end of August.</p>
@@ -158,39 +161,39 @@ jsm
 <p>Why two classes? Because the timeline is not as reliable as the number line. The Duration class will always supply mathematically precise results. A duration year will always equal 365 days. Periods, on the other hand, fluctuate the same way the timeline does to give intuitive results. This makes them useful for modeling clock times. For example, durations will be honest in the face of a leap year, but periods may return what you want:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2011</span>) ## regular year
 <span class="co">#&gt; [1] FALSE</span>
-<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) +<span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)
+<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] "2012-01-01"</span>
-<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) +<span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)
+<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] "2012-01-01"</span>
 
 <span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2012</span>) ## leap year
 <span class="co">#&gt; [1] TRUE</span>
-<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) +<span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)
+<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] "2012-12-31"</span>
-<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) +<span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)
+<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] "2013-01-01"</span></code></pre></div>
 <p>You can use periods and durations to do basic arithmetic with date times. For example, if I wanted to set up a reoccuring weekly skype meeting with Hadley, it would occur on:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meetings &lt;-<span class="st"> </span>meeting +<span class="st"> </span><span class="kw"><a href="../reference/period.html">weeks</a></span>(<span class="dv">0</span>:<span class="dv">5</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meetings &lt;-<span class="st"> </span>meeting <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">weeks</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)</code></pre></div>
 <p>Hadley travelled to conferences at the same time as Chris. Which of these meetings would be affected? The last two.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meetings %within%<span class="st"> </span>jsm
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meetings <span class="op">%within%</span><span class="st"> </span>jsm
 <span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE</span></code></pre></div>
 <p>How long was my stay in Auckland?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland /<span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] 67.08333</span>
-auckland /<span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">2</span>)
+auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">2</span>)
 <span class="co">#&gt; [1] 33.54167</span>
-auckland /<span class="st"> </span><span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">1</span>)
+auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] 96600</span></code></pre></div>
 <p>And so on. Alternatively, we can do modulo and integer division. Sometimes this is more sensible than division - it is not obvious how to express a remainder as a fraction of a month because the length of a month constantly changes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland %/%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland <span class="op">%/%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
 <span class="co">#&gt; Note: method with signature 'Timespan#Timespan' chosen for function '%/%',</span>
 <span class="co">#&gt;  target signature 'Interval#Period'.</span>
 <span class="co">#&gt;  "Interval#ANY", "ANY#Period" would also be valid</span>
 <span class="co">#&gt; [1] 2</span>
-auckland %%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
+auckland <span class="op">%%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>)
 <span class="co">#&gt; [1] 2011-08-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></code></pre></div>
 <p>Modulo with an timespan returns the remainder as a new (smaller) interval. You can turn this or any interval into a generalized time span with <code>as.period</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland %%<span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland <span class="op">%%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">1</span>))
 <span class="co">#&gt; [1] "6d 2H 0M 0S"</span>
 <span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland)
 <span class="co">#&gt; [1] "2m 6d 2H 0M 0S"</span></code></pre></div>
@@ -209,15 +212,15 @@ auckland %%<span class="st"> </span><span class="kw">months</span>(<span class="
 <p>A basic property of arithmetic is that <code>a + b - b = a</code>. Only solution 1 obeys this property, but it is an invalid date. I’ve tried to make lubridate as consistent as possible by invoking the following rule <em>if adding or subtracting a month or a year creates an invalid date, lubridate will return an NA</em>. This is new with version 1.3.0, so if you’re an old hand with lubridate be sure to remember this!</p>
 <p>If you thought solution 2 or 3 was more useful, no problem. You can still get those results with clever arithmetic, or by using the special <code>%m+%</code> and <code>%m-%</code> operators. <code>%m+%</code> and <code>%m-%</code> automatically roll dates back to the last day of the month, should that be necessary.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">jan31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="st">"2013-01-31"</span>)
-jan31 +<span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span>:<span class="dv">11</span>)
+jan31 <span class="op">+</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)
 <span class="co">#&gt;  [1] "2013-01-31" NA           "2013-03-31" NA           "2013-05-31"</span>
 <span class="co">#&gt;  [6] NA           "2013-07-31" "2013-08-31" NA           "2013-10-31"</span>
 <span class="co">#&gt; [11] NA           "2013-12-31"</span>
-<span class="kw"><a href="../reference/round_date.html">floor_date</a></span>(jan31, <span class="st">"month"</span>) +<span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span>:<span class="dv">11</span>) +<span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">31</span>)
+<span class="kw"><a href="../reference/round_date.html">floor_date</a></span>(jan31, <span class="st">"month"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">31</span>)
 <span class="co">#&gt;  [1] "2013-02-01" "2013-03-04" "2013-04-01" "2013-05-02" "2013-06-01"</span>
 <span class="co">#&gt;  [6] "2013-07-02" "2013-08-01" "2013-09-01" "2013-10-02" "2013-11-01"</span>
 <span class="co">#&gt; [11] "2013-12-02" "2014-01-01"</span>
-jan31 %m+%<span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span>:<span class="dv">11</span>)
+jan31 <span class="op">%m+%</span><span class="st"> </span><span class="kw">months</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)
 <span class="co">#&gt;  [1] "2013-01-31" "2013-02-28" "2013-03-31" "2013-04-30" "2013-05-31"</span>
 <span class="co">#&gt;  [6] "2013-06-30" "2013-07-31" "2013-08-31" "2013-09-30" "2013-10-31"</span>
 <span class="co">#&gt; [11] "2013-11-30" "2013-12-31"</span></code></pre></div>
@@ -228,15 +231,14 @@ jan31 %m+%<span class="st"> </span><span class="kw">months</span>(<span class="d
 <h2 class="hasAnchor">
 <a href="#vectorization" class="anchor"></a>Vectorization</h2>
 <p>The code in lubridate is vectorized and ready to be used in both interactive settings and within functions. As an example, I offer a function for advancing a date to the last day of the month</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_day &lt;-<span class="st"> </span>function(date) {
-  <span class="kw"><a href="../reference/round_date.html">ceiling_date</a></span>(date, <span class="st">"month"</span>) -<span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last_day &lt;-<span class="st"> </span><span class="cf">function</span>(date) {
+  <span class="kw"><a href="../reference/round_date.html">ceiling_date</a></span>(date, <span class="st">"month"</span>) <span class="op">-</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">1</span>)
 }</code></pre></div>
 </div>
 <div id="further-resources" class="section level2">
 <h2 class="hasAnchor">
 <a href="#further-resources" class="anchor"></a>Further Resources</h2>
 <p>To learn more about lubridate, including the specifics of periods and durations, please read the <a href="http://www.jstatsoft.org/v40/i03/">original lubridate paper</a>. Questions about lubridate can be addressed to the lubridate google group. Bugs and feature requests should be submitted to the <a href="http://github.com/hadley/lubridate">lubridate development page</a> on github.</p>
-</div>
 </div>
   </div>
 
@@ -260,24 +262,24 @@ jan31 %m+%<span class="st"> </span><span class="kw">months</span>(<span class="d
 
 
       <footer><div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href="http://vitalie.spinu.info">Vitalie Spinu</a>, Garrett Grolemund, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script></footer>
 </div>
+
+  
 
   </body>
 </html>

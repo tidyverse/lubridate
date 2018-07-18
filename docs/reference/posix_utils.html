@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the number of days in the month of a date-time — days_in_month • lubridate</title>
+<title>Various POSIX utilities — is.POSIXt • lubridate</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,42 +77,75 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the number of days in the month of a date-time</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/accessors-month.r'><code>R/accessors-month.r</code></a></small>
-    <div class="hidden name"><code>days_in_month.Rd</code></div>
+    <h1>Various POSIX utilities</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/POSIXt.r'><code>R/POSIXt.r</code></a></small>
+    <div class="hidden name"><code>posix_utils.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr,
-zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.</p>
+    <p><code>POSIXct()</code> mirrors primitive contructors in base R (<code>double()</code>,
+<code>character()</code> etc.)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>days_in_month</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>is.POSIXt</span>(<span class='no'>x</span>)
+
+<span class='fu'>is.POSIXlt</span>(<span class='no'>x</span>)
+
+<span class='fu'>is.POSIXct</span>(<span class='no'>x</span>)
+
+<span class='fu'>POSIXct</span>(<span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
+
+<span class='no'>NA_POSIXct_</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a date-time object</p></td>
+      <td><p>an R object</p></td>
+    </tr>
+    <tr>
+      <th>length</th>
+      <td><p>A non-negative number specifying the desired length. Supplying
+an argument of length other than one is an error.</p></td>
+    </tr>
+    <tr>
+      <th>tz</th>
+      <td><p>a timezone (defaults to "utc")</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>POSIXct</code> (inherits from <code>POSIXt</code>) of length 1.</p>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An integer of the number of days in the month component of the date-time object.</p>
+    <p>TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='is.instant.html'>is.instant()</a></code>, <code><a href='is.timespan.html'>is.timespan()</a></code>, <code><a href='date_utils.html'>is.Date()</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>is.POSIXt</span>(<span class='fu'>as.Date</span>(<span class='st'>"2009-08-03"</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.POSIXt</span>(<span class='fu'>as.POSIXct</span>(<span class='st'>"2009-08-03"</span>))</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#format">Format</a></li>
+
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

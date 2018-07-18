@@ -46,7 +46,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -74,12 +74,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get/set time zone component of a date-time</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/accessors-tz.r'><code>R/accessors-tz.r</code></a></small>
+    <div class="hidden name"><code>tz.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Time zones are stored as character strings in an
 attribute of date-time objects. tz returns a date's time zone attribute.
@@ -91,12 +94,13 @@ compiled by Arthur Olson. These names normally take the form "Country/City." A
 convenient listing of these timezones can be found at
 <a href='http://en.wikipedia.org/wiki/List_of_tz_database_time_zones'>http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>tz</span>(<span class='no'>x</span>)
 
 <span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -148,8 +152,12 @@ or <a href='http://www.rdocumentation.org/packages/base/topics/DateTimeClasses'>
 <span class='no'>x</span>
 <span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"Europe/Berlin"</span>
 <span class='no'>x</span>
-<span class='co'># }</span><div class='input'><span class='fu'>Sys.setenv</span>(<span class='kw'>TZ</span> <span class='kw'>=</span> <span class='st'>"GMT"</span>)
-<span class='fu'><a href='now.html'>now</a></span>()</div><div class='output co'>#&gt; [1] "2018-01-23 20:01:10.42694 GMT"</div><div class='input'><span class='fu'>tz</span>(<span class='fu'><a href='now.html'>now</a></span>())</div><div class='output co'>#&gt; [1] "GMT"</div><div class='input'><span class='fu'>Sys.unsetenv</span>(<span class='st'>"TZ"</span>)</div></pre>
+
+<span class='fu'>Sys.setenv</span>(<span class='kw'>TZ</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
+<span class='fu'><a href='now.html'>now</a></span>()
+<span class='fu'>tz</span>(<span class='fu'><a href='now.html'>now</a></span>())
+<span class='fu'>Sys.unsetenv</span>(<span class='st'>"TZ"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -168,25 +176,27 @@ or <a href='http://www.rdocumentation.org/packages/base/topics/DateTimeClasses'>
 
       <footer>
       <div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

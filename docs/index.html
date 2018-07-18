@@ -15,7 +15,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -27,7 +27,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -57,12 +57,11 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     
 
     
     
-<div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="lubridate" class="section level1">
 
@@ -84,7 +83,12 @@
 
 <span class="co"># Or the the development version from GitHub:</span>
 <span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/lubridate"</span>)</code></pre></div>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverse/lubridate"</span>)</code></pre></div>
+</div>
+<div id="cheatsheet" class="section level2">
+<h2 class="hasAnchor">
+<a href="#cheatsheet" class="anchor"></a>Cheatsheet</h2>
+<p><a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"></a></p>
 </div>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
@@ -103,13 +107,13 @@ devtools::<span class="kw">install_github</span>(<span class="st">"tidyverse/lub
 <span class="kw"><a href="reference/month.html">month</a></span>(bday)
 <span class="co">#&gt; [1] 10</span>
 <span class="kw"><a href="reference/day.html">wday</a></span>(bday, <span class="dt">label =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; [1] Sun</span>
-<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span>
+<span class="co">#&gt; [1] zo</span>
+<span class="co">#&gt; Levels: zo &lt; ma &lt; di &lt; wo &lt; do &lt; vr &lt; za</span>
 
 <span class="kw"><a href="reference/year.html">year</a></span>(bday) &lt;-<span class="st"> </span><span class="dv">2016</span>
 <span class="kw"><a href="reference/day.html">wday</a></span>(bday, <span class="dt">label =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; [1] Fri</span>
-<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></code></pre></div>
+<span class="co">#&gt; [1] vr</span>
+<span class="co">#&gt; Levels: zo &lt; ma &lt; di &lt; wo &lt; do &lt; vr &lt; za</span></code></pre></div>
 </li>
 <li>
 <p>Helper functions for handling time zones: <code><a href="reference/with_tz.html">with_tz()</a></code>, <code><a href="reference/force_tz.html">force_tz()</a></code></p>
@@ -134,14 +138,13 @@ time
 </ul>
 </div>
 </div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2 class="hasAnchor">
-<a href="#sidebar" class="anchor"></a>Links</h2>
+    <div class="links">
+<h2>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=lubridate">https://​cran.r-project.org/​package=lubridate</a>
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=lubridate">https://​cloud.r-project.org/​package=lubridate</a>
 </li>
 <li>Browse source code at <br><a href="https://github.com/tidyverse/lubridate">https://​github.com/​tidyverse/​lubridate</a>
 </li>
@@ -150,53 +153,65 @@ time
 <li>Learn more at <br><a href="http://r4ds.had.co.nz/dates-and-times.html">http://​r4ds.had.co.nz/​dates-and-times.html</a>
 </li>
 </ul>
+</div>
+<div class="license">
 <h2>License</h2>
-<p><a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a></p>
+<ul class="list-unstyled">
+<li>GPL (&gt;= 2)</li>
+</ul>
+</div>
+<div class="citation">
 <h2>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing lubridate</a></li>
 </ul>
+</div>
+<div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://vitalie.spinu.info">Vitalie Spinu</a> <br><small class="roles"> Author, maintainer </small> </li>
-<li>Garrett Grolemund <br><small class="roles"> Author </small> </li>
+<a href="http://vitalie.spinu.info">Vitalie Spinu</a> <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Garrett Grolemund <br><small class="roles"> Author </small>  </li>
 <li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small> </li>
+<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
+</div>
+
+      <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/tidyverse/lubridate"><img src="https://travis-ci.org/tidyverse/lubridate.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://codecov.io/gh/tidyverse/lubridate"><img src="https://codecov.io/gh/tidyverse/lubridate/branch/master/graph/badge.svg" alt="Coverage Status"></a></li>
 <li><a href="https://cran.r-project.org/package=lubridate"><img src="http://cranlogs.r-pkg.org/badges/lubridate" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="https://github.com/tidyverse/lubridate"><img src="https://img.shields.io/badge/devel-1.6.0.9000-orange.svg" alt="Development version"></a></li>
+<li><a href="https://github.com/tidyverse/lubridate"><img src="https://img.shields.io/badge/devel-1.7.4.9000-orange.svg" alt="Development version"></a></li>
 <li><a href="https://cran.r-project.org/package=lubridate"><img src="http://www.r-pkg.org/badges/version/lubridate" alt="CRAN version"></a></li>
 </ul>
+</div>
 </div>
 
 </div>
 
 
       <footer><div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href="http://vitalie.spinu.info">Vitalie Spinu</a>, Garrett Grolemund, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script></footer>
 </div>
+
+  
 
   </body>
 </html>

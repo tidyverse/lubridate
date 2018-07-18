@@ -46,7 +46,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -74,21 +74,26 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Tests whether a date or interval falls within an interval</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/intervals.r'><code>R/intervals.r</code></a></small>
+    <div class="hidden name"><code>within-interval.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p><!-- %within% returns TRUE if a falls within interval b, FALSE otherwise. -->
-If a is an interval, both its start and end dates must fall within b
-to return TRUE.</p>
+    <p><!-- %within% returns TRUE if \code{a} falls within interval \code{b}. Both \code{a} and \code{b} are -->
+recycled according to standard R rules. If <code>b</code> is a list of intervals, <code>a</code> is
+checked if it falls within any of the intervals in <code>b</code>. If a is an interval,
+both its start and end dates must fall within b to return TRUE.</p>
     
+    </div>
 
     <pre class="usage"><span class='no'>a</span> <span class='kw'>%within%</span> <span class='no'>b</span></pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -97,7 +102,7 @@ to return TRUE.</p>
     </tr>
     <tr>
       <th>b</th>
-      <td><p>An interval</p></td>
+      <td><p>An interval or a list of intervals (see examples)</p></td>
     </tr>
     </table>
     
@@ -107,10 +112,21 @@ to return TRUE.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+    <pre class="examples"><div class='input'>
+<span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
 <span class='no'>int2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
 
-<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-05-03"</span>) <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>int2</span> <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"1999-01-01"</span>) <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
+<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-05-03"</span>) <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>int2</span> <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"1999-01-01"</span>) <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='co'>## recycling</span>
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fu'>c</span>(<span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span>, <span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span>))
+<span class='no'>blackouts</span><span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2014-12-30"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2014-12-31"</span>)),
+              <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2014-12-30"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2015-01-03"</span>)))
+<span class='no'>dates</span> <span class='kw'>%within%</span> <span class='no'>blackouts</span></div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE  TRUE</div><div class='input'>
+<span class='co'>## within ANY of the intervals of a list</span>
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fu'>c</span>(<span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span>, <span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span>))
+<span class='no'>blackouts</span><span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2014-12-30"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2014-12-31"</span>)),
+                 <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2014-12-30"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2015-01-03"</span>)))
+<span class='no'>dates</span> <span class='kw'>%within%</span> <span class='no'>blackouts</span></div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -127,25 +143,27 @@ to return TRUE.</p>
 
       <footer>
       <div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -46,7 +46,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -74,24 +74,28 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Changes the components of a date object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/update.r'><code>R/update.r</code></a></small>
+    <div class="hidden name"><code>DateTimeUpdate.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>update.Date()</code> and <code>update.POSIXt()</code> return a date with the specified
 elements updated.  Elements not specified will be left unaltered. update.Date
 and update.POSIXt do not add the specified values to the existing date, they
 substitute them for the appropriate parts of the existing date.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S3 method for POSIXt</span>
 <span class='fu'>update</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>roll</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>), <span class='kw'>simple</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -101,7 +105,7 @@ substitute them for the appropriate parts of the existing date.</p>
     <tr>
       <th>...</th>
       <td><p>named arguments: years, months, ydays, wdays, mdays, days, hours,
-minutes, seconds, tzs (time zone compnent)</p></td>
+minutes, seconds, tzs (time zone component)</p></td>
     </tr>
     <tr>
       <th>roll</th>
@@ -150,25 +154,27 @@ date object.</p>
 
       <footer>
       <div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

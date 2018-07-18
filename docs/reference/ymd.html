@@ -46,7 +46,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -74,12 +74,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Parse dates with <strong>y</strong>ear, <strong>m</strong>onth, and <strong>d</strong>ay components</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/parse.r'><code>R/parse.r</code></a></small>
+    <div class="hidden name"><code>ymd.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Transforms dates stored in character and numeric vectors to Date or POSIXct
 objects (see <code>tz</code> argument). These functions recognize arbitrary
@@ -87,6 +90,7 @@ non-digit separators as well as no separator. As long as the order of
 formats is correct, these functions will parse dates correctly even when the
 input vectors contain differently formatted dates. See examples.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ymd</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'>Sys.getlocale</span>(<span class='st'>"LC_TIME"</span>),
   <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
@@ -108,7 +112,7 @@ input vectors contain differently formatted dates. See examples.</p>
 
 <span class='fu'>yq</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'>Sys.getlocale</span>(<span class='st'>"LC_TIME"</span>))</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -143,7 +147,13 @@ is NULL (default)</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If the <code>truncated</code> parameter is non-zero, the <code>ymd</code> functions also check for
+    <p>In case of heterogeneous date formats <code>ymd()</code> family guesses formats based
+on a sub-set of the input vector.  If the input vector contains many missing
+values or non-date strings, the sub-set might not contain meaningful dates
+and the date-time format won't be guessed resulting in
+"All formats failed to parse" error. In such cases please see
+<code><a href='parse_date_time.html'>parse_date_time()</a></code> for a more flexible parsing interface.</p>
+<p>If the <code>truncated</code> parameter is non-zero, the <code>ymd</code> functions also check for
 truncated formats. For example <code>ymd()</code> with <code>truncated = 2</code> will also
 parse incomplete dates like <code>2012-06</code> and <code>2012</code>.</p>
 <p>NOTE: The <code>ymd</code> family of functions are based on <code><a href='parse_date_time.html'>parse_date_time()</a></code> and thus
@@ -159,8 +169,8 @@ change this by setting the <code>lubridate.verbose</code> option to <code>TRUE</
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='parse_date_time.html'>parse_date_time()</a></code> for an even more flexible low level
-mechanism.</p>
+    <div class='dont-index'><p><code><a href='parse_date_time.html'>parse_date_time()</a></code> for an even more flexible low level
+mechanism.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -201,25 +211,27 @@ mechanism.</p>
 
       <footer>
       <div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

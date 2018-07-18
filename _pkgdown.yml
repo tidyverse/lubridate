@@ -49,29 +49,32 @@ reference:
 
 - title: Durations
   desc: >
-    A period is a timespan measured in seconds.
+    A 'duration' is a timespan measured in seconds.
   contents:
   - duration
   - is.difftime
   - make_difftime
   - as.duration
+  - Duration-class
 
 - title: Periods
   desc: >
-    A period is a timespan defined by human units like years, months, and
-    days.
+    A 'period' is a timespan defined in civil time (human) units like years,
+    months, and days.
   contents:
-  - as.period
   - period
   - period_to_seconds
+  - as.period
+  - Period-class
 
 - title: Intervals
   desc: >
-    An interval is a timespan defined by two date-times.
+    An `interval` is a timespan defined by two date-times.
   contents:
   - interval
   - as.interval
   - "`%within%`"
+  - Interval-class
 
 - title: Timespans
   desc: >
@@ -93,6 +96,7 @@ reference:
   - pretty_dates
   - rollback
   - "`%m+%`"
+  - local_time
 
 - title: Other date-time components
   contents:

@@ -46,7 +46,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+        <small class="tidyverse">part of the <a href="https://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -74,12 +74,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a duration object.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/durations.r'><code>R/durations.r</code></a></small>
+    <div class="hidden name"><code>duration.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>duration()</code> creates a duration object with the specified values. Entries
 for different units are cumulative. durations display as the number of
@@ -90,6 +93,7 @@ converted to seconds using their most common lengths in seconds. Minutes = 60
 seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units
 larger than weeks are not used due to their variability.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>duration</span>(<span class='kw'>num</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"seconds"</span>, <span class='no'>...</span>)
 
@@ -115,15 +119,16 @@ larger than weeks are not used due to their variability.</p>
 
 <span class='fu'>is.duration</span>(<span class='no'>x</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>num</th>
       <td><p>the number or a character vector of time units. In string
-representation all unambiguous name units and abbreviations are supported;
-'m' stands for month and 'M' for minutes, see examples. Fractional units
-are supported.</p></td>
+representation all unambiguous name units and abbreviations and ISO 8601
+formats are supported; 'm' stands for month and 'M' for minutes unless ISO
+8601 "P" modifier is present (see examples). Fractional units are
+supported.</p></td>
     </tr>
     <tr>
       <th>units</th>
@@ -162,16 +167,28 @@ oriented programming.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='as.duration.html'>as.duration()</a></code> <a href='Duration-class.html'>Duration</a></p>
+    <div class='dont-index'><p><code><a href='as.duration.html'>as.duration()</a></code> <a href='Duration-class.html'>Duration</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>duration</span>(<span class='kw'>day</span> <span class='kw'>=</span> -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "86400s (~1 days)"</div><div class='input'><span class='co'># -86400s (~-1 days)</span>
-<span class='fu'>duration</span>(<span class='fl'>90</span>, <span class='st'>"seconds"</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='fl'>1.5</span>, <span class='st'>"minutes"</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(-<span class='fl'>1</span>, <span class='st'>"days"</span>)</div><div class='output co'>#&gt; [1] "86400s (~1 days)"</div><div class='input'><span class='co'># -86400s (~-1 days)</span>
-<span class='fu'>duration</span>(<span class='kw'>second</span> <span class='kw'>=</span> <span class='fl'>90</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>mins</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>second</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>week</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "1130493s (~1.87 weeks)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>minute</span> <span class='kw'>=</span> -<span class='fl'>60</span>)</div><div class='output co'>#&gt; [1] "0s"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"2M 1sec"</span>)</div><div class='output co'>#&gt; [1] "121s (~2.02 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"2hours 2minutes 1second"</span>)</div><div class='output co'>#&gt; [1] "7321s (~2.03 hours)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"2d 2H 2M 2S"</span>)</div><div class='output co'>#&gt; [1] "180122s (~2.08 days)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"2days 2hours 2mins 2secs"</span>)</div><div class='output co'>#&gt; [1] "180122s (~2.08 days)"</div><div class='input'><span class='co'># Missing numerals default to 1. Repeated units are added up.</span>
-<span class='fu'>duration</span>(<span class='st'>"day day"</span>)</div><div class='output co'>#&gt; [1] "172800s (~2 days)"</div><div class='input'><span class='co'># Comparison with characters is supported from v1.6.0.</span>
+<span class='co'>### Separate period and units vectors</span>
+
+<span class='fu'>duration</span>(<span class='fl'>90</span>, <span class='st'>"seconds"</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='fl'>1.5</span>, <span class='st'>"minutes"</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(-<span class='fl'>1</span>, <span class='st'>"days"</span>)</div><div class='output co'>#&gt; [1] "86400s (~1 days)"</div><div class='input'>
+<span class='co'>### Units as arguments</span>
+
+<span class='fu'>duration</span>(<span class='kw'>day</span> <span class='kw'>=</span> -<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "86400s (~1 days)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>second</span> <span class='kw'>=</span> <span class='fl'>90</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>mins</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='output co'>#&gt; [1] "90s (~1.5 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>second</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>week</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "1130493s (~1.87 weeks)"</div><div class='input'><span class='fu'>duration</span>(<span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>minute</span> <span class='kw'>=</span> -<span class='fl'>60</span>)</div><div class='output co'>#&gt; [1] "0s"</div><div class='input'>
+<span class='co'>### Parsing</span>
+
+<span class='fu'>duration</span>(<span class='st'>"2M 1sec"</span>)</div><div class='output co'>#&gt; [1] "121s (~2.02 minutes)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"2hours 2minutes 1second"</span>)</div><div class='output co'>#&gt; [1] "7321s (~2.03 hours)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"2d 2H 2M 2S"</span>)</div><div class='output co'>#&gt; [1] "180122s (~2.08 days)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"2days 2hours 2mins 2secs"</span>)</div><div class='output co'>#&gt; [1] "180122s (~2.08 days)"</div><div class='input'><span class='co'># Missing numerals default to 1. Repeated units are added up.</span>
+<span class='fu'>duration</span>(<span class='st'>"day day"</span>)</div><div class='output co'>#&gt; [1] "172800s (~2 days)"</div><div class='input'>
+<span class='co'>### ISO 8601 parsing</span>
+
+<span class='fu'>duration</span>(<span class='st'>"P3Y6M4DT12H30M5S"</span>)</div><div class='output co'>#&gt; [1] "110842205s (~3.51 years)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"P23DT23H"</span>) <span class='co'># M stands for months</span></div><div class='output co'>#&gt; [1] "2070000s (~3.42 weeks)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"10DT10M"</span>) <span class='co'># M stands for minutes</span></div><div class='output co'>#&gt; [1] "864600s (~1.43 weeks)"</div><div class='input'><span class='fu'>duration</span>(<span class='st'>"P23DT60H 20min 100 sec"</span>) <span class='co'># mixing ISO and lubridate style parsing</span></div><div class='output co'>#&gt; [1] "2204500s (~3.65 weeks)"</div><div class='input'>
+<span class='co'># Comparison with characters (from v1.6.0)</span>
+
 <span class='fu'>duration</span>(<span class='st'>"day 2 sec"</span>) <span class='kw'>&gt;</span> <span class='st'>"day 1sec"</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+
 <span class='co'>## ELEMENTARY CONSTRUCTORS:</span>
 
 <span class='fu'>dseconds</span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "1s"</div><div class='input'><span class='fu'>dminutes</span>(<span class='fl'>3.5</span>)</div><div class='output co'>#&gt; [1] "210s (~3.5 minutes)"</div><div class='input'>
@@ -204,25 +221,27 @@ oriented programming.</p>
 
       <footer>
       <div class="tidyverse">
-  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+  <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
-  <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
+  <p>Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
 
-  ga('create', 'UA-67989-18', 'auto');
-  ga('send', 'pageview');
+ gtag('config', 'UA-115082821-1');
 </script>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
