@@ -349,6 +349,18 @@ setMethod("Compare", c(e1 = "ANY", e2 = "Duration"),
           })
 
 #' @export
+setMethod("Compare", signature(e1 = "Duration", e2 = "numeric"),
+          function(e1, e2) {
+            callGeneric(e1, as.duration(e2))
+          })
+
+#' @export
+setMethod("Compare", signature(e1 = "numeric", e2 = "Duration"),
+          function(e1, e2) {
+            callGeneric(as.duration(e1), e2)
+          })
+
+#' @export
 setMethod("Compare", signature(e1 = "Duration", e2 = "character"),
           function(e1, e2) {
             callGeneric(e1, as.duration(e2))
@@ -365,7 +377,6 @@ setMethod("Compare", c(e1 = "difftime", e2 = "Duration"),
           function(e1, e2) {
             callGeneric(as.numeric(e1, "secs"), e2@.Data)
           })
-
 
 #' @export
 setMethod("Compare", c(e1 = "Duration", e2 = "difftime"),
