@@ -80,6 +80,8 @@
 \alias{Compare,Duration,difftime-method}
 \alias{Compare,character,Duration-method}
 \alias{Compare,Duration,character-method}
+\alias{Compare,numeric,Duration-method}
+\alias{Compare,Duration,numeric-method}
 \alias{as.numeric,Duration-method}
 \alias{show,Duration-method}
 \alias{c,Duration-method}

@@ -37,6 +37,7 @@ setClass("Duration", contains = c("Timespan", "numeric"), validity = check_durat
 #'   Compare,difftime,Duration-method Compare,ANY,Duration-method
 #'   Compare,Duration,Period-method Compare,Duration,difftime-method
 #'   Compare,character,Duration-method Compare,Duration,character-method
+#'   Compare,numeric,Duration-method Compare,Duration,numeric-method
 #'   as.numeric,Duration-method show,Duration-method c,Duration-method
 #'   rep,Duration-method [,Duration-method [<-,Duration,ANY,ANY,ANY-method
 #'   [[,Duration-method [[<-,Duration,ANY,ANY,ANY-method $,Duration-method

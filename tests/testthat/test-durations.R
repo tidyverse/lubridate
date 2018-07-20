@@ -39,7 +39,6 @@ test_that("sub-unit fractional parsing works as expected", {
 
   expect_identical(duration(".1min .3sec .3secs .0H .2M .5d"),
                    duration(seconds = 6.6, minutes = .2, hours = 12))
-
 })
 
 test_that("parsing with 0 units works as expected", {
@@ -48,8 +47,6 @@ test_that("parsing with 0 units works as expected", {
   expect_equal(period("2d 0H 0M 1s"), days(2) + seconds(1))
   expect_equal(period("y 0m 2d 0H 0M 1s"), years(1) + days(2) + seconds(1))
 })
-
-
 
 test_that("make_difftime handles vectors", {
   x <- as.POSIXct(c("2008-08-03 13:01:59", "2008-08-03 13:01:59"), tz = "UTC")
@@ -70,7 +67,6 @@ test_that("make_difftime handles vectors", {
 
 })
 
-
 test_that("duration works as expected", {
   dur <- duration(seconds = 5, minutes = 30, days = 0,
     hour = 1, weeks = 2)
@@ -78,7 +74,6 @@ test_that("duration works as expected", {
   expect_equal(dur@.Data, 1215005)
   expect_is(dur, "Duration")
 })
-
 
 test_that("duration handles vectors", {
   dur1 <- duration(seconds = c(5, 1), minutes = c(30, 0),
@@ -92,8 +87,6 @@ test_that("duration handles vectors", {
   expect_is(dur2, "Duration")
 
 })
-
-
 
 test_that("as.duration handles vectors", {
   expect_that(as.duration(minutes(1:3)), equals(dminutes(1:3)))
@@ -131,14 +124,12 @@ test_that("as.duration handles difftimes", {
   expect_is(dur, "Duration")
 })
 
-
 test_that("eobjects handle vectors", {
   dur <- dseconds(c(1, 3, 4))
 
   expect_equal(dur@.Data, c(1, 3, 4))
   expect_is(dur, "Duration")
 })
-
 
 test_that("is.duration works as expected", {
   ct_time <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
@@ -169,7 +160,6 @@ test_that("format.Duration correctly displays durations with an NA", {
 
   expect_equivalent(format(dur), c("5s", NA))
 })
-
 
 test_that("summary.Duration creates useful summary", {
   dur <- dminutes(5)
@@ -217,7 +207,6 @@ test_that("as.duration handles NA objects", {
   expect_equal(as.duration(NA), na.dur)
 })
 
-
 test_that("Comparison operators work duration and difftime objects (#323)", {
   t1 <- now()
   t2 <- t1 + dhours(1)
@@ -230,6 +219,6 @@ test_that("Comparison operators work duration and difftime objects (#323)", {
   expect_true(dhours(1) > dminutes(59))
   expect_true(dhours(1) == dseconds(3600))
 
-  expect_error(dhours(1) == 3600)
-  expect_error(dhours(1) == 1)
+  expect_true(dhours(1) == 3600)
+  expect_false(dhours(1) == 1)
 })

@@ -48,14 +48,22 @@ test_that("duration comparison with periods works as expected", {
   expect_true(duration("day 1S 2H 3m 2y") >  period(days = 1, months = 3, years = 2, hours = 2))
 })
 
-
-test_that("character comparison with durrations works as expected", {
+test_that("character comparison with durations works as expected", {
   expect_true("day" == duration(days = 1))
   expect_true("2 days, 2 secs" == duration(days = 2, seconds = 2))
   expect_true(duration("day 1s") >  duration(days = 1))
   expect_true("day 1s" >  duration(days = 1))
   expect_true("day 1S 2H" == duration(days = 1, seconds = 1, hours = 2))
   expect_false("day 1S 2H" < duration(days = 1, hours = 2))
+})
+
+test_that("numeric comparison with durations works as expected", {
+  expect_true(1 == duration(secs = 1))
+  expect_true(172802 == duration(days = 2, seconds = 2))
+  expect_true(86401 > duration(days = 1))
+  expect_true(93601 == duration(days = 1, seconds = 1, hours = 2))
+  expect_true(86400 < duration(days = 1, hours = 2))
+  expect_true(10 > as.duration(1))
 })
 
 test_that("difftime comparison with periods works", {
