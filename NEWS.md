@@ -3,9 +3,10 @@ Version 1.7.4.9000
 
 ### NEW FEATURES
 
-* [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors. 
+* [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constants `NA_Date_` and `NA_POSIXct_` which parallel built-in primitive constants.
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constructors `Date()` and `POSIXct()` which parallel built-in primitive constructors.
+* [#629](https://github.com/tidyverse/lubridate/issues/629) Added `format_ISO8601()` methods.
 
 
 ### BUG FIXES
