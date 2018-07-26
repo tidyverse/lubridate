@@ -81,6 +81,7 @@ Collate:
     'data.r'
     'decimal-dates.r'
     'deprecated.r'
+    'format_ISO8601.r'
     'guess.r'
     'hidden.r'
     'instants.r'
