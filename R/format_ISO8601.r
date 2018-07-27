@@ -9,10 +9,16 @@
 #'   precision for the object is shown.
 #' @param ... Additional arguments to methods.
 #' @return A character vector of ISO8601-formatted text.
+#' @references \url{https://en.wikipedia.org/wiki/ISO_8601}
 #' @examples
 #' format_ISO8601(as.Date("02-01-2018", format="%m-%d-%Y"))
 #' format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), usetz=TRUE)
 #' format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), precision="ymdhm")
+#' @aliases format_ISO8601,Date-method
+#' format_ISO8601,POSIXt-method
+#' format_ISO8601,Interval-method
+#' format_ISO8601,Duration-method
+#' format_ISO8601,Period-method
 #' @export
 setGeneric(name = "format_ISO8601",
            def = function(x, usetz=FALSE, precision=NULL, ...) standardGeneric("format_ISO8601"))
@@ -94,6 +100,14 @@ setMethod("format_ISO8601", signature="Period",
                    paste0("P", date_part))
           })
 
+ISO8601_precision_map <-
+  list(y="%Y",
+       ym="%Y-%m",
+       ymd="%Y-%m-%d",
+       ymdh="%Y-%m-%dT%H",
+       ymdhm="%Y-%m-%dT%H:%M",
+       ymdhms="%Y-%m-%dT%H:%M:%S")
+
 #' Provide a format for ISO8601 dates and times with the requested precision.
 #'
 #' @param precision The amount of precision to represent with substrings of
@@ -107,29 +121,24 @@ setMethod("format_ISO8601", signature="Period",
 #' more precise than \code{max_precision}, a warning is given and
 #' \code{max_precision} is returned.
 format_ISO8601_precision_check <- function(precision, max_precision, usetz=FALSE) {
-  precision_map <- list(y="%Y",
-                        ym="%Y-%m",
-                        ymd="%Y-%m-%d",
-                        ymdh="%Y-%m-%dT%H",
-                        ymdhm="%Y-%m-%dT%H:%M",
-                        ymdhms="%Y-%m-%dT%H:%M:%S")
-  if (!(max_precision %in% names(precision_map))) {
+  if (!(max_precision %in% names(ISO8601_precision_map))) {
     stop("Invalid value for max_precision provided: ", max_precision)
   }
   if (is.null(precision)) {
     precision <- max_precision
   }
-  if (!(precision %in% names(precision_map))) {
-    stop("Invalid value for precision provided: ", precision)
-  }
   if (nchar(precision) > nchar(max_precision)) {
-    warning("More precision requested (", precision, ") than allowed (", max_precision, ") for this format.  Using maximum allowed precision.")
+    warning("More precision requested (", precision, ") ",
+            "than allowed (", max_precision, ") for this format.  ",
+            "Using maximum allowed precision.")
     precision <- max_precision
   }
   if (length(precision) != 1) {
     stop("precision must be a scalar")
   }
-  ret <- precision_map[[precision]]
+  if (is.null(ret <- ISO8601_precision_map[[precision]])) {
+    stop("Invalid value for precision provided: ", precision)
+  }
   if (usetz) {
     ret <- paste0(ret, "%z")
   }

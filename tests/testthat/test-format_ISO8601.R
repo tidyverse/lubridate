@@ -50,7 +50,9 @@ test_that("Formatting a Duration works", {
   expect_equal(format_ISO8601(duration(20, units="minutes")),
                paste0("PT", 20*60,"S"),
                info="Duration always formats as seconds to ensure precision.")
-  expect_warning(format_ISO8601(duration(20, units="minutes"), precision="y"))
+  expect_warning(format_ISO8601(duration(20, units="minutes"), precision="y"),
+                 regexp="precision is not used for Duration objects",
+                 fixed=TRUE)
 })
 
 test_that("Formatting a Period works", {
