@@ -2,6 +2,11 @@
 % Please edit documentation in R/format_ISO8601.r
 \name{format_ISO8601}
 \alias{format_ISO8601}
+\alias{format_ISO8601,Date-method}
+\alias{format_ISO8601,POSIXt-method}
+\alias{format_ISO8601,Interval-method}
+\alias{format_ISO8601,Duration-method}
+\alias{format_ISO8601,Period-method}
 \title{Format in ISO8601 character format}
 \usage{
 format_ISO8601(x, usetz = FALSE, precision = NULL, ...)
@@ -29,4 +34,7 @@ Format in ISO8601 character format
 format_ISO8601(as.Date("02-01-2018", format="\%m-\%d-\%Y"))
 format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), usetz=TRUE)
 format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), precision="ymdhm")
+}
+\references{
+\url{https://en.wikipedia.org/wiki/ISO_8601}
 }
