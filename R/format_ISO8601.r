@@ -23,7 +23,6 @@
 setGeneric(name = "format_ISO8601",
            def = function(x, usetz=FALSE, precision=NULL, ...) standardGeneric("format_ISO8601"))
 
-#' @rdname format_ISO86901
 #' @export
 setMethod("format_ISO8601", signature="Date",
           function(x, usetz=FALSE, precision=NULL, ...) {
@@ -32,7 +31,6 @@ setMethod("format_ISO8601", signature="Date",
             as.character(x, format=precision_format, usetz=FALSE)
           })
 
-#' @rdname format_ISO86901
 #' @export
 setMethod("format_ISO8601", signature="POSIXt",
           function(x, usetz=FALSE, precision=NULL, ...) {
@@ -42,7 +40,6 @@ setMethod("format_ISO8601", signature="POSIXt",
             as.character(x, format=precision_format, usetz=FALSE)
           })
 
-#' @rdname format_ISO86901
 #' @export
 setMethod("format_ISO8601", signature="Interval",
           function(x, usetz=FALSE, precision=NULL, ...) {
@@ -54,7 +51,6 @@ setMethod("format_ISO8601", signature="Interval",
                     as.character(x@start + x@.Data, format=precision_format, usetz=FALSE))
           })
 
-#' @rdname format_ISO86901
 #' @export
 setMethod("format_ISO8601", signature="Duration",
           function(x, usetz=FALSE, precision=NULL, ...) {
@@ -64,7 +60,6 @@ setMethod("format_ISO8601", signature="Duration",
             sprintf("PT%sS", format(x@.Data))
           })
 
-#' @rdname format_ISO86901
 #' @export
 setMethod("format_ISO8601", signature="Period",
           function(x, usetz=FALSE, precision=NULL, ...) {
