@@ -431,7 +431,6 @@ int_diff <- function(times) {
   interval(times[-length(times)], times[-1])
 }
 
-#' @export
 setGeneric("intersect")
 
 #' @export
@@ -454,7 +453,6 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x, y)
   new.int
 })
 
-#' @export
 setGeneric("union")
 
 #' @export
@@ -476,7 +474,6 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
   new.int
 })
 
-#' @export
 setGeneric("setdiff")
 
 # returns the part of x that is not in y
