@@ -71,7 +71,6 @@
 \alias{-,POSIXct,Interval}
 \alias{-,POSIXlt,Interval}
 \alias{-,numeric,Interval}
-\alias{hidden_aliases}
 \alias{Compare,Duration,ANY-method}
 \alias{Compare,Duration,Duration-method}
 \alias{Compare,difftime,Duration-method}
@@ -122,7 +121,6 @@
 \alias{\%\%,Duration,Period-method}
 \alias{-,Duration,missing-method}
 \alias{-,ANY,Duration-method}
-\alias{hidden_aliases}
 \alias{Arith,ANY,Period-method}
 \alias{Arith,Duration,Period-method}
 \alias{Arith,Period,Duration-method}
@@ -258,7 +256,6 @@
 \alias{>=,Period,Period}
 \alias{>=,Period,numeric}
 \alias{>=,numeric,Period}
-\alias{hidden_aliases}
 \title{Internal page for hidden aliases}
 \description{
 For S4 methods that require a documentation entry but only clutter the index.

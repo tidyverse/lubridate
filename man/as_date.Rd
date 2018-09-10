@@ -28,7 +28,8 @@ as_datetime(x, ...)
 
 \S4method{as_datetime}{POSIXt}(x, tz = "UTC")
 
-\S4method{as_datetime}{numeric}(x, origin = lubridate::origin, tz = "UTC")
+\S4method{as_datetime}{numeric}(x, origin = lubridate::origin,
+  tz = "UTC")
 
 \S4method{as_datetime}{character}(x, tz = "UTC", format = NULL)
 
