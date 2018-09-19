@@ -31,7 +31,7 @@
 ##'
 ##' @export
 ##' @param ... a character or numeric vector of suspected dates
-##' @param quiet logical. When TRUE function evalueates without displaying
+##' @param quiet logical. When TRUE function evaluates without displaying
 ##'   customary messages.
 ##' @param tz Time zone indicator. If NULL (default) a Date object is
 ##'   returned. Otherwise a POSIXct with time zone attribute set to `tz`.
