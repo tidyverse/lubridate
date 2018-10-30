@@ -15,21 +15,21 @@ hms(..., quiet = FALSE, roll = FALSE)
 \arguments{
 \item{...}{a character vector of hour minute second triples}
 
-\item{quiet}{logical. When TRUE function evalueates without displaying
+\item{quiet}{logical. If \code{TRUE}, function evaluates without displaying
 customary messages.}
 
-\item{roll}{logical. When TRUE, smaller units are rolled over to higher units
+\item{roll}{logical. If \code{TRUE}, smaller units are rolled over to higher units
 if they exceed the conventional limit. For example,
-\code{hms("01:59:120", roll=TRUE)} produces period "2H 1M 0S".}
+\code{hms("01:59:120", roll = TRUE)} produces period "2H 1M 0S".}
 }
 \value{
 a vector of period objects
 }
 \description{
 Transforms a character or numeric vector into a period object with the
-specified number of hours, minutes, and seconds. hms() recognizes all
+specified number of hours, minutes, and seconds. \code{hms()} recognizes all
 non-numeric characters except '-' as separators ('-' is used for negative
-durations).  After hours, minutes and seconds have been parsed, the
+durations). After hours, minutes and seconds have been parsed, the
 remaining input is ignored.
 }
 \examples{
