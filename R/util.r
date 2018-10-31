@@ -109,11 +109,11 @@ parse_period_unit <- function(unit) {
       start <- attr(m, "capture.start")
       end <- start + attr(m, "capture.length") - 1L
       n <- if (end[[1]] >= start[[1]]) {
-             as.integer(str_sub(unit, start[[1]], end[[1]]))
+             as.integer(substr(unit, start[[1]], end[[1]]))
            } else {
              1
            }
-      unit <- str_sub(unit, start[[2]], end[[2]])
+      unit <- substr(unit, start[[2]], end[[2]])
       list(n = n, unit = unit)
     } else {
       stop(sprintf("Invalid unit specification '%s'", unit))
@@ -132,4 +132,18 @@ date_to_posix <- function(date, tz = "UTC") {
   utc <- .POSIXct(unclass(date) * 86400, tz = "UTC")
   if (tz == "UTC") utc
   else force_tz(utc, tz)
+}
+
+# minimal custom str_sub function to replicate stringr::str_sub without the full dependency.
+.str_sub <- function(x, start, end, replace_with = ""){
+  
+  # get the parts of the string to the left and right of the replacement.
+  start.c = substr(x, 1, start - 1)
+  end.c = substr(x, end + 1, nchar(x))
+  
+  # paste with replacement in the middle.
+  x <- paste(start.c, replace_with, end.c, sep = "")
+  
+  return(x)
+
 }
