@@ -791,7 +791,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
                            "%z"},
                      stop("Unrecognised capture detected; please report this bug"))
 
-      str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
+      fmt <- .str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1, repl)
 
       ## user has supplied tz argument -> convert to tz
       if (tz != "UTC"){

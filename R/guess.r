@@ -191,7 +191,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     lout <- x[matched]
     for (n in rev(nms)) {  ## start from the end
       w <- end[, n] > 0 ## -1 if unmatched  subpatern
-      str_sub(lout[w], start[w, n], end[w, n]) <- paste("%", gsub("_.*$", "", n), sep = "")
+      lout[w] <- .str_sub(
+        lout[w], start[w, n], end[w, n], 
+        paste("%", gsub("_.*$", "", n), sep = "") 
+      )
     }
     if (fmts_only)
       lout

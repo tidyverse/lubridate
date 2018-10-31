@@ -96,7 +96,9 @@ stamp <- function(x, orders = lubridate_formats,
     ## Post-process only when at the end of the string, otherwise don't bother
     ## and just output with %z format after a conversion to UTC.
 
-    oOz_end <- str_extract(FMT, "%O[oOz]$")
+    # replicate str_extract(FMT, "%O[oOz]$") without stringr dependence.
+    # must return NA if no match.
+    oOz_end <- ifelse(grepl('%O[oOz]$', FMT), gsub("^.*(%O[oOz]$)", "\\1", FMT), rep(NA, length(FMT)))
 
     if (is.na(oOz_end)) {
       FMT <- sub("%O[oOz]", "%z",

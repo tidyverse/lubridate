@@ -217,7 +217,13 @@ interval <- function(start, end = NULL, tzone = tz(start)) {
 }
 
 parse_interval <- function(x, tz) {
-  mat <- str_split_fixed(x, "/", 2)
+
+  # create matrix of string parts from x: 1st column is anything before /, 2nd is anything after.
+  # replicates without stringr: str_split_fixed(x, "/", 2)
+  mat <- matrix(    
+    c(gsub('(^[^/]+)/(.+$)', '\\1', x), gsub('(^[^/]+)/(.+$)', '\\2', x)),
+    ncol = 2
+  )
   pstart <- grepl("^P", mat[, 1])
   pend <- grepl("^P",  mat[, 2])
 
