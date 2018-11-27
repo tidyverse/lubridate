@@ -131,9 +131,9 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
       ## special case for fast rounding
       round.POSIXt(x, units = lub2base_units[[basic_unit]])
     } else {
-      above <- unclass(as.POSIXct(ceiling_date(x, unit)))
+      above <- unclass(as.POSIXct(ceiling_date(x, unit, week_start)))
       mid <- unclass(as.POSIXct(x))
-      below <- unclass(as.POSIXct(floor_date(x, unit)))
+      below <- unclass(as.POSIXct(floor_date(x, unit, week_start)))
       wabove <- (above - mid) <= (mid - below)
       wabove <- !is.na(wabove) & wabove
       new <- below
