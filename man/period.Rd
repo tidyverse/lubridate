@@ -93,14 +93,10 @@ be created with the specialized functions \code{\link[=years]{years()}}, \code{\
 to and subtracted to date-times to create a user interface similar to object
 oriented programming.
 
-Note: Arithmetic with periods can results in undefined behavior when
-non-existent dates are involved (such as February 29th). Please see
-\linkS4class{Period} for more details and \code{\link{\%m+\%}} and
-\code{\link[=add_with_rollback]{add_with_rollback()}} for alternative operations. Note: Arithmetic with
-periods can results in undefined behavior when non-existent dates are
-involved (such as February 29th in non-leap years). Please see \linkS4class{Period}
-for more details and \code{\link{\%m+\%}} and \code{\link[=add_with_rollback]{add_with_rollback()}} for
-alternative operations.
+Note: Arithmetic with periods can result in undefined behavior when
+non-existent dates are involved (such as February 29th in non-leap years).
+Please see \linkS4class{Period} for more details and \code{\link{\%m+\%}} and
+\code{\link[=add_with_rollback]{add_with_rollback()}} for alternative operations.
 }
 \examples{
 

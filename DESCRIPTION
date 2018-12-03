@@ -1,6 +1,6 @@
 Package: lubridate
 Type: Package
-Version: 1.7.4
+Version: 1.7.4.9000
 Encoding: UTF-8
 Title: Make Dealing with Dates a Little Easier
 Description: Functions to work with date-times and time-spans: fast and user
