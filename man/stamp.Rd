@@ -29,7 +29,7 @@ used for disambiguation. For example "ymd hms", "aym" etc. See
 a function to be applied on a vector of dates
 }
 \description{
-Stamps are just like \code{\link[=format]{format()}}, but based on human-frendly
+Stamps are just like \code{\link[=format]{format()}}, but based on human-friendly
 templates like "Recorded at 10 am, September 2002" or "Meeting, Sunday May
 1, 2000, at 10:20 pm".
 }
