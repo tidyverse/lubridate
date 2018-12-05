@@ -151,7 +151,7 @@ unique.Interval <- function(x, ...) {
 #' `interval()` creates an [Interval-class] object with the specified start and
 #' end dates. If the start date occurs before the end date, the interval will be
 #' positive. Otherwise, it will be negative. Character vectors in ISO 8601
-#' format are suported from v1.7.2.
+#' format are supported from v1.7.2.
 #'
 #' Intervals are time spans bound by two real date-times.  Intervals can be
 #' accurately converted to either period or duration objects using
@@ -220,7 +220,7 @@ parse_interval <- function(x, tz) {
 
   # create matrix of string parts from x: 1st column is anything before /, 2nd is anything after.
   # replicates without stringr: str_split_fixed(x, "/", 2)
-  mat <- matrix(    
+  mat <- matrix(
     c(gsub('(^[^/]+)/(.+$)', '\\1', x), gsub('(^[^/]+)/(.+$)', '\\2', x)),
     ncol = 2
   )

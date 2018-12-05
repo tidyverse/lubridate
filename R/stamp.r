@@ -1,6 +1,6 @@
 ##' Format dates and times based on human-friendly templates
 ##'
-##' Stamps are just like [format()], but based on human-frendly
+##' Stamps are just like [format()], but based on human-friendly
 ##' templates like "Recorded at 10 am, September 2002" or "Meeting, Sunday May
 ##' 1, 2000, at 10:20 pm".
 ##'
@@ -161,7 +161,7 @@ stamp <- function(x, orders = lubridate_formats,
   ## "%Oz"  +0100
   ## "%OO"  +01:00
 
-  ## calulate offset by forcing this time as utc
+  ## calculate offset by forcing this time as utc
   dtm_utc <- force_tz(x, tzone = "UTC")
 
   ## the offset is the duration represented by the difference in time

@@ -289,7 +289,7 @@ hm <- function(..., quiet = FALSE, roll = FALSE) {
 ##' Transforms a character or numeric vector into a period object with the
 ##' specified number of hours, minutes, and seconds. `hms()` recognizes all
 ##' non-numeric characters except '-' as separators ('-' is used for negative
-##' durations). After hours, minutes and seconds have been parsed, the
+##' `durations`). After hours, minutes and seconds have been parsed, the
 ##' remaining input is ignored.
 ##'
 ##' @param ... a character vector of hour minute second triples
@@ -482,7 +482,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   set. Numeric values are the number of dates (in the training set) that
 ##'   matched the corresponding format. You should use this argument if the
 ##'   default selection method fails to select the formats in the right
-##'   order. By default the formats with most formating tokens (\%) are
+##'   order. By default the formats with most formatting tokens (\%) are
 ##'   selected and \%Y counts as 2.5 tokens (so that it has a priority over
 ##'   \%y\%m). See examples.
 ##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted as an
