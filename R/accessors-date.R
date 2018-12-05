@@ -51,3 +51,6 @@ setGeneric("date<-")
 setMethod("date<-", signature("Period"), function(x, value) {
   stop("date<- is undefined for Period objects")
 })
+
+# --
+
