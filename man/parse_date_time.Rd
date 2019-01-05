@@ -53,7 +53,7 @@ of the input vector are formats (not orders) that matched the training
 set. Numeric values are the number of dates (in the training set) that
 matched the corresponding format. You should use this argument if the
 default selection method fails to select the formats in the right
-order. By default the formats with most formating tokens (\%) are
+order. By default the formats with most formatting tokens (\%) are
 selected and \%Y counts as 2.5 tokens (so that it has a priority over
 \%y\%m). See examples.}
 

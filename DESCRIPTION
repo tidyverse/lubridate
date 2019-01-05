@@ -100,7 +100,7 @@ Collate:
     'stamp.r'
     'update.r'
     'zzz.R'
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
 BugReports: https://github.com/tidyverse/lubridate/issues
