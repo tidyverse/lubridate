@@ -1,12 +1,13 @@
-dist: trusty
-sudo: false
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
 language: R
 cache: packages
 
-r:
-- oldrel
-- release
-- devel
-
-after_success:
-  - Rscript -e 'covr::codecov()'
+matrix:
+  include:
+  - r: devel
+  - r: release
+    after_success:
+    - Rscript -e 'covr::codecov()'
+  - r: oldrel
+  - r: 3.3
