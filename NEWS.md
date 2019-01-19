@@ -11,6 +11,7 @@ Version 1.7.4.9000
 
 ### BUG FIXES
 
+* [#719] (https://github.com/tidyverse/lubridate/issues/719) Negative durations will now properly be displayed with a negative sign.
 * [#682](https://github.com/tidyverse/lubridate/issues/682) Fix quarter extraction with small `fiscal_start`s.
 
 
