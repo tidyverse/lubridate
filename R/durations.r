@@ -100,7 +100,7 @@ format.Duration <- function(x, ...) {
   if (length(x@.Data) == 0) return("Duration(0)")
   out <- vector("character", length(x@.Data))
   nnas <- !is.na(x@.Data)
-  out[nnas] <- compute_estimate(x@.Data[nnas])
+  out[nnas] <- compute_estimate(abs(x@.Data[nnas]))
   out[nnas] <- ifelse(x@.Data[nnas] < 0, paste0("-", out[nnas]), out[nnas])
   out[!nnas] <- NA
   out
