@@ -81,7 +81,7 @@ check_period <- function(object) {
 #'
 #' Because Period represents imprecise amount of time it cannot be compared to
 #' precise timestamps as Durations and Intervals are. You need to explicitely
-#' conver to durations. See [Duration-class].
+#' convert to durations. See [Duration-class].
 #'
 #' The logic that guides arithmetic with periods can be unintuitive. Starting
 #' with version 1.3.0, \pkg{lubridate} enforces the reversible property of arithmetic
