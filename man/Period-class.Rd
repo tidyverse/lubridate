@@ -27,7 +27,7 @@ other events happen during the period.
 
 Because Period represents imprecise amount of time it cannot be compared to
 precise timestamps as Durations and Intervals are. You need to explicitely
-conver to durations. See \linkS4class{Duration}.
+convert to durations. See \linkS4class{Duration}.
 
 The logic that guides arithmetic with periods can be unintuitive. Starting
 with version 1.3.0, \pkg{lubridate} enforces the reversible property of arithmetic
