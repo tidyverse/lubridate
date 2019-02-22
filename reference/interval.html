@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -28,6 +28,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
+
+
 
 <meta property="og:title" content="Utilities for creation and manipulation of <code>Interval</code> objects — interval" />
 
@@ -298,15 +300,15 @@ calculated.</p>
 <span class='no'>int3</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2003-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2004-01-01"</span>))
 
 <span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int2</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int3</span>) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='now.html'>now</a></span>() + <span class='fu'><a href='period.html'>days</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2019-01-06 15:57:47 UTC--2019-01-07 15:57:47 UTC
-#&gt; [2] 2019-01-07 15:57:47 UTC--2019-01-08 15:57:47 UTC
-#&gt; [3] 2019-01-08 15:57:47 UTC--2019-01-09 15:57:47 UTC
-#&gt; [4] 2019-01-09 15:57:47 UTC--2019-01-10 15:57:47 UTC
-#&gt; [5] 2019-01-10 15:57:47 UTC--2019-01-11 15:57:47 UTC
-#&gt; [6] 2019-01-11 15:57:47 UTC--2019-01-12 15:57:47 UTC
-#&gt; [7] 2019-01-12 15:57:47 UTC--2019-01-13 15:57:47 UTC
-#&gt; [8] 2019-01-13 15:57:47 UTC--2019-01-14 15:57:47 UTC
-#&gt; [9] 2019-01-14 15:57:47 UTC--2019-01-15 15:57:47 UTC</div></pre>
+<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2019-02-23 10:06:29 UTC--2019-02-24 10:06:29 UTC
+#&gt; [2] 2019-02-24 10:06:29 UTC--2019-02-25 10:06:29 UTC
+#&gt; [3] 2019-02-25 10:06:29 UTC--2019-02-26 10:06:29 UTC
+#&gt; [4] 2019-02-26 10:06:29 UTC--2019-02-27 10:06:29 UTC
+#&gt; [5] 2019-02-27 10:06:29 UTC--2019-02-28 10:06:29 UTC
+#&gt; [6] 2019-02-28 10:06:29 UTC--2019-03-01 10:06:29 UTC
+#&gt; [7] 2019-03-01 10:06:29 UTC--2019-03-02 10:06:29 UTC
+#&gt; [8] 2019-03-02 10:06:29 UTC--2019-03-03 10:06:29 UTC
+#&gt; [9] 2019-03-03 10:06:29 UTC--2019-03-04 10:06:29 UTC</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
