@@ -78,10 +78,11 @@ test_that("local_time works as expected", {
 })
 
 test_that("with_tz throws warning on unrecognized time zones", {
-  expect_warning(with_tz(now(), "blablabla"))
-  expect_silent(with_tz(now(), "UTC"))
-  expect_silent(with_tz(now(), ""))
-  expect_silent(with_tz(now(), "America/New_York"))
+  t <- now()
+  expect_warning(with_tz(t, "blablabla"))
+  expect_silent(with_tz(t, "UTC"))
+  expect_silent(with_tz(t, ""))
+  expect_silent(with_tz(t, "America/New_York"))
 })
 
 test_that("force_tz works as expected", {

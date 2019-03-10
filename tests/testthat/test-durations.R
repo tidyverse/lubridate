@@ -208,7 +208,7 @@ test_that("as.duration handles NA objects", {
 })
 
 test_that("Comparison operators work duration and difftime objects (#323)", {
-  t1 <- now()
+  t1 <- ymd_hms("2019-03-01 12:30:50")
   t2 <- t1 + dhours(1)
   t3 <- t1 + dseconds(1)
 

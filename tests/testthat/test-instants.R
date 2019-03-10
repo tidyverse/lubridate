@@ -20,8 +20,10 @@ test_that("is.instant/is.timepoint handle vectors", {
 })
 
 test_that("now() handles time zone input correctly", {
-  expect_identical(floor_date(now("UTC"), "minute"), floor_date(as.POSIXct(format(
-    as.POSIXct(Sys.time()), tz = "UTC"), tz = "UTC"), "minute"))
+  nt <- now("UTC")
+  st <- Sys.time()
+  expect_identical(floor_date(nt, "minute"),
+                   floor_date(as.POSIXct(format(as.POSIXct(st), tz = "UTC"), tz = "UTC"), "minute"))
 })
 
 ## test_that("today() works correctly", {

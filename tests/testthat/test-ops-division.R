@@ -42,9 +42,10 @@ expect_equal(interval('2015-03-02', '2016-10-01') / months(1:3),
 })
 
 test_that("NA and Interval(0) propagate in interval division", {
-  int0 <- interval(character(0), now())
+  t <- ymd_hms("2019-03-01 12:30:50")
+  int0 <- interval(character(0), t)
   expect_equal(int0/days(3), numeric(0))
-  intNA <- interval(NA, now())
+  intNA <- interval(NA, t)
   expect_equal(intNA/days(3), NA_real_)
 })
 
