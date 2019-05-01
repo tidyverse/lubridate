@@ -37,6 +37,11 @@ test_that("time_length works as expected", {
               equals(time_length(int_flip(interval(ymd("1900-01-01"), ymd("2000-01-01"))), "days")))
 })
 
+test_that("time_length works with intervals on DTS",  {
+  times <- ymd_hms(c("2019-03-29 02:03:00", "2019-03-29 02:10:00"), tz = "Europe/Paris")
+  expect_equal(time_length(interval(times[[1]], times[[2]]), "years"), 1.32818e-05)
+})
+
 test_that("time_length works with missing intervals", {
   expect_equal(time_length(interval(NA, ymd("2016-01-01")), unit = "year"), NA_real_)
 })

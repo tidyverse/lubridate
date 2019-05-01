@@ -267,6 +267,12 @@ test_that("%m+% correctly adds years, months, days and HMS (#286)", {
                date %m+% per_major + per_minor)
 })
 
+test_that("add_with_rollback doesn't chock on DTS", {
+  x <- ymd_hms(c("2019-03-29 02:03:00", "2019-03-29 02:11:00"), tz = "Europe/Paris")
+  y <- ymd_hms(c("2020-03-29 03:00:00", "2020-03-29 03:00:00"), tz = "Europe/Paris")
+  expect_equal(add_with_rollback(x, years(1)), y)
+})
+
 test_that("%m+% correctly adds negative months without rollover", {
   may <- ymd_hms("2010-05-31 03:04:05")
   ends <- ymd_hms(c("2010-04-30 03:04:05", "2010-03-31 03:04:05", "2010-02-28 03:04:05"))
