@@ -62,7 +62,7 @@ add_period_to_date <- function(per, date) {
 }
 
 add_months <- function(mt, mos) {
-  if (mos == 0L) {
+  if (all(mos == 0L)) {
     return(mt)
   }
 
