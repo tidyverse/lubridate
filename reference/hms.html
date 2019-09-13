@@ -8,21 +8,31 @@
 
 <title>Parse periods with <strong>h</strong>our, <strong>m</strong>inute, and <strong>s</strong>econd components — ms • lubridate</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,35 +42,28 @@
 
 
 <meta property="og:title" content="Parse periods with <strong>h</strong>our, <strong>m</strong>inute, and <strong>s</strong>econd components — ms" />
-
 <meta property="og:description" content="Transforms a character or numeric vector into a period object with the
 specified number of hours, minutes, and seconds. hms() recognizes all
 non-numeric characters except '-' as separators ('-' is used for negative
 durations). After hours, minutes and seconds have been parsed, the
 remaining input is ignored." />
-
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
-</script>
+
   </head>
 
   <body>
@@ -108,6 +111,7 @@ remaining input is ignored." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -119,13 +123,11 @@ remaining input is ignored." />
     </div>
 
     <div class="ref-description">
-    
     <p>Transforms a character or numeric vector into a period object with the
 specified number of hours, minutes, and seconds. <code>hms()</code> recognizes all
 non-numeric characters except '-' as separators ('-' is used for negative
 <code>durations</code>). After hours, minutes and seconds have been parsed, the
 remaining input is ignored.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>ms</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>roll</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -133,7 +135,7 @@ remaining input is ignored.</p>
 <span class='fu'>hm</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>roll</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>hms</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>roll</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -153,19 +155,17 @@ if they exceed the conventional limit. For example,
 <code>hms("01:59:120", roll = TRUE)</code> produces period "2H 1M 0S".</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a vector of period objects</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>hm()</code>, <code>ms()</code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ms</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"09:10"</span>, <span class='st'>"09:02"</span>, <span class='st'>"1:10"</span>))</div><div class='output co'>#&gt; [1] "9M 10S" "9M 2S"  "1M 10S"</div><div class='input'><span class='fu'>ms</span>(<span class='st'>"7 6"</span>)</div><div class='output co'>#&gt; [1] "7M 6S"</div><div class='input'><span class='fu'>ms</span>(<span class='st'>"6,5"</span>)</div><div class='output co'>#&gt; [1] "6M 5S"</div><div class='input'><span class='fu'>hm</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"09:10"</span>, <span class='st'>"09:02"</span>, <span class='st'>"1:10"</span>))</div><div class='output co'>#&gt; [1] "9H 10M 0S" "9H 2M 0S"  "1H 10M 0S"</div><div class='input'><span class='fu'>hm</span>(<span class='st'>"7 6"</span>)</div><div class='output co'>#&gt; [1] "7H 6M 0S"</div><div class='input'><span class='fu'>hm</span>(<span class='st'>"6,5"</span>)</div><div class='output co'>#&gt; [1] "6H 5M 0S"</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"09:10:01"</span>, <span class='st'>"09:10:02"</span>, <span class='st'>"09:10:03"</span>)
+    <pre class="examples"><div class='input'><span class='fu'>ms</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"09:10"</span>, <span class='st'>"09:02"</span>, <span class='st'>"1:10"</span>))</div><div class='output co'>#&gt; [1] "9M 10S" "9M 2S"  "1M 10S"</div><div class='input'><span class='fu'>ms</span>(<span class='st'>"7 6"</span>)</div><div class='output co'>#&gt; [1] "7M 6S"</div><div class='input'><span class='fu'>ms</span>(<span class='st'>"6,5"</span>)</div><div class='output co'>#&gt; [1] "6M 5S"</div><div class='input'><span class='fu'>hm</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"09:10"</span>, <span class='st'>"09:02"</span>, <span class='st'>"1:10"</span>))</div><div class='output co'>#&gt; [1] "9H 10M 0S" "9H 2M 0S"  "1H 10M 0S"</div><div class='input'><span class='fu'>hm</span>(<span class='st'>"7 6"</span>)</div><div class='output co'>#&gt; [1] "7H 6M 0S"</div><div class='input'><span class='fu'>hm</span>(<span class='st'>"6,5"</span>)</div><div class='output co'>#&gt; [1] "6H 5M 0S"</div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"09:10:01"</span>, <span class='st'>"09:10:02"</span>, <span class='st'>"09:10:03"</span>)
 <span class='fu'>hms</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "9H 10M 1S" "9H 10M 2S" "9H 10M 3S"</div><div class='input'>
 <span class='fu'>hms</span>(<span class='st'>"7 6 5"</span>, <span class='st'>"3:23:::2"</span>, <span class='st'>"2 : 23 : 33"</span>, <span class='st'>"Finished in 9 hours, 20 min and 4 seconds"</span>)</div><div class='output co'>#&gt; [1] "7H 6M 5S"   "3H 23M 2S"  "2H 23M 33S" "9H 20M 4S" </div></pre>
   </div>
@@ -173,16 +173,14 @@ if they exceed the conventional limit. For example,
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -195,11 +193,14 @@ if they exceed the conventional limit. For example,
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

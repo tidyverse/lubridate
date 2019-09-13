@@ -6,24 +6,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Do more with dates and times in R • lubridate</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Do more with dates and times in R">
 <meta property="og:description" content="">
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- google analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
-
- gtag('config', 'UA-115082821-1');
-</script>
+<![endif]-->
 </head>
 <body>
     <div class="container template-article">
@@ -71,6 +72,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -90,7 +92,7 @@
 <h2 class="hasAnchor">
 <a href="#parsing-dates-and-times" class="anchor"></a>Parsing dates and times</h2>
 <p>Getting R to agree that your data contains the dates and times you think it does can be tricky. Lubridate simplifies that. Identify the order in which the year, month, and day appears in your dates. Now arrange “y”, “m”, and “d” in the same order. This is the name of the function in lubridate that will parse your dates. For example,</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(lubridate)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lubridate)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Attaching package: 'lubridate'</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; The following object is masked from 'package:base':</span></a>
@@ -161,9 +163,9 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/interval.html">int_overlaps</a></span>(jsm, auckland)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 <p>Then I better make hay while the sun shines! For what part of my visit will Chris be there?</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sets">setdiff</a></span>(auckland, jsm)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(auckland, jsm)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-07-20 NZST</span></a></code></pre></div>
-<p>Other functions that work with intervals include <code>int_start</code>, <code>int_end</code>, <code>int_flip</code>, <code>int_shift</code>, <code>int_aligns</code>, <code>union</code>, <code>intersect</code>, <code>setdiff</code>, and <code>%within%</code>.</p>
+<p>Other functions that work with intervals include <code>int_start</code>, <code>int_end</code>, <code>int_flip</code>, <code>int_shift</code>, <code>int_aligns</code>, <code>union</code>, <code>intersect</code>, <code>setdiff</code>, and <code><a href="../reference/within-interval.html">%within%</a></code>.</p>
 </div>
 <div id="arithmetic-with-date-times" class="section level2">
 <h2 class="hasAnchor">
@@ -200,15 +202,15 @@
 <a class="sourceLine" id="cb14-5" data-line-number="5">auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; [1] 96600</span></a></code></pre></div>
 <p>And so on. Alternatively, we can do modulo and integer division. Sometimes this is more sensible than division - it is not obvious how to express a remainder as a fraction of a month because the length of a month constantly changes.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">auckland <span class="op">%/%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/weekday.POSIXt">months</a></span>(<span class="dv">1</span>)</a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">auckland <span class="op">%/%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; Note: method with signature 'Timespan#Timespan' chosen for function '%/%',</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt;  target signature 'Interval#Period'.</span></a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt;  "Interval#ANY", "ANY#Period" would also be valid</span></a>
 <a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; [1] 2</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6">auckland <span class="op">%%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/weekday.POSIXt">months</a></span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">auckland <span class="op">%%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; [1] 2011-08-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></a></code></pre></div>
 <p>Modulo with an timespan returns the remainder as a new (smaller) interval. You can turn this or any interval into a generalized time span with <code>as.period</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland <span class="op">%%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/weekday.POSIXt">months</a></span>(<span class="dv">1</span>))</a>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland <span class="op">%%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">#&gt; [1] "6d 2H 0M 0S"</span></a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland)</a>
 <a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; [1] "2m 6d 2H 0M 0S"</span></a></code></pre></div>
@@ -225,17 +227,17 @@
 <code>February 28th</code> (assuming its not a leap year)</li>
 </ol>
 <p>A basic property of arithmetic is that <code>a + b - b = a</code>. Only solution 1 obeys this property, but it is an invalid date. I’ve tried to make lubridate as consistent as possible by invoking the following rule <em>if adding or subtracting a month or a year creates an invalid date, lubridate will return an NA</em>. This is new with version 1.3.0, so if you’re an old hand with lubridate be sure to remember this!</p>
-<p>If you thought solution 2 or 3 was more useful, no problem. You can still get those results with clever arithmetic, or by using the special <code>%m+%</code> and <code>%m-%</code> operators. <code>%m+%</code> and <code>%m-%</code> automatically roll dates back to the last day of the month, should that be necessary.</p>
+<p>If you thought solution 2 or 3 was more useful, no problem. You can still get those results with clever arithmetic, or by using the special <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> operators. <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> automatically roll dates back to the last day of the month, should that be necessary.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">jan31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="st">"2013-01-31"</span>)</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">jan31 <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/weekday.POSIXt">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">jan31 <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
 <a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt;  [1] "2013-01-31" NA           "2013-03-31" NA           "2013-05-31"</span></a>
 <a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt;  [6] NA           "2013-07-31" "2013-08-31" NA           "2013-10-31"</span></a>
 <a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt; [11] NA           "2013-12-31"</span></a>
-<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw"><a href="../reference/round_date.html">floor_date</a></span>(jan31, <span class="st">"month"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/weekday.POSIXt">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">31</span>)</a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw"><a href="../reference/round_date.html">floor_date</a></span>(jan31, <span class="st">"month"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">31</span>)</a>
 <a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co">#&gt;  [1] "2013-02-01" "2013-03-04" "2013-04-01" "2013-05-02" "2013-06-01"</span></a>
 <a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt;  [6] "2013-07-02" "2013-08-01" "2013-09-01" "2013-10-02" "2013-11-01"</span></a>
 <a class="sourceLine" id="cb17-9" data-line-number="9"><span class="co">#&gt; [11] "2013-12-02" "2014-01-01"</span></a>
-<a class="sourceLine" id="cb17-10" data-line-number="10">jan31 <span class="op">%m+%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/weekday.POSIXt">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb17-10" data-line-number="10">jan31 <span class="op">%m+%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
 <a class="sourceLine" id="cb17-11" data-line-number="11"><span class="co">#&gt;  [1] "2013-01-31" "2013-02-28" "2013-03-31" "2013-04-30" "2013-05-31"</span></a>
 <a class="sourceLine" id="cb17-12" data-line-number="12"><span class="co">#&gt;  [6] "2013-06-30" "2013-07-31" "2013-08-31" "2013-09-30" "2013-10-31"</span></a>
 <a class="sourceLine" id="cb17-13" data-line-number="13"><span class="co">#&gt; [11] "2013-11-30" "2013-12-31"</span></a></code></pre></div>
@@ -258,6 +260,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -276,6 +279,7 @@
 </div>
 
 
+
       <footer><div class="tidyverse">
   <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
@@ -286,10 +290,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

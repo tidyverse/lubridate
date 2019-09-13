@@ -8,21 +8,31 @@
 
 <title>Changelog • lubridate</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,29 +42,23 @@
 
 
 <meta property="og:title" content="Changelog" />
-
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
-</script>
+
   </head>
 
   <body>
@@ -102,6 +106,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -147,7 +152,7 @@
 <a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/658"><a href='https://github.com/tidyverse/lubridate/issues/658'>#658</a></a> <code>%within%</code> now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/658"><a href='https://github.com/tidyverse/lubridate/issues/658'>#658</a></a> <code><a href="../reference/within-interval.html">%within%</a></code> now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.</li>
 </ul>
 </div>
 <div id="changes" class="section level3">
@@ -157,7 +162,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/661"><a href='https://github.com/tidyverse/lubridate/issues/661'>#661</a></a> Throw error on invalid multi-unit rounding.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/633"><a href='https://github.com/tidyverse/lubridate/issues/633'>#633</a></a> <code>%%</code> on intervals relies on <code>%m+</code> arithmetic and doesn’t produce NAs when intermediate computations result in non-existent dates.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/633"><a href='https://github.com/tidyverse/lubridate/issues/633'>#633</a></a> <code><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></code> on intervals relies on <code>%m+</code> arithmetic and doesn’t produce NAs when intermediate computations result in non-existent dates.</li>
 <li>
 <code><a href="../reference/tz.html">tz()</a></code> always returns “UTC” when <code>tzone</code> attribute cannot be inferred.</li>
 </ul>
@@ -657,7 +662,7 @@
 <h3 class="hasAnchor">
 <a href="#changes-8" class="anchor"></a>CHANGES</h3>
 <ul>
-<li>v1.3.0. treats math with month and year Periods more consistently. If adding or subtracting n months would result in a non-existent date, lubridate will return an NA instead of a day in the following month or year. For example, <code>ymd("2013-01-31") + months(1)</code> will return <code>NA</code> instead of <code>2013-03-04</code> as in v1.2.0. <code>ymd("2012-02-29") + years(1)</code> will also return an <code>NA</code>. This rule change helps ensure that date + timespan - timespan = date (or NA). If you’d prefer that such arithmetic just returns the last day of the resulting month, see <code>%m+%</code> and <code>%m-%</code>.</li>
+<li>v1.3.0. treats math with month and year Periods more consistently. If adding or subtracting n months would result in a non-existent date, lubridate will return an NA instead of a day in the following month or year. For example, <code>ymd("2013-01-31") + months(1)</code> will return <code>NA</code> instead of <code>2013-03-04</code> as in v1.2.0. <code>ymd("2012-02-29") + years(1)</code> will also return an <code>NA</code>. This rule change helps ensure that date + timespan - timespan = date (or NA). If you’d prefer that such arithmetic just returns the last day of the resulting month, see <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code>.</li>
 <li>update.POSIXct and update.POSIXlt have been rewritten to be 7x faster than their versions in v1.2.0. The speed gain is felt in <code>force_tz</code>, <code>with_tz</code>, <code>floor_date</code>, <code>ceiling_date</code>, <code>second&lt;-</code>, <code>minute&lt;-</code>, <code>hour&lt;-</code>, <code>day&lt;-</code>, <code>month&lt;-</code>, <code>year&lt;-</code>, and other functions that rely on update (such as math with Periods).</li>
 <li>lubridate includes a Korean translation provided by <a href="http://korea.gnu.org/gnustats/" class="uri">http://korea.gnu.org/gnustats/</a>
 </li>
@@ -668,12 +673,12 @@
 <a href="#new-features-7" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>lubridate parser and stamp functions now handle ISO8601 date format (e.g., 2013-01-24 19:39:07.880-06:00, 2013-01-24 19:39:07.880Z)</li>
-<li>lubridate v1.3.0 comes with a new R vignette. see <code><a href="https://www.rdocumentation.org/packages/utils/topics/browseVignettes">browseVignettes("lubridate")</a></code> to view it.</li>
+<li>lubridate v1.3.0 comes with a new R vignette. see <code><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes("lubridate")</a></code> to view it.</li>
 <li>The accessors <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>month</code>, <code>year</code> and the settors <code>second&lt;-</code>, <code>minute&lt;-</code>, <code>hour&lt;-</code>, <code>day&lt;-</code>, <code>month&lt;-</code>, <code>year&lt;-</code> now work on Period class objects</li>
-<li>users can control which messages lubridate returns when parsing and estimating with the global option lubridate.verbose. Run <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options(lubridate.verbose = TRUE)</a></code> to turn parsing messages on. Run <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options(lubridate.verbose = FALSE)</a></code> to turn estimation and coercion messages off.</li>
+<li>users can control which messages lubridate returns when parsing and estimating with the global option lubridate.verbose. Run <code><a href="https://rdrr.io/r/base/options.html">options(lubridate.verbose = TRUE)</a></code> to turn parsing messages on. Run <code><a href="https://rdrr.io/r/base/options.html">options(lubridate.verbose = FALSE)</a></code> to turn estimation and coercion messages off.</li>
 <li>lubridate parser functions now propagate NA’s just as as.POSIXct, strptime and other functions do. Previously lubridate’s parse functions would only return an error.</li>
 <li>added [[ and [[&lt;- methods for INterval, Period and Duration class objects</li>
-<li>added <code>%m+%</code> and <code>%m-%</code> methods for Interval and Duration class objects that throw useful errors.</li>
+<li>added <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> methods for Interval and Duration class objects that throw useful errors.</li>
 <li>
 <code>olson_time_zones</code> retreives a character vector is Olson-style time zone names to use in lubridate</li>
 <li>summary methods for Interval, Period, and Duration classes</li>
@@ -685,7 +690,7 @@
 <a href="#bug-fixes-11" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed bug in way update.POSIXct and update.POSIXlt handle dates that occur in the fall daylight savings overlap. update will choose the date-time closest to the original date time (on the timeline) when two identical clock times exist due to the DST overlap.</li>
-<li>fixed bugs that created unintuitive results for <code>as.interval</code>, <code>int_overlaps</code>, <code>%within%</code> and the interval methods of <code>c</code>, <code>intersect</code>, <code>union</code>, <code>setdiff</code>, and <code>summary</code>.</li>
+<li>fixed bugs that created unintuitive results for <code>as.interval</code>, <code>int_overlaps</code>, <code><a href="../reference/within-interval.html">%within%</a></code> and the interval methods of <code>c</code>, <code>intersect</code>, <code>union</code>, <code>setdiff</code>, and <code>summary</code>.</li>
 <li>parse functions, <code>as.interval</code>, <code>as.period</code> and <code>as.duration</code> now handlevectors of NA’s without returning errors.</li>
 <li>parsers better handle vectors of input that have more than 100 elements and many NAs</li>
 <li>data frames that contain timespan objects with NAs in thme no longer fail toprint</li>
@@ -714,7 +719,7 @@
 </ul>
 </li>
 <li>
-<p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a date’s month. And, <code>%m+%</code> and <code>%m-%</code> provide a new way to</p>
+<p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a date’s month. And, <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> provide a new way to</p>
 <h3 id="handle-unequal-month-lengths-while-doing-arithmetic.-see-new-features-for-more">handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
 <p>details</p>
 </li>
@@ -735,7 +740,7 @@
 <li><p><code>as.period.Interval</code> accepts a unit argument. <code>as.period</code> will convert intervals into periods no larger than the supplied unit.</p></li>
 <li><p><code>days_in_month</code> takes a date, returns the number of days in the date’s month. Contributed by Richard Cotton. Thank you, Richard.</p></li>
 <li>
-<p><code>%m+%</code> and <code>%m-%</code> perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can’t be used with periods smaller than a month, which should be handled separately. An example of the new behavior:</p>
+<p><code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can’t be used with periods smaller than a month, which should be handled separately. An example of the new behavior:</p>
 <p>ymd(“2010-01-31”) %m+% months(1) # “2010-02-28 UTC”</p>
 <p>ymd(“2010-01-31”) + months(1) # “2010-03-03 UTC”</p>
 <p>ymd(“2010-03-31”) %m-% months(1) # “2010-02-28 UTC”</p>
@@ -957,6 +962,7 @@
 
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p>lubridate is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
@@ -968,11 +974,14 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
