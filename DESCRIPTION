@@ -104,6 +104,7 @@ Collate:
     'numeric.r'
     'coercion.r'
     'constants.r'
+    'cyclic_encoding.r'
     'data.r'
     'decimal-dates.r'
     'deprecated.r'
