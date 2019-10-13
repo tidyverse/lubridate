@@ -75,8 +75,8 @@ format.Interval <- function(x, ...) {
 }
 
 #' @export
-seq.Interval <- function(x, by = "year") {
-  seq(int_start(x), int_end(x), by = by)
+seq.Interval <- function(x, by = "year", ...) {
+  as_date(seq(int_start(x), int_end(x), by = by))
 }
 
 #' @export

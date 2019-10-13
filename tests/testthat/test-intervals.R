@@ -694,7 +694,7 @@ test_that("seq.Interval works (#638)", {
   expect_equal(seq(one_month, by = "year"), ymd("2010-01-01"))
 
   expect_equal(
-    seq(one_month, by = "month"), c(ymd("2010-01-01"), ymd("2010-01-01"))
+    seq(one_month, by = "month"), c(ymd("2010-01-01"), ymd("2010-02-01"))
   )
 
   two_days <- ymd("2010-1-1") %--% ymd("2010-1-2")
