@@ -75,6 +75,11 @@ format.Interval <- function(x, ...) {
 }
 
 #' @export
+seq.Interval <- function(x, by = "year") {
+  seq(int_start(x), int_end(x), by = by)
+}
+
+#' @export
 setMethod("c", signature(x = "Interval"), function(x, ...) {
   elements <- lapply(list(...), as.interval)
   spans <- c(x@.Data, unlist(elements@.Data))

@@ -686,3 +686,20 @@ test_that("Intervals handles missing numbers", {
   expect_equal(intersect(int, int), int)
 
 })
+
+test_that("seq.Interval works (#638)", {
+
+  one_month <- ymd("2010-1-1") %--% ymd("2010-2-1")
+
+  expect_equal(seq(one_month, by = "year"), ymd("2010-01-01"))
+
+  expect_equal(
+    seq(one_month, by = "month"), c(ymd("2010-01-01"), ymd("2010-01-01"))
+  )
+
+  two_days <- ymd("2010-1-1") %--% ymd("2010-1-2")
+
+  expect_equal(
+    seq(two_days, by = "day"), c(ymd("2010-01-01"), ymd("2010-01-02"))
+  )
+})
