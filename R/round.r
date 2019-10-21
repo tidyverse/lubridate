@@ -211,9 +211,16 @@ floor_date <- function(x, unit = "seconds", week_start = getOption("lubridate.we
 #' @rdname round_date
 #' @export
 #' @examples
-#' x <- ymd("2000-01-01")
-#' ceiling_date(x, "month")
-#' ceiling_date(x, "month", change_on_boundary = TRUE)
+#'
+#'  x <- ymd_hms("2000-01-01 00:00:00")
+#'  ceiling_date(x, "month")
+#'  ceiling_date(x, "month", change_on_boundary = TRUE)
+#'
+#'  ## For Date objects first day of the month is not on the
+#'  ## "boundary". change_on_boundary applies to instants only.
+#'  x <- ymd("2000-01-01")
+#'  ceiling_date(x, "month")
+#'  ceiling_date(x, "month", change_on_boundary = TRUE)
 ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_start = getOption("lubridate.week.start", 7)) {
 
   if (!length(x))

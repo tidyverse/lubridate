@@ -139,9 +139,16 @@ ceiling_date(x, "year")
 as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
 ceiling_date(x, ".1 sec") ## -> "2009-08-03 12:01:59.2 CEST"
 
-x <- ymd("2000-01-01")
-ceiling_date(x, "month")
-ceiling_date(x, "month", change_on_boundary = TRUE)
+
+ x <- ymd_hms("2000-01-01 00:00:00")
+ ceiling_date(x, "month")
+ ceiling_date(x, "month", change_on_boundary = TRUE)
+
+ ## For Date objects first day of the month is not on the
+ ## "boundary". change_on_boundary applies to instants only.
+ x <- ymd("2000-01-01")
+ ceiling_date(x, "month")
+ ceiling_date(x, "month", change_on_boundary = TRUE)
 }
 \seealso{
 \code{\link[base:round]{base::round()}}
