@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cyclic encoding of date times — cyclic_encoding • lubridate</title>
+<title>Cyclic encoding of date-times — cyclic_encoding • lubridate</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,10 +41,10 @@
 
 
 
-<meta property="og:title" content="Cyclic encoding of date times — cyclic_encoding" />
+<meta property="og:title" content="Cyclic encoding of date-times — cyclic_encoding" />
 <meta property="og:description" content="Encode a date-time object into a cyclic coordinate system in which the
-distance between two pairs of dates separated by the same time period would
-be the same." />
+distances between two pairs of dates separated by the same time duration are
+the same." />
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -115,15 +115,15 @@ be the same." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cyclic encoding of date times</h1>
+    <h1>Cyclic encoding of date-times</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/cyclic_encoding.r'><code>R/cyclic_encoding.r</code></a></small>
     <div class="hidden name"><code>cyclic_encoding.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Encode a date-time object into a cyclic coordinate system in which the
-distance between two pairs of dates separated by the same time period would
-be the same.</p>
+distances between two pairs of dates separated by the same time duration are
+the same.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cyclic_encoding</span>(<span class='no'>x</span>, <span class='no'>periods</span>, <span class='kw'>encoders</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sin"</span>, <span class='st'>"cos"</span>),
@@ -159,9 +159,9 @@ input are allowed.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Machine learning models don't know that December 31st and January 1st are
-close in our calendar sense. <code>cyclic_encoding</code> makes it obvious to the
-machine learner that two calendar dates are close in some numeric sense by
-mapping the dates onto the circle.</p>
+close in our human calendar sense. <code>cyclic_encoding</code> makes it obvious to the
+machine learner that two calendar dates are close by mapping the dates onto
+the circle.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
