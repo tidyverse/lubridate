@@ -2,7 +2,7 @@
 % Please edit documentation in R/cyclic_encoding.r
 \name{cyclic_encoding}
 \alias{cyclic_encoding}
-\title{Cyclic encoding of date times}
+\title{Cyclic encoding of date-times}
 \usage{
 cyclic_encoding(x, periods, encoders = c("sin", "cos"),
   week_start = getOption("lubridate.week.start", 7))
@@ -24,14 +24,14 @@ a numeric matrix with number of columns equal \code{length(periods) * length(typ
 }
 \description{
 Encode a date-time object into a cyclic coordinate system in which the
-distance between two pairs of dates separated by the same time period would
-be the same.
+distances between two pairs of dates separated by the same time duration are
+the same.
 }
 \details{
 Machine learning models don't know that December 31st and January 1st are
-close in our calendar sense. \code{cyclic_encoding} makes it obvious to the
-machine learner that two calendar dates are close in some numeric sense by
-mapping the dates onto the circle.
+close in our human calendar sense. \code{cyclic_encoding} makes it obvious to the
+machine learner that two calendar dates are close by mapping the dates onto
+the circle.
 }
 \examples{
 

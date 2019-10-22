@@ -1,14 +1,14 @@
 
-#' Cyclic encoding of date times
+#' Cyclic encoding of date-times
 #'
 #' Encode a date-time object into a cyclic coordinate system in which the
-#' distance between two pairs of dates separated by the same time period would
-#' be the same.
+#' distances between two pairs of dates separated by the same time duration are
+#' the same.
 #'
 #' Machine learning models don't know that December 31st and January 1st are
-#' close in our calendar sense. `cyclic_encoding` makes it obvious to the
-#' machine learner that two calendar dates are close in some numeric sense by
-#' mapping the dates onto the circle.
+#' close in our human calendar sense. `cyclic_encoding` makes it obvious to the
+#' machine learner that two calendar dates are close by mapping the dates onto
+#' the circle.
 #'
 #' @param x a date-time object
 #' @param periods a character vector of periods. Follows same specification as
