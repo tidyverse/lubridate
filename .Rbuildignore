@@ -21,3 +21,4 @@
 ^docs$
 ^_pkgdown\.yml$
 ^\.github$
+^LICENSE\.md$
