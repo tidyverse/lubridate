@@ -44,7 +44,7 @@ Description: Functions to work with date-times and time-spans:
     the 'CCTZ' source code, released under the Apache 2.0 License, are
     included in this package. See <https://github.com/google/cctz> for
     more details.
-License: GPL-3
+License: GPL (>= 2)
 URL: http://lubridate.tidyverse.org,
     https://github.com/tidyverse/lubridate
 BugReports: https://github.com/tidyverse/lubridate/issues
