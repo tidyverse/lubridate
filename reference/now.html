@@ -58,7 +58,15 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -144,7 +152,7 @@ with now("UTC").</p></td>
     <div class='dont-index'><p><code><a href='Deprecated.html'>here()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>now</span>()</div><div class='output co'>#&gt; [1] "2019-10-22 08:56:39 UTC"</div><div class='input'><span class='fu'>now</span>(<span class='st'>"GMT"</span>)</div><div class='output co'>#&gt; [1] "2019-10-22 08:56:39 GMT"</div><div class='input'><span class='fu'>now</span>(<span class='st'>""</span>)</div><div class='output co'>#&gt; [1] "2019-10-22 08:56:39 UTC"</div><div class='input'><span class='fu'>now</span>() <span class='kw'>==</span> <span class='fu'>now</span>() <span class='co'># would be TRUE if computer processed both at the same instant</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>now</span>() <span class='kw'>&lt;</span> <span class='fu'>now</span>() <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>now</span>() <span class='kw'>&gt;</span> <span class='fu'>now</span>() <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>now</span>()</div><div class='output co'>#&gt; [1] "2019-11-08 14:11:53 UTC"</div><div class='input'><span class='fu'>now</span>(<span class='st'>"GMT"</span>)</div><div class='output co'>#&gt; [1] "2019-11-08 14:11:53 GMT"</div><div class='input'><span class='fu'>now</span>(<span class='st'>""</span>)</div><div class='output co'>#&gt; [1] "2019-11-08 14:11:53 UTC"</div><div class='input'><span class='fu'>now</span>() <span class='kw'>==</span> <span class='fu'>now</span>() <span class='co'># would be TRUE if computer processed both at the same instant</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>now</span>() <span class='kw'>&lt;</span> <span class='fu'>now</span>() <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>now</span>() <span class='kw'>&gt;</span> <span class='fu'>now</span>() <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

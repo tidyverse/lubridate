@@ -82,7 +82,15 @@ of a difftime object." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -299,15 +307,15 @@ calculated.</p>
 <span class='no'>int3</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2003-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2004-01-01"</span>))
 
 <span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int2</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int3</span>) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='now.html'>now</a></span>() + <span class='fu'><a href='period.html'>days</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2019-10-23 08:56:37 UTC--2019-10-24 08:56:37 UTC
-#&gt; [2] 2019-10-24 08:56:37 UTC--2019-10-25 08:56:37 UTC
-#&gt; [3] 2019-10-25 08:56:37 UTC--2019-10-26 08:56:37 UTC
-#&gt; [4] 2019-10-26 08:56:37 UTC--2019-10-27 08:56:37 UTC
-#&gt; [5] 2019-10-27 08:56:37 UTC--2019-10-28 08:56:37 UTC
-#&gt; [6] 2019-10-28 08:56:37 UTC--2019-10-29 08:56:37 UTC
-#&gt; [7] 2019-10-29 08:56:37 UTC--2019-10-30 08:56:37 UTC
-#&gt; [8] 2019-10-30 08:56:37 UTC--2019-10-31 08:56:37 UTC
-#&gt; [9] 2019-10-31 08:56:37 UTC--2019-11-01 08:56:37 UTC</div></pre>
+<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2019-11-09 14:11:51 UTC--2019-11-10 14:11:51 UTC
+#&gt; [2] 2019-11-10 14:11:51 UTC--2019-11-11 14:11:51 UTC
+#&gt; [3] 2019-11-11 14:11:51 UTC--2019-11-12 14:11:51 UTC
+#&gt; [4] 2019-11-12 14:11:51 UTC--2019-11-13 14:11:51 UTC
+#&gt; [5] 2019-11-13 14:11:51 UTC--2019-11-14 14:11:51 UTC
+#&gt; [6] 2019-11-14 14:11:51 UTC--2019-11-15 14:11:51 UTC
+#&gt; [7] 2019-11-15 14:11:51 UTC--2019-11-16 14:11:51 UTC
+#&gt; [8] 2019-11-16 14:11:51 UTC--2019-11-17 14:11:51 UTC
+#&gt; [9] 2019-11-17 14:11:51 UTC--2019-11-18 14:11:51 UTC</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
