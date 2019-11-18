@@ -2,64 +2,12 @@
 % Please edit documentation in R/deprecated.r
 \name{Deprecated-lubridate}
 \alias{Deprecated-lubridate}
-\alias{new_period}
-\alias{new_interval}
-\alias{new_duration}
-\alias{new_difftime}
-\alias{eseconds}
-\alias{eminutes}
-\alias{ehours}
-\alias{edays}
-\alias{eweeks}
-\alias{eyears}
-\alias{emilliseconds}
-\alias{emicroseconds}
-\alias{enanoseconds}
-\alias{epicoseconds}
-\alias{here}
-\alias{olson_time_zones}
 \title{Deprecated functions in the lubridate package}
-\usage{
-new_period(...)
-
-new_interval(...)
-
-new_duration(...)
-
-new_difftime(...)
-
-eseconds(x = 1)
-
-eminutes(x = 1)
-
-ehours(x = 1)
-
-edays(x = 1)
-
-eweeks(x = 1)
-
-eyears(x = 1)
-
-emilliseconds(x = 1)
-
-emicroseconds(x = 1)
-
-enanoseconds(x = 1)
-
-epicoseconds(x = 1)
-
-here()
-
-olson_time_zones(order_by = c("name", "longitude"))
-}
 \arguments{
-\item{...}{arguments to be passed to the functions
-(obscured to enforce the usage of new functions)}
-
 \item{x}{numeric value to be converted into duration}
 
-\item{order_by}{Return names alphabetically (the default) or from West to
-East.}
+\item{...}{arguments to be passed to the functions
+(obscured to enforce the usage of new functions)}
 }
 \description{
 Deprecated functions in the lubridate package
