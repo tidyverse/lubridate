@@ -10,23 +10,53 @@
 \alias{yq}
 \title{Parse dates with \strong{y}ear, \strong{m}onth, and \strong{d}ay components}
 \usage{
-ymd(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+ymd(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-ydm(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+ydm(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-mdy(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+mdy(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-myd(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+myd(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-dmy(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+dmy(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-dym(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+dym(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
 yq(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 }
@@ -60,7 +90,7 @@ In case of heterogeneous date formats, the \code{ymd()} family guesses formats b
 on a subset of the input vector. If the input vector contains many missing
 values or non-date strings, the subset might not contain meaningful dates
 and the date-time format won't be guessed resulting in
-\code{All formats failed to parse} error. In such cases please see
+\verb{All formats failed to parse} error. In such cases please see
 \code{\link[=parse_date_time]{parse_date_time()}} for a more flexible parsing interface.
 
 If the \code{truncated} parameter is non-zero, the \code{ymd()} functions also check for
@@ -71,8 +101,8 @@ NOTE: The \code{ymd()} family of functions is based on \code{parse_date_time()} 
 directly drop to the internal C parser for numeric months, but uses
 \code{\link[base:strptime]{base::strptime()}} for alphabetic months. This implies that some of \code{\link[base:strptime]{base::strptime()}}'s
 limitations are inherited by \pkg{lubridate}'s parser. For example, truncated
-formats (like \code{\%Y-\%b}) will not be parsed. Numeric truncated formats (like
-\code{\%Y-\%m}) are handled correctly by \pkg{lubridate}'s C parser.
+formats (like \verb{\%Y-\%b}) will not be parsed. Numeric truncated formats (like
+\verb{\%Y-\%m}) are handled correctly by \pkg{lubridate}'s C parser.
 
 As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a
 message that displays which format they used to parse their input. You can

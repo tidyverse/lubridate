@@ -4,8 +4,13 @@
 \alias{guess_formats}
 \title{Guess possible date-times formats from a character vector}
 \usage{
-guess_formats(x, orders, locale = Sys.getlocale("LC_TIME"),
-  preproc_wday = TRUE, print_matches = FALSE)
+guess_formats(
+  x,
+  orders,
+  locale = Sys.getlocale("LC_TIME"),
+  preproc_wday = TRUE,
+  print_matches = FALSE
+)
 }
 \arguments{
 \item{x}{input vector of date-times.}
@@ -16,7 +21,7 @@ guess_formats(x, orders, locale = Sys.getlocale("LC_TIME"),
 
 \item{preproc_wday}{whether to preprocess weekday names. Internal
 optimization used by \code{ymd_hms()} family of functions. If \code{TRUE}, weekdays are
-substituted with %a or %A accordingly, so that there is no need to supply
+substituted with \%a or \%A accordingly, so that there is no need to supply
 this format explicitly.}
 
 \item{print_matches}{for development purposes mainly. If \code{TRUE}, prints a matrix

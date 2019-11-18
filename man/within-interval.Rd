@@ -19,7 +19,7 @@ a \%within\% b
 A logical
 }
 \description{
-%within% returns TRUE if \code{a} falls within interval \code{b}. Both \code{a} and \code{b} are
+\%within\% returns TRUE if \code{a} falls within interval \code{b}. Both \code{a} and \code{b} are
 recycled according to standard R rules. If \code{b} is a list of intervals, \code{a} is
 checked if it falls within any of the intervals in \code{b}. If a is an interval,
 both its start and end dates must fall within b to return TRUE.

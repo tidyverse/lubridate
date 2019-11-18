@@ -16,41 +16,101 @@
 \title{Parse date-times with \strong{y}ear, \strong{m}onth, and \strong{d}ay, \strong{h}our,
 \strong{m}inute, and \strong{s}econd components.}
 \usage{
-ymd_hms(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+ymd_hms(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-ymd_hm(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+ymd_hm(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-ymd_h(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+ymd_h(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-dmy_hms(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+dmy_hms(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-dmy_hm(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+dmy_hm(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-dmy_h(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+dmy_h(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-mdy_hms(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+mdy_hms(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-mdy_hm(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+mdy_hm(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-mdy_h(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+mdy_h(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-ydm_hms(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+ydm_hms(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-ydm_hm(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+ydm_hm(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-ydm_h(..., quiet = FALSE, tz = "UTC",
-  locale = Sys.getlocale("LC_TIME"), truncated = 0)
+ydm_h(
+  ...,
+  quiet = FALSE,
+  tz = "UTC",
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 }
 \arguments{
 \item{...}{a character vector of dates in year, month, day, hour, minute,
@@ -86,15 +146,15 @@ The most common type of irregularity in date-time data is the truncation
 due to rounding or unavailability of the time stamp. If the \code{truncated}
 parameter is non-zero, the \code{ymd_hms()} functions also check for truncated
 formats. For example, \code{ymd_hms()} with \code{truncated = 3} will also parse
-incomplete dates like \code{2012-06-01 12:23}, \code{2012-06-01 12} and
+incomplete dates like \verb{2012-06-01 12:23}, \verb{2012-06-01 12} and
 \code{2012-06-01}. NOTE: The \code{ymd()} family of functions is based on
-\code{\link[base:strptime]{base::strptime()}} which currently fails to parse \code{\%y-\%m} formats.
+\code{\link[base:strptime]{base::strptime()}} which currently fails to parse \verb{\%y-\%m} formats.
 
 In case of heterogeneous date formats the \code{ymd_hms()} family guesses formats
 based on a subset of the input vector. If the input vector contains many
 missing values or non-date strings, the subset might not contain meaningful
 dates and the date-time format won't be guessed resulting in
-\code{All formats failed to parse} error. In such cases please see
+\verb{All formats failed to parse} error. In such cases please see
 \code{\link[=parse_date_time]{parse_date_time()}} for a more flexible parsing interface.
 
 As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a

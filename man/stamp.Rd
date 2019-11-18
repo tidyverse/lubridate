@@ -6,8 +6,12 @@
 \alias{stamp_time}
 \title{Format dates and times based on human-friendly templates}
 \usage{
-stamp(x, orders = lubridate_formats, locale = Sys.getlocale("LC_TIME"),
-  quiet = FALSE)
+stamp(
+  x,
+  orders = lubridate_formats,
+  locale = Sys.getlocale("LC_TIME"),
+  quiet = FALSE
+)
 
 stamp_date(x, locale = Sys.getlocale("LC_TIME"))
 

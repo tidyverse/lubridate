@@ -5,8 +5,7 @@
 \alias{month<-}
 \title{Get/set months component of a date-time}
 \usage{
-month(x, label = FALSE, abbr = TRUE,
-  locale = Sys.getlocale("LC_TIME"))
+month(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
 
 month(x) <- value
 }

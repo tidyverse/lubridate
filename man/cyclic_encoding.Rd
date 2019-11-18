@@ -4,8 +4,12 @@
 \alias{cyclic_encoding}
 \title{Cyclic encoding of date-times}
 \usage{
-cyclic_encoding(x, periods, encoders = c("sin", "cos"),
-  week_start = getOption("lubridate.week.start", 7))
+cyclic_encoding(
+  x,
+  periods,
+  encoders = c("sin", "cos"),
+  week_start = getOption("lubridate.week.start", 7)
+)
 }
 \arguments{
 \item{x}{a date-time object}

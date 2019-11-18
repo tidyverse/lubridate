@@ -21,8 +21,8 @@
 ##' directly drop to the internal C parser for numeric months, but uses
 ##' [base::strptime()] for alphabetic months. This implies that some of [base::strptime()]'s
 ##' limitations are inherited by \pkg{lubridate}'s parser. For example, truncated
-##' formats (like \code{\%Y-\%b}) will not be parsed. Numeric truncated formats (like
-##' \code{\%Y-\%m}) are handled correctly by \pkg{lubridate}'s C parser.
+##' formats (like `%Y-%b`) will not be parsed. Numeric truncated formats (like
+##' `%Y-%m`) are handled correctly by \pkg{lubridate}'s C parser.
 ##'
 ##' As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a
 ##' message that displays which format they used to parse their input. You can
@@ -118,7 +118,7 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' formats. For example, `ymd_hms()` with `truncated = 3` will also parse
 ##' incomplete dates like `2012-06-01 12:23`, `2012-06-01 12` and
 ##' `2012-06-01`. NOTE: The `ymd()` family of functions is based on
-##' [base::strptime()] which currently fails to parse \code{\%y-\%m} formats.
+##' [base::strptime()] which currently fails to parse `%y-%m` formats.
 ##'
 ##' In case of heterogeneous date formats the `ymd_hms()` family guesses formats
 ##' based on a subset of the input vector. If the input vector contains many
@@ -345,7 +345,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' `parse_date_time()` parses an input vector into POSIXct date-time
 ##' object. It differs from [base::strptime()] in two respects. First,
 ##' it allows specification of the order in which the formats occur without the
-##' need to include separators and \code{\%} prefix. Such a formatting argument is
+##' need to include separators and the `%` prefix. Such a formatting argument is
 ##' referred to as "order". Second, it allows the user to specify several
 ##' format-orders to handle heterogeneous date-time character
 ##' representations.
@@ -454,7 +454,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' @param x a character or numeric vector of dates
 ##' @param orders a character vector of date-time formats. Each order string is a
 ##'   series of formatting characters as listed in [base::strptime()] but might not
-##'   include the "\%" prefix. For example, "ymd" will match all the possible
+##'   include the `"%"` prefix. For example, "ymd" will match all the possible
 ##'   dates in year, month, day order. Formatting orders might include
 ##'   arbitrary separators. These are discarded. See details for implemented
 ##'   formats.
@@ -468,7 +468,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   `parse_date_time()` will correctly parse incomplete date-times like
 ##'   `2012-06-01 12:23`, `2012-06-01 12` and `2012-06-01`. \bold{NOTE:} The `ymd()`
 ##'   family of functions is based on [base::strptime()] which currently fails to parse
-##'   \code{\%Y-\%m} formats.
+##'   `%Y-%m` formats.
 ##' @param quiet logical. If `TRUE`, progress messages are not printed, and
 ##'   `No formats found` error is suppressed and the function simply returns a
 ##'   vector of NAs.  This mirrors the behavior of base R functions [base::strptime()]
@@ -482,9 +482,9 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   set. Numeric values are the number of dates (in the training set) that
 ##'   matched the corresponding format. You should use this argument if the
 ##'   default selection method fails to select the formats in the right
-##'   order. By default the formats with most formatting tokens (\%) are
-##'   selected and \%Y counts as 2.5 tokens (so that it has a priority over
-##'   \%y\%m). See examples.
+##'   order. By default the formats with most formatting tokens (`%`) are
+##'   selected and `%Y` counts as 2.5 tokens (so that it has a priority over
+##'   `%y%m`). See examples.
 ##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted as an
 ##'   exact [base::strptime()] format and no training or guessing are performed
 ##'   (i.e. `train`, `drop` parameters are irrelevant).
