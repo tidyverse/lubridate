@@ -134,8 +134,12 @@ distances between two pairs of dates separated by the same time duration are
 the same.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cyclic_encoding</span>(<span class='no'>x</span>, <span class='no'>periods</span>, <span class='kw'>encoders</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sin"</span>, <span class='st'>"cos"</span>),
-  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>))</pre>
+    <pre class="usage"><span class='fu'>cyclic_encoding</span>(
+  <span class='no'>x</span>,
+  <span class='no'>periods</span>,
+  <span class='kw'>encoders</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sin"</span>, <span class='st'>"cos"</span>),
+  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

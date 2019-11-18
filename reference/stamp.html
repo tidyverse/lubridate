@@ -134,8 +134,12 @@ templates like "Recorded at 10 am, September 2002" or "Meeting, Sunday May
 1, 2000, at 10:20 pm".</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stamp</span>(<span class='no'>x</span>, <span class='kw'>orders</span> <span class='kw'>=</span> <span class='no'>lubridate_formats</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>stamp</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>orders</span> <span class='kw'>=</span> <span class='no'>lubridate_formats</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>stamp_date</span>(<span class='no'>x</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>))
 

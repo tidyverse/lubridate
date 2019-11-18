@@ -134,9 +134,13 @@
 
 <span class='fu'>mday</span>(<span class='no'>x</span>)
 
-<span class='fu'>wday</span>(<span class='no'>x</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>abbr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='fu'>wday</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>abbr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>),
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>))
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>)
+)
 
 <span class='fu'>qday</span>(<span class='no'>x</span>)
 

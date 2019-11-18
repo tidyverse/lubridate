@@ -160,14 +160,24 @@ boundary of the specified time unit.</p>
 boundary of the specified time unit.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>round_date</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"second"</span>,
-  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>))
+    <pre class="usage"><span class='fu'>round_date</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"second"</span>,
+  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>)
+)
 
-<span class='fu'>floor_date</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"seconds"</span>,
-  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>))
+<span class='fu'>floor_date</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"seconds"</span>,
+  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>)
+)
 
-<span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"seconds"</span>, <span class='kw'>change_on_boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>))</pre>
+<span class='fu'>ceiling_date</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"seconds"</span>,
+  <span class='kw'>change_on_boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

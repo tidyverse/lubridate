@@ -143,41 +143,101 @@ treatment of heterogeneous formats, see low level parser
 <code><a href='parse_date_time.html'>parse_date_time()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ymd_hms</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+    <pre class="usage"><span class='fu'>ymd_hms</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>ymd_hm</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>ymd_hm</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>ymd_h</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>ymd_h</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>dmy_hms</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>dmy_hms</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>dmy_hm</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>dmy_hm</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>dmy_h</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>dmy_h</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>mdy_hms</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>mdy_hms</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>mdy_hm</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>mdy_hm</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>mdy_h</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>mdy_h</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>ydm_hms</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>ydm_hms</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>ydm_hm</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>ydm_hm</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>ydm_h</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>), <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+<span class='fu'>ydm_h</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

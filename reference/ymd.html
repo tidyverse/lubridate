@@ -138,23 +138,53 @@ formats is correct, these functions will parse dates correctly even when the
 input vectors contain differently formatted dates. See examples.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ymd</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+    <pre class="usage"><span class='fu'>ymd</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>ydm</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>ydm</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>mdy</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>mdy</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>myd</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>myd</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>dmy</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>dmy</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
-<span class='fu'>dym</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+<span class='fu'>dym</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)
 
 <span class='fu'>yq</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>))</pre>
 

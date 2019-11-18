@@ -130,8 +130,13 @@
     <p>Guess possible date-times formats from a character vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guess_formats</span>(<span class='no'>x</span>, <span class='no'>orders</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>preproc_wday</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>print_matches</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>guess_formats</span>(
+  <span class='no'>x</span>,
+  <span class='no'>orders</span>,
+  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  <span class='kw'>preproc_wday</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>print_matches</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,7 +157,7 @@
       <th>preproc_wday</th>
       <td><p>whether to preprocess weekday names. Internal
 optimization used by <code><a href='ymd_hms.html'>ymd_hms()</a></code> family of functions. If <code>TRUE</code>, weekdays are
-substituted with <!-- %a or %A accordingly, so that there is no need to supply -->
+substituted with %a or %A accordingly, so that there is no need to supply
 this format explicitly.</p></td>
     </tr>
     <tr>
