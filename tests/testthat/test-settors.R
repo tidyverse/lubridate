@@ -212,8 +212,8 @@ test_that("minutes settor returns NA for spring dst gap", {
   minute(poslt) <- 70
   minute(posct) <- 70
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -332,8 +332,8 @@ test_that("hours settor returns NA for spring dst gap", {
   hour(poslt) <- 2
   hour(posct) <- 2
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -462,8 +462,8 @@ test_that("mdays settor returns NA for spring dst gap", {
   mday(poslt) <- 14
   mday(posct) <- 14
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -591,8 +591,8 @@ test_that("ydays settor returns NA for spring dst gap", {
   yday(poslt) <- 73
   yday(posct) <- 73
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -721,8 +721,8 @@ test_that("wdays settor returns NA for spring dst gap", {
   wday(poslt) <- 8
   wday(posct) <- 8
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -838,11 +838,11 @@ test_that("months settor returns NA for spring dst gap", {
   poslt <- force_tz(poslt, tz = "America/New_York")
   posct <- as.POSIXct(poslt)
 
-    month(poslt) <- 3
+  month(poslt) <- 3
   month(posct) <- 3
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 })
 
 test_that("months settor retains object class", {
@@ -911,8 +911,8 @@ test_that("years settor returns NA for spring dst gap", {
   year(poslt) <- 2010
   year(posct) <- 2010
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -971,8 +971,8 @@ test_that("dates settor returns NA for spring dst gap", {
   date(poslt) <- as.Date("2010-03-14")
   date(posct) <- as.Date("2010-03-14")
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 })
 
 test_that("dates settor retains object class", {
@@ -1015,8 +1015,8 @@ test_that("time zone settor returns NA for spring dst gap", {
   tz(poslt) <- "America/New_York"
   tz(posct) <- "America/New_York"
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 

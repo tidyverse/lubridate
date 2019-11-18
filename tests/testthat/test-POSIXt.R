@@ -1,23 +1,21 @@
 context("POSIXt")
 
 test_that("is.POSIXt works as expected", {
-  expect_that(is.POSIXt(234), is_false())
-  expect_that(is.POSIXt(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
-    is_true())
-  expect_that(is.POSIXt(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")),
-    is_true())
-  expect_that(is.POSIXt(Sys.Date()), is_false())
-  expect_that(is.POSIXt(minutes(1)), is_false())
-  expect_that(is.POSIXt(dminutes(1)), is_false())
-  expect_that(is.POSIXt(interval(
+  expect_false(is.POSIXt(234))
+  expect_true(is.POSIXt(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))
+  expect_true(is.POSIXt(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.POSIXt(Sys.Date()))
+  expect_false(is.POSIXt(minutes(1)))
+  expect_false(is.POSIXt(dminutes(1)))
+  expect_false(is.POSIXt(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_false())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
 })
 
 test_that("is.POSIXt handles vectors", {
-  expect_that(is.POSIXt(c(
+  expect_true(is.POSIXt(c(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_true())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
 })
 
 # as_datetime -------------------------------------------------------------

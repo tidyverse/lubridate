@@ -41,21 +41,15 @@ test_that("fractional parsing works as expected", {
 })
 
 test_that("is.period works", {
-  expect_that(is.period(234), is_false())
-  expect_that(is.period(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
-    is_false())
-  expect_that(is.period(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")),
-    is_false())
-  expect_that(is.period(Sys.Date()), is_false())
-  expect_that(is.period(minutes(1)), is_true())
-  expect_that(is.period(dminutes(1)), is_false())
-  expect_that(is.period(interval(
+  expect_false(is.period(234))
+  expect_false(is.period(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.period(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.period(Sys.Date()))
+  expect_true(is.period(minutes(1)))
+  expect_false(is.period(dminutes(1)))
+  expect_false(is.period(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_false())
-})
-
-test_that("is.period handles vectors", {
-  expect_that(is.period(minutes(1:3)), is_true())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
 })
 
 test_that("period works as expected", {

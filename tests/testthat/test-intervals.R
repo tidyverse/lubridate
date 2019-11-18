@@ -1,17 +1,15 @@
 context("Intervals")
 
 test_that("is.interval works as expected", {
-  expect_that(is.interval(234), is_false())
-  expect_that(is.interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
-    is_false())
-  expect_that(is.interval(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")),
-    is_false())
-  expect_that(is.interval(Sys.Date()), is_false())
-  expect_that(is.interval(minutes(1)), is_false())
-  expect_that(is.interval(dminutes(1)), is_false())
-  expect_that(is.interval(interval(
+  expect_false(is.interval(234))
+  expect_false(is.interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.interval(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.interval(Sys.Date()))
+  expect_false(is.interval(minutes(1)))
+  expect_false(is.interval(dminutes(1)))
+  expect_true(is.interval(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_true())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
 })
 
 test_that("Parsing of iso 8601 intervals works", {
@@ -38,13 +36,6 @@ test_that("Parsing of iso 8601 intervals works", {
                           ymd_hms("2001-05-11T15:30:00Z") + period("P2H30M"))))
 
 })
-
-test_that("is.interval handles vectors", {
-  expect_that(is.interval(interval(
-    as.POSIXct(c("2008-08-03 13:01:59", "2009-08-03 13:01:59"), tz = "UTC"),
-    as.POSIXct("2010-08-03 13:01:59", tz = "UTC"))), is_true())
-})
-
 
 test_that("interval works as expected", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")

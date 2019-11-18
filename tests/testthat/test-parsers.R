@@ -522,12 +522,12 @@ test_that("hms functions correctly roll", {
 })
 
 test_that("hms functions return NA on shorter inputs", {
-  expect_that(is.na(hms("3:3:3:4", quiet = TRUE)), is_true())
-  expect_that(is.na(hms("03:03", quiet = TRUE)), is_true())
-  expect_that(is.na(ms("03:02:01", quiet = TRUE)), is_true())
-  expect_that(is.na(ms("03", quiet = TRUE)), is_true())
-  expect_that(is.na(hm("03:03:01", quiet = TRUE)), is_true())
-  expect_that(is.na(hm("03", quiet = TRUE)), is_true())
+  expect_true(is.na(hms("3:3:3:4", quiet = TRUE)))
+  expect_true(is.na(hms("03:03", quiet = TRUE)))
+  expect_true(is.na(ms("03:02:01", quiet = TRUE)))
+  expect_true(is.na(ms("03", quiet = TRUE)))
+  expect_true(is.na(hm("03:03:01", quiet = TRUE)))
+  expect_true(is.na(hm("03", quiet = TRUE)))
 })
 
 test_that("hms functions give warning on shorter inputs", {

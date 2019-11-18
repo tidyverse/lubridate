@@ -135,18 +135,14 @@ test_that("is.duration works as expected", {
   ct_time <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   lt_time <- as.POSIXlt("2009-08-03 13:01:59", tz = "UTC")
 
-  expect_that(is.duration(234), is_false())
-  expect_that(is.duration(ct_time), is_false())
-  expect_that(is.duration(lt_time), is_false())
-  expect_that(is.duration(Sys.Date()), is_false())
-  expect_that(is.duration(minutes(1)), is_false())
-  expect_that(is.duration(dminutes(1)), is_true())
-  expect_that(is.duration(make_difftime(1000)), is_false())
-  expect_that(is.duration(interval(lt_time, ct_time)), is_false())
-})
-
-test_that("is.duration handle vectors", {
-  expect_that(is.duration(dminutes(1:3)), is_true())
+  expect_false(is.duration(234))
+  expect_false(is.duration(ct_time))
+  expect_false(is.duration(lt_time))
+  expect_false(is.duration(Sys.Date()))
+  expect_false(is.duration(minutes(1)))
+  expect_true(is.duration(dminutes(1)))
+  expect_false(is.duration(make_difftime(1000)))
+  expect_false(is.duration(interval(lt_time, ct_time)))
 })
 
 test_that("format.Duration correctly displays intervals of length 0", {
