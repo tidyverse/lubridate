@@ -122,14 +122,14 @@ format_ISO8601_precision_check <- function(precision, max_precision, usetz=FALSE
   if (is.null(precision)) {
     precision <- max_precision
   }
+  if (length(precision) != 1) {
+    stop("precision must be a scalar")
+  }
   if (nchar(precision) > nchar(max_precision)) {
     warning("More precision requested (", precision, ") ",
             "than allowed (", max_precision, ") for this format.  ",
             "Using maximum allowed precision.")
     precision <- max_precision
-  }
-  if (length(precision) != 1) {
-    stop("precision must be a scalar")
   }
   if (is.null(ret <- ISO8601_precision_map[[precision]])) {
     stop("Invalid value for precision provided: ", precision)
