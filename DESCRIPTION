@@ -50,7 +50,7 @@ URL: http://lubridate.tidyverse.org,
 BugReports: https://github.com/tidyverse/lubridate/issues
 Depends:
     methods,
-    R (>= 3.1)
+    R (>= 3.2)
 Imports:
     Rcpp (>= 0.12.13)
 Suggests:
