@@ -70,11 +70,12 @@ test_that("local_time works as expected", {
   expect_equal(local_time(x, "Europe/Amsterdam"),
                local_time(with_tz(x, "Europe/Amsterdam")))
 
-  x <- ymd_hms("2009-08-07 01:02:03")
-  expect_equal(local_time(x, c("America/New_York", "Europe/Amsterdam", "Asia/Shanghai")),
-               c(local_time(with_tz(x, "America/New_York")),
-                 local_time(with_tz(x, "Europe/Amsterdam")),
-                 local_time(with_tz(x, "Asia/Shanghai"))))
+  x1 <- ymd_hms("2009-08-07 01:02:03")
+  x2 <- local_time(x1, c("America/New_York", "Europe/Amsterdam", "Asia/Shanghai"))
+
+  expect_equal(x2[1], local_time(with_tz(x1, "America/New_York")))
+  expect_equal(x2[2], local_time(with_tz(x1, "Europe/Amsterdam")))
+  expect_equal(x2[3], local_time(with_tz(x1, "Asia/Shanghai")))
 })
 
 test_that("with_tz throws warning on unrecognized time zones", {

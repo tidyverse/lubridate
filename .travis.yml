@@ -10,6 +10,7 @@ addons:
 
 matrix:
   include:
+   - r: 3.2
    - r: 3.3
    - r: oldrel
    - r: release
