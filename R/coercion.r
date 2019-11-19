@@ -705,7 +705,7 @@ setMethod("as_datetime", "character",
             if (is.null(format))
               .parse_iso_dt(x, tz)
             else
-              strptime(x, format = format, tz = tz)
+              as.POSIXct(strptime(x, format = format, tz = tz))
           })
 
 #' @rdname as_date
