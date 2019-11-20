@@ -393,7 +393,12 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' @export
 period <- function(num = NULL, units = "second", ...) {
   nums <- list(...)
-  if (is.character(num)) {
+  if (is.null(num) && missing(...)) {
+    new("Period", numeric(),
+      year = numeric(), month = numeric(), day = numeric(),
+      hour = numeric(), minute = numeric()
+    )
+  } else if (is.character(num)) {
     parse_period(num)
   } else if (!is.null(num) && length(nums) > 0) {
     c(.period_from_num(num, units), .period_from_units(nums))

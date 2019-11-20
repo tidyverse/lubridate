@@ -1,5 +1,11 @@
 context("Durations")
 
+test_that("duration() returns zero-length vector", {
+  x <- duration()
+  expect_s4_class(x, "Duration")
+  expect_length(x, 0)
+})
+
 test_that("duration constructor doesn't accept non-numeric or non-character inputs", {
   expect_error(duration(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
 })

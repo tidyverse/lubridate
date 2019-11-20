@@ -1,5 +1,11 @@
 context("Periods")
 
+test_that("period() returns zero-length vector", {
+  x <- period()
+  expect_s4_class(x, "Period")
+  expect_length(x, 0)
+})
+
 test_that("period constructor doesn't accept non-numeric or non-character inputs", {
   expect_error(period(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
 })

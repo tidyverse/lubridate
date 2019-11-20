@@ -191,12 +191,16 @@ unique.Interval <- function(x, ...) {
 #'
 #' is.interval(period(months= 1, days = 15)) # FALSE
 #' is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
-interval <- function(start, end = NULL, tzone = tz(start)) {
+interval <- function(start = NULL, end = NULL, tzone = tz(start)) {
 
   if (is.null(tzone)) {
     tzone <- tz(end)
     if (is.null(tzone))
       tzone <- "UTC"
+  }
+
+  if (is.null(start) && is.null(end)) {
+    return(new("Interval", numeric(), start = POSIXct(), tzone = "UTC"))
   }
 
   if (is.character(start) && is.null(end)) {

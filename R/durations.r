@@ -243,7 +243,9 @@ setMethod("[[<-", signature(x = "Duration"),
 #' @export
 duration <- function(num = NULL, units = "seconds", ...) {
   nums <- list(...)
-  if (is.character(num)) {
+  if (is.null(num) && missing(...)) {
+    .duration_from_num(numeric(), units)
+  } else if (is.character(num)) {
     as.duration(parse_period(num))
   } else if (!is.null(num) && length(nums) > 0) {
     c(.duration_from_num(num, units), .duration_from_units(nums))
