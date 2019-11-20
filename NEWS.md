@@ -9,6 +9,7 @@ Version 1.7.4.9000
 * [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
 * Format and print methods for 0-length objects are more consistent.
 * [#707](https://github.com/tidyverse/lubridate/issues/707) Constructors return 0-length inputs when called with no arguments
+* [#675](https://github.com/tidyverse/lubridate/issues/675) `force_tz()`, `with_tz()`, `tz<-` convert dates to date-times
 * [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
 * [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constants `NA_Date_` and `NA_POSIXct_` which parallel built-in primitive constants.

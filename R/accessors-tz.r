@@ -89,6 +89,5 @@ tz.irts <- function(x)
 #' @param value timezone value to be assigned to `x`'s `tzone` attribute
 #' @export
 "tz<-" <- function(x, value) {
-  new <- force_tz(x, value)
-  reclass_date(new, x)
+  force_tz(x, value)
 }
