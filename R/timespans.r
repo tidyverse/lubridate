@@ -6,7 +6,10 @@
 #'
 #' @export
 #' @keywords internal
-#' @aliases *,Timespan,Timespan-method %/%,Timespan,Timespan-method %/%,difftime,Timespan-method
+#' @aliases *,Timespan,Timespan-method
+#' @aliases %/%,Timespan,Timespan-method
+#' @aliases %/%,difftime,Timespan-method
+#' @aliases %/%,Interval,Period-method
 setClass("Timespan")
 
 #' Is x a length of time?

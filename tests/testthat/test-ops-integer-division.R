@@ -67,3 +67,9 @@ test_that("integer division works with Period denominator (#235)", {
   a <- interval(ymd(20140331), ymd(20140419))
   expect_equal(a %/% months(1), 0)
 })
+
+test_that("interval numerator with period denominator", {
+  int <- interval(ymd("2001-01-01"), ymd("2004-05-01"))
+  expect_warning(out <- int %/% years(1), NA)
+  expect_equal(out, 3)
+})
