@@ -12,7 +12,7 @@ tz(x) <- value
 \arguments{
 \item{x}{A date-time vector, usually of class POSIXct or POSIXlt.}
 
-\item{value}{timezone value to be assigned to \code{x}'s \code{tzone} attribute}
+\item{value}{New value to use for time zone.}
 }
 \value{
 A character vector of length 1, giving the time zone of the vector.
@@ -22,11 +22,12 @@ For backward compatibility, the time zone of a date, \code{NA}, or
 character vector is \code{"UTC"}.
 }
 \description{
-Conveniently get and set the time zone of date-time, with convenient
-fallback behaviour for dates. Note that modifying the time does not change
-the instant in time represented by the vector, just its printed
-representation. Use \code{\link[=with_tz]{with_tz()}} if need the same time (i.e. a different
-instant) in another time zone.
+Conveniently get and set the time zone of date-time, automatically
+converting dates to date-times as needed.
+
+Note that \verb{tz<-} is an alias for \code{\link[=force_tz]{force_tz()}}, which preserves the
+local time, creating a different instant in time. Use \code{\link[=with_tz]{with_tz()}} if you
+want keep the instant the same, but change the printed representation.
 }
 \section{Valid time zones}{
 

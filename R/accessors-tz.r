@@ -1,11 +1,12 @@
 #' Get/set time zone component of a date-time
 #'
 #' @description
-#' Conveniently get and set the time zone of date-time, with convenient
-#' fallback behaviour for dates. Note that modifying the time does not change
-#' the instant in time represented by the vector, just its printed
-#' representation. Use [with_tz()] if need the same time (i.e. a different
-#' instant) in another time zone.
+#' Conveniently get and set the time zone of date-time, automatically
+#' converting dates to date-times as needed.
+#'
+#' Note that `tz<-` is an alias for [force_tz()], which preserves the
+#' local time, creating a different instant in time. Use [with_tz()] if you
+#' want keep the instant the same, but change the printed representation.
 #'
 #' @section Valid time zones:
 #' Time zones are stored in system specific database, so are not guaranteed
@@ -45,7 +46,6 @@ tz.POSIXt <- function(x) {
 
 #' @export
 tz.Date <- function(x) {
-  # warning("Dates do not have timezones", call. = FALSE)
   "UTC"
 }
 
@@ -83,7 +83,7 @@ tz.timeSeries <- function(x) {
 }
 
 #' @rdname tz
-#' @param value New value to use for time zone.
+#' @param value New value of time zone.
 #' @export
 "tz<-" <- function(x, value) {
   force_tz(x, value)
