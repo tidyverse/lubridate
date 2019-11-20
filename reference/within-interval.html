@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tests whether a date or interval falls within an interval — %within% • lubridate</title>
+<title>Does a date (or interval) fall within an interval? — %within% • lubridate</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,11 +41,8 @@
 
 
 
-<meta property="og:title" content="Tests whether a date or interval falls within an interval — %within%" />
-<meta property="og:description" content="%within% returns TRUE if a falls within interval b. Both a and b are
-recycled according to standard R rules. If b is a list of intervals, a is
-checked if it falls within any of the intervals in b. If a is an interval,
-both its start and end dates must fall within b to return TRUE." />
+<meta property="og:title" content="Does a date (or interval) fall within an interval? — %within%" />
+<meta property="og:description" content="Check whether a lies within the interval b, inclusive of the endpoints." />
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -124,16 +121,13 @@ both its start and end dates must fall within b to return TRUE." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tests whether a date or interval falls within an interval</h1>
+    <h1>Does a date (or interval) fall within an interval?</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/intervals.r'><code>R/intervals.r</code></a></small>
     <div class="hidden name"><code>within-interval.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>%within% returns TRUE if <code>a</code> falls within interval <code>b</code>. Both <code>a</code> and <code>b</code> are
-recycled according to standard R rules. If <code>b</code> is a list of intervals, <code>a</code> is
-checked if it falls within any of the intervals in <code>b</code>. If a is an interval,
-both its start and end dates must fall within b to return TRUE.</p>
+    <p>Check whether <code>a</code> lies within the interval <code>b</code>, inclusive of the endpoints.</p>
     </div>
 
     <pre class="usage"><span class='no'>a</span> <span class='kw'>%within%</span> <span class='no'>b</span></pre>
@@ -143,21 +137,24 @@ both its start and end dates must fall within b to return TRUE.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>a</th>
-      <td><p>An interval or date-time object</p></td>
+      <td><p>An interval or date-time object.</p></td>
     </tr>
     <tr>
       <th>b</th>
-      <td><p>An interval or a list of intervals (see examples)</p></td>
+      <td><p>Either an interval vector, or a list of intervals.</p>
+<p>If <code>b</code> is an internal it is recycled to the same length as <code>a</code>.
+If <code>b</code> is a list of intervals, <code>a</code> is checked if it falls within <em>any</em>
+of the intervals, i.e. <code>a %within% list(int1, int2)</code> is equivalent to
+<code>a %within% int1 | a %within% int2</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical</p>
+    <p>A logical vector.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+    <pre class="examples"><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
 <span class='no'>int2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
 
 <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-05-03"</span>) <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>int2</span> <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"1999-01-01"</span>) <span class='kw'>%within%</span> <span class='no'>int</span> <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
