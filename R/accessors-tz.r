@@ -1,92 +1,89 @@
 #' Get/set time zone component of a date-time
 #'
-#' Time zones are stored as character strings in an
-#' attribute of date-time objects. tz returns a date's time zone attribute.
-#' When used as a settor, it changes the time zone attribute. R does not come with
-#' a predefined list zone names, but relies on the user's OS to interpret time zone
-#' names. As a result, some names will be recognized on some computers but not others.
-#' Most computers, however, will recognize names in the timezone data base originally
-#' compiled by Arthur Olson. These names normally take the form "Country/City." A
-#' convenient listing of these timezones can be found at
-#' \url{http://en.wikipedia.org/wiki/List_of_tz_database_time_zones}.
+#' @description
+#' Conveniently get and set the time zone of date-time, with convenient
+#' fallback behaviour for dates. Note that modifying the time does not change
+#' the instant in time represented by the vector, just its printed
+#' representation. Use [with_tz()] if need the same time (i.e. a different
+#' instant) in another time zone.
 #'
-#' Setting tz does not update a date-time to display the same moment as measured
-#' at a different time zone. See [with_tz()]. Setting a new time zone
-#' creates a new date-time. The numerical value of the hours element stays the
-#' same, only the time zone attribute is replaced.  This creates a new date-time
-#' that occurs an integer value of hours before or after the original date-time.
-#'
-#' If x is of a class that displays all date-times in the GMT timezone, such as
-#' chron, then R will update the number in the hours element to display the new
-#' date-time in the GMT timezone.
-#'
-#' For a description of the time zone attribute, see [base::timezones()]
-#' or [base::DateTimeClasses].
+#' @section Valid time zones:
+#' Time zones are stored in system specific database, so are not guaranteed
+#' to be the same on every system (however, they are usually pretty similar
+#' unless your sytsem is very out of date). You can see a complete list with
+#' [OlsonNames()]
 #'
 #' @export
-#' @param x a date-time object of class a POSIXct, POSIXlt, Date, chron, yearmon,
-#' yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can
-#' be coerced to POSIXlt with as.POSIXlt
-#' @return the first element of x's tzone attribute vector as a character string. If no tzone
-#'   attribute exists, tz returns "GMT".
+#' @param x A date-time vector, usually of class POSIXct or POSIXlt.
+#' @return A character vector of length 1, giving the time zone of the vector.
+#'   An empty string (`""`) represents the current/default timezone.
+#'
+#'   For backward compatibility, the time zone of a date, `NA`, or
+#'   character vector is `"UTC"`.
+#' @seealso See [DateTimeClasses] for a description of the underlying
+#'   `tzone` attribute..
 #' @keywords utilities manip chron methods
 #' @examples
-#' x <- ymd("2012-03-26")
+#' x <- ymd("2012-03-26", tz = "UTC")
 #' tz(x)
+#'
 #' tz(x) <- "GMT"
 #' x
-#' \dontrun{
-#' tz(x) <- "America/New_York"
-#' x
-#' tz(x) <- "America/Chicago"
-#' x
-#' tz(x) <- "America/Los_Angeles"
-#' x
-#' tz(x) <- "Pacific/Honolulu"
-#' x
-#' tz(x) <- "Pacific/Auckland"
-#' x
-#' tz(x) <- "Europe/London"
-#' x
-#' tz(x) <- "Europe/Berlin"
-#' x
-#'
-#' Sys.setenv(TZ = "UTC")
-#' now()
-#' tz(now())
-#' Sys.unsetenv("TZ")
-#' }
-tz <- function (x)
+tz <- function(x) {
   UseMethod("tz")
+}
+
+#' @export
+tz.POSIXt <- function(x) {
+  tzone <- attr(x, "tzone")
+  if (is.null(tzone)) {
+    ""
+  } else {
+    tzone[[1]]
+  }
+}
+
+#' @export
+tz.Date <- function(x) {
+  # warning("Dates do not have timezones", call. = FALSE)
+  "UTC"
+}
+
+#' @export
+tz.character <- function(x) {
+  "UTC"
+}
+
+#' @export
+tz.logical <- function(x) {
+  if (all(is.na(x))) {
+    "UTC"
+  } else {
+    NextMethod()
+  }
+}
 
 #' @export
 tz.default <- function(x) {
-  tzone <- attr(x, "tzone")[[1]]
-  if (is.null(tzone) && !is.POSIXt(x))
-    return("UTC")
-  if (is.character(tzone) && nzchar(tzone))
-    return(tzone)
-  tzone <- attr(as.POSIXlt(x[1]), "tzone")[[1]]
-  if (is.null(tzone))
-    return("UTC")
-  tzone
+  stop(
+    "Don't know how to compute timezone for object of class ",
+    paste0(class(x), collapse = "/"),
+    call. = FALSE
+  )
 }
 
 #' @export
 tz.zoo <- function(x) {
-  attr(as.POSIXlt(zoo::index(x)), "tzone")[[1]]
+  tz(zoo::index(x))
 }
 
 #' @export
-tz.timeSeries <- function(x)
-  x@FinCenter
-
-#' @export
-tz.irts <- function(x)
-  return("GMT")
+tz.timeSeries <- function(x) {
+  tz(x@FinCenter)
+}
 
 #' @rdname tz
-#' @param value timezone value to be assigned to `x`'s `tzone` attribute
+#' @param value New value to use for time zone.
 #' @export
 "tz<-" <- function(x, value) {
   force_tz(x, value)
