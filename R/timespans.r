@@ -9,7 +9,12 @@
 #' @aliases *,Timespan,Timespan-method
 #' @aliases %/%,Timespan,Timespan-method
 #' @aliases %/%,difftime,Timespan-method
+#' @aliases %/%,Interval,Interval-method
+#' @aliases %/%,Period,Period-method
+#' @aliases %/%,Interval,Duration-method
+#' @aliases %/%,Duration,Interval-method
 #' @aliases %/%,Interval,Period-method
+#' @aliases %/%,Period,Interval-method
 setClass("Timespan")
 
 #' Is x a length of time?
