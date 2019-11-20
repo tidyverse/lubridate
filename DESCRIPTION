@@ -59,12 +59,8 @@ Suggests:
     testthat
 Enhances:
     chron,
-    fts,
     timeDate,
-    timeSeries,
     tis,
-    tseries,
-    xts,
     zoo
 LinkingTo:
     Rcpp
