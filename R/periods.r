@@ -180,21 +180,28 @@ setMethod("initialize", "Period", function(.Object, ...) {
 
 #' @export
 setMethod("show", signature(object = "Period"), function(object) {
-  print(format(object))
+  if (length(object@.Data) == 0) {
+    cat("<Period[0]>\n")
+  } else {
+    print(format(object))
+  }
 })
 
 #' @export
 format.Period <- function(x, ...) {
-  if (length(x@.Data) == 0) return("Period(0)")
-  show <- vector(mode = "character")
-  na <- is.na(x)
+  if (length(x) == 0) {
+    return(character())
+  }
 
-  show <- paste(x@year, "y ", x@month, "m ", x@day, "d ",
-    x@hour, "H ", x@minute, "M ", x@.Data, "S", sep = "")
+  show <- paste(
+    x@year, "y ", x@month, "m ", x@day, "d ",
+    x@hour, "H ", x@minute, "M ", x@.Data, "S",
+    sep = ""
+  )
   start <- regexpr("[-1-9]|(0\\.)", show)
   show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
 
-  show[na] <- NA
+  show[is.na(x)] <- NA
   show
 }
 

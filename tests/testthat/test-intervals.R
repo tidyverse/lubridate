@@ -4,6 +4,8 @@ test_that("interval() returns zero-length vector", {
   x <- interval()
   expect_s4_class(x, "Interval")
   expect_length(x, 0)
+  expect_equal(format(x), character())
+  expect_output(print(x), "<Interval[0]>", fixed = TRUE)
 })
 
 test_that("is.interval works as expected", {
@@ -165,11 +167,6 @@ test_that("[<- can subset intervals", {
   expect_equal(ints[1, 1], int2)
   expect_equal(ints[2, 1], my_int)
 
-})
-
-test_that("format.Interval correctly displays intervals of length 0", {
-  int <- interval(ymd(18800101), ymd(18810101))
-  expect_output(print(int[FALSE]), "Interval\\(0)")
 })
 
 test_that("interval handles correctly time zones of Date objects", {

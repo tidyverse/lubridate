@@ -4,12 +4,13 @@ test_that("period() returns zero-length vector", {
   x <- period()
   expect_s4_class(x, "Period")
   expect_length(x, 0)
+  expect_equal(format(x), character())
+  expect_output(print(x), "<Period[0]>", fixed = TRUE)
 })
 
 test_that("period constructor doesn't accept non-numeric or non-character inputs", {
   expect_error(period(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
 })
-
 
 test_that("period parsing works", {
   expect_equal(period("1min 2sec 2secs 1H 2M 1d"),
@@ -416,11 +417,6 @@ test_that("period correctly handles week units", {
 test_that("format.period correctly displays negative units", {
   expect_match(format(days(-2)), "-2d 0H 0M 0S")
   expect_match(format(period(second = -1, hour = -2, day = 3)), "3d -2H 0M -1S")
-})
-
-test_that("format.Period correctly displays intervals of length 0", {
-  per <- period(seconds = 5)
-  expect_output(print(per[FALSE]), "Period\\(0)")
 })
 
 test_that("c.Period correctly handles NAs", {

@@ -4,6 +4,7 @@ Version 1.7.4.9000
 ### NEW FEATURES
 
 * [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
+* Format and print methods for 0-length objects are more consistent.
 * [#707](https://github.com/tidyverse/lubridate/issues/707) Constructors return 0-length inputs when called with no arguments
 * [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
 * [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.

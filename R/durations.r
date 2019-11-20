@@ -92,12 +92,15 @@ compute_estimate <- function (secs, unit = "second") {
 
 #' @export
 setMethod("show", signature(object = "Duration"), function(object) {
-  print(format.Duration(object), quote = TRUE)
+  if (length(object@.Data) == 0) {
+    cat("<Duration[0]>\n")
+  } else {
+    print(format(object), quote = TRUE)
+  }
 })
 
 #' @export
 format.Duration <- function(x, ...) {
-  if (length(x@.Data) == 0) return("Duration(0)")
   out <- vector("character", length(x@.Data))
   nnas <- !is.na(x@.Data)
   out[nnas] <- compute_estimate(abs(x@.Data[nnas]))
