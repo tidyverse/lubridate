@@ -15,14 +15,6 @@ match_lengths <- function(x, y) {
   list(x, y)
 }
 
-recognize <- function(x) {
-  recognized <- c("POSIXt", "POSIXlt", "POSIXct", "yearmon", "yearqtr", "Date")
-
-  if (all(class(x) %in% recognized))
-    return(TRUE)
-  return(FALSE)
-}
-
 standardise_date_names <- function(x) {
   dates <- c("second", "minute", "hour", "mday", "wday", "yday", "day", "week", "month", "year", "tz")
   y <- gsub("(.)s$", "\\1", x)
