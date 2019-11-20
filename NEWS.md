@@ -1,3 +1,45 @@
+Version 1.7.4.9000
+==================
+
+### NEW FEATURES
+
+* [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
+* [#705](https://github.com/tidyverse/lubridate/issues/705) all deprecated functions have been removed
+* [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.
+* [#681](https://github.com/tidyverse/lubridate/issues/681) New constants `NA_Date_` and `NA_POSIXct_` which parallel built-in primitive constants.
+* [#681](https://github.com/tidyverse/lubridate/issues/681) New constructors `Date()` and `POSIXct()` which parallel built-in primitive constructors.
+* [#629](https://github.com/tidyverse/lubridate/issues/629) Added `format_ISO8601()` methods.
+
+
+### BUG FIXES
+
+* [#682](https://github.com/tidyverse/lubridate/issues/682) Fix quarter extraction with small `fiscal_start`s.
+
+
+Version 1.7.4
+=============
+
+### NEW FEATURES
+
+* [#658](https://github.com/tidyverse/lubridate/issues/658) `%within%` now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.
+
+### CHANGES
+
+* [#661](https://github.com/tidyverse/lubridate/issues/661) Throw error on invalid multi-unit rounding.
+* [#633](https://github.com/tidyverse/lubridate/issues/633) `%%` on intervals relies on `%m+` arithmetic and doesn't produce NAs when intermediate computations result in non-existent dates.
+* `tz()` always returns "UTC" when `tzone` attribute cannot be inferred.
+
+### BUG FIXES
+
+* [#664](https://github.com/tidyverse/lubridate/issues/664) Fix lookup of period functions in `as.period`
+* [#649](https://github.com/tidyverse/lubridate/issues/664) Fix system timezone memoization
+
+Version 1.7.3
+=============
+
+### BUG FIXES
+
+* [#643](https://github.com/tidyverse/lubridate/issues/643), [#640](https://github.com/tidyverse/lubridate/issues/640), [#645](https://github.com/tidyverse/lubridate/issues/645) Fix faulty caching of system timezone.
 
 Version 1.7.2
 =============
@@ -23,7 +65,7 @@ Version 1.7.2
 Version 1.7.1
 =============
 
-## BUG FIXES
+### BUG FIXES
 
 * [#575](https://github.com/tidyverse/lubridate/issues/598), [#600](https://github.com/tidyverse/lubridate/issues/600), [#602](https://github.com/tidyverse/lubridate/issues/602) Fix zoneinfo lookup on windows and solaris.
 * [#598](https://github.com/tidyverse/lubridate/issues/598) Fix broken parsing of `ymd_hms` strings by `as_date`.

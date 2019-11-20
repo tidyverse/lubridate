@@ -6,14 +6,24 @@
 \alias{ceiling_date}
 \title{Round, floor and ceiling methods for date-time objects}
 \usage{
-round_date(x, unit = "second",
-  week_start = getOption("lubridate.week.start", 7))
+round_date(
+  x,
+  unit = "second",
+  week_start = getOption("lubridate.week.start", 7)
+)
 
-floor_date(x, unit = "seconds",
-  week_start = getOption("lubridate.week.start", 7))
+floor_date(
+  x,
+  unit = "seconds",
+  week_start = getOption("lubridate.week.start", 7)
+)
 
-ceiling_date(x, unit = "seconds", change_on_boundary = NULL,
-  week_start = getOption("lubridate.week.start", 7))
+ceiling_date(
+  x,
+  unit = "seconds",
+  change_on_boundary = NULL,
+  week_start = getOption("lubridate.week.start", 7)
+)
 }
 \arguments{
 \item{x}{a vector of date-time objects}
@@ -28,15 +38,15 @@ supported.}
 \item{week_start}{when unit is \code{weeks} specify the reference day; 7 being Sunday.}
 
 \item{change_on_boundary}{If NULL (the default) don't change instants on the
-boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is \code{2000-01-01 00:00:00}), but round up \code{Date} objects to the next boundary
+boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is \verb{2000-01-01 00:00:00}), but round up \code{Date} objects to the next boundary
 (\code{ceiling_date(ymd("2000-01-01"), "month")} is \code{"2000-02-01"}). When
 \code{TRUE}, instants on the boundary are rounded up to the next boundary. When
 \code{FALSE}, date-time on the boundary are never rounded up (this was the
-default for \pkg{lubridate} prior to \code{v1.6.0}. See section \code{Rounding Up Date Objects} below for more details.}
+default for \pkg{lubridate} prior to \code{v1.6.0}. See section \verb{Rounding Up Date Objects} below for more details.}
 }
 \description{
 Rounding to the nearest unit or multiple of a unit are supported. All
-meaningfull specifications in English language are supported - secs, min,
+meaningful specifications in English language are supported - secs, min,
 mins, 2 minutes, 3 years etc.
 
 Rounding to fractional seconds is supported. Please note that rounding to
@@ -68,13 +78,13 @@ usual R conventions.
 By default rounding up \code{Date} objects follows 3 steps:
 \enumerate{
 \item Convert to an instant representing lower bound of the Date:
-\code{2000-01-01} --> \code{2000-01-01 00:00:00}
+\code{2000-01-01} --> \verb{2000-01-01 00:00:00}
 \item Round up to the \strong{next} closest rounding unit boundary. For example,
 if the rounding unit is \code{month} then next closest boundary of \code{2000-01-01}
-is \code{2000-02-01 00:00:00}.
+is \verb{2000-02-01 00:00:00}.
 
 The motivation for this is that the "partial" \code{2000-01-01} is conceptually
-an interval (\code{2000-01-01 00:00:00} -- \code{2000-01-02 00:00:00}) and the day
+an interval (\verb{2000-01-01 00:00:00} -- \verb{2000-01-02 00:00:00}) and the day
 hasn't started clocking yet at the exact boundary \code{00:00:00}. Thus, it
 seems wrong to round up a day to its lower boundary.
 
@@ -139,9 +149,16 @@ ceiling_date(x, "year")
 as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
 ceiling_date(x, ".1 sec") ## -> "2009-08-03 12:01:59.2 CEST"
 
-x <- ymd("2000-01-01")
-ceiling_date(x, "month")
-ceiling_date(x, "month", change_on_boundary = TRUE)
+
+ x <- ymd_hms("2000-01-01 00:00:00")
+ ceiling_date(x, "month")
+ ceiling_date(x, "month", change_on_boundary = TRUE)
+
+ ## For Date objects first day of the month is not on the
+ ## "boundary". change_on_boundary applies to instants only.
+ x <- ymd("2000-01-01")
+ ceiling_date(x, "month")
+ ceiling_date(x, "month", change_on_boundary = TRUE)
 }
 \seealso{
 \code{\link[base:round]{base::round()}}

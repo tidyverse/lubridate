@@ -8,10 +8,10 @@ modulo_duration_by_duration <- function(dur, dur2)
   dur - dur %/% dur2 * dur2
 
 modulo_interval_by_duration <- function(int, dur)
-  interval(int@start + int@.Data %/% dur@.Data * dur, int_end(int))
+  interval(int@start + (int@.Data %/% dur@.Data * dur), int_end(int))
 
 modulo_interval_by_period <- function(int, per)
-  interval(int@start + int %/% per * per, int_end(int))
+  interval(add_with_rollback(int@start, (int %/% per) * per), int_end(int))
 
 modulo_period_by_period <- function(per, per2)
   per - per %/% per2 * per2

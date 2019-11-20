@@ -1,17 +1,15 @@
 context("Intervals")
 
 test_that("is.interval works as expected", {
-  expect_that(is.interval(234), is_false())
-  expect_that(is.interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
-    is_false())
-  expect_that(is.interval(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")),
-    is_false())
-  expect_that(is.interval(Sys.Date()), is_false())
-  expect_that(is.interval(minutes(1)), is_false())
-  expect_that(is.interval(dminutes(1)), is_false())
-  expect_that(is.interval(interval(
+  expect_false(is.interval(234))
+  expect_false(is.interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.interval(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.interval(Sys.Date()))
+  expect_false(is.interval(minutes(1)))
+  expect_false(is.interval(dminutes(1)))
+  expect_true(is.interval(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_true())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
 })
 
 test_that("Parsing of iso 8601 intervals works", {
@@ -38,13 +36,6 @@ test_that("Parsing of iso 8601 intervals works", {
                           ymd_hms("2001-05-11T15:30:00Z") + period("P2H30M"))))
 
 })
-
-test_that("is.interval handles vectors", {
-  expect_that(is.interval(interval(
-    as.POSIXct(c("2008-08-03 13:01:59", "2009-08-03 13:01:59"), tz = "UTC"),
-    as.POSIXct("2010-08-03 13:01:59", tz = "UTC"))), is_true())
-})
-
 
 test_that("interval works as expected", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
@@ -109,7 +100,7 @@ test_that("interval handles POSIXlt inputs", {
 
   oldtz <- Sys.getenv("TZ")
   Sys.setenv(TZ = "America/Los_Angeles")
-  on.exit(Sys.setenv(TZ = oldtz))
+  on.exit(if (oldtz == "") Sys.unsetenv("TZ") else Sys.setenv(TZ = oldtz))
 
   t1 <- as.POSIXlt("2007-01-01")
   t2 <- as.POSIXlt("2007-08-01")
@@ -399,21 +390,21 @@ test_that("intersect.Interval works as expected", {
   nint3 <- interval(time32, time31)
 
   expect_equal(intersect(int1, int2), interval(time21, time2))
-  expect_equal(intersect(int1, int3), interval(NA, NA, tz = "UTC"))
+  expect_equal(intersect(int1, int3), interval(NA, NA, tzone = "UTC"))
   expect_equal(intersect(int1, c(int2, int3)), interval(c(time21, NA), c(time2, NA)))
   expect_equal(intersect(c(int1, int3), int2), interval(c(time21, NA), c(time2, NA)))
   expect_equal(intersect(c(int1, int3), c(int2, int2)), interval(c(time21, NA), c(time2, NA)))
 
   expect_equal(intersect(nint1, nint2), interval(time2, time21))
-  expect_equal(intersect(nint1, nint3), interval(NA, NA, tz = "UTC"))
+  expect_equal(intersect(nint1, nint3), interval(NA, NA, tzone = "UTC"))
   expect_equal(intersect(nint1, c(nint2, nint3)), interval(c(time2, NA), c(time21, NA)))
   expect_equal(intersect(c(nint1, nint3), nint2), interval(c(time2, NA), c(time21, NA)))
   expect_equal(intersect(c(nint1, nint3), c(nint2, nint2)), interval(c(time2, NA), c(time21, NA)))
 
   expect_equal(intersect(int1, nint2), interval(time21, time2))
   expect_equal(intersect(nint1, nint2), interval(time2, time21))
-  expect_equal(intersect(int1, nint3), interval(NA, NA, tz = "UTC"))
-  expect_equal(intersect(nint1, int3), interval(NA, NA, tz = "UTC"))
+  expect_equal(intersect(int1, nint3), interval(NA, NA, tzone = "UTC"))
+  expect_equal(intersect(nint1, int3), interval(NA, NA, tzone = "UTC"))
   expect_equal(intersect(int1, c(nint2, int3)), interval(c(time21, NA), c(time2, NA)))
   expect_equal(intersect(nint1, c(int2, int3)), interval(c(time2, NA), c(time21, NA)))
   expect_equal(intersect(c(int1, nint3), nint2), interval(c(time21, NA), c(time2, NA)))
@@ -591,6 +582,41 @@ test_that("%within% works as expected", {
     expect_false(nouts %within% base)
     expect_false(nbord %within% base)
     expect_false(nolap %within% base)
+
+})
+
+
+test_that("%with% recycles both arguments", {
+  blackouts<- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+                interval(ymd("2014-12-30"), ymd("2015-01-03")))
+  testdates <-c(ymd("2014-12-20", ymd("2014-12-30"), ymd("2015-01-01"), ymd("2015-01-03")))
+  expect_equal(testdates %within% blackouts, c(F, T, F, T))
+})
+
+test_that("%with% works with list of intervals", {
+
+  testdates <-ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+  blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+                   interval(ymd("2014-12-30"), ymd("2015-01-03")))
+  expect_equal(testdates %within% blackouts, c(F, T, T, T))
+  testdates <-c(ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"), tz = "UTC"))
+  blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+                   interval(ymd("2014-12-30"), ymd("2015-01-03")))
+  expect_equal(testdates %within% blackouts, c(F, T, T, T))
+
+})
+
+test_that("%% on interval uses m+ arithmetic", {
+
+  ## From https://github.com/tidyverse/lubridate/issues/633
+  start <- c("2016-04-29 12:00:00 GMT", "2013-10-31 12:00:00 GMT", "2012-05-31 12:00:00 GMT", "2010-06-29 12:00:00 GMT",
+             "2014-12-31 12:00:00 GMT", "2015-08-31 12:00:00 GMT", "2013-03-29 12:00:00 GMT", "2014-07-31 12:00:00 GMT")
+  end <- c("2017-03-25", "2014-03-16", "2012-12-15", "2011-03-25", "2015-10-16", "2016-03-16", "2014-03-28", "2015-07-22")
+
+  x <- as.POSIXct(start)
+  int <- interval(x, end)
+  n <- int %/% months(1)
+  expect_true(!any(is.na(int %% months(1))))
 
 })
 

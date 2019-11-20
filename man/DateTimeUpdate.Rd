@@ -5,14 +5,19 @@
 \alias{update.POSIXt}
 \title{Changes the components of a date object}
 \usage{
-\method{update}{POSIXt}(object, ..., roll = FALSE,
-  week_start = getOption("lubridate.week.start", 7), simple = NULL)
+\method{update}{POSIXt}(
+  object,
+  ...,
+  roll = FALSE,
+  week_start = getOption("lubridate.week.start", 7),
+  simple = NULL
+)
 }
 \arguments{
 \item{object}{a date-time object}
 
 \item{...}{named arguments: years, months, ydays, wdays, mdays, days, hours,
-minutes, seconds, tzs (time zone compnent)}
+minutes, seconds, tzs (time zone component)}
 
 \item{roll}{logical. If \code{TRUE}, and the resulting date-time lands on a
 non-existent civil time instant (DST, 29th February, etc.) roll the date

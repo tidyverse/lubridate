@@ -9,7 +9,7 @@
 #' @name DateTimeUpdate
 #' @param object a date-time object
 #' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours,
-#'   minutes, seconds, tzs (time zone compnent)
+#'   minutes, seconds, tzs (time zone component)
 #' @param roll logical. If `TRUE`, and the resulting date-time lands on a
 #'   non-existent civil time instant (DST, 29th February, etc.) roll the date
 #'   till next valid point. When `FALSE`, the default, produce NA for non

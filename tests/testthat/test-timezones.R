@@ -70,18 +70,20 @@ test_that("local_time works as expected", {
   expect_equal(local_time(x, "Europe/Amsterdam"),
                local_time(with_tz(x, "Europe/Amsterdam")))
 
-  x <- ymd_hms("2009-08-07 01:02:03")
-  expect_equal(local_time(x, c("America/New_York", "Europe/Amsterdam", "Asia/Shanghai")),
-               c(local_time(with_tz(x, "America/New_York")),
-                 local_time(with_tz(x, "Europe/Amsterdam")),
-                 local_time(with_tz(x, "Asia/Shanghai"))))
+  x1 <- ymd_hms("2009-08-07 01:02:03")
+  x2 <- local_time(x1, c("America/New_York", "Europe/Amsterdam", "Asia/Shanghai"))
+
+  expect_equal(x2[1], local_time(with_tz(x1, "America/New_York")))
+  expect_equal(x2[2], local_time(with_tz(x1, "Europe/Amsterdam")))
+  expect_equal(x2[3], local_time(with_tz(x1, "Asia/Shanghai")))
 })
 
 test_that("with_tz throws warning on unrecognized time zones", {
-  expect_warning(with_tz(now(), "blablabla"))
-  expect_silent(with_tz(now(), "UTC"))
-  expect_silent(with_tz(now(), ""))
-  expect_silent(with_tz(now(), "America/New_York"))
+  t <- now()
+  expect_warning(with_tz(t, "blablabla"))
+  expect_silent(with_tz(t, "UTC"))
+  expect_silent(with_tz(t, ""))
+  expect_silent(with_tz(t, "America/New_York"))
 })
 
 test_that("force_tz works as expected", {
@@ -114,7 +116,7 @@ test_that("force_tz handles data.frames", {
 test_that("force_tz doesn't return NA just because new time zone uses DST", {
   poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
                       = "%Y-%m-%d %H:%M:%S")
-  poslt2 <- force_tz(poslt, tz = "America/New_York")
+  poslt2 <- force_tz(poslt, tzone = "America/New_York")
 
   expect_true(!is.na(poslt2))
 })

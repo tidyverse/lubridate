@@ -14,8 +14,8 @@ NULL
 #'  label, such as "Jan". abbr is disregarded if label = FALSE.
 #' @param value a numeric object
 #' @param locale for month, locale to use for month names. Default to current locale.
-#' @return the months element of x as a number (1-12) or character string. 1 =
-#'   January.
+#' @return If `label = FALSE`: month as number (1-12, 1 = January, 12 = December),
+#'   otherwise as an ordered factor.
 #' @keywords utilities manip chron methods
 #' @examples
 #' x <- ymd("2012-03-26")

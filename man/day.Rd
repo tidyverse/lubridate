@@ -17,9 +17,13 @@ day(x)
 
 mday(x)
 
-wday(x, label = FALSE, abbr = TRUE,
+wday(
+  x,
+  label = FALSE,
+  abbr = TRUE,
   week_start = getOption("lubridate.week.start", 7),
-  locale = Sys.getlocale("LC_TIME"))
+  locale = Sys.getlocale("LC_TIME")
+)
 
 qday(x)
 
@@ -64,7 +68,7 @@ ordered factor if label is \code{TRUE}.
 Get/set days component of a date-time
 }
 \details{
-\code{day()} and \code{day<-()} are aliases for \code{mday()} and \code{mday<-()}
+\code{day()} and \verb{day<-()} are aliases for \code{mday()} and \verb{mday<-()}
 respectively.
 }
 \examples{

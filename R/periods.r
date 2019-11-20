@@ -81,7 +81,7 @@ check_period <- function(object) {
 #'
 #' Because Period represents imprecise amount of time it cannot be compared to
 #' precise timestamps as Durations and Intervals are. You need to explicitely
-#' conver to durations. See [Duration-class].
+#' convert to durations. See [Duration-class].
 #'
 #' The logic that guides arithmetic with periods can be unintuitive. Starting
 #' with version 1.3.0, \pkg{lubridate} enforces the reversible property of arithmetic
@@ -298,14 +298,10 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' to and subtracted to date-times to create a user interface similar to object
 #' oriented programming.
 #'
-#' Note: Arithmetic with periods can results in undefined behavior when
-#' non-existent dates are involved (such as February 29th). Please see
-#' [Period-class] for more details and \code{\link{\%m+\%}} and
-#' [add_with_rollback()] for alternative operations. Note: Arithmetic with
-#' periods can results in undefined behavior when non-existent dates are
-#' involved (such as February 29th in non-leap years). Please see [Period-class]
-#' for more details and \code{\link{\%m+\%}} and [add_with_rollback()] for
-#' alternative operations.
+#' Note: Arithmetic with periods can result in undefined behavior when
+#' non-existent dates are involved (such as February 29th in non-leap years).
+#' Please see [Period-class] for more details and \code{\link{\%m+\%}} and
+#' [add_with_rollback()] for alternative operations.
 #'
 #' @name period
 #' @aliases periods

@@ -4,22 +4,27 @@
 \alias{\%within\%}
 \alias{\%within\%,Interval,Interval-method}
 \alias{\%within\%,ANY,Interval-method}
-\title{Tests whether a date or interval falls within an interval}
+\alias{\%within\%,Date,list-method}
+\alias{\%within\%,POSIXt,list-method}
+\title{Does a date (or interval) fall within an interval?}
 \usage{
 a \%within\% b
 }
 \arguments{
-\item{a}{An interval or date-time object}
+\item{a}{An interval or date-time object.}
 
-\item{b}{An interval}
+\item{b}{Either an interval vector, or a list of intervals.
+
+If \code{b} is an internal it is recycled to the same length as \code{a}.
+If \code{b} is a list of intervals, \code{a} is checked if it falls within \emph{any}
+of the intervals, i.e. \code{a \%within\% list(int1, int2)} is equivalent to
+\code{a \%within\% int1 | a \%within\% int2}.}
 }
 \value{
-A logical
+A logical vector.
 }
 \description{
-%within% returns TRUE if a falls within interval b, FALSE otherwise.
-If a is an interval, both its start and end dates must fall within b
-to return TRUE.
+Check whether \code{a} lies within the interval \code{b}, inclusive of the endpoints.
 }
 \examples{
 int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
@@ -28,4 +33,16 @@ int2 <- interval(ymd("2001-06-01"), ymd("2002-01-01"))
 ymd("2001-05-03") \%within\% int # TRUE
 int2 \%within\% int # TRUE
 ymd("1999-01-01") \%within\% int # FALSE
+
+## recycling
+dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+blackouts<- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+              interval(ymd("2014-12-30"), ymd("2015-01-03")))
+dates \%within\% blackouts
+
+## within ANY of the intervals of a list
+dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+                 interval(ymd("2014-12-30"), ymd("2015-01-03")))
+dates \%within\% blackouts
 }

@@ -1,3 +1,4 @@
+docs
 *.pdf
 *.aux
 *.log
@@ -19,7 +20,8 @@ TAGS
 test.R
 paper/auto/
 revdep/
-CRAN_notes.md
-announcement.md
+CRAN_notes.*
+announcement.*
 *.Rcheck
 *.tar.gz
+.Rprofile

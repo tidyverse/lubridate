@@ -54,15 +54,10 @@ always returns a date in the nth month after Date. If the new date would
 usually spill over into the n + 1th month, \code{\%m+\%} will return the last day of
 the nth month (\code{\link[=rollback]{rollback()}}). Date \code{\%m-\%} months(n) always returns a
 date in the nth month before Date.
-
-\code{add_with_rollback()} provides additional functionality to \code{\%m+\%} and
-\code{\%m-\%}. It allows rollback to first day of the month instead of the last day
-of the previous month and controls whether HMS component of the end date is
-preserved or not.
 }
 \details{
 \code{\%m+\%} and \code{\%m-\%} handle periods with components less than a month by first
-adding/substracting months and then performing usual arithmetics with smaller
+adding/subtracting months and then performing usual arithmetics with smaller
 units.
 
 \code{\%m+\%} and \code{\%m-\%} should be used with caution as they are not one-to-one

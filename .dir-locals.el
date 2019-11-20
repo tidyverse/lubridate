@@ -8,5 +8,4 @@
   ;; remove trailing whitespace
   (eval . (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
  (ess-mode
-  (ess-indent-level . 2)))
-
+  (ess-style . RStudio)))

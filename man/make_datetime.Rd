@@ -5,8 +5,15 @@
 \alias{make_date}
 \title{Efficient creation of date-times from numeric representations}
 \usage{
-make_datetime(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0L,
-  sec = 0, tz = "UTC")
+make_datetime(
+  year = 1970L,
+  month = 1L,
+  day = 1L,
+  hour = 0L,
+  min = 0L,
+  sec = 0,
+  tz = "UTC"
+)
 
 make_date(year = 1970L, month = 1L, day = 1L)
 }

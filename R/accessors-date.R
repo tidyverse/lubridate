@@ -9,6 +9,11 @@ NULL
 #' `date()` does not yet support years before 0 C.E.
 #' Also `date()` is not defined for Period objects.
 #'
+#' @section Base compatibility:
+#' `date()` can be called without any arguments to return a string representing
+#' the current date-time. This provides compatiblity with `base:date()` which
+#' it overrides.
+#'
 #' @param x a date-time object
 #' @param value an object for which the `date()` function is defined
 #' @return the date of x as a Date

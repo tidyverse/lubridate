@@ -14,6 +14,15 @@ test_that("floor_date works for each time element", {
   expect_identical(floor_date(x, "year"), as.POSIXct("2009-01-01 00:00:00", tz = "UTC"))
 })
 
+test_that("floor_date and round_date throw on invalid multi-unit spec", {
+  x <- ymd_hms("2009-08-03 12:01:57.11")
+
+  expect_error(floor_date(x, "120 sec"))
+  expect_error(floor_date(x, "120 min"))
+  expect_error(floor_date(x, "25 h"))
+  expect_error(floor_date(x, "32 days"))
+})
+
 test_that("floor_date works for multi-units", {
   x <- as.POSIXct("2009-08-03 12:01:59.23", tz = "UTC")
   expect_identical(floor_date(x, "2 secs"),   as.POSIXct("2009-08-03 12:01:58", tz = "UTC"))
@@ -469,5 +478,23 @@ test_that("round on week respects week_start", {
   expect_equal(wday(ceiling_date(date, "week", week_start = 2), week_start = 2), 1)
   expect_equal(wday(ceiling_date(date, "week", week_start = 5), week_start = 5), 1)
   expect_equal(wday(ceiling_date(date, "week", week_start = 7), week_start = 7), 1)
+
+  expect_equal(wday(round_date(ct, "week", week_start = 1)), 2)
+  expect_equal(wday(round_date(ct, "week", week_start = 2)), 3)
+  expect_equal(wday(round_date(ct, "week", week_start = 5)), 6)
+  expect_equal(wday(round_date(ct, "week", week_start = 7)), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 1)), 2)
+  expect_equal(wday(round_date(date, "week", week_start = 2)), 3)
+  expect_equal(wday(round_date(date, "week", week_start = 5)), 6)
+  expect_equal(wday(round_date(date, "week", week_start = 7)), 1)
+
+  expect_equal(wday(round_date(ct, "week", week_start = 1), week_start = 1), 1)
+  expect_equal(wday(round_date(ct, "week", week_start = 2), week_start = 2), 1)
+  expect_equal(wday(round_date(ct, "week", week_start = 5), week_start = 5), 1)
+  expect_equal(wday(round_date(ct, "week", week_start = 7), week_start = 7), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 1), week_start = 1), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 2), week_start = 2), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 5), week_start = 5), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 7), week_start = 7), 1)
 
 })

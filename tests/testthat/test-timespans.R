@@ -1,21 +1,15 @@
 context("Timespans")
 
 test_that("is.timespan works as expected", {
-  expect_that(is.timespan(234), is_false())
-  expect_that(is.timespan(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")),
-    is_false())
-  expect_that(is.timespan(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")),
-    is_false())
-  expect_that(is.timespan(Sys.Date()), is_false())
-  expect_that(is.timespan(minutes(1)), is_true())
-  expect_that(is.timespan(dminutes(1)), is_true())
-  expect_that(is.timespan(interval(
+  expect_false(is.timespan(234))
+  expect_false(is.timespan(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.timespan(as.POSIXlt("2008-08-03 13:01:59", tz = "UTC")))
+  expect_false(is.timespan(Sys.Date()))
+  expect_true(is.timespan(minutes(1)))
+  expect_true(is.timespan(dminutes(1)))
+  expect_true(is.timespan(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))), is_true())
-})
-
-test_that("is.timespan handles vectors", {
-  expect_that(is.timespan(minutes(1:3)), is_true())
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
 })
 
 test_that("time_length works as expected", {
@@ -35,6 +29,11 @@ test_that("time_length works as expected", {
               is_more_than(100))
   expect_that(-time_length(interval(ymd("1900-01-01"), ymd("2000-01-01")), "days"),
               equals(time_length(int_flip(interval(ymd("1900-01-01"), ymd("2000-01-01"))), "days")))
+})
+
+test_that("time_length works with intervals on DTS",  {
+  times <- ymd_hms(c("2019-03-29 02:03:00", "2019-03-29 02:10:00"), tz = "Europe/Paris")
+  expect_equal(time_length(interval(times[[1]], times[[2]]), "years"), 1.32818e-05)
 })
 
 test_that("time_length works with missing intervals", {
