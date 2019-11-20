@@ -339,11 +339,8 @@ summary.Duration <- function(object, ...) {
 
 #' @export
 setMethod("Compare", c(e1 = "Duration", e2 = "ANY"),
-          function(e1, e2) {
-            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration()`.",
-                         class(e1), class(e2)),
-                 call. = FALSE)
-          })
+  function(e1, e2) stop_incompatible_classes(e1, e2, .Generic)
+)
 
 #' @export
 setMethod("Compare", c(e1 = "ANY", e2 = "Duration"),

@@ -668,10 +668,14 @@ setMethod("time_length", signature("Interval"), function(x, unit = "second") {
 })
 
 #' @export
-setMethod("Arith", signature(e1 = "Interval", e2 = "ANY"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "Interval", e2 = "ANY"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @export
-setMethod("Arith", signature(e1 = "ANY", e2 = "Interval"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "ANY", e2 = "Interval"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @name hidden_aliases
 #' @aliases Arith,Interval,ANY-method Arith,ANY,Interval-method

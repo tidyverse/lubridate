@@ -571,17 +571,25 @@ summary.Period <- function(object, ...) {
 }
 
 #' @export
-setMethod("Arith", signature(e1 = "Period", e2 = "ANY"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "Period", e2 = "ANY"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @export
-setMethod("Arith", signature(e1 = "ANY", e2 = "Period"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "ANY", e2 = "Period"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 ## duration is.numeric. So we need these explicits here:
 #' @export
-setMethod("Arith", signature(e1 = "Duration", e2 = "Period"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "Duration", e2 = "Period"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @export
-setMethod("Arith", signature(e1 = "Period", e2 = "Duration"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "Period", e2 = "Duration"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @export
 setMethod("Compare", signature(e1 = "Period", e2 = "Period"),

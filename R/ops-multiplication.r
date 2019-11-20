@@ -24,7 +24,7 @@ multiply_period_by_number <- function(per, num) {
 
 #' @export
 setMethod("*", signature(e1 = "Timespan", e2 = "Timespan"),
-          function(e1, e2) stop("cannot multiply time span by time span"))
+  function(e1, e2) stop_incompatible_classes(e1, e2, "*"))
 
 #' @export
 setMethod("*", signature(e1 = "Duration"), function(e1, e2) multiply_duration_by_number(e1, e2))
