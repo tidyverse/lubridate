@@ -26,7 +26,7 @@ recognize <- function(x) {
 standardise_date_names <- function(x) {
   dates <- c("second", "minute", "hour", "mday", "wday", "yday", "day", "week", "month", "year", "tz")
   y <- gsub("(.)s$", "\\1", x)
-  res <- dates[pmatch(y, dates)]
+  res <- dates[pmatch(y, dates, duplicates.ok = TRUE)]
   if (any(is.na(res))) {
     stop("Invalid unit name: ", paste(x[is.na(res)], collapse = ", "),
       call. = FALSE)
@@ -136,14 +136,14 @@ date_to_posix <- function(date, tz = "UTC") {
 
 # minimal custom str_sub function to replicate stringr::str_sub without the full dependency.
 .str_sub <- function(x, start, end, replace_with = ""){
-  
+
   # get the parts of the string to the left and right of the replacement.
   start.c = substr(x, 1, start - 1)
   end.c = substr(x, end + 1, nchar(x))
-  
+
   # paste with replacement in the middle.
   x <- paste(start.c, replace_with, end.c, sep = "")
-  
+
   return(x)
 
 }

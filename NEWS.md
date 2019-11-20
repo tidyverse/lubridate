@@ -13,6 +13,7 @@ Version 1.7.4.9000
 
 ### BUG FIXES
 
+* [#778](https://github.com/tidyverse/lubridate/issues/778) `duration()` works with repeated units
 * [#682](https://github.com/tidyverse/lubridate/issues/682) Fix quarter extraction with small `fiscal_start`s.
 
 
