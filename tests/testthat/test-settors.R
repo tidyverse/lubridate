@@ -1002,20 +1002,22 @@ test_that("dates settor retains object class", {
 
 
 test_that("time zone settor correctly performs simple updates", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
-  posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
+  posct <- ymd_hms("2010-02-03 13:45:59", tz = "UTC")
+  poslt <- as.POSIXlt(posct)
+  date <- as.Date(posct)
 
   tz(poslt) <- "GMT"
   tz(posct) <- "GMT"
-  tz(date) <- "GMT" # dates do not have a tz attribute
+  tz(date) <- "GMT"
+
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "POSIXct")
 
   expect_match(tz(poslt), "GMT")
   expect_match(tz(posct), "GMT")
-  expect_match(tz(date), "UTC")
+  expect_match(tz(date), "GMT")
 })
-
 
 test_that("time zone settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2010-03-14 02:30:59", tz = "UTC", format
@@ -1029,22 +1031,6 @@ test_that("time zone settor returns NA for spring dst gap", {
   expect_true(is.na(posct))
 
 })
-
-test_that("time zone settor retains object class", {
-  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
-  posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
-
-  tz(poslt) <- "GMT"
-  tz(posct) <- "GMT"
-  tz(date) <- "GMT"
-
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
-})
-
 
 test_that("settors handle vectors", {
   poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 01:59:59"),

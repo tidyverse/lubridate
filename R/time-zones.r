@@ -34,12 +34,12 @@ with_tz <- function (time, tzone = "") {
   }
 }
 
-.with_tz <- function (time, tzone = "") {
-  new <-
-    if (is.POSIXlt(time)) as.POSIXct(time)
-    else time
-  attr(new, "tzone") <- tzone
-  reclass_date(new, time)
+.with_tz <- function(time, tzone = "") {
+  if (!is.POSIXct(time)) {
+    time <- as.POSIXct(time)
+  }
+  attr(time, "tzone") <- tzone
+  time
 }
 
 #' Replace time zone to create new date-time
@@ -91,7 +91,7 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
     if (is.POSIXct(time))
       C_force_tz(time, tz = tzone, roll)
     else if (is.Date(time))
-      as_date(C_force_tz(date_to_posix(time), tz = tzone, roll))
+      C_force_tz(date_to_posix(time), tz = tzone, roll)
     else {
       out <- C_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll)
       reclass_date(out, time)
