@@ -15,3 +15,10 @@ test_that("leap_year handles various date-time vectors", {
   expect_equal(leap_year(as.Date(x)), c(TRUE, FALSE))
   expect_equal(leap_year(as.POSIXlt(x)), c(TRUE, FALSE))
 })
+
+test_that("standardise_date_names handles repeated units", {
+  expect_equal(
+    standardise_date_names(c("seconds", "seconds")),
+    c("second", "second")
+  )
+})
