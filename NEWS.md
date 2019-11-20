@@ -3,6 +3,7 @@ Version 1.7.4.9000
 
 ### NEW FEATURES
 
+* [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
 * [#705](https://github.com/tidyverse/lubridate/issues/705) all deprecated functions have been removed
 * [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constants `NA_Date_` and `NA_POSIXct_` which parallel built-in primitive constants.
