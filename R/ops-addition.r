@@ -17,11 +17,10 @@ add_duration_to_date <- function(dur, date) {
     date <- as.POSIXct(date)
     ans <- with_tz(date + dur@.Data, "UTC")
 
-    if (all(is.na(ans))) return(as.Date(ans))  # ALL NAs
-
-    if (all(hour(na.omit(ans)) == 0  &
-            minute(na.omit(ans)) == 0 &
-            second(na.omit(ans)) == 0)) {
+    if (all(is.na(ans) |
+            is.infinite(ans) |
+            is.nan(ans) |
+            (hour(ans) == 0 & minute(ans) == 0 & second(ans) == 0))) {
       return(as.Date(ans))
     }
 
@@ -58,7 +57,11 @@ add_period_to_date <- function(per, date) {
   if (is.Date(date) && sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
     return(new)
 
-  reclass_date(new, date)
+  new <- reclass_date(new, date)
+  indices_infinity <- is.infinite(per) | is.infinite(as.numeric(date))
+  new[indices_infinity] <- as_date(as.numeric(per)[indices_infinity] +
+                                     as.numeric(date)[indices_infinity])
+  new
 }
 
 add_months <- function(mt, mos) {

@@ -344,3 +344,37 @@ test_that("addition with durations containing NA", {
   expect_equal(ans_nana, as.Date(c(NA, NA)))
 
 })
+
+test_that("addition works with infinite dates and timespans", {
+  add_infinities <- function(class1, class2, operator){
+    make_class_coercer <- function(class){
+      switch(class,
+             duration = duration,
+             period = as.period,
+             number = as.numeric,
+             date = function(x) as.Date(x, "1970-01-01"),
+             posixct = function(x) as.POSIXct(x, origin = "1970-01-01")
+      )
+    }
+    coerce_class1 <- make_class_coercer(class1)
+    coerce_class2 <- make_class_coercer(class2)
+    result <- outer(
+      c(0, Inf, -Inf),
+      c(0, Inf, -Inf),
+      function(a, b) operator(coerce_class1(a), coerce_class2(b))
+    )
+    attributes(result) <- NULL
+    result
+  }
+
+  expected <- c(0, Inf, -Inf, Inf, Inf, NaN, -Inf, NaN, -Inf)
+
+  expect_equal(add_infinities("duration", "duration", add_duration_to_duration), expected)
+  expect_equal(add_infinities("duration", "date", add_duration_to_date), expected)
+  expect_equal(add_infinities("duration", "posixct", add_duration_to_date), expected)
+  expect_equal(add_infinities("period", "period", add_period_to_period), expected)
+  expect_equal(add_infinities("period", "date", add_period_to_date), expected)
+  expect_equal(add_infinities("period", "posixct", add_period_to_date), expected)
+  expect_equal(add_infinities("number", "duration", add_number_to_duration), expected)
+  expect_equal(add_infinities("number", "period", add_number_to_period), expected)
+})
