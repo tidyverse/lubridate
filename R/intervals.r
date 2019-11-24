@@ -437,11 +437,13 @@ int_diff <- function(times) {
   interval(times[-length(times)], times[-1])
 }
 
+
 #' @importFrom generics intersect
-setGeneric("intersect", package = "generics")
+#' @export
+generics::intersect
 
 #' @export
-setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x, y) {
+intersect.Interval <- function(x, y, ...) {
   int1 <- int_standardize(x)
   int2 <- int_standardize(y)
 
@@ -458,13 +460,14 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x, y)
   negix <- !is.na(x@.Data) & (sign(x@.Data) == -1)
   new.int[negix] <- int_flip(new.int[negix])
   new.int
-})
+}
 
 #' @importFrom generics union
-setGeneric("union", package = "generics")
+#' @export
+generics::union
 
 #' @export
-setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
+union.Interval <- function(x, y, ...) {
   int1 <- int_standardize(x)
   int2 <- int_standardize(y)
 
@@ -480,14 +483,14 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
   new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
   new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
   new.int
-})
+}
 
 #' @importFrom generics setdiff
-setGeneric("setdiff", package = "generics")
-
-# returns the part of x that is not in y
 #' @export
-setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
+generics::setdiff
+
+#' @export
+setdiff.Interval <- function(x, y, ...) {
 
   if (length(x) != length(y)) {
     xy <- match_lengths(x, y)
@@ -522,7 +525,7 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
   new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
   new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
   new.int
-})
+}
 
 
 #' Does a date (or interval) fall within an interval?
