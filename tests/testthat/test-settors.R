@@ -84,7 +84,7 @@ test_that("seconds settor does not change time zone", {
 
 test_that("seconds settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posxct <- as.POSIXct(poslt)
 
   second(poslt) <- 69
@@ -206,14 +206,14 @@ test_that("minutes settor does not change time zone", {
 test_that("minutes settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posct <- as.POSIXct(poslt)
 
   minute(poslt) <- 70
   minute(posct) <- 70
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -300,8 +300,7 @@ test_that("hours settor rolls over as expected", {
 })
 
 test_that("hours settor does not change time zone", {
-  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
@@ -324,16 +323,15 @@ test_that("hours settor does not change time zone", {
 
 
 test_that("hours settor returns NA for spring dst gap", {
-  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- as.POSIXlt("2010-03-14 01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posct <- as.POSIXct(poslt)
 
   hour(poslt) <- 2
   hour(posct) <- 2
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -456,14 +454,14 @@ test_that("mdays settor does not change time zone", {
 test_that("mdays settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posct <- as.POSIXct(poslt)
 
   mday(poslt) <- 14
   mday(posct) <- 14
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -585,14 +583,14 @@ test_that("ydays settor does not change time zone", {
 test_that("ydays settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posct <- as.POSIXct(poslt)
 
   yday(poslt) <- 73
   yday(posct) <- 73
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -715,14 +713,14 @@ test_that("wdays settor does not change time zone", {
 test_that("wdays settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2010-03-13 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posct <- as.POSIXct(poslt)
 
   wday(poslt) <- 8
   wday(posct) <- 8
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -835,14 +833,14 @@ test_that("months settor does not change time zone", {
 test_that("months settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2010-02-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posct <- as.POSIXct(poslt)
 
-    month(poslt) <- 3
+  month(poslt) <- 3
   month(posct) <- 3
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 })
 
 test_that("months settor retains object class", {
@@ -905,14 +903,14 @@ test_that("years settor does not change time zone", {
 test_that("years settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posct <- as.POSIXct(poslt)
 
   year(poslt) <- 2010
   year(posct) <- 2010
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 
@@ -965,14 +963,14 @@ test_that("dates settor does not change time zone", {
 test_that("dates settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
-  poslt <- force_tz(poslt, tz = "America/New_York")
+  poslt <- force_tz(poslt, tzone = "America/New_York")
   posct <- as.POSIXct(poslt)
 
   date(poslt) <- as.Date("2010-03-14")
   date(posct) <- as.Date("2010-03-14")
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 })
 
 test_that("dates settor retains object class", {
@@ -1015,8 +1013,8 @@ test_that("time zone settor returns NA for spring dst gap", {
   tz(poslt) <- "America/New_York"
   tz(posct) <- "America/New_York"
 
-  expect_that(is.na(poslt), is_true())
-  expect_that(is.na(posct), is_true())
+  expect_true(is.na(poslt))
+  expect_true(is.na(posct))
 
 })
 

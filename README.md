@@ -103,3 +103,7 @@ classes borrowed from <http://joda.org>.
 
   - `intervals`, a protean summary of the time information between two
     points
+
+## Code of Conduct
+
+Please note that the lubridate project is released with a [Contributor Code of Conduct](http://lubridate.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

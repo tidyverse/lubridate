@@ -6,23 +6,38 @@
 \alias{fast_strptime}
 \title{User friendly date-time parsing functions}
 \usage{
-parse_date_time(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
-  locale = Sys.getlocale("LC_TIME"), select_formats = .select_formats,
-  exact = FALSE, train = TRUE, drop = FALSE)
+parse_date_time(
+  x,
+  orders,
+  tz = "UTC",
+  truncated = 0,
+  quiet = FALSE,
+  locale = Sys.getlocale("LC_TIME"),
+  select_formats = .select_formats,
+  exact = FALSE,
+  train = TRUE,
+  drop = FALSE
+)
 
-parse_date_time2(x, orders, tz = "UTC", exact = FALSE, lt = FALSE,
-  cutoff_2000 = 68L)
+parse_date_time2(
+  x,
+  orders,
+  tz = "UTC",
+  exact = FALSE,
+  lt = FALSE,
+  cutoff_2000 = 68L
+)
 
 fast_strptime(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L)
 }
 \arguments{
 \item{x}{a character or numeric vector of dates}
 
-\item{orders}{a character vector of date-time formats. Each order string is
-series of formatting characters as listed \code{\link[base:strptime]{base::strptime()}} but might not
-include the "\%" prefix, for example "ymd" will match all the possible
-dates in year, month, day order.  Formatting orders might include
-arbitrary separators. These are discarded.  See details for implemented
+\item{orders}{a character vector of date-time formats. Each order string is a
+series of formatting characters as listed in \code{\link[base:strptime]{base::strptime()}} but might not
+include the \code{"\%"} prefix. For example, "ymd" will match all the possible
+dates in year, month, day order. Formatting orders might include
+arbitrary separators. These are discarded. See details for implemented
 formats.}
 
 \item{tz}{a character string that specifies the time zone with which to
@@ -33,16 +48,17 @@ common type of irregularity in date-time data is the truncation due to
 rounding or unavailability of the time stamp. If the \code{truncated} parameter
 is non-zero \code{parse_date_time()} also checks for truncated formats. For
 example,  if the format order is "ymdHMS" and \code{truncated = 3},
-\code{parse_date_time()} will correctly parse incomplete date-times like \code{2012-06-01 12:23}, \code{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:} The \code{ymd} family of
-functions are based on \code{strptime()} which currently fails to parse
-\code{\%Y-\%m} formats.}
+\code{parse_date_time()} will correctly parse incomplete date-times like
+\verb{2012-06-01 12:23}, \verb{2012-06-01 12} and \code{2012-06-01}. \bold{NOTE:} The \code{ymd()}
+family of functions is based on \code{\link[base:strptime]{base::strptime()}} which currently fails to parse
+\verb{\%Y-\%m} formats.}
 
-\item{quiet}{logical. When TRUE progress messages are not printed, and
-"no formats found" error is surpresed and the function simply returns a
-vector of NAs.  This mirrors the behavior of base R functions \code{strptime()}
-and \code{as.POSIXct()}. Default is \code{FALSE}.}
+\item{quiet}{logical. If \code{TRUE}, progress messages are not printed, and
+\verb{No formats found} error is suppressed and the function simply returns a
+vector of NAs.  This mirrors the behavior of base R functions \code{\link[base:strptime]{base::strptime()}}
+and \code{\link[base:as.POSIXct]{base::as.POSIXct()}}.}
 
-\item{locale}{locale to be used, see \link{locales}. On linux systems you
+\item{locale}{locale to be used, see \link{locales}. On Linux systems you
 can use \code{system("locale -a")} to list all the installed locales.}
 
 \item{select_formats}{A function to select actual formats for parsing from a
@@ -52,41 +68,41 @@ of the input vector are formats (not orders) that matched the training
 set. Numeric values are the number of dates (in the training set) that
 matched the corresponding format. You should use this argument if the
 default selection method fails to select the formats in the right
-order. By default the formats with most formating tokens (\%) are
-selected and \%Y counts as 2.5 tokens (so that it has a priority over
-\%y\%m). See examples.}
+order. By default the formats with most formatting tokens (\verb{\%}) are
+selected and \verb{\%Y} counts as 2.5 tokens (so that it has a priority over
+\verb{\%y\%m}). See examples.}
 
 \item{exact}{logical. If \code{TRUE}, the \code{orders} parameter is interpreted as an
-exact \code{strptime()} format and no training or guessing are performed
+exact \code{\link[base:strptime]{base::strptime()}} format and no training or guessing are performed
 (i.e. \code{train}, \code{drop} parameters are irrelevant).}
 
-\item{train}{logical, default TRUE. Whether to train formats on a subset of
+\item{train}{logical, default \code{TRUE}. Whether to train formats on a subset of
 the input vector. The result of this is that supplied orders are sorted
 according to performance on this training set, which commonly results in
-increased performance. Please note that even when \code{train} is \code{FALSE} (and
-\code{exact} is \code{FALSE}) guessing of the actual formats is still performed on a
+increased performance. Please note that even when \code{train = FALSE} (and
+\code{exact = FALSE}) guessing of the actual formats is still performed on a
 pseudo-random subset of the original input vector. This might result in
-\code{All formats failed to parse} error. See notes below.}
+\verb{All formats failed to parse} error. See notes below.}
 
-\item{drop}{logical, default FALSE. Whether to drop formats that didn't
-match on the training set. If FALSE, unmatched on the training set formats
+\item{drop}{logical, default \code{FALSE}. Whether to drop formats that didn't
+match on the training set. If \code{FALSE}, unmatched on the training set formats
 are tried as a last resort at the end of the parsing queue. Applies only
-when \code{train=TRUE}. Seating this parameter to TRUE might slightly speed up
+when \code{train = TRUE}. Setting this parameter to \code{TRUE} might slightly speed up
 parsing in situations involving many formats. Prior to v1.7.0 this
-parameter was implicitly TRUE, which resulted in occasional surprising
+parameter was implicitly \code{TRUE}, which resulted in occasional surprising
 behavior when rare patterns where not present in the training set.}
 
-\item{lt}{logical. If TRUE returned object is of class POSIXlt, and POSIXct
-otherwise. For compatibility with base \code{strptime} function default is TRUE
-for \code{fast_strptime} and FALSE for \code{parse_date_time2}.}
+\item{lt}{logical. If \code{TRUE}, returned object is of class POSIXlt, and POSIXct
+otherwise. For compatibility with \code{\link[base:strptime]{base::strptime()}} the default is \code{TRUE}
+for \code{fast_strptime()} and \code{FALSE} for \code{parse_date_time2()}.}
 
 \item{cutoff_2000}{integer. For \code{y} format,  two-digit numbers smaller or equal to
 \code{cutoff_2000} are parsed as 20th's century, 19th's otherwise. Available only
 for functions relying on \code{lubridate}s internal parser.}
 
 \item{format}{a character string of formats. It should include all the
-separators and each format must be prefixed with %, just as in the format
-argument of \code{strptime()}.}
+separators and each format must be prefixed with \%, just as in the format
+argument of \code{\link[base:strptime]{base::strptime()}}.}
 }
 \value{
 a vector of POSIXct date-time objects
@@ -95,8 +111,8 @@ a vector of POSIXct date-time objects
 \code{parse_date_time()} parses an input vector into POSIXct date-time
 object. It differs from \code{\link[base:strptime]{base::strptime()}} in two respects. First,
 it allows specification of the order in which the formats occur without the
-need to include separators and \code{\%} prefix. Such a formating argument is
-refered to as "order". Second, it allows the user to specify several
+need to include separators and the \verb{\%} prefix. Such a formatting argument is
+referred to as "order". Second, it allows the user to specify several
 format-orders to handle heterogeneous date-time character
 representations.
 
@@ -104,23 +120,23 @@ representations.
 orders.
 
 \code{fast_strptime()} is a fast C parser of numeric formats only
-that accepts explicit format arguments, just as
+that accepts explicit format arguments, just like
 \code{\link[base:strptime]{base::strptime()}}.
 }
 \details{
 When several format-orders are specified, \code{parse_date_time()} selects
-(guesses) format-orders based on a training sub-set of the input
+(guesses) format-orders based on a training subset of the input
 strings. After guessing the formats are ordered according to the performance
 on the training set and applied recursively on the entire input vector. You
-can disable training with \code{train=FALSE}.
+can disable training with \code{train = FALSE}.
 
 \code{parse_date_time()}, and all derived functions, such as \code{ymd_hms()},
-\code{ymd()} etc, will drop into \code{fast_strptime()} instead of
-\code{strptime()} whenever the guessed from the input data formats are all
+\code{ymd()}, etc., will drop into \code{fast_strptime()} instead of
+\code{\link[base:strptime]{base::strptime()}} whenever the guessed from the input data formats are all
 numeric.
 
 The list below contains formats recognized by \pkg{lubridate}. For numeric formats
-leading 0s are optional. As compared to base \code{strptime()}, some of the
+leading 0s are optional. As compared to \code{\link[base:strptime]{base::strptime()}}, some of the
 formats are new or have been extended for efficiency reasons. These formats
 are marked with "*". The fast parsers \code{parse_date_time2()} and
 \code{fast_strptime()} accept only formats marked with "!".
@@ -188,7 +204,7 @@ year as day 1 of week 1).  The UK convention.}
 \item{\code{z}!*}{ISO8601 signed offset in hours and minutes from UTC. For
 example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours
 behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
-strptime doesn't fully support ISO8601 this format is implemented as an
+\code{\link[base:strptime]{base::strptime()}} doesn't fully support ISO8601 this format is implemented as an
 union of 4 orders: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use
 these four orders as any other but it is rarely
 necessary. \code{parse_date_time2()} and \code{fast_strptime()} support all of
@@ -207,19 +223,19 @@ the timezone formats.}
 }
 }
 \note{
-\code{parse_date_time()} (and the derivatives \code{ymd()}, \code{ymd_hms()} etc)
-rely on a sparse guesser that takes at most 501 elements from the supplied
+\code{parse_date_time()} (and the derivatives \code{ymd()}, \code{ymd_hms()}, etc.)
+relies on a sparse guesser that takes at most 501 elements from the supplied
 character vector in order to identify appropriate formats from the
-supplied orders. If you get the error \code{All formats failed to parse} and
+supplied orders. If you get the error \verb{All formats failed to parse} and
 you are confident that your vector contains valid dates, you should either
-set \code{exact} argument to TRUE or use functions that don't perform format
-guessing (\code{fast_strptime()}, \code{parse_date_time2()} or \code{strptime()}).
+set \code{exact} argument to \code{TRUE} or use functions that don't perform format
+guessing (\code{fast_strptime()}, \code{parse_date_time2()} or \code{\link[base:strptime]{base::strptime()}}).
 
 For performance reasons, when timezone is not UTC,
 \code{parse_date_time2()} and \code{fast_strptime()} perform no validity checks for
 daylight savings time. Thus, if your input string contains an invalid date
 time which falls into DST gap and \code{lt = TRUE} you will get an \code{POSIXlt}
-object with a non-existen time. If \code{lt = FALSE} your time instant will be
+object with a non-existent time. If \code{lt = FALSE} your time instant will be
 adjusted to a valid time by adding an hour. See examples. If you want to
 get NA for invalid date-times use \code{\link[=fit_to_timeline]{fit_to_timeline()}} explicitly.
 }
@@ -232,7 +248,7 @@ parse_date_time(x, "y m d")
 parse_date_time(x, "\%y\%m\%d")
 #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 
-## ** heterogenuous date-times **
+## ** heterogeneous date-times **
 x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
 parse_date_time(x, c("ymd", "ymd HM"))
 
@@ -264,7 +280,7 @@ parse_date_time(c("2016", "2016-04"), orders = c("Y", "Ym"))
   system.time(out <- as.POSIXct(tt, tz = "UTC"))
   system.time(out1 <- ymd_hms(tt)) # constant overhead on long vectors
   system.time(out2 <- parse_date_time2(tt, "YmdHMOS"))
-  system.time(out3 <- fast_strptime(tt, "\%Y-\%m-\%d \%H:\%M:\%OS"))
+  system.time(out3 <- fast_strptime(tt, "%Y-%m-%d %H:%M:%OS"))
 
   all.equal(out, out1)
   all.equal(out, out2)
@@ -290,6 +306,6 @@ parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York")
 parse_date_time2("2010-03-14 02:05:06",  "YmdHMS", tz = "America/New_York", lt = TRUE)
 }
 \seealso{
-\code{strptime()}, \code{\link[=ymd]{ymd()}}, \code{\link[=ymd_hms]{ymd_hms()}}
+\code{\link[base:strptime]{base::strptime()}}, \code{\link[=ymd]{ymd()}}, \code{\link[=ymd_hms]{ymd_hms()}}
 }
 \keyword{chron}

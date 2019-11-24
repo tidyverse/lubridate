@@ -5,8 +5,7 @@
 \alias{month<-}
 \title{Get/set months component of a date-time}
 \usage{
-month(x, label = FALSE, abbr = TRUE,
-  locale = Sys.getlocale("LC_TIME"))
+month(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
 
 month(x) <- value
 }
@@ -25,8 +24,8 @@ label, such as "Jan". abbr is disregarded if label = FALSE.}
 \item{value}{a numeric object}
 }
 \value{
-the months element of x as a number (1-12) or character string. 1 =
-January.
+If \code{label = FALSE}: month as number (1-12, 1 = January, 12 = December),
+otherwise as an ordered factor.
 }
 \description{
 Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr, zoo,

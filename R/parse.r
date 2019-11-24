@@ -6,23 +6,23 @@
 ##' formats is correct, these functions will parse dates correctly even when the
 ##' input vectors contain differently formatted dates. See examples.
 ##'
-##' In case of heterogeneous date formats `ymd()` family guesses formats based
-##' on a sub-set of the input vector.  If the input vector contains many missing
-##' values or non-date strings, the sub-set might not contain meaningful dates
+##' In case of heterogeneous date formats, the `ymd()` family guesses formats based
+##' on a subset of the input vector. If the input vector contains many missing
+##' values or non-date strings, the subset might not contain meaningful dates
 ##' and the date-time format won't be guessed resulting in
-##' "All formats failed to parse" error. In such cases please see
+##' `All formats failed to parse` error. In such cases please see
 ##' [parse_date_time()] for a more flexible parsing interface.
 ##'
-##' If the `truncated` parameter is non-zero, the `ymd` functions also check for
-##' truncated formats. For example `ymd()` with `truncated = 2` will also
+##' If the `truncated` parameter is non-zero, the `ymd()` functions also check for
+##' truncated formats. For example, `ymd()` with `truncated = 2` will also
 ##' parse incomplete dates like `2012-06` and `2012`.
 ##'
-##' NOTE: The `ymd` family of functions are based on `parse_date_time()` and thus
-##' directly drop to the internal C parser for numeric months, but use R's
-##' `strptime()` for alphabetic months. This implies that some of the `strptime()`'s
+##' NOTE: The `ymd()` family of functions is based on `parse_date_time()` and thus
+##' directly drop to the internal C parser for numeric months, but uses
+##' [base::strptime()] for alphabetic months. This implies that some of [base::strptime()]'s
 ##' limitations are inherited by \pkg{lubridate}'s parser. For example, truncated
-##' formats (like \code{\%Y-\%b}) will not be parsed. Numeric truncated formats (like
-##' \code{\%Y-\%m}) are handled correctly by \pkg{lubridate}'s C parser.
+##' formats (like `%Y-%b`) will not be parsed. Numeric truncated formats (like
+##' `%Y-%m`) are handled correctly by \pkg{lubridate}'s C parser.
 ##'
 ##' As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a
 ##' message that displays which format they used to parse their input. You can
@@ -31,15 +31,15 @@
 ##'
 ##' @export
 ##' @param ... a character or numeric vector of suspected dates
-##' @param quiet logical. When TRUE function evalueates without displaying
+##' @param quiet logical. If `TRUE`, function evaluates without displaying
 ##'   customary messages.
-##' @param tz Time zone indicator. If NULL (default) a Date object is
+##' @param tz Time zone indicator. If `NULL` (default), a Date object is
 ##'   returned. Otherwise a POSIXct with time zone attribute set to `tz`.
-##' @param locale locale to be used, see [locales]. On linux systems you
+##' @param locale locale to be used, see [locales]. On Linux systems you
 ##'   can use `system("locale -a")` to list all the installed locales.
 ##' @param truncated integer. Number of formats that can be truncated.
-##' @return a vector of class POSIXct if tz argument is non-NULL or Date if tz
-##'   is NULL (default)
+##' @return a vector of class POSIXct if `tz` argument is non-`NULL` or Date if tz
+##'   is `NULL` (default)
 ##' @seealso [parse_date_time()] for an even more flexible low level
 ##'   mechanism.
 ##' @keywords chron
@@ -54,7 +54,9 @@
 ##' dmy(010210)
 ##' mdy(010210)
 ##'
-##' ## heterogenuous formats in a single vector:
+##' yq('2014.2')
+##'
+##' ## heterogeneous formats in a single vector:
 ##' x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
 ##'        "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07")
 ##' ymd(x)
@@ -102,29 +104,29 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' **m**inute, and **s**econd components.
 ##'
 ##' Transform dates stored as character or numeric vectors to POSIXct
-##' objects. ymd_hms family of functions recognize all non-alphanumeric
+##' objects. The `ymd_hms()` family of functions recognizes all non-alphanumeric
 ##' separators (with the exception of "." if `frac = TRUE`) and correctly
-##' handle heterogeneous date-time representations. For more flexibility in
+##' handles heterogeneous date-time representations. For more flexibility in
 ##' treatment of heterogeneous formats, see low level parser
 ##' [parse_date_time()].
 ##'
-##' ymd_hms() functions automatically assigns the Universal Coordinated Time
+##' The `ymd_hms()` functions automatically assign the Universal Coordinated Time
 ##' Zone (UTC) to the parsed date. This time zone can be changed with
 ##' [force_tz()].
 ##'
 ##' The most common type of irregularity in date-time data is the truncation
 ##' due to rounding or unavailability of the time stamp. If the `truncated`
-##' parameter is non-zero, the `ymd_hms` functions also check for truncated
+##' parameter is non-zero, the `ymd_hms()` functions also check for truncated
 ##' formats. For example, `ymd_hms()` with `truncated = 3` will also parse
 ##' incomplete dates like `2012-06-01 12:23`, `2012-06-01 12` and
-##' `2012-06-01`. NOTE: The `ymd` family of functions are based on
-##' [strptime()] which currently fails to parse \code{\%y-\%m} formats.
+##' `2012-06-01`. NOTE: The `ymd()` family of functions is based on
+##' [base::strptime()] which currently fails to parse `%y-%m` formats.
 ##'
-##' In case of heterogeneous date formats `ymd_hms()` family guesses formats
-##' based on a sub-set of the input vector. If the input vector contains many
-##' missing values or non-date strings, the sub-set might not contain meaningful
+##' In case of heterogeneous date formats the `ymd_hms()` family guesses formats
+##' based on a subset of the input vector. If the input vector contains many
+##' missing values or non-date strings, the subset might not contain meaningful
 ##' dates and the date-time format won't be guessed resulting in
-##' "All formats failed to parse" error. In such cases please see
+##' `All formats failed to parse` error. In such cases please see
 ##' [parse_date_time()] for a more flexible parsing interface.
 ##'
 ##' As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a
@@ -135,10 +137,10 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' @export
 ##' @param ... a character vector of dates in year, month, day, hour, minute,
 ##'   second format
-##' @param quiet logical. When TRUE function evalueates without displaying customary messages.
+##' @param quiet logical. If `TRUE`, function evaluates without displaying customary messages.
 ##' @param tz a character string that specifies which time zone to parse the date with. The string
 ##' must be a time zone that is recognized by the user's OS.
-##' @param locale locale to be used, see \link{locales}. On linux systems you
+##' @param locale locale to be used, see \link{locales}. On Linux systems you
 ##' can use `system("locale -a")` to list all the installed locales.
 ##' @param truncated integer, indicating how many formats can be missing. See details.
 ##' @return a vector of [POSIXct] date-time objects
@@ -154,7 +156,7 @@ yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' ymd_hms(x)
 ##'
 ##'
-##' ## ** heterogenuous formats **
+##' ## ** heterogeneous formats **
 ##' x <- c(20100101120101, "2009-01-02 12-01-02", "2009.01.03 12:01:03",
 ##'        "2009-1-4 12-1-4",
 ##'        "2009-1, 5 12:1, 5",
@@ -287,17 +289,17 @@ hm <- function(..., quiet = FALSE, roll = FALSE) {
 ##' Parse periods with **h**our, **m**inute, and **s**econd components
 ##'
 ##' Transforms a character or numeric vector into a period object with the
-##' specified number of hours, minutes, and seconds. hms() recognizes all
+##' specified number of hours, minutes, and seconds. `hms()` recognizes all
 ##' non-numeric characters except '-' as separators ('-' is used for negative
-##' durations).  After hours, minutes and seconds have been parsed, the
+##' `durations`). After hours, minutes and seconds have been parsed, the
 ##' remaining input is ignored.
 ##'
 ##' @param ... a character vector of hour minute second triples
-##' @param quiet logical. When TRUE function evalueates without displaying
+##' @param quiet logical. If `TRUE`, function evaluates without displaying
 ##'   customary messages.
-##' @param roll logical. When TRUE, smaller units are rolled over to higher units
+##' @param roll logical. If `TRUE`, smaller units are rolled over to higher units
 ##'   if they exceed the conventional limit. For example,
-##'   `hms("01:59:120", roll=TRUE)` produces period "2H 1M 0S".
+##'   `hms("01:59:120", roll = TRUE)` produces period "2H 1M 0S".
 ##' @return a vector of period objects
 ##' @seealso [hm()], [ms()]
 ##' @keywords period
@@ -327,7 +329,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 }
 
 .parse_hms <- function(..., order, quiet = FALSE) {
-  ## wraper for C level parse_hms
+  ## wrapper for C level parse_hms
   hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
   out <- matrix(.Call(C_parse_hms, hms, order),
                 nrow = 3L, dimnames = list(c("H", "M", "S"), NULL))
@@ -345,24 +347,24 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' `parse_date_time()` parses an input vector into POSIXct date-time
 ##' object. It differs from [base::strptime()] in two respects. First,
 ##' it allows specification of the order in which the formats occur without the
-##' need to include separators and \code{\%} prefix. Such a formating argument is
-##' refered to as "order". Second, it allows the user to specify several
+##' need to include separators and the `%` prefix. Such a formatting argument is
+##' referred to as "order". Second, it allows the user to specify several
 ##' format-orders to handle heterogeneous date-time character
 ##' representations.
 ##'
 ##' When several format-orders are specified, `parse_date_time()` selects
-##' (guesses) format-orders based on a training sub-set of the input
+##' (guesses) format-orders based on a training subset of the input
 ##' strings. After guessing the formats are ordered according to the performance
 ##' on the training set and applied recursively on the entire input vector. You
-##' can disable training with `train=FALSE`.
+##' can disable training with `train = FALSE`.
 ##'
 ##' `parse_date_time()`, and all derived functions, such as `ymd_hms()`,
-##' `ymd()` etc, will drop into `fast_strptime()` instead of
-##' `strptime()` whenever the guessed from the input data formats are all
+##' `ymd()`, etc., will drop into `fast_strptime()` instead of
+##' [base::strptime()] whenever the guessed from the input data formats are all
 ##' numeric.
 ##'
 ##' The list below contains formats recognized by \pkg{lubridate}. For numeric formats
-##' leading 0s are optional. As compared to base `strptime()`, some of the
+##' leading 0s are optional. As compared to [base::strptime()], some of the
 ##' formats are new or have been extended for efficiency reasons. These formats
 ##' are marked with "*". The fast parsers `parse_date_time2()` and
 ##' `fast_strptime()` accept only formats marked with "!".
@@ -431,7 +433,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' \item{`z`!*}{ISO8601 signed offset in hours and minutes from UTC. For
 ##' example `-0800`, `-08:00` or `-08`, all represent 8 hours
 ##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
-##' strptime doesn't fully support ISO8601 this format is implemented as an
+##' [base::strptime()] doesn't fully support ISO8601 this format is implemented as an
 ##' union of 4 orders: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use
 ##' these four orders as any other but it is rarely
 ##' necessary. `parse_date_time2()` and `fast_strptime()` support all of
@@ -452,11 +454,11 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'
 ##' @export
 ##' @param x a character or numeric vector of dates
-##' @param orders a character vector of date-time formats. Each order string is
-##'   series of formatting characters as listed [base::strptime()] but might not
-##'   include the "\%" prefix, for example "ymd" will match all the possible
-##'   dates in year, month, day order.  Formatting orders might include
-##'   arbitrary separators. These are discarded.  See details for implemented
+##' @param orders a character vector of date-time formats. Each order string is a
+##'   series of formatting characters as listed in [base::strptime()] but might not
+##'   include the `"%"` prefix. For example, "ymd" will match all the possible
+##'   dates in year, month, day order. Formatting orders might include
+##'   arbitrary separators. These are discarded. See details for implemented
 ##'   formats.
 ##' @param tz a character string that specifies the time zone with which to
 ##'   parse the dates
@@ -465,15 +467,15 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   rounding or unavailability of the time stamp. If the `truncated` parameter
 ##'   is non-zero `parse_date_time()` also checks for truncated formats. For
 ##'   example,  if the format order is "ymdHMS" and `truncated = 3`,
-##'   `parse_date_time()` will correctly parse incomplete date-times like `2012-06-01
-##'   12:23`, `2012-06-01 12` and `2012-06-01`. \bold{NOTE:} The `ymd` family of
-##'   functions are based on `strptime()` which currently fails to parse
-##'   \code{\%Y-\%m} formats.
-##' @param quiet logical. When TRUE progress messages are not printed, and
-##'   "no formats found" error is surpresed and the function simply returns a
-##'   vector of NAs.  This mirrors the behavior of base R functions `strptime()`
-##'   and `as.POSIXct()`. Default is `FALSE`.
-##' @param locale locale to be used, see \link{locales}. On linux systems you
+##'   `parse_date_time()` will correctly parse incomplete date-times like
+##'   `2012-06-01 12:23`, `2012-06-01 12` and `2012-06-01`. \bold{NOTE:} The `ymd()`
+##'   family of functions is based on [base::strptime()] which currently fails to parse
+##'   `%Y-%m` formats.
+##' @param quiet logical. If `TRUE`, progress messages are not printed, and
+##'   `No formats found` error is suppressed and the function simply returns a
+##'   vector of NAs.  This mirrors the behavior of base R functions [base::strptime()]
+##'   and [base::as.POSIXct()].
+##' @param locale locale to be used, see \link{locales}. On Linux systems you
 ##'   can use `system("locale -a")` to list all the installed locales.
 ##' @param select_formats A function to select actual formats for parsing from a
 ##'   set of formats which matched a training subset of `x`. It receives a named
@@ -482,41 +484,41 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   set. Numeric values are the number of dates (in the training set) that
 ##'   matched the corresponding format. You should use this argument if the
 ##'   default selection method fails to select the formats in the right
-##'   order. By default the formats with most formating tokens (\%) are
-##'   selected and \%Y counts as 2.5 tokens (so that it has a priority over
-##'   \%y\%m). See examples.
+##'   order. By default the formats with most formatting tokens (`%`) are
+##'   selected and `%Y` counts as 2.5 tokens (so that it has a priority over
+##'   `%y%m`). See examples.
 ##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted as an
-##'   exact `strptime()` format and no training or guessing are performed
+##'   exact [base::strptime()] format and no training or guessing are performed
 ##'   (i.e. `train`, `drop` parameters are irrelevant).
-##' @param train logical, default TRUE. Whether to train formats on a subset of
+##' @param train logical, default `TRUE`. Whether to train formats on a subset of
 ##'   the input vector. The result of this is that supplied orders are sorted
 ##'   according to performance on this training set, which commonly results in
-##'   increased performance. Please note that even when `train` is `FALSE` (and
-##'   `exact` is `FALSE`) guessing of the actual formats is still performed on a
+##'   increased performance. Please note that even when `train = FALSE` (and
+##'   `exact = FALSE`) guessing of the actual formats is still performed on a
 ##'   pseudo-random subset of the original input vector. This might result in
 ##'   `All formats failed to parse` error. See notes below.
-##' @param drop logical, default FALSE. Whether to drop formats that didn't
-##'   match on the training set. If FALSE, unmatched on the training set formats
+##' @param drop logical, default `FALSE`. Whether to drop formats that didn't
+##'   match on the training set. If `FALSE`, unmatched on the training set formats
 ##'   are tried as a last resort at the end of the parsing queue. Applies only
-##'   when `train=TRUE`. Seating this parameter to TRUE might slightly speed up
+##'   when `train = TRUE`. Setting this parameter to `TRUE` might slightly speed up
 ##'   parsing in situations involving many formats. Prior to v1.7.0 this
-##'   parameter was implicitly TRUE, which resulted in occasional surprising
+##'   parameter was implicitly `TRUE`, which resulted in occasional surprising
 ##'   behavior when rare patterns where not present in the training set.
 ##' @return a vector of POSIXct date-time objects
-##' @seealso `strptime()`, [ymd()], [ymd_hms()]
+##' @seealso [base::strptime()], [ymd()], [ymd_hms()]
 ##' @keywords chron
-##' @note `parse_date_time()` (and the derivatives `ymd()`, `ymd_hms()` etc)
-##'   rely on a sparse guesser that takes at most 501 elements from the supplied
+##' @note `parse_date_time()` (and the derivatives `ymd()`, `ymd_hms()`, etc.)
+##'   relies on a sparse guesser that takes at most 501 elements from the supplied
 ##'   character vector in order to identify appropriate formats from the
 ##'   supplied orders. If you get the error `All formats failed to parse` and
 ##'   you are confident that your vector contains valid dates, you should either
-##'   set `exact` argument to TRUE or use functions that don't perform format
-##'   guessing (`fast_strptime()`, `parse_date_time2()` or `strptime()`).
+##'   set `exact` argument to `TRUE` or use functions that don't perform format
+##'   guessing (`fast_strptime()`, `parse_date_time2()` or [base::strptime()]).
 ##' @note For performance reasons, when timezone is not UTC,
 ##'   `parse_date_time2()` and `fast_strptime()` perform no validity checks for
 ##'   daylight savings time. Thus, if your input string contains an invalid date
 ##'   time which falls into DST gap and `lt = TRUE` you will get an `POSIXlt`
-##'   object with a non-existen time. If `lt = FALSE` your time instant will be
+##'   object with a non-existent time. If `lt = FALSE` your time instant will be
 ##'   adjusted to a valid time by adding an hour. See examples. If you want to
 ##'   get NA for invalid date-times use [fit_to_timeline()] explicitly.
 ##'
@@ -529,7 +531,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' parse_date_time(x, "%y%m%d")
 ##' #  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"
 ##'
-##' ## ** heterogenuous date-times **
+##' ## ** heterogeneous date-times **
 ##' x <- c("09-01-01", "090102", "09-01 03", "09-01-03 12:02")
 ##' parse_date_time(x, c("ymd", "ymd HM"))
 ##'
@@ -656,9 +658,9 @@ parse_dt <- function(x, orders, is_format = FALSE, return_lt = FALSE, cutoff_200
 ##'
 ##' @rdname parse_date_time
 ##' @export
-##' @param lt logical. If TRUE returned object is of class POSIXlt, and POSIXct
-##'   otherwise. For compatibility with base `strptime` function default is TRUE
-##'   for `fast_strptime` and FALSE for `parse_date_time2`.
+##' @param lt logical. If `TRUE`, returned object is of class POSIXlt, and POSIXct
+##'   otherwise. For compatibility with [base::strptime()] the default is `TRUE`
+##'   for `fast_strptime()` and `FALSE` for `parse_date_time2()`.
 ##' @param cutoff_2000 integer. For `y` format,  two-digit numbers smaller or equal to
 ##'   `cutoff_2000` are parsed as 20th's century, 19th's otherwise. Available only
 ##'   for functions relying on `lubridate`s internal parser.
@@ -680,13 +682,13 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, c
 
 ##' @description
 ##' `fast_strptime()` is a fast C parser of numeric formats only
-##' that accepts explicit format arguments, just as
+##' that accepts explicit format arguments, just like
 ##' [base::strptime()].
 ##' @rdname parse_date_time
 ##' @export
 ##' @param format a character string of formats. It should include all the
 ##'   separators and each format must be prefixed with %, just as in the format
-##'   argument of `strptime()`.
+##'   argument of [base::strptime()].
 fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   if (length(format) > 1)
     warning("Multiple formats supplied. Only first format is used.")
@@ -791,7 +793,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
                            "%z"},
                      stop("Unrecognised capture detected; please report this bug"))
 
-      str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1) <- repl
+      fmt <- .str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1, repl)
 
       ## user has supplied tz argument -> convert to tz
       if (tz != "UTC"){

@@ -26,8 +26,6 @@ is.timepoint <- is.instant
 #' with now("UTC").
 #' @return the current date and time as a POSIXct object
 #'
-#' @seealso [here()]
-#'
 #' @keywords chron utilities
 #' @examples
 #' now()

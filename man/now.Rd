@@ -26,8 +26,5 @@ now() == now() # would be TRUE if computer processed both at the same instant
 now() < now() # TRUE
 now() > now() # FALSE
 }
-\seealso{
-\code{\link[=here]{here()}}
-}
 \keyword{chron}
 \keyword{utilities}

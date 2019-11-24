@@ -5,8 +5,13 @@
 \alias{update.POSIXt}
 \title{Changes the components of a date object}
 \usage{
-\method{update}{POSIXt}(object, ..., roll = FALSE,
-  week_start = getOption("lubridate.week.start", 7), simple = NULL)
+\method{update}{POSIXt}(
+  object,
+  ...,
+  roll = FALSE,
+  week_start = getOption("lubridate.week.start", 7),
+  simple = NULL
+)
 }
 \arguments{
 \item{object}{a date-time object}

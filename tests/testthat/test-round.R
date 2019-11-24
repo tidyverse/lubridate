@@ -479,4 +479,22 @@ test_that("round on week respects week_start", {
   expect_equal(wday(ceiling_date(date, "week", week_start = 5), week_start = 5), 1)
   expect_equal(wday(ceiling_date(date, "week", week_start = 7), week_start = 7), 1)
 
+  expect_equal(wday(round_date(ct, "week", week_start = 1)), 2)
+  expect_equal(wday(round_date(ct, "week", week_start = 2)), 3)
+  expect_equal(wday(round_date(ct, "week", week_start = 5)), 6)
+  expect_equal(wday(round_date(ct, "week", week_start = 7)), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 1)), 2)
+  expect_equal(wday(round_date(date, "week", week_start = 2)), 3)
+  expect_equal(wday(round_date(date, "week", week_start = 5)), 6)
+  expect_equal(wday(round_date(date, "week", week_start = 7)), 1)
+
+  expect_equal(wday(round_date(ct, "week", week_start = 1), week_start = 1), 1)
+  expect_equal(wday(round_date(ct, "week", week_start = 2), week_start = 2), 1)
+  expect_equal(wday(round_date(ct, "week", week_start = 5), week_start = 5), 1)
+  expect_equal(wday(round_date(ct, "week", week_start = 7), week_start = 7), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 1), week_start = 1), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 2), week_start = 2), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 5), week_start = 5), 1)
+  expect_equal(wday(round_date(date, "week", week_start = 7), week_start = 7), 1)
+
 })

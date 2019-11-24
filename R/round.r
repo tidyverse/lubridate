@@ -131,9 +131,9 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
       ## special case for fast rounding
       round.POSIXt(x, units = lub2base_units[[basic_unit]])
     } else {
-      above <- unclass(as.POSIXct(ceiling_date(x, unit)))
+      above <- unclass(as.POSIXct(ceiling_date(x, unit = unit, week_start = week_start)))
       mid <- unclass(as.POSIXct(x))
-      below <- unclass(as.POSIXct(floor_date(x, unit)))
+      below <- unclass(as.POSIXct(floor_date(x, unit = unit, week_start = week_start)))
       wabove <- (above - mid) <= (mid - below)
       wabove <- !is.na(wabove) & wabove
       new <- below
@@ -211,9 +211,16 @@ floor_date <- function(x, unit = "seconds", week_start = getOption("lubridate.we
 #' @rdname round_date
 #' @export
 #' @examples
-#' x <- ymd("2000-01-01")
-#' ceiling_date(x, "month")
-#' ceiling_date(x, "month", change_on_boundary = TRUE)
+#'
+#'  x <- ymd_hms("2000-01-01 00:00:00")
+#'  ceiling_date(x, "month")
+#'  ceiling_date(x, "month", change_on_boundary = TRUE)
+#'
+#'  ## For Date objects first day of the month is not on the
+#'  ## "boundary". change_on_boundary applies to instants only.
+#'  x <- ymd("2000-01-01")
+#'  ceiling_date(x, "month")
+#'  ceiling_date(x, "month", change_on_boundary = TRUE)
 ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_start = getOption("lubridate.week.start", 7)) {
 
   if (!length(x))
@@ -278,12 +285,12 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
     }
 
     new <- switch(unit,
-                  minute = update(new, minute = ceil_multi_unit(minute(new), n), second = 0, simple = T),
-                  hour   = update(new, hour = ceil_multi_unit(hour(new), n), minute = 0, second = 0, simple = T),
-                  day    = update(new, day = ceil_multi_unit1(day(new), n), hour = 0, minute = 0, second = 0),
-                  week   = update(new, wday = 8, hour = 0, minute = 0, second = 0, week_start = week_start),
+                  minute = update(new, minutes = ceil_multi_unit(minute(new), n), seconds = 0, simple = T),
+                  hour   = update(new, hours = ceil_multi_unit(hour(new), n), minutes = 0, seconds = 0, simple = T),
+                  day    = update(new, days = ceil_multi_unit1(day(new), n), hours = 0, minutes = 0, seconds = 0),
+                  week   = update(new, wdays = 8, hours = 0, minutes = 0, seconds = 0, week_start = week_start),
                   month  = update(new, months = new_month, mdays = 1, hours = 0, minutes = 0, seconds = 0),
-                  year   = update(new, year = ceil_multi_unit(year(new), n), month = 1, mday = 1,  hour = 0, minute = 0, second = 0))
+                  year   = update(new, years = ceil_multi_unit(year(new), n), months = 1, mdays = 1, hours = 0, minutes = 0, seconds = 0))
 
     reclass_date_maybe(new, x, unit)
   }

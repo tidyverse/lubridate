@@ -1,3 +1,5 @@
+^pkgdown$
+^\.covrignore$
 ^paper
 ^INSPIRATIONS
 ^\.Rproj\.user$
@@ -19,3 +21,4 @@
 ^docs$
 ^_pkgdown\.yml$
 ^\.github$
+^LICENSE\.md$

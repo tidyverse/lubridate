@@ -10,43 +10,73 @@
 \alias{yq}
 \title{Parse dates with \strong{y}ear, \strong{m}onth, and \strong{d}ay components}
 \usage{
-ymd(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+ymd(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-ydm(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+ydm(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-mdy(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+mdy(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-myd(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+myd(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-dmy(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+dmy(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
-dym(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
-  truncated = 0)
+dym(
+  ...,
+  quiet = FALSE,
+  tz = NULL,
+  locale = Sys.getlocale("LC_TIME"),
+  truncated = 0
+)
 
 yq(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 }
 \arguments{
 \item{...}{a character or numeric vector of suspected dates}
 
-\item{quiet}{logical. When TRUE function evalueates without displaying
+\item{quiet}{logical. If \code{TRUE}, function evaluates without displaying
 customary messages.}
 
-\item{tz}{Time zone indicator. If NULL (default) a Date object is
+\item{tz}{Time zone indicator. If \code{NULL} (default), a Date object is
 returned. Otherwise a POSIXct with time zone attribute set to \code{tz}.}
 
-\item{locale}{locale to be used, see \link{locales}. On linux systems you
+\item{locale}{locale to be used, see \link{locales}. On Linux systems you
 can use \code{system("locale -a")} to list all the installed locales.}
 
 \item{truncated}{integer. Number of formats that can be truncated.}
 }
 \value{
-a vector of class POSIXct if tz argument is non-NULL or Date if tz
-is NULL (default)
+a vector of class POSIXct if \code{tz} argument is non-\code{NULL} or Date if tz
+is \code{NULL} (default)
 }
 \description{
 Transforms dates stored in character and numeric vectors to Date or POSIXct
@@ -56,23 +86,23 @@ formats is correct, these functions will parse dates correctly even when the
 input vectors contain differently formatted dates. See examples.
 }
 \details{
-In case of heterogeneous date formats \code{ymd()} family guesses formats based
-on a sub-set of the input vector.  If the input vector contains many missing
-values or non-date strings, the sub-set might not contain meaningful dates
+In case of heterogeneous date formats, the \code{ymd()} family guesses formats based
+on a subset of the input vector. If the input vector contains many missing
+values or non-date strings, the subset might not contain meaningful dates
 and the date-time format won't be guessed resulting in
-"All formats failed to parse" error. In such cases please see
+\verb{All formats failed to parse} error. In such cases please see
 \code{\link[=parse_date_time]{parse_date_time()}} for a more flexible parsing interface.
 
-If the \code{truncated} parameter is non-zero, the \code{ymd} functions also check for
-truncated formats. For example \code{ymd()} with \code{truncated = 2} will also
+If the \code{truncated} parameter is non-zero, the \code{ymd()} functions also check for
+truncated formats. For example, \code{ymd()} with \code{truncated = 2} will also
 parse incomplete dates like \code{2012-06} and \code{2012}.
 
-NOTE: The \code{ymd} family of functions are based on \code{parse_date_time()} and thus
-directly drop to the internal C parser for numeric months, but use R's
-\code{strptime()} for alphabetic months. This implies that some of the \code{strptime()}'s
+NOTE: The \code{ymd()} family of functions is based on \code{parse_date_time()} and thus
+directly drop to the internal C parser for numeric months, but uses
+\code{\link[base:strptime]{base::strptime()}} for alphabetic months. This implies that some of \code{\link[base:strptime]{base::strptime()}}'s
 limitations are inherited by \pkg{lubridate}'s parser. For example, truncated
-formats (like \code{\%Y-\%b}) will not be parsed. Numeric truncated formats (like
-\code{\%Y-\%m}) are handled correctly by \pkg{lubridate}'s C parser.
+formats (like \verb{\%Y-\%b}) will not be parsed. Numeric truncated formats (like
+\verb{\%Y-\%m}) are handled correctly by \pkg{lubridate}'s C parser.
 
 As of version 1.3.0, \pkg{lubridate}'s parse functions no longer return a
 message that displays which format they used to parse their input. You can
@@ -90,7 +120,9 @@ now() > ymd(20090101)
 dmy(010210)
 mdy(010210)
 
-## heterogenuous formats in a single vector:
+yq('2014.2')
+
+## heterogeneous formats in a single vector:
 x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
        "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07")
 ymd(x)

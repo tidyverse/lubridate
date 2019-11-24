@@ -67,13 +67,13 @@ test_that("numeric comparison with durations works as expected", {
 })
 
 test_that("difftime comparison with periods works", {
-  t <- now()
+  t <- ymd_hms("2019-03-01 12:30:50")
   expect_true(days(1) == (t + days(1)) - t)
   expect_true((t + days(1)) - t == days(1))
 })
 
 test_that("difftime comparison with durations works", {
-  t <- now()
+  t <- ymd_hms("2019-03-01 12:30:50")
   expect_true(ddays(1) == (t + ddays(1)) - t)
   expect_true((t + ddays(1)) - t == ddays(1))
 })

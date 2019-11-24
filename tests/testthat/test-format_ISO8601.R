@@ -78,11 +78,11 @@ test_that("Formatting a Period works", {
   expect_equal(format_ISO8601(period(1, units="seconds") + period(1, units="year")),
                "P1YT1S",
                info="More than one unit works")
-  
+
   expect_equal(format_ISO8601(period(0, units="seconds")),
                "PT0S",
                info="zero-length period (seconds specified)")
-  
+
   expect_equal(format_ISO8601(period(0, units="year")),
                "PT0S",
                info="zero-length period (years specified)")
@@ -122,11 +122,8 @@ test_that("formatting precision provides accurate format strings", {
                regexp="Invalid value for max_precision provided: foo",
                fixed=TRUE,
                info="invalid max_precision is an error (even if it's not used)")
-  expect_warning( # additional warnings are generated about comparison of length > 1
-    expect_error(format_ISO8601_precision_check(precision=c("ymd", "ymdh"), max_precision="ymdh", usetz=FALSE),
-                 regexp="precision must be a scalar",
-                 info="Vector precision is an error.")
-  )
+  expect_error(format_ISO8601_precision_check(precision=c("ymd", "ymdh"), max_precision="ymdh", usetz=FALSE),
+                 regexp="precision must be a scalar")
   expect_warning(
     expect_equal(format_ISO8601_precision_check(precision="ymdh", max_precision="ymd", usetz=FALSE),
                  "%Y-%m-%d",

@@ -1,57 +1,82 @@
-Package: lubridate
 Type: Package
-Version: 1.7.4
-Encoding: UTF-8
+Package: lubridate
 Title: Make Dealing with Dates a Little Easier
-Description: Functions to work with date-times and time-spans: fast and user
-    friendly parsing of date-time data, extraction and updating of components of
-    a date-time (years, months, days, hours, minutes, and seconds), algebraic
-    manipulation on date-time and time-span objects. The 'lubridate' package has
-    a consistent and memorable syntax that makes working with dates easy and
-    fun.
-    Parts of the 'CCTZ' source code, released under the Apache 2.0 License,
-    are included in this package. See <https://github.com/google/cctz> for more
-    details.
-Authors@R: c(
-    person("Vitalie", "Spinu", email = "spinuvit@gmail.com", role = c("aut","cre")),
-    person("Garrett", "Grolemund", role = "aut"),
-    person("Hadley", "Wickham", role = "aut"),
-    person("Ian", "Lyttle", role="ctb"),
-    person("Imanuel", "Constigan", role = "ctb"),
-    person("Jason", "Law", role="ctb"),
-    person("Doug","Mitarotonda", role="ctb"),
-    person("Joseph", "Larmarange", role="ctb"),
-    person("Jonathan", "Boiser", role="ctb"),
-    person("Chel Hee", "Lee", role = "ctb")
-    )
+Version: 1.7.4.9000
+Authors@R: 
+    c(person(given = "Vitalie",
+             family = "Spinu",
+             role = c("aut", "cre"),
+             email = "spinuvit@gmail.com"),
+      person(given = "Garrett",
+             family = "Grolemund",
+             role = "aut"),
+      person(given = "Hadley",
+             family = "Wickham",
+             role = "aut"),
+      person(given = "Ian",
+             family = "Lyttle",
+             role = "ctb"),
+      person(given = "Imanuel",
+             family = "Constigan",
+             role = "ctb"),
+      person(given = "Jason",
+             family = "Law",
+             role = "ctb"),
+      person(given = "Doug",
+             family = "Mitarotonda",
+             role = "ctb"),
+      person(given = "Joseph",
+             family = "Larmarange",
+             role = "ctb"),
+      person(given = "Jonathan",
+             family = "Boiser",
+             role = "ctb"),
+      person(given = "Chel Hee",
+             family = "Lee",
+             role = "ctb"))
 Maintainer: Vitalie Spinu <spinuvit@gmail.com>
+Description: Functions to work with date-times and time-spans:
+    fast and user friendly parsing of date-time data, extraction and
+    updating of components of a date-time (years, months, days, hours,
+    minutes, and seconds), algebraic manipulation on date-time and
+    time-span objects. The 'lubridate' package has a consistent and
+    memorable syntax that makes working with dates easy and fun.  Parts of
+    the 'CCTZ' source code, released under the Apache 2.0 License, are
+    included in this package. See <https://github.com/google/cctz> for
+    more details.
 License: GPL (>= 2)
+URL: http://lubridate.tidyverse.org,
+    https://github.com/tidyverse/lubridate
+BugReports: https://github.com/tidyverse/lubridate/issues
 Depends:
     methods,
-    R (>= 3.0.0)
+    R (>= 3.2)
 Imports:
-    stringr,
     Rcpp (>= 0.12.13)
-LinkingTo:
-    Rcpp
 Suggests:
-    testthat,
+    covr,
     knitr,
-    covr
+    testthat
 Enhances:
     chron,
     fts,
-    timeSeries,
     timeDate,
+    timeSeries,
     tis,
     tseries,
     xts,
     zoo
-SystemRequirements: A system with zoneinfo data (e.g. /usr/share/zoneinfo) as
-    well as a recent-enough C++11 compiler (such as g++-4.8 or later). On
-    Windows the zoneinfo included with R is used.
-VignetteBuilder: knitr
+LinkingTo:
+    Rcpp
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+SystemRequirements: A system with zoneinfo data (e.g.
+    /usr/share/zoneinfo) as well as a recent-enough C++11 compiler (such
+    as g++-4.8 or later). On Windows the zoneinfo included with R is used.
 Collate:
     'Dates.r'
     'POSIXt.r'
@@ -79,6 +104,7 @@ Collate:
     'numeric.r'
     'coercion.r'
     'constants.r'
+    'cyclic_encoding.r'
     'data.r'
     'decimal-dates.r'
     'deprecated.r'
@@ -101,7 +127,3 @@ Collate:
     'stamp.r'
     'update.r'
     'zzz.R'
-RoxygenNote: 6.1.0
-Roxygen: list(markdown = TRUE)
-URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
-BugReports: https://github.com/tidyverse/lubridate/issues

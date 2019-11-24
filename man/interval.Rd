@@ -94,9 +94,9 @@ between the n date-time in times
 \code{interval()} creates an \linkS4class{Interval} object with the specified start and
 end dates. If the start date occurs before the end date, the interval will be
 positive. Otherwise, it will be negative. Character vectors in ISO 8601
-format are suported from v1.7.2.
+format are supported from v1.7.2.
 
-\code{int_end()} and \code{int_end<-()} are accessors the end date of an
+\code{int_end()} and \verb{int_end<-()} are accessors the end date of an
 interval. Note that changing the end date of an interval will change the
 length of the interval, since the start date will remain the same.
 
