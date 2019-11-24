@@ -52,6 +52,7 @@ Depends:
     methods,
     R (>= 3.2)
 Imports:
+    generics,
     Rcpp (>= 0.12.13)
 Suggests:
     covr,

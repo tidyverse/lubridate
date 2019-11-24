@@ -437,7 +437,8 @@ int_diff <- function(times) {
   interval(times[-length(times)], times[-1])
 }
 
-setGeneric("intersect")
+#' @importFrom generics intersect
+setGeneric("intersect", package = "generics")
 
 #' @export
 setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x, y) {
@@ -459,7 +460,8 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x, y)
   new.int
 })
 
-setGeneric("union")
+#' @importFrom generics union
+setGeneric("union", package = "generics")
 
 #' @export
 setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
@@ -480,7 +482,8 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
   new.int
 })
 
-setGeneric("setdiff")
+#' @importFrom generics setdiff
+setGeneric("setdiff", package = "generics")
 
 # returns the part of x that is not in y
 #' @export
@@ -557,10 +560,7 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
 #' blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
 #'                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
 #' dates %within% blackouts
-"%within%" <- function(a, b) standardGeneric("%within%")
-
-#' @export
-setGeneric("%within%")
+setGeneric("%within%", function(a, b) standardGeneric("%within%"))
 
 .within <- function(a, int) {
   as.numeric(a) - as.numeric(int@start) <= int@.Data & as.numeric(a) - as.numeric(int@start) >= 0
