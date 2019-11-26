@@ -95,30 +95,37 @@ test_that("seconds settor returns NA for spring dst gap", {
 
 })
 
-test_that("seconds settor retains object class", {
+test_that("seconds settor retains object class for datetimes", {
   poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
 
   second(poslt) <- 10
   second(posct) <- 10
-  day(date) <- 10
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 
   second(poslt) <- 70
   second(posct) <- 70
-  day(date) <- 32
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 
 })
 
+test_that("seconds settor makes POSTXct from Date", {
+  date <- as.Date("2010-02-14", tz = "GMT", format = "%Y-%m-%d")
+
+  second(date) <- 10
+
+  expect_s3_class(date, "POSIXct")
+
+  second(date) <- 70
+
+  expect_s3_class(date, "POSIXct")
+
+})
 
 
 test_that("minutes settor correctly performs simple updates", {
@@ -217,33 +224,35 @@ test_that("minutes settor returns NA for spring dst gap", {
 
 })
 
-test_that("minutes settor retains object class", {
+test_that("minutes settor retains object class for datetimes", {
   poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
 
   minute(poslt) <- 1
   minute(posct) <- 1
-  minute(date) <- 1
 
-  expect_is("minute<-"(poslt, 1), "POSIXlt")
-  expect_is("minute<-"(posct, 1), "POSIXct")
-  expect_is("minute<-"(date, 1), "POSIXlt")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 
   minute(poslt) <- 70
   minute(posct) <- 70
-  minute(date) <- 70
 
-  expect_is("minute<-"(poslt, 70), "POSIXlt")
-  expect_is("minute<-"(posct, 70), "POSIXct")
-  expect_is("minute<-"(date, 70), "POSIXlt")
-
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 })
 
+test_that("minutes settor makes POSIXct from Date", {
+  date <- as.Date("2010-02-14", tz = "GMT", format = "%Y-%m-%d")
+
+  minute(date) <- 70
+
+  expect_is(date, "POSIXct")
+})
+
+
 test_that("hours settor correctly performs simple updates", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
@@ -258,8 +267,7 @@ test_that("hours settor correctly performs simple updates", {
 })
 
 test_that("hours settor rolls over as expected", {
-  poslt <- as.POSIXlt("2010-12-31 23:59:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-12-31 23:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
@@ -335,30 +343,34 @@ test_that("hours settor returns NA for spring dst gap", {
 
 })
 
-test_that("hours settor retains object class", {
-  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
-     = "%Y-%m-%d %H:%M:%S")
+test_that("hours settor retains object class for datetimes", {
+  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
 
   hour(poslt) <- 2
   hour(posct) <- 2
-  hour(date) <- 2
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "POSIXlt")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 
   hour(poslt) <- 25
   hour(posct) <- 25
-  hour(date) <- 25
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "POSIXlt")
-
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 })
 
+test_that("hours settor makes POSIXct from Date", {
+  date <- as.Date("2010-02-14", tz = "GMT", format = "%Y-%m-%d")
+
+  hour(date) <- 2
+
+  expect_s3_class(date, "POSIXct")
+
+  hour(date) <- 25
+
+  expect_s3_class(date, "POSIXct")
+})
 
 
 test_that("mdays settor correctly performs simple updates", {
@@ -1163,4 +1175,3 @@ test_that("qdays settors correctly performs simple updates and rolls over as exp
   expect_equal(year(posct), c(2010, 2010, 2011))
   expect_equal(year(date), c(2010, 2010, 2011))
 })
-
