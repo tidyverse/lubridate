@@ -16,12 +16,10 @@
 #' leap_year(1900) # FALSE
 #' leap_year(2000) # TRUE
 leap_year <- function(date) {
-  recognized <- recognize(date)
-  if (recognized)
-    year <- year(date)
-  else if (all(is.numeric(date)))
+  if (is.numeric(date)) {
     year <- date
-  else
-    stop("unrecognized date format")
+  } else {
+    year <- year(date)
+  }
   (year %% 4 == 0) & ((year %% 100 != 0) | (year %% 400 == 0))
 }

@@ -280,7 +280,7 @@ parse_date_time(c("2016", "2016-04"), orders = c("Y", "Ym"))
   system.time(out <- as.POSIXct(tt, tz = "UTC"))
   system.time(out1 <- ymd_hms(tt)) # constant overhead on long vectors
   system.time(out2 <- parse_date_time2(tt, "YmdHMOS"))
-  system.time(out3 <- fast_strptime(tt, "%Y-%m-%d %H:%M:%OS"))
+  system.time(out3 <- fast_strptime(tt, "\%Y-\%m-\%d \%H:\%M:\%OS"))
 
   all.equal(out, out1)
   all.equal(out, out2)
