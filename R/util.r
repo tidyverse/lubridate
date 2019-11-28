@@ -139,3 +139,7 @@ date_to_posix <- function(date, tz = "UTC") {
   return(x)
 
 }
+
+is_verbose <- function() {
+  isTRUE(getOption("lubridate.verbose"))
+}

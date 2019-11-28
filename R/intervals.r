@@ -473,8 +473,9 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
 
   spans <- as.numeric(ends) - as.numeric(starts)
 
-  if (any(!int_overlaps(int1, int2)))
+  if (any(!int_overlaps(int1, int2)) && is_verbose()) {
     message("Union includes intervening time between intervals.")
+  }
 
   tz(starts) <- x@tzone
   new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
