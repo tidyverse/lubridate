@@ -1,5 +1,20 @@
 context("Accessors")
 
+
+test_that("accessors (apart from second) return integers", {
+  date <- ymd("2020-01-01", tz = "UTC")
+
+  expect_type(year(date), "integer")
+  expect_type(month(date), "integer")
+  expect_type(yday(date), "integer")
+  expect_type(qday(date), "integer")
+  expect_type(mday(date), "integer")
+  expect_type(week(date), "integer")
+  expect_type(wday(date), "integer")
+  expect_type(hour(date), "integer")
+  expect_type(minute(date), "integer")
+})
+
 test_that("seconds accessor extracts correct second", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
@@ -254,10 +269,6 @@ test_that("years accessor extracts correct year", {
   expect_that(year(posct), equals(2010))
   expect_that(year(date), equals(2010))
 
-})
-
-test_that("year() returns an integer", {
-  expect_type(year(today()), "integer")
 })
 
 test_that("isoyear accessor extracts correct ISO8601 year", {

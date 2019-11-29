@@ -30,8 +30,8 @@ date.default <- function(x) {
     base::date()
   } else {
     x <- as.POSIXlt(x, tz = tz(x))
-    year <- x$year + 1900
-    month <- x$mon + 1
+    year <- x$year + 1900L
+    month <- x$mon + 1L
     day <- x$mday
     as.Date(make_datetime(year, month, day))
   }
