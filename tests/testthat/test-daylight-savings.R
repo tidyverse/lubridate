@@ -114,9 +114,9 @@ test_that("update returns NA for date-times in the spring dst gap", {
     year = 110L, wday = 6L, yday = 71L, isdst = 0L),
     .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
     class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
-  expect_true(is.na(update(poslt, mday = 14)))
-  expect_true(is.na(update(poslt, wday = 8)))
-  expect_true(is.na(update(poslt, yday = 73)))
+  expect_true(is.na(update(poslt, mdays = 14)))
+  expect_true(is.na(update(poslt, wdays = 8)))
+  expect_true(is.na(update(poslt, ydays = 73)))
 
   poslt <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 1L,
     year = 110L, wday = 0L, yday = 44L, isdst = 0L),
@@ -134,8 +134,8 @@ test_that("update returns NA for date-times in the spring dst gap", {
     year = 110L, wday = 0L, yday = 72L, isdst = 0L),
     .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
     class = c("POSIXlt", "POSIXt"), tzone = "UTC")
-  expect_true(is.na(update(poslt, tz = "America/New_York")))
-  expect_equal(update(c(xu, poslt), tz = "America/New_York"), c(x2, NA))
+  expect_true(is.na(update(poslt, tzs = "America/New_York")))
+  expect_equal(update(c(xu, poslt), tzs = "America/New_York"), c(x2, NA))
 
 })
 

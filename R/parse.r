@@ -54,6 +54,8 @@
 ##' dmy(010210)
 ##' mdy(010210)
 ##'
+##' yq('2014.2')
+##'
 ##' ## heterogeneous formats in a single vector:
 ##' x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
 ##'        "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07")
@@ -721,9 +723,8 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   na <- is.na(out)
   newx <- x[na]
 
-  verbose <- getOption("lubridate.verbose")
-  if (!is.null(verbose) && verbose)
-    message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
+  if (is_verbose())
+    message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   ## recursive parsing
   if (length(formats) > 1 && length(newx) > 0)

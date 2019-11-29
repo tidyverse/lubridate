@@ -25,6 +25,13 @@ zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
 \code{date()} does not yet support years before 0 C.E.
 Also \code{date()} is not defined for Period objects.
 }
+\section{Base compatibility}{
+
+\code{date()} can be called without any arguments to return a string representing
+the current date-time. This provides compatiblity with \code{base:date()} which
+it overrides.
+}
+
 \examples{
 x <- ymd_hms("2012-03-26 23:12:13", tz = "America/New_York")
 date(x)
