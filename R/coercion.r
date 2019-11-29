@@ -670,7 +670,7 @@ setMethod(f = "as_date", signature = "numeric",
 #' @export
 setMethod("as_date", "character",
           function(x, tz = NULL, format = NULL) {
-            if (!missing(tz)) {
+            if (!is.null(tz)) {
               warning("`tz` argument is ignored by `as_date()`", call. = FALSE)
             }
 
