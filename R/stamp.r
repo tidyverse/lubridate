@@ -165,7 +165,7 @@ stamp <- function(x, orders = lubridate_formats,
   dtm_utc <- force_tz(x, tzone = "UTC")
 
   ## the offset is the duration represented by the difference in time
-  offset_duration = difftime(dtm_utc, x)
+  offset_duration <- difftime(dtm_utc, x, units = "secs")
 
   ## determine sign
   .sgn <- ifelse(offset_duration >= as.duration(0), "+", "-")
