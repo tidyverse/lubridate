@@ -35,7 +35,7 @@ with_tz <- function (time, tzone = "") {
 }
 
 .with_tz <- function(time, tzone = "") {
-  if (!is.POSIXct(time)) {
+  if (!is.POSIXt(time)) {
     time <- as.POSIXct(time)
   }
   attr(time, "tzone") <- tzone

@@ -1,29 +1,17 @@
 context("Time zones")
 
 test_that("with_tz works as expected", {
-  x <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
-  y <- as.POSIXlt(x)
-  expect_equal(with_tz(x, "UTC"), as.POSIXct(format(
-    as.POSIXct(x), tz = "UTC"), tz = "UTC"))
-  expect_equal(with_tz(y, "UTC"), as.POSIXlt(format(
-    as.POSIXct(x), tz = "UTC"), tz = "UTC"))
-})
+  x_ct <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
+  y_ct <- as.POSIXct("2008-08-03 14:01:59", tz = "UTC")
 
-test_that("with_tz handles vectors", {
-  x <- as.POSIXct(c("2008-08-03 13:01:59", "2009-08-03 10:01:59"), tz = "America/New_York")
-  y <- as.POSIXlt(x)
+  expect_equal(with_tz(x_ct, "UTC"), y_ct)
+  expect_s3_class(with_tz(x_ct, "UTC"), "POSIXct")
 
-  expect_equal(with_tz(x, "UTC"), as.POSIXct(format(
-    as.POSIXct(x), tz = "UTC"), tz = "UTC"))
-  expect_equal(with_tz(y, "UTC"), as.POSIXlt(format(
-    as.POSIXct(x), tz = "UTC"), tz = "UTC"))
-})
+  x_lt <- as.POSIXlt(x_ct)
+  y_lt <- as.POSIXlt(y_ct)
 
-test_that("with_tz handles various date-time classes", {
-  x <- as.POSIXct("2008-08-03 13:01:59", tz = "America/New_York")
-
-  expect_equal(with_tz(as.POSIXlt(x), "UTC"),
-               as.POSIXlt(format(as.POSIXct(x), tz = "UTC"), tz = "UTC"))
+  expect_equal(with_tz(y_lt, "UTC"), y_lt)
+  expect_s3_class(with_tz(y_lt, "UTC"), "POSIXlt")
 })
 
 test_that("with_tz handles data.frames", {
@@ -34,6 +22,40 @@ test_that("with_tz handles data.frames", {
   expect_equal(df$x, x_out)
   expect_equal(df$y, x_out)
 })
+
+test_that("with_tz throws warning on unrecognized time zones", {
+  t <- now()
+  expect_warning(with_tz(t, "blablabla"))
+  expect_silent(with_tz(t, "UTC"))
+  expect_silent(with_tz(t, ""))
+  expect_silent(with_tz(t, "America/New_York"))
+})
+
+# force_tz ----------------------------------------------------------------
+
+test_that("force_tz works as expected", {
+  x_ct <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
+  y_ct <- as.POSIXct("2008-08-03 10:01:59", tz = "UTC")
+
+  expect_equal(force_tz(x_ct, "UTC"), y_ct)
+  expect_s3_class(force_tz(x_ct, "UTC"), "POSIXct")
+
+  x_lt <- as.POSIXlt(x_ct)
+  y_lt <- as.POSIXlt(y_ct)
+
+  expect_equal(force_tz(y_lt, "UTC"), y_lt)
+  expect_s3_class(force_tz(y_lt, "UTC"), "POSIXlt")
+})
+
+test_that("force_tz handles data.frames", {
+  x <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
+  x_out <- as.POSIXct(format(as.POSIXct(x)), tz = "UTC")
+  df <- data.frame(x = x, y = as.POSIXlt(x), z = "blabla")
+  df <- force_tz(df, "UTC")
+  expect_that(df$x, equals(x_out))
+  expect_that(df$y, equals(x_out))
+})
+
 
 test_that("force_tzs works as expected", {
   x <- ymd_hms(c("2009-08-07 00:00:01", "2009-08-07 00:00:01"))
@@ -61,6 +83,16 @@ test_that("force_tzs is robusts against overflow", {
                        "UTC"))
 })
 
+test_that("force_tz doesn't return NA just because new time zone uses DST", {
+  poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
+                      = "%Y-%m-%d %H:%M:%S")
+  poslt2 <- force_tz(poslt, tzone = "America/New_York")
+
+  expect_true(!is.na(poslt2))
+})
+
+# local_time --------------------------------------------------------------
+
 test_that("local_time works as expected", {
   x <- ymd_hms(c("2009-08-07 01:02:03", "2009-08-07 10:20:30"))
   expect_equal(local_time(x, units = "secs"),
@@ -77,52 +109,3 @@ test_that("local_time works as expected", {
   expect_equal(x2[2], local_time(with_tz(x1, "Europe/Amsterdam")))
   expect_equal(x2[3], local_time(with_tz(x1, "Asia/Shanghai")))
 })
-
-test_that("with_tz throws warning on unrecognized time zones", {
-  t <- now()
-  expect_warning(with_tz(t, "blablabla"))
-  expect_silent(with_tz(t, "UTC"))
-  expect_silent(with_tz(t, ""))
-  expect_silent(with_tz(t, "America/New_York"))
-})
-
-test_that("force_tz works as expected", {
-  x <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
-  expect_equal(force_tz(x, "UTC"),
-              as.POSIXct(format(as.POSIXct(x)), tz = "UTC"))
-})
-
-test_that("force_tz handles vectors", {
-  x <- as.POSIXct(c("2008-08-03 13:01:59", "2009-08-03 10:01:59"), tz = "America/New_York")
-  expect_equal(force_tz(x, "UTC"),
-              as.POSIXct(format(as.POSIXct(x)), tz = "UTC"))
-})
-
-test_that("force_tz handles various date-time classes", {
-  x <- as.POSIXct("2008-12-03 13:01:59", tz = "America/New_York")
-  expect_equal(force_tz(as.POSIXlt(x), "UTC"),
-    as.POSIXlt(format(x), tz = "UTC"))
-})
-
-test_that("force_tz handles data.frames", {
-  x <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
-  x_out <- as.POSIXct(format(as.POSIXct(x)), tz = "UTC")
-  df <- data.frame(x = x, y = as.POSIXlt(x), z = "blabla")
-  df <- force_tz(df, "UTC")
-  expect_equal(df$x, x_out)
-  expect_equal(df$y, x_out)
-})
-
-test_that("force_tz doesn't return NA just because new time zone uses DST", {
-  poslt <- as.POSIXlt("2009-03-14 02:59:59", tz = "UTC", format
-                      = "%Y-%m-%d %H:%M:%S")
-  poslt2 <- force_tz(poslt, tzone = "America/New_York")
-
-  expect_true(!is.na(poslt2))
-})
-
-## test_that("olson_time_zones returns a non-trivial character vector", {
-##   tz_olson <- olson_time_zones()
-##   expect_true(length(tz_olson) > 0)
-##   expect_is(tz_olson, "character")
-## })
