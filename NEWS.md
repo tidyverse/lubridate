@@ -9,7 +9,7 @@ Version 1.7.4.9000
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constants `NA_Date_` and `NA_POSIXct_` which parallel built-in primitive constants.
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constructors `Date()` and `POSIXct()` which parallel built-in primitive constructors.
 * [#629](https://github.com/tidyverse/lubridate/issues/629) Added `format_ISO8601()` methods.
-
+* [#829](https://github.com/tidyverse/lubridate/issues/829) `%within%` throws more meaningful messages when applied on unsupported classes
 
 ### BUG FIXES
 

@@ -561,10 +561,15 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
 #' blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
 #'                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
 #' dates %within% blackouts
-"%within%" <- function(a, b) standardGeneric("%within%")
+"%within%" <- function(a, b) {
+  standardGeneric("%within%")
+}
 
 #' @export
-setGeneric("%within%")
+setGeneric("%within%", useAsDefault = function(a, b) {
+  stop(sprintf("No %%within%% method with signature a = %s,  b = %s",
+               class(a)[[1]], class(b)[[1]]))
+})
 
 .within <- function(a, int) {
   as.numeric(a) - as.numeric(int@start) <= int@.Data & as.numeric(a) - as.numeric(int@start) >= 0

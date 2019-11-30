@@ -543,6 +543,10 @@ test_that("setdiff.Interval works as expected", {
 
 })
 
+test_that("%within% fails meaningfully when applied on wrong types", {
+  expect_error(now() %within% now(), "No %within% method")
+})
+
 test_that("%within% works as expected", {
     time1 <- as.POSIXct("2001-01-01", tz = "UTC")
     time2 <- as.POSIXct("2003-01-01", tz = "UTC")
