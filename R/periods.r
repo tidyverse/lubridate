@@ -212,7 +212,9 @@ xtfrm.Period <- function(x) {
 
 #' @export
 setMethod("c", signature(x = "Period"), function(x, ...) {
-  elements <- lapply(list(...), as.period)
+  dots <- list(...)
+  nempty <- sapply(dots, length) != 0
+  elements <- lapply(dots[nempty], as.period)
   seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
   years <- c(x@year, unlist(lapply(elements, slot, "year")))
   months <- c(x@month, unlist(lapply(elements, slot, "month")))

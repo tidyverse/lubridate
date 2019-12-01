@@ -425,6 +425,11 @@ test_that("c.Period correctly handles NAs", {
   expect_true(is.na(c(per, NA)[2]))
 })
 
+test_that("c.Period doesn't fail with empty elements", {
+  expect_equal(c(period(), period(3), NULL, logical(), period(1, "days")),
+               c(period(3), period(days = 1)))
+})
+
 test_that("summary.Period creates useful summary", {
   per <- period(minutes = 5)
   text <- c(rep("5M 0S", 6), 1)
