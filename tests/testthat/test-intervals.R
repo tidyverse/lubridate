@@ -6,6 +6,18 @@ test_that("interval() returns zero-length vector", {
   expect_length(x, 0)
   expect_equal(format(x), character())
   expect_output(print(x), "<Interval[0]>", fixed = TRUE)
+
+  x <- interval(POSIXct(), POSIXct())
+  expect_s4_class(x, "Interval")
+  expect_length(x, 0)
+
+  x <- interval(POSIXct())
+  expect_s4_class(x, "Interval")
+  expect_length(x, 0)
+
+  x <- interval(NULL, POSIXct())
+  expect_s4_class(x, "Interval")
+  expect_length(x, 0)
 })
 
 test_that("is.interval works as expected", {

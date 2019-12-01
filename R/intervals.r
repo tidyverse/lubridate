@@ -205,12 +205,12 @@ interval <- function(start = NULL, end = NULL, tzone = tz(start)) {
       tzone <- "UTC"
   }
 
-  if (is.null(start) && is.null(end)) {
-    return(new("Interval", numeric(), start = POSIXct(), tzone = "UTC"))
-  }
-
   if (is.character(start) && is.null(end)) {
     return(parse_interval(start, tzone))
+  }
+
+  if (length(start) == 0 || length(end) == 0) {
+    return(new("Interval", numeric(), start = POSIXct(), tzone = tzone))
   }
 
   if (is.Date(start)) start <- date_to_posix(start)

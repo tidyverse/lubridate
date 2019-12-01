@@ -401,22 +401,11 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' boundary + ddays(1) # duration
 #' @export
 period <- function(num = NULL, units = "second", ...) {
-  nums <- list(...)
-  if (is.null(num) && missing(...)) {
-    new("Period", numeric(),
-      year = numeric(), month = numeric(), day = numeric(),
-      hour = numeric(), minute = numeric()
-    )
-  } else if (is.character(num)) {
+  if (is.character(num)) {
     parse_period(num)
-  } else if (!is.null(num) && length(nums) > 0) {
-    c(.period_from_num(num, units), .period_from_units(nums))
-  } else if (!is.null(num)) {
-    .period_from_num(num, units)
-  } else if (length(nums)) {
-    .period_from_units(nums)
   } else {
-    stop("No valid values have been passed to 'period' constructor")
+    c(.period_from_num(num, units),
+      .period_from_units(list(...)))
   }
 }
 
@@ -432,13 +421,16 @@ parse_period <- function(x) {
 }
 
 .period_from_num <- function(num, units) {
+  if (length(num) == 0)
+    return(new("Period", numeric()))
 
   if (!is.numeric(num)) {
-    stop(sprintf("First argument to `period` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
+    stop(sprintf("First argument to `period()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
-  if (is.interval(num))
-    stop("Interval objects cannot be used as input to 'period' constructor. Plese use 'as.period'.")
+  ## qucik check for common wrongdoings: #462
+  if (inherits(num, c("Interval", "Duration")))
+    stop("Interval or Durations objects cannot be used as input to 'period()' constructor. Plese use 'as.period()'.")
 
   if (length(units) %% length(num) != 0)
     stop("Arguments `num` and `units` must have same length")
@@ -457,6 +449,9 @@ parse_period <- function(x) {
 }
 
 .period_from_units <- function(units) {
+  if (length(units) == 0)
+    return(NULL)
+
   pieces <- data.frame(lapply(units, as.numeric))
 
   ## fixme: syncronize this with the initialize method

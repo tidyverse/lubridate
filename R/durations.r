@@ -175,7 +175,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #'   formats are supported; 'm' stands for month and 'M' for minutes unless ISO
 #'   8601 "P" modifier is present (see examples). Fractional units are
 #'   supported.
-#' @param units a character string that specifies the type of units that num
+#' @param units a character string that specifies the type of units that `num`
 #'   refers to. When `num` is character, this argument is ignored.
 #' @param ... a list of time units to be included in the duration and their
 #'   amounts. Seconds, minutes, hours, days, and weeks are supported.
@@ -245,30 +245,25 @@ setMethod("[[<-", signature(x = "Duration"),
 #' boundary + ddays(1) # duration
 #' @export
 duration <- function(num = NULL, units = "seconds", ...) {
-  nums <- list(...)
-  if (is.null(num) && missing(...)) {
-    .duration_from_num(numeric(), units)
-  } else if (is.character(num)) {
+  if (is.character(num)) {
     as.duration(parse_period(num))
-  } else if (!is.null(num) && length(nums) > 0) {
-    c(.duration_from_num(num, units), .duration_from_units(nums))
-  } else if (!is.null(num)) {
-    .duration_from_num(num, units)
-  } else if (length(nums)) {
-    .duration_from_units(nums)
   } else {
-    stop("No valid values have been passed to 'duration' constructor")
+    c(.duration_from_num(num, units),
+      .duration_from_units(list(...)))
   }
 }
 
 .duration_from_num <- function(num, units) {
+  if (length(num) == 0)
+    return(new("Duration", numeric()))
+
   if (!is.numeric(num)) {
-    stop(sprintf("First argument to `duration` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
+    stop(sprintf("First argument to `duration()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
-  ## qucik check for common wrongdoings: https://github.com/hadley/lubridate/issues/462
-  if (class(num)[[1]] %in% c("Interval", "Period"))
-    stop("Interval or Period objects cannot be used as input to 'period' constructor. Plese use 'as.duration'.")
+  ## qucik check for common wrongdoings: #462
+  if (inherits(num, c("Interval", "Period")))
+    stop("Interval or Period objects cannot be used as input to `duration()` constructor. Use `as.duration()` instead.", call. = FALSE)
 
   unit <- standardise_date_names(units)
   mult <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
@@ -279,6 +274,9 @@ duration <- function(num = NULL, units = "seconds", ...) {
 }
 
 .duration_from_units <- function(pieces) {
+  if (length(pieces) == 0)
+    return(NULL)
+
   names(pieces) <- standardise_difftime_names(names(pieces))
 
   defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)
@@ -341,7 +339,7 @@ summary.Duration <- function(object, ...) {
 #' @export
 setMethod("Compare", c(e1 = "Duration", e2 = "ANY"),
           function(e1, e2) {
-            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration`.",
+            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration()`.",
                          class(e1), class(e2)),
                  call. = FALSE)
           })
@@ -349,7 +347,7 @@ setMethod("Compare", c(e1 = "Duration", e2 = "ANY"),
 #' @export
 setMethod("Compare", c(e1 = "ANY", e2 = "Duration"),
           function(e1, e2) {
-            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration`.",
+            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration()`.",
                          class(e1), class(e2)),
                  call. = FALSE)
           })

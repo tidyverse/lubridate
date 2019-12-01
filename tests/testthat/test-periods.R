@@ -8,6 +8,27 @@ test_that("period() returns zero-length vector", {
   expect_output(print(x), "<Period[0]>", fixed = TRUE)
 })
 
+test_that("period(character(), ...) returns zero-length vector", {
+  x <- period(character())
+  expect_s4_class(x, "Period")
+  expect_length(x, 0)
+
+  x <- period(hour = numeric())
+  expect_s4_class(x, "Period")
+  expect_length(x, 0)
+
+  x <- period(numeric(), hour = numeric())
+  expect_s4_class(x, "Period")
+  expect_length(x, 0)
+
+  expect_equal(period(c(30, 20), units = c("secs", "days")),
+               period(c(30, 20), units = c("secs", "days"), days = numeric()))
+
+  expect_equal(period(numeric(), days = 10),
+               period(days = 10))
+
+})
+
 test_that("period constructor doesn't accept non-numeric or non-character inputs", {
   expect_error(period(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
 })

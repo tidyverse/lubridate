@@ -8,6 +8,26 @@ test_that("duration() returns zero-length vector", {
   expect_output(print(x), "<Duration[0]>", fixed = TRUE)
 })
 
+test_that("duration(...) returns zero-length with on 0-length inputs", {
+  x <- duration(character())
+  expect_s4_class(x, "Duration")
+  expect_length(x, 0)
+
+  x <- duration(hour = numeric())
+  expect_s4_class(x, "Duration")
+  expect_length(x, 0)
+
+  x <- duration(numeric(), hour = numeric())
+  expect_s4_class(x, "Duration")
+  expect_length(x, 0)
+
+  expect_equal(duration(c(30, 20)),
+               duration(c(30, 20), days = numeric()))
+
+  expect_equal(duration(numeric(), days = 10),
+               duration(days = 10))
+})
+
 test_that("duration constructor doesn't accept non-numeric or non-character inputs", {
   expect_error(duration(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
 })
