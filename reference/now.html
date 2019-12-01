@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The current time — now • lubridate</title>
+<title>The current day and time — now • lubridate</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,8 +41,8 @@
 
 
 
-<meta property="og:title" content="The current time — now" />
-<meta property="og:description" content="The current time" />
+<meta property="og:title" content="The current day and time — now" />
+<meta property="og:description" content="The current day and time" />
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -121,35 +121,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The current time</h1>
+    <h1>The current day and time</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/lubridate/blob/master/R/instants.r'><code>R/instants.r</code></a></small>
     <div class="hidden name"><code>now.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The current time</p>
+    <p>The current day and time</p>
     </div>
 
-    <pre class="usage"><span class='fu'>now</span>(<span class='kw'>tzone</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>now</span>(<span class='kw'>tzone</span> <span class='kw'>=</span> <span class='st'>""</span>)
+
+<span class='fu'>today</span>(<span class='kw'>tzone</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>tzone</th>
-      <td><p>a character vector specifying which time zone you would like
-the current time in. tzone defaults to your computer's system timezone.
-You can retrieve the current time in the Universal Coordinated Time (UTC)
-with now("UTC").</p></td>
+      <td><p>a character vector specifying which time zone you would like the
+current time in. tzone defaults to your computer's system timezone. You can
+retrieve the current time in the Universal Coordinated Time (UTC) with
+now("UTC").</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the current date and time as a POSIXct object</p>
+    <p><code>now</code> - the current datetime as a <code>POSIXct</code> object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>now</span>()</div><div class='output co'>#&gt; [1] "2019-11-30 20:24:48 UTC"</div><div class='input'><span class='fu'>now</span>(<span class='st'>"GMT"</span>)</div><div class='output co'>#&gt; [1] "2019-11-30 20:24:48 GMT"</div><div class='input'><span class='fu'>now</span>(<span class='st'>""</span>)</div><div class='output co'>#&gt; [1] "2019-11-30 20:24:48 UTC"</div><div class='input'><span class='fu'>now</span>() <span class='kw'>==</span> <span class='fu'>now</span>() <span class='co'># would be TRUE if computer processed both at the same instant</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>now</span>() <span class='kw'>&lt;</span> <span class='fu'>now</span>() <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>now</span>() <span class='kw'>&gt;</span> <span class='fu'>now</span>() <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>now</span>()</div><div class='output co'>#&gt; [1] "2019-12-01 19:19:12 UTC"</div><div class='input'><span class='fu'>now</span>(<span class='st'>"GMT"</span>)</div><div class='output co'>#&gt; [1] "2019-12-01 19:19:12 GMT"</div><div class='input'><span class='fu'>now</span>(<span class='st'>""</span>)</div><div class='output co'>#&gt; [1] "2019-12-01 19:19:12 UTC"</div><div class='input'><span class='fu'>now</span>() <span class='kw'>==</span> <span class='fu'>now</span>() <span class='co'># would be TRUE if computer processed both at the same instant</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>now</span>() <span class='kw'>&lt;</span> <span class='fu'>now</span>() <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>now</span>() <span class='kw'>&gt;</span> <span class='fu'>now</span>() <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>today</span>()</div><div class='output co'>#&gt; [1] "2019-12-01"</div><div class='input'><span class='fu'>today</span>(<span class='st'>"GMT"</span>)</div><div class='output co'>#&gt; [1] "2019-12-01"</div><div class='input'><span class='fu'>today</span>() <span class='kw'>==</span> <span class='fu'>today</span>(<span class='st'>"GMT"</span>) <span class='co'># not always true</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>today</span>() <span class='kw'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2999-01-01"</span>) <span class='co'># TRUE  (so far)</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
