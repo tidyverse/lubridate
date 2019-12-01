@@ -593,6 +593,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   ## backward compatible hack
   if (is.null(tz)) tz <- ""
+  if (length(tz) != 1 || is.na(tz))
+    stop("`tz` argument must be a character of length one")
 
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
@@ -665,6 +667,8 @@ parse_dt <- function(x, orders, is_format = FALSE, return_lt = FALSE, cutoff_200
 ##'   `cutoff_2000` are parsed as 20th's century, 19th's otherwise. Available only
 ##'   for functions relying on `lubridate`s internal parser.
 parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L){
+  if (length(tz) != 1 || is.na(tz))
+    stop("`tz` argument must be a character of length one")
   if (length(orders) > 1)
     warning("Multiple orders supplied. Only first order is used.")
   if (!exact)
