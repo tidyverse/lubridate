@@ -75,4 +75,10 @@ leap <- ymd("2012-02-29")
 leap \%m+\% years(1)
 leap \%m+\% years(-1)
 leap \%m-\% years(1)
+
+x <- ymd_hms("2019-01-29 01:02:03")
+add_with_rollback(x, months(1))
+add_with_rollback(x, months(1), preserve_hms = FALSE)
+add_with_rollback(x, months(1), roll_to_first = TRUE)
+add_with_rollback(x, months(1), roll_to_first = TRUE, preserve_hms = FALSE)
 }

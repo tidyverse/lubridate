@@ -46,7 +46,7 @@ formats are supported; 'm' stands for month and 'M' for minutes unless ISO
 8601 "P" modifier is present (see examples). Fractional units are
 supported.}
 
-\item{units}{a character string that specifies the type of units that \code{num}
+\item{units}{a character string that specifies the type of units that num
 refers to. When \code{num} is character, this argument is ignored.}
 
 \item{...}{a list of time units to be included in the duration and their
