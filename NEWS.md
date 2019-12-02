@@ -3,6 +3,7 @@ Version 1.7.4.9000
 
 ### NEW FEATURES
 
+* [#361](https://github.com/tidyverse/lubridate/issues/361) Accessors (`year()`, `month()`, `mday()` etc) now all return integers
 * [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
 * [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
 * [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.
