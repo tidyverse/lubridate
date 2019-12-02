@@ -1,6 +1,12 @@
 context("Parsing")
 Sys.setlocale("LC_TIME", "C")
 
+test_that("parsers throw on invalid tz argument", {
+  expect_error(ymd("2019-01-01", tz = NA))
+  expect_error(ymd("2019-01-01", tz = c("UTC", "UTC")))
+  expect_error(parse_date_time2("2019-01-01", "ymd", tz = NA))
+})
+
 test_that("ymd functions correctly parse dates separated by -", {
   expect_that(ymd("2010-01-02"),
               equals(as.Date("2010-01-02")))

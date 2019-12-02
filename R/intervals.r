@@ -473,8 +473,9 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
 
   spans <- as.numeric(ends) - as.numeric(starts)
 
-  if (any(!int_overlaps(int1, int2)))
+  if (any(!int_overlaps(int1, int2)) && is_verbose()) {
     message("Union includes intervening time between intervals.")
+  }
 
   tz(starts) <- x@tzone
   new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
@@ -525,22 +526,23 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
 })
 
 
-#' Tests whether a date or interval falls within an interval
+#' Does a date (or interval) fall within an interval?
 #'
-#' %within% returns TRUE if `a` falls within interval `b`. Both `a` and `b` are
-#' recycled according to standard R rules. If `b` is a list of intervals, `a` is
-#' checked if it falls within any of the intervals in `b`. If a is an interval,
-#' both its start and end dates must fall within b to return TRUE.
+#' Check whether `a` lies within the interval `b`, inclusive of the endpoints.
 #'
 #' @export
 #' @rdname within-interval
 #' @aliases %within%,Interval,Interval-method %within%,ANY,Interval-method
 #'   %within%,Date,list-method %within%,POSIXt,list-method
-#' @param a An interval or date-time object
-#' @param b An interval or a list of intervals (see examples)
-#' @return A logical
-#' @examples
+#' @param a An interval or date-time object.
+#' @param b Either an interval vector, or a list of intervals.
 #'
+#'   If `b` is an internal it is recycled to the same length as `a`.
+#'   If `b` is a list of intervals, `a` is checked if it falls within _any_
+#'   of the intervals, i.e. `a %within% list(int1, int2)` is equivalent to
+#'   `a %within% int1 | a %within% int2`.
+#' @return A logical vector.
+#' @examples
 #' int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 #' int2 <- interval(ymd("2001-06-01"), ymd("2002-01-01"))
 #'
@@ -559,11 +561,15 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
 #' blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
 #'                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
 #' dates %within% blackouts
-
-"%within%" <- function(a, b) standardGeneric("%within%")
+"%within%" <- function(a, b) {
+  standardGeneric("%within%")
+}
 
 #' @export
-setGeneric("%within%")
+setGeneric("%within%", useAsDefault = function(a, b) {
+  stop(sprintf("No %%within%% method with signature a = %s,  b = %s",
+               class(a)[[1]], class(b)[[1]]))
+})
 
 .within <- function(a, int) {
   as.numeric(a) - as.numeric(int@start) <= int@.Data & as.numeric(a) - as.numeric(int@start) >= 0

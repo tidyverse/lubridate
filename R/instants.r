@@ -18,15 +18,13 @@ is.instant <- function(x) inherits(x, c("POSIXt", "POSIXct", "POSIXlt", "Date"))
 #' @rdname is.instant
 is.timepoint <- is.instant
 
-#' The current time
+#' The current day and time
 #'
-#' @param tzone a character vector specifying which time zone you would like
-#' the current time in. tzone defaults to your computer's system timezone.
-#' You can retrieve the current time in the Universal Coordinated Time (UTC)
-#' with now("UTC").
-#' @return the current date and time as a POSIXct object
-#'
-#' @seealso [here()]
+#' @param tzone a character vector specifying which time zone you would like the
+#'   current time in. tzone defaults to your computer's system timezone. You can
+#'   retrieve the current time in the Universal Coordinated Time (UTC) with
+#'   now("UTC").
+#' @return `now` - the current datetime as a `POSIXct` object
 #'
 #' @keywords chron utilities
 #' @examples
@@ -40,14 +38,8 @@ is.timepoint <- is.instant
 now <- function(tzone = "")
   with_tz(Sys.time(), tzone)
 
-#' The current date
-#'
-#' @param tzone a character vector specifying which time zone you would like to
-#'   find the current date of. tzone defaults to the system time zone set on your
-#'   computer.
-#' @return the current date as a Date object
-#'
-#' @keywords chron utilities
+
+#' @rdname now
 #' @examples
 #' today()
 #' today("GMT")

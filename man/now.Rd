@@ -2,21 +2,24 @@
 % Please edit documentation in R/instants.r
 \name{now}
 \alias{now}
-\title{The current time}
+\alias{today}
+\title{The current day and time}
 \usage{
 now(tzone = "")
+
+today(tzone = "")
 }
 \arguments{
-\item{tzone}{a character vector specifying which time zone you would like
-the current time in. tzone defaults to your computer's system timezone.
-You can retrieve the current time in the Universal Coordinated Time (UTC)
-with now("UTC").}
+\item{tzone}{a character vector specifying which time zone you would like the
+current time in. tzone defaults to your computer's system timezone. You can
+retrieve the current time in the Universal Coordinated Time (UTC) with
+now("UTC").}
 }
 \value{
-the current date and time as a POSIXct object
+\code{now} - the current datetime as a \code{POSIXct} object
 }
 \description{
-The current time
+The current day and time
 }
 \examples{
 now()
@@ -25,9 +28,10 @@ now("")
 now() == now() # would be TRUE if computer processed both at the same instant
 now() < now() # TRUE
 now() > now() # FALSE
-}
-\seealso{
-\code{\link[=here]{here()}}
+today()
+today("GMT")
+today() == today("GMT") # not always true
+today() < as.Date("2999-01-01") # TRUE  (so far)
 }
 \keyword{chron}
 \keyword{utilities}

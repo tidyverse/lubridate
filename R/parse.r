@@ -54,6 +54,8 @@
 ##' dmy(010210)
 ##' mdy(010210)
 ##'
+##' yq('2014.2')
+##'
 ##' ## heterogeneous formats in a single vector:
 ##' x <- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
 ##'        "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07")
@@ -591,6 +593,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   ## backward compatible hack
   if (is.null(tz)) tz <- ""
+  if (length(tz) != 1 || is.na(tz))
+    stop("`tz` argument must be a character of length one")
 
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
@@ -663,6 +667,8 @@ parse_dt <- function(x, orders, is_format = FALSE, return_lt = FALSE, cutoff_200
 ##'   `cutoff_2000` are parsed as 20th's century, 19th's otherwise. Available only
 ##'   for functions relying on `lubridate`s internal parser.
 parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L){
+  if (length(tz) != 1 || is.na(tz))
+    stop("`tz` argument must be a character of length one")
   if (length(orders) > 1)
     warning("Multiple orders supplied. Only first order is used.")
   if (!exact)
@@ -721,9 +727,8 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   na <- is.na(out)
   newx <- x[na]
 
-  verbose <- getOption("lubridate.verbose")
-  if (!is.null(verbose) && verbose)
-    message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
+  if (is_verbose())
+    message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   ## recursive parsing
   if (length(formats) > 1 && length(newx) > 0)

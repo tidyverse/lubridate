@@ -390,21 +390,21 @@ test_that("intersect.Interval works as expected", {
   nint3 <- interval(time32, time31)
 
   expect_equal(intersect(int1, int2), interval(time21, time2))
-  expect_equal(intersect(int1, int3), interval(NA, NA, tz = "UTC"))
+  expect_equal(intersect(int1, int3), interval(NA, NA, tzone = "UTC"))
   expect_equal(intersect(int1, c(int2, int3)), interval(c(time21, NA), c(time2, NA)))
   expect_equal(intersect(c(int1, int3), int2), interval(c(time21, NA), c(time2, NA)))
   expect_equal(intersect(c(int1, int3), c(int2, int2)), interval(c(time21, NA), c(time2, NA)))
 
   expect_equal(intersect(nint1, nint2), interval(time2, time21))
-  expect_equal(intersect(nint1, nint3), interval(NA, NA, tz = "UTC"))
+  expect_equal(intersect(nint1, nint3), interval(NA, NA, tzone = "UTC"))
   expect_equal(intersect(nint1, c(nint2, nint3)), interval(c(time2, NA), c(time21, NA)))
   expect_equal(intersect(c(nint1, nint3), nint2), interval(c(time2, NA), c(time21, NA)))
   expect_equal(intersect(c(nint1, nint3), c(nint2, nint2)), interval(c(time2, NA), c(time21, NA)))
 
   expect_equal(intersect(int1, nint2), interval(time21, time2))
   expect_equal(intersect(nint1, nint2), interval(time2, time21))
-  expect_equal(intersect(int1, nint3), interval(NA, NA, tz = "UTC"))
-  expect_equal(intersect(nint1, int3), interval(NA, NA, tz = "UTC"))
+  expect_equal(intersect(int1, nint3), interval(NA, NA, tzone = "UTC"))
+  expect_equal(intersect(nint1, int3), interval(NA, NA, tzone = "UTC"))
   expect_equal(intersect(int1, c(nint2, int3)), interval(c(time21, NA), c(time2, NA)))
   expect_equal(intersect(nint1, c(int2, int3)), interval(c(time2, NA), c(time21, NA)))
   expect_equal(intersect(c(int1, nint3), nint2), interval(c(time21, NA), c(time2, NA)))
@@ -541,6 +541,10 @@ test_that("setdiff.Interval works as expected", {
   expect_error(setdiff(auckland, jsm2),
     "Cases 1 result in discontinuous intervals.")
 
+})
+
+test_that("%within% fails meaningfully when applied on wrong types", {
+  expect_error(now() %within% now(), "No %within% method")
 })
 
 test_that("%within% works as expected", {
