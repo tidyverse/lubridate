@@ -366,8 +366,8 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' The list below contains formats recognized by \pkg{lubridate}. For numeric formats
 ##' leading 0s are optional. As compared to [base::strptime()], some of the
 ##' formats are new or have been extended for efficiency reasons. These formats
-##' are marked with "*". The fast parsers `parse_date_time2()` and
-##' `fast_strptime()` accept only formats marked with "!".
+##' are marked with "(*)". The fast parsers `parse_date_time2()` and
+##' `fast_strptime()` accept only formats marked with "(!)".
 ##'
 ##'
 ##' \describe{ \item{`a`}{Abbreviated weekday name in the current
@@ -379,37 +379,37 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' You don't need to specify `a` and `A` formats explicitly. Wday is
 ##' automatically handled if `preproc_wday = TRUE`}
 ##'
-##' \item{`b`!}{Abbreviated or full month name in the current locale. The C
+##' \item{`b` (!)}{Abbreviated or full month name in the current locale. The C
 ##' parser currently understands only English month names.}
 ##'
-##' \item{`B`!}{Same as b.}
+##' \item{`B` (!)}{Same as b.}
 ##'
-##' \item{`d`!}{Day of the month as decimal number (01--31 or 0--31)}
+##' \item{`d` (!)}{Day of the month as decimal number (01--31 or 0--31)}
 ##'
-##' \item{`H`!}{Hours as decimal number (00--24 or 0--24).}
+##' \item{`H` (!)}{Hours as decimal number (00--24 or 0--24).}
 ##'
-##' \item{`I`!}{Hours as decimal number (01--12 or 1--12).}
+##' \item{`I` (!)}{Hours as decimal number (01--12 or 1--12).}
 ##'
 ##' \item{`j`}{Day of year as decimal number (001--366 or 1--366).}
 ##'
-##' \item{`q`!*}{Quarter (1--4). The quarter month is added to the parsed month
+##' \item{`q` (!*)}{Quarter (1--4). The quarter month is added to the parsed month
 ##' if `m` format is present.}
 ##'
-##' \item{`m`!*}{Month as decimal number (01--12 or 1--12). For
+##' \item{`m` (!*)}{Month as decimal number (01--12 or 1--12). For
 ##'                   `parse_date_time`. As a \pkg{lubridate} extension, also
 ##'                   matches abbreviated and full months names as `b` and
 ##'                   `B` formats. C parser understands only English month
 ##'                   names.}
 ##'
-##' \item{`M`!}{Minute as decimal number (00--59 or 0--59).}
+##' \item{`M` (!)}{Minute as decimal number (00--59 or 0--59).}
 ##'
-##' \item{`p`!}{AM/PM indicator in the locale. Normally used in conjunction
+##' \item{`p` (!)}{AM/PM indicator in the locale. Normally used in conjunction
 ##'                   with `I` and \bold{not} with `H`.  But the \pkg{lubridate}
 ##'                   C parser accepts H format as long as hour is not greater
 ##'                   than 12. C parser understands only English locale AM/PM
 ##'                   indicator.}
 ##'
-##' \item{`S`!}{Second as decimal number (00--61 or 0--61), allowing for up
+##' \item{`S` (!)}{Second as decimal number (00--61 or 0--61), allowing for up
 ##' to two leap-seconds (but POSIX-compliant implementations will ignore leap
 ##' seconds).}
 ##'
@@ -425,12 +425,12 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' Monday as the first day of week (and typically with the first Monday of the
 ##' year as day 1 of week 1).  The UK convention.}
 ##'
-##' \item{`y`!*}{Year without century (00--99 or 0--99).  In
+##' \item{`y` (!*)}{Year without century (00--99 or 0--99).  In
 ##' `parse_date_time()` also matches year with century (Y format).}
 ##'
-##' \item{`Y`!}{Year with century.}
+##' \item{`Y` (!)}{Year with century.}
 ##'
-##' \item{`z`!*}{ISO8601 signed offset in hours and minutes from UTC. For
+##' \item{`z` (!*)}{ISO8601 signed offset in hours and minutes from UTC. For
 ##' example `-0800`, `-08:00` or `-08`, all represent 8 hours
 ##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
 ##' [base::strptime()] doesn't fully support ISO8601 this format is implemented as an
@@ -439,16 +439,16 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' necessary. `parse_date_time2()` and `fast_strptime()` support all of
 ##' the timezone formats.}
 ##'
-##' \item{`Om`!*}{Matches numeric month and English alphabetic months
+##' \item{`Om` (!*)}{Matches numeric month and English alphabetic months
 ##'                    (Both, long and abbreviated forms).}
 ##'
-##' \item{`Op`!*}{Matches AM/PM English indicator.}
+##' \item{`Op` (!*)}{Matches AM/PM English indicator.}
 ##'
-##' \item{`r`*}{Matches `Ip` and `H` orders.}
+##' \item{`r` (*)}{Matches `Ip` and `H` orders.}
 ##'
-##' \item{`R`*}{Matches `HM` and`IMp` orders.}
+##' \item{`R` (*)}{Matches `HM` and`IMp` orders.}
 ##'
-##' \item{`T`*}{Matches `IMSp`, `HMS`, and `HMOS` orders.}
+##' \item{`T` (*)}{Matches `IMSp`, `HMS`, and `HMOS` orders.}
 ##' }
 ##'
 ##'
