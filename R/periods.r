@@ -180,21 +180,28 @@ setMethod("initialize", "Period", function(.Object, ...) {
 
 #' @export
 setMethod("show", signature(object = "Period"), function(object) {
-  print(format(object))
+  if (length(object@.Data) == 0) {
+    cat("<Period[0]>\n")
+  } else {
+    print(format(object))
+  }
 })
 
 #' @export
 format.Period <- function(x, ...) {
-  if (length(x@.Data) == 0) return("Period(0)")
-  show <- vector(mode = "character")
-  na <- is.na(x)
+  if (length(x) == 0) {
+    return(character())
+  }
 
-  show <- paste(x@year, "y ", x@month, "m ", x@day, "d ",
-    x@hour, "H ", x@minute, "M ", x@.Data, "S", sep = "")
+  show <- paste(
+    x@year, "y ", x@month, "m ", x@day, "d ",
+    x@hour, "H ", x@minute, "M ", x@.Data, "S",
+    sep = ""
+  )
   start <- regexpr("[-1-9]|(0\\.)", show)
   show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
 
-  show[na] <- NA
+  show[is.na(x)] <- NA
   show
 }
 
@@ -205,7 +212,9 @@ xtfrm.Period <- function(x) {
 
 #' @export
 setMethod("c", signature(x = "Period"), function(x, ...) {
-  elements <- lapply(list(...), as.period)
+  dots <- list(...)
+  nempty <- sapply(dots, length) != 0
+  elements <- lapply(dots[nempty], as.period)
   seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
   years <- c(x@year, unlist(lapply(elements, slot, "year")))
   months <- c(x@month, unlist(lapply(elements, slot, "month")))
@@ -392,17 +401,11 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' boundary + ddays(1) # duration
 #' @export
 period <- function(num = NULL, units = "second", ...) {
-  nums <- list(...)
   if (is.character(num)) {
     parse_period(num)
-  } else if (!is.null(num) && length(nums) > 0) {
-    c(.period_from_num(num, units), .period_from_units(nums))
-  } else if (!is.null(num)) {
-    .period_from_num(num, units)
-  } else if (length(nums)) {
-    .period_from_units(nums)
   } else {
-    stop("No valid values have been passed to 'period' constructor")
+    c(.period_from_num(num, units),
+      .period_from_units(list(...)))
   }
 }
 
@@ -418,13 +421,16 @@ parse_period <- function(x) {
 }
 
 .period_from_num <- function(num, units) {
+  if (length(num) == 0)
+    return(new("Period", numeric()))
 
   if (!is.numeric(num)) {
-    stop(sprintf("First argument to `period` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
+    stop(sprintf("First argument to `period()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
-  if (is.interval(num))
-    stop("Interval objects cannot be used as input to 'period' constructor. Plese use 'as.period'.")
+  ## qucik check for common wrongdoings: #462
+  if (inherits(num, c("Interval", "Duration")))
+    stop("Interval or Durations objects cannot be used as input to 'period()' constructor. Plese use 'as.period()'.")
 
   if (length(units) %% length(num) != 0)
     stop("Arguments `num` and `units` must have same length")
@@ -443,6 +449,9 @@ parse_period <- function(x) {
 }
 
 .period_from_units <- function(units) {
+  if (length(units) == 0)
+    return(NULL)
+
   pieces <- data.frame(lapply(units, as.numeric))
 
   ## fixme: syncronize this with the initialize method

@@ -1,9 +1,37 @@
 context("Periods")
 
+test_that("period() returns zero-length vector", {
+  x <- period()
+  expect_s4_class(x, "Period")
+  expect_length(x, 0)
+  expect_equal(format(x), character())
+  expect_output(print(x), "<Period[0]>", fixed = TRUE)
+})
+
+test_that("period(character(), ...) returns zero-length vector", {
+  x <- period(character())
+  expect_s4_class(x, "Period")
+  expect_length(x, 0)
+
+  x <- period(hour = numeric())
+  expect_s4_class(x, "Period")
+  expect_length(x, 0)
+
+  x <- period(numeric(), hour = numeric())
+  expect_s4_class(x, "Period")
+  expect_length(x, 0)
+
+  expect_equal(period(c(30, 20), units = c("secs", "days")),
+               period(c(30, 20), units = c("secs", "days"), days = numeric()))
+
+  expect_equal(period(numeric(), days = 10),
+               period(days = 10))
+
+})
+
 test_that("period constructor doesn't accept non-numeric or non-character inputs", {
   expect_error(period(interval(ymd("2014-01-01"), ymd("2015-01-01"))))
 })
-
 
 test_that("period parsing works", {
   expect_equal(period("1min 2sec 2secs 1H 2M 1d"),
@@ -412,15 +440,15 @@ test_that("format.period correctly displays negative units", {
   expect_match(format(period(second = -1, hour = -2, day = 3)), "3d -2H 0M -1S")
 })
 
-test_that("format.Period correctly displays intervals of length 0", {
-  per <- period(seconds = 5)
-  expect_output(print(per[FALSE]), "Period\\(0)")
-})
-
 test_that("c.Period correctly handles NAs", {
   per <- period(seconds = 5)
 
   expect_true(is.na(c(per, NA)[2]))
+})
+
+test_that("c.Period doesn't fail with empty elements", {
+  expect_equal(c(period(), period(3), NULL, logical(), period(1, "days")),
+               c(period(3), period(days = 1)))
 })
 
 test_that("summary.Period creates useful summary", {

@@ -64,14 +64,20 @@ setClass("Interval", contains = c("Timespan", "numeric"),
 
 #' @export
 setMethod("show", signature(object = "Interval"), function(object) {
-  print(format.Interval(object), quote = F)
+  if (length(object@.Data) == 0) {
+    cat("<Interval[0]>\n")
+  } else {
+    print(format(object), quote = FALSE)
+  }
 })
 
 #' @export
 format.Interval <- function(x, ...) {
-  if (length(x@.Data) == 0) return("Interval(0)")
-  paste(format(x@start, tz = x@tzone, usetz = TRUE), "--",
-    format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
+  paste(
+    format(x@start, tz = x@tzone, usetz = TRUE),
+    format(x@start + x@.Data, tz = x@tzone, usetz = TRUE),
+    sep = "--"
+  )
 }
 
 #' @export
@@ -191,7 +197,7 @@ unique.Interval <- function(x, ...) {
 #'
 #' is.interval(period(months= 1, days = 15)) # FALSE
 #' is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
-interval <- function(start, end = NULL, tzone = tz(start)) {
+interval <- function(start = NULL, end = NULL, tzone = tz(start)) {
 
   if (is.null(tzone)) {
     tzone <- tz(end)
@@ -201,6 +207,10 @@ interval <- function(start, end = NULL, tzone = tz(start)) {
 
   if (is.character(start) && is.null(end)) {
     return(parse_interval(start, tzone))
+  }
+
+  if (length(start) == 0 || length(end) == 0) {
+    return(new("Interval", numeric(), start = POSIXct(), tzone = tzone))
   }
 
   if (is.Date(start)) start <- date_to_posix(start)

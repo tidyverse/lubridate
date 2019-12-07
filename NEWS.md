@@ -5,6 +5,8 @@ Version 1.7.4.9000
 
 * [#361](https://github.com/tidyverse/lubridate/issues/361) Accessors (`year()`, `month()`, `mday()` etc) now all return integers
 * [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
+* Format and print methods for 0-length objects are more consistent.
+* [#707](https://github.com/tidyverse/lubridate/issues/707) Constructors return 0-length inputs when called with no arguments
 * [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
 * [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constants `NA_Date_` and `NA_POSIXct_` which parallel built-in primitive constants.
@@ -18,6 +20,7 @@ Version 1.7.4.9000
 * [#682](https://github.com/tidyverse/lubridate/issues/682) Fix quarter extraction with small `fiscal_start`s.
 * [#703](https://github.com/tidyverse/lubridate/issues/703) `leap_year()` works with objects supported by `year()`.
 
+* `c.Period` concatenation doesn't fail with empty components.
 
 Version 1.7.4
 =============
