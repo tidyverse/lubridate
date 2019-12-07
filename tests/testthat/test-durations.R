@@ -173,10 +173,12 @@ test_that("is.duration works as expected", {
   expect_false(is.duration(interval(lt_time, ct_time)))
 })
 
-test_that("format.Duration correctly displays durations with an NA", {
-  dur <- duration(seconds = c(5, NA))
-
-  expect_equivalent(format(dur), c("5s", NA))
+test_that("format.Duration works as expected", {
+  dur <- duration(seconds = c(5, NA, 10, -10, 1000, -1000))
+  expect_equivalent(format(dur),
+                    c("5s", NA, "10s", "-10s",
+                      "1000s (~16.67 minutes)",
+                      "-1000s (~-16.67 minutes)"))
 })
 
 test_that("summary.Duration creates useful summary", {

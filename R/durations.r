@@ -82,11 +82,12 @@ compute_estimate <- function (secs, unit = "second") {
   if (is.null(next_unit))
     return(.readable_duration(secs, "year"))
   out <- character(length(secs))
-  tt <- secs < SECONDS_IN_ONE[[next_unit]]
+  tt <- abs(secs) < SECONDS_IN_ONE[[next_unit]]
   if (any(tt))
     out[tt] <- .readable_duration(secs[tt], unit)
   wnext <- which(!tt)
-  out[wnext] <- compute_estimate(secs[wnext], next_unit)
+  if (length(wnext))
+    out[wnext] <- compute_estimate(secs[wnext], next_unit)
   out
 }
 
@@ -101,10 +102,10 @@ setMethod("show", signature(object = "Duration"), function(object) {
 
 #' @export
 format.Duration <- function(x, ...) {
-  out <- vector("character", length(x@.Data))
+  out <- character(length(x@.Data))
   nnas <- !is.na(x@.Data)
-  out[nnas] <- compute_estimate(abs(x@.Data[nnas]))
-  out[!nnas] <- NA
+  out[nnas] <- compute_estimate(x@.Data[nnas])
+  out[!nnas] <- NA_character_
   out
 }
 
