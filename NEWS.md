@@ -3,6 +3,7 @@ Version 1.7.4.9000
 
 ### NEW FEATURES
 
+* [#674](https://github.com/tidyverse/lubridate/issues/674) `as_date()` now ignores the `tz` argument
 * [#361](https://github.com/tidyverse/lubridate/issues/361) Accessors (`year()`, `month()`, `mday()` etc) now all return integers
 * [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
 * Format and print methods for 0-length objects are more consistent.

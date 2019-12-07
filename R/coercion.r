@@ -670,10 +670,14 @@ setMethod(f = "as_date", signature = "numeric",
 #' @export
 setMethod("as_date", "character",
           function(x, tz = NULL, format = NULL) {
+            if (!is.null(tz)) {
+              warning("`tz` argument is ignored by `as_date()`", call. = FALSE)
+            }
+
             if (is.null(format))
-              as_date(as_datetime(x, tz = "UTC"))
+              as_date(.parse_iso_dt(x, tz = "UTC"))
             else
-              as_date(strptime(x, format, tz))
+              as_date(strptime(x, format, tz = "UTC"))
           })
 
 #' @rdname as_date
