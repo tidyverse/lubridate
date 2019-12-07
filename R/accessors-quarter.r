@@ -21,8 +21,8 @@ NULL
 #' semester(x, with_year = TRUE)
 #' @export
 quarter <- function(x, with_year = FALSE, fiscal_start = 1) {
-  fs <- fiscal_start - 1
-  shifted <- seq(fs, 11 + fs) %% 12 + 1
+  fs <- fiscal_start - 1L
+  shifted <- seq(fs, 11L + fs) %% 12L + 1L
   m <- month(x)
   quarters <- rep(1:4, each = 3)
   s <- match(m, shifted)
