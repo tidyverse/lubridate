@@ -1,0 +1,48 @@
+> int <- ymd("2010-01-01") %--% ymd("2010-06-01")
+> dur <- ddays(1)
+> per <- months(1)
+
+Interval numerator
+==================
+
+> int %/% int
+Error in e1/e2: interval / interval not defined
+
+> int %/% dur
+[1] 151
+
+> int %/% per
+[1] 5
+
+
+Duration numerator
+==================
+
+> dur %/% int
+Error in e1/e2: Incompatible timespan classes:
+  change class with as.duration() or put interval in numerator.
+
+> dur %/% dur
+[1] 1
+
+> dur %/% per
+Error in dur%/%per: Arithmetic operators undefined for 'Duration' and 'Period' classes:
+  convert one to numeric or a matching time-span class.
+
+
+Period numeric
+==============
+
+> per %/% int
+Error in e1/e2: Incompatible timespan classes:
+  change class with as.period() or put interval in numerator.
+
+> per %/% dur
+Error in per%/%dur: Arithmetic operators undefined for 'Period' and 'Duration' classes:
+  convert one to numeric or a matching time-span class.
+
+> per %/% per
+Message: estimate only: convert to intervals for accuracy
+
+[1] 1
+

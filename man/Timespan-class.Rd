@@ -6,6 +6,12 @@
 \alias{*,Timespan,Timespan-method}
 \alias{\%/\%,Timespan,Timespan-method}
 \alias{\%/\%,difftime,Timespan-method}
+\alias{\%/\%,Interval,Interval-method}
+\alias{\%/\%,Period,Period-method}
+\alias{\%/\%,Interval,Duration-method}
+\alias{\%/\%,Duration,Interval-method}
+\alias{\%/\%,Interval,Period-method}
+\alias{\%/\%,Period,Interval-method}
 \title{Timespan class}
 \description{
 Timespan is an S4 class with no slots. It is extended by the
