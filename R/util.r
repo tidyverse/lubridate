@@ -140,5 +140,5 @@ is_verbose <- function() {
 stop_incompatible_classes <- function(x, y, method) {
   stop(paste0(
     "Incompatible classes: <", is(x)[[1]], "> ", method, " <", is(y)[[1]], ">\n"
-  ))
+  ), call. = FALSE)
 }
