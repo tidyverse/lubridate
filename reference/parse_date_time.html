@@ -297,8 +297,8 @@ numeric.</p>
 <p>The list below contains formats recognized by <span class="pkg">lubridate</span>. For numeric formats
 leading 0s are optional. As compared to <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>, some of the
 formats are new or have been extended for efficiency reasons. These formats
-are marked with "*". The fast parsers <code>parse_date_time2()</code> and
-<code>fast_strptime()</code> accept only formats marked with "!".</p>
+are marked with "(*)". The fast parsers <code>parse_date_time2()</code> and
+<code>fast_strptime()</code> accept only formats marked with "(!)".</p>
 <dl class='dl-horizontal'>
 <dt><code>a</code></dt><dd><p>Abbreviated weekday name in the current
 locale. (Also matches full name)</p></dd>
@@ -307,37 +307,37 @@ locale. (Also matches full name)</p></dd>
 abbreviated name).You don't need to specify <code>a</code> and <code>A</code> formats explicitly. Wday is
 automatically handled if <code>preproc_wday = TRUE</code></p></dd>
 
-<dt><code>b</code>!</dt><dd><p>Abbreviated or full month name in the current locale. The C
+<dt><code>b</code> (!)</dt><dd><p>Abbreviated or full month name in the current locale. The C
 parser currently understands only English month names.</p></dd>
 
-<dt><code>B</code>!</dt><dd><p>Same as b.</p></dd>
+<dt><code>B</code> (!)</dt><dd><p>Same as b.</p></dd>
 
-<dt><code>d</code>!</dt><dd><p>Day of the month as decimal number (01--31 or 0--31)</p></dd>
+<dt><code>d</code> (!)</dt><dd><p>Day of the month as decimal number (01--31 or 0--31)</p></dd>
 
-<dt><code>H</code>!</dt><dd><p>Hours as decimal number (00--24 or 0--24).</p></dd>
+<dt><code>H</code> (!)</dt><dd><p>Hours as decimal number (00--24 or 0--24).</p></dd>
 
-<dt><code>I</code>!</dt><dd><p>Hours as decimal number (01--12 or 1--12).</p></dd>
+<dt><code>I</code> (!)</dt><dd><p>Hours as decimal number (01--12 or 1--12).</p></dd>
 
 <dt><code>j</code></dt><dd><p>Day of year as decimal number (001--366 or 1--366).</p></dd>
 
-<dt><code>q</code>!*</dt><dd><p>Quarter (1--4). The quarter month is added to the parsed month
+<dt><code>q</code> (!*)</dt><dd><p>Quarter (1--4). The quarter month is added to the parsed month
 if <code>m</code> format is present.</p></dd>
 
-<dt><code>m</code>!*</dt><dd><p>Month as decimal number (01--12 or 1--12). For
+<dt><code>m</code> (!*)</dt><dd><p>Month as decimal number (01--12 or 1--12). For
 <code>parse_date_time</code>. As a <span class="pkg">lubridate</span> extension, also
 matches abbreviated and full months names as <code>b</code> and
 <code>B</code> formats. C parser understands only English month
 names.</p></dd>
 
-<dt><code>M</code>!</dt><dd><p>Minute as decimal number (00--59 or 0--59).</p></dd>
+<dt><code>M</code> (!)</dt><dd><p>Minute as decimal number (00--59 or 0--59).</p></dd>
 
-<dt><code>p</code>!</dt><dd><p>AM/PM indicator in the locale. Normally used in conjunction
+<dt><code>p</code> (!)</dt><dd><p>AM/PM indicator in the locale. Normally used in conjunction
 with <code>I</code> and <b>not</b> with <code>H</code>.  But the <span class="pkg">lubridate</span>
 C parser accepts H format as long as hour is not greater
 than 12. C parser understands only English locale AM/PM
 indicator.</p></dd>
 
-<dt><code>S</code>!</dt><dd><p>Second as decimal number (00--61 or 0--61), allowing for up
+<dt><code>S</code> (!)</dt><dd><p>Second as decimal number (00--61 or 0--61), allowing for up
 to two leap-seconds (but POSIX-compliant implementations will ignore leap
 seconds).</p></dd>
 
@@ -353,12 +353,12 @@ of the year as day 1 of week 1).  The US convention.</p></dd>
 Monday as the first day of week (and typically with the first Monday of the
 year as day 1 of week 1).  The UK convention.</p></dd>
 
-<dt><code>y</code>!*</dt><dd><p>Year without century (00--99 or 0--99).  In
+<dt><code>y</code> (!*)</dt><dd><p>Year without century (00--99 or 0--99).  In
 <code>parse_date_time()</code> also matches year with century (Y format).</p></dd>
 
-<dt><code>Y</code>!</dt><dd><p>Year with century.</p></dd>
+<dt><code>Y</code> (!)</dt><dd><p>Year with century.</p></dd>
 
-<dt><code>z</code>!*</dt><dd><p>ISO8601 signed offset in hours and minutes from UTC. For
+<dt><code>z</code> (!*)</dt><dd><p>ISO8601 signed offset in hours and minutes from UTC. For
 example <code>-0800</code>, <code>-08:00</code> or <code>-08</code>, all represent 8 hours
 behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
 <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> doesn't fully support ISO8601 this format is implemented as an
@@ -367,16 +367,16 @@ these four orders as any other but it is rarely
 necessary. <code>parse_date_time2()</code> and <code>fast_strptime()</code> support all of
 the timezone formats.</p></dd>
 
-<dt><code>Om</code>!*</dt><dd><p>Matches numeric month and English alphabetic months
+<dt><code>Om</code> (!*)</dt><dd><p>Matches numeric month and English alphabetic months
 (Both, long and abbreviated forms).</p></dd>
 
-<dt><code>Op</code>!*</dt><dd><p>Matches AM/PM English indicator.</p></dd>
+<dt><code>Op</code> (!*)</dt><dd><p>Matches AM/PM English indicator.</p></dd>
 
-<dt><code>r</code>*</dt><dd><p>Matches <code>Ip</code> and <code>H</code> orders.</p></dd>
+<dt><code>r</code> (*)</dt><dd><p>Matches <code>Ip</code> and <code>H</code> orders.</p></dd>
 
-<dt><code>R</code>*</dt><dd><p>Matches <code>HM</code> and<code>IMp</code> orders.</p></dd>
+<dt><code>R</code> (*)</dt><dd><p>Matches <code>HM</code> and<code>IMp</code> orders.</p></dd>
 
-<dt><code>T</code>*</dt><dd><p>Matches <code>IMSp</code>, <code>HMS</code>, and <code>HMOS</code> orders.</p></dd>
+<dt><code>T</code> (*)</dt><dd><p>Matches <code>IMSp</code>, <code>HMS</code>, and <code>HMOS</code> orders.</p></dd>
 
 </dl>
 
