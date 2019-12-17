@@ -77,3 +77,20 @@ test_that("difftime comparison with durations works", {
   expect_true(ddays(1) == (t + ddays(1)) - t)
   expect_true((t + ddays(1)) - t == ddays(1))
 })
+
+
+test_that("Comparison operators work duration and difftime objects (#323)", {
+  t1 <- ymd_hms("2019-03-01 12:30:50")
+  t2 <- t1 + dhours(1)
+  t3 <- t1 + dseconds(1)
+
+  expect_true((t2 - t1) >  dseconds(60))
+  expect_false((t2 - t1) >  dseconds(3600))
+  expect_true((t2 - t1) < dseconds(3601))
+
+  expect_true(dhours(1) > dminutes(59))
+  expect_true(dhours(1) == dseconds(3600))
+
+  expect_true(dhours(1) == 3600)
+  expect_false(dhours(1) == 1)
+})
