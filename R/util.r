@@ -116,8 +116,16 @@ parse_period_unit <- function(unit) {
 
 date_to_posix <- function(date, tz = "UTC") {
   utc <- .POSIXct(unclass(date) * 86400, tz = "UTC")
-  if (tz == "UTC") utc
+  if (is_utc(tz)) utc
   else force_tz(utc, tz)
+}
+
+# UTC-equivalent timezones can be treated as UTC;
+#   check grep('UTC|GMT', OlsonNames(), value = TRUE)
+is_utc = function(tz) {
+  utc_tz = c("UTC", "GMT", "Etc/UTC", "Etc/GMT", "GMT-0", "GMT+0", "GMT0")
+  if (is.null(tz)) tz = Sys.timezone()
+  return(tz %in% utc_tz)
 }
 
 # minimal custom str_sub function to replicate stringr::str_sub without the full dependency.

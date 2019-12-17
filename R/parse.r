@@ -676,7 +676,7 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, c
   if (lt) {
     .mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz)
   } else {
-    if (tz == "UTC"){
+    if (is_utc(tz)){
       .POSIXct(parse_dt(x, orders, FALSE, FALSE, cutoff_2000), tz = "UTC")
     } else {
       as.POSIXct(.mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz))
@@ -700,7 +700,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   if (lt) {
     .mklt(parse_dt(x, format, TRUE, TRUE, cutoff_2000), tz)
   } else{
-    if (tz == "UTC") {
+    if (is_utc(tz)) {
       .POSIXct(parse_dt(x, format, TRUE, FALSE, cutoff_2000), "UTC")
     } else {
       as.POSIXct(.mklt(parse_dt(x, format, TRUE, TRUE, cutoff_2000), tz))
@@ -756,7 +756,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
     ## C PARSER:
     out <- fast_strptime(x, fmt, tz = "UTC", lt = FALSE)
 
-    if (tz != "UTC") {
+    if (!is_utc(tz)) {
       out <-
         if (zpos > 0){
           if (!quiet)
@@ -799,7 +799,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
       fmt <- .str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1, repl)
 
       ## user has supplied tz argument -> convert to tz
-      if (tz != "UTC"){
+      if (!is_utc(tz)){
         if (!quiet)
           message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
         return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))
