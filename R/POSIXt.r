@@ -32,7 +32,7 @@ is.POSIXct <- function(x) inherits(x, "POSIXct")
 #' @rdname posix_utils
 #' @export
 POSIXct <- function(length = 0L, tz = "UTC") {
-  t0 <-if (tz == "UTC") origin else force_tz(origin, tz)
+  t0 <- if (is_utc(tz)) origin else force_tz(origin, tz)
   .POSIXct(rep.int(t0, length), tz = tz)
 }
 

@@ -107,7 +107,7 @@ stamp <- function(x, orders = lubridate_formats,
       eval(bquote(
         function(x, locale = .(locale)) {
           ## %z ignores timezone
-          if (tz(x[[1]]) != "UTC")
+          if (!is_utc(tz(x[[1L]])))
             x <- with_tz(x, tzone = "UTC")
           .(reset_local_expr)
           format(x, format = .(FMT))
