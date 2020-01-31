@@ -32,33 +32,34 @@ ceiling_date(
 to be rounded to. Valid base units are \code{second}, \code{minute}, \code{hour}, \code{day},
 \code{week}, \code{month}, \code{bimonth}, \code{quarter}, \code{season}, \code{halfyear} and
 \code{year}. Arbitrary unique English abbreviations as in the \code{\link[=period]{period()}}
-constructor are allowed. Rounding to multiple of units (except weeks) is
+constructor are allowed. Rounding to multiples of units (except weeks) is
 supported.}
 
-\item{week_start}{when unit is \code{weeks} specify the reference day; 7 being Sunday.}
+\item{week_start}{when unit is \code{weeks}, specify the reference day.
+7 represents Sunday and 1 represents Monday.}
 
-\item{change_on_boundary}{If NULL (the default) don't change instants on the
-boundary (\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'))} is \verb{2000-01-01 00:00:00}), but round up \code{Date} objects to the next boundary
-(\code{ceiling_date(ymd("2000-01-01"), "month")} is \code{"2000-02-01"}). When
-\code{TRUE}, instants on the boundary are rounded up to the next boundary. When
-\code{FALSE}, date-time on the boundary are never rounded up (this was the
-default for \pkg{lubridate} prior to \code{v1.6.0}. See section \verb{Rounding Up Date Objects} below for more details.}
+\item{change_on_boundary}{if this is \code{NULL} (the default), instants on the boundary
+remain unchanged, but \code{Date} objects are rounded up to the next boundary.
+If this is \code{TRUE}, instants on the boundary are rounded up to the next boundary.
+If this is \code{FALSE}, nothing on the boundary is rounded up at all. This was the
+default for \pkg{lubridate} prior to \code{v1.6.0}.
+See section \verb{Rounding Up Date Objects} below for more details.}
 }
 \description{
-Rounding to the nearest unit or multiple of a unit are supported. All
-meaningful specifications in English language are supported - secs, min,
-mins, 2 minutes, 3 years etc.
-
-Rounding to fractional seconds is supported. Please note that rounding to
-fractions smaller than 1s can lead to large precision errors due to the
-floating point representation of the POSIXct objects. See examples.
-
-\code{round_date()} takes a date-time object and rounds it to the nearest value
-of the specified time unit. For rounding date-times which is exactly halfway
+\code{round_date()} takes a date-time object and time unit, and rounds it to the nearest value
+of the specified time unit. For rounding date-times which are exactly halfway
 between two consecutive units, the convention is to round up. Note that this
 is in line with the behavior of R's \code{\link[base:round.POSIXt]{base::round.POSIXt()}} function
 but does not follow the convention of the base \code{\link[base:round]{base::round()}} function
-which "rounds to the even digit" per IEC 60559.
+which "rounds to the even digit", as per IEC 60559.
+
+Rounding to the nearest unit or multiple of a unit is supported. All
+meaningful specifications in the English language are supported - secs, min,
+mins, 2 minutes, 3 years etc.
+
+Rounding to fractional seconds is also supported. Please note that rounding to
+fractions smaller than 1 second can lead to large precision errors due to the
+floating point representation of the POSIXct objects. See examples.
 
 \code{floor_date()} takes a date-time object and rounds it down to the nearest
 boundary of the specified time unit.
@@ -67,15 +68,15 @@ boundary of the specified time unit.
 boundary of the specified time unit.
 }
 \details{
-In \pkg{lubridate}, rounding of a date-time objects tries to
+In \pkg{lubridate}, functions that round date-time objects try to
 preserve the class of the input object whenever possible. This is done by
-first rounding to an instant and then converting to the original class by
+first rounding to an instant, and then converting to the original class as per
 usual R conventions.
 }
 \section{Rounding Up Date Objects}{
 
 
-By default rounding up \code{Date} objects follows 3 steps:
+By default, rounding up \code{Date} objects follows 3 steps:
 \enumerate{
 \item Convert to an instant representing lower bound of the Date:
 \code{2000-01-01} --> \verb{2000-01-01 00:00:00}
@@ -86,11 +87,11 @@ is \verb{2000-02-01 00:00:00}.
 The motivation for this is that the "partial" \code{2000-01-01} is conceptually
 an interval (\verb{2000-01-01 00:00:00} -- \verb{2000-01-02 00:00:00}) and the day
 hasn't started clocking yet at the exact boundary \code{00:00:00}. Thus, it
-seems wrong to round up a day to its lower boundary.
+seems wrong to round a day to its lower boundary.
 
-The behavior on the boundary can be changed by setting
-\code{change_on_boundary} to a non-\code{NULL} value.
-\item If rounding unit is smaller than a day, return the instant from step 2
+Behavior on the boundary can be changed by setting
+\code{change_on_boundary} to \code{TRUE} or \code{FALSE}.
+\item If the rounding unit is smaller than a day, return the instant from step 2
 (\code{POSIXct}), otherwise convert to and return a \code{Date} object.
 }
 }
@@ -148,6 +149,20 @@ ceiling_date(x, "year")
 ## As of R 3.4.2 POSIXct printing of fractional numbers is wrong
 as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
 ceiling_date(x, ".1 sec") ## -> "2009-08-03 12:01:59.2 CEST"
+
+## behaviour of `change_on_boundary`
+## As per default behaviour `NULL`, instants on the boundary remain the
+## same but dates are rounded up
+ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month")
+ceiling_date(ymd("2000-01-01"), "month")
+
+## If `TRUE`, both instants and dates on the boundary are rounded up
+ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month", change_on_boundary = TRUE)
+ceiling_date(ymd("2000-01-01"), "month")
+
+## If `FALSE`, both instants and dates on the boundary remain the same
+ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month", change_on_boundary = FALSE)
+ceiling_date(ymd("2000-01-01"), "month")
 
 
  x <- ymd_hms("2000-01-01 00:00:00")
