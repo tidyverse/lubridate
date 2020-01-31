@@ -5,6 +5,8 @@
 
 [![Build
 Status](https://travis-ci.org/tidyverse/lubridate.svg?branch=master)](https://travis-ci.org/tidyverse/lubridate)
+[![R build
+status](https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/lubridate)
 [![Coverage
 Status](https://codecov.io/gh/tidyverse/lubridate/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/lubridate)
 [![CRAN RStudio mirror
@@ -106,4 +108,6 @@ classes borrowed from <http://joda.org>.
 
 ## Code of Conduct
 
-Please note that the lubridate project is released with a [Contributor Code of Conduct](http://lubridate.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the lubridate project is released with a [Contributor
+Code of Conduct](http://lubridate.tidyverse.org/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
