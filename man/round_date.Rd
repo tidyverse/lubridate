@@ -43,22 +43,7 @@ remain unchanged, but \code{Date} objects are rounded up to the next boundary.
 If this is \code{TRUE}, instants on the boundary are rounded up to the next boundary.
 If this is \code{FALSE}, nothing on the boundary is rounded up at all. This was the
 default for \pkg{lubridate} prior to \code{v1.6.0}.
-See section \verb{Rounding Up Date Objects} below for more details.
-
-For example, as per default behaviour \code{NULL},
-the instant \code{ceiling_date(ymd_hms('2000-01-01 00:00:00'), 'month')}
-remains "2000-01-01 UTC", but the date
-\code{ceiling_date(ymd('2000-01-01'), 'month')} becomes "2000-02-01"
-
-If \code{TRUE}, the instant
-\code{ceiling_date(ymd_hms('2000-01-01 00:00:00'), 'month', change_on_boundary = TRUE)}
-becomes "2000-02-01 UTC", and the date
-\code{ceiling_date(ymd('2000-01-01'), 'month')} becomes "2000-02-01"
-
-If \code{FALSE}, the instant
-\verb{ceiling_date(ymd_hms('2000-01-01 00:00:00'), 'month' change_on_boundary = FALSE)}
-remains "2000-01-01 UTC", and the date
-\code{ceiling_date(ymd('2000-01-01'), 'month')} remains "2000-01-01"}
+See section \verb{Rounding Up Date Objects} below for more details.}
 }
 \description{
 \code{round_date()} takes a date-time object and time unit, and rounds it to the nearest value
@@ -164,6 +149,20 @@ ceiling_date(x, "year")
 ## As of R 3.4.2 POSIXct printing of fractional numbers is wrong
 as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
 ceiling_date(x, ".1 sec") ## -> "2009-08-03 12:01:59.2 CEST"
+
+## behaviour of change_on_boundary
+As per default behaviour `NULL`, instants on the boundary remain the
+same but dates are rounded up
+ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month")
+ceiling_date(ymd("2000-01-01"), "month")
+
+If `TRUE`, both instants and dates on the boundary are rounded up
+ceiling_date(ymd_hms("2000-01-01 00:00:00"), 'month', change_on_boundary = TRUE)
+ceiling_date(ymd("2000-01-01"), "month")
+
+If `FALSE`, both instants and dates on the boundary remain the same
+ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month" change_on_boundary = FALSE)
+ceiling_date(ymd("2000-01-01"), "month")
 
 
  x <- ymd_hms("2000-01-01 00:00:00")

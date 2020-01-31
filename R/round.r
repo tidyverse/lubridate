@@ -61,22 +61,6 @@
 #'   default for \pkg{lubridate} prior to `v1.6.0`.
 #'   See section `Rounding Up Date Objects` below for more details.
 #'
-#'   For example, as per default behaviour `NULL`,
-#'   the instant `ceiling_date(ymd_hms('2000-01-01 00:00:00'), 'month')`
-#'   remains "2000-01-01 UTC", but the date
-#'   `ceiling_date(ymd('2000-01-01'), 'month')` becomes "2000-02-01"
-#'
-#'   If `TRUE`, the instant
-#'   `ceiling_date(ymd_hms('2000-01-01 00:00:00'), 'month', change_on_boundary = TRUE)`
-#'   becomes "2000-02-01 UTC", and the date
-#'   `ceiling_date(ymd('2000-01-01'), 'month')` becomes "2000-02-01"
-#'
-#'   If `FALSE`, the instant
-#'   `ceiling_date(ymd_hms('2000-01-01 00:00:00'), 'month' change_on_boundary = FALSE)`
-#'   remains "2000-01-01 UTC", and the date
-#'   `ceiling_date(ymd('2000-01-01'), 'month')` remains "2000-01-01"
-#'
-#'
 #' @param week_start when unit is `weeks`, specify the reference day.
 #'   7 represents Sunday and 1 represents Monday.
 #' @keywords manip chron
@@ -135,6 +119,21 @@
 #' as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
 #' ceiling_date(x, ".1 sec") ## -> "2009-08-03 12:01:59.2 CEST"
 #'
+#' ## behaviour of change_on_boundary
+#' As per default behaviour `NULL`, instants on the boundary remain the
+#' same but dates are rounded up
+#' ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month")
+#' ceiling_date(ymd("2000-01-01"), "month")
+#'
+#' If `TRUE`, both instants and dates on the boundary are rounded up
+#' ceiling_date(ymd_hms("2000-01-01 00:00:00"), 'month', change_on_boundary = TRUE)
+#' ceiling_date(ymd("2000-01-01"), "month")
+#'
+#' If `FALSE`, both instants and dates on the boundary remain the same
+#' ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month" change_on_boundary = FALSE)
+#' ceiling_date(ymd("2000-01-01"), "month")
+#'
+
 #' @export
 round_date <- function(x, unit = "second", week_start = getOption("lubridate.week.start", 7)) {
 
