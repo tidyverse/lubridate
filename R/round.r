@@ -1,7 +1,6 @@
 #' Round, floor and ceiling methods for date-time objects
 #'
 #' @description
-
 #' `round_date()` takes a date-time object and time unit, and rounds it to the nearest value
 #' of the specified time unit. For rounding date-times which are exactly halfway
 #' between two consecutive units, the convention is to round up. Note that this

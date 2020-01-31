@@ -150,7 +150,7 @@ ceiling_date(x, "year")
 as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
 ceiling_date(x, ".1 sec") ## -> "2009-08-03 12:01:59.2 CEST"
 
-## behaviour of change_on_boundary
+## behaviour of `change_on_boundary`
 ## As per default behaviour `NULL`, instants on the boundary remain the
 ## same but dates are rounded up
 ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month")
