@@ -604,6 +604,7 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #'      a more intuitive conversion (see examples)
 #'   \item Both functions provide a default origin argument for numeric
 #'      vectors.
+#'   \item Both functions will generate NAs for invalid date format. A warning message will provide a count of the elements that were not converted
 #'   \item `as_datetime()` defaults to using UTC.
 #' }
 #'
@@ -626,6 +627,9 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' c(as_date(dt_europe), as.Date(dt_europe))
 #' ## need not supply origin
 #' as_date(10)
+#' ## Will replace invalid date format with NA
+#' dt_wrong <- c("2009-09-29", "2012-11-29", "2015-29-12")
+#' as_date(dt_wrong)
 #' @export
 setGeneric(name = "as_date",
            def = function(x, ...) standardGeneric("as_date"))
