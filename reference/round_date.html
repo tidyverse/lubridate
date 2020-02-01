@@ -42,18 +42,18 @@
 
 
 <meta property="og:title" content="Round, floor and ceiling methods for date-time objects — round_date" />
-<meta property="og:description" content="Rounding to the nearest unit or multiple of a unit are supported. All
-meaningful specifications in English language are supported - secs, min,
-mins, 2 minutes, 3 years etc.
-Rounding to fractional seconds is supported. Please note that rounding to
-fractions smaller than 1s can lead to large precision errors due to the
-floating point representation of the POSIXct objects. See examples.
-round_date() takes a date-time object and rounds it to the nearest value
-of the specified time unit. For rounding date-times which is exactly halfway
+<meta property="og:description" content="round_date() takes a date-time object and time unit, and rounds it to the nearest value
+of the specified time unit. For rounding date-times which are exactly halfway
 between two consecutive units, the convention is to round up. Note that this
 is in line with the behavior of R's base::round.POSIXt() function
 but does not follow the convention of the base base::round() function
-which &quot;rounds to the even digit&quot; per IEC 60559.
+which &quot;rounds to the even digit&quot;, as per IEC 60559.
+Rounding to the nearest unit or multiple of a unit is supported. All
+meaningful specifications in the English language are supported - secs, min,
+mins, 2 minutes, 3 years etc.
+Rounding to fractional seconds is also supported. Please note that rounding to
+fractions smaller than 1 second can lead to large precision errors due to the
+floating point representation of the POSIXct objects. See examples.
 floor_date() takes a date-time object and rounds it down to the nearest
 boundary of the specified time unit.
 ceiling_date() takes a date-time object and rounds it up to the nearest
@@ -142,18 +142,18 @@ boundary of the specified time unit." />
     </div>
 
     <div class="ref-description">
-    <p>Rounding to the nearest unit or multiple of a unit are supported. All
-meaningful specifications in English language are supported - secs, min,
-mins, 2 minutes, 3 years etc.</p>
-<p>Rounding to fractional seconds is supported. Please note that rounding to
-fractions smaller than 1s can lead to large precision errors due to the
-floating point representation of the POSIXct objects. See examples.</p>
-<p><code>round_date()</code> takes a date-time object and rounds it to the nearest value
-of the specified time unit. For rounding date-times which is exactly halfway
+    <p><code>round_date()</code> takes a date-time object and time unit, and rounds it to the nearest value
+of the specified time unit. For rounding date-times which are exactly halfway
 between two consecutive units, the convention is to round up. Note that this
 is in line with the behavior of R's <code><a href='https://rdrr.io/r/base/round.POSIXt.html'>base::round.POSIXt()</a></code> function
 but does not follow the convention of the base <code><a href='https://rdrr.io/r/base/Round.html'>base::round()</a></code> function
-which "rounds to the even digit" per IEC 60559.</p>
+which "rounds to the even digit", as per IEC 60559.</p>
+<p>Rounding to the nearest unit or multiple of a unit is supported. All
+meaningful specifications in the English language are supported - secs, min,
+mins, 2 minutes, 3 years etc.</p>
+<p>Rounding to fractional seconds is also supported. Please note that rounding to
+fractions smaller than 1 second can lead to large precision errors due to the
+floating point representation of the POSIXct objects. See examples.</p>
 <p><code>floor_date()</code> takes a date-time object and rounds it down to the nearest
 boundary of the specified time unit.</p>
 <p><code>ceiling_date()</code> takes a date-time object and rounds it up to the nearest
@@ -192,36 +192,37 @@ boundary of the specified time unit.</p>
 to be rounded to. Valid base units are <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>,
 <code>week</code>, <code>month</code>, <code>bimonth</code>, <code>quarter</code>, <code>season</code>, <code>halfyear</code> and
 <code>year</code>. Arbitrary unique English abbreviations as in the <code><a href='period.html'>period()</a></code>
-constructor are allowed. Rounding to multiple of units (except weeks) is
+constructor are allowed. Rounding to multiples of units (except weeks) is
 supported.</p></td>
     </tr>
     <tr>
       <th>week_start</th>
-      <td><p>when unit is <code>weeks</code> specify the reference day; 7 being Sunday.</p></td>
+      <td><p>when unit is <code>weeks</code>, specify the reference day.
+7 represents Sunday and 1 represents Monday.</p></td>
     </tr>
     <tr>
       <th>change_on_boundary</th>
-      <td><p>If NULL (the default) don't change instants on the
-boundary (<code>ceiling_date(ymd_hms('2000-01-01 00:00:00'))</code> is <code>2000-01-01 00:00:00</code>), but round up <code>Date</code> objects to the next boundary
-(<code>ceiling_date(ymd("2000-01-01"), "month")</code> is <code>"2000-02-01"</code>). When
-<code>TRUE</code>, instants on the boundary are rounded up to the next boundary. When
-<code>FALSE</code>, date-time on the boundary are never rounded up (this was the
-default for <span class="pkg">lubridate</span> prior to <code>v1.6.0</code>. See section <code>Rounding Up Date Objects</code> below for more details.</p></td>
+      <td><p>if this is <code>NULL</code> (the default), instants on the boundary
+remain unchanged, but <code>Date</code> objects are rounded up to the next boundary.
+If this is <code>TRUE</code>, instants on the boundary are rounded up to the next boundary.
+If this is <code>FALSE</code>, nothing on the boundary is rounded up at all. This was the
+default for <span class="pkg">lubridate</span> prior to <code>v1.6.0</code>.
+See section <code>Rounding Up Date Objects</code> below for more details.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>In <span class="pkg">lubridate</span>, rounding of a date-time objects tries to
+    <p>In <span class="pkg">lubridate</span>, functions that round date-time objects try to
 preserve the class of the input object whenever possible. This is done by
-first rounding to an instant and then converting to the original class by
+first rounding to an instant, and then converting to the original class as per
 usual R conventions.</p>
     <h2 class="hasAnchor" id="rounding-up-date-objects"><a class="anchor" href="#rounding-up-date-objects"></a>Rounding Up Date Objects</h2>
 
     
 
 
-<p>By default rounding up <code>Date</code> objects follows 3 steps:</p><ol>
+<p>By default, rounding up <code>Date</code> objects follows 3 steps:</p><ol>
 <li><p>Convert to an instant representing lower bound of the Date:
 <code>2000-01-01</code> --&gt; <code>2000-01-01 00:00:00</code></p></li>
 <li><p>Round up to the <strong>next</strong> closest rounding unit boundary. For example,
@@ -230,10 +231,10 @@ is <code>2000-02-01 00:00:00</code>.</p>
 <p>The motivation for this is that the "partial" <code>2000-01-01</code> is conceptually
 an interval (<code>2000-01-01 00:00:00</code> -- <code>2000-01-02 00:00:00</code>) and the day
 hasn't started clocking yet at the exact boundary <code>00:00:00</code>. Thus, it
-seems wrong to round up a day to its lower boundary.</p>
-<p>The behavior on the boundary can be changed by setting
-<code>change_on_boundary</code> to a non-<code>NULL</code> value.</p></li>
-<li><p>If rounding unit is smaller than a day, return the instant from step 2
+seems wrong to round a day to its lower boundary.</p>
+<p>Behavior on the boundary can be changed by setting
+<code>change_on_boundary</code> to <code>TRUE</code> or <code>FALSE</code>.</p></li>
+<li><p>If the rounding unit is smaller than a day, return the instant from step 2
 (<code>POSIXct</code>), otherwise convert to and return a <code>Date</code> object.</p></li>
 </ol>
 
@@ -254,6 +255,14 @@ seems wrong to round up a day to its lower boundary.</p>
 <span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>".1 sec"</span>) <span class='co'># imprecise representation at 0.1 sec !!!</span></div><div class='output co'>#&gt; [1] "2009-08-03 12:01:59.2 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"second"</span>)</div><div class='output co'>#&gt; [1] "2009-08-03 12:02:00 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"minute"</span>)</div><div class='output co'>#&gt; [1] "2009-08-03 12:02:00 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"5 mins"</span>)</div><div class='output co'>#&gt; [1] "2009-08-03 12:05:00 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"hour"</span>)</div><div class='output co'>#&gt; [1] "2009-08-03 13:00:00 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"day"</span>)</div><div class='output co'>#&gt; [1] "2009-08-04 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"week"</span>)</div><div class='output co'>#&gt; [1] "2009-08-09 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"month"</span>)</div><div class='output co'>#&gt; [1] "2009-09-01 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"bimonth"</span>) <span class='kw'>==</span> <span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"2 months"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"quarter"</span>)</div><div class='output co'>#&gt; [1] "2009-10-01 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"season"</span>)</div><div class='output co'>#&gt; [1] "2009-09-01 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"halfyear"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"year"</span>)</div><div class='output co'>#&gt; [1] "2010-01-01 UTC"</div><div class='input'>
 <span class='co'>## As of R 3.4.2 POSIXct printing of fractional numbers is wrong</span>
 <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span>(<span class='st'>"2009-08-03 12:01:59.3"</span>) <span class='co'>## -&gt; "2009-08-03 12:01:59.2 CEST"</span></div><div class='output co'>#&gt; [1] "2009-08-03 12:01:59.2 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>".1 sec"</span>) <span class='co'>## -&gt; "2009-08-03 12:01:59.2 CEST"</span></div><div class='output co'>#&gt; [1] "2009-08-03 12:01:59.2 UTC"</div><div class='input'>
+<span class='co'>## behaviour of `change_on_boundary`</span>
+<span class='co'>## As per default behaviour `NULL`, instants on the boundary remain the</span>
+<span class='co'>## same but dates are rounded up</span>
+<span class='fu'>ceiling_date</span>(<span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2000-01-01 00:00:00"</span>), <span class='st'>"month"</span>)</div><div class='output co'>#&gt; [1] "2000-01-01 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2000-01-01"</span>), <span class='st'>"month"</span>)</div><div class='output co'>#&gt; [1] "2000-02-01"</div><div class='input'>
+<span class='co'>## If `TRUE`, both instants and dates on the boundary are rounded up</span>
+<span class='fu'>ceiling_date</span>(<span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2000-01-01 00:00:00"</span>), <span class='st'>"month"</span>, <span class='kw'>change_on_boundary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2000-02-01 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2000-01-01"</span>), <span class='st'>"month"</span>)</div><div class='output co'>#&gt; [1] "2000-02-01"</div><div class='input'>
+<span class='co'>## If `FALSE`, both instants and dates on the boundary remain the same</span>
+<span class='fu'>ceiling_date</span>(<span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2000-01-01 00:00:00"</span>), <span class='st'>"month"</span>, <span class='kw'>change_on_boundary</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2000-01-01 UTC"</div><div class='input'><span class='fu'>ceiling_date</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2000-01-01"</span>), <span class='st'>"month"</span>)</div><div class='output co'>#&gt; [1] "2000-02-01"</div><div class='input'>
 
  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2000-01-01 00:00:00"</span>)
  <span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"month"</span>)</div><div class='output co'>#&gt; [1] "2000-01-01 UTC"</div><div class='input'> <span class='fu'>ceiling_date</span>(<span class='no'>x</span>, <span class='st'>"month"</span>, <span class='kw'>change_on_boundary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2000-02-01 UTC"</div><div class='input'>
