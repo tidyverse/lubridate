@@ -51,10 +51,11 @@ test_that("addition with instants returns correct class", {
   expect_is(y + years(1), "POSIXlt")
   expect_is(z + years(1), "Date")
 
-  expect_equal(x + dyears(1), is_a("POSIXct"))
-  expect_equal(y + dyears(1), is_a("POSIXlt"))
-  expect_equal(z + dyears(1), is_a("Date"))
+  expect_is(x + dyears(1), "POSIXct")
+  expect_is(y + dyears(1), "POSIXlt")
+  expect_is(z + dyears(1), "Date")
 })
+
 
 
 test_that("addition works as expected for periods", {
@@ -111,10 +112,10 @@ test_that("addition with durations returns correct class", {
   ct <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
   lt <- as.POSIXlt("2008-01-01 00:00:00", tz = "UTC")
 
-  expect_equal(dyears(1) + 1, is_a("Duration"))
-  expect_equal(dyears(1) + ct, is_a("POSIXct"))
-  expect_equal(dyears(1) + lt, is_a("POSIXlt"))
-  expect_equal(dyears(1) + dyears(1), is_a("Duration"))
+  expect_is(dyears(1) + 1, "Duration")
+  expect_is(dyears(1) + ct, "POSIXct")
+  expect_is(dyears(1) + lt, "POSIXlt")
+  expect_is(dyears(1) + dyears(1), "Duration")
 })
 
 test_that("addition works as expected for intervals", {
