@@ -130,28 +130,29 @@ test_that("division operations work for difftime numerator", {
 })
 
 test_that("division works as expected for periods", {
-  expect_that(3/months(1), throws_error())
-  expect_that(months(1)/3, throws_error())
-  expect_that(months(9)/3, equals(months(3)))
-  expect_that(months(9)/3, is_a("Period"))
+  expect_error(3/months(1))
+  expect_error(months(1)/3)
+  expect_equal(months(9)/3, months(3))
+  expect_is(months(9)/3, "Period")
 })
 
 test_that("dividing vectors works for periods", {
-  expect_that(c(2, 3)/months(1), throws_error())
-  expect_that(months(1)/c(2, 3), throws_error())
-  expect_that(months(9)/c(3, 1), equals(months(c(3, 9))))
-  expect_that(months(9)/c(3, 1), is_a("Period"))
+  expect_error(c(2, 3)/months(1))
+  expect_error(months(1)/c(2, 3))
+  expect_equal(months(9)/c(3, 1), months(c(3, 9)))
+  expect_is(months(9)/c(3, 1), "Period")
 })
 
 test_that("division works as expected for durations", {
-  expect_that(3/dhours(1), throws_error())
-  expect_that(dhours(9)/3, equals(dhours(3)))
-  expect_that(dhours(9)/3, is_a("Duration"))
+  expect_error(3/dhours(1))
+  expect_equal(dhours(9)/3, dhours(3))
+  expect_is(dhours(9)/3, "Duration")
 
 })
 
 test_that("dividing vectors works for durations", {
-  expect_that(c(2, 3)/dhours(1), throws_error())
-  expect_that(dhours(9)/c(3, 1), equals(dhours(c(3, 9))))
-  expect_that(dhours(9)/c(3, 1), is_a("Duration"))
+  expect_error(c(2, 3)/dhours(1))
+  expect_equal(dhours(9)/c(3, 1), dhours(c(3, 9)))
+  expect_is(dhours(9)/c(3, 1), "Duration")
 })
+
