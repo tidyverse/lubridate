@@ -39,7 +39,7 @@ test_that("make_difftime works as expected", {
   diff <- make_difftime(seconds = 5, minutes = 30, days = 0,
     hour = 1, weeks = 2)
 
-  expect_that(diff, equals(y))
+  expect_equal(diff, y)
 })
 
 test_that("Duration parsing works", {
@@ -86,12 +86,12 @@ test_that("make_difftime handles vectors", {
   attr(z, "tzone") <- NULL
 
 
-  expect_that(make_difftime(seconds = c(5, 1), minutes = c(30,
+  expect_equal(make_difftime(seconds = c(5, 1), minutes = c(30,
     0), days = c(0, 3), hour = c(1, 1), weeks = c(2, 0)),
-    equals(y))
+    y)
 
-  expect_that(make_difftime(seconds = 5, minutes = 30, days =
-    c(0, 3), hour = 1, weeks = 2), equals(z))
+  expect_equal(make_difftime(seconds = 5, minutes = 30, days =
+    c(0, 3), hour = 1, weeks = 2), z)
 
 })
 
@@ -117,19 +117,19 @@ test_that("duration handles vectors", {
 })
 
 test_that("as.duration handles vectors", {
-  expect_that(as.duration(minutes(1:3)), equals(dminutes(1:3)))
+  expect_equal(as.duration(minutes(1:3)), dminutes(1:3))
 })
 
 test_that("as.duration handles periods", {
 
-  expect_that(as.duration(seconds(1)), equals(dseconds(1)))
-  expect_that(as.duration(minutes(2)), equals(dminutes(2)))
-  expect_that(as.duration(hours(3)), equals(dhours(3)))
-  expect_that(as.duration(days(4)), equals(ddays(4)))
-  expect_that(as.duration(weeks(5)), equals(dweeks(5)))
-  expect_that(as.duration(months(1)), equals(dseconds(60*60*24*365.25/12)))
-  expect_that(as.duration(years(1)), equals(dseconds(60*60*24*365.25)))
-  expect_that(as.duration(seconds(1) + minutes(4)), equals(dseconds(1) + dminutes(4)))
+  expect_equal(as.duration(seconds(1)), dseconds(1))
+  expect_equal(as.duration(minutes(2)), dminutes(2))
+  expect_equal(as.duration(hours(3)), dhours(3))
+  expect_equal(as.duration(days(4)), ddays(4))
+  expect_equal(as.duration(weeks(5)), dweeks(5))
+  expect_equal(as.duration(months(1)), dseconds(60*60*24*365.25/12))
+  expect_equal(as.duration(years(1)), dseconds(60*60*24*365.25))
+  expect_equal(as.duration(seconds(1) + minutes(4)), dseconds(1) + dminutes(4))
 })
 
 test_that("as.duration handles intervals", {
@@ -226,3 +226,4 @@ test_that("as.duration handles NA objects", {
   na.dur <- dseconds(NA)
   expect_equal(as.duration(NA), na.dur)
 })
+
