@@ -6,7 +6,7 @@ context("Multiplication operations")
 test_that("multiplication throws error for instants", {
   x <- as.POSIXct("2010-03-15 00:00:00", tz = "UTC")
 
-  expect_that(3 * x, throws_error())
+  expect_error(3 * x)
 
 })
 
@@ -17,34 +17,34 @@ test_that("multiplication throws error for intervals", {
   diff <- difftime(time2, time1)
   int2 <- interval(time1, time1 + 2*diff)
 
-  expect_that(2*int, equals(int2))
+  expect_equal(2*int, int2)
 })
 
 test_that("multiplication works as expected for periods", {
 
-  expect_that(3*months(1), equals(months(3)))
-  expect_that(3*months(1), is_a("Period"))
+  expect_equal(3*months(1), months(3))
+  expect_is(3*months(1), "Period")
 
 })
 
 test_that("multiplying vectors works for periods", {
 
-  expect_that(c(2, 3)*months(1), equals(months(2:3)))
-  expect_that(c(2, 3)*months(1), is_a("Period"))
+  expect_equal(c(2, 3)*months(1), months(2:3))
+  expect_is(c(2, 3)*months(1), "Period")
 
 })
 
 test_that("multiplication works as expected for durations", {
 
-  expect_that(3*dhours(1), equals(dhours(3)))
-  expect_that(3*dhours(1), is_a("Duration"))
+  expect_equal(3*dhours(1), dhours(3))
+  expect_is(3*dhours(1), "Duration")
 
 })
 
 test_that("multiplying vectors works for durations", {
 
-  expect_that(c(2, 3)*dhours(1), equals(dhours(2:3)))
-  expect_that(c(2, 3)*dhours(1), is_a("Duration"))
+  expect_equal(c(2, 3)*dhours(1), dhours(2:3))
+  expect_is(c(2, 3)*dhours(1), "Duration")
 
 })
 
@@ -54,6 +54,6 @@ test_that("make_difftime makes a correct difftime object", {
   y <- difftime(x + 3600, x)
   attr(y, "tzone") <- NULL
 
-  expect_that(make_difftime(3600), equals(y))
-  expect_that(make_difftime(3600), is_a("difftime"))
+  expect_equal(make_difftime(3600), y)
+  expect_is(make_difftime(3600), "difftime")
 })
