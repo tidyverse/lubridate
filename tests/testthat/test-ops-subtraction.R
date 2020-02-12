@@ -31,13 +31,13 @@ test_that("subtraction with instants returns correct class", {
   y <- as.POSIXlt("2008-01-01 12:00:00", tz = "UTC")
   z <- as.Date("2008-01-01")
 
-  expect_that(x - years(1), is_a("POSIXct"))
-  expect_that(y - years(1), is_a("POSIXlt"))
-  expect_that(z - years(1), is_a("Date"))
+  expect_is(x - years(1), "POSIXct")
+  expect_is(y - years(1), "POSIXlt")
+  expect_is(z - years(1), "Date")
 
-  expect_that(x - dyears(1), is_a("POSIXct"))
-  expect_that(y - dyears(1), is_a("POSIXlt"))
-  expect_that(z - dyears(1), is_a("Date"))
+  expect_is(x - dyears(1), "POSIXct")
+  expect_is(y - dyears(1), "POSIXlt")
+  expect_is(z - dyears(1), "Date")
 
 })
 
@@ -58,8 +58,8 @@ test_that("subtraction works as expected for periods", {
 
 test_that("subtraction with periods returns correct class", {
 
-  expect_that(years(1) - 1, is_a("Period"))
-  expect_that(years(1) - minutes(3), is_a("Period"))
+  expect_is(years(1) - 1, "Period")
+  expect_is(years(1) - minutes(3), "Period")
 
 })
 
@@ -79,8 +79,8 @@ test_that("subtraction works as expected for durations", {
 
 test_that("subtraction with durations returns correct class", {
 
-  expect_that(dyears(1) - 1, is_a("Duration"))
-  expect_that(dyears(1) - dyears(1), is_a("Duration"))
+  expect_is(dyears(1) - 1, "Duration")
+  expect_is(dyears(1) - dyears(1), "Duration")
 
 })
 
