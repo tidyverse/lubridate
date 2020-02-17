@@ -204,6 +204,7 @@ tweaks to make them work more intuitively.</p>
 a more intuitive conversion (see examples)</p></li>
 <li><p>Both functions provide a default origin argument for numeric
 vectors.</p></li>
+<li><p>Both functions will generate NAs for invalid date format. A warning message will provide a count of the elements that were not converted</p></li>
 <li><p><code>as_datetime()</code> defaults to using UTC.</p></li>
 </ul>
 
@@ -212,7 +213,9 @@ vectors.</p></li>
     <pre class="examples"><div class='input'><span class='no'>dt_utc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-08-03 00:50:50"</span>)
 <span class='no'>dt_europe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-08-03 00:50:50"</span>, <span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"Europe/London"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'>as_date</span>(<span class='no'>dt_utc</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='no'>dt_utc</span>))</div><div class='output co'>#&gt; [1] "2010-08-03" "2010-08-03"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'>as_date</span>(<span class='no'>dt_europe</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='no'>dt_europe</span>))</div><div class='output co'>#&gt; [1] "2010-08-03" "2010-08-02"</div><div class='input'><span class='co'>## need not supply origin</span>
-<span class='fu'>as_date</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] "1970-01-11"</div></pre>
+<span class='fu'>as_date</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] "1970-01-11"</div><div class='input'><span class='co'>## Will replace invalid date format with NA</span>
+<span class='no'>dt_wrong</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2009-09-29"</span>, <span class='st'>"2012-11-29"</span>, <span class='st'>"2015-29-12"</span>)
+<span class='fu'>as_date</span>(<span class='no'>dt_wrong</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] "2009-09-29" "2012-11-29" NA          </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
