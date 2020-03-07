@@ -242,9 +242,15 @@
       <tr>
         
         <td>
-          <p><code><a href="make_datetime.html">make_datetime()</a></code> <code><a href="make_datetime.html">make_date()</a></code> </p>
+          <p><code><a href="as_date.html">as_date()</a></code> <code><a href="as_date.html">as_datetime()</a></code> </p>
         </td>
-        <td><p>Efficient creation of date-times from numeric representations</p></td>
+        <td><p>Convert an object to a date or date-time</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cyclic_encoding.html">cyclic_encoding()</a></code> </p>
+        </td>
+        <td><p>Cyclic encoding of date-times</p></td>
       </tr><tr>
         
         <td>
@@ -254,9 +260,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="is.instant.html">is.instant()</a></code> <code><a href="is.instant.html">is.timepoint()</a></code> </p>
+          <p><code><a href="decimal_date.html">decimal_date()</a></code> </p>
         </td>
-        <td><p>Is x a date-time object?</p></td>
+        <td><p>Converts a date to a decimal of its year</p></td>
       </tr><tr>
         
         <td>
@@ -272,6 +278,18 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="is.instant.html">is.instant()</a></code> <code><a href="is.instant.html">is.timepoint()</a></code> </p>
+        </td>
+        <td><p>Is x a date-time object?</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_datetime.html">make_datetime()</a></code> <code><a href="make_datetime.html">make_date()</a></code> </p>
+        </td>
+        <td><p>Efficient creation of date-times from numeric representations</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="now.html">now()</a></code> <code><a href="now.html">today()</a></code> </p>
         </td>
         <td><p>The current day and time</p></td>
@@ -281,18 +299,6 @@
           <p><code><a href="origin.html">origin</a></code> </p>
         </td>
         <td><p>1970-01-01 UTC</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="decimal_date.html">decimal_date()</a></code> </p>
-        </td>
-        <td><p>Converts a date to a decimal of its year</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as_date.html">as_date()</a></code> <code><a href="as_date.html">as_datetime()</a></code> </p>
-        </td>
-        <td><p>Convert an object to a date or date-time</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -425,6 +431,26 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-fromaters" class="hasAnchor"><a href="#section-fromaters" class="anchor"></a>Fromaters</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="stamp.html">stamp()</a></code> <code><a href="stamp.html">stamp_date()</a></code> <code><a href="stamp.html">stamp_time()</a></code> </p>
+        </td>
+        <td><p>Format dates and times based on human-friendly templates</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="format_ISO8601.html">format_ISO8601()</a></code> </p>
+        </td>
+        <td><p>Format in ISO8601 character format</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-other-modification-functions" class="hasAnchor"><a href="#section-other-modification-functions" class="anchor"></a>Other modification functions</h2>
           <p class="section-desc"></p>
         </th>
@@ -518,12 +544,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="stamp.html">stamp()</a></code> <code><a href="stamp.html">stamp_date()</a></code> <code><a href="stamp.html">stamp_time()</a></code> </p>
-        </td>
-        <td><p>Format dates and times based on human-friendly templates</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="date_decimal.html">date_decimal()</a></code> </p>
         </td>
         <td><p>Converts a decimal to a date</p></td>
@@ -556,6 +576,7 @@
       <li><a href="#section-periods">Periods</a></li>
       <li><a href="#section-intervals">Intervals</a></li>
       <li><a href="#section-timespans">Timespans</a></li>
+      <li><a href="#section-fromaters">Fromaters</a></li>
       <li><a href="#section-other-modification-functions">Other modification functions</a></li>
       <li><a href="#section-other-date-time-components">Other date-time components</a></li>
       <li><a href="#section-data">Data</a></li>
