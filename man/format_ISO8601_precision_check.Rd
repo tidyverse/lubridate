@@ -15,14 +15,21 @@ format_ISO8601_precision_check(precision, max_precision, usetz = FALSE)
 
 \item{usetz}{Include the timezone in the output format}
 }
-\value{
-A format string ready for \code{as.character} methods.
-}
 \description{
 Provide a format for ISO8601 dates and times with the requested precision.
 }
-\details{
-When \code{NULL}, \code{max_precision} is returned.  When \code{precision} is
-more precise than \code{max_precision}, a warning is given and
-\code{max_precision} is returned.
-}
+\keyword{When}
+\keyword{\code{NULL},}
+\keyword{\code{max_precision}}
+\keyword{\code{max_precision},}
+\keyword{\code{precision}}
+\keyword{a}
+\keyword{and}
+\keyword{given}
+\keyword{internal}
+\keyword{is}
+\keyword{more}
+\keyword{precise}
+\keyword{returned.}
+\keyword{than}
+\keyword{warning}

@@ -33,18 +33,18 @@ reference:
 
 - title: Date-time helpers
   contents:
-  - make_datetime
-  - make_date
+  - as_date
+  - cyclic_encoding
   - date
-  - is.instant
-  - is.Date
-  - is.POSIXt
-  - now
-  - today
-  - origin
   - decimal_date
   - is.Date
-  - as_date
+  - is.POSIXt
+  - is.instant
+  - make_date
+  - make_datetime
+  - now
+  - origin
+  - today
 
 - title: Durations
   desc: >
@@ -84,6 +84,10 @@ reference:
   - time_length
   - is.timespan
 
+- title: Fromaters
+  contents:
+  - stamp
+  - format_ISO8601
 
 - title: Other modification functions
   contents:
@@ -103,7 +107,6 @@ reference:
   - days_in_month
   - dst
   - leap_year
-  - stamp
   - date_decimal
 
 - title: Data

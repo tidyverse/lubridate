@@ -14,11 +14,8 @@
 #' format_ISO8601(as.Date("02-01-2018", format="%m-%d-%Y"))
 #' format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), usetz=TRUE)
 #' format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), precision="ymdhm")
-#' @aliases format_ISO8601,Date-method
-#' format_ISO8601,POSIXt-method
-#' format_ISO8601,Interval-method
-#' format_ISO8601,Duration-method
-#' format_ISO8601,Period-method
+#' @aliases format_ISO8601,Date-method format_ISO8601,POSIXt-method format_ISO8601,Interval-method
+#' format_ISO8601,Duration-method format_ISO8601,Period-method
 #' @export
 setGeneric(name = "format_ISO8601",
            def = function(x, usetz=FALSE, precision=NULL, ...) standardGeneric("format_ISO8601"))
@@ -110,8 +107,7 @@ ISO8601_precision_map <-
 #'   "ymdhm" would show precision through minutes.
 #' @param max_precision The maximum precision allowed to be output.
 #' @param usetz Include the timezone in the output format
-#' @return A format string ready for \code{as.character} methods.
-#' @details
+#' @keywords internal
 #' When \code{NULL}, \code{max_precision} is returned.  When \code{precision} is
 #' more precise than \code{max_precision}, a warning is given and
 #' \code{max_precision} is returned.
