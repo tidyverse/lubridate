@@ -109,3 +109,13 @@ test_that("local_time works as expected", {
   expect_equal(x2[2], local_time(with_tz(x1, "Europe/Amsterdam")))
   expect_equal(x2[3], local_time(with_tz(x1, "Asia/Shanghai")))
 })
+
+# tz --------------------------------------------------------------------
+
+test_that("tz() returns UTC on special objects", {
+  expect_equal(tz(NA), "UTC")
+  expect_equal(tz("character"), "UTC")
+  expect_equal(tz(today()), "UTC")
+  expect_equal(tz(POSIXct()), "UTC")
+  expect_equal(tz(Date()), "UTC")
+})

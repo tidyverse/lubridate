@@ -12,7 +12,7 @@ tz(x) <- value
 \arguments{
 \item{x}{A date-time vector, usually of class POSIXct or POSIXlt.}
 
-\item{value}{New value to use for time zone.}
+\item{value}{New value of time zone.}
 }
 \value{
 A character vector of length 1, giving the time zone of the vector.
