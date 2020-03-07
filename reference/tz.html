@@ -42,15 +42,11 @@
 
 
 <meta property="og:title" content="Get/set time zone component of a date-time — tz" />
-<meta property="og:description" content="Time zones are stored as character strings in an
-attribute of date-time objects. tz returns a date's time zone attribute.
-When used as a settor, it changes the time zone attribute. R does not come with
-a predefined list zone names, but relies on the user's OS to interpret time zone
-names. As a result, some names will be recognized on some computers but not others.
-Most computers, however, will recognize names in the timezone data base originally
-compiled by Arthur Olson. These names normally take the form &quot;Country/City.&quot; A
-convenient listing of these timezones can be found at
-http://en.wikipedia.org/wiki/List_of_tz_database_time_zones." />
+<meta property="og:description" content="Conveniently get and set the time zone of date-time, automatically
+converting dates to date-times as needed.
+Note that tz&amp;lt;- is an alias for force_tz(), which preserves the
+local time, creating a different instant in time. Use with_tz() if you
+want keep the instant the same, but change the printed representation." />
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -135,15 +131,11 @@ http://en.wikipedia.org/wiki/List_of_tz_database_time_zones." />
     </div>
 
     <div class="ref-description">
-    <p>Time zones are stored as character strings in an
-attribute of date-time objects. tz returns a date's time zone attribute.
-When used as a settor, it changes the time zone attribute. R does not come with
-a predefined list zone names, but relies on the user's OS to interpret time zone
-names. As a result, some names will be recognized on some computers but not others.
-Most computers, however, will recognize names in the timezone data base originally
-compiled by Arthur Olson. These names normally take the form "Country/City." A
-convenient listing of these timezones can be found at
-<a href='http://en.wikipedia.org/wiki/List_of_tz_database_time_zones'>http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.</p>
+    <p>Conveniently get and set the time zone of date-time, automatically
+converting dates to date-times as needed.</p>
+<p>Note that <code>tz&lt;-</code> is an alias for <code><a href='force_tz.html'>force_tz()</a></code>, which preserves the
+local time, creating a different instant in time. Use <code><a href='with_tz.html'>with_tz()</a></code> if you
+want keep the instant the same, but change the printed representation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tz</span>(<span class='no'>x</span>)
@@ -155,64 +147,46 @@ convenient listing of these timezones can be found at
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a date-time object of class a POSIXct, POSIXlt, Date, chron, yearmon,
-yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can
-be coerced to POSIXlt with as.POSIXlt</p></td>
+      <td><p>A date-time vector, usually of class POSIXct or POSIXlt.</p></td>
     </tr>
     <tr>
       <th>value</th>
-      <td><p>timezone value to be assigned to <code>x</code>'s <code>tzone</code> attribute</p></td>
+      <td><p>New value of time zone.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the first element of x's tzone attribute vector as a character string. If no tzone
-attribute exists, tz returns "GMT".</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>A character vector of length 1, giving the time zone of the vector.
+An empty string (<code>""</code>) represents the current/default timezone.</p>
+<p>For backward compatibility, the time zone of a date, <code>NA</code>, or
+character vector is <code>"UTC"</code>.</p>
+    <h2 class="hasAnchor" id="valid-time-zones"><a class="anchor" href="#valid-time-zones"></a>Valid time zones</h2>
 
-    <p>Setting tz does not update a date-time to display the same moment as measured
-at a different time zone. See <code><a href='with_tz.html'>with_tz()</a></code>. Setting a new time zone
-creates a new date-time. The numerical value of the hours element stays the
-same, only the time zone attribute is replaced.  This creates a new date-time
-that occurs an integer value of hours before or after the original date-time.</p>
-<p>If x is of a class that displays all date-times in the GMT timezone, such as
-chron, then R will update the number in the hours element to display the new
-date-time in the GMT timezone.</p>
-<p>For a description of the time zone attribute, see <code><a href='https://rdrr.io/r/base/timezones.html'>base::timezones()</a></code>
-or <a href='https://rdrr.io/r/base/DateTimeClasses.html'>base::DateTimeClasses</a>.</p>
+    
+
+<p>Time zones are stored in system specific database, so are not guaranteed
+to be the same on every system (however, they are usually pretty similar
+unless your sytsem is very out of date). You can see a complete list with
+<code><a href='https://rdrr.io/r/base/timezones.html'>OlsonNames()</a></code></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>See <a href='https://rdrr.io/r/base/DateTimeClasses.html'>DateTimeClasses</a> for a description of the underlying
+<code>tzone</code> attribute..</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2012-03-26"</span>)
-<span class='fu'>tz</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "UTC"</div><div class='input'><span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"GMT"</span>
-<span class='no'>x</span></div><div class='output co'>#&gt; [1] "2012-03-26"</div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"America/New_York"</span>
-<span class='no'>x</span>
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"America/Chicago"</span>
-<span class='no'>x</span>
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"America/Los_Angeles"</span>
-<span class='no'>x</span>
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"Pacific/Honolulu"</span>
-<span class='no'>x</span>
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"Pacific/Auckland"</span>
-<span class='no'>x</span>
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"Europe/London"</span>
-<span class='no'>x</span>
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"Europe/Berlin"</span>
-<span class='no'>x</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/Sys.setenv.html'>Sys.setenv</a></span>(<span class='kw'>TZ</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
-<span class='fu'><a href='now.html'>now</a></span>()
-<span class='fu'>tz</span>(<span class='fu'><a href='now.html'>now</a></span>())
-<span class='fu'><a href='https://rdrr.io/r/base/Sys.setenv.html'>Sys.unsetenv</a></span>(<span class='st'>"TZ"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2012-03-26"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
+<span class='fu'>tz</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "UTC"</div><div class='input'>
+<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"GMT"</span>
+<span class='no'>x</span></div><div class='output co'>#&gt; [1] "2012-03-26 GMT"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
+      <li><a href="#valid-time-zones">Valid time zones</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
