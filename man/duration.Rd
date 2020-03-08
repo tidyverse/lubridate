@@ -7,6 +7,7 @@
 \alias{dhours}
 \alias{ddays}
 \alias{dweeks}
+\alias{dmonths}
 \alias{dyears}
 \alias{dmilliseconds}
 \alias{dmicroseconds}
@@ -26,6 +27,8 @@ dhours(x = 1)
 ddays(x = 1)
 
 dweeks(x = 1)
+
+dmonths(x = 1)
 
 dyears(x = 1)
 
@@ -50,7 +53,9 @@ supported.}
 refers to. When \code{num} is character, this argument is ignored.}
 
 \item{...}{a list of time units to be included in the duration and their
-amounts. Seconds, minutes, hours, days, and weeks are supported.}
+amounts. Seconds, minutes, hours, days, weeks, months and years are
+supported. Durations of months and years assume that year consists of
+365.25 days.}
 
 \item{x}{numeric value of the number of units to be contained in the
 duration.}

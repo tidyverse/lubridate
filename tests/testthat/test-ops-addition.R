@@ -28,9 +28,9 @@ test_that("addition works as expected for instants", {
   expect_equal(y + years(1), as.POSIXlt("2009-01-01 00:00:00", tz = "UTC"))
   expect_equal(z + years(1), as.Date("2009-01-01"))
 
-  expect_that(x + dyears(1), equals(as.POSIXct("2008-12-31 00:00:00", tz = "UTC")))
-  expect_that(y + dyears(1), equals(as.POSIXlt("2008-12-31 00:00:00", tz = "UTC")))
-  expect_that(z + dyears(1), equals(as.Date("2008-12-31")))
+  expect_that(x + dyears(1), equals(as.POSIXct("2008-12-31 06:00:00", tz = "UTC")))
+  expect_that(y + dyears(1), equals(as.POSIXct("2008-12-31 06:00:00", tz = "UTC")))
+  expect_that(z + dyears(1), equals(as.POSIXct("2008-12-31 06:00:00", tz = "UTC")))
 
   time1 <- as.POSIXct("2008-08-02 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
@@ -53,7 +53,7 @@ test_that("addition with instants returns correct class", {
 
   expect_that(x + dyears(1), is_a("POSIXct"))
   expect_that(y + dyears(1), is_a("POSIXlt"))
-  expect_that(z + dyears(1), is_a("Date"))
+  expect_that(z + dyears(1), is_a("POSIXct"))
 })
 
 
@@ -96,12 +96,12 @@ test_that("addition with periods returns correct class", {
 test_that("addition works as expected for durations", {
 
   x <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
-  y <- as.POSIXct("2008-12-31 00:00:00", tz = "UTC")
+  y <- as.POSIXct("2008-12-31 06:00:00", tz = "UTC")
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   int <- interval(time1, time2)
 
-  expect_equal(dyears(1) + 1, duration(31536001))
+  expect_equal(dyears(1) + 1, duration(31557601))
   expect_equal(dyears(1) + x, y)
   expect_equal(dyears(1) + dyears(1), dyears(2))
   expect_error(dyears(1) + minutes(3))
@@ -142,29 +142,17 @@ test_that("addition works as expected for intervals", {
 #### Vectors
 
 test_that("adding vectors works as expected for instants", {
-  x <- as.POSIXct(c("2008-01-01 00:00:00", "2009-01-01 00:00:00"),
-        tz = "UTC")
-  y <- as.POSIXlt(c("2008-01-01 00:00:00",
-    "2009-01-01 00:00:00"), tz = "UTC")
+  x <- as.POSIXct(c("2008-01-01 00:00:00", "2009-01-01 00:00:00"), tz = "UTC")
+  y <- as.POSIXlt(c("2008-01-01 00:00:00", "2009-01-01 00:00:00"), tz = "UTC")
   z <- c(as.Date("2008-01-01"), as.Date("2008-01-10"))
 
-  expect_that(x + years(1), equals(as.POSIXct(c(
-    "2009-01-01 00:00:00", "2010-01-01 00:00:00"), tz =
-    "UTC")))
-  expect_that(y + years(1), equals(as.POSIXlt(c(
-    "2009-01-01 00:00:00", "2010-01-01 00:00:00"),
-    tz = "UTC")))
-  expect_that(z + years(1), equals(as.Date(c("2009-01-01",
-    "2009-01-10"))))
+  expect_equal(x + years(1), ymd_hms(c("2009-01-01 00:00:00", "2010-01-01 00:00:00")))
+  expect_equal(y + years(1), as.POSIXlt(c( "2009-01-01 00:00:00", "2010-01-01 00:00:00"), tz = "UTC"))
+  expect_equal(z + years(1), as.Date(c("2009-01-01", "2009-01-10")))
 
-  expect_that(x + dyears(1), equals(as.POSIXct(c(
-    "2008-12-31 00:00:00", "2010-01-01 00:00:00"), tz =
-    "UTC")))
-  expect_that(y + dyears(1), equals(as.POSIXlt(c(
-    "2008-12-31 00:00:00", "2010-01-01 00:00:00"),
-    tz = "UTC")))
-  expect_that(z + dyears(1), equals(as.Date(c("2008-12-31",
-    "2009-01-09"))))
+  expect_equal(x + dyears(1), ymd_hms(c("2008-12-31 06:00:00", "2010-01-01 06:00:00")))
+  expect_equal(y + dyears(1), as.POSIXlt(c("2008-12-31 06:00:00", "2010-01-01 06:00:00"), tz = "UTC"))
+  expect_equal(z + dyears(1), ymd_hms(c("2008-12-31 06:00:00", "2009-01-09 06:00:00")))
 
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
@@ -207,10 +195,10 @@ test_that("adding vectors works as expected for durations", {
   x <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
   y <- as.POSIXct(c("2008-01-01 00:00:00", "2008-12-31 00:00:00"), tz = "UTC")
   dur <- dminutes(1:2) + 1
-
+  ddif <- ddays(c(.25, .5))
   expect_equal(dur@.Data, c(61, 121))
-  expect_equal(dyears(1:2) + w, y)
-  expect_that(dyears(1:2) + as.POSIXlt(w), equals(as.POSIXlt(y)))
+  expect_equal(dyears(1:2) + w - ddif, y)
+  expect_that(dyears(1:2) + as.POSIXlt(w) - ddif, equals(as.POSIXlt(y)))
   expect_error(dyears(1:2) + minutes(3))
   expect_that(dyears(1:2) + dyears(1), equals(dyears(2:3)))
 

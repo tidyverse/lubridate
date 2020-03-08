@@ -19,8 +19,7 @@ test_that("Comparison operators work with POSIX and Date objects", {
 })
 
 test_that("Duration and periods are comparable", {
-  expect_true(dyears(1) < years(1))
-  expect_false(dyears(1) > years(1))
+  expect_true(dyears(1) == years(1))
 })
 
 test_that("character comparison with periods works as expected", {

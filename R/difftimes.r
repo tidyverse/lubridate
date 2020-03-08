@@ -64,8 +64,11 @@ make_difftime <- function(num = NULL, units = "auto", ...) {
   }
 }
 
+difftime_lengths <- c(secs = 1, mins = 60, hours = 3600, days = 86400, weeks = 7 * 86400)
+
 .difftime_from_num <- function(num, units = "auto") {
   seconds <- abs(na.omit(num))
+  units <- units[[1]]
   if (units == "auto") {
     if (any(seconds < 60))
       units <- "secs"
@@ -75,29 +78,18 @@ make_difftime <- function(num = NULL, units = "auto", ...) {
       units <- "hours"
     else
       units <- "days"
+  } else {
+    units <- standardise_difftime_names(units)
   }
-  units <- standardise_date_names(units[[1]])
-  switch(units,
-         second = structure(num, units = "secs", class = "difftime"),
-         minute = structure(num/60, units = "mins", class = "difftime"),
-         hour = structure(num/3600, units = "hours", class = "difftime"),
-         day = structure(num/86400, units = "days", class = "difftime"),
-         stop(sprintf("invalid units '%s'. Only 'second', 'minute', 'hour' and 'day' are supported.", units)))
+  structure(num/difftime_lengths[[units]], units = units, class = "difftime")
 }
 
 .difftime_from_pieces <- function(pieces) {
   names(pieces) <- standardise_difftime_names(names(pieces))
-
-  defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)
-  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
-
-  x <- pieces$secs +
-    pieces$mins * 60 +
-    pieces$hours * 3600 +
-    pieces$days * 86400 +
-    pieces$weeks * 604800
-
-  x
+  out <- 0
+  for (nm in names(pieces))
+    out <- out + pieces[[nm]] * difftime_lengths[[nm]]
+  out
 }
 
 #' Is x a difftime object?

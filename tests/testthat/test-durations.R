@@ -36,9 +36,7 @@ test_that("make_difftime works as expected", {
   x <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   y <- difftime(x + 5 + 30*60 + 60*60 + 14*24*60*60, x, tz = "UTC")
   attr(y, "tzone") <- NULL
-  diff <- make_difftime(seconds = 5, minutes = 30, days = 0,
-    hour = 1, weeks = 2)
-
+  diff <- make_difftime(seconds = 5, minutes = 30, days = 0, hour = 1, weeks = 2)
   expect_equal(diff, y)
 })
 
@@ -81,17 +79,18 @@ test_that("make_difftime handles vectors", {
   y <- difftime(x + c(5 + 30*60 + 60*60 + 14*24*60*60,
     1 + 3*24*60*60 + 60*60), x, tz = "UTC")
   attr(y, "tzone") <- NULL
-  z <- difftime(x + c(5 + 30*60 + 60*60 + 14*24*60*60, 5 +
-    30*60 + 60*60 + 14*24*60*60 + 3*24*60*60), x, tz = "UTC")
+  z <- difftime(x + c(5 + 30*60 + 60*60 + 14*24*60*60,
+                      5 + 30*60 + 60*60 + 14*24*60*60 + 3*24*60*60),
+                x, tz = "UTC")
   attr(z, "tzone") <- NULL
 
+  expect_equal(make_difftime(seconds = c(5, 1), minutes = c(30,0),
+                             days = c(0, 3), hour = c(1, 1), weeks = c(2, 0)),
+               y)
 
-  expect_equal(make_difftime(seconds = c(5, 1), minutes = c(30,
-    0), days = c(0, 3), hour = c(1, 1), weeks = c(2, 0)),
-    y)
-
-  expect_equal(make_difftime(seconds = 5, minutes = 30, days =
-    c(0, 3), hour = 1, weeks = 2), z)
+  expect_equal(make_difftime(seconds = 5, minutes = 30,
+                             days = c(0, 3), hour = 1, weeks = 2),
+               z)
 
 })
 
@@ -216,14 +215,12 @@ test_that("as.duration handles NA interval objects", {
 
 test_that("as.duration handles NA period objects", {
   na.dur <- dseconds(NA)
-
-  expect_equal(suppressMessages(as.duration(years(NA))), na.dur)
-  expect_equal(suppressMessages(as.duration(years(c(NA, NA)))), c(na.dur, na.dur))
-  expect_equal(suppressMessages(as.duration(years(c(1, NA)))), c(dyears(1) + ddays(.25), na.dur))
+  expect_equal(as.duration(years(NA)), na.dur)
+  expect_equal(as.duration(years(c(NA, NA))), c(na.dur, na.dur))
+  expect_equal(as.duration(years(c(1, NA))), c(dyears(1), na.dur))
 })
 
 test_that("as.duration handles NA objects", {
   na.dur <- dseconds(NA)
   expect_equal(as.duration(NA), na.dur)
 })
-

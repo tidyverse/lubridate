@@ -179,7 +179,9 @@ setMethod("[[<-", signature(x = "Duration"),
 #' @param units a character string that specifies the type of units that `num`
 #'   refers to. When `num` is character, this argument is ignored.
 #' @param ... a list of time units to be included in the duration and their
-#'   amounts. Seconds, minutes, hours, days, and weeks are supported.
+#'   amounts. Seconds, minutes, hours, days, weeks, months and years are
+#'   supported. Durations of months and years assume that year consists of
+#'   365.25 days.
 #' @param x numeric value of the number of units to be contained in the
 #'   duration.
 #' @return a duration object
@@ -249,14 +251,22 @@ duration <- function(num = NULL, units = "seconds", ...) {
   if (is.character(num)) {
     as.duration(parse_period(num))
   } else {
-    c(.duration_from_num(num, units),
-      .duration_from_units(list(...)))
+    out1 <- .duration_from_num(num, units)
+    out2 <- .duration_from_pieces(list(...))
+    if (is.null(out1) && is.null(out2)) new("Duration", numeric())
+    else if (is.null(out1)) out2
+    else if (is.null(out2)) out1
+    else c(out1, out2)
   }
 }
 
+average_durations <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
+                       wday = 86400, yday = 86400, day = 86400, week = 604800,
+                       month = 60 * 60 * 24 * 365.25 / 12, year = 60 * 60 * 24 * 365.25)
+
 .duration_from_num <- function(num, units) {
   if (length(num) == 0)
-    return(new("Duration", numeric()))
+    return(NULL)
 
   if (!is.numeric(num)) {
     stop(sprintf("First argument to `duration()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
@@ -267,29 +277,17 @@ duration <- function(num = NULL, units = "seconds", ...) {
     stop("Interval or Period objects cannot be used as input to `duration()` constructor. Use `as.duration()` instead.", call. = FALSE)
 
   unit <- standardise_date_names(units)
-  mult <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
-    wday = 86400, yday = 86400, day = 86400, week = 604800,
-    month = 60 * 60 * 24 * 365 / 12, year = 60 * 60 * 24 * 365)
-
-  new("Duration", num * unname(mult[unit]))
+  new("Duration", num * unname(average_durations[unit]))
 }
 
-.duration_from_units <- function(pieces) {
+.duration_from_pieces <- function(pieces) {
   if (length(pieces) == 0)
     return(NULL)
-
-  names(pieces) <- standardise_difftime_names(names(pieces))
-
-  defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)
-  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
-
-  x <- pieces$secs +
-    pieces$mins * 60 +
-    pieces$hours * 3600 +
-    pieces$days * 86400 +
-    pieces$weeks * 604800
-
-  new("Duration", x)
+  names(pieces) <- standardise_date_names(names(pieces))
+  out <- 0
+  for (nm in names(pieces))
+    out <- out + pieces[[nm]] * average_durations[[nm]]
+  new("Duration", out)
 }
 
 #' @export dseconds dminutes dhours ddays dweeks dyears dmilliseconds dmicroseconds dnanoseconds dpicoseconds
@@ -302,9 +300,11 @@ dhours <- function(x = 1) new("Duration", x * 3600)
 #' @rdname duration
 ddays <- function(x = 1) new("Duration", x * 86400)
 #' @rdname duration
-dweeks <- function(x = 1) new("Duration", x * 604800)
+dweeks <- function(x = 1) new("Duration", x * average_durations[["week"]])
 #' @rdname duration
-dyears <- function(x = 1) new("Duration", x * 60 * 60 * 24 * 365)
+dmonths <- function(x = 1) new("Duration", x * average_durations[["month"]])
+#' @rdname duration
+dyears <- function(x = 1) new("Duration", x * average_durations[["year"]])
 #' @rdname duration
 dmilliseconds <- function(x = 1) new("Duration", x / 1000)
 #' @rdname duration

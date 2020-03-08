@@ -40,7 +40,7 @@ test_that("time_length works as expected", {
   )
   expect_that(
     time_length(as.duration(interval(ymd("1900-01-01"), ymd("1999-12-31"))), "years"),
-    is_more_than(100)
+    is_less_than(100)
   )
   expect_that(
     -time_length(interval(ymd("1900-01-01"), ymd("2000-01-01")), "days"),

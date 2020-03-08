@@ -24,9 +24,9 @@ test_that("division works for interval numerator with vectors", {
   expect_error(c(int1, int2) / int1)
   expect_error(int1/c(int1, int2))
   expect_equal(c(int1, int2) / years(1), c(1, 2))
-  expect_equal(c(int1, int2) / dyears(1), c(1, 2))
+  expect_equal(c(int1, int2) / dyears(1), c(0.9993155, 1.9986311), tolerance = 6)
   expect_equal(int1/years(1:2), c(1, 0.5))
-  expect_equal(int1/dyears(1:2), c(1, 0.5))
+  expect_equal(int1/dyears(1:2), c(0.9993155, 0.4996578), tolerance = 6)
   expect_equal(c(int1, int2) / smaller_diff, c(1, 2))
   expect_equal(int2/c(1, 2), c(int2, int3))
   expect_equal(c(int2, int2) / 2, c(int3, int3))
@@ -67,11 +67,10 @@ test_that("dividision works for interval vector with NAs", {
   int3 <- ymd(NA, quiet = TRUE) %--% ymd(NA, quiet = TRUE)
   ints <- c(int1, int2, int3)
   nas <- as.numeric(c(NA, NA, NA))
-  expect_equal(suppressMessages(ints / years(1)), c(1, 2, NA))
-  expect_equal(suppressMessages(ints / dyears(1)), c(1, 2, NA))
-  expect_equal(suppressMessages(ints / years(NA)), nas)
-  expect_equal(suppressMessages(ints / dyears(NA)), nas)
-
+  expect_equal(ints / years(1), c(1, 2, NA))
+  expect_equal(ints / dyears(1), c(0.9993155, 1.9986311, NA), tolerance = 6)
+  expect_equal(ints / years(NA), nas)
+  expect_equal(ints / dyears(NA), nas)
 })
 
 test_that("division operations work for period numerator", {
@@ -155,4 +154,3 @@ test_that("dividing vectors works for durations", {
   expect_equal(dhours(9)/c(3, 1), dhours(c(3, 9)))
   expect_is(dhours(9)/c(3, 1), "Duration")
 })
-

@@ -5,30 +5,6 @@ NULL
 
 check_period <- function(object) {
   errors <- character()
-  ## if (!is.numeric(object@.Data)) {
-  ##   msg <- "seconds (.Data) value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@year)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@month)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@day)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@hour)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@minute)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
 
   length(object@.Data) -> n
   lengths <- c(length(object@year), length(object@month),
@@ -164,16 +140,35 @@ NULL
 setMethod("initialize", "Period", function(.Object, ...) {
   dots <- list(...)
   names(dots)[!nzchar(allNames(dots))] <- ".Data"
-  len <- max(unlist(lapply(dots, length), F, F))
+  lens <- unlist(lapply(dots, length), F, F)
+
+  ## if any 0-length components, the entire object is 0-length
+  if (any(lens == 0)) {
+    for (nm in slotNames(.Object))
+      slot(.Object, nm) <- numeric()
+    validObject(.Object)
+    return(.Object)
+  }
+
+  len <- max(lens)
+  nas <- FALSE
   for (nm in slotNames(.Object)) {
-    slot(.Object, nm) <-
+    el <-
       if (is.null(obj <- dots[[nm]])) {
         rep.int(0L, len)
       } else {
         if (length(obj) < len) rep_len(obj, len)
         else obj
       }
+    nas <- nas | is.na(el)
+    slot(.Object, nm) <- el
   }
+
+  ## If any component has NAs the entire object should have those NAs
+  secs <- slot(.Object, ".Data")
+  secs[nas] <- NA_real_
+  slot(.Object, ".Data") <- secs
+
   validObject(.Object)
   .Object
 })
@@ -404,8 +399,12 @@ period <- function(num = NULL, units = "second", ...) {
   if (is.character(num)) {
     parse_period(num)
   } else {
-    c(.period_from_num(num, units),
-      .period_from_units(list(...)))
+    out1 <- .period_from_num(num, units)
+    out2 <- .period_from_units(list(...))
+    if (is.null(out1) && is.null(out2)) new("Period", numeric())
+    else if (is.null(out1)) out2
+    else if (is.null(out2)) out1
+    else c(out1, out2)
   }
 }
 
@@ -422,7 +421,7 @@ parse_period <- function(x) {
 
 .period_from_num <- function(num, units) {
   if (length(num) == 0)
-    return(new("Period", numeric()))
+    return(NULL)
 
   if (!is.numeric(num)) {
     stop(sprintf("First argument to `period()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
@@ -435,44 +434,28 @@ parse_period <- function(x) {
   if (length(units) %% length(num) != 0)
     stop("Arguments `num` and `units` must have same length")
 
-  num <- num + rep(0, length(units))
-  unit <- standardise_date_names(units)
-  pieces <- setNames(as.list(num), unit)
-
-  defaults <- list(second = 0, minute = 0, hour = 0, day = 0, week = 0,
-                   month = 0, year = 0)
-  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
-  pieces$day <- pieces$day + 7 * pieces$week
-
-  new("Period", pieces$second, year = pieces$year, month = pieces$month,
-      day = pieces$day, hour = pieces$hour, minute = pieces$minute)
+  .period_from_units(structure(num, names = units))
 }
 
-.period_from_units <- function(units) {
-  if (length(units) == 0)
+.period_from_units <- function(pieces) {
+  if (length(pieces) == 0)
     return(NULL)
 
-  pieces <- data.frame(lapply(units, as.numeric))
+  if (!is.numeric(pieces))
+    pieces <- lapply(pieces, as.numeric)
 
-  ## fixme: syncronize this with the initialize method
-  names(pieces) <- standardise_date_names(names(pieces))
-  defaults <- data.frame(
-    second = 0, minute = 0, hour = 0, day = 0, week = 0,
-    month = 0, year = 0
-  )
+  out <- list(second = 0, minute = 0, hour = 0, day = 0,
+              week = 0, month = 0, year = 0)
 
-  if (nrow(pieces) == 0) defaults <- defaults[0, ]
+  unit <- standardise_date_names(names(pieces))
+  for (i in seq_along(unit)) {
+    nm <- unit[[i]]
+    out[[nm]] <- out[[nm]] + pieces[[i]]
+  }
+  out$day <- out$day + 7 * out$week
 
-  pieces <- cbind(pieces, defaults[setdiff(names(defaults), names(pieces))])
-  ## pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")]
-
-  pieces$day <- pieces$day + pieces$week * 7
-
-  na <- is.na(rowSums(pieces))
-  pieces$second[na] <- NA ## if any of supplied pieces is NA whole vector should be NA
-
-  new("Period", pieces$second, year = pieces$year, month = pieces$month,
-      day = pieces$day, hour = pieces$hour, minute = pieces$minute)
+  new("Period", out$second, year = out$year, month = out$month,
+      day = out$day, hour = out$hour, minute = out$minute)
 }
 
 #' @rdname period
@@ -537,9 +520,6 @@ seconds_to_period <- function(x) {
   span <- as.double(x)
   remainder <- abs(span)
   newper <- period(second = rep(0, length(x)))
-
-  ## slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
-  ## remainder <- remainder %% (3600 * 24 * 365.25)
 
   slot(newper, "day") <- remainder %/% (3600 * 24)
   remainder <- remainder %% (3600 * 24)

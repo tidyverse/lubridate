@@ -349,7 +349,7 @@ setMethod("as.period", signature(x = "character"), function(x, ...) {
 setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ...) {
   x <- as.numeric(x)
   if (missing(unit)) unit <- "second"
-  unit <- standardise_date_names(unit)
+  unit <- standardise_date_names(unit[[1]])
   f <- get(paste(unit, "s", sep = ""),
            envir = asNamespace("lubridate"),
            mode = "function", inherits = FALSE)
@@ -484,8 +484,8 @@ setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) 
   remainder <- abs(span)
   newper <- period(second = rep(0, length(x)))
 
-  slot(newper, "year") <- remainder %/% (3600 * 24 * 365)
-  remainder <- remainder %% (3600 * 24 * 365)
+  slot(newper, "year") <- remainder %/% average_durations[["year"]]
+  remainder <- remainder %% average_durations[["year"]]
 
   slot(newper, "day") <- remainder %/% (3600 * 24)
   remainder <- remainder %% (3600 * 24)
