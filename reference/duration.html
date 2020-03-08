@@ -156,6 +156,8 @@ larger than weeks are not used due to their variability.</p>
 
 <span class='fu'>dweeks</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
+<span class='fu'>dmonths</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+
 <span class='fu'>dyears</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='fu'>dmilliseconds</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>)
@@ -187,7 +189,9 @@ refers to. When <code>num</code> is character, this argument is ignored.</p></td
     <tr>
       <th>...</th>
       <td><p>a list of time units to be included in the duration and their
-amounts. Seconds, minutes, hours, days, and weeks are supported.</p></td>
+amounts. Seconds, minutes, hours, days, weeks, months and years are
+supported. Durations of months and years assume that year consists of
+365.25 days.</p></td>
     </tr>
     <tr>
       <th>x</th>

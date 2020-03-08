@@ -185,14 +185,14 @@
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2011</span>) ## regular year</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] FALSE</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; [1] "2012-01-01"</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; [1] "2012-01-01 06:00:00 UTC"</span></a>
 <a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; [1] "2012-01-01"</span></a>
 <a class="sourceLine" id="cb11-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8"><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2012</span>) ## leap year</a>
 <a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; [1] TRUE</span></a>
 <a class="sourceLine" id="cb11-10" data-line-number="10"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; [1] "2012-12-31"</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; [1] "2012-12-31 06:00:00 UTC"</span></a>
 <a class="sourceLine" id="cb11-12" data-line-number="12"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt; [1] "2013-01-01"</span></a></code></pre></div>
 <p>You can use periods and durations to do basic arithmetic with date times. For example, if I wanted to set up a reoccuring weekly skype meeting with Hadley, it would occur on:</p>

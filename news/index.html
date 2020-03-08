@@ -132,30 +132,34 @@
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
 <ul>
+<li>Year and month durations now assume 365.25 days in a year consistently in conversion and constructors. Particularly <code>dyears(1) == years(1)</code> is now <code>TRUE</code>.</li>
+<li>Format and print methods for 0-length objects are more consistent.</li>
+<li>New duration constructor <code><a href="../reference/duration.html">dmonths()</a></code> to complement other duration constructors.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/719"><a href='https://github.com/tidyverse/lubridate/issues/719'>#719</a></a> Negative Durations are now displayed with leading <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>.</li>
-<li>
-<a href="https://github.com/tidyverse/lubridate/issues/674"><a href='https://github.com/tidyverse/lubridate/issues/674'>#674</a></a> <code><a href="../reference/as_date.html">as_date()</a></code> now ignores the <code>tz</code> argument</li>
+<code><a href="../reference/duration.html">duration()</a></code> constructor now accepts <code>months</code> and <code>years</code> arguments.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/361"><a href='https://github.com/tidyverse/lubridate/issues/361'>#361</a></a> Accessors (<code><a href="../reference/year.html">year()</a></code>, <code><a href="../reference/month.html">month()</a></code>, <code><a href="../reference/day.html">mday()</a></code> etc) now all return integers</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/713"><a href='https://github.com/tidyverse/lubridate/issues/713'>#713</a></a> <code><a href="../reference/as_date.html">as_datetime()</a></code> always returns a <code><a href="../reference/posix_utils.html">POSIXct()</a></code>
-</li>
-<li>Format and print methods for 0-length objects are more consistent.</li>
-<li>
-<a href="https://github.com/tidyverse/lubridate/issues/707"><a href='https://github.com/tidyverse/lubridate/issues/707'>#707</a></a> Constructors return 0-length inputs when called with no arguments</li>
-<li>
-<a href="https://github.com/tidyverse/lubridate/issues/675"><a href='https://github.com/tidyverse/lubridate/issues/675'>#675</a></a> <code><a href="../reference/force_tz.html">force_tz()</a></code>, <code><a href="../reference/with_tz.html">with_tz()</a></code>, <code>tz&lt;-</code> convert dates to date-times</li>
+<a href="https://github.com/tidyverse/lubridate/issues/629"><a href='https://github.com/tidyverse/lubridate/issues/629'>#629</a></a> Added <code><a href="../reference/format_ISO8601.html">format_ISO8601()</a></code> methods.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/672"><a href='https://github.com/tidyverse/lubridate/issues/672'>#672</a></a> Eliminate all partial argument matches</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/695"><a href='https://github.com/tidyverse/lubridate/issues/695'>#695</a></a> Durations can now be compared with numeric vectors.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/674"><a href='https://github.com/tidyverse/lubridate/issues/674'>#674</a></a> <code><a href="../reference/as_date.html">as_date()</a></code> now ignores the <code>tz</code> argument</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/675"><a href='https://github.com/tidyverse/lubridate/issues/675'>#675</a></a> <code><a href="../reference/force_tz.html">force_tz()</a></code>, <code><a href="../reference/with_tz.html">with_tz()</a></code>, <code>tz&lt;-</code> convert dates to date-times</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/681"><a href='https://github.com/tidyverse/lubridate/issues/681'>#681</a></a> New constants <code>NA_Date_</code> and <code>NA_POSIXct_</code> which parallel built-in primitive constants.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/681"><a href='https://github.com/tidyverse/lubridate/issues/681'>#681</a></a> New constructors <code><a href="../reference/date_utils.html">Date()</a></code> and <code><a href="../reference/posix_utils.html">POSIXct()</a></code> which parallel built-in primitive constructors.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/629"><a href='https://github.com/tidyverse/lubridate/issues/629'>#629</a></a> Added <code><a href="../reference/format_ISO8601.html">format_ISO8601()</a></code> methods.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/695"><a href='https://github.com/tidyverse/lubridate/issues/695'>#695</a></a> Durations can now be compared with numeric vectors.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/707"><a href='https://github.com/tidyverse/lubridate/issues/707'>#707</a></a> Constructors return 0-length inputs when called with no arguments</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/713"><a href='https://github.com/tidyverse/lubridate/issues/713'>#713</a></a> <code><a href="../reference/as_date.html">as_datetime()</a></code> always returns a <code><a href="../reference/posix_utils.html">POSIXct()</a></code>
+</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/719"><a href='https://github.com/tidyverse/lubridate/issues/719'>#719</a></a> Negative Durations are now displayed with leading <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/829"><a href='https://github.com/tidyverse/lubridate/issues/829'>#829</a></a> <code><a href="../reference/within-interval.html">%within%</a></code> throws more meaningful messages when applied on unsupported classes</li>
 <li>
@@ -167,10 +171,10 @@
 <a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/778"><a href='https://github.com/tidyverse/lubridate/issues/778'>#778</a></a> <code><a href="../reference/duration.html">duration()</a></code> works with repeated units</li>
-<li>
 <a href="https://github.com/tidyverse/lubridate/issues/682"><a href='https://github.com/tidyverse/lubridate/issues/682'>#682</a></a> Fix quarter extraction with small <code>fiscal_start</code>s.</li>
-<li><p><a href="https://github.com/tidyverse/lubridate/issues/703"><a href='https://github.com/tidyverse/lubridate/issues/703'>#703</a></a> <code><a href="../reference/leap_year.html">leap_year()</a></code> works with objects supported by <code><a href="../reference/year.html">year()</a></code>.</p></li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/703"><a href='https://github.com/tidyverse/lubridate/issues/703'>#703</a></a> <code><a href="../reference/leap_year.html">leap_year()</a></code> works with objects supported by <code><a href="../reference/year.html">year()</a></code>.</li>
+<li><p><a href="https://github.com/tidyverse/lubridate/issues/778"><a href='https://github.com/tidyverse/lubridate/issues/778'>#778</a></a> <code>duration()/period()/make_difftime()</code> work with repeated units</p></li>
 <li><p><code>c.Period</code> concatenation doesn’t fail with empty components.</p></li>
 </ul>
 </div>
