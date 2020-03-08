@@ -205,9 +205,7 @@ test_that("adding vectors works as expected for durations", {
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   int <- interval(time1, time2)
-
   expect_error(dyears(1:2) + int)
-
 })
 
 test_that("adding vectors works as expected for intervals", {
@@ -311,8 +309,23 @@ test_that("addition with period months and years returns NA when appropriate", {
 
 })
 
-test_that("addition with durations containing NA", {
+test_that("addition with singleton NAs periods work", {
+  days1 <- days(NA_real_)
+  months1 <- months(NA_real_)
+  years1 <- years(NA_real_)
 
+  x <- as.Date("2019-01-01")
+  y <- as.POSIXct("2019-01-01", "UTC")
+
+  expect_equal(x + days1, as.Date(NA))
+  expect_equal(y + days1, NA_POSIXct_)
+  expect_equal(x + months1, as.Date(NA))
+  expect_equal(y + months1, NA_POSIXct_)
+  expect_equal(x + years1, as.Date(NA))
+  expect_equal(y + years1, NA_POSIXct_)
+})
+
+test_that("addition with durations containing NA", {
   dt <- ymd(20161018)
   dt_1 <- ymd(20161019)
 
@@ -331,5 +344,4 @@ test_that("addition with durations containing NA", {
   expect_equal(ans_1na, c(dt_1, NA))
   expect_equal(ans_na1, rev(c(dt_1, NA)))
   expect_equal(ans_nana, as.Date(c(NA, NA)))
-
 })
