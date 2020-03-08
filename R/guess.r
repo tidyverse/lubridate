@@ -176,9 +176,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   m <- regexpr(reg, x, ignore.case = TRUE, perl = TRUE)
   ## print(regs[[1]])
-  matched <- m > 0
+  matched <- which(m > 0)
 
-  if (any(matched)) {
+  if (length(matched) > 0) {
     nms <- attr(m, "capture.names")
     nms <- nms[nzchar(nms)]
     ## e <- grepl("_e", nms, fixed = TRUE)
@@ -192,8 +192,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     for (n in rev(nms)) {  ## start from the end
       w <- end[, n] > 0 ## -1 if unmatched  subpatern
       lout[w] <- .str_sub(
-        lout[w], start[w, n], end[w, n], 
-        paste("%", gsub("_.*$", "", n), sep = "") 
+        lout[w], start[w, n], end[w, n],
+        paste("%", gsub("_.*$", "", n), sep = "")
       )
     }
     if (fmts_only)

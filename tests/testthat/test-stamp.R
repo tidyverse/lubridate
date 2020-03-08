@@ -132,8 +132,14 @@ test_that("stamp works with ISO-8601 formats", {
   ##              "2012-12-31T18:30:00+0000 KK")
 })
 
+test_that("stamp works with missing date-times", {
+  f <- stamp(c("2019-26-04", NA_character_), quiet = TRUE)
+  dt <- ymd_hms("2000-01-02 00:00:00")
+  expect_equal(f(dt), "2000-02-01")
+})
+
 test_that("stamp recognizes correctly B orders", {
-  formater <- stamp("Sunday, November 30, 23:15", "ABdHM")
+  formater <- stamp("Sunday, November 30, 23:15", "ABdHM", quiet = TRUE)
   x <- ymd_hm(c("2017-01-20 15:15", "2017-02-11 10:10"))
   expect_equal(formater(x), c("Friday, January 20, 15:15", "Saturday, February 11, 10:10"))
 })
