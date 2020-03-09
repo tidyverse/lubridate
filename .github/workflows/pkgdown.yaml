@@ -13,9 +13,9 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "tidytemplate"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
+          remotes::install_github("tidyverse/tidytemplate")
         shell: Rscript {0}
       - name: Install package
         run: R CMD INSTALL .
