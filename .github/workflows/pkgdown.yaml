@@ -13,6 +13,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
       - name: Install dependencies
         run: |
+          install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
           remotes::install_github("tidyverse/tidytemplate")
