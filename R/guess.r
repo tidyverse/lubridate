@@ -238,7 +238,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   sort(successes, decreasing = TRUE)
 }
 
-.best_formats <- function(x, orders, locale, .select_formats, drop = FALSE) {
+.best_formats <- function(x, orders, locale, .select_formats = .select_formats, drop = FALSE) {
   ## return a vector of formats that matched X at least once.
   ## Can be zero length vector, if none matched
 
@@ -297,8 +297,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     return(get(locale, envir = .locale_reg_cache))
 
   orig_opt <- options(warn = 5)
-  on.exit({Sys.setlocale("LC_TIME", orig_locale)
-           options(orig_opt)})
+  on.exit({
+    options(orig_opt);
+    Sys.setlocale("LC_TIME", orig_locale)
+  })
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   options(orig_opt)

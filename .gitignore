@@ -20,7 +20,7 @@ TAGS
 test.R
 paper/auto/
 revdep/
-CRAN_notes.*
+cran-notes.*
 announcement.*
 *.Rcheck
 *.tar.gz

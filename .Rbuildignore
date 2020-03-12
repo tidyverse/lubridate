@@ -11,7 +11,7 @@
 ^TAGS
 ^test.R$
 ^tmp.R$
-^CRAN_notes.md
+^cran-notes.md
 ^announcement.md
 ^revdep/
 ^codecov\.yml$
