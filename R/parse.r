@@ -674,12 +674,12 @@ parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, c
   if (!exact)
     orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
   if (lt) {
-    .mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz)
+    .mklt(parse_dt(x, orders, exact, TRUE, cutoff_2000), tz)
   } else {
     if (is_utc(tz)){
-      .POSIXct(parse_dt(x, orders, FALSE, FALSE, cutoff_2000), tz = "UTC")
+      .POSIXct(parse_dt(x, orders, exact, FALSE, cutoff_2000), tz = "UTC")
     } else {
-      as.POSIXct(.mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz))
+      as.POSIXct(.mklt(parse_dt(x, orders, exact, TRUE, cutoff_2000), tz))
     }
   }
 }

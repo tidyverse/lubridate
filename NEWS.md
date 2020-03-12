@@ -26,8 +26,8 @@ Version 1.7.4.9000
 * [#682](https://github.com/tidyverse/lubridate/issues/682) Fix quarter extraction with small `fiscal_start`s.
 * [#703](https://github.com/tidyverse/lubridate/issues/703) `leap_year()` works with objects supported by `year()`.
 * [#778](https://github.com/tidyverse/lubridate/issues/778) `duration()/period()/make_difftime()` work with repeated units
-
 * `c.Period` concatenation doesn't fail with empty components.
+* Honor `exact = TRUE` argument in `parse_date_time2`, which was so far ignored.
 
 Version 1.7.4
 =============

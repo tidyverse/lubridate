@@ -786,6 +786,16 @@ test_that("ymd_hms, parse_date_time2, fast_strptime and base:strptime give the s
   expect_equal(tzs, tzfs)
 })
 
+test_that("`parse_date_time2` parses formats with `exact=TRUE`", {
+  ## https://github.com/hadley/lubridate/issues/326
+  expect_equal(parse_date_time(c("12/17/1996 04:00:00"), "%m/%d/%Y %I:%M:%S", exact = T),
+               as.POSIXct(c("1996-12-17 04:00:00 UTC"), tz = "UTC"))
+  expect_equal(parse_date_time(c("021321", "021320"), c("%m%d%y"), exact = TRUE),
+               as.POSIXct(c("2021-02-13 00:00:00 UTC", "2020-02-13 00:00:00 UTC"),
+                          tz = "UTC"))
+})
+
+
 test_that("fast_strptime and parse_date_time2 parse correctly verbose formats", {
   expect_equal(fast_strptime("aa 2000 bbb10ccc 12 zzz", "aa %Y bbb%mccc %d zzz"),
                as.POSIXct("2000-10-12", tz = "UTC"))
@@ -842,6 +852,7 @@ test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
                             NA,  "2003-09-01 12:02:00 UTC"),
                           tz = "UTC"))
 })
+
 
 test_that("parser ignores case", {
   ref <- ymd_hms("2016-01-04 07:40:00", "2016-01-04 07:40:00", "2016-01-04 07:40:00 UTC")
