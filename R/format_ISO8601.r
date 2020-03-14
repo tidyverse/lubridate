@@ -108,9 +108,9 @@ ISO8601_precision_map <-
 #' @param max_precision The maximum precision allowed to be output.
 #' @param usetz Include the timezone in the output format
 #' @keywords internal
-#' When \code{NULL}, \code{max_precision} is returned.  When \code{precision} is
-#' more precise than \code{max_precision}, a warning is given and
-#' \code{max_precision} is returned.
+#' When `NULL`, `max_precision` is returned.  When `precision` is
+#' more precise than `max_precision`, a warning is given and
+#' `max_precision` is returned.
 format_ISO8601_precision_check <- function(precision, max_precision, usetz=FALSE) {
   if (!(max_precision %in% names(ISO8601_precision_map))) {
     stop("Invalid value for max_precision provided: ", max_precision)

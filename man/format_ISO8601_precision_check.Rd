@@ -19,10 +19,10 @@ format_ISO8601_precision_check(precision, max_precision, usetz = FALSE)
 Provide a format for ISO8601 dates and times with the requested precision.
 }
 \keyword{When}
-\keyword{\code{NULL},}
-\keyword{\code{max_precision}}
-\keyword{\code{max_precision},}
-\keyword{\code{precision}}
+\keyword{`NULL`,}
+\keyword{`max_precision`}
+\keyword{`max_precision`,}
+\keyword{`precision`}
 \keyword{a}
 \keyword{and}
 \keyword{given}
