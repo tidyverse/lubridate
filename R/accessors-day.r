@@ -16,7 +16,8 @@ NULL
 #'   disregarded if label = FALSE.
 #' @param value a numeric object
 #' @param week_start day on which week starts following ISO conventions - 1
-#'   means Monday, 7 means Sunday (default). You can set `lubridate.week.start`
+#'   means Monday, 7 means Sunday (default). When `label = TRUE`, this will be
+#'   the first level of the returned factor. You can set `lubridate.week.start`
 #'   option to control this parameter globally.
 #' @param locale locale to use for day names. Default to current locale.
 #' @return `wday()` returns the day of the week as a decimal number or an

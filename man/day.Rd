@@ -53,7 +53,8 @@ will display an abbreviated version of the label, such as "Sun". abbr is
 disregarded if label = FALSE.}
 
 \item{week_start}{day on which week starts following ISO conventions - 1
-means Monday, 7 means Sunday (default). You can set \code{lubridate.week.start}
+means Monday, 7 means Sunday (default). When \code{label = TRUE}, this will be
+the first level of the returned factor. You can set \code{lubridate.week.start}
 option to control this parameter globally.}
 
 \item{locale}{locale to use for day names. Default to current locale.}
