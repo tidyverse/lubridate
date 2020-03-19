@@ -21,8 +21,8 @@ Error: No common type for `x` <Duration> and `y` <Interval>.
 Error: No common type for `x` <Interval> and `y` <Duration>.
 
 
-Period default method falls through to `vec_default_ptype2()`
-=============================================================
+Period default ptype2 method falls through to `vec_default_ptype2()`
+====================================================================
 
 > vec_ptype2(period(), 1)
 Error: No common type for `x` <Period> and `y` <double>.
@@ -31,8 +31,8 @@ Error: No common type for `x` <Period> and `y` <double>.
 Error: No common type for `x` <double> and `y` <Period>.
 
 
-Duration default method falls through to `vec_default_ptype2()`
-===============================================================
+Duration default ptype2 method falls through to `vec_default_ptype2()`
+======================================================================
 
 > vec_ptype2(duration(), 1)
 Error: No common type for `x` <Duration> and `y` <double>.
@@ -41,8 +41,8 @@ Error: No common type for `x` <Duration> and `y` <double>.
 Error: No common type for `x` <double> and `y` <Duration>.
 
 
-Interval default method falls through to `vec_default_ptype2()`
-===============================================================
+Interval default ptype2 method falls through to `vec_default_ptype2()`
+======================================================================
 
 > vec_ptype2(interval(), 1)
 Error: No common type for `x` <Interval> and `y` <double>.

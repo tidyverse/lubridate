@@ -21,7 +21,7 @@ test_that("no common type when mixing Period/Duration/Interval", {
 # ------------------------------------------------------------------------------
 # Period - ptype2
 
-test_that("Period default method falls through to `vec_default_ptype2()`", {
+test_that("Period default ptype2 method falls through to `vec_default_ptype2()`", {
   verify_errors({
     expect_error(vec_ptype2(period(), 1), class = "vctrs_error_incompatible_type")
     expect_error(vec_ptype2(1, period()), class = "vctrs_error_incompatible_type")
@@ -48,7 +48,7 @@ test_that("common type of Period and unspecified exists", {
 # ------------------------------------------------------------------------------
 # Duration - ptype2
 
-test_that("Duration default method falls through to `vec_default_ptype2()`", {
+test_that("Duration default ptype2 method falls through to `vec_default_ptype2()`", {
   verify_errors({
     expect_error(vec_ptype2(duration(), 1), class = "vctrs_error_incompatible_type")
     expect_error(vec_ptype2(1, duration()), class = "vctrs_error_incompatible_type")
@@ -80,7 +80,7 @@ test_that("common type of Duration and difftime is Duration", {
 # ------------------------------------------------------------------------------
 # Interval - ptype2
 
-test_that("Interval default method falls through to `vec_default_ptype2()`", {
+test_that("Interval default ptype2 method falls through to `vec_default_ptype2()`", {
   verify_errors({
     expect_error(vec_ptype2(interval(), 1), class = "vctrs_error_incompatible_type")
     expect_error(vec_ptype2(1, interval()), class = "vctrs_error_incompatible_type")
@@ -118,15 +118,15 @@ test_that("vctrs methods have informative errors", {
     vec_ptype2(duration(), interval())
     vec_ptype2(interval(), duration())
 
-    "# Period default method falls through to `vec_default_ptype2()`"
+    "# Period default ptype2 method falls through to `vec_default_ptype2()`"
     vec_ptype2(period(), 1)
     vec_ptype2(1, period())
 
-    "# Duration default method falls through to `vec_default_ptype2()`"
+    "# Duration default ptype2 method falls through to `vec_default_ptype2()`"
     vec_ptype2(duration(), 1)
     vec_ptype2(1, duration())
 
-    "# Interval default method falls through to `vec_default_ptype2()`"
+    "# Interval default ptype2 method falls through to `vec_default_ptype2()`"
     vec_ptype2(interval(), 1)
     vec_ptype2(1, interval())
   })
