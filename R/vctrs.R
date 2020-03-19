@@ -77,7 +77,7 @@ vec_proxy_period <- function(x) {
 
   n <- length(x@year)
 
-  new_data_frame(cols, n = n)
+  vctrs::new_data_frame(cols, n = n)
 }
 
 # ------------------------------------------------------------------------------
