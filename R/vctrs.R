@@ -20,6 +20,67 @@ new_empty_interval <- function() {
 }
 
 # ------------------------------------------------------------------------------
+# Period - proxy / restore
+
+# Method registered in `.onLoad()`
+vec_proxy.Period <- function(x, ...) {
+  out <- vec_proxy_period(x)
+
+  # Track vector names as an extra column since data frame
+  # row names must be unique
+  names <- names(x)
+  if (!is.null(names)) {
+    out[["rcrd_names"]] <- names
+  }
+
+  out
+}
+
+# Method registered in `.onLoad()`
+vec_proxy_compare.Period <- function(x, ...) {
+  vec_proxy_period(x)
+}
+
+# Method registered in `.onLoad()`
+vec_proxy_equal.Period <- function(x, ...) {
+  vec_proxy_period(x)
+}
+
+# Method registered in `.onLoad()`
+vec_restore.Period <- function(x, to, ...) {
+  out <- period(
+    year = x$year,
+    month = x$month,
+    day = x$day,
+    hour = x$hour,
+    minute = x$minute,
+    second = x$second
+  )
+
+  names <- x$rcrd_names
+  if (!is.null(names)) {
+    names(out) <- names
+  }
+
+  out
+}
+
+vec_proxy_period <- function(x) {
+  cols <- list(
+    year = x@year,
+    month = x@month,
+    day = x@day,
+    hour = x@hour,
+    minute = x@minute,
+    second = x@.Data
+  )
+
+  n <- length(x@year)
+
+  new_data_frame(cols, n = n)
+}
+
+# ------------------------------------------------------------------------------
 # Period - ptype2
 
 # Method registered in `.onLoad()`

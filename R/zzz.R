@@ -25,6 +25,10 @@
   }
 
   on_package_load("vctrs", {
+    register_s3_method("vctrs", "vec_proxy", "Period")
+    register_s3_method("vctrs", "vec_proxy_compare", "Period")
+    register_s3_method("vctrs", "vec_proxy_equal", "Period")
+    register_s3_method("vctrs", "vec_restore", "Period")
     register_s3_method("vctrs", "vec_ptype2", "Period")
     register_s3_method("vctrs", "vec_cast", "Period")
 

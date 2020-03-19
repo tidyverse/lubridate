@@ -32,6 +32,42 @@ test_that("can't cast between Period/Duration/Interval", {
 })
 
 # ------------------------------------------------------------------------------
+# Period - proxy / restore
+
+test_that("proxy is a data frame", {
+  x <- period(year = 1:2, day = 3:4)
+
+  expect <- list(
+    year = x@year, month = x@month, day = x@day,
+    hour = x@hour, minute = x@minute, second = x@.Data
+  )
+
+  expect <- new_data_frame(expect)
+
+  expect_identical(vec_proxy(x), expect)
+})
+
+test_that("proxy can optionally store vector names in the last column (allowing duplicates)", {
+  skip_if_cant_set_s4_names()
+
+  x <- stats::setNames(days(1:3), c("x", "y", "x"))
+
+  proxy <- vec_proxy(x)
+
+  expect_identical(proxy$rcrd_names, names(x))
+  expect_identical(match("rcrd_names", names(proxy)), ncol(proxy))
+})
+
+test_that("comparison / equality proxies don't have the names column", {
+  skip_if_cant_set_s4_names()
+
+  x <- stats::setNames(days(1:3), c("x", "y", "x"))
+
+  expect_null(vec_proxy_compare(x)$rcrd_names)
+  expect_null(vec_proxy_equal(x)$rcrd_names)
+})
+
+# ------------------------------------------------------------------------------
 # Period - ptype2
 
 test_that("Period default ptype2 method falls through to `vec_default_ptype2()`", {
@@ -80,6 +116,50 @@ test_that("can cast around `NULL`", {
 test_that("can cast unspecified to Period", {
   expect_identical(vec_cast(NA, period()), period()[NA_real_])
   expect_error(vec_cast(period(), NA), class = "vctrs_error_incompatible_cast")
+})
+
+# ------------------------------------------------------------------------------
+# Period - vctrs functionality
+
+test_that("can slice Period objects", {
+  expect_identical(vec_slice(days(3:4), 2:1), days(4:3))
+})
+
+test_that("slicing preserves names", {
+  skip_if_cant_set_s4_names()
+  x <- stats::setNames(days(1:2), c("x", "y"))
+  expect_named(vec_slice(x, c(1, 1, 2)), c("x", "x", "y"))
+})
+
+test_that("can combine Period objects", {
+  expect_identical(vec_c(days(1), days(2)), days(1:2))
+})
+
+test_that("can row bind Period objects", {
+  skip_if_cant_set_s4_names()
+  x <- stats::setNames(days(1), "x")
+  expect_identical(vec_rbind(x, x), data.frame(x = c(x, x)))
+})
+
+test_that("can row bind data frames with Period objects", {
+  expect_identical(
+    vec_rbind(data.frame(x = days(1)), data.frame(x = days(1))),
+    data.frame(x = days(c(1, 1)))
+  )
+})
+
+test_that("can column bind Period objects", {
+  expect_identical(
+    vec_cbind(x = days(1), y = days(1:2)),
+    data.frame(x = days(c(1, 1)), y = days(1:2))
+  )
+})
+
+test_that("can column bind data frames with Period objects", {
+  expect_identical(
+    vec_cbind(data.frame(x = days(1)), data.frame(y = days(1:2))),
+    data.frame(x = days(c(1, 1)), y = days(1:2))
+  )
 })
 
 # ------------------------------------------------------------------------------
@@ -195,6 +275,7 @@ test_that("can cast unspecified to Interval", {
 })
 
 # ------------------------------------------------------------------------------
+# Output
 
 test_that("vctrs methods have informative errors", {
   verify_output(test_path("output", "test-vctrs.txt"), {
