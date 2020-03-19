@@ -22,6 +22,7 @@ new_empty_interval <- function() {
 # ------------------------------------------------------------------------------
 # Period - ptype2
 
+# Method registered in `.onLoad()`
 #' @rdname lubridate-vctrs
 #' @export vec_ptype2.Period
 #' @export
@@ -44,6 +45,7 @@ vec_ptype2.Period.Period <- function(x, y, ...) {
 # ------------------------------------------------------------------------------
 # Duration - ptype2
 
+# Method registered in `.onLoad()`
 #' @rdname lubridate-vctrs
 #' @export vec_ptype2.Duration
 #' @export
@@ -77,6 +79,7 @@ vec_ptype2.difftime.Duration <- function(x, y, ...) {
 # ------------------------------------------------------------------------------
 # Interval - ptype2
 
+# Method registered in `.onLoad()`
 #' @rdname lubridate-vctrs
 #' @export vec_ptype2.Interval
 #' @export
