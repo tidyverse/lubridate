@@ -67,6 +67,17 @@ test_that("comparison / equality proxies don't have the names column", {
   expect_null(vec_proxy_equal(x)$rcrd_names)
 })
 
+test_that("restore method works", {
+  x <- period(year = 1:2, day = 3:4)
+  expect_identical(vec_restore(vec_proxy(x), x), x)
+})
+
+test_that("restore method retains names", {
+  skip_if_cant_set_s4_names()
+  x <- stats::setNames(days(1), "x")
+  expect_named(vec_restore(vec_proxy(x), x), "x")
+})
+
 # ------------------------------------------------------------------------------
 # Period - ptype2
 
