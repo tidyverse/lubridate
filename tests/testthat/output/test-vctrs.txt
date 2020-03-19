@@ -1,0 +1,52 @@
+
+no common type when mixing Period/Duration/Interval
+===================================================
+
+> vec_ptype2(period(), duration())
+Error: No common type for `x` <Period> and `y` <Duration>.
+
+> vec_ptype2(duration(), period())
+Error: No common type for `x` <Duration> and `y` <Period>.
+
+> vec_ptype2(period(), interval())
+Error: No common type for `x` <Period> and `y` <Interval>.
+
+> vec_ptype2(interval(), period())
+Error: No common type for `x` <Interval> and `y` <Period>.
+
+> vec_ptype2(duration(), interval())
+Error: No common type for `x` <Duration> and `y` <Interval>.
+
+> vec_ptype2(interval(), duration())
+Error: No common type for `x` <Interval> and `y` <Duration>.
+
+
+Period default method falls through to `vec_default_ptype2()`
+=============================================================
+
+> vec_ptype2(period(), 1)
+Error: No common type for `x` <Period> and `y` <double>.
+
+> vec_ptype2(1, period())
+Error: No common type for `x` <double> and `y` <Period>.
+
+
+Duration default method falls through to `vec_default_ptype2()`
+===============================================================
+
+> vec_ptype2(duration(), 1)
+Error: No common type for `x` <Duration> and `y` <double>.
+
+> vec_ptype2(1, duration())
+Error: No common type for `x` <double> and `y` <Duration>.
+
+
+Interval default method falls through to `vec_default_ptype2()`
+===============================================================
+
+> vec_ptype2(interval(), 1)
+Error: No common type for `x` <Interval> and `y` <double>.
+
+> vec_ptype2(1, interval())
+Error: No common type for `x` <double> and `y` <Interval>.
+

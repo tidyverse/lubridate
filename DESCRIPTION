@@ -56,7 +56,8 @@ Imports:
 Suggests:
     covr,
     knitr,
-    testthat
+    testthat (>= 2.1.0),
+    vctrs (>= 0.2.4)
 Enhances:
     chron,
     timeDate,
@@ -122,4 +123,5 @@ Collate:
     'round.r'
     'stamp.r'
     'update.r'
+    'vctrs.R'
     'zzz.R'
