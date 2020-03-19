@@ -1,3 +1,4 @@
+# nocov start
 
 .onLoad <- function(libname, pkgname) {
   ## CCTZ needs zoneinfo. On windows we set it to R's own zoneinfo. On unix like
@@ -23,3 +24,5 @@
     }
   }
 }
+
+#nocov end
