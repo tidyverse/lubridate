@@ -21,6 +21,28 @@ Error: No common type for `x` <Duration> and `y` <Interval>.
 Error: No common type for `x` <Interval> and `y` <Duration>.
 
 
+can't cast between Period/Duration/Interval
+===========================================
+
+> vec_cast(period(), duration())
+Error: Can't cast `x` <Period> to `to` <Duration>.
+
+> vec_cast(duration(), period())
+Error: Can't cast `x` <Duration> to `to` <Period>.
+
+> vec_cast(period(), interval())
+Error: Can't cast `x` <Period> to `to` <Interval>.
+
+> vec_cast(interval(), period())
+Error: Can't cast `x` <Interval> to `to` <Period>.
+
+> vec_cast(duration(), interval())
+Error: Can't cast `x` <Duration> to `to` <Interval>.
+
+> vec_cast(interval(), duration())
+Error: Can't cast `x` <Interval> to `to` <Duration>.
+
+
 Period default ptype2 method falls through to `vec_default_ptype2()`
 ====================================================================
 
@@ -29,6 +51,16 @@ Error: No common type for `x` <Period> and `y` <double>.
 
 > vec_ptype2(1, period())
 Error: No common type for `x` <double> and `y` <Period>.
+
+
+Period default cast method falls through to `vec_default_cast()`
+================================================================
+
+> vec_cast(period(), 1)
+Error: Can't cast `x` <Period> to `to` <double>.
+
+> vec_cast(1, period())
+Error: Can't cast `x` <double> to `to` <Period>.
 
 
 Duration default ptype2 method falls through to `vec_default_ptype2()`
@@ -41,6 +73,16 @@ Error: No common type for `x` <Duration> and `y` <double>.
 Error: No common type for `x` <double> and `y` <Duration>.
 
 
+Duration default cast method falls through to `vec_default_cast()`
+==================================================================
+
+> vec_cast(duration(), 1)
+Error: Can't cast `x` <Duration> to `to` <double>.
+
+> vec_cast(1, duration())
+Error: Can't cast `x` <double> to `to` <Duration>.
+
+
 Interval default ptype2 method falls through to `vec_default_ptype2()`
 ======================================================================
 
@@ -49,4 +91,14 @@ Error: No common type for `x` <Interval> and `y` <double>.
 
 > vec_ptype2(1, interval())
 Error: No common type for `x` <double> and `y` <Interval>.
+
+
+Interval default cast method falls through to `vec_default_cast()`
+==================================================================
+
+> vec_cast(interval(), 1)
+Error: Can't cast `x` <Interval> to `to` <double>.
+
+> vec_cast(1, interval())
+Error: Can't cast `x` <double> to `to` <Interval>.
 

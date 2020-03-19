@@ -26,9 +26,15 @@
 
   on_package_load("vctrs", {
     register_s3_method("vctrs", "vec_ptype2", "Period")
+    register_s3_method("vctrs", "vec_cast", "Period")
+
     register_s3_method("vctrs", "vec_ptype2", "Duration")
     register_s3_method("vctrs", "vec_ptype2.difftime", "Duration")
+    register_s3_method("vctrs", "vec_cast", "Duration")
+    register_s3_method("vctrs", "vec_cast.difftime", "Duration")
+
     register_s3_method("vctrs", "vec_ptype2", "Interval")
+    register_s3_method("vctrs", "vec_cast", "Interval")
   })
 }
 

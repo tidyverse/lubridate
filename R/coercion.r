@@ -180,9 +180,10 @@ setMethod("as.duration", signature(x = "logical"), function(x) {
   new("Duration", as.numeric(x))
 })
 
-setMethod("as.duration", signature(x = "difftime"), function(x) {
+as_duration_from_difftime <- function(x) {
   new("Duration", as.numeric(x, "secs"))
-})
+}
+setMethod("as.duration", signature(x = "difftime"), as_duration_from_difftime)
 
 setMethod("as.duration", signature(x = "Interval"), function(x) {
   new("Duration", x@.Data)
@@ -532,10 +533,11 @@ setMethod("as.difftime", signature(tim = "Interval"), function(tim, format = "%X
   as.difftime(as.numeric(tim, units), format, units)
 })
 
-#' @export
-setMethod("as.difftime", signature(tim = "Duration"), function(tim, format = "%X", units = "secs") {
+as_difftime_from_duration <- function(tim, format = "%X", units = "secs") {
   as.difftime(tim@.Data, format, units)
-})
+}
+#' @export
+setMethod("as.difftime", signature(tim = "Duration"), as_difftime_from_duration)
 
 #' @export
 setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X", units = "secs") {

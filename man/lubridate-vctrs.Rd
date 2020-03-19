@@ -3,15 +3,24 @@
 \name{lubridate-vctrs}
 \alias{lubridate-vctrs}
 \alias{vec_ptype2.Period}
+\alias{vec_cast.Period}
 \alias{vec_ptype2.Duration}
+\alias{vec_cast.Duration}
 \alias{vec_ptype2.Interval}
+\alias{vec_cast.Interval}
 \title{vctrs methods for lubridate}
 \usage{
 vec_ptype2.Period(x, y, ...)
 
+vec_cast.Period(x, to, ...)
+
 vec_ptype2.Duration(x, y, ...)
 
+vec_cast.Duration(x, to, ...)
+
 vec_ptype2.Interval(x, y, ...)
+
+vec_cast.Interval(x, to, ...)
 }
 \description{
 vctrs methods for lubridate

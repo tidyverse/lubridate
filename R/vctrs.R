@@ -43,6 +43,29 @@ vec_ptype2.Period.Period <- function(x, y, ...) {
 }
 
 # ------------------------------------------------------------------------------
+# Period - cast
+
+# Method registered in `.onLoad()`
+#' @rdname lubridate-vctrs
+#' @export vec_cast.Period
+#' @export
+vec_cast.Period <- function(x, to, ...) {
+  UseMethod("vec_cast.Period", x)
+}
+
+#' @method vec_cast.Period default
+#' @export
+vec_cast.Period.default <- function(x, to, ...) {
+  vctrs::vec_default_cast(x, to, ...)
+}
+
+#' @method vec_cast.Period Period
+#' @export
+vec_cast.Period.Period <- function(x, to, ...) {
+  x
+}
+
+# ------------------------------------------------------------------------------
 # Duration - ptype2
 
 # Method registered in `.onLoad()`
@@ -77,6 +100,40 @@ vec_ptype2.difftime.Duration <- function(x, y, ...) {
 }
 
 # ------------------------------------------------------------------------------
+# Duration - cast
+
+# Method registered in `.onLoad()`
+#' @rdname lubridate-vctrs
+#' @export vec_cast.Duration
+#' @export
+vec_cast.Duration <- function(x, to, ...) {
+  UseMethod("vec_cast.Duration", x)
+}
+
+#' @method vec_cast.Duration default
+#' @export
+vec_cast.Duration.default <- function(x, to, ...) {
+  vctrs::vec_default_cast(x, to, ...)
+}
+
+#' @method vec_cast.Duration Duration
+#' @export
+vec_cast.Duration.Duration <- function(x, to, ...) {
+  x
+}
+
+#' @method vec_cast.Duration difftime
+#' @export
+vec_cast.Duration.difftime <- function(x, to, ...) {
+  as_duration_from_difftime(x)
+}
+
+# Registered in `.onLoad()`
+vec_cast.difftime.Duration <- function(x, to, ...) {
+  as_difftime_from_duration(x)
+}
+
+# ------------------------------------------------------------------------------
 # Interval - ptype2
 
 # Method registered in `.onLoad()`
@@ -97,4 +154,27 @@ vec_ptype2.Interval.default <- function(x, y, ...) {
 #' @export
 vec_ptype2.Interval.Interval <- function(x, y, ...) {
   new_empty_interval()
+}
+
+# ------------------------------------------------------------------------------
+# Interval - cast
+
+# Method registered in `.onLoad()`
+#' @rdname lubridate-vctrs
+#' @export vec_cast.Interval
+#' @export
+vec_cast.Interval <- function(x, to, ...) {
+  UseMethod("vec_cast.Interval", x)
+}
+
+#' @method vec_cast.Interval default
+#' @export
+vec_cast.Interval.default <- function(x, to, ...) {
+  vctrs::vec_default_cast(x, to, ...)
+}
+
+#' @method vec_cast.Interval Interval
+#' @export
+vec_cast.Interval.Interval <- function(x, to, ...) {
+  x
 }
