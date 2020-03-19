@@ -267,6 +267,51 @@ test_that("Duration can be cast to and from difftime", {
 })
 
 # ------------------------------------------------------------------------------
+# Duration - vctrs functionality
+
+test_that("can slice Duration objects", {
+  expect_identical(vec_slice(ddays(3:4), 2:1), ddays(4:3))
+})
+
+test_that("slicing preserves names", {
+  skip_if_cant_set_s4_names()
+  x <- stats::setNames(ddays(1:2), c("x", "y"))
+  expect_named(vec_slice(x, c(1, 1, 2)), c("x", "x", "y"))
+})
+
+test_that("can combine Duration objects", {
+  expect_identical(vec_c(ddays(1), ddays(2)), ddays(1:2))
+})
+
+test_that("can row bind Duration objects", {
+  skip_if_cant_set_s4_names()
+  x <- ddays(1)
+  x_named <- stats::setNames(x, "x")
+  expect_identical(vec_rbind(x_named, x_named), data.frame(x = c(x, x)))
+})
+
+test_that("can row bind data frames with Duration objects", {
+  expect_identical(
+    vec_rbind(data.frame(x = ddays(1)), data.frame(x = ddays(1))),
+    data.frame(x = ddays(c(1, 1)))
+  )
+})
+
+test_that("can column bind Duration objects", {
+  expect_identical(
+    vec_cbind(x = ddays(1), y = ddays(1:2)),
+    data.frame(x = ddays(c(1, 1)), y = ddays(1:2))
+  )
+})
+
+test_that("can column bind data frames with Duration objects", {
+  expect_identical(
+    vec_cbind(data.frame(x = ddays(1)), data.frame(y = ddays(1:2))),
+    data.frame(x = ddays(c(1, 1)), y = ddays(1:2))
+  )
+})
+
+# ------------------------------------------------------------------------------
 # Interval - ptype2
 
 test_that("Interval default ptype2 method falls through to `vec_default_ptype2()`", {
