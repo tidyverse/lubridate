@@ -174,6 +174,38 @@ test_that("can column bind data frames with Period objects", {
 })
 
 # ------------------------------------------------------------------------------
+# Duration - proxy / restore
+
+test_that("proxy is the underlying number of seconds", {
+  x <- ddays(1:2)
+  expect_identical(vec_proxy(x), x@.Data)
+})
+
+test_that("proxy stores the names", {
+  skip_if_cant_set_s4_names()
+  x <- stats::setNames(ddays(1:3), c("x", "y", "x"))
+  expect_named(vec_proxy(x), c("x", "y", "x"))
+})
+
+test_that("comparison / equality proxies don't store names", {
+  skip_if_cant_set_s4_names()
+  x <- stats::setNames(ddays(1:3), c("x", "y", "x"))
+  expect_named(vec_proxy_compare(x), NULL)
+  expect_named(vec_proxy_equal(x), NULL)
+})
+
+test_that("restore method works", {
+  x <- ddays(1:2)
+  expect_identical(vec_restore(vec_proxy(x), x), x)
+})
+
+test_that("restore method retains names", {
+  skip_if_cant_set_s4_names()
+  x <- stats::setNames(ddays(1), "x")
+  expect_named(vec_restore(vec_proxy(x), x), "x")
+})
+
+# ------------------------------------------------------------------------------
 # Duration - ptype2
 
 test_that("Duration default ptype2 method falls through to `vec_default_ptype2()`", {

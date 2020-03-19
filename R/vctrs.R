@@ -127,6 +127,37 @@ vec_cast.Period.Period <- function(x, to, ...) {
 }
 
 # ------------------------------------------------------------------------------
+# Duration - proxy / restore
+
+# Method registered in `.onLoad()`
+vec_proxy.Duration <- function(x, ...) {
+  out <- vec_proxy_duration(x)
+  names(out) <- names(x)
+  out
+}
+
+# Method registered in `.onLoad()`
+vec_proxy_compare.Duration <- function(x, ...) {
+  vec_proxy_duration(x)
+}
+
+# Method registered in `.onLoad()`
+vec_proxy_equal.Duration <- function(x, ...) {
+  vec_proxy_duration(x)
+}
+
+# Method registered in `.onLoad()`
+vec_restore.Duration <- function(x, to, ...) {
+  out <- duration(x, units = "seconds")
+  names(out) <- names(x)
+  out
+}
+
+vec_proxy_duration <- function(x) {
+  x@.Data
+}
+
+# ------------------------------------------------------------------------------
 # Duration - ptype2
 
 # Method registered in `.onLoad()`

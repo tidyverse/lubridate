@@ -32,6 +32,10 @@
     register_s3_method("vctrs", "vec_ptype2", "Period")
     register_s3_method("vctrs", "vec_cast", "Period")
 
+    register_s3_method("vctrs", "vec_proxy", "Duration")
+    register_s3_method("vctrs", "vec_proxy_compare", "Duration")
+    register_s3_method("vctrs", "vec_proxy_equal", "Duration")
+    register_s3_method("vctrs", "vec_restore", "Duration")
     register_s3_method("vctrs", "vec_ptype2", "Duration")
     register_s3_method("vctrs", "vec_ptype2.difftime", "Duration")
     register_s3_method("vctrs", "vec_cast", "Duration")
