@@ -173,6 +173,11 @@ test_that("can column bind data frames with Period objects", {
   )
 })
 
+test_that("Period objects can be ordered", {
+  expect_identical(vec_order(vec_c(years(1), days(1))), c(2L, 1L))
+  expect_identical(vec_order(vec_c(days(2), days(1))), c(2L, 1L))
+})
+
 # ------------------------------------------------------------------------------
 # Duration - proxy / restore
 
