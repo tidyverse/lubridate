@@ -57,7 +57,7 @@ Suggests:
     covr,
     knitr,
     testthat (>= 2.1.0),
-    vctrs (>= 0.2.4)
+    vctrs (>= 0.2.99.9010)
 Enhances:
     chron,
     timeDate,
@@ -125,3 +125,5 @@ Collate:
     'update.r'
     'vctrs.R'
     'zzz.R'
+Remotes:
+    r-lib/vctrs
