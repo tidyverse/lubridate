@@ -230,6 +230,71 @@ vec_cast.difftime.Duration <- function(x, to, ...) {
 }
 
 # ------------------------------------------------------------------------------
+# Interval - proxy / restore
+
+# Method registered in `.onLoad()`
+vec_proxy.Interval <- function(x, ...) {
+  out <- vec_proxy_interval(x, vctrs::vec_proxy)
+
+  # Track vector names as an extra column since data frame
+  # row names must be unique
+  names <- names(x)
+  if (!is.null(names)) {
+    out[["rcrd_names"]] <- names
+  }
+
+  out
+}
+
+# Method registered in `.onLoad()`
+vec_proxy_compare.Interval <- function(x, ...) {
+  vec_proxy_interval(x, vctrs::vec_proxy_compare)
+}
+
+# Method registered in `.onLoad()`
+vec_proxy_equal.Interval <- function(x, ...) {
+  vec_proxy_interval(x, vctrs::vec_proxy_equal)
+}
+
+# Method registered in `.onLoad()`
+vec_restore.Interval <- function(x, to, ...) {
+  tzone <- to@tzone
+
+  span <- x$span
+
+  start <- x$start
+  start <- vctrs::new_datetime(start, tzone = tzone)
+
+  out <- new("Interval", span, start = start, tzone = tzone)
+
+  names <- x$rcrd_names
+  if (!is.null(names)) {
+    names(out) <- names
+  }
+
+  out
+}
+
+vec_proxy_interval <- function(x, proxy_fn) {
+  start <- x@start
+  span <- x@.Data
+
+  # Proxy the underlying POSIXct as well
+  start <- proxy_fn(start)
+
+  # Ordered in such a way that the start date controls interval ordering.
+  # Ties in the start date are resolved by placing shorter intervals first.
+  cols <- list(
+    start = start,
+    span = span
+  )
+
+  n <- length(start)
+
+  vctrs::new_data_frame(cols, n = n)
+}
+
+# ------------------------------------------------------------------------------
 # Interval - ptype2
 
 # Method registered in `.onLoad()`

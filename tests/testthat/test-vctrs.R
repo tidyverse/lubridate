@@ -312,6 +312,51 @@ test_that("can column bind data frames with Duration objects", {
 })
 
 # ------------------------------------------------------------------------------
+# Interval - proxy / restore
+
+test_that("proxy is a data frame", {
+  x <- interval(tzone = "UTC")
+
+  expect <- list(start = POSIXct(tz = "UTC"), span = numeric())
+  expect <- new_data_frame(expect)
+
+  expect_identical(vec_proxy(x), expect)
+})
+
+test_that("proxy can optionally store vector names in the last column (allowing duplicates)", {
+  skip_if_cant_set_s4_names()
+
+  x <- c("2019-01-01", "2019-01-02", "2019-01-03")
+  x <- stats::setNames(interval(x), c("x", "y", "x"))
+
+  proxy <- vec_proxy(x)
+
+  expect_identical(proxy$rcrd_names, names(x))
+  expect_identical(match("rcrd_names", names(proxy)), ncol(proxy))
+})
+
+test_that("comparison / equality proxies don't have the names column", {
+  skip_if_cant_set_s4_names()
+
+  x <- c("2019-01-01", "2019-01-02", "2019-01-03")
+  x <- stats::setNames(interval(x), c("x", "y", "x"))
+
+  expect_null(vec_proxy_compare(x)$rcrd_names)
+  expect_null(vec_proxy_equal(x)$rcrd_names)
+})
+
+test_that("restore method works", {
+  x <- interval(c("2019-01-01", "2019-01-02"), c("2020-01-01", "2020-01-02"))
+  expect_identical(vec_restore(vec_proxy(x), x), x)
+})
+
+test_that("restore method retains names", {
+  skip_if_cant_set_s4_names()
+  x <- stats::setNames(interval("2019-01-01"), "x")
+  expect_named(vec_restore(vec_proxy(x), x), "x")
+})
+
+# ------------------------------------------------------------------------------
 # Interval - ptype2
 
 test_that("Interval default ptype2 method falls through to `vec_default_ptype2()`", {
@@ -401,6 +446,75 @@ test_that("can cast around `NULL`", {
 test_that("can cast unspecified to Interval", {
   expect_identical(vec_cast(NA, interval()), interval()[NA_real_])
   expect_error(vec_cast(interval(), NA), class = "vctrs_error_incompatible_cast")
+})
+
+# ------------------------------------------------------------------------------
+# Interval - vctrs functionality
+
+test_that("can slice Interval objects", {
+  x <- interval(c("1970-01-01", "1970-01-02"))
+  expect_identical(vec_slice(x, 2:1), x[2:1])
+})
+
+test_that("slicing preserves names", {
+  skip_if_cant_set_s4_names()
+  x <- interval(c("1970-01-01", "1970-01-02"))
+  x <- stats::setNames(x, c("x", "y"))
+  expect_named(vec_slice(x, c(1, 1, 2)), c("x", "x", "y"))
+})
+
+test_that("can combine Interval objects", {
+  x <- interval("1970-01-01")
+  y <- interval("1970-01-02")
+  expect <- interval(c("1970-01-01", "1970-01-02"))
+  expect_identical(vec_c(x, y), expect)
+})
+
+test_that("can row bind Interval objects", {
+  skip_if_cant_set_s4_names()
+  x <- interval("1970-01-01")
+  x_named <- stats::setNames(x, "x")
+  expect_identical(vec_rbind(x_named, x_named), data.frame(x = c(x, x)))
+})
+
+test_that("can row bind data frames with Interval objects", {
+  x <- interval("1970-01-01")
+
+  expect_identical(
+    vec_rbind(data.frame(x = x), data.frame(x = x)),
+    data.frame(x = vec_c(x, x))
+  )
+})
+
+test_that("can column bind Interval objects", {
+  x <- interval("1970-01-01")
+  y <- interval(c("1970-01-01", "1970-01-02"))
+
+  expect_identical(
+    vec_cbind(x = x, y = y),
+    data.frame(x = vec_c(x, x), y = y)
+  )
+})
+
+test_that("can column bind data frames with Interval objects", {
+  x <- interval("1970-01-01")
+  y <- interval(c("1970-01-01", "1970-01-02"))
+
+  expect_identical(
+    vec_cbind(data.frame(x = x), data.frame(y = y)),
+    data.frame(x = vec_c(x, x), y = y)
+  )
+})
+
+test_that("Interval objects can be ordered", {
+  x <- interval("1970-01-01", "1970-01-02")
+  y <- interval("1970-01-02", "1970-01-03")
+  z <- interval("1970-01-02", "1970-01-04")
+
+  # Different from `order()`!
+  expect_identical(vec_order(vec_c(y, x)), c(2L, 1L))
+
+  expect_identical(vec_order(vec_c(z, y)), c(2L, 1L))
 })
 
 # ------------------------------------------------------------------------------
