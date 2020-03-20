@@ -323,6 +323,31 @@ test_that("Interval default ptype2 method falls through to `vec_default_ptype2()
 
 test_that("common type of Interval and Interval exists", {
   expect_identical(vec_ptype2(interval(), interval()), interval())
+
+  x <- interval(tzone = "America/Los_Angeles")
+  expect_identical(vec_ptype2(x, x), x)
+})
+
+test_that("common tzone uses non-local tzone", {
+  x <- interval(tzone = "")
+  y <- interval(tzone = "America/Los_Angeles")
+
+  expect_identical(vec_ptype2(x, y)@tzone, "America/Los_Angeles")
+  expect_identical(vec_ptype2(y, x)@tzone, "America/Los_Angeles")
+
+  expect_identical(tz(int_start(vec_ptype2(x, y))), "America/Los_Angeles")
+  expect_identical(tz(int_start(vec_ptype2(y, x))), "America/Los_Angeles")
+})
+
+test_that("common tzone is order dependent", {
+  x <- interval(tzone = "America/New_York")
+  y <- interval(tzone = "America/Los_Angeles")
+
+  expect_identical(vec_ptype2(x, y)@tzone, "America/New_York")
+  expect_identical(vec_ptype2(y, x)@tzone, "America/Los_Angeles")
+
+  expect_identical(tz(int_start(vec_ptype2(x, y))), "America/New_York")
+  expect_identical(tz(int_start(vec_ptype2(y, x))), "America/Los_Angeles")
 })
 
 test_that("common type of Interval and NULL exists", {

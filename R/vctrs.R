@@ -19,8 +19,8 @@ new_empty_duration <- function() {
   duration()
 }
 
-new_empty_interval <- function() {
-  interval()
+new_empty_interval <- function(tzone) {
+  interval(tzone = tzone)
 }
 
 # ------------------------------------------------------------------------------
@@ -249,7 +249,7 @@ vec_ptype2.Interval.default <- function(x, y, ...) {
 #' @method vec_ptype2.Interval Interval
 #' @export
 vec_ptype2.Interval.Interval <- function(x, y, ...) {
-  new_empty_interval()
+  new_empty_interval(tzone = tz_union(x, y))
 }
 
 # ------------------------------------------------------------------------------
@@ -273,4 +273,20 @@ vec_cast.Interval.default <- function(x, to, ...) {
 #' @export
 vec_cast.Interval.Interval <- function(x, to, ...) {
   x
+
+# ------------------------------------------------------------------------------
+
+tz_is_local <- function(x) {
+  identical(x, "")
+}
+
+tz_union <- function(x, y) {
+  x_tzone <- x@tzone
+  y_tzone <- y@tzone
+
+  if (tz_is_local(x_tzone)) {
+    y_tzone
+  } else {
+    x_tzone
+  }
 }
