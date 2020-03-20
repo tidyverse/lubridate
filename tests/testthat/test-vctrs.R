@@ -379,8 +379,8 @@ test_that("Interval can be cast to Interval", {
 
 test_that("can cast to a different tzone", {
   x_tzone <- "America/Los_Angeles"
-  x_start <- as.POSIXct("1970-01-01", tz = tzone)
-  x_end <- as.POSIXct("1970-01-02", tz = tzone)
+  x_start <- as.POSIXct("1970-01-01", tz = x_tzone)
+  x_end <- as.POSIXct("1970-01-02", tz = x_tzone)
   x <- interval(x_start, x_end, x_tzone)
 
   to_tzone <- "America/New_York"
