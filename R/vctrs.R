@@ -7,6 +7,10 @@ NULL
 # ------------------------------------------------------------------------------
 # Constructors
 
+# TODO: Find a way to generate these once at load time for efficiency. S4
+# constructors are very slow and these will be called repeatedly. Doing this
+# the standard way in `.onLoad()` seems to trigger some unknown S4 bug.
+
 new_empty_period <- function() {
   period()
 }
