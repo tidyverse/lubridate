@@ -205,7 +205,10 @@ interval <- function(start = NULL, end = NULL, tzone = tz(start)) {
   }
 
   if (length(start) == 0 || length(end) == 0) {
-    start <- POSIXct()
+    if (missing(tzone)) {
+      tzone <- "UTC"
+    }
+    start <- POSIXct(tz = tzone)
     return(new("Interval", numeric(), start = start, tzone = tzone))
   }
 
