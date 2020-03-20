@@ -272,7 +272,20 @@ vec_cast.Interval.default <- function(x, to, ...) {
 #' @method vec_cast.Interval Interval
 #' @export
 vec_cast.Interval.Interval <- function(x, to, ...) {
-  x
+  x_tzone <- x@tzone
+  to_tzone <- to@tzone
+
+  if (identical(x_tzone, to_tzone)) {
+    return(x)
+  }
+
+  x_span <- x@.Data
+  x_start <- x@start
+
+  start <- with_tz(x_start, to_tzone)
+
+  new("Interval", x_span, start = start, tzone = to_tzone)
+}
 
 # ------------------------------------------------------------------------------
 

@@ -377,6 +377,22 @@ test_that("Interval can be cast to Interval", {
   expect_identical(vec_cast(interval(), interval()), interval())
 })
 
+test_that("can cast to a different tzone", {
+  x_tzone <- "America/Los_Angeles"
+  x_start <- as.POSIXct("1970-01-01", tz = tzone)
+  x_end <- as.POSIXct("1970-01-02", tz = tzone)
+  x <- interval(x_start, x_end, x_tzone)
+
+  to_tzone <- "America/New_York"
+  to <- interval(tzone = to_tzone)
+
+  expect_start <- with_tz(x_start, to_tzone)
+  expect_end <- with_tz(x_end, to_tzone)
+  expect <- interval(expect_start, expect_end, to_tzone)
+
+  expect_identical(vec_cast(x, to), expect)
+})
+
 test_that("can cast around `NULL`", {
   expect_identical(vec_cast(NULL, interval()), NULL)
   expect_identical(vec_cast(interval(), NULL), interval())
