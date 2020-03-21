@@ -18,7 +18,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Do more with dates and times in R">
-<meta property="og:description" content="">
+<meta property="og:description" content="lubridate">
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -32,7 +32,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -82,7 +82,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Do more with dates and times in R</h1>
+      <h1 data-toc-skip>Do more with dates and times in R</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/lubridate/blob/master/vignettes/lubridate.Rmd"><code>vignettes/lubridate.Rmd</code></a></small>
@@ -98,125 +98,125 @@
 <h2 class="hasAnchor">
 <a href="#parsing-dates-and-times" class="anchor"></a>Parsing dates and times</h2>
 <p>Getting R to agree that your data contains the dates and times you think it does can be tricky. Lubridate simplifies that. Identify the order in which the year, month, and day appears in your dates. Now arrange “y”, “m”, and “d” in the same order. This is the name of the function in lubridate that will parse your dates. For example,</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lubridate)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Attaching package: 'lubridate'</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; The following object is masked from 'package:base':</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt;     date</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="st">"20110604"</span>)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; [1] "2011-06-04"</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw"><a href="../reference/ymd.html">mdy</a></span>(<span class="st">"06-04-2011"</span>)</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; [1] "2011-06-04"</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw"><a href="../reference/ymd.html">dmy</a></span>(<span class="st">"04/06/2011"</span>)</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt; [1] "2011-06-04"</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lubridate)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; Attaching package: 'lubridate'</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; The following object is masked from 'package:base':</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;     date</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="st">"20110604"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; [1] "2011-06-04"</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw"><a href="../reference/ymd.html">mdy</a></span>(<span class="st">"06-04-2011"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; [1] "2011-06-04"</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="kw"><a href="../reference/ymd.html">dmy</a></span>(<span class="st">"04/06/2011"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt; [1] "2011-06-04"</span></span></code></pre></div>
 <p>Lubridate’s parse functions handle a wide variety of formats and separators, which simplifies the parsing process.</p>
 <p>If your date includes time information, add h, m, and/or s to the name of the function. <code>ymd_hms</code> is probably the most common date time format. To read the dates in with a certain time zone, supply the official name of that time zone in the <code>tz</code> argument.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">arrive &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-06-04 12:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">arrive</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; [1] "2011-06-04 12:00:00 NZST"</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">leave &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-08-10 14:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">leave</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; [1] "2011-08-10 14:00:00 NZST"</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>arrive &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-06-04 12:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>arrive</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; [1] "2011-06-04 12:00:00 NZST"</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>leave &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-08-10 14:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>leave</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; [1] "2011-08-10 14:00:00 NZST"</span></span></code></pre></div>
 </div>
 <div id="setting-and-extracting-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setting-and-extracting-information" class="anchor"></a>Setting and Extracting information</h2>
 <p>Extract information from date times with the functions <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>wday</code>, <code>yday</code>, <code>week</code>, <code>month</code>, <code>year</code>, and <code>tz</code>. You can also use each of these to set (i.e, change) the given information. Notice that this will alter the date time. <code>wday</code> and <code>month</code> have an optional <code>label</code> argument, which replaces their numeric output with the name of the weekday or month.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/second.html">second</a></span>(arrive)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; [1] 0</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="../reference/second.html">second</a></span>(arrive) &lt;-<span class="st"> </span><span class="dv">25</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">arrive</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; [1] "2011-06-04 12:00:25 NZST"</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="../reference/second.html">second</a></span>(arrive) &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw"><a href="../reference/day.html">wday</a></span>(arrive)</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; [1] 7</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="../reference/day.html">wday</a></span>(arrive, <span class="dt">label =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; [1] Sat</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="../reference/second.html">second</a></span>(arrive)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; [1] 0</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw"><a href="../reference/second.html">second</a></span>(arrive) &lt;-<span class="st"> </span><span class="dv">25</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>arrive</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; [1] "2011-06-04 12:00:25 NZST"</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="kw"><a href="../reference/second.html">second</a></span>(arrive) &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="kw"><a href="../reference/day.html">wday</a></span>(arrive)</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; [1] 7</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="kw"><a href="../reference/day.html">wday</a></span>(arrive, <span class="dt">label =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; [1] Sat</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></span></code></pre></div>
 </div>
 <div id="time-zones" class="section level2">
 <h2 class="hasAnchor">
 <a href="#time-zones" class="anchor"></a>Time Zones</h2>
 <p>There are two very useful things to do with dates and time zones. First, display the same moment in a different time zone. Second, create a new moment by combining an existing clock time with a new time zone. These are accomplished by <code>with_tz</code> and <code>force_tz</code>.</p>
 <p>For example, a while ago I was in Auckland, New Zealand. I arranged to meet the co-author of lubridate, Hadley, over skype at 9:00 in the morning Auckland time. What time was that for Hadley who was back in Houston, TX?</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">meeting &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-07-01 09:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="../reference/with_tz.html">with_tz</a></span>(meeting, <span class="st">"America/Chicago"</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; [1] "2011-06-30 16:00:00 CDT"</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>meeting &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2011-07-01 09:00:00"</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw"><a href="../reference/with_tz.html">with_tz</a></span>(meeting, <span class="st">"America/Chicago"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; [1] "2011-06-30 16:00:00 CDT"</span></span></code></pre></div>
 <p>So the meetings occurred at 4:00 Hadley’s time (and the day before no less). Of course, this was the same actual moment of time as 9:00 in New Zealand. It just appears to be a different day due to the curvature of the Earth.</p>
 <p>What if Hadley made a mistake and signed on at 9:00 his time? What time would it then be my time?</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">mistake &lt;-<span class="st"> </span><span class="kw"><a href="../reference/force_tz.html">force_tz</a></span>(meeting, <span class="st">"America/Chicago"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="../reference/with_tz.html">with_tz</a></span>(mistake, <span class="st">"Pacific/Auckland"</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; [1] "2011-07-02 02:00:00 NZST"</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>mistake &lt;-<span class="st"> </span><span class="kw"><a href="../reference/force_tz.html">force_tz</a></span>(meeting, <span class="st">"America/Chicago"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="../reference/with_tz.html">with_tz</a></span>(mistake, <span class="st">"Pacific/Auckland"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; [1] "2011-07-02 02:00:00 NZST"</span></span></code></pre></div>
 <p>His call would arrive at 2:00 am my time! Luckily he never did that.</p>
 </div>
 <div id="time-intervals" class="section level2">
 <h2 class="hasAnchor">
 <a href="#time-intervals" class="anchor"></a>Time Intervals</h2>
 <p>You can save an interval of time as an Interval class object with lubridate. This is quite useful! For example, my stay in Auckland lasted from June 4, 2011 to August 10, 2011 (which we’ve already saved as arrive and leave). We can create this interval in one of two ways:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">auckland &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(arrive, leave) </a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">auckland</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">auckland &lt;-<span class="st"> </span>arrive <span class="op">%--%</span><span class="st"> </span>leave</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">auckland</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>auckland &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(arrive, leave) </span>
+<span id="cb6-2"><a href="#cb6-2"></a>auckland</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>auckland &lt;-<span class="st"> </span>arrive <span class="op">%--%</span><span class="st"> </span>leave</span>
+<span id="cb6-5"><a href="#cb6-5"></a>auckland</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></span></code></pre></div>
 <p>My mentor at the University of Auckland, Chris, traveled to various conferences that year including the Joint Statistical Meetings (JSM). This took him out of the country from July 20 until the end of August.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">jsm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110720</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>), <span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110831</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>))</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">jsm</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; [1] 2011-07-20 NZST--2011-08-31 NZST</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>jsm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/interval.html">interval</a></span>(<span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110720</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>), <span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110831</span>, <span class="dt">tz =</span> <span class="st">"Pacific/Auckland"</span>))</span>
+<span id="cb7-2"><a href="#cb7-2"></a>jsm</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; [1] 2011-07-20 NZST--2011-08-31 NZST</span></span></code></pre></div>
 <p>Will my visit overlap with and his travels? Yes.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/interval.html">int_overlaps</a></span>(jsm, auckland)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="../reference/interval.html">int_overlaps</a></span>(jsm, auckland)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <p>Then I better make hay while the sun shines! For what part of my visit will Chris be there?</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(auckland, jsm)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-07-20 NZST</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(auckland, jsm)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-07-20 NZST</span></span></code></pre></div>
 <p>Other functions that work with intervals include <code>int_start</code>, <code>int_end</code>, <code>int_flip</code>, <code>int_shift</code>, <code>int_aligns</code>, <code>union</code>, <code>intersect</code>, <code>setdiff</code>, and <code><a href="../reference/within-interval.html">%within%</a></code>.</p>
 </div>
 <div id="arithmetic-with-date-times" class="section level2">
 <h2 class="hasAnchor">
 <a href="#arithmetic-with-date-times" class="anchor"></a>Arithmetic with date times</h2>
 <p>Intervals are specific time spans (because they are tied to specific dates), but lubridate also supplies two general time span classes: Durations and Periods. Helper functions for creating periods are named after the units of time (plural). Helper functions for creating durations follow the same format but begin with a “d” (for duration) or, if you prefer, and “e” (for exact).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/period.html">minutes</a></span>(<span class="dv">2</span>) ## period</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; [1] "2M 0S"</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">2</span>) ## duration</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; [1] "120s (~2 minutes)"</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="../reference/period.html">minutes</a></span>(<span class="dv">2</span>) <span class="co">## period</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; [1] "2M 0S"</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">2</span>) <span class="co">## duration</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; [1] "120s (~2 minutes)"</span></span></code></pre></div>
 <p>Why two classes? Because the timeline is not as reliable as the number line. The Duration class will always supply mathematically precise results. A duration year will always equal 365 days. Periods, on the other hand, fluctuate the same way the timeline does to give intuitive results. This makes them useful for modeling clock times. For example, durations will be honest in the face of a leap year, but periods may return what you want:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2011</span>) ## regular year</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] FALSE</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; [1] "2012-01-01 06:00:00 UTC"</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; [1] "2012-01-01"</span></a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2012</span>) ## leap year</a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; [1] "2012-12-31 06:00:00 UTC"</span></a>
-<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt; [1] "2013-01-01"</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2011</span>) <span class="co">## regular year</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt; [1] "2012-01-01 06:00:00 UTC"</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20110101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)</span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; [1] "2012-01-01"</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="kw"><a href="../reference/leap_year.html">leap_year</a></span>(<span class="dv">2012</span>) <span class="co">## leap year</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dyears</a></span>(<span class="dv">1</span>)</span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt; [1] "2012-12-31 06:00:00 UTC"</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="dv">20120101</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">years</a></span>(<span class="dv">1</span>)</span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt; [1] "2013-01-01"</span></span></code></pre></div>
 <p>You can use periods and durations to do basic arithmetic with date times. For example, if I wanted to set up a reoccuring weekly skype meeting with Hadley, it would occur on:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">meetings &lt;-<span class="st"> </span>meeting <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">weeks</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>meetings &lt;-<span class="st"> </span>meeting <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">weeks</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>)</span></code></pre></div>
 <p>Hadley travelled to conferences at the same time as Chris. Which of these meetings would be affected? The last two.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">meetings <span class="op">%within%</span><span class="st"> </span>jsm</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>meetings <span class="op">%within%</span><span class="st"> </span>jsm</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE</span></span></code></pre></div>
 <p>How long was my stay in Auckland?</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; [1] 67.08333</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; [1] 33.54167</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5">auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; [1] 96600</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#&gt; [1] 67.08333</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">ddays</a></span>(<span class="dv">2</span>)</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; [1] 33.54167</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>auckland <span class="op">/</span><span class="st"> </span><span class="kw"><a href="../reference/duration.html">dminutes</a></span>(<span class="dv">1</span>)</span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt; [1] 96600</span></span></code></pre></div>
 <p>And so on. Alternatively, we can do modulo and integer division. Sometimes this is more sensible than division - it is not obvious how to express a remainder as a fraction of a month because the length of a month constantly changes.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">auckland <span class="op">%/%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; [1] 2</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">auckland <span class="op">%%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt; [1] 2011-08-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>auckland <span class="op">%/%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>auckland <span class="op">%%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>)</span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; [1] 2011-08-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></span></code></pre></div>
 <p>Modulo with an timespan returns the remainder as a new (smaller) interval. You can turn this or any interval into a generalized time span with <code>as.period</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland <span class="op">%%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">#&gt; [1] "6d 2H 0M 0S"</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland)</a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; [1] "2m 6d 2H 0M 0S"</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland <span class="op">%%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">1</span>))</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co">#&gt; [1] "6d 2H 0M 0S"</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="kw"><a href="../reference/as.period.html">as.period</a></span>(auckland)</span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">#&gt; [1] "2m 6d 2H 0M 0S"</span></span></code></pre></div>
 <div id="if-anyone-drove-a-time-machine-they-would-crash" class="section level3">
 <h3 class="hasAnchor">
 <a href="#if-anyone-drove-a-time-machine-they-would-crash" class="anchor"></a>If anyone drove a time machine, they would crash</h3>
@@ -231,19 +231,19 @@
 </ol>
 <p>A basic property of arithmetic is that <code>a + b - b = a</code>. Only solution 1 obeys this property, but it is an invalid date. I’ve tried to make lubridate as consistent as possible by invoking the following rule <em>if adding or subtracting a month or a year creates an invalid date, lubridate will return an NA</em>. This is new with version 1.3.0, so if you’re an old hand with lubridate be sure to remember this!</p>
 <p>If you thought solution 2 or 3 was more useful, no problem. You can still get those results with clever arithmetic, or by using the special <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> operators. <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> automatically roll dates back to the last day of the month, should that be necessary.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">jan31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="st">"2013-01-31"</span>)</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">jan31 <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt;  [1] "2013-01-31" NA           "2013-03-31" NA           "2013-05-31"</span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt;  [6] NA           "2013-07-31" "2013-08-31" NA           "2013-10-31"</span></a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt; [11] NA           "2013-12-31"</span></a>
-<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw"><a href="../reference/round_date.html">floor_date</a></span>(jan31, <span class="st">"month"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">31</span>)</a>
-<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co">#&gt;  [1] "2013-02-01" "2013-03-04" "2013-04-01" "2013-05-02" "2013-06-01"</span></a>
-<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt;  [6] "2013-07-02" "2013-08-01" "2013-09-01" "2013-10-02" "2013-11-01"</span></a>
-<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="co">#&gt; [11] "2013-12-02" "2014-01-01"</span></a>
-<a class="sourceLine" id="cb17-10" data-line-number="10">jan31 <span class="op">%m+%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</a>
-<a class="sourceLine" id="cb17-11" data-line-number="11"><span class="co">#&gt;  [1] "2013-01-31" "2013-02-28" "2013-03-31" "2013-04-30" "2013-05-31"</span></a>
-<a class="sourceLine" id="cb17-12" data-line-number="12"><span class="co">#&gt;  [6] "2013-06-30" "2013-07-31" "2013-08-31" "2013-09-30" "2013-10-31"</span></a>
-<a class="sourceLine" id="cb17-13" data-line-number="13"><span class="co">#&gt; [11] "2013-11-30" "2013-12-31"</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>jan31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ymd.html">ymd</a></span>(<span class="st">"2013-01-31"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>jan31 <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&gt;  [1] "2013-01-31" NA           "2013-03-31" NA           "2013-05-31"</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co">#&gt;  [6] NA           "2013-07-31" "2013-08-31" NA           "2013-10-31"</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="co">#&gt; [11] NA           "2013-12-31"</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="kw"><a href="../reference/round_date.html">floor_date</a></span>(jan31, <span class="st">"month"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">31</span>)</span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co">#&gt;  [1] "2013-02-01" "2013-03-04" "2013-04-01" "2013-05-02" "2013-06-01"</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co">#&gt;  [6] "2013-07-02" "2013-08-01" "2013-09-01" "2013-10-02" "2013-11-01"</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a><span class="co">#&gt; [11] "2013-12-02" "2014-01-01"</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>jan31 <span class="op">%m+%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="dv">0</span><span class="op">:</span><span class="dv">11</span>)</span>
+<span id="cb17-11"><a href="#cb17-11"></a><span class="co">#&gt;  [1] "2013-01-31" "2013-02-28" "2013-03-31" "2013-04-30" "2013-05-31"</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="co">#&gt;  [6] "2013-06-30" "2013-07-31" "2013-08-31" "2013-09-30" "2013-10-31"</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="co">#&gt; [11] "2013-11-30" "2013-12-31"</span></span></code></pre></div>
 <p>Notice that this will only affect arithmetic with months (and arithmetic with years if your start date it Feb 29).</p>
 </div>
 </div>
@@ -251,9 +251,9 @@
 <h2 class="hasAnchor">
 <a href="#vectorization" class="anchor"></a>Vectorization</h2>
 <p>The code in lubridate is vectorized and ready to be used in both interactive settings and within functions. As an example, I offer a function for advancing a date to the last day of the month</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">last_day &lt;-<span class="st"> </span><span class="cf">function</span>(date) {</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2">  <span class="kw"><a href="../reference/round_date.html">ceiling_date</a></span>(date, <span class="st">"month"</span>) <span class="op">-</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>last_day &lt;-<span class="st"> </span><span class="cf">function</span>(date) {</span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="kw"><a href="../reference/round_date.html">ceiling_date</a></span>(date, <span class="st">"month"</span>) <span class="op">-</span><span class="st"> </span><span class="kw"><a href="../reference/period.html">days</a></span>(<span class="dv">1</span>)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>}</span></code></pre></div>
 </div>
 <div id="further-resources" class="section level2">
 <h2 class="hasAnchor">
@@ -262,22 +262,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#parsing-dates-and-times">Parsing dates and times</a></li>
-      <li><a href="#setting-and-extracting-information">Setting and Extracting information</a></li>
-      <li><a href="#time-zones">Time Zones</a></li>
-      <li><a href="#time-intervals">Time Intervals</a></li>
-      <li><a href="#arithmetic-with-date-times">Arithmetic with date times</a></li>
-      <li><a href="#vectorization">Vectorization</a></li>
-      <li><a href="#further-resources">Further Resources</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 

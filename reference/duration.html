@@ -77,7 +77,7 @@ larger than weeks are not used due to their variability." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -252,16 +252,10 @@ oriented programming.</p>
 <span class='no'>boundary</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2009-03-08 01:59:59"</span>, <span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"America/Chicago"</span>)
 <span class='no'>boundary</span> + <span class='fu'><a href='period.html'>days</a></span>(<span class='fl'>1</span>) <span class='co'># period</span></div><div class='output co'>#&gt; [1] "2009-03-09 01:59:59 CDT"</div><div class='input'><span class='no'>boundary</span> + <span class='fu'>ddays</span>(<span class='fl'>1</span>) <span class='co'># duration</span></div><div class='output co'>#&gt; [1] "2009-03-09 02:59:59 CDT"</div><div class='input'><span class='fu'>is.duration</span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2009-08-03"</span>)) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.duration</span>(<span class='fu'>duration</span>(<span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>12.4</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
