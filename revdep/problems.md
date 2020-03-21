@@ -1,759 +1,288 @@
-# aire.zmvm
+# Biograph
 
-Version: 0.5.0
+<details>
 
-## In both
+* Version: 2.0.6
+* Source code: https://github.com/cran/Biograph
+* Date/Publication: 2016-03-31 17:50:43
+* Number of recursive dependencies: 64
 
-*   checking data for non-ASCII characters ... NOTE
+Run `revdep_details(,"Biograph")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking whether package ‘Biograph’ can be installed ... ERROR
     ```
-      Note: found 38 marked UTF-8 strings
-    ```
-
-# antaresRead
-
-Version: 2.0.2
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Quitting from lines 39-73 (antaresH5.Rmd) 
-    Error: processing vignette 'antaresH5.Rmd' failed with diagnostics:
-    there is no package called 'webshot'
-    Execution halted
+    Installation failed.
+    See ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/Biograph/new/Biograph.Rcheck/00install.out’ for details.
     ```
 
-# aoristic
-
-Version: 0.6
-
-## In both
-
-*   checking DESCRIPTION meta-information ... NOTE
-    ```
-    Malformed Description field: should contain one or more complete sentences.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      ‘slot’
-    aoristic.grid: no visible global function definition for ‘browseURL’
-    aoristic.shp: no visible global function definition for ‘aggregate’
-    aoristic.shp: no visible global function definition for ‘slot’
-    aoristic.shp : <anonymous>: no visible global function definition for
-      ‘as’
-    aoristic.shp : <anonymous>: no visible global function definition for
-      ‘slot’
-    aoristic.shp: no visible global function definition for ‘browseURL’
-    Undefined global functions or variables:
-      aggregate as browseURL colorRampPalette contourLines dev.off image
-      par png quantile slot
-    Consider adding
-      importFrom("grDevices", "colorRampPalette", "contourLines", "dev.off",
-                 "png")
-      importFrom("graphics", "image", "par")
-      importFrom("methods", "as", "slot")
-      importFrom("stats", "aggregate", "quantile")
-      importFrom("utils", "browseURL")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# apsimr
-
-Version: 1.2
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘sensitivity’, ‘APSIMBatch’
-    ```
-
-# archivist
-
-Version: 2.2
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package which this enhances but not available for checking: ‘archivist.github’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘rmarkdown’, ‘archivist.github’
-    ```
-
-# basictabler
-
-Version: 0.1.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Quitting from lines 46-49 (v01-introduction.Rmd) 
-    Error: processing vignette 'v01-introduction.Rmd' failed with diagnostics:
-    there is no package called 'webshot'
-    Execution halted
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dplyr’
-      All declared Imports should be used.
-    ```
-
-# bikedata
-
-Version: 0.1.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  9.2Mb
-      sub-directories of 1Mb or more:
-        doc    2.6Mb
-        libs   5.9Mb
-    ```
-
-# bsam
-
-Version: 1.1.2
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘rjags’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# bsplus
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘methods’
-      All declared Imports should be used.
-    ```
-
-# congressbr
-
-Version: 0.1.1
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1 marked UTF-8 string
-    ```
-
-# countyfloods
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘maps’
-      All declared Imports should be used.
-    ```
-
-# countytimezones
-
-Version: 1.0.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Quitting from lines 111-123 (countytimezones.Rmd) 
-    Error: processing vignette 'countytimezones.Rmd' failed with diagnostics:
-    there is no package called 'choroplethr'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘choroplethr’
-    ```
-
-# countyweather
-
-Version: 0.1.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘tigris’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# CRANsearcher
-
-Version: 1.0.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 11 marked Latin-1 strings
-      Note: found 57 marked UTF-8 strings
-    ```
-
-# crawl
-
-Version: 2.1.1
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.9Mb
-      sub-directories of 1Mb or more:
-        libs   7.3Mb
-    ```
-
-# crypto
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘base’ ‘doParallel’ ‘plyr’ ‘purrr’
-      All declared Imports should be used.
-    ```
-
-# dataonderivatives
-
-Version: 0.3.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘stats’
-      All declared Imports should be used.
-    ```
-
-# diversitree
-
-Version: 0.9-10
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  6.2Mb
-      sub-directories of 1Mb or more:
-        libs   5.4Mb
-    ```
-
-# dynatopmodel
-
-Version: 1.2.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘maptools’ ‘tools’
-      All declared Imports should be used.
-    ```
-
-# ecoengine
-
-Version: 1.11.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘magrittr’
-      All declared Imports should be used.
-    ```
-
-# etl
-
-Version: 0.3.7
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘macleish’
-    ```
-
-# fivethirtyeight
-
-Version: 0.3.0
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking:
-      ‘fivethirtyeight’ ‘ggraph’
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 371 marked UTF-8 strings
-    ```
-
-# ggformula
-
-Version: 0.6.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Quitting from lines 180-186 (ggformula.Rmd) 
-    Error: processing vignette 'ggformula.Rmd' failed with diagnostics:
-    there is no package called 'mosaicModel'
-    Execution halted
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking: ‘mosaic’ ‘mosaicModel’
-    ```
-
-# ggvis
-
-Version: 0.4.3
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘plyr’
-    ```
-
-# githubinstall
-
-Version: 0.2.1
-
-## In both
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘Biograph’ ...
+** package ‘Biograph’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Error: object ‘new_interval’ is not exported by 'namespace:lubridate'
+Execution halted
+ERROR: lazy loading failed for package ‘Biograph’
+* removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/Biograph/new/Biograph.Rcheck/Biograph’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘Biograph’ ...
+** package ‘Biograph’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (Biograph)
+
+```
+# corporaexplorer
+
+<details>
+
+* Version: 0.8.2
+* Source code: https://github.com/cran/corporaexplorer
+* URL: https://kgjerde.github.io/corporaexplorer, https://github.com/kgjerde/corporaexplorer
+* BugReports: https://github.com/kgjerde/corporaexplorer/issues
+* Date/Publication: 2020-03-07 19:40:02 UTC
+* Number of recursive dependencies: 96
+
+Run `revdep_details(,"corporaexplorer")` for more info
+
+</details>
+
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      > library(corporaexplorer)
+      > 
+      > test_check("corporaexplorer")
+      ── 1. Failure: prepare_data() works (@test_prep_func.R#12)  ────────────────────
+      `test_obj` not equal to corporaexplorer::test_data.
+      Component "original_data": Component "data_dok": Incompatible type for column `Year`: x integer, y numeric
+      Component "original_data": Component "data_365": Incompatible type for column `Year`: x integer, y numeric
+      Component "original_data": Component "data_365": Incompatible type for column `Weekday_n`: x integer, y numeric
+      
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 34 SKIPPED: 0 FAILED: 12
-      1. Error: Install: ask no (@test-gh_install_packages.R#27) 
-      2. Error: Install: ask yes (@test-gh_install_packages.R#37) 
-      3. Error: recommend_dependencies: ask = TRUE (@test-utils_for_install.R#49) 
-      4. Error: select_repository: multi candidates (@test-utils_for_install.R#130) 
-      5. Error: select_repository: cancel (@test-utils_for_install.R#142) 
-      6. Error: remove_conflict_repos: no installed (@test-utils_for_install.R#169) 
-      7. Error: remove_conflict_repos: not conflict (@test-utils_for_install.R#183) 
-      8. Error: remove_conflict_repos: conflict GitHub, ask yes (@test-utils_for_install.R#198) 
-      9. Error: remove_conflict_repos: conflict GitHub, ask no (@test-utils_for_install.R#213) 
-      1. ...
+      [ OK: 0 | SKIPPED: 2 | WARNINGS: 0 | FAILED: 1 ]
+      1. Failure: prepare_data() works (@test_prep_func.R#12) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-# GSODR
-
-Version: 1.1.2
-
-## In both
-
-*   R CMD check timed out
-    
-
-# hansard
-
-Version: 0.5.5
-
-## In both
-
-*   R CMD check timed out
-    
-
-# happybiRthday
-
-Version: 0.0.1
-
-## In both
-
-*   R CMD check timed out
-    
-
-# highcharter
-
-Version: 0.5.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Highcharts (www.highcharts.com) is a Highsoft software product which is
-    not free for commercial and Governmental use
-    Quitting from lines 45-46 (charting-data-frames.Rmd) 
-    Error: processing vignette 'charting-data-frames.Rmd' failed with diagnostics:
-    there is no package called 'webshot'
-    Execution halted
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 16.5Mb
-      sub-directories of 1Mb or more:
-        doc          13.7Mb
-        htmlwidgets   1.9Mb
-    ```
-
-# HistData
-
-Version: 0.8-2
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Packages unavailable to check Rd xrefs: ‘psych’, ‘Guerry’, ‘alr3’, ‘agridat’, ‘coin’
-    ```
-
-# HMMoce
-
-Version: 1.0.0
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘RNetCDF’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# htmlTable
-
-Version: 1.11.2
-
-## In both
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘pxweb’
-    ```
-
-# hurricaneexposure
-
-Version: 0.0.1
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘hurricaneexposuredata’
-    ```
-
-# iClick
-
-Version: 1.3
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    > ### Name: iClick.ARIMA
-    > ### Title: iClick GUI for ARIMA
-    > ### Aliases: iClick.ARIMA
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > ##External data
-    > data("returnsDaily24")
-    > y=returnsDaily24[,c(1,5)]
-    > 
-    > ## Simulation data
-    > #dat=rnorm(200,5,1)
-    > #y=ts(dat, start = c(1970, 1), frequency = 12)
-    > 
-    > iClick.ARIMA(y)
-    Error in structure(.External(.C_dotTclObjv, objv), class = "tclObj") : 
-      [tcl] invalid command name "toplevel".
-    Calls: iClick.ARIMA ... tktoplevel -> tkwidget -> tcl -> .Tcl.objv -> structure
-    Execution halted
-    ```
-
-*   checking whether package ‘iClick’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: no DISPLAY variable so Tk is not available
-    See ‘/store/Dropbox/dev/lubridate/revdep/checks/iClick/new/iClick.Rcheck/00install.out’ for details.
-    ```
-
-# ie2misc
-
-Version: 0.8.5
-
-## In both
-
-*   checking whether package ‘ie2misc’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: no DISPLAY variable so Tk is not available
-    See ‘/store/Dropbox/dev/lubridate/revdep/checks/ie2misc/new/ie2misc.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘ie2miscdata’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘moments’
-    ```
-
-# iki.dataclim
-
-Version: 1.0
-
-## In both
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    plotWalterLieth,matrix: no visible global function definition for
-      ‘approx’
-    plotWalterLieth,matrix: no visible global function definition for
-      ‘segments’
-    plotWalterLieth,matrix: no visible global function definition for
-      ‘rect’
-    plotWalterLieth,matrix: no visible global function definition for
-      ‘lines’
-    summary,dataclim: no visible binding for global variable ‘sd’
-    summary,dataclim: no visible binding for global variable ‘aggregate’
-    summary,dataclim: no visible global function definition for ‘time’
-    summary,dataclim : <anonymous>: no visible global function definition
-      for ‘lm’
-    Undefined global functions or variables:
-      abline aggregate approx axis coef lines lm mtext par plot polygon
-      rect sd segments time
-    Consider adding
-      importFrom("graphics", "abline", "axis", "lines", "mtext", "par",
-                 "plot", "polygon", "rect", "segments")
-      importFrom("stats", "aggregate", "approx", "coef", "lm", "sd", "time")
-    to your NAMESPACE file.
-    ```
-
-# incR
-
-Version: 1.0.2
-
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
     Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘rgeos’
+      ‘RColorBrewer’ ‘ggplot2’ ‘rmarkdown’ ‘shinyWidgets’ ‘shinydashboard’
+      ‘shinyjs’
       All declared Imports should be used.
     ```
 
-# itunesr
+# fmdates
 
-Version: 0.1
+<details>
 
-## In both
+* Version: 0.1.4
+* Source code: https://github.com/cran/fmdates
+* URL: https://github.com/imanuelcostigan/fmdates, https://imanuelcostigan.github.io/fmdates/
+* BugReports: https://github.com/imanuelcostigan/fmdates/issues
+* Date/Publication: 2018-01-04 23:07:49 UTC
+* Number of recursive dependencies: 47
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘curl’
-      All declared Imports should be used.
-    ```
+Run `revdep_details(,"fmdates")` for more info
 
-# MazamaSpatialUtils
+</details>
 
-Version: 0.5.2
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘rmapshaper’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# mdsr
-
-Version: 0.1.5
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.5Mb
-      sub-directories of 1Mb or more:
-        data   5.4Mb
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 2694 marked UTF-8 strings
-    ```
-
-# MetamapsDB
-
-Version: 0.0.2
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘Matrix’ ‘shiny’
-      All declared Imports should be used.
-    ```
-
-# mosaic
-
-Version: 1.1.1
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘fastR’
-    
-    Package which this enhances but not available for checking: ‘manipulate’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘cubature’
-    ```
-
-# mudata2
-
-Version: 1.0.0
-
-## In both
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
+    Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      > library(testthat)
+      > library(fmdates)
+      > 
+      > test_check("fmdates")
+      ── 1. Failure: Easter Monday calculations work: (@test-epochs.R#6)  ────────────
+      easter_monday(c(1963, 2013)) not identical to yday(ymd(19630415, 20130401)).
+      Objects equal but not identical
+      
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 898 SKIPPED: 0 FAILED: 12
-      1. Error: mudata_prepare_column and mudata_parse_column are opposites (@test_mudata.io.R#205) 
-      2. Error: mudata_prepare_tbl works as intended (@test_mudata.io.R#249) 
-      3. Error: mudata_prepare_tbl and mudata_parse_tbl are opposites (@test_mudata.io.R#283) 
-      4. Failure: as_* functions produce the expected output type (@test_types.R#204) 
-      5. Failure: wkt parsing returns an sf::sfc (@test_types.R#238) 
-      6. Failure: wkt parsing works when there are parsing errors/NA values (@test_types.R#245) 
-      7. Error: wkt parsing works when there are parsing errors/NA values (@test_types.R#247) 
-      8. Failure: wkt parsing works with zero-length input (@test_types.R#271) 
-      9. Failure: objects generate the correct type strings (@test_types.R#292) 
-      1. ...
+      [ OK: 160 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
+      1. Failure: Easter Monday calculations work: (@test-epochs.R#6) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking package dependencies ... NOTE
+# gravitas
+
+<details>
+
+* Version: 0.1.2
+* Source code: https://github.com/cran/gravitas
+* URL: https://github.com/Sayani07/gravitas/
+* BugReports: https://github.com/Sayani07/gravitas/issues
+* Date/Publication: 2020-02-17 09:20:02 UTC
+* Number of recursive dependencies: 93
+
+Run `revdep_details(,"gravitas")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-    Package suggested but not available for checking: ‘sf’
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+       4. gravitas:::day_semester(x)
+       5. dplyr::if_else(which_sem == 1, day_x, day_x - div_indx + 1)
+       6. dplyr:::replace_with(...)
+       7. dplyr:::check_type(val, x, name)
+       8. dplyr:::glubort(header, "must be {friendly_type_of(template)}, not {friendly_type_of(x)}")
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 123 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 4 ]
+      1. Error: build_gran expected output week_semester (@test-build_gran.R#43) 
+      2. Error: day_semester outputs a numeric value (@test-day-order-up.R#32) 
+      3. Error: day_semester expected output (@test-day-order-up.R#36) 
+      4. Error: day_semester output length equals input length (@test-day-order-up.R#40) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-*   checking dependencies in R code ... NOTE
+# highfrequency
+
+<details>
+
+* Version: 0.6.4
+* Source code: https://github.com/cran/highfrequency
+* Date/Publication: 2020-02-26 14:20:03 UTC
+* Number of recursive dependencies: 90
+
+Run `revdep_details(,"highfrequency")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
     ```
-    Namespaces in Imports field not imported from:
-      ‘hms’ ‘methods’
-      All declared Imports should be used.
+    Running examples in ‘highfrequency-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: aggregatePrice
+    > ### Title: Aggregate a time series but keep first and last observation
+    > ### Aliases: aggregatePrice
+    > ### Keywords: data internal manipulation
+    > 
+    > ### ** Examples
+    > 
+    > # aggregate price data to the 30 second frequency
+    > aggregatePrice(sample_tdata_microseconds, on = "secs", k = 30)
+    Error: Don't know how to compute timezone for object of class data.table/data.frame
+    Execution halted
     ```
 
-# noaastormevents
-
-Version: 0.1.0
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      Don't know how to compute timezone for object of class data.table/data.frame
+      Backtrace:
+        1. testthat::expect_identical(...)
+        4. highfrequency::spotDrift(...)
+        5. highfrequency::aggregatePrice(...)
+        7. data.table:::`[.data.table`(pdata, , `:=`(DATE, as.Date(DT, tz = tz(pdata))))
+        8. [ base::eval(...) ] with 1 more call
+       13. lubridate:::tz.default(pdata)
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 52 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
+      1. Error: (unknown) (@tests_spotvol_and_drift.R#1) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking installed package size ... NOTE
     ```
-    Package required but not available: ‘choroplethr’
-    
-    Package suggested but not available for checking: ‘hurricaneexposuredata’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+      installed size is  8.2Mb
+      sub-directories of 1Mb or more:
+        data   5.9Mb
+        libs   1.6Mb
     ```
-
-# nowcasting
-
-Version: 0.1.1
-
-## In both
-
-*   R CMD check timed out
-    
 
 # npphen
 
-Version: 1.1-0
+<details>
+
+* Version: 1.1-0
+* Source code: https://github.com/cran/npphen
+* Date/Publication: 2017-08-31 10:05:45 UTC
+* Number of recursive dependencies: 28
+
+Run `revdep_details(,"npphen")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘npphen-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: Phen
+    > ### Title: Phen
+    > ### Aliases: Phen
+    > 
+    > ### ** Examples
+    > 
+    > ## Don't show: 
+    > ## Testing function with time series of Slovenian data (EVI)
+    > # Load data
+    > phents<-read.table(system.file("extdata/date_tables/datats",package="npphen"),
+    + dec='.',sep='\t',header=TRUE)
+    > # Phenology for the given data
+    > Phen(x=as.vector(phents$x),dates=phents$dates,h=1,nGS=23,rge=c(0,10000))
+    Error: Don't know how to compute timezone for object of class factor
+    Execution halted
+    ```
 
 ## In both
 
@@ -763,539 +292,366 @@ Version: 1.1-0
       All declared Imports should be used.
     ```
 
-# nyctaxi
+# pollen
 
-Version: 0.0.1
+<details>
 
-## In both
+* Version: 0.71.0
+* Source code: https://github.com/cran/pollen
+* URL: https://github.com/Nowosad/pollen
+* BugReports: https://github.com/Nowosad/pollen/issues
+* Date/Publication: 2018-10-07 07:50:03 UTC
+* Number of recursive dependencies: 57
 
-*   checking re-building of vignette outputs ... WARNING
+Run `revdep_details(,"pollen")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-    ...
-         ## Not run:
-         
-         taxi <- etl("nyctaxi", dir = "~/Desktop/nyctaxi/")
-         taxi %>% 
-            etl_extract(years = 2016, months = 1:2, types = c("yellow","green")) %>% 
-            etl_transform(years = 2016, months = 1:2, types = c("yellow","green")) %>% 
-            etl_load(years = 2016, months = 1:2, types = c("yellow","green")) 
-         ## End(Not run)
-         
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Complete output:
+      > library("testthat")
+      > library("pollen")
+      > 
+      > test_check("pollen")
+      ── 1. Failure: results are proper (@test-seasons.R#11)  ────────────────────────
+      `x` inherits from `integer` not `numeric`.
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 11 | SKIPPED: 0 | WARNINGS: 7 | FAILED: 1 ]
+      1. Failure: results are proper (@test-seasons.R#11) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+# Sojourn
+
+<details>
+
+* Version: 0.1.0
+* Source code: https://github.com/cran/Sojourn
+* URL: http://github.com/paulhibbing/Sojourn
+* BugReports: http://github.com/paulhibbing/Sojourn/issues
+* Date/Publication: 2019-05-06 09:00:06 UTC
+* Number of recursive dependencies: 115
+
+Run `revdep_details(,"Sojourn")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘Sojourn-Ex.R’ failed
+    The error most likely occurred in:
     
-    
-    Attaching package: 'lubridate'
-    
-    The following object is masked from 'package:base':
-    
-        date
-    
-    Quitting from lines 61-71 (nyc_taxi.Rmd) 
-    Error: processing vignette 'nyc_taxi.Rmd' failed with diagnostics:
-    there is no package called 'webshot'
+    > ### Name: enhance_actigraph
+    > ### Title: Combine ActiGraph and activPAL data
+    > ### Aliases: enhance_actigraph
+    > 
+    > ### ** Examples
+    > 
+    > data(SIP_ag, package = "Sojourn")
+    > data(SIP_ap, package = "Sojourn")
+    > combined_data <- enhance_actigraph(SIP_ag, SIP_ap)
+    Error: Don't know how to compute timezone for object of class NULL
     Execution halted
     ```
-
-# oce
-
-Version: 0.9-23
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.8Mb
-      sub-directories of 1Mb or more:
-        help   2.2Mb
-    ```
-
-# opendotaR
-
-Version: 0.1.4
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dplyr’
-      All declared Imports should be used.
-    ```
-
-# osmdata
-
-Version: 0.0.5
-
-## In both
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      6: tryCatchList(expr, classes, parentenv, handlers)
-      7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      8: value[[3L]](cond)
+      > library(Sojourn)
+      > 
+      > test_check("Sojourn")
+      ── 1. Error: SIP returns as expected (@test_sojOutput.R#33)  ───────────────────
+      Don't know how to compute timezone for object of class NULL
+      Backtrace:
+       1. Sojourn::enhance_actigraph(SIP_ag, SIP_ap)
+       4. lubridate:::tz.default(ag$Timestamp)
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 94 SKIPPED: 0 FAILED: 6
-      1. Error: multipolygon (@test-sf-osm.R#9) 
-      2. Error: multilinestring (@test-sf-osm.R#47) 
-      3. Error: ways (@test-sf-osm.R#77) 
-      4. Error: multipolygon (@test-sp-osm.R#4) 
-      5. Error: multilinestring (@test-sp-osm.R#55) 
-      6. Error: ways (@test-sp-osm.R#87) 
+      [ OK: 3 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
+      1. Error: SIP returns as expected (@test_sojOutput.R#33) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.0Mb
-      sub-directories of 1Mb or more:
-        doc    2.8Mb
-        libs   5.0Mb
-    ```
-
-# pivottabler
-
-Version: 0.4.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Quitting from lines 65-68 (v01-introduction.Rmd) 
-    Error: processing vignette 'v01-introduction.Rmd' failed with diagnostics:
-    there is no package called 'webshot'
-    Execution halted
-    ```
-
-# pointblank
-
-Version: 0.1
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
     Namespaces in Imports field not imported from:
-      ‘Hmisc’ ‘digest’ ‘htmltools’ ‘knitr’ ‘lazyWeave’ ‘lubridate’ ‘rJava’
+      ‘AGread’ ‘caret’
       All declared Imports should be used.
     ```
 
-# primerTree
+# stationaRy
 
-Version: 1.0.3
+<details>
 
-## In both
+* Version: 0.5.1
+* Source code: https://github.com/cran/stationaRy
+* URL: https://github.com/rich-iannone/stationaRy
+* BugReports: https://github.com/rich-iannone/stationaRy/issues
+* Date/Publication: 2020-01-12 06:00:06 UTC
+* Number of recursive dependencies: 57
 
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Error in .requirePackage(package) : 
-        unable to find required package 'RCurl'
-      Calls: <Anonymous> ... .extendsForS3 -> extends -> getClassDef -> .requirePackage
-      Execution halted
-    ```
+Run `revdep_details(,"stationaRy")` for more info
 
-# PWFSLSmoke
+</details>
 
-Version: 1.0.10
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘MazamaSpatialUtils’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# quanteda
-
-Version: 1.0.0
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 18.3Mb
-      sub-directories of 1Mb or more:
-        data   1.2Mb
-        libs  16.0Mb
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘digest’
-      All declared Imports should be used.
-    ```
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 71 marked UTF-8 strings
-    ```
-
-# radiant.model
-
-Version: 0.8.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 2 marked UTF-8 strings
-    ```
-
-# rAmCharts
-
-Version: 2.1.5
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  7.8Mb
-      sub-directories of 1Mb or more:
-        htmlwidgets   6.4Mb
-    ```
-
-# rclimateca
-
-Version: 1.0.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 24 marked UTF-8 strings
-    ```
-
-# RDML
-
-Version: 0.9-9
-
-## In both
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘V8’
-    ```
-
-# redcapAPI
-
-Version: 2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘DBI’
-      All declared Imports should be used.
-    ```
-
-# RGoogleAnalytics
-
-Version: 0.1.1
-
-## In both
-
-*   checking DESCRIPTION meta-information ... NOTE
-    ```
-    Malformed Description field: should contain one or more complete sentences.
-    ```
-
-# rols
-
-Version: 2.4.0
-
-## In both
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-             ...) 
-         stop("invalid call in method dispatch to 'termId' (no default method)", domain = NA))(object, 
-             ...), class = structure("standardGeneric", package = "methods")), <environment>)
-      6: stop(gettextf("unable to find an inherited method for function %s for signature %s", 
-             sQuote(fdef@generic), sQuote(cnames)), domain = NA)
+      
+      ── 2. Failure: The `station_coverage()` fcn can provide an additional data repor
+      `.` inherits from `integer` not `numeric`.
+      
+      ── 3. Failure: The `station_coverage()` fcn can provide an additional data repor
+      `.` inherits from `integer` not `numeric`.
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 183 SKIPPED: 0 FAILED: 4
-      1. Failure: Ontology accessors (@test_Onologies.R#71) 
-      2. Failure: constructors (@test_Terms.R#57) 
-      3. Failure: partOf and derivesFrom (@test_Terms.R#177) 
-      4. Error: partOf and derivesFrom (@test_Terms.R#178) 
+      [ OK: 36 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 3 ]
+      1. Failure: The `station_coverage()` fcn can provide an additional data report (@test-get_met_station_data.R#139) 
+      2. Failure: The `station_coverage()` fcn can provide an additional data report (@test-get_met_station_data.R#167) 
+      3. Failure: The `station_coverage()` fcn can provide an additional data report (@test-get_met_station_data.R#171) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Quitting from lines 76-77 (rols.Rmd) 
-    Error: processing vignette 'rols.Rmd' failed with diagnostics:
-    there is no package called 'webshot'
-    Execution halted
-    ```
+# sweep
 
-# rsoi
+<details>
 
-Version: 0.3.0
+* Version: 0.2.2
+* Source code: https://github.com/cran/sweep
+* URL: https://github.com/business-science/sweep
+* BugReports: https://github.com/business-science/sweep/issues
+* Date/Publication: 2019-10-08 13:50:02 UTC
+* Number of recursive dependencies: 116
+
+Run `revdep_details(,"sweep")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 186 | SKIPPED: 0 | WARNINGS: 2 | FAILED: 17 ]
+      1. Failure: sw_sweep test returns tibble with correct rows and columns. (@test_sw_sweep.R#157) 
+      2. Failure: sw_sweep test returns tibble with correct rows and columns. (@test_sw_sweep.R#160) 
+      3. Failure: sw_sweep test returns tibble with correct rows and columns. (@test_sw_sweep.R#163) 
+      4. Failure: sw_*.StructTS test returns tibble with correct rows and columns. (@test_tidiers_StructTS.R#56) 
+      5. Failure: sw_*.Arima test returns tibble with correct rows and columns. (@test_tidiers_arima.R#86) 
+      6. Failure: sw_*.Arima test returns tibble with correct rows and columns. (@test_tidiers_arima.R#95) 
+      7. Failure: sw_*.Arima test returns tibble with correct rows and columns. (@test_tidiers_arima.R#98) 
+      8. Failure: sw_*.bats test returns tibble with correct rows and columns. (@test_tidiers_bats_tbats.R#91) 
+      9. Failure: sw_*.bats test returns tibble with correct rows and columns. (@test_tidiers_bats_tbats.R#98) 
+      1. ...
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘utils’
+    Namespaces in Imports field not imported from:
+      ‘lazyeval’ ‘lubridate’ ‘tidyr’
       All declared Imports should be used.
     ```
 
-# rtimicropem
+# sweidnumbr
 
-Version: 1.3
+<details>
 
-## In both
+* Version: 1.4.1
+* Source code: https://github.com/cran/sweidnumbr
+* URL: https://github.com/rOpenGov/sweidnumbr/
+* BugReports: https://github.com/rOpenGov/sweidnumbr/issues
+* Date/Publication: 2016-09-14 19:44:25
+* Number of recursive dependencies: 39
 
-*   checking dependencies in R code ... NOTE
+Run `revdep_details(,"sweidnumbr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-    Namespace in Imports field not imported from: ‘R6’
-      All declared Imports should be used.
-    ```
-
-# rtrends
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dplyr’
-      All declared Imports should be used.
-    ```
-
-# SanFranBeachWater
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘tibble’
-      All declared Imports should be used.
-    ```
-
-# SciencesPo
-
-Version: 1.4.1
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-    Warning: New theme missing the following elements: axis.title.x.top, axis.title.y.right, axis.text.x.top, axis.text.y.right, axis.line.x, axis.line.y, legend.spacing.x, legend.spacing.y, legend.box.margin, legend.box.background, legend.box.spacing, panel.spacing.x, panel.spacing.y, panel.grid.major, panel.grid.minor, plot.subtitle, plot.caption, strip.placement
-    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Quitting from lines 1090-1091 (SciencesPo.Rmd) 
-    Error: processing vignette 'SciencesPo.Rmd' failed with diagnostics:
-    invalid 'times' argument
-    Execution halted
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘gmodels’
-    ```
-
-# seawaveQ
-
-Version: 1.0.0
-
-## In both
-
-*   checking DESCRIPTION meta-information ... NOTE
-    ```
-    Malformed Description field: should contain one or more complete sentences.
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      
+      ── 1. Error: age at leapyear (@test-pin_age.R#23)  ─────────────────────────────
+      'new_period' is not an exported object from 'namespace:lubridate'
+      Backtrace:
+       1. testthat::expect_equal(...)
+       6. sweidnumbr::pin_age(...)
+       7. lubridate::new_period
+       8. base::getExportedValue(pkg, name)
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 193 | SKIPPED: 1 | WARNINGS: 0 | FAILED: 1 ]
+      1. Error: age at leapyear (@test-pin_age.R#23) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
 *   checking dependencies in R code ... NOTE
     ```
-    Packages in Depends field not imported from:
-      ‘NADA’ ‘lubridate’ ‘survival’
-      These packages need to be imported from (in the NAMESPACE file)
-      for when this namespace is loaded but not attached.
+    Missing or unexported object: ‘lubridate::new_period’
     ```
 
-*   checking R code for possible problems ... NOTE
+# tbrf
+
+<details>
+
+* Version: 0.1.3
+* Source code: https://github.com/cran/tbrf
+* URL: https://mps9506.github.io/tbrf/
+* BugReports: https://github.com/mps9506/tbrf/issues
+* Date/Publication: 2019-11-15 21:30:02 UTC
+* Number of recursive dependencies: 90
+
+Run `revdep_details(,"tbrf")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
     ```
-    ...
-    seawaveQPlots: no visible global function definition for ‘runif’
-    seawaveQPlots: no visible global function definition for ‘pnorm’
-    seawaveQPlots: no visible global function definition for ‘plot’
-    seawaveQPlots: no visible global function definition for ‘points’
-    seawaveQPlots: no visible global function definition for ‘lines’
-    seawaveQPlots: no visible global function definition for ‘mtext’
-    seawaveQPlots: no visible global function definition for ‘text’
-    seawaveQPlots: no visible global function definition for ‘quantile’
-    seawaveQPlots: no visible global function definition for ‘dev.off’
-    Undefined global functions or variables:
-      boxplot day dev.off extractAIC legend lines month mtext par pdf plot
-      pnorm points qnorm quantile ros runif sessionInfo supsmu survreg text
-      title year
-    Consider adding
-      importFrom("grDevices", "dev.off", "pdf")
-      importFrom("graphics", "boxplot", "legend", "lines", "mtext", "par",
-                 "plot", "points", "text", "title")
-      importFrom("stats", "extractAIC", "pnorm", "qnorm", "quantile",
-                 "runif", "supsmu")
-      importFrom("utils", "sessionInfo")
-    to your NAMESPACE file.
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > library(testthat)
+      > library(tbrf)
+      > 
+      > test_check("tbrf")
+      ── 1. Failure: tbr_sum provides expected values (@test-expectedValues.R#64)  ───
+      sum(x1$sum) not equal to 40.
+      1/1 mismatches
+      [1] 44 - 40 == 4
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 29 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
+      1. Failure: tbr_sum provides expected values (@test-expectedValues.R#64) 
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-# SensusR
+# timetk
 
-Version: 2.2.0
+<details>
+
+* Version: 0.1.2
+* Source code: https://github.com/cran/timetk
+* URL: https://github.com/business-science/timetk
+* BugReports: https://github.com/business-science/timetk/issues
+* Date/Publication: 2019-09-25 13:50:02 UTC
+* Number of recursive dependencies: 116
+
+Run `revdep_details(,"timetk")` for more info
+
+</details>
 
 ## Newly broken
 
 *   checking examples ... ERROR
     ```
     ...
-    [1] "93% done merging data for SpeedDatum (15 of 16)."
-    [1] "100% done merging data for SpeedDatum (16 of 16)."
-    [1] "Creating data frame for SpeedDatum."
-    [1] "100% done merging data for TelephonyDatum (1 of 1)."
-    [1] "Creating data frame for TelephonyDatum."
-    [1] "14% done merging data for WlanDatum (1 of 7)."
-    [1] "28% done merging data for WlanDatum (2 of 7)."
-    [1] "42% done merging data for WlanDatum (3 of 7)."
-    [1] "57% done merging data for WlanDatum (4 of 7)."
-    [1] "71% done merging data for WlanDatum (5 of 7)."
-    [1] "85% done merging data for WlanDatum (6 of 7)."
-    [1] "100% done merging data for WlanDatum (7 of 7)."
-    [1] "Creating data frame for WlanDatum."
-    > plot(data$LocationDatum)
-    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=38.0676352725243,-78.9510441850485&zoom=10&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-    Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=38.0676352725243,-78.9510441850485&sensor=false
-    Warning: geocode failed with status OVER_QUERY_LIMIT, location = "38.0676352725243,-78.9510441850485"
-    Error in data.frame(ll.lat = ll[1], ll.lon = ll[2], ur.lat = ur[1], ur.lon = ur[2]) : 
-      arguments imply differing number of rows: 0, 1
-    Calls: plot ... <Anonymous> -> ggmap -> get_map -> get_googlemap -> data.frame
+       <yea>     <int>   <int> <int>    <int> <int>   <int> <int>     <int>
+     1 Jan …    1.45e9      NA  2016     2015     1       1     1         0
+     2 Feb …    1.45e9 2678400  2016     2016     1       1     2         1
+     3 Mar …    1.46e9 2505600  2016     2016     1       1     3         2
+     4 Apr …    1.46e9 2678400  2016     2016     1       2     4         3
+     5 May …    1.46e9 2592000  2016     2016     1       2     5         4
+     6 Jun …    1.46e9 2678400  2016     2016     1       2     6         5
+     7 Jul …    1.47e9 2592000  2016     2016     2       3     7         6
+     8 Aug …    1.47e9 2678400  2016     2016     2       3     8         7
+     9 Sep …    1.47e9 2678400  2016     2016     2       3     9         8
+    10 Oct …    1.48e9 2592000  2016     2016     2       4    10         9
+    11 Nov …    1.48e9 2678400  2016     2016     2       4    11        10
+    12 Dec …    1.48e9 2592000  2016     2016     2       4    12        11
+    # … with 20 more variables: month.lbl <ord>, day <int>, hour <int>,
+    #   minute <int>, second <int>, hour12 <int>, am.pm <int>, wday <int>,
+    #   wday.xts <int>, wday.lbl <ord>, mday <int>, qday <int>, yday <int>,
+    #   mweek <int>, week <int>, week.iso <int>, week2 <int>, week3 <int>,
+    #   week4 <int>, mday7 <int>
+    > tk_get_timeseries_summary(idx_yearmon)
+    Error: Don't know how to compute timezone for object of class yearmon
     Execution halted
     ```
 
-# SpaDES.core
-
-Version: 0.1.1
-
 ## In both
 
-*   checking whether package ‘SpaDES.core’ can be installed ... WARNING
+*   checking tests ...
     ```
-    Found the following significant warnings:
-      Warning: no DISPLAY variable so Tk is not available
-    See ‘/store/Dropbox/dev/lubridate/revdep/checks/SpaDES.core/new/SpaDES.core.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following object is masked from 'package:igraph':
-    
-        %>%
-    
-    Warning: no DISPLAY variable so Tk is not available
-    Loading required package: RColorBrewer
-    Loading required package: raster
-    Loading required package: sp
-    Loading required package: grid
-    
-    Attaching package: 'grid'
-    
-    The following object is masked from 'package:quickPlot':
-    
-        gpar
-    
-    Quitting from lines 357-361 (ii-modules.Rmd) 
-    Error: processing vignette 'ii-modules.Rmd' failed with diagnostics:
-    there is no package called 'webshot'
-    Execution halted
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 246 | SKIPPED: 0 | WARNINGS: 28 | FAILED: 26 ]
+      1. Error: tk_get_timeseries_summary(yearmon) test returns correct format. (@test_tk_get_timeseries.R#103) 
+      2. Error: tk_get_timeseries_summary(yearqtr) test returns correct format. (@test_tk_get_timeseries.R#116) 
+      3. Failure: tk_index(ts) test returns correct format. (@test_tk_index.R#38) 
+      4. Failure: tk_index(xts) test returns correct format. (@test_tk_index.R#97) 
+      5. Failure: tk_index(zoo) test returns correct format. (@test_tk_index.R#111) 
+      6. Failure: tk_index(decomposed.ts) test returns correct format. (@test_tk_index.R#331) 
+      7. Failure: tk_make_future_timeseries(date) test returns correct format. (@test_tk_make_future_timeseries.R#56) 
+      8. Failure: tk_make_future_timeseries(date) test returns correct format. (@test_tk_make_future_timeseries.R#62) 
+      9. Failure: tk_make_future_timeseries(date) test returns correct format. (@test_tk_make_future_timeseries.R#69) 
+      1. ...
+      
+      Error: testthat unit tests failed
+      Execution halted
     ```
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘sp’
-      All declared Imports should be used.
-    ```
+# tolBasis
 
-# SpatialBall
+<details>
 
-Version: 0.1.0
+* Version: 1.0
+* Source code: https://github.com/cran/tolBasis
+* URL: https://www.tol-project.org/browser/tolp/Rprojects/tolBasis
+* Date/Publication: 2015-11-05 13:38:39
+* Number of recursive dependencies: 10
 
-## In both
+Run `revdep_details(,"tolBasis")` for more info
 
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘lubridate’
-      All declared Imports should be used.
-    ```
+</details>
 
-# ss3sim
+## Newly broken
 
-Version: 0.9.5
-
-## In both
-
-*   checking whether package ‘ss3sim’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: no DISPLAY variable so Tk is not available
-    See ‘/store/Dropbox/dev/lubridate/revdep/checks/ss3sim/new/ss3sim.Rcheck/00install.out’ for details.
-    ```
-
-# stacomiR
-
-Version: 0.5.3.1
-
-## In both
-
-*   checking whether package ‘stacomiR’ can be installed ... ERROR
+*   checking whether package ‘tolBasis’ can be installed ... ERROR
     ```
     Installation failed.
-    See ‘/store/Dropbox/dev/lubridate/revdep/checks/stacomiR/new/stacomiR.Rcheck/00install.out’ for details.
+    See ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/tolBasis/new/tolBasis.Rcheck/00install.out’ for details.
     ```
 
 ## Installation
@@ -1303,516 +659,82 @@ Version: 0.5.3.1
 ### Devel
 
 ```
-* installing *source* package ‘stacomiR’ ...
-** package ‘stacomiR’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘tolBasis’ ...
+** package ‘tolBasis’ successfully unpacked and MD5 sums checked
+** using staged installation
 ** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-R session is headless; GTK+ not initialized.
-
-(R:10996): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
-Error : .onLoad failed in loadNamespace() for 'cairoDevice', details:
-  call: fun(libname, pkgname)
-  error: GDK display not found - please make sure X11 is running
-ERROR: lazy loading failed for package ‘stacomiR’
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/stacomiR/new/stacomiR.Rcheck/stacomiR’
+** byte-compile and prepare package for lazy loading
+Error: object ‘new_interval’ is not exported by 'namespace:lubridate'
+Execution halted
+ERROR: lazy loading failed for package ‘tolBasis’
+* removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/tolBasis/new/tolBasis.Rcheck/tolBasis’
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘stacomiR’ ...
-** package ‘stacomiR’ successfully unpacked and MD5 sums checked
+* installing *source* package ‘tolBasis’ ...
+** package ‘tolBasis’ successfully unpacked and MD5 sums checked
+** using staged installation
 ** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** preparing package for lazy loading
-R session is headless; GTK+ not initialized.
-
-(R:10871): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
-Error : .onLoad failed in loadNamespace() for 'cairoDevice', details:
-  call: fun(libname, pkgname)
-  error: GDK display not found - please make sure X11 is running
-ERROR: lazy loading failed for package ‘stacomiR’
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/stacomiR/old/stacomiR.Rcheck/stacomiR’
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (tolBasis)
 
 ```
-# stationaRy
+# weathercan
 
-Version: 0.4.1
+<details>
+
+* Version: 0.3.3
+* Source code: https://github.com/cran/weathercan
+* URL: https://docs.ropensci.org/weathercan, https://github.com/ropensci/weathercan
+* BugReports: https://github.com/ropensci/weathercan/issues
+* Date/Publication: 2020-02-05 14:10:02 UTC
+* Number of recursive dependencies: 128
+
+Run `revdep_details(,"weathercan")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > library(testthat)
+      > library(weathercan)
+      > 
+      > Sys.setenv("R_TESTS" = "")
+      > 
+      > test_check("weathercan")
+      ── 1. Failure: normals_format()/frost_format() format data to correct class (@te
+      f_fmt[["prob_first_fall_temp_below_0_on_date"]] inherits from `integer` not `numeric`.
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 495 | SKIPPED: 17 | WARNINGS: 0 | FAILED: 1 ]
+      1. Failure: normals_format()/frost_format() format data to correct class (@test_08_normals.R#94) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.1Mb
-    ```
-
-# statsDK
-
-Version: 0.1.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘ggplot2’ ‘stringr’
-      All declared Imports should be used.
-    ```
-
-# stormwindmodel
-
-Version: 0.1.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-        intersect, setdiff, setequal, union
-    
-    
-    Attaching package: 'gridExtra'
-    
-    The following object is masked from 'package:dplyr':
-    
-        combine
-    
-    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=georgia&zoom=5&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-    Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=georgia&sensor=false
-    Warning: Removed 703 rows containing missing values (geom_point).
-    Warning: Removed 89 rows containing missing values (geom_point).
-    Warning: Removed 1 rows containing missing values (geom_path).
-    Warning in engine$weave(file, quiet = quiet, encoding = enc) :
-      Pandoc (>= 1.12.3) and/or pandoc-citeproc not available. Falling back to R Markdown v1.
-    Quitting from lines 98-100 (Overview.Rmd) 
-    Error: processing vignette 'Overview.Rmd' failed with diagnostics:
-    there is no package called 'tigris'
-    Execution halted
-    ```
 
 *   checking package dependencies ... NOTE
     ```
-    Package suggested but not available for checking: ‘tigris’
+    Package suggested but not available for checking: ‘sf’
     ```
-
-# stplanr
-
-Version: 0.2.2
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘sf’
-    
-    Package which this enhances but not available for checking: ‘tmap’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# sweep
-
-Version: 0.2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘devtools’ ‘lazyeval’ ‘lubridate’ ‘tidyr’
-      All declared Imports should be used.
-    ```
-
-# tidyquant
-
-Version: 0.5.3
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-         })
-      9: expr_type_of(.x)
-      10: typeof(x)
-      11: duplicate(quo)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 149 SKIPPED: 2 FAILED: 5
-      1. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#15) 
-      2. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#17) 
-      3. Failure: Test returns tibble with correct rows and columns. (@test_tq_get_key_stats.R#19) 
-      4. Error: Test error on invalid data inputs. (@test_tq_mutate.R#142) 
-      5. Error: Test error on invalid data inputs. (@test_tq_transmute.R#121) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    Warning in download.file(url, destfile = tmp, quiet = TRUE) :
-      URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': status was 'Couldn't resolve host name'
-    Warning: x = 'AAPL', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
-    
-    Warning in download.file(url, destfile = tmp, quiet = TRUE) :
-      URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': status was 'Couldn't resolve host name'
-    Warning: x = 'AAPL', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=AAPL&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
-     Removing AAPL.
-    Warning in download.file(url, destfile = tmp, quiet = TRUE) :
-      URL 'http://download.finance.yahoo.com/d/quotes.csv?s=FB&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': status was 'Couldn't resolve host name'
-    Warning: x = 'FB', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=FB&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
-     Removing FB.
-    Warning in download.file(url, destfile = tmp, quiet = TRUE) :
-      URL 'http://download.finance.yahoo.com/d/quotes.csv?s=GOOG&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv': status was 'Couldn't resolve host name'
-    Warning: x = 'GOOG', get = 'key.stats': Error in download.file(url, destfile = tmp, quiet = TRUE): cannot open URL 'http://download.finance.yahoo.com/d/quotes.csv?s=GOOG&f=aa2a5bb4b6c1c4dd1ee7e8e9f6ghjj1j2j4j5j6kk3k4k5ll1mm3m4m5m6m7m8nopp2p5p6qrr1r5r6r7s6s7t8vwxy&e=.csv'
-     Removing GOOG.
-    Quitting from lines 211-214 (TQ01-core-functions-in-tidyquant.Rmd) 
-    Error: processing vignette 'TQ01-core-functions-in-tidyquant.Rmd' failed with diagnostics:
-    object 'Ask' not found
-    Execution halted
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘broom’ ‘curl’ ‘devtools’ ‘rvest’ ‘timeSeries’ ‘tseries’ ‘zoo’
-      All declared Imports should be used.
-    ```
-
-# tidyRSS
-
-Version: 1.2.3
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘testthat’
-      All declared Imports should be used.
-    ```
-
-# tidyverse
-
-Version: 1.2.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dbplyr’ ‘reprex’ ‘rlang’
-      All declared Imports should be used.
-    ```
-
-# timelineS
-
-Version: 0.1.1
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘base’
-      All declared Imports should be used.
-    ```
-
-# TimeProjection
-
-Version: 0.2.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    'library' or 'require' calls in package code:
-      ‘ggplot2’ ‘plyr’
-      Please use :: or requireNamespace() instead.
-      See section 'Suggested packages' in the 'Writing R Extensions' manual.
-    Packages in Depends field not imported from:
-      ‘Matrix’ ‘lubridate’ ‘timeDate’
-      These packages need to be imported from (in the NAMESPACE file)
-      for when this namespace is loaded but not attached.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    plotCalendarHeatmap: no visible global function definition for ‘ddply’
-    plotCalendarHeatmap: no visible global function definition for ‘.’
-    plotCalendarHeatmap: no visible binding for global variable ‘year’
-    plotCalendarHeatmap: no visible binding for global variable ‘month’
-    plotCalendarHeatmap: no visible binding for global variable ‘week’
-    plotCalendarHeatmap: no visible global function definition for ‘ggplot’
-    plotCalendarHeatmap: no visible global function definition for ‘aes’
-    plotCalendarHeatmap: no visible binding for global variable ‘monthweek’
-    plotCalendarHeatmap: no visible binding for global variable ‘weekday’
-    plotCalendarHeatmap: no visible global function definition for
-      ‘geom_tile’
-    plotCalendarHeatmap: no visible global function definition for
-      ‘facet_grid’
-    plotCalendarHeatmap: no visible global function definition for
-      ‘scale_fill_gradientn’
-    projectDate: no visible global function definition for ‘holidayNYSE’
-    projectDate: no visible global function definition for
-      ‘sparse.model.matrix’
-    Undefined global functions or variables:
-      . aes ddply facet_grid geom_tile ggplot holidayNYSE isWeekday month
-      monthweek scale_fill_gradientn sparse.model.matrix week weekday year
-    ```
-
-# timetk
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘devtools’ ‘forecast’
-      All declared Imports should be used.
-    ```
-
-# togglr
-
-Version: 0.1.3
-
-## In both
-
-*   checking package dependencies ... ERROR
-    ```
-    Package required but not available: ‘keyring’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
-    ```
-
-# tsibble
-
-Version: 0.1.2
-
-## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ── 1. Error: (unknown) (@test-tsibble.R#94)  ───────────────────────────────────
-      'to' must be a finite number
-      1: seq.POSIXt(ymd_h("2017-01-01 0"), ymd_h("2017-01-01 12"), by = "3 hour") at testthat/test-tsibble.R:94
-      
-      ── 2. Failure: From seconds to higher date (@test-tsummarise.R#35)  ────────────
-      as_tibble(res3) not equal to tibble(date_min = ymd_h("2017-01-01 0"), value = 5).
-      Rows in x but not y: 1. Rows in y but not x: 1. 
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 245 SKIPPED: 0 FAILED: 2
-      1. Error: (unknown) (@test-tsibble.R#94) 
-      2. Failure: From seconds to higher date (@test-tsummarise.R#35) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-# TSstudio
-
-Version: 0.1.0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    ** building package indices
-    ** installing vignettes
-    ** testing if installed package can be loaded
-    ```
-
-# TTAinterfaceTrendAnalysis
-
-Version: 1.5.3
-
-## In both
-
-*   checking whether package ‘TTAinterfaceTrendAnalysis’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/store/Dropbox/dev/lubridate/revdep/checks/TTAinterfaceTrendAnalysis/new/TTAinterfaceTrendAnalysis.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘TTAinterfaceTrendAnalysis’ ...
-** package ‘TTAinterfaceTrendAnalysis’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Warning: no DISPLAY variable so Tk is not available
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded
-Warning: no DISPLAY variable so Tk is not available
-Error: package or namespace load failed for ‘TTAinterfaceTrendAnalysis’:
- .onAttach failed in attachNamespace() for 'TTAinterfaceTrendAnalysis', details:
-  call: structure(.External(.C_dotTcl, ...), class = "tclObj")
-  error: [tcl] invalid command name "ttk::style".
-
-Error: loading failed
-Execution halted
-ERROR: loading failed
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/TTAinterfaceTrendAnalysis/new/TTAinterfaceTrendAnalysis.Rcheck/TTAinterfaceTrendAnalysis’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘TTAinterfaceTrendAnalysis’ ...
-** package ‘TTAinterfaceTrendAnalysis’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** preparing package for lazy loading
-Warning: no DISPLAY variable so Tk is not available
-** help
-*** installing help indices
-** building package indices
-** installing vignettes
-** testing if installed package can be loaded
-Warning: no DISPLAY variable so Tk is not available
-Error: package or namespace load failed for ‘TTAinterfaceTrendAnalysis’:
- .onAttach failed in attachNamespace() for 'TTAinterfaceTrendAnalysis', details:
-  call: structure(.External(.C_dotTcl, ...), class = "tclObj")
-  error: [tcl] invalid command name "ttk::style".
-
-Error: loading failed
-Execution halted
-ERROR: loading failed
-* removing ‘/store/Dropbox/dev/lubridate/revdep/checks/TTAinterfaceTrendAnalysis/old/TTAinterfaceTrendAnalysis.Rcheck/TTAinterfaceTrendAnalysis’
-
-```
-# unvotes
-
-Version: 0.2.0
-
-## In both
 
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 4494 marked UTF-8 strings
-    ```
-
-# vetools
-
-Version: 1.3-28
-
-## In both
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    tssum: no visible global function definition for ‘ts’
-    tssum: no visible global function definition for ‘window’
-    tssum: no visible global function definition for ‘window<-’
-    xts2ts: no visible global function definition for ‘ts’
-    xts2ts: no visible global function definition for ‘start’
-    xts2ts: no visible global function definition for ‘end’
-    Undefined global functions or variables:
-      abline axis colorRamp cov end frequency image kmeans layout legend
-      lines median par points read.csv rgb rnorm sd slot start text time
-      title ts ts.union window window<-
-    Consider adding
-      importFrom("grDevices", "colorRamp", "rgb")
-      importFrom("graphics", "abline", "axis", "image", "layout", "legend",
-                 "lines", "par", "points", "text", "title")
-      importFrom("methods", "slot")
-      importFrom("stats", "cov", "end", "frequency", "kmeans", "median",
-                 "rnorm", "sd", "start", "time", "ts", "ts.union", "window",
-                 "window<-")
-      importFrom("utils", "read.csv")
-    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-    contains 'methods').
-    ```
-
-# waccR
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘lubridate’ ‘tibble’
-      All declared Imports should be used.
-    ```
-
-# Wats
-
-Version: 0.10.3
-
-## In both
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is 12.3Mb
-      sub-directories of 1Mb or more:
-        doc  12.1Mb
-    ```
-
-# wbstats
-
-Version: 0.2
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 1528 marked UTF-8 strings
-    ```
-
-# xtractomatic
-
-Version: 3.4.1
-
-## In both
-
-*   R CMD check timed out
-    
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘dplyr’
-      All declared Imports should be used.
-    ```
-
-# ztype
-
-Version: 0.1.0
-
-## In both
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘ggplot2’ ‘lubridate’
-      All declared Imports should be used.
+      Note: found 72 marked UTF-8 strings
     ```
 
