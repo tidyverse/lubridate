@@ -27,7 +27,7 @@ year <- function(x)
 
 #' @export
 year.default <- function(x)
-    as.POSIXlt(x, tz = tz(x))$year + 1900L
+    as.POSIXlt(x, tz = tz(x))$year + 1900
 
 #' @export
 year.Period <- function(x)

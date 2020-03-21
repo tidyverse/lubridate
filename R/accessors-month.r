@@ -34,7 +34,7 @@ month <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME
 
 #' @export
 month.default <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
-  month(as.POSIXlt(x, tz = tz(x))$mon + 1L, label, abbr, locale = locale)
+  month(as.POSIXlt(x, tz = tz(x))$mon + 1, label, abbr, locale = locale)
 
 #' @export
 month.numeric <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {

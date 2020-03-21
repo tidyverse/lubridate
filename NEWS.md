@@ -7,8 +7,8 @@ Version 1.7.4.9000
 * Format and print methods for 0-length objects are more consistent.
 * New duration constructor `dmonths()` to complement other duration constructors.
 * `duration()` constructor now accepts `months` and `years` arguments.
-* [#361](https://github.com/tidyverse/lubridate/issues/361) Accessors (`year()`, `month()`, `mday()` etc) now all return integers
 * [#629](https://github.com/tidyverse/lubridate/issues/629) Added `format_ISO8601()` methods.
+* [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
 * [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
 * [#674](https://github.com/tidyverse/lubridate/issues/674) `as_date()` now ignores the `tz` argument
 * [#675](https://github.com/tidyverse/lubridate/issues/675) `force_tz()`, `with_tz()`, `tz<-` convert dates to date-times

@@ -58,7 +58,7 @@ wday <- function(x, label = FALSE, abbr = TRUE,
 wday.default <- function(x, label = FALSE, abbr = TRUE,
                          week_start = getOption("lubridate.week.start", 7),
                          locale = Sys.getlocale("LC_TIME")) {
-  wday(as.POSIXlt(x, tz = tz(x))$wday + 1L, label, abbr, locale = locale, week_start = week_start)
+  wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr, locale = locale, week_start = week_start)
 }
 
 .shift_wday_names <- function(names, week_start = 7) {
@@ -79,7 +79,7 @@ wday.numeric <- function(x, label = FALSE, abbr = TRUE,
   if (start > 7 || start < 1) stop("Invalid 'week_start' argument; must be between 1 and 7")
 
   if (start != 7) {
-    x <- 1L + (x + (6L - start)) %% 7L
+    x <- 1 + (x + (6 - start)) %% 7
   }
 
   if (!label) {
@@ -107,7 +107,7 @@ qday <- function(x)
 #' @export
 qday.default <- function(x) {
   x <- as_date(x)
-  as.integer(x - floor_date(x, "quarter")) + 1L
+  as.integer(x - floor_date(x, "quarter")) + 1
 }
 
 #' @rdname day
@@ -117,7 +117,7 @@ yday <- function(x)
 
 #' @export
 yday.default <- function(x)
-  as.POSIXlt(x, tz = tz(x))$yday + 1L
+  as.POSIXlt(x, tz = tz(x))$yday + 1
 
 #' @rdname day
 #' @export
