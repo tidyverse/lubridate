@@ -69,7 +69,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -120,13 +120,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/tidyverse/lubridate/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="version-1-7-4-9000" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-7-4-9000" class="anchor"></a>Version 1.7.4.9000<small> Unreleased </small>
+    <div id="version-1749000" class="section level1">
+<h1 class="page-header" data-toc-text="1.7.4.9000">
+<a href="#version-1749000" class="anchor"></a>Version 1.7.4.9000<small> Unreleased </small>
 </h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
@@ -138,9 +138,10 @@
 <li>
 <code><a href="../reference/duration.html">duration()</a></code> constructor now accepts <code>months</code> and <code>years</code> arguments.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/361"><a href='https://github.com/tidyverse/lubridate/issues/361'>#361</a></a> Accessors (<code><a href="../reference/year.html">year()</a></code>, <code><a href="../reference/month.html">month()</a></code>, <code><a href="../reference/day.html">mday()</a></code> etc) now all return integers</li>
-<li>
 <a href="https://github.com/tidyverse/lubridate/issues/629"><a href='https://github.com/tidyverse/lubridate/issues/629'>#629</a></a> Added <code><a href="../reference/format_ISO8601.html">format_ISO8601()</a></code> methods.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/713"><a href='https://github.com/tidyverse/lubridate/issues/713'>#713</a></a> <code><a href="../reference/as_date.html">as_datetime()</a></code> always returns a <code><a href="../reference/posix_utils.html">POSIXct()</a></code>
+</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/672"><a href='https://github.com/tidyverse/lubridate/issues/672'>#672</a></a> Eliminate all partial argument matches</li>
 <li>
@@ -182,9 +183,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-7-4" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-7-4" class="anchor"></a>Version 1.7.4<small> 2018-04-11 </small>
+    <div id="version-174" class="section level1">
+<h1 class="page-header" data-toc-text="1.7.4">
+<a href="#version-174" class="anchor"></a>Version 1.7.4<small> 2018-04-11 </small>
 </h1>
 <div id="new-features-1" class="section level3">
 <h3 class="hasAnchor">
@@ -218,9 +219,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-7-3" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-7-3" class="anchor"></a>Version 1.7.3<small> 2018-02-27 </small>
+    <div id="version-173" class="section level1">
+<h1 class="page-header" data-toc-text="1.7.3">
+<a href="#version-173" class="anchor"></a>Version 1.7.3<small> 2018-02-27 </small>
 </h1>
 <div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
@@ -231,9 +232,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-7-2" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-7-2" class="anchor"></a>Version 1.7.2<small> 2018-02-06 </small>
+    <div id="version-172" class="section level1">
+<h1 class="page-header" data-toc-text="1.7.2">
+<a href="#version-172" class="anchor"></a>Version 1.7.2<small> 2018-02-06 </small>
 </h1>
 <div id="new-features-2" class="section level3">
 <h3 class="hasAnchor">
@@ -268,9 +269,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-7-1" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-7-1" class="anchor"></a>Version 1.7.1<small> 2017-11-03 </small>
+    <div id="version-171" class="section level1">
+<h1 class="page-header" data-toc-text="1.7.1">
+<a href="#version-171" class="anchor"></a>Version 1.7.1<small> 2017-11-03 </small>
 </h1>
 <div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
@@ -285,9 +286,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-7-0" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-7-0" class="anchor"></a>Version 1.7.0<small> 2017-10-29 </small>
+    <div id="version-170" class="section level1">
+<h1 class="page-header" data-toc-text="1.7.0">
+<a href="#version-170" class="anchor"></a>Version 1.7.0<small> 2017-10-29 </small>
 </h1>
 <div id="new-features-3" class="section level3">
 <h3 class="hasAnchor">
@@ -386,9 +387,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-6-0" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-6-0" class="anchor"></a>Version 1.6.0<small> 2016-09-13 </small>
+    <div id="version-160" class="section level1">
+<h1 class="page-header" data-toc-text="1.6.0">
+<a href="#version-160" class="anchor"></a>Version 1.6.0<small> 2016-09-13 </small>
 </h1>
 <div id="new-features-4" class="section level3">
 <h3 class="hasAnchor">
@@ -476,9 +477,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-5-6" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-5-6" class="anchor"></a>Version 1.5.6<small> 2016-04-06 </small>
+    <div id="version-156" class="section level1">
+<h1 class="page-header" data-toc-text="1.5.6">
+<a href="#version-156" class="anchor"></a>Version 1.5.6<small> 2016-04-06 </small>
 </h1>
 <div id="new-features-5" class="section level3">
 <h3 class="hasAnchor">
@@ -529,9 +530,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-5-0" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-5-0" class="anchor"></a>Version 1.5.0<small> 2015-12-03 </small>
+    <div id="version-150" class="section level1">
+<h1 class="page-header" data-toc-text="1.5.0">
+<a href="#version-150" class="anchor"></a>Version 1.5.0<small> 2015-12-03 </small>
 </h1>
 <div id="new-features-6" class="section level3">
 <h3 class="hasAnchor">
@@ -618,9 +619,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-4-0" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-4-0" class="anchor"></a>Version 1.4.0<small> Unreleased </small>
+    <div id="version-140" class="section level1">
+<h1 class="page-header" data-toc-text="1.4.0">
+<a href="#version-140" class="anchor"></a>Version 1.4.0<small> Unreleased </small>
 </h1>
 <div id="changes-6" class="section level3">
 <h3 class="hasAnchor">
@@ -662,9 +663,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-3-3" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-3-3" class="anchor"></a>Version 1.3.3<small> 2013-12-31 </small>
+    <div id="version-133" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.3">
+<a href="#version-133" class="anchor"></a>Version 1.3.3<small> 2013-12-31 </small>
 </h1>
 <div id="changes-7" class="section level3">
 <h3 class="hasAnchor">
@@ -685,17 +686,17 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-3-2" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-3-2" class="anchor"></a>Version 1.3.2<small> 2013-12-05 </small>
+    <div id="version-132" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.2">
+<a href="#version-132" class="anchor"></a>Version 1.3.2<small> 2013-12-05 </small>
 </h1>
 <ul>
 <li>Lubridate’s s4 methods no longer use the representation argument, which has been deprecated in R 3.0.0 (see ?setClass). As a result, lubridate is no longer backwards compatible with R &lt;3.0.0.</li>
 </ul>
 </div>
-    <div id="version-1-3-0" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-3-0" class="anchor"></a>Version 1.3.0<small> 2013-09-20 </small>
+    <div id="version-130" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.0">
+<a href="#version-130" class="anchor"></a>Version 1.3.0<small> 2013-09-20 </small>
 </h1>
 <div id="changes-8" class="section level3">
 <h3 class="hasAnchor">
@@ -740,15 +741,16 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-2-0" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-2-0" class="anchor"></a>Version 1.2.0<small> 2012-10-04 </small>
+    <div id="version-120" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.0">
+<a href="#version-120" class="anchor"></a>Version 1.2.0<small> 2012-10-04 </small>
 </h1>
 <div id="changes-9" class="section level3">
 <h3 class="hasAnchor">
 <a href="#changes-9" class="anchor"></a>CHANGES</h3>
 <ul>
-<li>lubridate 1.2.0 is significantly faster than lubridate 1.1.0. This is largely thanks to a parser rewrite submitted by Vitalie Spinu. Thank you, Vitalie. Some metrics:
+<li>
+<p>lubridate 1.2.0 is significantly faster than lubridate 1.1.0. This is largely thanks to a parser rewrite submitted by Vitalie Spinu. Thank you, Vitalie. Some metrics:</p>
 <ul>
 <li>parser speed up - 60x faster</li>
 <li>
@@ -759,7 +761,7 @@
 </li>
 <li>
 <p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a date’s month. And, <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> provide a new way to</p>
-<h3 id="handle-unequal-month-lengths-while-doing-arithmetic.-see-new-features-for-more">handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
+<h3 id="handle-unequal-month-lengths-while-doing-arithmetic-see-new-features-for-more">handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
 <p>details</p>
 </li>
 <li><p>date parsing can now parse multiple date formats within the same vector of date-times. Parsing can also recognize a greater variety of date-time formats as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. Thank you, Vitalie.</p></li>
@@ -804,9 +806,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-1-1-0" class="section level1">
-<h1 class="page-header">
-<a href="#version-1-1-0" class="anchor"></a>Version 1.1.0<small> 2012-03-05 </small>
+    <div id="version-110" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#version-110" class="anchor"></a>Version 1.1.0<small> 2012-03-05 </small>
 </h1>
 <div id="changes-10" class="section level3">
 <h3 class="hasAnchor">
@@ -823,7 +825,7 @@
 <a href="#new-features-9" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>intervals are now more useful and lubridate has more ways to manipulate them. Intervals can be created with %–%; modified with int_shift(), int_flip(), and int_standardize(); manipulated with intersect(), union(), and setdiff(); and used in logical tests with int_aligns(), int_overlaps(), and %within%. lubridate will no longer perform arithmetic between two intervals because the correct results of such operations is no more obvious than the correct result of adding two dates. Instead users are encouraged to use the new set operations or to directly modify intervals with int_start() and int_end(), which can also be used as settors. lubridate now supports negative intervals as well as positive intervals. Intervals also now display with a time zone.</p></li>
-<li><p>Modulo methods for timespans have been changed to return a timespan. this allows modulo methods to be used with integer division in an intuitive manner, e.g. <code>a = a %/% b * b + a %% b</code></p></li>
+<li><p>Modulo methods for timespans have been changed to return a timespan. this allows modulo methods to be used with integer division in an intuitive manner, e.g. <code>a = a %/% b * b + a %% b</code></p></li>
 </ul>
 <p>Users can still acheive a numerical result by using as.numeric() on input before performing modulo.</p>
 <ul>
@@ -836,18 +838,18 @@
 </ul>
 </div>
 </div>
-    <div id="version-0-2-6" class="section level1">
-<h1 class="page-header">
-<a href="#version-0-2-6" class="anchor"></a>Version 0.2.6<small> 2012-01-10 </small>
+    <div id="version-026" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.6">
+<a href="#version-026" class="anchor"></a>Version 0.2.6<small> 2012-01-10 </small>
 </h1>
 <ul>
 <li><p>use <code>test_package</code> to avoid incompatibility with current version of <code>testthat</code></p></li>
 <li><p>other minor fixes to pass <code>R CMD check</code></p></li>
 </ul>
 </div>
-    <div id="version-0-2-5" class="section level1">
-<h1 class="page-header">
-<a href="#version-0-2-5" class="anchor"></a>Version 0.2.5<small> 2011-05-12 </small>
+    <div id="version-025" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.5">
+<a href="#version-025" class="anchor"></a>Version 0.2.5<small> 2011-05-12 </small>
 </h1>
 <ul>
 <li>added ymdThms() for parsing ISO 8061 formatted combned dates and times</li>
@@ -861,17 +863,17 @@
 </ul>
 </div>
 </div>
-    <div id="version-0-2-4" class="section level1">
-<h1 class="page-header">
-<a href="#version-0-2-4" class="anchor"></a>Version 0.2.4<small> 2011-04-05 </small>
+    <div id="version-024" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.4">
+<a href="#version-024" class="anchor"></a>Version 0.2.4<small> 2011-04-05 </small>
 </h1>
 <ul>
 <li>Add citations to JSS article</li>
 </ul>
 </div>
-    <div id="version-0-2-3" class="section level1">
-<h1 class="page-header">
-<a href="#version-0-2-3" class="anchor"></a>Version 0.2.3<small> 2010-12-09 </small>
+    <div id="version-023" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.3">
+<a href="#version-023" class="anchor"></a>Version 0.2.3<small> 2010-12-09 </small>
 </h1>
 <div id="new-features-10" class="section level3">
 <h3 class="hasAnchor">
@@ -890,9 +892,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-0-2-2" class="section level1">
-<h1 class="page-header">
-<a href="#version-0-2-2" class="anchor"></a>Version 0.2.2<small> 2010-11-17 </small>
+    <div id="version-022" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.2">
+<a href="#version-022" class="anchor"></a>Version 0.2.2<small> 2010-11-17 </small>
 </h1>
 <div id="new-features-11" class="section level3">
 <h3 class="hasAnchor">
@@ -910,9 +912,9 @@
 </ul>
 </div>
 </div>
-    <div id="version-0-2-1" class="section level1">
-<h1 class="page-header">
-<a href="#version-0-2-1" class="anchor"></a>Version 0.2.1<small> 2010-11-03 </small>
+    <div id="version-021" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.1">
+<a href="#version-021" class="anchor"></a>Version 0.2.1<small> 2010-11-03 </small>
 </h1>
 <div id="new-features-12" class="section level3">
 <h3 class="hasAnchor">
@@ -930,9 +932,9 @@
 <hr>
 </div>
 </div>
-    <div id="version-0-2" class="section level1">
-<h1 class="page-header">
-<a href="#version-0-2" class="anchor"></a>Version 0.2<small> 2010-10-26 </small>
+    <div id="version-02" class="section level1">
+<h1 class="page-header" data-toc-text="0.2">
+<a href="#version-02" class="anchor"></a>Version 0.2<small> 2010-10-26 </small>
 </h1>
 <div id="new-features-13" class="section level3">
 <h3 class="hasAnchor">
@@ -969,34 +971,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#version-1-7-4-9000">1.7.4.9000</a></li>
-        <li><a href="#version-1-7-4">1.7.4</a></li>
-        <li><a href="#version-1-7-3">1.7.3</a></li>
-        <li><a href="#version-1-7-2">1.7.2</a></li>
-        <li><a href="#version-1-7-1">1.7.1</a></li>
-        <li><a href="#version-1-7-0">1.7.0</a></li>
-        <li><a href="#version-1-6-0">1.6.0</a></li>
-        <li><a href="#version-1-5-6">1.5.6</a></li>
-        <li><a href="#version-1-5-0">1.5.0</a></li>
-        <li><a href="#version-1-4-0">1.4.0</a></li>
-        <li><a href="#version-1-3-3">1.3.3</a></li>
-        <li><a href="#version-1-3-2">1.3.2</a></li>
-        <li><a href="#version-1-3-0">1.3.0</a></li>
-        <li><a href="#version-1-2-0">1.2.0</a></li>
-        <li><a href="#version-1-1-0">1.1.0</a></li>
-        <li><a href="#version-0-2-6">0.2.6</a></li>
-        <li><a href="#version-0-2-5">0.2.5</a></li>
-        <li><a href="#version-0-2-4">0.2.4</a></li>
-        <li><a href="#version-0-2-3">0.2.3</a></li>
-        <li><a href="#version-0-2-2">0.2.2</a></li>
-        <li><a href="#version-0-2-1">0.2.1</a></li>
-        <li><a href="#version-0-2">0.2</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
