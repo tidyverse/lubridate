@@ -78,6 +78,21 @@ tz.zoo <- function(x) {
 }
 
 #' @export
+tz.zooreg <- function(x) {
+  tz(zoo::index(x))
+}
+
+#' @export
+tz.yearmon <- function(x) {
+  "UTC"
+}
+
+#' @export
+tz.yearqtr <- function(x) {
+  "UTC"
+}
+
+#' @export
 tz.timeSeries <- function(x) {
   tz(x@FinCenter)
 }
