@@ -70,7 +70,7 @@
 
   </head>
 
-  <body data-spy="scroll" data-target="#toc">
+  <body>
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -167,10 +167,15 @@ precision for the object is shown.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>format_ISO8601</span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"02-01-2018"</span>, <span class='kw'>format</span><span class='kw'>=</span><span class='st'>"%m-%d-%Y"</span>))</div><div class='output co'>#&gt; [1] "2018-02-01"</div><div class='input'><span class='fu'>format_ISO8601</span>(<span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span>(<span class='st'>"2018-02-01 03:04:05"</span>, <span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"EST"</span>), <span class='kw'>usetz</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2018-02-01T03:04:05-0500"</div><div class='input'><span class='fu'>format_ISO8601</span>(<span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span>(<span class='st'>"2018-02-01 03:04:05"</span>, <span class='kw'>tz</span><span class='kw'>=</span><span class='st'>"EST"</span>), <span class='kw'>precision</span><span class='kw'>=</span><span class='st'>"ymdhm"</span>)</div><div class='output co'>#&gt; [1] "2018-02-01T03:04"</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
