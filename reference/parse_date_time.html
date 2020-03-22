@@ -81,7 +81,7 @@ base::strptime()." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -299,7 +299,7 @@ leading 0s are optional. As compared to <code><a href='https://rdrr.io/r/base/st
 formats are new or have been extended for efficiency reasons. These formats
 are marked with "(*)". The fast parsers <code>parse_date_time2()</code> and
 <code>fast_strptime()</code> accept only formats marked with "(!)".</p>
-<dl class='dl-horizontal'>
+<dl'>
 <dt><code>a</code></dt><dd><p>Abbreviated weekday name in the current
 locale. (Also matches full name)</p></dd>
 
@@ -452,19 +452,12 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
 
 <span class='fu'>parse_date_time</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span>), <span class='st'>"dmy"</span>, <span class='kw'>select_formats</span> <span class='kw'>=</span> <span class='no'>my_select</span>)</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
 <span class='co'>## ** invalid times with "fast" parsing **</span>
-<span class='fu'>parse_date_time</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 03:05:06 EDT"</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
+<span class='fu'>parse_date_time</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/New_York"</span>, <span class='kw'>lt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

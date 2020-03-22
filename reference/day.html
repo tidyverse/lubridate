@@ -70,7 +70,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -200,11 +200,9 @@ option to control this parameter globally.</p></td>
 ordered factor if label is <code>TRUE</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>day()</code> and <code>day&lt;-()</code> are aliases for <code>mday()</code> and <code>mday&lt;-()</code>
-respectively.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code>yday()</code>, <code>mday()</code></p></div>
+    <p><code>mday()</code> and <code>yday()</code> return the day of the month and day of the
+year respectively. <code>day()</code> and <code>day&lt;-()</code> are aliases for <code>mday()</code> and
+<code>mday&lt;-()</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2009-09-02"</span>)
@@ -218,16 +216,10 @@ respectively.</p>
 <span class='fu'>yday</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='fl'>366</span> <span class='co'>#"2010-01-01"</span>
 <span class='fu'>mday</span>(<span class='no'>x</span>) <span class='kw'>&gt;</span> <span class='fl'>3</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
