@@ -70,7 +70,7 @@
 
   </head>
 
-  <body data-spy="scroll" data-target="#toc">
+  <body>
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -162,10 +162,14 @@ year.</p></td>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2012-03-26"</span>, <span class='st'>"2012-05-04"</span>, <span class='st'>"2012-09-23"</span>, <span class='st'>"2012-12-31"</span>))
 <span class='fu'>quarter</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1 2 3 4</div><div class='input'><span class='fu'>quarter</span>(<span class='no'>x</span>, <span class='kw'>with_year</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] 2012.1 2012.2 2012.3 2012.4</div><div class='input'><span class='fu'>quarter</span>(<span class='no'>x</span>, <span class='kw'>with_year</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fiscal_start</span> <span class='kw'>=</span> <span class='fl'>11</span>)</div><div class='output co'>#&gt; [1] 2012.2 2012.3 2012.4 2013.1</div><div class='input'><span class='fu'>semester</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] 1 1 2 2</div><div class='input'><span class='fu'>semester</span>(<span class='no'>x</span>, <span class='kw'>with_year</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] 2012.1 2012.1 2012.2 2012.2</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 

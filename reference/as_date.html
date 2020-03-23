@@ -70,7 +70,7 @@
 
   </head>
 
-  <body data-spy="scroll" data-target="#toc">
+  <body>
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -139,7 +139,7 @@
 <span class='fu'>as_date</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S4 method for numeric</span>
-<span class='fu'>as_date</span>(<span class='no'>x</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='no'><a href='origin.html'>origin</a></span>)
+<span class='fu'>as_date</span>(<span class='no'>x</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='no'><a href='http://lubridate.tidyverse.org/reference/origin.html'>origin</a></span>)
 
 <span class='co'># S4 method for character</span>
 <span class='fu'>as_date</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -150,7 +150,7 @@
 <span class='fu'>as_datetime</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
 
 <span class='co'># S4 method for numeric</span>
-<span class='fu'>as_datetime</span>(<span class='no'>x</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='no'><a href='origin.html'>origin</a></span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
+<span class='fu'>as_datetime</span>(<span class='no'>x</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='kw pkg'>lubridate</span><span class='kw ns'>::</span><span class='no'><a href='http://lubridate.tidyverse.org/reference/origin.html'>origin</a></span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
 
 <span class='co'># S4 method for character</span>
 <span class='fu'>as_datetime</span>(<span class='no'>x</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -217,10 +217,15 @@ vectors.</p></li>
 <span class='no'>dt_wrong</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2009-09-29"</span>, <span class='st'>"2012-11-29"</span>, <span class='st'>"2015-29-12"</span>)
 <span class='fu'>as_date</span>(<span class='no'>dt_wrong</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] "2009-09-29" "2012-11-29" NA          </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#compare-to-base-r">Compare to base R</a></li>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
