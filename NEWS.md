@@ -7,6 +7,7 @@ Version 1.7.4.9000
 * Format and print methods for 0-length objects are more consistent.
 * New duration constructor `dmonths()` to complement other duration constructors.
 * `duration()` constructor now accepts `months` and `years` arguments.
+* [#869](https://github.com/tidyverse/lubridate/issues/869) Propagate NAs to all internal components of a Period object
 * [#629](https://github.com/tidyverse/lubridate/issues/629) Added `format_ISO8601()` methods.
 * [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
 * [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
