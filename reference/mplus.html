@@ -79,7 +79,7 @@ date in the nth month before Date." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -201,15 +201,10 @@ operations.</p>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2019-01-29 01:02:03"</span>)
 <span class='fu'>add_with_rollback</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] "2019-02-28 01:02:03 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2019-02-28 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2019-03-01 01:02:03 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2019-03-01 UTC"</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
