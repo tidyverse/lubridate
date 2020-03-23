@@ -3,17 +3,23 @@ PKG_CPPFLAGS= -I. -I./cctz/include/ -I./cctz/src/
 PKG_LIBS= -L. -lcctz
 
 LIBCCTZ=./cctz/src/time_zone_fixed.o \
-    ./cctz/src/time_zone_if.o \
-    ./cctz/src/time_zone_impl.o \
-    ./cctz/src/time_zone_info.o \
-    ./cctz/src/time_zone_libc.o \
-    ./cctz/src/time_zone_lookup.o \
-    ./cctz/src/time_zone_posix.o
+        ./cctz/src/time_zone_if.o \
+        ./cctz/src/time_zone_impl.o \
+        ./cctz/src/time_zone_info.o \
+        ./cctz/src/time_zone_libc.o \
+        ./cctz/src/time_zone_lookup.o \
+        ./cctz/src/time_zone_posix.o
 
 $(SHLIB): libcctz.a
+
+OBJECTS = RcppExports.o update.o utils.o datetime.o period.o tparse.o
+
+$(OBJECTS): libcctz.a
 
 libcctz.a: $(LIBCCTZ)
 	$(AR) rcs libcctz.a $(LIBCCTZ)
 
 clean:
-	rm -f $(SHLIB) $(LIBCCTZ) $(OBJECTS) libcctz.a
+	rm -f $(SHLIB) $(LIBCCTZ) $(OBJECTS) libcctz.a lubridate.so
+
+.PHONY: clean

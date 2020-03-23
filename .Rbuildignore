@@ -12,6 +12,7 @@
 ^test.R$
 ^tmp.R$
 ^cran-notes.md
+^cran-comments.md
 ^announcement.md
 ^revdep/
 ^codecov\.yml$
