@@ -7,17 +7,12 @@ NULL
 # ------------------------------------------------------------------------------
 # Constructors
 
-# TODO: Find a way to generate these once at load time for efficiency. S4
-# constructors are very slow and these will be called repeatedly. Doing this
-# the standard way in `.onLoad()` seems to trigger some unknown S4 bug.
+# S4 constructors are slow, so empty Period/Duration objects are saved for
+# repeated use in `vec_ptype2()`. Interval types depend on the `tzone`, so
+# the constructor must be used.
 
-new_empty_period <- function() {
-  period()
-}
-
-new_empty_duration <- function() {
-  duration()
-}
+delayedAssign("lubridate_shared_empty_period", period())
+delayedAssign("lubridate_shared_empty_duration", duration())
 
 new_empty_interval <- function(tzone) {
   interval(tzone = tzone)
@@ -104,7 +99,7 @@ vec_ptype2.Period.default <- function(x, y, ...) {
 #' @method vec_ptype2.Period Period
 #' @export
 vec_ptype2.Period.Period <- function(x, y, ...) {
-  new_empty_period()
+  lubridate_shared_empty_period
 }
 
 # ------------------------------------------------------------------------------
@@ -181,18 +176,18 @@ vec_ptype2.Duration.default <- function(x, y, ...) {
 #' @method vec_ptype2.Duration Duration
 #' @export
 vec_ptype2.Duration.Duration <- function(x, y, ...) {
-  new_empty_duration()
+  lubridate_shared_empty_duration
 }
 
 #' @method vec_ptype2.Duration difftime
 #' @export
 vec_ptype2.Duration.difftime <- function(x, y, ...) {
-  new_empty_duration()
+  lubridate_shared_empty_duration
 }
 
 # Registered in `.onLoad()`
 vec_ptype2.difftime.Duration <- function(x, y, ...) {
-  new_empty_duration()
+  lubridate_shared_empty_duration
 }
 
 # ------------------------------------------------------------------------------
