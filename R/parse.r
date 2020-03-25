@@ -366,8 +366,8 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' The list below contains formats recognized by \pkg{lubridate}. For numeric formats
 ##' leading 0s are optional. As compared to [base::strptime()], some of the
 ##' formats are new or have been extended for efficiency reasons. These formats
-##' are marked with "*". The fast parsers `parse_date_time2()` and
-##' `fast_strptime()` accept only formats marked with "!".
+##' are marked with "(*)". The fast parsers `parse_date_time2()` and
+##' `fast_strptime()` accept only formats marked with "(!)".
 ##'
 ##'
 ##' \describe{ \item{`a`}{Abbreviated weekday name in the current
@@ -379,37 +379,37 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' You don't need to specify `a` and `A` formats explicitly. Wday is
 ##' automatically handled if `preproc_wday = TRUE`}
 ##'
-##' \item{`b`!}{Abbreviated or full month name in the current locale. The C
+##' \item{`b` (!)}{Abbreviated or full month name in the current locale. The C
 ##' parser currently understands only English month names.}
 ##'
-##' \item{`B`!}{Same as b.}
+##' \item{`B` (!)}{Same as b.}
 ##'
-##' \item{`d`!}{Day of the month as decimal number (01--31 or 0--31)}
+##' \item{`d` (!)}{Day of the month as decimal number (01--31 or 0--31)}
 ##'
-##' \item{`H`!}{Hours as decimal number (00--24 or 0--24).}
+##' \item{`H` (!)}{Hours as decimal number (00--24 or 0--24).}
 ##'
-##' \item{`I`!}{Hours as decimal number (01--12 or 1--12).}
+##' \item{`I` (!)}{Hours as decimal number (01--12 or 1--12).}
 ##'
 ##' \item{`j`}{Day of year as decimal number (001--366 or 1--366).}
 ##'
-##' \item{`q`!*}{Quarter (1--4). The quarter month is added to the parsed month
+##' \item{`q` (!*)}{Quarter (1--4). The quarter month is added to the parsed month
 ##' if `m` format is present.}
 ##'
-##' \item{`m`!*}{Month as decimal number (01--12 or 1--12). For
+##' \item{`m` (!*)}{Month as decimal number (01--12 or 1--12). For
 ##'                   `parse_date_time`. As a \pkg{lubridate} extension, also
 ##'                   matches abbreviated and full months names as `b` and
 ##'                   `B` formats. C parser understands only English month
 ##'                   names.}
 ##'
-##' \item{`M`!}{Minute as decimal number (00--59 or 0--59).}
+##' \item{`M` (!)}{Minute as decimal number (00--59 or 0--59).}
 ##'
-##' \item{`p`!}{AM/PM indicator in the locale. Normally used in conjunction
+##' \item{`p` (!)}{AM/PM indicator in the locale. Normally used in conjunction
 ##'                   with `I` and \bold{not} with `H`.  But the \pkg{lubridate}
 ##'                   C parser accepts H format as long as hour is not greater
 ##'                   than 12. C parser understands only English locale AM/PM
 ##'                   indicator.}
 ##'
-##' \item{`S`!}{Second as decimal number (00--61 or 0--61), allowing for up
+##' \item{`S` (!)}{Second as decimal number (00--61 or 0--61), allowing for up
 ##' to two leap-seconds (but POSIX-compliant implementations will ignore leap
 ##' seconds).}
 ##'
@@ -425,12 +425,12 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' Monday as the first day of week (and typically with the first Monday of the
 ##' year as day 1 of week 1).  The UK convention.}
 ##'
-##' \item{`y`!*}{Year without century (00--99 or 0--99).  In
+##' \item{`y` (!*)}{Year without century (00--99 or 0--99).  In
 ##' `parse_date_time()` also matches year with century (Y format).}
 ##'
-##' \item{`Y`!}{Year with century.}
+##' \item{`Y` (!)}{Year with century.}
 ##'
-##' \item{`z`!*}{ISO8601 signed offset in hours and minutes from UTC. For
+##' \item{`z` (!*)}{ISO8601 signed offset in hours and minutes from UTC. For
 ##' example `-0800`, `-08:00` or `-08`, all represent 8 hours
 ##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
 ##' [base::strptime()] doesn't fully support ISO8601 this format is implemented as an
@@ -439,16 +439,16 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' necessary. `parse_date_time2()` and `fast_strptime()` support all of
 ##' the timezone formats.}
 ##'
-##' \item{`Om`!*}{Matches numeric month and English alphabetic months
+##' \item{`Om` (!*)}{Matches numeric month and English alphabetic months
 ##'                    (Both, long and abbreviated forms).}
 ##'
-##' \item{`Op`!*}{Matches AM/PM English indicator.}
+##' \item{`Op` (!*)}{Matches AM/PM English indicator.}
 ##'
-##' \item{`r`*}{Matches `Ip` and `H` orders.}
+##' \item{`r` (*)}{Matches `Ip` and `H` orders.}
 ##'
-##' \item{`R`*}{Matches `HM` and`IMp` orders.}
+##' \item{`R` (*)}{Matches `HM` and`IMp` orders.}
 ##'
-##' \item{`T`*}{Matches `IMSp`, `HMS`, and `HMOS` orders.}
+##' \item{`T` (*)}{Matches `IMSp`, `HMS`, and `HMOS` orders.}
 ##' }
 ##'
 ##'
@@ -593,6 +593,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   ## backward compatible hack
   if (is.null(tz)) tz <- ""
+  if (length(tz) != 1 || is.na(tz))
+    stop("`tz` argument must be a character of length one")
 
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
@@ -665,17 +667,19 @@ parse_dt <- function(x, orders, is_format = FALSE, return_lt = FALSE, cutoff_200
 ##'   `cutoff_2000` are parsed as 20th's century, 19th's otherwise. Available only
 ##'   for functions relying on `lubridate`s internal parser.
 parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L){
+  if (length(tz) != 1 || is.na(tz))
+    stop("`tz` argument must be a character of length one")
   if (length(orders) > 1)
     warning("Multiple orders supplied. Only first order is used.")
   if (!exact)
     orders <- gsub("[^[:alpha:]]+", "", as.character(orders[[1]])) ## remove all separators
   if (lt) {
-    .mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz)
+    .mklt(parse_dt(x, orders, exact, TRUE, cutoff_2000), tz)
   } else {
-    if (tz == "UTC"){
-      .POSIXct(parse_dt(x, orders, FALSE, FALSE, cutoff_2000), tz = "UTC")
+    if (is_utc(tz)){
+      .POSIXct(parse_dt(x, orders, exact, FALSE, cutoff_2000), tz = "UTC")
     } else {
-      as.POSIXct(.mklt(parse_dt(x, orders, FALSE, TRUE, cutoff_2000), tz))
+      as.POSIXct(.mklt(parse_dt(x, orders, exact, TRUE, cutoff_2000), tz))
     }
   }
 }
@@ -696,7 +700,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   if (lt) {
     .mklt(parse_dt(x, format, TRUE, TRUE, cutoff_2000), tz)
   } else{
-    if (tz == "UTC") {
+    if (is_utc(tz)) {
       .POSIXct(parse_dt(x, format, TRUE, FALSE, cutoff_2000), "UTC")
     } else {
       as.POSIXct(.mklt(parse_dt(x, format, TRUE, TRUE, cutoff_2000), tz))
@@ -723,9 +727,8 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   na <- is.na(out)
   newx <- x[na]
 
-  verbose <- getOption("lubridate.verbose")
-  if (!is.null(verbose) && verbose)
-    message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
+  if (is_verbose())
+    message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
 
   ## recursive parsing
   if (length(formats) > 1 && length(newx) > 0)
@@ -753,7 +756,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
     ## C PARSER:
     out <- fast_strptime(x, fmt, tz = "UTC", lt = FALSE)
 
-    if (tz != "UTC") {
+    if (!is_utc(tz)) {
       out <-
         if (zpos > 0){
           if (!quiet)
@@ -796,7 +799,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
       fmt <- .str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1, repl)
 
       ## user has supplied tz argument -> convert to tz
-      if (tz != "UTC"){
+      if (!is_utc(tz)){
         if (!quiet)
           message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
         return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))

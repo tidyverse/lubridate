@@ -1,0 +1,42 @@
+> int <- ymd("2010-01-01") %--% ymd("2010-06-01")
+> dur <- ddays(1)
+> per <- months(1)
+
+Interval numerator
+==================
+
+> int %/% int
+Error: Incompatible classes: <Interval> / <Interval>
+
+> int %/% dur
+[1] 151
+
+> int %/% per
+[1] 5
+
+
+Duration numerator
+==================
+
+> dur %/% int
+Error: Incompatible classes: <Duration> / <Interval>
+
+> dur %/% dur
+[1] 1
+
+> dur %/% per
+Error: Incompatible classes: <Duration> %/% <Period>
+
+
+Period numeric
+==============
+
+> per %/% int
+Error: Incompatible classes: <Period> / <Interval>
+
+> per %/% dur
+Error: Incompatible classes: <Period> %/% <Duration>
+
+> per %/% per
+[1] 1
+

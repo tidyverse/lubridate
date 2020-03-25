@@ -82,26 +82,30 @@ compute_estimate <- function (secs, unit = "second") {
   if (is.null(next_unit))
     return(.readable_duration(secs, "year"))
   out <- character(length(secs))
-  tt <- secs < SECONDS_IN_ONE[[next_unit]]
+  tt <- abs(secs) < SECONDS_IN_ONE[[next_unit]]
   if (any(tt))
     out[tt] <- .readable_duration(secs[tt], unit)
   wnext <- which(!tt)
-  out[wnext] <- compute_estimate(secs[wnext], next_unit)
+  if (length(wnext))
+    out[wnext] <- compute_estimate(secs[wnext], next_unit)
   out
 }
 
 #' @export
 setMethod("show", signature(object = "Duration"), function(object) {
-  print(format.Duration(object), quote = TRUE)
+  if (length(object@.Data) == 0) {
+    cat("<Duration[0]>\n")
+  } else {
+    print(format(object), quote = TRUE)
+  }
 })
 
 #' @export
 format.Duration <- function(x, ...) {
-  if (length(x@.Data) == 0) return("Duration(0)")
-  out <- vector("character", length(x@.Data))
+  out <- character(length(x@.Data))
   nnas <- !is.na(x@.Data)
-  out[nnas] <- compute_estimate(abs(x@.Data[nnas]))
-  out[!nnas] <- NA
+  out[nnas] <- compute_estimate(x@.Data[nnas])
+  out[!nnas] <- NA_character_
   out
 }
 
@@ -172,10 +176,12 @@ setMethod("[[<-", signature(x = "Duration"),
 #'   formats are supported; 'm' stands for month and 'M' for minutes unless ISO
 #'   8601 "P" modifier is present (see examples). Fractional units are
 #'   supported.
-#' @param units a character string that specifies the type of units that num
+#' @param units a character string that specifies the type of units that `num`
 #'   refers to. When `num` is character, this argument is ignored.
 #' @param ... a list of time units to be included in the duration and their
-#'   amounts. Seconds, minutes, hours, days, and weeks are supported.
+#'   amounts. Seconds, minutes, hours, days, weeks, months and years are
+#'   supported. Durations of months and years assume that year consists of
+#'   365.25 days.
 #' @param x numeric value of the number of units to be contained in the
 #'   duration.
 #' @return a duration object
@@ -242,50 +248,46 @@ setMethod("[[<-", signature(x = "Duration"),
 #' boundary + ddays(1) # duration
 #' @export
 duration <- function(num = NULL, units = "seconds", ...) {
-  nums <- list(...)
   if (is.character(num)) {
     as.duration(parse_period(num))
-  } else if (!is.null(num) && length(nums) > 0) {
-    c(.duration_from_num(num, units), .duration_from_units(nums))
-  } else if (!is.null(num)) {
-    .duration_from_num(num, units)
-  } else if (length(nums)) {
-    .duration_from_units(nums)
   } else {
-    stop("No valid values have been passed to 'duration' constructor")
+    out1 <- .duration_from_num(num, units)
+    out2 <- .duration_from_pieces(list(...))
+    if (is.null(out1) && is.null(out2)) new("Duration", numeric())
+    else if (is.null(out1)) out2
+    else if (is.null(out2)) out1
+    else c(out1, out2)
   }
 }
+
+average_durations <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
+                       wday = 86400, yday = 86400, day = 86400, week = 604800,
+                       month = 60 * 60 * 24 * 365.25 / 12, year = 60 * 60 * 24 * 365.25)
 
 .duration_from_num <- function(num, units) {
+  if (length(num) == 0)
+    return(NULL)
+
   if (!is.numeric(num)) {
-    stop(sprintf("First argument to `duration` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
+    stop(sprintf("First argument to `duration()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
-  ## qucik check for common wrongdoings: https://github.com/hadley/lubridate/issues/462
-  if (class(num)[[1]] %in% c("Interval", "Period"))
-    stop("Interval or Period objects cannot be used as input to 'period' constructor. Plese use 'as.duration'.")
+  ## qucik check for common wrongdoings: #462
+  if (inherits(num, c("Interval", "Period")))
+    stop("Interval or Period objects cannot be used as input to `duration()` constructor. Use `as.duration()` instead.", call. = FALSE)
 
   unit <- standardise_date_names(units)
-  mult <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
-    wday = 86400, yday = 86400, day = 86400, week = 604800,
-    month = 60 * 60 * 24 * 365 / 12, year = 60 * 60 * 24 * 365)
-
-  new("Duration", num * unname(mult[unit]))
+  new("Duration", num * unname(average_durations[unit]))
 }
 
-.duration_from_units <- function(pieces) {
-  names(pieces) <- standardise_difftime_names(names(pieces))
-
-  defaults <- list(secs = 0, mins = 0, hours = 0, days = 0, weeks = 0)
-  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
-
-  x <- pieces$secs +
-    pieces$mins * 60 +
-    pieces$hours * 3600 +
-    pieces$days * 86400 +
-    pieces$weeks * 604800
-
-  new("Duration", x)
+.duration_from_pieces <- function(pieces) {
+  if (length(pieces) == 0)
+    return(NULL)
+  names(pieces) <- standardise_date_names(names(pieces))
+  out <- 0
+  for (nm in names(pieces))
+    out <- out + pieces[[nm]] * average_durations[[nm]]
+  new("Duration", out)
 }
 
 #' @export dseconds dminutes dhours ddays dweeks dyears dmilliseconds dmicroseconds dnanoseconds dpicoseconds
@@ -298,9 +300,11 @@ dhours <- function(x = 1) new("Duration", x * 3600)
 #' @rdname duration
 ddays <- function(x = 1) new("Duration", x * 86400)
 #' @rdname duration
-dweeks <- function(x = 1) new("Duration", x * 604800)
+dweeks <- function(x = 1) new("Duration", x * average_durations[["week"]])
 #' @rdname duration
-dyears <- function(x = 1) new("Duration", x * 60 * 60 * 24 * 365)
+dmonths <- function(x = 1) new("Duration", x * average_durations[["month"]])
+#' @rdname duration
+dyears <- function(x = 1) new("Duration", x * average_durations[["year"]])
 #' @rdname duration
 dmilliseconds <- function(x = 1) new("Duration", x / 1000)
 #' @rdname duration
@@ -335,16 +339,13 @@ summary.Duration <- function(object, ...) {
 
 #' @export
 setMethod("Compare", c(e1 = "Duration", e2 = "ANY"),
-          function(e1, e2) {
-            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration`.",
-                         class(e1), class(e2)),
-                 call. = FALSE)
-          })
+  function(e1, e2) stop_incompatible_classes(e1, e2, .Generic)
+)
 
 #' @export
 setMethod("Compare", c(e1 = "ANY", e2 = "Duration"),
           function(e1, e2) {
-            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration`.",
+            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration()`.",
                          class(e1), class(e2)),
                  call. = FALSE)
           })

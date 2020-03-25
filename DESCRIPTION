@@ -60,12 +60,8 @@ Suggests:
     testthat
 Enhances:
     chron,
-    fts,
     timeDate,
-    timeSeries,
     tis,
-    tseries,
-    xts,
     zoo
 LinkingTo:
     Rcpp
@@ -74,7 +70,7 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.1
+RoxygenNote: 7.1.0
 SystemRequirements: A system with zoneinfo data (e.g.
     /usr/share/zoneinfo) as well as a recent-enough C++11 compiler (such
     as g++-4.8 or later). On Windows the zoneinfo included with R is used.

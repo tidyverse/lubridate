@@ -5,30 +5,6 @@ NULL
 
 check_period <- function(object) {
   errors <- character()
-  ## if (!is.numeric(object@.Data)) {
-  ##   msg <- "seconds (.Data) value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@year)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@month)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@day)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@hour)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
-  ## if (!is.numeric(object@minute)) {
-  ##   msg <- "year value must be numeric."
-  ##   errors <- c(errors, msg)
-  ## }
 
   length(object@.Data) -> n
   lengths <- c(length(object@year), length(object@month),
@@ -164,37 +140,65 @@ NULL
 setMethod("initialize", "Period", function(.Object, ...) {
   dots <- list(...)
   names(dots)[!nzchar(allNames(dots))] <- ".Data"
-  len <- max(unlist(lapply(dots, length), F, F))
+  lens <- unlist(lapply(dots, length), F, F)
+
+  ## if any 0-length components, the entire object is 0-length
+  if (any(lens == 0)) {
+    for (nm in slotNames(.Object))
+      slot(.Object, nm) <- numeric()
+    validObject(.Object)
+    return(.Object)
+  }
+
+  len <- max(lens)
+  nas <- FALSE
   for (nm in slotNames(.Object)) {
-    slot(.Object, nm) <-
+    el <-
       if (is.null(obj <- dots[[nm]])) {
         rep.int(0L, len)
       } else {
         if (length(obj) < len) rep_len(obj, len)
         else obj
       }
+    nas <- nas | is.na(el)
+    slot(.Object, nm) <- el
   }
+
+  ## If any component has NAs the entire object should have those NAs
+  if (any(nas)) {
+    for (nm in slotNames(.Object)) {
+      slot(.Object, nm)[nas] <- NA_real_
+    }
+  }
+
   validObject(.Object)
   .Object
 })
 
 #' @export
 setMethod("show", signature(object = "Period"), function(object) {
-  print(format(object))
+  if (length(object@.Data) == 0) {
+    cat("<Period[0]>\n")
+  } else {
+    print(format(object))
+  }
 })
 
 #' @export
 format.Period <- function(x, ...) {
-  if (length(x@.Data) == 0) return("Period(0)")
-  show <- vector(mode = "character")
-  na <- is.na(x)
+  if (length(x) == 0) {
+    return(character())
+  }
 
-  show <- paste(x@year, "y ", x@month, "m ", x@day, "d ",
-    x@hour, "H ", x@minute, "M ", x@.Data, "S", sep = "")
+  show <- paste(
+    x@year, "y ", x@month, "m ", x@day, "d ",
+    x@hour, "H ", x@minute, "M ", x@.Data, "S",
+    sep = ""
+  )
   start <- regexpr("[-1-9]|(0\\.)", show)
   show <- ifelse(start > 0, substr(show, start, nchar(show)), "0S")
 
-  show[na] <- NA
+  show[is.na(x)] <- NA
   show
 }
 
@@ -205,7 +209,9 @@ xtfrm.Period <- function(x) {
 
 #' @export
 setMethod("c", signature(x = "Period"), function(x, ...) {
-  elements <- lapply(list(...), as.period)
+  dots <- list(...)
+  nempty <- sapply(dots, length) != 0
+  elements <- lapply(dots[nempty], as.period)
   seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
   years <- c(x@year, unlist(lapply(elements, slot, "year")))
   months <- c(x@month, unlist(lapply(elements, slot, "month")))
@@ -392,17 +398,15 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' boundary + ddays(1) # duration
 #' @export
 period <- function(num = NULL, units = "second", ...) {
-  nums <- list(...)
   if (is.character(num)) {
     parse_period(num)
-  } else if (!is.null(num) && length(nums) > 0) {
-    c(.period_from_num(num, units), .period_from_units(nums))
-  } else if (!is.null(num)) {
-    .period_from_num(num, units)
-  } else if (length(nums)) {
-    .period_from_units(nums)
   } else {
-    stop("No valid values have been passed to 'period' constructor")
+    out1 <- .period_from_num(num, units)
+    out2 <- .period_from_units(list(...))
+    if (is.null(out1) && is.null(out2)) new("Period", numeric())
+    else if (is.null(out1)) out2
+    else if (is.null(out2)) out1
+    else c(out1, out2)
   }
 }
 
@@ -418,52 +422,42 @@ parse_period <- function(x) {
 }
 
 .period_from_num <- function(num, units) {
+  if (length(num) == 0)
+    return(NULL)
 
   if (!is.numeric(num)) {
-    stop(sprintf("First argument to `period` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
+    stop(sprintf("First argument to `period()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
-  if (is.interval(num))
-    stop("Interval objects cannot be used as input to 'period' constructor. Plese use 'as.period'.")
+  ## qucik check for common wrongdoings: #462
+  if (inherits(num, c("Interval", "Duration")))
+    stop("Interval or Durations objects cannot be used as input to 'period()' constructor. Plese use 'as.period()'.")
 
   if (length(units) %% length(num) != 0)
     stop("Arguments `num` and `units` must have same length")
 
-  num <- num + rep(0, length(units))
-  unit <- standardise_date_names(units)
-  pieces <- setNames(as.list(num), unit)
-
-  defaults <- list(second = 0, minute = 0, hour = 0, day = 0, week = 0,
-                   month = 0, year = 0)
-  pieces <- c(pieces, defaults[setdiff(names(defaults), names(pieces))])
-  pieces$day <- pieces$day + 7 * pieces$week
-
-  new("Period", pieces$second, year = pieces$year, month = pieces$month,
-      day = pieces$day, hour = pieces$hour, minute = pieces$minute)
+  .period_from_units(structure(num, names = units))
 }
 
-.period_from_units <- function(units) {
-  pieces <- data.frame(lapply(units, as.numeric))
+.period_from_units <- function(pieces) {
+  if (length(pieces) == 0)
+    return(NULL)
 
-  ## fixme: syncronize this with the initialize method
-  names(pieces) <- standardise_date_names(names(pieces))
-  defaults <- data.frame(
-    second = 0, minute = 0, hour = 0, day = 0, week = 0,
-    month = 0, year = 0
-  )
+  if (!is.numeric(pieces))
+    pieces <- lapply(pieces, as.numeric)
 
-  if (nrow(pieces) == 0) defaults <- defaults[0, ]
+  out <- list(second = 0, minute = 0, hour = 0, day = 0,
+              week = 0, month = 0, year = 0)
 
-  pieces <- cbind(pieces, defaults[setdiff(names(defaults), names(pieces))])
-  ## pieces <- pieces[c("year", "month", "week", "day", "hour", "minute", "second")]
+  unit <- standardise_date_names(names(pieces))
+  for (i in seq_along(unit)) {
+    nm <- unit[[i]]
+    out[[nm]] <- out[[nm]] + pieces[[i]]
+  }
+  out$day <- out$day + 7 * out$week
 
-  pieces$day <- pieces$day + pieces$week * 7
-
-  na <- is.na(rowSums(pieces))
-  pieces$second[na] <- NA ## if any of supplied pieces is NA whole vector should be NA
-
-  new("Period", pieces$second, year = pieces$year, month = pieces$month,
-      day = pieces$day, hour = pieces$hour, minute = pieces$minute)
+  new("Period", out$second, year = out$year, month = out$month,
+      day = out$day, hour = out$hour, minute = out$minute)
 }
 
 #' @rdname period
@@ -529,9 +523,6 @@ seconds_to_period <- function(x) {
   remainder <- abs(span)
   newper <- period(second = rep(0, length(x)))
 
-  ## slot(newper, "year") <- remainder %/% (3600 * 24 * 365.25)
-  ## remainder <- remainder %% (3600 * 24 * 365.25)
-
   slot(newper, "day") <- remainder %/% (3600 * 24)
   remainder <- remainder %% (3600 * 24)
 
@@ -562,17 +553,25 @@ summary.Period <- function(object, ...) {
 }
 
 #' @export
-setMethod("Arith", signature(e1 = "Period", e2 = "ANY"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "Period", e2 = "ANY"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @export
-setMethod("Arith", signature(e1 = "ANY", e2 = "Period"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "ANY", e2 = "Period"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 ## duration is.numeric. So we need these explicits here:
 #' @export
-setMethod("Arith", signature(e1 = "Duration", e2 = "Period"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "Duration", e2 = "Period"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @export
-setMethod("Arith", signature(e1 = "Period", e2 = "Duration"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "Period", e2 = "Duration"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @export
 setMethod("Compare", signature(e1 = "Period", e2 = "Period"),

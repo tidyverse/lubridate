@@ -1,30 +1,31 @@
 #' Round, floor and ceiling methods for date-time objects
 #'
 #' @description
-#' Rounding to the nearest unit or multiple of a unit are supported. All
-#' meaningful specifications in English language are supported - secs, min,
-#' mins, 2 minutes, 3 years etc.
-#'
-#' Rounding to fractional seconds is supported. Please note that rounding to
-#' fractions smaller than 1s can lead to large precision errors due to the
-#' floating point representation of the POSIXct objects. See examples.
-#'
-#' `round_date()` takes a date-time object and rounds it to the nearest value
-#' of the specified time unit. For rounding date-times which is exactly halfway
+#' `round_date()` takes a date-time object and time unit, and rounds it to the nearest value
+#' of the specified time unit. For rounding date-times which are exactly halfway
 #' between two consecutive units, the convention is to round up. Note that this
 #' is in line with the behavior of R's [base::round.POSIXt()] function
 #' but does not follow the convention of the base [base::round()] function
-#' which "rounds to the even digit" per IEC 60559.
+#' which "rounds to the even digit", as per IEC 60559.
 #'
-#' @details In \pkg{lubridate}, rounding of a date-time objects tries to
+#' Rounding to the nearest unit or multiple of a unit is supported. All
+#' meaningful specifications in the English language are supported - secs, min,
+#' mins, 2 minutes, 3 years etc.
+#'
+#' Rounding to fractional seconds is also supported. Please note that rounding to
+#' fractions smaller than 1 second can lead to large precision errors due to the
+#' floating point representation of the POSIXct objects. See examples.
+#'
+#'
+#' @details In \pkg{lubridate}, functions that round date-time objects try to
 #'   preserve the class of the input object whenever possible. This is done by
-#'   first rounding to an instant and then converting to the original class by
+#'   first rounding to an instant, and then converting to the original class as per
 #'   usual R conventions.
 #'
 #'
 #' @section Rounding Up Date Objects:
 #'
-#' By default rounding up `Date` objects follows 3 steps:
+#' By default, rounding up `Date` objects follows 3 steps:
 #'
 #' 1. Convert to an instant representing lower bound of the Date:
 #'    `2000-01-01` --> `2000-01-01 00:00:00`
@@ -36,12 +37,12 @@
 #'    The motivation for this is that the "partial" `2000-01-01` is conceptually
 #'    an interval (`2000-01-01 00:00:00` -- `2000-01-02 00:00:00`) and the day
 #'    hasn't started clocking yet at the exact boundary `00:00:00`. Thus, it
-#'    seems wrong to round up a day to its lower boundary.
+#'    seems wrong to round a day to its lower boundary.
 #'
-#'    The behavior on the boundary can be changed by setting
-#'    `change_on_boundary` to a non-`NULL` value.
+#'    Behavior on the boundary can be changed by setting
+#'    `change_on_boundary` to `TRUE` or `FALSE`.
 #'
-#' 3. If rounding unit is smaller than a day, return the instant from step 2
+#' 3. If the rounding unit is smaller than a day, return the instant from step 2
 #'     (`POSIXct`), otherwise convert to and return a `Date` object.
 #'
 #' @rdname round_date
@@ -50,17 +51,17 @@
 #'   to be rounded to. Valid base units are `second`, `minute`, `hour`, `day`,
 #'   `week`, `month`, `bimonth`, `quarter`, `season`, `halfyear` and
 #'   `year`. Arbitrary unique English abbreviations as in the [period()]
-#'   constructor are allowed. Rounding to multiple of units (except weeks) is
+#'   constructor are allowed. Rounding to multiples of units (except weeks) is
 #'   supported.
-#' @param change_on_boundary If NULL (the default) don't change instants on the
-#'   boundary (`ceiling_date(ymd_hms('2000-01-01 00:00:00'))` is `2000-01-01
-#'   00:00:00`), but round up `Date` objects to the next boundary
-#'   (`ceiling_date(ymd("2000-01-01"), "month")` is `"2000-02-01"`). When
-#'   `TRUE`, instants on the boundary are rounded up to the next boundary. When
-#'   `FALSE`, date-time on the boundary are never rounded up (this was the
-#'   default for \pkg{lubridate} prior to `v1.6.0`. See section `Rounding Up
-#'   Date Objects` below for more details.
-#' @param week_start when unit is `weeks` specify the reference day; 7 being Sunday.
+#' @param change_on_boundary if this is `NULL` (the default), instants on the boundary
+#'   remain unchanged, but `Date` objects are rounded up to the next boundary.
+#'   If this is `TRUE`, instants on the boundary are rounded up to the next boundary.
+#'   If this is `FALSE`, nothing on the boundary is rounded up at all. This was the
+#'   default for \pkg{lubridate} prior to `v1.6.0`.
+#'   See section `Rounding Up Date Objects` below for more details.
+#'
+#' @param week_start when unit is `weeks`, specify the reference day.
+#'   7 represents Sunday and 1 represents Monday.
 #' @keywords manip chron
 #' @seealso [base::round()]
 #' @examples
@@ -117,6 +118,21 @@
 #' as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
 #' ceiling_date(x, ".1 sec") ## -> "2009-08-03 12:01:59.2 CEST"
 #'
+#' ## behaviour of `change_on_boundary`
+#' ## As per default behaviour `NULL`, instants on the boundary remain the
+#' ## same but dates are rounded up
+#' ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month")
+#' ceiling_date(ymd("2000-01-01"), "month")
+#'
+#' ## If `TRUE`, both instants and dates on the boundary are rounded up
+#' ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month", change_on_boundary = TRUE)
+#' ceiling_date(ymd("2000-01-01"), "month")
+#'
+#' ## If `FALSE`, both instants and dates on the boundary remain the same
+#' ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month", change_on_boundary = FALSE)
+#' ceiling_date(ymd("2000-01-01"), "month")
+#'
+
 #' @export
 round_date <- function(x, unit = "second", week_start = getOption("lubridate.week.start", 7)) {
 

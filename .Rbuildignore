@@ -11,7 +11,8 @@
 ^TAGS
 ^test.R$
 ^tmp.R$
-^CRAN_notes.md
+^cran-notes.md
+^cran-comments.md
 ^announcement.md
 ^revdep/
 ^codecov\.yml$
@@ -22,3 +23,7 @@
 ^_pkgdown\.yml$
 ^\.github$
 ^LICENSE\.md$
+^\.github/workflows/R-CMD-check\.yaml$
+^\.github/workflows/pr-commands\.yaml$
+^\.github/workflows/pkgdown\.yaml$
+Makefile

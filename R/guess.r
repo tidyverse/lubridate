@@ -176,9 +176,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   m <- regexpr(reg, x, ignore.case = TRUE, perl = TRUE)
   ## print(regs[[1]])
-  matched <- m > 0
+  matched <- which(m > 0)
 
-  if (any(matched)) {
+  if (length(matched) > 0) {
     nms <- attr(m, "capture.names")
     nms <- nms[nzchar(nms)]
     ## e <- grepl("_e", nms, fixed = TRUE)
@@ -192,8 +192,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     for (n in rev(nms)) {  ## start from the end
       w <- end[, n] > 0 ## -1 if unmatched  subpatern
       lout[w] <- .str_sub(
-        lout[w], start[w, n], end[w, n], 
-        paste("%", gsub("_.*$", "", n), sep = "") 
+        lout[w], start[w, n], end[w, n],
+        paste("%", gsub("_.*$", "", n), sep = "")
       )
     }
     if (fmts_only)
@@ -238,7 +238,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   sort(successes, decreasing = TRUE)
 }
 
-.best_formats <- function(x, orders, locale, .select_formats, drop = FALSE) {
+.best_formats <- function(x, orders, locale, .select_formats = .select_formats, drop = FALSE) {
   ## return a vector of formats that matched X at least once.
   ## Can be zero length vector, if none matched
 
@@ -297,8 +297,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     return(get(locale, envir = .locale_reg_cache))
 
   orig_opt <- options(warn = 5)
-  on.exit({Sys.setlocale("LC_TIME", orig_locale)
-           options(orig_opt)})
+  on.exit({
+    options(orig_opt);
+    Sys.setlocale("LC_TIME", orig_locale)
+  })
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   options(orig_opt)
@@ -306,7 +308,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   format <- "%a@%A@%b@%B@%p@"
   L <- enc2utf8(unique(format(.date_template, format = format)))
   mat <- do.call(rbind, strsplit(L, "@", fixed = TRUE))
-  mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) ## escaping all meta chars
+  mat[] <- gsub("\\.$", "", mat) # remove abbrev trailing dot in some locales (#781)
+  mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) # escaping meta chars
   names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
 
   ## Captures should be unique. Thus we build captures with the following

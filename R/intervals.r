@@ -64,14 +64,20 @@ setClass("Interval", contains = c("Timespan", "numeric"),
 
 #' @export
 setMethod("show", signature(object = "Interval"), function(object) {
-  print(format.Interval(object), quote = F)
+  if (length(object@.Data) == 0) {
+    cat("<Interval[0]>\n")
+  } else {
+    print(format(object), quote = FALSE)
+  }
 })
 
 #' @export
 format.Interval <- function(x, ...) {
-  if (length(x@.Data) == 0) return("Interval(0)")
-  paste(format(x@start, tz = x@tzone, usetz = TRUE), "--",
-    format(x@start + x@.Data, tz = x@tzone, usetz = TRUE), sep = "")
+  paste(
+    format(x@start, tz = x@tzone, usetz = TRUE),
+    format(x@start + x@.Data, tz = x@tzone, usetz = TRUE),
+    sep = "--"
+  )
 }
 
 #' @export
@@ -191,21 +197,22 @@ unique.Interval <- function(x, ...) {
 #'
 #' is.interval(period(months= 1, days = 15)) # FALSE
 #' is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
-interval <- function(start, end = NULL, tzone = tz(start)) {
-
-  if (is.null(tzone)) {
-    tzone <- tz(end)
-    if (is.null(tzone))
-      tzone <- "UTC"
-  }
+interval <- function(start = NULL, end = NULL, tzone = tz(start)) {
+  # NB: tzone is forced and never called on NULL here
 
   if (is.character(start) && is.null(end)) {
     return(parse_interval(start, tzone))
   }
 
+  if (length(start) == 0 || length(end) == 0) {
+    start <- POSIXct()
+    return(new("Interval", numeric(), start = start, tzone = tzone))
+  }
+
   if (is.Date(start)) start <- date_to_posix(start)
   if (is.Date(end)) end <- date_to_posix(end)
 
+  force(tzone)
   start <- as_POSIXct(start, tzone)
   end <- as_POSIXct(end, tzone)
 
@@ -476,8 +483,9 @@ union.Interval <- function(x, y, ...) {
 
   spans <- as.numeric(ends) - as.numeric(starts)
 
-  if (any(!int_overlaps(int1, int2)))
+  if (any(!int_overlaps(int1, int2)) && is_verbose()) {
     message("Union includes intervening time between intervals.")
+  }
 
   tz(starts) <- x@tzone
   new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
@@ -563,7 +571,10 @@ setdiff.Interval <- function(x, y, ...) {
 #' blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
 #'                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
 #' dates %within% blackouts
-setGeneric("%within%", function(a, b) standardGeneric("%within%"))
+setGeneric("%within%", useAsDefault = function(a, b) {
+  stop(sprintf("No %%within%% method with signature a = %s,  b = %s",
+               class(a)[[1]], class(b)[[1]]))
+})
 
 .within <- function(a, int) {
   as.numeric(a) - as.numeric(int@start) <= int@.Data & as.numeric(a) - as.numeric(int@start) >= 0
@@ -652,10 +663,14 @@ setMethod("time_length", signature("Interval"), function(x, unit = "second") {
 })
 
 #' @export
-setMethod("Arith", signature(e1 = "Interval", e2 = "ANY"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "Interval", e2 = "ANY"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @export
-setMethod("Arith", signature(e1 = "ANY", e2 = "Interval"), undefined_arithmetic)
+setMethod("Arith", signature(e1 = "ANY", e2 = "Interval"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, .Generic)
+})
 
 #' @name hidden_aliases
 #' @aliases Arith,Interval,ANY-method Arith,ANY,Interval-method

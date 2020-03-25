@@ -85,3 +85,9 @@ test_that(".get_train_set can find non NA dates", {
   x <- suppressWarnings(suppressMessages(ymd(c(rep(NA, 199), 20130213))))
   expect_equal(x, as.Date(as.POSIXct(c(rep(NA, 199), "2013-02-13"), tz = "UTC")))
 })
+
+test_that("guess_format works with missing entries", {
+  expect_equal(guess_formats("01-01-10", "mdy"),
+               guess_formats(c("01-01-10", NA), "mdy"))
+  expect_null(guess_formats(NA, "mdy"))
+})

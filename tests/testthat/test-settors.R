@@ -10,9 +10,9 @@ test_that("seconds settor correctly performs simple updates", {
   second(posct) <- 10
   second(date) <- 10
 
-  expect_that(second(poslt), equals(10))
-  expect_that(second(posct), equals(10))
-  expect_that(second(date), equals(10))
+  expect_equal(second(poslt), 10)
+  expect_equal(second(posct), 10)
+  expect_equal(second(date), 10)
 
 })
 
@@ -26,35 +26,35 @@ test_that("seconds settor rolls over as expected", {
   second(posct) <- 69
   second(date) <- 69
 
-  expect_that(second(poslt), equals(9))
-  expect_that(minute(poslt), equals(0))
-  expect_that(hour(poslt), equals(0))
-  expect_that(mday(poslt), equals(1))
-  expect_that(wday(poslt), equals(7))
-  expect_that(yday(poslt), equals(1))
-  expect_that(month(poslt), equals(1))
-  expect_that(year(poslt), equals(2011))
-  expect_that(tz(poslt), equals("UTC"))
+  expect_equal(second(poslt), 9)
+  expect_equal(minute(poslt), 0)
+  expect_equal(hour(poslt), 0)
+  expect_equal(mday(poslt), 1)
+  expect_equal(wday(poslt), 7)
+  expect_equal(yday(poslt), 1)
+  expect_equal(month(poslt), 1)
+  expect_equal(year(poslt), 2011)
+  expect_equal(tz(poslt), "UTC")
 
-  expect_that(second(posct), equals(9))
-  expect_that(minute(posct), equals(0))
-  expect_that(hour(posct), equals(0))
-  expect_that(mday(posct), equals(1))
-  expect_that(wday(posct), equals(7))
-  expect_that(yday(posct), equals(1))
-  expect_that(month(posct), equals(1))
-  expect_that(year(posct), equals(2011))
-  expect_that(tz(posct), equals("UTC"))
+  expect_equal(second(posct), 9)
+  expect_equal(minute(posct), 0)
+  expect_equal(hour(posct), 0)
+  expect_equal(mday(posct), 1)
+  expect_equal(wday(posct), 7)
+  expect_equal(yday(posct), 1)
+  expect_equal(month(posct), 1)
+  expect_equal(year(posct), 2011)
+  expect_equal(tz(posct), "UTC")
 
-  expect_that(second(date), equals(9))
-  expect_that(minute(date), equals(1))
-  expect_that(hour(date), equals(0))
-  expect_that(mday(date), equals(31))
-  expect_that(wday(date), equals(6))
-  expect_that(yday(date), equals(365))
-  expect_that(month(date), equals(12))
-  expect_that(year(date), equals(2010))
-  expect_that(tz(date), equals("UTC"))
+  expect_equal(second(date), 9)
+  expect_equal(minute(date), 1)
+  expect_equal(hour(date), 0)
+  expect_equal(mday(date), 31)
+  expect_equal(wday(date), 6)
+  expect_equal(yday(date), 365)
+  expect_equal(month(date), 12)
+  expect_equal(year(date), 2010)
+  expect_equal(tz(date), "UTC")
 
 })
 
@@ -95,30 +95,37 @@ test_that("seconds settor returns NA for spring dst gap", {
 
 })
 
-test_that("seconds settor retains object class", {
+test_that("seconds settor retains object class for datetimes", {
   poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
 
   second(poslt) <- 10
   second(posct) <- 10
-  day(date) <- 10
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 
   second(poslt) <- 70
   second(posct) <- 70
-  day(date) <- 32
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 
 })
 
+test_that("seconds settor makes POSTXct from Date", {
+  date <- as.Date("2010-02-14", tz = "GMT", format = "%Y-%m-%d")
+
+  second(date) <- 10
+
+  expect_s3_class(date, "POSIXct")
+
+  second(date) <- 70
+
+  expect_s3_class(date, "POSIXct")
+
+})
 
 
 test_that("minutes settor correctly performs simple updates", {
@@ -131,9 +138,9 @@ test_that("minutes settor correctly performs simple updates", {
   minute(posct) <- 10
   minute(date) <- 10
 
-  expect_that(minute(poslt), equals(10))
-  expect_that(minute(posct), equals(10))
-  expect_that(minute(date), equals(10))
+  expect_equal(minute(poslt), 10)
+  expect_equal(minute(posct), 10)
+  expect_equal(minute(date), 10)
 
 })
 
@@ -147,35 +154,35 @@ test_that("minutes settor rolls over as expected", {
   minute(posct) <- 69
   minute(date) <- 69
 
-  expect_that(second(poslt), equals(59))
-  expect_that(minute(poslt), equals(9))
-  expect_that(hour(poslt), equals(0))
-  expect_that(mday(poslt), equals(1))
-  expect_that(wday(poslt), equals(7))
-  expect_that(yday(poslt), equals(1))
-  expect_that(month(poslt), equals(1))
-  expect_that(year(poslt), equals(2011))
-  expect_that(tz(poslt), equals("UTC"))
+  expect_equal(second(poslt), 59)
+  expect_equal(minute(poslt), 9)
+  expect_equal(hour(poslt), 0)
+  expect_equal(mday(poslt), 1)
+  expect_equal(wday(poslt), 7)
+  expect_equal(yday(poslt), 1)
+  expect_equal(month(poslt), 1)
+  expect_equal(year(poslt), 2011)
+  expect_equal(tz(poslt), "UTC")
 
-  expect_that(second(posct), equals(59))
-  expect_that(minute(posct), equals(9))
-  expect_that(hour(posct), equals(0))
-  expect_that(mday(posct), equals(1))
-  expect_that(wday(posct), equals(7))
-  expect_that(yday(posct), equals(1))
-  expect_that(month(posct), equals(1))
-  expect_that(year(posct), equals(2011))
-  expect_that(tz(posct), equals("UTC"))
+  expect_equal(second(posct), 59)
+  expect_equal(minute(posct), 9)
+  expect_equal(hour(posct), 0)
+  expect_equal(mday(posct), 1)
+  expect_equal(wday(posct), 7)
+  expect_equal(yday(posct), 1)
+  expect_equal(month(posct), 1)
+  expect_equal(year(posct), 2011)
+  expect_equal(tz(posct), "UTC")
 
-  expect_that(second(date), equals(0))
-  expect_that(minute(date), equals(9))
-  expect_that(hour(date), equals(1))
-  expect_that(mday(date), equals(31))
-  expect_that(wday(date), equals(6))
-  expect_that(yday(date), equals(365))
-  expect_that(month(date), equals(12))
-  expect_that(year(date), equals(2010))
-  expect_that(tz(date), equals("UTC"))
+  expect_equal(second(date), 0)
+  expect_equal(minute(date), 9)
+  expect_equal(hour(date), 1)
+  expect_equal(mday(date), 31)
+  expect_equal(wday(date), 6)
+  expect_equal(yday(date), 365)
+  expect_equal(month(date), 12)
+  expect_equal(year(date), 2010)
+  expect_equal(tz(date), "UTC")
 
 })
 
@@ -217,33 +224,35 @@ test_that("minutes settor returns NA for spring dst gap", {
 
 })
 
-test_that("minutes settor retains object class", {
+test_that("minutes settor retains object class for datetimes", {
   poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
      = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
 
   minute(poslt) <- 1
   minute(posct) <- 1
-  minute(date) <- 1
 
-  expect_that("minute<-"(poslt, 1), is_a("POSIXlt"))
-  expect_that("minute<-"(posct, 1), is_a("POSIXct"))
-  expect_that("minute<-"(date, 1), is_a("POSIXlt"))
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 
   minute(poslt) <- 70
   minute(posct) <- 70
-  minute(date) <- 70
 
-  expect_that("minute<-"(poslt, 70), is_a("POSIXlt"))
-  expect_that("minute<-"(posct, 70), is_a("POSIXct"))
-  expect_that("minute<-"(date, 70), is_a("POSIXlt"))
-
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 })
 
+test_that("minutes settor makes POSIXct from Date", {
+  date <- as.Date("2010-02-14", tz = "GMT", format = "%Y-%m-%d")
+
+  minute(date) <- 70
+
+  expect_is(date, "POSIXct")
+})
+
+
 test_that("hours settor correctly performs simple updates", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
@@ -251,15 +260,14 @@ test_that("hours settor correctly performs simple updates", {
   hour(posct) <- 10
   hour(date) <- 10
 
-  expect_that(hour(poslt), equals(10))
-  expect_that(hour(posct), equals(10))
-  expect_that(hour(date), equals(10))
+  expect_equal(hour(poslt), 10)
+  expect_equal(hour(posct), 10)
+  expect_equal(hour(date), 10)
 
 })
 
 test_that("hours settor rolls over as expected", {
-  poslt <- as.POSIXlt("2010-12-31 23:59:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-12-31 23:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
@@ -267,35 +275,35 @@ test_that("hours settor rolls over as expected", {
   hour(posct) <- 25
   hour(date) <- 25
 
-  expect_that(second(poslt), equals(59))
-  expect_that(minute(poslt), equals(59))
-  expect_that(hour(poslt), equals(1))
-  expect_that(mday(poslt), equals(1))
-  expect_that(wday(poslt), equals(7))
-  expect_that(yday(poslt), equals(1))
-  expect_that(month(poslt), equals(1))
-  expect_that(year(poslt), equals(2011))
-  expect_that(tz(poslt), equals("UTC"))
+  expect_equal(second(poslt), 59)
+  expect_equal(minute(poslt), 59)
+  expect_equal(hour(poslt), 1)
+  expect_equal(mday(poslt), 1)
+  expect_equal(wday(poslt), 7)
+  expect_equal(yday(poslt), 1)
+  expect_equal(month(poslt), 1)
+  expect_equal(year(poslt), 2011)
+  expect_equal(tz(poslt), "UTC")
 
-  expect_that(second(posct), equals(59))
-  expect_that(minute(posct), equals(59))
-  expect_that(hour(posct), equals(1))
-  expect_that(mday(posct), equals(1))
-  expect_that(wday(posct), equals(7))
-  expect_that(yday(posct), equals(1))
-  expect_that(month(posct), equals(1))
-  expect_that(year(posct), equals(2011))
-  expect_that(tz(posct), equals("UTC"))
+  expect_equal(second(posct), 59)
+  expect_equal(minute(posct), 59)
+  expect_equal(hour(posct), 1)
+  expect_equal(mday(posct), 1)
+  expect_equal(wday(posct), 7)
+  expect_equal(yday(posct), 1)
+  expect_equal(month(posct), 1)
+  expect_equal(year(posct), 2011)
+  expect_equal(tz(posct), "UTC")
 
-  expect_that(second(date), equals(0))
-  expect_that(minute(date), equals(0))
-  expect_that(hour(date), equals(1))
-  expect_that(mday(date), equals(1))
-  expect_that(wday(date), equals(7))
-  expect_that(yday(date), equals(1))
-  expect_that(month(date), equals(01))
-  expect_that(year(date), equals(2011))
-  expect_that(tz(date), equals("UTC"))
+  expect_equal(second(date), 0)
+  expect_equal(minute(date), 0)
+  expect_equal(hour(date), 1)
+  expect_equal(mday(date), 1)
+  expect_equal(wday(date), 7)
+  expect_equal(yday(date), 1)
+  expect_equal(month(date), 01)
+  expect_equal(year(date), 2011)
+  expect_equal(tz(date), "UTC")
 
 })
 
@@ -335,30 +343,34 @@ test_that("hours settor returns NA for spring dst gap", {
 
 })
 
-test_that("hours settor retains object class", {
-  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format
-     = "%Y-%m-%d %H:%M:%S")
+test_that("hours settor retains object class for datetimes", {
+  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "GMT", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
 
   hour(poslt) <- 2
   hour(posct) <- 2
-  hour(date) <- 2
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("POSIXlt"))
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 
   hour(poslt) <- 25
   hour(posct) <- 25
-  hour(date) <- 25
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("POSIXlt"))
-
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
 })
 
+test_that("hours settor makes POSIXct from Date", {
+  date <- as.Date("2010-02-14", tz = "GMT", format = "%Y-%m-%d")
+
+  hour(date) <- 2
+
+  expect_s3_class(date, "POSIXct")
+
+  hour(date) <- 25
+
+  expect_s3_class(date, "POSIXct")
+})
 
 
 test_that("mdays settor correctly performs simple updates", {
@@ -371,17 +383,17 @@ test_that("mdays settor correctly performs simple updates", {
   mday(posct) <- 10
   mday(date) <- 10
 
-  expect_that(mday(poslt), equals(10))
-  expect_that(mday(posct), equals(10))
-  expect_that(mday(date), equals(10))
+  expect_equal(mday(poslt), 10)
+  expect_equal(mday(posct), 10)
+  expect_equal(mday(date), 10)
 
-  expect_that(yday(poslt), equals(41))
-  expect_that(yday(posct), equals(41))
-  expect_that(yday(date), equals(41))
+  expect_equal(yday(poslt), 41)
+  expect_equal(yday(posct), 41)
+  expect_equal(yday(date), 41)
 
-  expect_that(wday(poslt), equals(4))
-  expect_that(wday(posct), equals(4))
-  expect_that(wday(date), equals(4))
+  expect_equal(wday(poslt), 4)
+  expect_equal(wday(posct), 4)
+  expect_equal(wday(date), 4)
 
 })
 
@@ -395,35 +407,35 @@ test_that("mdays settor rolls over as expected", {
   mday(posct) <- 32
   mday(date) <- 32
 
-  expect_that(second(poslt), equals(59))
-  expect_that(minute(poslt), equals(59))
-  expect_that(hour(poslt), equals(23))
-  expect_that(mday(poslt), equals(1))
-  expect_that(wday(poslt), equals(7))
-  expect_that(yday(poslt), equals(1))
-  expect_that(month(poslt), equals(1))
-  expect_that(year(poslt), equals(2011))
-  expect_that(tz(poslt), equals("UTC"))
+  expect_equal(second(poslt), 59)
+  expect_equal(minute(poslt), 59)
+  expect_equal(hour(poslt), 23)
+  expect_equal(mday(poslt), 1)
+  expect_equal(wday(poslt), 7)
+  expect_equal(yday(poslt), 1)
+  expect_equal(month(poslt), 1)
+  expect_equal(year(poslt), 2011)
+  expect_equal(tz(poslt), "UTC")
 
-  expect_that(second(posct), equals(59))
-  expect_that(minute(posct), equals(59))
-  expect_that(hour(posct), equals(23))
-  expect_that(mday(posct), equals(1))
-  expect_that(wday(posct), equals(7))
-  expect_that(yday(posct), equals(1))
-  expect_that(month(posct), equals(1))
-  expect_that(year(posct), equals(2011))
-  expect_that(tz(posct), equals("UTC"))
+  expect_equal(second(posct), 59)
+  expect_equal(minute(posct), 59)
+  expect_equal(hour(posct), 23)
+  expect_equal(mday(posct), 1)
+  expect_equal(wday(posct), 7)
+  expect_equal(yday(posct), 1)
+  expect_equal(month(posct), 1)
+  expect_equal(year(posct), 2011)
+  expect_equal(tz(posct), "UTC")
 
-  expect_that(second(date), equals(0))
-  expect_that(minute(date), equals(0))
-  expect_that(hour(date), equals(0))
-  expect_that(mday(date), equals(1))
-  expect_that(wday(date), equals(7))
-  expect_that(yday(date), equals(1))
-  expect_that(month(date), equals(1))
-  expect_that(year(date), equals(2011))
-  expect_that(tz(date), equals("UTC"))
+  expect_equal(second(date), 0)
+  expect_equal(minute(date), 0)
+  expect_equal(hour(date), 0)
+  expect_equal(mday(date), 1)
+  expect_equal(wday(date), 7)
+  expect_equal(yday(date), 1)
+  expect_equal(month(date), 1)
+  expect_equal(year(date), 2011)
+  expect_equal(tz(date), "UTC")
 
 })
 
@@ -475,17 +487,17 @@ test_that("mdays settor retains object class", {
   mday(posct) <- 3
   mday(date) <- 3
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 
   mday(poslt) <- 32
   mday(posct) <- 32
   mday(date) <- 32
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 
 })
 
@@ -501,17 +513,17 @@ test_that("ydays settor correctly performs simple updates", {
   yday(posct) <- 41
   yday(date) <- 41
 
-  expect_that(yday(poslt), equals(41))
-  expect_that(yday(posct), equals(41))
-  expect_that(yday(date), equals(41))
+  expect_equal(yday(poslt), 41)
+  expect_equal(yday(posct), 41)
+  expect_equal(yday(date), 41)
 
-  expect_that(mday(poslt), equals(10))
-  expect_that(mday(posct), equals(10))
-  expect_that(mday(date), equals(10))
+  expect_equal(mday(poslt), 10)
+  expect_equal(mday(posct), 10)
+  expect_equal(mday(date), 10)
 
-  expect_that(wday(poslt), equals(4))
-  expect_that(wday(posct), equals(4))
-  expect_that(wday(date), equals(4))
+  expect_equal(wday(poslt), 4)
+  expect_equal(wday(posct), 4)
+  expect_equal(wday(date), 4)
 })
 
 test_that("ydays settor rolls over as expected", {
@@ -524,35 +536,35 @@ test_that("ydays settor rolls over as expected", {
   yday(posct) <- 366
   yday(date) <- 366
 
-  expect_that(second(poslt), equals(59))
-  expect_that(minute(poslt), equals(59))
-  expect_that(hour(poslt), equals(23))
-  expect_that(mday(poslt), equals(1))
-  expect_that(wday(poslt), equals(7))
-  expect_that(yday(poslt), equals(1))
-  expect_that(month(poslt), equals(1))
-  expect_that(year(poslt), equals(2011))
-  expect_that(tz(poslt), equals("UTC"))
+  expect_equal(second(poslt), 59)
+  expect_equal(minute(poslt), 59)
+  expect_equal(hour(poslt), 23)
+  expect_equal(mday(poslt), 1)
+  expect_equal(wday(poslt), 7)
+  expect_equal(yday(poslt), 1)
+  expect_equal(month(poslt), 1)
+  expect_equal(year(poslt), 2011)
+  expect_equal(tz(poslt), "UTC")
 
-  expect_that(second(posct), equals(59))
-  expect_that(minute(posct), equals(59))
-  expect_that(hour(posct), equals(23))
-  expect_that(mday(posct), equals(1))
-  expect_that(wday(posct), equals(7))
-  expect_that(yday(posct), equals(1))
-  expect_that(month(posct), equals(1))
-  expect_that(year(posct), equals(2011))
-  expect_that(tz(posct), equals("UTC"))
+  expect_equal(second(posct), 59)
+  expect_equal(minute(posct), 59)
+  expect_equal(hour(posct), 23)
+  expect_equal(mday(posct), 1)
+  expect_equal(wday(posct), 7)
+  expect_equal(yday(posct), 1)
+  expect_equal(month(posct), 1)
+  expect_equal(year(posct), 2011)
+  expect_equal(tz(posct), "UTC")
 
-  expect_that(second(date), equals(0))
-  expect_that(minute(date), equals(0))
-  expect_that(hour(date), equals(0))
-  expect_that(mday(date), equals(1))
-  expect_that(wday(date), equals(7))
-  expect_that(yday(date), equals(1))
-  expect_that(month(date), equals(1))
-  expect_that(year(date), equals(2011))
-  expect_that(tz(date), equals("UTC"))
+  expect_equal(second(date), 0)
+  expect_equal(minute(date), 0)
+  expect_equal(hour(date), 0)
+  expect_equal(mday(date), 1)
+  expect_equal(wday(date), 7)
+  expect_equal(yday(date), 1)
+  expect_equal(month(date), 1)
+  expect_equal(year(date), 2011)
+  expect_equal(tz(date), "UTC")
 
 })
 
@@ -604,17 +616,17 @@ test_that("ydays settor retains object class", {
   yday(posct) <- 3
   yday(date) <- 3
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 
   yday(poslt) <- 366
   yday(posct) <- 366
   yday(date) <- 366
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 
 })
 
@@ -630,17 +642,17 @@ test_that("wdays settor correctly performs simple updates", {
   wday(posct) <- 5
   wday(date) <- 5
 
-  expect_that(wday(poslt), equals(5))
-  expect_that(wday(posct), equals(5))
-  expect_that(wday(date), equals(5))
+  expect_equal(wday(poslt), 5)
+  expect_equal(wday(posct), 5)
+  expect_equal(wday(date), 5)
 
-  expect_that(mday(poslt), equals(4))
-  expect_that(mday(posct), equals(4))
-  expect_that(mday(date), equals(4))
+  expect_equal(mday(poslt), 4)
+  expect_equal(mday(posct), 4)
+  expect_equal(mday(date), 4)
 
-  expect_that(mday(poslt), equals(4))
-  expect_that(mday(posct), equals(4))
-  expect_that(mday(date), equals(4))
+  expect_equal(mday(poslt), 4)
+  expect_equal(mday(posct), 4)
+  expect_equal(mday(date), 4)
 
 })
 
@@ -654,35 +666,35 @@ test_that("wdays settor rolls over as expected", {
   wday(posct) <- 8
   wday(date) <- 8
 
-  expect_that(second(poslt), equals(59))
-  expect_that(minute(poslt), equals(59))
-  expect_that(hour(poslt), equals(23))
-  expect_that(mday(poslt), equals(2))
-  expect_that(wday(poslt), equals(1))
-  expect_that(yday(poslt), equals(2))
-  expect_that(month(poslt), equals(1))
-  expect_that(year(poslt), equals(2011))
-  expect_that(tz(poslt), equals("UTC"))
+  expect_equal(second(poslt), 59)
+  expect_equal(minute(poslt), 59)
+  expect_equal(hour(poslt), 23)
+  expect_equal(mday(poslt), 2)
+  expect_equal(wday(poslt), 1)
+  expect_equal(yday(poslt), 2)
+  expect_equal(month(poslt), 1)
+  expect_equal(year(poslt), 2011)
+  expect_equal(tz(poslt), "UTC")
 
-  expect_that(second(posct), equals(59))
-  expect_that(minute(posct), equals(59))
-  expect_that(hour(posct), equals(23))
-  expect_that(mday(posct), equals(2))
-  expect_that(wday(posct), equals(1))
-  expect_that(yday(posct), equals(2))
-  expect_that(month(posct), equals(1))
-  expect_that(year(posct), equals(2011))
-  expect_that(tz(posct), equals("UTC"))
+  expect_equal(second(posct), 59)
+  expect_equal(minute(posct), 59)
+  expect_equal(hour(posct), 23)
+  expect_equal(mday(posct), 2)
+  expect_equal(wday(posct), 1)
+  expect_equal(yday(posct), 2)
+  expect_equal(month(posct), 1)
+  expect_equal(year(posct), 2011)
+  expect_equal(tz(posct), "UTC")
 
-  expect_that(second(date), equals(0))
-  expect_that(minute(date), equals(0))
-  expect_that(hour(date), equals(0))
-  expect_that(mday(date), equals(2))
-  expect_that(wday(date), equals(1))
-  expect_that(yday(date), equals(2))
-  expect_that(month(date), equals(1))
-  expect_that(year(date), equals(2011))
-  expect_that(tz(date), equals("UTC"))
+  expect_equal(second(date), 0)
+  expect_equal(minute(date), 0)
+  expect_equal(hour(date), 0)
+  expect_equal(mday(date), 2)
+  expect_equal(wday(date), 1)
+  expect_equal(yday(date), 2)
+  expect_equal(month(date), 1)
+  expect_equal(year(date), 2011)
+  expect_equal(tz(date), "UTC")
 
 })
 
@@ -734,17 +746,17 @@ test_that("wdays settor retains object class", {
   wday(posct) <- 3
   wday(date) <- 3
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 
   wday(poslt) <- 8
   wday(posct) <- 8
   wday(date) <- 8
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 
 })
 
@@ -759,9 +771,9 @@ test_that("months settor correctly performs simple updates", {
   month(posct) <- 5
   month(date) <- 5
 
-  expect_that(month(poslt), equals(5))
-  expect_that(month(posct), equals(5))
-  expect_that(month(date), equals(5))
+  expect_equal(month(poslt), 5)
+  expect_equal(month(posct), 5)
+  expect_equal(month(date), 5)
 })
 
 test_that("months settor rolls over as expected", {
@@ -774,35 +786,35 @@ test_that("months settor rolls over as expected", {
   month(posct) <- 13
   month(date) <- 13
 
-  expect_that(second(poslt), equals(59))
-  expect_that(minute(poslt), equals(59))
-  expect_that(hour(poslt), equals(23))
-  expect_that(mday(poslt), equals(31))
-  expect_that(wday(poslt), equals(2))
-  expect_that(yday(poslt), equals(31))
-  expect_that(month(poslt), equals(1))
-  expect_that(year(poslt), equals(2011))
-  expect_that(tz(poslt), equals("UTC"))
+  expect_equal(second(poslt), 59)
+  expect_equal(minute(poslt), 59)
+  expect_equal(hour(poslt), 23)
+  expect_equal(mday(poslt), 31)
+  expect_equal(wday(poslt), 2)
+  expect_equal(yday(poslt), 31)
+  expect_equal(month(poslt), 1)
+  expect_equal(year(poslt), 2011)
+  expect_equal(tz(poslt), "UTC")
 
-  expect_that(second(posct), equals(59))
-  expect_that(minute(posct), equals(59))
-  expect_that(hour(posct), equals(23))
-  expect_that(mday(posct), equals(31))
-  expect_that(wday(posct), equals(2))
-  expect_that(yday(posct), equals(31))
-  expect_that(month(posct), equals(1))
-  expect_that(year(posct), equals(2011))
-  expect_that(tz(posct), equals("UTC"))
+  expect_equal(second(posct), 59)
+  expect_equal(minute(posct), 59)
+  expect_equal(hour(posct), 23)
+  expect_equal(mday(posct), 31)
+  expect_equal(wday(posct), 2)
+  expect_equal(yday(posct), 31)
+  expect_equal(month(posct), 1)
+  expect_equal(year(posct), 2011)
+  expect_equal(tz(posct), "UTC")
 
-  expect_that(second(date), equals(0))
-  expect_that(minute(date), equals(0))
-  expect_that(hour(date), equals(0))
-  expect_that(mday(date), equals(31))
-  expect_that(wday(date), equals(2))
-  expect_that(yday(date), equals(31))
-  expect_that(month(date), equals(1))
-  expect_that(year(date), equals(2011))
-  expect_that(tz(date), equals("UTC"))
+  expect_equal(second(date), 0)
+  expect_equal(minute(date), 0)
+  expect_equal(hour(date), 0)
+  expect_equal(mday(date), 31)
+  expect_equal(wday(date), 2)
+  expect_equal(yday(date), 31)
+  expect_equal(month(date), 1)
+  expect_equal(year(date), 2011)
+  expect_equal(tz(date), "UTC")
 
 })
 
@@ -849,21 +861,21 @@ test_that("months settor retains object class", {
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
-    month(poslt) <- 1
+  month(poslt) <- 1
   month(posct) <- 1
   month(date) <- 1
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 
-    month(poslt) <- 13
+  month(poslt) <- 13
   month(posct) <- 13
   month(date) <- 13
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 
 })
 
@@ -878,9 +890,9 @@ test_that("years settor correctly performs simple updates", {
   year(posct) <- 2000
   year(date) <- 2000
 
-  expect_that(year(poslt), equals(2000))
-  expect_that(year(posct), equals(2000))
-  expect_that(year(date), equals(2000))
+  expect_equal(year(poslt), 2000)
+  expect_equal(year(posct), 2000)
+  expect_equal(year(date), 2000)
 })
 
 
@@ -924,9 +936,9 @@ test_that("years settor retains object class", {
   year(posct) <- 2000
   year(date) <- 2000
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 })
 
 
@@ -940,9 +952,9 @@ test_that("dates settor correctly performs simple updates", {
   date(posct) <- as.Date("2000-01-01")
   date(date) <- as.Date("2000-01-01")
 
-  expect_that(date(poslt), equals(as.Date("2000-01-01")))
-  expect_that(date(posct), equals(as.Date("2000-01-01")))
-  expect_that(date(date), equals(as.Date("2000-01-01")))
+  expect_equal(date(poslt), as.Date("2000-01-01"))
+  expect_equal(date(posct), as.Date("2000-01-01"))
+  expect_equal(date(date), as.Date("2000-01-01"))
 })
 
 test_that("dates settor does not change time zone", {
@@ -983,27 +995,29 @@ test_that("dates settor retains object class", {
   date(posct) <- as.Date("2000-01-01")
   date(date) <- as.Date("2000-01-01")
 
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
+  expect_is(poslt, "POSIXlt")
+  expect_is(posct, "POSIXct")
+  expect_is(date, "Date")
 })
 
 
 test_that("time zone settor correctly performs simple updates", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
-  posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
+  posct <- ymd_hms("2010-02-03 13:45:59", tz = "UTC")
+  poslt <- as.POSIXlt(posct)
+  date <- as.Date(posct)
 
   tz(poslt) <- "GMT"
   tz(posct) <- "GMT"
-  tz(date) <- "GMT" # dates do not have a tz attribute
+  tz(date) <- "GMT"
+
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "POSIXct")
 
   expect_match(tz(poslt), "GMT")
   expect_match(tz(posct), "GMT")
-  expect_match(tz(date), "UTC")
+  expect_match(tz(date), "GMT")
 })
-
 
 test_that("time zone settor returns NA for spring dst gap", {
   poslt <- as.POSIXlt("2010-03-14 02:30:59", tz = "UTC", format
@@ -1018,22 +1032,6 @@ test_that("time zone settor returns NA for spring dst gap", {
 
 })
 
-test_that("time zone settor retains object class", {
-  poslt <- as.POSIXlt("2010-02-14 01:59:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
-  posct <- as.POSIXct(poslt)
-  date <- as.Date(poslt)
-
-  tz(poslt) <- "GMT"
-  tz(posct) <- "GMT"
-  tz(date) <- "GMT"
-
-  expect_that(poslt, is_a("POSIXlt"))
-  expect_that(posct, is_a("POSIXct"))
-  expect_that(date, is_a("Date"))
-})
-
-
 test_that("settors handle vectors", {
   poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 01:59:59"),
                       tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
@@ -1044,81 +1042,81 @@ test_that("settors handle vectors", {
   second(posct) <- 1
   second(date) <- 1
 
-  expect_that(second(poslt), equals(c(1, 1, 1)))
-  expect_that(second(posct), equals(c(1, 1, 1)))
-  expect_that(second(date), equals(c(1, 1, 1)))
+  expect_equal(second(poslt), c(1, 1, 1))
+  expect_equal(second(posct), c(1, 1, 1))
+  expect_equal(second(date), c(1, 1, 1))
 
   minute(poslt) <- 1
   minute(posct) <- 1
   minute(date) <- 1
 
-  expect_that(minute(poslt), equals(c(1, 1, 1)))
-  expect_that(minute(posct), equals(c(1, 1, 1)))
-  expect_that(minute(date), equals(c(1, 1, 1)))
+  expect_equal(minute(poslt), c(1, 1, 1))
+  expect_equal(minute(posct), c(1, 1, 1))
+  expect_equal(minute(date), c(1, 1, 1))
 
   hour(poslt) <- 1
   hour(posct) <- 1
   hour(date) <- 1
 
-  expect_that(hour(poslt), equals(c(1, 1, 1)))
-  expect_that(hour(posct), equals(c(1, 1, 1)))
-  expect_that(hour(date), equals(c(1, 1, 1)))
+  expect_equal(hour(poslt), c(1, 1, 1))
+  expect_equal(hour(posct), c(1, 1, 1))
+  expect_equal(hour(date), c(1, 1, 1))
 
   mday(poslt) <- 1
   mday(posct) <- 1
   mday(date) <- 1
 
-  expect_that(mday(poslt), equals(c(1, 1, 1)))
-  expect_that(mday(posct), equals(c(1, 1, 1)))
-  expect_that(mday(date), equals(c(1, 1, 1)))
+  expect_equal(mday(poslt), c(1, 1, 1))
+  expect_equal(mday(posct), c(1, 1, 1))
+  expect_equal(mday(date), c(1, 1, 1))
 
   wday(poslt) <- 1
   wday(posct) <- 1
   wday(date) <- 1
 
-  expect_that(wday(poslt), equals(c(1, 1, 1)))
-  expect_that(wday(posct), equals(c(1, 1, 1)))
-  expect_that(wday(date), equals(c(1, 1, 1)))
+  expect_equal(wday(poslt), c(1, 1, 1))
+  expect_equal(wday(posct), c(1, 1, 1))
+  expect_equal(wday(date), c(1, 1, 1))
 
   yday(poslt) <- 1
   yday(posct) <- 1
   yday(date) <- 1
 
-  expect_that(yday(poslt), equals(c(1, 1, 1)))
-  expect_that(yday(posct), equals(c(1, 1, 1)))
-  expect_that(yday(date), equals(c(1, 1, 1)))
+  expect_equal(yday(poslt), c(1, 1, 1))
+  expect_equal(yday(posct), c(1, 1, 1))
+  expect_equal(yday(date), c(1, 1, 1))
 
   week(poslt) <- 2
   week(posct) <- 2
   week(date) <- 2
 
-  expect_that(week(poslt), equals(c(2, 2, 2)))
-  expect_that(week(posct), equals(c(2, 2, 2)))
-  expect_that(week(date), equals(c(2, 2, 2)))
+  expect_equal(week(poslt), c(2, 2, 2))
+  expect_equal(week(posct), c(2, 2, 2))
+  expect_equal(week(date), c(2, 2, 2))
 
   month(poslt) <- 10
   month(posct) <- 10
   month(date) <- 10
 
-  expect_that(month(poslt), equals(c(10, 10, 10)))
-  expect_that(month(posct), equals(c(10, 10, 10)))
-  expect_that(month(date), equals(c(10, 10, 10)))
+  expect_equal(month(poslt), c(10, 10, 10))
+  expect_equal(month(posct), c(10, 10, 10))
+  expect_equal(month(date), c(10, 10, 10))
 
   year(poslt) <- 2001
   year(posct) <- 2001
   year(date) <- 2001
 
-  expect_that(year(poslt), equals(c(2001, 2001, 2001)))
-  expect_that(year(posct), equals(c(2001, 2001, 2001)))
-  expect_that(year(date), equals(c(2001, 2001, 2001)))
+  expect_equal(year(poslt), c(2001, 2001, 2001))
+  expect_equal(year(posct), c(2001, 2001, 2001))
+  expect_equal(year(date), c(2001, 2001, 2001))
 
   date(poslt) <- as.Date("2001-01-01")
   date(posct) <- as.Date("2001-01-01")
   date(date) <- as.Date("2001-01-01")
 
-  expect_that(date(poslt), equals(as.Date(c("2001-01-01", "2001-01-01", "2001-01-01"))))
-  expect_that(date(posct), equals(as.Date(c("2001-01-01", "2001-01-01", "2001-01-01"))))
-  expect_that(date(date), equals(as.Date(c("2001-01-01", "2001-01-01", "2001-01-01"))))
+  expect_equal(date(poslt), as.Date(c("2001-01-01", "2001-01-01", "2001-01-01")))
+  expect_equal(date(posct), as.Date(c("2001-01-01", "2001-01-01", "2001-01-01")))
+  expect_equal(date(date), as.Date(c("2001-01-01", "2001-01-01", "2001-01-01")))
 
   tz(poslt) <- "GMT"
   tz(posct) <- "GMT"

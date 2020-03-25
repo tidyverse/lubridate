@@ -49,23 +49,29 @@ add_period_to_date <- function(per, date) {
   ms <- month(per) + year(per) * 12
   lt <- add_months(lt, ms)
 
+  if (is.Date(date)) {
+    new <- update(as.Date(lt),
+                  days = mday(lt) + per@day,
+                  hours = per@hour,
+                  minutes = per@minute,
+                  seconds = per@.Data)
+    return(new)
+  }
+
   new <- update(lt,
                 days = mday(lt) + per@day,
                 hours = hour(lt) + per@hour,
                 minutes = minute(lt) + per@minute,
                 seconds = second(lt) + per@.Data)
 
-  if (is.Date(date) && sum(new$sec, new$min, new$hour, na.rm = TRUE) != 0)
-    return(new)
-
   reclass_date(new, date)
 }
 
 add_months <- function(mt, mos) {
-  if (all(mos == 0L)) {
+  nnas <- !is.na(mos)
+  if (all(mos[nnas] == 0L)) {
     return(mt)
   }
-
   mt$mon <- mt$mon + mos
   ndays <- as.numeric(format.POSIXlt(mt, "%d", usetz = FALSE))
   mt$mon[mt$mday != ndays] <- NA

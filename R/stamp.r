@@ -107,7 +107,7 @@ stamp <- function(x, orders = lubridate_formats,
       eval(bquote(
         function(x, locale = .(locale)) {
           ## %z ignores timezone
-          if (tz(x[[1]]) != "UTC")
+          if (!is_utc(tz(x[[1L]])))
             x <- with_tz(x, tzone = "UTC")
           .(reset_local_expr)
           format(x, format = .(FMT))
@@ -165,7 +165,7 @@ stamp <- function(x, orders = lubridate_formats,
   dtm_utc <- force_tz(x, tzone = "UTC")
 
   ## the offset is the duration represented by the difference in time
-  offset_duration = as.duration(dtm_utc - x)
+  offset_duration <- difftime(dtm_utc, x, units = "secs")
 
   ## determine sign
   .sgn <- ifelse(offset_duration >= as.duration(0), "+", "-")

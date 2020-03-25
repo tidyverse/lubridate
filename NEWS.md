@@ -3,20 +3,32 @@ Version 1.7.4.9000
 
 ### NEW FEATURES
 
+* Year and month durations now assume 365.25 days in a year consistently in conversion and constructors. Particularly `dyears(1) == years(1)` is now `TRUE`.
+* Format and print methods for 0-length objects are more consistent.
+* New duration constructor `dmonths()` to complement other duration constructors.
+* `duration()` constructor now accepts `months` and `years` arguments.
+* [#869](https://github.com/tidyverse/lubridate/issues/869) Propagate NAs to all internal components of a Period object
+* [#629](https://github.com/tidyverse/lubridate/issues/629) Added `format_ISO8601()` methods.
+* [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
 * [#672](https://github.com/tidyverse/lubridate/issues/672) Eliminate all partial argument matches
-* [#705](https://github.com/tidyverse/lubridate/issues/705) all deprecated functions have been removed
-* [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.
+* [#674](https://github.com/tidyverse/lubridate/issues/674) `as_date()` now ignores the `tz` argument
+* [#675](https://github.com/tidyverse/lubridate/issues/675) `force_tz()`, `with_tz()`, `tz<-` convert dates to date-times
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constants `NA_Date_` and `NA_POSIXct_` which parallel built-in primitive constants.
 * [#681](https://github.com/tidyverse/lubridate/issues/681) New constructors `Date()` and `POSIXct()` which parallel built-in primitive constructors.
-* [#629](https://github.com/tidyverse/lubridate/issues/629) Added `format_ISO8601()` methods.
-
+* [#695](https://github.com/tidyverse/lubridate/issues/695) Durations can now be compared with numeric vectors.
+* [#707](https://github.com/tidyverse/lubridate/issues/707) Constructors return 0-length inputs when called with no arguments
+* [#713](https://github.com/tidyverse/lubridate/issues/713) `as_datetime()` always returns a `POSIXct()`
+* [#719](https://github.com/tidyverse/lubridate/issues/719) Negative Durations are now displayed with leading `-`.
+* [#829](https://github.com/tidyverse/lubridate/issues/829) `%within%` throws more meaningful messages when applied on unsupported classes
+* [#831](https://github.com/tidyverse/lubridate/issues/831) Changing hour, minute or second of Date object now yields POSIXct.
 
 ### BUG FIXES
 
-* [#778](https://github.com/tidyverse/lubridate/issues/778) `duration()` works with repeated units
 * [#682](https://github.com/tidyverse/lubridate/issues/682) Fix quarter extraction with small `fiscal_start`s.
 * [#703](https://github.com/tidyverse/lubridate/issues/703) `leap_year()` works with objects supported by `year()`.
-
+* [#778](https://github.com/tidyverse/lubridate/issues/778) `duration()/period()/make_difftime()` work with repeated units
+* `c.Period` concatenation doesn't fail with empty components.
+* Honor `exact = TRUE` argument in `parse_date_time2`, which was so far ignored.
 
 Version 1.7.4
 =============

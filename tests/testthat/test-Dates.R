@@ -31,8 +31,10 @@ test_that("as_date works", {
   expect_equal(as_date("2010-11-03 00:59:59.23"), as_date("2010-11-03"))
 
   ## tz is ignored
-  expect_equal(as_date("2010-08-03 00:59:59.23", tz = "Europe/Amsterdam"), as_date("2010-08-03"))
-  expect_equal(as_date("2010-11-03 00:59:59.23", tz = "Europe/Amsterdam"), as_date("2010-11-03"))
+  expect_equal(as_date("2010-08-03 00:59:59.23"), as_date("2010-08-03"))
+
+  ## can supply custom format
+  expect_equal(as_date("03/04/2015", format = "%d/%m/%Y"), as_date("2015-04-03"))
 
   ## Zulu time is part of the instant spec, so we compute on the instant object
   ## and not on the textual representation.

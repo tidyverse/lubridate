@@ -77,5 +77,9 @@ test_that("as_datetime works correctly", {
   for (i in seq_along(pus)) {
     expect_equal(as_datetime(x[-zns][[i]], tz = "America/Chicago"), pus[[i]])
   }
+})
 
+test_that("as_datetime() always returns POSIXct", {
+  expect_s3_class(as_datetime("2010-01-01"), "POSIXct")
+  expect_s3_class(as_datetime("2010-01-01", format = "%Y-%m-%d"), "POSIXct")
 })

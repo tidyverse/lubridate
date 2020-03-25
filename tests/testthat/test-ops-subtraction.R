@@ -11,9 +11,9 @@ test_that("subtraction works as expected for instants", {
   expect_equal(y - years(1), as.POSIXlt("2007-01-01 00:00:02", tz = "UTC"))
   expect_equal(z - years(1), as.Date("2007-01-03"))
 
-  expect_equal(x - dyears(1), as.POSIXct("2007-01-01 00:00:02", tz = "UTC"))
-  expect_equal(y - dyears(1), as.POSIXlt("2007-01-01 00:00:02", tz = "UTC"))
-  expect_equal(z - dyears(1), as.Date("2007-01-03"))
+  expect_equal(x - dyears(1), as.POSIXct("2006-12-31 18:00:02", tz = "UTC"))
+  expect_equal(y - dyears(1), as.POSIXlt("2006-12-31 18:00:02", tz = "UTC"))
+  expect_equal(z - dyears(1), as.POSIXct("2007-01-02 18:00:00", tz = "UTC"))
 
   time1 <- as.POSIXct("2007-08-03 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2008-01-01 00:00:59", tz = "UTC")
@@ -31,14 +31,11 @@ test_that("subtraction with instants returns correct class", {
   y <- as.POSIXlt("2008-01-01 12:00:00", tz = "UTC")
   z <- as.Date("2008-01-01")
 
-  expect_that(x - years(1), is_a("POSIXct"))
-  expect_that(y - years(1), is_a("POSIXlt"))
-  expect_that(z - years(1), is_a("Date"))
-
-  expect_that(x - dyears(1), is_a("POSIXct"))
-  expect_that(y - dyears(1), is_a("POSIXlt"))
-  expect_that(z - dyears(1), is_a("Date"))
-
+  expect_is(x - years(1), "POSIXct")
+  expect_is(y - years(1), "POSIXlt")
+  expect_is(z - years(1), "Date")
+  expect_is(x - dyears(1), "POSIXct")
+  expect_is(y - dyears(1), "POSIXlt")
 })
 
 
@@ -58,8 +55,8 @@ test_that("subtraction works as expected for periods", {
 
 test_that("subtraction with periods returns correct class", {
 
-  expect_that(years(1) - 1, is_a("Period"))
-  expect_that(years(1) - minutes(3), is_a("Period"))
+  expect_is(years(1) - 1, "Period")
+  expect_is(years(1) - minutes(3), "Period")
 
 })
 
@@ -69,18 +66,17 @@ test_that("subtraction works as expected for durations", {
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   int <- interval(time1, time2)
 
-  expect_equal(dyears(1) - 1, duration(31535999))
+  expect_equal(dyears(1) - 1, duration(31557599))
   expect_error(dyears(1) - as.POSIXct("2008-01-01 00:00:00", tz = "UTC"))
   expect_error(dyears(1) - minutes(3))
   expect_equal(dyears(2) - dyears(1), dyears(1))
   expect_error(dyears(1) - int)
-
 })
 
 test_that("subtraction with durations returns correct class", {
 
-  expect_that(dyears(1) - 1, is_a("Duration"))
-  expect_that(dyears(1) - dyears(1), is_a("Duration"))
+  expect_is(dyears(1) - 1, "Duration")
+  expect_is(dyears(1) - dyears(1), "Duration")
 
 })
 

@@ -88,15 +88,23 @@ setMethod("%m-%", signature(e2 = "ANY"),
           function(e1, e2)
             stop("%m-% handles only Period objects as second argument"))
 
-#' `add_with_rollback()` provides additional functionality to \code{\%m+\%} and
-#' \code{\%m-\%}. It allows rollback to first day of the month instead of the last day
-#' of the previous month and controls whether HMS component of the end date is
-#' preserved or not.
+#' `add_with_rollback()` is like \code{\%m+\%} and \code{\%m-\%} with more
+#' control over the rollback process. It allows the rollback to first day of the
+#' month instead of the last day of the previous month and controls whether HMS
+#' component of the end date is preserved or not. Please note that the rollback
+#' kicks in only when the resulting date lands on the non-existing date.
 #' @rdname mplus
 #' @param roll_to_first rollback to the first day of the month instead of the
-#' last day of the previous month (passed to [rollback()])
+#'   last day of the previous month (passed to [rollback()])
 #' @param preserve_hms retains the same hour, minute, and second information? If
-#' FALSE, the new date will be at 00:00:00 (passed to [rollback()])
+#'   FALSE, the new date will be at 00:00:00 (passed to [rollback()])
+#' @examples
+#'
+#' x <- ymd_hms("2019-01-29 01:02:03")
+#' add_with_rollback(x, months(1))
+#' add_with_rollback(x, months(1), preserve_hms = FALSE)
+#' add_with_rollback(x, months(1), roll_to_first = TRUE)
+#' add_with_rollback(x, months(1), roll_to_first = TRUE, preserve_hms = FALSE)
 #' @export
 add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE) {
 
