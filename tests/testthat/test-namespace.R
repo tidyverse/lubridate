@@ -31,6 +31,7 @@ do_Rscript <- function(expr) {
 
 test_that("methods is not attached", {
   skip_on_cran()
+  skip_on_os("windows")
   # Checking test assumptions.
   # If this fails, namespace tests may not be needed anymore!
   expect_match(
@@ -40,6 +41,7 @@ test_that("methods is not attached", {
 
 test_that("lubridate:: calls work when methods is not attached", {
   skip_on_cran()
+  skip_on_os("windows")
   expect_match( # https://github.com/tidyverse/lubridate/issues/314
     do_Rscript(
       "lubridate::round_date(as.POSIXct('2017-10-03 03:01:13Z'), 'minute')"),
