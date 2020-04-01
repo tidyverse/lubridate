@@ -1,8 +1,8 @@
 Type: Package
 Package: lubridate
 Title: Make Dealing with Dates a Little Easier
-Version: 1.7.4.9000
-Authors@R: 
+Version: 1.7.8
+Authors@R:
     c(person(given = "Vitalie",
              family = "Spinu",
              role = c("aut", "cre"),
@@ -65,7 +65,7 @@ Enhances:
     zoo
 LinkingTo:
     Rcpp
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true
