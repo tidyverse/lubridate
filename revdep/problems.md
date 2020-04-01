@@ -56,34 +56,6 @@ ERROR: lazy loading failed for package ‘Biograph’
 * DONE (Biograph)
 
 ```
-# highfrequency
-
-<details>
-
-* Version: 0.6.4
-* Source code: https://github.com/cran/highfrequency
-* Date/Publication: 2020-02-26 14:20:03 UTC
-* Number of recursive dependencies: 90
-
-Run `revdep_details(,"highfrequency")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.3Mb
-      sub-directories of 1Mb or more:
-        data   5.9Mb
-        libs   1.7Mb
-    ```
-
-## Newly fixed
-
-*   R CMD check timed out
-    
-
 # sweep
 
 <details>
@@ -132,89 +104,6 @@ Run `revdep_details(,"sweep")` for more info
       All declared Imports should be used.
     ```
 
-# sweidnumbr
-
-<details>
-
-* Version: 1.4.1
-* Source code: https://github.com/cran/sweidnumbr
-* URL: https://github.com/rOpenGov/sweidnumbr/
-* BugReports: https://github.com/rOpenGov/sweidnumbr/issues
-* Date/Publication: 2016-09-14 19:44:25
-* Number of recursive dependencies: 39
-
-Run `revdep_details(,"sweidnumbr")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      ── 1. Error: age at leapyear (@test-pin_age.R#23)  ─────────────────────────────
-      'new_period' is not an exported object from 'namespace:lubridate'
-      Backtrace:
-       1. testthat::expect_equal(...)
-       6. sweidnumbr::pin_age(...)
-       7. lubridate::new_period
-       8. base::getExportedValue(pkg, name)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      [ OK: 193 | SKIPPED: 1 | WARNINGS: 0 | FAILED: 1 ]
-      1. Error: age at leapyear (@test-pin_age.R#23) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Missing or unexported object: ‘lubridate::new_period’
-    ```
-
-# tbrf
-
-<details>
-
-* Version: 0.1.3
-* Source code: https://github.com/cran/tbrf
-* URL: https://mps9506.github.io/tbrf/
-* BugReports: https://github.com/mps9506/tbrf/issues
-* Date/Publication: 2019-11-15 21:30:02 UTC
-* Number of recursive dependencies: 90
-
-Run `revdep_details(,"tbrf")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(testthat)
-      > library(tbrf)
-      > 
-      > test_check("tbrf")
-      ── 1. Failure: tbr_sum provides expected values (@test-expectedValues.R#64)  ───
-      sum(x1$sum) not equal to 40.
-      1/1 mismatches
-      [1] 44 - 40 == 4
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      [ OK: 29 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
-      1. Failure: tbr_sum provides expected values (@test-expectedValues.R#64) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 # timetk
 
 <details>
@@ -238,7 +127,7 @@ Run `revdep_details(,"timetk")` for more info
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      [ OK: 265 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 21 ]
+      [ OK: 265 | SKIPPED: 0 | WARNINGS: 1 | FAILED: 21 ]
       1. Failure: tk_index(ts) test returns correct format. (@test_tk_index.R#38) 
       2. Failure: tk_index(xts) test returns correct format. (@test_tk_index.R#93) 
       3. Failure: tk_index(zoo) test returns correct format. (@test_tk_index.R#106) 
