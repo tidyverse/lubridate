@@ -1,4 +1,4 @@
 #!/bin/sh
 
-rm -f src/*.so src/*.dylib src/*~ *~ ./src/*/*/*.o lubridate*.tar.gz
+rm -f src/*.so src/*.dylib src/cctz/src/*.o src/libcctz.a lubridate*.tar.gz
 (cd src; make -f Makevars clean)
