@@ -3,7 +3,7 @@ pkgdown: 1.5.0.9000
 pkgdown_sha: a1c9e07904a309683d9a8d2af153707658ecec8d
 articles:
   lubridate: lubridate.html
-last_built: 2020-04-01T10:36Z
+last_built: 2020-04-01T11:56Z
 urls:
   reference: http://lubridate.tidyverse.org/reference
   article: http://lubridate.tidyverse.org/articles
