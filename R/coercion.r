@@ -524,7 +524,6 @@ setMethod("as.period", signature("logical"), function(x, unit = NULL, ...) {
   as.period(as.numeric(x), unit, ...)
 })
 
-#' @export
 setGeneric("as.difftime")
 
 #' @export
