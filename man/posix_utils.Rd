@@ -8,9 +8,7 @@
 \alias{POSIXct}
 \alias{NA_POSIXct_}
 \title{Various POSIX utilities}
-\format{
-An object of class \code{POSIXct} (inherits from \code{POSIXt}) of length 1.
-}
+\format{An object of class \code{POSIXct} (inherits from \code{POSIXt}) of length 1.}
 \usage{
 is.POSIXt(x)
 

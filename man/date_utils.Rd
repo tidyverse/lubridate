@@ -6,9 +6,7 @@
 \alias{Date}
 \alias{NA_Date_}
 \title{Various date utilities}
-\format{
-An object of class \code{Date} of length 1.
-}
+\format{An object of class \code{Date} of length 1.}
 \usage{
 is.Date(x)
 

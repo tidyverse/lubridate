@@ -27,3 +27,4 @@
 ^\.github/workflows/pr-commands\.yaml$
 ^\.github/workflows/pkgdown\.yaml$
 Makefile
+^CRAN-RELEASE$
