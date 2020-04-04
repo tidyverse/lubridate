@@ -56,6 +56,45 @@ ERROR: lazy loading failed for package ‘Biograph’
 * DONE (Biograph)
 
 ```
+# kntnr
+
+<details>
+
+* Version: 0.4.3
+* Source code: https://github.com/cran/kntnr
+* URL: https://yutannihilation.github.io/kntnr/
+* BugReports: https://github.com/yutannihilation/kntnr/issues
+* Date/Publication: 2020-03-29 10:00:02 UTC
+* Number of recursive dependencies: 48
+
+Run `revdep_details(,"kntnr")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      [1] NA - 2015-01-22 15:07:00 == NA secs
+      
+      ── 3. Failure: parsing DATETIME works (@test-parse-field.R#14)  ────────────────
+      x$test not equivalent to `expect`.
+      1/1 mismatches
+      [1] NA - 2015-03-17 10:20:00 == NA secs
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      [ OK: 72 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 3 ]
+      1. Failure: parsing CREATED_TIME works (@test-parse-field.R#14) 
+      2. Failure: parsing UPDATED_TIME works (@test-parse-field.R#14) 
+      3. Failure: parsing DATETIME works (@test-parse-field.R#14) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 # sweep
 
 <details>
@@ -127,7 +166,7 @@ Run `revdep_details(,"timetk")` for more info
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      [ OK: 265 | SKIPPED: 0 | WARNINGS: 1 | FAILED: 21 ]
+      [ OK: 265 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 21 ]
       1. Failure: tk_index(ts) test returns correct format. (@test_tk_index.R#38) 
       2. Failure: tk_index(xts) test returns correct format. (@test_tk_index.R#93) 
       3. Failure: tk_index(zoo) test returns correct format. (@test_tk_index.R#106) 
@@ -198,3 +237,27 @@ ERROR: lazy loading failed for package ‘tolBasis’
 * DONE (tolBasis)
 
 ```
+# xROI
+
+<details>
+
+* Version: 0.9.13
+* Source code: https://github.com/cran/xROI
+* BugReports: https://github.com/bnasr/xROI/issues
+* Date/Publication: 2019-02-13 22:00:03 UTC
+* Number of recursive dependencies: 103
+
+Run `revdep_details(,"xROI")` for more info
+
+</details>
+
+## Newly broken
+
+*   checking whether package ‘xROI’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: replacing previous import ‘lubridate::intersect’ by ‘raster::intersect’ when loading ‘xROI’
+      Warning: replacing previous import ‘lubridate::union’ by ‘raster::union’ when loading ‘xROI’
+    See ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/xROI/new/xROI.Rcheck/00install.out’ for details.
+    ```
+

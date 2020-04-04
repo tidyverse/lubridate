@@ -56,7 +56,43 @@ ERROR: lazy loading failed for package ‘Biograph’
 * DONE (Biograph)
 
 ```
-# CAWaR
+# BIRDS
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# CAST
 
 <details>
 
@@ -128,7 +164,207 @@ Run `revdep_details(,"")` for more info
 
 
 ```
+# DaMiRseq
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# gtfsrouter
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# healthcareai
+
+<details>
+
+* Version: 2.4.0
+* Source code: https://github.com/cran/healthcareai
+* URL: http://docs.healthcare.ai
+* BugReports: https://github.com/HealthCatalyst/healthcareai-r/issues
+* Date/Publication: 2020-02-28 18:00:05 UTC
+* Number of recursive dependencies: 119
+
+Run `revdep_details(,"healthcareai")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+# moveVis
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # RforProteomics
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# rpostgisLT
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# stlcsb
 
 <details>
 
