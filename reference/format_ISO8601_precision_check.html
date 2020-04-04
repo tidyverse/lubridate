@@ -138,8 +138,10 @@
     <tr>
       <th>precision</th>
       <td><p>The amount of precision to represent with substrings of
-"ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and "s"econd. (e.g.
-"ymdhm" would show precision through minutes.</p></td>
+"ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and
+"s"econd. (e.g. "ymdhm" would show precision through minutes. When NULL,
+<code>max_precision</code> is returned.  When <code>precision</code> is more precise than
+<code>max_precision</code>, a warning is given and <code>max_precision</code> is returned.</p></td>
     </tr>
     <tr>
       <th>max_precision</th>
