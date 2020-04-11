@@ -17,22 +17,26 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -84,7 +88,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.8.9000</span>
         </div>
@@ -186,7 +190,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/778"><a href='https://github.com/tidyverse/lubridate/issues/778'>#778</a></a> <code>duration()/period()/make_difftime()</code> work with repeated units</li>
 <li>
-<code>c.Period</code> concatenation doesnât fail with empty components.</li>
+<code>c.Period</code> concatenation doesn’t fail with empty components.</li>
 <li>Honor <code>exact = TRUE</code> argument in <code>parse_date_time2</code>, which was so far ignored.</li>
 </ul>
 </div>
@@ -210,9 +214,9 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/661"><a href='https://github.com/tidyverse/lubridate/issues/661'>#661</a></a> Throw error on invalid multi-unit rounding.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/633"><a href='https://github.com/tidyverse/lubridate/issues/633'>#633</a></a> <code><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></code> on intervals relies on <code>%m+</code> arithmetic and doesnât produce NAs when intermediate computations result in non-existent dates.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/633"><a href='https://github.com/tidyverse/lubridate/issues/633'>#633</a></a> <code><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></code> on intervals relies on <code>%m+</code> arithmetic and doesn’t produce NAs when intermediate computations result in non-existent dates.</li>
 <li>
-<code><a href="../reference/tz.html">tz()</a></code> always returns âUTCâ when <code>tzone</code> attribute cannot be inferred.</li>
+<code><a href="../reference/tz.html">tz()</a></code> always returns “UTC” when <code>tzone</code> attribute cannot be inferred.</li>
 </ul>
 </div>
 <div id="bug-fixes-1" class="section level3">
@@ -304,7 +308,7 @@
 <ul>
 <li>Reduced memory footprint on <code>trunc_multi_unit</code> so that it overwrites the vector argument <code>x</code> versus making a new vector <code>y</code>.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/438"><a href='https://github.com/tidyverse/lubridate/issues/438'>#438</a></a> New function <code>force_tzs</code> for âenforcementâ of heterogeneous time zones.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/438"><a href='https://github.com/tidyverse/lubridate/issues/438'>#438</a></a> New function <code>force_tzs</code> for “enforcement” of heterogeneous time zones.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/438"><a href='https://github.com/tidyverse/lubridate/issues/438'>#438</a></a> New function <code>local_time</code> for the retrieval of local day time in different time zones.</li>
 <li>
@@ -357,7 +361,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/566"><a href='https://github.com/tidyverse/lubridate/issues/566'>#566</a></a> Comparing durations and periods no-longer infloops.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/556"><a href='https://github.com/tidyverse/lubridate/issues/556'>#556</a></a> Fix incorrect scoring of <code>y</code> format when itâs the last in format order (as in <code>mdy</code>).</li>
+<a href="https://github.com/tidyverse/lubridate/issues/556"><a href='https://github.com/tidyverse/lubridate/issues/556'>#556</a></a> Fix incorrect scoring of <code>y</code> format when it’s the last in format order (as in <code>mdy</code>).</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/584"><a href='https://github.com/tidyverse/lubridate/issues/584'>#584</a></a> Fix interval by period division.</li>
 <li>
@@ -371,7 +375,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/pull/466"><a href='https://github.com/tidyverse/lubridate/issues/466'>#466</a></a> Fix wrong formats within ymd_h family of functions.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/pull/472"><a href='https://github.com/tidyverse/lubridate/issues/472'>#472</a></a> Printing method for duration doesnât throw format error on fractional seconds.</li>
+<a href="https://github.com/tidyverse/lubridate/pull/472"><a href='https://github.com/tidyverse/lubridate/issues/472'>#472</a></a> Printing method for duration doesn’t throw format error on fractional seconds.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/pull/475"><a href='https://github.com/tidyverse/lubridate/issues/475'>#475</a></a> character&lt;&gt; comparisons is no longer slow.</li>
 <li>
@@ -406,7 +410,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/464"><a href='https://github.com/tidyverse/lubridate/issues/464'>#464</a></a> New function <code>semester</code> to extract semesters form date-time objects.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/459"><a href='https://github.com/tidyverse/lubridate/issues/459'>#459</a></a> Flexible C-level parsing for periods and durations has been implemented; <code>period</code> and <code>duration</code> constructors now accept string as first argument. Same parsing rules apply to the âunitâ parameter in rounding functions.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/459"><a href='https://github.com/tidyverse/lubridate/issues/459'>#459</a></a> Flexible C-level parsing for periods and durations has been implemented; <code>period</code> and <code>duration</code> constructors now accept string as first argument. Same parsing rules apply to the ‘unit’ parameter in rounding functions.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/459"><a href='https://github.com/tidyverse/lubridate/issues/459'>#459</a></a> Comparison between character vectors and periods/durations is now possible.</li>
 <li>
@@ -432,7 +436,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/443"><a href='https://github.com/tidyverse/lubridate/issues/443'>#443</a></a> Behavior of <code>ceiling_date</code> for <code>Date</code> objects was changed to what most of the users expect. Rounding up by months now produces first day of the next months even for first day of the month.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/268"><a href='https://github.com/tidyverse/lubridate/issues/268'>#268</a></a> <code>round_date</code>, <code>ceiling_date</code>, and <code>floor_date</code> now accept âquarterâ, âbimonthâ, and âhalfyearâ as <code>unit</code> options.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/268"><a href='https://github.com/tidyverse/lubridate/issues/268'>#268</a></a> <code>round_date</code>, <code>ceiling_date</code>, and <code>floor_date</code> now accept “quarter”, “bimonth”, and “halfyear” as <code>unit</code> options.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/418"><a href='https://github.com/tidyverse/lubridate/issues/418'>#418</a></a> C level parsing functions understand 24:00:00 in datetime strings.</li>
 </ul>
@@ -449,7 +453,7 @@
 <li>
 <code>change_on_boundary</code> argument in <code>ceiling_date</code> does not allow for global option anymore.</li>
 <li>
-<code>as.duration</code>, <code>as.numeric</code> donât show âonly estimateâ messages on conversion from periods. The occasional approximate conversion is documented and deemed common knowledge.</li>
+<code>as.duration</code>, <code>as.numeric</code> don’t show “only estimate” messages on conversion from periods. The occasional approximate conversion is documented and deemed common knowledge.</li>
 <li>
 <code>as.numeric</code> with <code>unit="month"</code> now works on duration objects.</li>
 <li>
@@ -575,7 +579,7 @@
 <li>New testthat conventions are adopted. Tests are now in <code>test/testthat</code>.</li>
 <li>Internally <code>isodate</code> was replaced with a much faster <code><a href="../reference/parse_date_time.html">parse_date_time2(paste(...))</a></code> alternative</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/325"><a href='https://github.com/tidyverse/lubridate/issues/325'>#325</a></a> <code>Lubridate</code>âs <code>trunc</code>, <code>ceiling</code> and <code>floor</code> functions have been optimised and now are relying on Râs <code>trunc.POSIXct</code> whenever possible.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/325"><a href='https://github.com/tidyverse/lubridate/issues/325'>#325</a></a> <code>Lubridate</code>’s <code>trunc</code>, <code>ceiling</code> and <code>floor</code> functions have been optimised and now are relying on R’s <code>trunc.POSIXct</code> whenever possible.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/285"><a href='https://github.com/tidyverse/lubridate/issues/285'>#285</a></a> Algebraic computations with negative periods are behaving asymmetrically with respect to their positive counterparts.</li>
 <li>Made necessary changes to accommodate new zoo-based <code>fst</code> objects.</li>
@@ -596,7 +600,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/336"><a href='https://github.com/tidyverse/lubridate/issues/336'>#336</a></a> Fix broken interval-&gt; period conversion with negative diffs.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/227"><a href='https://github.com/tidyverse/lubridate/issues/227'>#227</a></a> Treat âdaysâ and âyearsâ units specially for pretty.point.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/227"><a href='https://github.com/tidyverse/lubridate/issues/227'>#227</a></a> Treat “days” and “years” units specially for pretty.point.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/286"><a href='https://github.com/tidyverse/lubridate/issues/286'>#286</a></a> %m+-% correctly handles dHMS period components.</li>
 <li>
@@ -609,7 +613,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/240"><a href='https://github.com/tidyverse/lubridate/issues/240'>#240</a></a> Make <code>ceiling_date</code> skip day light gap.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/254"><a href='https://github.com/tidyverse/lubridate/issues/254'>#254</a></a> Donât preprocess a/A formats if expressly specified by the user.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/254"><a href='https://github.com/tidyverse/lubridate/issues/254'>#254</a></a> Don’t preprocess a/A formats if expressly specified by the user.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/289"><a href='https://github.com/tidyverse/lubridate/issues/289'>#289</a></a> Check for valid day-months combinations in C parser.</li>
 <li>
@@ -621,7 +625,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/311"><a href='https://github.com/tidyverse/lubridate/issues/311'>#311</a></a> Always use UTC in <code>isoweek</code> computation</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/294"><a href='https://github.com/tidyverse/lubridate/issues/294'>#294</a></a> Donât use years in <code>seconds_to_period</code>.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/294"><a href='https://github.com/tidyverse/lubridate/issues/294'>#294</a></a> Don’t use years in <code>seconds_to_period</code>.</li>
 <li>Values on <code>$&lt;-</code> assignment for periods are now properly recycled.</li>
 <li>Correctly handle NA subscripting in <code>round_date</code>.</li>
 </ul>
@@ -660,7 +664,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/272"><a href='https://github.com/tidyverse/lubridate/issues/272'>#272</a></a> Update examples for <code>hms</code>, <code>hm</code> and <code>ms</code> for new printing style.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/236"><a href='https://github.com/tidyverse/lubridate/issues/236'>#236</a></a> Donât allow zeros in month and day during parsing.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/236"><a href='https://github.com/tidyverse/lubridate/issues/236'>#236</a></a> Don’t allow zeros in month and day during parsing.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/247"><a href='https://github.com/tidyverse/lubridate/issues/247'>#247</a></a> Uninitialized index was mistakenly used in subseting.</li>
 <li>
@@ -699,7 +703,7 @@
 <a href="#version-132" class="anchor"></a>Version 1.3.2<small> 2013-12-05 </small>
 </h1>
 <ul>
-<li>Lubridateâs s4 methods no longer use the representation argument, which has been deprecated in R 3.0.0 (see ?setClass). As a result, lubridate is no longer backwards compatible with R &lt;3.0.0.</li>
+<li>Lubridate’s s4 methods no longer use the representation argument, which has been deprecated in R 3.0.0 (see ?setClass). As a result, lubridate is no longer backwards compatible with R &lt;3.0.0.</li>
 </ul>
 </div>
     <div id="version-130" class="section level1">
@@ -710,7 +714,7 @@
 <h3 class="hasAnchor">
 <a href="#changes-8" class="anchor"></a>CHANGES</h3>
 <ul>
-<li>v1.3.0. treats math with month and year Periods more consistently. If adding or subtracting n months would result in a non-existent date, lubridate will return an NA instead of a day in the following month or year. For example, <code>ymd("2013-01-31") + months(1)</code> will return <code>NA</code> instead of <code>2013-03-04</code> as in v1.2.0. <code>ymd("2012-02-29") + years(1)</code> will also return an <code>NA</code>. This rule change helps ensure that date + timespan - timespan = date (or NA). If youâd prefer that such arithmetic just returns the last day of the resulting month, see <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code>.</li>
+<li>v1.3.0. treats math with month and year Periods more consistently. If adding or subtracting n months would result in a non-existent date, lubridate will return an NA instead of a day in the following month or year. For example, <code>ymd("2013-01-31") + months(1)</code> will return <code>NA</code> instead of <code>2013-03-04</code> as in v1.2.0. <code>ymd("2012-02-29") + years(1)</code> will also return an <code>NA</code>. This rule change helps ensure that date + timespan - timespan = date (or NA). If you’d prefer that such arithmetic just returns the last day of the resulting month, see <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code>.</li>
 <li>update.POSIXct and update.POSIXlt have been rewritten to be 7x faster than their versions in v1.2.0. The speed gain is felt in <code>force_tz</code>, <code>with_tz</code>, <code>floor_date</code>, <code>ceiling_date</code>, <code>second&lt;-</code>, <code>minute&lt;-</code>, <code>hour&lt;-</code>, <code>day&lt;-</code>, <code>month&lt;-</code>, <code>year&lt;-</code>, and other functions that rely on update (such as math with Periods).</li>
 <li>lubridate includes a Korean translation provided by <a href="http://korea.gnu.org/gnustats/" class="uri">http://korea.gnu.org/gnustats/</a>
 </li>
@@ -724,7 +728,7 @@
 <li>lubridate v1.3.0 comes with a new R vignette. see <code><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes("lubridate")</a></code> to view it.</li>
 <li>The accessors <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>month</code>, <code>year</code> and the settors <code>second&lt;-</code>, <code>minute&lt;-</code>, <code>hour&lt;-</code>, <code>day&lt;-</code>, <code>month&lt;-</code>, <code>year&lt;-</code> now work on Period class objects</li>
 <li>users can control which messages lubridate returns when parsing and estimating with the global option lubridate.verbose. Run <code><a href="https://rdrr.io/r/base/options.html">options(lubridate.verbose = TRUE)</a></code> to turn parsing messages on. Run <code><a href="https://rdrr.io/r/base/options.html">options(lubridate.verbose = FALSE)</a></code> to turn estimation and coercion messages off.</li>
-<li>lubridate parser functions now propagate NAâs just as as.POSIXct, strptime and other functions do. Previously lubridateâs parse functions would only return an error.</li>
+<li>lubridate parser functions now propagate NA’s just as as.POSIXct, strptime and other functions do. Previously lubridate’s parse functions would only return an error.</li>
 <li>added [[ and [[&lt;- methods for INterval, Period and Duration class objects</li>
 <li>added <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> methods for Interval and Duration class objects that throw useful errors.</li>
 <li>
@@ -739,7 +743,7 @@
 <ul>
 <li>fixed bug in way update.POSIXct and update.POSIXlt handle dates that occur in the fall daylight savings overlap. update will choose the date-time closest to the original date time (on the timeline) when two identical clock times exist due to the DST overlap.</li>
 <li>fixed bugs that created unintuitive results for <code>as.interval</code>, <code>int_overlaps</code>, <code><a href="../reference/within-interval.html">%within%</a></code> and the interval methods of <code>c</code>, <code>intersect</code>, <code>union</code>, <code>setdiff</code>, and <code>summary</code>.</li>
-<li>parse functions, <code>as.interval</code>, <code>as.period</code> and <code>as.duration</code> now handlevectors of NAâs without returning errors.</li>
+<li>parse functions, <code>as.interval</code>, <code>as.period</code> and <code>as.duration</code> now handlevectors of NA’s without returning errors.</li>
 <li>parsers better handle vectors of input that have more than 100 elements and many NAs</li>
 <li>data frames that contain timespan objects with NAs in thme no longer fail toprint</li>
 <li>
@@ -768,7 +772,7 @@
 </ul>
 </li>
 <li>
-<p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a dateâs month. And, <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> provide a new way to</p>
+<p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a date’s month. And, <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> provide a new way to</p>
 <h3 id="handle-unequal-month-lengths-while-doing-arithmetic-see-new-features-for-more">handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
 <p>details</p>
 </li>
@@ -787,13 +791,13 @@
 <li><p>date parsing can now parse multiple date formats within the same vector of date-times. Parsing can also recognize a greater variety of date-time formats as well as incomplete (truncated) date-times. Contributed by Vitalie Spinu. Thank you, Vitalie.</p></li>
 <li><p><code>sort</code>, <code>order</code>, <code>rank</code> and <code>xtfrm</code> now work with periods</p></li>
 <li><p><code>as.period.Interval</code> accepts a unit argument. <code>as.period</code> will convert intervals into periods no larger than the supplied unit.</p></li>
-<li><p><code>days_in_month</code> takes a date, returns the number of days in the dateâs month. Contributed by Richard Cotton. Thank you, Richard.</p></li>
+<li><p><code>days_in_month</code> takes a date, returns the number of days in the date’s month. Contributed by Richard Cotton. Thank you, Richard.</p></li>
 <li>
-<p><code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These canât be used with periods smaller than a month, which should be handled separately. An example of the new behavior:</p>
-<p>ymd(â2010-01-31â) %m+% months(1) # â2010-02-28 UTCâ</p>
-<p>ymd(â2010-01-31â) + months(1) # â2010-03-03 UTCâ</p>
-<p>ymd(â2010-03-31â) %m-% months(1) # â2010-02-28 UTCâ</p>
-<p>ymd(â2010-01-31â) - months(1) # â2010-03-03 UTCâ</p>
+<p><code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can’t be used with periods smaller than a month, which should be handled separately. An example of the new behavior:</p>
+<p>ymd(“2010-01-31”) %m+% months(1) # “2010-02-28 UTC”</p>
+<p>ymd(“2010-01-31”) + months(1) # “2010-03-03 UTC”</p>
+<p>ymd(“2010-03-31”) %m-% months(1) # “2010-02-28 UTC”</p>
+<p>ymd(“2010-01-31”) - months(1) # “2010-03-03 UTC”</p>
 </li>
 <li><p><code>rollback</code> rolls a date back to the last day of the previous month.</p></li>
 <li><p><code>quarter</code> returns the fiscal quarter that a date occurs in. Like <code>quartes</code> in base R, but returns a numeric instead of a character string.</p></li>
@@ -806,7 +810,7 @@
 <li><p>date parsers now handle NAs</p></li>
 <li><p>periods now handle NAs</p></li>
 <li><p><code>[&lt;-</code> now correctly updates all elements of a period inside a vector, list, or data.frame</p></li>
-<li><p><code><a href="../reference/period.html">period()</a></code> now works with unit = âweeksâ</p></li>
+<li><p><code><a href="../reference/period.html">period()</a></code> now works with unit = “weeks”</p></li>
 <li><p><code>ceiling_date</code> no longer rounds up if a date is already at a ceiling</p></li>
 <li><p>the redundant (i.e, repeated) hour of fall daylight savings time now displays with the correct time zone</p></li>
 <li><p><code>update.POSIXct</code> and <code>update.POSIXlt</code> handle vectors that sum to zero in the days argument</p></li>
@@ -822,7 +826,7 @@
 <h3 class="hasAnchor">
 <a href="#changes-10" class="anchor"></a>CHANGES</h3>
 <ul>
-<li><p>lubridate no longer overwrites base R methods for +, - , *, /, %%, and %/%. To recreate the previous experience of subtracting two date times to create an interval, weâve added the interval creation function %â%.</p></li>
+<li><p>lubridate no longer overwrites base R methods for +, - , *, /, %%, and %/%. To recreate the previous experience of subtracting two date times to create an interval, we’ve added the interval creation function %–%.</p></li>
 <li><p>lubridate has moved to an S4 object system. Timespans, Intervals, Durations, and Periods have each been redefined as an S4 class with its own methods.</p></li>
 <li><p>arithmetic operations will no longer perform implicit class changes between timespans. Users must explicitly state how and when they wish class changes to occur with as.period(), as.duration(), and as.interval(). This makes code written with lubridate more robust, as such implicit changes often did not produce consistent behavior across a variety of operations. It also allows lubridate to be less chatty with fewer console messages. lubridate does not need to explain what it is doing, because it no longer attempts to do things whose outcome would not be clear. On the other hand, arithmetic between multiple time classes will produce informative error messages.</p></li>
 <li><p>the internal structure of lubridate R code has been reorganized at <a href="https://github.com/tidyverse/lubridate" class="uri">https://github.com/tidyverse/lubridate</a> to make lubridate more development friendly.</p></li>
@@ -832,8 +836,8 @@
 <h3 class="hasAnchor">
 <a href="#new-features-9" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li><p>intervals are now more useful and lubridate has more ways to manipulate them. Intervals can be created with %â%; modified with int_shift(), int_flip(), and int_standardize(); manipulated with intersect(), union(), and setdiff(); and used in logical tests with int_aligns(), int_overlaps(), and %within%. lubridate will no longer perform arithmetic between two intervals because the correct results of such operations is no more obvious than the correct result of adding two dates. Instead users are encouraged to use the new set operations or to directly modify intervals with int_start() and int_end(), which can also be used as settors. lubridate now supports negative intervals as well as positive intervals. Intervals also now display with a time zone.</p></li>
-<li><p>Modulo methods for timespans have been changed to return a timespan. this allows modulo methods to be used with integer division in an intuitive manner, e.g.Â <code>a = a %/% b * b + a %% b</code></p></li>
+<li><p>intervals are now more useful and lubridate has more ways to manipulate them. Intervals can be created with %–%; modified with int_shift(), int_flip(), and int_standardize(); manipulated with intersect(), union(), and setdiff(); and used in logical tests with int_aligns(), int_overlaps(), and %within%. lubridate will no longer perform arithmetic between two intervals because the correct results of such operations is no more obvious than the correct result of adding two dates. Instead users are encouraged to use the new set operations or to directly modify intervals with int_start() and int_end(), which can also be used as settors. lubridate now supports negative intervals as well as positive intervals. Intervals also now display with a time zone.</p></li>
+<li><p>Modulo methods for timespans have been changed to return a timespan. this allows modulo methods to be used with integer division in an intuitive manner, e.g. <code>a = a %/% b * b + a %% b</code></p></li>
 </ul>
 <p>Users can still acheive a numerical result by using as.numeric() on input before performing modulo.</p>
 <ul>
@@ -866,7 +870,7 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes-13" class="anchor"></a>BUG FIXES</h3>
 <ul>
-<li><p>removed bug in parsing dates with âTâ in them</p></li>
+<li><p>removed bug in parsing dates with “T” in them</p></li>
 <li><p>modified as.period.interval() to display periods in positive units</p></li>
 </ul>
 </div>
@@ -953,7 +957,7 @@
 <li><p>duration objects now have their own class and display format separate from difftimes</p></li>
 <li><p>interval objects now use an improved data structure and have a cleaner display format</p></li>
 <li><p>lubridate now loads its own namespace</p></li>
-<li><p>math operations now automatically coerce interval objects to duration objects. Allows intervals to be used âright out of the boxâ without error messages.</p></li>
+<li><p>math operations now automatically coerce interval objects to duration objects. Allows intervals to be used “right out of the box” without error messages.</p></li>
 <li><p>created start() and end() functions for accessing and changing the boundary date-times of an interval</p></li>
 <li><p>rep() methods for periods, intervals, and durations</p></li>
 </ul>

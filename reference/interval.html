@@ -17,22 +17,26 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -109,7 +113,7 @@ of a difftime object." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">lubridate</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.8.9000</span>
         </div>
@@ -307,15 +311,15 @@ calculated.</p>
 <span class='no'>int3</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2003-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2004-01-01"</span>))
 
 <span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int2</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int3</span>) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='now.html'>now</a></span>() + <span class='fu'><a href='period.html'>days</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2020-04-08 15:50:34 UTC--2020-04-09 15:50:34 UTC
-#&gt; [2] 2020-04-09 15:50:34 UTC--2020-04-10 15:50:34 UTC
-#&gt; [3] 2020-04-10 15:50:34 UTC--2020-04-11 15:50:34 UTC
-#&gt; [4] 2020-04-11 15:50:34 UTC--2020-04-12 15:50:34 UTC
-#&gt; [5] 2020-04-12 15:50:34 UTC--2020-04-13 15:50:34 UTC
-#&gt; [6] 2020-04-13 15:50:34 UTC--2020-04-14 15:50:34 UTC
-#&gt; [7] 2020-04-14 15:50:34 UTC--2020-04-15 15:50:34 UTC
-#&gt; [8] 2020-04-15 15:50:34 UTC--2020-04-16 15:50:34 UTC
-#&gt; [9] 2020-04-16 15:50:34 UTC--2020-04-17 15:50:34 UTC</div></pre>
+<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2020-04-12 08:13:12 UTC--2020-04-13 08:13:12 UTC
+#&gt; [2] 2020-04-13 08:13:12 UTC--2020-04-14 08:13:12 UTC
+#&gt; [3] 2020-04-14 08:13:12 UTC--2020-04-15 08:13:12 UTC
+#&gt; [4] 2020-04-15 08:13:12 UTC--2020-04-16 08:13:12 UTC
+#&gt; [5] 2020-04-16 08:13:12 UTC--2020-04-17 08:13:12 UTC
+#&gt; [6] 2020-04-17 08:13:12 UTC--2020-04-18 08:13:12 UTC
+#&gt; [7] 2020-04-18 08:13:12 UTC--2020-04-19 08:13:12 UTC
+#&gt; [8] 2020-04-19 08:13:12 UTC--2020-04-20 08:13:12 UTC
+#&gt; [9] 2020-04-20 08:13:12 UTC--2020-04-21 08:13:12 UTC</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
