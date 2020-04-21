@@ -51,6 +51,10 @@ devtools::install_github("tidyverse/lubridate")
 
 ## Features
 
+``` r
+library(lubridate, warn.conflicts = FALSE)
+```
+
   - Easy and fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`,
     `dmy_hms`, `mdy()`, …
     

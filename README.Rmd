@@ -10,7 +10,6 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures"
 )
-library(lubridate)
 ```
 
 # lubridate <img src="man/figures/logo.png" align="right" />
@@ -51,6 +50,10 @@ devtools::install_github("tidyverse/lubridate")
 <a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"/></a>
 
 ## Features
+
+```{r}
+library(lubridate, warn.conflicts = FALSE)
+```
 
 *   Easy and fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`, `dmy_hms`,
     `mdy()`, ...
