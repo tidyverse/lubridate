@@ -1,6 +1,9 @@
 Version 1.7.8.9000 (dev)
 ========================
 
+### BUG FIXES
+
+* [#886](https://github.com/tidyverse/lubridate/issues/886) Fix `with_tz()` for POSIXlt objects
 
 Version 1.7.8
 =============
