@@ -4,7 +4,7 @@ Version 1.7.8.9000 (dev)
 ### BUG FIXES
 
 * [#886](https://github.com/tidyverse/lubridate/issues/886) Fix `with_tz()` for POSIXlt objects
-
+* [#887](https://github.com/tidyverse/lubridate/issues/887) Error on invalid numeric input to `month()`
 Version 1.7.8
 =============
 

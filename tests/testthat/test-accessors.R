@@ -214,6 +214,16 @@ test_that("months accessor extracts correct month", {
 
 })
 
+test_that("month() on numeric input doesn't accept invalid values", {
+  expect_error(month(0:13))
+  expect_error(month(c(0:13, NA)))
+  expect_error(month(0))
+  expect_error(month(0), label = TRUE)
+  expect_equal(month(1:12), 1:12)
+  expect_equal(month(c(1:12, NA)), c(1:12, NA))
+  expect_equal(month(as.double(1:12)), 1:12)
+})
+
 test_that("quarters accessor extracts correct quarter", {
   posct <- ymd_hms("2010-11-03 13:45:59")
   poslt <- as.POSIXlt(posct)

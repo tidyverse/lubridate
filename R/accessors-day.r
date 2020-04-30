@@ -76,7 +76,8 @@ wday.numeric <- function(x, label = FALSE, abbr = TRUE,
 
   start <- as.integer(week_start)
 
-  if (start > 7 || start < 1) stop("Invalid 'week_start' argument; must be between 1 and 7")
+  if (start > 7 || start < 1)
+    stop("Invalid 'week_start' argument; must be between 1 and 7")
 
   if (start != 7) {
     x <- 1 + (x + (6 - start)) %% 7

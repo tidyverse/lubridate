@@ -38,7 +38,12 @@ month.default <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale(
 
 #' @export
 month.numeric <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {
-  if (!label) return(x)
+  if (!all(x[!is.na(x)] %in% 1:12))
+    stop("Values are not in 1:12")
+
+  if (!label) {
+    return(x)
+  }
 
   names <- .get_locale_regs(locale)$month_names
   labels <- if (abbr) names$abr else names$full
