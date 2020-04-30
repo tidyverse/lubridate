@@ -46,11 +46,10 @@
 
 
 <meta property="og:title" content="Get/set time zone component of a date-time — tz" />
-<meta property="og:description" content="Conveniently get and set the time zone of date-time, automatically
-converting dates to date-times as needed.
-Note that tz&amp;lt;- is an alias for force_tz(), which preserves the
-local time, creating a different instant in time. Use with_tz() if you
-want keep the instant the same, but change the printed representation." />
+<meta property="og:description" content="Conveniently get and set the time zone of a date-time.
+tz&amp;lt;- is an alias for force_tz(), which preserves the local time,
+creating a different instant in time. Use with_tz() if you want keep
+the instant the same, but change the printed representation." />
 <meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -135,11 +134,10 @@ want keep the instant the same, but change the printed representation." />
     </div>
 
     <div class="ref-description">
-    <p>Conveniently get and set the time zone of date-time, automatically
-converting dates to date-times as needed.</p>
-<p>Note that <code>tz&lt;-</code> is an alias for <code><a href='force_tz.html'>force_tz()</a></code>, which preserves the
-local time, creating a different instant in time. Use <code><a href='with_tz.html'>with_tz()</a></code> if you
-want keep the instant the same, but change the printed representation.</p>
+    <p>Conveniently get and set the time zone of a date-time.</p>
+<p><code>tz&lt;-</code> is an alias for <code><a href='force_tz.html'>force_tz()</a></code>, which preserves the local time,
+creating a different instant in time. Use <code><a href='with_tz.html'>with_tz()</a></code> if you want keep
+the instant the same, but change the printed representation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tz</span>(<span class='no'>x</span>)
@@ -151,7 +149,7 @@ want keep the instant the same, but change the printed representation.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A date-time vector, usually of class POSIXct or POSIXlt.</p></td>
+      <td><p>A date-time vector, usually of class <code>POSIXct</code> or <code>POSIXlt</code>.</p></td>
     </tr>
     <tr>
       <th>value</th>
@@ -161,8 +159,8 @@ want keep the instant the same, but change the printed representation.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character vector of length 1, giving the time zone of the vector.
-An empty string (<code>""</code>) represents the current/default timezone.</p>
+    <p>A character vector of length 1. An empty string (<code>""</code>) represents
+your current time zone.</p>
 <p>For backward compatibility, the time zone of a date, <code>NA</code>, or
 character vector is <code>"UTC"</code>.</p>
     <h2 class="hasAnchor" id="valid-time-zones"><a class="anchor" href="#valid-time-zones"></a>Valid time zones</h2>
@@ -171,18 +169,25 @@ character vector is <code>"UTC"</code>.</p>
 
 <p>Time zones are stored in system specific database, so are not guaranteed
 to be the same on every system (however, they are usually pretty similar
-unless your sytsem is very out of date). You can see a complete list with
-<code><a href='https://rdrr.io/r/base/timezones.html'>OlsonNames()</a></code></p>
+unless your system is very out of date). You can see a complete list with
+<code><a href='https://rdrr.io/r/base/timezones.html'>OlsonNames()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <a href='https://rdrr.io/r/base/DateTimeClasses.html'>DateTimeClasses</a> for a description of the underlying
 <code>tzone</code> attribute..</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2012-03-26"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2012-03-26 10:10:00"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
 <span class='fu'>tz</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "UTC"</div><div class='input'>
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='st'>"GMT"</span>
-<span class='no'>x</span></div><div class='output co'>#&gt; [1] "2012-03-26 GMT"</div></pre>
+<span class='co'># Note that setting tz() preserved the clock time, which implies</span>
+<span class='co'># that the actual instant in time is changing</span>
+<span class='fu'>tz</span>(<span class='no'>y</span>) <span class='kw'>&lt;-</span> <span class='st'>"Pacific/Auckland"</span>
+<span class='no'>y</span></div><div class='output co'>#&gt; [1] "2012-03-26 10:10:00 NZDT"</div><div class='input'><span class='no'>x</span> - <span class='no'>y</span></div><div class='output co'>#&gt; Time difference of 13 hours</div><div class='input'>
+<span class='co'># This is the same as force_tz()</span>
+<span class='fu'><a href='force_tz.html'>force_tz</a></span>(<span class='no'>x</span>, <span class='st'>"Pacific/Auckland"</span>)</div><div class='output co'>#&gt; [1] "2012-03-26 10:10:00 NZDT"</div><div class='input'>
+<span class='co'># Use with_tz() if you want to change the time zone, leave</span>
+<span class='co'># the instant in time the same</span>
+<span class='fu'><a href='with_tz.html'>with_tz</a></span>(<span class='no'>x</span>, <span class='st'>"Pacific/Auckland"</span>)</div><div class='output co'>#&gt; [1] "2012-03-26 23:10:00 NZDT"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
