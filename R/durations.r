@@ -290,7 +290,7 @@ average_durations <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
   new("Duration", out)
 }
 
-#' @export dseconds dminutes dhours ddays dweeks dyears dmilliseconds dmicroseconds dnanoseconds dpicoseconds
+#' @export dseconds dminutes dmonths dhours ddays dweeks dyears dmilliseconds dmicroseconds dnanoseconds dpicoseconds
 #' @rdname duration
 dseconds <- function(x = 1) new("Duration", x)
 #' @rdname duration
