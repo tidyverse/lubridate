@@ -1,9 +1,3 @@
-#' vctrs methods for lubridate
-#'
-#' @keywords internal
-#' @name lubridate-vctrs
-NULL
-
 # ------------------------------------------------------------------------------
 # Constructors
 
@@ -83,21 +77,6 @@ vec_proxy_period <- function(x) {
 # Period - ptype2
 
 # Method registered in `.onLoad()`
-#' @rdname lubridate-vctrs
-#' @export vec_ptype2.Period
-#' @export
-vec_ptype2.Period <- function(x, y, ...) {
-  UseMethod("vec_ptype2.Period", y)
-}
-
-#' @method vec_ptype2.Period default
-#' @export
-vec_ptype2.Period.default <- function(x, y, ...) {
-  vctrs::vec_default_ptype2(x, y, ...)
-}
-
-#' @method vec_ptype2.Period Period
-#' @export
 vec_ptype2.Period.Period <- function(x, y, ...) {
   lubridate_shared_empty_period
 }
@@ -106,21 +85,6 @@ vec_ptype2.Period.Period <- function(x, y, ...) {
 # Period - cast
 
 # Method registered in `.onLoad()`
-#' @rdname lubridate-vctrs
-#' @export vec_cast.Period
-#' @export
-vec_cast.Period <- function(x, to, ...) {
-  UseMethod("vec_cast.Period", x)
-}
-
-#' @method vec_cast.Period default
-#' @export
-vec_cast.Period.default <- function(x, to, ...) {
-  vctrs::vec_default_cast(x, to, ...)
-}
-
-#' @method vec_cast.Period Period
-#' @export
 vec_cast.Period.Period <- function(x, to, ...) {
   x
 }
@@ -160,32 +124,16 @@ vec_proxy_duration <- function(x) {
 # Duration - ptype2
 
 # Method registered in `.onLoad()`
-#' @rdname lubridate-vctrs
-#' @export vec_ptype2.Duration
-#' @export
-vec_ptype2.Duration <- function(x, y, ...) {
-  UseMethod("vec_ptype2.Duration", y)
-}
-
-#' @method vec_ptype2.Duration default
-#' @export
-vec_ptype2.Duration.default <- function(x, y, ...) {
-  vctrs::vec_default_ptype2(x, y, ...)
-}
-
-#' @method vec_ptype2.Duration Duration
-#' @export
 vec_ptype2.Duration.Duration <- function(x, y, ...) {
   lubridate_shared_empty_duration
 }
 
-#' @method vec_ptype2.Duration difftime
-#' @export
+# Method registered in `.onLoad()`
 vec_ptype2.Duration.difftime <- function(x, y, ...) {
   lubridate_shared_empty_duration
 }
 
-# Registered in `.onLoad()`
+# Method registered in `.onLoad()`
 vec_ptype2.difftime.Duration <- function(x, y, ...) {
   lubridate_shared_empty_duration
 }
@@ -194,32 +142,16 @@ vec_ptype2.difftime.Duration <- function(x, y, ...) {
 # Duration - cast
 
 # Method registered in `.onLoad()`
-#' @rdname lubridate-vctrs
-#' @export vec_cast.Duration
-#' @export
-vec_cast.Duration <- function(x, to, ...) {
-  UseMethod("vec_cast.Duration", x)
-}
-
-#' @method vec_cast.Duration default
-#' @export
-vec_cast.Duration.default <- function(x, to, ...) {
-  vctrs::vec_default_cast(x, to, ...)
-}
-
-#' @method vec_cast.Duration Duration
-#' @export
 vec_cast.Duration.Duration <- function(x, to, ...) {
   x
 }
 
-#' @method vec_cast.Duration difftime
-#' @export
+# Method registered in `.onLoad()`
 vec_cast.Duration.difftime <- function(x, to, ...) {
   as_duration_from_difftime(x)
 }
 
-# Registered in `.onLoad()`
+# Method registered in `.onLoad()`
 vec_cast.difftime.Duration <- function(x, to, ...) {
   as_difftime_from_duration(x)
 }
@@ -293,21 +225,6 @@ vec_proxy_interval <- function(x, proxy_fn) {
 # Interval - ptype2
 
 # Method registered in `.onLoad()`
-#' @rdname lubridate-vctrs
-#' @export vec_ptype2.Interval
-#' @export
-vec_ptype2.Interval <- function(x, y, ...) {
-  UseMethod("vec_ptype2.Interval", y)
-}
-
-#' @method vec_ptype2.Interval default
-#' @export
-vec_ptype2.Interval.default <- function(x, y, ...) {
-  vctrs::vec_default_ptype2(x, y, ...)
-}
-
-#' @method vec_ptype2.Interval Interval
-#' @export
 vec_ptype2.Interval.Interval <- function(x, y, ...) {
   new_empty_interval(tzone = tz_union(x, y))
 }
@@ -316,21 +233,6 @@ vec_ptype2.Interval.Interval <- function(x, y, ...) {
 # Interval - cast
 
 # Method registered in `.onLoad()`
-#' @rdname lubridate-vctrs
-#' @export vec_cast.Interval
-#' @export
-vec_cast.Interval <- function(x, to, ...) {
-  UseMethod("vec_cast.Interval", x)
-}
-
-#' @method vec_cast.Interval default
-#' @export
-vec_cast.Interval.default <- function(x, to, ...) {
-  vctrs::vec_default_cast(x, to, ...)
-}
-
-#' @method vec_cast.Interval Interval
-#' @export
 vec_cast.Interval.Interval <- function(x, to, ...) {
   x_tzone <- x@tzone
   to_tzone <- to@tzone
