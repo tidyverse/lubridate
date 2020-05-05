@@ -20,14 +20,14 @@ test_that("no common type when mixing Period/Duration/Interval", {
 
 test_that("can't cast between Period/Duration/Interval", {
   verify_errors({
-    expect_error(vec_cast(period(), duration()), class = "vctrs_error_incompatible_cast")
-    expect_error(vec_cast(duration(), period()), class = "vctrs_error_incompatible_cast")
+    expect_error(vec_cast(period(), duration()), class = "vctrs_error_incompatible_type")
+    expect_error(vec_cast(duration(), period()), class = "vctrs_error_incompatible_type")
 
-    expect_error(vec_cast(period(), interval()), class = "vctrs_error_incompatible_cast")
-    expect_error(vec_cast(interval(), period()), class = "vctrs_error_incompatible_cast")
+    expect_error(vec_cast(period(), interval()), class = "vctrs_error_incompatible_type")
+    expect_error(vec_cast(interval(), period()), class = "vctrs_error_incompatible_type")
 
-    expect_error(vec_cast(duration(), interval()), class = "vctrs_error_incompatible_cast")
-    expect_error(vec_cast(interval(), duration()), class = "vctrs_error_incompatible_cast")
+    expect_error(vec_cast(duration(), interval()), class = "vctrs_error_incompatible_type")
+    expect_error(vec_cast(interval(), duration()), class = "vctrs_error_incompatible_type")
   })
 })
 
@@ -110,8 +110,8 @@ test_that("common type of Period and unspecified exists", {
 
 test_that("Period default cast method falls through to `vec_default_cast()`", {
   verify_errors({
-    expect_error(vec_cast(period(), 1), class = "vctrs_error_incompatible_cast")
-    expect_error(vec_cast(1, period()), class = "vctrs_error_incompatible_cast")
+    expect_error(vec_cast(period(), 1), class = "vctrs_error_incompatible_type")
+    expect_error(vec_cast(1, period()), class = "vctrs_error_incompatible_type")
   })
 })
 
@@ -126,7 +126,7 @@ test_that("can cast around `NULL`", {
 
 test_that("can cast unspecified to Period", {
   expect_identical(vec_cast(NA, period()), period()[NA_real_])
-  expect_error(vec_cast(period(), NA), class = "vctrs_error_incompatible_cast")
+  expect_error(vec_cast(period(), NA), class = "vctrs_error_incompatible_type")
 })
 
 # ------------------------------------------------------------------------------
@@ -247,8 +247,8 @@ test_that("common type of Duration and difftime is Duration", {
 
 test_that("Duration default cast method falls through to `vec_default_cast()`", {
   verify_errors({
-    expect_error(vec_cast(duration(), 1), class = "vctrs_error_incompatible_cast")
-    expect_error(vec_cast(1, duration()), class = "vctrs_error_incompatible_cast")
+    expect_error(vec_cast(duration(), 1), class = "vctrs_error_incompatible_type")
+    expect_error(vec_cast(1, duration()), class = "vctrs_error_incompatible_type")
   })
 })
 
@@ -263,7 +263,7 @@ test_that("can cast around `NULL`", {
 
 test_that("can cast unspecified to Duration", {
   expect_identical(vec_cast(NA, duration()), duration()[NA_real_])
-  expect_error(vec_cast(duration(), NA), class = "vctrs_error_incompatible_cast")
+  expect_error(vec_cast(duration(), NA), class = "vctrs_error_incompatible_type")
 })
 
 test_that("Duration can be cast to and from difftime", {
@@ -418,8 +418,8 @@ test_that("common type of Interval and unspecified exists", {
 
 test_that("Interval default cast method falls through to `vec_default_cast()`", {
   verify_errors({
-    expect_error(vec_cast(interval(), 1), class = "vctrs_error_incompatible_cast")
-    expect_error(vec_cast(1, interval()), class = "vctrs_error_incompatible_cast")
+    expect_error(vec_cast(interval(), 1), class = "vctrs_error_incompatible_type")
+    expect_error(vec_cast(1, interval()), class = "vctrs_error_incompatible_type")
   })
 })
 
@@ -450,7 +450,7 @@ test_that("can cast around `NULL`", {
 
 test_that("can cast unspecified to Interval", {
   expect_identical(vec_cast(NA, interval()), interval()[NA_real_])
-  expect_error(vec_cast(interval(), NA), class = "vctrs_error_incompatible_cast")
+  expect_error(vec_cast(interval(), NA), class = "vctrs_error_incompatible_type")
 })
 
 # ------------------------------------------------------------------------------
