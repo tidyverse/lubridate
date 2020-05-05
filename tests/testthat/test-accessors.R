@@ -1,20 +1,5 @@
 context("Accessors")
 
-
-test_that("accessors (apart from second) return integers", {
-  date <- ymd("2020-01-01", tz = "UTC")
-
-  expect_type(year(date), "integer")
-  expect_type(month(date), "integer")
-  expect_type(yday(date), "integer")
-  expect_type(qday(date), "integer")
-  expect_type(mday(date), "integer")
-  expect_type(week(date), "integer")
-  expect_type(wday(date), "integer")
-  expect_type(hour(date), "integer")
-  expect_type(minute(date), "integer")
-})
-
 test_that("seconds accessor extracts correct second", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
@@ -227,6 +212,16 @@ test_that("months accessor extracts correct month", {
   expect_equal(as.character(month(date, label = TRUE, abbr = FALSE, locale = "C")),
               "February")
 
+})
+
+test_that("month() on numeric input doesn't accept invalid values", {
+  expect_error(month(0:13))
+  expect_error(month(c(0:13, NA)))
+  expect_error(month(0))
+  expect_error(month(0), label = TRUE)
+  expect_equal(month(1:12), 1:12)
+  expect_equal(month(c(1:12, NA)), c(1:12, NA))
+  expect_equal(month(as.double(1:12)), 1:12)
 })
 
 test_that("quarters accessor extracts correct quarter", {

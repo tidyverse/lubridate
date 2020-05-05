@@ -165,9 +165,11 @@ setMethod("initialize", "Period", function(.Object, ...) {
   }
 
   ## If any component has NAs the entire object should have those NAs
-  secs <- slot(.Object, ".Data")
-  secs[nas] <- NA_real_
-  slot(.Object, ".Data") <- secs
+  if (any(nas)) {
+    for (nm in slotNames(.Object)) {
+      slot(.Object, nm)[nas] <- NA_real_
+    }
+  }
 
   validObject(.Object)
   .Object

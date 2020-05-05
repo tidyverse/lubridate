@@ -34,11 +34,16 @@ month <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME
 
 #' @export
 month.default <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
-  month(as.POSIXlt(x, tz = tz(x))$mon + 1L, label, abbr, locale = locale)
+  month(as.POSIXlt(x, tz = tz(x))$mon + 1, label, abbr, locale = locale)
 
 #' @export
 month.numeric <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {
-  if (!label) return(x)
+  if (!all(x[!is.na(x)] %in% 1:12))
+    stop("Values are not in 1:12")
+
+  if (!label) {
+    return(x)
+  }
 
   names <- .get_locale_regs(locale)$month_names
   labels <- if (abbr) names$abr else names$full

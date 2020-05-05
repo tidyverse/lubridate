@@ -103,14 +103,13 @@ ISO8601_precision_map <-
 #' Provide a format for ISO8601 dates and times with the requested precision.
 #'
 #' @param precision The amount of precision to represent with substrings of
-#'   "ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and "s"econd. (e.g.
-#'   "ymdhm" would show precision through minutes.
+#'   "ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and
+#'   "s"econd. (e.g. "ymdhm" would show precision through minutes. When NULL,
+#'   `max_precision` is returned.  When `precision` is more precise than
+#'   `max_precision`, a warning is given and `max_precision` is returned.
 #' @param max_precision The maximum precision allowed to be output.
 #' @param usetz Include the timezone in the output format
 #' @keywords internal
-#' When `NULL`, `max_precision` is returned.  When `precision` is
-#' more precise than `max_precision`, a warning is given and
-#' `max_precision` is returned.
 format_ISO8601_precision_check <- function(precision, max_precision, usetz=FALSE) {
   if (!(max_precision %in% names(ISO8601_precision_map))) {
     stop("Invalid value for max_precision provided: ", max_precision)

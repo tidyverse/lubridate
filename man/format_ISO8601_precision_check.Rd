@@ -8,8 +8,10 @@ format_ISO8601_precision_check(precision, max_precision, usetz = FALSE)
 }
 \arguments{
 \item{precision}{The amount of precision to represent with substrings of
-"ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and "s"econd. (e.g.
-"ymdhm" would show precision through minutes.}
+"ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and
+"s"econd. (e.g. "ymdhm" would show precision through minutes. When NULL,
+\code{max_precision} is returned.  When \code{precision} is more precise than
+\code{max_precision}, a warning is given and \code{max_precision} is returned.}
 
 \item{max_precision}{The maximum precision allowed to be output.}
 
@@ -18,18 +20,4 @@ format_ISO8601_precision_check(precision, max_precision, usetz = FALSE)
 \description{
 Provide a format for ISO8601 dates and times with the requested precision.
 }
-\keyword{When}
-\keyword{`NULL`,}
-\keyword{`max_precision`}
-\keyword{`max_precision`,}
-\keyword{`precision`}
-\keyword{a}
-\keyword{and}
-\keyword{given}
 \keyword{internal}
-\keyword{is}
-\keyword{more}
-\keyword{precise}
-\keyword{returned.}
-\keyword{than}
-\keyword{warning}

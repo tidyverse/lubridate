@@ -203,7 +203,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Ian Lyttle [contributor]
-  \item Imanuel Constigan [contributor]
+  \item Imanuel Costigan [contributor]
   \item Jason Law [contributor]
   \item Doug Mitarotonda [contributor]
   \item Joseph Larmarange [contributor]

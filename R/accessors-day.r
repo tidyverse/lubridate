@@ -3,8 +3,9 @@ NULL
 
 #' Get/set days component of a date-time
 #'
-#' @details `day()` and `day<-()` are aliases for `mday()` and `mday<-()`
-#'   respectively.
+#' @details `mday()` and `yday()` return the day of the month and day of the
+#'   year respectively. `day()` and `day<-()` are aliases for `mday()` and
+#'   `mday<-()`.
 #' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
 #'   timeDate, xts, its, ti, jul, timeSeries, or fts object.
 #' @param label logical. Only available for wday. TRUE will display the day of
@@ -22,7 +23,6 @@ NULL
 #' @param locale locale to use for day names. Default to current locale.
 #' @return `wday()` returns the day of the week as a decimal number or an
 #'   ordered factor if label is `TRUE`.
-#' @seealso [yday()], [mday()]
 #' @keywords utilities manip chron methods
 #' @examples
 #' x <- as.Date("2009-09-02")
@@ -58,7 +58,7 @@ wday <- function(x, label = FALSE, abbr = TRUE,
 wday.default <- function(x, label = FALSE, abbr = TRUE,
                          week_start = getOption("lubridate.week.start", 7),
                          locale = Sys.getlocale("LC_TIME")) {
-  wday(as.POSIXlt(x, tz = tz(x))$wday + 1L, label, abbr, locale = locale, week_start = week_start)
+  wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr, locale = locale, week_start = week_start)
 }
 
 .shift_wday_names <- function(names, week_start = 7) {
@@ -76,10 +76,11 @@ wday.numeric <- function(x, label = FALSE, abbr = TRUE,
 
   start <- as.integer(week_start)
 
-  if (start > 7 || start < 1) stop("Invalid 'week_start' argument; must be between 1 and 7")
+  if (start > 7 || start < 1)
+    stop("Invalid 'week_start' argument; must be between 1 and 7")
 
   if (start != 7) {
-    x <- 1L + (x + (6L - start)) %% 7L
+    x <- 1 + (x + (6 - start)) %% 7
   }
 
   if (!label) {
@@ -107,7 +108,7 @@ qday <- function(x)
 #' @export
 qday.default <- function(x) {
   x <- as_date(x)
-  as.integer(x - floor_date(x, "quarter")) + 1L
+  as.integer(x - floor_date(x, "quarter")) + 1
 }
 
 #' @rdname day
@@ -117,7 +118,7 @@ yday <- function(x)
 
 #' @export
 yday.default <- function(x)
-  as.POSIXlt(x, tz = tz(x))$yday + 1L
+  as.POSIXlt(x, tz = tz(x))$yday + 1
 
 #' @rdname day
 #' @export

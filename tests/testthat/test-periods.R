@@ -68,7 +68,9 @@ test_that("period parsing works", {
     period("2S 3M 4H 5d 6w 7m 8y"),
     period(seconds = 2, minutes = 3, hours = 4, days = 5, weeks = 6, months = 7, years = 8))
   expect_equal(period("K")@.Data, NA_real_)
+  expect_equal(period("K")@hour, NA_real_)
   expect_equal(period("ksfdsfds")@.Data, NA_real_)
+  expect_equal(period("ksfdsfds")@day, NA_real_)
 })
 
 test_that("ISO ISO 8601 period parsing works", {
@@ -519,8 +521,15 @@ test_that("format.period correctly displays negative units", {
 
 test_that("c.Period correctly handles NAs", {
   per <- period(seconds = 5)
-
   expect_true(is.na(c(per, NA)[2]))
+})
+
+test_that("NA components propagate to all components of a period", {
+  p <- period(secs = c(1, 2, 3), days = c(1, 2, NA), months = c(1, NA, 3))
+  expect_equal(p,
+               new("Period", .Data = c(1, NA, NA), year = c(0, NA, NA),
+                   month = c(1, NA, NA), day = c(1, NA, NA),
+                   hour = c(0, NA, NA), minute = c(0, NA, NA)))
 })
 
 test_that("c.Period doesn't fail with empty elements", {

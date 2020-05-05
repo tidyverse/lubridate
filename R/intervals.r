@@ -205,7 +205,8 @@ interval <- function(start = NULL, end = NULL, tzone = tz(start)) {
   }
 
   if (length(start) == 0 || length(end) == 0) {
-    if (missing(tzone)) {
+    ## We used to return UTC on NULL
+    if (is.null(start) && missing(tzone)) {
       tzone <- "UTC"
     }
     start <- POSIXct(tz = tzone)
@@ -447,11 +448,13 @@ int_diff <- function(times) {
   interval(times[-length(times)], times[-1])
 }
 
+
+#' @importFrom generics intersect
 #' @export
-setGeneric("intersect")
+generics::intersect
 
 #' @export
-setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x, y) {
+intersect.Interval <- function(x, y, ...) {
   int1 <- int_standardize(x)
   int2 <- int_standardize(y)
 
@@ -468,13 +471,14 @@ setMethod("intersect", signature(x = "Interval", y = "Interval"), function(x, y)
   negix <- !is.na(x@.Data) & (sign(x@.Data) == -1)
   new.int[negix] <- int_flip(new.int[negix])
   new.int
-})
+}
+
+#' @importFrom generics union
+#' @export
+generics::union
 
 #' @export
-setGeneric("union")
-
-#' @export
-setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
+union.Interval <- function(x, y, ...) {
   int1 <- int_standardize(x)
   int2 <- int_standardize(y)
 
@@ -491,14 +495,14 @@ setMethod("union", signature(x = "Interval", y = "Interval"), function(x, y) {
   new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
   new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
   new.int
-})
+}
+
+#' @importFrom generics setdiff
+#' @export
+generics::setdiff
 
 #' @export
-setGeneric("setdiff")
-
-# returns the part of x that is not in y
-#' @export
-setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
+setdiff.Interval <- function(x, y, ...) {
 
   if (length(x) != length(y)) {
     xy <- match_lengths(x, y)
@@ -533,7 +537,7 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
   new.int <- new("Interval", spans, start = starts, tzone = x@tzone)
   new.int[sign(x@.Data) == -1] <- int_flip(new.int[sign(x@.Data) == -1])
   new.int
-})
+}
 
 
 #' Does a date (or interval) fall within an interval?
@@ -571,11 +575,6 @@ setMethod("setdiff", signature(x = "Interval", y = "Interval"), function(x, y) {
 #' blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
 #'                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
 #' dates %within% blackouts
-"%within%" <- function(a, b) {
-  standardGeneric("%within%")
-}
-
-#' @export
 setGeneric("%within%", useAsDefault = function(a, b) {
   stop(sprintf("No %%within%% method with signature a = %s,  b = %s",
                class(a)[[1]], class(b)[[1]]))

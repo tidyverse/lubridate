@@ -10,39 +10,48 @@ tz(x)
 tz(x) <- value
 }
 \arguments{
-\item{x}{A date-time vector, usually of class POSIXct or POSIXlt.}
+\item{x}{A date-time vector, usually of class \code{POSIXct} or \code{POSIXlt}.}
 
 \item{value}{New value of time zone.}
 }
 \value{
-A character vector of length 1, giving the time zone of the vector.
-An empty string (\code{""}) represents the current/default timezone.
+A character vector of length 1. An empty string (\code{""}) represents
+your current time zone.
 
 For backward compatibility, the time zone of a date, \code{NA}, or
 character vector is \code{"UTC"}.
 }
 \description{
-Conveniently get and set the time zone of date-time, automatically
-converting dates to date-times as needed.
+Conveniently get and set the time zone of a date-time.
 
-Note that \verb{tz<-} is an alias for \code{\link[=force_tz]{force_tz()}}, which preserves the
-local time, creating a different instant in time. Use \code{\link[=with_tz]{with_tz()}} if you
-want keep the instant the same, but change the printed representation.
+\verb{tz<-} is an alias for \code{\link[=force_tz]{force_tz()}}, which preserves the local time,
+creating a different instant in time. Use \code{\link[=with_tz]{with_tz()}} if you want keep
+the instant the same, but change the printed representation.
 }
 \section{Valid time zones}{
 
 Time zones are stored in system specific database, so are not guaranteed
 to be the same on every system (however, they are usually pretty similar
-unless your sytsem is very out of date). You can see a complete list with
-\code{\link[=OlsonNames]{OlsonNames()}}
+unless your system is very out of date). You can see a complete list with
+\code{\link[=OlsonNames]{OlsonNames()}}.
 }
 
 \examples{
-x <- ymd("2012-03-26", tz = "UTC")
+x <- y <- ymd_hms("2012-03-26 10:10:00", tz = "UTC")
 tz(x)
 
-tz(x) <- "GMT"
-x
+# Note that setting tz() preserved the clock time, which implies
+# that the actual instant in time is changing
+tz(y) <- "Pacific/Auckland"
+y
+x - y
+
+# This is the same as force_tz()
+force_tz(x, "Pacific/Auckland")
+
+# Use with_tz() if you want to change the time zone, leave
+# the instant in time the same
+with_tz(x, "Pacific/Auckland")
 }
 \seealso{
 See \link{DateTimeClasses} for a description of the underlying

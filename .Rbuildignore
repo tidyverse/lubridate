@@ -12,6 +12,7 @@
 ^test.R$
 ^tmp.R$
 ^cran-notes.md
+^cran-comments.md
 ^announcement.md
 ^revdep/
 ^codecov\.yml$
@@ -26,3 +27,4 @@
 ^\.github/workflows/pr-commands\.yaml$
 ^\.github/workflows/pkgdown\.yaml$
 Makefile
+^CRAN-RELEASE$

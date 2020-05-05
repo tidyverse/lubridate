@@ -21,6 +21,7 @@ test.R
 paper/auto/
 revdep/
 cran-notes.*
+cran-comments.*
 announcement.*
 *.Rcheck
 *.tar.gz

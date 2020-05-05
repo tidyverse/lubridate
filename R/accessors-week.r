@@ -25,19 +25,19 @@ NULL
 #' week(x) > 3
 #' @export
 week <- function(x)
-  (yday(x) - 1L) %/% 7L + 1L
+  (yday(x) - 1) %/% 7 + 1
 
 #' @rdname week
 #' @export
 "week<-" <- function(x, value)
-  x <- x + days((value - week(x)) * 7L)
+  x <- x + days((value - week(x)) * 7)
 
 .other_week <- function(x, week_start) {
   x <- as.POSIXlt(x)
   date <- make_date(year(x), month(x), day(x))
   wday <- wday(x, week_start = week_start)
-  date <- date + (4L - wday)
-  jan1 <- as.numeric(make_date(year(date), 1L, 1L))
+  date <- date + (4 - wday)
+  jan1 <- as.numeric(make_date(year(date), 1, 1))
   1L + (as.numeric(date) - jan1) %/% 7L
 }
 
@@ -46,7 +46,7 @@ week <- function(x)
 #' @rdname week
 #' @export
 isoweek <- function(x) {
-  .other_week(x, 1L)
+  .other_week(x, 1)
 }
 
 #' @description `epiweek()` is the US CDC version of epidemiological week. It
@@ -57,5 +57,5 @@ isoweek <- function(x) {
 #' @rdname week
 #' @export
 epiweek <- function(x) {
-  .other_week(x, 7L)
+  .other_week(x, 7)
 }

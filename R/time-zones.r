@@ -19,7 +19,7 @@
 #' x <- ymd_hms("2009-08-07 00:00:01", tz = "America/New_York")
 #' with_tz(x, "GMT")
 #' @export
-with_tz <- function (time, tzone = "") {
+with_tz <- function(time, tzone = "") {
   if (!C_valid_tz(tzone))
     warning(sprintf("Unrecognized time zone '%s'", tzone))
   if (is.data.frame(time)) {
@@ -35,11 +35,12 @@ with_tz <- function (time, tzone = "") {
 }
 
 .with_tz <- function(time, tzone = "") {
-  if (!is.POSIXt(time)) {
-    time <- as.POSIXct(time)
+  out <- if (!is.POSIXct(time)) as.POSIXct(time) else time
+  attr(out, "tzone") <- tzone
+  if (is.POSIXlt(time)) {
+    out <- as.POSIXlt(out)
   }
-  attr(time, "tzone") <- tzone
-  time
+  out
 }
 
 #' Replace time zone to create new date-time
