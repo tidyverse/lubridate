@@ -1,0 +1,104 @@
+
+no common type when mixing Period/Duration/Interval
+===================================================
+
+> vec_ptype2(period(), duration())
+Error: Can't combine <Period> and <Duration>.
+
+> vec_ptype2(duration(), period())
+Error: Can't combine <Duration> and <Period>.
+
+> vec_ptype2(period(), interval())
+Error: Can't combine <Period> and <Interval>.
+
+> vec_ptype2(interval(), period())
+Error: Can't combine <Interval> and <Period>.
+
+> vec_ptype2(duration(), interval())
+Error: Can't combine <Duration> and <Interval>.
+
+> vec_ptype2(interval(), duration())
+Error: Can't combine <Interval> and <Duration>.
+
+
+can't cast between Period/Duration/Interval
+===========================================
+
+> vec_cast(period(), duration())
+Error: Can't convert <Period> to <Duration>.
+
+> vec_cast(duration(), period())
+Error: Can't convert <Duration> to <Period>.
+
+> vec_cast(period(), interval())
+Error: Can't convert <Period> to <Interval>.
+
+> vec_cast(interval(), period())
+Error: Can't convert <Interval> to <Period>.
+
+> vec_cast(duration(), interval())
+Error: Can't convert <Duration> to <Interval>.
+
+> vec_cast(interval(), duration())
+Error: Can't convert <Interval> to <Duration>.
+
+
+Period default ptype2 method falls through to `vec_default_ptype2()`
+====================================================================
+
+> vec_ptype2(period(), 1)
+Error: Can't combine <Period> and <double>.
+
+> vec_ptype2(1, period())
+Error: Can't combine <double> and <Period>.
+
+
+Period default cast method falls through to `vec_default_cast()`
+================================================================
+
+> vec_cast(period(), 1)
+Error: Can't convert <Period> to <double>.
+
+> vec_cast(1, period())
+Error: Can't convert <double> to <Period>.
+
+
+Duration default ptype2 method falls through to `vec_default_ptype2()`
+======================================================================
+
+> vec_ptype2(duration(), 1)
+Error: Can't combine <Duration> and <double>.
+
+> vec_ptype2(1, duration())
+Error: Can't combine <double> and <Duration>.
+
+
+Duration default cast method falls through to `vec_default_cast()`
+==================================================================
+
+> vec_cast(duration(), 1)
+Error: Can't convert <Duration> to <double>.
+
+> vec_cast(1, duration())
+Error: Can't convert <double> to <Duration>.
+
+
+Interval default ptype2 method falls through to `vec_default_ptype2()`
+======================================================================
+
+> vec_ptype2(interval(), 1)
+Error: Can't combine <Interval> and <double>.
+
+> vec_ptype2(1, interval())
+Error: Can't combine <double> and <Interval>.
+
+
+Interval default cast method falls through to `vec_default_cast()`
+==================================================================
+
+> vec_cast(interval(), 1)
+Error: Can't convert <Interval> to <double>.
+
+> vec_cast(1, interval())
+Error: Can't convert <double> to <Interval>.
+

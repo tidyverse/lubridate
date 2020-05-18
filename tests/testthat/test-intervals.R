@@ -20,6 +20,12 @@ test_that("interval() returns zero-length vector", {
   expect_length(x, 0)
 })
 
+test_that("zero-length interval() respects `tzone`", {
+  x <- interval(tzone = "America/Los_Angeles")
+  expect_equal(x@tzone, "America/Los_Angeles")
+  expect_equal(tz(int_start(x)), "America/Los_Angeles")
+})
+
 test_that("is.interval works as expected", {
   expect_false(is.interval(234))
   expect_false(is.interval(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))
