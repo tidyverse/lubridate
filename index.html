@@ -90,8 +90,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="lubridate" class="section level1">
+<div id="lubridate-" class="section level1">
 
+<!-- badges: start -->
 
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -120,17 +121,18 @@
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lubridate</span>, <span class="kw">warn.conflicts</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
 <ul>
 <li>
 <p>Easy and fast parsing of date-times: <code><a href="reference/ymd.html">ymd()</a></code>, <code>ymd_hms</code>, <code><a href="reference/ymd.html">dmy()</a></code>, <code>dmy_hms</code>, <code><a href="reference/ymd.html">mdy()</a></code>, …</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="reference/ymd.html">ymd</a></span>(<span class="fl">20101215</span>)
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="reference/ymd.html">ymd</a></span>(<span class="fl">20101215</span>)
 <span class="co">#&gt; [1] "2010-12-15"</span>
 <span class="fu"><a href="reference/ymd.html">mdy</a></span>(<span class="st">"4/1/17"</span>)
 <span class="co">#&gt; [1] "2017-04-01"</span></pre></div>
 </li>
 <li>
 <p>Simple functions to get and set components of a date-time, such as <code><a href="reference/year.html">year()</a></code>, <code><a href="reference/month.html">month()</a></code>, <code><a href="reference/day.html">mday()</a></code>, <code><a href="reference/hour.html">hour()</a></code>, <code><a href="reference/minute.html">minute()</a></code> and <code><a href="reference/second.html">second()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="no">bday</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/ymd.html">dmy</a></span>(<span class="st">"14/10/1979"</span>)
+<div class="sourceCode" id="cb4"><pre class="r"><span class="no">bday</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/ymd.html">dmy</a></span>(<span class="st">"14/10/1979"</span>)
 <span class="fu"><a href="reference/month.html">month</a></span>(<span class="no">bday</span>)
 <span class="co">#&gt; [1] 10</span>
 <span class="fu"><a href="reference/day.html">wday</a></span>(<span class="no">bday</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
@@ -144,7 +146,7 @@
 </li>
 <li>
 <p>Helper functions for handling time zones: <code><a href="reference/with_tz.html">with_tz()</a></code>, <code><a href="reference/force_tz.html">force_tz()</a></code></p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">time</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2010-12-13 15:30:30"</span>)
+<div class="sourceCode" id="cb5"><pre class="r"><span class="no">time</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/ymd_hms.html">ymd_hms</a></span>(<span class="st">"2010-12-13 15:30:30"</span>)
 <span class="no">time</span>
 <span class="co">#&gt; [1] "2010-12-13 15:30:30 UTC"</span>
 
@@ -221,12 +223,11 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/tidyverse/lubridate"><img src="https://travis-ci.org/tidyverse/lubridate.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://github.com/tidyverse/lubridate"><img src="https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://cran.r-project.org/package=lubridate"><img src="http://www.r-pkg.org/badges/version/lubridate" alt="CRAN version"></a></li>
+<li><a href="https://github.com/tidyverse/lubridate/actions"><img src="https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/gh/tidyverse/lubridate"><img src="https://codecov.io/gh/tidyverse/lubridate/branch/master/graph/badge.svg" alt="Coverage Status"></a></li>
 <li><a href="https://cran.r-project.org/package=lubridate"><img src="http://cranlogs.r-pkg.org/badges/lubridate" alt="CRAN RStudio mirror downloads"></a></li>
 <li><a href="https://github.com/tidyverse/lubridate"><img src="https://img.shields.io/badge/devel-1.7.4.9000-orange.svg" alt="Development version"></a></li>
-<li><a href="https://cran.r-project.org/package=lubridate"><img src="http://www.r-pkg.org/badges/version/lubridate" alt="CRAN version"></a></li>
 </ul>
 </div>
 </div>
