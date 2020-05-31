@@ -1,8 +1,14 @@
 Version 1.7.8.9000 (dev)
 ========================
 
+### NEW FEATURES
+
+* [##871](https://github.com/tidyverse/lubridate/issues/893) Add `vctrs` support
+
+
 ### BUG FIXES
 
+* [#893](https://github.com/tidyverse/lubridate/issues/893) Fix incorrect parsing of abbreviated months in locales with trailing dot (regression in v1.7.8)
 * [#886](https://github.com/tidyverse/lubridate/issues/886) Fix `with_tz()` for POSIXlt objects
 * [#887](https://github.com/tidyverse/lubridate/issues/887) Error on invalid numeric input to `month()`
 * [#889](https://github.com/tidyverse/lubridate/issues/889) Export new dmonth function
