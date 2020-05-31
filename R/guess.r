@@ -308,7 +308,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   format <- "%a@%A@%b@%B@%p@"
   L <- enc2utf8(unique(format(.date_template, format = format)))
   mat <- do.call(rbind, strsplit(L, "@", fixed = TRUE))
-  mat[] <- gsub("\\.$", "", mat) # remove abbrev trailing dot in some locales (#781)
   mat[] <- gsub("([].|(){^$*+?[])", "\\\\\\1", mat) # escaping meta chars
   names <- colnames(mat) <-  strsplit(format, "[%@]+")[[1]][-1L]
 
@@ -435,7 +434,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
                      full = unique(mat[, "A"][wday_order]))
 
   month_order <- order(month(.date_template))
-  month_names <- list(abr = unique(mat[, "b"][month_order]),
+  # remove trailing dot in some locales (#781)
+  month_names <- list(abr = sub("\\.", "", unique(mat[, "b"][month_order]), fixed = T),
                       full = unique(mat[, "B"][month_order]))
 
   out <- list(alpha_flex = alpha_flex, num_flex = num_flex,

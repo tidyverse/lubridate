@@ -861,6 +861,17 @@ test_that("parser ignores case", {
   expect_equal(ref, dmy_hms(dts))
 })
 
+test_that("parsing months with dots works in French linux locale", {
+  skip_on_cran()
+  skip_on_os(c("mac", "solaris", "windows"))
+  expect_equal(parse_date_time('02 janv. 2015 12:48', 'dbYHM', locale='fr_FR.utf8'),
+               ymd_hms("2015-01-02 12:48:00 UTC"))
+  expect_equal(as.character(month(ymd(c("2015-01-01")) + months(1:3), locale='fr_FR.utf8', label = T)),
+               c("févr", "mars", "avril"))
+})
+
+
+
 ## library(microbenchmark)
 ## library(lubridate)
 
