@@ -21,19 +21,18 @@ NULL
 #' semester(x, with_year = TRUE)
 #' @export
 quarter <- function(x, with_year = FALSE, fiscal_start = 1) {
-  fs <- fiscal_start - 1
+  fs <- (fiscal_start - 1) %% 12
   shifted <- seq(fs, 11 + fs) %% 12 + 1
   m <- month(x)
   quarters <- rep(1:4, each = 3)
   s <- match(m, shifted)
   q <- quarters[s]
   if (with_year) {
-    uq <- quarters[m]
-    inc_year <- q == 1 & uq == 4
-    dec_year <- q == 4 & uq == 1
-    year(x) + inc_year - dec_year + q/10
+    this_year <- if (fs != 0) (fs + 1):12
+    year(x) + (m %in% this_year) + q/10
+  } else {
+    q
   }
-  else q
 }
 
 #' @rdname quarter
