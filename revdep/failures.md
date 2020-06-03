@@ -1,62 +1,960 @@
-# Biograph
+# activityCounts
 
 <details>
 
-* Version: 2.0.6
-* Source code: https://github.com/cran/Biograph
-* Date/Publication: 2016-03-31 17:50:43
-* Number of recursive dependencies: 64
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
 
-Run `revdep_details(,"Biograph")` for more info
+Run `revdep_details(,"")` for more info
 
 </details>
 
-## Newly broken
-
-*   checking whether package ‘Biograph’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/Biograph/new/Biograph.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘Biograph’ ...
-** package ‘Biograph’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error: object ‘new_interval’ is not exported by 'namespace:lubridate'
-Execution halted
-ERROR: lazy loading failed for package ‘Biograph’
-* removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/Biograph/new/Biograph.Rcheck/Biograph’
+
+
+
+
+
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘Biograph’ ...
-** package ‘Biograph’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (Biograph)
+
+
+
+
+
+
+```
+# activPAL
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# actogrammr
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# adept
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# AdhereR
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# AdhereRViz
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# AeRobiology
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# AGread
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# aire.zmvm
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# algaeClassify
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# amt
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# animaltracker
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# antaresRead
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# antaresViz
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# anyflights
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# APSIM
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# archivist
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# arcos
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# arrow
+
+<details>
+
+* Version: 0.17.1
+* Source code: https://github.com/cran/arrow
+* URL: https://github.com/apache/arrow/, https://arrow.apache.org/docs/r
+* BugReports: https://issues.apache.org/jira/projects/ARROW/issues
+* Date/Publication: 2020-05-19 20:30:15 UTC
+* Number of recursive dependencies: 56
+
+Run `revdep_details(,"arrow")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+# basictabler
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# BAwiR
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# baytrends
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# beats
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# BETS
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# bioRad
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
 
 ```
 # BIRDS
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# bitmexr
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# camtrapR
 
 <details>
 
@@ -128,7 +1026,7 @@ Run `revdep_details(,"")` for more info
 
 
 ```
-# codebook
+# CellBench
 
 <details>
 
@@ -200,6 +1098,402 @@ Run `revdep_details(,"")` for more info
 
 
 ```
+# DBItest
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# dendroTools
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# dgo
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# diffdf
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# dint
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# distill
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# diversitree
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# drake
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# Ecfun
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# eurostat
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# finbif
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # gtfsrouter
 
 <details>
@@ -236,27 +1530,79 @@ Run `revdep_details(,"")` for more info
 
 
 ```
-# healthcareai
+# moveVis
 
 <details>
 
-* Version: 2.4.0
-* Source code: https://github.com/cran/healthcareai
-* URL: http://docs.healthcare.ai
-* BugReports: https://github.com/HealthCatalyst/healthcareai-r/issues
-* Date/Publication: 2020-02-28 18:00:05 UTC
-* Number of recursive dependencies: 119
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
 
-Run `revdep_details(,"healthcareai")` for more info
+Run `revdep_details(,"")` for more info
 
 </details>
 
-## In both
+## Error before installation
 
-*   R CMD check timed out
-    
+### Devel
 
-# moveVis
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# ngsReports
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# proBatch
 
 <details>
 
@@ -364,6 +1710,78 @@ Run `revdep_details(,"")` for more info
 
 
 ```
+# spatialrisk
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# stats19
+
+<details>
+
+* Version: 
+* Source code: ???
+* URL: http://lubridate.tidyverse.org, https://github.com/tidyverse/lubridate
+* BugReports: https://github.com/tidyverse/lubridate/issues
+* Number of recursive dependencies: 0
+
+Run `revdep_details(,"")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # stlcsb
 
 <details>
@@ -400,61 +1818,6 @@ Run `revdep_details(,"")` for more info
 
 
 ```
-# tolBasis
-
-<details>
-
-* Version: 1.0
-* Source code: https://github.com/cran/tolBasis
-* URL: https://www.tol-project.org/browser/tolp/Rprojects/tolBasis
-* Date/Publication: 2015-11-05 13:38:39
-* Number of recursive dependencies: 10
-
-Run `revdep_details(,"tolBasis")` for more info
-
-</details>
-
-## Newly broken
-
-*   checking whether package ‘tolBasis’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/tolBasis/new/tolBasis.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘tolBasis’ ...
-** package ‘tolBasis’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** byte-compile and prepare package for lazy loading
-Error: object ‘new_interval’ is not exported by 'namespace:lubridate'
-Execution halted
-ERROR: lazy loading failed for package ‘tolBasis’
-* removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/tolBasis/new/tolBasis.Rcheck/tolBasis’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘tolBasis’ ...
-** package ‘tolBasis’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (tolBasis)
-
-```
 # TTAinterfaceTrendAnalysis
 
 <details>
@@ -463,7 +1826,7 @@ ERROR: lazy loading failed for package ‘tolBasis’
 * Source code: https://github.com/cran/TTAinterfaceTrendAnalysis
 * URL: http://cran.at.r-project.org/package=TTAinterfaceTrendAnalysis
 * Date/Publication: 2019-11-25 09:30:05 UTC
-* Number of recursive dependencies: 26
+* Number of recursive dependencies: 23
 
 Run `revdep_details(,"TTAinterfaceTrendAnalysis")` for more info
 
