@@ -10,7 +10,7 @@
 ##' stamps for dates and times (MHS). These function might be useful when the
 ##' input template is unambiguous and matches both a time and a date format.
 ##'
-##' Lubridate tries it's best to figure our the formats, but often a given
+##' Lubridate tries its best to figure our the formats, but often a given
 ##' format can be interpreted in several ways. One way to deal with the
 ##' situation is to provide unambiguous formats like 22/05/81 instead of
 ##' 10/05/81 if you want d/m/y format. Another option is to use a more
