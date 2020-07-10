@@ -146,55 +146,55 @@ formats is correct, these functions will parse dates correctly even when the
 input vectors contain differently formatted dates. See examples.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ymd</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(
+  <span class='kw'>...</span>,
+  quiet = <span class='fl'>FALSE</span>,
+  tz = <span class='kw'>NULL</span>,
+  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  truncated = <span class='fl'>0</span>
 )
 
-<span class='fu'>ydm</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ydm</a></span>(
+  <span class='kw'>...</span>,
+  quiet = <span class='fl'>FALSE</span>,
+  tz = <span class='kw'>NULL</span>,
+  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  truncated = <span class='fl'>0</span>
 )
 
-<span class='fu'>mdy</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>mdy</a></span>(
+  <span class='kw'>...</span>,
+  quiet = <span class='fl'>FALSE</span>,
+  tz = <span class='kw'>NULL</span>,
+  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  truncated = <span class='fl'>0</span>
 )
 
-<span class='fu'>myd</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>myd</a></span>(
+  <span class='kw'>...</span>,
+  quiet = <span class='fl'>FALSE</span>,
+  tz = <span class='kw'>NULL</span>,
+  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  truncated = <span class='fl'>0</span>
 )
 
-<span class='fu'>dmy</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>dmy</a></span>(
+  <span class='kw'>...</span>,
+  quiet = <span class='fl'>FALSE</span>,
+  tz = <span class='kw'>NULL</span>,
+  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  truncated = <span class='fl'>0</span>
 )
 
-<span class='fu'>dym</span>(
-  <span class='no'>...</span>,
-  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  <span class='kw'>truncated</span> <span class='kw'>=</span> <span class='fl'>0</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>dym</a></span>(
+  <span class='kw'>...</span>,
+  quiet = <span class='fl'>FALSE</span>,
+  tz = <span class='kw'>NULL</span>,
+  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
+  truncated = <span class='fl'>0</span>
 )
 
-<span class='fu'>yq</span>(<span class='no'>...</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>locale</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>))</pre>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>yq</a></span>(<span class='kw'>...</span>, quiet = <span class='fl'>FALSE</span>, tz = <span class='kw'>NULL</span>, locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -230,16 +230,16 @@ can use <code><a href='https://rdrr.io/r/base/system.html'>system("locale -a")</
 is <code>NULL</code> (default)</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>In case of heterogeneous date formats, the <code>ymd()</code> family guesses formats based
+    <p>In case of heterogeneous date formats, the <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code> family guesses formats based
 on a subset of the input vector. If the input vector contains many missing
 values or non-date strings, the subset might not contain meaningful dates
 and the date-time format won't be guessed resulting in
 <code>All formats failed to parse</code> error. In such cases please see
-<code><a href='parse_date_time.html'>parse_date_time()</a></code> for a more flexible parsing interface.</p>
-<p>If the <code>truncated</code> parameter is non-zero, the <code>ymd()</code> functions also check for
-truncated formats. For example, <code>ymd()</code> with <code>truncated = 2</code> will also
+<code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> for a more flexible parsing interface.</p>
+<p>If the <code>truncated</code> parameter is non-zero, the <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code> functions also check for
+truncated formats. For example, <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code> with <code>truncated = 2</code> will also
 parse incomplete dates like <code>2012-06</code> and <code>2012</code>.</p>
-<p>NOTE: The <code>ymd()</code> family of functions is based on <code><a href='parse_date_time.html'>parse_date_time()</a></code> and thus
+<p>NOTE: The <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code> family of functions is based on <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> and thus
 directly drop to the internal C parser for numeric months, but uses
 <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> for alphabetic months. This implies that some of <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>'s
 limitations are inherited by <span class="pkg">lubridate</span>'s parser. For example, truncated
@@ -251,26 +251,26 @@ change this by setting the <code>lubridate.verbose</code> option to <code>TRUE</
 <code><a href='https://rdrr.io/r/base/options.html'>options(lubridate.verbose = TRUE)</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='parse_date_time.html'>parse_date_time()</a></code> for an even more flexible low level
+    <div class='dont-index'><p><code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> for an even more flexible low level
 mechanism.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"09-01-01"</span>, <span class='st'>"09-01-02"</span>, <span class='st'>"09-01-03"</span>)
-<span class='fu'>ymd</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02" "2009-01-03"</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2009-01-01"</span>, <span class='st'>"2009-01-02"</span>, <span class='st'>"2009-01-03"</span>)
-<span class='fu'>ymd</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02" "2009-01-03"</div><div class='input'><span class='fu'>ymd</span>(<span class='fl'>090101</span>, <span class='fl'>90102</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02"</div><div class='input'><span class='fu'><a href='now.html'>now</a></span>() <span class='kw'>&gt;</span> <span class='fu'>ymd</span>(<span class='fl'>20090101</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'>## TRUE</span>
-<span class='fu'>dmy</span>(<span class='fl'>010210</span>)</div><div class='output co'>#&gt; [1] "2010-02-01"</div><div class='input'><span class='fu'>mdy</span>(<span class='fl'>010210</span>)</div><div class='output co'>#&gt; [1] "2010-01-02"</div><div class='input'>
-<span class='fu'>yq</span>(<span class='st'>'2014.2'</span>)</div><div class='output co'>#&gt; [1] "2014-04-01"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"09-01-01"</span>, <span class='st'>"09-01-02"</span>, <span class='st'>"09-01-03"</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='kw'>x</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02" "2009-01-03"</div><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2009-01-01"</span>, <span class='st'>"2009-01-02"</span>, <span class='st'>"2009-01-03"</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='kw'>x</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02" "2009-01-03"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='fl'>090101</span>, <span class='fl'>90102</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/now.html'>now</a></span>() <span class='op'>&gt;</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='fl'>20090101</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'>## TRUE</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>dmy</a></span>(<span class='fl'>010210</span>)</div><div class='output co'>#&gt; [1] "2010-02-01"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>mdy</a></span>(<span class='fl'>010210</span>)</div><div class='output co'>#&gt; [1] "2010-01-02"</div><div class='input'>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>yq</a></span>(<span class='st'>'2014.2'</span>)</div><div class='output co'>#&gt; [1] "2014-04-01"</div><div class='input'>
 <span class='co'>## heterogeneous formats in a single vector:</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20090101</span>, <span class='st'>"2009-01-02"</span>, <span class='st'>"2009 01 03"</span>, <span class='st'>"2009-1-4"</span>,
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20090101</span>, <span class='st'>"2009-01-02"</span>, <span class='st'>"2009 01 03"</span>, <span class='st'>"2009-1-4"</span>,
        <span class='st'>"2009-1, 5"</span>, <span class='st'>"Created on 2009 1 6"</span>, <span class='st'>"200901 !!! 07"</span>)
-<span class='fu'>ymd</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02" "2009-01-03" "2009-01-04" "2009-01-05"
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='kw'>x</span>)</div><div class='output co'>#&gt; [1] "2009-01-01" "2009-01-02" "2009-01-03" "2009-01-04" "2009-01-05"
 #&gt; [6] "2009-01-06" "2009-01-07"</div><div class='input'>
 <span class='co'>## What lubridate might not handle:</span>
 
 <span class='co'>## Extremely weird cases when one of the separators is "" and some of the</span>
 <span class='co'>## formats are not in double digits might not be parsed correctly:</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>ymd</span>(<span class='st'>"201002-01"</span>, <span class='st'>"201002-1"</span>, <span class='st'>"20102-1"</span>)
-<span class='fu'>dmy</span>(<span class='st'>"0312-2010"</span>, <span class='st'>"312-2010"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] "2010-12-03" NA          </div></pre>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"201002-01"</span>, <span class='st'>"201002-1"</span>, <span class='st'>"20102-1"</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>dmy</a></span>(<span class='st'>"0312-2010"</span>, <span class='st'>"312-2010"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] "2010-12-03" NA          </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

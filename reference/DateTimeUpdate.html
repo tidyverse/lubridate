@@ -138,7 +138,7 @@ substitute them for the appropriate parts of the existing date." />
     </div>
 
     <div class="ref-description">
-    <p><code>update.Date()</code> and <code>update.POSIXt()</code> return a date with the specified
+    <p><code>update.Date()</code> and <code><a href='http://lubridate.tidyverse.org/reference/DateTimeUpdate.html'>update.POSIXt()</a></code> return a date with the specified
 elements updated.  Elements not specified will be left unaltered. update.Date
 and update.POSIXt do not add the specified values to the existing date, they
 substitute them for the appropriate parts of the existing date.</p>
@@ -146,11 +146,11 @@ substitute them for the appropriate parts of the existing date.</p>
 
     <pre class="usage"><span class='co'># S3 method for POSIXt</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(
-  <span class='no'>object</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>roll</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>week_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>),
-  <span class='kw'>simple</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>object</span>,
+  <span class='kw'>...</span>,
+  roll = <span class='fl'>FALSE</span>,
+  week_start = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>),
+  simple = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -191,10 +191,10 @@ class does not support. In this case, the date returned will be a POSIXlt
 date object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>date</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2009-02-10"</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>date</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mday</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2010-01-01"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>date</span>, <span class='kw'>year</span> <span class='kw'>=</span><span class='fl'>2010</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>13</span>, <span class='kw'>mday</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2011-01-01"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='no'>date</span>, <span class='kw'>minute</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>second</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2009-02-10 00:10:03 UTC"</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>date</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2009-02-10"</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>date</span>, year = <span class='fl'>2010</span>, month = <span class='fl'>1</span>, mday = <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2010-01-01"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>date</span>, year =<span class='fl'>2010</span>, month = <span class='fl'>13</span>, mday = <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2011-01-01"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/stats/update.html'>update</a></span>(<span class='kw'>date</span>, minute = <span class='fl'>10</span>, second = <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2009-02-10 00:10:03 UTC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

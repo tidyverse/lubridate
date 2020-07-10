@@ -154,14 +154,14 @@
 <a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/890"><a href='https://github.com/tidyverse/lubridate/issues/890'>#890</a></a> Correctly compute year in <code><a href="../reference/quarter.html">quarter(..., with_year = TRUE)</a></code>
+<a href="https://github.com/tidyverse/lubridate/issues/890"><a href='https://github.com/tidyverse/lubridate/issues/890'>#890</a></a> Correctly compute year in <code><a href="http://lubridate.tidyverse.org/reference/quarter.html">quarter(..., with_year = TRUE)</a></code>
 </li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/893"><a href='https://github.com/tidyverse/lubridate/issues/893'>#893</a></a> Fix incorrect parsing of abbreviated months in locales with trailing dot (regression in v1.7.8)</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/886"><a href='https://github.com/tidyverse/lubridate/issues/886'>#886</a></a> Fix <code><a href="../reference/with_tz.html">with_tz()</a></code> for POSIXlt objects</li>
+<a href="https://github.com/tidyverse/lubridate/issues/886"><a href='https://github.com/tidyverse/lubridate/issues/886'>#886</a></a> Fix <code><a href="http://lubridate.tidyverse.org/reference/with_tz.html">with_tz()</a></code> for POSIXlt objects</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/887"><a href='https://github.com/tidyverse/lubridate/issues/887'>#887</a></a> Error on invalid numeric input to <code><a href="../reference/month.html">month()</a></code>
+<a href="https://github.com/tidyverse/lubridate/issues/887"><a href='https://github.com/tidyverse/lubridate/issues/887'>#887</a></a> Error on invalid numeric input to <code><a href="http://lubridate.tidyverse.org/reference/month.html">month()</a></code>
 </li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/889"><a href='https://github.com/tidyverse/lubridate/issues/889'>#889</a></a> Export new dmonth function</li>
@@ -178,36 +178,36 @@
 <ul>
 <li>(breaking) Year and month durations now assume 365.25 days in a year consistently in conversion and constructors. Particularly <code>dyears(1) == years(1)</code> is now <code>TRUE</code>.</li>
 <li>Format and print methods for 0-length objects are more consistent.</li>
-<li>New duration constructor <code><a href="../reference/duration.html">dmonths()</a></code> to complement other duration constructors.</li>
+<li>New duration constructor <code><a href="http://lubridate.tidyverse.org/reference/duration.html">dmonths()</a></code> to complement other duration constructors.</li>
 <li>
 </li>
 <li>
-<code><a href="../reference/duration.html">duration()</a></code> constructor now accepts <code>months</code> and <code>years</code> arguments.</li>
+<code><a href="http://lubridate.tidyverse.org/reference/duration.html">duration()</a></code> constructor now accepts <code>months</code> and <code>years</code> arguments.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/629"><a href='https://github.com/tidyverse/lubridate/issues/629'>#629</a></a> Added <code><a href="../reference/format_ISO8601.html">format_ISO8601()</a></code> methods.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/629"><a href='https://github.com/tidyverse/lubridate/issues/629'>#629</a></a> Added <code><a href="http://lubridate.tidyverse.org/reference/format_ISO8601.html">format_ISO8601()</a></code> methods.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/672"><a href='https://github.com/tidyverse/lubridate/issues/672'>#672</a></a> Eliminate all partial argument matches</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/674"><a href='https://github.com/tidyverse/lubridate/issues/674'>#674</a></a> <code><a href="../reference/as_date.html">as_date()</a></code> now ignores the <code>tz</code> argument</li>
+<a href="https://github.com/tidyverse/lubridate/issues/674"><a href='https://github.com/tidyverse/lubridate/issues/674'>#674</a></a> <code><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code> now ignores the <code>tz</code> argument</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/675"><a href='https://github.com/tidyverse/lubridate/issues/675'>#675</a></a> <code><a href="../reference/force_tz.html">force_tz()</a></code>, <code><a href="../reference/with_tz.html">with_tz()</a></code>, <code>tz&lt;-</code> convert dates to date-times</li>
+<a href="https://github.com/tidyverse/lubridate/issues/675"><a href='https://github.com/tidyverse/lubridate/issues/675'>#675</a></a> <code><a href="http://lubridate.tidyverse.org/reference/force_tz.html">force_tz()</a></code>, <code><a href="http://lubridate.tidyverse.org/reference/with_tz.html">with_tz()</a></code>, <code>tz&lt;-</code> convert dates to date-times</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/681"><a href='https://github.com/tidyverse/lubridate/issues/681'>#681</a></a> New constants <code>NA_Date_</code> and <code>NA_POSIXct_</code> which parallel built-in primitive constants.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/681"><a href='https://github.com/tidyverse/lubridate/issues/681'>#681</a></a> New constructors <code><a href="../reference/date_utils.html">Date()</a></code> and <code><a href="../reference/posix_utils.html">POSIXct()</a></code> which parallel built-in primitive constructors.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/681"><a href='https://github.com/tidyverse/lubridate/issues/681'>#681</a></a> New constructors <code><a href="http://lubridate.tidyverse.org/reference/date_utils.html">Date()</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/posix_utils.html">POSIXct()</a></code> which parallel built-in primitive constructors.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/695"><a href='https://github.com/tidyverse/lubridate/issues/695'>#695</a></a> Durations can now be compared with numeric vectors.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/707"><a href='https://github.com/tidyverse/lubridate/issues/707'>#707</a></a> Constructors return 0-length inputs when called with no arguments</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/713"><a href='https://github.com/tidyverse/lubridate/issues/713'>#713</a></a> (breaking) <code><a href="../reference/as_date.html">as_datetime()</a></code> always returns a <code><a href="../reference/posix_utils.html">POSIXct()</a></code>
+<a href="https://github.com/tidyverse/lubridate/issues/713"><a href='https://github.com/tidyverse/lubridate/issues/713'>#713</a></a> (breaking) <code><a href="http://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code> always returns a <code><a href="http://lubridate.tidyverse.org/reference/posix_utils.html">POSIXct()</a></code>
 </li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/717"><a href='https://github.com/tidyverse/lubridate/issues/717'>#717</a></a> Common generics are now defined in <code>generics</code> dependency package.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/719"><a href='https://github.com/tidyverse/lubridate/issues/719'>#719</a></a> Negative Durations are now displayed with leading <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/829"><a href='https://github.com/tidyverse/lubridate/issues/829'>#829</a></a> <code><a href="../reference/within-interval.html">%within%</a></code> throws more meaningful messages when applied on unsupported classes</li>
+<a href="https://github.com/tidyverse/lubridate/issues/829"><a href='https://github.com/tidyverse/lubridate/issues/829'>#829</a></a> <code><a href="http://lubridate.tidyverse.org/reference/within-interval.html">%within%</a></code> throws more meaningful messages when applied on unsupported classes</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/831"><a href='https://github.com/tidyverse/lubridate/issues/831'>#831</a></a> Changing hour, minute or second of Date object now yields POSIXct.</li>
 <li>
@@ -221,7 +221,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/682"><a href='https://github.com/tidyverse/lubridate/issues/682'>#682</a></a> Fix quarter extraction with small <code>fiscal_start</code>s.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/703"><a href='https://github.com/tidyverse/lubridate/issues/703'>#703</a></a> <code><a href="../reference/leap_year.html">leap_year()</a></code> works with objects supported by <code><a href="../reference/year.html">year()</a></code>.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/703"><a href='https://github.com/tidyverse/lubridate/issues/703'>#703</a></a> <code><a href="http://lubridate.tidyverse.org/reference/leap_year.html">leap_year()</a></code> works with objects supported by <code><a href="http://lubridate.tidyverse.org/reference/year.html">year()</a></code>.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/778"><a href='https://github.com/tidyverse/lubridate/issues/778'>#778</a></a> <code>duration()/period()/make_difftime()</code> work with repeated units</li>
 <li>
@@ -239,7 +239,7 @@
 <a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/658"><a href='https://github.com/tidyverse/lubridate/issues/658'>#658</a></a> <code><a href="../reference/within-interval.html">%within%</a></code> now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/658"><a href='https://github.com/tidyverse/lubridate/issues/658'>#658</a></a> <code><a href="http://lubridate.tidyverse.org/reference/within-interval.html">%within%</a></code> now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.</li>
 </ul>
 </div>
 <div id="changes" class="section level3">
@@ -251,7 +251,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/633"><a href='https://github.com/tidyverse/lubridate/issues/633'>#633</a></a> <code><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></code> on intervals relies on <code>%m+</code> arithmetic and doesn’t produce NAs when intermediate computations result in non-existent dates.</li>
 <li>
-<code><a href="../reference/tz.html">tz()</a></code> always returns “UTC” when <code>tzone</code> attribute cannot be inferred.</li>
+<code><a href="http://lubridate.tidyverse.org/reference/tz.html">tz()</a></code> always returns “UTC” when <code>tzone</code> attribute cannot be inferred.</li>
 </ul>
 </div>
 <div id="bug-fixes-2" class="section level3">
@@ -402,7 +402,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/559"><a href='https://github.com/tidyverse/lubridate/issues/559'>#559</a></a> Parsing of alpha-months in English locales now drops correctly to low level C parsing. Thus, parsing with multiple orders containing <code>m</code> and <code>b</code> formats now works correctly.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/570"><a href='https://github.com/tidyverse/lubridate/issues/570'>#570</a></a>, <a href="https://github.com/tidyverse/lubridate/issues/574"><a href='https://github.com/tidyverse/lubridate/issues/574'>#574</a></a> Fix broken <code><a href="../reference/date.html">date()</a></code> when called with missing argument.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/570"><a href='https://github.com/tidyverse/lubridate/issues/570'>#570</a></a>, <a href="https://github.com/tidyverse/lubridate/issues/574"><a href='https://github.com/tidyverse/lubridate/issues/574'>#574</a></a> Fix broken <code><a href="http://lubridate.tidyverse.org/reference/date.html">date()</a></code> when called with missing argument.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/567"><a href='https://github.com/tidyverse/lubridate/issues/567'>#567</a></a> Fix year update and rounding for leap years.</li>
 <li>
@@ -612,7 +612,7 @@
 <code>eseconds</code>, <code>eminutes</code> etc. were deprecated in favour of <code>dsecons</code>, <code>dminutes</code> etc.</li>
 <li>Many documentation improvements.</li>
 <li>New testthat conventions are adopted. Tests are now in <code>test/testthat</code>.</li>
-<li>Internally <code>isodate</code> was replaced with a much faster <code><a href="../reference/parse_date_time.html">parse_date_time2(paste(...))</a></code> alternative</li>
+<li>Internally <code>isodate</code> was replaced with a much faster <code><a href="http://lubridate.tidyverse.org/reference/parse_date_time.html">parse_date_time2(paste(...))</a></code> alternative</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/325"><a href='https://github.com/tidyverse/lubridate/issues/325'>#325</a></a> <code>Lubridate</code>’s <code>trunc</code>, <code>ceiling</code> and <code>floor</code> functions have been optimised and now are relying on R’s <code>trunc.POSIXct</code> whenever possible.</li>
 <li>
@@ -749,7 +749,7 @@
 <h3 class="hasAnchor">
 <a href="#changes-8" class="anchor"></a>CHANGES</h3>
 <ul>
-<li>v1.3.0. treats math with month and year Periods more consistently. If adding or subtracting n months would result in a non-existent date, lubridate will return an NA instead of a day in the following month or year. For example, <code>ymd("2013-01-31") + months(1)</code> will return <code>NA</code> instead of <code>2013-03-04</code> as in v1.2.0. <code>ymd("2012-02-29") + years(1)</code> will also return an <code>NA</code>. This rule change helps ensure that date + timespan - timespan = date (or NA). If you’d prefer that such arithmetic just returns the last day of the resulting month, see <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code>.</li>
+<li>v1.3.0. treats math with month and year Periods more consistently. If adding or subtracting n months would result in a non-existent date, lubridate will return an NA instead of a day in the following month or year. For example, <code>ymd("2013-01-31") + months(1)</code> will return <code>NA</code> instead of <code>2013-03-04</code> as in v1.2.0. <code>ymd("2012-02-29") + years(1)</code> will also return an <code>NA</code>. This rule change helps ensure that date + timespan - timespan = date (or NA). If you’d prefer that such arithmetic just returns the last day of the resulting month, see <code><a href="http://lubridate.tidyverse.org/reference/mplus.html">%m+%</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/mplus.html">%m-%</a></code>.</li>
 <li>update.POSIXct and update.POSIXlt have been rewritten to be 7x faster than their versions in v1.2.0. The speed gain is felt in <code>force_tz</code>, <code>with_tz</code>, <code>floor_date</code>, <code>ceiling_date</code>, <code>second&lt;-</code>, <code>minute&lt;-</code>, <code>hour&lt;-</code>, <code>day&lt;-</code>, <code>month&lt;-</code>, <code>year&lt;-</code>, and other functions that rely on update (such as math with Periods).</li>
 <li>lubridate includes a Korean translation provided by <a href="http://korea.gnu.org/gnustats/" class="uri">http://korea.gnu.org/gnustats/</a>
 </li>
@@ -765,7 +765,7 @@
 <li>users can control which messages lubridate returns when parsing and estimating with the global option lubridate.verbose. Run <code><a href="https://rdrr.io/r/base/options.html">options(lubridate.verbose = TRUE)</a></code> to turn parsing messages on. Run <code><a href="https://rdrr.io/r/base/options.html">options(lubridate.verbose = FALSE)</a></code> to turn estimation and coercion messages off.</li>
 <li>lubridate parser functions now propagate NA’s just as as.POSIXct, strptime and other functions do. Previously lubridate’s parse functions would only return an error.</li>
 <li>added [[ and [[&lt;- methods for INterval, Period and Duration class objects</li>
-<li>added <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> methods for Interval and Duration class objects that throw useful errors.</li>
+<li>added <code><a href="http://lubridate.tidyverse.org/reference/mplus.html">%m+%</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/mplus.html">%m-%</a></code> methods for Interval and Duration class objects that throw useful errors.</li>
 <li>
 <code>olson_time_zones</code> retreives a character vector is Olson-style time zone names to use in lubridate</li>
 <li>summary methods for Interval, Period, and Duration classes</li>
@@ -777,7 +777,7 @@
 <a href="#bug-fixes-12" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed bug in way update.POSIXct and update.POSIXlt handle dates that occur in the fall daylight savings overlap. update will choose the date-time closest to the original date time (on the timeline) when two identical clock times exist due to the DST overlap.</li>
-<li>fixed bugs that created unintuitive results for <code>as.interval</code>, <code>int_overlaps</code>, <code><a href="../reference/within-interval.html">%within%</a></code> and the interval methods of <code>c</code>, <code>intersect</code>, <code>union</code>, <code>setdiff</code>, and <code>summary</code>.</li>
+<li>fixed bugs that created unintuitive results for <code>as.interval</code>, <code>int_overlaps</code>, <code><a href="http://lubridate.tidyverse.org/reference/within-interval.html">%within%</a></code> and the interval methods of <code>c</code>, <code>intersect</code>, <code>union</code>, <code>setdiff</code>, and <code>summary</code>.</li>
 <li>parse functions, <code>as.interval</code>, <code>as.period</code> and <code>as.duration</code> now handlevectors of NA’s without returning errors.</li>
 <li>parsers better handle vectors of input that have more than 100 elements and many NAs</li>
 <li>data frames that contain timespan objects with NAs in thme no longer fail toprint</li>
@@ -807,7 +807,7 @@
 </ul>
 </li>
 <li>
-<p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a date’s month. And, <code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> provide a new way to</p>
+<p>Development for 1.2.0 has also focused on improving the way we work with months. <code>rollback</code> rolls dates back to the last day of the previous month. provides more options for working with months. <code>days_in_month</code> finds the number of days in a date’s month. And, <code><a href="http://lubridate.tidyverse.org/reference/mplus.html">%m+%</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/mplus.html">%m-%</a></code> provide a new way to</p>
 <h3 id="handle-unequal-month-lengths-while-doing-arithmetic-see-new-features-for-more">handle unequal month lengths while doing arithmetic. See NEW FEATURES for more</h3>
 <p>details</p>
 </li>
@@ -828,7 +828,7 @@
 <li><p><code>as.period.Interval</code> accepts a unit argument. <code>as.period</code> will convert intervals into periods no larger than the supplied unit.</p></li>
 <li><p><code>days_in_month</code> takes a date, returns the number of days in the date’s month. Contributed by Richard Cotton. Thank you, Richard.</p></li>
 <li>
-<p><code><a href="../reference/mplus.html">%m+%</a></code> and <code><a href="../reference/mplus.html">%m-%</a></code> perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can’t be used with periods smaller than a month, which should be handled separately. An example of the new behavior:</p>
+<p><code><a href="http://lubridate.tidyverse.org/reference/mplus.html">%m+%</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/mplus.html">%m-%</a></code> perform addition and subtraction with months (and years) without rollover at the end of a month. These can be used in place of + and -. These can’t be used with periods smaller than a month, which should be handled separately. An example of the new behavior:</p>
 <p>ymd(“2010-01-31”) %m+% months(1) # “2010-02-28 UTC”</p>
 <p>ymd(“2010-01-31”) + months(1) # “2010-03-03 UTC”</p>
 <p>ymd(“2010-03-31”) %m-% months(1) # “2010-02-28 UTC”</p>
@@ -845,7 +845,7 @@
 <li><p>date parsers now handle NAs</p></li>
 <li><p>periods now handle NAs</p></li>
 <li><p><code>[&lt;-</code> now correctly updates all elements of a period inside a vector, list, or data.frame</p></li>
-<li><p><code><a href="../reference/period.html">period()</a></code> now works with unit = “weeks”</p></li>
+<li><p><code><a href="http://lubridate.tidyverse.org/reference/period.html">period()</a></code> now works with unit = “weeks”</p></li>
 <li><p><code>ceiling_date</code> no longer rounds up if a date is already at a ceiling</p></li>
 <li><p>the redundant (i.e, repeated) hour of fall daylight savings time now displays with the correct time zone</p></li>
 <li><p><code>update.POSIXct</code> and <code>update.POSIXlt</code> handle vectors that sum to zero in the days argument</p></li>

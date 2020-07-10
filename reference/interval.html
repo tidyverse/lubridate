@@ -159,60 +159,60 @@ of a difftime object." />
     </div>
 
     <div class="ref-description">
-    <p><code>interval()</code> creates an <a href='Interval-class.html'>Interval</a> object with the specified start and
+    <p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval()</a></code> creates an <a href='http://lubridate.tidyverse.org/reference/Interval-class.html'>Interval</a> object with the specified start and
 end dates. If the start date occurs before the end date, the interval will be
 positive. Otherwise, it will be negative. Character vectors in ISO 8601
 format are supported from v1.7.2.</p>
-<p><code>int_end()</code> and <code>int_end&lt;-()</code> are accessors the end date of an
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_end()</a></code> and <code>int_end&lt;-()</code> are accessors the end date of an
 interval. Note that changing the end date of an interval will change the
 length of the interval, since the start date will remain the same.</p>
-<p><code>int_flip()</code> reverses the order of the start date and end date in an
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_flip()</a></code> reverses the order of the start date and end date in an
 interval. The new interval takes place during the same timespan as the
 original interval, but has the opposite direction.</p>
-<p><code>int_shift()</code> shifts the start and end dates of an interval up or down the
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_shift()</a></code> shifts the start and end dates of an interval up or down the
 timeline by a specified amount. Note that this may change the exact length of
 the interval if the interval is shifted by a Period object. Intervals shifted
 by a Duration or difftime object will retain their exact length in seconds.</p>
-<p><code>int_overlaps()</code> tests if two intervals overlap.</p>
-<p><code>int_standardize()</code> ensures all intervals in an interval object are
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_overlaps()</a></code> tests if two intervals overlap.</p>
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_standardize()</a></code> ensures all intervals in an interval object are
 positive. If an interval is not positive, flip it so that it retains its
 endpoints but becomes positive.</p>
-<p><code>int_aligns()</code> tests if two intervals share an endpoint. The direction of
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_aligns()</a></code> tests if two intervals share an endpoint. The direction of
 each interval is ignored. int_align tests whether the earliest or latest
 moments of each interval occur at the same time.</p>
-<p><code>int_diff()</code> returns the intervals that occur between the elements of a
-vector of date-times. <code>int_diff()</code> is similar to the POSIXt and Date
-methods of <code><a href='https://rdrr.io/r/base/diff.html'>diff()</a></code>, but returns an <a href='Interval-class.html'>Interval</a> object instead
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_diff()</a></code> returns the intervals that occur between the elements of a
+vector of date-times. <code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_diff()</a></code> is similar to the POSIXt and Date
+methods of <code><a href='https://rdrr.io/r/base/diff.html'>diff()</a></code>, but returns an <a href='http://lubridate.tidyverse.org/reference/Interval-class.html'>Interval</a> object instead
 of a difftime object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>interval</span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tzone</span> <span class='kw'>=</span> <span class='fu'><a href='tz.html'>tz</a></span>(<span class='no'>start</span>))
+    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(start = <span class='kw'>NULL</span>, end = <span class='kw'>NULL</span>, tzone = <span class='fu'><a href='http://lubridate.tidyverse.org/reference/tz.html'>tz</a></span>(<span class='kw'>start</span>))
 
-<span class='no'>start</span> <span class='kw'>%--%</span> <span class='no'>end</span>
+<span class='kw'>start</span> <span class='op'>%--%</span> <span class='kw'>end</span>
 
-<span class='fu'>is.interval</span>(<span class='no'>x</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>is.interval</a></span>(<span class='kw'>x</span>)
 
-<span class='fu'>int_start</span>(<span class='no'>int</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_start</a></span>(<span class='kw'>int</span>)
 
-<span class='fu'>int_start</span>(<span class='no'>int</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_start</a></span>(<span class='kw'>int</span>) <span class='op'>&lt;-</span> <span class='kw'>value</span>
 
-<span class='fu'>int_end</span>(<span class='no'>int</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_end</a></span>(<span class='kw'>int</span>)
 
-<span class='fu'>int_end</span>(<span class='no'>int</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_end</a></span>(<span class='kw'>int</span>) <span class='op'>&lt;-</span> <span class='kw'>value</span>
 
-<span class='fu'>int_length</span>(<span class='no'>int</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_length</a></span>(<span class='kw'>int</span>)
 
-<span class='fu'>int_flip</span>(<span class='no'>int</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_flip</a></span>(<span class='kw'>int</span>)
 
-<span class='fu'>int_shift</span>(<span class='no'>int</span>, <span class='no'>by</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_shift</a></span>(<span class='kw'>int</span>, <span class='kw'>by</span>)
 
-<span class='fu'>int_overlaps</span>(<span class='no'>int1</span>, <span class='no'>int2</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_overlaps</a></span>(<span class='kw'>int1</span>, <span class='kw'>int2</span>)
 
-<span class='fu'>int_standardize</span>(<span class='no'>int</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_standardize</a></span>(<span class='kw'>int</span>)
 
-<span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int2</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_aligns</a></span>(<span class='kw'>int1</span>, <span class='kw'>int2</span>)
 
-<span class='fu'>int_diff</span>(<span class='no'>times</span>)</pre>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_diff</a></span>(<span class='kw'>times</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -246,84 +246,84 @@ with much more permisive lubridate style parsing both for dates and periods
     </tr>
     <tr>
       <th>int1</th>
-      <td><p>an Interval object (for <code>int_overlaps()</code>, <code>int_aligns()</code>)</p></td>
+      <td><p>an Interval object (for <code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_overlaps()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_aligns()</a></code>)</p></td>
     </tr>
     <tr>
       <th>int2</th>
-      <td><p>an Interval object (for <code>int_overlaps()</code>, <code>int_aligns()</code>)</p></td>
+      <td><p>an Interval object (for <code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_overlaps()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_aligns()</a></code>)</p></td>
     </tr>
     <tr>
       <th>times</th>
       <td><p>A vector of POSIXct, POSIXlt or Date class date-times (for
-<code>int_diff()</code>)</p></td>
+<code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_diff()</a></code>)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>interval()</code> -- <a href='Interval-class.html'>Interval</a> object.</p>
-<p><code>int_start()</code> and <code>int_end()</code> return a POSIXct date object when
+    <p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval()</a></code> -- <a href='http://lubridate.tidyverse.org/reference/Interval-class.html'>Interval</a> object.</p>
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_start()</a></code> and <code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_end()</a></code> return a POSIXct date object when
 used as an accessor. Nothing when used as a setter.</p>
-<p><code>int_length()</code> -- numeric length of the interval in
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_length()</a></code> -- numeric length of the interval in
 seconds. A negative number connotes a negative interval.</p>
-<p><code>int_flip()</code> -- flipped interval object</p>
-<p><code>int_shift()</code> -- an Interval object</p>
-<p><code>int_overlaps()</code> -- logical, TRUE if int1 and int2 overlap by at
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_flip()</a></code> -- flipped interval object</p>
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_shift()</a></code> -- an Interval object</p>
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_overlaps()</a></code> -- logical, TRUE if int1 and int2 overlap by at
 least one second. FALSE otherwise</p>
-<p><code>int_aligns()</code> -- logical, TRUE if int1 and int2 begin or end on the
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_aligns()</a></code> -- logical, TRUE if int1 and int2 begin or end on the
 same moment. FALSE otherwise</p>
-<p><code>int_diff()</code> -- interval object that contains the n-1 intervals
+<p><code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_diff()</a></code> -- interval object that contains the n-1 intervals
 between the n date-time in times</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Intervals are time spans bound by two real date-times.  Intervals can be
 accurately converted to either period or duration objects using
-<code><a href='as.period.html'>as.period()</a></code>, <code><a href='as.duration.html'>as.duration()</a></code>. Since an interval is anchored to a fixed
+<code><a href='http://lubridate.tidyverse.org/reference/as.period.html'>as.period()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/as.duration.html'>as.duration()</a></code>. Since an interval is anchored to a fixed
 history of time, both the exact number of seconds that passed and the number
 of variable length time units that occurred during the interval can be
 calculated.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='Interval-class.html'>Interval</a>, <code><a href='as.interval.html'>as.interval()</a></code>, <code><a href='within-interval.html'>%within%</a></code></p></div>
+    <div class='dont-index'><p><a href='http://lubridate.tidyverse.org/reference/Interval-class.html'>Interval</a>, <code><a href='http://lubridate.tidyverse.org/reference/as.interval.html'>as.interval()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/within-interval.html'>%within%</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090201</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090101</span>))</div><div class='output co'>#&gt; [1] 2009-02-01 UTC--2009-01-01 UTC</div><div class='input'>
-<span class='no'>date1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2009-03-08 01:59:59"</span>)
-<span class='no'>date2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2000-02-29 12:00:00"</span>)
-<span class='fu'>interval</span>(<span class='no'>date2</span>, <span class='no'>date1</span>)</div><div class='output co'>#&gt; [1] 2000-02-29 12:00:00 UTC--2009-03-08 01:59:59 UTC</div><div class='input'><span class='fu'>interval</span>(<span class='no'>date1</span>, <span class='no'>date2</span>)</div><div class='output co'>#&gt; [1] 2009-03-08 01:59:59 UTC--2000-02-29 12:00:00 UTC</div><div class='input'><span class='no'>span</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090101</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090201</span>))
+    <pre class="examples"><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='fl'>20090201</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='fl'>20090101</span>))</div><div class='output co'>#&gt; [1] 2009-02-01 UTC--2009-01-01 UTC</div><div class='input'>
+<span class='kw'>date1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2009-03-08 01:59:59"</span>)
+<span class='kw'>date2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2000-02-29 12:00:00"</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='kw'>date2</span>, <span class='kw'>date1</span>)</div><div class='output co'>#&gt; [1] 2000-02-29 12:00:00 UTC--2009-03-08 01:59:59 UTC</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='kw'>date1</span>, <span class='kw'>date2</span>)</div><div class='output co'>#&gt; [1] 2009-03-08 01:59:59 UTC--2000-02-29 12:00:00 UTC</div><div class='input'><span class='kw'>span</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='fl'>20090101</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='fl'>20090201</span>))
 
 <span class='co'>### ISO Intervals</span>
 
-<span class='fu'>interval</span>(<span class='st'>"2007-03-01T13:00:00Z/2008-05-11T15:30:00Z"</span>)</div><div class='output co'>#&gt; [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</div><div class='input'><span class='fu'>interval</span>(<span class='st'>"2007-03-01T13:00:00Z/P1Y2M10DT2H30M"</span>)</div><div class='output co'>#&gt; [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</div><div class='input'><span class='fu'>interval</span>(<span class='st'>"P1Y2M10DT2H30M/2008-05-11T15:30:00Z"</span>)</div><div class='output co'>#&gt; [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</div><div class='input'><span class='fu'>interval</span>(<span class='st'>"2008-05-11/P2H30M"</span>)</div><div class='output co'>#&gt; [1] 2008-05-11 UTC--2010-11-11 02:00:00 UTC</div><div class='input'>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='st'>"2007-03-01T13:00:00Z/2008-05-11T15:30:00Z"</span>)</div><div class='output co'>#&gt; [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='st'>"2007-03-01T13:00:00Z/P1Y2M10DT2H30M"</span>)</div><div class='output co'>#&gt; [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='st'>"P1Y2M10DT2H30M/2008-05-11T15:30:00Z"</span>)</div><div class='output co'>#&gt; [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='st'>"2008-05-11/P2H30M"</span>)</div><div class='output co'>#&gt; [1] 2008-05-11 UTC--2010-11-11 02:00:00 UTC</div><div class='input'>
 <span class='co'>### More permisive parsing (as long as there are no intermittent / characters)</span>
-<span class='fu'>interval</span>(<span class='st'>"2008 05 11/P2hours 30minutes"</span>)</div><div class='output co'>#&gt; [1] 2008-05-11 UTC--2008-05-11 02:30:00 UTC</div><div class='input'><span class='fu'>interval</span>(<span class='st'>"08 05 11/P 2h 30m"</span>)</div><div class='output co'>#&gt; [1] 2008-05-11 UTC--2010-11-11 02:00:00 UTC</div><div class='input'>
-<span class='fu'>is.interval</span>(<span class='fu'><a href='period.html'>period</a></span>(<span class='kw'>months</span><span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>15</span>)) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.interval</span>(<span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090801</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='fl'>20090809</span>))) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
-<span class='fu'>int_start</span>(<span class='no'>int</span>)</div><div class='output co'>#&gt; [1] "2001-01-01 UTC"</div><div class='input'><span class='fu'>int_start</span>(<span class='no'>int</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>)
-<span class='no'>int</span></div><div class='output co'>#&gt; [1] 2001-06-01 UTC--2002-01-01 UTC</div><div class='input'>
-<span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
-<span class='fu'>int_end</span>(<span class='no'>int</span>)</div><div class='output co'>#&gt; [1] "2002-01-01 UTC"</div><div class='input'><span class='fu'>int_end</span>(<span class='no'>int</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-06-01"</span>)
-<span class='no'>int</span></div><div class='output co'>#&gt; [1] 2001-01-01 UTC--2002-06-01 UTC</div><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
-<span class='fu'>int_length</span>(<span class='no'>int</span>)</div><div class='output co'>#&gt; [1] 31536000</div><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
-<span class='fu'>int_flip</span>(<span class='no'>int</span>)</div><div class='output co'>#&gt; [1] 2002-01-01 UTC--2001-01-01 UTC</div><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
-<span class='fu'>int_shift</span>(<span class='no'>int</span>, <span class='fu'><a href='duration.html'>duration</a></span>(<span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>11</span>))</div><div class='output co'>#&gt; [1] 2001-01-12 UTC--2002-01-12 UTC</div><div class='input'><span class='fu'>int_shift</span>(<span class='no'>int</span>, <span class='fu'><a href='duration.html'>duration</a></span>(<span class='kw'>hours</span> <span class='kw'>=</span> -<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 2000-12-31 23:00:00 UTC--2001-12-31 23:00:00 UTC</div><div class='input'><span class='no'>int1</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
-<span class='no'>int2</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-06-01"</span>))
-<span class='no'>int3</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2003-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2004-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='st'>"2008 05 11/P2hours 30minutes"</span>)</div><div class='output co'>#&gt; [1] 2008-05-11 UTC--2008-05-11 02:30:00 UTC</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='st'>"08 05 11/P 2h 30m"</span>)</div><div class='output co'>#&gt; [1] 2008-05-11 UTC--2010-11-11 02:00:00 UTC</div><div class='input'>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>is.interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/period.html'>period</a></span>(months= <span class='fl'>1</span>, days = <span class='fl'>15</span>)) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>is.interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='fl'>20090801</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='fl'>20090809</span>))) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='kw'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_start</a></span>(<span class='kw'>int</span>)</div><div class='output co'>#&gt; [1] "2001-01-01 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_start</a></span>(<span class='kw'>int</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>)
+<span class='kw'>int</span></div><div class='output co'>#&gt; [1] 2001-06-01 UTC--2002-01-01 UTC</div><div class='input'>
+<span class='kw'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_end</a></span>(<span class='kw'>int</span>)</div><div class='output co'>#&gt; [1] "2002-01-01 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_end</a></span>(<span class='kw'>int</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-06-01"</span>)
+<span class='kw'>int</span></div><div class='output co'>#&gt; [1] 2001-01-01 UTC--2002-06-01 UTC</div><div class='input'><span class='kw'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_length</a></span>(<span class='kw'>int</span>)</div><div class='output co'>#&gt; [1] 31536000</div><div class='input'><span class='kw'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_flip</a></span>(<span class='kw'>int</span>)</div><div class='output co'>#&gt; [1] 2002-01-01 UTC--2001-01-01 UTC</div><div class='input'><span class='kw'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_shift</a></span>(<span class='kw'>int</span>, <span class='fu'><a href='http://lubridate.tidyverse.org/reference/duration.html'>duration</a></span>(days = <span class='fl'>11</span>))</div><div class='output co'>#&gt; [1] 2001-01-12 UTC--2002-01-12 UTC</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_shift</a></span>(<span class='kw'>int</span>, <span class='fu'><a href='http://lubridate.tidyverse.org/reference/duration.html'>duration</a></span>(hours = <span class='op'>-</span><span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 2000-12-31 23:00:00 UTC--2001-12-31 23:00:00 UTC</div><div class='input'><span class='kw'>int1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+<span class='kw'>int2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-06-01"</span>))
+<span class='kw'>int3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2003-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2004-01-01"</span>))
 
-<span class='fu'>int_overlaps</span>(<span class='no'>int1</span>, <span class='no'>int2</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>int_overlaps</span>(<span class='no'>int1</span>, <span class='no'>int3</span>) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>))
-<span class='fu'>int_standardize</span>(<span class='no'>int</span>)</div><div class='output co'>#&gt; [1] 2001-01-01 UTC--2002-01-01 UTC</div><div class='input'><span class='no'>int1</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
-<span class='no'>int2</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
-<span class='no'>int3</span> <span class='kw'>&lt;-</span> <span class='fu'>interval</span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2003-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2004-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_overlaps</a></span>(<span class='kw'>int1</span>, <span class='kw'>int2</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_overlaps</a></span>(<span class='kw'>int1</span>, <span class='kw'>int3</span>) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='kw'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_standardize</a></span>(<span class='kw'>int</span>)</div><div class='output co'>#&gt; [1] 2001-01-01 UTC--2002-01-01 UTC</div><div class='input'><span class='kw'>int1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+<span class='kw'>int2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2001-06-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2002-01-01"</span>))
+<span class='kw'>int3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2003-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2004-01-01"</span>))
 
-<span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int2</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>int_aligns</span>(<span class='no'>int1</span>, <span class='no'>int3</span>) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='now.html'>now</a></span>() + <span class='fu'><a href='period.html'>days</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-<span class='fu'>int_diff</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] 2020-06-13 21:44:54 UTC--2020-06-14 21:44:54 UTC
-#&gt; [2] 2020-06-14 21:44:54 UTC--2020-06-15 21:44:54 UTC
-#&gt; [3] 2020-06-15 21:44:54 UTC--2020-06-16 21:44:54 UTC
-#&gt; [4] 2020-06-16 21:44:54 UTC--2020-06-17 21:44:54 UTC
-#&gt; [5] 2020-06-17 21:44:54 UTC--2020-06-18 21:44:54 UTC
-#&gt; [6] 2020-06-18 21:44:54 UTC--2020-06-19 21:44:54 UTC
-#&gt; [7] 2020-06-19 21:44:54 UTC--2020-06-20 21:44:54 UTC
-#&gt; [8] 2020-06-20 21:44:54 UTC--2020-06-21 21:44:54 UTC
-#&gt; [9] 2020-06-21 21:44:54 UTC--2020-06-22 21:44:54 UTC</div></pre>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_aligns</a></span>(<span class='kw'>int1</span>, <span class='kw'>int2</span>) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_aligns</a></span>(<span class='kw'>int1</span>, <span class='kw'>int3</span>) <span class='co'># FALSE</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='kw'>dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/now.html'>now</a></span>() <span class='op'>+</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/period.html'>days</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_diff</a></span>(<span class='kw'>dates</span>)</div><div class='output co'>#&gt; [1] 2020-07-11 20:24:20 UTC--2020-07-12 20:24:20 UTC
+#&gt; [2] 2020-07-12 20:24:20 UTC--2020-07-13 20:24:20 UTC
+#&gt; [3] 2020-07-13 20:24:20 UTC--2020-07-14 20:24:20 UTC
+#&gt; [4] 2020-07-14 20:24:20 UTC--2020-07-15 20:24:20 UTC
+#&gt; [5] 2020-07-15 20:24:20 UTC--2020-07-16 20:24:20 UTC
+#&gt; [6] 2020-07-16 20:24:20 UTC--2020-07-17 20:24:20 UTC
+#&gt; [7] 2020-07-17 20:24:20 UTC--2020-07-18 20:24:20 UTC
+#&gt; [8] 2020-07-18 20:24:20 UTC--2020-07-19 20:24:20 UTC
+#&gt; [9] 2020-07-19 20:24:20 UTC--2020-07-20 20:24:20 UTC</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

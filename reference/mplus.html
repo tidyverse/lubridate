@@ -149,40 +149,40 @@ different lengths. With other elements, it is helpful for arithmetic to
 perform automatic roll over. For example, 12:00:00 + 61 seconds becomes
 12:01:01. However, people often prefer that this behavior NOT occur with
 months. For example, we sometimes want January 31 + 1 month = February 28 and
-not March 3. <code>%m+%</code> performs this type of arithmetic. Date <code>%m+%</code> months(n)
+not March 3. <code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>%m+%</a></code> performs this type of arithmetic. Date <code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>%m+%</a></code> months(n)
 always returns a date in the nth month after Date. If the new date would
-usually spill over into the n + 1th month, <code>%m+%</code> will return the last day of
-the nth month (<code><a href='rollback.html'>rollback()</a></code>). Date <code>%m-%</code> months(n) always returns a
+usually spill over into the n + 1th month, <code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>%m+%</a></code> will return the last day of
+the nth month (<code><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback()</a></code>). Date <code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>%m-%</a></code> months(n) always returns a
 date in the nth month before Date.</p>
     </div>
 
-    <pre class="usage"><span class='no'>e1</span> <span class='kw'>%m+%</span> <span class='no'>e2</span>
+    <pre class="usage"><span class='kw'>e1</span> <span class='op'>%m+%</span> <span class='kw'>e2</span>
 
-<span class='fu'>add_with_rollback</span>(<span class='no'>e1</span>, <span class='no'>e2</span>, <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/mplus.html'>add_with_rollback</a></span>(<span class='kw'>e1</span>, <span class='kw'>e2</span>, roll_to_first = <span class='fl'>FALSE</span>, preserve_hms = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>e1</th>
-      <td><p>A period or a date-time object of class <a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXlt</a>, <a href='posix_utils.html'>POSIXct</a>
-or <a href='date_utils.html'>Date</a>.</p></td>
+      <td><p>A period or a date-time object of class <a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXlt</a>, <a href='http://lubridate.tidyverse.org/reference/posix_utils.html'>POSIXct</a>
+or <a href='http://lubridate.tidyverse.org/reference/date_utils.html'>Date</a>.</p></td>
     </tr>
     <tr>
       <th>e2</th>
-      <td><p>A period or a date-time object of class <a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXlt</a>, <a href='posix_utils.html'>POSIXct</a>
-or <a href='date_utils.html'>Date</a>. Note that one of e1 and e2 must be a period and the other a
+      <td><p>A period or a date-time object of class <a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXlt</a>, <a href='http://lubridate.tidyverse.org/reference/posix_utils.html'>POSIXct</a>
+or <a href='http://lubridate.tidyverse.org/reference/date_utils.html'>Date</a>. Note that one of e1 and e2 must be a period and the other a
 date-time object.</p></td>
     </tr>
     <tr>
       <th>roll_to_first</th>
       <td><p>rollback to the first day of the month instead of the
-last day of the previous month (passed to <code><a href='rollback.html'>rollback()</a></code>)</p></td>
+last day of the previous month (passed to <code><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback()</a></code>)</p></td>
     </tr>
     <tr>
       <th>preserve_hms</th>
       <td><p>retains the same hour, minute, and second information? If
-FALSE, the new date will be at 00:00:00 (passed to <code><a href='rollback.html'>rollback()</a></code>)</p></td>
+FALSE, the new date will be at 00:00:00 (passed to <code><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback()</a></code>)</p></td>
     </tr>
     </table>
 
@@ -191,23 +191,23 @@ FALSE, the new date will be at 00:00:00 (passed to <code><a href='rollback.html'
     <p>A date-time object of class POSIXlt, POSIXct or Date</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>%m+%</code> and <code>%m-%</code> handle periods with components less than a month by first
+    <p><code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>%m+%</a></code> and <code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>%m-%</a></code> handle periods with components less than a month by first
 adding/subtracting months and then performing usual arithmetics with smaller
 units.</p>
-<p><code>%m+%</code> and <code>%m-%</code> should be used with caution as they are not one-to-one
+<p><code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>%m+%</a></code> and <code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>%m-%</a></code> should be used with caution as they are not one-to-one
 operations and results for either will be sensitive to the order of
 operations.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>jan</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-01-31 03:04:05"</span>)
-<span class='no'>jan</span> + <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>) <span class='co'># Feb 31 and April 31 returned as NA</span></div><div class='output co'>#&gt; [1] NA                        "2010-03-31 03:04:05 UTC"
+    <pre class="examples"><div class='input'><span class='kw'>jan</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-01-31 03:04:05"</span>)
+<span class='kw'>jan</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>) <span class='co'># Feb 31 and April 31 returned as NA</span></div><div class='output co'>#&gt; [1] NA                        "2010-03-31 03:04:05 UTC"
 #&gt; [3] NA                       </div><div class='input'><span class='co'># NA "2010-03-31 03:04:05 UTC" NA</span>
-<span class='no'>jan</span> <span class='kw'>%m+%</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>) <span class='co'># No rollover</span></div><div class='output co'>#&gt; [1] "2010-02-28 03:04:05 UTC" "2010-03-31 03:04:05 UTC"
+<span class='kw'>jan</span> <span class='op'>%m+%</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>) <span class='co'># No rollover</span></div><div class='output co'>#&gt; [1] "2010-02-28 03:04:05 UTC" "2010-03-31 03:04:05 UTC"
 #&gt; [3] "2010-04-30 03:04:05 UTC"</div><div class='input'>
-<span class='no'>leap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2012-02-29"</span>)
-<span class='st'>"2012-02-29 UTC"</span></div><div class='output co'>#&gt; [1] "2012-02-29 UTC"</div><div class='input'><span class='no'>leap</span> <span class='kw'>%m+%</span> <span class='fu'><a href='period.html'>years</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2013-02-28"</div><div class='input'><span class='no'>leap</span> <span class='kw'>%m+%</span> <span class='fu'><a href='period.html'>years</a></span>(-<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2011-02-28"</div><div class='input'><span class='no'>leap</span> <span class='kw'>%m-%</span> <span class='fu'><a href='period.html'>years</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2011-02-28"</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2019-01-29 01:02:03"</span>)
-<span class='fu'>add_with_rollback</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] "2019-02-28 01:02:03 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2019-02-28 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2019-03-01 01:02:03 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='no'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2019-03-01 UTC"</div></pre>
+<span class='kw'>leap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2012-02-29"</span>)
+<span class='st'>"2012-02-29 UTC"</span></div><div class='output co'>#&gt; [1] "2012-02-29 UTC"</div><div class='input'><span class='kw'>leap</span> <span class='op'>%m+%</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/period.html'>years</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2013-02-28"</div><div class='input'><span class='kw'>leap</span> <span class='op'>%m+%</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/period.html'>years</a></span>(<span class='op'>-</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2011-02-28"</div><div class='input'><span class='kw'>leap</span> <span class='op'>%m-%</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/period.html'>years</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2011-02-28"</div><div class='input'>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2019-01-29 01:02:03"</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/mplus.html'>add_with_rollback</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] "2019-02-28 01:02:03 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/mplus.html'>add_with_rollback</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), preserve_hms = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2019-02-28 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/mplus.html'>add_with_rollback</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), roll_to_first = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2019-03-01 01:02:03 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/mplus.html'>add_with_rollback</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), roll_to_first = <span class='fl'>TRUE</span>, preserve_hms = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2019-03-01 UTC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

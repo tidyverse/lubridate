@@ -140,7 +140,7 @@ to Period class objects with the specified units." />
 to Period class objects with the specified units.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as.period</span>(<span class='no'>x</span>, <span class='no'>unit</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.period.html'>as.period</a></span>(<span class='kw'>x</span>, <span class='kw'>unit</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,21 +169,21 @@ unit.</p></td>
 
     <p>Users must specify which time units to measure the period in. The exact length of
 each time unit in a period will depend on when it occurs. See
-<a href='Period-class.html'>Period</a> and <code><a href='period.html'>period()</a></code>.
+<a href='http://lubridate.tidyverse.org/reference/Period-class.html'>Period</a> and <code><a href='http://lubridate.tidyverse.org/reference/period.html'>period()</a></code>.
 The choice of units is not trivial; units that are
 normally equal may differ in length depending on when the time period
 occurs. For example, when a leap second occurs one minute is longer than 60
 seconds.</p>
 <p>Because periods do not have a fixed length, they can not be accurately
 converted to and from Duration objects. Duration objects measure time spans
-in exact numbers of seconds, see <a href='Duration-class.html'>Duration</a>. Hence, a one to one
+in exact numbers of seconds, see <a href='http://lubridate.tidyverse.org/reference/Duration-class.html'>Duration</a>. Hence, a one to one
 mapping does not exist between durations and periods. When used with a
 Duration object, as.period provides an inexact estimate; the duration is
 broken into time units based on the most common lengths of time units, in
 seconds. Because the length of months are particularly variable, a period
 with a months unit can not be coerced from a duration object. For an exact
 transformation, first transform the duration to an interval with
-<code><a href='as.interval.html'>as.interval()</a></code>.</p>
+<code><a href='http://lubridate.tidyverse.org/reference/as.interval.html'>as.interval()</a></code>.</p>
 <p>Coercing an interval to a period may cause surprising behavior if you request
 periods with small units. A leap year is 366 days long, but one year long. Such
 an interval will convert to 366 days when unit is set to days and 1 year when
@@ -196,17 +196,16 @@ savings. These periods will show the "naive" change in seconds and minutes that 
 suggested by the differences in clock time. See the examples below.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='Period-class.html'>Period</a>, <code><a href='period.html'>period()</a></code></p></div>
+    <div class='dont-index'><p><a href='http://lubridate.tidyverse.org/reference/Period-class.html'>Period</a>, <code><a href='http://lubridate.tidyverse.org/reference/period.html'>period()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>span</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2009-01-01 00:00:00"</span>), <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-02-02 01:01:01"</span>)) <span class='co'>#interval</span>
-<span class='fu'>as.period</span>(<span class='no'>span</span>)</div><div class='output co'>#&gt; [1] "1y 1m 1d 1H 1M 1S"</div><div class='input'><span class='fu'>as.period</span>(<span class='no'>span</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"day"</span>)</div><div class='output co'>#&gt; [1] "397d 1H 1M 1S"</div><div class='input'><span class='st'>"397d 1H 1M 1S"</span></div><div class='output co'>#&gt; [1] "397d 1H 1M 1S"</div><div class='input'><span class='no'>leap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2016-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2017-01-01"</span>))
-<span class='fu'>as.period</span>(<span class='no'>leap</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"days"</span>)</div><div class='output co'>#&gt; [1] "366d 0H 0M 0S"</div><div class='input'><span class='fu'>as.period</span>(<span class='no'>leap</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"years"</span>)</div><div class='output co'>#&gt; [1] "1y 0m 0d 0H 0M 0S"</div><div class='input'><span class='no'>dst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2016-11-06"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/Chicago"</span>),
-<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2016-11-07"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"America/Chicago"</span>))
+    <pre class="examples"><div class='input'><span class='kw'>span</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2009-01-01 00:00:00"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-02-02 01:01:01"</span>)) <span class='co'>#interval</span>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.period.html'>as.period</a></span>(<span class='kw'>span</span>)</div><div class='output co'>#&gt; [1] "1y 1m 1d 1H 1M 1S"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.period.html'>as.period</a></span>(<span class='kw'>span</span>, unit = <span class='st'>"day"</span>)</div><div class='output co'>#&gt; [1] "397d 1H 1M 1S"</div><div class='input'><span class='st'>"397d 1H 1M 1S"</span></div><div class='output co'>#&gt; [1] "397d 1H 1M 1S"</div><div class='input'><span class='kw'>leap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2016-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2017-01-01"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.period.html'>as.period</a></span>(<span class='kw'>leap</span>, unit = <span class='st'>"days"</span>)</div><div class='output co'>#&gt; [1] "366d 0H 0M 0S"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.period.html'>as.period</a></span>(<span class='kw'>leap</span>, unit = <span class='st'>"years"</span>)</div><div class='output co'>#&gt; [1] "1y 0m 0d 0H 0M 0S"</div><div class='input'><span class='kw'>dst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2016-11-06"</span>, tz = <span class='st'>"America/Chicago"</span>),
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2016-11-07"</span>, tz = <span class='st'>"America/Chicago"</span>))
 <span class='co'># as.period(dst, unit = "seconds")</span>
-<span class='fu'>as.period</span>(<span class='no'>dst</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"hours"</span>)</div><div class='output co'>#&gt; [1] "25H 0M 0S"</div><div class='input'><span class='no'>per</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='period.html'>period</a></span>(<span class='kw'>hours</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>minutes</span> <span class='kw'>=</span> <span class='fl'>6</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>per</span>, <span class='st'>"hours"</span>)</div><div class='output co'>#&gt; [1] 10.1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>per</span>, <span class='st'>"minutes"</span>)</div><div class='output co'>#&gt; [1] 606</div><div class='input'>
-</div></pre>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.period.html'>as.period</a></span>(<span class='kw'>dst</span>, unit = <span class='st'>"hours"</span>)</div><div class='output co'>#&gt; [1] "25H 0M 0S"</div><div class='input'><span class='kw'>per</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/period.html'>period</a></span>(hours = <span class='fl'>10</span>, minutes = <span class='fl'>6</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>per</span>, <span class='st'>"hours"</span>)</div><div class='output co'>#&gt; [1] 10.1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>per</span>, <span class='st'>"minutes"</span>)</div><div class='output co'>#&gt; [1] 606</div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

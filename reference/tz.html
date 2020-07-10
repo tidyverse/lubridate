@@ -139,14 +139,14 @@ the instant the same, but change the printed representation." />
 
     <div class="ref-description">
     <p>Conveniently get and set the time zone of a date-time.</p>
-<p><code>tz&lt;-</code> is an alias for <code><a href='force_tz.html'>force_tz()</a></code>, which preserves the local time,
-creating a different instant in time. Use <code><a href='with_tz.html'>with_tz()</a></code> if you want keep
+<p><code>tz&lt;-</code> is an alias for <code><a href='http://lubridate.tidyverse.org/reference/force_tz.html'>force_tz()</a></code>, which preserves the local time,
+creating a different instant in time. Use <code><a href='http://lubridate.tidyverse.org/reference/with_tz.html'>with_tz()</a></code> if you want keep
 the instant the same, but change the printed representation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tz</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/tz.html'>tz</a></span>(<span class='kw'>x</span>)
 
-<span class='fu'>tz</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/tz.html'>tz</a></span>(<span class='kw'>x</span>) <span class='op'>&lt;-</span> <span class='kw'>value</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,17 +181,17 @@ unless your system is very out of date). You can see a complete list with
 <code>tzone</code> attribute..</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2012-03-26 10:10:00"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>)
-<span class='fu'>tz</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "UTC"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2012-03-26 10:10:00"</span>, tz = <span class='st'>"UTC"</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/tz.html'>tz</a></span>(<span class='kw'>x</span>)</div><div class='output co'>#&gt; [1] "UTC"</div><div class='input'>
 <span class='co'># Note that setting tz() preserved the clock time, which implies</span>
 <span class='co'># that the actual instant in time is changing</span>
-<span class='fu'>tz</span>(<span class='no'>y</span>) <span class='kw'>&lt;-</span> <span class='st'>"Pacific/Auckland"</span>
-<span class='no'>y</span></div><div class='output co'>#&gt; [1] "2012-03-26 10:10:00 NZDT"</div><div class='input'><span class='no'>x</span> - <span class='no'>y</span></div><div class='output co'>#&gt; Time difference of 13 hours</div><div class='input'>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/tz.html'>tz</a></span>(<span class='kw'>y</span>) <span class='op'>&lt;-</span> <span class='st'>"Pacific/Auckland"</span>
+<span class='kw'>y</span></div><div class='output co'>#&gt; [1] "2012-03-26 10:10:00 NZDT"</div><div class='input'><span class='kw'>x</span> <span class='op'>-</span> <span class='kw'>y</span></div><div class='output co'>#&gt; Time difference of 13 hours</div><div class='input'>
 <span class='co'># This is the same as force_tz()</span>
-<span class='fu'><a href='force_tz.html'>force_tz</a></span>(<span class='no'>x</span>, <span class='st'>"Pacific/Auckland"</span>)</div><div class='output co'>#&gt; [1] "2012-03-26 10:10:00 NZDT"</div><div class='input'>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/force_tz.html'>force_tz</a></span>(<span class='kw'>x</span>, <span class='st'>"Pacific/Auckland"</span>)</div><div class='output co'>#&gt; [1] "2012-03-26 10:10:00 NZDT"</div><div class='input'>
 <span class='co'># Use with_tz() if you want to change the time zone, leave</span>
 <span class='co'># the instant in time the same</span>
-<span class='fu'><a href='with_tz.html'>with_tz</a></span>(<span class='no'>x</span>, <span class='st'>"Pacific/Auckland"</span>)</div><div class='output co'>#&gt; [1] "2012-03-26 23:10:00 NZDT"</div></pre>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/with_tz.html'>with_tz</a></span>(<span class='kw'>x</span>, <span class='st'>"Pacific/Auckland"</span>)</div><div class='output co'>#&gt; [1] "2012-03-26 23:10:00 NZDT"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

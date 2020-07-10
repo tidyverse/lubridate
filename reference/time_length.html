@@ -138,10 +138,10 @@
     <p>Compute the exact length of a time span</p>
     </div>
 
-    <pre class="usage"><span class='fu'>time_length</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"second"</span>)
+    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/time_length.html'>time_length</a></span>(<span class='kw'>x</span>, unit = <span class='st'>"second"</span>)
 
 <span class='co'># S4 method for Interval</span>
-<span class='fu'>time_length</span>(<span class='no'>x</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"second"</span>)</pre>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/time_length.html'>time_length</a></span>(<span class='kw'>x</span>, unit = <span class='st'>"second"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,26 +162,26 @@
 connotes a negative interval or duration</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>When <code>x</code> is an <a href='Interval-class.html'>Interval</a> object and
-<code>unit</code> are years or months, <code>time_length()</code> takes into account
+    <p>When <code>x</code> is an <a href='http://lubridate.tidyverse.org/reference/Interval-class.html'>Interval</a> object and
+<code>unit</code> are years or months, <code><a href='http://lubridate.tidyverse.org/reference/time_length.html'>time_length()</a></code> takes into account
 the fact that all months and years don't have the same number of days.</p>
-<p>When <code>x</code> is a <a href='Duration-class.html'>Duration</a>, <a href='Period-class.html'>Period</a>
+<p>When <code>x</code> is a <a href='http://lubridate.tidyverse.org/reference/Duration-class.html'>Duration</a>, <a href='http://lubridate.tidyverse.org/reference/Period-class.html'>Period</a>
 or <code><a href='https://rdrr.io/r/base/difftime.html'>difftime()</a></code> object, length in months or years is based on their
-most common lengths in seconds (see <code><a href='timespan.html'>timespan()</a></code>).</p>
+most common lengths in seconds (see <code><a href='http://lubridate.tidyverse.org/reference/timespan.html'>timespan()</a></code>).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='timespan.html'>timespan()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='http://lubridate.tidyverse.org/reference/timespan.html'>timespan()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"1980-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2014-09-18"</span>))
-<span class='fu'>time_length</span>(<span class='no'>int</span>, <span class='st'>"week"</span>)</div><div class='output co'>#&gt; [1] 1811.286</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"1980-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2014-09-18"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/time_length.html'>time_length</a></span>(<span class='kw'>int</span>, <span class='st'>"week"</span>)</div><div class='output co'>#&gt; [1] 1811.286</div><div class='input'>
 <span class='co'># Exact age</span>
-<span class='fu'>time_length</span>(<span class='no'>int</span>, <span class='st'>"year"</span>)</div><div class='output co'>#&gt; [1] 34.71233</div><div class='input'>
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/time_length.html'>time_length</a></span>(<span class='kw'>int</span>, <span class='st'>"year"</span>)</div><div class='output co'>#&gt; [1] 34.71233</div><div class='input'>
 <span class='co'># Age at last anniversary</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>trunc</a></span>(<span class='fu'>time_length</span>(<span class='no'>int</span>, <span class='st'>"year"</span>))</div><div class='output co'>#&gt; [1] 34</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>trunc</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/time_length.html'>time_length</a></span>(<span class='kw'>int</span>, <span class='st'>"year"</span>))</div><div class='output co'>#&gt; [1] 34</div><div class='input'>
 <span class='co'># Example of difference between intervals and durations</span>
-<span class='no'>int</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"1900-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"1999-12-31"</span>))
-<span class='fu'>time_length</span>(<span class='no'>int</span>, <span class='st'>"year"</span>)</div><div class='output co'>#&gt; [1] 99.99726</div><div class='input'><span class='fu'>time_length</span>(<span class='fu'><a href='as.duration.html'>as.duration</a></span>(<span class='no'>int</span>), <span class='st'>"year"</span>)</div><div class='output co'>#&gt; [1] 99.99452</div></pre>
+<span class='kw'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"1900-01-01"</span>), <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"1999-12-31"</span>))
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/time_length.html'>time_length</a></span>(<span class='kw'>int</span>, <span class='st'>"year"</span>)</div><div class='output co'>#&gt; [1] 99.99726</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/time_length.html'>time_length</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as.duration.html'>as.duration</a></span>(<span class='kw'>int</span>), <span class='st'>"year"</span>)</div><div class='output co'>#&gt; [1] 99.99452</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

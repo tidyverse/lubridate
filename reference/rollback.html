@@ -142,7 +142,7 @@ day of the month. Optionally, the new date can retain the same hour, minute,
 and second information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rollback</span>(<span class='no'>dates</span>, <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback</a></span>(<span class='kw'>dates</span>, roll_to_first = <span class='fl'>FALSE</span>, preserve_hms = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,12 +170,12 @@ been adjusted to the last day of the previous month, or to the first day of
 the month.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>date</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2010-03-03"</span>)
-<span class='fu'>rollback</span>(<span class='no'>date</span>)</div><div class='output co'>#&gt; [1] "2010-02-28"</div><div class='input'>
-<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='no'>date</span> + <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>0</span>:<span class='fl'>2</span>)
-<span class='fu'>rollback</span>(<span class='no'>dates</span>)</div><div class='output co'>#&gt; [1] "2010-02-28" "2010-03-31" "2010-04-30"</div><div class='input'>
-<span class='no'>date</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-03-03 12:44:22"</span>)
-<span class='fu'>rollback</span>(<span class='no'>date</span>)</div><div class='output co'>#&gt; [1] "2010-02-28 12:44:22 UTC"</div><div class='input'><span class='fu'>rollback</span>(<span class='no'>date</span>, <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-01 12:44:22 UTC"</div><div class='input'><span class='fu'>rollback</span>(<span class='no'>date</span>, <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2010-02-28 UTC"</div><div class='input'><span class='fu'>rollback</span>(<span class='no'>date</span>, <span class='kw'>roll_to_first</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>preserve_hms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2010-03-01 UTC"</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>date</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span>(<span class='st'>"2010-03-03"</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback</a></span>(<span class='kw'>date</span>)</div><div class='output co'>#&gt; [1] "2010-02-28"</div><div class='input'>
+<span class='kw'>dates</span> <span class='op'>&lt;-</span> <span class='kw'>date</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>0</span><span class='op'>:</span><span class='fl'>2</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback</a></span>(<span class='kw'>dates</span>)</div><div class='output co'>#&gt; [1] "2010-02-28" "2010-03-31" "2010-04-30"</div><div class='input'>
+<span class='kw'>date</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-03-03 12:44:22"</span>)
+<span class='fu'><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback</a></span>(<span class='kw'>date</span>)</div><div class='output co'>#&gt; [1] "2010-02-28 12:44:22 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback</a></span>(<span class='kw'>date</span>, roll_to_first = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-01 12:44:22 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback</a></span>(<span class='kw'>date</span>, preserve_hms = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2010-02-28 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/rollback.html'>rollback</a></span>(<span class='kw'>date</span>, roll_to_first = <span class='fl'>TRUE</span>, preserve_hms = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2010-03-01 UTC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
