@@ -84,7 +84,7 @@ reference:
   - time_length
   - is.timespan
 
-- title: Fromaters
+- title: Formatters
   contents:
   - stamp
   - format_ISO8601
