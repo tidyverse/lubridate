@@ -155,26 +155,26 @@ its help documentation.</p>
 date-time objects. Users should choose the function whose name
 models the order in which the year ('y'), month ('m') and day
 ('d') elements appear the string to be parsed:
-<code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>dmy()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>myd()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ydm()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>dym()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>mdy()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms()</a></code>). A very flexible and user friendly parser
-is provided by <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code>.</p>
+<code><a href='ymd.html'>dmy()</a></code>, <code><a href='ymd.html'>myd()</a></code>, <code><a href='ymd.html'>ymd()</a></code>,
+<code><a href='ymd.html'>ydm()</a></code>, <code><a href='ymd.html'>dym()</a></code>, <code><a href='ymd.html'>mdy()</a></code>,
+<code><a href='ymd_hms.html'>ymd_hms()</a></code>). A very flexible and user friendly parser
+is provided by <code><a href='parse_date_time.html'>parse_date_time()</a></code>.</p>
 <p>Lubridate can also parse partial dates from strings into
-<a href='http://lubridate.tidyverse.org/reference/Period-class.html'>Period</a> objects with the functions
-<code><a href='http://lubridate.tidyverse.org/reference/hms.html'>hm()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/hms.html'>hms()</a></code> and <code><a href='http://lubridate.tidyverse.org/reference/hms.html'>ms()</a></code>.</p>
+<a href='Period-class.html'>Period</a> objects with the functions
+<code><a href='ms.html'>hm()</a></code>, <code><a href='ms.html'>hms()</a></code> and <code><a href='ms.html'>ms()</a></code>.</p>
 <p>Lubridate has an inbuilt very fast POSIX parser. Most of the <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></code>
 formats and various extensions are supported for English locales. See
-<code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> for more details.</p>
+<code><a href='parse_date_time.html'>parse_date_time()</a></code> for more details.</p>
     <h2 class="hasAnchor" id="manipulating-dates"><a class="anchor" href="#manipulating-dates"></a>Manipulating dates</h2>
 
     
 
 
 <p>Lubridate distinguishes between moments in time (known as
-<code><a href='http://lubridate.tidyverse.org/reference/is.instant.html'>instants()</a></code>) and spans of time (known as time spans, see
-<a href='http://lubridate.tidyverse.org/reference/Timespan-class.html'>Timespan</a>). Time spans are further separated into
-<a href='http://lubridate.tidyverse.org/reference/Duration-class.html'>Duration</a>, <a href='http://lubridate.tidyverse.org/reference/Period-class.html'>Period</a> and
-<a href='http://lubridate.tidyverse.org/reference/Interval-class.html'>Interval</a> objects.</p>
+<code><a href='is.instant.html'>instants()</a></code>) and spans of time (known as time spans, see
+<a href='Timespan-class.html'>Timespan</a>). Time spans are further separated into
+<a href='Duration-class.html'>Duration</a>, <a href='Period-class.html'>Period</a> and
+<a href='Interval-class.html'>Interval</a> objects.</p>
     <h2 class="hasAnchor" id="instants"><a class="anchor" href="#instants"></a>Instants</h2>
 
     
@@ -182,48 +182,48 @@ formats and various extensions are supported for English locales. See
 
 <p>Instants are specific moments of time. Date, POSIXct, and
 POSIXlt are the three object classes Base R recognizes as
-instants. <code><a href='http://lubridate.tidyverse.org/reference/date_utils.html'>is.Date()</a></code> tests whether an object
-inherits from the Date class. <code><a href='http://lubridate.tidyverse.org/reference/posix_utils.html'>is.POSIXt()</a></code> tests
+instants. <code><a href='is.Date.html'>is.Date()</a></code> tests whether an object
+inherits from the Date class. <code><a href='is.POSIXt.html'>is.POSIXt()</a></code> tests
 whether an object inherits from the POSIXlt or POSIXct classes.
-<code><a href='http://lubridate.tidyverse.org/reference/is.instant.html'>is.instant()</a></code> tests whether an object inherits from
+<code><a href='is.instant.html'>is.instant()</a></code> tests whether an object inherits from
 any of the three classes.</p>
-<p><code><a href='http://lubridate.tidyverse.org/reference/now.html'>now()</a></code> returns the current system time as a POSIXct
-object. <code><a href='http://lubridate.tidyverse.org/reference/now.html'>today()</a></code> returns the current system date.
+<p><code><a href='now.html'>now()</a></code> returns the current system time as a POSIXct
+object. <code><a href='now.html'>today()</a></code> returns the current system date.
 For convenience, 1970-01-01 00:00:00 is saved to
-<a href='http://lubridate.tidyverse.org/reference/origin.html'>origin</a>. This is the instant from which POSIXct
+<a href='origin.html'>origin</a>. This is the instant from which POSIXct
 times are calculated. Try <code><a href='https://rdrr.io/r/base/class.html'>unclass(now())</a></code> to see the numeric structure that
 underlies POSIXct objects. Each POSIXct object is saved as the number of seconds
 it occurred after 1970-01-01 00:00:00.</p>
 <p>Conceptually, instants are a combination of measurements on different units
 (i.e, years, months, days, etc.). The individual values for
 these units can be extracted from an instant and set with the
-accessor functions <code><a href='http://lubridate.tidyverse.org/reference/second.html'>second()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/minute.html'>minute()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/hour.html'>hour()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/day.html'>day()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/day.html'>yday()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/day.html'>mday()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/day.html'>wday()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/week.html'>week()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/month.html'>month()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/year.html'>year()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/tz.html'>tz()</a></code>,
-and <code><a href='http://lubridate.tidyverse.org/reference/dst.html'>dst()</a></code>.
+accessor functions <code><a href='second.html'>second()</a></code>, <code><a href='minute.html'>minute()</a></code>,
+<code><a href='hour.html'>hour()</a></code>, <code><a href='day.html'>day()</a></code>, <code><a href='day.html'>yday()</a></code>,
+<code><a href='day.html'>mday()</a></code>, <code><a href='day.html'>wday()</a></code>, <code><a href='week.html'>week()</a></code>,
+<code><a href='month.html'>month()</a></code>, <code><a href='year.html'>year()</a></code>, <code><a href='tz.html'>tz()</a></code>,
+and <code><a href='dst.html'>dst()</a></code>.
 Note: the accessor functions are named after the singular form
 of an element. They shouldn't be confused with the period
 helper functions that have the plural form of the units as a
-name (e.g, <code><a href='http://lubridate.tidyverse.org/reference/period.html'>seconds()</a></code>).</p>
+name (e.g, <code><a href='period.html'>seconds()</a></code>).</p>
     <h2 class="hasAnchor" id="rounding-dates"><a class="anchor" href="#rounding-dates"></a>Rounding dates</h2>
 
     
 
 
 <p>Instants can be rounded to a convenient unit using the
-functions <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>ceiling_date()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>floor_date()</a></code>
-and <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>round_date()</a></code>.</p>
+functions <code><a href='round_date.html'>ceiling_date()</a></code>, <code><a href='round_date.html'>floor_date()</a></code>
+and <code><a href='round_date.html'>round_date()</a></code>.</p>
     <h2 class="hasAnchor" id="time-zones"><a class="anchor" href="#time-zones"></a>Time zones</h2>
 
     
 
 
 <p>Lubridate provides two helper functions for working with time
-zones. <code><a href='http://lubridate.tidyverse.org/reference/with_tz.html'>with_tz()</a></code> changes the time zone in which an
+zones. <code><a href='with_tz.html'>with_tz()</a></code> changes the time zone in which an
 instant is displayed. The clock time displayed for the instant
 changes, but the moment of time described remains the same.
-<code><a href='http://lubridate.tidyverse.org/reference/force_tz.html'>force_tz()</a></code> changes only the time zone element of an
+<code><a href='force_tz.html'>force_tz()</a></code> changes only the time zone element of an
 instant. The clock time displayed remains the same, but the
 resulting instant describes a new moment of time.</p>
     <h2 class="hasAnchor" id="timespans"><a class="anchor" href="#timespans"></a>Timespans</h2>
@@ -241,10 +241,10 @@ follow complex conventions and rules so that the clock times we see reflect what
 we expect to observe in terms of daylight, season, and congruence with the
 atomic clock. To better navigate the nuances of time, <span class="pkg">lubridate</span> creates three
 additional timespan classes, each with its own specific and consistent behavior:
-<a href='http://lubridate.tidyverse.org/reference/Interval-class.html'>Interval</a>, <a href='http://lubridate.tidyverse.org/reference/Period-class.html'>Period</a> and
-<a href='http://lubridate.tidyverse.org/reference/Duration-class.html'>Duration</a>.</p>
-<p><code><a href='http://lubridate.tidyverse.org/reference/is.difftime.html'>is.difftime()</a></code> tests whether an object
-inherits from the difftime class. <code><a href='http://lubridate.tidyverse.org/reference/is.timespan.html'>is.timespan()</a></code>
+<a href='Interval-class.html'>Interval</a>, <a href='Period-class.html'>Period</a> and
+<a href='Duration-class.html'>Duration</a>.</p>
+<p><code><a href='is.difftime.html'>is.difftime()</a></code> tests whether an object
+inherits from the difftime class. <code><a href='is.timespan.html'>is.timespan()</a></code>
 tests whether an object inherits from any of the four timespan
 classes.</p>
     <h2 class="hasAnchor" id="durations"><a class="anchor" href="#durations"></a>Durations</h2>
@@ -256,10 +256,10 @@ classes.</p>
 instants. This can create unexpected results in relation to clock times if a
 leap second, leap year, or change in daylight savings time (DST) occurs in
 the interval.</p>
-<p>Functions for working with durations include <code><a href='http://lubridate.tidyverse.org/reference/duration.html'>is.duration()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/as.duration.html'>as.duration()</a></code> and <code><a href='http://lubridate.tidyverse.org/reference/duration.html'>duration()</a></code>. <code><a href='http://lubridate.tidyverse.org/reference/duration.html'>dseconds()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/duration.html'>dminutes()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/duration.html'>dhours()</a></code>,  <code><a href='http://lubridate.tidyverse.org/reference/duration.html'>ddays()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/duration.html'>dweeks()</a></code> and <code><a href='http://lubridate.tidyverse.org/reference/duration.html'>dyears()</a></code> convenient lengths.</p>
+<p>Functions for working with durations include <code><a href='duration.html'>is.duration()</a></code>,
+<code><a href='as.duration.html'>as.duration()</a></code> and <code><a href='duration.html'>duration()</a></code>. <code><a href='duration.html'>dseconds()</a></code>,
+<code><a href='duration.html'>dminutes()</a></code>, <code><a href='duration.html'>dhours()</a></code>,  <code><a href='duration.html'>ddays()</a></code>,
+<code><a href='duration.html'>dweeks()</a></code> and <code><a href='duration.html'>dyears()</a></code> convenient lengths.</p>
     <h2 class="hasAnchor" id="periods"><a class="anchor" href="#periods"></a>Periods</h2>
 
     
@@ -269,11 +269,11 @@ the interval.</p>
 instants. Periods provide robust predictions of clock time in the presence of
 leap seconds, leap years, and changes in DST.</p>
 <p>Functions for working with periods include
-<code><a href='http://lubridate.tidyverse.org/reference/period.html'>is.period()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/as.period.html'>as.period()</a></code> and
-<code><a href='http://lubridate.tidyverse.org/reference/period.html'>period()</a></code>. <code><a href='http://lubridate.tidyverse.org/reference/period.html'>seconds()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/period.html'>minutes()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/period.html'>hours()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/period.html'>days()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/period.html'>weeks()</a></code>, <code><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months()</a></code> and
-<code><a href='http://lubridate.tidyverse.org/reference/period.html'>years()</a></code> quickly create periods of convenient
+<code><a href='period.html'>is.period()</a></code>, <code><a href='as.period.html'>as.period()</a></code> and
+<code><a href='period.html'>period()</a></code>. <code><a href='period.html'>seconds()</a></code>,
+<code><a href='period.html'>minutes()</a></code>, <code><a href='period.html'>hours()</a></code>, <code><a href='period.html'>days()</a></code>,
+<code><a href='period.html'>weeks()</a></code>, <code><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months()</a></code> and
+<code><a href='period.html'>years()</a></code> quickly create periods of convenient
 lengths.</p>
     <h2 class="hasAnchor" id="intervals"><a class="anchor" href="#intervals"></a>Intervals</h2>
 
@@ -285,24 +285,24 @@ end at a specific instant. Intervals retain complete information about a
 timespan. They provide the only reliable way to convert between
 periods and durations.</p>
 <p>Functions for working with intervals include
-<code><a href='http://lubridate.tidyverse.org/reference/interval.html'>is.interval()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/as.interval.html'>as.interval()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/interval.html'>interval()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_shift()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_flip()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_aligns()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/interval.html'>int_overlaps()</a></code>, and
-<code><a href='http://lubridate.tidyverse.org/reference/within-interval.html'>%within%</a></code>. Intervals can also be manipulated with
+<code><a href='interval.html'>is.interval()</a></code>, <code><a href='as.interval.html'>as.interval()</a></code>,
+<code><a href='interval.html'>interval()</a></code>, <code><a href='interval.html'>int_shift()</a></code>,
+<code><a href='interval.html'>int_flip()</a></code>, <code><a href='interval.html'>int_aligns()</a></code>,
+<code><a href='interval.html'>int_overlaps()</a></code>, and
+<code><a href='%within%.html'>%within%</a></code>. Intervals can also be manipulated with
 intersect, union, and setdiff().</p>
     <h2 class="hasAnchor" id="miscellaneous"><a class="anchor" href="#miscellaneous"></a>Miscellaneous</h2>
 
     
 
 
-<p><code><a href='http://lubridate.tidyverse.org/reference/decimal_date.html'>decimal_date()</a></code> converts an instant to a decimal of
+<p><code><a href='decimal_date.html'>decimal_date()</a></code> converts an instant to a decimal of
 its year.
-<code><a href='http://lubridate.tidyverse.org/reference/leap_year.html'>leap_year()</a></code> tests whether an instant occurs during
+<code><a href='leap_year.html'>leap_year()</a></code> tests whether an instant occurs during
 a leap year.
-<code><a href='http://lubridate.tidyverse.org/reference/pretty_dates.html'>pretty_dates()</a></code> provides a method of making pretty
+<code><a href='pretty_dates.html'>pretty_dates()</a></code> provides a method of making pretty
 breaks for date-times.
-<a href='http://lubridate.tidyverse.org/reference/lakers.html'>lakers</a> is a data set that contains information
+<a href='lakers.html'>lakers</a> is a data set that contains information
 about the Los Angeles Lakers 2008-2009 basketball season.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

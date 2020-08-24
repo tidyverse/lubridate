@@ -148,7 +148,7 @@ been paired with an incorrect timezone/daylight savings time combination,
 fit_to_timeline returns the instant with the correct combination.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/fit_to_timeline.html'>fit_to_timeline</a></span>(<span class='kw'>lt</span>, class = <span class='st'>"POSIXct"</span>, simple = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>fit_to_timeline</span>(<span class='kw'>lt</span>, class = <span class='st'>"POSIXct"</span>, simple = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,14 +198,14 @@ the most meaningful valid dates are returned instead. See examples.</p></td>
 <span class='co'>## [3] "2010-03-14 02:00:00 CDT" DST gap</span>
 <span class='co'>## [4] "2012-11-04 01:59:59 CDT" Does exist, but has deceptive internal structure</span>
 
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/fit_to_timeline.html'>fit_to_timeline</a></span>(<span class='kw'>tricky</span>)
+<span class='fu'>fit_to_timeline</span>(<span class='kw'>tricky</span>)
 <span class='co'>## Returns:</span>
 <span class='co'>## [1] "2012-11-04 02:00:00 CST" instant paired with correct tz &amp; DST combination</span>
 <span class='co'>## [2] "2012-11-04 00:05:00 CDT" instant paired with correct tz &amp; DST combination</span>
 <span class='co'>## [3] NA - fake time changed to NA (compare to as.POSIXct(tricky))</span>
 <span class='co'>## [4] "2012-11-04 01:59:59 CDT" -real instant, left as is</span>
 
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/fit_to_timeline.html'>fit_to_timeline</a></span>(<span class='kw'>tricky</span>, simple = <span class='fl'>TRUE</span>)
+<span class='fu'>fit_to_timeline</span>(<span class='kw'>tricky</span>, simple = <span class='fl'>TRUE</span>)
 <span class='co'>## Returns valid time-dates by extrapolating CDT and CST zones:</span>
 <span class='co'>## [1] "2012-11-04 01:00:05 CST" "2012-11-04 01:05:00 CDT"</span>
 <span class='co'>## [3] "2010-03-14 03:05:00 CDT" "2012-11-04 01:59:59 CDT"</span>

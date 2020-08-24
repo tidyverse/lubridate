@@ -138,7 +138,7 @@
     <p>Guess possible date-times formats from a character vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(
+    <pre class="usage"><span class='fu'>guess_formats</span>(
   <span class='kw'>x</span>,
   <span class='kw'>orders</span>,
   locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
@@ -164,7 +164,7 @@
     <tr>
       <th>preproc_wday</th>
       <td><p>whether to preprocess weekday names. Internal
-optimization used by <code><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms()</a></code> family of functions. If <code>TRUE</code>, weekdays are
+optimization used by <code><a href='ymd_hms.html'>ymd_hms()</a></code> family of functions. If <code>TRUE</code>, weekdays are
 substituted with %a or %A accordingly, so that there is no need to supply
 this format explicitly.</p></td>
     </tr>
@@ -217,14 +217,14 @@ of matched templates.</p></td>
        <span class='st'>"14 12 00"</span>,
        <span class='st'>"03:23:22 pm"</span>)
 
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(<span class='kw'>x</span>, <span class='st'>"BdY"</span>)</div><div class='output co'>#&gt;                 BdY                 BdY                 BdY                 BdY 
+<span class='fu'>guess_formats</span>(<span class='kw'>x</span>, <span class='st'>"BdY"</span>)</div><div class='output co'>#&gt;                 BdY                 BdY                 BdY                 BdY 
 #&gt;        "%B %dth %Y"        "%B  %d, %Y"     "%A, %B %d, %Y"     "%A, %B %d, %Y" 
 #&gt;                 BdY                 BdY                 BdY                 BdY 
 #&gt;        "%B %dth %Y"        "%B  %d, %Y"     "%A, %B %d, %Y"     "%A, %B %d, %Y" 
 #&gt;                 BdY                 BdY                 BdY                 BdY 
 #&gt;        "%B %dth %Y"        "%B  %d, %Y" "Sunday, %B %d, %Y" "Sunday, %B %d, %Y" 
 #&gt;                 BdY                 BdY                 BdY                 BdY 
-#&gt;        "%B %dth %Y"        "%B  %d, %Y" "Sunday, %B %d, %Y" "Sunday, %B %d, %Y" </div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(<span class='kw'>x</span>, <span class='st'>"Bdy"</span>)</div><div class='output co'>#&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
+#&gt;        "%B %dth %Y"        "%B  %d, %Y" "Sunday, %B %d, %Y" "Sunday, %B %d, %Y" </div><div class='input'><span class='fu'>guess_formats</span>(<span class='kw'>x</span>, <span class='st'>"Bdy"</span>)</div><div class='output co'>#&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
 #&gt;        "%B %dth %Y"        "%B  %d, %Y"     "%A, %B %d, %Y"     "%A, %B %d, %Y" 
 #&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
 #&gt;        "%B  %d, %y"        "%B %dth %Y"        "%B  %d, %Y"     "%A, %B %d, %Y" 
@@ -234,7 +234,7 @@ of matched templates.</p></td>
 #&gt; "Sunday, %B %d, %Y" "Sunday, %B %d, %Y"        "%B  %d, %y"        "%B %dth %Y" 
 #&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
 #&gt;        "%B  %d, %Y" "Sunday, %B %d, %Y" "Sunday, %B %d, %Y"        "%B  %d, %y" </div><div class='input'><span class='co'>## m also matches b and B; y also matches Y</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(<span class='kw'>x</span>, <span class='st'>"mdy"</span>, print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           Omdy                
+<span class='fu'>guess_formats</span>(<span class='kw'>x</span>, <span class='st'>"mdy"</span>, print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           Omdy                
 #&gt;  [1,] "February 20th 1973"                "%Om %dth %Y"       
 #&gt;  [2,] "february  14, 2004"                "%Om  %d, %Y"       
 #&gt;  [3,] "Sunday, May 1, 2000"               "Sunday, %Om %d, %Y"
@@ -350,7 +350,7 @@ of matched templates.</p></td>
 #&gt;                  mdy 
 #&gt;        "%m:%d:%y pm" </div><div class='input'>
 <span class='co'>## T also matches IMSp order</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(<span class='kw'>x</span>, <span class='st'>"T"</span>, print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           HMSOp          T                   
+<span class='fu'>guess_formats</span>(<span class='kw'>x</span>, <span class='st'>"T"</span>, print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           HMSOp          T                   
 #&gt;  [1,] "February 20th 1973"                ""             ""                  
 #&gt;  [2,] "february  14, 2004"                ""             "february  %H, %M%S"
 #&gt;  [3,] "Sunday, May 1, 2000"               ""             ""                  
@@ -392,7 +392,7 @@ of matched templates.</p></td>
 #&gt;                    T 
 #&gt;        "%I:%M:%S %p" </div><div class='input'>
 <span class='co'>## b and B are equivalent and match, both, abreviated and full names</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mdY"</span>, <span class='st'>"BdY"</span>, <span class='st'>"Bdy"</span>, <span class='st'>"bdY"</span>, <span class='st'>"bdy"</span>), print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           BdY                
+<span class='fu'>guess_formats</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mdY"</span>, <span class='st'>"BdY"</span>, <span class='st'>"Bdy"</span>, <span class='st'>"bdY"</span>, <span class='st'>"bdy"</span>), print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           BdY                
 #&gt;  [1,] "February 20th 1973"                "%B %dth %Y"       
 #&gt;  [2,] "february  14, 2004"                "%B  %d, %Y"       
 #&gt;  [3,] "Sunday, May 1, 2000"               "Sunday, %B %d, %Y"
@@ -620,7 +620,7 @@ of matched templates.</p></td>
 #&gt;                  bdy                  bdy                  bdy 
 #&gt;         "%B  %d, %y"         "%b %dth %y"           "%b %d %Y" 
 #&gt;                  bdy                  bdy 
-#&gt;          "%b %d, %Y"         "%b %d   %y" </div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dmy"</span>, <span class='st'>"dbY"</span>, <span class='st'>"dBy"</span>, <span class='st'>"dBY"</span>), print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           dObY        dBy        dBY
+#&gt;          "%b %d, %Y"         "%b %d   %y" </div><div class='input'><span class='fu'>guess_formats</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dmy"</span>, <span class='st'>"dbY"</span>, <span class='st'>"dBy"</span>, <span class='st'>"dBY"</span>), print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           dObY        dBy        dBY
 #&gt;  [1,] "February 20th 1973"                ""          ""         "" 
 #&gt;  [2,] "february  14, 2004"                ""          ""         "" 
 #&gt;  [3,] "Sunday, May 1, 2000"               ""          ""         "" 
@@ -700,7 +700,7 @@ of matched templates.</p></td>
 #&gt;             dmy             dmy             dmy             dbY             dBy 
 #&gt;      "%d/%m/%Y"      "%d %m %y"      "%d %m %y"      "%d %b %Y"      "%d %B %y" </div><div class='input'>
 
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dBY HMS"</span>, <span class='st'>"dbY HMS"</span>, <span class='st'>"dmyHMS"</span>, <span class='st'>"BdY H"</span>), print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           dBYHMS                          
+<span class='fu'>guess_formats</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dBY HMS"</span>, <span class='st'>"dbY HMS"</span>, <span class='st'>"dmyHMS"</span>, <span class='st'>"BdY H"</span>), print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           dBYHMS                          
 #&gt;  [1,] "February 20th 1973"                ""                              
 #&gt;  [2,] "february  14, 2004"                ""                              
 #&gt;  [3,] "Sunday, May 1, 2000"               ""                              
@@ -943,7 +943,7 @@ of matched templates.</p></td>
 #&gt;            "Thu, %d%B%Y %H:%M:%S"            "Thu, %d%B%y %H:%M:%S" 
 #&gt;                            dmyHMS                              BdYH 
 #&gt;           "%d %b %Y, %H:%M:%S pm"                "%B %d %Y at %Hpm" </div><div class='input'>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/guess_formats.html'>guess_formats</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ymd HMS"</span>), print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           yOmdHMS             
+<span class='fu'>guess_formats</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ymd HMS"</span>), print_matches = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                                           yOmdHMS             
 #&gt;  [1,] "February 20th 1973"                ""                  
 #&gt;  [2,] "february  14, 2004"                ""                  
 #&gt;  [3,] "Sunday, May 1, 2000"               ""                  

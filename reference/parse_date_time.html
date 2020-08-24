@@ -146,21 +146,21 @@ base::strptime()." />
     </div>
 
     <div class="ref-description">
-    <p><code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> parses an input vector into POSIXct date-time
+    <p><code>parse_date_time()</code> parses an input vector into POSIXct date-time
 object. It differs from <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> in two respects. First,
 it allows specification of the order in which the formats occur without the
 need to include separators and the <code>%</code> prefix. Such a formatting argument is
 referred to as "order". Second, it allows the user to specify several
 format-orders to handle heterogeneous date-time character
 representations.</p>
-<p><code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2()</a></code> is a fast C parser of numeric
+<p><code>parse_date_time2()</code> is a fast C parser of numeric
 orders.</p>
-<p><code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime()</a></code> is a fast C parser of numeric formats only
+<p><code>fast_strptime()</code> is a fast C parser of numeric formats only
 that accepts explicit format arguments, just like
 <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(
+    <pre class="usage"><span class='fu'>parse_date_time</span>(
   <span class='kw'>x</span>,
   <span class='kw'>orders</span>,
   tz = <span class='st'>"UTC"</span>,
@@ -173,7 +173,7 @@ that accepts explicit format arguments, just like
   drop = <span class='fl'>FALSE</span>
 )
 
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2</a></span>(
+<span class='fu'>parse_date_time2</span>(
   <span class='kw'>x</span>,
   <span class='kw'>orders</span>,
   tz = <span class='st'>"UTC"</span>,
@@ -182,7 +182,7 @@ that accepts explicit format arguments, just like
   cutoff_2000 = <span class='fl'>68L</span>
 )
 
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime</a></span>(<span class='kw'>x</span>, <span class='kw'>format</span>, tz = <span class='st'>"UTC"</span>, lt = <span class='fl'>TRUE</span>, cutoff_2000 = <span class='fl'>68L</span>)</pre>
+<span class='fu'>fast_strptime</span>(<span class='kw'>x</span>, <span class='kw'>format</span>, tz = <span class='st'>"UTC"</span>, lt = <span class='fl'>TRUE</span>, cutoff_2000 = <span class='fl'>68L</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,10 +210,10 @@ parse the dates</p></td>
       <td><p>integer, number of formats that can be missing. The most
 common type of irregularity in date-time data is the truncation due to
 rounding or unavailability of the time stamp. If the <code>truncated</code> parameter
-is non-zero <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> also checks for truncated formats. For
+is non-zero <code>parse_date_time()</code> also checks for truncated formats. For
 example,  if the format order is "ymdHMS" and <code>truncated = 3</code>,
-<code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> will correctly parse incomplete date-times like
-<code>2012-06-01 12:23</code>, <code>2012-06-01 12</code> and <code>2012-06-01</code>. <b>NOTE:</b> The <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code>
+<code>parse_date_time()</code> will correctly parse incomplete date-times like
+<code>2012-06-01 12:23</code>, <code>2012-06-01 12</code> and <code>2012-06-01</code>. <b>NOTE:</b> The <code><a href='ymd.html'>ymd()</a></code>
 family of functions is based on <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> which currently fails to parse
 <code>%Y-%m</code> formats.</p></td>
     </tr>
@@ -272,7 +272,7 @@ behavior when rare patterns where not present in the training set.</p></td>
       <th>lt</th>
       <td><p>logical. If <code>TRUE</code>, returned object is of class POSIXlt, and POSIXct
 otherwise. For compatibility with <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> the default is <code>TRUE</code>
-for <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime()</a></code> and <code>FALSE</code> for <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2()</a></code>.</p></td>
+for <code>fast_strptime()</code> and <code>FALSE</code> for <code>parse_date_time2()</code>.</p></td>
     </tr>
     <tr>
       <th>cutoff_2000</th>
@@ -293,20 +293,20 @@ argument of <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime(
     <p>a vector of POSIXct date-time objects</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>When several format-orders are specified, <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> selects
+    <p>When several format-orders are specified, <code>parse_date_time()</code> selects
 (guesses) format-orders based on a training subset of the input
 strings. After guessing the formats are ordered according to the performance
 on the training set and applied recursively on the entire input vector. You
 can disable training with <code>train = FALSE</code>.</p>
-<p><code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code>, and all derived functions, such as <code><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms()</a></code>,
-<code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code>, etc., will drop into <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime()</a></code> instead of
+<p><code>parse_date_time()</code>, and all derived functions, such as <code><a href='ymd_hms.html'>ymd_hms()</a></code>,
+<code><a href='ymd.html'>ymd()</a></code>, etc., will drop into <code>fast_strptime()</code> instead of
 <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> whenever the guessed from the input data formats are all
 numeric.</p>
 <p>The list below contains formats recognized by <span class="pkg">lubridate</span>. For numeric formats
 leading 0s are optional. As compared to <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>, some of the
 formats are new or have been extended for efficiency reasons. These formats
-are marked with "(*)". The fast parsers <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2()</a></code> and
-<code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime()</a></code> accept only formats marked with "(!)".</p>
+are marked with "(*)". The fast parsers <code>parse_date_time2()</code> and
+<code>fast_strptime()</code> accept only formats marked with "(!)".</p>
 <dl>
 <dt><code>a</code></dt><dd><p>Abbreviated weekday name in the current
 locale. (Also matches full name)</p></dd>
@@ -362,7 +362,7 @@ Monday as the first day of week (and typically with the first Monday of the
 year as day 1 of week 1).  The UK convention.</p></dd>
 
 <dt><code>y</code> (!*)</dt><dd><p>Year without century (00--99 or 0--99).  In
-<code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> also matches year with century (Y format).</p></dd>
+<code>parse_date_time()</code> also matches year with century (Y format).</p></dd>
 
 <dt><code>Y</code> (!)</dt><dd><p>Year with century.</p></dd>
 
@@ -372,7 +372,7 @@ behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
 <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> doesn't fully support ISO8601 this format is implemented as an
 union of 4 orders: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use
 these four orders as any other but it is rarely
-necessary. <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2()</a></code> and <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime()</a></code> support all of
+necessary. <code>parse_date_time2()</code> and <code>fast_strptime()</code> support all of
 the timezone formats.</p></dd>
 
 <dt><code>Om</code> (!*)</dt><dd><p>Matches numeric month and English alphabetic months
@@ -390,47 +390,47 @@ the timezone formats.</p></dd>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p><code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time()</a></code> (and the derivatives <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms()</a></code>, etc.)
+    <p><code>parse_date_time()</code> (and the derivatives <code><a href='ymd.html'>ymd()</a></code>, <code><a href='ymd_hms.html'>ymd_hms()</a></code>, etc.)
 relies on a sparse guesser that takes at most 501 elements from the supplied
 character vector in order to identify appropriate formats from the
 supplied orders. If you get the error <code>All formats failed to parse</code> and
 you are confident that your vector contains valid dates, you should either
 set <code>exact</code> argument to <code>TRUE</code> or use functions that don't perform format
-guessing (<code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2()</a></code> or <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>).</p>
+guessing (<code>fast_strptime()</code>, <code>parse_date_time2()</code> or <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>).</p>
 <p>For performance reasons, when timezone is not UTC,
-<code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2()</a></code> and <code><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime()</a></code> perform no validity checks for
+<code>parse_date_time2()</code> and <code>fast_strptime()</code> perform no validity checks for
 daylight savings time. Thus, if your input string contains an invalid date
 time which falls into DST gap and <code>lt = TRUE</code> you will get an <code>POSIXlt</code>
 object with a non-existent time. If <code>lt = FALSE</code> your time instant will be
 adjusted to a valid time by adding an hour. See examples. If you want to
-get NA for invalid date-times use <code><a href='http://lubridate.tidyverse.org/reference/fit_to_timeline.html'>fit_to_timeline()</a></code> explicitly.</p>
+get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_timeline()</a></code> explicitly.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd()</a></code>, <code><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>, <code><a href='ymd.html'>ymd()</a></code>, <code><a href='ymd_hms.html'>ymd_hms()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## ** orders are much easier to write **</span>
 <span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"09-01-01"</span>, <span class='st'>"09-01-02"</span>, <span class='st'>"09-01-03"</span>)
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='kw'>x</span>, <span class='st'>"ymd"</span>)</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='kw'>x</span>, <span class='st'>"y m d"</span>)</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='kw'>x</span>, <span class='st'>"%y%m%d"</span>)</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='co'>#  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
+<span class='fu'>parse_date_time</span>(<span class='kw'>x</span>, <span class='st'>"ymd"</span>)</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='fu'>parse_date_time</span>(<span class='kw'>x</span>, <span class='st'>"y m d"</span>)</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='fu'>parse_date_time</span>(<span class='kw'>x</span>, <span class='st'>"%y%m%d"</span>)</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='co'>#  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
 
 <span class='co'>## ** heterogeneous date-times **</span>
 <span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"09-01-01"</span>, <span class='st'>"090102"</span>, <span class='st'>"09-01 03"</span>, <span class='st'>"09-01-03 12:02"</span>)
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ymd"</span>, <span class='st'>"ymd HM"</span>))</div><div class='output co'>#&gt; [1] "2009-01-01 00:00:00 UTC" "2009-01-02 00:00:00 UTC"
+<span class='fu'>parse_date_time</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ymd"</span>, <span class='st'>"ymd HM"</span>))</div><div class='output co'>#&gt; [1] "2009-01-01 00:00:00 UTC" "2009-01-02 00:00:00 UTC"
 #&gt; [3] "2009-01-03 00:00:00 UTC" "2009-01-03 12:02:00 UTC"</div><div class='input'>
 <span class='co'>## ** different ymd orders **</span>
 <span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2009-01-01"</span>, <span class='st'>"02022010"</span>, <span class='st'>"02-02-2010"</span>)
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dmY"</span>, <span class='st'>"ymd"</span>))</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</div><div class='input'><span class='co'>##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</span>
+<span class='fu'>parse_date_time</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dmY"</span>, <span class='st'>"ymd"</span>))</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</div><div class='input'><span class='co'>##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</span>
 
 <span class='co'>## ** truncated time-dates **</span>
 <span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2011-12-31 12:59:59"</span>, <span class='st'>"2010-01-01 12:11"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span>)
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='kw'>x</span>, <span class='st'>"Ymd HMS"</span>, truncated = <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
+<span class='fu'>parse_date_time</span>(<span class='kw'>x</span>, <span class='st'>"Ymd HMS"</span>, truncated = <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
 #&gt; [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"</div><div class='input'>
 <span class='co'>## ** specifying exact formats and avoiding training and guessing **</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%m-%d-%y"</span>, <span class='st'>"%m%d%y"</span>, <span class='st'>"%m-%d-%y %H:%M"</span>), exact = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  4 failed to parse.</span></div><div class='output co'>#&gt; [1] NA NA NA NA</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'12/17/1996 04:00:00'</span>,<span class='st'>'4/18/1950 0130'</span>),
+<span class='fu'>parse_date_time</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"%m-%d-%y"</span>, <span class='st'>"%m%d%y"</span>, <span class='st'>"%m-%d-%y %H:%M"</span>), exact = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  4 failed to parse.</span></div><div class='output co'>#&gt; [1] NA NA NA NA</div><div class='input'><span class='fu'>parse_date_time</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'12/17/1996 04:00:00'</span>,<span class='st'>'4/18/1950 0130'</span>),
                 <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'%m/%d/%Y %I:%M:%S'</span>,<span class='st'>'%m/%d/%Y %H%M'</span>), exact = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"</div><div class='input'>
 <span class='co'>## ** quarters and partial dates **</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2016.2"</span>, <span class='st'>"2016-04"</span>), orders = <span class='st'>"Yq"</span>)</div><div class='output co'>#&gt; [1] "2016-04-01 UTC" "2016-10-01 UTC"</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2016"</span>, <span class='st'>"2016-04"</span>), orders = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Y"</span>, <span class='st'>"Ym"</span>))</div><div class='output co'>#&gt; [1] "2016-01-01 UTC" "2016-04-01 UTC"</div><div class='input'>
+<span class='fu'>parse_date_time</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2016.2"</span>, <span class='st'>"2016-04"</span>), orders = <span class='st'>"Yq"</span>)</div><div class='output co'>#&gt; [1] "2016-04-01 UTC" "2016-10-01 UTC"</div><div class='input'><span class='fu'>parse_date_time</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2016"</span>, <span class='st'>"2016-04"</span>), orders = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Y"</span>, <span class='st'>"Ym"</span>))</div><div class='output co'>#&gt; [1] "2016-01-01 UTC" "2016-04-01 UTC"</div><div class='input'>
 <span class='co'>## ** fast parsing **</span>
 <span class='co'>if</span> (<span class='fl'>FALSE</span>) {
   <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(digits.secs = <span class='fl'>3</span>)
@@ -439,9 +439,9 @@ get NA for invalid date-times use <code><a href='http://lubridate.tidyverse.org/
   <span class='kw'>tt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep.int</a></span>(<span class='kw'>tt</span>, <span class='fl'>1000</span>)
 
   <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='kw'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span>(<span class='kw'>tt</span>, tz = <span class='st'>"UTC"</span>))
-  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='kw'>out1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='kw'>tt</span>)) <span class='co'># constant overhead on long vectors</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='kw'>out2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2</a></span>(<span class='kw'>tt</span>, <span class='st'>"YmdHMOS"</span>))
-  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='kw'>out3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>fast_strptime</a></span>(<span class='kw'>tt</span>, <span class='st'>"%Y-%m-%d %H:%M:%OS"</span>))
+  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='kw'>out1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='kw'>tt</span>)) <span class='co'># constant overhead on long vectors</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='kw'>out2</span> <span class='op'>&lt;-</span> <span class='fu'>parse_date_time2</span>(<span class='kw'>tt</span>, <span class='st'>"YmdHMOS"</span>))
+  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='kw'>out3</span> <span class='op'>&lt;-</span> <span class='fu'>fast_strptime</span>(<span class='kw'>tt</span>, <span class='st'>"%Y-%m-%d %H:%M:%OS"</span>))
 
   <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='kw'>out</span>, <span class='kw'>out1</span>)
   <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='kw'>out</span>, <span class='kw'>out2</span>)
@@ -450,7 +450,7 @@ get NA for invalid date-times use <code><a href='http://lubridate.tidyverse.org/
 
 <span class='co'>## ** how to use `select_formats` argument **</span>
 <span class='co'>## By default %Y has precedence:</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span>), <span class='st'>"dmy"</span>)</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
+<span class='fu'>parse_date_time</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span>), <span class='st'>"dmy"</span>)</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
 <span class='co'>## to give priority to %y format, define your own select_format function:</span>
 
 <span class='kw'>my_select</span> <span class='op'>&lt;-</span>   <span class='fu'>function</span>(<span class='kw'>trained</span>, <span class='kw'>drop</span>=<span class='fl'>FALSE</span>, <span class='kw'>...</span>){
@@ -458,9 +458,9 @@ get NA for invalid date-times use <code><a href='http://lubridate.tidyverse.org/
    <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>trained</span>[ <span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span>(<span class='kw'>n_fmts</span>) ])
 }
 
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span>), <span class='st'>"dmy"</span>, select_formats = <span class='kw'>my_select</span>)</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
+<span class='fu'>parse_date_time</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span>), <span class='st'>"dmy"</span>, select_formats = <span class='kw'>my_select</span>)</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
 <span class='co'>## ** invalid times with "fast" parsing **</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time</a></span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz = <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2</a></span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz = <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'><a href='http://lubridate.tidyverse.org/reference/parse_date_time.html'>parse_date_time2</a></span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz = <span class='st'>"America/New_York"</span>, lt = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
+<span class='fu'>parse_date_time</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz = <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz = <span class='st'>"America/New_York"</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span>(<span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz = <span class='st'>"America/New_York"</span>, lt = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

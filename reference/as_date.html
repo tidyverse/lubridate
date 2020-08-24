@@ -138,33 +138,33 @@
     <p>Convert an object to a date or date-time</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>as_date</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S4 method for ANY</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>as_date</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S4 method for POSIXt</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='kw'>x</span>, tz = <span class='kw'>NULL</span>)
+<span class='fu'>as_date</span>(<span class='kw'>x</span>, tz = <span class='kw'>NULL</span>)
 
 <span class='co'># S4 method for numeric</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='kw'>x</span>, origin = <span class='kw'>lubridate</span>::<span class='kw'><a href='http://lubridate.tidyverse.org/reference/origin.html'>origin</a></span>)
+<span class='fu'>as_date</span>(<span class='kw'>x</span>, origin = <span class='kw'>lubridate</span>::<span class='kw'><a href='origin.html'>origin</a></span>)
 
 <span class='co'># S4 method for character</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='kw'>x</span>, tz = <span class='kw'>NULL</span>, format = <span class='kw'>NULL</span>)
+<span class='fu'>as_date</span>(<span class='kw'>x</span>, tz = <span class='kw'>NULL</span>, format = <span class='kw'>NULL</span>)
 
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
+<span class='fu'>as_datetime</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S4 method for POSIXt</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='kw'>x</span>, tz = <span class='st'>"UTC"</span>)
+<span class='fu'>as_datetime</span>(<span class='kw'>x</span>, tz = <span class='st'>"UTC"</span>)
 
 <span class='co'># S4 method for numeric</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='kw'>x</span>, origin = <span class='kw'>lubridate</span>::<span class='kw'><a href='http://lubridate.tidyverse.org/reference/origin.html'>origin</a></span>, tz = <span class='st'>"UTC"</span>)
+<span class='fu'>as_datetime</span>(<span class='kw'>x</span>, origin = <span class='kw'>lubridate</span>::<span class='kw'><a href='origin.html'>origin</a></span>, tz = <span class='st'>"UTC"</span>)
 
 <span class='co'># S4 method for character</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='kw'>x</span>, tz = <span class='st'>"UTC"</span>, format = <span class='kw'>NULL</span>)
+<span class='fu'>as_datetime</span>(<span class='kw'>x</span>, tz = <span class='st'>"UTC"</span>, format = <span class='kw'>NULL</span>)
 
 <span class='co'># S4 method for ANY</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime</a></span>(<span class='kw'>x</span>, tz = <span class='st'>"UTC"</span>)</pre>
+<span class='fu'>as_datetime</span>(<span class='kw'>x</span>, tz = <span class='st'>"UTC"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,7 +199,7 @@ parsing functions in lubridate.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector of <a href='http://lubridate.tidyverse.org/reference/date_utils.html'>Date</a> objects corresponding to <code>x</code>.</p>
+    <p>a vector of <a href='is.Date.html'>Date</a> objects corresponding to <code>x</code>.</p>
     <h2 class="hasAnchor" id="compare-to-base-r"><a class="anchor" href="#compare-to-base-r"></a>Compare to base R</h2>
 
     
@@ -208,22 +208,22 @@ parsing functions in lubridate.</p></td>
 <p>These are drop in replacements for <code><a href='https://rdrr.io/r/base/as.Date.html'>as.Date()</a></code> and <code><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct()</a></code>, with a few
 tweaks to make them work more intuitively.</p>
 <ul>
-<li><p><code><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date()</a></code> ignores the timezone attribute, resulting in
+<li><p><code>as_date()</code> ignores the timezone attribute, resulting in
 a more intuitive conversion (see examples)</p></li>
 <li><p>Both functions provide a default origin argument for numeric
 vectors.</p></li>
 <li><p>Both functions will generate NAs for invalid date format. A warning message will provide a count of the elements that were not converted</p></li>
-<li><p><code><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_datetime()</a></code> defaults to using UTC.</p></li>
+<li><p><code>as_datetime()</code> defaults to using UTC.</p></li>
 </ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>dt_utc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-08-03 00:50:50"</span>)
-<span class='kw'>dt_europe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-08-03 00:50:50"</span>, tz=<span class='st'>"Europe/London"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='kw'>dt_utc</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='kw'>dt_utc</span>))</div><div class='output co'>#&gt; [1] "2010-08-03" "2010-08-03"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='kw'>dt_europe</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='kw'>dt_europe</span>))</div><div class='output co'>#&gt; [1] "2010-08-03" "2010-08-02"</div><div class='input'><span class='co'>## need not supply origin</span>
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] "1970-01-11"</div><div class='input'><span class='co'>## Will replace invalid date format with NA</span>
+    <pre class="examples"><div class='input'><span class='kw'>dt_utc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-08-03 00:50:50"</span>)
+<span class='kw'>dt_europe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-08-03 00:50:50"</span>, tz=<span class='st'>"Europe/London"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'>as_date</span>(<span class='kw'>dt_utc</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='kw'>dt_utc</span>))</div><div class='output co'>#&gt; [1] "2010-08-03" "2010-08-03"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'>as_date</span>(<span class='kw'>dt_europe</span>), <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='kw'>dt_europe</span>))</div><div class='output co'>#&gt; [1] "2010-08-03" "2010-08-02"</div><div class='input'><span class='co'>## need not supply origin</span>
+<span class='fu'>as_date</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] "1970-01-11"</div><div class='input'><span class='co'>## Will replace invalid date format with NA</span>
 <span class='kw'>dt_wrong</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2009-09-29"</span>, <span class='st'>"2012-11-29"</span>, <span class='st'>"2015-29-12"</span>)
-<span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span>(<span class='kw'>dt_wrong</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] "2009-09-29" "2012-11-29" NA          </div></pre>
+<span class='fu'>as_date</span>(<span class='kw'>dt_wrong</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] "2009-09-29" "2012-11-29" NA          </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
