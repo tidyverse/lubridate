@@ -136,17 +136,25 @@
 <h1 class="page-header" data-toc-text="1.7.9.9000">
 <a href="#version-1799000-dev" class="anchor"></a>Version 1.7.9.9000 [dev]<small> Unreleased </small>
 </h1>
-</div>
-    <div id="version-179" class="section level1">
-<h1 class="page-header" data-toc-text="1.7.9">
-<a href="#version-179" class="anchor"></a>Version 1.7.9<small> 2020-06-08 </small>
-</h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/893">#<a href='https://github.com/tidyverse/lubridate/issues/871'>#871</a></a> Add <code>vctrs</code> support</li>
+<a href="https://github.com/tidyverse/lubridate/issues/914"><a href='https://github.com/tidyverse/lubridate/issues/914'>#914</a></a> New <code><a href="../reference/rollbackward.html">rollforward()</a></code> function</li>
+</ul>
+</div>
+</div>
+    <div id="version-179" class="section level1">
+<h1 class="page-header" data-toc-text="1.7.9">
+<a href="#version-179" class="anchor"></a>Version 1.7.9<small> 2020-06-08 </small>
+</h1>
+<div id="new-features-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
+<ul>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/893"><a href='https://github.com/tidyverse/lubridate/issues/871'>#871</a></a> Add <code>vctrs</code> support</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level3">
@@ -172,9 +180,9 @@
 <h1 class="page-header" data-toc-text="1.7.8">
 <a href="#version-178" class="anchor"></a>Version 1.7.8<small> 2020-04-06 </small>
 </h1>
-<div id="new-features-1" class="section level3">
+<div id="new-features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>(breaking) Year and month durations now assume 365.25 days in a year consistently in conversion and constructors. Particularly <code>dyears(1) == years(1)</code> is now <code>TRUE</code>.</li>
 <li>Format and print methods for 0-length objects are more consistent.</li>
@@ -234,9 +242,9 @@
 <h1 class="page-header" data-toc-text="1.7.4">
 <a href="#version-174" class="anchor"></a>Version 1.7.4<small> 2018-04-11 </small>
 </h1>
-<div id="new-features-2" class="section level3">
+<div id="new-features-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/658"><a href='https://github.com/tidyverse/lubridate/issues/658'>#658</a></a> <code><a href="../reference/%within%.html">%within%</a></code> now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.</li>
@@ -283,9 +291,9 @@
 <h1 class="page-header" data-toc-text="1.7.2">
 <a href="#version-172" class="anchor"></a>Version 1.7.2<small> 2018-02-06 </small>
 </h1>
-<div id="new-features-3" class="section level3">
+<div id="new-features-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Durations, Periods and difftimes are now comparable with each other.</li>
 <li>
@@ -337,9 +345,9 @@
 <h1 class="page-header" data-toc-text="1.7.0">
 <a href="#version-170" class="anchor"></a>Version 1.7.0<small> 2017-10-29 </small>
 </h1>
-<div id="new-features-4" class="section level3">
+<div id="new-features-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Reduced memory footprint on <code>trunc_multi_unit</code> so that it overwrites the vector argument <code>x</code> versus making a new vector <code>y</code>.</li>
 <li>
@@ -438,9 +446,9 @@
 <h1 class="page-header" data-toc-text="1.6.0">
 <a href="#version-160" class="anchor"></a>Version 1.6.0<small> 2016-09-13 </small>
 </h1>
-<div id="new-features-5" class="section level3">
+<div id="new-features-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/464"><a href='https://github.com/tidyverse/lubridate/issues/464'>#464</a></a> New function <code>semester</code> to extract semesters form date-time objects.</li>
@@ -528,9 +536,9 @@
 <h1 class="page-header" data-toc-text="1.5.6">
 <a href="#version-156" class="anchor"></a>Version 1.5.6<small> 2016-04-06 </small>
 </h1>
-<div id="new-features-6" class="section level3">
+<div id="new-features-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/390"><a href='https://github.com/tidyverse/lubridate/issues/390'>#390</a></a> <code>ceiling_date</code> gains new argument <code>change_on_boundary</code> to allow ceiling on boundary of date-time objects.</li>
@@ -581,9 +589,9 @@
 <h1 class="page-header" data-toc-text="1.5.0">
 <a href="#version-150" class="anchor"></a>Version 1.5.0<small> 2015-12-03 </small>
 </h1>
-<div id="new-features-7" class="section level3">
+<div id="new-features-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-8" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>New <code>time_length</code> method.</li>
 <li>Added <code>isoyear</code> function to line up with <code>isoweek</code>.</li>
@@ -755,9 +763,9 @@
 </li>
 </ul>
 </div>
-<div id="new-features-8" class="section level3">
+<div id="new-features-9" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-8" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-9" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>lubridate parser and stamp functions now handle ISO8601 date format (e.g., 2013-01-24 19:39:07.880-06:00, 2013-01-24 19:39:07.880Z)</li>
 <li>lubridate v1.3.0 comes with a new R vignette. see <code><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes("lubridate")</a></code> to view it.</li>
@@ -817,9 +825,9 @@
 <li><p>S3 update methods are now exported</p></li>
 </ul>
 </div>
-<div id="new-features-9" class="section level3">
+<div id="new-features-10" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-9" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-10" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p><code>stamp</code> allows users to print dates in whatever form they like. Contributed by Vitalie Spinu. Thank you, Vitalie.</p></li>
 <li><p>periods now handle fractional seconds. Contributed by Vitalie Spinu. Thank you, Vitalie.</p></li>
@@ -867,9 +875,9 @@
 <li><p>the internal structure of lubridate R code has been reorganized at <a href="https://github.com/tidyverse/lubridate" class="uri">https://github.com/tidyverse/lubridate</a> to make lubridate more development friendly.</p></li>
 </ul>
 </div>
-<div id="new-features-10" class="section level3">
+<div id="new-features-11" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-10" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-11" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>intervals are now more useful and lubridate has more ways to manipulate them. Intervals can be created with %–%; modified with int_shift(), int_flip(), and int_standardize(); manipulated with intersect(), union(), and setdiff(); and used in logical tests with int_aligns(), int_overlaps(), and %within%. lubridate will no longer perform arithmetic between two intervals because the correct results of such operations is no more obvious than the correct result of adding two dates. Instead users are encouraged to use the new set operations or to directly modify intervals with int_start() and int_end(), which can also be used as settors. lubridate now supports negative intervals as well as positive intervals. Intervals also now display with a time zone.</p></li>
 <li><p>Modulo methods for timespans have been changed to return a timespan. this allows modulo methods to be used with integer division in an intuitive manner, e.g. <code>a = a %/% b * b + a %% b</code></p></li>
@@ -922,9 +930,9 @@
 <h1 class="page-header" data-toc-text="0.2.3">
 <a href="#version-023" class="anchor"></a>Version 0.2.3<small> 2010-12-09 </small>
 </h1>
-<div id="new-features-11" class="section level3">
+<div id="new-features-12" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-11" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-12" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>ymd_hms(), hms(), and ms() functions can now parse dates that include decimal values in the seconds element.</p></li>
 <li><p>milliseconds(), microseconds(), nanoseconds(), and picoseconds() create period objects of the specified lengths. dmilliseconds(), dmicroseconds(), dnanoseconds(), and dpicoseconds() make duration objects of the specified lengths.</p></li>
@@ -943,9 +951,9 @@
 <h1 class="page-header" data-toc-text="0.2.2">
 <a href="#version-022" class="anchor"></a>Version 0.2.2<small> 2010-11-17 </small>
 </h1>
-<div id="new-features-12" class="section level3">
+<div id="new-features-13" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-12" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-13" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>made division, modulo, and integer division operations compatible with difftimes</p></li>
 <li><p>created c() methods for periods and durations</p></li>
@@ -963,9 +971,9 @@
 <h1 class="page-header" data-toc-text="0.2.1">
 <a href="#version-021" class="anchor"></a>Version 0.2.1<small> 2010-11-03 </small>
 </h1>
-<div id="new-features-13" class="section level3">
+<div id="new-features-14" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-13" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-14" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().</li>
 </ul>
@@ -983,9 +991,9 @@
 <h1 class="page-header" data-toc-text="0.2">
 <a href="#version-02" class="anchor"></a>Version 0.2<small> 2010-10-26 </small>
 </h1>
-<div id="new-features-14" class="section level3">
+<div id="new-features-15" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-14" class="anchor"></a>NEW FEATURES</h3>
+<a href="#new-features-15" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li><p>division between timespans: each timespan class (durations, periods, intervals) can be divided by other timespans. For example, how many weeks are there between Halloween and Christmas?: (christmas - halloween) / weeks(1)</p></li>
 <li><p>modulo operations between timespans</p></li>
