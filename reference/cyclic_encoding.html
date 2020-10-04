@@ -142,12 +142,12 @@ distances between two pairs of dates separated by the same time duration are
 the same.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cyclic_encoding</span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>periods</span>,
-  encoders = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sin"</span>, <span class='st'>"cos"</span>),
-  week_start = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>cyclic_encoding</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>periods</span>,
+  encoders <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sin"</span>, <span class='st'>"cos"</span><span class='op'>)</span>,
+  week_start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"lubridate.week.start"</span>, <span class='fl'>7</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,8 +185,9 @@ the circle.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>times</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2019-01-01 00:00:00"</span>) <span class='op'>+</span> <span class='fu'><a href='period.html'>hours</a></span>(<span class='fl'>0</span><span class='op'>:</span><span class='fl'>23</span>)
-<span class='fu'>cyclic_encoding</span>(<span class='kw'>times</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"day"</span>, <span class='st'>"week"</span>, <span class='st'>"month"</span>))</div><div class='output co'>#&gt;             sin.day       cos.day  sin.week   cos.week   sin.month cos.month
+<span class='va'>times</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2019-01-01 00:00:00"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>hours</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>23</span><span class='op'>)</span>
+<span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"day"</span>, <span class='st'>"week"</span>, <span class='st'>"month"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             sin.day       cos.day  sin.week   cos.week   sin.month cos.month
 #&gt;  [1,]  0.000000e+00  1.000000e+00 0.9749279 -0.2225209 0.000000000 1.0000000
 #&gt;  [2,]  2.588190e-01  9.659258e-01 0.9659258 -0.2588190 0.008445041 0.9999643
 #&gt;  [3,]  5.000000e-01  8.660254e-01 0.9555728 -0.2947552 0.016889480 0.9998574
@@ -210,7 +211,11 @@ the circle.</p>
 #&gt; [21,] -8.660254e-01  5.000000e-01 0.5633201 -0.8262388 0.168100894 0.9857698
 #&gt; [22,] -7.071068e-01  7.071068e-01 0.5320321 -0.8467242 0.176419766 0.9843150
 #&gt; [23,] -5.000000e-01  8.660254e-01 0.5000000 -0.8660254 0.184726056 0.9827901
-#&gt; [24,] -2.588190e-01  9.659258e-01 0.4672686 -0.8841154 0.193019171 0.9811950</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'>cyclic_encoding</span>(<span class='kw'>times</span>, <span class='st'>"1d"</span>))</div><div class='img'><img src='cyclic_encoding-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'>cyclic_encoding</span>(<span class='kw'>times</span>, <span class='st'>"2d"</span>), xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span>))</div><div class='img'><img src='cyclic_encoding-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='fu'>cyclic_encoding</span>(<span class='kw'>times</span>, <span class='st'>"4d"</span>), xlim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span>))</div><div class='img'><img src='cyclic_encoding-3.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+#&gt; [24,] -2.588190e-01  9.659258e-01 0.4672686 -0.8841154 0.193019171 0.9811950</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"1d"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='cyclic_encoding-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"2d"</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='cyclic_encoding-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"4d"</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='cyclic_encoding-3.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

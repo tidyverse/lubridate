@@ -151,101 +151,101 @@ treatment of heterogeneous formats, see low level parser
 <code><a href='parse_date_time.html'>parse_date_time()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ymd_hms</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+    <pre class="usage"><span class='fu'>ymd_hms</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>ymd_hm</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>ymd_hm</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>ymd_h</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>ymd_h</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>dmy_hms</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>dmy_hms</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>dmy_hm</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>dmy_hm</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>dmy_h</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>dmy_h</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>mdy_hms</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>mdy_hms</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>mdy_hm</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>mdy_hm</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>mdy_h</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>mdy_h</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>ydm_hms</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>ydm_hms</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>ydm_hm</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)
+<span class='fu'>ydm_hm</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 
-<span class='fu'>ydm_h</span>(
-  <span class='kw'>...</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  tz = <span class='st'>"UTC"</span>,
-  locale = <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span>(<span class='st'>"LC_TIME"</span>),
-  truncated = <span class='fl'>0</span>
-)</pre>
+<span class='fu'>ydm_h</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/locales.html'>Sys.getlocale</a></span><span class='op'>(</span><span class='st'>"LC_TIME"</span><span class='op'>)</span>,
+  truncated <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -311,50 +311,58 @@ change this by setting the <code>lubridate.verbose</code> option to <code>TRUE</
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2010-04-14-04-35-59"</span>, <span class='st'>"2010-04-01-12-00-00"</span>)
-<span class='fu'>ymd_hms</span>(<span class='kw'>x</span>)</div><div class='output co'>#&gt; [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"</div><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2011-12-31 12:59:59"</span>, <span class='st'>"2010-01-01 12:00:00"</span>)
-<span class='fu'>ymd_hms</span>(<span class='kw'>x</span>)</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2010-04-14-04-35-59"</span>, <span class='st'>"2010-04-01-12-00-00"</span><span class='op'>)</span>
+<span class='fu'>ymd_hms</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2011-12-31 12:59:59"</span>, <span class='st'>"2010-01-01 12:00:00"</span><span class='op'>)</span>
+<span class='fu'>ymd_hms</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:00:00 UTC"</div><div class='input'>
 
 <span class='co'>## ** heterogeneous formats **</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20100101120101</span>, <span class='st'>"2009-01-02 12-01-02"</span>, <span class='st'>"2009.01.03 12:01:03"</span>,
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20100101120101</span>, <span class='st'>"2009-01-02 12-01-02"</span>, <span class='st'>"2009.01.03 12:01:03"</span>,
        <span class='st'>"2009-1-4 12-1-4"</span>,
        <span class='st'>"2009-1, 5 12:1, 5"</span>,
        <span class='st'>"200901-08 1201-08"</span>,
        <span class='st'>"2009 arbitrary 1 non-decimal 6 chars 12 in between 1 !!! 6"</span>,
        <span class='st'>"OR collapsed formats: 20090107 120107 (as long as prefixed with zeros)"</span>,
        <span class='st'>"Automatic wday, Thu, detection, 10-01-10 10:01:10 and p format: AM"</span>,
-       <span class='st'>"Created on 10-01-11 at 10:01:11 PM"</span>)
-<span class='fu'>ymd_hms</span>(<span class='kw'>x</span>)</div><div class='output co'>#&gt;  [1] "2010-01-01 12:01:01 UTC" "2009-01-02 12:01:02 UTC"
+       <span class='st'>"Created on 10-01-11 at 10:01:11 PM"</span><span class='op'>)</span>
+<span class='fu'>ymd_hms</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "2010-01-01 12:01:01 UTC" "2009-01-02 12:01:02 UTC"
 #&gt;  [3] "2009-01-03 12:01:03 UTC" "2009-01-04 12:01:04 UTC"
 #&gt;  [5] "2009-01-05 12:01:05 UTC" "2009-01-08 12:01:08 UTC"
 #&gt;  [7] "2009-01-06 12:01:06 UTC" "2009-01-07 12:01:07 UTC"
 #&gt;  [9] "2010-01-10 10:01:10 UTC" "2010-01-11 22:01:11 UTC"</div><div class='input'>
 <span class='co'>## ** fractional seconds **</span>
-<span class='kw'>op</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(digits.secs=<span class='fl'>3</span>)
-<span class='fu'>dmy_hms</span>(<span class='st'>"20/2/06 11:16:16.683"</span>)</div><div class='output co'>#&gt; [1] "2006-02-20 11:16:16.683 UTC"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>op</span>)
+<span class='va'>op</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>digits.secs<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>dmy_hms</span><span class='op'>(</span><span class='st'>"20/2/06 11:16:16.683"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2006-02-20 11:16:16.683 UTC"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='va'>op</span><span class='op'>)</span>
 
 <span class='co'>## ** different formats for ISO8601 timezone offset **</span>
-<span class='fu'>ymd_hms</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2013-01-24 19:39:07.880-0600"</span>,
+<span class='fu'>ymd_hms</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2013-01-24 19:39:07.880-0600"</span>,
 <span class='st'>"2013-01-24 19:39:07.880"</span>, <span class='st'>"2013-01-24 19:39:07.880-06:00"</span>,
-<span class='st'>"2013-01-24 19:39:07.880-06"</span>, <span class='st'>"2013-01-24 19:39:07.880Z"</span>))</div><div class='output co'>#&gt; [1] "2013-01-25 01:39:07.88 UTC" "2013-01-24 19:39:07.88 UTC"
+<span class='st'>"2013-01-24 19:39:07.880-06"</span>, <span class='st'>"2013-01-24 19:39:07.880Z"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2013-01-25 01:39:07.88 UTC" "2013-01-24 19:39:07.88 UTC"
 #&gt; [3] "2013-01-25 01:39:07.88 UTC" "2013-01-25 01:39:07.88 UTC"
 #&gt; [5] "2013-01-24 19:39:07.88 UTC"</div><div class='input'>
 <span class='co'>## ** internationalization **</span>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>x_RO</span> <span class='op'>&lt;-</span> <span class='st'>"Ma 2012 august 14 11:28:30 "</span>
-  <span class='fu'>ymd_hms</span>(<span class='kw'>x_RO</span>, locale = <span class='st'>"ro_RO.utf8"</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>x_RO</span> <span class='op'>&lt;-</span> <span class='st'>"Ma 2012 august 14 11:28:30 "</span>
+  <span class='fu'>ymd_hms</span><span class='op'>(</span><span class='va'>x_RO</span>, locale <span class='op'>=</span> <span class='st'>"ro_RO.utf8"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'>## ** truncated time-dates **</span>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2011-12-31 12:59:59"</span>, <span class='st'>"2010-01-01 12:11"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span>)
-<span class='fu'>ymd_hms</span>(<span class='kw'>x</span>, truncated = <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
-#&gt; [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"</div><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2011-12-31 12:59"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span>)
-<span class='fu'>ymd_hm</span>(<span class='kw'>x</span>, truncated = <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC"
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2011-12-31 12:59:59"</span>, <span class='st'>"2010-01-01 12:11"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span><span class='op'>)</span>
+<span class='fu'>ymd_hms</span><span class='op'>(</span><span class='va'>x</span>, truncated <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
+#&gt; [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2011-12-31 12:59"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span><span class='op'>)</span>
+<span class='fu'>ymd_hm</span><span class='op'>(</span><span class='va'>x</span>, truncated <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:00 UTC" "2010-01-01 12:00:00 UTC"
 #&gt; [3] "2010-01-01 00:00:00 UTC"</div><div class='input'><span class='co'>## ** What lubridate might not handle **</span>
 <span class='co'>## Extremely weird cases when one of the separators is "" and some of the</span>
 <span class='co'>## formats are not in double digits might not be parsed correctly:</span>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>ymd_hm</span>(<span class='st'>"20100201 07-01"</span>, <span class='st'>"20100201 07-1"</span>, <span class='st'>"20100201 7-01"</span>)}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>ymd_hm</span><span class='op'>(</span><span class='st'>"20100201 07-01"</span>, <span class='st'>"20100201 07-1"</span>, <span class='st'>"20100201 7-01"</span><span class='op'>)</span><span class='op'>}</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

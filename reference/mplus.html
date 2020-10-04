@@ -156,9 +156,9 @@ the nth month (<code><a href='rollback.html'>rollback()</a></code>). Date <code>
 date in the nth month before Date.</p>
     </div>
 
-    <pre class="usage"><span class='kw'>e1</span> <span class='op'>%m+%</span> <span class='kw'>e2</span>
+    <pre class="usage"><span class='va'>e1</span> <span class='op'>%m+%</span> <span class='va'>e2</span>
 
-<span class='fu'>add_with_rollback</span>(<span class='kw'>e1</span>, <span class='kw'>e2</span>, roll_to_first = <span class='fl'>FALSE</span>, preserve_hms = <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>add_with_rollback</span><span class='op'>(</span><span class='va'>e1</span>, <span class='va'>e2</span>, roll_to_first <span class='op'>=</span> <span class='cn'>FALSE</span>, preserve_hms <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,15 +199,25 @@ operations and results for either will be sensitive to the order of
 operations.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>jan</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2010-01-31 03:04:05"</span>)
-<span class='kw'>jan</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>) <span class='co'># Feb 31 and April 31 returned as NA</span></div><div class='output co'>#&gt; [1] NA                        "2010-03-31 03:04:05 UTC"
+    <pre class="examples"><div class='input'><span class='va'>jan</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2010-01-31 03:04:05"</span><span class='op'>)</span>
+<span class='va'>jan</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='co'># Feb 31 and April 31 returned as NA</span>
+</div><div class='output co'>#&gt; [1] NA                        "2010-03-31 03:04:05 UTC"
 #&gt; [3] NA                       </div><div class='input'><span class='co'># NA "2010-03-31 03:04:05 UTC" NA</span>
-<span class='kw'>jan</span> <span class='op'>%m+%</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>) <span class='co'># No rollover</span></div><div class='output co'>#&gt; [1] "2010-02-28 03:04:05 UTC" "2010-03-31 03:04:05 UTC"
+<span class='va'>jan</span> <span class='op'>%m+%</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='co'># No rollover</span>
+</div><div class='output co'>#&gt; [1] "2010-02-28 03:04:05 UTC" "2010-03-31 03:04:05 UTC"
 #&gt; [3] "2010-04-30 03:04:05 UTC"</div><div class='input'>
-<span class='kw'>leap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2012-02-29"</span>)
-<span class='st'>"2012-02-29 UTC"</span></div><div class='output co'>#&gt; [1] "2012-02-29 UTC"</div><div class='input'><span class='kw'>leap</span> <span class='op'>%m+%</span> <span class='fu'><a href='period.html'>years</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2013-02-28"</div><div class='input'><span class='kw'>leap</span> <span class='op'>%m+%</span> <span class='fu'><a href='period.html'>years</a></span>(<span class='op'>-</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2011-02-28"</div><div class='input'><span class='kw'>leap</span> <span class='op'>%m-%</span> <span class='fu'><a href='period.html'>years</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "2011-02-28"</div><div class='input'>
-<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span>(<span class='st'>"2019-01-29 01:02:03"</span>)
-<span class='fu'>add_with_rollback</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] "2019-02-28 01:02:03 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), preserve_hms = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2019-02-28 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), roll_to_first = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2019-03-01 01:02:03 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span>(<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>), roll_to_first = <span class='fl'>TRUE</span>, preserve_hms = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2019-03-01 UTC"</div></pre>
+<span class='va'>leap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2012-02-29"</span><span class='op'>)</span>
+<span class='st'>"2012-02-29 UTC"</span>
+</div><div class='output co'>#&gt; [1] "2012-02-29 UTC"</div><div class='input'><span class='va'>leap</span> <span class='op'>%m+%</span> <span class='fu'><a href='period.html'>years</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2013-02-28"</div><div class='input'><span class='va'>leap</span> <span class='op'>%m+%</span> <span class='fu'><a href='period.html'>years</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2011-02-28"</div><div class='input'><span class='va'>leap</span> <span class='op'>%m-%</span> <span class='fu'><a href='period.html'>years</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2011-02-28"</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2019-01-29 01:02:03"</span><span class='op'>)</span>
+<span class='fu'>add_with_rollback</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-02-28 01:02:03 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>, preserve_hms <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-02-28 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>, roll_to_first <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-03-01 01:02:03 UTC"</div><div class='input'><span class='fu'>add_with_rollback</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>, roll_to_first <span class='op'>=</span> <span class='cn'>TRUE</span>, preserve_hms <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-03-01 UTC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

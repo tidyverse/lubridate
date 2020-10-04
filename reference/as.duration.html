@@ -142,7 +142,7 @@ Duration objects. Numeric objects are changed to Duration objects
 with the seconds unit equal to the numeric value.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as.duration</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>as.duration</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,9 +176,14 @@ transform the period to an interval with <code><a href='as.interval.html'>as.int
     <div class='dont-index'><p><a href='Duration-class.html'>Duration</a>, <code><a href='duration.html'>duration()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>span</span> <span class='op'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span>(<span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2009-01-01"</span>), <span class='fu'><a href='ymd.html'>ymd</a></span>(<span class='st'>"2009-08-01"</span>)) <span class='co'>#interval</span>
-<span class='fu'>as.duration</span>(<span class='kw'>span</span>)</div><div class='output co'>#&gt; [1] "18316800s (~30.29 weeks)"</div><div class='input'><span class='fu'>as.duration</span>(<span class='fl'>10</span>) <span class='co'># numeric</span></div><div class='output co'>#&gt; [1] "10s"</div><div class='input'><span class='kw'>dur</span> <span class='op'>&lt;-</span> <span class='fu'><a href='duration.html'>duration</a></span>(hours = <span class='fl'>10</span>, minutes = <span class='fl'>6</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>dur</span>, <span class='st'>"hours"</span>)</div><div class='output co'>#&gt; [1] 10.1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='kw'>dur</span>, <span class='st'>"minutes"</span>)</div><div class='output co'>#&gt; [1] 606</div><div class='input'></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>span</span> <span class='op'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2009-01-01"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2009-08-01"</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>#interval</span>
+<span class='fu'>as.duration</span><span class='op'>(</span><span class='va'>span</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "18316800s (~30.29 weeks)"</div><div class='input'><span class='fu'>as.duration</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span> <span class='co'># numeric</span>
+</div><div class='output co'>#&gt; [1] "10s"</div><div class='input'><span class='va'>dur</span> <span class='op'>&lt;-</span> <span class='fu'><a href='duration.html'>duration</a></span><span class='op'>(</span>hours <span class='op'>=</span> <span class='fl'>10</span>, minutes <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>dur</span>, <span class='st'>"hours"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 10.1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>dur</span>, <span class='st'>"minutes"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 606</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
