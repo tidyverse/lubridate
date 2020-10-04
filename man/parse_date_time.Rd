@@ -56,7 +56,7 @@ family of functions is based on \code{\link[base:strptime]{base::strptime()}} wh
 \item{quiet}{logical. If \code{TRUE}, progress messages are not printed, and
 \verb{No formats found} error is suppressed and the function simply returns a
 vector of NAs.  This mirrors the behavior of base R functions \code{\link[base:strptime]{base::strptime()}}
-and \code{\link[base:as.POSIXct]{base::as.POSIXct()}}.}
+and \code{\link[base:as.POSIXlt]{base::as.POSIXct()}}.}
 
 \item{locale}{locale to be used, see \link{locales}. On Linux systems you
 can use \code{system("locale -a")} to list all the installed locales.}

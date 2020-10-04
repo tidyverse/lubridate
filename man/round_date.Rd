@@ -50,7 +50,7 @@ See section \verb{Rounding Up Date Objects} below for more details.}
 of the specified time unit. For rounding date-times which are exactly halfway
 between two consecutive units, the convention is to round up. Note that this
 is in line with the behavior of R's \code{\link[base:round.POSIXt]{base::round.POSIXt()}} function
-but does not follow the convention of the base \code{\link[base:round]{base::round()}} function
+but does not follow the convention of the base \code{\link[base:Round]{base::round()}} function
 which "rounds to the even digit", as per IEC 60559.
 
 Rounding to the nearest unit or multiple of a unit is supported. All
@@ -176,7 +176,7 @@ ceiling_date(ymd("2000-01-01"), "month")
  ceiling_date(x, "month", change_on_boundary = TRUE)
 }
 \seealso{
-\code{\link[base:round]{base::round()}}
+\code{\link[base:Round]{base::round()}}
 }
 \keyword{chron}
 \keyword{manip}

@@ -15,7 +15,7 @@ a \%within\% b
 
 \item{b}{Either an interval vector, or a list of intervals.
 
-If \code{b} is an internal it is recycled to the same length as \code{a}.
+If \code{b} is an interval it is recycled to the same length as \code{a}.
 If \code{b} is a list of intervals, \code{a} is checked if it falls within \emph{any}
 of the intervals, i.e. \code{a \%within\% list(int1, int2)} is equivalent to
 \code{a \%within\% int1 | a \%within\% int2}.}

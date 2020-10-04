@@ -1,13 +1,17 @@
 Version 1.7.9.9000 [dev]
 ==================
 
+### NEW FEATURES
+
+* [#914](https://github.com/tidyverse/lubridate/issues/914) New `rollforward()` function
+
 
 Version 1.7.9
 =============
 
 ### NEW FEATURES
 
-* [##871](https://github.com/tidyverse/lubridate/issues/893) Add `vctrs` support
+* [#871](https://github.com/tidyverse/lubridate/issues/893) Add `vctrs` support
 
 
 ### BUG FIXES

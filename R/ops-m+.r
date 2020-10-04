@@ -137,16 +137,18 @@ add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE
   reclass_date(new, object)
 }
 
-#' Roll back date to last day of previous month
+#' Roll backward or forward a date the previous, current or next month
 #'
-#' rollback changes a date to the last day of the previous month or to the first
-#' day of the month. Optionally, the new date can retain the same hour, minute,
-#' and second information.
+#' `rollbackward()` changes a date to the last day of the previous month or to
+#' the first day of the month. `rollforward()` rolls to the last day of the
+#' current month or to the first day of the next month. Optionally, the new date
+#' can retain the same hour, minute, and second information. `rollback()` is a
+#' synonym for `rollbackward()`.
 #'
 #' @export
 #' @param dates A POSIXct, POSIXlt or Date class object.
 #' @param roll_to_first Rollback to the first day of the month instead of the
-#' last day of the previous month
+#' last day of the month
 #' @param preserve_hms Retains the same hour, minute, and second information? If
 #' FALSE, the new date will be at 00:00:00.
 #' @return A date-time object of class POSIXlt, POSIXct or Date, whose day has
@@ -154,17 +156,31 @@ add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE
 #' the month.
 #' @examples
 #' date <- ymd("2010-03-03")
-#' rollback(date)
+#' rollbackward(date)
 #'
 #' dates <- date + months(0:2)
-#' rollback(dates)
+#' rollbackward(dates)
 #'
 #' date <- ymd_hms("2010-03-03 12:44:22")
-#' rollback(date)
-#' rollback(date, roll_to_first = TRUE)
-#' rollback(date, preserve_hms = FALSE)
-#' rollback(date, roll_to_first = TRUE, preserve_hms = FALSE)
-rollback <- function(dates, roll_to_first = FALSE, preserve_hms = TRUE) {
+#' rollbackward(date)
+#' rollbackward(date, roll_to_first = TRUE)
+#' rollbackward(date, preserve_hms = FALSE)
+#' rollbackward(date, roll_to_first = TRUE, preserve_hms = FALSE)
+rollbackward <- function(dates, roll_to_first = FALSE, preserve_hms = TRUE) {
+  .roll(dates, roll_to_first, preserve_hms)
+}
+
+#' @rdname rollbackward
+#' @export
+rollback <- rollbackward
+
+#' @rdname rollbackward
+#' @export
+rollforward <- function(dates, roll_to_first = FALSE, preserve_hms = TRUE) {
+  .roll(dates, roll_to_first, preserve_hms, forward = TRUE)
+}
+
+.roll <- function(dates, roll_to_first, preserve_hms, forward = FALSE) {
   if (length(dates) == 0)
     return(dates)
   day(dates) <- 1
@@ -172,6 +188,9 @@ rollback <- function(dates, roll_to_first = FALSE, preserve_hms = TRUE) {
     hour(dates) <- 0
     minute(dates) <- 0
     second(dates) <- 0
+  }
+  if (forward) {
+    dates <- dates + months(1)
   }
   if (roll_to_first) {
     dates

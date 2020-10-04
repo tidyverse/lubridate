@@ -13,6 +13,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{generics}{\code{\link[generics]{intersect}}, \code{\link[generics]{setdiff}}, \code{\link[generics]{union}}}
+  \item{generics}{\code{\link[generics:setops]{intersect}}, \code{\link[generics:setops]{setdiff}}, \code{\link[generics:setops]{union}}}
 }}
 

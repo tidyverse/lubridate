@@ -44,18 +44,17 @@ unambiguous. \code{stamp_date()}, and \code{stamp_time()} are the specialized
 stamps for dates and times (MHS). These function might be useful when the
 input template is unambiguous and matches both a time and a date format.
 
-Lubridate tries it's best to figure our the formats, but often a given
-format can be interpreted in several ways. One way to deal with the
-situation is to provide unambiguous formats like 22/05/81 instead of
-10/05/81 if you want d/m/y format. Another option is to use a more
-specialized stamp_date and stamp_time. The core function \code{stamp()} give
-priority to longer date-time formats.
+Lubridate tries hard to guess the formats, but often a given format can be
+interpreted in multiple ways. One way to deal with such cases is to provide
+unambiguous formats like 22/05/81 instead of 10/05/81 for d/m/y
+format. Another way is to use a more specialized \code{\link{stamp_date}} and
+\code{\link{stamp_time}}. The core function \code{stamp()} prioritizes longer date-time
+formats.
 
-Another option is to provide a vector of several values as \code{x}
-parameter. Then \pkg{lubridate} will choose the format which fits \code{x} the
-best. Note that longer formats are preferred. If you have "22:23:00 PM" then
-"HMSp" format will be given priority to shorter "HMS" order which also fits
-the supplied string.
+If \code{x} is a vector of values \pkg{lubridate} will choose the format which
+"fits" \code{x} the best. Note that longer formats are preferred. If you have
+"22:23:00 PM" then "HMSp" format will be given priority to shorter "HMS"
+order which also fits the supplied string.
 
 Finally, you can give desired format order directly as \code{orders}
 argument.
