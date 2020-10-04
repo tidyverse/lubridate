@@ -1,5 +1,5 @@
 
-RSCRIPT = Rscript
+RSCRIPT ?= Rscript
 R = $(RSCRIPT) --slave
 
 .PHONY: all version deploy site test
