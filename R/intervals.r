@@ -551,7 +551,7 @@ setdiff.Interval <- function(x, y, ...) {
 #' @param a An interval or date-time object.
 #' @param b Either an interval vector, or a list of intervals.
 #'
-#'   If `b` is an internal it is recycled to the same length as `a`.
+#'   If `b` is an interval it is recycled to the same length as `a`.
 #'   If `b` is a list of intervals, `a` is checked if it falls within _any_
 #'   of the intervals, i.e. `a %within% list(int1, int2)` is equivalent to
 #'   `a %within% int1 | a %within% int2`.
