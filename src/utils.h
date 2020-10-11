@@ -47,7 +47,7 @@ typedef struct {
 #define SKIP_NON_DIGITS(X) while(*X && !(DIGIT(*X))) {(X)++;}
 
 int adjust_leap_years(int y, int m, int is_leap);
-int check_ymd(int y, int m, int d, int is_leap);
+int check_mdays(int m, int d, int is_leap);
 int parse_alphanum(const char **c, const char **strings, const int strings_len, const char ignore_case);
 double parse_fractional (const char **c);
 int parse_int (const char **c, const int N, const int strict);

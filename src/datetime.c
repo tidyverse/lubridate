@@ -118,7 +118,7 @@ SEXP C_make_dt(SEXP year, SEXP month, SEXP day, SEXP hour, SEXP minute, SEXP sec
 
 	  int is_leap = IS_LEAP(y);
 
-	  if(check_ymd(y, m, d, is_leap)){
+	  if(check_mdays(m, d, is_leap)){
 
 		SECS += d30;
 		y -= 2000;
@@ -185,7 +185,7 @@ SEXP C_make_d(SEXP year, SEXP month, SEXP day) {
 
 	  int is_leap = IS_LEAP(y);
 
-	  if(check_ymd(y, m, d, is_leap)){
+	  if(check_mdays(m, d, is_leap)){
 
 		SECS += d30;
 		y -= 2000;

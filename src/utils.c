@@ -49,8 +49,8 @@ int adjust_leap_years(int y, int m, int is_leap){
   return SECS;
 }
 
-// check if y, m, d make sense
-int check_ymd(int y, int m, int d, int is_leap){
+// check if d makes sense in this month
+int check_mdays(int m, int d, int is_leap){
 
   int succeed = 1;
 
