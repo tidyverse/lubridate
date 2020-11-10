@@ -1,4 +1,4 @@
-url: http://lubridate.tidyverse.org
+url: https://lubridate.tidyverse.org
 
 template:
   package: tidytemplate
@@ -130,4 +130,4 @@ navbar:
 
 authors:
   "Vitalie Spinu":
-    href: http://vitalie.spinu.info
+    href: https://vitalie.spinu.info

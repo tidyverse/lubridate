@@ -3,9 +3,8 @@ NULL
 
 #' Get/set years component of a date-time
 #'
-#' Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr,
-#' zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts
-#' objects.
+#' Date-time must be a POSIXct, POSIXlt, Date, Period or any other object
+#' convertible to POSIXlt.
 #'
 #' year does not yet support years before 0 C.E.
 #'
@@ -15,7 +14,6 @@ NULL
 #' @keywords utilities manip chron methods
 #' @references
 #'    \url{https://en.wikipedia.org/wiki/ISO_week_date}
-#'    \url{https://www.cmmcp.org/sites/cmmcp/files/uploads/spring_skeeter_06.pdf}
 #' @examples
 #' x <- ymd("2012-03-26")
 #' year(x)

@@ -24,9 +24,8 @@ epiyear(x)
 the years element of x as a decimal number
 }
 \description{
-Date-time must be a POSIXct, POSIXlt, Date, Period, chron, yearmon, yearqtr,
-zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts
-objects.
+Date-time must be a POSIXct, POSIXlt, Date, Period or any other object
+convertible to POSIXlt.
 
 \code{isoyear()} returns years according to the ISO 8601 week calendar.
 
@@ -43,7 +42,6 @@ year(x) > 1995
 }
 \references{
 \url{https://en.wikipedia.org/wiki/ISO_week_date}
-\url{https://www.cmmcp.org/sites/cmmcp/files/uploads/spring_skeeter_06.pdf}
 }
 \keyword{chron}
 \keyword{manip}
