@@ -8,6 +8,8 @@
 \alias{dmy}
 \alias{dym}
 \alias{yq}
+\alias{ym}
+\alias{my}
 \title{Parse dates with \strong{y}ear, \strong{m}onth, and \strong{d}ay components}
 \usage{
 ymd(
@@ -59,6 +61,10 @@ dym(
 )
 
 yq(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
+
+ym(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
+
+my(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 }
 \arguments{
 \item{...}{a character or numeric vector of suspected dates}

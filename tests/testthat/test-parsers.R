@@ -604,6 +604,16 @@ test_that("Quarters are parsed correctly", {
   expect_equal(yq("16.1", "17.3", "2016.1"), ymd(c("2016-01-01", "2017-07-01", "2016-01-01")))
 })
 
+test_that("Year-months are parse correctly", {
+  yms <- c("2019-10", "2020-Oct", "2020 Oct", "2020 xyz")
+  out <- ymd("2019-10-01", "2020-Oct-01", "2020 Oct-01", NA)
+  expect_equal(out, ym(yms, quiet = TRUE))
+
+  mys <- c("10-2019", "Oct-2020", "Oct 2020", "xyz 2020")
+  out <- ymd("2019-10-01", "2020-Oct-01", "2020 Oct-01", NA)
+  expect_equal(out, my(mys, quiet = TRUE))
+})
+
 test_that("Vectors of NA's are parsed as vectors of NA's", {
   mna <- as.POSIXct(as.POSIXlt(c(NA, NA, NA), tz = "UTC"))
   pna <- new("Period"

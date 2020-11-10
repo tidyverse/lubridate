@@ -100,6 +100,17 @@ dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME")
 yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
   .parse_xxx(..., orders = "yq", quiet = quiet, tz = tz, locale = locale, truncated = 0)
 
+#' @export
+#' @rdname ymd
+ym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
+  .parse_xxx(..., orders = "ym", quiet = quiet, tz = tz, locale = locale, truncated = 0)
+
+#' @export
+#' @rdname ymd
+my <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
+  .parse_xxx(..., orders = "my", quiet = quiet, tz = tz, locale = locale, truncated = 0)
+
+
 ##' Parse date-times with **y**ear, **m**onth, and **d**ay, **h**our,
 ##' **m**inute, and **s**econd components.
 ##'

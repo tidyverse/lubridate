@@ -5,6 +5,7 @@ Version 1.7.9.9000 [dev]
 
 * [#914](https://github.com/tidyverse/lubridate/issues/914) New `rollforward()` function
 * [#928](https://github.com/tidyverse/lubridate/issues/928) On startup lubridate now resets TZDIR to a proper directory when it is set to non-dir values like "internal" or "macOS" (a change introduced in R4.0.2)
+* [#630](https://github.com/tidyverse/lubridate/issues/630) New parsing functions `ym()` and `my()`
 
 ### BUG FIXES
 
