@@ -122,22 +122,17 @@ test_that("interval handles character inputs", {
 
 
 test_that("interval handles POSIXlt inputs", {
-  skip_on_cran()
 
-  oldtz <- Sys.getenv("TZ")
-  Sys.setenv(TZ = "America/Los_Angeles")
-  on.exit(if (oldtz == "") Sys.unsetenv("TZ") else Sys.setenv(TZ = oldtz))
-
-  t1 <- as.POSIXlt("2007-01-01")
-  t2 <- as.POSIXlt("2007-08-01")
+  t1 <- parse_date_time2("2007-01-01", "Ymd", lt = TRUE, tz = "America/Los_Angeles")
+  t2 <- parse_date_time2("2007-08-01", "Ymd", lt = TRUE, tz = "America/Los_Angeles")
 
   expect_equal(unclass(interval(t1, t2)),
                unclass(new("Interval", 18313200,
                            start = as.POSIXct("2007-01-01"),
                            tzone = "America/Los_Angeles")))
 
-  t1 <- as.POSIXlt("2007-01-01")
-  t2 <- as.POSIXlt("2007-08-01 00:01:02")
+  t1 <- parse_date_time2("2007-01-01", "Ymd", lt = TRUE, tz = "America/Los_Angeles")
+  t2 <- parse_date_time2("2007-08-01 00:01:02", "Ymd HMS", lt = TRUE, tz = "America/Los_Angeles")
 
   expect_equal(unclass(interval(t1, t2)),
                unclass(new("Interval", 18313262,
