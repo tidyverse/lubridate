@@ -8,6 +8,9 @@
 
   ## adapted from Syz.timezone and OlsonNames function
   .find_tzdir <- function() {
+    ## Initialize Sys.timezone() cache to avoid resetting TZDIR at a later stage.
+    ## As of R4.0.3 Sys.timezone() intrusively sets TZDIR to non path values.
+    Sys.timezone()
     if (.Platform$OS.type == "windows")
       return(file.path(R.home("share"), "zoneinfo"))
     tzdirs <- c("/usr/share/zoneinfo",
