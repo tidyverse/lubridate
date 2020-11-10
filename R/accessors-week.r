@@ -15,7 +15,6 @@ NULL
 #' @keywords utilities manip chron
 #' @references
 #'    \url{https://en.wikipedia.org/wiki/ISO_week_date}
-#'    \url{https://www.cmmcp.org/sites/cmmcp/files/uploads/spring_skeeter_06.pdf}
 #' @seealso [isoyear()]
 #' @examples
 #' x <- ymd("2012-03-26")

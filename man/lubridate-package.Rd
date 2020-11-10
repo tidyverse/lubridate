@@ -180,12 +180,12 @@ about the Los Angeles Lakers 2008-2009 basketball season.
 \references{
 Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made
 Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.
-\url{http://www.jstatsoft.org/v40/i03/}.
+\url{https://www.jstatsoft.org/v40/i03/}.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://lubridate.tidyverse.org}
+  \item \url{https://lubridate.tidyverse.org}
   \item \url{https://github.com/tidyverse/lubridate}
   \item Report bugs at \url{https://github.com/tidyverse/lubridate/issues}
 }

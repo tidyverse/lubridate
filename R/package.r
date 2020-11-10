@@ -153,7 +153,7 @@
 #'
 #' @references Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made
 #'   Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.
-#'   \url{http://www.jstatsoft.org/v40/i03/}.
+#'   \url{https://www.jstatsoft.org/v40/i03/}.
 #' @importFrom methods setClass setGeneric new show allNames callGeneric is slot slot<- slotNames validObject Compare Arith initialize coerce<-
 #' @importFrom utils packageVersion read.delim
 #' @importFrom stats na.omit setNames update

@@ -46,7 +46,6 @@ week(x) > 3
 }
 \references{
 \url{https://en.wikipedia.org/wiki/ISO_week_date}
-\url{https://www.cmmcp.org/sites/cmmcp/files/uploads/spring_skeeter_06.pdf}
 }
 \seealso{
 \code{\link[=isoyear]{isoyear()}}
