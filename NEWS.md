@@ -4,6 +4,12 @@ Version 1.7.9.9000 [dev]
 ### NEW FEATURES
 
 * [#914](https://github.com/tidyverse/lubridate/issues/914) New `rollforward()` function
+* [#928](https://github.com/tidyverse/lubridate/issues/928) On startup lubridate now resets TZDIR to a proper directory when it is set to non-dir values like "internal" or "macOS" (a change introduced in R4.0.2)
+
+### BUG FIXES
+
+* [#930](https://github.com/tidyverse/lubridate/issues/930) `as.period()` on intervals now returns valid Periods with double fields (not integers)
+
 
 
 Version 1.7.9

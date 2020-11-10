@@ -379,8 +379,8 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
          year = .int_to_period(x),
          month = {
            pers <- .int_to_period(x)
-           month(pers) <- month(pers) + year(pers)*12L
-           year(pers) <- 0L
+           month(pers) <- month(pers) + year(pers)*12
+           year(pers) <- 0
            pers
          },
          ## fixme: add note to the docs that unit <= days results in much faster conversion
@@ -414,21 +414,21 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 
   ## Remove negative ...
 
-  ## secons
-  nsecs <- per$second < 0L & !is.na(per$second)
-  per$second[nsecs] <- 60L + per$second[nsecs]
-  per$minute[nsecs] <- per$minute[nsecs] - 1L
+  ## seconds
+  nsecs <- per$second < 0 & !is.na(per$second)
+  per$second[nsecs] <- 60 + per$second[nsecs]
+  per$minute[nsecs] <- per$minute[nsecs] - 1
   per$second[negs] <- -per$second[negs]
 
   ## minutes
-  nmins <- per$minute < 0L & !is.na(per$minute)
-  per$minute[nmins] <- 60L + per$minute[nmins]
-  per$hour[nmins] <- per$hour[nmins] - 1L
+  nmins <- per$minute < 0 & !is.na(per$minute)
+  per$minute[nmins] <- 60 + per$minute[nmins]
+  per$hour[nmins] <- per$hour[nmins] - 1
   per$minute[negs] <- -per$minute[negs]
 
   ## hours
-  nhous <- per$hour < 0L & !is.na(per$hour)
-  per$hour[nhous] <- 24L + per$hour[nhous]
+  nhous <- per$hour < 0 & !is.na(per$hour)
+  per$hour[nhous] <- 24 + per$hour[nhous]
   per$hour[negs] <- -per$hour[negs]
 
   ## days
@@ -438,10 +438,10 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   if (any(ndays)) {
 
     ## compute nr days in previous month
-    add_months <- rep.int(-1L, sum(ndays))
+    add_months <- rep.int(-1, sum(ndays))
 
     pmonth <- end$mon[ndays]
-    pmonth[pmonth == 0L] <- 1L # dec == jan == 31 days
+    pmonth[pmonth == 0] <- 1 # dec == jan == 31 days
     prev_month_days <- .days_in_month(pmonth, end$year[ndays])
 
     ## difference in days:
@@ -454,8 +454,8 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   ndays <- negs & per$day < 0 & !is.na(per$day)
   if (any(ndays)) {
 
-    add_months <- rep.int(1L, sum(ndays))
-    this_month_days <- .days_in_month(end$mon[ndays] + 1L, end$year[ndays])
+    add_months <- rep.int(1, sum(ndays))
+    this_month_days <- .days_in_month(end$mon[ndays] + 1, end$year[ndays])
 
     ## Compute nr of days:
     ## /need pmax to capture as.period(interval(ymd("1985-01-31"), ymd("1986-03-28")))/
@@ -465,13 +465,13 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 
   ## substract only after the day computation to capture intervals like:
   ## as.period(interval(ymd_hms("1985-12-31 5:0:0"), ymd_hms("1986-02-01 3:0:0")))
-  per$day[nhous] <- per$day[nhous] - 1L
+  per$day[nhous] <- per$day[nhous] - 1
   per$day[negs] <- -per$day[negs]
 
   ## months
-  nmons <- per$month < 0L & !is.na(per$month)
-  per$month[nmons] <- 12L + per$month[nmons]
-  per$year[nmons] <- per$year[nmons] - 1L
+  nmons <- per$month < 0 & !is.na(per$month)
+  per$month[nmons] <- 12 + per$month[nmons]
+  per$year[nmons] <- per$year[nmons] - 1
   per$month[negs] <- -per$month[negs]
 
   per$year[negs] <- -per$year[negs]
@@ -509,8 +509,8 @@ setMethod("as.period", signature("Period"),
               switch(unit,
                      year = x,
                      month = {
-                       month(x) <- month(x) + year(x)*12L
-                       year(x) <- 0L
+                       month(x) <- month(x) + year(x)*12
+                       year(x) <- 0
                        x
                      },
                      day = , hour = , minute = , second = {
