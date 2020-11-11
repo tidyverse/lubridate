@@ -209,7 +209,7 @@ floor_date <- function(x, unit = "seconds", week_start = getOption("lubridate.we
              else      update(x, mdays = 1, hours = 0, minutes = 0, seconds = 0)
            },
            year     = {
-             ## due to bug https://github.com/hadley/lubridate/issues/319 we
+             ## due to bug https://github.com/tidyverse/lubridate/issues/319 we
              ## need to do it in two steps
              if (n > 1) {
                y <- update(x, ydays = 1, hours = 0, minutes = 0, seconds = 0)

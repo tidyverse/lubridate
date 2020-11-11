@@ -369,7 +369,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 
   ## Periods are not symetric in the sense that as.period(int) might not be the
   ## same as -as.period(int_flip(int)). See
-  ## https://github.com/hadley/lubridate/issues/285 for motivation.
+  ## https://github.com/tidyverse/lubridate/issues/285 for motivation.
 
   unit <-
     if (missing(unit)) "year"

@@ -28,7 +28,7 @@ some situations. Lubridate makes it easier to do the things R does with
 date-times and possible to do the things R does not.
 
 If you are new to lubridate, the best place to start is the [date and
-times chapter](http://r4ds.had.co.nz/dates-and-times.html) in R for data
+times chapter](https://r4ds.had.co.nz/dates-and-times.html) in R for data
 science.
 
 ## Installation
@@ -57,7 +57,7 @@ library(lubridate, warn.conflicts = FALSE)
 
   - Easy and fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`,
     `dmy_hms`, `mdy()`, …
-    
+
     ``` r
     ymd(20101215)
     #> [1] "2010-12-15"
@@ -67,7 +67,7 @@ library(lubridate, warn.conflicts = FALSE)
 
   - Simple functions to get and set components of a date-time, such as
     `year()`, `month()`, `mday()`, `hour()`, `minute()` and `second()`:
-    
+
     ``` r
     bday <- dmy("14/10/1979")
     month(bday)
@@ -75,7 +75,7 @@ library(lubridate, warn.conflicts = FALSE)
     wday(bday, label = TRUE)
     #> [1] Sun
     #> Levels: Sun < Mon < Tue < Wed < Thu < Fri < Sat
-    
+
     year(bday) <- 2016
     wday(bday, label = TRUE)
     #> [1] Fri
@@ -83,16 +83,16 @@ library(lubridate, warn.conflicts = FALSE)
     ```
 
   - Helper functions for handling time zones: `with_tz()`, `force_tz()`
-    
+
     ``` r
     time <- ymd_hms("2010-12-13 15:30:30")
     time
     #> [1] "2010-12-13 15:30:30 UTC"
-    
+
     # Changes printing
     with_tz(time, "America/Chicago")
     #> [1] "2010-12-13 09:30:30 CST"
-    
+
     # Changes time
     force_tz(time, "America/Chicago")
     #> [1] "2010-12-13 15:30:30 CST"
@@ -100,7 +100,7 @@ library(lubridate, warn.conflicts = FALSE)
 
 Lubridate also expands the type of mathematical operations that can be
 performed with date-time objects. It introduces three new time span
-classes borrowed from <http://joda.org>.
+classes borrowed from <https://www.joda.org>.
 
   - `durations`, which measure the exact amount of time between two
     points
@@ -114,5 +114,5 @@ classes borrowed from <http://joda.org>.
 ## Code of Conduct
 
 Please note that the lubridate project is released with a [Contributor
-Code of Conduct](http://lubridate.tidyverse.org/CODE_OF_CONDUCT.html).
+Code of Conduct](https://lubridate.tidyverse.org/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.

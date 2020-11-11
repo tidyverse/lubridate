@@ -194,7 +194,7 @@ test_that("as.period handles interval objects", {
 })
 
 test_that("as.period handles intervals across years correctly", {
-  ## https://github.com/hadley/lubridate/issues/371
+  ## https://github.com/tidyverse/lubridate/issues/371
 
   t1 <- ymd("1985-11-30")
   t2 <- ymd("1986-02-01")
@@ -222,7 +222,7 @@ test_that("as.period handles intervals across years correctly", {
 })
 
 test_that("as.period handles vector interval objects", {
-  ## https://github.com/hadley/lubridate/issues/349
+  ## https://github.com/tidyverse/lubridate/issues/349
   ints <- c(
     interval(ymd("2001-01-01"), ymd("2002-01-01")),
     interval(ymd("2001-01-01"), ymd("2004-01-01"))

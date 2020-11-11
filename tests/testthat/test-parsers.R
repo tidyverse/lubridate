@@ -727,7 +727,7 @@ test_that("ymd_hms parses OO and Oo formats correctly", {
 })
 
 test_that("ymd parses mixed y an Y formats", {
-  ## https://github.com/hadley/lubridate/issues/425
+  ## https://github.com/tidyverse/lubridate/issues/425
   d3 <- c("6/25/15", "6/25/2015")
   expect_equal(mdy(d3), as.Date(c("2015-06-25", "2015-06-25")))
   d6 <- c("25/6/15", "25/6/2015")
@@ -762,7 +762,7 @@ test_that("parse_date_time2 and fast_strptime parse ISO8601 timezones", {
 })
 
 test_that("parse_date_time2 and fast_strptime correctly work with timezones", {
-  ## https://github.com/hadley/lubridate/issues/394
+  ## https://github.com/tidyverse/lubridate/issues/394
   expect_equal(parse_date_time("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"),
                parse_date_time2("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"))
   expect_equal(as.POSIXct(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich")),
@@ -797,7 +797,7 @@ test_that("ymd_hms, parse_date_time2, fast_strptime and base:strptime give the s
 })
 
 test_that("`parse_date_time2` parses formats with `exact=TRUE`", {
-  ## https://github.com/hadley/lubridate/issues/326
+  ## https://github.com/tidyverse/lubridate/issues/326
   expect_equal(parse_date_time(c("12/17/1996 04:00:00"), "%m/%d/%Y %I:%M:%S", exact = T),
                as.POSIXct(c("1996-12-17 04:00:00 UTC"), tz = "UTC"))
   expect_equal(parse_date_time(c("021321", "021320"), c("%m%d%y"), exact = TRUE),
@@ -823,7 +823,7 @@ test_that("fast_strptime and parse_date_time2 deal correctly with leap years", {
 })
 
 test_that("fast_strptime and parse_date_time2 detect excesive days", {
-  ## https://github.com/hadley/lubridate/issues/#289
+  ## https://github.com/tidyverse/lubridate/issues/#289
   expect_equal(ymd(c("2000-01-32", "2000-02-30", "2100-03-32", "2400-12-32"), quiet = T),
                as.Date(c(NA, NA, NA, NA)), tz = "UTC")
 })
@@ -851,7 +851,7 @@ test_that("a and A formats are handled correctly (#254)", {
 })
 
 test_that("`parse_date_time` parses heterogeneous formats with `exact=TRUE`", {
-  ## https://github.com/hadley/lubridate/issues/326
+  ## https://github.com/tidyverse/lubridate/issues/326
   expect_equal(parse_date_time(c("12/17/1996 04:00:00", "4/18/1950 0130"),
                                c("%m/%d/%Y %I:%M:%S", "%m/%d/%Y %H%M"),
                                exact = T),
