@@ -28,6 +28,13 @@
   }
 
   tzdir <- Sys.getenv("TZDIR")
+
+  if(tzdir == "") {
+    ## As of R4.0.3 Sys.timezone() intrusively sets TZDIR to non path values.
+    Sys.timezone()
+    tzdir <- Sys.getenv("TZDIR")
+  }
+
   if (tzdir == "internal") {
     Sys.setenv(TZDIR = file.path(R.home("share"), "zoneinfo"))
   } else if (tzdir == "macOS") {
