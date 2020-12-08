@@ -24,6 +24,7 @@
 #include "utils.h"
 #include <stdio.h>
 #include <ctype.h>
+#include <Rinternals.h>
 
 // return adjustment (in seconds) due to leap years
 // y: years after (positive) or before (negative) 2000-01-01 00:00:00
