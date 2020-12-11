@@ -225,7 +225,7 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
             // for %z: "+O100" or "+O1" or "+01:00"
             if( !O_format ) {
               if( !is_fmt ) {
-                while (*c && *c != '+' && *c != '-' && *c != 'Z') c++; // skip non + -
+                while (*c && *c != '+' && *c != '-' && *c != 'Z' && !DIGIT(*c)) c++; // skip non + -
                 if( !*c ) { succeed = 0; break; };
               }
               int Z = 0, sig;
