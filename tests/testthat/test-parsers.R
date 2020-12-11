@@ -234,6 +234,34 @@ test_that("cutoff_2000 works as expected", {
                ymd(c("1920-02-03", "1967-02-03", "1968-02-03", "1969-02-03", "1999-02-03", "1900-02-03"), tz = "UTC"))
 })
 
+test_that("parse_date_time2 parses multiple formats", {
+  skip("Fixm ymd_hms OSz parsing")
+  x <- c("2007-08-01 00:01:02", "2007-08-01 00:01:02+0100", "2007-08-01 00:01:02",
+         "2007-08-01 00:01:02.55", "2007-08-01", "2007-08-01 00:01:02.55+0200")
+  y1 <- ymd_hms(x, truncated = 3)
+  y2 <- parse_date_time2(x, c("YmdHMS", "YmdHMSz", "Ymd", "YmdHMOS", "YmdHMOSz"))
+  expect_equal(y1, y2)
+  y3 <- parse_date_time2(x, c("YmdHMS", "YmdHMSz", "Ymd", "YmdHMOS", "YmdHMOSz"), lt = TRUE)
+  expect_equal(as.POSIXlt(y1), y3)
+  expect_equal(y1, as.POSIXct(y3))
+  ## data.frame(x, y1, y2, y3)
+})
+
+test_that("fast_strptime parses multiple formats", {
+  skip("Fixm ymd_hms OSz parsing")
+  x <- c("2007-08-01 00:01:02", "2007-08-01 00:01:02+0100", "2007-08-01 00:01:02",
+         "2007-08-01 00:01:02.55", "2007-08-01", "2007-08-01 00:01:02.55+0200")
+  fmts <- c("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M:%S%z", "%Y-%m-%d",
+            "%Y-%m-%d %H:%M:%OS", "%Y-%m-%d %H:%M:%OS%z")
+  y1 <- ymd_hms(x, truncated = 3)
+  y2 <- fast_strptime(x, fmts)
+  expect_equal(y1, y2)
+  y3 <- fast_strptime(x, fmts, lt = FALSE)
+  expect_equal(as.POSIXlt(y1), y3)
+  expect_equal(y1, as.POSIXct(y3))
+  ## data.frame(x, y1, y2, y3)
+})
+
 test_that("0 month and 0 day in date produces NA",{
   expect_equal(ymd(c("2013-1-1", "2013-0-1"), quiet = TRUE), as.Date(c("2013-01-01", NA)))
   expect_equal(ymd(c("2013-1-1", "2013-1-0"), quiet = TRUE), as.Date(c("2013-01-01", NA)))
