@@ -136,10 +136,10 @@ can disable training with \code{train = FALSE}.
 \code{\link[base:strptime]{base::strptime()}} whenever the guessed from the input data formats are all
 numeric.
 
-The list below contains formats recognized by \pkg{lubridate}. For numeric formats
-leading 0s are optional. As compared to \code{\link[base:strptime]{base::strptime()}}, some of the
-formats are new or have been extended for efficiency reasons. These formats
-are marked with "(*)". The fast parsers \code{parse_date_time2()} and
+The list below contains formats recognized by \pkg{lubridate}. For numeric
+formats leading 0s are optional. As compared to \code{\link[base:strptime]{base::strptime()}}, some of
+the formats are new or have been extended for efficiency reasons. These
+formats are marked with "(*)" below. Fast parsers \code{parse_date_time2()} and
 \code{fast_strptime()} accept only formats marked with "(!)".
 
 \describe{ \item{\code{a}}{Abbreviated weekday name in the current
@@ -164,22 +164,19 @@ parser currently understands only English month names.}
 
 \item{\code{j}}{Day of year as decimal number (001--366 or 1--366).}
 
-\item{\code{q} (!*)}{Quarter (1--4). The quarter month is added to the parsed month
-if \code{m} format is present.}
+\item{\code{q} (!*)}{Quarter (1--4). The quarter month is added to the parsed
+month if \code{m} element is present.}
 
 \item{\code{m} (!*)}{Month as decimal number (01--12 or 1--12). For
-\code{parse_date_time}. As a \pkg{lubridate} extension, also
-matches abbreviated and full months names as \code{b} and
-\code{B} formats. C parser understands only English month
-names.}
+\code{parse_date_time} also matches abbreviated and full months names as \code{b}
+and \code{B} formats. C parser understands only English month names.}
 
 \item{\code{M} (!)}{Minute as decimal number (00--59 or 0--59).}
 
-\item{\code{p} (!)}{AM/PM indicator in the locale. Normally used in conjunction
-with \code{I} and \bold{not} with \code{H}.  But the \pkg{lubridate}
-C parser accepts H format as long as hour is not greater
-than 12. C parser understands only English locale AM/PM
-indicator.}
+\item{\code{p} (!)}{AM/PM indicator in the locale. Commonly used in conjunction
+with \code{I} and \bold{not} with \code{H}.  But \pkg{lubridate}'s C parser accepts H
+format as long as hour is not greater than 12. C parser understands only
+English locale AM/PM indicator.}
 
 \item{\code{S} (!)}{Second as decimal number (00--61 or 0--61), allowing for up
 to two leap-seconds (but POSIX-compliant implementations will ignore leap
@@ -203,13 +200,12 @@ year as day 1 of week 1).  The UK convention.}
 \item{\code{Y} (!)}{Year with century.}
 
 \item{\code{z} (!*)}{ISO8601 signed offset in hours and minutes from UTC. For
-example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours
-behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
-\code{\link[base:strptime]{base::strptime()}} doesn't fully support ISO8601 this format is implemented as an
-union of 4 orders: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use
-these four orders as any other but it is rarely
-necessary. \code{parse_date_time2()} and \code{fast_strptime()} support all of
-the timezone formats.}
+example \code{-0800}, \code{-08:00} or \code{-08}, all represent 8 hours behind UTC. This
+format also matches the Z (Zulu) UTC indicator. Because \code{\link[base:strptime]{base::strptime()}}
+doesn't fully support ISO8601 this format is implemented as an union of 4
+formats: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use these
+formats as any other but it is rarely necessary. \code{parse_date_time2()} and
+\code{fast_strptime()} support all of these formats.}
 
 \item{\code{Om} (!*)}{Matches numeric month and English alphabetic months
 (Both, long and abbreviated forms).}

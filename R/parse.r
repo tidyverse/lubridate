@@ -374,10 +374,10 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' [base::strptime()] whenever the guessed from the input data formats are all
 ##' numeric.
 ##'
-##' The list below contains formats recognized by \pkg{lubridate}. For numeric formats
-##' leading 0s are optional. As compared to [base::strptime()], some of the
-##' formats are new or have been extended for efficiency reasons. These formats
-##' are marked with "(*)". The fast parsers `parse_date_time2()` and
+##' The list below contains formats recognized by \pkg{lubridate}. For numeric
+##' formats leading 0s are optional. As compared to [base::strptime()], some of
+##' the formats are new or have been extended for efficiency reasons. These
+##' formats are marked with "(*)" below. Fast parsers `parse_date_time2()` and
 ##' `fast_strptime()` accept only formats marked with "(!)".
 ##'
 ##'
@@ -403,22 +403,19 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'
 ##' \item{`j`}{Day of year as decimal number (001--366 or 1--366).}
 ##'
-##' \item{`q` (!*)}{Quarter (1--4). The quarter month is added to the parsed month
-##' if `m` format is present.}
+##' \item{`q` (!*)}{Quarter (1--4). The quarter month is added to the parsed
+##'   month if `m` element is present.}
 ##'
 ##' \item{`m` (!*)}{Month as decimal number (01--12 or 1--12). For
-##'                   `parse_date_time`. As a \pkg{lubridate} extension, also
-##'                   matches abbreviated and full months names as `b` and
-##'                   `B` formats. C parser understands only English month
-##'                   names.}
+##'   `parse_date_time` also matches abbreviated and full months names as `b`
+##'   and `B` formats. C parser understands only English month names.}
 ##'
 ##' \item{`M` (!)}{Minute as decimal number (00--59 or 0--59).}
 ##'
-##' \item{`p` (!)}{AM/PM indicator in the locale. Normally used in conjunction
-##'                   with `I` and \bold{not} with `H`.  But the \pkg{lubridate}
-##'                   C parser accepts H format as long as hour is not greater
-##'                   than 12. C parser understands only English locale AM/PM
-##'                   indicator.}
+##' \item{`p` (!)}{AM/PM indicator in the locale. Commonly used in conjunction
+##'  with `I` and \bold{not} with `H`.  But \pkg{lubridate}'s C parser accepts H
+##'  format as long as hour is not greater than 12. C parser understands only
+##'  English locale AM/PM indicator.}
 ##'
 ##' \item{`S` (!)}{Second as decimal number (00--61 or 0--61), allowing for up
 ##' to two leap-seconds (but POSIX-compliant implementations will ignore leap
@@ -442,13 +439,12 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' \item{`Y` (!)}{Year with century.}
 ##'
 ##' \item{`z` (!*)}{ISO8601 signed offset in hours and minutes from UTC. For
-##' example `-0800`, `-08:00` or `-08`, all represent 8 hours
-##' behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
-##' [base::strptime()] doesn't fully support ISO8601 this format is implemented as an
-##' union of 4 orders: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use
-##' these four orders as any other but it is rarely
-##' necessary. `parse_date_time2()` and `fast_strptime()` support all of
-##' the timezone formats.}
+##' example `-0800`, `-08:00` or `-08`, all represent 8 hours behind UTC. This
+##' format also matches the Z (Zulu) UTC indicator. Because [base::strptime()]
+##' doesn't fully support ISO8601 this format is implemented as an union of 4
+##' formats: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use these
+##' formats as any other but it is rarely necessary. `parse_date_time2()` and
+##' `fast_strptime()` support all of these formats.}
 ##'
 ##' \item{`Om` (!*)}{Matches numeric month and English alphabetic months
 ##'                    (Both, long and abbreviated forms).}
