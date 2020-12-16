@@ -269,7 +269,7 @@ test_that("round_date works for a variety of formats", {
 
 
 test_that("rounding works across DST", {
-  ## https://github.com/hadley/lubridate/issues/399
+  ## https://github.com/tidyverse/lubridate/issues/399
   tt <- ymd("2016-03-27", tz = "Europe/Helsinki");
   expect_equal(ceiling_date(tt, "month"), as.POSIXct("2016-04-01", tz = "Europe/Helsinki"))
   expect_equal(ceiling_date(tt, "day"), as.POSIXct("2016-03-27", tz = "Europe/Helsinki"))

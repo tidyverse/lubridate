@@ -25,7 +25,7 @@
 \def\filedate{2008/04/07}
 %%
 %% Package `jss' to use with LaTeX2e for JSS publications
-%%   http://www.jstatsoft.org/
+%%   https://www.jstatsoft.org/
 %% Copyright (C) 2004 Achim Zeileis
 %% Please report errors to Achim.Zeileis@R-project.org
 %%
@@ -227,7 +227,7 @@
     \vspace{.1\baselineskip}
     {\fontfamily{pzc} \fontsize{13}{15} \selectfont Journal of Statistical Software}
     \hfill
-    \url{http://www.jstatsoft.org/}\\ \nopagebreak
+    \url{https://www.jstatsoft.org/}\\ \nopagebreak
     published by the American Statistical Association
     \hfill
     \url{http://www.amstat.org/}\\[.3\baselineskip] \nopagebreak
@@ -254,7 +254,7 @@
    {\fontfamily{pzc} \fontsize{28}{32} \selectfont Journal of Statistical Software}
    \vfill
    {\it \small \@Month{} \@Year, Volume~\@Volume, \@Seriesname~\@Issue.%
-            \hfill \href{http://www.jstatsoft.org/}{http://www.jstatsoft.org/}}}\\[0.1cm]
+            \hfill \href{https://www.jstatsoft.org/}{https://www.jstatsoft.org/}}}\\[0.1cm]
      \hrule height 3pt}}
 \if@review
   \renewcommand{\maketitle}{

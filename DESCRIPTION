@@ -1,7 +1,7 @@
 Type: Package
 Package: lubridate
 Title: Make Dealing with Dates a Little Easier
-Version: 1.7.9.9001
+Version: 1.7.9.2
 Authors@R:
     c(person(given = "Vitalie",
              family = "Spinu",
@@ -33,7 +33,8 @@ Authors@R:
              role = "ctb"),
       person(given = "Chel Hee",
              family = "Lee",
-             role = "ctb"))
+             role = "ctb"),
+      person("Google Inc.", role = c("ctb", "cph")))
 Maintainer: Vitalie Spinu <spinuvit@gmail.com>
 Description: Functions to work with date-times and time-spans:
     fast and user friendly parsing of date-time data, extraction and
@@ -45,7 +46,7 @@ Description: Functions to work with date-times and time-spans:
     included in this package. See <https://github.com/google/cctz> for
     more details.
 License: GPL (>= 2)
-URL: http://lubridate.tidyverse.org,
+URL: https://lubridate.tidyverse.org,
     https://github.com/tidyverse/lubridate
 BugReports: https://github.com/tidyverse/lubridate/issues
 Depends:
@@ -58,7 +59,8 @@ Suggests:
     covr,
     knitr,
     testthat (>= 2.1.0),
-    vctrs (>= 0.3.0)
+    vctrs (>= 0.3.0),
+    rmarkdown
 Enhances:
     chron,
     timeDate,

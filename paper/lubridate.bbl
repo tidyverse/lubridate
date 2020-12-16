@@ -104,6 +104,6 @@ Zeileis A, Grothendieck G (2005).
 \newblock \enquote{\pkg{zoo}: S3 Infrastructure for Regular and Irregular Time
   Series.}
 \newblock \emph{Journal of Statistical Software}, \textbf{14}(6), 1--27.
-\newblock \urlprefix\url{http://www.jstatsoft.org/v14/i06/}.
+\newblock \urlprefix\url{https://www.jstatsoft.org/v14/i06/}.
 
 \end{thebibliography}

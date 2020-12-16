@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 ```
 
-(This vignette is an updated version of the blog post first published at [r-statistics](http://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/)_
+(This vignette is an updated version of the blog post first published at [r-statistics](https://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/)_
 
 Lubridate is an R package that makes it easier to work with dates and times. Below is a concise tour of some of the things lubridate can do for you. Lubridate was created by Garrett Grolemund and Hadley Wickham, and is now maintained by Vitalie Spinu.
 
@@ -78,7 +78,7 @@ His call would arrive at 2:00 am my time! Luckily he never did that.
 You can save an interval of time as an Interval class object with lubridate. This is quite useful! For example, my stay in Auckland lasted from June 4, 2011 to August 10, 2011 (which we've already saved as arrive and leave). We can create this interval in one of two ways:
 
 ```{r}
-auckland <- interval(arrive, leave) 
+auckland <- interval(arrive, leave)
 auckland
 auckland <- arrive %--% leave
 auckland
@@ -162,7 +162,7 @@ as.period(auckland)
 
 ### If anyone drove a time machine, they would crash
 
-The length of months and years change so often that doing arithmetic with them can be unintuitive. Consider a simple operation, `January 31st + one month`. Should the answer be 
+The length of months and years change so often that doing arithmetic with them can be unintuitive. Consider a simple operation, `January 31st + one month`. Should the answer be
 
 1. `February 31st` (which doesn't exist)
 2. `March 4th` (31 days after January 31), or
@@ -194,4 +194,4 @@ last_day <- function(date) {
 
 ## Further Resources
 
-To learn more about lubridate, including the specifics of periods and durations, please read the [original lubridate paper](http://www.jstatsoft.org/v40/i03/). Questions about lubridate can be addressed to the lubridate google group. Bugs and feature requests should be submitted to the [lubridate development page](http://github.com/hadley/lubridate) on github.
+To learn more about lubridate, including the specifics of periods and durations, please read the [original lubridate paper](https://www.jstatsoft.org/v40/i03/). Questions about lubridate can be addressed to the lubridate google group. Bugs and feature requests should be submitted to the [lubridate development page](https://github.com/tidyverse/lubridate) on github.

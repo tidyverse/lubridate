@@ -1,5 +1,16 @@
-Version 1.7.9.9000 [dev]
-==================
+Version 1.7.9.2.9000
+====================
+
+### NEW FEATURES
+
+* `fast_strptime()` and `parse_date_time2()` now accept multiple formats and apply them in turn
+
+### BUG FIXES
+
+* Fix incorrect skipping of digits during parsing of the `%z` format
+
+Version 1.7.9.2
+===============
 
 ### NEW FEATURES
 

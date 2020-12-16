@@ -1,12 +1,12 @@
 Current and future inspirations for functionality.
 
 Comprehensive date time APIs:
- * http://joda-time.sourceforge.net
+ * https://www.joda-time.sourceforge.net
  * http://tinyurl.com/jsr310
  * http://tinyurl.com/boost-dt
 
 Elegant user interfaces for manipulating dates
- * http://github.com/olliesaunders/suprdate/tree/master
+ * https://github.com/olliesaunders/suprdate/tree/master
  * http://runt.rubyforge.org/
 
 Intelligent date time parsers
@@ -23,7 +23,7 @@ Date time standards
   # minute = 2 Digits
   # second = 2 Digits
   # offset that shows difference from UTC
-  
+
   # Ordered from least precise to most
   # 2003-08-06 04:28-02:00
   # 2003-08-06T04:28Z
