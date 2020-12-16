@@ -672,10 +672,11 @@ parse_dt <- function(x, orders, is_format = FALSE, return_lt = FALSE, cutoff_200
 ##' @param lt logical. If `TRUE`, returned object is of class POSIXlt, and POSIXct
 ##'   otherwise. For compatibility with [base::strptime()] the default is `TRUE`
 ##'   for `fast_strptime()` and `FALSE` for `parse_date_time2()`.
-##' @param cutoff_2000 integer. For `y` format,  two-digit numbers smaller or equal to
-##'   `cutoff_2000` are parsed as 20th's century, 19th's otherwise. Available only
-##'   for functions relying on `lubridate`s internal parser.
-parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L) {
+##' @param cutoff_2000 integer. For `y` format,  two-digit numbers smaller or equal
+##'    to `cutoff_2000` are parsed as though starting with `20`, otherwise parsed
+##'    as though starting with `19`. Available only for functions relying on
+##'    `lubridate`s internal parser.
+parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L){
   if (length(tz) != 1 || is.na(tz))
     stop("`tz` argument must be a character of length one")
   parse1 <- function(x, order) {
