@@ -63,12 +63,20 @@ These are drop in replacements for \code{\link[=as.Date]{as.Date()}} and \code{\
 tweaks to make them work more intuitively.
 
 \itemize{
-\item \code{as_date()} ignores the timezone attribute, resulting in
-a more intuitive conversion (see examples)
-\item Both functions provide a default origin argument for numeric
-vectors.
-\item Both functions will generate NAs for invalid date format. A warning message will provide a count of the elements that were not converted
+
+\item Called on a \code{POSIXct} object, \code{as_date()} uses the tzone attribute of
+the object to return the same date as indicated by the printed representation
+of the object. This differs from as.Date, which ignores the attribute and
+uses only the tz argument to \code{as.Date()} ("UTC" by default).
+
+\item Both functions provide a default origin argument for numeric vectors.
+
+\item Both functions will generate NAs for
+invalid date format. A warning message will provide a count of the elements
+that were not converted
+
 \item \code{as_datetime()} defaults to using UTC.
+
 }
 }
 

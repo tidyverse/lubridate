@@ -601,12 +601,20 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' tweaks to make them work more intuitively.
 #'
 #' \itemize{
-#'   \item `as_date()` ignores the timezone attribute, resulting in
-#'      a more intuitive conversion (see examples)
-#'   \item Both functions provide a default origin argument for numeric
-#'      vectors.
-#'   \item Both functions will generate NAs for invalid date format. A warning message will provide a count of the elements that were not converted
-#'   \item `as_datetime()` defaults to using UTC.
+#'
+#' \item Called on a `POSIXct` object, `as_date()` uses the tzone attribute of
+#'   the object to return the same date as indicated by the printed representation
+#'   of the object. This differs from as.Date, which ignores the attribute and
+#'   uses only the tz argument to `as.Date()` ("UTC" by default).
+#'
+#' \item Both functions provide a default origin argument for numeric vectors.
+#'
+#' \item Both functions will generate NAs for
+#'   invalid date format. A warning message will provide a count of the elements
+#'   that were not converted
+#'
+#' \item `as_datetime()` defaults to using UTC.
+#'
 #' }
 #'
 #' @param x a vector of [POSIXt], numeric or character objects
