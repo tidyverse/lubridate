@@ -102,7 +102,7 @@ int parse_int (const char **c, const int N, const int strict) {
 int parse_alphanum(const char **c, const char **strings, const int strings_len, const char ignore_case){
 
   // tracking array: all valid objects are marked with 1, invalid with 0
-  int *track = (int *)R_alloc(strings_len, sizeof(int));
+  bool *track = (bool *)R_alloc(strings_len, sizeof(bool));
   for (int i = 0; i < strings_len; i++){
     track[i] = 1;
   }
