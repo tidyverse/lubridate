@@ -23,6 +23,7 @@
 #include "constants.h"
 #include "utils.h"
 #include <stdio.h>
+#include <stdbool.h> // for bool type
 #include <ctype.h>
 #include <Rinternals.h>
 
