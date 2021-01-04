@@ -23,7 +23,9 @@
 #include "constants.h"
 #include "utils.h"
 #include <stdio.h>
+#include <stdbool.h> // for bool type
 #include <ctype.h>
+#include <Rinternals.h>
 
 // return adjustment (in seconds) due to leap years
 // y: years after (positive) or before (negative) 2000-01-01 00:00:00
@@ -101,7 +103,7 @@ int parse_int (const char **c, const int N, const int strict) {
 int parse_alphanum(const char **c, const char **strings, const int strings_len, const char ignore_case){
 
   // tracking array: all valid objects are marked with 1, invalid with 0
-  int track[strings_len];
+  bool *track = (bool *)R_alloc(strings_len, sizeof(bool));
   for (int i = 0; i < strings_len; i++){
     track[i] = 1;
   }
