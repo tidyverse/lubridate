@@ -125,6 +125,7 @@ Collate:
     'pretty.r'
     'round.r'
     'stamp.r'
+    'tzdir.R'
     'update.r'
     'vctrs.R'
     'zzz.R'

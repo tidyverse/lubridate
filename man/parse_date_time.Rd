@@ -98,9 +98,10 @@ present in the training set.}
 otherwise. For compatibility with \code{\link[base:strptime]{base::strptime()}} the default is \code{TRUE}
 for \code{fast_strptime()} and \code{FALSE} for \code{parse_date_time2()}.}
 
-\item{cutoff_2000}{integer. For \code{y} format,  two-digit numbers smaller or equal to
-\code{cutoff_2000} are parsed as 20th's century, 19th's otherwise. Available only
-for functions relying on \code{lubridate}s internal parser.}
+\item{cutoff_2000}{integer. For \code{y} format,  two-digit numbers smaller or equal
+to \code{cutoff_2000} are parsed as though starting with \code{20}, otherwise parsed
+as though starting with \code{19}. Available only for functions relying on
+\code{lubridate}s internal parser.}
 
 \item{format}{a vector of formats. If multiple formats supplied they are
 applied in turn till success. The formats should include all the
