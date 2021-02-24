@@ -7,6 +7,7 @@ Version 1.7.9.2.9000
 
 ### BUG FIXES
 
+* [#926](https://github.com/tidyverse/lubridate/issues/926) Fix incorrect division of intervals by months involving leap years
 * Fix incorrect skipping of digits during parsing of the `%z` format
 
 Version 1.7.9.2

@@ -14,6 +14,12 @@ test_that("division operations work for interval numerator", {
   expect_equal(int_start(int) + ddays(int/ddays(1)), int_end(int))
   expect_equal(int/smaller_diff, 28684800/8640000)
   expect_equal(int/bigger_diff, 28684800/34560000)
+
+  # #926
+  int1 <- interval(ymd('2017-01-29') + years(1:3), ymd('2019-01-30'))
+  int2 <- interval(ymd('2018-01-29') + years(1:3), ymd('2020-01-30'))
+  expect_equal(int1/months(1), c(12.033333333, 0.0333333333, -11.9666666))
+  expect_equal(int2/months(1), c(12.032258064, 0.0322580645, -11.9677419))
 })
 
 test_that("division works for interval numerator with vectors", {
@@ -33,8 +39,8 @@ test_that("division works for interval numerator with vectors", {
 })
 
 test_that("arguments are recycled in interval division", {
-expect_equal(interval(c('2015-03-01', '2015-03-02', '2015-03-03'), '2016-10-01') / months(1),
-             c(19.00000000, 18.96666667, 18.93333333))
+expect_equal(interval(c('2015-03-01', '2000-03-02', '2015-03-02', '2015-03-03'), '2016-10-01')/months(1),
+             c(19.00000000, 198.96666667, 18.96666667, 18.93333333))
 expect_equal(interval(c('2015-03-01', '2015-03-02', '2015-03-03', '2015-03-04'), '2016-10-01') / months(1:2),
              interval(c('2015-03-01', '2015-03-02', '2015-03-03', '2015-03-04'), '2016-10-01') / months(c(1:2, 1:2)))
 expect_equal(interval('2015-03-02', '2016-10-01') / months(1:3),

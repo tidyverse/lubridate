@@ -27,15 +27,15 @@ adjust_estimate <- function(est, int, per) {
 
   up_date <- add_with_rollback(start, est * per)
   while (length(which <- which(up_date < end))) {
-    up_date[which] <- add_with_rollback(up_date[which], per[which])
     est[which] <- est[which] + 1
+    up_date[which] <- add_with_rollback(up_date[which], est[which]*per[which])
   }
 
-  low_date <- up_date ## add_with_rollback(up_date, -per)
+  low_date <- up_date
   while (length(which <- which(low_date > end))) {
-    up_date[which] <- low_date[which]
-    low_date[which] <- add_with_rollback(low_date[which], -per[which])
     est[which] <- est[which] - 1
+    up_date[which] <- low_date[which]
+    low_date[which] <- add_with_rollback(start[which], est[which]*per[which])
   }
 
   frac <-
