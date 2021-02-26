@@ -1,7 +1,7 @@
 Type: Package
 Package: lubridate
 Title: Make Dealing with Dates a Little Easier
-Version: 1.7.9.2
+Version: 1.7.10
 Authors@R:
     c(person(given = "Vitalie",
              family = "Spinu",
