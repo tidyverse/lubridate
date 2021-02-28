@@ -56,7 +56,7 @@ quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = type == "
         add_with_rollback(quarter_starting_dates, months(3)) - days(1)
       }
     },
-    stop("Unsuported type ", unit)
+    stop("Unsuported type ", type)
   )
 }
 
