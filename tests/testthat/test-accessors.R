@@ -229,23 +229,53 @@ test_that("quarters accessor extracts correct quarter", {
   poslt <- as.POSIXlt(posct)
   date <- as.Date(poslt)
 
-  expect_equal(quarter(poslt), 4)
-  expect_equal(quarter(poslt, with_year = TRUE), 2010.4)
-  expect_equal(quarter(poslt, fiscal_start = 11), 1)
-  expect_equal(quarter(poslt, with_year = TRUE, fiscal_start = -2), 2011.1)
-  expect_equal(quarter(poslt, with_year = TRUE, fiscal_start = 11), 2011.1)
-
   expect_equal(quarter(posct), 4)
+  expect_equal(quarter(posct, type = "quarter"), 4)
+  expect_equal(quarter(posct, type = "quarter_year"), 2010.4)
+  expect_equal(quarter(posct, type = "date_first"), ymd("2010-10-01"))
+  expect_equal(quarter(posct, type = "date_last"), ymd("2010-21-31"))
   expect_equal(quarter(posct, with_year = TRUE), 2010.4)
   expect_equal(quarter(posct, fiscal_start = 11), 1)
-  expect_equal(quarter(posct, with_year = TRUE, fiscal_start = -2), 2011.1)
-  expect_equal(quarter(posct, with_year = TRUE, fiscal_start = 11), 2011.1)
+  expect_equal(quarter(posct, fiscal_start = -2), 1)
+  ## NOTE: Previously, the tests below looked for `2011.1`. But should they
+  ## actually begin with 2010 as that's the year during which the first quarter begins?
+  expect_equal(quarter(posct, type = "quarter_year", fiscal_start = -2), 2010.1)
+  expect_equal(quarter(posct, type = "quarter_year", fiscal_start = 11), 2010.1)
+  expect_equal(quarter(posct, type = "date_first", fiscal_start = 11), ymd("2010-11-01"))
+  expect_equal(quarter(posct, type = "date_last", fiscal_start = 11), ymd("2011-01-31"))
+
+  expect_equal(quarter(poslt), 4)
+  expect_equal(quarter(poslt, type = "quarter"), 4)
+  expect_equal(quarter(poslt, type = "quarter_year"), 2010.4)
+  expect_equal(quarter(poslt, type = "date_first"), ymd("2010-10-01"))
+  expect_equal(quarter(poslt, type = "date_last"), ymd("2010-21-31"))
+  expect_equal(quarter(poslt, with_year = TRUE), 2010.4)
+  expect_equal(quarter(poslt, fiscal_start = 11), 1)
+  expect_equal(quarter(poslt, fiscal_start = -2), 1)
+  ## NOTE: Previously, the tests below looked for `2011.1`. But should they
+  ## actually begin with 2010 as that's the year during which the first quarter begins?
+  expect_equal(quarter(poslt, type = "quarter_year", fiscal_start = -2), 2010.1)
+  expect_equal(quarter(poslt, type = "quarter_year", fiscal_start = 11), 2010.1)
+  expect_equal(quarter(poslt, type = "date_first", fiscal_start = 11), ymd("2010-11-01"))
+  expect_equal(quarter(poslt, type = "date_last", fiscal_start = 11), ymd("2011-01-31"))
 
   expect_equal(quarter(date), 4)
+  expect_equal(quarter(date, type = "quarter"), 4)
+  expect_equal(quarter(date, type = "quarter_year"), 2010.4)
+  expect_equal(quarter(date, type = "date_first"), ymd("2010-10-01"))
+  expect_equal(quarter(date, type = "date_last"), ymd("2010-21-31"))
   expect_equal(quarter(date, with_year = TRUE), 2010.4)
   expect_equal(quarter(date, fiscal_start = 11), 1)
-  expect_equal(quarter(date, with_year = TRUE, fiscal_start = -2), 2011.1)
-  expect_equal(quarter(date, with_year = TRUE, fiscal_start = 11), 2011.1)
+  expect_equal(quarter(date, fiscal_start = -2), 1)
+  ## NOTE: Previously, the tests below looked for `2011.1`. But should they
+  ## actually begin with 2010 as that's the year during which the first quarter begins?
+  expect_equal(quarter(date, type = "quarter_year", fiscal_start = -2), 2010.1)
+  expect_equal(quarter(date, type = "quarter_year", fiscal_start = 11), 2010.1)
+  expect_equal(quarter(date, type = "date_first", fiscal_start = 11), ymd("2010-11-01"))
+  expect_equal(quarter(date, type = "date_last", fiscal_start = 11), ymd("2011-01-31"))
+
+  # TODO:
+  # rewrite tests below
 
   x <- ymd(c("2012-03-01", "2012-03-26", "2012-05-04", "2012-09-23", "2012-12-31"))
   expect_equal(quarter(x, with_year = TRUE, fiscal_start = 4),
