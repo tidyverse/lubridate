@@ -64,6 +64,11 @@ jobs:
           key: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
           restore-keys: ${{ matrix.config.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-
 
+      - name: Install test desps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install language-pack-fr
+
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
