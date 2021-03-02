@@ -42,8 +42,8 @@ quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = type == "
   switch(type,
     "quarter" = q,
     "quarter_year" = {
-      first_quarter_month <- ifelse(fs != 0, fs + 1, 0)
-      year(x) - (m < first_quarter_month) + (q / 10)
+      this_year <- if (fs != 0) (fs + 1):12
+      year(x) + (m %in% this_year) + (q / 10)
     },
     "date_first" = ,
     "date_last" = {
