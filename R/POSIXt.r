@@ -40,10 +40,19 @@ POSIXct <- function(length = 0L, tz = "UTC") {
 #' @export
 NA_POSIXct_ <- .POSIXct(NA_real_, tz = "UTC")
 
+.recursive_posixct_unclass <- function(x, tz = "UTC") {
+  if (is.recursive(x))
+    lapply(x, .recursive_posixct_unclass, tz = tz)
+  else
+    as_datetime(x, tz = tz)
+}
+
 #' @method c POSIXct
 c.POSIXct <- function(..., recursive = FALSE) {
   dots <- list(...)
-  .POSIXct(c(unlist(lapply(dots, unclass))), tz = tz(dots[[1]]))
+  tz <- tz(dots[[1]])
+  .POSIXct(c(unlist(lapply(dots, .recursive_posixct_unclass, tz = tz))),
+           tz = tz)
 }
 
 #' @method c POSIXlt

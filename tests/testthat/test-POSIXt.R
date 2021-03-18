@@ -18,6 +18,26 @@ test_that("is.POSIXt handles vectors", {
     as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
 })
 
+test_that("c.POSIXct deals correctly with heterogeneous date-time classes", {
+  d <- make_date(2000, 1, 1)
+  dt <- make_datetime(2000, 1, 1, tz = "Europe/Berlin")
+  expect_equal(c(dt, d), make_datetime(c(2000, 2000), 1, 1, tz = "Europe/Berlin"))
+  expect_equal(c(dt, list(d)), make_datetime(c(2000, 2000), 1, 1, tz = "Europe/Berlin"))
+  expect_equal(c(dt, list(d, list(d))), make_datetime(c(2000, 2000, 2000), 1, 1, tz = "Europe/Berlin"))
+  dt <- make_datetime(2000, 1, 1, tz = "UTC")
+  expect_equal(c(dt, d), make_datetime(c(2000, 2000), 1, 1, tz = "UTC"))
+})
+
+test_that("c.Date deals correctly with heterogeneous date-time classes", {
+  d <- make_date(2000, 1, 1)
+  dt <- make_datetime(2000, 1, 1, tz = "Europe/Berlin")
+  expect_equal(c(d, dt), make_date(c(2000, 2000), 1, 1))
+  expect_equal(c(d, list(dt)), make_date(c(2000, 2000), 1, 1))
+  expect_equal(c(d, list(dt, list(dt))), make_date(c(2000, 2000, 2000), 1, 1))
+  dt <- make_datetime(2000, 1, 1, tz = "UTC")
+  expect_equal(c(d, list(dt)), make_date(c(2000, 2000), 1, 1))
+})
+
 # as_datetime -------------------------------------------------------------
 
 test_that("converts numeric", {

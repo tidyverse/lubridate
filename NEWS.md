@@ -1,3 +1,14 @@
+Version 1.7.10.9000 (dev)
+===================
+
+### NEW FEATURES
+
+* [#960](https://github.com/tidyverse/lubridate/issues/960) `c.POSIXct` and `c.Date` can deal with heterogeneous object types (e.g `c(date, datetime)` works as expected)
+
+### BUG FIXES
+
+* `as_datetime(date, tz=XYZ)` returns the date-time object with HMS set to 00:00:00 in the corresponding `tz`
+
 Version 1.7.10
 ==============
 
