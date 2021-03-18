@@ -34,6 +34,14 @@ test_that("converts date", {
   expect_equal(unclass(dt)[[1]], 0)
 })
 
+test_that("as_datetime.Date respects tz and sets HMS to 00:00:00", {
+  d <- ymd(c("2000-01-01", "2020-10-10"))
+  expect_equal(as_datetime(d, tz = "Europe/Berlin"),
+               ymd(c("2000-01-01", "2020-10-10"), tz = "Europe/Berlin"))
+  expect_equal(as_datetime(d),
+               ymd(c("2000-01-01", "2020-10-10"), tz = "UTC"))
+})
+
 test_that("converts character", {
   chars <- c("2017-03-22T15:48:00.000Z", "2017-03-01 0:0:0", "2017-03-01 0:0:0.23", "2017-03-01 0:0:0.23")
   dt <- as_datetime(chars)
