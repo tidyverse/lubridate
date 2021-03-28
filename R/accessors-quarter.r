@@ -9,25 +9,27 @@ NULL
 #'   yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or
 #'   anything else that can be converted with as.POSIXlt
 #' @param type the format to be returned for the quarter. Can be one one of
-#'   "quarter" (default) or "quarter_year", which will return the numeric quarter with or
-#'   without a prepended year, or "date_first" or "date_last", which return the
-#'   dates starting or ending each quarter.
+#'   "quarter" - return numeric quarter (default), "year.quarter" return
+#'   fractional numeric year.quarter, "date_first" or "date_last" which return
+#'   the date at the quarter's start end end.
 #' @param fiscal_start numeric indicating the starting month of a fiscal year.
 #' @param with_year logical indicating whether or not to include the quarter or
-#'   semester's year. Soft-deprecated; use the `type` parameter instead.
-#' @return numeric or a vector of class POSIXct if `type` argument is `date_first`
-#'   or `date_last`
+#'   semester's year (deprecated; use the `type` parameter instead).
+#' @return numeric or a vector of class POSIXct if `type` argument is
+#'   `date_first` or `date_last`
 #' @examples
 #' x <- ymd(c("2012-03-26", "2012-05-04", "2012-09-23", "2012-12-31"))
 #' quarter(x)
-#' quarter(x, type = "quarter_year")
-#' quarter(x, type = "quarter_year", fiscal_start = 11)
+#' quarter(x, type = "year.quarter")
+#' quarter(x, type = "year.quarter", fiscal_start = 11)
 #' quarter(x, type = "date_first", fiscal_start = 11)
 #' quarter(x, type = "date_last", fiscal_start = 11)
 #' semester(x)
 #' semester(x, with_year = TRUE)
 #' @export
-quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = type == "quarter_year") {
+quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = identical(type, "year.quarter")) {
+  if (length(fiscal_start) > 1)
+    stop("`fiscal_start` must be a singleton", call. = FALSE)
   fs <- (fiscal_start - 1) %% 12
   shifted <- seq(fs, 11 + fs) %% 12 + 1
   m <- month(x)
@@ -37,19 +39,23 @@ quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = type == "
 
   ## Doing this to handle positional calls where previously `with_year` was the
   ## second param, and also now to handle soft-deprecation of `with_year`.
-  if (type == TRUE | with_year == TRUE) type <- "quarter_year"
+  if (is.logical(type))
+    type <- if (type) "year.quarter" else "quarter"
+  if (with_year == TRUE)
+    type <- "year.quarter"
 
   switch(type,
     "quarter" = q,
-    "quarter_year" = {
-      this_year <- if (fs != 0) (fs + 1):12
-      year(x) + (m %in% this_year) + (q / 10)
+    "year.quarter" = {
+      nxt_year_months <- if (fs != 0) (fs + 1):12
+      year(x) + (m %in% nxt_year_months) + (q / 10)
     },
     "date_first" = ,
     "date_last" = {
       starting_months <- shifted[seq(1, length(shifted), 3)]
       final_years <- year(x) - (starting_months[q] > m)
-      quarter_starting_dates <- make_date(year = final_years, month = starting_months[q], day = 1L)
+      quarter_starting_dates <-
+        make_date(year = final_years, month = starting_months[q], day = 1L)
       if (type == 'date_first') {
         quarter_starting_dates
       } else if (type == 'date_last') {

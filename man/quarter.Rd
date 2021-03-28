@@ -9,7 +9,7 @@ quarter(
   x,
   type = "quarter",
   fiscal_start = 1,
-  with_year = type == "quarter_year"
+  with_year = identical(type, "year.quarter")
 )
 
 semester(x, with_year = FALSE)
@@ -20,18 +20,18 @@ yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or
 anything else that can be converted with as.POSIXlt}
 
 \item{type}{the format to be returned for the quarter. Can be one one of
-"quarter" (default) or "quarter_year", which will return the numeric quarter with or
-without a prepended year, or "date_first" or "date_last", which return the
-dates starting or ending each quarter.}
+"quarter" - return numeric quarter (default), "year.quarter" return
+fractional numeric year.quarter, "date_first" or "date_last" which return
+the date at the quarter's start end end.}
 
 \item{fiscal_start}{numeric indicating the starting month of a fiscal year.}
 
 \item{with_year}{logical indicating whether or not to include the quarter or
-semester's year. Soft-deprecated; use the \code{type} parameter instead.}
+semester's year (deprecated; use the \code{type} parameter instead).}
 }
 \value{
-numeric or a vector of class POSIXct if \code{type} argument is \code{date_first}
-or \code{date_last}
+numeric or a vector of class POSIXct if \code{type} argument is
+\code{date_first} or \code{date_last}
 }
 \description{
 Quarters divide the year into fourths. Semesters divide the year into halfs.
@@ -39,8 +39,8 @@ Quarters divide the year into fourths. Semesters divide the year into halfs.
 \examples{
 x <- ymd(c("2012-03-26", "2012-05-04", "2012-09-23", "2012-12-31"))
 quarter(x)
-quarter(x, type = "quarter_year")
-quarter(x, type = "quarter_year", fiscal_start = 11)
+quarter(x, type = "year.quarter")
+quarter(x, type = "year.quarter", fiscal_start = 11)
 quarter(x, type = "date_first", fiscal_start = 11)
 quarter(x, type = "date_last", fiscal_start = 11)
 semester(x)

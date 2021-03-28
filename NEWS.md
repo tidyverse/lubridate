@@ -14,6 +14,7 @@ Version 1.7.10
 
 ### NEW FEATURES
 
+* [#955](https://github.com/tidyverse/lubridate/pull/955) Add `type` argument to `quarter()` for more control over the returned class
 * `fast_strptime()` and `parse_date_time2()` now accept multiple formats and apply them in turn
 
 ### BUG FIXES
