@@ -36,7 +36,8 @@ NA_Date_ <- structure(NA_real_, class = "Date")
 
 #' @method c Date
 c.Date <- function(..., recursive = FALSE) {
-  .Date(c(unlist(lapply(list(...), .recursive_date_unclass))))
+  structure(c(unlist(lapply(list(...), .recursive_date_unclass))),
+            class = "Date")
 }
 
 evalqOnLoad({
