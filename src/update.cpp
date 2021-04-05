@@ -77,7 +77,7 @@ const char* get_current_tz() {
   origin.attr("class") = Rcpp::CharacterVector::create("POSIXct", "POSIXt");
   Rcpp::Environment base = Rcpp::Environment::base_namespace();
   Rcpp::Function as_posixlt(base["as.POSIXlt.POSIXct"]);
-  return tz_from_R_tzone(as_posixlt(origin));
+  return tz_from_tzone_attr(as_posixlt(origin));
 }
 
 const char* get_system_tz() {
