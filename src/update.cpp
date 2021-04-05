@@ -130,8 +130,10 @@ bool load_tz(std::string tzstr, cctz::time_zone& tz) {
 }
 
 [[cpp11::register]]
-Rcpp::CharacterVector C_local_tz() {
-    return Rf_mkString(local_tz());
+cpp11::writable::strings C_local_tz() {
+  const char* tz = local_tz();
+  cpp11::writable::strings out({tz});
+  return out;
 }
 
 [[cpp11::register]]

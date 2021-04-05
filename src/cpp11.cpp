@@ -7,7 +7,7 @@ using namespace Rcpp;
 #include "cpp11/declarations.hpp"
 
 // update.cpp
-Rcpp::CharacterVector C_local_tz();
+cpp11::writable::strings C_local_tz();
 extern "C" SEXP _lubridate_C_local_tz() {
   BEGIN_CPP11
     return cpp11::as_sexp(C_local_tz());
