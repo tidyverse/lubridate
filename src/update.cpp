@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include "cctz/civil_time.h"
 #include "cctz/time_zone.h"
+#include <cpp11.hpp>
 #include "utils.h"
 #include <Rcpp.h>
 
@@ -73,10 +74,10 @@ const char* tz_from_tzone_attr(SEXP x){
 
 const char* get_current_tz() {
   // ugly workaround to get local time zone (abbreviation) as seen by R (not used)
-  Rcpp::NumericVector origin = Rcpp::NumericVector::create(0);
-  origin.attr("class") = Rcpp::CharacterVector::create("POSIXct", "POSIXt");
-  Rcpp::Environment base = Rcpp::Environment::base_namespace();
-  Rcpp::Function as_posixlt(base["as.POSIXlt.POSIXct"]);
+  cpp11::writable::doubles origin(1);
+  origin[0] = 0;
+  origin.attr("class") = {"POSIXct", "POSIXt"};
+  auto as_posixlt = cpp11::package("base")["as.POSIXlt.POSIXct"];
   return tz_from_tzone_attr(as_posixlt(origin));
 }
 
