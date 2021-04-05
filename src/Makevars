@@ -14,7 +14,7 @@ CCTZ_OBJECTS = ./cctz/src/time_zone_fixed.o \
 
 $(SHLIB): libcctz.a
 
-OBJECTS = RcppExports.o update.o utils.o datetime.o period.o tparse.o
+OBJECTS = cpp11.o update.o utils.o datetime.o period.o tparse.o
 $(OBJECTS): libcctz.a
 
 libcctz.a: $(CCTZ_OBJECTS)

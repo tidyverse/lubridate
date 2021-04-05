@@ -129,12 +129,12 @@ bool load_tz(std::string tzstr, cctz::time_zone& tz) {
   }
 }
 
-// [[Rcpp::export]]
+[[cpp11::register]]
 Rcpp::CharacterVector C_local_tz() {
     return Rf_mkString(local_tz());
 }
 
-// [[Rcpp::export]]
+[[cpp11::register]]
 Rcpp::LogicalVector C_valid_tz(const Rcpp::CharacterVector& tz_name) {
   cctz::time_zone tz;
   std::string tzstr(tz_name[0]);
@@ -185,7 +185,7 @@ double get_secs_from_civil_lookup(const cctz::time_zone::civil_lookup& cl_new, /
   return tp_new.time_since_epoch().count() + remainder;
 }
 
-// [[Rcpp::export]]
+[[cpp11::register]]
 Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
                                     const Rcpp::IntegerVector& year,
                                     const Rcpp::IntegerVector& month,
@@ -195,9 +195,9 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
                                     const Rcpp::IntegerVector& hour,
                                     const Rcpp::IntegerVector& minute,
                                     const Rcpp::NumericVector& second,
-                                    const SEXP tz = R_NilValue,
-                                    const bool roll = false,
-                                    const int week_start = 7) {
+                                    const SEXP tz,
+                                    const bool roll,
+                                    const int week_start) {
 
   if (dt.size() == 0) return(Rcpp::newDatetimeVector(dt));
 
@@ -323,10 +323,10 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
 
 }
 
-// [[Rcpp::export]]
+[[cpp11::register]]
 Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
                                    const Rcpp::CharacterVector tz,
-                                   const bool roll = false) {
+                                   const bool roll) {
   // roll: logical, if `true`, and `time` falls into the DST-break, assume the
   // next valid civil time, otherwise return NA
 
@@ -362,11 +362,11 @@ Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
 }
 
 
-// [[Rcpp::export]]
+[[cpp11::register]]
 Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
                                     const Rcpp::CharacterVector tzs,
                                     const Rcpp::CharacterVector tz_out,
-                                    const bool roll = false) {
+                                    const bool roll) {
   // roll: logical, if `true`, and `time` falls into the DST-break, assume the
   // next valid civil time, otherwise return NA
 
@@ -410,7 +410,7 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
   return Rcpp::newDatetimeVector(out, tzout_name.c_str());
 }
 
-// [[Rcpp::export]]
+[[cpp11::register]]
 Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt,
                                  const Rcpp::CharacterVector tzs) {
 

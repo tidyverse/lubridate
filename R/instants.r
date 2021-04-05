@@ -101,10 +101,20 @@ make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0
     .POSIXct(numeric(), tz = tz)
   } else {
     N <- max(lengths)
-    C_update_dt(.rep_maybe(origin, N), year = .rep_maybe(year, N), month = .rep_maybe(month, N),
-                yday = integer(), mday = .rep_maybe(day, N), wday = integer(),
-                hour = .rep_maybe(hour, N), minute = .rep_maybe(min, N),
-                second = .rep_maybe(sec, N), tz = tz)
+    C_update_dt(
+      dt = .rep_maybe(origin, N),
+      year = .rep_maybe(year, N),
+      month = .rep_maybe(month, N),
+      yday = integer(),
+      mday = .rep_maybe(day, N),
+      wday = integer(),
+      hour = .rep_maybe(hour, N),
+      minute = .rep_maybe(min, N),
+      second = .rep_maybe(sec, N),
+      tz = tz,
+      roll = FALSE,
+      week_start = 7L
+    )
   }
 }
 
