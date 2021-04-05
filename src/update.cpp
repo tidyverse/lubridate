@@ -145,7 +145,7 @@ bool C_valid_tz(const cpp11::strings& tz_name) {
 
 void load_tz_or_fail(std::string tzstr, cctz::time_zone& tz, std::string error_msg) {
   if (!load_tz(tzstr, tz)) {
-    Rcpp::stop(error_msg.c_str(), tzstr);
+    cpp11::stop(error_msg.c_str(), tzstr.c_str());
   }
 }
 
