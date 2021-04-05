@@ -57,7 +57,7 @@ const char* tz_from_R_tzone(SEXP tz) {
     return "";
   } else {
     if (!Rf_isString(tz))
-      Rf_error("'tz' is not a character vector");
+      cpp11::stop("'tz' is not a character vector");
     const char* tz0 = CHAR(STRING_ELT(tz, 0));
     if (strlen(tz0) == 0) {
       if (LENGTH(tz) > 1) {
