@@ -101,7 +101,7 @@ make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0
     .POSIXct(numeric(), tz = tz)
   } else {
     N <- max(lengths)
-    C_update_dt(
+    cpp_update_dt(
       dt = .rep_maybe(origin, N),
       year = .rep_maybe(year, N),
       month = .rep_maybe(month, N),

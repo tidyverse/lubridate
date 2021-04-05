@@ -103,6 +103,7 @@ Collate:
     'numeric.r'
     'coercion.r'
     'constants.r'
+    'cpp11-wrappers.R'
     'cpp11.R'
     'cyclic_encoding.r'
     'data.r'

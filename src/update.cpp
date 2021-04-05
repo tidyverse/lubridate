@@ -187,21 +187,33 @@ double get_secs_from_civil_lookup(const cctz::time_zone::civil_lookup& cl_new, /
   return tp_new.time_since_epoch().count() + remainder;
 }
 
-[[cpp11::register]]
-Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
-                                    const Rcpp::IntegerVector& year,
-                                    const Rcpp::IntegerVector& month,
-                                    const Rcpp::IntegerVector& yday,
-                                    const Rcpp::IntegerVector& mday,
-                                    const Rcpp::IntegerVector& wday,
-                                    const Rcpp::IntegerVector& hour,
-                                    const Rcpp::IntegerVector& minute,
-                                    const Rcpp::NumericVector& second,
-                                    const SEXP tz,
-                                    const bool roll,
-                                    const int week_start) {
+static inline void init_posixct(cpp11::writable::doubles& x, const char* tz) {
+  x.attr("class") = {"POSIXct", "POSIXt"};
+  x.attr("tzone") = tz;
+}
 
-  if (dt.size() == 0) return(Rcpp::newDatetimeVector(dt));
+[[cpp11::register]]
+cpp11::writable::doubles C_update_dt(const cpp11::doubles& dt,
+                                     const cpp11::integers& year,
+                                     const cpp11::integers& month,
+                                     const cpp11::integers& yday,
+                                     const cpp11::integers& mday,
+                                     const cpp11::integers& wday,
+                                     const cpp11::integers& hour,
+                                     const cpp11::integers& minute,
+                                     const cpp11::doubles& second,
+                                     const SEXP tz,
+                                     const bool roll,
+                                     const int week_start) {
+
+  if (dt.size() == 0) {
+    // TODO: Why does time zone comes from `dt` and not `tz`?
+    const char* dt_tz = tz_from_tzone_attr(dt);
+    const R_xlen_t out_size = 0;
+    cpp11::writable::doubles out(out_size);
+    init_posixct(out, dt_tz);
+    return out;
+  }
 
   std::vector<R_xlen_t> sizes
                         {year.size(), month.size(), yday.size(), mday.size(),
@@ -219,20 +231,20 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
     loop_hour = sizes[5] == N, loop_minute = sizes[6] == N, loop_second = sizes[7] == N,
     loop_dt = dt.size() == N;
 
-  if (sizes[0] > 1 && !loop_year) Rcpp::stop("C_update_dt: Invalid size of 'year' vector");
-  if (sizes[1] > 1 && !loop_month) Rcpp::stop("C_update_dt: Invalid size of 'month' vector");
-  if (sizes[2] > 1 && !loop_yday) Rcpp::stop("C_update_dt: Invalid size of 'yday' vector");
-  if (sizes[3] > 1 && !loop_mday) Rcpp::stop("C_update_dt: Invalid size of 'mday' vector");
-  if (sizes[4] > 1 && !loop_wday) Rcpp::stop("C_update_dt: Invalid size of 'wday' vector");
-  if (sizes[5] > 1 && !loop_hour) Rcpp::stop("C_update_dt: Invalid size of 'hour' vector");
-  if (sizes[6] > 1 && !loop_minute) Rcpp::stop("C_update_dt: Invalid size of 'minute' vector");
-  if (sizes[7] > 1 && !loop_second) Rcpp::stop("C_update_dt: Invalid size of 'second' vector");
+  if (sizes[0] > 1 && !loop_year) cpp11::stop("C_update_dt: Invalid size of 'year' vector");
+  if (sizes[1] > 1 && !loop_month) cpp11::stop("C_update_dt: Invalid size of 'month' vector");
+  if (sizes[2] > 1 && !loop_yday) cpp11::stop("C_update_dt: Invalid size of 'yday' vector");
+  if (sizes[3] > 1 && !loop_mday) cpp11::stop("C_update_dt: Invalid size of 'mday' vector");
+  if (sizes[4] > 1 && !loop_wday) cpp11::stop("C_update_dt: Invalid size of 'wday' vector");
+  if (sizes[5] > 1 && !loop_hour) cpp11::stop("C_update_dt: Invalid size of 'hour' vector");
+  if (sizes[6] > 1 && !loop_minute) cpp11::stop("C_update_dt: Invalid size of 'minute' vector");
+  if (sizes[7] > 1 && !loop_second) cpp11::stop("C_update_dt: Invalid size of 'second' vector");
 
   if (dt.size() > 1 && !loop_dt)
-    Rcpp::stop("C_update_dt: length of dt vector must be 1 or match the length of updating vectors");
+    cpp11::stop("C_update_dt: length of dt vector must be 1 or match the length of updating vectors");
 
   if (do_yday + do_mday + do_wday > 1)
-    Rcpp::stop("Conflicting days input, only one of yday, mday and wday must be supplied");
+    cpp11::stop("Conflicting days input, only one of yday, mday and wday must be supplied");
 
   std::string tzfrom = tz_from_tzone_attr(dt);
   cctz::time_zone tzone1;
@@ -247,7 +259,8 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   }
   load_tz_or_fail(tzto, tzone2, "CCTZ: Unrecognized tzone: \"%s\"");
 
-  Rcpp::NumericVector out(N);
+  cpp11::writable::doubles out(N);
+  init_posixct(out, tzto.c_str());
 
   // all vectors are either size N or 1
   for (R_xlen_t i = 0; i < N; i++)
@@ -321,7 +334,7 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
 
     }
 
-  return Rcpp::newDatetimeVector(out, tzto.c_str());
+  return out;
 
 }
 

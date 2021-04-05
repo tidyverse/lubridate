@@ -21,10 +21,10 @@ extern "C" SEXP _lubridate_C_valid_tz(SEXP tz_name) {
   END_CPP11
 }
 // update.cpp
-Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt, const Rcpp::IntegerVector& year, const Rcpp::IntegerVector& month, const Rcpp::IntegerVector& yday, const Rcpp::IntegerVector& mday, const Rcpp::IntegerVector& wday, const Rcpp::IntegerVector& hour, const Rcpp::IntegerVector& minute, const Rcpp::NumericVector& second, const SEXP tz, const bool roll, const int week_start);
+cpp11::writable::doubles C_update_dt(const cpp11::doubles& dt, const cpp11::integers& year, const cpp11::integers& month, const cpp11::integers& yday, const cpp11::integers& mday, const cpp11::integers& wday, const cpp11::integers& hour, const cpp11::integers& minute, const cpp11::doubles& second, const SEXP tz, const bool roll, const int week_start);
 extern "C" SEXP _lubridate_C_update_dt(SEXP dt, SEXP year, SEXP month, SEXP yday, SEXP mday, SEXP wday, SEXP hour, SEXP minute, SEXP second, SEXP tz, SEXP roll, SEXP week_start) {
   BEGIN_CPP11
-    return cpp11::as_sexp(C_update_dt(cpp11::as_cpp<cpp11::decay_t<const Rcpp::NumericVector&>>(dt), cpp11::as_cpp<cpp11::decay_t<const Rcpp::IntegerVector&>>(year), cpp11::as_cpp<cpp11::decay_t<const Rcpp::IntegerVector&>>(month), cpp11::as_cpp<cpp11::decay_t<const Rcpp::IntegerVector&>>(yday), cpp11::as_cpp<cpp11::decay_t<const Rcpp::IntegerVector&>>(mday), cpp11::as_cpp<cpp11::decay_t<const Rcpp::IntegerVector&>>(wday), cpp11::as_cpp<cpp11::decay_t<const Rcpp::IntegerVector&>>(hour), cpp11::as_cpp<cpp11::decay_t<const Rcpp::IntegerVector&>>(minute), cpp11::as_cpp<cpp11::decay_t<const Rcpp::NumericVector&>>(second), cpp11::as_cpp<cpp11::decay_t<const SEXP>>(tz), cpp11::as_cpp<cpp11::decay_t<const bool>>(roll), cpp11::as_cpp<cpp11::decay_t<const int>>(week_start)));
+    return cpp11::as_sexp(C_update_dt(cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(dt), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(year), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(month), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(yday), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(mday), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(wday), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(hour), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(minute), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(second), cpp11::as_cpp<cpp11::decay_t<const SEXP>>(tz), cpp11::as_cpp<cpp11::decay_t<const bool>>(roll), cpp11::as_cpp<cpp11::decay_t<const int>>(week_start)));
   END_CPP11
 }
 // update.cpp
