@@ -102,7 +102,7 @@ const char* local_tz() {
     // FIXME:
     // if set but empty, it's system specific ...
     // Is there a way way to get TZ name as R sees it?
-    Rf_warning("Environment variable TZ is set to \"\". Things might break.");
+    cpp11::warning("Environment variable TZ is set to \"\". Things might break.");
     return get_current_tz();
   }
   else {
