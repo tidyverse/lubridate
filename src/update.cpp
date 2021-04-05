@@ -82,11 +82,10 @@ const char* get_current_tz() {
 }
 
 const char* get_system_tz() {
-  Rcpp::Environment base = Rcpp::Environment::base_namespace();
-  Rcpp::Function sys_timezone(base["Sys.timezone"]);
+  auto sys_timezone = cpp11::package("base")["Sys.timezone"];
   SEXP sys_tz = STRING_ELT(sys_timezone(), 0);
   if (sys_tz == NA_STRING || strlen(CHAR(sys_tz)) == 0) {
-    Rf_warning("System timezone name is unknown. Please set environment variable TZ.");
+    cpp11::warning("System timezone name is unknown. Please set environment variable TZ.");
     return "UTC";
   } else {
     return CHAR(sys_tz);
