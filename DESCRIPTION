@@ -53,8 +53,7 @@ Depends:
     methods,
     R (>= 3.2)
 Imports:
-    generics,
-    Rcpp (>= 0.12.13)
+    generics
 Suggests:
     covr,
     knitr,
@@ -67,8 +66,7 @@ Enhances:
     tis,
     zoo
 LinkingTo:
-    cpp11,
-    Rcpp
+    cpp11
 VignetteBuilder:
     knitr
 Encoding: UTF-8

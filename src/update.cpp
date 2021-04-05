@@ -1,11 +1,11 @@
 #include <cstdint>
 #include <limits>
 #include <unordered_map>
+#include <vector>
 #include "cctz/civil_time.h"
 #include "cctz/time_zone.h"
 #include <cpp11.hpp>
 #include "utils.h"
-#include <Rcpp.h>
 
 // CIVIL TIME:
 // https://github.com/google/cctz/blob/master/include/civil_time.h
@@ -178,10 +178,10 @@ double get_secs_from_civil_lookup(const cctz::time_zone::civil_lookup& cl_new, /
     } else {
       tp_new = cl_new.pre;
     }
-    /* Rcpp::Rcout << cctz::format("tp:%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl; */
-    /* Rcpp::Rcout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl1.pre, tz1) << std::endl; */
-    /* Rcpp::Rcout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl1.trans, tz1) << std::endl; */
-    /* Rcpp::Rcout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl1.post, tz1) << std::endl; */
+    /* std::cout << cctz::format("tp:%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl; */
+    /* std::cout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl1.pre, tz1) << std::endl; */
+    /* std::cout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl1.trans, tz1) << std::endl; */
+    /* std::cout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl1.post, tz1) << std::endl; */
   }
 
   return tp_new.time_since_epoch().count() + remainder;
