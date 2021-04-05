@@ -14,10 +14,10 @@ extern "C" SEXP _lubridate_C_local_tz() {
   END_CPP11
 }
 // update.cpp
-Rcpp::LogicalVector C_valid_tz(const Rcpp::CharacterVector& tz_name);
+bool C_valid_tz(const cpp11::strings& tz_name);
 extern "C" SEXP _lubridate_C_valid_tz(SEXP tz_name) {
   BEGIN_CPP11
-    return cpp11::as_sexp(C_valid_tz(cpp11::as_cpp<cpp11::decay_t<const Rcpp::CharacterVector&>>(tz_name)));
+    return cpp11::as_sexp(C_valid_tz(cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(tz_name)));
   END_CPP11
 }
 // update.cpp

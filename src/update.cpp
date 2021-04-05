@@ -137,9 +137,9 @@ cpp11::writable::strings C_local_tz() {
 }
 
 [[cpp11::register]]
-Rcpp::LogicalVector C_valid_tz(const Rcpp::CharacterVector& tz_name) {
+bool C_valid_tz(const cpp11::strings& tz_name) {
   cctz::time_zone tz;
-  std::string tzstr(tz_name[0]);
+  std::string tzstr = tz_name[0];
   return load_tz(tzstr, tz);
 }
 
