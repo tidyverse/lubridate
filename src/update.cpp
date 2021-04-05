@@ -339,14 +339,14 @@ cpp11::writable::doubles C_update_dt(const cpp11::doubles& dt,
 }
 
 [[cpp11::register]]
-Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
-                                   const Rcpp::CharacterVector tz,
-                                   const bool roll) {
+cpp11::writable::doubles C_force_tz(const cpp11::doubles& dt,
+                                    const cpp11::strings& tz,
+                                    const bool roll) {
   // roll: logical, if `true`, and `time` falls into the DST-break, assume the
   // next valid civil time, otherwise return NA
 
   if (tz.size() != 1)
-    Rcpp::stop("`tz` argument must be a single character string");
+    cpp11::stop("`tz` argument must be a single character string");
 
   std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzto_name(tz[0]);
@@ -358,7 +358,8 @@ Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
   /* std::cout << "TZ to:" << tzto.name() << std::endl; */
 
   size_t n = dt.size();
-  Rcpp::NumericVector out(n);
+  cpp11::writable::doubles out(n);
+  init_posixct(out, tzto_name.c_str());
 
   for (size_t i = 0; i < n; i++)
     {
@@ -373,7 +374,7 @@ Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
       out[i] = get_secs_from_civil_lookup(cl2, tzfrom, tp1, ct1, roll, rem);
     }
 
-  return Rcpp::newDatetimeVector(out, tzto_name.c_str());
+  return out;
 }
 
 

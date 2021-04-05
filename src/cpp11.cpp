@@ -28,10 +28,10 @@ extern "C" SEXP _lubridate_C_update_dt(SEXP dt, SEXP year, SEXP month, SEXP yday
   END_CPP11
 }
 // update.cpp
-Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt, const Rcpp::CharacterVector tz, const bool roll);
+cpp11::writable::doubles C_force_tz(const cpp11::doubles& dt, const cpp11::strings& tz, const bool roll);
 extern "C" SEXP _lubridate_C_force_tz(SEXP dt, SEXP tz, SEXP roll) {
   BEGIN_CPP11
-    return cpp11::as_sexp(C_force_tz(cpp11::as_cpp<cpp11::decay_t<const Rcpp::NumericVector>>(dt), cpp11::as_cpp<cpp11::decay_t<const Rcpp::CharacterVector>>(tz), cpp11::as_cpp<cpp11::decay_t<const bool>>(roll)));
+    return cpp11::as_sexp(C_force_tz(cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(dt), cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(tz), cpp11::as_cpp<cpp11::decay_t<const bool>>(roll)));
   END_CPP11
 }
 // update.cpp

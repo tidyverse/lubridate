@@ -41,3 +41,19 @@ cpp_update_dt <- function(dt,
     week_start = week_start
   )
 }
+
+cpp_force_tz <- function(dt, tz, roll) {
+  # Catch rare integer POSIXct, retaining attributes
+  storage.mode(dt) <- "double"
+
+  roll <- as.logical(roll)
+
+  # Must be a character vector, never `NULL`
+  tz <- as.character(tz)
+
+  C_force_tz(
+    dt = dt,
+    tz = tz,
+    roll = roll
+  )
+}
