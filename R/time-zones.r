@@ -124,7 +124,7 @@ force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
     time <- rep_len(time, length(tzones))
     attributes(time) <- attr
   }
-  out <- C_force_tzs(as.POSIXct(time), tzones, tzone_out, roll)
+  out <- cpp_force_tzs(as.POSIXct(time), tzones, tzone_out, roll)
   reclass_date(out, time)
 }
 

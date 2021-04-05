@@ -379,18 +379,18 @@ cpp11::writable::doubles C_force_tz(const cpp11::doubles& dt,
 
 
 [[cpp11::register]]
-Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
-                                    const Rcpp::CharacterVector tzs,
-                                    const Rcpp::CharacterVector tz_out,
-                                    const bool roll) {
+cpp11::writable::doubles C_force_tzs(const cpp11::doubles& dt,
+                                     const cpp11::strings& tzs,
+                                     const cpp11::strings& tz_out,
+                                     const bool roll) {
   // roll: logical, if `true`, and `time` falls into the DST-break, assume the
   // next valid civil time, otherwise return NA
 
   if (tz_out.size() != 1)
-    Rcpp::stop("In 'tzout' argument must be of length 1");
+    cpp11::stop("In 'tzout' argument must be of length 1");
 
   if (tzs.size() != dt.size())
-    Rcpp::stop("In 'C_force_tzs' tzs and dt arguments must be of the same length");
+    cpp11::stop("In 'C_force_tzs' tzs and dt arguments must be of the same length");
 
   std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzout_name(tz_out[0]);
@@ -401,7 +401,8 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
 
   std::string tzto_old_name("not-a-tz");
   size_t n = dt.size();
-  Rcpp::NumericVector out(n);
+  cpp11::writable::doubles out(n);
+  init_posixct(out, tzout_name.c_str());
 
   for (size_t i = 0; i < n; i++)
     {
@@ -423,7 +424,7 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
 
     }
 
-  return Rcpp::newDatetimeVector(out, tzout_name.c_str());
+  return out;
 }
 
 [[cpp11::register]]

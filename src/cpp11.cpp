@@ -35,10 +35,10 @@ extern "C" SEXP _lubridate_C_force_tz(SEXP dt, SEXP tz, SEXP roll) {
   END_CPP11
 }
 // update.cpp
-Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt, const Rcpp::CharacterVector tzs, const Rcpp::CharacterVector tz_out, const bool roll);
+cpp11::writable::doubles C_force_tzs(const cpp11::doubles& dt, const cpp11::strings& tzs, const cpp11::strings& tz_out, const bool roll);
 extern "C" SEXP _lubridate_C_force_tzs(SEXP dt, SEXP tzs, SEXP tz_out, SEXP roll) {
   BEGIN_CPP11
-    return cpp11::as_sexp(C_force_tzs(cpp11::as_cpp<cpp11::decay_t<const Rcpp::NumericVector>>(dt), cpp11::as_cpp<cpp11::decay_t<const Rcpp::CharacterVector>>(tzs), cpp11::as_cpp<cpp11::decay_t<const Rcpp::CharacterVector>>(tz_out), cpp11::as_cpp<cpp11::decay_t<const bool>>(roll)));
+    return cpp11::as_sexp(C_force_tzs(cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(dt), cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(tzs), cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(tz_out), cpp11::as_cpp<cpp11::decay_t<const bool>>(roll)));
   END_CPP11
 }
 // update.cpp
