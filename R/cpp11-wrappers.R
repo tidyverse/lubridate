@@ -75,3 +75,16 @@ cpp_force_tzs <- function(dt, tzs, tz_out, roll) {
     roll = roll
   )
 }
+
+cpp_local_time <- function(dt, tzs) {
+  # Catch rare integer POSIXct, retaining attributes
+  storage.mode(dt) <- "double"
+
+  # Must be a character vector, never `NULL`
+  tzs <- as.character(tzs)
+
+  C_local_time(
+    dt = dt,
+    tzs = tzs
+  )
+}

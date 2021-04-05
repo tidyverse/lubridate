@@ -158,7 +158,7 @@ local_time <- function(dt, tz = NULL, units = "secs") {
     dt <- rep_len(dt, length(tz))
     attributes(dt) <- attr
   }
-  secs <- C_local_time(as.POSIXct(dt), tz)
+  secs <- cpp_local_time(as.POSIXct(dt), tz)
   out <- structure(secs, units = "secs", class = "difftime")
   units(out) <- units
   out

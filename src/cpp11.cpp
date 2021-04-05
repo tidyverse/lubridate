@@ -42,10 +42,10 @@ extern "C" SEXP _lubridate_C_force_tzs(SEXP dt, SEXP tzs, SEXP tz_out, SEXP roll
   END_CPP11
 }
 // update.cpp
-Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt, const Rcpp::CharacterVector tzs);
+cpp11::writable::doubles C_local_time(const cpp11::doubles& dt, const cpp11::strings& tzs);
 extern "C" SEXP _lubridate_C_local_time(SEXP dt, SEXP tzs) {
   BEGIN_CPP11
-    return cpp11::as_sexp(C_local_time(cpp11::as_cpp<cpp11::decay_t<const Rcpp::NumericVector>>(dt), cpp11::as_cpp<cpp11::decay_t<const Rcpp::CharacterVector>>(tzs)));
+    return cpp11::as_sexp(C_local_time(cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(dt), cpp11::as_cpp<cpp11::decay_t<const cpp11::strings&>>(tzs)));
   END_CPP11
 }
 

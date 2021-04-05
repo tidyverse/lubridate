@@ -428,18 +428,18 @@ cpp11::writable::doubles C_force_tzs(const cpp11::doubles& dt,
 }
 
 [[cpp11::register]]
-Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt,
-                                 const Rcpp::CharacterVector tzs) {
+cpp11::writable::doubles C_local_time(const cpp11::doubles& dt,
+                                      const cpp11::strings& tzs) {
 
   if (tzs.size() != dt.size())
-    Rcpp::stop("`tzs` and `dt` arguments must be of the same length");
+    cpp11::stop("`tzs` and `dt` arguments must be of the same length");
 
   std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzto_old_name("not-a-tz");
   cctz::time_zone tzto;
 
   size_t n = dt.size();
-  Rcpp::NumericVector out(n);
+  cpp11::writable::doubles out(n);
 
   for (size_t i = 0; i < n; i++)
     {
