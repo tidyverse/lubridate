@@ -1,10 +1,11 @@
 #include <cstdint>
 #include <limits>
 #include <unordered_map>
+#include <vector>
 #include "cctz/civil_time.h"
 #include "cctz/time_zone.h"
+#include <cpp11.hpp>
 #include "utils.h"
-#include <Rcpp.h>
 
 // CIVIL TIME:
 // https://github.com/google/cctz/blob/master/include/civil_time.h
@@ -56,7 +57,7 @@ const char* tz_from_R_tzone(SEXP tz) {
     return "";
   } else {
     if (!Rf_isString(tz))
-      Rf_error("'tz' is not a character vector");
+      cpp11::stop("'tz' is not a character vector");
     const char* tz0 = CHAR(STRING_ELT(tz, 0));
     if (strlen(tz0) == 0) {
       if (LENGTH(tz) > 1) {
@@ -73,19 +74,18 @@ const char* tz_from_tzone_attr(SEXP x){
 
 const char* get_current_tz() {
   // ugly workaround to get local time zone (abbreviation) as seen by R (not used)
-  Rcpp::NumericVector origin = Rcpp::NumericVector::create(0);
-  origin.attr("class") = Rcpp::CharacterVector::create("POSIXct", "POSIXt");
-  Rcpp::Environment base = Rcpp::Environment::base_namespace();
-  Rcpp::Function as_posixlt(base["as.POSIXlt.POSIXct"]);
-  return tz_from_R_tzone(as_posixlt(origin));
+  cpp11::writable::doubles origin(1);
+  origin[0] = 0;
+  origin.attr("class") = {"POSIXct", "POSIXt"};
+  auto as_posixlt = cpp11::package("base")["as.POSIXlt.POSIXct"];
+  return tz_from_tzone_attr(as_posixlt(origin));
 }
 
 const char* get_system_tz() {
-  Rcpp::Environment base = Rcpp::Environment::base_namespace();
-  Rcpp::Function sys_timezone(base["Sys.timezone"]);
+  auto sys_timezone = cpp11::package("base")["Sys.timezone"];
   SEXP sys_tz = STRING_ELT(sys_timezone(), 0);
   if (sys_tz == NA_STRING || strlen(CHAR(sys_tz)) == 0) {
-    Rf_warning("System timezone name is unknown. Please set environment variable TZ.");
+    cpp11::warning("System timezone name is unknown. Please set environment variable TZ.");
     return "UTC";
   } else {
     return CHAR(sys_tz);
@@ -102,7 +102,7 @@ const char* local_tz() {
     // FIXME:
     // if set but empty, it's system specific ...
     // Is there a way way to get TZ name as R sees it?
-    Rf_warning("Environment variable TZ is set to \"\". Things might break.");
+    cpp11::warning("Environment variable TZ is set to \"\". Things might break.");
     return get_current_tz();
   }
   else {
@@ -129,21 +129,23 @@ bool load_tz(std::string tzstr, cctz::time_zone& tz) {
   }
 }
 
-// [[Rcpp::export]]
-Rcpp::CharacterVector C_local_tz() {
-    return Rf_mkString(local_tz());
+[[cpp11::register]]
+cpp11::writable::strings C_local_tz() {
+  const char* tz = local_tz();
+  cpp11::writable::strings out({tz});
+  return out;
 }
 
-// [[Rcpp::export]]
-Rcpp::LogicalVector C_valid_tz(const Rcpp::CharacterVector& tz_name) {
+[[cpp11::register]]
+bool C_valid_tz(const cpp11::strings& tz_name) {
   cctz::time_zone tz;
-  std::string tzstr(tz_name[0]);
+  std::string tzstr = tz_name[0];
   return load_tz(tzstr, tz);
 }
 
 void load_tz_or_fail(std::string tzstr, cctz::time_zone& tz, std::string error_msg) {
   if (!load_tz(tzstr, tz)) {
-    Rcpp::stop(error_msg.c_str(), tzstr);
+    cpp11::stop(error_msg.c_str(), tzstr.c_str());
   }
 }
 
@@ -176,30 +178,42 @@ double get_secs_from_civil_lookup(const cctz::time_zone::civil_lookup& cl_new, /
     } else {
       tp_new = cl_new.pre;
     }
-    /* Rcpp::Rcout << cctz::format("tp:%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl; */
-    /* Rcpp::Rcout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl1.pre, tz1) << std::endl; */
-    /* Rcpp::Rcout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl1.trans, tz1) << std::endl; */
-    /* Rcpp::Rcout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl1.post, tz1) << std::endl; */
+    /* std::cout << cctz::format("tp:%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl; */
+    /* std::cout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl1.pre, tz1) << std::endl; */
+    /* std::cout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl1.trans, tz1) << std::endl; */
+    /* std::cout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl1.post, tz1) << std::endl; */
   }
 
   return tp_new.time_since_epoch().count() + remainder;
 }
 
-// [[Rcpp::export]]
-Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
-                                    const Rcpp::IntegerVector& year,
-                                    const Rcpp::IntegerVector& month,
-                                    const Rcpp::IntegerVector& yday,
-                                    const Rcpp::IntegerVector& mday,
-                                    const Rcpp::IntegerVector& wday,
-                                    const Rcpp::IntegerVector& hour,
-                                    const Rcpp::IntegerVector& minute,
-                                    const Rcpp::NumericVector& second,
-                                    const SEXP tz = R_NilValue,
-                                    const bool roll = false,
-                                    const int week_start = 7) {
+static inline void init_posixct(cpp11::writable::doubles& x, const char* tz) {
+  x.attr("class") = {"POSIXct", "POSIXt"};
+  x.attr("tzone") = tz;
+}
 
-  if (dt.size() == 0) return(Rcpp::newDatetimeVector(dt));
+[[cpp11::register]]
+cpp11::writable::doubles C_update_dt(const cpp11::doubles& dt,
+                                     const cpp11::integers& year,
+                                     const cpp11::integers& month,
+                                     const cpp11::integers& yday,
+                                     const cpp11::integers& mday,
+                                     const cpp11::integers& wday,
+                                     const cpp11::integers& hour,
+                                     const cpp11::integers& minute,
+                                     const cpp11::doubles& second,
+                                     const SEXP tz,
+                                     const bool roll,
+                                     const int week_start) {
+
+  if (dt.size() == 0) {
+    // TODO: Why does time zone comes from `dt` and not `tz`?
+    const char* dt_tz = tz_from_tzone_attr(dt);
+    const R_xlen_t out_size = 0;
+    cpp11::writable::doubles out(out_size);
+    init_posixct(out, dt_tz);
+    return out;
+  }
 
   std::vector<R_xlen_t> sizes
                         {year.size(), month.size(), yday.size(), mday.size(),
@@ -217,20 +231,20 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
     loop_hour = sizes[5] == N, loop_minute = sizes[6] == N, loop_second = sizes[7] == N,
     loop_dt = dt.size() == N;
 
-  if (sizes[0] > 1 && !loop_year) Rcpp::stop("C_update_dt: Invalid size of 'year' vector");
-  if (sizes[1] > 1 && !loop_month) Rcpp::stop("C_update_dt: Invalid size of 'month' vector");
-  if (sizes[2] > 1 && !loop_yday) Rcpp::stop("C_update_dt: Invalid size of 'yday' vector");
-  if (sizes[3] > 1 && !loop_mday) Rcpp::stop("C_update_dt: Invalid size of 'mday' vector");
-  if (sizes[4] > 1 && !loop_wday) Rcpp::stop("C_update_dt: Invalid size of 'wday' vector");
-  if (sizes[5] > 1 && !loop_hour) Rcpp::stop("C_update_dt: Invalid size of 'hour' vector");
-  if (sizes[6] > 1 && !loop_minute) Rcpp::stop("C_update_dt: Invalid size of 'minute' vector");
-  if (sizes[7] > 1 && !loop_second) Rcpp::stop("C_update_dt: Invalid size of 'second' vector");
+  if (sizes[0] > 1 && !loop_year) cpp11::stop("C_update_dt: Invalid size of 'year' vector");
+  if (sizes[1] > 1 && !loop_month) cpp11::stop("C_update_dt: Invalid size of 'month' vector");
+  if (sizes[2] > 1 && !loop_yday) cpp11::stop("C_update_dt: Invalid size of 'yday' vector");
+  if (sizes[3] > 1 && !loop_mday) cpp11::stop("C_update_dt: Invalid size of 'mday' vector");
+  if (sizes[4] > 1 && !loop_wday) cpp11::stop("C_update_dt: Invalid size of 'wday' vector");
+  if (sizes[5] > 1 && !loop_hour) cpp11::stop("C_update_dt: Invalid size of 'hour' vector");
+  if (sizes[6] > 1 && !loop_minute) cpp11::stop("C_update_dt: Invalid size of 'minute' vector");
+  if (sizes[7] > 1 && !loop_second) cpp11::stop("C_update_dt: Invalid size of 'second' vector");
 
   if (dt.size() > 1 && !loop_dt)
-    Rcpp::stop("C_update_dt: length of dt vector must be 1 or match the length of updating vectors");
+    cpp11::stop("C_update_dt: length of dt vector must be 1 or match the length of updating vectors");
 
   if (do_yday + do_mday + do_wday > 1)
-    Rcpp::stop("Conflicting days input, only one of yday, mday and wday must be supplied");
+    cpp11::stop("Conflicting days input, only one of yday, mday and wday must be supplied");
 
   std::string tzfrom = tz_from_tzone_attr(dt);
   cctz::time_zone tzone1;
@@ -245,7 +259,8 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
   }
   load_tz_or_fail(tzto, tzone2, "CCTZ: Unrecognized tzone: \"%s\"");
 
-  Rcpp::NumericVector out(N);
+  cpp11::writable::doubles out(N);
+  init_posixct(out, tzto.c_str());
 
   // all vectors are either size N or 1
   for (R_xlen_t i = 0; i < N; i++)
@@ -319,19 +334,19 @@ Rcpp::newDatetimeVector C_update_dt(const Rcpp::NumericVector& dt,
 
     }
 
-  return Rcpp::newDatetimeVector(out, tzto.c_str());
+  return out;
 
 }
 
-// [[Rcpp::export]]
-Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
-                                   const Rcpp::CharacterVector tz,
-                                   const bool roll = false) {
+[[cpp11::register]]
+cpp11::writable::doubles C_force_tz(const cpp11::doubles& dt,
+                                    const cpp11::strings& tz,
+                                    const bool roll) {
   // roll: logical, if `true`, and `time` falls into the DST-break, assume the
   // next valid civil time, otherwise return NA
 
   if (tz.size() != 1)
-    Rcpp::stop("`tz` argument must be a single character string");
+    cpp11::stop("`tz` argument must be a single character string");
 
   std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzto_name(tz[0]);
@@ -343,7 +358,8 @@ Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
   /* std::cout << "TZ to:" << tzto.name() << std::endl; */
 
   size_t n = dt.size();
-  Rcpp::NumericVector out(n);
+  cpp11::writable::doubles out(n);
+  init_posixct(out, tzto_name.c_str());
 
   for (size_t i = 0; i < n; i++)
     {
@@ -358,23 +374,23 @@ Rcpp::newDatetimeVector C_force_tz(const Rcpp::NumericVector dt,
       out[i] = get_secs_from_civil_lookup(cl2, tzfrom, tp1, ct1, roll, rem);
     }
 
-  return Rcpp::newDatetimeVector(out, tzto_name.c_str());
+  return out;
 }
 
 
-// [[Rcpp::export]]
-Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
-                                    const Rcpp::CharacterVector tzs,
-                                    const Rcpp::CharacterVector tz_out,
-                                    const bool roll = false) {
+[[cpp11::register]]
+cpp11::writable::doubles C_force_tzs(const cpp11::doubles& dt,
+                                     const cpp11::strings& tzs,
+                                     const cpp11::strings& tz_out,
+                                     const bool roll) {
   // roll: logical, if `true`, and `time` falls into the DST-break, assume the
   // next valid civil time, otherwise return NA
 
   if (tz_out.size() != 1)
-    Rcpp::stop("In 'tzout' argument must be of length 1");
+    cpp11::stop("In 'tzout' argument must be of length 1");
 
   if (tzs.size() != dt.size())
-    Rcpp::stop("In 'C_force_tzs' tzs and dt arguments must be of the same length");
+    cpp11::stop("In 'C_force_tzs' tzs and dt arguments must be of the same length");
 
   std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzout_name(tz_out[0]);
@@ -385,7 +401,8 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
 
   std::string tzto_old_name("not-a-tz");
   size_t n = dt.size();
-  Rcpp::NumericVector out(n);
+  cpp11::writable::doubles out(n);
+  init_posixct(out, tzout_name.c_str());
 
   for (size_t i = 0; i < n; i++)
     {
@@ -407,22 +424,22 @@ Rcpp::newDatetimeVector C_force_tzs(const Rcpp::NumericVector dt,
 
     }
 
-  return Rcpp::newDatetimeVector(out, tzout_name.c_str());
+  return out;
 }
 
-// [[Rcpp::export]]
-Rcpp::NumericVector C_local_time(const Rcpp::NumericVector dt,
-                                 const Rcpp::CharacterVector tzs) {
+[[cpp11::register]]
+cpp11::writable::doubles C_local_time(const cpp11::doubles& dt,
+                                      const cpp11::strings& tzs) {
 
   if (tzs.size() != dt.size())
-    Rcpp::stop("`tzs` and `dt` arguments must be of the same length");
+    cpp11::stop("`tzs` and `dt` arguments must be of the same length");
 
   std::string tzfrom_name = tz_from_tzone_attr(dt);
   std::string tzto_old_name("not-a-tz");
   cctz::time_zone tzto;
 
   size_t n = dt.size();
-  Rcpp::NumericVector out(n);
+  cpp11::writable::doubles out(n);
 
   for (size_t i = 0; i < n; i++)
     {

@@ -53,8 +53,7 @@ Depends:
     methods,
     R (>= 3.2)
 Imports:
-    generics,
-    Rcpp (>= 0.12.13)
+    generics
 Suggests:
     covr,
     knitr,
@@ -67,20 +66,18 @@ Enhances:
     tis,
     zoo
 LinkingTo:
-    Rcpp
+    cpp11 (>= 0.2.7)
 VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-SystemRequirements: A system with zoneinfo data (e.g.
-    /usr/share/zoneinfo) as well as a recent-enough C++11 compiler (such
-    as g++-4.8 or later). On Windows the zoneinfo included with R is used.
+SystemRequirements: C++11, A system with zoneinfo data (e.g.
+    /usr/share/zoneinfo). On Windows the zoneinfo included with R is used.
 Collate:
     'Dates.r'
     'POSIXt.r'
-    'RcppExports.R'
     'util.r'
     'parse.r'
     'timespans.r'
@@ -104,6 +101,8 @@ Collate:
     'numeric.r'
     'coercion.r'
     'constants.r'
+    'cpp11-wrappers.R'
+    'cpp11.R'
     'cyclic_encoding.r'
     'data.r'
     'decimal-dates.r'

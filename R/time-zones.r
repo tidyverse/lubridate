@@ -90,11 +90,11 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
     time
   } else {
     if (is.POSIXct(time))
-      C_force_tz(time, tz = tzone, roll)
+      cpp_force_tz(time, tz = tzone, roll)
     else if (is.Date(time))
-      C_force_tz(date_to_posix(time), tz = tzone, roll)
+      cpp_force_tz(date_to_posix(time), tz = tzone, roll)
     else {
-      out <- C_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll)
+      out <- cpp_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll)
       reclass_date(out, time)
     }
   }
@@ -124,7 +124,7 @@ force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
     time <- rep_len(time, length(tzones))
     attributes(time) <- attr
   }
-  out <- C_force_tzs(as.POSIXct(time), tzones, tzone_out, roll)
+  out <- cpp_force_tzs(as.POSIXct(time), tzones, tzone_out, roll)
   reclass_date(out, time)
 }
 
@@ -158,7 +158,7 @@ local_time <- function(dt, tz = NULL, units = "secs") {
     dt <- rep_len(dt, length(tz))
     attributes(dt) <- attr
   }
-  secs <- C_local_time(as.POSIXct(dt), tz)
+  secs <- cpp_local_time(as.POSIXct(dt), tz)
   out <- structure(secs, units = "secs", class = "difftime")
   units(out) <- units
   out
