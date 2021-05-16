@@ -1,7 +1,7 @@
 Type: Package
 Package: lubridate
 Title: Make Dealing with Dates a Little Easier
-Version: 1.7.10
+Version: 1.7.10.9000
 Authors@R:
     c(person(given = "Vitalie",
              family = "Spinu",
@@ -124,6 +124,7 @@ Collate:
     'pretty.r'
     'round.r'
     'stamp.r'
+    'tzdir.R'
     'update.r'
     'vctrs.R'
     'zzz.R'
