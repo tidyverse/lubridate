@@ -188,12 +188,12 @@ test_that("summary.Duration creates useful summary", {
 })
 
 test_that("format.Duration works with NA values", {
-  expect_equal(format(duration(c(NA, 1, 100, 10000, 100000, 100000000, 75.25, 75.5001))),
-               c(NA, "1s", "100s (~1.67 minutes)", "10000s (~2.78 hours)", "1e+05s (~1.16 days)",
-                 "1e+08s (~3.17 years)",
-                 "75.25s (~1.25 minutes)", "75.5001s (~1.26 minutes)"))
+  expect_equal(format(duration(c(NA, 1, 100, 10000, 100000, 100000000, 75.25, 75.5001)), scientific = 7),
+    c(NA, "1s", "100s (~1.67 minutes)", "10000s (~2.78 hours)", "1e+05s (~1.16 days)",
+      "1e+08s (~3.17 years)",
+      "75.25s (~1.25 minutes)", "75.5001s (~1.26 minutes)"))
   expect_equal(format(duration(c(75.25, 75.5001))),
-               c("75.25s (~1.25 minutes)", "75.5001s (~1.26 minutes)"))
+    c("75.25s (~1.25 minutes)", "75.5001s (~1.26 minutes)"))
 })
 
 test_that("as.duration handles NA interval objects", {

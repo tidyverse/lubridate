@@ -718,16 +718,29 @@ setMethod("as_datetime", "numeric",
 #' @rdname as_date
 #' @export
 setMethod("as_datetime", "character",
-          function(x, tz = "UTC", format = NULL) {
-            if (is.null(format))
-              .parse_iso_dt(x, tz)
-            else
-              as.POSIXct(strptime(x, format = format, tz = tz))
-          })
+  function(x, tz = "UTC", format = NULL) {
+    if (is.null(format))
+      .parse_iso_dt(x, tz)
+    else
+      as.POSIXct(strptime(x, format = format, tz = tz))
+  })
+
+
+#' @rdname as_date
+#' @export
+setMethod("as_datetime", "Date",
+  function(x, tz = "UTC") {
+    dt <- .POSIXct(as.numeric(x) * 86400, tz = "UTC")
+    if (is_utc(tz))
+      return(dt)
+    else
+      force_tz(dt, tzone = tz)
+  })
+
 
 #' @rdname as_date
 #' @export
 setMethod("as_datetime", "ANY",
   function(x, tz = "UTC") {
-    with_tz(as.POSIXct(x), tzone = tz)
+    with_tz(as.POSIXct(x, tz = tz), tzone = tz)
   })

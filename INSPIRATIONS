@@ -12,6 +12,7 @@ Elegant user interfaces for manipulating dates
 Intelligent date time parsers
  * http://www.datejs.com/
  * http://chronic.rubyforge.org/
+ * https://momentjs.com/docs/#/parsing/
 
 Date time standards
  * http://en.wikipedia.org/wiki/ISO_8601

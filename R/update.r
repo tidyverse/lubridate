@@ -68,7 +68,7 @@ update_date_time <- function(object, years = integer(), months = integer(),
   updates[["roll"]] <- roll
   updates[["tz"]] <- tzs
   updates[["week_start"]] <- week_start
-  reclass_date(do.call(C_update_dt, updates), object)
+  reclass_date(do.call(cpp_update_dt, updates), object)
 }
 
 ## prior to v1.7.0

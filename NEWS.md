@@ -1,12 +1,25 @@
-Version 1.7.9.2.9000
-====================
+Version 1.7.10.9000 (dev)
+===================
 
 ### NEW FEATURES
 
+* [#960](https://github.com/tidyverse/lubridate/issues/960) `c.POSIXct` and `c.Date` can deal with heterogeneous object types (e.g `c(date, datetime)` works as expected)
+
+### BUG FIXES
+
+* `as_datetime(date, tz=XYZ)` returns the date-time object with HMS set to 00:00:00 in the corresponding `tz`
+
+Version 1.7.10
+==============
+
+### NEW FEATURES
+
+* [#955](https://github.com/tidyverse/lubridate/pull/955) Add `type` argument to `quarter()` for more control over the returned class
 * `fast_strptime()` and `parse_date_time2()` now accept multiple formats and apply them in turn
 
 ### BUG FIXES
 
+* [#926](https://github.com/tidyverse/lubridate/issues/926) Fix incorrect division of intervals by months involving leap years
 * Fix incorrect skipping of digits during parsing of the `%z` format
 
 Version 1.7.9.2

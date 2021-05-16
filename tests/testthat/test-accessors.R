@@ -229,50 +229,121 @@ test_that("quarters accessor extracts correct quarter", {
   poslt <- as.POSIXlt(posct)
   date <- as.Date(poslt)
 
-  expect_equal(quarter(poslt), 4)
-  expect_equal(quarter(poslt, with_year = TRUE), 2010.4)
-  expect_equal(quarter(poslt, fiscal_start = 11), 1)
-  expect_equal(quarter(poslt, with_year = TRUE, fiscal_start = -2), 2011.1)
-  expect_equal(quarter(poslt, with_year = TRUE, fiscal_start = 11), 2011.1)
-
   expect_equal(quarter(posct), 4)
+  expect_equal(quarter(posct, type = "quarter"), 4)
+  expect_equal(quarter(posct, type = "year.quarter"), 2010.4)
+  expect_equal(quarter(posct, type = "date_first"), ymd("2010-10-01"))
+  expect_equal(quarter(posct, type = "date_last"), ymd("2010-12-31"))
   expect_equal(quarter(posct, with_year = TRUE), 2010.4)
   expect_equal(quarter(posct, fiscal_start = 11), 1)
-  expect_equal(quarter(posct, with_year = TRUE, fiscal_start = -2), 2011.1)
-  expect_equal(quarter(posct, with_year = TRUE, fiscal_start = 11), 2011.1)
+  expect_equal(quarter(posct, fiscal_start = -2), 1)
+  expect_equal(quarter(posct, type = "year.quarter", fiscal_start = -2), 2011.1)
+  expect_equal(quarter(posct, type = "year.quarter", fiscal_start = 11), 2011.1)
+  expect_equal(quarter(posct, type = "date_first", fiscal_start = 11), ymd("2010-11-01"))
+  expect_equal(quarter(posct, type = "date_last", fiscal_start = 11), ymd("2011-01-31"))
+
+  expect_equal(quarter(poslt), 4)
+  expect_equal(quarter(poslt, type = "quarter"), 4)
+  expect_equal(quarter(poslt, type = "year.quarter"), 2010.4)
+  expect_equal(quarter(poslt, type = "date_first"), ymd("2010-10-01"))
+  expect_equal(quarter(poslt, type = "date_last"), ymd("2010-12-31"))
+  expect_equal(quarter(poslt, with_year = TRUE), 2010.4)
+  expect_equal(quarter(poslt, fiscal_start = 11), 1)
+  expect_equal(quarter(poslt, fiscal_start = -2), 1)
+  expect_equal(quarter(poslt, type = "year.quarter", fiscal_start = -2), 2011.1)
+  expect_equal(quarter(poslt, type = "year.quarter", fiscal_start = 11), 2011.1)
+  expect_equal(quarter(poslt, type = "date_first", fiscal_start = 11), ymd("2010-11-01"))
+  expect_equal(quarter(poslt, type = "date_last", fiscal_start = 11), ymd("2011-01-31"))
 
   expect_equal(quarter(date), 4)
+  expect_equal(quarter(date, type = "quarter"), 4)
+  expect_equal(quarter(date, type = "year.quarter"), 2010.4)
+  expect_equal(quarter(date, type = "date_first"), ymd("2010-10-01"))
+  expect_equal(quarter(date, type = "date_last"), ymd("2010-12-31"))
   expect_equal(quarter(date, with_year = TRUE), 2010.4)
   expect_equal(quarter(date, fiscal_start = 11), 1)
-  expect_equal(quarter(date, with_year = TRUE, fiscal_start = -2), 2011.1)
-  expect_equal(quarter(date, with_year = TRUE, fiscal_start = 11), 2011.1)
+  expect_equal(quarter(date, fiscal_start = -2), 1)
+  expect_equal(quarter(date, type = "year.quarter", fiscal_start = -2), 2011.1)
+  expect_equal(quarter(date, type = "year.quarter", fiscal_start = 11), 2011.1)
+  expect_equal(quarter(date, type = "date_first", fiscal_start = 11), ymd("2010-11-01"))
+  expect_equal(quarter(date, type = "date_last", fiscal_start = 11), ymd("2011-01-31"))
 
   x <- ymd(c("2012-03-01", "2012-03-26", "2012-05-04", "2012-09-23", "2012-12-31"))
-  expect_equal(quarter(x, with_year = TRUE, fiscal_start = 4),
+  expect_equal(quarter(x, FALSE, fiscal_start = 11), c(2, 2, 3, 4, 1))
+  expect_equal(quarter(x, fiscal_start = 11, FALSE), c(2, 2, 3, 4, 1))
+  expect_equal(quarter(x, TRUE, fiscal_start = 9), c(2012.3, 2012.3, 2012.3, 2013.1, 2013.2))
+  expect_equal(quarter(x, TRUE, fiscal_start = 9), c(2012.3, 2012.3, 2012.3, 2013.1, 2013.2))
+
+  expect_equal(quarter(x, type = "quarter", fiscal_start = 4),
+               c(4, 4, 1, 2, 3))
+  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 4),
                c(2012.4, 2012.4, 2013.1, 2013.2, 2013.3))
-  expect_equal(quarter(x, with_year = TRUE, fiscal_start = 11),
+  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 11),
                c(2012.2, 2012.2, 2012.3, 2012.4, 2013.1))
+  expect_equal(quarter(x, type = "date_first", fiscal_start = 4),
+               ymd(c("2012-01-01", "2012-01-01", "2012-04-01", "2012-07-01", "2012-10-01")))
+  expect_equal(quarter(x, type = "date_first", fiscal_start = 11),
+               ymd(c("2012-02-01", "2012-02-01", "2012-05-01", "2012-08-01", "2012-11-01")))
+  expect_equal(quarter(x, type = "date_last", fiscal_start = 4),
+               ymd(c("2012-03-31", "2012-03-31", "2012-06-30", "2012-09-30", "2012-12-31")))
+  expect_equal(quarter(x, type = "date_last", fiscal_start = 11),
+               ymd(c("2012-04-30", "2012-04-30", "2012-07-31", "2012-10-31", "2013-01-31")))
 
   x <- ymd("2010-01-01") + months(0:11)
-  expect_equal(quarter(x, with_year = TRUE, fiscal_start = 6),
+  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 6),
                c(2010.3, 2010.3, 2010.4, 2010.4, 2010.4, 2011.1, 2011.1, 2011.1,
                  2011.2, 2011.2, 2011.2, 2011.3))
-  expect_equal(quarter(x, with_year = TRUE, fiscal_start = 6),
-               quarter(x, with_year = TRUE, fiscal_start = -6))
+  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 6),
+               quarter(x, type = "year.quarter", fiscal_start = -6))
+  expect_equal(quarter(x, type = "date_first", fiscal_start = 6),
+               ymd(c("2009-12-01", "2009-12-01", "2010-03-01", "2010-03-01",
+                     "2010-03-01", "2010-06-01", "2010-06-01", "2010-06-01",
+                     "2010-09-01", "2010-09-01", "2010-09-01", "2010-12-01")))
+  expect_equal(quarter(x, type = "date_first", fiscal_start = 6),
+               quarter(x, type = "date_first", fiscal_start = -6))
+  expect_equal(quarter(x, type = "date_last", fiscal_start = 6),
+               ymd(c("2010-02-28", "2010-02-28", "2010-05-31", "2010-05-31",
+                     "2010-05-31", "2010-08-31", "2010-08-31", "2010-08-31",
+                     "2010-11-30", "2010-11-30", "2010-11-30", "2011-02-28")))
+  expect_equal(quarter(x, type = "date_last", fiscal_start = 6),
+               quarter(x, type = "date_last", fiscal_start = -6))
+
   x <- ymd("2010-01-01") + months(seq(0, 23, by = 3))
-  expect_equal(quarter(x, with_year = TRUE, fiscal_start = 10),
+  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 10),
                c(2010.2, 2010.3, 2010.4, 2011.1, 2011.2, 2011.3, 2011.4, 2012.1))
-  expect_equal(quarter(x, with_year = TRUE, fiscal_start = -2),
-               quarter(x, with_year = TRUE, fiscal_start = 10))
+  expect_equal(quarter(x, type = "year.quarter", fiscal_start = -2),
+               quarter(x, type = "year.quarter", fiscal_start = 10))
+  expect_equal(quarter(x, type = "date_first", fiscal_start = 10),
+               ymd(c("2010-01-01", "2010-04-01", "2010-07-01", "2010-10-01",
+                 "2011-01-01", "2011-04-01", "2011-07-01", "2011-10-01")))
+  expect_equal(quarter(x, type = "date_first", fiscal_start = -2),
+               quarter(x, type = "date_first", fiscal_start = 10))
+  expect_equal(quarter(x, type = "date_last", fiscal_start = 10),
+               ymd(c("2010-03-31", "2010-06-30", "2010-09-30", "2010-12-31",
+                 "2011-03-31", "2011-06-30", "2011-09-30", "2011-12-31")))
+  expect_equal(quarter(x, type = "date_last", fiscal_start = -2),
+               quarter(x, type = "date_last", fiscal_start = 10))
 
   x <- ymd(c("2018-07-15", "2018-12-27", "2019-01-01",
              "2019-06-01", "2019-07-01", "2019-10-16",
              "2019-12-31", "2020-01-01", "2020-06-30",
              "2020-07-01", "2020-11-09", "2021-01-19",
              "2021-06-30", "2021-07-01"))
-  expect_equal(quarter(x, with_year = T, fiscal_start = 7),
+  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 7),
                c(2019.1, 2019.2, 2019.3, 2019.4, 2020.1, 2020.2, 2020.2, 2020.3,
                  2020.4, 2021.1, 2021.2, 2021.3, 2021.4, 2022.1))
+  out <- quarter(x, type = "date_first", fiscal_start = 7)
+  expect_s3_class(out, "Date")
+  expect_equal(out,
+               ymd(c("2018-07-01", "2018-10-01", "2019-01-01", "2019-04-01",
+                     "2019-07-01", "2019-10-01", "2019-10-01", "2020-01-01",
+                     "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01",
+                     "2021-04-01", "2021-07-01")))
+  expect_equal(quarter(x, type = "date_last", fiscal_start = 7),
+               ymd(c("2018-09-30", "2018-12-31", "2019-03-31", "2019-06-30",
+                     "2019-09-30", "2019-12-31", "2019-12-31", "2020-03-31",
+                     "2020-06-30", "2020-09-30", "2020-12-31", "2021-03-31",
+                     "2021-06-30", "2021-09-30")))
 })
 
 test_that("years accessor extracts correct year", {

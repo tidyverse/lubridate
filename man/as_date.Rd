@@ -10,6 +10,7 @@
 \alias{as_datetime,POSIXt-method}
 \alias{as_datetime,numeric-method}
 \alias{as_datetime,character-method}
+\alias{as_datetime,Date-method}
 \alias{as_datetime,ANY-method}
 \title{Convert an object to a date or date-time}
 \usage{
@@ -30,6 +31,8 @@ as_datetime(x, ...)
 \S4method{as_datetime}{numeric}(x, origin = lubridate::origin, tz = "UTC")
 
 \S4method{as_datetime}{character}(x, tz = "UTC", format = NULL)
+
+\S4method{as_datetime}{Date}(x, tz = "UTC")
 
 \S4method{as_datetime}{ANY}(x, tz = "UTC")
 }

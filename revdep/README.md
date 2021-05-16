@@ -3,85 +3,116 @@
 |field    |value                        |
 |:--------|:----------------------------|
 |version  |R version 4.0.0 (2020-04-24) |
-|os       |Ubuntu 18.04.4 LTS           |
+|os       |Ubuntu 18.04.5 LTS           |
 |system   |x86_64, linux-gnu            |
 |ui       |X11                          |
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |Europe/Berlin                |
-|date     |2020-06-02                   |
+|date     |2021-02-26                   |
 
 # Dependencies
 
-|package   |old     |new        |Δ  |
-|:---------|:-------|:----------|:--|
-|lubridate |1.7.8   |1.7.8.9000 |*  |
-|generics  |0.0.2   |0.0.2      |   |
-|Rcpp      |1.0.4.6 |1.0.4.6    |   |
+|package   |old     |new     |Δ  |
+|:---------|:-------|:-------|:--|
+|lubridate |1.7.9.2 |1.7.9.2 |NA |
+|generics  |0.1.0   |0.1.0   |NA |
+|Rcpp      |1.0.6   |1.0.6   |NA |
 
 # Revdeps
 
-## Failed to check (52)
+## Failed to check (83)
 
 |package                   |version |error |warning |note |
 |:-------------------------|:-------|:-----|:-------|:----|
-|activityCounts            |?       |      |        |     |
+|activatr                  |?       |      |        |     |
 |activPAL                  |?       |      |        |     |
-|actogrammr                |?       |      |        |     |
-|adept                     |?       |      |        |     |
 |AdhereR                   |?       |      |        |     |
 |AdhereRViz                |?       |      |        |     |
 |AeRobiology               |?       |      |        |     |
 |AGread                    |?       |      |        |     |
-|aire.zmvm                 |?       |      |        |     |
-|algaeClassify             |?       |      |        |     |
+|AirSensor                 |?       |      |        |     |
 |amt                       |?       |      |        |     |
 |animaltracker             |?       |      |        |     |
 |antaresRead               |?       |      |        |     |
 |antaresViz                |?       |      |        |     |
-|anyflights                |?       |      |        |     |
-|APSIM                     |?       |      |        |     |
+|AnVILBilling              |?       |      |        |     |
 |archivist                 |?       |      |        |     |
 |arcos                     |?       |      |        |     |
-|arrow                     |0.17.1  |1     |        |     |
+|arrow                     |3.0.0   |1     |        |     |
+|autostsm                  |?       |      |        |     |
+|autoTS                    |?       |      |        |     |
+|babsim.hospital           |?       |      |        |     |
 |basictabler               |?       |      |        |     |
 |BAwiR                     |?       |      |        |     |
-|baytrends                 |?       |      |        |     |
-|beats                     |?       |      |        |     |
+|bayesforecast             |?       |      |        |     |
+|bayesmove                 |?       |      |        |     |
 |BETS                      |?       |      |        |     |
 |bioRad                    |?       |      |        |     |
 |BIRDS                     |?       |      |        |     |
 |bitmexr                   |?       |      |        |     |
+|bomrang                   |?       |      |        |     |
+|bsplus                    |?       |      |        |     |
+|bupaR                     |?       |      |        |     |
 |camtrapR                  |?       |      |        |     |
+|card                      |?       |      |        |     |
 |CAST                      |?       |      |        |     |
 |CellBench                 |?       |      |        |     |
+|climaemet                 |?       |      |        |     |
+|climwin                   |?       |      |        |     |
+|CLVTools                  |0.7.0   |1     |        |1    |
+|CME.assistant             |?       |      |        |     |
+|contact                   |?       |      |        |     |
+|corporaexplorer           |?       |      |        |     |
+|countytimezones           |?       |      |        |     |
+|covid19sf                 |?       |      |        |     |
+|CRANsearcher              |?       |      |        |     |
+|crawl                     |?       |      |        |     |
 |DaMiRseq                  |?       |      |        |     |
-|DBItest                   |?       |      |        |     |
+|daqapo                    |?       |      |        |     |
+|datacleanr                |?       |      |        |     |
+|dataquieR                 |?       |      |        |     |
 |dendroTools               |?       |      |        |     |
-|dgo                       |?       |      |        |     |
-|diffdf                    |?       |      |        |     |
-|dint                      |?       |      |        |     |
 |distill                   |?       |      |        |     |
-|diversitree               |?       |      |        |     |
+|dragon                    |?       |      |        |     |
 |drake                     |?       |      |        |     |
 |Ecfun                     |?       |      |        |     |
-|eurostat                  |?       |      |        |     |
-|finbif                    |?       |      |        |     |
-|gtfsrouter                |?       |      |        |     |
-|moveVis                   |?       |      |        |     |
+|eph                       |?       |      |        |     |
+|EpiNow2                   |?       |      |        |     |
+|eplusr                    |?       |      |        |     |
+|ezplot                    |?       |      |        |     |
+|fable.prophet             |?       |      |        |     |
+|fhidata                   |?       |      |        |     |
+|ganalytics                |?       |      |        |     |
+|GenEst                    |?       |      |        |     |
+|ggformula                 |?       |      |        |     |
+|healthcareai              |2.5.0   |1     |        |     |
+|healthyR.ts               |?       |      |        |     |
+|heatwaveR                 |?       |      |        |     |
+|highcharter               |?       |      |        |     |
+|isoreader                 |?       |      |        |     |
+|LDATS                     |?       |      |        |     |
+|MazamaLocationUtils       |?       |      |        |     |
+|microbiomeExplorer        |?       |      |        |     |
+|modeltime                 |?       |      |        |     |
+|modeltime.ensemble        |?       |      |        |     |
+|modeltime.resample        |?       |      |        |     |
+|momentuHMM                |?       |      |        |     |
+|nasapower                 |?       |      |        |     |
 |ngsReports                |?       |      |        |     |
+|occCite                   |?       |      |        |     |
+|pointblank                |?       |      |        |     |
 |proBatch                  |?       |      |        |     |
 |RforProteomics            |?       |      |        |     |
-|rpostgisLT                |?       |      |        |     |
-|spatialrisk               |?       |      |        |     |
-|stats19                   |?       |      |        |     |
-|stlcsb                    |?       |      |        |     |
-|TTAinterfaceTrendAnalysis |1.5.5   |1     |        |     |
+|rsMove                    |?       |      |        |     |
+|strand                    |?       |      |        |     |
+|timetk                    |?       |      |        |     |
+|TTAinterfaceTrendAnalysis |1.5.6   |1     |        |     |
 
 ## New problems (1)
 
-|package                  |version |error  |warning |note |
-|:------------------------|:-------|:------|:-------|:----|
-|[xROI](problems.md#xroi) |0.9.16  |__+1__ |        |     |
+|package                      |version |error  |warning |note |
+|:----------------------------|:-------|:------|:-------|:----|
+|[kiwisR](problems.md#kiwisr) |0.2.0   |__+1__ |        |     |
 
