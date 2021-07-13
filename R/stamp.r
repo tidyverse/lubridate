@@ -196,14 +196,15 @@ stamp <- function(x, orders = lubridate_formats,
 
 ##' @rdname stamp
 ##' @export
-stamp_date <- function(x, locale = Sys.getlocale("LC_TIME"))
+stamp_date <- function(x, locale = Sys.getlocale("LC_TIME"), quiet = FALSE)
   stamp(x, orders = c("ymd", "dmy", "mdy", "ydm", "dym", "myd", "my", "ym", "md", "dm", "m", "d", "y"),
-        locale = locale)
+        locale = locale, quiet = quiet)
 
 ##' @rdname stamp
 ##' @export
-stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"))
-  stamp(x, orders = c("hms", "hm", "ms", "h", "m", "s"), locale = locale)
+stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"), quiet = FALSE)
+  stamp(x, orders = c("hms", "hm", "ms", "h", "m", "s"),
+        locale = locale, quiet = quiet)
 
 
 lubridate_formats <- local({
