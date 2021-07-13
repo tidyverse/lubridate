@@ -13,9 +13,9 @@ stamp(
   quiet = FALSE
 )
 
-stamp_date(x, locale = Sys.getlocale("LC_TIME"))
+stamp_date(x, locale = Sys.getlocale("LC_TIME"), quiet = FALSE)
 
-stamp_time(x, locale = Sys.getlocale("LC_TIME"))
+stamp_time(x, locale = Sys.getlocale("LC_TIME"), quiet = FALSE)
 }
 \arguments{
 \item{x}{a character vector of templates.}
