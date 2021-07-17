@@ -49,6 +49,7 @@ jobs:
         run: |
           pak::local_install_dev_deps(upgrade = TRUE, dependencies = c("all", "Config/Needs/website"))
           pak::pkg_install("pkgdown")
+          pak::pkg_install("tidyverse/tidytemplate")
         shell: Rscript {0}
 
       - name: Install package
