@@ -218,24 +218,40 @@ of matched templates.</p></td>
        <span class='st'>"03:23:22 pm"</span><span class='op'>)</span>
 
 <span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"BdY"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 BdY                 BdY                 BdY                 BdY 
-#&gt;        "%B %dth %Y"        "%B  %d, %Y"     "%A, %B %d, %Y"     "%A, %B %d, %Y" 
-#&gt;                 BdY                 BdY                 BdY                 BdY 
-#&gt;        "%B %dth %Y"        "%B  %d, %Y"     "%A, %B %d, %Y"     "%A, %B %d, %Y" 
-#&gt;                 BdY                 BdY                 BdY                 BdY 
-#&gt;        "%B %dth %Y"        "%B  %d, %Y" "Sunday, %B %d, %Y" "Sunday, %B %d, %Y" 
-#&gt;                 BdY                 BdY                 BdY                 BdY 
-#&gt;        "%B %dth %Y"        "%B  %d, %Y" "Sunday, %B %d, %Y" "Sunday, %B %d, %Y" </div><div class='input'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"Bdy"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
-#&gt;        "%B %dth %Y"        "%B  %d, %Y"     "%A, %B %d, %Y"     "%A, %B %d, %Y" 
-#&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
-#&gt;        "%B  %d, %y"        "%B %dth %Y"        "%B  %d, %Y"     "%A, %B %d, %Y" 
-#&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
-#&gt;     "%A, %B %d, %Y"        "%B  %d, %y"        "%B %dth %Y"        "%B  %d, %Y" 
-#&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
-#&gt; "Sunday, %B %d, %Y" "Sunday, %B %d, %Y"        "%B  %d, %y"        "%B %dth %Y" 
-#&gt;                 Bdy                 Bdy                 Bdy                 Bdy 
-#&gt;        "%B  %d, %Y" "Sunday, %B %d, %Y" "Sunday, %B %d, %Y"        "%B  %d, %y" </div><div class='input'><span class='co'>## m also matches b and B; y also matches Y</span>
+</div><div class='output co'>#&gt;                 ObdY                 ObdY                 ObdY 
+#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
+#&gt;                 ObdY                 ObdY                 ObdY 
+#&gt;     "%A, %Ob %d, %Y"          "%Ob %d %Y"         "%Ob %d, %Y" 
+#&gt;                  BdY                  BdY                  BdY 
+#&gt;         "%B %dth %Y"         "%B  %d, %Y"      "%A, %B %d, %Y" 
+#&gt;                  BdY                 ObdY                 ObdY 
+#&gt;      "%A, %B %d, %Y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
+#&gt;                 ObdY                 ObdY                 ObdY 
+#&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" 
+#&gt;                 ObdY                  BdY                  BdY 
+#&gt;         "%Ob %d, %Y"         "%B %dth %Y"         "%B  %d, %Y" 
+#&gt;                  BdY                  BdY 
+#&gt;  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" </div><div class='input'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"Bdy"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;     "%A, %Ob %d, %Y"        "%Ob  %d, %y"        "%Ob %dth %y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;          "%Ob %d %Y"         "%Ob %d, %Y"        "%Ob %d   %y" 
+#&gt;                  Bdy                  Bdy                  Bdy 
+#&gt;         "%B %dth %Y"         "%B  %d, %Y"      "%A, %B %d, %Y" 
+#&gt;                  Bdy                  Bdy                 Obdy 
+#&gt;      "%A, %B %d, %Y"         "%B  %d, %y"        "%Ob %dth %Y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;        "%Ob  %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;        "%Ob  %d, %y"        "%Ob %dth %y"          "%Ob %d %Y" 
+#&gt;                 Obdy                 Obdy                  Bdy 
+#&gt;         "%Ob %d, %Y"        "%Ob %d   %y"         "%B %dth %Y" 
+#&gt;                  Bdy                  Bdy                  Bdy 
+#&gt;         "%B  %d, %Y"  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" 
+#&gt;                  Bdy 
+#&gt;         "%B  %d, %y" </div><div class='input'><span class='co'>## m also matches b and B; y also matches Y</span>
 <span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"mdy"</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;                                           Omdy                
 #&gt;  [1,] "February 20th 1973"                "%Om %dth %Y"       
@@ -397,78 +413,78 @@ of matched templates.</p></td>
 #&gt;        "%I:%M:%S %p" </div><div class='input'>
 <span class='co'>## b and B are equivalent and match, both, abreviated and full names</span>
 <span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mdY"</span>, <span class='st'>"BdY"</span>, <span class='st'>"Bdy"</span>, <span class='st'>"bdY"</span>, <span class='st'>"bdy"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           BdY                
-#&gt;  [1,] "February 20th 1973"                "%B %dth %Y"       
-#&gt;  [2,] "february  14, 2004"                "%B  %d, %Y"       
-#&gt;  [3,] "Sunday, May 1, 2000"               "Sunday, %B %d, %Y"
-#&gt;  [4,] "Sunday, May 1, 2000"               "Sunday, %B %d, %Y"
-#&gt;  [5,] "february  14, 04"                  ""                 
-#&gt;  [6,] "Feb 20th 73"                       ""                 
-#&gt;  [7,] "January 5 1999 at 7pm"             ""                 
-#&gt;  [8,] "jan 3 2010"                        ""                 
-#&gt;  [9,] "Jan 1, 1999"                       ""                 
-#&gt; [10,] "jan 3   10"                        ""                 
-#&gt; [11,] "01 3 2010"                         ""                 
-#&gt; [12,] "1 3 10"                            ""                 
-#&gt; [13,] "1 13 89"                           ""                 
-#&gt; [14,] "5/27/1979"                         ""                 
-#&gt; [15,] "12/31/99"                          ""                 
-#&gt; [16,] "DOB:12/11/00"                      ""                 
-#&gt; [17,] "-----------"                       ""                 
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""                 
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""                 
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""                 
-#&gt; [21,] "Thu, 1July2004 22:30:00"           ""                 
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""                 
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""                 
-#&gt; [24,] "-----------"                       ""                 
-#&gt; [25,] "1979-05-27 05:00:59"               ""                 
-#&gt; [26,] "1979-05-27"                        ""                 
-#&gt; [27,] "-----------"                       ""                 
-#&gt; [28,] "3 jan 2000"                        ""                 
-#&gt; [29,] "17 april 85"                       ""                 
-#&gt; [30,] "27/5/1979"                         ""                 
-#&gt; [31,] "20 01 89"                          ""                 
-#&gt; [32,] "00/13/10"                          ""                 
-#&gt; [33,] "-------"                           ""                 
-#&gt; [34,] "14 12 00"                          ""                 
-#&gt; [35,] "03:23:22 pm"                       ""                 
-#&gt;       Bdy                 ObdY                 Obdy                
-#&gt;  [1,] "%B %dth %Y"        "%Ob %dth %Y"        "%Ob %dth %Y"       
-#&gt;  [2,] "%B  %d, %Y"        "%Ob  %d, %Y"        "%Ob  %d, %Y"       
-#&gt;  [3,] "Sunday, %B %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"
-#&gt;  [4,] "Sunday, %B %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"
-#&gt;  [5,] "%B  %d, %y"        ""                   "%Ob  %d, %y"       
-#&gt;  [6,] ""                  ""                   "%Ob %dth %y"       
-#&gt;  [7,] ""                  ""                   ""                  
-#&gt;  [8,] ""                  "%Ob %d %Y"          "%Ob %d %Y"         
-#&gt;  [9,] ""                  "%Ob %d, %Y"         "%Ob %d, %Y"        
-#&gt; [10,] ""                  ""                   "%Ob %d   %y"       
-#&gt; [11,] ""                  ""                   ""                  
-#&gt; [12,] ""                  ""                   ""                  
-#&gt; [13,] ""                  ""                   ""                  
-#&gt; [14,] ""                  ""                   ""                  
-#&gt; [15,] ""                  ""                   ""                  
-#&gt; [16,] ""                  ""                   ""                  
-#&gt; [17,] ""                  ""                   ""                  
-#&gt; [18,] ""                  ""                   ""                  
-#&gt; [19,] ""                  ""                   ""                  
-#&gt; [20,] ""                  ""                   ""                  
-#&gt; [21,] ""                  ""                   ""                  
-#&gt; [22,] ""                  ""                   ""                  
-#&gt; [23,] ""                  ""                   ""                  
-#&gt; [24,] ""                  ""                   ""                  
-#&gt; [25,] ""                  ""                   ""                  
-#&gt; [26,] ""                  ""                   ""                  
-#&gt; [27,] ""                  ""                   ""                  
-#&gt; [28,] ""                  ""                   ""                  
-#&gt; [29,] ""                  ""                   ""                  
-#&gt; [30,] ""                  ""                   ""                  
-#&gt; [31,] ""                  ""                   ""                  
-#&gt; [32,] ""                  ""                   ""                  
-#&gt; [33,] ""                  ""                   ""                  
-#&gt; [34,] ""                  ""                   ""                  
-#&gt; [35,] ""                  ""                   ""                  
+</div><div class='output co'>#&gt;                                           ObdY                
+#&gt;  [1,] "February 20th 1973"                "%Ob %dth %Y"       
+#&gt;  [2,] "february  14, 2004"                "%Ob  %d, %Y"       
+#&gt;  [3,] "Sunday, May 1, 2000"               "Sunday, %Ob %d, %Y"
+#&gt;  [4,] "Sunday, May 1, 2000"               "Sunday, %Ob %d, %Y"
+#&gt;  [5,] "february  14, 04"                  ""                  
+#&gt;  [6,] "Feb 20th 73"                       ""                  
+#&gt;  [7,] "January 5 1999 at 7pm"             ""                  
+#&gt;  [8,] "jan 3 2010"                        "%Ob %d %Y"         
+#&gt;  [9,] "Jan 1, 1999"                       "%Ob %d, %Y"        
+#&gt; [10,] "jan 3   10"                        ""                  
+#&gt; [11,] "01 3 2010"                         ""                  
+#&gt; [12,] "1 3 10"                            ""                  
+#&gt; [13,] "1 13 89"                           ""                  
+#&gt; [14,] "5/27/1979"                         ""                  
+#&gt; [15,] "12/31/99"                          ""                  
+#&gt; [16,] "DOB:12/11/00"                      ""                  
+#&gt; [17,] "-----------"                       ""                  
+#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""                  
+#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""                  
+#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""                  
+#&gt; [21,] "Thu, 1July2004 22:30:00"           ""                  
+#&gt; [22,] "Thu, 1July04 22:30:00"             ""                  
+#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""                  
+#&gt; [24,] "-----------"                       ""                  
+#&gt; [25,] "1979-05-27 05:00:59"               ""                  
+#&gt; [26,] "1979-05-27"                        ""                  
+#&gt; [27,] "-----------"                       ""                  
+#&gt; [28,] "3 jan 2000"                        ""                  
+#&gt; [29,] "17 april 85"                       ""                  
+#&gt; [30,] "27/5/1979"                         ""                  
+#&gt; [31,] "20 01 89"                          ""                  
+#&gt; [32,] "00/13/10"                          ""                  
+#&gt; [33,] "-------"                           ""                  
+#&gt; [34,] "14 12 00"                          ""                  
+#&gt; [35,] "03:23:22 pm"                       ""                  
+#&gt;       Obdy                 ObdY                 Obdy                
+#&gt;  [1,] "%Ob %dth %Y"        "%Ob %dth %Y"        "%Ob %dth %Y"       
+#&gt;  [2,] "%Ob  %d, %Y"        "%Ob  %d, %Y"        "%Ob  %d, %Y"       
+#&gt;  [3,] "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"
+#&gt;  [4,] "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"
+#&gt;  [5,] "%Ob  %d, %y"        ""                   "%Ob  %d, %y"       
+#&gt;  [6,] "%Ob %dth %y"        ""                   "%Ob %dth %y"       
+#&gt;  [7,] ""                   ""                   ""                  
+#&gt;  [8,] "%Ob %d %Y"          "%Ob %d %Y"          "%Ob %d %Y"         
+#&gt;  [9,] "%Ob %d, %Y"         "%Ob %d, %Y"         "%Ob %d, %Y"        
+#&gt; [10,] "%Ob %d   %y"        ""                   "%Ob %d   %y"       
+#&gt; [11,] ""                   ""                   ""                  
+#&gt; [12,] ""                   ""                   ""                  
+#&gt; [13,] ""                   ""                   ""                  
+#&gt; [14,] ""                   ""                   ""                  
+#&gt; [15,] ""                   ""                   ""                  
+#&gt; [16,] ""                   ""                   ""                  
+#&gt; [17,] ""                   ""                   ""                  
+#&gt; [18,] ""                   ""                   ""                  
+#&gt; [19,] ""                   ""                   ""                  
+#&gt; [20,] ""                   ""                   ""                  
+#&gt; [21,] ""                   ""                   ""                  
+#&gt; [22,] ""                   ""                   ""                  
+#&gt; [23,] ""                   ""                   ""                  
+#&gt; [24,] ""                   ""                   ""                  
+#&gt; [25,] ""                   ""                   ""                  
+#&gt; [26,] ""                   ""                   ""                  
+#&gt; [27,] ""                   ""                   ""                  
+#&gt; [28,] ""                   ""                   ""                  
+#&gt; [29,] ""                   ""                   ""                  
+#&gt; [30,] ""                   ""                   ""                  
+#&gt; [31,] ""                   ""                   ""                  
+#&gt; [32,] ""                   ""                   ""                  
+#&gt; [33,] ""                   ""                   ""                  
+#&gt; [34,] ""                   ""                   ""                  
+#&gt; [35,] ""                   ""                   ""                  
 #&gt;       OmdY                 mdY                 BdY                
 #&gt;  [1,] "%Om %dth %Y"        "%B %dth %Y"        "%B %dth %Y"       
 #&gt;  [2,] "%Om  %d, %Y"        "%B  %d, %Y"        "%B  %d, %Y"       
@@ -540,12 +556,16 @@ of matched templates.</p></td>
 #&gt; [32,] ""                  ""                  ""                 
 #&gt; [33,] ""                  ""                  ""                 
 #&gt; [34,] ""                  ""                  ""                 
-#&gt; [35,] ""                  ""                  ""                 </div><div class='output co'>#&gt;                  BdY                  BdY                  BdY 
-#&gt;         "%B %dth %Y"         "%B  %d, %Y"      "%A, %B %d, %Y" 
-#&gt;                  BdY                  Bdy                  Bdy 
-#&gt;      "%A, %B %d, %Y"         "%B %dth %Y"         "%B  %d, %Y" 
-#&gt;                  Bdy                  Bdy                  Bdy 
-#&gt;      "%A, %B %d, %Y"      "%A, %B %d, %Y"         "%B  %d, %y" 
+#&gt; [35,] ""                  ""                  ""                 </div><div class='output co'>#&gt;                 ObdY                 ObdY                 ObdY 
+#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
+#&gt;                 ObdY                 ObdY                 ObdY 
+#&gt;     "%A, %Ob %d, %Y"          "%Ob %d %Y"         "%Ob %d, %Y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;     "%A, %Ob %d, %Y"        "%Ob  %d, %y"        "%Ob %dth %y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;          "%Ob %d %Y"         "%Ob %d, %Y"        "%Ob %d   %y" 
 #&gt;                 ObdY                 ObdY                 ObdY 
 #&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
 #&gt;                 ObdY                 ObdY                 ObdY 
@@ -582,14 +602,18 @@ of matched templates.</p></td>
 #&gt;      "%A, %b %d, %Y"      "%A, %b %d, %Y"         "%B  %d, %y" 
 #&gt;                  bdy                  bdy                  bdy 
 #&gt;         "%b %dth %y"           "%b %d %Y"          "%b %d, %Y" 
-#&gt;                  bdy                  BdY                  BdY 
-#&gt;         "%b %d   %y"         "%B %dth %Y"         "%B  %d, %Y" 
-#&gt;                  BdY                  BdY                  Bdy 
-#&gt;  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y"         "%B %dth %Y" 
-#&gt;                  Bdy                  Bdy                  Bdy 
-#&gt;         "%B  %d, %Y"  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" 
-#&gt;                  Bdy                 ObdY                 ObdY 
-#&gt;         "%B  %d, %y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
+#&gt;                  bdy                 ObdY                 ObdY 
+#&gt;         "%b %d   %y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
+#&gt;                 ObdY                 ObdY                 ObdY 
+#&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" 
+#&gt;                 ObdY                 Obdy                 Obdy 
+#&gt;         "%Ob %d, %Y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"        "%Ob  %d, %y" 
+#&gt;                 Obdy                 Obdy                 Obdy 
+#&gt;        "%Ob %dth %y"          "%Ob %d %Y"         "%Ob %d, %Y" 
+#&gt;                 Obdy                 ObdY                 ObdY 
+#&gt;        "%Ob %d   %y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
 #&gt;                 ObdY                 ObdY                 ObdY 
 #&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" 
 #&gt;                 ObdY                 Obdy                 Obdy 
@@ -626,42 +650,42 @@ of matched templates.</p></td>
 #&gt;         "%B  %d, %y"         "%b %dth %y"           "%b %d %Y" 
 #&gt;                  bdy                  bdy 
 #&gt;          "%b %d, %Y"         "%b %d   %y" </div><div class='input'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dmy"</span>, <span class='st'>"dbY"</span>, <span class='st'>"dBy"</span>, <span class='st'>"dBY"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           dObY        dBy        dBY
-#&gt;  [1,] "February 20th 1973"                ""          ""         "" 
-#&gt;  [2,] "february  14, 2004"                ""          ""         "" 
-#&gt;  [3,] "Sunday, May 1, 2000"               ""          ""         "" 
-#&gt;  [4,] "Sunday, May 1, 2000"               ""          ""         "" 
-#&gt;  [5,] "february  14, 04"                  ""          ""         "" 
-#&gt;  [6,] "Feb 20th 73"                       ""          ""         "" 
-#&gt;  [7,] "January 5 1999 at 7pm"             ""          ""         "" 
-#&gt;  [8,] "jan 3 2010"                        ""          ""         "" 
-#&gt;  [9,] "Jan 1, 1999"                       ""          ""         "" 
-#&gt; [10,] "jan 3   10"                        ""          ""         "" 
-#&gt; [11,] "01 3 2010"                         ""          ""         "" 
-#&gt; [12,] "1 3 10"                            ""          ""         "" 
-#&gt; [13,] "1 13 89"                           ""          ""         "" 
-#&gt; [14,] "5/27/1979"                         ""          ""         "" 
-#&gt; [15,] "12/31/99"                          ""          ""         "" 
-#&gt; [16,] "DOB:12/11/00"                      ""          ""         "" 
-#&gt; [17,] "-----------"                       ""          ""         "" 
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""          ""         "" 
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""          ""         "" 
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""          ""         "" 
-#&gt; [21,] "Thu, 1July2004 22:30:00"           ""          ""         "" 
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""          ""         "" 
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""          ""         "" 
-#&gt; [24,] "-----------"                       ""          ""         "" 
-#&gt; [25,] "1979-05-27 05:00:59"               ""          ""         "" 
-#&gt; [26,] "1979-05-27"                        ""          ""         "" 
-#&gt; [27,] "-----------"                       ""          ""         "" 
-#&gt; [28,] "3 jan 2000"                        "%d %Ob %Y" ""         "" 
-#&gt; [29,] "17 april 85"                       ""          "%d %B %y" "" 
-#&gt; [30,] "27/5/1979"                         ""          ""         "" 
-#&gt; [31,] "20 01 89"                          ""          ""         "" 
-#&gt; [32,] "00/13/10"                          ""          ""         "" 
-#&gt; [33,] "-------"                           ""          ""         "" 
-#&gt; [34,] "14 12 00"                          ""          ""         "" 
-#&gt; [35,] "03:23:22 pm"                       ""          ""         "" 
+</div><div class='output co'>#&gt;                                           dObY        dOby        dObY       
+#&gt;  [1,] "February 20th 1973"                ""          ""          ""         
+#&gt;  [2,] "february  14, 2004"                ""          ""          ""         
+#&gt;  [3,] "Sunday, May 1, 2000"               ""          ""          ""         
+#&gt;  [4,] "Sunday, May 1, 2000"               ""          ""          ""         
+#&gt;  [5,] "february  14, 04"                  ""          ""          ""         
+#&gt;  [6,] "Feb 20th 73"                       ""          ""          ""         
+#&gt;  [7,] "January 5 1999 at 7pm"             ""          ""          ""         
+#&gt;  [8,] "jan 3 2010"                        ""          ""          ""         
+#&gt;  [9,] "Jan 1, 1999"                       ""          ""          ""         
+#&gt; [10,] "jan 3   10"                        ""          ""          ""         
+#&gt; [11,] "01 3 2010"                         ""          ""          ""         
+#&gt; [12,] "1 3 10"                            ""          ""          ""         
+#&gt; [13,] "1 13 89"                           ""          ""          ""         
+#&gt; [14,] "5/27/1979"                         ""          ""          ""         
+#&gt; [15,] "12/31/99"                          ""          ""          ""         
+#&gt; [16,] "DOB:12/11/00"                      ""          ""          ""         
+#&gt; [17,] "-----------"                       ""          ""          ""         
+#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""          ""          ""         
+#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""          ""          ""         
+#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""          ""          ""         
+#&gt; [21,] "Thu, 1July2004 22:30:00"           ""          ""          ""         
+#&gt; [22,] "Thu, 1July04 22:30:00"             ""          ""          ""         
+#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""          ""          ""         
+#&gt; [24,] "-----------"                       ""          ""          ""         
+#&gt; [25,] "1979-05-27 05:00:59"               ""          ""          ""         
+#&gt; [26,] "1979-05-27"                        ""          ""          ""         
+#&gt; [27,] "-----------"                       ""          ""          ""         
+#&gt; [28,] "3 jan 2000"                        "%d %Ob %Y" "%d %Ob %Y" "%d %Ob %Y"
+#&gt; [29,] "17 april 85"                       ""          "%d %Ob %y" ""         
+#&gt; [30,] "27/5/1979"                         ""          ""          ""         
+#&gt; [31,] "20 01 89"                          ""          ""          ""         
+#&gt; [32,] "00/13/10"                          ""          ""          ""         
+#&gt; [33,] "-------"                           ""          ""          ""         
+#&gt; [34,] "14 12 00"                          ""          ""          ""         
+#&gt; [35,] "03:23:22 pm"                       ""          ""          ""         
 #&gt;       dOmy            dmy            dbY        dBy        dBY
 #&gt;  [1,] ""              ""             ""         ""         "" 
 #&gt;  [2,] ""              ""             ""         ""         "" 
@@ -697,88 +721,90 @@ of matched templates.</p></td>
 #&gt; [32,] ""              ""             ""         ""         "" 
 #&gt; [33,] ""              ""             ""         ""         "" 
 #&gt; [34,] "%d %Om %y"     "%d %m %y"     ""         ""         "" 
-#&gt; [35,] ""              ""             ""         ""         "" </div><div class='output co'>#&gt;            dObY             dBy            dOmy            dOmy            dOmy 
-#&gt;     "%d %Ob %Y"      "%d %B %y"     "%d %Om %Y"     "%d %Om %y" "DOB:%d/%Om/%y" 
+#&gt; [35,] ""              ""             ""         ""         "" </div><div class='output co'>#&gt;            dObY            dOby            dOby            dObY            dOmy 
+#&gt;     "%d %Ob %Y"     "%d %Ob %Y"     "%d %Ob %y"     "%d %Ob %Y"     "%d %Om %Y" 
 #&gt;            dOmy            dOmy            dOmy            dOmy            dOmy 
-#&gt;     "%d %Om %Y"     "%d %Om %y"     "%d/%Om/%Y"     "%d %Om %y"     "%d %Om %y" 
+#&gt;     "%d %Om %y" "DOB:%d/%Om/%y"     "%d %Om %Y"     "%d %Om %y"     "%d/%Om/%Y" 
+#&gt;            dOmy            dOmy             dmy             dmy             dmy 
+#&gt;     "%d %Om %y"     "%d %Om %y"      "%d %m %Y"      "%d %m %y"  "DOB:%d/%m/%y" 
 #&gt;             dmy             dmy             dmy             dmy             dmy 
-#&gt;      "%d %m %Y"      "%d %m %y"  "DOB:%d/%m/%y"      "%d %b %Y"      "%d %B %y" 
-#&gt;             dmy             dmy             dmy             dbY             dBy 
-#&gt;      "%d/%m/%Y"      "%d %m %y"      "%d %m %y"      "%d %b %Y"      "%d %B %y" </div><div class='input'>
+#&gt;      "%d %b %Y"      "%d %B %y"      "%d/%m/%Y"      "%d %m %y"      "%d %m %y" 
+#&gt;             dbY             dBy 
+#&gt;      "%d %b %Y"      "%d %B %y" </div><div class='input'>
 
 <span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dBY HMS"</span>, <span class='st'>"dbY HMS"</span>, <span class='st'>"dmyHMS"</span>, <span class='st'>"BdY H"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           dBYHMS                          
-#&gt;  [1,] "February 20th 1973"                ""                              
-#&gt;  [2,] "february  14, 2004"                ""                              
-#&gt;  [3,] "Sunday, May 1, 2000"               ""                              
-#&gt;  [4,] "Sunday, May 1, 2000"               ""                              
-#&gt;  [5,] "february  14, 04"                  ""                              
-#&gt;  [6,] "Feb 20th 73"                       ""                              
-#&gt;  [7,] "January 5 1999 at 7pm"             ""                              
-#&gt;  [8,] "jan 3 2010"                        ""                              
-#&gt;  [9,] "Jan 1, 1999"                       ""                              
-#&gt; [10,] "jan 3   10"                        ""                              
-#&gt; [11,] "01 3 2010"                         ""                              
-#&gt; [12,] "1 3 10"                            ""                              
-#&gt; [13,] "1 13 89"                           ""                              
-#&gt; [14,] "5/27/1979"                         ""                              
-#&gt; [15,] "12/31/99"                          ""                              
-#&gt; [16,] "DOB:12/11/00"                      ""                              
-#&gt; [17,] "-----------"                       ""                              
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         "Thu, %d %B %Y %H:%M:%S"        
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" "Thu, %dst of %B %Y at %H:%M:%S"
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       "Thu, %d%B %Y at %H:%M:%S"      
-#&gt; [21,] "Thu, 1July2004 22:30:00"           "Thu, %d%B%Y %H:%M:%S"          
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""                              
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""                              
-#&gt; [24,] "-----------"                       ""                              
-#&gt; [25,] "1979-05-27 05:00:59"               ""                              
-#&gt; [26,] "1979-05-27"                        ""                              
-#&gt; [27,] "-----------"                       ""                              
-#&gt; [28,] "3 jan 2000"                        ""                              
-#&gt; [29,] "17 april 85"                       ""                              
-#&gt; [30,] "27/5/1979"                         ""                              
-#&gt; [31,] "20 01 89"                          ""                              
-#&gt; [32,] "00/13/10"                          ""                              
-#&gt; [33,] "-------"                           ""                              
-#&gt; [34,] "14 12 00"                          ""                              
-#&gt; [35,] "03:23:22 pm"                       ""                              
-#&gt;       dObYHMS                           BdYH              
-#&gt;  [1,] ""                                ""                
-#&gt;  [2,] ""                                ""                
-#&gt;  [3,] ""                                ""                
-#&gt;  [4,] ""                                ""                
-#&gt;  [5,] ""                                ""                
-#&gt;  [6,] ""                                ""                
-#&gt;  [7,] ""                                "%B %d %Y at %Hpm"
-#&gt;  [8,] ""                                ""                
-#&gt;  [9,] ""                                ""                
-#&gt; [10,] ""                                ""                
-#&gt; [11,] ""                                ""                
-#&gt; [12,] ""                                ""                
-#&gt; [13,] ""                                ""                
-#&gt; [14,] ""                                ""                
-#&gt; [15,] ""                                ""                
-#&gt; [16,] ""                                ""                
-#&gt; [17,] ""                                ""                
-#&gt; [18,] "Thu, %d %Ob %Y %H:%M:%S"         ""                
-#&gt; [19,] "Thu, %dst of %Ob %Y at %H:%M:%S" ""                
-#&gt; [20,] "Thu, %d%Ob %Y at %H:%M:%S"       ""                
-#&gt; [21,] "Thu, %d%Ob%Y %H:%M:%S"           ""                
-#&gt; [22,] ""                                ""                
-#&gt; [23,] "%d %Ob %Y, %H:%M:%S pm"          ""                
-#&gt; [24,] ""                                ""                
-#&gt; [25,] ""                                ""                
-#&gt; [26,] ""                                ""                
-#&gt; [27,] ""                                ""                
-#&gt; [28,] ""                                ""                
-#&gt; [29,] ""                                ""                
-#&gt; [30,] ""                                ""                
-#&gt; [31,] ""                                ""                
-#&gt; [32,] ""                                ""                
-#&gt; [33,] ""                                ""                
-#&gt; [34,] ""                                ""                
-#&gt; [35,] ""                                ""                
+</div><div class='output co'>#&gt;                                           dObYHMS                          
+#&gt;  [1,] "February 20th 1973"                ""                               
+#&gt;  [2,] "february  14, 2004"                ""                               
+#&gt;  [3,] "Sunday, May 1, 2000"               ""                               
+#&gt;  [4,] "Sunday, May 1, 2000"               ""                               
+#&gt;  [5,] "february  14, 04"                  ""                               
+#&gt;  [6,] "Feb 20th 73"                       ""                               
+#&gt;  [7,] "January 5 1999 at 7pm"             ""                               
+#&gt;  [8,] "jan 3 2010"                        ""                               
+#&gt;  [9,] "Jan 1, 1999"                       ""                               
+#&gt; [10,] "jan 3   10"                        ""                               
+#&gt; [11,] "01 3 2010"                         ""                               
+#&gt; [12,] "1 3 10"                            ""                               
+#&gt; [13,] "1 13 89"                           ""                               
+#&gt; [14,] "5/27/1979"                         ""                               
+#&gt; [15,] "12/31/99"                          ""                               
+#&gt; [16,] "DOB:12/11/00"                      ""                               
+#&gt; [17,] "-----------"                       ""                               
+#&gt; [18,] "Thu, 1 July 2004 22:30:00"         "Thu, %d %Ob %Y %H:%M:%S"        
+#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" "Thu, %dst of %Ob %Y at %H:%M:%S"
+#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       "Thu, %d%Ob %Y at %H:%M:%S"      
+#&gt; [21,] "Thu, 1July2004 22:30:00"           "Thu, %d%Ob%Y %H:%M:%S"          
+#&gt; [22,] "Thu, 1July04 22:30:00"             ""                               
+#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          "%d %Ob %Y, %H:%M:%S pm"         
+#&gt; [24,] "-----------"                       ""                               
+#&gt; [25,] "1979-05-27 05:00:59"               ""                               
+#&gt; [26,] "1979-05-27"                        ""                               
+#&gt; [27,] "-----------"                       ""                               
+#&gt; [28,] "3 jan 2000"                        ""                               
+#&gt; [29,] "17 april 85"                       ""                               
+#&gt; [30,] "27/5/1979"                         ""                               
+#&gt; [31,] "20 01 89"                          ""                               
+#&gt; [32,] "00/13/10"                          ""                               
+#&gt; [33,] "-------"                           ""                               
+#&gt; [34,] "14 12 00"                          ""                               
+#&gt; [35,] "03:23:22 pm"                       ""                               
+#&gt;       dObYHMS                           ObdYH              
+#&gt;  [1,] ""                                ""                 
+#&gt;  [2,] ""                                ""                 
+#&gt;  [3,] ""                                ""                 
+#&gt;  [4,] ""                                ""                 
+#&gt;  [5,] ""                                ""                 
+#&gt;  [6,] ""                                ""                 
+#&gt;  [7,] ""                                "%Ob %d %Y at %Hpm"
+#&gt;  [8,] ""                                ""                 
+#&gt;  [9,] ""                                ""                 
+#&gt; [10,] ""                                ""                 
+#&gt; [11,] ""                                ""                 
+#&gt; [12,] ""                                ""                 
+#&gt; [13,] ""                                ""                 
+#&gt; [14,] ""                                ""                 
+#&gt; [15,] ""                                ""                 
+#&gt; [16,] ""                                ""                 
+#&gt; [17,] ""                                ""                 
+#&gt; [18,] "Thu, %d %Ob %Y %H:%M:%S"         ""                 
+#&gt; [19,] "Thu, %dst of %Ob %Y at %H:%M:%S" ""                 
+#&gt; [20,] "Thu, %d%Ob %Y at %H:%M:%S"       ""                 
+#&gt; [21,] "Thu, %d%Ob%Y %H:%M:%S"           ""                 
+#&gt; [22,] ""                                ""                 
+#&gt; [23,] "%d %Ob %Y, %H:%M:%S pm"          ""                 
+#&gt; [24,] ""                                ""                 
+#&gt; [25,] ""                                ""                 
+#&gt; [26,] ""                                ""                 
+#&gt; [27,] ""                                ""                 
+#&gt; [28,] ""                                ""                 
+#&gt; [29,] ""                                ""                 
+#&gt; [30,] ""                                ""                 
+#&gt; [31,] ""                                ""                 
+#&gt; [32,] ""                                ""                 
+#&gt; [33,] ""                                ""                 
+#&gt; [34,] ""                                ""                 
+#&gt; [35,] ""                                ""                 
 #&gt;       dOmyHMS                           dBYHMS                          
 #&gt;  [1,] ""                                ""                              
 #&gt;  [2,] ""                                ""                              
@@ -886,48 +912,50 @@ of matched templates.</p></td>
 #&gt; [32,] ""                
 #&gt; [33,] ""                
 #&gt; [34,] ""                
-#&gt; [35,] ""                </div><div class='output co'>#&gt;                            dBYHMS                            dBYHMS 
-#&gt;           "%a, %d %B %Y %H:%M:%S"   "%a, %dst of %B %Y at %H:%M:%S" 
-#&gt;                            dBYHMS                            dBYHMS 
-#&gt;         "%a, %d%B %Y at %H:%M:%S"             "%a, %d%B%Y %H:%M:%S" 
-#&gt;                           dObYHMS                           dObYHMS 
+#&gt; [35,] ""                </div><div class='output co'>#&gt;                           dObYHMS                           dObYHMS 
 #&gt;          "%a, %d %Ob %Y %H:%M:%S"  "%a, %dst of %Ob %Y at %H:%M:%S" 
 #&gt;                           dObYHMS                           dObYHMS 
 #&gt;        "%a, %d%Ob %Y at %H:%M:%S"            "%a, %d%Ob%Y %H:%M:%S" 
-#&gt;                           dObYHMS                              BdYH 
-#&gt;          "%d %Ob %Y, %H:%M:%S pm"                "%B %d %Y at %Hpm" 
+#&gt;                           dObYHMS                           dObYHMS 
+#&gt;          "%d %Ob %Y, %H:%M:%S pm"          "%a, %d %Ob %Y %H:%M:%S" 
+#&gt;                           dObYHMS                           dObYHMS 
+#&gt;  "%a, %dst of %Ob %Y at %H:%M:%S"        "%a, %d%Ob %Y at %H:%M:%S" 
+#&gt;                           dObYHMS                           dObYHMS 
+#&gt;            "%a, %d%Ob%Y %H:%M:%S"          "%d %Ob %Y, %H:%M:%S pm" 
+#&gt;                             ObdYH                           dOmyHMS 
+#&gt;               "%Ob %d %Y at %Hpm"          "%a, %d %Om %Y %H:%M:%S" 
 #&gt;                           dOmyHMS                           dOmyHMS 
-#&gt;          "%a, %d %Om %Y %H:%M:%S"  "%a, %dst of %Om %Y at %H:%M:%S" 
+#&gt;  "%a, %dst of %Om %Y at %H:%M:%S"        "%a, %d%Om %Y at %H:%M:%S" 
 #&gt;                           dOmyHMS                           dOmyHMS 
-#&gt;        "%a, %d%Om %Y at %H:%M:%S"            "%a, %d%Om%Y %H:%M:%S" 
-#&gt;                           dOmyHMS                           dOmyHMS 
-#&gt;            "%a, %d%Om%y %H:%M:%S"          "%d %Om %Y, %H:%M:%S pm" 
+#&gt;            "%a, %d%Om%Y %H:%M:%S"            "%a, %d%Om%y %H:%M:%S" 
+#&gt;                           dOmyHMS                            dBYHMS 
+#&gt;          "%d %Om %Y, %H:%M:%S pm"           "%a, %d %B %Y %H:%M:%S" 
 #&gt;                            dBYHMS                            dBYHMS 
-#&gt;           "%a, %d %B %Y %H:%M:%S"   "%a, %dst of %B %Y at %H:%M:%S" 
-#&gt;                            dBYHMS                            dBYHMS 
-#&gt;         "%a, %d%B %Y at %H:%M:%S"             "%a, %d%B%Y %H:%M:%S" 
-#&gt;                            dbYHMS                            dbYHMS 
-#&gt;           "%a, %d %B %Y %H:%M:%S"   "%a, %dst of %B %Y at %H:%M:%S" 
-#&gt;                            dbYHMS                            dbYHMS 
-#&gt;         "%a, %d%B %Y at %H:%M:%S"             "%a, %d%B%Y %H:%M:%S" 
-#&gt;                            dbYHMS                            dmyHMS 
-#&gt;           "%d %b %Y, %H:%M:%S pm"           "%a, %d %B %Y %H:%M:%S" 
-#&gt;                            dmyHMS                            dmyHMS 
 #&gt;   "%a, %dst of %B %Y at %H:%M:%S"         "%a, %d%B %Y at %H:%M:%S" 
+#&gt;                            dBYHMS                            dbYHMS 
+#&gt;             "%a, %d%B%Y %H:%M:%S"           "%a, %d %B %Y %H:%M:%S" 
+#&gt;                            dbYHMS                            dbYHMS 
+#&gt;   "%a, %dst of %B %Y at %H:%M:%S"         "%a, %d%B %Y at %H:%M:%S" 
+#&gt;                            dbYHMS                            dbYHMS 
+#&gt;             "%a, %d%B%Y %H:%M:%S"           "%d %b %Y, %H:%M:%S pm" 
 #&gt;                            dmyHMS                            dmyHMS 
-#&gt;             "%a, %d%B%Y %H:%M:%S"             "%a, %d%B%y %H:%M:%S" 
-#&gt;                            dmyHMS                              BdYH 
-#&gt;           "%d %b %Y, %H:%M:%S pm"                "%B %d %Y at %Hpm" 
-#&gt;                            dBYHMS                            dBYHMS 
-#&gt;          "Thu, %d %B %Y %H:%M:%S"  "Thu, %dst of %B %Y at %H:%M:%S" 
-#&gt;                            dBYHMS                            dBYHMS 
-#&gt;        "Thu, %d%B %Y at %H:%M:%S"            "Thu, %d%B%Y %H:%M:%S" 
+#&gt;           "%a, %d %B %Y %H:%M:%S"   "%a, %dst of %B %Y at %H:%M:%S" 
+#&gt;                            dmyHMS                            dmyHMS 
+#&gt;         "%a, %d%B %Y at %H:%M:%S"             "%a, %d%B%Y %H:%M:%S" 
+#&gt;                            dmyHMS                            dmyHMS 
+#&gt;             "%a, %d%B%y %H:%M:%S"           "%d %b %Y, %H:%M:%S pm" 
+#&gt;                              BdYH                           dObYHMS 
+#&gt;                "%B %d %Y at %Hpm"         "Thu, %d %Ob %Y %H:%M:%S" 
+#&gt;                           dObYHMS                           dObYHMS 
+#&gt; "Thu, %dst of %Ob %Y at %H:%M:%S"       "Thu, %d%Ob %Y at %H:%M:%S" 
+#&gt;                           dObYHMS                           dObYHMS 
+#&gt;           "Thu, %d%Ob%Y %H:%M:%S"          "%d %Ob %Y, %H:%M:%S pm" 
 #&gt;                           dObYHMS                           dObYHMS 
 #&gt;         "Thu, %d %Ob %Y %H:%M:%S" "Thu, %dst of %Ob %Y at %H:%M:%S" 
 #&gt;                           dObYHMS                           dObYHMS 
 #&gt;       "Thu, %d%Ob %Y at %H:%M:%S"           "Thu, %d%Ob%Y %H:%M:%S" 
-#&gt;                           dObYHMS                              BdYH 
-#&gt;          "%d %Ob %Y, %H:%M:%S pm"                "%B %d %Y at %Hpm" 
+#&gt;                           dObYHMS                             ObdYH 
+#&gt;          "%d %Ob %Y, %H:%M:%S pm"               "%Ob %d %Y at %Hpm" 
 #&gt;                           dOmyHMS                           dOmyHMS 
 #&gt;         "Thu, %d %Om %Y %H:%M:%S" "Thu, %dst of %Om %Y at %H:%M:%S" 
 #&gt;                           dOmyHMS                           dOmyHMS 
