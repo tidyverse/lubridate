@@ -152,7 +152,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #' `duration()` creates a duration object with the specified values. Entries
 #' for different units are cumulative. durations display as the number of
 #' seconds in a time span. When this number is large, durations also display an
-#' estimate in larger units,; however, the underlying object is always recorded
+#' estimate in larger units, however, the underlying object is always recorded
 #' as a fixed number of seconds. For display and creation purposes, units are
 #' converted to seconds using their most common lengths in seconds. Minutes = 60
 #' seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units
