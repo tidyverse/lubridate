@@ -77,7 +77,7 @@ SECONDS_IN_ONE <- c(
 .next_unit <- structure(as.list(c(names(SECONDS_IN_ONE[-1]), list(NULL))),
                         names = names(SECONDS_IN_ONE))
 
-compute_estimate <- function (secs, unit = "second") {
+compute_estimate <- function(secs, unit = "second") {
   next_unit <- .next_unit[[unit]]
   if (is.null(next_unit))
     return(.readable_duration(secs, "year"))
