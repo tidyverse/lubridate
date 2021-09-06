@@ -77,7 +77,7 @@ SECONDS_IN_ONE <- c(
 .next_unit <- structure(as.list(c(names(SECONDS_IN_ONE[-1]), list(NULL))),
                         names = names(SECONDS_IN_ONE))
 
-compute_estimate <- function (secs, unit = "second") {
+compute_estimate <- function(secs, unit = "second") {
   next_unit <- .next_unit[[unit]]
   if (is.null(next_unit))
     return(.readable_duration(secs, "year"))
@@ -152,7 +152,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #' `duration()` creates a duration object with the specified values. Entries
 #' for different units are cumulative. durations display as the number of
 #' seconds in a time span. When this number is large, durations also display an
-#' estimate in larger units,; however, the underlying object is always recorded
+#' estimate in larger units, however, the underlying object is always recorded
 #' as a fixed number of seconds. For display and creation purposes, units are
 #' converted to seconds using their most common lengths in seconds. Minutes = 60
 #' seconds, hours = 3600 seconds, days = 86400 seconds, weeks = 604800. Units
@@ -230,7 +230,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #' dseconds(1)
 #' dminutes(3.5)
 #'
-#' x <- ymd_hms("2009-08-03", tz="America/Chicago")
+#' x <- ymd("2009-08-03", tz = "America/Chicago")
 #' x + ddays(1) + dhours(6) + dminutes(30)
 #' x + ddays(100) - dhours(8)
 #'
@@ -243,7 +243,7 @@ setMethod("[[<-", signature(x = "Duration"),
 #' c(1:3) * dhours(1)
 #'
 #' # compare DST handling to durations
-#' boundary <- ymd_hms("2009-03-08 01:59:59", tz="America/Chicago")
+#' boundary <- ymd_hms("2009-03-08 01:59:59", tz = "America/Chicago")
 #' boundary + days(1) # period
 #' boundary + ddays(1) # duration
 #' @export
