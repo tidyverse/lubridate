@@ -918,9 +918,13 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   parse_date_time(x, orders = c("ymdTz", "ymdT", "ymd"), tz = tz, train = FALSE)
 }
 
-as_POSIXct <- function(x, tz) {
+as_POSIXct <- function(x, tz = tz(x)) {
   if (is.character(x))
     .parse_iso_dt(x, tz = tz)
+  else if (is.Date(x))
+    ## as.POSIXct.Date assues UTC in computation but returns POSIXct with system TZ
+    ## same as as_datetime Date method
+    .POSIXct(as.numeric(x) * 86400, tz = "UTC")
   else if (!is.POSIXct(x))
     as.POSIXct(x, tz = tz)
   else x

@@ -145,10 +145,10 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
   new <-
     if (n == 1 && basic_unit %in% c("second", "minute", "hour", "day")) {
       ## special case for fast rounding
-      round.POSIXt(x, units = lub2base_units[[basic_unit]])
+      round.POSIXt(as_datetime(x, tz = tz(x)), units = lub2base_units[[basic_unit]])
     } else {
       above <- unclass(as.POSIXct(ceiling_date(x, unit = unit, week_start = week_start)))
-      mid <- unclass(as.POSIXct(x))
+      mid <- unclass(x)
       below <- unclass(as.POSIXct(floor_date(x, unit = unit, week_start = week_start)))
       wabove <- (above - mid) <= (mid - below)
       wabove <- !is.na(wabove) & wabove
@@ -157,7 +157,7 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
       .POSIXct(new, tz = tz(x))
     }
 
-  reclass_date(new, x)
+  reclass_date_maybe(new, x, unit)
 }
 
 reclass_date_maybe <- function(new, orig, unit) {
@@ -179,7 +179,8 @@ floor_date <- function(x, unit = "seconds", week_start = getOption("lubridate.we
 
   if (unit %in% c("second", "minute", "hour", "day")) {
 
-    out <- trunc_multi_unit(x, unit, n)
+    # as_datetime is necesary for correct tz = UTC when x is Date
+    out <- trunc_multi_unit(as_datetime(x, tz = tz(x)), unit, n)
     reclass_date_maybe(out, x, unit)
 
   } else {
@@ -252,19 +253,19 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
 
   if (unit == "second") {
 
-    sec <- second(x)
+    new <- as_datetime(x, tz = tz(x))
+    sec <- second(new)
     csec <- ceil_multi_unit(sec, n)
     if (!change_on_boundary) {
       wsec <- which(csec - n ==  sec)
       if (length(wsec))
         csec[wsec] <- sec[wsec]
     }
-    update(x, seconds = csec, simple = T)
+    update(new, seconds = csec, simple = T)
 
   } else if (unit %in% c("minute", "hour")) {
 
-    ## cannot use this for minute/hour for Date class; local tz interferes with
-    ## the computation
+    ## as_datetime converts Date to POSIXct with tz=UTC
     new <- as_datetime(x, tz = tz(x))
     delta <- switch(unit, minute = 60, hour = 3600, day = 86400) * n
     new <-

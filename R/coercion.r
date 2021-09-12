@@ -85,7 +85,7 @@ reclass_date.ti <- function(new, orig) {
 }
 #' @export
 reclass_date.Date <- function(new, orig) {
-  as.Date(new)
+  as_date(new)
 }
 
 
