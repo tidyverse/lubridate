@@ -60,7 +60,7 @@
 #'   default for \pkg{lubridate} prior to `v1.6.0`.
 #'   See section `Rounding Up Date Objects` below for more details.
 #'
-#' @param week_start when unit is `weeks`, specify the reference day.
+#' @param week_start when unit is `week`, specify the reference day.
 #'   7 represents Sunday and 1 represents Monday.
 #' @keywords manip chron
 #' @seealso [base::round()]
