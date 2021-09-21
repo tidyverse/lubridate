@@ -7,6 +7,8 @@ Version 1.7.10.9000 (dev)
 
 ### BUG FIXES
 
+* [#994](https://github.com/tidyverse/lubridate/issues/994) Subtracting two duration or two period objects no longer results in an ambiguous dispatch note.
+
 * `as_datetime(date, tz=XYZ)` returns the date-time object with HMS set to 00:00:00 in the corresponding `tz`
 
 Version 1.7.10
