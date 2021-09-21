@@ -54,7 +54,7 @@ setClass("Duration", contains = c("Timespan", "numeric"), validity = check_durat
 #'   /,Duration,numeric-method /,numeric,Duration-method *,Duration,ANY-method
 #'   *,ANY,Duration-method %%,Duration,Duration-method
 #'   %%,Duration,Interval-method %%,Duration,Period-method
-#'   -,Duration,missing-method -,ANY,Duration-method
+#'   -,Duration,missing-method -,ANY,Duration-method -,Duration,Duration-method
 NULL
 
 SECONDS_IN_ONE <- c(
