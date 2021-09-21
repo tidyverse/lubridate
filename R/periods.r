@@ -113,28 +113,29 @@ setClass("Period", contains = c("Timespan", "numeric"),
 #'   /,Period,Period-method /,Period,difftime-method /,difftime,Period-method
 #'   /,Period,numeric-method /,numeric,Period-method *,Period,ANY-method
 #'   *,ANY,Period-method -,Period,ANY-method -,Period,missing-method
-#'   -,ANY,Period-method %%,Period,Duration-method %%,Period,Interval-method
-#'   %%,Period,Period-method >,Period,Period-method >=,Period,Period-method
-#'   ==,Period,Period-method !=,Period,Period-method <=,Period,Period-method
-#'   <,Period,Period-method >,Period,Duration-method >=,Period,Duration-method
-#'   ==,Period,Duration-method !=,Period,Duration-method
-#'   <=,Period,Duration-method <,Period,Duration-method >,Duration,Period-method
-#'   >=,Duration,Period-method ==,Duration,Period-method
-#'   !=,Duration,Period-method <=,Duration,Period-method
-#'   <,Duration,Period-method >,Period,numeric-method >=,Period,numeric-method
-#'   ==,Period,numeric-method !=,Period,numeric-method <=,Period,numeric-method
-#'   <,Period,numeric-method >,numeric,Period-method >=,numeric,Period-method
-#'   ==,numeric,Period-method !=,numeric,Period-method <=,numeric,Period-method
-#'   <,numeric,Period-method !=,Duration,Period !=,Period,Duration
-#'   !=,Period,Period !=,Period,numeric !=,numeric,Period %%,Period,Duration
-#'   %%,Period,Interval %%,Period,Period *,ANY,Period *,Period,ANY -,ANY,Period
-#'   -,Period,Interval -,Period,missing /,numeric,Period <,Duration,Period
-#'   <,Period,Duration <,Period,Period <,Period,numeric <,numeric,Period
-#'   <=,Duration,Period <=,Period,Duration <=,Period,Period <=,Period,numeric
-#'   <=,numeric,Period ==,Duration,Period ==,Period,Duration ==,Period,Period
-#'   ==,Period,numeric ==,numeric,Period >,Duration,Period >,Period,Duration
-#'   >,Period,Period >,Period,numeric >,numeric,Period >=,Duration,Period
-#'   >=,Period,Duration >=,Period,Period >=,Period,numeric >=,numeric,Period
+#'   -,ANY,Period-method -,Period,Period-method %%,Period,Duration-method
+#'   %%,Period,Interval-method %%,Period,Period-method >,Period,Period-method
+#'   >=,Period,Period-method ==,Period,Period-method !=,Period,Period-method
+#'   <=,Period,Period-method <,Period,Period-method >,Period,Duration-method
+#'   >=,Period,Duration-method ==,Period,Duration-method
+#'   !=,Period,Duration-method <=,Period,Duration-method
+#'   <,Period,Duration-method >,Duration,Period-method >=,Duration,Period-method
+#'   ==,Duration,Period-method !=,Duration,Period-method
+#'   <=,Duration,Period-method <,Duration,Period-method >,Period,numeric-method
+#'   >=,Period,numeric-method ==,Period,numeric-method !=,Period,numeric-method
+#'   <=,Period,numeric-method <,Period,numeric-method >,numeric,Period-method
+#'   >=,numeric,Period-method ==,numeric,Period-method !=,numeric,Period-method
+#'   <=,numeric,Period-method <,numeric,Period-method !=,Duration,Period
+#'   !=,Period,Duration !=,Period,Period !=,Period,numeric !=,numeric,Period
+#'   %%,Period,Duration %%,Period,Interval %%,Period,Period *,ANY,Period
+#'   *,Period,ANY -,ANY,Period -,Period,Interval -,Period,missing
+#'   /,numeric,Period <,Duration,Period <,Period,Duration <,Period,Period
+#'   <,Period,numeric <,numeric,Period <=,Duration,Period <=,Period,Duration
+#'   <=,Period,Period <=,Period,numeric <=,numeric,Period ==,Duration,Period
+#'   ==,Period,Duration ==,Period,Period ==,Period,numeric ==,numeric,Period
+#'   >,Duration,Period >,Period,Duration >,Period,Period >,Period,numeric
+#'   >,numeric,Period >=,Duration,Period >=,Period,Duration >=,Period,Period
+#'   >=,Period,numeric >=,numeric,Period
 NULL
 
 setMethod("initialize", "Period", function(.Object, ...) {

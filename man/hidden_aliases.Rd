@@ -121,6 +121,7 @@
 \alias{\%\%,Duration,Period-method}
 \alias{-,Duration,missing-method}
 \alias{-,ANY,Duration-method}
+\alias{-,Duration,Duration-method}
 \alias{Arith,ANY,Period-method}
 \alias{Arith,Duration,Period-method}
 \alias{Arith,Period,Duration-method}
@@ -184,6 +185,7 @@
 \alias{-,Period,ANY-method}
 \alias{-,Period,missing-method}
 \alias{-,ANY,Period-method}
+\alias{-,Period,Period-method}
 \alias{\%\%,Period,Duration-method}
 \alias{\%\%,Period,Interval-method}
 \alias{\%\%,Period,Period-method}

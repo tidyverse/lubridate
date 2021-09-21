@@ -26,12 +26,22 @@ setMethod("-", signature(e1 = "Interval", e2 = "missing"),
 setMethod("-", signature(e1 = "Period", e2 = "missing"),
           function(e1, e2) multiply_period_by_number(e1, -1))
 
+# To disambiguate in the <Duration> - <Duration> case, avoiding a note (#994)
+#' @export
+setMethod("-", signature(e1 = "Duration", e2 = "Duration"),
+          function(e1, e2) e1  + (-e2))
+
 #' @export
 setMethod("-", signature(e1 = "ANY", e2 = "Duration"),
           function(e1, e2) e1  + (-e2))
 
 #' @export
 setMethod("-", signature(e1 = "Duration", e2 = "ANY"),
+          function(e1, e2) e1  + (-e2))
+
+# To disambiguate in the <Period> - <Period> case, avoiding a note (#994)
+#' @export
+setMethod("-", signature(e1 = "Period", e2 = "Period"),
           function(e1, e2) e1  + (-e2))
 
 #' @export
