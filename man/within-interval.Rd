@@ -15,7 +15,7 @@ a \%within\% b
 
 \item{b}{Either an interval vector, or a list of intervals.
 
-If \code{b} is an interval it is recycled to the same length as \code{a}.
+If \code{b} is an interval (or interval vector) it is recycled to the same length as \code{a}.
 If \code{b} is a list of intervals, \code{a} is checked if it falls within \emph{any}
 of the intervals, i.e. \code{a \%within\% list(int1, int2)} is equivalent to
 \code{a \%within\% int1 | a \%within\% int2}.}
@@ -34,15 +34,15 @@ ymd("2001-05-03") \%within\% int # TRUE
 int2 \%within\% int # TRUE
 ymd("1999-01-01") \%within\% int # FALSE
 
-## recycling
+## recycling (carefully note the difference between using a vector of intervals and list of intervals for the second argument)
 dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
-blackouts<- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+blackout_vector <- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
               interval(ymd("2014-12-30"), ymd("2015-01-03")))
-dates \%within\% blackouts
+dates \%within\% blackout_vector
 
 ## within ANY of the intervals of a list
 dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
-blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
+blackout_list<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
-dates \%within\% blackouts
+dates \%within\% blackout_list
 }
