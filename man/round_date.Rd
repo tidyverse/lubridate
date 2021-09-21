@@ -35,7 +35,7 @@ to be rounded to. Valid base units are \code{second}, \code{minute}, \code{hour}
 constructor are allowed. Rounding to multiples of units (except weeks) is
 supported.}
 
-\item{week_start}{when unit is \code{weeks}, specify the reference day.
+\item{week_start}{when unit is \code{week}, specify the reference day.
 7 represents Sunday and 1 represents Monday.}
 
 \item{change_on_boundary}{if this is \code{NULL} (the default), instants on the boundary
