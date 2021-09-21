@@ -34,7 +34,8 @@ ymd("2001-05-03") \%within\% int # TRUE
 int2 \%within\% int # TRUE
 ymd("1999-01-01") \%within\% int # FALSE
 
-## recycling (carefully note the difference between using a vector of intervals and list of intervals for the second argument)
+## recycling (carefully note the difference between using a vector of
+## intervals and list of intervals for the second argument)
 dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
 blackout_vector <- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
               interval(ymd("2014-12-30"), ymd("2015-01-03")))
