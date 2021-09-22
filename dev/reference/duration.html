@@ -281,9 +281,7 @@ oriented programming.</p>
 </div><div class='output co'>#&gt; [1] "POSIXct" "POSIXt" </div><div class='input'><span class='co'># converts to POSIXt class to accomodate time units</span>
 
 <span class='fu'>dweeks</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'>ddays</span><span class='op'>(</span><span class='fl'>7</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Note: method with signature ‘Duration#ANY’ chosen for function ‘-’,</span>
-#&gt; <span class='message'> target signature ‘Duration#Duration’.</span>
-#&gt; <span class='message'> "ANY#Duration" would also be valid</span></div><div class='output co'>#&gt; [1] "0s"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'>dhours</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "0s"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'>dhours</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "3600s (~1 hours)"  "7200s (~2 hours)"  "10800s (~3 hours)"</div><div class='input'>
 <span class='co'># compare DST handling to durations</span>
 <span class='va'>boundary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-03-08 01:59:59"</span>, tz<span class='op'>=</span><span class='st'>"America/Chicago"</span><span class='op'>)</span>
