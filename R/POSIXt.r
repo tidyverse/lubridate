@@ -41,7 +41,9 @@ POSIXct <- function(length = 0L, tz = "UTC") {
 NA_POSIXct_ <- .POSIXct(NA_real_, tz = "UTC")
 
 .recursive_posixct_unclass <- function(x, tz = "UTC") {
-  if (is.recursive(x))
+  if (length(x) == 0)
+    NULL
+  else if (is.recursive(x))
     lapply(x, .recursive_posixct_unclass, tz = tz)
   else
     as_datetime(x, tz = tz)

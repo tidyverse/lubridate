@@ -202,6 +202,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Davis Vaughan [contributor]
   \item Ian Lyttle [contributor]
   \item Imanuel Costigan [contributor]
   \item Jason Law [contributor]

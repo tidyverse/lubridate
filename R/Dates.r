@@ -28,7 +28,9 @@ Date <- function(length = 0L) {
 NA_Date_ <- structure(NA_real_, class = "Date")
 
 .recursive_date_unclass <- function(x) {
-  if (is.recursive(x))
+  if (length(x) == 0)
+    NULL
+  else if (is.recursive(x))
     lapply(x, .recursive_date_unclass)
   else
     as_date(x)

@@ -43,3 +43,24 @@ test_that("as_date works", {
   expect_equal(as_date("2010-08-03 00:59:59.23Z+08"), as_date("2010-08-02"))
 
 })
+
+test_that("c.Date deals correctly with empty vectors", {
+  expect_equal(c(ymd("2021-01-01"), NULL, c()), ymd("2021-01-01"))
+  expect_equal(
+    c(ymd("2021-01-01"), Date(), ymd("2021-01-02")),
+    ymd(c("2021-01-01", "2021-01-02")))
+  expect_equal(
+    c(ymd("2021-01-01"), POSIXct(), ymd("2021-01-02"), NULL),
+    ymd(c("2021-01-01", "2021-01-02")))
+})
+
+
+test_that("c.Date deals correctly with heterogeneous date-time classes", {
+  d <- make_date(2000, 1, 1)
+  dt <- make_datetime(2000, 1, 1, tz = "Europe/Berlin")
+  expect_equal(c(d, dt), make_date(c(2000, 2000), 1, 1))
+  expect_equal(c(d, list(dt)), make_date(c(2000, 2000), 1, 1))
+  expect_equal(c(d, list(dt, list(dt))), make_date(c(2000, 2000, 2000), 1, 1))
+  dt <- make_datetime(2000, 1, 1, tz = "UTC")
+  expect_equal(c(d, list(dt)), make_date(c(2000, 2000), 1, 1))
+})

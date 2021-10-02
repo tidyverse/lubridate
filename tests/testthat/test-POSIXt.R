@@ -28,14 +28,18 @@ test_that("c.POSIXct deals correctly with heterogeneous date-time classes", {
   expect_equal(c(dt, d), make_datetime(c(2000, 2000), 1, 1, tz = "UTC"))
 })
 
-test_that("c.Date deals correctly with heterogeneous date-time classes", {
-  d <- make_date(2000, 1, 1)
-  dt <- make_datetime(2000, 1, 1, tz = "Europe/Berlin")
-  expect_equal(c(d, dt), make_date(c(2000, 2000), 1, 1))
-  expect_equal(c(d, list(dt)), make_date(c(2000, 2000), 1, 1))
-  expect_equal(c(d, list(dt, list(dt))), make_date(c(2000, 2000, 2000), 1, 1))
-  dt <- make_datetime(2000, 1, 1, tz = "UTC")
-  expect_equal(c(d, list(dt)), make_date(c(2000, 2000), 1, 1))
+
+test_that("c.POSIXct deals correctly with empty vectors", {
+  expect_equal(
+    c(ymd("2021-01-01", tz = "America/New_York"), NULL, c()),
+    ymd("2021-01-01", tz = "America/New_York"))
+  expect_equal(
+    c(ymd("2021-01-01", tz = "America/New_York"), POSIXct(),
+      ymd("2021-01-02", tz = "America/New_York")),
+    ymd(c("2021-01-01", "2021-01-02"), tz = "America/New_York"))
+  expect_equal(
+    c(ymd("2021-01-01", tz = "UTC"), POSIXct(), ymd("2021-01-02"), NULL),
+    ymd(c("2021-01-01", "2021-01-02"), tz = "UTC"))
 })
 
 # as_datetime -------------------------------------------------------------
