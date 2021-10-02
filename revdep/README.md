@@ -10,109 +10,60 @@
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |Europe/Berlin                |
-|date     |2021-02-26                   |
+|date     |2021-10-02                   |
 
 # Dependencies
 
-|package   |old     |new     |Δ  |
-|:---------|:-------|:-------|:--|
-|lubridate |1.7.9.2 |1.7.9.2 |NA |
-|generics  |0.1.0   |0.1.0   |NA |
-|Rcpp      |1.0.6   |1.0.6   |NA |
+|package   |old    |new   |Δ  |
+|:---------|:------|:-----|:--|
+|lubridate |1.7.10 |1.8.0 |*  |
+|cpp11     |NA     |0.4.0 |*  |
+|generics  |0.1.0  |0.1.0 |   |
+|Rcpp      |1.0.7  |NA    |*  |
 
 # Revdeps
 
-## Failed to check (83)
+## Failed to check (39)
 
-|package                   |version |error |warning |note |
-|:-------------------------|:-------|:-----|:-------|:----|
-|activatr                  |?       |      |        |     |
-|activPAL                  |?       |      |        |     |
-|AdhereR                   |?       |      |        |     |
-|AdhereRViz                |?       |      |        |     |
-|AeRobiology               |?       |      |        |     |
-|AGread                    |?       |      |        |     |
-|AirSensor                 |?       |      |        |     |
-|amt                       |?       |      |        |     |
-|animaltracker             |?       |      |        |     |
-|antaresRead               |?       |      |        |     |
-|antaresViz                |?       |      |        |     |
-|AnVILBilling              |?       |      |        |     |
-|archivist                 |?       |      |        |     |
-|arcos                     |?       |      |        |     |
-|arrow                     |3.0.0   |1     |        |     |
-|autostsm                  |?       |      |        |     |
-|autoTS                    |?       |      |        |     |
-|babsim.hospital           |?       |      |        |     |
-|basictabler               |?       |      |        |     |
-|BAwiR                     |?       |      |        |     |
-|bayesforecast             |?       |      |        |     |
-|bayesmove                 |?       |      |        |     |
-|BETS                      |?       |      |        |     |
-|bioRad                    |?       |      |        |     |
-|BIRDS                     |?       |      |        |     |
-|bitmexr                   |?       |      |        |     |
-|bomrang                   |?       |      |        |     |
-|bsplus                    |?       |      |        |     |
-|bupaR                     |?       |      |        |     |
-|camtrapR                  |?       |      |        |     |
-|card                      |?       |      |        |     |
-|CAST                      |?       |      |        |     |
-|CellBench                 |?       |      |        |     |
-|climaemet                 |?       |      |        |     |
-|climwin                   |?       |      |        |     |
-|CLVTools                  |0.7.0   |1     |        |1    |
-|CME.assistant             |?       |      |        |     |
-|contact                   |?       |      |        |     |
-|corporaexplorer           |?       |      |        |     |
-|countytimezones           |?       |      |        |     |
-|covid19sf                 |?       |      |        |     |
-|CRANsearcher              |?       |      |        |     |
-|crawl                     |?       |      |        |     |
-|DaMiRseq                  |?       |      |        |     |
-|daqapo                    |?       |      |        |     |
-|datacleanr                |?       |      |        |     |
-|dataquieR                 |?       |      |        |     |
-|dendroTools               |?       |      |        |     |
-|distill                   |?       |      |        |     |
-|dragon                    |?       |      |        |     |
-|drake                     |?       |      |        |     |
-|Ecfun                     |?       |      |        |     |
-|eph                       |?       |      |        |     |
-|EpiNow2                   |?       |      |        |     |
-|eplusr                    |?       |      |        |     |
-|ezplot                    |?       |      |        |     |
-|fable.prophet             |?       |      |        |     |
-|fhidata                   |?       |      |        |     |
-|ganalytics                |?       |      |        |     |
-|GenEst                    |?       |      |        |     |
-|ggformula                 |?       |      |        |     |
-|healthcareai              |2.5.0   |1     |        |     |
-|healthyR.ts               |?       |      |        |     |
-|heatwaveR                 |?       |      |        |     |
-|highcharter               |?       |      |        |     |
-|isoreader                 |?       |      |        |     |
-|LDATS                     |?       |      |        |     |
-|MazamaLocationUtils       |?       |      |        |     |
-|microbiomeExplorer        |?       |      |        |     |
-|modeltime                 |?       |      |        |     |
-|modeltime.ensemble        |?       |      |        |     |
-|modeltime.resample        |?       |      |        |     |
-|momentuHMM                |?       |      |        |     |
-|nasapower                 |?       |      |        |     |
-|ngsReports                |?       |      |        |     |
-|occCite                   |?       |      |        |     |
-|pointblank                |?       |      |        |     |
-|proBatch                  |?       |      |        |     |
-|RforProteomics            |?       |      |        |     |
-|rsMove                    |?       |      |        |     |
-|strand                    |?       |      |        |     |
-|timetk                    |?       |      |        |     |
-|TTAinterfaceTrendAnalysis |1.5.6   |1     |        |     |
-
-## New problems (1)
-
-|package                      |version |error  |warning |note |
-|:----------------------------|:-------|:------|:-------|:----|
-|[kiwisR](problems.md#kiwisr) |0.2.0   |__+1__ |        |     |
+|package                            |version |error     |warning |note |
+|:----------------------------------|:-------|:---------|:-------|:----|
+|antaresViz                         |?       |          |        |     |
+|arrow                              |5.0.0.2 |1         |        |     |
+|autoTS                             |?       |          |        |     |
+|babsim.hospital                    |?       |          |        |     |
+|bayesforecast                      |?       |          |        |     |
+|bayesmodels                        |?       |          |        |     |
+|bayesmove                          |?       |          |        |     |
+|camtrapR                           |?       |          |        |     |
+|[CLVTools](failures.md#clvtools)   |0.8.0   |__+1__    |        |1    |
+|DaMiRseq                           |?       |          |        |     |
+|Ecfun                              |?       |          |        |     |
+|EpiNow2                            |?       |          |        |     |
+|fable.prophet                      |?       |          |        |     |
+|fastverse                          |?       |          |        |     |
+|fitbitViz                          |?       |          |        |     |
+|garchmodels                        |?       |          |        |     |
+|healthcareai                       |2.5.0   |1         |        |     |
+|healthyR.ts                        |?       |          |        |     |
+|[heatwaveR](failures.md#heatwaver) |0.4.5   |__+2__    |        |     |
+|lambdaTS                           |?       |          |        |     |
+|mfbvar                             |0.5.6   |1         |        |1    |
+|modeltime                          |?       |          |        |     |
+|modeltime.ensemble                 |?       |          |        |     |
+|modeltime.resample                 |?       |          |        |     |
+|[mudata2](failures.md#mudata2)     |1.1.2   |-1 __+1__ |        |2    |
+|ngsReports                         |?       |          |        |     |
+|pointblank                         |?       |          |        |     |
+|proBatch                           |?       |          |        |     |
+|prophet                            |?       |          |        |     |
+|proteus                            |?       |          |        |     |
+|RavenR                             |2.1.0   |1         |        |1    |
+|RforProteomics                     |?       |          |        |     |
+|RGENERATEPREC                      |1.2.8   |1         |        |     |
+|RMariaDB                           |1.1.2   |1         |        |     |
+|rsMove                             |?       |          |        |     |
+|strand                             |?       |          |        |     |
+|timetk                             |?       |          |        |     |
+|TTAinterfaceTrendAnalysis          |1.5.7   |1         |        |     |
+|wearables                          |?       |          |        |     |
 

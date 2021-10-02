@@ -1,433 +1,4 @@
-# activatr
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# activPAL
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# AdhereR
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# AdhereRViz
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# AeRobiology
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# AGread
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# AirSensor
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# amt
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# animaltracker
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# antaresRead
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # antaresViz
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# AnVILBilling
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# archivist
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# arcos
 
 <details>
 
@@ -464,11 +35,11 @@
 
 <details>
 
-* Version: 3.0.0
+* Version: 5.0.0.2
 * GitHub: https://github.com/apache/arrow
 * Source code: https://github.com/cran/arrow
-* Date/Publication: 2021-01-27 06:30:18 UTC
-* Number of recursive dependencies: 62
+* Date/Publication: 2021-09-05 04:30:22 UTC
+* Number of recursive dependencies: 61
 
 Run `revdep_details(, "arrow")` for more info
 
@@ -479,39 +50,6 @@ Run `revdep_details(, "arrow")` for more info
 *   R CMD check timed out
     
 
-# autostsm
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # autoTS
 
 <details>
@@ -578,73 +116,40 @@ Run `revdep_details(, "arrow")` for more info
 
 
 ```
-# basictabler
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# BAwiR
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # bayesforecast
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# bayesmodels
 
 <details>
 
@@ -710,403 +215,7 @@ Run `revdep_details(, "arrow")` for more info
 
 
 ```
-# BETS
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# bioRad
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# BIRDS
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# bitmexr
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# bomrang
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# bsplus
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# bupaR
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # camtrapR
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# card
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# CAST
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# CellBench
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# climaemet
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# climwin
 
 <details>
 
@@ -1143,531 +252,31 @@ Run `revdep_details(, "arrow")` for more info
 
 <details>
 
-* Version: 0.7.0
+* Version: 0.8.0
 * GitHub: https://github.com/bachmannpatrick/CLVTools
 * Source code: https://github.com/cran/CLVTools
-* Date/Publication: 2020-08-26 20:10:02 UTC
-* Number of recursive dependencies: 86
+* Date/Publication: 2021-03-23 16:40:08 UTC
+* Number of recursive dependencies: 80
 
 Run `revdep_details(, "CLVTools")` for more info
 
 </details>
 
-## In both
+## Newly broken
 
 *   R CMD check timed out
     
 
+## In both
+
 *   checking installed package size ... NOTE
     ```
-      installed size is 12.3Mb
+      installed size is 10.7Mb
       sub-directories of 1Mb or more:
-        libs  11.1Mb
+        libs   9.4Mb
     ```
 
-# CME.assistant
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# contact
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# corporaexplorer
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# countytimezones
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# covid19sf
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-Error in (function (libdir, packages, quiet, repos)  : 
-  all(packages %in% rownames(installed.packages(libdir[1]))) is not TRUE
-In addition: Warning messages:
-1: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘units’ had non-zero exit status
-2: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘units’ had non-zero exit status
-3: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘sf’ had non-zero exit status
-4: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-...
-6: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘leafpop’ had non-zero exit status
-7: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘leafem’ had non-zero exit status
-8: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘leafem’ had non-zero exit status
-9: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘mapview’ had non-zero exit status
-10: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘mapview’ had non-zero exit status
-
-
-```
-### CRAN
-
-```
-
-
-
-Error in (function (libdir, packages, quiet, repos)  : 
-  all(packages %in% rownames(installed.packages(libdir[1]))) is not TRUE
-In addition: Warning messages:
-1: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘units’ had non-zero exit status
-2: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘units’ had non-zero exit status
-3: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘sf’ had non-zero exit status
-4: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-...
-6: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘leafpop’ had non-zero exit status
-7: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘leafem’ had non-zero exit status
-8: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘leafem’ had non-zero exit status
-9: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘mapview’ had non-zero exit status
-10: In utils::install.packages(pkgs = pkgs, lib = lib, repos = myrepos,  :
-  installation of package ‘mapview’ had non-zero exit status
-
-
-```
-# CRANsearcher
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# crawl
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # DaMiRseq
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# daqapo
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# datacleanr
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# dataquieR
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# dendroTools
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# distill
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# dragon
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# drake
 
 <details>
 
@@ -1733,106 +342,7 @@ In addition: Warning messages:
 
 
 ```
-# eph
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # EpiNow2
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# eplusr
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# ezplot
 
 <details>
 
@@ -1898,7 +408,7 @@ In addition: Warning messages:
 
 
 ```
-# fhidata
+# fastverse
 
 <details>
 
@@ -1931,7 +441,7 @@ In addition: Warning messages:
 
 
 ```
-# ganalytics
+# fitbitViz
 
 <details>
 
@@ -1964,40 +474,7 @@ In addition: Warning messages:
 
 
 ```
-# GenEst
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# ggformula
+# garchmodels
 
 <details>
 
@@ -2038,7 +515,7 @@ In addition: Warning messages:
 * GitHub: https://github.com/HealthCatalyst/healthcareai-r
 * Source code: https://github.com/cran/healthcareai
 * Date/Publication: 2020-08-05 23:30:02 UTC
-* Number of recursive dependencies: 120
+* Number of recursive dependencies: 124
 
 Run `revdep_details(, "healthcareai")` for more info
 
@@ -2086,36 +563,40 @@ Run `revdep_details(, "healthcareai")` for more info
 
 <details>
 
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
+* Version: 0.4.5
+* GitHub: https://github.com/robwschlegel/heatwaveR
+* Source code: https://github.com/cran/heatwaveR
+* Date/Publication: 2021-01-07 16:10:16 UTC
+* Number of recursive dependencies: 138
+
+Run `revdep_details(, "heatwaveR")` for more info
 
 </details>
 
-## Error before installation
+## Newly broken
 
-### Devel
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘heatwaveR-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: block_average
+    > ### Title: Calculate yearly means for event metrics.
+    > ### Aliases: block_average
+    > 
+    > ### ** Examples
+    > 
+    > ts <- ts2clm(sst_WA, climatologyPeriod = c("1983-01-01", "2012-12-31"))
+    Error in clim_calc_cpp(ts_wide, windowHalfWidth, pctile) : 
+      function 'enterRNGScope' not provided by package 'Rcpp'
+    Calls: ts2clm -> clim_calc_cpp
+    Execution halted
+    ```
 
-```
+*   R CMD check timed out
+    
 
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# highcharter
+# lambdaTS
 
 <details>
 
@@ -2148,138 +629,32 @@ Run `revdep_details(, "healthcareai")` for more info
 
 
 ```
-# isoreader
+# mfbvar
 
 <details>
 
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
+* Version: 0.5.6
+* GitHub: https://github.com/ankargren/mfbvar
+* Source code: https://github.com/cran/mfbvar
+* Date/Publication: 2021-02-10 11:00:06 UTC
+* Number of recursive dependencies: 81
+
+Run `revdep_details(, "mfbvar")` for more info
 
 </details>
 
-## Error before installation
+## In both
 
-### Devel
+*   R CMD check timed out
+    
 
-```
+*   checking installed package size ... NOTE
+    ```
+      installed size is 30.2Mb
+      sub-directories of 1Mb or more:
+        libs  29.2Mb
+    ```
 
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# LDATS
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# MazamaLocationUtils
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# microbiomeExplorer
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # modeltime
 
 <details>
@@ -2379,106 +754,64 @@ Run `revdep_details(, "healthcareai")` for more info
 
 
 ```
-# momentuHMM
+# mudata2
 
 <details>
 
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
+* Version: 1.1.2
+* GitHub: https://github.com/paleolimbot/mudata2
+* Source code: https://github.com/cran/mudata2
+* Date/Publication: 2020-03-20 20:20:03 UTC
+* Number of recursive dependencies: 95
+
+Run `revdep_details(, "mudata2")` for more info
 
 </details>
 
-## Error before installation
+## Newly broken
 
-### Devel
+*   R CMD check timed out
+    
 
-```
+## Newly fixed
 
+*   checking tests ...
+    ```
+      Running ‘test-all.R’
+     ERROR
+    Running the tests in ‘tests/test-all.R’ failed.
+    Last 13 lines of output:
+        1. ├─tibble::tibble(...) test-types.R:323:2
+        2. │ └─tibble:::tibble_quos(xs, .rows, .name_repair)
+        3. │   └─rlang::eval_tidy(xs[[j]], mask)
+        4. └─sf::st_as_sfc
+        5.   └─base::getExportedValue(pkg, name)
+        6.     └─base::asNamespace(ns)
+        7.       └─base::getNamespace(ns)
+        8.         └─base::loadNamespace(name)
+        9.           └─base::withRestarts(stop(cond), retry_loadNamespace = function() NULL)
+       10.             └─base:::withOneRestart(expr, restarts[[1L]])
+       11.               └─base:::doWithOneRestart(return(expr), restart)
+      
+      [ FAIL 12 | WARN 9 | SKIP 2 | PASS 881 ]
+      Error: Test failures
+      Execution halted
+    ```
 
+## In both
 
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘sf’
+    ```
 
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘ggplot2’
+      All declared Imports should be used.
+    ```
 
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# nasapower
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # ngsReports
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
-# occCite
 
 <details>
 
@@ -2577,6 +910,98 @@ Run `revdep_details(, "healthcareai")` for more info
 
 
 ```
+# prophet
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# proteus
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# RavenR
+
+<details>
+
+* Version: 2.1.0
+* GitHub: https://github.com/rchlumsk/RavenR
+* Source code: https://github.com/cran/RavenR
+* Date/Publication: 2021-06-10 08:20:07 UTC
+* Number of recursive dependencies: 123
+
+Run `revdep_details(, "RavenR")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘deldir’ ‘lifecycle’
+      All declared Imports should be used.
+    ```
+
 # RforProteomics
 
 <details>
@@ -2607,6 +1032,144 @@ Run `revdep_details(, "healthcareai")` for more info
 
 
 
+
+
+```
+# RGENERATEPREC
+
+<details>
+
+* Version: 1.2.8
+* GitHub: https://github.com/ecor/RGENERATEPREC
+* Source code: https://github.com/cran/RGENERATEPREC
+* Date/Publication: 2021-01-19 15:40:19 UTC
+* Number of recursive dependencies: 89
+
+Run `revdep_details(, "RGENERATEPREC")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘RGENERATEPREC’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/RGENERATEPREC/new/RGENERATEPREC.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘RGENERATEPREC’ ...
+** package ‘RGENERATEPREC’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘copula’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ there is no package called ‘gsl’
+Error: package ‘copula’ could not be loaded
+Execution halted
+ERROR: lazy loading failed for package ‘RGENERATEPREC’
+* removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/RGENERATEPREC/new/RGENERATEPREC.Rcheck/RGENERATEPREC’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘RGENERATEPREC’ ...
+** package ‘RGENERATEPREC’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘copula’ in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+ there is no package called ‘gsl’
+Error: package ‘copula’ could not be loaded
+Execution halted
+ERROR: lazy loading failed for package ‘RGENERATEPREC’
+* removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/RGENERATEPREC/old/RGENERATEPREC.Rcheck/RGENERATEPREC’
+
+
+```
+# RMariaDB
+
+<details>
+
+* Version: 1.1.2
+* GitHub: https://github.com/r-dbi/RMariaDB
+* Source code: https://github.com/cran/RMariaDB
+* Date/Publication: 2021-09-06 06:20:02 UTC
+* Number of recursive dependencies: 51
+
+Run `revdep_details(, "RMariaDB")` for more info
+
+</details>
+
+## In both
+
+*   checking whether package ‘RMariaDB’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/RMariaDB/new/RMariaDB.Rcheck/00install.out’ for details.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘RMariaDB’ ...
+** package ‘RMariaDB’ successfully unpacked and MD5 sums checked
+** using staged installation
+Using PKG_CFLAGS=
+Using PKG_LIBS=-lmysqlclient
+-----------------------------[ ANTICONF ]-----------------------------
+Configure could not find suitable mysql/mariadb client library. Try installing:
+ * deb: libmariadb-dev (Debian, Ubuntu)
+ * rpm: mariadb-connector-c-devel | mariadb-devel | mysql-devel (Fedora, CentOS, RHEL)
+ * csw: mysql56_dev (Solaris)
+...
+If you already have a mysql client library installed, verify that either
+mariadb_config or mysql_config is on your PATH. If these are unavailable
+you can also set INCLUDE_DIR and LIB_DIR manually via:
+R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'
+--------------------------[ ERROR MESSAGE ]----------------------------
+<stdin>:1:10: fatal error: mysql.h: No such file or directory
+compilation terminated.
+-----------------------------------------------------------------------
+ERROR: configuration failed for package ‘RMariaDB’
+* removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/RMariaDB/new/RMariaDB.Rcheck/RMariaDB’
+
+
+```
+### CRAN
+
+```
+* installing *source* package ‘RMariaDB’ ...
+** package ‘RMariaDB’ successfully unpacked and MD5 sums checked
+** using staged installation
+Using PKG_CFLAGS=
+Using PKG_LIBS=-lmysqlclient
+-----------------------------[ ANTICONF ]-----------------------------
+Configure could not find suitable mysql/mariadb client library. Try installing:
+ * deb: libmariadb-dev (Debian, Ubuntu)
+ * rpm: mariadb-connector-c-devel | mariadb-devel | mysql-devel (Fedora, CentOS, RHEL)
+ * csw: mysql56_dev (Solaris)
+...
+If you already have a mysql client library installed, verify that either
+mariadb_config or mysql_config is on your PATH. If these are unavailable
+you can also set INCLUDE_DIR and LIB_DIR manually via:
+R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'
+--------------------------[ ERROR MESSAGE ]----------------------------
+<stdin>:1:10: fatal error: mysql.h: No such file or directory
+compilation terminated.
+-----------------------------------------------------------------------
+ERROR: configuration failed for package ‘RMariaDB’
+* removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/RMariaDB/old/RMariaDB.Rcheck/RMariaDB’
 
 
 ```
@@ -2713,11 +1276,11 @@ Run `revdep_details(, "healthcareai")` for more info
 
 <details>
 
-* Version: 1.5.6
+* Version: 1.5.7
 * GitHub: NA
 * Source code: https://github.com/cran/TTAinterfaceTrendAnalysis
-* Date/Publication: 2020-06-11 10:30:02 UTC
-* Number of recursive dependencies: 25
+* Date/Publication: 2021-05-28 13:00:02 UTC
+* Number of recursive dependencies: 26
 
 Run `revdep_details(, "TTAinterfaceTrendAnalysis")` for more info
 
@@ -2784,6 +1347,39 @@ Error: loading failed
 Execution halted
 ERROR: loading failed
 * removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/TTAinterfaceTrendAnalysis/old/TTAinterfaceTrendAnalysis.Rcheck/TTAinterfaceTrendAnalysis’
+
+
+```
+# wearables
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
 
 
 ```
