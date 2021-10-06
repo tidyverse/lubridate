@@ -563,6 +563,7 @@ test_that("%within% fails meaningfully when applied on wrong types", {
   expect_error(now() %within% now(), "No %within% method")
 })
 
+
 test_that("%within% works as expected", {
     time1 <- as.POSIXct("2001-01-01", tz = "UTC")
     time2 <- as.POSIXct("2003-01-01", tz = "UTC")
@@ -613,7 +614,7 @@ test_that("%with% recycles both arguments", {
   expect_equal(testdates %within% blackouts, c(F, T, F, T))
 })
 
-test_that("%with% works with list of intervals", {
+test_that("%within% works with list of intervals", {
 
   testdates <-ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
   blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
@@ -623,6 +624,25 @@ test_that("%with% works with list of intervals", {
   blackouts<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
                    interval(ymd("2014-12-30"), ymd("2015-01-03")))
   expect_equal(testdates %within% blackouts, c(F, T, T, T))
+})
+
+test_that("%within% works with interval LHS", {
+
+  lst <- list(
+    interval(ymd("2014-12-30"), ymd("2014-12-31")),
+    interval(ymd("2014-12-30"), ymd("2015-01-03")))
+
+  int <- interval(
+    ymd("2014-12-20", "2014-12-30"),
+    ymd("2015-01-01", "2015-01-03"))
+
+  expect_equal(int %within% lst, c(F, T))
+  expect_false(int[[1]] %within% lst)
+  expect_true(int[[2]] %within% lst)
+
+  expect_equal(int[[1]] %within% int, c(T, F))
+  expect_equal(int[[2]] %within% int, c(F, T))
+  expect_equal(int %within% c(int, int), c(T, T, T, T))
 
 })
 

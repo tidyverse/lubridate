@@ -565,10 +565,20 @@ setdiff.Interval <- function(x, y, ...) {
 #' dates %within% blackout_vector
 #'
 #' ## within ANY of the intervals of a list
-#' dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
-#' blackout_list<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
-#'                  interval(ymd("2014-12-30"), ymd("2015-01-03")))
-#' dates %within% blackout_list
+#'  dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+#'  lst <- list(
+#'   interval(ymd("2014-12-30"), ymd("2014-12-31")),
+#'   interval(ymd("2014-12-30"), ymd("2015-01-03"))
+#'  )
+#' dates %within% lst
+#'
+#' ## interval within a list of intervals
+#' int <- interval(
+#'   ymd("2014-12-20", "2014-12-30"),
+#'   ymd("2015-01-01", "2015-01-03")
+#' )
+#' int %within% lst
+#'
 setGeneric("%within%", useAsDefault = function(a, b) {
   stop(sprintf("No %%within%% method with signature a = %s,  b = %s",
                class(a)[[1]], class(b)[[1]]))
@@ -592,15 +602,19 @@ setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a, b) 
   start.in & end.in
 })
 
-setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a, b) {
-  a <- int_standardize(a)
-  b <- int_standardize(b)
+.within_interval <- function(a, b) {
   start.in <- as.numeric(a@start) >= as.numeric(b@start)
   end.in <- (as.numeric(a@start) + a@.Data) <= (as.numeric(b@start) + b@.Data)
   start.in & end.in
+}
+
+setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a, b) {
+  a <- int_standardize(a)
+  b <- int_standardize(b)
+  .within_interval(a, b)
 })
 
-.within_instant <- function(a, b) {
+.within_list_instant <- function(a, b) {
   if (!all(sapply(b, is.interval)))
     stop("When second argument to %within% is a list it must contain interval objects only")
   a <- as.POSIXct(a)
@@ -611,8 +625,21 @@ setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a, b) 
   out
 }
 
-setMethod("%within%", signature(a = "POSIXt", b = "list"), .within_instant)
-setMethod("%within%", signature(a = "Date", b = "list"), .within_instant)
+setMethod("%within%", signature(a = "POSIXt", b = "list"), .within_list_instant)
+setMethod("%within%", signature(a = "Date", b = "list"), .within_list_instant)
+
+setMethod("%within%", signature(a = "Interval", b = "list"), function(a, b) {
+  if (!all(sapply(b, is.interval)))
+    stop("When second argument to %within% is a list it must contain interval objects only")
+  out <- FALSE
+  a <- int_standardize(a)
+  for (int in b) {
+    int <- int_standardize(int)
+    out <- out | .within_interval(a, int)
+  }
+  out
+})
+
 
 #' @export
 as.list.Interval <- function(x, ...) {

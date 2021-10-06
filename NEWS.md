@@ -1,3 +1,11 @@
+Version 1.8.0.9000
+==================
+
+### NEW FEATURES
+
+* [#1001](https://github.com/tidyverse/lubridate/issues/1001) Add `%within` method with signature (Interval, list), which was documented but not implemented.
+
+
 Version 1.8.0
 =============
 
