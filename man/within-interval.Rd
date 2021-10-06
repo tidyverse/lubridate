@@ -6,6 +6,7 @@
 \alias{\%within\%,ANY,Interval-method}
 \alias{\%within\%,Date,list-method}
 \alias{\%within\%,POSIXt,list-method}
+\alias{\%within\%,Interval,list-method}
 \title{Does a date (or interval) fall within an interval?}
 \usage{
 a \%within\% b
@@ -42,8 +43,18 @@ blackout_vector <- c(interval(ymd("2014-12-30"), ymd("2014-12-31")),
 dates \%within\% blackout_vector
 
 ## within ANY of the intervals of a list
-dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
-blackout_list<- list(interval(ymd("2014-12-30"), ymd("2014-12-31")),
-                 interval(ymd("2014-12-30"), ymd("2015-01-03")))
-dates \%within\% blackout_list
+ dates <- ymd(c("2014-12-20", "2014-12-30", "2015-01-01", "2015-01-03"))
+ lst <- list(
+  interval(ymd("2014-12-30"), ymd("2014-12-31")),
+  interval(ymd("2014-12-30"), ymd("2015-01-03"))
+ )
+dates \%within\% lst
+
+## interval within a list of intervals
+int <- interval(
+  ymd("2014-12-20", "2014-12-30"),
+  ymd("2015-01-01", "2015-01-03")
+)
+int \%within\% lst
+
 }

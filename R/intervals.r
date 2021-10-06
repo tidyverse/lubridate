@@ -540,7 +540,7 @@ setdiff.Interval <- function(x, y, ...) {
 #' @export
 #' @rdname within-interval
 #' @aliases %within%,Interval,Interval-method %within%,ANY,Interval-method
-#'   %within%,Date,list-method %within%,POSIXt,list-method
+#'   %within%,Date,list-method %within%,POSIXt,list-method %within%,Interval,list-method
 #' @param a An interval or date-time object.
 #' @param b Either an interval vector, or a list of intervals.
 #'
