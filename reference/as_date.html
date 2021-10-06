@@ -51,7 +51,7 @@
 
 <meta property="og:title" content="Convert an object to a date or date-time — as_date" />
 <meta property="og:description" content="Convert an object to a date or date-time" />
-<meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">lubridate</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.9.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.8.0</span>
         </div>
       </div>
     </div>
@@ -163,6 +163,9 @@
 <span class='co'># S4 method for character</span>
 <span class='fu'>as_datetime</span><span class='op'>(</span><span class='va'>x</span>, tz <span class='op'>=</span> <span class='st'>"UTC"</span>, format <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
+<span class='co'># S4 method for Date</span>
+<span class='fu'>as_datetime</span><span class='op'>(</span><span class='va'>x</span>, tz <span class='op'>=</span> <span class='st'>"UTC"</span><span class='op'>)</span>
+
 <span class='co'># S4 method for ANY</span>
 <span class='fu'>as_datetime</span><span class='op'>(</span><span class='va'>x</span>, tz <span class='op'>=</span> <span class='st'>"UTC"</span><span class='op'>)</span></pre>
 
@@ -208,11 +211,14 @@ parsing functions in lubridate.</p></td>
 <p>These are drop in replacements for <code><a href='https://rdrr.io/r/base/as.Date.html'>as.Date()</a></code> and <code><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct()</a></code>, with a few
 tweaks to make them work more intuitively.</p>
 <ul>
-<li><p><code>as_date()</code> ignores the timezone attribute, resulting in
-a more intuitive conversion (see examples)</p></li>
-<li><p>Both functions provide a default origin argument for numeric
-vectors.</p></li>
-<li><p>Both functions will generate NAs for invalid date format. A warning message will provide a count of the elements that were not converted</p></li>
+<li><p>Called on a <code>POSIXct</code> object, <code>as_date()</code> uses the tzone attribute of
+the object to return the same date as indicated by the printed representation
+of the object. This differs from as.Date, which ignores the attribute and
+uses only the tz argument to <code><a href='https://rdrr.io/r/base/as.Date.html'>as.Date()</a></code> ("UTC" by default).</p></li>
+<li><p>Both functions provide a default origin argument for numeric vectors.</p></li>
+<li><p>Both functions will generate NAs for
+invalid date format. A warning message will provide a count of the elements
+that were not converted</p></li>
 <li><p><code>as_datetime()</code> defaults to using UTC.</p></li>
 </ul>
 
@@ -244,7 +250,7 @@ vectors.</p></li>
 
 <div class="author">
   <p>
-    Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
+    Developed by Vitalie Spinu, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

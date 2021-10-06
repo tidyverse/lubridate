@@ -51,7 +51,7 @@
 
 <meta property="og:title" content="Get the fiscal quarter and semester of a date-time — quarter" />
 <meta property="og:description" content="Quarters divide the year into fourths. Semesters divide the year into halfs." />
-<meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">lubridate</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.9.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.8.0</span>
         </div>
       </div>
     </div>
@@ -138,7 +138,12 @@
     <p>Quarters divide the year into fourths. Semesters divide the year into halfs.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>quarter</span><span class='op'>(</span><span class='va'>x</span>, with_year <span class='op'>=</span> <span class='cn'>FALSE</span>, fiscal_start <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>quarter</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  type <span class='op'>=</span> <span class='st'>"quarter"</span>,
+  fiscal_start <span class='op'>=</span> <span class='fl'>1</span>,
+  with_year <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>type</span>, <span class='st'>"year.quarter"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='fu'>semester</span><span class='op'>(</span><span class='va'>x</span>, with_year <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
@@ -152,26 +157,36 @@ yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or
 anything else that can be converted with as.POSIXlt</p></td>
     </tr>
     <tr>
-      <th>with_year</th>
-      <td><p>logical indicating whether or not to include the quarter's
-year.</p></td>
+      <th>type</th>
+      <td><p>the format to be returned for the quarter. Can be one one of
+"quarter" - return numeric quarter (default), "year.quarter" return
+fractional numeric year.quarter, "date_first" or "date_last" which return
+the date at the quarter's start end end.</p></td>
     </tr>
     <tr>
       <th>fiscal_start</th>
-      <td><p>numeric indicating the starting month of a fiscal year</p></td>
+      <td><p>numeric indicating the starting month of a fiscal year.</p></td>
+    </tr>
+    <tr>
+      <th>with_year</th>
+      <td><p>logical indicating whether or not to include the quarter or
+semester's year (deprecated; use the <code>type</code> parameter instead).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric</p>
+    <p>numeric or a vector of class POSIXct if <code>type</code> argument is
+<code>date_first</code> or <code>date_last</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2012-03-26"</span>, <span class='st'>"2012-05-04"</span>, <span class='st'>"2012-09-23"</span>, <span class='st'>"2012-12-31"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>quarter</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1 2 3 4</div><div class='input'><span class='fu'>quarter</span><span class='op'>(</span><span class='va'>x</span>, with_year <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2012.1 2012.2 2012.3 2012.4</div><div class='input'><span class='fu'>quarter</span><span class='op'>(</span><span class='va'>x</span>, with_year <span class='op'>=</span> <span class='cn'>TRUE</span>, fiscal_start <span class='op'>=</span> <span class='fl'>11</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2012.2 2012.3 2012.4 2013.1</div><div class='input'><span class='fu'>semester</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1 2 3 4</div><div class='input'><span class='fu'>quarter</span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"year.quarter"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2012.1 2012.2 2012.3 2012.4</div><div class='input'><span class='fu'>quarter</span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"year.quarter"</span>, fiscal_start <span class='op'>=</span> <span class='fl'>11</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2012.2 2012.3 2012.4 2013.1</div><div class='input'><span class='fu'>quarter</span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"date_first"</span>, fiscal_start <span class='op'>=</span> <span class='fl'>11</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2012-02-01" "2012-05-01" "2012-08-01" "2012-11-01"</div><div class='input'><span class='fu'>quarter</span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"date_last"</span>, fiscal_start <span class='op'>=</span> <span class='fl'>11</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2012-04-30" "2012-07-31" "2012-10-31" "2013-01-31"</div><div class='input'><span class='fu'>semester</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 1 1 2 2</div><div class='input'><span class='fu'>semester</span><span class='op'>(</span><span class='va'>x</span>, with_year <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 2012.1 2012.1 2012.2 2012.2</div></pre>
   </div>
@@ -190,7 +205,7 @@ year.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
+    Developed by Vitalie Spinu, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

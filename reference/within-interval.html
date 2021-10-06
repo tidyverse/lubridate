@@ -51,7 +51,7 @@
 
 <meta property="og:title" content="Does a date (or interval) fall within an interval? — %within%" />
 <meta property="og:description" content="Check whether a lies within the interval b, inclusive of the endpoints." />
-<meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">lubridate</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.9.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.8.0</span>
         </div>
       </div>
     </div>
@@ -150,7 +150,7 @@
     <tr>
       <th>b</th>
       <td><p>Either an interval vector, or a list of intervals.</p>
-<p>If <code>b</code> is an interval it is recycled to the same length as <code>a</code>.
+<p>If <code>b</code> is an interval (or interval vector) it is recycled to the same length as <code>a</code>.
 If <code>b</code> is a list of intervals, <code>a</code> is checked if it falls within <em>any</em>
 of the intervals, i.e. <code>a %within% list(int1, int2)</code> is equivalent to
 <code>a %within% int1 | a %within% int2</code>.</p></td>
@@ -169,17 +169,18 @@ of the intervals, i.e. <code>a %within% list(int1, int2)</code> is equivalent to
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>int2</span> <span class='op'>%within%</span> <span class='va'>int</span> <span class='co'># TRUE</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"1999-01-01"</span><span class='op'>)</span> <span class='op'>%within%</span> <span class='va'>int</span> <span class='co'># FALSE</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='co'>## recycling</span>
+<span class='co'>## recycling (carefully note the difference between using a vector of</span>
+<span class='co'>## intervals and list of intervals for the second argument)</span>
 <span class='va'>dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span>, <span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>blackouts</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-31"</span><span class='op'>)</span><span class='op'>)</span>,
+<span class='va'>blackout_vector</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-31"</span><span class='op'>)</span><span class='op'>)</span>,
               <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>dates</span> <span class='op'>%within%</span> <span class='va'>blackouts</span>
+<span class='va'>dates</span> <span class='op'>%within%</span> <span class='va'>blackout_vector</span>
 </div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE  TRUE</div><div class='input'>
 <span class='co'>## within ANY of the intervals of a list</span>
 <span class='va'>dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span>, <span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>blackouts</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-31"</span><span class='op'>)</span><span class='op'>)</span>,
+<span class='va'>blackout_list</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-31"</span><span class='op'>)</span><span class='op'>)</span>,
                  <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>dates</span> <span class='op'>%within%</span> <span class='va'>blackouts</span>
+<span class='va'>dates</span> <span class='op'>%within%</span> <span class='va'>blackout_list</span>
 </div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -197,7 +198,7 @@ of the intervals, i.e. <code>a %within% list(int1, int2)</code> is equivalent to
 
 <div class="author">
   <p>
-    Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
+    Developed by Vitalie Spinu, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

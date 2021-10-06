@@ -57,12 +57,10 @@ need to include separators and the % prefix. Such a formatting argument is
 referred to as &quot;order&quot;. Second, it allows the user to specify several
 format-orders to handle heterogeneous date-time character
 representations.
-parse_date_time2() is a fast C parser of numeric
-orders.
+parse_date_time2() is a fast C parser of numeric orders.
 fast_strptime() is a fast C parser of numeric formats only
-that accepts explicit format arguments, just like
-base::strptime()." />
-<meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
+that accepts explicit format arguments, just like base::strptime()." />
+<meta property="og:image" content="https://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,7 +104,7 @@ base::strptime()." />
         <a class="navbar-brand" href="../index.html">lubridate</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.9.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.8.0</span>
         </div>
       </div>
     </div>
@@ -153,11 +151,9 @@ need to include separators and the <code>%</code> prefix. Such a formatting argu
 referred to as "order". Second, it allows the user to specify several
 format-orders to handle heterogeneous date-time character
 representations.</p>
-<p><code>parse_date_time2()</code> is a fast C parser of numeric
-orders.</p>
+<p><code>parse_date_time2()</code> is a fast C parser of numeric orders.</p>
 <p><code>fast_strptime()</code> is a fast C parser of numeric formats only
-that accepts explicit format arguments, just like
-<code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>.</p>
+that accepts explicit format arguments, just like <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>parse_date_time</span><span class='op'>(</span>
@@ -193,12 +189,14 @@ that accepts explicit format arguments, just like
     </tr>
     <tr>
       <th>orders</th>
-      <td><p>a character vector of date-time formats. Each order string is a
-series of formatting characters as listed in <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> but might not
-include the <code>"%"</code> prefix. For example, "ymd" will match all the possible
-dates in year, month, day order. Formatting orders might include
-arbitrary separators. These are discarded. See details for implemented
-formats.</p></td>
+      <td><p>a character vector of date-time formats. Each order string is
+a series of formatting characters as listed in <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> but
+might not include the <code>"%"</code> prefix. For example, "ymd" will match all the
+possible dates in year, month, day order. Formatting orders might include
+arbitrary separators. These are discarded. See details for the implemented
+formats. If multiple order strings are supplied, they are applied in turn
+for <code>parse_date_time2()</code> and <code>fast_strptime()</code>. For <code>parse_date_time()</code>
+the order of applied formats is determined by <code>select_formats</code> parameter.</p></td>
     </tr>
     <tr>
       <th>tz</th>
@@ -213,16 +211,15 @@ rounding or unavailability of the time stamp. If the <code>truncated</code> para
 is non-zero <code>parse_date_time()</code> also checks for truncated formats. For
 example,  if the format order is "ymdHMS" and <code>truncated = 3</code>,
 <code>parse_date_time()</code> will correctly parse incomplete date-times like
-<code>2012-06-01 12:23</code>, <code>2012-06-01 12</code> and <code>2012-06-01</code>. <b>NOTE:</b> The <code><a href='ymd.html'>ymd()</a></code>
-family of functions is based on <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> which currently fails to parse
-<code>%Y-%m</code> formats.</p></td>
+<code>2012-06-01 12:23</code>, <code>2012-06-01 12</code> and <code>2012-06-01</code>. <b>NOTE:</b> The
+<code><a href='ymd.html'>ymd()</a></code> family of functions is based on <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> which currently
+fails to parse <code>%Y-%m</code> formats.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
-      <td><p>logical. If <code>TRUE</code>, progress messages are not printed, and
-<code>No formats found</code> error is suppressed and the function simply returns a
-vector of NAs.  This mirrors the behavior of base R functions <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>
-and <code><a href='https://rdrr.io/r/base/as.POSIXlt.html'>base::as.POSIXct()</a></code>.</p></td>
+      <td><p>logical. If <code>TRUE</code>, progress messages are not printed, and <code>No formats found</code> error is suppressed and the function simply returns a
+vector of NAs.  This mirrors the behavior of base R functions
+<code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> and <code><a href='https://rdrr.io/r/base/as.POSIXlt.html'>base::as.POSIXct()</a></code>.</p></td>
     </tr>
     <tr>
       <th>locale</th>
@@ -250,8 +247,8 @@ exact <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a><
     </tr>
     <tr>
       <th>train</th>
-      <td><p>logical, default <code>TRUE</code>. Whether to train formats on a subset of
-the input vector. The result of this is that supplied orders are sorted
+      <td><p>logical, default <code>TRUE</code>. Whether to train formats on a subset
+of the input vector. The result of this is that supplied orders are sorted
 according to performance on this training set, which commonly results in
 increased performance. Please note that even when <code>train = FALSE</code> (and
 <code>exact = FALSE</code>) guessing of the actual formats is still performed on a
@@ -261,12 +258,13 @@ pseudo-random subset of the original input vector. This might result in
     <tr>
       <th>drop</th>
       <td><p>logical, default <code>FALSE</code>. Whether to drop formats that didn't
-match on the training set. If <code>FALSE</code>, unmatched on the training set formats
-are tried as a last resort at the end of the parsing queue. Applies only
-when <code>train = TRUE</code>. Setting this parameter to <code>TRUE</code> might slightly speed up
-parsing in situations involving many formats. Prior to v1.7.0 this
-parameter was implicitly <code>TRUE</code>, which resulted in occasional surprising
-behavior when rare patterns where not present in the training set.</p></td>
+match on the training set. If <code>FALSE</code>, unmatched on the training set
+formats are tried as a last resort at the end of the parsing
+queue. Applies only when <code>train = TRUE</code>. Setting this parameter to <code>TRUE</code>
+might slightly speed up parsing in situations involving many
+formats. Prior to v1.7.0 this parameter was implicitly <code>TRUE</code>, which
+resulted in occasional surprising behavior when rare patterns where not
+present in the training set.</p></td>
     </tr>
     <tr>
       <th>lt</th>
@@ -276,15 +274,17 @@ for <code>fast_strptime()</code> and <code>FALSE</code> for <code>parse_date_tim
     </tr>
     <tr>
       <th>cutoff_2000</th>
-      <td><p>integer. For <code>y</code> format,  two-digit numbers smaller or equal to
-<code>cutoff_2000</code> are parsed as 20th's century, 19th's otherwise. Available only
-for functions relying on <code>lubridate</code>s internal parser.</p></td>
+      <td><p>integer. For <code>y</code> format,  two-digit numbers smaller or equal
+to <code>cutoff_2000</code> are parsed as though starting with <code>20</code>, otherwise parsed
+as though starting with <code>19</code>. Available only for functions relying on
+<code>lubridate</code>s internal parser.</p></td>
     </tr>
     <tr>
       <th>format</th>
-      <td><p>a character string of formats. It should include all the
-separators and each format must be prefixed with %, just as in the format
-argument of <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>.</p></td>
+      <td><p>a vector of formats. If multiple formats supplied they are
+applied in turn till success. The formats should include all the
+separators and each format letter must be prefixed with %, just as in the
+format argument of <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -302,10 +302,10 @@ can disable training with <code>train = FALSE</code>.</p>
 <code><a href='ymd.html'>ymd()</a></code>, etc., will drop into <code>fast_strptime()</code> instead of
 <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> whenever the guessed from the input data formats are all
 numeric.</p>
-<p>The list below contains formats recognized by <span class="pkg">lubridate</span>. For numeric formats
-leading 0s are optional. As compared to <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>, some of the
-formats are new or have been extended for efficiency reasons. These formats
-are marked with "(*)". The fast parsers <code>parse_date_time2()</code> and
+<p>The list below contains formats recognized by <span class="pkg">lubridate</span>. For numeric
+formats leading 0s are optional. As compared to <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>, some of
+the formats are new or have been extended for efficiency reasons. These
+formats are marked with "(*)" below. Fast parsers <code>parse_date_time2()</code> and
 <code>fast_strptime()</code> accept only formats marked with "(!)".</p>
 <dl>
 <dt><code>a</code></dt><dd><p>Abbreviated weekday name in the current
@@ -328,22 +328,19 @@ parser currently understands only English month names.</p></dd>
 
 <dt><code>j</code></dt><dd><p>Day of year as decimal number (001--366 or 1--366).</p></dd>
 
-<dt><code>q</code> (!*)</dt><dd><p>Quarter (1--4). The quarter month is added to the parsed month
-if <code>m</code> format is present.</p></dd>
+<dt><code>q</code> (!*)</dt><dd><p>Quarter (1--4). The quarter month is added to the parsed
+month if <code>m</code> element is present.</p></dd>
 
 <dt><code>m</code> (!*)</dt><dd><p>Month as decimal number (01--12 or 1--12). For
-<code>parse_date_time</code>. As a <span class="pkg">lubridate</span> extension, also
-matches abbreviated and full months names as <code>b</code> and
-<code>B</code> formats. C parser understands only English month
-names.</p></dd>
+<code>parse_date_time</code> also matches abbreviated and full months names as <code>b</code>
+and <code>B</code> formats. C parser understands only English month names.</p></dd>
 
 <dt><code>M</code> (!)</dt><dd><p>Minute as decimal number (00--59 or 0--59).</p></dd>
 
-<dt><code>p</code> (!)</dt><dd><p>AM/PM indicator in the locale. Normally used in conjunction
-with <code>I</code> and <b>not</b> with <code>H</code>.  But the <span class="pkg">lubridate</span>
-C parser accepts H format as long as hour is not greater
-than 12. C parser understands only English locale AM/PM
-indicator.</p></dd>
+<dt><code>p</code> (!)</dt><dd><p>AM/PM indicator in the locale. Commonly used in conjunction
+with <code>I</code> and <b>not</b> with <code>H</code>.  But <span class="pkg">lubridate</span>'s C parser accepts H
+format as long as hour is not greater than 12. C parser understands only
+English locale AM/PM indicator.</p></dd>
 
 <dt><code>S</code> (!)</dt><dd><p>Second as decimal number (00--61 or 0--61), allowing for up
 to two leap-seconds (but POSIX-compliant implementations will ignore leap
@@ -367,13 +364,12 @@ year as day 1 of week 1).  The UK convention.</p></dd>
 <dt><code>Y</code> (!)</dt><dd><p>Year with century.</p></dd>
 
 <dt><code>z</code> (!*)</dt><dd><p>ISO8601 signed offset in hours and minutes from UTC. For
-example <code>-0800</code>, <code>-08:00</code> or <code>-08</code>, all represent 8 hours
-behind UTC. This format also matches the Z (Zulu) UTC indicator. Because
-<code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code> doesn't fully support ISO8601 this format is implemented as an
-union of 4 orders: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use
-these four orders as any other but it is rarely
-necessary. <code>parse_date_time2()</code> and <code>fast_strptime()</code> support all of
-the timezone formats.</p></dd>
+example <code>-0800</code>, <code>-08:00</code> or <code>-08</code>, all represent 8 hours behind UTC. This
+format also matches the Z (Zulu) UTC indicator. Because <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>
+doesn't fully support ISO8601 this format is implemented as an union of 4
+formats: Ou (Z), Oz (-0800), OO (-08:00) and Oo (-08). You can use these
+formats as any other but it is rarely necessary. <code>parse_date_time2()</code> and
+<code>fast_strptime()</code> support all of these formats.</p></dd>
 
 <dt><code>Om</code> (!*)</dt><dd><p>Matches numeric month and English alphabetic months
 (Both, long and abbreviated forms).</p></dd>
@@ -391,12 +387,13 @@ the timezone formats.</p></dd>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p><code>parse_date_time()</code> (and the derivatives <code><a href='ymd.html'>ymd()</a></code>, <code><a href='ymd_hms.html'>ymd_hms()</a></code>, etc.)
-relies on a sparse guesser that takes at most 501 elements from the supplied
-character vector in order to identify appropriate formats from the
-supplied orders. If you get the error <code>All formats failed to parse</code> and
-you are confident that your vector contains valid dates, you should either
-set <code>exact</code> argument to <code>TRUE</code> or use functions that don't perform format
-guessing (<code>fast_strptime()</code>, <code>parse_date_time2()</code> or <code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>).</p>
+relies on a sparse guesser that takes at most 501 elements from the
+supplied character vector in order to identify appropriate formats from
+the supplied orders. If you get the error <code>All formats failed to parse</code>
+and you are confident that your vector contains valid dates, you should
+either set <code>exact</code> argument to <code>TRUE</code> or use functions that don't perform
+format guessing (<code>fast_strptime()</code>, <code>parse_date_time2()</code> or
+<code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>).</p>
 <p>For performance reasons, when timezone is not UTC,
 <code>parse_date_time2()</code> and <code>fast_strptime()</code> perform no validity checks for
 daylight savings time. Thus, if your input string contains an invalid date
@@ -474,7 +471,7 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
 <span class='co'>## ** invalid times with "fast" parsing **</span>
 <span class='fu'>parse_date_time</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span>, lt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2010-03-14 03:05:06 EDT"</div><div class='input'><span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span>, lt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -492,7 +489,7 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
 
 <div class="author">
   <p>
-    Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
+    Developed by Vitalie Spinu, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

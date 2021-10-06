@@ -51,7 +51,7 @@
 
 <meta property="og:title" content="The current day and time — now" />
 <meta property="og:description" content="The current day and time" />
-<meta property="og:image" content="http://lubridate.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://lubridate.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -95,7 +95,7 @@
         <a class="navbar-brand" href="../index.html">lubridate</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.9.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.8.0</span>
         </div>
       </div>
     </div>
@@ -160,14 +160,14 @@ now("UTC").</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2020-11-07 23:08:56 UTC"</div><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='st'>"GMT"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2020-11-07 23:08:56 GMT"</div><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2020-11-07 23:08:56 UTC"</div><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># would be TRUE if computer processed both at the same instant</span>
+</div><div class='output co'>#&gt; [1] "2021-10-06 18:39:59 UTC"</div><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='st'>"GMT"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2021-10-06 18:39:59 GMT"</div><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='st'>""</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2021-10-06 18:39:59 UTC"</div><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># would be TRUE if computer processed both at the same instant</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># TRUE</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fu'>now</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># FALSE</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>today</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2020-11-07"</div><div class='input'><span class='fu'>today</span><span class='op'>(</span><span class='st'>"GMT"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2020-11-07"</div><div class='input'><span class='fu'>today</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'>today</span><span class='op'>(</span><span class='st'>"GMT"</span><span class='op'>)</span> <span class='co'># not always true</span>
+</div><div class='output co'>#&gt; [1] "2021-10-06"</div><div class='input'><span class='fu'>today</span><span class='op'>(</span><span class='st'>"GMT"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2021-10-06"</div><div class='input'><span class='fu'>today</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'>today</span><span class='op'>(</span><span class='st'>"GMT"</span><span class='op'>)</span> <span class='co'># not always true</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>today</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2999-01-01"</span><span class='op'>)</span> <span class='co'># TRUE  (so far)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
@@ -186,7 +186,7 @@ now("UTC").</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://vitalie.spinu.info'>Vitalie Spinu</a>, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
+    Developed by Vitalie Spinu, Garrett Grolemund, <a href='http://hadley.nz'>Hadley Wickham</a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
