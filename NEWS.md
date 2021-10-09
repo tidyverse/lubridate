@@ -5,6 +5,9 @@ Version 1.8.0.9000
 
 * [#1001](https://github.com/tidyverse/lubridate/issues/1001) Add `%within` method with signature (Interval, list), which was documented but not implemented.
 
+### BUG FIXES
+
+* [#1002](https://github.com/tidyverse/lubridate/issues/1002) Parsing only with format `j` now works on numeric inputs.
 
 Version 1.8.0
 =============

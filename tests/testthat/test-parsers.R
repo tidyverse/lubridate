@@ -908,7 +908,11 @@ test_that("parsing months with dots works in French linux locale", {
                c("févr", "mars", "avril"))
 })
 
-
+test_that("parsing with j format works correctly", {
+  ## https://github.com/tidyverse/lubridate/issues/1002
+  expect_equal(yday(parse_date_time(100, "j")), 100)
+  expect_equal(yday(parse_date_time(c(1, 150, 330), "j")), c(1, 150, 330))
+})
 
 ## library(microbenchmark)
 ## library(lubridate)

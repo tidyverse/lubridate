@@ -904,14 +904,17 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 }
 
 .num_to_date <- function(x) {
-  if (is.numeric(x)) {
+  # #1002 lower numbers are normally something else than full dates
+  if (is.numeric(x) && x > 1900) {
     out <- rep.int(as.character(NA), length(x))
     nnas <- !is.na(x)
     x <- format(x[nnas], scientific = FALSE, trim = TRUE)
     x <- paste(ifelse(nchar(x) %% 2 == 1, "0", ""), x, sep = "")
     out[nnas] <- x
     out
-  }else as.character(x)
+  } else {
+    as.character(x)
+  }
 }
 
 .parse_iso_dt <- function(x, tz) {
