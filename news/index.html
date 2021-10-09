@@ -144,10 +144,18 @@
 <a href="https://github.com/tidyverse/lubridate/issues/1001"><a href='https://github.com/tidyverse/lubridate/issues/1001'>#1001</a></a> Add <code>%within</code> method with signature (Interval, list), which was documented but not implemented.</li>
 </ul>
 </div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/1002"><a href='https://github.com/tidyverse/lubridate/issues/1002'>#1002</a></a> Parsing only with format <code>j</code> now works on numeric inputs.</li>
+</ul>
+</div>
 </div>
     <div id="version-180" class="section level1">
 <h1 class="page-header" data-toc-text="1.8.0">
-<a href="#version-180" class="anchor"></a>Version 1.8.0<small> Unreleased </small>
+<a href="#version-180" class="anchor"></a>Version 1.8.0<small> 2021-10-07 </small>
 </h1>
 <div id="new-features-1" class="section level3">
 <h3 class="hasAnchor">
@@ -157,9 +165,9 @@
 <a href="https://github.com/tidyverse/lubridate/issues/960"><a href='https://github.com/tidyverse/lubridate/issues/960'>#960</a></a> <code>c.POSIXct</code> and <code>c.Date</code> can deal with heterogeneous object types (e.g <code><a href="https://rdrr.io/r/base/c.html">c(date, datetime)</a></code> works as expected)</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p><a href="https://github.com/tidyverse/lubridate/issues/994"><a href='https://github.com/tidyverse/lubridate/issues/994'>#994</a></a> Subtracting two duration or two period objects no longer results in an ambiguous dispatch note.</p></li>
 <li><p><code>c.Date</code> and <code>c.POSIXct</code> correctly deal with empty vectors.</p></li>
@@ -189,9 +197,9 @@
 <code><a href="../reference/parse_date_time.html">fast_strptime()</a></code> and <code><a href="../reference/parse_date_time.html">parse_date_time2()</a></code> now accept multiple formats and apply them in turn</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/926"><a href='https://github.com/tidyverse/lubridate/issues/926'>#926</a></a> Fix incorrect division of intervals by months involving leap years</li>
@@ -216,9 +224,9 @@
 </li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/930"><a href='https://github.com/tidyverse/lubridate/issues/930'>#930</a></a> <code><a href="../reference/as.period.html">as.period()</a></code> on intervals now returns valid Periods with double fields (not integers)</li>
@@ -237,9 +245,9 @@
 <a href="https://github.com/tidyverse/lubridate/issues/893"><a href='https://github.com/tidyverse/lubridate/issues/871'>#871</a></a> Add <code>vctrs</code> support</li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/890"><a href='https://github.com/tidyverse/lubridate/issues/890'>#890</a></a> Correctly compute year in <code><a href="../reference/quarter.html">quarter(..., with_year = TRUE)</a></code>
@@ -302,9 +310,9 @@
 <a href="https://github.com/tidyverse/lubridate/issues/869"><a href='https://github.com/tidyverse/lubridate/issues/869'>#869</a></a> Propagate NAs to all internal components of a Period object</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level3">
+<div id="bug-fixes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/682"><a href='https://github.com/tidyverse/lubridate/issues/682'>#682</a></a> Fix quarter extraction with small <code>fiscal_start</code>s.</li>
@@ -342,9 +350,9 @@
 <code><a href="../reference/tz.html">tz()</a></code> always returns “UTC” when <code>tzone</code> attribute cannot be inferred.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level3">
+<div id="bug-fixes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/664"><a href='https://github.com/tidyverse/lubridate/issues/664'>#664</a></a> Fix lookup of period functions in <code>as.period</code>
@@ -358,9 +366,9 @@
 <h1 class="page-header" data-toc-text="1.7.3">
 <a href="#version-173" class="anchor"></a>Version 1.7.3<small> 2018-02-27 </small>
 </h1>
-<div id="bug-fixes-6" class="section level3">
+<div id="bug-fixes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/643"><a href='https://github.com/tidyverse/lubridate/issues/643'>#643</a></a>, <a href="https://github.com/tidyverse/lubridate/issues/640"><a href='https://github.com/tidyverse/lubridate/issues/640'>#640</a></a>, <a href="https://github.com/tidyverse/lubridate/issues/645"><a href='https://github.com/tidyverse/lubridate/issues/645'>#645</a></a> Fix faulty caching of system timezone.</li>
@@ -391,9 +399,9 @@
 <li>Correct license to the originally intended GPL (&gt;= 2)</li>
 </ul>
 </div>
-<div id="bug-fixes-7" class="section level3">
+<div id="bug-fixes-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/605"><a href='https://github.com/tidyverse/lubridate/issues/605'>#605</a></a> Fix wrong ceiling of days during DST transition.</li>
@@ -408,9 +416,9 @@
 <h1 class="page-header" data-toc-text="1.7.1">
 <a href="#version-171" class="anchor"></a>Version 1.7.1<small> 2017-11-03 </small>
 </h1>
-<div id="bug-fixes-8" class="section level3">
+<div id="bug-fixes-9" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-9" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/598"><a href='https://github.com/tidyverse/lubridate/issues/575'>#575</a></a>, <a href="https://github.com/tidyverse/lubridate/issues/600"><a href='https://github.com/tidyverse/lubridate/issues/600'>#600</a></a>, <a href="https://github.com/tidyverse/lubridate/issues/602"><a href='https://github.com/tidyverse/lubridate/issues/602'>#602</a></a> Fix zoneinfo lookup on windows and solaris.</li>
@@ -473,9 +481,9 @@
 <a href="https://github.com/tidyverse/lubridate/issues/572"><a href='https://github.com/tidyverse/lubridate/issues/572'>#572</a></a> <code>B</code> and <code>b</code> formats no longer match numeric months. This corresponds to the original intent, and was always documented as such.</li>
 </ul>
 </div>
-<div id="bug-fixes-9" class="section level3">
+<div id="bug-fixes-10" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-9" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-10" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/314"><a href='https://github.com/tidyverse/lubridate/issues/314'>#314</a></a>, <a href="https://github.com/tidyverse/lubridate/issues/407"><a href='https://github.com/tidyverse/lubridate/issues/407'>#407</a></a>, <a href="https://github.com/tidyverse/lubridate/issues/499"><a href='https://github.com/tidyverse/lubridate/issues/499'>#499</a></a> Make <code>days</code>, <code>dhours</code>, <code>round_date</code> work when the methods package is not loaded.</li>
@@ -590,9 +598,9 @@
 <a href="https://github.com/tidyverse/lubridate/issues/456"><a href='https://github.com/tidyverse/lubridate/issues/456'>#456</a></a> Evaluation output in documentation examples was removed.</li>
 </ul>
 </div>
-<div id="bug-fixes-10" class="section level3">
+<div id="bug-fixes-11" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-10" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-11" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/479"><a href='https://github.com/tidyverse/lubridate/issues/479'>#479</a></a> Fix the inconsistent behavior in <code>ceiling_date</code> when <code>unit = "week"</code>
@@ -648,9 +656,9 @@
 <li>For consistency with <code>base:strptime</code> <code>fast_strptime</code> now returns <code>POSIXlt</code> object. That is, its <code>lt</code> argument defaults to <code>TRUE</code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-11" class="section level3">
+<div id="bug-fixes-12" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-11" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-12" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <code>interval</code> constructor treats timezones correctly and works with UTC whenever meaningful.</li>
@@ -708,9 +716,9 @@
 <li>Made necessary changes to accommodate new zoo-based <code>fst</code> objects.</li>
 </ul>
 </div>
-<div id="bug-fixes-12" class="section level3">
+<div id="bug-fixes-13" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-12" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-13" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/360"><a href='https://github.com/tidyverse/lubridate/issues/360'>#360</a></a> Fix c parser for Z (zulu) indicator.</li>
@@ -768,9 +776,9 @@
 <a href="https://github.com/tidyverse/lubridate/issues/255"><a href='https://github.com/tidyverse/lubridate/issues/255'>#255</a></a> Parse yy &gt; 68 as 19yy to comply with <code>strptime</code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-13" class="section level3">
+<div id="bug-fixes-14" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-13" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-14" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/266"><a href='https://github.com/tidyverse/lubridate/issues/266'>#266</a></a> Include <code>time-zones.R</code> in <code>coercion.R</code>.</li>
@@ -812,9 +820,9 @@
 </li>
 </ul>
 </div>
-<div id="bug-fixes-14" class="section level3">
+<div id="bug-fixes-15" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-14" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-15" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>olson_time_zones now supports Solaris OS</li>
 <li>infinite recursion on parsing non-existing leap times was fixed</li>
@@ -860,9 +868,9 @@
 <li>date_decimal converts a date written as a decimal of a year into a POSIXct date-time</li>
 </ul>
 </div>
-<div id="bug-fixes-15" class="section level3">
+<div id="bug-fixes-16" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-15" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-16" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed bug in way update.POSIXct and update.POSIXlt handle dates that occur in the fall daylight savings overlap. update will choose the date-time closest to the original date time (on the timeline) when two identical clock times exist due to the DST overlap.</li>
 <li>fixed bugs that created unintuitive results for <code>as.interval</code>, <code>int_overlaps</code>, <code><a href="../reference/%within%.html">%within%</a></code> and the interval methods of <code>c</code>, <code>intersect</code>, <code>union</code>, <code>setdiff</code>, and <code>summary</code>.</li>
@@ -926,9 +934,9 @@
 <li><p><code>quarter</code> returns the fiscal quarter that a date occurs in. Like <code>quartes</code> in base R, but returns a numeric instead of a character string.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-16" class="section level3">
+<div id="bug-fixes-17" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-16" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-17" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>date parsers now handle NAs</p></li>
 <li><p>periods now handle NAs</p></li>
@@ -989,9 +997,9 @@
 <ul>
 <li>added ymdThms() for parsing ISO 8061 formatted combned dates and times</li>
 </ul>
-<div id="bug-fixes-17" class="section level3">
+<div id="bug-fixes-18" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-17" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-18" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>removed bug in parsing dates with “T” in them</p></li>
 <li><p>modified as.period.interval() to display periods in positive units</p></li>
@@ -1018,9 +1026,9 @@
 <li><p>milliseconds(), microseconds(), nanoseconds(), and picoseconds() create period objects of the specified lengths. dmilliseconds(), dmicroseconds(), dnanoseconds(), and dpicoseconds() make duration objects of the specified lengths.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-18" class="section level3">
+<div id="bug-fixes-19" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-18" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-19" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>lubridate no longer overwrites months(), start(), and end() from base R. Start and end have been replaced with int_start() and int_end().</p></li>
 <li><p>lubridate imports plyr and stringr packages, instead of depending on them.</p></li>
@@ -1039,9 +1047,9 @@
 <li><p>created c() methods for periods and durations</p></li>
 </ul>
 </div>
-<div id="bug-fixes-19" class="section level3">
+<div id="bug-fixes-20" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-19" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-20" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed bug in division, modulo, and integer operations with timespans</li>
 </ul>
@@ -1058,9 +1066,9 @@
 <li>created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().</li>
 </ul>
 </div>
-<div id="bug-fixes-20" class="section level3">
+<div id="bug-fixes-21" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-20" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-21" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>fixed bug in add_dates(). duration objects can now be successfully added to numeric objects.</li>
 </ul>
@@ -1094,9 +1102,9 @@
 <li><p>changed leap.years() to leap_years() to maintain consistent naming scheme</p></li>
 </ul>
 </div>
-<div id="bug-fixes-21" class="section level3">
+<div id="bug-fixes-22" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-21" class="anchor"></a>BUG FIXES</h3>
+<a href="#bug-fixes-22" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li><p>rewrote as.period() to create only positive periods.</p></li>
 <li><p>fixed rollover bug in update.POSIXct()</p></li>
