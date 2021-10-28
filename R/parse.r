@@ -905,7 +905,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 
 .num_to_date <- function(x) {
   # #1002 lower numbers are normally something else than full dates
-  if (is.numeric(x) && x > 1900) {
+  if (is.numeric(x) && any(x > 1900)) {
     out <- rep.int(as.character(NA), length(x))
     nnas <- !is.na(x)
     x <- format(x[nnas], scientific = FALSE, trim = TRUE)
