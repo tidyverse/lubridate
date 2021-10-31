@@ -10,7 +10,7 @@ version](http://www.r-pkg.org/badges/version/lubridate)](https://cran.r-project.
 [![R build
 status](https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/lubridate/actions)
 [![Coverage
-Status](https://codecov.io/gh/tidyverse/lubridate/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/lubridate)
+Status](https://codecov.io/gh/tidyverse/lubridate/branch/main/graph/badge.svg)](https://codecov.io/gh/tidyverse/lubridate)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/lubridate)](https://cran.r-project.org/package=lubridate)
 [![Development
@@ -47,7 +47,7 @@ devtools::install_github("tidyverse/lubridate")
 
 ## Cheatsheet
 
-<a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"/></a>
+<a href="https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"/></a>
 
 ## Features
 
