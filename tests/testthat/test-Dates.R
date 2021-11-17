@@ -45,6 +45,9 @@ test_that("as_date works", {
 })
 
 test_that("c.Date deals correctly with empty vectors", {
+  expect_equal(c(Date()), Date())
+  expect_equal(c(Date(), Date()), Date())
+  expect_equal(c(Date(), POSIXct()), Date())
   expect_equal(c(ymd("2021-01-01"), NULL, c()), ymd("2021-01-01"))
   expect_equal(
     c(ymd("2021-01-01"), Date(), ymd("2021-01-02")),

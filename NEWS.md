@@ -7,6 +7,7 @@ Version 1.8.0.9000
 
 ### BUG FIXES
 
+* [#1004](https://github.com/tidyverse/lubridate/issues/1004) Fix c.POSIXct and c.Date on empty single POSIXct and Date vectors
 * [#1002](https://github.com/tidyverse/lubridate/issues/1002) Parsing only with format `j` now works on numeric inputs.
 
 Version 1.8.0

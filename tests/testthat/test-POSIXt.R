@@ -30,6 +30,10 @@ test_that("c.POSIXct deals correctly with heterogeneous date-time classes", {
 
 
 test_that("c.POSIXct deals correctly with empty vectors", {
+  expect_equal(c(POSIXct()), POSIXct())
+  expect_equal(c(POSIXct(), POSIXct()), POSIXct())
+  expect_equal(c(POSIXct(), Date()), POSIXct())
+  expect_equal(c(POSIXct(tz = "America/New_York")), POSIXct(tz = "America/New_York"))
   expect_equal(
     c(ymd("2021-01-01", tz = "America/New_York"), NULL, c()),
     ymd("2021-01-01", tz = "America/New_York"))

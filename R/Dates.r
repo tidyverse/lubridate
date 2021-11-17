@@ -29,7 +29,7 @@ NA_Date_ <- structure(NA_real_, class = "Date")
 
 .recursive_date_unclass <- function(x) {
   if (length(x) == 0)
-    NULL
+    Date()
   else if (is.recursive(x))
     lapply(x, .recursive_date_unclass)
   else
