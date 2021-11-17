@@ -195,25 +195,32 @@ the input date-time.</p>
     <div class='dont-index'><p><code><a href='with_tz.html'>with_tz()</a></code>, <code><a href='local_time.html'>local_time()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-08-07 00:00:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>
-<span class='fu'>force_tz</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"UTC"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-08-07 00:00:01 UTC"</div><div class='input'><span class='fu'>force_tz</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"Europe/Amsterdam"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-08-07 00:00:01 CEST"</div><div class='input'>
-<span class='co'>## DST skip:</span>
-
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:05 UTC"</span><span class='op'>)</span>
-<span class='fu'>force_tz</span><span class='op'>(</span><span class='va'>y</span>, <span class='st'>"America/New_York"</span>, roll<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>force_tz</span><span class='op'>(</span><span class='va'>y</span>, <span class='st'>"America/New_York"</span>, roll<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2010-03-14 03:00:00 EDT"</div><div class='input'>
-<span class='co'>## Heterogeneous time-zones:</span>
-
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2009-08-07 00:00:01"</span>, <span class='st'>"2009-08-07 01:02:03"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>force_tzs</span><span class='op'>(</span><span class='va'>x</span>, tzones <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"America/New_York"</span>, <span class='st'>"Europe/Amsterdam"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-08-07 04:00:01 UTC" "2009-08-06 23:02:03 UTC"</div><div class='input'><span class='fu'>force_tzs</span><span class='op'>(</span><span class='va'>x</span>, tzones <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"America/New_York"</span>, <span class='st'>"Europe/Amsterdam"</span><span class='op'>)</span>, tzone_out <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-08-07 00:00:01 EDT" "2009-08-06 19:02:03 EDT"</div><div class='input'>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-08-07 00:00:01"</span><span class='op'>)</span>
-<span class='fu'>force_tzs</span><span class='op'>(</span><span class='va'>x</span>, tzones <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"America/New_York"</span>, <span class='st'>"Europe/Amsterdam"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-08-07 04:00:01 UTC" "2009-08-06 22:00:01 UTC"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-08-07 00:00:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>force_tz</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"UTC"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-08-07 00:00:01 UTC"</span>
+<span class='r-in'><span class='fu'>force_tz</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"Europe/Amsterdam"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-08-07 00:00:01 CEST"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## DST skip:</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:05 UTC"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>force_tz</span><span class='op'>(</span><span class='va'>y</span>, <span class='st'>"America/New_York"</span>, roll<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-in'><span class='fu'>force_tz</span><span class='op'>(</span><span class='va'>y</span>, <span class='st'>"America/New_York"</span>, roll<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2010-03-14 03:00:00 EDT"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## Heterogeneous time-zones:</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2009-08-07 00:00:01"</span>, <span class='st'>"2009-08-07 01:02:03"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>force_tzs</span><span class='op'>(</span><span class='va'>x</span>, tzones <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"America/New_York"</span>, <span class='st'>"Europe/Amsterdam"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-08-07 04:00:01 UTC" "2009-08-06 23:02:03 UTC"</span>
+<span class='r-in'><span class='fu'>force_tzs</span><span class='op'>(</span><span class='va'>x</span>, tzones <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"America/New_York"</span>, <span class='st'>"Europe/Amsterdam"</span><span class='op'>)</span>, tzone_out <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-08-07 00:00:01 EDT" "2009-08-06 19:02:03 EDT"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-08-07 00:00:01"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>force_tzs</span><span class='op'>(</span><span class='va'>x</span>, tzones <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"America/New_York"</span>, <span class='st'>"Europe/Amsterdam"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-08-07 04:00:01 UTC" "2009-08-06 22:00:01 UTC"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

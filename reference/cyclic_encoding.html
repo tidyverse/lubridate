@@ -184,38 +184,42 @@ machine learner that two calendar dates are close by mapping the dates onto
 the circle.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>times</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2019-01-01 00:00:00"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>hours</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>23</span><span class='op'>)</span>
-<span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"day"</span>, <span class='st'>"week"</span>, <span class='st'>"month"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             sin.day       cos.day  sin.week   cos.week   sin.month cos.month
-#&gt;  [1,]  0.000000e+00  1.000000e+00 0.9749279 -0.2225209 0.000000000 1.0000000
-#&gt;  [2,]  2.588190e-01  9.659258e-01 0.9659258 -0.2588190 0.008445041 0.9999643
-#&gt;  [3,]  5.000000e-01  8.660254e-01 0.9555728 -0.2947552 0.016889480 0.9998574
-#&gt;  [4,]  7.071068e-01  7.071068e-01 0.9438833 -0.3302791 0.025332714 0.9996791
-#&gt;  [5,]  8.660254e-01  5.000000e-01 0.9308737 -0.3653410 0.033774142 0.9994295
-#&gt;  [6,]  9.659258e-01  2.588190e-01 0.9165623 -0.3998920 0.042213161 0.9991086
-#&gt;  [7,]  1.000000e+00 -1.608123e-16 0.9009689 -0.4338837 0.050649169 0.9987165
-#&gt;  [8,]  9.659258e-01 -2.588190e-01 0.8841154 -0.4672686 0.059081565 0.9982532
-#&gt;  [9,]  8.660254e-01 -5.000000e-01 0.8660254 -0.5000000 0.067509747 0.9977186
-#&gt; [10,]  7.071068e-01 -7.071068e-01 0.8467242 -0.5320321 0.075933114 0.9971129
-#&gt; [11,]  5.000000e-01 -8.660254e-01 0.8262388 -0.5633201 0.084351066 0.9964361
-#&gt; [12,]  2.588190e-01 -9.659258e-01 0.8045978 -0.5938202 0.092763002 0.9956882
-#&gt; [13,] -3.216245e-16 -1.000000e+00 0.7818315 -0.6234898 0.101168322 0.9948693
-#&gt; [14,] -2.588190e-01 -9.659258e-01 0.7579717 -0.6522874 0.109566427 0.9939795
-#&gt; [15,] -5.000000e-01 -8.660254e-01 0.7330519 -0.6801727 0.117956717 0.9930187
-#&gt; [16,] -7.071068e-01 -7.071068e-01 0.7071068 -0.7071068 0.126338595 0.9919872
-#&gt; [17,] -8.660254e-01 -5.000000e-01 0.6801727 -0.7330519 0.134711462 0.9908849
-#&gt; [18,] -9.659258e-01 -2.588190e-01 0.6522874 -0.7579717 0.143074722 0.9897119
-#&gt; [19,] -1.000000e+00 -1.836970e-16 0.6234898 -0.7818315 0.151427778 0.9884683
-#&gt; [20,] -9.659258e-01  2.588190e-01 0.5938202 -0.8045978 0.159770033 0.9871543
-#&gt; [21,] -8.660254e-01  5.000000e-01 0.5633201 -0.8262388 0.168100894 0.9857698
-#&gt; [22,] -7.071068e-01  7.071068e-01 0.5320321 -0.8467242 0.176419766 0.9843150
-#&gt; [23,] -5.000000e-01  8.660254e-01 0.5000000 -0.8660254 0.184726056 0.9827901
-#&gt; [24,] -2.588190e-01  9.659258e-01 0.4672686 -0.8841154 0.193019171 0.9811950</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"1d"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='cyclic_encoding-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"2d"</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='cyclic_encoding-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"4d"</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='cyclic_encoding-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>times</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2019-01-01 00:00:00"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>hours</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>23</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"day"</span>, <span class='st'>"week"</span>, <span class='st'>"month"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             sin.day       cos.day  sin.week   cos.week   sin.month cos.month</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,]  0.000000e+00  1.000000e+00 0.9749279 -0.2225209 0.000000000 1.0000000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,]  2.588190e-01  9.659258e-01 0.9659258 -0.2588190 0.008445041 0.9999643</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,]  5.000000e-01  8.660254e-01 0.9555728 -0.2947552 0.016889480 0.9998574</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,]  7.071068e-01  7.071068e-01 0.9438833 -0.3302791 0.025332714 0.9996791</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,]  8.660254e-01  5.000000e-01 0.9308737 -0.3653410 0.033774142 0.9994295</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,]  9.659258e-01  2.588190e-01 0.9165623 -0.3998920 0.042213161 0.9991086</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,]  1.000000e+00 -1.608123e-16 0.9009689 -0.4338837 0.050649169 0.9987165</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,]  9.659258e-01 -2.588190e-01 0.8841154 -0.4672686 0.059081565 0.9982532</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,]  8.660254e-01 -5.000000e-01 0.8660254 -0.5000000 0.067509747 0.9977186</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,]  7.071068e-01 -7.071068e-01 0.8467242 -0.5320321 0.075933114 0.9971129</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,]  5.000000e-01 -8.660254e-01 0.8262388 -0.5633201 0.084351066 0.9964361</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,]  2.588190e-01 -9.659258e-01 0.8045978 -0.5938202 0.092763002 0.9956882</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] -3.216245e-16 -1.000000e+00 0.7818315 -0.6234898 0.101168322 0.9948693</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] -2.588190e-01 -9.659258e-01 0.7579717 -0.6522874 0.109566427 0.9939795</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] -5.000000e-01 -8.660254e-01 0.7330519 -0.6801727 0.117956717 0.9930187</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] -7.071068e-01 -7.071068e-01 0.7071068 -0.7071068 0.126338595 0.9919872</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] -8.660254e-01 -5.000000e-01 0.6801727 -0.7330519 0.134711462 0.9908849</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] -9.659258e-01 -2.588190e-01 0.6522874 -0.7579717 0.143074722 0.9897119</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] -1.000000e+00 -1.836970e-16 0.6234898 -0.7818315 0.151427778 0.9884683</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] -9.659258e-01  2.588190e-01 0.5938202 -0.8045978 0.159770033 0.9871543</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] -8.660254e-01  5.000000e-01 0.5633201 -0.8262388 0.168100894 0.9857698</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] -7.071068e-01  7.071068e-01 0.5320321 -0.8467242 0.176419766 0.9843150</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] -5.000000e-01  8.660254e-01 0.5000000 -0.8660254 0.184726056 0.9827901</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] -2.588190e-01  9.659258e-01 0.4672686 -0.8841154 0.193019171 0.9811950</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"1d"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='cyclic_encoding-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"2d"</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='cyclic_encoding-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>cyclic_encoding</span><span class='op'>(</span><span class='va'>times</span>, <span class='st'>"4d"</span><span class='op'>)</span>, xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='cyclic_encoding-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

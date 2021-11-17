@@ -194,9 +194,11 @@ silently converted to integer vectors; <code>sec</code> can be either integer or
 double.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>make_datetime</span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>1999</span>, month <span class='op'>=</span> <span class='fl'>12</span>, day <span class='op'>=</span> <span class='fl'>22</span>, sec <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1999-12-22 00:00:10 UTC"</div><div class='input'><span class='fu'>make_datetime</span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>1999</span>, month <span class='op'>=</span> <span class='fl'>12</span>, day <span class='op'>=</span> <span class='fl'>22</span>, sec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>11</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1999-12-22 00:00:10 UTC" "1999-12-22 00:00:11 UTC"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>make_datetime</span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>1999</span>, month <span class='op'>=</span> <span class='fl'>12</span>, day <span class='op'>=</span> <span class='fl'>22</span>, sec <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "1999-12-22 00:00:10 UTC"</span>
+<span class='r-in'><span class='fu'>make_datetime</span><span class='op'>(</span>year <span class='op'>=</span> <span class='fl'>1999</span>, month <span class='op'>=</span> <span class='fl'>12</span>, day <span class='op'>=</span> <span class='fl'>22</span>, sec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>11</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "1999-12-22 00:00:10 UTC" "1999-12-22 00:00:11 UTC"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

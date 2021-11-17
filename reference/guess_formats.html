@@ -180,879 +180,893 @@ of matched templates.</p></td>
     <p>a vector of matched formats</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'February 20th 1973'</span>,
-       <span class='st'>"february  14, 2004"</span>,
-       <span class='st'>"Sunday, May 1, 2000"</span>,
-       <span class='st'>"Sunday, May 1, 2000"</span>,
-       <span class='st'>"february  14, 04"</span>,
-       <span class='st'>'Feb 20th 73'</span>,
-       <span class='st'>"January 5 1999 at 7pm"</span>,
-       <span class='st'>"jan 3 2010"</span>,
-       <span class='st'>"Jan 1, 1999"</span>,
-       <span class='st'>"jan 3   10"</span>,
-       <span class='st'>"01 3 2010"</span>,
-       <span class='st'>"1 3 10"</span>,
-       <span class='st'>'1 13 89'</span>,
-       <span class='st'>"5/27/1979"</span>,
-       <span class='st'>"12/31/99"</span>,
-       <span class='st'>"DOB:12/11/00"</span>,
-       <span class='st'>"-----------"</span>,
-       <span class='st'>'Thu, 1 July 2004 22:30:00'</span>,
-       <span class='st'>'Thu, 1st of July 2004 at 22:30:00'</span>,
-       <span class='st'>'Thu, 1July 2004 at 22:30:00'</span>,
-       <span class='st'>'Thu, 1July2004 22:30:00'</span>,
-       <span class='st'>'Thu, 1July04 22:30:00'</span>,
-       <span class='st'>"21 Aug 2011, 11:15:34 pm"</span>,
-       <span class='st'>"-----------"</span>,
-       <span class='st'>"1979-05-27 05:00:59"</span>,
-       <span class='st'>"1979-05-27"</span>,
-       <span class='st'>"-----------"</span>,
-       <span class='st'>"3 jan 2000"</span>,
-       <span class='st'>"17 april 85"</span>,
-       <span class='st'>"27/5/1979"</span>,
-       <span class='st'>'20 01 89'</span>,
-       <span class='st'>'00/13/10'</span>,
-       <span class='st'>"-------"</span>,
-       <span class='st'>"14 12 00"</span>,
-       <span class='st'>"03:23:22 pm"</span><span class='op'>)</span>
-
-<span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"BdY"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
-#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt;     "%A, %Ob %d, %Y"          "%Ob %d %Y"         "%Ob %d, %Y" 
-#&gt;                  BdY                  BdY                  BdY 
-#&gt;         "%B %dth %Y"         "%B  %d, %Y"      "%A, %B %d, %Y" 
-#&gt;                  BdY                 ObdY                 ObdY 
-#&gt;      "%A, %B %d, %Y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
-#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" 
-#&gt;                 ObdY                  BdY                  BdY 
-#&gt;         "%Ob %d, %Y"         "%B %dth %Y"         "%B  %d, %Y" 
-#&gt;                  BdY                  BdY 
-#&gt;  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" </div><div class='input'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"Bdy"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;     "%A, %Ob %d, %Y"        "%Ob  %d, %y"        "%Ob %dth %y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;          "%Ob %d %Y"         "%Ob %d, %Y"        "%Ob %d   %y" 
-#&gt;                  Bdy                  Bdy                  Bdy 
-#&gt;         "%B %dth %Y"         "%B  %d, %Y"      "%A, %B %d, %Y" 
-#&gt;                  Bdy                  Bdy                 Obdy 
-#&gt;      "%A, %B %d, %Y"         "%B  %d, %y"        "%Ob %dth %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;        "%Ob  %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;        "%Ob  %d, %y"        "%Ob %dth %y"          "%Ob %d %Y" 
-#&gt;                 Obdy                 Obdy                  Bdy 
-#&gt;         "%Ob %d, %Y"        "%Ob %d   %y"         "%B %dth %Y" 
-#&gt;                  Bdy                  Bdy                  Bdy 
-#&gt;         "%B  %d, %Y"  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" 
-#&gt;                  Bdy 
-#&gt;         "%B  %d, %y" </div><div class='input'><span class='co'>## m also matches b and B; y also matches Y</span>
-<span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"mdy"</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           Omdy                
-#&gt;  [1,] "February 20th 1973"                "%Om %dth %Y"       
-#&gt;  [2,] "february  14, 2004"                "%Om  %d, %Y"       
-#&gt;  [3,] "Sunday, May 1, 2000"               "Sunday, %Om %d, %Y"
-#&gt;  [4,] "Sunday, May 1, 2000"               "Sunday, %Om %d, %Y"
-#&gt;  [5,] "february  14, 04"                  "%Om  %d, %y"       
-#&gt;  [6,] "Feb 20th 73"                       "%Om %dth %y"       
-#&gt;  [7,] "January 5 1999 at 7pm"             ""                  
-#&gt;  [8,] "jan 3 2010"                        "%Om %d %Y"         
-#&gt;  [9,] "Jan 1, 1999"                       "%Om %d, %Y"        
-#&gt; [10,] "jan 3   10"                        "%Om %d   %y"       
-#&gt; [11,] "01 3 2010"                         "%Om %d %Y"         
-#&gt; [12,] "1 3 10"                            "%Om %d %y"         
-#&gt; [13,] "1 13 89"                           "%Om %d %y"         
-#&gt; [14,] "5/27/1979"                         "%Om/%d/%Y"         
-#&gt; [15,] "12/31/99"                          "%Om/%d/%y"         
-#&gt; [16,] "DOB:12/11/00"                      "DOB:%Om/%d/%y"     
-#&gt; [17,] "-----------"                       ""                  
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""                  
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""                  
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""                  
-#&gt; [21,] "Thu, 1July2004 22:30:00"           ""                  
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""                  
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""                  
-#&gt; [24,] "-----------"                       ""                  
-#&gt; [25,] "1979-05-27 05:00:59"               ""                  
-#&gt; [26,] "1979-05-27"                        ""                  
-#&gt; [27,] "-----------"                       ""                  
-#&gt; [28,] "3 jan 2000"                        ""                  
-#&gt; [29,] "17 april 85"                       ""                  
-#&gt; [30,] "27/5/1979"                         ""                  
-#&gt; [31,] "20 01 89"                          ""                  
-#&gt; [32,] "00/13/10"                          ""                  
-#&gt; [33,] "-------"                           ""                  
-#&gt; [34,] "14 12 00"                          ""                  
-#&gt; [35,] "03:23:22 pm"                       "%Om:%d:%y pm"      
-#&gt;       mdy                
-#&gt;  [1,] "%B %dth %Y"       
-#&gt;  [2,] "%B  %d, %Y"       
-#&gt;  [3,] "Sunday, %b %d, %Y"
-#&gt;  [4,] "Sunday, %b %d, %Y"
-#&gt;  [5,] "%B  %d, %y"       
-#&gt;  [6,] "%b %dth %y"       
-#&gt;  [7,] ""                 
-#&gt;  [8,] "%b %d %Y"         
-#&gt;  [9,] "%b %d, %Y"        
-#&gt; [10,] "%b %d   %y"       
-#&gt; [11,] "%m %d %Y"         
-#&gt; [12,] "%m %d %y"         
-#&gt; [13,] "%m %d %y"         
-#&gt; [14,] "%m/%d/%Y"         
-#&gt; [15,] "%m/%d/%y"         
-#&gt; [16,] "DOB:%m/%d/%y"     
-#&gt; [17,] ""                 
-#&gt; [18,] ""                 
-#&gt; [19,] ""                 
-#&gt; [20,] ""                 
-#&gt; [21,] ""                 
-#&gt; [22,] ""                 
-#&gt; [23,] ""                 
-#&gt; [24,] ""                 
-#&gt; [25,] ""                 
-#&gt; [26,] ""                 
-#&gt; [27,] ""                 
-#&gt; [28,] ""                 
-#&gt; [29,] ""                 
-#&gt; [30,] ""                 
-#&gt; [31,] ""                 
-#&gt; [32,] ""                 
-#&gt; [33,] ""                 
-#&gt; [34,] ""                 
-#&gt; [35,] "%m:%d:%y pm"      </div><div class='output co'>#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;        "%Om %dth %Y"        "%Om  %d, %Y"     "%A, %Om %d, %Y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;     "%A, %Om %d, %Y"        "%Om  %d, %y"        "%Om %dth %y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;          "%Om %d %Y"         "%Om %d, %Y"        "%Om %d   %y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;          "%Om %d %Y"          "%Om %d %y"          "%Om %d %y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;          "%Om/%d/%Y"          "%Om/%d/%y"      "DOB:%Om/%d/%y" 
-#&gt;                 Omdy                  mdy                  mdy 
-#&gt;       "%Om:%d:%y pm"         "%B %dth %Y"         "%B  %d, %Y" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;      "%A, %b %d, %Y"      "%A, %b %d, %Y"         "%B  %d, %y" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;         "%b %dth %y"           "%b %d %Y"          "%b %d, %Y" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;         "%b %d   %y"           "%m %d %Y"           "%m %d %y" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;           "%m %d %y"           "%m/%d/%Y"           "%m/%d/%y" 
-#&gt;                  mdy                  mdy                 Omdy 
-#&gt;       "DOB:%m/%d/%y"        "%m:%d:%y pm"        "%Om %dth %Y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;        "%Om  %d, %Y" "Sunday, %Om %d, %Y" "Sunday, %Om %d, %Y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;        "%Om  %d, %y"        "%Om %dth %y"          "%Om %d %Y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;         "%Om %d, %Y"        "%Om %d   %y"          "%Om %d %Y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;          "%Om %d %y"          "%Om %d %y"          "%Om/%d/%Y" 
-#&gt;                 Omdy                 Omdy                 Omdy 
-#&gt;          "%Om/%d/%y"      "DOB:%Om/%d/%y"       "%Om:%d:%y pm" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;         "%B %dth %Y"         "%B  %d, %Y"  "Sunday, %b %d, %Y" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;  "Sunday, %b %d, %Y"         "%B  %d, %y"         "%b %dth %y" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;           "%b %d %Y"          "%b %d, %Y"         "%b %d   %y" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;           "%m %d %Y"           "%m %d %y"           "%m %d %y" 
-#&gt;                  mdy                  mdy                  mdy 
-#&gt;           "%m/%d/%Y"           "%m/%d/%y"       "DOB:%m/%d/%y" 
-#&gt;                  mdy 
-#&gt;        "%m:%d:%y pm" </div><div class='input'>
-<span class='co'>## T also matches IMSp order</span>
-<span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"T"</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           HMSOp          T                   
-#&gt;  [1,] "February 20th 1973"                ""             ""                  
-#&gt;  [2,] "february  14, 2004"                ""             "february  %H, %M%S"
-#&gt;  [3,] "Sunday, May 1, 2000"               ""             ""                  
-#&gt;  [4,] "Sunday, May 1, 2000"               ""             ""                  
-#&gt;  [5,] "february  14, 04"                  ""             ""                  
-#&gt;  [6,] "Feb 20th 73"                       ""             ""                  
-#&gt;  [7,] "January 5 1999 at 7pm"             ""             ""                  
-#&gt;  [8,] "jan 3 2010"                        ""             ""                  
-#&gt;  [9,] "Jan 1, 1999"                       ""             ""                  
-#&gt; [10,] "jan 3   10"                        ""             ""                  
-#&gt; [11,] "01 3 2010"                         ""             ""                  
-#&gt; [12,] "1 3 10"                            ""             "%H %M %S"          
-#&gt; [13,] "1 13 89"                           ""             ""                  
-#&gt; [14,] "5/27/1979"                         ""             ""                  
-#&gt; [15,] "12/31/99"                          ""             ""                  
-#&gt; [16,] "DOB:12/11/00"                      ""             "DOB:%H/%M/%S"      
-#&gt; [17,] "-----------"                       ""             ""                  
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""             ""                  
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""             ""                  
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""             ""                  
-#&gt; [21,] "Thu, 1July2004 22:30:00"           ""             ""                  
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""             ""                  
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""             ""                  
-#&gt; [24,] "-----------"                       ""             ""                  
-#&gt; [25,] "1979-05-27 05:00:59"               ""             ""                  
-#&gt; [26,] "1979-05-27"                        ""             ""                  
-#&gt; [27,] "-----------"                       ""             ""                  
-#&gt; [28,] "3 jan 2000"                        ""             ""                  
-#&gt; [29,] "17 april 85"                       ""             ""                  
-#&gt; [30,] "27/5/1979"                         ""             ""                  
-#&gt; [31,] "20 01 89"                          ""             ""                  
-#&gt; [32,] "00/13/10"                          ""             "%H/%M/%S"          
-#&gt; [33,] "-------"                           ""             ""                  
-#&gt; [34,] "14 12 00"                          ""             "%H %M %S"          
-#&gt; [35,] "03:23:22 pm"                       "%H:%M:%S %Op" "%I:%M:%S %p"       </div><div class='output co'>#&gt;                HMSOp                    T                    T 
-#&gt;       "%H:%M:%S %Op" "february  %H, %M%S"           "%H %M %S" 
-#&gt;                    T                    T                    T 
-#&gt;       "DOB:%H/%M/%S"           "%H/%M/%S"           "%H %M %S" 
-#&gt;                    T 
-#&gt;        "%I:%M:%S %p" </div><div class='input'>
-<span class='co'>## b and B are equivalent and match, both, abreviated and full names</span>
-<span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mdY"</span>, <span class='st'>"BdY"</span>, <span class='st'>"Bdy"</span>, <span class='st'>"bdY"</span>, <span class='st'>"bdy"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           ObdY                
-#&gt;  [1,] "February 20th 1973"                "%Ob %dth %Y"       
-#&gt;  [2,] "february  14, 2004"                "%Ob  %d, %Y"       
-#&gt;  [3,] "Sunday, May 1, 2000"               "Sunday, %Ob %d, %Y"
-#&gt;  [4,] "Sunday, May 1, 2000"               "Sunday, %Ob %d, %Y"
-#&gt;  [5,] "february  14, 04"                  ""                  
-#&gt;  [6,] "Feb 20th 73"                       ""                  
-#&gt;  [7,] "January 5 1999 at 7pm"             ""                  
-#&gt;  [8,] "jan 3 2010"                        "%Ob %d %Y"         
-#&gt;  [9,] "Jan 1, 1999"                       "%Ob %d, %Y"        
-#&gt; [10,] "jan 3   10"                        ""                  
-#&gt; [11,] "01 3 2010"                         ""                  
-#&gt; [12,] "1 3 10"                            ""                  
-#&gt; [13,] "1 13 89"                           ""                  
-#&gt; [14,] "5/27/1979"                         ""                  
-#&gt; [15,] "12/31/99"                          ""                  
-#&gt; [16,] "DOB:12/11/00"                      ""                  
-#&gt; [17,] "-----------"                       ""                  
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""                  
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""                  
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""                  
-#&gt; [21,] "Thu, 1July2004 22:30:00"           ""                  
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""                  
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""                  
-#&gt; [24,] "-----------"                       ""                  
-#&gt; [25,] "1979-05-27 05:00:59"               ""                  
-#&gt; [26,] "1979-05-27"                        ""                  
-#&gt; [27,] "-----------"                       ""                  
-#&gt; [28,] "3 jan 2000"                        ""                  
-#&gt; [29,] "17 april 85"                       ""                  
-#&gt; [30,] "27/5/1979"                         ""                  
-#&gt; [31,] "20 01 89"                          ""                  
-#&gt; [32,] "00/13/10"                          ""                  
-#&gt; [33,] "-------"                           ""                  
-#&gt; [34,] "14 12 00"                          ""                  
-#&gt; [35,] "03:23:22 pm"                       ""                  
-#&gt;       Obdy                 ObdY                 Obdy                
-#&gt;  [1,] "%Ob %dth %Y"        "%Ob %dth %Y"        "%Ob %dth %Y"       
-#&gt;  [2,] "%Ob  %d, %Y"        "%Ob  %d, %Y"        "%Ob  %d, %Y"       
-#&gt;  [3,] "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"
-#&gt;  [4,] "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"
-#&gt;  [5,] "%Ob  %d, %y"        ""                   "%Ob  %d, %y"       
-#&gt;  [6,] "%Ob %dth %y"        ""                   "%Ob %dth %y"       
-#&gt;  [7,] ""                   ""                   ""                  
-#&gt;  [8,] "%Ob %d %Y"          "%Ob %d %Y"          "%Ob %d %Y"         
-#&gt;  [9,] "%Ob %d, %Y"         "%Ob %d, %Y"         "%Ob %d, %Y"        
-#&gt; [10,] "%Ob %d   %y"        ""                   "%Ob %d   %y"       
-#&gt; [11,] ""                   ""                   ""                  
-#&gt; [12,] ""                   ""                   ""                  
-#&gt; [13,] ""                   ""                   ""                  
-#&gt; [14,] ""                   ""                   ""                  
-#&gt; [15,] ""                   ""                   ""                  
-#&gt; [16,] ""                   ""                   ""                  
-#&gt; [17,] ""                   ""                   ""                  
-#&gt; [18,] ""                   ""                   ""                  
-#&gt; [19,] ""                   ""                   ""                  
-#&gt; [20,] ""                   ""                   ""                  
-#&gt; [21,] ""                   ""                   ""                  
-#&gt; [22,] ""                   ""                   ""                  
-#&gt; [23,] ""                   ""                   ""                  
-#&gt; [24,] ""                   ""                   ""                  
-#&gt; [25,] ""                   ""                   ""                  
-#&gt; [26,] ""                   ""                   ""                  
-#&gt; [27,] ""                   ""                   ""                  
-#&gt; [28,] ""                   ""                   ""                  
-#&gt; [29,] ""                   ""                   ""                  
-#&gt; [30,] ""                   ""                   ""                  
-#&gt; [31,] ""                   ""                   ""                  
-#&gt; [32,] ""                   ""                   ""                  
-#&gt; [33,] ""                   ""                   ""                  
-#&gt; [34,] ""                   ""                   ""                  
-#&gt; [35,] ""                   ""                   ""                  
-#&gt;       OmdY                 mdY                 BdY                
-#&gt;  [1,] "%Om %dth %Y"        "%B %dth %Y"        "%B %dth %Y"       
-#&gt;  [2,] "%Om  %d, %Y"        "%B  %d, %Y"        "%B  %d, %Y"       
-#&gt;  [3,] "Sunday, %Om %d, %Y" "Sunday, %b %d, %Y" "Sunday, %B %d, %Y"
-#&gt;  [4,] "Sunday, %Om %d, %Y" "Sunday, %b %d, %Y" "Sunday, %B %d, %Y"
-#&gt;  [5,] ""                   ""                  ""                 
-#&gt;  [6,] ""                   ""                  ""                 
-#&gt;  [7,] ""                   ""                  ""                 
-#&gt;  [8,] "%Om %d %Y"          "%b %d %Y"          ""                 
-#&gt;  [9,] "%Om %d, %Y"         "%b %d, %Y"         ""                 
-#&gt; [10,] ""                   ""                  ""                 
-#&gt; [11,] "%Om %d %Y"          "%m %d %Y"          ""                 
-#&gt; [12,] ""                   ""                  ""                 
-#&gt; [13,] ""                   ""                  ""                 
-#&gt; [14,] "%Om/%d/%Y"          "%m/%d/%Y"          ""                 
-#&gt; [15,] ""                   ""                  ""                 
-#&gt; [16,] ""                   ""                  ""                 
-#&gt; [17,] ""                   ""                  ""                 
-#&gt; [18,] ""                   ""                  ""                 
-#&gt; [19,] ""                   ""                  ""                 
-#&gt; [20,] ""                   ""                  ""                 
-#&gt; [21,] ""                   ""                  ""                 
-#&gt; [22,] ""                   ""                  ""                 
-#&gt; [23,] ""                   ""                  ""                 
-#&gt; [24,] ""                   ""                  ""                 
-#&gt; [25,] ""                   ""                  ""                 
-#&gt; [26,] ""                   ""                  ""                 
-#&gt; [27,] ""                   ""                  ""                 
-#&gt; [28,] ""                   ""                  ""                 
-#&gt; [29,] ""                   ""                  ""                 
-#&gt; [30,] ""                   ""                  ""                 
-#&gt; [31,] ""                   ""                  ""                 
-#&gt; [32,] ""                   ""                  ""                 
-#&gt; [33,] ""                   ""                  ""                 
-#&gt; [34,] ""                   ""                  ""                 
-#&gt; [35,] ""                   ""                  ""                 
-#&gt;       Bdy                 bdY                 bdy                
-#&gt;  [1,] "%B %dth %Y"        "%B %dth %Y"        "%B %dth %Y"       
-#&gt;  [2,] "%B  %d, %Y"        "%B  %d, %Y"        "%B  %d, %Y"       
-#&gt;  [3,] "Sunday, %B %d, %Y" "Sunday, %b %d, %Y" "Sunday, %b %d, %Y"
-#&gt;  [4,] "Sunday, %B %d, %Y" "Sunday, %b %d, %Y" "Sunday, %b %d, %Y"
-#&gt;  [5,] "%B  %d, %y"        ""                  "%B  %d, %y"       
-#&gt;  [6,] ""                  ""                  "%b %dth %y"       
-#&gt;  [7,] ""                  ""                  ""                 
-#&gt;  [8,] ""                  "%b %d %Y"          "%b %d %Y"         
-#&gt;  [9,] ""                  "%b %d, %Y"         "%b %d, %Y"        
-#&gt; [10,] ""                  ""                  "%b %d   %y"       
-#&gt; [11,] ""                  ""                  ""                 
-#&gt; [12,] ""                  ""                  ""                 
-#&gt; [13,] ""                  ""                  ""                 
-#&gt; [14,] ""                  ""                  ""                 
-#&gt; [15,] ""                  ""                  ""                 
-#&gt; [16,] ""                  ""                  ""                 
-#&gt; [17,] ""                  ""                  ""                 
-#&gt; [18,] ""                  ""                  ""                 
-#&gt; [19,] ""                  ""                  ""                 
-#&gt; [20,] ""                  ""                  ""                 
-#&gt; [21,] ""                  ""                  ""                 
-#&gt; [22,] ""                  ""                  ""                 
-#&gt; [23,] ""                  ""                  ""                 
-#&gt; [24,] ""                  ""                  ""                 
-#&gt; [25,] ""                  ""                  ""                 
-#&gt; [26,] ""                  ""                  ""                 
-#&gt; [27,] ""                  ""                  ""                 
-#&gt; [28,] ""                  ""                  ""                 
-#&gt; [29,] ""                  ""                  ""                 
-#&gt; [30,] ""                  ""                  ""                 
-#&gt; [31,] ""                  ""                  ""                 
-#&gt; [32,] ""                  ""                  ""                 
-#&gt; [33,] ""                  ""                  ""                 
-#&gt; [34,] ""                  ""                  ""                 
-#&gt; [35,] ""                  ""                  ""                 </div><div class='output co'>#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
-#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt;     "%A, %Ob %d, %Y"          "%Ob %d %Y"         "%Ob %d, %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;     "%A, %Ob %d, %Y"        "%Ob  %d, %y"        "%Ob %dth %y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;          "%Ob %d %Y"         "%Ob %d, %Y"        "%Ob %d   %y" 
-#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
-#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt;     "%A, %Ob %d, %Y"          "%Ob %d %Y"         "%Ob %d, %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;     "%A, %Ob %d, %Y"        "%Ob  %d, %y"        "%Ob %dth %y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;          "%Ob %d %Y"         "%Ob %d, %Y"        "%Ob %d   %y" 
-#&gt;                 OmdY                 OmdY                 OmdY 
-#&gt;        "%Om %dth %Y"        "%Om  %d, %Y"     "%A, %Om %d, %Y" 
-#&gt;                 OmdY                 OmdY                 OmdY 
-#&gt;     "%A, %Om %d, %Y"          "%Om %d %Y"         "%Om %d, %Y" 
-#&gt;                 OmdY                 OmdY                  mdY 
-#&gt;          "%Om %d %Y"          "%Om/%d/%Y"         "%B %dth %Y" 
-#&gt;                  mdY                  mdY                  mdY 
-#&gt;         "%B  %d, %Y"      "%A, %b %d, %Y"      "%A, %b %d, %Y" 
-#&gt;                  mdY                  mdY                  mdY 
-#&gt;           "%b %d %Y"          "%b %d, %Y"           "%m %d %Y" 
-#&gt;                  mdY                  BdY                  BdY 
-#&gt;           "%m/%d/%Y"         "%B %dth %Y"         "%B  %d, %Y" 
-#&gt;                  BdY                  BdY                  Bdy 
-#&gt;      "%A, %B %d, %Y"      "%A, %B %d, %Y"         "%B %dth %Y" 
-#&gt;                  Bdy                  Bdy                  Bdy 
-#&gt;         "%B  %d, %Y"      "%A, %B %d, %Y"      "%A, %B %d, %Y" 
-#&gt;                  Bdy                  bdY                  bdY 
-#&gt;         "%B  %d, %y"         "%B %dth %Y"         "%B  %d, %Y" 
-#&gt;                  bdY                  bdY                  bdY 
-#&gt;      "%A, %b %d, %Y"      "%A, %b %d, %Y"           "%b %d %Y" 
-#&gt;                  bdY                  bdy                  bdy 
-#&gt;          "%b %d, %Y"         "%B %dth %Y"         "%B  %d, %Y" 
-#&gt;                  bdy                  bdy                  bdy 
-#&gt;      "%A, %b %d, %Y"      "%A, %b %d, %Y"         "%B  %d, %y" 
-#&gt;                  bdy                  bdy                  bdy 
-#&gt;         "%b %dth %y"           "%b %d %Y"          "%b %d, %Y" 
-#&gt;                  bdy                 ObdY                 ObdY 
-#&gt;         "%b %d   %y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
-#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" 
-#&gt;                 ObdY                 Obdy                 Obdy 
-#&gt;         "%Ob %d, %Y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"        "%Ob  %d, %y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;        "%Ob %dth %y"          "%Ob %d %Y"         "%Ob %d, %Y" 
-#&gt;                 Obdy                 ObdY                 ObdY 
-#&gt;        "%Ob %d   %y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
-#&gt;                 ObdY                 ObdY                 ObdY 
-#&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" 
-#&gt;                 ObdY                 Obdy                 Obdy 
-#&gt;         "%Ob %d, %Y"        "%Ob %dth %Y"        "%Ob  %d, %Y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt; "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"        "%Ob  %d, %y" 
-#&gt;                 Obdy                 Obdy                 Obdy 
-#&gt;        "%Ob %dth %y"          "%Ob %d %Y"         "%Ob %d, %Y" 
-#&gt;                 Obdy                 OmdY                 OmdY 
-#&gt;        "%Ob %d   %y"        "%Om %dth %Y"        "%Om  %d, %Y" 
-#&gt;                 OmdY                 OmdY                 OmdY 
-#&gt; "Sunday, %Om %d, %Y" "Sunday, %Om %d, %Y"          "%Om %d %Y" 
-#&gt;                 OmdY                 OmdY                 OmdY 
-#&gt;         "%Om %d, %Y"          "%Om %d %Y"          "%Om/%d/%Y" 
-#&gt;                  mdY                  mdY                  mdY 
-#&gt;         "%B %dth %Y"         "%B  %d, %Y"  "Sunday, %b %d, %Y" 
-#&gt;                  mdY                  mdY                  mdY 
-#&gt;  "Sunday, %b %d, %Y"           "%b %d %Y"          "%b %d, %Y" 
-#&gt;                  mdY                  mdY                  BdY 
-#&gt;           "%m %d %Y"           "%m/%d/%Y"         "%B %dth %Y" 
-#&gt;                  BdY                  BdY                  BdY 
-#&gt;         "%B  %d, %Y"  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" 
-#&gt;                  Bdy                  Bdy                  Bdy 
-#&gt;         "%B %dth %Y"         "%B  %d, %Y"  "Sunday, %B %d, %Y" 
-#&gt;                  Bdy                  Bdy                  bdY 
-#&gt;  "Sunday, %B %d, %Y"         "%B  %d, %y"         "%B %dth %Y" 
-#&gt;                  bdY                  bdY                  bdY 
-#&gt;         "%B  %d, %Y"  "Sunday, %b %d, %Y"  "Sunday, %b %d, %Y" 
-#&gt;                  bdY                  bdY                  bdy 
-#&gt;           "%b %d %Y"          "%b %d, %Y"         "%B %dth %Y" 
-#&gt;                  bdy                  bdy                  bdy 
-#&gt;         "%B  %d, %Y"  "Sunday, %b %d, %Y"  "Sunday, %b %d, %Y" 
-#&gt;                  bdy                  bdy                  bdy 
-#&gt;         "%B  %d, %y"         "%b %dth %y"           "%b %d %Y" 
-#&gt;                  bdy                  bdy 
-#&gt;          "%b %d, %Y"         "%b %d   %y" </div><div class='input'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dmy"</span>, <span class='st'>"dbY"</span>, <span class='st'>"dBy"</span>, <span class='st'>"dBY"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           dObY        dOby        dObY       
-#&gt;  [1,] "February 20th 1973"                ""          ""          ""         
-#&gt;  [2,] "february  14, 2004"                ""          ""          ""         
-#&gt;  [3,] "Sunday, May 1, 2000"               ""          ""          ""         
-#&gt;  [4,] "Sunday, May 1, 2000"               ""          ""          ""         
-#&gt;  [5,] "february  14, 04"                  ""          ""          ""         
-#&gt;  [6,] "Feb 20th 73"                       ""          ""          ""         
-#&gt;  [7,] "January 5 1999 at 7pm"             ""          ""          ""         
-#&gt;  [8,] "jan 3 2010"                        ""          ""          ""         
-#&gt;  [9,] "Jan 1, 1999"                       ""          ""          ""         
-#&gt; [10,] "jan 3   10"                        ""          ""          ""         
-#&gt; [11,] "01 3 2010"                         ""          ""          ""         
-#&gt; [12,] "1 3 10"                            ""          ""          ""         
-#&gt; [13,] "1 13 89"                           ""          ""          ""         
-#&gt; [14,] "5/27/1979"                         ""          ""          ""         
-#&gt; [15,] "12/31/99"                          ""          ""          ""         
-#&gt; [16,] "DOB:12/11/00"                      ""          ""          ""         
-#&gt; [17,] "-----------"                       ""          ""          ""         
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""          ""          ""         
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""          ""          ""         
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""          ""          ""         
-#&gt; [21,] "Thu, 1July2004 22:30:00"           ""          ""          ""         
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""          ""          ""         
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""          ""          ""         
-#&gt; [24,] "-----------"                       ""          ""          ""         
-#&gt; [25,] "1979-05-27 05:00:59"               ""          ""          ""         
-#&gt; [26,] "1979-05-27"                        ""          ""          ""         
-#&gt; [27,] "-----------"                       ""          ""          ""         
-#&gt; [28,] "3 jan 2000"                        "%d %Ob %Y" "%d %Ob %Y" "%d %Ob %Y"
-#&gt; [29,] "17 april 85"                       ""          "%d %Ob %y" ""         
-#&gt; [30,] "27/5/1979"                         ""          ""          ""         
-#&gt; [31,] "20 01 89"                          ""          ""          ""         
-#&gt; [32,] "00/13/10"                          ""          ""          ""         
-#&gt; [33,] "-------"                           ""          ""          ""         
-#&gt; [34,] "14 12 00"                          ""          ""          ""         
-#&gt; [35,] "03:23:22 pm"                       ""          ""          ""         
-#&gt;       dOmy            dmy            dbY        dBy        dBY
-#&gt;  [1,] ""              ""             ""         ""         "" 
-#&gt;  [2,] ""              ""             ""         ""         "" 
-#&gt;  [3,] ""              ""             ""         ""         "" 
-#&gt;  [4,] ""              ""             ""         ""         "" 
-#&gt;  [5,] ""              ""             ""         ""         "" 
-#&gt;  [6,] ""              ""             ""         ""         "" 
-#&gt;  [7,] ""              ""             ""         ""         "" 
-#&gt;  [8,] ""              ""             ""         ""         "" 
-#&gt;  [9,] ""              ""             ""         ""         "" 
-#&gt; [10,] ""              ""             ""         ""         "" 
-#&gt; [11,] "%d %Om %Y"     "%d %m %Y"     ""         ""         "" 
-#&gt; [12,] "%d %Om %y"     "%d %m %y"     ""         ""         "" 
-#&gt; [13,] ""              ""             ""         ""         "" 
-#&gt; [14,] ""              ""             ""         ""         "" 
-#&gt; [15,] ""              ""             ""         ""         "" 
-#&gt; [16,] "DOB:%d/%Om/%y" "DOB:%d/%m/%y" ""         ""         "" 
-#&gt; [17,] ""              ""             ""         ""         "" 
-#&gt; [18,] ""              ""             ""         ""         "" 
-#&gt; [19,] ""              ""             ""         ""         "" 
-#&gt; [20,] ""              ""             ""         ""         "" 
-#&gt; [21,] ""              ""             ""         ""         "" 
-#&gt; [22,] ""              ""             ""         ""         "" 
-#&gt; [23,] ""              ""             ""         ""         "" 
-#&gt; [24,] ""              ""             ""         ""         "" 
-#&gt; [25,] ""              ""             ""         ""         "" 
-#&gt; [26,] ""              ""             ""         ""         "" 
-#&gt; [27,] ""              ""             ""         ""         "" 
-#&gt; [28,] "%d %Om %Y"     "%d %b %Y"     "%d %b %Y" ""         "" 
-#&gt; [29,] "%d %Om %y"     "%d %B %y"     ""         "%d %B %y" "" 
-#&gt; [30,] "%d/%Om/%Y"     "%d/%m/%Y"     ""         ""         "" 
-#&gt; [31,] "%d %Om %y"     "%d %m %y"     ""         ""         "" 
-#&gt; [32,] ""              ""             ""         ""         "" 
-#&gt; [33,] ""              ""             ""         ""         "" 
-#&gt; [34,] "%d %Om %y"     "%d %m %y"     ""         ""         "" 
-#&gt; [35,] ""              ""             ""         ""         "" </div><div class='output co'>#&gt;            dObY            dOby            dOby            dObY            dOmy 
-#&gt;     "%d %Ob %Y"     "%d %Ob %Y"     "%d %Ob %y"     "%d %Ob %Y"     "%d %Om %Y" 
-#&gt;            dOmy            dOmy            dOmy            dOmy            dOmy 
-#&gt;     "%d %Om %y" "DOB:%d/%Om/%y"     "%d %Om %Y"     "%d %Om %y"     "%d/%Om/%Y" 
-#&gt;            dOmy            dOmy             dmy             dmy             dmy 
-#&gt;     "%d %Om %y"     "%d %Om %y"      "%d %m %Y"      "%d %m %y"  "DOB:%d/%m/%y" 
-#&gt;             dmy             dmy             dmy             dmy             dmy 
-#&gt;      "%d %b %Y"      "%d %B %y"      "%d/%m/%Y"      "%d %m %y"      "%d %m %y" 
-#&gt;             dbY             dBy 
-#&gt;      "%d %b %Y"      "%d %B %y" </div><div class='input'>
-
-<span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dBY HMS"</span>, <span class='st'>"dbY HMS"</span>, <span class='st'>"dmyHMS"</span>, <span class='st'>"BdY H"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           dObYHMS                          
-#&gt;  [1,] "February 20th 1973"                ""                               
-#&gt;  [2,] "february  14, 2004"                ""                               
-#&gt;  [3,] "Sunday, May 1, 2000"               ""                               
-#&gt;  [4,] "Sunday, May 1, 2000"               ""                               
-#&gt;  [5,] "february  14, 04"                  ""                               
-#&gt;  [6,] "Feb 20th 73"                       ""                               
-#&gt;  [7,] "January 5 1999 at 7pm"             ""                               
-#&gt;  [8,] "jan 3 2010"                        ""                               
-#&gt;  [9,] "Jan 1, 1999"                       ""                               
-#&gt; [10,] "jan 3   10"                        ""                               
-#&gt; [11,] "01 3 2010"                         ""                               
-#&gt; [12,] "1 3 10"                            ""                               
-#&gt; [13,] "1 13 89"                           ""                               
-#&gt; [14,] "5/27/1979"                         ""                               
-#&gt; [15,] "12/31/99"                          ""                               
-#&gt; [16,] "DOB:12/11/00"                      ""                               
-#&gt; [17,] "-----------"                       ""                               
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         "Thu, %d %Ob %Y %H:%M:%S"        
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" "Thu, %dst of %Ob %Y at %H:%M:%S"
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       "Thu, %d%Ob %Y at %H:%M:%S"      
-#&gt; [21,] "Thu, 1July2004 22:30:00"           "Thu, %d%Ob%Y %H:%M:%S"          
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""                               
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          "%d %Ob %Y, %H:%M:%S pm"         
-#&gt; [24,] "-----------"                       ""                               
-#&gt; [25,] "1979-05-27 05:00:59"               ""                               
-#&gt; [26,] "1979-05-27"                        ""                               
-#&gt; [27,] "-----------"                       ""                               
-#&gt; [28,] "3 jan 2000"                        ""                               
-#&gt; [29,] "17 april 85"                       ""                               
-#&gt; [30,] "27/5/1979"                         ""                               
-#&gt; [31,] "20 01 89"                          ""                               
-#&gt; [32,] "00/13/10"                          ""                               
-#&gt; [33,] "-------"                           ""                               
-#&gt; [34,] "14 12 00"                          ""                               
-#&gt; [35,] "03:23:22 pm"                       ""                               
-#&gt;       dObYHMS                           ObdYH              
-#&gt;  [1,] ""                                ""                 
-#&gt;  [2,] ""                                ""                 
-#&gt;  [3,] ""                                ""                 
-#&gt;  [4,] ""                                ""                 
-#&gt;  [5,] ""                                ""                 
-#&gt;  [6,] ""                                ""                 
-#&gt;  [7,] ""                                "%Ob %d %Y at %Hpm"
-#&gt;  [8,] ""                                ""                 
-#&gt;  [9,] ""                                ""                 
-#&gt; [10,] ""                                ""                 
-#&gt; [11,] ""                                ""                 
-#&gt; [12,] ""                                ""                 
-#&gt; [13,] ""                                ""                 
-#&gt; [14,] ""                                ""                 
-#&gt; [15,] ""                                ""                 
-#&gt; [16,] ""                                ""                 
-#&gt; [17,] ""                                ""                 
-#&gt; [18,] "Thu, %d %Ob %Y %H:%M:%S"         ""                 
-#&gt; [19,] "Thu, %dst of %Ob %Y at %H:%M:%S" ""                 
-#&gt; [20,] "Thu, %d%Ob %Y at %H:%M:%S"       ""                 
-#&gt; [21,] "Thu, %d%Ob%Y %H:%M:%S"           ""                 
-#&gt; [22,] ""                                ""                 
-#&gt; [23,] "%d %Ob %Y, %H:%M:%S pm"          ""                 
-#&gt; [24,] ""                                ""                 
-#&gt; [25,] ""                                ""                 
-#&gt; [26,] ""                                ""                 
-#&gt; [27,] ""                                ""                 
-#&gt; [28,] ""                                ""                 
-#&gt; [29,] ""                                ""                 
-#&gt; [30,] ""                                ""                 
-#&gt; [31,] ""                                ""                 
-#&gt; [32,] ""                                ""                 
-#&gt; [33,] ""                                ""                 
-#&gt; [34,] ""                                ""                 
-#&gt; [35,] ""                                ""                 
-#&gt;       dOmyHMS                           dBYHMS                          
-#&gt;  [1,] ""                                ""                              
-#&gt;  [2,] ""                                ""                              
-#&gt;  [3,] ""                                ""                              
-#&gt;  [4,] ""                                ""                              
-#&gt;  [5,] ""                                ""                              
-#&gt;  [6,] ""                                ""                              
-#&gt;  [7,] ""                                ""                              
-#&gt;  [8,] ""                                ""                              
-#&gt;  [9,] ""                                ""                              
-#&gt; [10,] ""                                ""                              
-#&gt; [11,] ""                                ""                              
-#&gt; [12,] ""                                ""                              
-#&gt; [13,] ""                                ""                              
-#&gt; [14,] ""                                ""                              
-#&gt; [15,] ""                                ""                              
-#&gt; [16,] ""                                ""                              
-#&gt; [17,] ""                                ""                              
-#&gt; [18,] "Thu, %d %Om %Y %H:%M:%S"         "Thu, %d %B %Y %H:%M:%S"        
-#&gt; [19,] "Thu, %dst of %Om %Y at %H:%M:%S" "Thu, %dst of %B %Y at %H:%M:%S"
-#&gt; [20,] "Thu, %d%Om %Y at %H:%M:%S"       "Thu, %d%B %Y at %H:%M:%S"      
-#&gt; [21,] "Thu, %d%Om%Y %H:%M:%S"           "Thu, %d%B%Y %H:%M:%S"          
-#&gt; [22,] "Thu, %d%Om%y %H:%M:%S"           ""                              
-#&gt; [23,] "%d %Om %Y, %H:%M:%S pm"          ""                              
-#&gt; [24,] ""                                ""                              
-#&gt; [25,] ""                                ""                              
-#&gt; [26,] ""                                ""                              
-#&gt; [27,] ""                                ""                              
-#&gt; [28,] ""                                ""                              
-#&gt; [29,] ""                                ""                              
-#&gt; [30,] ""                                ""                              
-#&gt; [31,] ""                                ""                              
-#&gt; [32,] ""                                ""                              
-#&gt; [33,] ""                                ""                              
-#&gt; [34,] ""                                ""                              
-#&gt; [35,] ""                                ""                              
-#&gt;       dbYHMS                           dmyHMS                          
-#&gt;  [1,] ""                               ""                              
-#&gt;  [2,] ""                               ""                              
-#&gt;  [3,] ""                               ""                              
-#&gt;  [4,] ""                               ""                              
-#&gt;  [5,] ""                               ""                              
-#&gt;  [6,] ""                               ""                              
-#&gt;  [7,] ""                               ""                              
-#&gt;  [8,] ""                               ""                              
-#&gt;  [9,] ""                               ""                              
-#&gt; [10,] ""                               ""                              
-#&gt; [11,] ""                               ""                              
-#&gt; [12,] ""                               ""                              
-#&gt; [13,] ""                               ""                              
-#&gt; [14,] ""                               ""                              
-#&gt; [15,] ""                               ""                              
-#&gt; [16,] ""                               ""                              
-#&gt; [17,] ""                               ""                              
-#&gt; [18,] "Thu, %d %B %Y %H:%M:%S"         "Thu, %d %B %Y %H:%M:%S"        
-#&gt; [19,] "Thu, %dst of %B %Y at %H:%M:%S" "Thu, %dst of %B %Y at %H:%M:%S"
-#&gt; [20,] "Thu, %d%B %Y at %H:%M:%S"       "Thu, %d%B %Y at %H:%M:%S"      
-#&gt; [21,] "Thu, %d%B%Y %H:%M:%S"           "Thu, %d%B%Y %H:%M:%S"          
-#&gt; [22,] ""                               "Thu, %d%B%y %H:%M:%S"          
-#&gt; [23,] "%d %b %Y, %H:%M:%S pm"          "%d %b %Y, %H:%M:%S pm"         
-#&gt; [24,] ""                               ""                              
-#&gt; [25,] ""                               ""                              
-#&gt; [26,] ""                               ""                              
-#&gt; [27,] ""                               ""                              
-#&gt; [28,] ""                               ""                              
-#&gt; [29,] ""                               ""                              
-#&gt; [30,] ""                               ""                              
-#&gt; [31,] ""                               ""                              
-#&gt; [32,] ""                               ""                              
-#&gt; [33,] ""                               ""                              
-#&gt; [34,] ""                               ""                              
-#&gt; [35,] ""                               ""                              
-#&gt;       BdYH              
-#&gt;  [1,] ""                
-#&gt;  [2,] ""                
-#&gt;  [3,] ""                
-#&gt;  [4,] ""                
-#&gt;  [5,] ""                
-#&gt;  [6,] ""                
-#&gt;  [7,] "%B %d %Y at %Hpm"
-#&gt;  [8,] ""                
-#&gt;  [9,] ""                
-#&gt; [10,] ""                
-#&gt; [11,] ""                
-#&gt; [12,] ""                
-#&gt; [13,] ""                
-#&gt; [14,] ""                
-#&gt; [15,] ""                
-#&gt; [16,] ""                
-#&gt; [17,] ""                
-#&gt; [18,] ""                
-#&gt; [19,] ""                
-#&gt; [20,] ""                
-#&gt; [21,] ""                
-#&gt; [22,] ""                
-#&gt; [23,] ""                
-#&gt; [24,] ""                
-#&gt; [25,] ""                
-#&gt; [26,] ""                
-#&gt; [27,] ""                
-#&gt; [28,] ""                
-#&gt; [29,] ""                
-#&gt; [30,] ""                
-#&gt; [31,] ""                
-#&gt; [32,] ""                
-#&gt; [33,] ""                
-#&gt; [34,] ""                
-#&gt; [35,] ""                </div><div class='output co'>#&gt;                           dObYHMS                           dObYHMS 
-#&gt;          "%a, %d %Ob %Y %H:%M:%S"  "%a, %dst of %Ob %Y at %H:%M:%S" 
-#&gt;                           dObYHMS                           dObYHMS 
-#&gt;        "%a, %d%Ob %Y at %H:%M:%S"            "%a, %d%Ob%Y %H:%M:%S" 
-#&gt;                           dObYHMS                           dObYHMS 
-#&gt;          "%d %Ob %Y, %H:%M:%S pm"          "%a, %d %Ob %Y %H:%M:%S" 
-#&gt;                           dObYHMS                           dObYHMS 
-#&gt;  "%a, %dst of %Ob %Y at %H:%M:%S"        "%a, %d%Ob %Y at %H:%M:%S" 
-#&gt;                           dObYHMS                           dObYHMS 
-#&gt;            "%a, %d%Ob%Y %H:%M:%S"          "%d %Ob %Y, %H:%M:%S pm" 
-#&gt;                             ObdYH                           dOmyHMS 
-#&gt;               "%Ob %d %Y at %Hpm"          "%a, %d %Om %Y %H:%M:%S" 
-#&gt;                           dOmyHMS                           dOmyHMS 
-#&gt;  "%a, %dst of %Om %Y at %H:%M:%S"        "%a, %d%Om %Y at %H:%M:%S" 
-#&gt;                           dOmyHMS                           dOmyHMS 
-#&gt;            "%a, %d%Om%Y %H:%M:%S"            "%a, %d%Om%y %H:%M:%S" 
-#&gt;                           dOmyHMS                            dBYHMS 
-#&gt;          "%d %Om %Y, %H:%M:%S pm"           "%a, %d %B %Y %H:%M:%S" 
-#&gt;                            dBYHMS                            dBYHMS 
-#&gt;   "%a, %dst of %B %Y at %H:%M:%S"         "%a, %d%B %Y at %H:%M:%S" 
-#&gt;                            dBYHMS                            dbYHMS 
-#&gt;             "%a, %d%B%Y %H:%M:%S"           "%a, %d %B %Y %H:%M:%S" 
-#&gt;                            dbYHMS                            dbYHMS 
-#&gt;   "%a, %dst of %B %Y at %H:%M:%S"         "%a, %d%B %Y at %H:%M:%S" 
-#&gt;                            dbYHMS                            dbYHMS 
-#&gt;             "%a, %d%B%Y %H:%M:%S"           "%d %b %Y, %H:%M:%S pm" 
-#&gt;                            dmyHMS                            dmyHMS 
-#&gt;           "%a, %d %B %Y %H:%M:%S"   "%a, %dst of %B %Y at %H:%M:%S" 
-#&gt;                            dmyHMS                            dmyHMS 
-#&gt;         "%a, %d%B %Y at %H:%M:%S"             "%a, %d%B%Y %H:%M:%S" 
-#&gt;                            dmyHMS                            dmyHMS 
-#&gt;             "%a, %d%B%y %H:%M:%S"           "%d %b %Y, %H:%M:%S pm" 
-#&gt;                              BdYH                           dObYHMS 
-#&gt;                "%B %d %Y at %Hpm"         "Thu, %d %Ob %Y %H:%M:%S" 
-#&gt;                           dObYHMS                           dObYHMS 
-#&gt; "Thu, %dst of %Ob %Y at %H:%M:%S"       "Thu, %d%Ob %Y at %H:%M:%S" 
-#&gt;                           dObYHMS                           dObYHMS 
-#&gt;           "Thu, %d%Ob%Y %H:%M:%S"          "%d %Ob %Y, %H:%M:%S pm" 
-#&gt;                           dObYHMS                           dObYHMS 
-#&gt;         "Thu, %d %Ob %Y %H:%M:%S" "Thu, %dst of %Ob %Y at %H:%M:%S" 
-#&gt;                           dObYHMS                           dObYHMS 
-#&gt;       "Thu, %d%Ob %Y at %H:%M:%S"           "Thu, %d%Ob%Y %H:%M:%S" 
-#&gt;                           dObYHMS                             ObdYH 
-#&gt;          "%d %Ob %Y, %H:%M:%S pm"               "%Ob %d %Y at %Hpm" 
-#&gt;                           dOmyHMS                           dOmyHMS 
-#&gt;         "Thu, %d %Om %Y %H:%M:%S" "Thu, %dst of %Om %Y at %H:%M:%S" 
-#&gt;                           dOmyHMS                           dOmyHMS 
-#&gt;       "Thu, %d%Om %Y at %H:%M:%S"           "Thu, %d%Om%Y %H:%M:%S" 
-#&gt;                           dOmyHMS                           dOmyHMS 
-#&gt;           "Thu, %d%Om%y %H:%M:%S"          "%d %Om %Y, %H:%M:%S pm" 
-#&gt;                            dBYHMS                            dBYHMS 
-#&gt;          "Thu, %d %B %Y %H:%M:%S"  "Thu, %dst of %B %Y at %H:%M:%S" 
-#&gt;                            dBYHMS                            dBYHMS 
-#&gt;        "Thu, %d%B %Y at %H:%M:%S"            "Thu, %d%B%Y %H:%M:%S" 
-#&gt;                            dbYHMS                            dbYHMS 
-#&gt;          "Thu, %d %B %Y %H:%M:%S"  "Thu, %dst of %B %Y at %H:%M:%S" 
-#&gt;                            dbYHMS                            dbYHMS 
-#&gt;        "Thu, %d%B %Y at %H:%M:%S"            "Thu, %d%B%Y %H:%M:%S" 
-#&gt;                            dbYHMS                            dmyHMS 
-#&gt;           "%d %b %Y, %H:%M:%S pm"          "Thu, %d %B %Y %H:%M:%S" 
-#&gt;                            dmyHMS                            dmyHMS 
-#&gt;  "Thu, %dst of %B %Y at %H:%M:%S"        "Thu, %d%B %Y at %H:%M:%S" 
-#&gt;                            dmyHMS                            dmyHMS 
-#&gt;            "Thu, %d%B%Y %H:%M:%S"            "Thu, %d%B%y %H:%M:%S" 
-#&gt;                            dmyHMS                              BdYH 
-#&gt;           "%d %b %Y, %H:%M:%S pm"                "%B %d %Y at %Hpm" </div><div class='input'>
-<span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ymd HMS"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                           yOmdHMS             
-#&gt;  [1,] "February 20th 1973"                ""                  
-#&gt;  [2,] "february  14, 2004"                ""                  
-#&gt;  [3,] "Sunday, May 1, 2000"               ""                  
-#&gt;  [4,] "Sunday, May 1, 2000"               ""                  
-#&gt;  [5,] "february  14, 04"                  ""                  
-#&gt;  [6,] "Feb 20th 73"                       ""                  
-#&gt;  [7,] "January 5 1999 at 7pm"             ""                  
-#&gt;  [8,] "jan 3 2010"                        ""                  
-#&gt;  [9,] "Jan 1, 1999"                       ""                  
-#&gt; [10,] "jan 3   10"                        ""                  
-#&gt; [11,] "01 3 2010"                         ""                  
-#&gt; [12,] "1 3 10"                            ""                  
-#&gt; [13,] "1 13 89"                           ""                  
-#&gt; [14,] "5/27/1979"                         ""                  
-#&gt; [15,] "12/31/99"                          ""                  
-#&gt; [16,] "DOB:12/11/00"                      ""                  
-#&gt; [17,] "-----------"                       ""                  
-#&gt; [18,] "Thu, 1 July 2004 22:30:00"         ""                  
-#&gt; [19,] "Thu, 1st of July 2004 at 22:30:00" ""                  
-#&gt; [20,] "Thu, 1July 2004 at 22:30:00"       ""                  
-#&gt; [21,] "Thu, 1July2004 22:30:00"           ""                  
-#&gt; [22,] "Thu, 1July04 22:30:00"             ""                  
-#&gt; [23,] "21 Aug 2011, 11:15:34 pm"          ""                  
-#&gt; [24,] "-----------"                       ""                  
-#&gt; [25,] "1979-05-27 05:00:59"               "%Y-%Om-%d %H:%M:%S"
-#&gt; [26,] "1979-05-27"                        ""                  
-#&gt; [27,] "-----------"                       ""                  
-#&gt; [28,] "3 jan 2000"                        ""                  
-#&gt; [29,] "17 april 85"                       ""                  
-#&gt; [30,] "27/5/1979"                         ""                  
-#&gt; [31,] "20 01 89"                          ""                  
-#&gt; [32,] "00/13/10"                          ""                  
-#&gt; [33,] "-------"                           ""                  
-#&gt; [34,] "14 12 00"                          ""                  
-#&gt; [35,] "03:23:22 pm"                       ""                  
-#&gt;       ymdHMS             
-#&gt;  [1,] ""                 
-#&gt;  [2,] ""                 
-#&gt;  [3,] ""                 
-#&gt;  [4,] ""                 
-#&gt;  [5,] ""                 
-#&gt;  [6,] ""                 
-#&gt;  [7,] ""                 
-#&gt;  [8,] ""                 
-#&gt;  [9,] ""                 
-#&gt; [10,] ""                 
-#&gt; [11,] ""                 
-#&gt; [12,] ""                 
-#&gt; [13,] ""                 
-#&gt; [14,] ""                 
-#&gt; [15,] ""                 
-#&gt; [16,] ""                 
-#&gt; [17,] ""                 
-#&gt; [18,] ""                 
-#&gt; [19,] ""                 
-#&gt; [20,] ""                 
-#&gt; [21,] ""                 
-#&gt; [22,] ""                 
-#&gt; [23,] ""                 
-#&gt; [24,] ""                 
-#&gt; [25,] "%Y-%m-%d %H:%M:%S"
-#&gt; [26,] ""                 
-#&gt; [27,] ""                 
-#&gt; [28,] ""                 
-#&gt; [29,] ""                 
-#&gt; [30,] ""                 
-#&gt; [31,] ""                 
-#&gt; [32,] ""                 
-#&gt; [33,] ""                 
-#&gt; [34,] ""                 
-#&gt; [35,] ""                 </div><div class='output co'>#&gt;              yOmdHMS               ymdHMS 
-#&gt; "%Y-%Om-%d %H:%M:%S"  "%Y-%m-%d %H:%M:%S" </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'February 20th 1973'</span>,</span>
+<span class='r-in'>       <span class='st'>"february  14, 2004"</span>,</span>
+<span class='r-in'>       <span class='st'>"Sunday, May 1, 2000"</span>,</span>
+<span class='r-in'>       <span class='st'>"Sunday, May 1, 2000"</span>,</span>
+<span class='r-in'>       <span class='st'>"february  14, 04"</span>,</span>
+<span class='r-in'>       <span class='st'>'Feb 20th 73'</span>,</span>
+<span class='r-in'>       <span class='st'>"January 5 1999 at 7pm"</span>,</span>
+<span class='r-in'>       <span class='st'>"jan 3 2010"</span>,</span>
+<span class='r-in'>       <span class='st'>"Jan 1, 1999"</span>,</span>
+<span class='r-in'>       <span class='st'>"jan 3   10"</span>,</span>
+<span class='r-in'>       <span class='st'>"01 3 2010"</span>,</span>
+<span class='r-in'>       <span class='st'>"1 3 10"</span>,</span>
+<span class='r-in'>       <span class='st'>'1 13 89'</span>,</span>
+<span class='r-in'>       <span class='st'>"5/27/1979"</span>,</span>
+<span class='r-in'>       <span class='st'>"12/31/99"</span>,</span>
+<span class='r-in'>       <span class='st'>"DOB:12/11/00"</span>,</span>
+<span class='r-in'>       <span class='st'>"-----------"</span>,</span>
+<span class='r-in'>       <span class='st'>'Thu, 1 July 2004 22:30:00'</span>,</span>
+<span class='r-in'>       <span class='st'>'Thu, 1st of July 2004 at 22:30:00'</span>,</span>
+<span class='r-in'>       <span class='st'>'Thu, 1July 2004 at 22:30:00'</span>,</span>
+<span class='r-in'>       <span class='st'>'Thu, 1July2004 22:30:00'</span>,</span>
+<span class='r-in'>       <span class='st'>'Thu, 1July04 22:30:00'</span>,</span>
+<span class='r-in'>       <span class='st'>"21 Aug 2011, 11:15:34 pm"</span>,</span>
+<span class='r-in'>       <span class='st'>"-----------"</span>,</span>
+<span class='r-in'>       <span class='st'>"1979-05-27 05:00:59"</span>,</span>
+<span class='r-in'>       <span class='st'>"1979-05-27"</span>,</span>
+<span class='r-in'>       <span class='st'>"-----------"</span>,</span>
+<span class='r-in'>       <span class='st'>"3 jan 2000"</span>,</span>
+<span class='r-in'>       <span class='st'>"17 april 85"</span>,</span>
+<span class='r-in'>       <span class='st'>"27/5/1979"</span>,</span>
+<span class='r-in'>       <span class='st'>'20 01 89'</span>,</span>
+<span class='r-in'>       <span class='st'>'00/13/10'</span>,</span>
+<span class='r-in'>       <span class='st'>"-------"</span>,</span>
+<span class='r-in'>       <span class='st'>"14 12 00"</span>,</span>
+<span class='r-in'>       <span class='st'>"03:23:22 pm"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"BdY"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%A, %Ob %d, %Y"          "%Ob %d %Y"         "%Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  BdY                  BdY                  BdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B %dth %Y"         "%B  %d, %Y"      "%A, %B %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  BdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "%A, %B %d, %Y"        "%Ob %dth %Y"        "%Ob  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                  BdY                  BdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%Ob %d, %Y"         "%B %dth %Y"         "%B  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  BdY                  BdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" </span>
+<span class='r-in'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"Bdy"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%A, %Ob %d, %Y"        "%Ob  %d, %y"        "%Ob %dth %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Ob %d %Y"         "%Ob %d, %Y"        "%Ob %d   %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  Bdy                  Bdy                  Bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B %dth %Y"         "%B  %d, %Y"      "%A, %B %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  Bdy                  Bdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "%A, %B %d, %Y"         "%B  %d, %y"        "%Ob %dth %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob  %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob  %d, %y"        "%Ob %dth %y"          "%Ob %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                  Bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%Ob %d, %Y"        "%Ob %d   %y"         "%B %dth %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  Bdy                  Bdy                  Bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %Y"  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  Bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %y" </span>
+<span class='r-in'><span class='co'>## m also matches b and B; y also matches Y</span></span>
+<span class='r-in'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"mdy"</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                           Omdy                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "February 20th 1973"                "%Om %dth %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "february  14, 2004"                "%Om  %d, %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, May 1, 2000"               "Sunday, %Om %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, May 1, 2000"               "Sunday, %Om %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "february  14, 04"                  "%Om  %d, %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] "Feb 20th 73"                       "%Om %dth %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] "January 5 1999 at 7pm"             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "jan 3 2010"                        "%Om %d %Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "Jan 1, 1999"                       "%Om %d, %Y"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] "jan 3   10"                        "%Om %d   %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "01 3 2010"                         "%Om %d %Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] "1 3 10"                            "%Om %d %y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] "1 13 89"                           "%Om %d %y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] "5/27/1979"                         "%Om/%d/%Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] "12/31/99"                          "%Om/%d/%y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] "DOB:12/11/00"                      "DOB:%Om/%d/%y"     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, 1 July 2004 22:30:00"         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, 1st of July 2004 at 22:30:00" ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, 1July 2004 at 22:30:00"       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, 1July2004 22:30:00"           ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] "Thu, 1July04 22:30:00"             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "21 Aug 2011, 11:15:34 pm"          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] "1979-05-27 05:00:59"               ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] "1979-05-27"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] "3 jan 2000"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] "17 april 85"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] "27/5/1979"                         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] "20 01 89"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] "00/13/10"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] "-------"                           ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] "14 12 00"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] "03:23:22 pm"                       "%Om:%d:%y pm"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       mdy                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "%B %dth %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "%B  %d, %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, %b %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, %b %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "%B  %d, %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] "%b %dth %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "%b %d %Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "%b %d, %Y"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] "%b %d   %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "%m %d %Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] "%m %d %y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] "%m %d %y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] "%m/%d/%Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] "%m/%d/%y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] "DOB:%m/%d/%y"     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] "%m:%d:%y pm"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Om %dth %Y"        "%Om  %d, %Y"     "%A, %Om %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%A, %Om %d, %Y"        "%Om  %d, %y"        "%Om %dth %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Om %d %Y"         "%Om %d, %Y"        "%Om %d   %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Om %d %Y"          "%Om %d %y"          "%Om %d %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Om/%d/%Y"          "%Om/%d/%y"      "DOB:%Om/%d/%y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "%Om:%d:%y pm"         "%B %dth %Y"         "%B  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "%A, %b %d, %Y"      "%A, %b %d, %Y"         "%B  %d, %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%b %dth %y"           "%b %d %Y"          "%b %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%b %d   %y"           "%m %d %Y"           "%m %d %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%m %d %y"           "%m/%d/%Y"           "%m/%d/%y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "DOB:%m/%d/%y"        "%m:%d:%y pm"        "%Om %dth %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Om  %d, %Y" "Sunday, %Om %d, %Y" "Sunday, %Om %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Om  %d, %y"        "%Om %dth %y"          "%Om %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%Om %d, %Y"        "%Om %d   %y"          "%Om %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Om %d %y"          "%Om %d %y"          "%Om/%d/%Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Omdy                 Omdy                 Omdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Om/%d/%y"      "DOB:%Om/%d/%y"       "%Om:%d:%y pm" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B %dth %Y"         "%B  %d, %Y"  "Sunday, %b %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  "Sunday, %b %d, %Y"         "%B  %d, %y"         "%b %dth %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%b %d %Y"          "%b %d, %Y"         "%b %d   %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%m %d %Y"           "%m %d %y"           "%m %d %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy                  mdy                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%m/%d/%Y"           "%m/%d/%y"       "DOB:%m/%d/%y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%m:%d:%y pm" </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## T also matches IMSp order</span></span>
+<span class='r-in'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"T"</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                           HMSOp          T                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "February 20th 1973"                ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "february  14, 2004"                ""             "february  %H, %M%S"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, May 1, 2000"               ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, May 1, 2000"               ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "february  14, 04"                  ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] "Feb 20th 73"                       ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] "January 5 1999 at 7pm"             ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "jan 3 2010"                        ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "Jan 1, 1999"                       ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] "jan 3   10"                        ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "01 3 2010"                         ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] "1 3 10"                            ""             "%H %M %S"          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] "1 13 89"                           ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] "5/27/1979"                         ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] "12/31/99"                          ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] "DOB:12/11/00"                      ""             "DOB:%H/%M/%S"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] "-----------"                       ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, 1 July 2004 22:30:00"         ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, 1st of July 2004 at 22:30:00" ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, 1July 2004 at 22:30:00"       ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, 1July2004 22:30:00"           ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] "Thu, 1July04 22:30:00"             ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "21 Aug 2011, 11:15:34 pm"          ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] "-----------"                       ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] "1979-05-27 05:00:59"               ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] "1979-05-27"                        ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] "-----------"                       ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] "3 jan 2000"                        ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] "17 april 85"                       ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] "27/5/1979"                         ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] "20 01 89"                          ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] "00/13/10"                          ""             "%H/%M/%S"          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] "-------"                           ""             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] "14 12 00"                          ""             "%H %M %S"          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] "03:23:22 pm"                       "%H:%M:%S %Op" "%I:%M:%S %p"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                HMSOp                    T                    T </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "%H:%M:%S %Op" "february  %H, %M%S"           "%H %M %S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                    T                    T                    T </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "DOB:%H/%M/%S"           "%H/%M/%S"           "%H %M %S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                    T </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%I:%M:%S %p" </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## b and B are equivalent and match, both, abreviated and full names</span></span>
+<span class='r-in'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mdY"</span>, <span class='st'>"BdY"</span>, <span class='st'>"Bdy"</span>, <span class='st'>"bdY"</span>, <span class='st'>"bdy"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                           ObdY                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "February 20th 1973"                "%Ob %dth %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "february  14, 2004"                "%Ob  %d, %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, May 1, 2000"               "Sunday, %Ob %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, May 1, 2000"               "Sunday, %Ob %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "february  14, 04"                  ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] "Feb 20th 73"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] "January 5 1999 at 7pm"             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "jan 3 2010"                        "%Ob %d %Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "Jan 1, 1999"                       "%Ob %d, %Y"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] "jan 3   10"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "01 3 2010"                         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] "1 3 10"                            ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] "1 13 89"                           ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] "5/27/1979"                         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] "12/31/99"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] "DOB:12/11/00"                      ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, 1 July 2004 22:30:00"         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, 1st of July 2004 at 22:30:00" ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, 1July 2004 at 22:30:00"       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, 1July2004 22:30:00"           ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] "Thu, 1July04 22:30:00"             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "21 Aug 2011, 11:15:34 pm"          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] "1979-05-27 05:00:59"               ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] "1979-05-27"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] "3 jan 2000"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] "17 april 85"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] "27/5/1979"                         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] "20 01 89"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] "00/13/10"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] "-------"                           ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] "14 12 00"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] "03:23:22 pm"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Obdy                 ObdY                 Obdy                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "%Ob %dth %Y"        "%Ob %dth %Y"        "%Ob %dth %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "%Ob  %d, %Y"        "%Ob  %d, %Y"        "%Ob  %d, %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "%Ob  %d, %y"        ""                   "%Ob  %d, %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] "%Ob %dth %y"        ""                   "%Ob %dth %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "%Ob %d %Y"          "%Ob %d %Y"          "%Ob %d %Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "%Ob %d, %Y"         "%Ob %d, %Y"         "%Ob %d, %Y"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] "%Ob %d   %y"        ""                   "%Ob %d   %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""                   ""                   ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       OmdY                 mdY                 BdY                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "%Om %dth %Y"        "%B %dth %Y"        "%B %dth %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "%Om  %d, %Y"        "%B  %d, %Y"        "%B  %d, %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, %Om %d, %Y" "Sunday, %b %d, %Y" "Sunday, %B %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, %Om %d, %Y" "Sunday, %b %d, %Y" "Sunday, %B %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "%Om %d %Y"          "%b %d %Y"          ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "%Om %d, %Y"         "%b %d, %Y"         ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "%Om %d %Y"          "%m %d %Y"          ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] "%Om/%d/%Y"          "%m/%d/%Y"          ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""                   ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Bdy                 bdY                 bdy                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "%B %dth %Y"        "%B %dth %Y"        "%B %dth %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "%B  %d, %Y"        "%B  %d, %Y"        "%B  %d, %Y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, %B %d, %Y" "Sunday, %b %d, %Y" "Sunday, %b %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, %B %d, %Y" "Sunday, %b %d, %Y" "Sunday, %b %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "%B  %d, %y"        ""                  "%B  %d, %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] ""                  ""                  "%b %dth %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] ""                  "%b %d %Y"          "%b %d %Y"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] ""                  "%b %d, %Y"         "%b %d, %Y"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] ""                  ""                  "%b %d   %y"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""                  ""                  ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%A, %Ob %d, %Y"          "%Ob %d %Y"         "%Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%A, %Ob %d, %Y"        "%Ob  %d, %y"        "%Ob %dth %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Ob %d %Y"         "%Ob %d, %Y"        "%Ob %d   %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%A, %Ob %d, %Y"          "%Ob %d %Y"         "%Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %dth %Y"        "%Ob  %d, %Y"     "%A, %Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%A, %Ob %d, %Y"        "%Ob  %d, %y"        "%Ob %dth %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Ob %d %Y"         "%Ob %d, %Y"        "%Ob %d   %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 OmdY                 OmdY                 OmdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Om %dth %Y"        "%Om  %d, %Y"     "%A, %Om %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 OmdY                 OmdY                 OmdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%A, %Om %d, %Y"          "%Om %d %Y"         "%Om %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 OmdY                 OmdY                  mdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%Om %d %Y"          "%Om/%d/%Y"         "%B %dth %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdY                  mdY                  mdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %Y"      "%A, %b %d, %Y"      "%A, %b %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdY                  mdY                  mdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%b %d %Y"          "%b %d, %Y"           "%m %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdY                  BdY                  BdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%m/%d/%Y"         "%B %dth %Y"         "%B  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  BdY                  BdY                  Bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "%A, %B %d, %Y"      "%A, %B %d, %Y"         "%B %dth %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  Bdy                  Bdy                  Bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %Y"      "%A, %B %d, %Y"      "%A, %B %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  Bdy                  bdY                  bdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %y"         "%B %dth %Y"         "%B  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdY                  bdY                  bdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "%A, %b %d, %Y"      "%A, %b %d, %Y"           "%b %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdY                  bdy                  bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%b %d, %Y"         "%B %dth %Y"         "%B  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdy                  bdy                  bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "%A, %b %d, %Y"      "%A, %b %d, %Y"         "%B  %d, %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdy                  bdy                  bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%b %dth %y"           "%b %d %Y"          "%b %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdy                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%b %d   %y"        "%Ob %dth %Y"        "%Ob  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%Ob %d, %Y"        "%Ob %dth %Y"        "%Ob  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"        "%Ob  %d, %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %dth %y"          "%Ob %d %Y"         "%Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %d   %y"        "%Ob %dth %Y"        "%Ob  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 ObdY                 ObdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"          "%Ob %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 ObdY                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%Ob %d, %Y"        "%Ob %dth %Y"        "%Ob  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "Sunday, %Ob %d, %Y" "Sunday, %Ob %d, %Y"        "%Ob  %d, %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 Obdy                 Obdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %dth %y"          "%Ob %d %Y"         "%Ob %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 Obdy                 OmdY                 OmdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%Ob %d   %y"        "%Om %dth %Y"        "%Om  %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 OmdY                 OmdY                 OmdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "Sunday, %Om %d, %Y" "Sunday, %Om %d, %Y"          "%Om %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 OmdY                 OmdY                 OmdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%Om %d, %Y"          "%Om %d %Y"          "%Om/%d/%Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdY                  mdY                  mdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B %dth %Y"         "%B  %d, %Y"  "Sunday, %b %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdY                  mdY                  mdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  "Sunday, %b %d, %Y"           "%b %d %Y"          "%b %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  mdY                  mdY                  BdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%m %d %Y"           "%m/%d/%Y"         "%B %dth %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  BdY                  BdY                  BdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %Y"  "Sunday, %B %d, %Y"  "Sunday, %B %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  Bdy                  Bdy                  Bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B %dth %Y"         "%B  %d, %Y"  "Sunday, %B %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  Bdy                  Bdy                  bdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  "Sunday, %B %d, %Y"         "%B  %d, %y"         "%B %dth %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdY                  bdY                  bdY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %Y"  "Sunday, %b %d, %Y"  "Sunday, %b %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdY                  bdY                  bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%b %d %Y"          "%b %d, %Y"         "%B %dth %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdy                  bdy                  bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %Y"  "Sunday, %b %d, %Y"  "Sunday, %b %d, %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdy                  bdy                  bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%B  %d, %y"         "%b %dth %y"           "%b %d %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  bdy                  bdy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%b %d, %Y"         "%b %d   %y" </span>
+<span class='r-in'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dmy"</span>, <span class='st'>"dbY"</span>, <span class='st'>"dBy"</span>, <span class='st'>"dBY"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                           dObY        dOby        dObY       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "February 20th 1973"                ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "february  14, 2004"                ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, May 1, 2000"               ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, May 1, 2000"               ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "february  14, 04"                  ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] "Feb 20th 73"                       ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] "January 5 1999 at 7pm"             ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "jan 3 2010"                        ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "Jan 1, 1999"                       ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] "jan 3   10"                        ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "01 3 2010"                         ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] "1 3 10"                            ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] "1 13 89"                           ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] "5/27/1979"                         ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] "12/31/99"                          ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] "DOB:12/11/00"                      ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] "-----------"                       ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, 1 July 2004 22:30:00"         ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, 1st of July 2004 at 22:30:00" ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, 1July 2004 at 22:30:00"       ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, 1July2004 22:30:00"           ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] "Thu, 1July04 22:30:00"             ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "21 Aug 2011, 11:15:34 pm"          ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] "-----------"                       ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] "1979-05-27 05:00:59"               ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] "1979-05-27"                        ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] "-----------"                       ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] "3 jan 2000"                        "%d %Ob %Y" "%d %Ob %Y" "%d %Ob %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] "17 april 85"                       ""          "%d %Ob %y" ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] "27/5/1979"                         ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] "20 01 89"                          ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] "00/13/10"                          ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] "-------"                           ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] "14 12 00"                          ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] "03:23:22 pm"                       ""          ""          ""         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       dOmy            dmy            dbY        dBy        dBY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "%d %Om %Y"     "%d %m %Y"     ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] "%d %Om %y"     "%d %m %y"     ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] "DOB:%d/%Om/%y" "DOB:%d/%m/%y" ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] "%d %Om %Y"     "%d %b %Y"     "%d %b %Y" ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] "%d %Om %y"     "%d %B %y"     ""         "%d %B %y" "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] "%d/%Om/%Y"     "%d/%m/%Y"     ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] "%d %Om %y"     "%d %m %y"     ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] "%d %Om %y"     "%d %m %y"     ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""              ""             ""         ""         "" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            dObY            dOby            dOby            dObY            dOmy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%d %Ob %Y"     "%d %Ob %Y"     "%d %Ob %y"     "%d %Ob %Y"     "%d %Om %Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            dOmy            dOmy            dOmy            dOmy            dOmy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%d %Om %y" "DOB:%d/%Om/%y"     "%d %Om %Y"     "%d %Om %y"     "%d/%Om/%Y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            dOmy            dOmy             dmy             dmy             dmy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "%d %Om %y"     "%d %Om %y"      "%d %m %Y"      "%d %m %y"  "DOB:%d/%m/%y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             dmy             dmy             dmy             dmy             dmy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "%d %b %Y"      "%d %B %y"      "%d/%m/%Y"      "%d %m %y"      "%d %m %y" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             dbY             dBy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "%d %b %Y"      "%d %B %y" </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dBY HMS"</span>, <span class='st'>"dbY HMS"</span>, <span class='st'>"dmyHMS"</span>, <span class='st'>"BdY H"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                           dObYHMS                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "February 20th 1973"                ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "february  14, 2004"                ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, May 1, 2000"               ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, May 1, 2000"               ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "february  14, 04"                  ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] "Feb 20th 73"                       ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] "January 5 1999 at 7pm"             ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "jan 3 2010"                        ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "Jan 1, 1999"                       ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] "jan 3   10"                        ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "01 3 2010"                         ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] "1 3 10"                            ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] "1 13 89"                           ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] "5/27/1979"                         ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] "12/31/99"                          ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] "DOB:12/11/00"                      ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] "-----------"                       ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, 1 July 2004 22:30:00"         "Thu, %d %Ob %Y %H:%M:%S"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, 1st of July 2004 at 22:30:00" "Thu, %dst of %Ob %Y at %H:%M:%S"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, 1July 2004 at 22:30:00"       "Thu, %d%Ob %Y at %H:%M:%S"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, 1July2004 22:30:00"           "Thu, %d%Ob%Y %H:%M:%S"          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] "Thu, 1July04 22:30:00"             ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "21 Aug 2011, 11:15:34 pm"          "%d %Ob %Y, %H:%M:%S pm"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] "-----------"                       ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] "1979-05-27 05:00:59"               ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] "1979-05-27"                        ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] "-----------"                       ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] "3 jan 2000"                        ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] "17 april 85"                       ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] "27/5/1979"                         ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] "20 01 89"                          ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] "00/13/10"                          ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] "-------"                           ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] "14 12 00"                          ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] "03:23:22 pm"                       ""                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       dObYHMS                           ObdYH              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""                                "%Ob %d %Y at %Hpm"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, %d %Ob %Y %H:%M:%S"         ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, %dst of %Ob %Y at %H:%M:%S" ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, %d%Ob %Y at %H:%M:%S"       ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, %d%Ob%Y %H:%M:%S"           ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "%d %Ob %Y, %H:%M:%S pm"          ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""                                ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       dOmyHMS                           dBYHMS                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, %d %Om %Y %H:%M:%S"         "Thu, %d %B %Y %H:%M:%S"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, %dst of %Om %Y at %H:%M:%S" "Thu, %dst of %B %Y at %H:%M:%S"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, %d%Om %Y at %H:%M:%S"       "Thu, %d%B %Y at %H:%M:%S"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, %d%Om%Y %H:%M:%S"           "Thu, %d%B%Y %H:%M:%S"          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] "Thu, %d%Om%y %H:%M:%S"           ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "%d %Om %Y, %H:%M:%S pm"          ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""                                ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       dbYHMS                           dmyHMS                          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, %d %B %Y %H:%M:%S"         "Thu, %d %B %Y %H:%M:%S"        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, %dst of %B %Y at %H:%M:%S" "Thu, %dst of %B %Y at %H:%M:%S"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, %d%B %Y at %H:%M:%S"       "Thu, %d%B %Y at %H:%M:%S"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, %d%B%Y %H:%M:%S"           "Thu, %d%B%Y %H:%M:%S"          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""                               "Thu, %d%B%y %H:%M:%S"          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "%d %b %Y, %H:%M:%S pm"          "%d %b %Y, %H:%M:%S pm"         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""                               ""                              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       BdYH              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] "%B %d %Y at %Hpm"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%a, %d %Ob %Y %H:%M:%S"  "%a, %dst of %Ob %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "%a, %d%Ob %Y at %H:%M:%S"            "%a, %d%Ob%Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%d %Ob %Y, %H:%M:%S pm"          "%a, %d %Ob %Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  "%a, %dst of %Ob %Y at %H:%M:%S"        "%a, %d%Ob %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            "%a, %d%Ob%Y %H:%M:%S"          "%d %Ob %Y, %H:%M:%S pm" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             ObdYH                           dOmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               "%Ob %d %Y at %Hpm"          "%a, %d %Om %Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dOmyHMS                           dOmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  "%a, %dst of %Om %Y at %H:%M:%S"        "%a, %d%Om %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dOmyHMS                           dOmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            "%a, %d%Om%Y %H:%M:%S"            "%a, %d%Om%y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dOmyHMS                            dBYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%d %Om %Y, %H:%M:%S pm"           "%a, %d %B %Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dBYHMS                            dBYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "%a, %dst of %B %Y at %H:%M:%S"         "%a, %d%B %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dBYHMS                            dbYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             "%a, %d%B%Y %H:%M:%S"           "%a, %d %B %Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dbYHMS                            dbYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   "%a, %dst of %B %Y at %H:%M:%S"         "%a, %d%B %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dbYHMS                            dbYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             "%a, %d%B%Y %H:%M:%S"           "%d %b %Y, %H:%M:%S pm" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dmyHMS                            dmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%a, %d %B %Y %H:%M:%S"   "%a, %dst of %B %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dmyHMS                            dmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "%a, %d%B %Y at %H:%M:%S"             "%a, %d%B%Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dmyHMS                            dmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             "%a, %d%B%y %H:%M:%S"           "%d %b %Y, %H:%M:%S pm" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                              BdYH                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                "%B %d %Y at %Hpm"         "Thu, %d %Ob %Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "Thu, %dst of %Ob %Y at %H:%M:%S"       "Thu, %d%Ob %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "Thu, %d%Ob%Y %H:%M:%S"          "%d %Ob %Y, %H:%M:%S pm" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "Thu, %d %Ob %Y %H:%M:%S" "Thu, %dst of %Ob %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                           dObYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "Thu, %d%Ob %Y at %H:%M:%S"           "Thu, %d%Ob%Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dObYHMS                             ObdYH </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "%d %Ob %Y, %H:%M:%S pm"               "%Ob %d %Y at %Hpm" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dOmyHMS                           dOmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "Thu, %d %Om %Y %H:%M:%S" "Thu, %dst of %Om %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dOmyHMS                           dOmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "Thu, %d%Om %Y at %H:%M:%S"           "Thu, %d%Om%Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                           dOmyHMS                           dOmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "Thu, %d%Om%y %H:%M:%S"          "%d %Om %Y, %H:%M:%S pm" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dBYHMS                            dBYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "Thu, %d %B %Y %H:%M:%S"  "Thu, %dst of %B %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dBYHMS                            dBYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "Thu, %d%B %Y at %H:%M:%S"            "Thu, %d%B%Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dbYHMS                            dbYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          "Thu, %d %B %Y %H:%M:%S"  "Thu, %dst of %B %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dbYHMS                            dbYHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "Thu, %d%B %Y at %H:%M:%S"            "Thu, %d%B%Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dbYHMS                            dmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%d %b %Y, %H:%M:%S pm"          "Thu, %d %B %Y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dmyHMS                            dmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  "Thu, %dst of %B %Y at %H:%M:%S"        "Thu, %d%B %Y at %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dmyHMS                            dmyHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            "Thu, %d%B%Y %H:%M:%S"            "Thu, %d%B%y %H:%M:%S" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                            dmyHMS                              BdYH </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "%d %b %Y, %H:%M:%S pm"                "%B %d %Y at %Hpm" </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>guess_formats</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ymd HMS"</span><span class='op'>)</span>, print_matches <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                           yOmdHMS             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] "February 20th 1973"                ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] "february  14, 2004"                ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] "Sunday, May 1, 2000"               ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] "Sunday, May 1, 2000"               ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] "february  14, 04"                  ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] "Feb 20th 73"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] "January 5 1999 at 7pm"             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] "jan 3 2010"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] "Jan 1, 1999"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] "jan 3   10"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] "01 3 2010"                         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] "1 3 10"                            ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] "1 13 89"                           ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] "5/27/1979"                         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] "12/31/99"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] "DOB:12/11/00"                      ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] "Thu, 1 July 2004 22:30:00"         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] "Thu, 1st of July 2004 at 22:30:00" ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] "Thu, 1July 2004 at 22:30:00"       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] "Thu, 1July2004 22:30:00"           ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] "Thu, 1July04 22:30:00"             ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] "21 Aug 2011, 11:15:34 pm"          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] "1979-05-27 05:00:59"               "%Y-%Om-%d %H:%M:%S"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] "1979-05-27"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] "-----------"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] "3 jan 2000"                        ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] "17 april 85"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] "27/5/1979"                         ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] "20 01 89"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] "00/13/10"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] "-------"                           ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] "14 12 00"                          ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] "03:23:22 pm"                       ""                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       ymdHMS             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [20,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [24,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25,] "%Y-%m-%d %H:%M:%S"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [28,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [30,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [32,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [34,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35,] ""                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              yOmdHMS               ymdHMS </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "%Y-%Om-%d %H:%M:%S"  "%Y-%m-%d %H:%M:%S" </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

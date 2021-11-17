@@ -180,18 +180,26 @@ if they exceed the conventional limit. For example,
     <div class='dont-index'><p><code>hm()</code>, <code>ms()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>ms</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09:10"</span>, <span class='st'>"09:02"</span>, <span class='st'>"1:10"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "9M 10S" "9M 2S"  "1M 10S"</div><div class='input'><span class='fu'>ms</span><span class='op'>(</span><span class='st'>"7 6"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "7M 6S"</div><div class='input'><span class='fu'>ms</span><span class='op'>(</span><span class='st'>"6,5"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "6M 5S"</div><div class='input'><span class='fu'>hm</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09:10"</span>, <span class='st'>"09:02"</span>, <span class='st'>"1:10"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "9H 10M 0S" "9H 2M 0S"  "1H 10M 0S"</div><div class='input'><span class='fu'>hm</span><span class='op'>(</span><span class='st'>"7 6"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "7H 6M 0S"</div><div class='input'><span class='fu'>hm</span><span class='op'>(</span><span class='st'>"6,5"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "6H 5M 0S"</div><div class='input'>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09:10:01"</span>, <span class='st'>"09:10:02"</span>, <span class='st'>"09:10:03"</span><span class='op'>)</span>
-<span class='fu'>hms</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "9H 10M 1S" "9H 10M 2S" "9H 10M 3S"</div><div class='input'>
-<span class='fu'>hms</span><span class='op'>(</span><span class='st'>"7 6 5"</span>, <span class='st'>"3:23:::2"</span>, <span class='st'>"2 : 23 : 33"</span>, <span class='st'>"Finished in 9 hours, 20 min and 4 seconds"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "7H 6M 5S"   "3H 23M 2S"  "2H 23M 33S" "9H 20M 4S" </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>ms</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09:10"</span>, <span class='st'>"09:02"</span>, <span class='st'>"1:10"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "9M 10S" "9M 2S"  "1M 10S"</span>
+<span class='r-in'><span class='fu'>ms</span><span class='op'>(</span><span class='st'>"7 6"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "7M 6S"</span>
+<span class='r-in'><span class='fu'>ms</span><span class='op'>(</span><span class='st'>"6,5"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "6M 5S"</span>
+<span class='r-in'><span class='fu'>hm</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09:10"</span>, <span class='st'>"09:02"</span>, <span class='st'>"1:10"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "9H 10M 0S" "9H 2M 0S"  "1H 10M 0S"</span>
+<span class='r-in'><span class='fu'>hm</span><span class='op'>(</span><span class='st'>"7 6"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "7H 6M 0S"</span>
+<span class='r-in'><span class='fu'>hm</span><span class='op'>(</span><span class='st'>"6,5"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "6H 5M 0S"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09:10:01"</span>, <span class='st'>"09:10:02"</span>, <span class='st'>"09:10:03"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>hms</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "9H 10M 1S" "9H 10M 2S" "9H 10M 3S"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>hms</span><span class='op'>(</span><span class='st'>"7 6 5"</span>, <span class='st'>"3:23:::2"</span>, <span class='st'>"2 : 23 : 33"</span>, <span class='st'>"Finished in 9 hours, 20 min and 4 seconds"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "7H 6M 5S"   "3H 23M 2S"  "2H 23M 33S" "9H 20M 4S" </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

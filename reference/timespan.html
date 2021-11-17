@@ -164,36 +164,48 @@ accurately converted to periods and durations.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='duration.html'>duration</a></span><span class='op'>(</span><span class='fl'>3690</span>, <span class='st'>"seconds"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "3690s (~1.02 hours)"</div><div class='input'><span class='fu'><a href='period.html'>period</a></span><span class='op'>(</span><span class='fl'>3690</span>, <span class='st'>"seconds"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "3690S"</div><div class='input'><span class='fu'><a href='period.html'>period</a></span><span class='op'>(</span>second <span class='op'>=</span> <span class='fl'>30</span>, minute <span class='op'>=</span> <span class='fl'>1</span>, hour <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1H 1M 30S"</div><div class='input'><span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-08-09 13:01:30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-08-09 12:00:00"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2009-08-09 13:01:30 UTC--2009-08-09 12:00:00 UTC</div><div class='input'>
-<span class='va'>date</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-03-08 01:59:59"</span><span class='op'>)</span> <span class='co'># DST boundary</span>
-<span class='va'>date</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>days</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-03-09 01:59:59 UTC"</div><div class='input'><span class='va'>date</span> <span class='op'>+</span> <span class='fu'><a href='duration.html'>ddays</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-03-09 01:59:59 UTC"</div><div class='input'>
-<span class='va'>date2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2000-02-29 12:00:00"</span><span class='op'>)</span>
-<span class='va'>date2</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>years</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='co'># self corrects to next real day</span>
-
-<span class='va'>date3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-01-31 01:00:00"</span><span class='op'>)</span>
-<span class='va'>date3</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "2009-01-31 01:00:00 UTC" NA                       
-#&gt;  [3] "2009-03-31 01:00:00 UTC" NA                       
-#&gt;  [5] "2009-05-31 01:00:00 UTC" NA                       
-#&gt;  [7] "2009-07-31 01:00:00 UTC" "2009-08-31 01:00:00 UTC"
-#&gt;  [9] NA                        "2009-10-31 01:00:00 UTC"
-#&gt; [11] NA                        "2009-12-31 01:00:00 UTC"</div><div class='input'>
-<span class='va'>span</span> <span class='op'>&lt;-</span> <span class='va'>date2</span> <span class='op'>%--%</span> <span class='va'>date</span>  <span class='co'>#creates interval</span>
-
-<span class='va'>date</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-01-01 00:00:00"</span><span class='op'>)</span>
-<span class='va'>date</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>years</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2010-01-01 UTC"</div><div class='input'><span class='va'>date</span> <span class='op'>-</span> <span class='fu'><a href='period.html'>days</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>hours</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2008-12-29 06:00:00 UTC"</div><div class='input'><span class='va'>date</span> <span class='op'>+</span> <span class='fl'>3</span> <span class='op'>*</span> <span class='fu'><a href='period.html'>seconds</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-01-01 00:00:30 UTC"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>days</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "6m 1d 0H 0M 0S"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='duration.html'>duration</a></span><span class='op'>(</span><span class='fl'>3690</span>, <span class='st'>"seconds"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "3690s (~1.02 hours)"</span>
+<span class='r-in'><span class='fu'><a href='period.html'>period</a></span><span class='op'>(</span><span class='fl'>3690</span>, <span class='st'>"seconds"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "3690S"</span>
+<span class='r-in'><span class='fu'><a href='period.html'>period</a></span><span class='op'>(</span>second <span class='op'>=</span> <span class='fl'>30</span>, minute <span class='op'>=</span> <span class='fl'>1</span>, hour <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "1H 1M 30S"</span>
+<span class='r-in'><span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-08-09 13:01:30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-08-09 12:00:00"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2009-08-09 13:01:30 UTC--2009-08-09 12:00:00 UTC</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>date</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-03-08 01:59:59"</span><span class='op'>)</span> <span class='co'># DST boundary</span></span>
+<span class='r-in'><span class='va'>date</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>days</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-03-09 01:59:59 UTC"</span>
+<span class='r-in'><span class='va'>date</span> <span class='op'>+</span> <span class='fu'><a href='duration.html'>ddays</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-03-09 01:59:59 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>date2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2000-02-29 12:00:00"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>date2</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>years</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-in'><span class='co'># self corrects to next real day</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>date3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-01-31 01:00:00"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>date3</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2009-01-31 01:00:00 UTC" NA                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3] "2009-03-31 01:00:00 UTC" NA                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] "2009-05-31 01:00:00 UTC" NA                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "2009-07-31 01:00:00 UTC" "2009-08-31 01:00:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] NA                        "2009-10-31 01:00:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] NA                        "2009-12-31 01:00:00 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>span</span> <span class='op'>&lt;-</span> <span class='va'>date2</span> <span class='op'><a href='interval.html'>%--%</a></span> <span class='va'>date</span>  <span class='co'>#creates interval</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>date</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='st'>"2009-01-01 00:00:00"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>date</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>years</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2010-01-01 UTC"</span>
+<span class='r-in'><span class='va'>date</span> <span class='op'>-</span> <span class='fu'><a href='period.html'>days</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>hours</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2008-12-29 06:00:00 UTC"</span>
+<span class='r-in'><span class='va'>date</span> <span class='op'>+</span> <span class='fl'>3</span> <span class='op'>*</span> <span class='fu'><a href='period.html'>seconds</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-01-01 00:00:30 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='period.html'>days</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "6m 1d 0H 0M 0S"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

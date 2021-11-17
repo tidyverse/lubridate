@@ -162,36 +162,42 @@ of the intervals, i.e. <code>a %within% list(int1, int2)</code> is equivalent to
     <p>A logical vector.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2001-01-01"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2002-01-01"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>int2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2001-06-01"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2002-01-01"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2001-05-03"</span><span class='op'>)</span> <span class='op'>%within%</span> <span class='va'>int</span> <span class='co'># TRUE</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>int2</span> <span class='op'>%within%</span> <span class='va'>int</span> <span class='co'># TRUE</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"1999-01-01"</span><span class='op'>)</span> <span class='op'>%within%</span> <span class='va'>int</span> <span class='co'># FALSE</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='co'>## recycling (carefully note the difference between using a vector of</span>
-<span class='co'>## intervals and list of intervals for the second argument)</span>
-<span class='va'>dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span>, <span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>blackout_vector</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-31"</span><span class='op'>)</span><span class='op'>)</span>,
-              <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>dates</span> <span class='op'>%within%</span> <span class='va'>blackout_vector</span>
-</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE  TRUE</div><div class='input'>
-<span class='co'>## within ANY of the intervals of a list</span>
- <span class='va'>dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span>, <span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span>
- <span class='va'>lst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-  <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-31"</span><span class='op'>)</span><span class='op'>)</span>,
-  <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span>
- <span class='op'>)</span>
-<span class='va'>dates</span> <span class='op'>%within%</span> <span class='va'>lst</span>
-</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE</div><div class='input'>
-<span class='co'>## interval within a list of intervals</span>
-<span class='va'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span>
-  <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span><span class='op'>)</span>,
-  <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span><span class='op'>)</span>
-<span class='op'>)</span>
-<span class='va'>int</span> <span class='op'>%within%</span> <span class='va'>lst</span>
-</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2001-01-01"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2002-01-01"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>int2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2001-06-01"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2002-01-01"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2001-05-03"</span><span class='op'>)</span> <span class='op'>%within%</span> <span class='va'>int</span> <span class='co'># TRUE</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'><span class='va'>int2</span> <span class='op'>%within%</span> <span class='va'>int</span> <span class='co'># TRUE</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"1999-01-01"</span><span class='op'>)</span> <span class='op'>%within%</span> <span class='va'>int</span> <span class='co'># FALSE</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## recycling (carefully note the difference between using a vector of</span></span>
+<span class='r-in'><span class='co'>## intervals and list of intervals for the second argument)</span></span>
+<span class='r-in'><span class='va'>dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span>, <span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>blackout_vector</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-31"</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>              <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>dates</span> <span class='op'>%within%</span> <span class='va'>blackout_vector</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE  TRUE FALSE  TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## within ANY of the intervals of a list</span></span>
+<span class='r-in'> <span class='va'>dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span>, <span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='va'>lst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-31"</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>  <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span><span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-30"</span><span class='op'>)</span>, <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2015-01-03"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='op'>)</span></span>
+<span class='r-in'><span class='va'>dates</span> <span class='op'>%within%</span> <span class='va'>lst</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE  TRUE  TRUE  TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## interval within a list of intervals</span></span>
+<span class='r-in'><span class='va'>int</span> <span class='op'>&lt;-</span> <span class='fu'><a href='interval.html'>interval</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2014-12-20"</span>, <span class='st'>"2014-12-30"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2015-01-01"</span>, <span class='st'>"2015-01-03"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>int</span> <span class='op'>%within%</span> <span class='va'>lst</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE  TRUE</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

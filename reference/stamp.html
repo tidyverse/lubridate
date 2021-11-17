@@ -204,32 +204,62 @@ argument.</p>
     <div class='dont-index'><p><code><a href='guess_formats.html'>guess_formats()</a></code>, <code><a href='parse_date_time.html'>parse_date_time()</a></code>, <code><a href='https://rdrr.io/r/base/strptime.html'>strptime()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>D</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2010-04-05"</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='period.html'>days</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-<span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"March 1, 1999"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "March %Om, %Y"(1), "%Om %d, %Y"(1), "%B %d, %Y"(1), "March %m, %Y"(1)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%B %d, %Y"</span></div><div class='output co'>#&gt; [1] "April 04, 2010" "April 03, 2010" "April 02, 2010" "April 01, 2010"
-#&gt; [5] "March 31, 2010"</div><div class='input'><span class='va'>sf</span> <span class='op'>&lt;-</span> <span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Created on Sunday, Jan 1, 1999 3:34 pm"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "Created on %A, %b %d, %Y %I:%M %p"(1), "Created on Sunday, %Om %d, %Y %H:%M %Op"(1), "Created on Sunday, %b %d, %Y %I:%M %p"(1), "Created on %A, %Om %d, %Y %H:%M %Op"(0), "Created on %A, %b %d, %Y %H:%M %Op"(0), "Created on %A, %Om %d, %Y %I:%M %p"(0), "Created on Sunday, %b %d, %Y %H:%M %Op"(0), "Created on Sunday, %Om %d, %Y %I:%M %p"(0)</span></div><div class='output co'>#&gt; <span class='message'>Using: "Created on %A, %b %d, %Y %I:%M %p"</span></div><div class='input'><span class='fu'>sf</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Created on Sunday, Apr 04, 2010 12:00 AM"   
-#&gt; [2] "Created on Saturday, Apr 03, 2010 12:00 AM" 
-#&gt; [3] "Created on Friday, Apr 02, 2010 12:00 AM"   
-#&gt; [4] "Created on Thursday, Apr 01, 2010 12:00 AM" 
-#&gt; [5] "Created on Wednesday, Mar 31, 2010 12:00 AM"</div><div class='input'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Jan 01"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "%Om %y"(1), "%Om %d"(1), "Jan %Om"(1), "%b %d"(1), "Jan %H"(1), "Jan %m"(1), "Jan %y"(1), "%b %y"(0)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%Om %y"</span></div><div class='output co'>#&gt; [1] "04 10" "04 10" "04 10" "04 10" "03 10"</div><div class='input'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Sunday, May 1, 2000"</span>, locale <span class='op'>=</span> <span class='st'>"C"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "%A, %b %d, %Y"(1), "Sunday, May %Om, %Y"(1), "Sunday, %Om %d, %Y"(1), "Sunday, %b %d, %Y"(1), "Sunday, May %m, %Y"(1), "%A, May %Om, %Y"(0), "%A, %Om %d, %Y"(0), "%A, May %m, %Y"(0)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%A, %b %d, %Y"</span></div><div class='output co'>#&gt; [1] "Sunday, Apr 04, 2010"    "Saturday, Apr 03, 2010" 
-#&gt; [3] "Friday, Apr 02, 2010"    "Thursday, Apr 01, 2010" 
-#&gt; [5] "Wednesday, Mar 31, 2010"</div><div class='input'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Sun Aug 5"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span> <span class='co'>#=&gt; "Sun Aug 04" "Sat Aug 04" "Fri Aug 04" "Thu Aug 04" "Wed Aug 03"</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "%a %b %d"(1), "%a Aug %H"(1), "Sun %Om %d"(1), "Sun Aug %Om"(1), "Sun %b %d"(1), "Sun Aug %H"(1), "Sun Aug %m"(1), "%a %Om %d"(0), "%a Aug %Om"(0), "%a Aug %m"(0)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%a %b %d"</span></div><div class='output co'>#&gt; [1] "Sun Apr 04" "Sat Apr 03" "Fri Apr 02" "Thu Apr 01" "Wed Mar 31"</div><div class='input'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"12/31/99"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>              <span class='co'>#=&gt; "06/09/11"</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "%Om/%d/%y"(1), "%m/%d/%y"(1)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%Om/%d/%y"</span></div><div class='output co'>#&gt; [1] "04/04/10" "04/03/10" "04/02/10" "04/01/10" "03/31/10"</div><div class='input'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Sunday, May 1, 2000 22:10"</span>, locale <span class='op'>=</span> <span class='st'>"C"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "%A, May %Om, %Y %d:%H"(1), "%A, %b %d, %Y %H:%M"(1), "%A, May %m, %Y %d:%H"(1), "Sunday, %Om %d, %Y %H:%M"(1), "Sunday, May %Om, %Y %d:%H"(1), "Sunday, %b %d, %Y %H:%M"(1), "Sunday, May %m, %Y %d:%H"(1), "%A, %Om %d, %Y %H:%M"(0)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%A, %b %d, %Y %H:%M"</span></div><div class='output co'>#&gt; [1] "Sunday, Apr 04, 2010 00:00"    "Saturday, Apr 03, 2010 00:00" 
-#&gt; [3] "Friday, Apr 02, 2010 00:00"    "Thursday, Apr 01, 2010 00:00" 
-#&gt; [5] "Wednesday, Mar 31, 2010 00:00"</div><div class='input'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"2013-01-01T06:00:00Z"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "%Y-%Om-%dT%H:%M:%SZ"(1), "%Y-%d-%OmT%H:%M:%SZ"(1), "%Y-%m-%dT%H:%M:%SZ"(1), "%Y-%d-%mT%H:%M:%SZ"(1), "%Y-%Om-%dT%H:%M:%S%Ou"(1), "%Y-%m-%dT%H:%M:%S%Ou"(1)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%Y-%Om-%dT%H:%M:%S%Ou"</span></div><div class='output co'>#&gt; [1] "2010-04-04T00:00:00Z" "2010-04-03T00:00:00Z" "2010-04-02T00:00:00Z"
-#&gt; [4] "2010-04-01T00:00:00Z" "2010-03-31T00:00:00Z"</div><div class='input'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"2013-01-01T00:00:00-06"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "%Y-%Om-%dT%H:%M:%S%Oo"(1), "%Y-%m-%dT%H:%M:%S%Oo"(1)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%Y-%Om-%dT%H:%M:%S%Oo"</span></div><div class='output co'>#&gt; [1] "2010-04-04T00:00:00+00" "2010-04-03T00:00:00+00" "2010-04-02T00:00:00+00"
-#&gt; [4] "2010-04-01T00:00:00+00" "2010-03-31T00:00:00+00"</div><div class='input'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"2013-01-01T00:00:00-08:00"</span><span class='op'>)</span><span class='op'>(</span><span class='fu'><a href='force_tz.html'>force_tz</a></span><span class='op'>(</span><span class='va'>D</span>, <span class='st'>"America/Chicago"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple formats matched: "%Y-%Om-%dT%H:%M:%S%OO"(1), "%Y-%m-%dT%H:%M:%S%OO"(1)</span></div><div class='output co'>#&gt; <span class='message'>Using: "%Y-%Om-%dT%H:%M:%S%OO"</span></div><div class='output co'>#&gt; [1] "2010-04-04T00:00:00-05:00" "2010-04-03T00:00:00-05:00"
-#&gt; [3] "2010-04-02T00:00:00-05:00" "2010-04-01T00:00:00-05:00"
-#&gt; [5] "2010-03-31T00:00:00-05:00"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>D</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2010-04-05"</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='period.html'>days</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"March 1, 1999"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "March %Om, %Y"(1), "%Om %d, %Y"(1), "%B %d, %Y"(1), "March %m, %Y"(1)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%B %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "April 04, 2010" "April 03, 2010" "April 02, 2010" "April 01, 2010"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "March 31, 2010"</span>
+<span class='r-in'><span class='va'>sf</span> <span class='op'>&lt;-</span> <span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Created on Sunday, Jan 1, 1999 3:34 pm"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "Created on %A, %b %d, %Y %I:%M %p"(1), "Created on Sunday, %Om %d, %Y %H:%M %Op"(1), "Created on Sunday, %b %d, %Y %I:%M %p"(1), "Created on %A, %Om %d, %Y %H:%M %Op"(0), "Created on %A, %b %d, %Y %H:%M %Op"(0), "Created on %A, %Om %d, %Y %I:%M %p"(0), "Created on Sunday, %b %d, %Y %H:%M %Op"(0), "Created on Sunday, %Om %d, %Y %I:%M %p"(0)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "Created on %A, %b %d, %Y %I:%M %p"</span>
+<span class='r-in'><span class='fu'>sf</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Created on Sunday, Apr 04, 2010 12:00 AM"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] "Created on Saturday, Apr 03, 2010 12:00 AM" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "Created on Friday, Apr 02, 2010 12:00 AM"   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4] "Created on Thursday, Apr 01, 2010 12:00 AM" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "Created on Wednesday, Mar 31, 2010 12:00 AM"</span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Jan 01"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "%Om %y"(1), "%Om %d"(1), "Jan %Om"(1), "%b %d"(1), "Jan %H"(1), "Jan %m"(1), "Jan %y"(1), "%b %y"(0)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%Om %y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "04 10" "04 10" "04 10" "04 10" "03 10"</span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Sunday, May 1, 2000"</span>, locale <span class='op'>=</span> <span class='st'>"C"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "%A, %b %d, %Y"(1), "Sunday, May %Om, %Y"(1), "Sunday, %Om %d, %Y"(1), "Sunday, %b %d, %Y"(1), "Sunday, May %m, %Y"(1), "%A, May %Om, %Y"(0), "%A, %Om %d, %Y"(0), "%A, May %m, %Y"(0)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%A, %b %d, %Y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Sunday, Apr 04, 2010"    "Saturday, Apr 03, 2010" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "Friday, Apr 02, 2010"    "Thursday, Apr 01, 2010" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "Wednesday, Mar 31, 2010"</span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Sun Aug 5"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span> <span class='co'>#=&gt; "Sun Aug 04" "Sat Aug 04" "Fri Aug 04" "Thu Aug 04" "Wed Aug 03"</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "%a %b %d"(1), "%a Aug %H"(1), "Sun %Om %d"(1), "Sun Aug %Om"(1), "Sun %b %d"(1), "Sun Aug %H"(1), "Sun Aug %m"(1), "%a %Om %d"(0), "%a Aug %Om"(0), "%a Aug %m"(0)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%a %b %d"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Sun Apr 04" "Sat Apr 03" "Fri Apr 02" "Thu Apr 01" "Wed Mar 31"</span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"12/31/99"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span>              <span class='co'>#=&gt; "06/09/11"</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "%Om/%d/%y"(1), "%m/%d/%y"(1)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%Om/%d/%y"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "04/04/10" "04/03/10" "04/02/10" "04/01/10" "03/31/10"</span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"Sunday, May 1, 2000 22:10"</span>, locale <span class='op'>=</span> <span class='st'>"C"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "%A, May %Om, %Y %d:%H"(1), "%A, %b %d, %Y %H:%M"(1), "%A, May %m, %Y %d:%H"(1), "Sunday, %Om %d, %Y %H:%M"(1), "Sunday, May %Om, %Y %d:%H"(1), "Sunday, %b %d, %Y %H:%M"(1), "Sunday, May %m, %Y %d:%H"(1), "%A, %Om %d, %Y %H:%M"(0)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%A, %b %d, %Y %H:%M"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Sunday, Apr 04, 2010 00:00"    "Saturday, Apr 03, 2010 00:00" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "Friday, Apr 02, 2010 00:00"    "Thursday, Apr 01, 2010 00:00" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "Wednesday, Mar 31, 2010 00:00"</span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"2013-01-01T06:00:00Z"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "%Y-%Om-%dT%H:%M:%SZ"(1), "%Y-%d-%OmT%H:%M:%SZ"(1), "%Y-%m-%dT%H:%M:%SZ"(1), "%Y-%d-%mT%H:%M:%SZ"(1), "%Y-%Om-%dT%H:%M:%S%Ou"(1), "%Y-%m-%dT%H:%M:%S%Ou"(1)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%Y-%Om-%dT%H:%M:%S%Ou"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2010-04-04T00:00:00Z" "2010-04-03T00:00:00Z" "2010-04-02T00:00:00Z"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4] "2010-04-01T00:00:00Z" "2010-03-31T00:00:00Z"</span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"2013-01-01T00:00:00-06"</span><span class='op'>)</span><span class='op'>(</span><span class='va'>D</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "%Y-%Om-%dT%H:%M:%S%Oo"(1), "%Y-%m-%dT%H:%M:%S%Oo"(1)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%Y-%Om-%dT%H:%M:%S%Oo"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2010-04-04T00:00:00+00" "2010-04-03T00:00:00+00" "2010-04-02T00:00:00+00"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4] "2010-04-01T00:00:00+00" "2010-03-31T00:00:00+00"</span>
+<span class='r-in'><span class='fu'>stamp</span><span class='op'>(</span><span class='st'>"2013-01-01T00:00:00-08:00"</span><span class='op'>)</span><span class='op'>(</span><span class='fu'><a href='force_tz.html'>force_tz</a></span><span class='op'>(</span><span class='va'>D</span>, <span class='st'>"America/Chicago"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Multiple formats matched: "%Y-%Om-%dT%H:%M:%S%OO"(1), "%Y-%m-%dT%H:%M:%S%OO"(1)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using: "%Y-%Om-%dT%H:%M:%S%OO"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2010-04-04T00:00:00-05:00" "2010-04-03T00:00:00-05:00"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "2010-04-02T00:00:00-05:00" "2010-04-01T00:00:00-05:00"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "2010-03-31T00:00:00-05:00"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

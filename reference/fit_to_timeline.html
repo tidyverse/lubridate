@@ -176,41 +176,41 @@ the most meaningful valid dates are returned instead. See examples.</p></td>
     <p>a POSIXct or POSIXlt object that contains no illusory date-times</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-
-<span class='va'>tricky</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>sec   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,    <span class='fl'>0</span>,    <span class='fl'>0</span>,    <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>,
-                         min   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>,   <span class='fl'>5L</span>,   <span class='fl'>5L</span>,   <span class='fl'>0L</span><span class='op'>)</span>,
-                         hour  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2L</span>,   <span class='fl'>0L</span>,   <span class='fl'>2L</span>,   <span class='fl'>2L</span><span class='op'>)</span>,
-                         mday  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4L</span>,   <span class='fl'>4L</span>,   <span class='fl'>14L</span>,  <span class='fl'>4L</span><span class='op'>)</span>,
-                         mon   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10L</span>,  <span class='fl'>10L</span>,  <span class='fl'>2L</span>,   <span class='fl'>10L</span><span class='op'>)</span>,
-                         year  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>112L</span>, <span class='fl'>112L</span>, <span class='fl'>110L</span>, <span class='fl'>112L</span><span class='op'>)</span>,
-                         wday  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>,   <span class='fl'>0L</span>,   <span class='fl'>0L</span>,   <span class='fl'>0L</span><span class='op'>)</span>,
-                         yday  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>308L</span>, <span class='fl'>308L</span>, <span class='fl'>72L</span>,  <span class='fl'>308L</span><span class='op'>)</span>,
-                         isdst <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1L</span>,   <span class='fl'>0L</span>,   <span class='fl'>0L</span>,   <span class='fl'>1L</span><span class='op'>)</span><span class='op'>)</span>,
-                    .Names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sec"</span>, <span class='st'>"min"</span>, <span class='st'>"hour"</span>, <span class='st'>"mday"</span>, <span class='st'>"mon"</span>,
-                               <span class='st'>"year"</span>, <span class='st'>"wday"</span>, <span class='st'>"yday"</span>,  <span class='st'>"isdst"</span><span class='op'>)</span>,
-                    class <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"POSIXlt"</span>, <span class='st'>"POSIXt"</span><span class='op'>)</span>,
-                    tzone <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"America/Chicago"</span>, <span class='st'>"CST"</span>, <span class='st'>"CDT"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>tricky</span>
-<span class='co'>## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST</span>
-<span class='co'>## [2] "2012-11-04 00:05:00 CST" Times are still CDT, not CST at this instant</span>
-<span class='co'>## [3] "2010-03-14 02:00:00 CDT" DST gap</span>
-<span class='co'>## [4] "2012-11-04 01:59:59 CDT" Does exist, but has deceptive internal structure</span>
-
-<span class='fu'>fit_to_timeline</span><span class='op'>(</span><span class='va'>tricky</span><span class='op'>)</span>
-<span class='co'>## Returns:</span>
-<span class='co'>## [1] "2012-11-04 02:00:00 CST" instant paired with correct tz &amp; DST combination</span>
-<span class='co'>## [2] "2012-11-04 00:05:00 CDT" instant paired with correct tz &amp; DST combination</span>
-<span class='co'>## [3] NA - fake time changed to NA (compare to as.POSIXct(tricky))</span>
-<span class='co'>## [4] "2012-11-04 01:59:59 CDT" -real instant, left as is</span>
-
-<span class='fu'>fit_to_timeline</span><span class='op'>(</span><span class='va'>tricky</span>, simple <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='co'>## Returns valid time-dates by extrapolating CDT and CST zones:</span>
-<span class='co'>## [1] "2012-11-04 01:00:05 CST" "2012-11-04 01:05:00 CDT"</span>
-<span class='co'>## [3] "2010-03-14 03:05:00 CDT" "2012-11-04 01:59:59 CDT"</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>tricky</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>sec   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,    <span class='fl'>0</span>,    <span class='fl'>0</span>,    <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         min   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>,   <span class='fl'>5L</span>,   <span class='fl'>5L</span>,   <span class='fl'>0L</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         hour  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2L</span>,   <span class='fl'>0L</span>,   <span class='fl'>2L</span>,   <span class='fl'>2L</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         mday  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4L</span>,   <span class='fl'>4L</span>,   <span class='fl'>14L</span>,  <span class='fl'>4L</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         mon   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10L</span>,  <span class='fl'>10L</span>,  <span class='fl'>2L</span>,   <span class='fl'>10L</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         year  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>112L</span>, <span class='fl'>112L</span>, <span class='fl'>110L</span>, <span class='fl'>112L</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         wday  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>,   <span class='fl'>0L</span>,   <span class='fl'>0L</span>,   <span class='fl'>0L</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         yday  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>308L</span>, <span class='fl'>308L</span>, <span class='fl'>72L</span>,  <span class='fl'>308L</span><span class='op'>)</span>,</span>
+<span class='r-in'>                         isdst <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1L</span>,   <span class='fl'>0L</span>,   <span class='fl'>0L</span>,   <span class='fl'>1L</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    .Names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sec"</span>, <span class='st'>"min"</span>, <span class='st'>"hour"</span>, <span class='st'>"mday"</span>, <span class='st'>"mon"</span>,</span>
+<span class='r-in'>                               <span class='st'>"year"</span>, <span class='st'>"wday"</span>, <span class='st'>"yday"</span>,  <span class='st'>"isdst"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    class <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"POSIXlt"</span>, <span class='st'>"POSIXt"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                    tzone <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"America/Chicago"</span>, <span class='st'>"CST"</span>, <span class='st'>"CDT"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>tricky</span></span>
+<span class='r-in'><span class='co'>## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST</span></span>
+<span class='r-in'><span class='co'>## [2] "2012-11-04 00:05:00 CST" Times are still CDT, not CST at this instant</span></span>
+<span class='r-in'><span class='co'>## [3] "2010-03-14 02:00:00 CDT" DST gap</span></span>
+<span class='r-in'><span class='co'>## [4] "2012-11-04 01:59:59 CDT" Does exist, but has deceptive internal structure</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fit_to_timeline</span><span class='op'>(</span><span class='va'>tricky</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'>## Returns:</span></span>
+<span class='r-in'><span class='co'>## [1] "2012-11-04 02:00:00 CST" instant paired with correct tz &amp; DST combination</span></span>
+<span class='r-in'><span class='co'>## [2] "2012-11-04 00:05:00 CDT" instant paired with correct tz &amp; DST combination</span></span>
+<span class='r-in'><span class='co'>## [3] NA - fake time changed to NA (compare to as.POSIXct(tricky))</span></span>
+<span class='r-in'><span class='co'>## [4] "2012-11-04 01:59:59 CDT" -real instant, left as is</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fit_to_timeline</span><span class='op'>(</span><span class='va'>tricky</span>, simple <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'>## Returns valid time-dates by extrapolating CDT and CST zones:</span></span>
+<span class='r-in'><span class='co'>## [1] "2012-11-04 01:00:05 CST" "2012-11-04 01:05:00 CDT"</span></span>
+<span class='r-in'><span class='co'>## [3] "2010-03-14 03:05:00 CDT" "2012-11-04 01:59:59 CDT"</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

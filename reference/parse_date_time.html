@@ -224,7 +224,7 @@ vector of NAs.  This mirrors the behavior of base R functions
     <tr>
       <th>locale</th>
       <td><p>locale to be used, see <a href='https://rdrr.io/r/base/locales.html'>locales</a>. On Linux systems you
-can use <code><a href='https://rdrr.io/r/base/system.html'>system("locale -a")</a></code> to list all the installed locales.</p></td>
+can use <code>system("locale -a")</code> to list all the installed locales.</p></td>
     </tr>
     <tr>
       <th>select_formats</th>
@@ -406,73 +406,90 @@ get NA for invalid date-times use <code><a href='fit_to_timeline.html'>fit_to_ti
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/strptime.html'>base::strptime()</a></code>, <code><a href='ymd.html'>ymd()</a></code>, <code><a href='ymd_hms.html'>ymd_hms()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## ** orders are much easier to write **</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09-01-01"</span>, <span class='st'>"09-01-02"</span>, <span class='st'>"09-01-03"</span><span class='op'>)</span>
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"ymd"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"y m d"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"%y%m%d"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</div><div class='input'><span class='co'>#  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
-
-<span class='co'>## ** heterogeneous date-times **</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09-01-01"</span>, <span class='st'>"090102"</span>, <span class='st'>"09-01 03"</span>, <span class='st'>"09-01-03 12:02"</span><span class='op'>)</span>
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ymd"</span>, <span class='st'>"ymd HM"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-01-01 00:00:00 UTC" "2009-01-02 00:00:00 UTC"
-#&gt; [3] "2009-01-03 00:00:00 UTC" "2009-01-03 12:02:00 UTC"</div><div class='input'>
-<span class='co'>## ** different ymd orders **</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2009-01-01"</span>, <span class='st'>"02022010"</span>, <span class='st'>"02-02-2010"</span><span class='op'>)</span>
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dmY"</span>, <span class='st'>"ymd"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</div><div class='input'><span class='co'>##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</span>
-
-<span class='co'>## ** truncated time-dates **</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2011-12-31 12:59:59"</span>, <span class='st'>"2010-01-01 12:11"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span><span class='op'>)</span>
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"Ymd HMS"</span>, truncated <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"
-#&gt; [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"</div><div class='input'>
-<span class='co'>## ** specifying exact formats and avoiding training and guessing **</span>
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"%m-%d-%y"</span>, <span class='st'>"%m%d%y"</span>, <span class='st'>"%m-%d-%y %H:%M"</span><span class='op'>)</span>, exact <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning:  4 failed to parse.</span></div><div class='output co'>#&gt; [1] NA NA NA NA</div><div class='input'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'12/17/1996 04:00:00'</span>,<span class='st'>'4/18/1950 0130'</span><span class='op'>)</span>,
-                <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'%m/%d/%Y %I:%M:%S'</span>,<span class='st'>'%m/%d/%Y %H%M'</span><span class='op'>)</span>, exact <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"</div><div class='input'>
-<span class='co'>## ** quarters and partial dates **</span>
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2016.2"</span>, <span class='st'>"2016-04"</span><span class='op'>)</span>, orders <span class='op'>=</span> <span class='st'>"Yq"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2016-04-01 UTC" "2016-10-01 UTC"</div><div class='input'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2016"</span>, <span class='st'>"2016-04"</span><span class='op'>)</span>, orders <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Y"</span>, <span class='st'>"Ym"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2016-01-01 UTC" "2016-04-01 UTC"</div><div class='input'>
-<span class='co'>## ** fast parsing **</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>digits.secs <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-  <span class='co'>## random times between 1400 and 3000</span>
-  <span class='va'>tt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/base-internal.html'>.POSIXct</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='op'>-</span><span class='fl'>17987443200</span>, <span class='fl'>32503680000</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='va'>tt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep.int</a></span><span class='op'>(</span><span class='va'>tt</span>, <span class='fl'>1000</span><span class='op'>)</span>
-
-  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='va'>tt</span>, tz <span class='op'>=</span> <span class='st'>"UTC"</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>out1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='va'>tt</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># constant overhead on long vectors</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>out2</span> <span class='op'>&lt;-</span> <span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='va'>tt</span>, <span class='st'>"YmdHMOS"</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>out3</span> <span class='op'>&lt;-</span> <span class='fu'>fast_strptime</span><span class='op'>(</span><span class='va'>tt</span>, <span class='st'>"%Y-%m-%d %H:%M:%OS"</span><span class='op'>)</span><span class='op'>)</span>
-
-  <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>out</span>, <span class='va'>out1</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>out</span>, <span class='va'>out2</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>out</span>, <span class='va'>out3</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='co'>## ** how to use `select_formats` argument **</span>
-<span class='co'>## By default %Y has precedence:</span>
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span><span class='op'>)</span>, <span class='st'>"dmy"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
-<span class='co'>## to give priority to %y format, define your own select_format function:</span>
-
-<span class='va'>my_select</span> <span class='op'>&lt;-</span>   <span class='kw'>function</span><span class='op'>(</span><span class='va'>trained</span>, <span class='va'>drop</span><span class='op'>=</span><span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span><span class='op'>{</span>
-   <span class='va'>n_fmts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/nchar.html'>nchar</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"[^%]"</span>, <span class='st'>""</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>trained</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"%y"</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>trained</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>1.5</span>
-   <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>trained</span><span class='op'>[</span> <span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span><span class='op'>(</span><span class='va'>n_fmts</span><span class='op'>)</span> <span class='op'>]</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span><span class='op'>)</span>, <span class='st'>"dmy"</span>, select_formats <span class='op'>=</span> <span class='va'>my_select</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2013-09-27 UTC" "2013-09-27 UTC"</div><div class='input'>
-<span class='co'>## ** invalid times with "fast" parsing **</span>
-<span class='fu'>parse_date_time</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning:  1 failed to parse.</span></div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2010-03-14 03:05:06 EDT"</div><div class='input'><span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span>, lt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2010-03-14 02:05:06 America/New_York"</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** orders are much easier to write **</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09-01-01"</span>, <span class='st'>"09-01-02"</span>, <span class='st'>"09-01-03"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"ymd"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"y m d"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"%y%m%d"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
+<span class='r-in'><span class='co'>#  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** heterogeneous date-times **</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"09-01-01"</span>, <span class='st'>"090102"</span>, <span class='st'>"09-01 03"</span>, <span class='st'>"09-01-03 12:02"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ymd"</span>, <span class='st'>"ymd HM"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-01-01 00:00:00 UTC" "2009-01-02 00:00:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "2009-01-03 00:00:00 UTC" "2009-01-03 12:02:00 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** different ymd orders **</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2009-01-01"</span>, <span class='st'>"02022010"</span>, <span class='st'>"02-02-2010"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dmY"</span>, <span class='st'>"ymd"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</span>
+<span class='r-in'><span class='co'>##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** truncated time-dates **</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2011-12-31 12:59:59"</span>, <span class='st'>"2010-01-01 12:11"</span>, <span class='st'>"2010-01-01 12"</span>, <span class='st'>"2010-01-01"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"Ymd HMS"</span>, truncated <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** specifying exact formats and avoiding training and guessing **</span></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"%m-%d-%y"</span>, <span class='st'>"%m%d%y"</span>, <span class='st'>"%m-%d-%y %H:%M"</span><span class='op'>)</span>, exact <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span> 4 failed to parse.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA NA NA NA</span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'12/17/1996 04:00:00'</span>,<span class='st'>'4/18/1950 0130'</span><span class='op'>)</span>,</span>
+<span class='r-in'>                <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'%m/%d/%Y %I:%M:%S'</span>,<span class='st'>'%m/%d/%Y %H%M'</span><span class='op'>)</span>, exact <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** quarters and partial dates **</span></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2016.2"</span>, <span class='st'>"2016-04"</span><span class='op'>)</span>, orders <span class='op'>=</span> <span class='st'>"Yq"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2016-04-01 UTC" "2016-10-01 UTC"</span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2016"</span>, <span class='st'>"2016-04"</span><span class='op'>)</span>, orders <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Y"</span>, <span class='st'>"Ym"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2016-01-01 UTC" "2016-04-01 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** fast parsing **</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>digits.secs <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='co'>## random times between 1400 and 3000</span></span>
+<span class='r-in'>  <span class='va'>tt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/base-internal.html'>.POSIXct</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1000</span>, <span class='op'>-</span><span class='fl'>17987443200</span>, <span class='fl'>32503680000</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>tt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep.int</a></span><span class='op'>(</span><span class='va'>tt</span>, <span class='fl'>1000</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='va'>tt</span>, tz <span class='op'>=</span> <span class='st'>"UTC"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>out1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ymd_hms.html'>ymd_hms</a></span><span class='op'>(</span><span class='va'>tt</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># constant overhead on long vectors</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>out2</span> <span class='op'>&lt;-</span> <span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='va'>tt</span>, <span class='st'>"YmdHMOS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>out3</span> <span class='op'>&lt;-</span> <span class='fu'>fast_strptime</span><span class='op'>(</span><span class='va'>tt</span>, <span class='st'>"%Y-%m-%d %H:%M:%OS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>out</span>, <span class='va'>out1</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>out</span>, <span class='va'>out2</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>out</span>, <span class='va'>out3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** how to use `select_formats` argument **</span></span>
+<span class='r-in'><span class='co'>## By default %Y has precedence:</span></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span><span class='op'>)</span>, <span class='st'>"dmy"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2013-09-27 UTC" "2013-09-27 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## to give priority to %y format, define your own select_format function:</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>my_select</span> <span class='op'>&lt;-</span>   <span class='kw'>function</span><span class='op'>(</span><span class='va'>trained</span>, <span class='va'>drop</span><span class='op'>=</span><span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span><span class='op'>{</span></span>
+<span class='r-in'>   <span class='va'>n_fmts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/nchar.html'>nchar</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"[^%]"</span>, <span class='st'>""</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>trained</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"%y"</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>trained</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>1.5</span></span>
+<span class='r-in'>   <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>trained</span><span class='op'>[</span> <span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span><span class='op'>(</span><span class='va'>n_fmts</span><span class='op'>)</span> <span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"27-09-13"</span>, <span class='st'>"27-09-2013"</span><span class='op'>)</span>, <span class='st'>"dmy"</span>, select_formats <span class='op'>=</span> <span class='va'>my_select</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2013-09-27 UTC" "2013-09-27 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## ** invalid times with "fast" parsing **</span></span>
+<span class='r-in'><span class='fu'>parse_date_time</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span> 1 failed to parse.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA</span>
+<span class='r-in'><span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2010-03-14 03:05:06 EDT"</span>
+<span class='r-in'><span class='fu'>parse_date_time2</span><span class='op'>(</span><span class='st'>"2010-03-14 02:05:06"</span>,  <span class='st'>"YmdHMS"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span>, lt <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2010-03-14 02:05:06 America/New_York"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
