@@ -32,6 +32,8 @@
 ##' @param locale locale in which `x` is encoded. On Linux-like systems use
 ##' `locale -a` in the terminal to list available locales.
 ##' @param quiet whether to output informative messages.
+##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted as an
+##'   exact [base::strptime()] format and no format guessing is performed.
 ##' @return a function to be applied on a vector of dates
 ##' @seealso [guess_formats()], [parse_date_time()], [strptime()]
 ##' @export
@@ -50,12 +52,17 @@
 ##' stamp("2013-01-01T00:00:00-08:00")(force_tz(D, "America/Chicago"))
 stamp <- function(x, orders = lubridate_formats,
                   locale = Sys.getlocale("LC_TIME"),
-                  quiet = FALSE) {
+                  quiet = FALSE, exact = FALSE) {
 
-  fmts <- unique(guess_formats(x, orders, locale))
-  ## remove internal lubridate formats except of the ISO8601 time zone formats
-  fmts <- grep("%O[^oOzudHImMUVwWy]", fmts, value = TRUE, invert = TRUE)
-  if (is.null(fmts)) stop("Couldn't guess formats of: ", x)
+  if (exact) {
+    stopifnot(length(orders) > 0)
+    fmts <- orders
+  } else {
+    fmts <- unique(guess_formats(x, orders, locale))
+    ## remove internal lubridate formats except of the ISO8601 time zone formats
+    fmts <- grep("%O[^oOzudHImMUVwWy]", fmts, value = TRUE, invert = TRUE)
+    if (is.null(fmts)) stop("Couldn't guess formats of: ", x)
+  }
   if (length(fmts) == 1L) {
     FMT <- fmts[[1]]
   } else {
@@ -106,7 +113,7 @@ stamp <- function(x, orders = lubridate_formats,
       FMT <- sub("%O[oOz]", "%z",
                  sub("%Ou", "Z", FMT, fixed = TRUE))
 
-      eval(bquote(
+      out <- eval(bquote(
         function(x, locale = .(locale)) {
           ## %z ignores timezone
           if (!is_utc(tz(x[[1L]])))
@@ -118,21 +125,24 @@ stamp <- function(x, orders = lubridate_formats,
     } else {
       FMT <- sub("%O[oOz]$", "", FMT)
 
-      eval(bquote(
+      out <- eval(bquote(
         function(x, locale = .(locale)) {
           .(reset_local_expr)
           paste0(format(x, format = .(FMT)),
-                 .format_offset(x, fmt = .(oOz_end)))
+            .format_offset(x, fmt = .(oOz_end)))
         }))
     }
 
   } else {
     ## most common case
-    eval(bquote(function(x, locale = .(locale)) {
+    out <- eval(bquote(function(x, locale = .(locale)) {
       .(reset_local_expr)
       format(x, format = .(FMT))
     }))
   }
+
+  attr(out, "srcref") <- NULL
+  out
 }
 
 

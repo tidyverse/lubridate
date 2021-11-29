@@ -46,6 +46,14 @@ test_that("stamp selects the correct format", {
 
 })
 
+test_that("stamp explicit formats works as expected",  {
+  f <- stamp("January 2020", orders = "BY", quiet = TRUE)
+  expect_equal(f(dmy("01122020")), "December 2020")
+
+  f <- stamp(c("January 2020", "Jan 2020"), orders = "%B %Y", quiet = TRUE, exact = TRUE)
+  expect_equal(f(dmy(c("01122020", "22 Feb 2023"))), c("December 2020", "February 2023"))
+})
+
 test_that(".format_offset works as expected", {
 
   df_winter <- data.frame(

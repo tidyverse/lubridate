@@ -10,7 +10,8 @@ stamp(
   x,
   orders = lubridate_formats,
   locale = Sys.getlocale("LC_TIME"),
-  quiet = FALSE
+  quiet = FALSE,
+  exact = FALSE
 )
 
 stamp_date(x, locale = Sys.getlocale("LC_TIME"), quiet = FALSE)
@@ -28,6 +29,9 @@ used for disambiguation. For example "ymd hms", "aym" etc. See
 \code{locale -a} in the terminal to list available locales.}
 
 \item{quiet}{whether to output informative messages.}
+
+\item{exact}{logical. If \code{TRUE}, the \code{orders} parameter is interpreted as an
+exact \code{\link[base:strptime]{base::strptime()}} format and no format guessing is performed.}
 }
 \value{
 a function to be applied on a vector of dates

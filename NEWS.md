@@ -3,6 +3,7 @@ Version 1.8.0.9000
 
 ### NEW FEATURES
 
+* `stamp` gained new argument `exact=FALSE` to indicate whether `orders` argument is an exact strptime formats string or not.
 * [#1001](https://github.com/tidyverse/lubridate/issues/1001) Add `%within` method with signature (Interval, list), which was documented but not implemented.
 
 ### BUG FIXES
