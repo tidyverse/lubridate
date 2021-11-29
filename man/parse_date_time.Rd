@@ -75,7 +75,7 @@ selected and \verb{\%Y} counts as 2.5 tokens (so that it has a priority over
 
 \item{exact}{logical. If \code{TRUE}, the \code{orders} parameter is interpreted as an
 exact \code{\link[base:strptime]{base::strptime()}} format and no training or guessing are performed
-(i.e. \code{train}, \code{drop} parameters are irrelevant).}
+(i.e. \code{train}, \code{drop} parameters are ignored).}
 
 \item{train}{logical, default \code{TRUE}. Whether to train formats on a subset
 of the input vector. The result of this is that supplied orders are sorted

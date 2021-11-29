@@ -498,7 +498,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'   `%y%m`). See examples.
 ##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted as an
 ##'   exact [base::strptime()] format and no training or guessing are performed
-##'   (i.e. `train`, `drop` parameters are irrelevant).
+##'   (i.e. `train`, `drop` parameters are ignored).
 ##' @param train logical, default `TRUE`. Whether to train formats on a subset
 ##'   of the input vector. The result of this is that supplied orders are sorted
 ##'   according to performance on this training set, which commonly results in
@@ -620,8 +620,8 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
       if (exact) {
         orders
       } else {
-        train <- .get_train_set(x)
-        .best_formats(train, orders, locale = locale, select_formats, drop = drop)
+        trainset <- .get_train_set(x)
+        .best_formats(trainset, orders, locale = locale, select_formats, drop = drop, train = train)
       }
     if (length(formats) > 0) {
       out <- .parse_date_time(x, formats, tz = tz, quiet = quiet, locale = locale)
