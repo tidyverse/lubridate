@@ -235,7 +235,7 @@ test_that("cutoff_2000 works as expected", {
 })
 
 test_that("parse_date_time2 parses multiple formats", {
-  skip("Fixm ymd_hms OSz parsing")
+  skip("FIXME: ymd_hms OSz parsing")
   x <- c("2007-08-01 00:01:02", "2007-08-01 00:01:02+0100", "2007-08-01 00:01:02",
          "2007-08-01 00:01:02.55", "2007-08-01", "2007-08-01 00:01:02.55+0200")
   y1 <- ymd_hms(x, truncated = 3)
@@ -248,7 +248,7 @@ test_that("parse_date_time2 parses multiple formats", {
 })
 
 test_that("fast_strptime parses multiple formats", {
-  skip("Fixm ymd_hms OSz parsing")
+  skip("FIXME: ymd_hms OSz parsing")
   x <- c("2007-08-01 00:01:02", "2007-08-01 00:01:02+0100", "2007-08-01 00:01:02",
          "2007-08-01 00:01:02.55", "2007-08-01", "2007-08-01 00:01:02.55+0200")
   fmts <- c("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M:%S%z", "%Y-%m-%d",

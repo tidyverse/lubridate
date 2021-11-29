@@ -49,9 +49,12 @@
 ##' stamp("2013-01-01T00:00:00-06")(D)
 ##' stamp("2013-01-01T00:00:00-08:00")(force_tz(D, "America/Chicago"))
 stamp <- function(x, orders = lubridate_formats,
-                  locale = Sys.getlocale("LC_TIME"), quiet = FALSE) {
+                  locale = Sys.getlocale("LC_TIME"),
+                  quiet = FALSE) {
 
   fmts <- unique(guess_formats(x, orders, locale))
+  ## remove internal lubridate formats except of the ISO8601 time zone formats
+  fmts <- grep("%O[^oOzudHImMUVwWy]", fmts, value = TRUE, invert = TRUE)
   if (is.null(fmts)) stop("Couldn't guess formats of: ", x)
   if (length(fmts) == 1L) {
     FMT <- fmts[[1]]

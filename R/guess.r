@@ -82,18 +82,18 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   }
 
   ## redirect some formats to C parser (using perl's lookbehind)
-  if (length(wp <- grepl("(?<!O)p", orders, perl = T)))
+  if (any(wp <- grepl("(?<!O)p", orders, perl = T)))
     orders <- c(sub("p", "Op", orders[wp], fixed = T), orders)
-  if (length(wm <- grepl("(?<!O)m", orders, perl = T)))
+  if (any(wm <- grepl("(?<!O)m", orders, perl = T)))
     orders <- c(sub("m", "Om", orders[wm]), orders)
-  if (length(wm <- grepl("(?<!O)[bB]", orders, perl = T)))
+  if (any(wm <- grepl("(?<!O)[bB]", orders, perl = T)))
     orders <- c(sub("[Bb]", "Ob", orders[wm]), orders)
-  if (length(wT <- grepl("T", orders, fixed = T)))
+  if (any(wT <- grepl("T", orders, fixed = T)))
     orders <- c(sub("T", "HMSOp", orders[wT], fixed = T), orders)
-  if (length(wR <- grepl("R", orders, fixed = T)))
+  if (any(wR <- grepl("R", orders, fixed = T)))
     orders <- c(sub("R", "HMOp", orders[wR], fixed = T), orders)
-  if (length(wr <- grepl("r", orders, fixed = T)))
-    orders <- c(sub("r", "HOp", orders[wR], fixed = T), orders)
+  if (any(wr <- grepl("r", orders, fixed = T)))
+    orders <- c(sub("r", "HOp", orders[wr], fixed = T), orders)
 
   ## We split into characterst first and then paste together formats that start
   ## with O. If perl style lookahead would have worked we wouldn't need this,
@@ -238,18 +238,20 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   sort(successes, decreasing = TRUE)
 }
 
-.best_formats <- function(x, orders, locale, .select_formats = .select_formats, drop = FALSE) {
+.best_formats <- function(x, orders, locale, .select_formats = .select_formats, drop = FALSE, train = TRUE) {
   ## return a vector of formats that matched X at least once.
   ## Can be zero length vector, if none matched
 
   fmts <- unique(guess_formats(x, orders, locale = locale, preproc_wday = TRUE)) # orders as names
-  if (length(fmts)) {
+  if (train && length(fmts)) {
     trained <- .train_formats(x, fmts, locale = locale)
 
     if (drop)
       trained <- trained[ trained > 0 ]
-    .select_formats(trained, drop)
+    fmts <- .select_formats(trained, drop)
   }
+  if (length(fmts))
+    fmts
 }
 
 .select_formats <- function(trained, drop = FALSE) {
