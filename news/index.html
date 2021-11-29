@@ -141,6 +141,8 @@
 <a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>
+<code>stamp</code> gained new argument <code>exact=FALSE</code> to indicate whether <code>orders</code> argument is an exact strptime formats string or not.</li>
+<li>
 <a href="https://github.com/tidyverse/lubridate/issues/1001"><a href='https://github.com/tidyverse/lubridate/issues/1001'>#1001</a></a> Add <code>%within</code> method with signature (Interval, list), which was documented but not implemented.</li>
 </ul>
 </div>
@@ -148,6 +150,10 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
 <ul>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/1007"><a href='https://github.com/tidyverse/lubridate/issues/1007'>#1007</a></a> Internal lubridate formats are no longer propagated to stamp formater.</li>
+<li>
+<code>train</code> argument in <code>parse_date_time</code> now takes effect. It was previously ignored.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1004"><a href='https://github.com/tidyverse/lubridate/issues/1004'>#1004</a></a> Fix c.POSIXct and c.Date on empty single POSIXct and Date vectors</li>
 <li>
