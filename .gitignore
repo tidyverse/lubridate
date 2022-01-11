@@ -26,3 +26,5 @@ announcement.*
 *.Rcheck
 *.tar.gz
 .Rprofile
+compile_flags.txt
+compile_commands.json

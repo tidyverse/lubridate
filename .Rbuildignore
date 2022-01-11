@@ -28,3 +28,5 @@
 ^\.github/workflows/pkgdown\.yaml$
 Makefile
 ^CRAN-RELEASE$
+compile_flags.txt
+compile_commands.json
