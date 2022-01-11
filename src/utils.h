@@ -41,6 +41,7 @@ typedef struct {
 #define ALPHA(X) (((X) >= 'a' && (X) <= 'z') || ((X) >= 'A' && (X) <= 'Z'))
 #define DIGIT(X) ((X) >= '0' && (X) <= '9')
 #define SDIGIT(X) (((X) == '-') || ((X) >= '0' && (X) <= '9'))
+#define SPACE(X) ((X) == ' ')
 
 /* skippers */
 #define SKIP_NON_ALPHANUMS(X) while(*X && !(ALPHA(*X) || DIGIT(*X))) {(X)++;}

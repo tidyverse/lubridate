@@ -262,6 +262,13 @@ test_that("fast_strptime parses multiple formats", {
   ## data.frame(x, y1, y2, y3)
 })
 
+test_that("fast_strptime ignores multiple spaces", {
+  # #911
+  expect_equal(
+    fast_strptime("8/1/2012   8:  02:  51.397000 AM", "%m/%d/%Y %I:%M:%OS %p"),
+    fast_strptime("8/1/2012 8:02:51.397000 AM", "%m/%d/%Y %I:%M:%OS %p"))
+})
+
 test_that("0 month and 0 day in date produces NA",{
   expect_equal(ymd(c("2013-1-1", "2013-0-1"), quiet = TRUE), as.Date(c("2013-01-01", NA)))
   expect_equal(ymd(c("2013-1-1", "2013-1-0"), quiet = TRUE), as.Date(c("2013-01-01", NA)))

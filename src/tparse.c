@@ -86,6 +86,12 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
     int y = 0, q = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
     int succeed = 1, O_format = 0, pm = 0, am = 0; // control logical
 
+    // number of white spaces is irrelevant (#911)
+    while (*c && SPACE(*c))
+      c++;
+    while (*o && SPACE(*o))
+      o++;
+
     // read order/format character by character
     while( *o && succeed ) {
 
@@ -117,7 +123,6 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
         } else {
 
           /* Rprintf("c=%c o=%c\n", *c, *o); */
-
           switch( *o ) {
           case 'Y': // year in yyyy format
             y = parse_int(&c, 4, TRUE);
@@ -281,10 +286,16 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
           o++;
         }
       }
+
+      // number of white spaces is irrelevant (#911)
+      while (*c && SPACE(*c))
+        c++;
+      while (*o && SPACE(*o))
+        o++;
     }
 
-    // skip all remaining non digits
-    if( !is_fmt )
+    if (!is_fmt)
+      // skip all remaining non digits
       while (*c && !DIGIT(*c)) c++;
 
     // If at least one subparser hasn't finished it's a failure.
