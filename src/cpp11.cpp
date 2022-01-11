@@ -3,6 +3,7 @@
 
 
 #include "cpp11/declarations.hpp"
+#include <R_ext/Visibility.h>
 
 // update.cpp
 cpp11::writable::strings C_local_tz();
@@ -53,12 +54,6 @@ extern SEXP C_make_d(SEXP, SEXP, SEXP);
 extern SEXP C_parse_dt(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP C_parse_hms(SEXP, SEXP);
 extern SEXP C_parse_period(SEXP);
-extern SEXP _lubridate_C_force_tz(SEXP, SEXP, SEXP);
-extern SEXP _lubridate_C_force_tzs(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _lubridate_C_local_time(SEXP, SEXP);
-extern SEXP _lubridate_C_local_tz();
-extern SEXP _lubridate_C_update_dt(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _lubridate_C_valid_tz(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"C_make_d",                (DL_FUNC) &C_make_d,                 3},
@@ -75,7 +70,7 @@ static const R_CallMethodDef CallEntries[] = {
 };
 }
 
-extern "C" void R_init_lubridate(DllInfo* dll){
+extern "C" attribute_visible void R_init_lubridate(DllInfo* dll){
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   R_forceSymbols(dll, TRUE);
