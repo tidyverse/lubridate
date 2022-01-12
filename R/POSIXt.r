@@ -43,6 +43,8 @@ NA_POSIXct_ <- .POSIXct(NA_real_, tz = "UTC")
 .recursive_posixct_unclass <- function(x, tz = "UTC") {
   if (length(x) == 0)
     .POSIXct(numeric(), tz = tz)
+  else if (is.POSIXlt(x))
+    with_tz(as.POSIXct(x), tz)
   else if (is.recursive(x))
     lapply(x, .recursive_posixct_unclass, tz = tz)
   else

@@ -55,6 +55,18 @@ test_that("c.Date deals correctly with empty vectors", {
   expect_equal(
     c(ymd("2021-01-01"), POSIXct(), ymd("2021-01-02"), NULL),
     ymd(c("2021-01-01", "2021-01-02")))
+
+  d <- ymd("1999-01-01")
+  expect_equal(
+    c(d, as.POSIXct("1999-01-01 01:02:03", tz = "America/New_York")),
+    ymd("1999-01-01", "1999-01-01"))
+  expect_equal(
+    c(d, as.POSIXct("1999-01-01 23:50:03", tz = "America/New_York")),
+    ymd("1999-01-01", "1999-01-01"))
+  expect_equal(
+    c(d, as.POSIXct("1999-01-01 00:01:03", tz = "Europe/Berlin")),
+    ymd("1999-01-01", "1999-01-01"))
+
 })
 
 

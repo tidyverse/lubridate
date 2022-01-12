@@ -26,6 +26,12 @@ test_that("c.POSIXct deals correctly with heterogeneous date-time classes", {
   expect_equal(c(dt, list(d, list(d))), make_datetime(c(2000, 2000, 2000), 1, 1, tz = "Europe/Berlin"))
   dt <- make_datetime(2000, 1, 1, tz = "UTC")
   expect_equal(c(dt, d), make_datetime(c(2000, 2000), 1, 1, tz = "UTC"))
+
+
+  ct <- as.POSIXct("1999-01-01 01:02:03", tz = "America/New_York")
+  lt <- as.POSIXlt("2001-01-30 01:02:03", tz = "Europe/Berlin")
+  expect_equal(c(ct, lt), ymd_hms(c("1999-01-01 01:02:03", "2001-01-29 19:02:03"), tz = "America/New_York"))
+  expect_equal(c(lt, ct), as.POSIXlt(ymd_hms(c("2001-01-30 01:02:03", "1999-01-01 07:02:03"), tz = "Europe/Berlin")))
 })
 
 
