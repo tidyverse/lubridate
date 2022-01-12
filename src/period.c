@@ -45,35 +45,40 @@ static const char *PERIOD_UNITS[] = {"seconds", "minutes", "hours",
                                      "days", "weeks", "months", "years"};
 #define N_PERIOD_UNITS 7
 
-fractionUnit parse_period_unit (const char **c) {
+fractionUnit parse_period_unit(const char **c) {
+  // assumes we are at the beg of a alpha-numeric input
   // units: invalid=-1, S=0,  M=1, H=2, d=3, w=4, m=5, y=6
-  // SKIP_NON_ALPHANUMS(*c);   //  why this macro doesn't work here?
-  while(**c && !(ALPHA(**c) || DIGIT(**c) || **c == '.')) (*c)++;;
+  while(**c && !(ALPHA(**c) || DIGIT(**c) || **c == '.')) (*c)++;
 
   fractionUnit out;
   out.unit = -1;
-  out.val = parse_int(c, 100, FALSE);
-  if (**c == '.') {
-    (*c)++;
-    // allow fractions without leading 0
-    if (out.val == -1)
-      out.val = 0;
-    out.fraction = parse_fractional(c);
-  } else {
-    out.fraction = 0.0;
+  if (**c) {
+    out.val = parse_int(c, 100, FALSE);
+    if (**c == '.') {
+      (*c)++;
+      // allow fractions without leading 0
+      if (out.val == -1)
+        out.val = 0;
+      out.fraction = parse_fractional(c);
+    } else {
+      out.fraction = 0.0;
+    }
   }
 
-  if(**c){
+  if (**c) {
     out.unit = parse_alphanum(c, EN_UNITS, N_EN_UNITS, 0);
     if (out.unit < 0 || out.unit > 16) {
       return out;
     } else {
       // if only unit name supplied, default to 1 units
-      if(out.val == -1)
+      if (out.val == -1)
         out.val = 1;
-      if (out.unit < 3) out.unit = 0;      // seconds
-      else if (out.unit < 6) out.unit = 1; // minutes
-      else if (out.unit < 16) out.unit = (out.unit - 6)/2 + 2;
+      if (out.unit < 3)
+        out.unit = 0; // seconds
+      else if (out.unit < 6)
+        out.unit = 1; // minutes
+      else if (out.unit < 16)
+        out.unit = (out.unit - 6) / 2 + 2;
       return out;
     }
   } else {
@@ -107,7 +112,20 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
       ret[0] = NA_REAL;
       break;
     }
+
+    while (**c && !(ALPHA(**c) || DIGIT(**c) || **c == '.')) {
+      /* Rprintf("c=%c\n", **c); */
+      if (**c == '(') {
+        // skip till closing ')' to allow for as.duration round-trip #1005
+        while (**c && **c != ')')
+          (*c)++;
+        (*c)++;
+      } else {
+        (*c)++;
+      }
+    }
   }
+
   if (!parsed1) {
     ret[0] = NA_REAL;
   }

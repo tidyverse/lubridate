@@ -131,6 +131,12 @@ test_that("as.duration handles periods", {
   expect_equal(as.duration(seconds(1) + minutes(4)), dseconds(1) + dminutes(4))
 })
 
+test_that("parsing duration's allows for a full roundtrip", {
+  expect_equal(as.duration(lubridate:::parse_period("31557600s (~1 years)")), dseconds(31557600))
+  durs <- duration(c("1m 2s, 3days", "2.5min 1day"))
+  expect_equal(durs, as.duration(as.character(durs)))
+})
+
 test_that("as.duration handles intervals", {
         time1 <- as.POSIXct("2009-01-02 12:24:03", tz = "UTC")
         time2 <- as.POSIXct("2010-02-03 14:31:42", tz = "UTC")
