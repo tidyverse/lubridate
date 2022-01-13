@@ -265,8 +265,11 @@ test_that("fast_strptime parses multiple formats", {
 test_that("fast_strptime ignores multiple spaces", {
   # #911
   expect_equal(
-    fast_strptime("8/1/2012   8:  02:  51.397000 AM", "%m/%d/%Y %I:%M:%OS %p"),
+    fast_strptime("8/1/2012    8:02:51.397000   AM", "%m/%d/%Y %I:%M:%OS %p"),
     fast_strptime("8/1/2012 8:02:51.397000 AM", "%m/%d/%Y %I:%M:%OS %p"))
+  expect_equal(
+    fast_strptime("8/1/2012 8:02:51.397000 AM", "%m/%d/%Y %I:%M:%OS %p"),
+    fast_strptime("8/1/2012 8:02:51.397000 AM", "%m/%d/%Y   %I:%M:%OS  %p"))
 })
 
 test_that("0 month and 0 day in date produces NA",{

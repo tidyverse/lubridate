@@ -86,11 +86,8 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
     int y = 0, q = 0, m = 0, d = 0, H = 0, M = 0 , S = 0;
     int succeed = 1, O_format = 0, pm = 0, am = 0; // control logical
 
-    // number of white spaces is irrelevant (#911)
-    while (*c && SPACE(*c))
-      c++;
-    while (*o && SPACE(*o))
-      o++;
+    while (*c && SPACE(*c)) c++;
+    while (*o && SPACE(*o)) o++;
 
     // read order/format character by character
     while( *o && succeed ) {
@@ -288,10 +285,12 @@ SEXP C_parse_dt(SEXP str, SEXP ord, SEXP formats, SEXP lt, SEXP cutoff_2000) {
       }
 
       // number of white spaces is irrelevant (#911)
-      while (*c && SPACE(*c))
-        c++;
-      while (*o && SPACE(*o))
-        o++;
+      if (SPACE(*o)) {
+        while (SPACE(*c))
+          c++;
+        while (SPACE(*o))
+          o++;
+      }
     }
 
     if (!is_fmt)
