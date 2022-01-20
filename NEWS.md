@@ -3,6 +3,7 @@ Version 1.8.0.9000
 
 ### NEW FEATURES
 
+* Date rounding functions accept a date-time `unit` argument for rounding to a vector of date-times.
 * [#1005](https://github.com/tidyverse/lubridate/issues/1005) `as.duration` now allows for full roundtrip `duration -> as.character -> as.duration`
 * [#911](https://github.com/tidyverse/lubridate/issues/911) C parsers treat multiple spaces as one (just like strptime does)
 * `stamp` gained new argument `exact=FALSE` to indicate whether `orders` argument is an exact strptime formats string or not.
