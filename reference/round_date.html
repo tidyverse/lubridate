@@ -120,23 +120,34 @@ boundary of the specified time unit.</p>
     <dl><dt>x</dt>
 <dd><p>a vector of date-time objects</p></dd>
 <dt>unit</dt>
-<dd><p>a character string specifying a time unit or a multiple of a unit
-to be rounded to. Valid base units are <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>,
-<code>week</code>, <code>month</code>, <code>bimonth</code>, <code>quarter</code>, <code>season</code>, <code>halfyear</code> and
-<code>year</code>. Arbitrary unique English abbreviations as in the <code><a href="period.html">period()</a></code>
-constructor are allowed. Rounding to multiples of units (except weeks) is
-supported.</p></dd>
+<dd><p>a string or a date-time object. When a singleton string, it
+specifies a time unit or a multiple of a unit to be rounded to. Valid base
+units are <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>week</code>, <code>month</code>, <code>bimonth</code>,
+<code>quarter</code>, <code>season</code>, <code>halfyear</code> and <code>year</code>. Arbitrary unique English
+abbreviations as in the <code><a href="period.html">period()</a></code> constructor are allowed. Rounding to
+multiples of units (except weeks) is supported.</p>
+<p>When <code>unit</code> is a date-time object rounding is done to the nearest of the
+elements in <code>unit</code>. If range of <code>unit</code> vector does not cover the range of
+<code>x</code> <code>ceiling_date()</code> and <code>floor_date()</code> round to the <code>max(x)</code> and <code>min(x)</code>
+for elements that fall outside of <code>range(unit)</code>.</p></dd>
 <dt>week_start</dt>
 <dd><p>when unit is <code>week</code>, specify the reference day.
 7 represents Sunday and 1 represents Monday.</p></dd>
 <dt>change_on_boundary</dt>
-<dd><p>if this is <code>NULL</code> (the default), instants on the boundary
-remain unchanged, but <code>Date</code> objects are rounded up to the next boundary.
-If this is <code>TRUE</code>, instants on the boundary are rounded up to the next boundary.
-If this is <code>FALSE</code>, nothing on the boundary is rounded up at all. This was the
-default for <span class="pkg">lubridate</span> prior to <code>v1.6.0</code>.
-See section <code>Rounding Up Date Objects</code> below for more details.</p></dd>
+<dd><p>if this is <code>NULL</code> (the default), instants on the
+boundary remain unchanged, but <code>Date</code> objects are rounded up to the next
+boundary. If this is <code>TRUE</code>, instants on the boundary are rounded up to the
+next boundary. If this is <code>FALSE</code>, nothing on the boundary is rounded up at
+all. This was the default for <span class="pkg">lubridate</span> prior to <code>v1.6.0</code>. See
+section <code>Rounding Up Date Objects</code> below for more details.</p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>When <code>unit</code> is a string, return a Date object if <code>x</code> is a Date and
+<code>unit</code> is larger or equal than "day", otherwise a POSIXct object. When
+<code>unit</code> is a date-time object, return a date-time object of the same class
+and same time zone as <code>unit</code>.</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>In <span class="pkg">lubridate</span>, functions that round date-time objects try to
