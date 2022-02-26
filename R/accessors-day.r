@@ -70,28 +70,57 @@ wday.default <- function(x, label = FALSE, abbr = TRUE,
   }
 }
 
-#' @export
+## Option 1:
+if (FALSE) {
 wday.numeric <- function(x, label = FALSE, abbr = TRUE,
                          week_start = getOption("lubridate.week.start", 7),
                          locale = Sys.getlocale("LC_TIME"),
                          week_start_x = 7, ...) {
-  to <- as.integer(week_start)
-  if (to > 7L || to < 1L) {
-    stop("'week_start' must be a number from 1 to 7")
-  }
   from <- as.integer(week_start_x)
   if (from > 7L || from < 1L) {
     stop("'week_start_x' must be a number from 1 to 7")
   }
-  if (to != from) {
+  to <- as.integer(week_start)
+  if (to > 7L || to < 1L) {
+    stop("'week_start' must be a number from 1 to 7")
+  }
+  if (from != to) {
     x <- 1L + (x - (to - from + 1L)) %% 7L
   }
   if (!label) {
     return(x)
   }
   names <- .get_locale_regs(locale)$wday_names
-  labels <- if (abbr) names$abr else names$full
-  ordered(x, levels = 1:7, labels = .shift_wday_names(labels, week_start = to))
+  names <- if (abbr) names$abr else names$full
+  labels <- .shift_wday_names(names, week_start = to)
+  ordered(x, levels = 1:7, labels = labels)
+}
+}
+
+## Option 2
+#' @export
+wday.numeric <- function(x, label = FALSE, abbr = TRUE,
+                         week_start = getOption("lubridate.week.start", 7),
+                         locale = Sys.getlocale("LC_TIME"),
+                         from_sunday = 1, to_sunday = 8 - week_start, ...) {
+  from <- as.integer(from_sunday)
+  if (from > 7L || from < 1L) {
+    stop("'from_sunday' must be a number from 1 to 7")
+  }
+  to <- as.integer(to_sunday)
+  if (to > 7L || to < 1L) {
+    stop("'to_sunday' must be a number from 1 to 7")
+  }
+  if (to != from) {
+    x <- 1L + (x + (to - from - 1L)) %% 7L
+  }
+  if (!label) {
+    return(x)
+  }
+  names <- .get_locale_regs(locale)$wday_names
+  names <- if (abbr) names$abr else names$full
+  labels <- .shift_wday_names(names, week_start = 8L - to)
+  ordered(x, levels = 1:7, labels = labels)
 }
 
 #' @export
