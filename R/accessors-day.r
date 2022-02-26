@@ -84,16 +84,14 @@ wday.numeric <- function(x, label = FALSE, abbr = TRUE,
   if (to > 7L || to < 1L) {
     stop("'week_start' must be a number from 1 to 7")
   }
-  if (from != to) {
-    x <- 1L + (x - (to - from + 1L)) %% 7L
-  }
+  x <- 1L + (x - (to - from + 1L)) %% 7L
   if (!label) {
     return(x)
   }
   names <- .get_locale_regs(locale)$wday_names
   names <- if (abbr) names$abr else names$full
   labels <- .shift_wday_names(names, week_start = to)
-  ordered(x, levels = 1:7, labels = labels)
+  gl(7L, 1L, labels = labels, ordered = TRUE)[x]
 }
 }
 
@@ -111,16 +109,14 @@ wday.numeric <- function(x, label = FALSE, abbr = TRUE,
   if (to > 7L || to < 1L) {
     stop("'to_sunday' must be a number from 1 to 7")
   }
-  if (to != from) {
-    x <- 1L + (x + (to - from - 1L)) %% 7L
-  }
+  x <- 1L + (x + (to - from - 1L)) %% 7L
   if (!label) {
     return(x)
   }
   names <- .get_locale_regs(locale)$wday_names
   names <- if (abbr) names$abr else names$full
   labels <- .shift_wday_names(names, week_start = 8L - to)
-  ordered(x, levels = 1:7, labels = labels)
+  gl(7L, 1L, labels = labels, ordered = TRUE)[x]
 }
 
 #' @export
