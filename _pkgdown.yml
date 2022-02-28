@@ -2,13 +2,16 @@ url: https://lubridate.tidyverse.org
 
 template:
   package: tidytemplate
+  bootstrap: 5
+
+  includes:
+    in_header: |
+      <script defer data-domain="lubridate.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
 development:
   mode: auto
 
 home:
-  strip_header: true
-
   links:
   - text: Learn more
     href: https://r4ds.had.co.nz/dates-and-times.html
@@ -115,18 +118,3 @@ reference:
 - title: Data
   contents:
   - lakers
-
-
-navbar:
-  title: ~
-  type: default
-  left:
-  - text: Reference
-    href: reference/index.html
-  - text: Intro
-    href: articles/lubridate.html
-  - text: News
-    href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/tidyverse/lubridate
