@@ -2,7 +2,7 @@ Type: Package
 Package: lubridate
 Title: Make Dealing with Dates a Little Easier
 Version: 1.8.0
-Authors@R:c(
+Authors@R: c(
     person("Vitalie", "Spinu", , "spinuvit@gmail.com", role = c("aut", "cre")),
     person("Garrett", "Grolemund", role = "aut"),
     person("Hadley", "Wickham", role = "aut"),
@@ -49,6 +49,7 @@ LinkingTo:
     cpp11 (>= 0.2.7)
 VignetteBuilder:
     knitr
+Config/Needs/website: tidyverse/tidytemplate
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
