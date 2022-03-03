@@ -39,19 +39,19 @@ described. See
 \code{\link[=as.duration]{as.duration()}}, \code{\link[=as.period]{as.period()}}.
 }
 \examples{
-diff <- make_difftime(days = 31) #difftime
+diff <- make_difftime(days = 31) # difftime
 as.interval(diff, ymd("2009-01-01"))
 as.interval(diff, ymd("2009-02-01"))
 
-dur <- duration(days = 31) #duration
+dur <- duration(days = 31) # duration
 as.interval(dur, ymd("2009-01-01"))
 as.interval(dur, ymd("2009-02-01"))
 
-per <- period(months = 1) #period
+per <- period(months = 1) # period
 as.interval(per, ymd("2009-01-01"))
 as.interval(per, ymd("2009-02-01"))
 
-as.interval(3600, ymd("2009-01-01")) #numeric
+as.interval(3600, ymd("2009-01-01")) # numeric
 }
 \seealso{
 \code{\link[=interval]{interval()}}

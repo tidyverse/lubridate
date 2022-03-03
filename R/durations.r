@@ -2,10 +2,11 @@
 #' @include difftimes.r
 
 check_duration <- function(object) {
-  if (is.numeric(object@.Data))
+  if (is.numeric(object@.Data)) {
     TRUE
-  else
+  } else {
     "Duration value is not a number. Should be numeric."
+  }
 }
 
 
@@ -63,31 +64,36 @@ SECONDS_IN_ONE <- c(
   hour   = 3600,
   day    = 86400,
   week   = 604800,
-  year   = 31557600)
+  year   = 31557600
+)
 
 .readable_duration <- function(x, unit) {
-  if (unit == "second")
+  if (unit == "second") {
     paste0(x, "s")
-  else {
+  } else {
     x2 <- round(x / SECONDS_IN_ONE[[unit]], 2)
     sprintf("%ss (~%s %ss)", x, x2, unit)
   }
 }
 
 .next_unit <- structure(as.list(c(names(SECONDS_IN_ONE[-1]), list(NULL))),
-                        names = names(SECONDS_IN_ONE))
+  names = names(SECONDS_IN_ONE)
+)
 
 compute_estimate <- function(secs, unit = "second") {
   next_unit <- .next_unit[[unit]]
-  if (is.null(next_unit))
+  if (is.null(next_unit)) {
     return(.readable_duration(secs, "year"))
+  }
   out <- character(length(secs))
   tt <- abs(secs) < SECONDS_IN_ONE[[next_unit]]
-  if (any(tt))
+  if (any(tt)) {
     out[tt] <- .readable_duration(secs[tt], unit)
+  }
   wnext <- which(!tt)
-  if (length(wnext))
+  if (length(wnext)) {
     out[wnext] <- compute_estimate(secs[wnext], next_unit)
+  }
   out
 }
 
@@ -121,30 +127,38 @@ setMethod("rep", signature(x = "Duration"), function(x, ...) {
 })
 
 #' @export
-setMethod("[", signature(x = "Duration"),
+setMethod(
+  "[", signature(x = "Duration"),
   function(x, i, j, ..., drop = TRUE) {
     new("Duration", x@.Data[i])
-})
+  }
+)
 
 #' @export
-setMethod("[[", signature(x = "Duration"),
+setMethod(
+  "[[", signature(x = "Duration"),
   function(x, i, j, ..., exact = TRUE) {
     new("Duration", x@.Data[i])
-})
+  }
+)
 
 #' @export
-setMethod("[<-", signature(x = "Duration"),
+setMethod(
+  "[<-", signature(x = "Duration"),
   function(x, i, j, ..., value) {
     x@.Data[i] <- value
     new("Duration", x@.Data)
-})
+  }
+)
 
 #' @export
-setMethod("[[<-", signature(x = "Duration"),
+setMethod(
+  "[[<-", signature(x = "Duration"),
   function(x, i, j, ..., value) {
     x@.Data[i] <- as.numeric(value)
     new("Duration", x@.Data)
-})
+  }
+)
 
 
 #' Create a duration object.
@@ -253,40 +267,51 @@ duration <- function(num = NULL, units = "seconds", ...) {
   } else {
     out1 <- .duration_from_num(num, units)
     out2 <- .duration_from_pieces(list(...))
-    if (is.null(out1) && is.null(out2)) new("Duration", numeric())
-    else if (is.null(out1)) out2
-    else if (is.null(out2)) out1
-    else c(out1, out2)
+    if (is.null(out1) && is.null(out2)) {
+      new("Duration", numeric())
+    } else if (is.null(out1)) {
+      out2
+    } else if (is.null(out2)) {
+      out1
+    } else {
+      c(out1, out2)
+    }
   }
 }
 
-average_durations <- c(second = 1, minute = 60, hour = 3600, mday = 86400,
-                       wday = 86400, yday = 86400, day = 86400, week = 604800,
-                       month = 60 * 60 * 24 * 365.25 / 12, year = 60 * 60 * 24 * 365.25)
+average_durations <- c(
+  second = 1, minute = 60, hour = 3600, mday = 86400,
+  wday = 86400, yday = 86400, day = 86400, week = 604800,
+  month = 60 * 60 * 24 * 365.25 / 12, year = 60 * 60 * 24 * 365.25
+)
 
 .duration_from_num <- function(num, units) {
-  if (length(num) == 0)
+  if (length(num) == 0) {
     return(NULL)
+  }
 
   if (!is.numeric(num)) {
     stop(sprintf("First argument to `duration()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
   ## qucik check for common wrongdoings: #462
-  if (inherits(num, c("Interval", "Period")))
+  if (inherits(num, c("Interval", "Period"))) {
     stop("Interval or Period objects cannot be used as input to `duration()` constructor. Use `as.duration()` instead.", call. = FALSE)
+  }
 
   unit <- standardise_date_names(units)
   new("Duration", num * unname(average_durations[unit]))
 }
 
 .duration_from_pieces <- function(pieces) {
-  if (length(pieces) == 0)
+  if (length(pieces) == 0) {
     return(NULL)
+  }
   names(pieces) <- standardise_date_names(names(pieces))
   out <- 0
-  for (nm in names(pieces))
+  for (nm in names(pieces)) {
     out <- out + pieces[[nm]] * average_durations[[nm]]
+  }
   new("Duration", out)
 }
 
@@ -330,64 +355,88 @@ summary.Duration <- function(object, ...) {
   qq <- c(qq[1L:3L], mean(nums), qq[4L:5L])
   qq <- dseconds(qq)
   qq <- as.character(qq)
-  names(qq) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.",
-                 "Max.")
-  if (any(nas))
+  names(qq) <- c(
+    "Min.", "1st Qu.", "Median", "Mean", "3rd Qu.",
+    "Max."
+  )
+  if (any(nas)) {
     c(qq, `NA's` = sum(nas))
-  else qq
+  } else {
+    qq
+  }
 }
 
 #' @export
-setMethod("Compare", c(e1 = "Duration", e2 = "ANY"),
+setMethod(
+  "Compare", c(e1 = "Duration", e2 = "ANY"),
   function(e1, e2) stop_incompatible_classes(e1, e2, .Generic)
 )
 
 #' @export
-setMethod("Compare", c(e1 = "ANY", e2 = "Duration"),
-          function(e1, e2) {
-            stop(sprintf("Incompatible duration classes (%s, %s). Please coerce with `as.duration()`.",
-                         class(e1), class(e2)),
-                 call. = FALSE)
-          })
+setMethod(
+  "Compare", c(e1 = "ANY", e2 = "Duration"),
+  function(e1, e2) {
+    stop(sprintf(
+      "Incompatible duration classes (%s, %s). Please coerce with `as.duration()`.",
+      class(e1), class(e2)
+    ),
+    call. = FALSE
+    )
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "Duration", e2 = "numeric"),
-          function(e1, e2) {
-            callGeneric(e1@.Data, e2)
-          })
+setMethod(
+  "Compare", signature(e1 = "Duration", e2 = "numeric"),
+  function(e1, e2) {
+    callGeneric(e1@.Data, e2)
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "numeric", e2 = "Duration"),
-          function(e1, e2) {
-            callGeneric(e1, e2@.Data)
-          })
+setMethod(
+  "Compare", signature(e1 = "numeric", e2 = "Duration"),
+  function(e1, e2) {
+    callGeneric(e1, e2@.Data)
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "Duration", e2 = "character"),
-          function(e1, e2) {
-            callGeneric(e1, as.duration(e2))
-          })
+setMethod(
+  "Compare", signature(e1 = "Duration", e2 = "character"),
+  function(e1, e2) {
+    callGeneric(e1, as.duration(e2))
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "character", e2 = "Duration"),
-          function(e1, e2) {
-            callGeneric(as.duration(e1), e2)
-          })
+setMethod(
+  "Compare", signature(e1 = "character", e2 = "Duration"),
+  function(e1, e2) {
+    callGeneric(as.duration(e1), e2)
+  }
+)
 
 #' @export
-setMethod("Compare", c(e1 = "difftime", e2 = "Duration"),
-          function(e1, e2) {
-            callGeneric(as.numeric(e1, "secs"), e2@.Data)
-          })
+setMethod(
+  "Compare", c(e1 = "difftime", e2 = "Duration"),
+  function(e1, e2) {
+    callGeneric(as.numeric(e1, "secs"), e2@.Data)
+  }
+)
 
 #' @export
-setMethod("Compare", c(e1 = "Duration", e2 = "difftime"),
-          function(e1, e2) {
-            callGeneric(e1@.Data, as.numeric(e2, "secs"))
-          })
+setMethod(
+  "Compare", c(e1 = "Duration", e2 = "difftime"),
+  function(e1, e2) {
+    callGeneric(e1@.Data, as.numeric(e2, "secs"))
+  }
+)
 
 #' @export
-setMethod("Compare", c(e1 = "Duration", e2 = "Duration"),
-          function(e1, e2) {
-            callGeneric(e1@.Data, e2@.Data)
-          })
+setMethod(
+  "Compare", c(e1 = "Duration", e2 = "Duration"),
+  function(e1, e2) {
+    callGeneric(e1@.Data, e2@.Data)
+  }
+)

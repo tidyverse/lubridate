@@ -85,7 +85,7 @@ that were not converted
 
 \examples{
 dt_utc <- ymd_hms("2010-08-03 00:50:50")
-dt_europe <- ymd_hms("2010-08-03 00:50:50", tz="Europe/London")
+dt_europe <- ymd_hms("2010-08-03 00:50:50", tz = "Europe/London")
 c(as_date(dt_utc), as.Date(dt_utc))
 c(as_date(dt_europe), as.Date(dt_europe))
 ## need not supply origin

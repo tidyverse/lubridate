@@ -23,13 +23,15 @@ NULL
 #' week(x) <- 54
 #' week(x) > 3
 #' @export
-week <- function(x)
+week <- function(x) {
   (yday(x) - 1) %/% 7 + 1
+}
 
 #' @rdname week
 #' @export
-"week<-" <- function(x, value)
+"week<-" <- function(x, value) {
   x <- x + days((value - week(x)) * 7)
+}
 
 .other_week <- function(x, week_start) {
   x <- as.POSIXlt(x)

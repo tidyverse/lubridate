@@ -29,12 +29,14 @@ as.POSIXlt.fts <- function(x, tz = "", ...) as.POSIXlt(zoo::index(x))
 #' @export
 as.POSIXlt.timeSeries <- function(x, tz = "", ...) {
   as.POSIXlt(timeDate::timeDate(x@positions,
-    zone = x@FinCenter, FinCenter = x@FinCenter))
+    zone = x@FinCenter, FinCenter = x@FinCenter
+  ))
 }
 #' @export
 as.POSIXct.timeSeries <- function(x, tz = "", ...) {
   as.POSIXct(timeDate::timeDate(x@positions,
-    zone = x@FinCenter, FinCenter = x@FinCenter))
+    zone = x@FinCenter, FinCenter = x@FinCenter
+  ))
 }
 
 #' @export
@@ -106,10 +108,11 @@ setGeneric("reclass_timespan")
 
 #' @export
 setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig) {
-  if (is.period(new))
+  if (is.period(new)) {
     as.difftime(new)
-  else
+  } else {
     make_difftime(as.numeric(new))
+  }
 })
 
 #' @export
@@ -150,23 +153,23 @@ setMethod("reclass_timespan", signature(orig = "Period"), function(new, orig) {
 #' @seealso [Duration-class], [duration()]
 #' @keywords classes manip methods chron
 #' @examples
-#' span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
+#' span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) # interval
 #' as.duration(span)
 #' as.duration(10) # numeric
 #' dur <- duration(hours = 10, minutes = 6)
 #' as.numeric(dur, "hours")
 #' as.numeric(dur, "minutes")
-#'
 #' @aliases as.duration,numeric-method as.duration,logical-method
 #'   as.duration,difftime-method as.duration,Interval-method
 #'   as.duration,Duration-method as.duration,Period-method
 #'   as.duration,character-method
 #' @export
 setGeneric("as.duration",
-           function(x, ...) standardGeneric("as.duration"),
-           useAsDefault = function(x, ...) {
-             stop(sprintf("as.duration is not defined for class '%s'", class(x)))
-           })
+  function(x, ...) standardGeneric("as.duration"),
+  useAsDefault = function(x, ...) {
+    stop(sprintf("as.duration is not defined for class '%s'", class(x)))
+  }
+)
 
 setMethod("as.duration", signature(x = "character"), function(x) {
   as.duration(as.period(x))
@@ -220,19 +223,19 @@ setMethod("as.duration", signature(x = "Period"), function(x) {
 #' @seealso [interval()]
 #' @keywords classes manip methods chron
 #' @examples
-#' diff <- make_difftime(days = 31) #difftime
+#' diff <- make_difftime(days = 31) # difftime
 #' as.interval(diff, ymd("2009-01-01"))
 #' as.interval(diff, ymd("2009-02-01"))
 #'
-#' dur <- duration(days = 31) #duration
+#' dur <- duration(days = 31) # duration
 #' as.interval(dur, ymd("2009-01-01"))
 #' as.interval(dur, ymd("2009-02-01"))
 #'
-#' per <- period(months = 1) #period
+#' per <- period(months = 1) # period
 #' as.interval(per, ymd("2009-01-01"))
 #' as.interval(per, ymd("2009-02-01"))
 #'
-#' as.interval(3600, ymd("2009-01-01")) #numeric
+#' as.interval(3600, ymd("2009-01-01")) # numeric
 #' @aliases as.interval,numeric-method as.interval,difftime-method as.interval,Interval-method as.interval,Duration-method as.interval,Period-method as.interval,POSIXt-method as.interval,logical-method
 #' @export
 as.interval <- function(x, start, ...) standardGeneric("as.interval")
@@ -262,14 +265,17 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 })
 
 .number_to_interval <- function(x, start, ...) {
-  if (missing(start) & all(is.na(x)))
+  if (missing(start) & all(is.na(x))) {
     start <- .POSIXct(NA_real_, tz = "UTC")
-  else stopifnot(is.instant(start))
+  } else {
+    stopifnot(is.instant(start))
+  }
 
-  if (is.instant(x))
+  if (is.instant(x)) {
     return(interval(x, start))
-  else
+  } else {
     interval(start, start + x)
+  }
 }
 
 
@@ -318,30 +324,32 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 #' @seealso [Period-class], [period()]
 #' @keywords classes manip methods chron
 #' @examples
-#' span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01")) #interval
+#' span <- interval(ymd_hms("2009-01-01 00:00:00"), ymd_hms("2010-02-02 01:01:01")) # interval
 #' as.period(span)
 #' as.period(span, unit = "day")
 #' "397d 1H 1M 1S"
 #' leap <- interval(ymd("2016-01-01"), ymd("2017-01-01"))
 #' as.period(leap, unit = "days")
 #' as.period(leap, unit = "years")
-#' dst <- interval(ymd("2016-11-06", tz = "America/Chicago"),
-#' ymd("2016-11-07", tz = "America/Chicago"))
+#' dst <- interval(
+#'   ymd("2016-11-06", tz = "America/Chicago"),
+#'   ymd("2016-11-07", tz = "America/Chicago")
+#' )
 #' # as.period(dst, unit = "seconds")
 #' as.period(dst, unit = "hours")
 #' per <- period(hours = 10, minutes = 6)
 #' as.numeric(per, "hours")
 #' as.numeric(per, "minutes")
-#'
 #' @aliases as.period,numeric-method as.period,difftime-method
 #'   as.period,Interval-method as.period,Duration-method as.period,Period-method
 #'   as.period,logical-method as.period,character-method
 #' @export
 setGeneric("as.period",
-           function(x, unit, ...) standardGeneric("as.period"),
-           useAsDefault = function(x, unit, ...) {
-             stop(sprintf("as.period is not defined for class '%s'", class(x)))
-           })
+  function(x, unit, ...) standardGeneric("as.period"),
+  useAsDefault = function(x, unit, ...) {
+    stop(sprintf("as.period is not defined for class '%s'", class(x)))
+  }
+)
 
 setMethod("as.period", signature(x = "character"), function(x, ...) {
   parse_period(x)
@@ -352,8 +360,9 @@ setMethod("as.period", signature(x = "numeric"), function(x, unit = "second", ..
   if (missing(unit)) unit <- "second"
   unit <- standardise_date_names(unit[[1]])
   f <- get(paste(unit, "s", sep = ""),
-           envir = asNamespace("lubridate"),
-           mode = "function", inherits = FALSE)
+    envir = asNamespace("lubridate"),
+    mode = "function", inherits = FALSE
+  )
   f(x)
 })
 
@@ -372,28 +381,35 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   ## https://github.com/tidyverse/lubridate/issues/285 for motivation.
 
   unit <-
-    if (missing(unit)) "year"
-    else standardise_period_names(unit)
+    if (missing(unit)) {
+      "year"
+    } else {
+      standardise_period_names(unit)
+    }
 
   switch(unit,
-         year = .int_to_period(x),
-         month = {
-           pers <- .int_to_period(x)
-           month(pers) <- month(pers) + year(pers)*12
-           year(pers) <- 0
-           pers
-         },
-         ## fixme: add note to the docs that unit <= days results in much faster conversion
-         ## fixme: add week
-         day = , hour = , minute = , second = {
-           secs <- x@.Data
-           negs <- secs < 0 & !is.na(secs)
-           units <- .units_within_seconds(abs(secs), unit)
-           pers <- do.call("new", c("Period", units))
-           pers[negs] <- -pers[negs]
-           pers
-         },
-         stop("Unsuported unit ", unit))
+    year = .int_to_period(x),
+    month = {
+      pers <- .int_to_period(x)
+      month(pers) <- month(pers) + year(pers) * 12
+      year(pers) <- 0
+      pers
+    },
+    ## fixme: add note to the docs that unit <= days results in much faster conversion
+    ## fixme: add week
+    day = ,
+    hour = ,
+    minute = ,
+    second = {
+      secs <- x@.Data
+      negs <- secs < 0 & !is.na(secs)
+      units <- .units_within_seconds(abs(secs), unit)
+      pers <- do.call("new", c("Period", units))
+      pers[negs] <- -pers[negs]
+      pers
+    },
+    stop("Unsuported unit ", unit)
+  )
 })
 
 .int_to_period <- function(x) {
@@ -453,7 +469,6 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   ## negative periods
   ndays <- negs & per$day < 0 & !is.na(per$day)
   if (any(ndays)) {
-
     add_months <- rep.int(1, sum(ndays))
     this_month_days <- .days_in_month(end$mon[ndays] + 1, end$year[ndays])
 
@@ -476,8 +491,10 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 
   per$year[negs] <- -per$year[negs]
 
-  new("Period", per$second, year = per$year, month = per$month,
-    day = per$day, hour = per$hour, minute = per$minute)
+  new("Period", per$second,
+    year = per$year, month = per$month,
+    day = per$day, hour = per$hour, minute = per$minute
+  )
 }
 
 setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) {
@@ -500,26 +517,32 @@ setMethod("as.period", signature(x = "Duration"), function(x, unit = NULL, ...) 
   newper * sign(span)
 })
 
-setMethod("as.period", signature("Period"),
-          function(x, unit = NULL, ...) {
-            if (missing(unit) || is.null(unit)) {
-              x
-            } else {
-              unit <- standardise_period_names(unit)
-              switch(unit,
-                     year = x,
-                     month = {
-                       month(x) <- month(x) + year(x)*12
-                       year(x) <- 0
-                       x
-                     },
-                     day = , hour = , minute = , second = {
-                       N <- .units_within_seconds(period_to_seconds(x), unit)
-                       do.call("new", c("Period", N))
-                     },
-                     stop("Unsuported unit ", unit))
-            }
-          })
+setMethod(
+  "as.period", signature("Period"),
+  function(x, unit = NULL, ...) {
+    if (missing(unit) || is.null(unit)) {
+      x
+    } else {
+      unit <- standardise_period_names(unit)
+      switch(unit,
+        year = x,
+        month = {
+          month(x) <- month(x) + year(x) * 12
+          year(x) <- 0
+          x
+        },
+        day = ,
+        hour = ,
+        minute = ,
+        second = {
+          N <- .units_within_seconds(period_to_seconds(x), unit)
+          do.call("new", c("Period", N))
+        },
+        stop("Unsuported unit ", unit)
+      )
+    }
+  }
+)
 
 setMethod("as.period", signature("logical"), function(x, unit = NULL, ...) {
   as.period(as.numeric(x), unit, ...)
@@ -547,14 +570,15 @@ setGeneric("as.numeric")
 
 seconds_to_unit <- function(secs, unit = "second") {
   switch(unit,
-         second = secs,
-         minute = secs / 60,
-         hour   = secs / 3600,
-         day    = secs / 86400,
-         month  = secs / (86400 * 365.25 / 12),
-         week   = secs / (86400 * 7),
-         year   = secs / (86400 * 365.25),
-         stop("invalid unit ", unit))
+    second = secs,
+    minute = secs / 60,
+    hour   = secs / 3600,
+    day    = secs / 86400,
+    month  = secs / (86400 * 365.25 / 12),
+    week   = secs / (86400 * 7),
+    year   = secs / (86400 * 365.25),
+    stop("invalid unit ", unit)
+  )
 }
 
 #' @export
@@ -631,7 +655,7 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' @return a vector of [Date] objects corresponding to `x`.
 #' @examples
 #' dt_utc <- ymd_hms("2010-08-03 00:50:50")
-#' dt_europe <- ymd_hms("2010-08-03 00:50:50", tz="Europe/London")
+#' dt_europe <- ymd_hms("2010-08-03 00:50:50", tz = "Europe/London")
 #' c(as_date(dt_utc), as.Date(dt_utc))
 #' c(as_date(dt_europe), as.Date(dt_europe))
 #' ## need not supply origin
@@ -640,107 +664,133 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' dt_wrong <- c("2009-09-29", "2012-11-29", "2015-29-12")
 #' as_date(dt_wrong)
 #' @export
-setGeneric(name = "as_date",
-           def = function(x, ...) standardGeneric("as_date"))
+setGeneric(
+  name = "as_date",
+  def = function(x, ...) standardGeneric("as_date")
+)
 
 #' @rdname as_date
 #' @export
-setMethod("as_date", "ANY",
-          function(x, ...) {
-            ## From: Kurt Hornik <Kurt.Hornik@wu.ac.at>
-            ## Date: Tue, 3 Apr 2018 18:53:19
-            ##
-            ## `zoo` has its own as.Date for which it registers its yearmon
-            ## method (and base::as.Date as the default S3 method).  In fact,
-            ## zoo also exports as.Date.yearmon etc, but the above
-            ##
-            ##    lubridate::as_date(zoo::as.yearmon("2011-01-07"))
-            ##
-            ## does not attach the zoo exports, hence does not find
-            ## as.Date.yearmon on the search path.
-            if (inherits(x, c("yearmon", "yearqtr")))
-              zoo::as.Date(x, ...)
-            else
-              base::as.Date(x, ...)
-          })
+setMethod(
+  "as_date", "ANY",
+  function(x, ...) {
+    ## From: Kurt Hornik <Kurt.Hornik@wu.ac.at>
+    ## Date: Tue, 3 Apr 2018 18:53:19
+    ##
+    ## `zoo` has its own as.Date for which it registers its yearmon
+    ## method (and base::as.Date as the default S3 method).  In fact,
+    ## zoo also exports as.Date.yearmon etc, but the above
+    ##
+    ##    lubridate::as_date(zoo::as.yearmon("2011-01-07"))
+    ##
+    ## does not attach the zoo exports, hence does not find
+    ## as.Date.yearmon on the search path.
+    if (inherits(x, c("yearmon", "yearqtr"))) {
+      zoo::as.Date(x, ...)
+    } else {
+      base::as.Date(x, ...)
+    }
+  }
+)
 
 #' @rdname as_date
 #' @export
-setMethod(f = "as_date", signature = "POSIXt",
-          function(x, tz = NULL) {
-            tz <- if (is.null(tz)) tz(x) else tz
-            as.Date(x, tz = tz)
-          })
+setMethod(
+  f = "as_date", signature = "POSIXt",
+  function(x, tz = NULL) {
+    tz <- if (is.null(tz)) tz(x) else tz
+    as.Date(x, tz = tz)
+  }
+)
 
 #' @rdname as_date
-setMethod(f = "as_date", signature = "numeric",
-          function(x, origin = lubridate::origin) {
-            as.Date(x, origin = origin)
-          })
+setMethod(
+  f = "as_date", signature = "numeric",
+  function(x, origin = lubridate::origin) {
+    as.Date(x, origin = origin)
+  }
+)
 
-
-#' @rdname as_date
-#' @export
-setMethod("as_date", "character",
-          function(x, tz = NULL, format = NULL) {
-            if (!is.null(tz)) {
-              warning("`tz` argument is ignored by `as_date()`", call. = FALSE)
-            }
-
-            if (is.null(format))
-              as_date(.parse_iso_dt(x, tz = "UTC"))
-            else
-              as_date(strptime(x, format, tz = "UTC"))
-          })
 
 #' @rdname as_date
 #' @export
-setGeneric("as_datetime",
-           function(x, ...) {
-             standardGeneric("as_datetime")
-           })
+setMethod(
+  "as_date", "character",
+  function(x, tz = NULL, format = NULL) {
+    if (!is.null(tz)) {
+      warning("`tz` argument is ignored by `as_date()`", call. = FALSE)
+    }
+
+    if (is.null(format)) {
+      as_date(.parse_iso_dt(x, tz = "UTC"))
+    } else {
+      as_date(strptime(x, format, tz = "UTC"))
+    }
+  }
+)
 
 #' @rdname as_date
 #' @export
-setMethod("as_datetime", "POSIXt",
+setGeneric(
+  "as_datetime",
+  function(x, ...) {
+    standardGeneric("as_datetime")
+  }
+)
+
+#' @rdname as_date
+#' @export
+setMethod(
+  "as_datetime", "POSIXt",
   function(x, tz = "UTC") {
     with_tz(x, tz)
-  })
+  }
+)
 
 #' @rdname as_date
 #' @export
-setMethod("as_datetime", "numeric",
+setMethod(
+  "as_datetime", "numeric",
   function(x, origin = lubridate::origin, tz = "UTC") {
     as.POSIXct(x, origin = origin, tz = tz)
-  })
+  }
+)
 
 
 #' @rdname as_date
 #' @export
-setMethod("as_datetime", "character",
+setMethod(
+  "as_datetime", "character",
   function(x, tz = "UTC", format = NULL) {
-    if (is.null(format))
+    if (is.null(format)) {
       .parse_iso_dt(x, tz)
-    else
+    } else {
       as.POSIXct(strptime(x, format = format, tz = tz))
-  })
+    }
+  }
+)
 
 
 #' @rdname as_date
 #' @export
-setMethod("as_datetime", "Date",
+setMethod(
+  "as_datetime", "Date",
   function(x, tz = "UTC") {
     dt <- .POSIXct(as.numeric(x) * 86400, tz = "UTC")
-    if (is_utc(tz))
+    if (is_utc(tz)) {
       return(dt)
-    else
+    } else {
       force_tz(dt, tzone = tz)
-  })
+    }
+  }
+)
 
 
 #' @rdname as_date
 #' @export
-setMethod("as_datetime", "ANY",
+setMethod(
+  "as_datetime", "ANY",
   function(x, tz = "UTC") {
     with_tz(as.POSIXct(x, tz = tz), tzone = tz)
-  })
+  }
+)

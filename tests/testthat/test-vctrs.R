@@ -572,4 +572,3 @@ test_that("vctrs methods have informative errors", {
     vec_cast(1, interval())
   })
 })
-

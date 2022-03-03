@@ -28,8 +28,9 @@ NULL
 #' semester(x, with_year = TRUE)
 #' @export
 quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = identical(type, "year.quarter")) {
-  if (length(fiscal_start) > 1)
+  if (length(fiscal_start) > 1) {
     stop("`fiscal_start` must be a singleton", call. = FALSE)
+  }
   fs <- (fiscal_start - 1) %% 12
   shifted <- seq(fs, 11 + fs) %% 12 + 1
   m <- month(x)
@@ -39,10 +40,12 @@ quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = identical
 
   ## Doing this to handle positional calls where previously `with_year` was the
   ## second param, and also now to handle soft-deprecation of `with_year`.
-  if (is.logical(type))
+  if (is.logical(type)) {
     type <- if (type) "year.quarter" else "quarter"
-  if (with_year == TRUE)
+  }
+  if (with_year == TRUE) {
     type <- "year.quarter"
+  }
 
   switch(type,
     "quarter" = q,
@@ -56,9 +59,9 @@ quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = identical
       final_years <- year(x) - (starting_months[q] > m)
       quarter_starting_dates <-
         make_date(year = final_years, month = starting_months[q], day = 1L)
-      if (type == 'date_first') {
+      if (type == "date_first") {
         quarter_starting_dates
-      } else if (type == 'date_last') {
+      } else if (type == "date_last") {
         add_with_rollback(quarter_starting_dates, months(3)) - days(1)
       }
     },
@@ -72,6 +75,9 @@ semester <- function(x, with_year = FALSE) {
   m <- month(x)
   semesters <- rep(1:2, each = 6)
   s <- semesters[m]
-  if (with_year) year(x) + s/10
-  else  s
+  if (with_year) {
+    year(x) + s / 10
+  } else {
+    s
+  }
 }

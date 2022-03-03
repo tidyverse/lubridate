@@ -7,7 +7,6 @@ test_that("multiplication throws error for instants", {
   x <- as.POSIXct("2010-03-15 00:00:00", tz = "UTC")
 
   expect_error(3 * x)
-
 })
 
 test_that("multiplication throws error for intervals", {
@@ -15,37 +14,29 @@ test_that("multiplication throws error for intervals", {
   time2 <- as.POSIXct("2009-08-03 00:00:00", tz = "UTC")
   int <- interval(time1, time2)
   diff <- difftime(time2, time1)
-  int2 <- interval(time1, time1 + 2*diff)
+  int2 <- interval(time1, time1 + 2 * diff)
 
-  expect_equal(2*int, int2)
+  expect_equal(2 * int, int2)
 })
 
 test_that("multiplication works as expected for periods", {
-
-  expect_equal(3*months(1), months(3))
-  expect_is(3*months(1), "Period")
-
+  expect_equal(3 * months(1), months(3))
+  expect_is(3 * months(1), "Period")
 })
 
 test_that("multiplying vectors works for periods", {
-
-  expect_equal(c(2, 3)*months(1), months(2:3))
-  expect_is(c(2, 3)*months(1), "Period")
-
+  expect_equal(c(2, 3) * months(1), months(2:3))
+  expect_is(c(2, 3) * months(1), "Period")
 })
 
 test_that("multiplication works as expected for durations", {
-
-  expect_equal(3*dhours(1), dhours(3))
-  expect_is(3*dhours(1), "Duration")
-
+  expect_equal(3 * dhours(1), dhours(3))
+  expect_is(3 * dhours(1), "Duration")
 })
 
 test_that("multiplying vectors works for durations", {
-
-  expect_equal(c(2, 3)*dhours(1), dhours(2:3))
-  expect_is(c(2, 3)*dhours(1), "Duration")
-
+  expect_equal(c(2, 3) * dhours(1), dhours(2:3))
+  expect_is(c(2, 3) * dhours(1), "Duration")
 })
 
 

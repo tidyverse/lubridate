@@ -16,22 +16,26 @@ NULL
 #' second(x) <- 1
 #' second(x) <- 61
 #' second(x) > 2
-second <- function(x)
+second <- function(x) {
   UseMethod("second")
+}
 
 #' @export
-second.default <- function(x)
+second.default <- function(x) {
   as.POSIXlt(x, tz = tz(x))$sec
+}
 
 #' @export
-second.Period <- function(x)
+second.Period <- function(x) {
   slot(x, ".Data")
+}
 
 #' @rdname second
 #' @param value numeric value to be assigned
 #' @export
-"second<-" <- function(x, value)
+"second<-" <- function(x, value) {
   x <- x + seconds(value - second(x))
+}
 
 
 setGeneric("second<-")

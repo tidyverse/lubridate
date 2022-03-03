@@ -16,24 +16,33 @@ NULL
 ##           })
 
 comp_posix_date <- function(e1, e2) {
-  if (nargs() == 1)
-    stop(gettextf("unary '%s' not defined for \"%s\" objects",  .Generic, class(e1)), domain = NA)
+  if (nargs() == 1) {
+    stop(gettextf("unary '%s' not defined for \"%s\" objects", .Generic, class(e1)), domain = NA)
+  }
 
-  if (inherits(e1, "POSIXlt"))
+  if (inherits(e1, "POSIXlt")) {
     e1 <- as.POSIXct(e1)
-  if (inherits(e2, "POSIXlt"))
+  }
+  if (inherits(e2, "POSIXlt")) {
     e2 <- as.POSIXct(e2)
+  }
 
   if (is.character(e1)) {
     e1 <-
-      if (is.Date(e2)) as.Date(e1)
-      else as.POSIXct(e1)
+      if (is.Date(e2)) {
+        as.Date(e1)
+      } else {
+        as.POSIXct(e1)
+      }
   }
 
   if (is.character(e2)) {
     e2 <-
-      if (is.Date(e1)) as.Date(e2)
-      else as.POSIXct(e2)
+      if (is.Date(e1)) {
+        as.Date(e2)
+      } else {
+        as.POSIXct(e2)
+      }
   }
 
   if (is.POSIXct(e1) && is.Date(e2)) {
@@ -48,10 +57,8 @@ comp_posix_date <- function(e1, e2) {
 
 ## Nothing else seems to work, only this sneaky trick.
 evalqOnLoad({
-
   for (op in c("<", ">", "==", ">=", "<=", "!=")) {
     registerS3method(op, "Date", comp_posix_date)
     registerS3method(op, "POSIXt", comp_posix_date)
   }
-
 })

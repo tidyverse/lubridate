@@ -9,7 +9,8 @@ test_that("is.Date works as expected", {
   expect_false(is.Date(dminutes(1)))
   expect_false(is.Date(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
+  )))
 })
 
 test_that("as_date works", {
@@ -41,7 +42,6 @@ test_that("as_date works", {
   expect_equal(as_date("2010-08-03 00:59:59.23Z-02"), as_date("2010-08-03"))
   expect_equal(as_date("2010-08-03 00:59:59.23Z+02"), as_date("2010-08-02"))
   expect_equal(as_date("2010-08-03 00:59:59.23Z+08"), as_date("2010-08-02"))
-
 })
 
 test_that("c.Date deals correctly with empty vectors", {
@@ -51,22 +51,26 @@ test_that("c.Date deals correctly with empty vectors", {
   expect_equal(c(ymd("2021-01-01"), NULL, c()), ymd("2021-01-01"))
   expect_equal(
     c(ymd("2021-01-01"), Date(), ymd("2021-01-02")),
-    ymd(c("2021-01-01", "2021-01-02")))
+    ymd(c("2021-01-01", "2021-01-02"))
+  )
   expect_equal(
     c(ymd("2021-01-01"), POSIXct(), ymd("2021-01-02"), NULL),
-    ymd(c("2021-01-01", "2021-01-02")))
+    ymd(c("2021-01-01", "2021-01-02"))
+  )
 
   d <- ymd("1999-01-01")
   expect_equal(
     c(d, as.POSIXct("1999-01-01 01:02:03", tz = "America/New_York")),
-    ymd("1999-01-01", "1999-01-01"))
+    ymd("1999-01-01", "1999-01-01")
+  )
   expect_equal(
     c(d, as.POSIXct("1999-01-01 23:50:03", tz = "America/New_York")),
-    ymd("1999-01-01", "1999-01-01"))
+    ymd("1999-01-01", "1999-01-01")
+  )
   expect_equal(
     c(d, as.POSIXct("1999-01-01 00:01:03", tz = "Europe/Berlin")),
-    ymd("1999-01-01", "1999-01-01"))
-
+    ymd("1999-01-01", "1999-01-01")
+  )
 })
 
 

@@ -70,25 +70,27 @@ difftime_lengths <- c(secs = 1, mins = 60, hours = 3600, days = 86400, weeks = 7
   seconds <- abs(na.omit(num))
   units <- units[[1]]
   if (units == "auto") {
-    if (any(seconds < 60))
+    if (any(seconds < 60)) {
       units <- "secs"
-    else if (any(seconds < 3600))
+    } else if (any(seconds < 3600)) {
       units <- "mins"
-    else if (any(seconds < 86400))
+    } else if (any(seconds < 86400)) {
       units <- "hours"
-    else
+    } else {
       units <- "days"
+    }
   } else {
     units <- standardise_difftime_names(units)
   }
-  structure(num/difftime_lengths[[units]], units = units, class = "difftime")
+  structure(num / difftime_lengths[[units]], units = units, class = "difftime")
 }
 
 .difftime_from_pieces <- function(pieces) {
   names(pieces) <- standardise_difftime_names(names(pieces))
   out <- 0
-  for (nm in names(pieces))
+  for (nm in names(pieces)) {
     out <- out + pieces[[nm]] * difftime_lengths[[nm]]
+  }
   out
 }
 

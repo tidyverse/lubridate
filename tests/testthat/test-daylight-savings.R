@@ -9,7 +9,6 @@ test_that("force_tz returns NA for a time that falls in the spring gap", {
 })
 
 test_that("force_tz behaves consistently for the fall overlap", {
-
   y <- structure(1289111405, tzone = "America/New_York", class = c("POSIXct", "POSIXt"))
   y2 <- structure(1289115005, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
   y3 <- structure(1289104205, class = c("POSIXct", "POSIXt"), tzone = "America/New_York")
@@ -26,7 +25,6 @@ test_that("force_tz behaves consistently for the fall overlap", {
   expect_equal(y - hours(1), y3)
   expect_equal(c(y, z) - hours(1), c(y3, z3))
   expect_equal(force_tz(cdst, "America/New_York"), edst)
-
 })
 
 test_that("addition handles daylight savings time for spring gap", {
@@ -40,7 +38,6 @@ test_that("addition handles daylight savings time for spring gap", {
   expect_equal(c(x, px) + days(1), c(px, px2))
   expect_equal(x + ddays(1), ex)
   expect_equal(c(x, ex) + ddays(1), c(ex, ex2))
-
 })
 
 
@@ -55,7 +52,6 @@ test_that("subtraction handles daylight savings time for spring gap", {
   expect_equal(c(x, px) - days(1), c(px, px2))
   expect_equal(x - ddays(1), ex)
   expect_equal(c(x, ex) - ddays(1), c(ex, ex2))
-
 })
 
 test_that("addition handles daylight savings time for fall overlap", {
@@ -83,45 +79,61 @@ test_that("subtraction handles daylight savings time for fall overlap", {
   expect_equal(c(x, px) - days(1), c(px, px2))
   expect_equal(x - ddays(1), ex)
   expect_equal(c(x, ex) - ddays(1), c(ex, ex2))
-
 })
 
 
 test_that("update returns NA for date-times in the spring dst gap", {
-
-  poslt <- structure(list(sec = 59, min = 59L, hour = 1L, mday = 14L, mon = 2L,
-    year = 110L, wday = 0L, yday = 72L, isdst = 0L),
-    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
-    class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
-  x <- structure(list(sec = 59, min = 59L, hour = 1L, mday = 15L, mon = 2L,
-    year = 110L, wday = 1L, yday = 73L, isdst = 1L),
-    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
-    class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
-  x2 <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 15L, mon = 2L,
-    year = 110L, wday = 1L, yday = 73L, isdst = 1L),
-    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
-    class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
-  xu <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 15L, mon = 2L,
-    year = 110L, wday = 1L, yday = 73L, isdst = 1L),
-    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
-    class = c("POSIXlt", "POSIXt"), tzone = "UTC")
+  poslt <- structure(list(
+    sec = 59, min = 59L, hour = 1L, mday = 14L, mon = 2L,
+    year = 110L, wday = 0L, yday = 72L, isdst = 0L
+  ),
+  .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
+  class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT")
+  )
+  x <- structure(list(
+    sec = 59, min = 59L, hour = 1L, mday = 15L, mon = 2L,
+    year = 110L, wday = 1L, yday = 73L, isdst = 1L
+  ),
+  .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
+  class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT")
+  )
+  x2 <- structure(list(
+    sec = 59, min = 59L, hour = 2L, mday = 15L, mon = 2L,
+    year = 110L, wday = 1L, yday = 73L, isdst = 1L
+  ),
+  .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
+  class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT")
+  )
+  xu <- structure(list(
+    sec = 59, min = 59L, hour = 2L, mday = 15L, mon = 2L,
+    year = 110L, wday = 1L, yday = 73L, isdst = 1L
+  ),
+  .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
+  class = c("POSIXlt", "POSIXt"), tzone = "UTC"
+  )
   expect_true(is.na(update(poslt, seconds = 61)))
   expect_true(is.na(update(poslt, minutes = 61)))
   expect_true(is.na(update(poslt, hours = 2)))
   expect_equal(update(c(x, poslt), hours = 2), c(x2, NA))
 
-  poslt <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 13L, mon = 2L,
-    year = 110L, wday = 6L, yday = 71L, isdst = 0L),
-    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
-    class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
+  poslt <- structure(list(
+    sec = 59, min = 59L, hour = 2L, mday = 13L, mon = 2L,
+    year = 110L, wday = 6L, yday = 71L, isdst = 0L
+  ),
+  .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
+  class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT")
+  )
   expect_true(is.na(update(poslt, mdays = 14)))
   expect_true(is.na(update(poslt, wdays = 8)))
   expect_true(is.na(update(poslt, ydays = 73)))
 
-  poslt <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 1L,
-    year = 110L, wday = 0L, yday = 44L, isdst = 0L),
-    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
-    class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
+  poslt <- structure(list(
+    sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 1L,
+    year = 110L, wday = 0L, yday = 44L, isdst = 0L
+  ),
+  .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
+  class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT")
+  )
   expect_true(is.na(update(poslt, months = 3)))
 
   ## poslt <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 2L,
@@ -130,13 +142,15 @@ test_that("update returns NA for date-times in the spring dst gap", {
   ##   class = c("POSIXlt", "POSIXt"), tzone = c("America/New_York", "EST", "EDT"))
   ## expect_true(is.na(update(poslt, years = 2010)))
 
-  poslt <- structure(list(sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 2L,
-    year = 110L, wday = 0L, yday = 72L, isdst = 0L),
-    .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
-    class = c("POSIXlt", "POSIXt"), tzone = "UTC")
+  poslt <- structure(list(
+    sec = 59, min = 59L, hour = 2L, mday = 14L, mon = 2L,
+    year = 110L, wday = 0L, yday = 72L, isdst = 0L
+  ),
+  .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
+  class = c("POSIXlt", "POSIXt"), tzone = "UTC"
+  )
   expect_true(is.na(update(poslt, tzs = "America/New_York")))
   expect_equal(update(c(xu, poslt), tzs = "America/New_York"), c(x2, NA))
-
 })
 
 test_that("update rollovers perform correctly across the fall overlap", {
@@ -152,7 +166,7 @@ test_that("update rollovers perform correctly across the fall overlap", {
 })
 
 test_that("arithmetic handles fall gap in timespan appropriate way", {
-  cdst <- structure(1352012400, tzone = "America/Chicago", class = c("POSIXct",                                                                  "POSIXt"))
+  cdst <- structure(1352012400, tzone = "America/Chicago", class = c("POSIXct", "POSIXt"))
 
   expect_equal(cdst - seconds(1), cdst - 3601)
   expect_equal(cdst - dseconds(1), cdst - 1)

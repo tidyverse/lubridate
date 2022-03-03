@@ -64,4 +64,4 @@ on_package_load <- function(pkg, expr) {
   }
 }
 
-#nocov end
+# nocov end

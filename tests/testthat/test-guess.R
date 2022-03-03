@@ -87,8 +87,10 @@ test_that(".get_train_set can find non NA dates", {
 })
 
 test_that("guess_format works with missing entries", {
-  expect_equal(guess_formats("01-01-10", "mdy"),
-               guess_formats(c("01-01-10", NA), "mdy"))
+  expect_equal(
+    guess_formats("01-01-10", "mdy"),
+    guess_formats(c("01-01-10", NA), "mdy")
+  )
   expect_null(guess_formats(NA, "mdy"))
 })
 
@@ -105,15 +107,20 @@ test_that("b/B give complete and equivalent results for trained parsing", {
   full <- c("february  14, 2004", "January 5 1999")
   mixed <- c("jan 3 2010", "January 5 1999")
   short <- c("jan 3 2010", "Jan 1, 1999")
-  expect_equal(parse_date_time(full, "bdy"),
-               parse_date_time(full, "Bdy"))
-  expect_equal(parse_date_time(mixed, "bdy"),
-               parse_date_time(mixed, "Bdy"))
-  expect_equal(parse_date_time(short, "bdy"),
-               parse_date_time(short, "Bdy"))
+  expect_equal(
+    parse_date_time(full, "bdy"),
+    parse_date_time(full, "Bdy")
+  )
+  expect_equal(
+    parse_date_time(mixed, "bdy"),
+    parse_date_time(mixed, "Bdy")
+  )
+  expect_equal(
+    parse_date_time(short, "bdy"),
+    parse_date_time(short, "Bdy")
+  )
 
   expect_false(any(is.na(parse_date_time(full, "bdy"))))
   expect_false(any(is.na(parse_date_time(mixed, "bdy"))))
   expect_false(any(is.na(parse_date_time(short, "bdy"))))
 })
-

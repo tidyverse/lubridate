@@ -67,48 +67,57 @@
 ##' ## formats are not in double digits might not be parsed correctly:
 ##' \dontrun{ymd("201002-01", "201002-1", "20102-1")
 ##' dmy("0312-2010", "312-2010")}
-ymd <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ymd <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx(..., orders = "ymd", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd
-ydm <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ydm <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx(..., orders = "ydm", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd
-mdy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+mdy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx(..., orders = "mdy", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd
-myd <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+myd <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx(..., orders = "myd", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd
-dmy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+dmy <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx(..., orders = "dmy", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd
-dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+dym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx(..., orders = "dym", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd
-yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
+yq <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME")) {
   .parse_xxx(..., orders = "yq", quiet = quiet, tz = tz, locale = locale, truncated = 0)
+}
 
 #' @export
 #' @rdname ymd
-ym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
+ym <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME")) {
   .parse_xxx(..., orders = "ym", quiet = quiet, tz = tz, locale = locale, truncated = 0)
+}
 
 #' @export
 #' @rdname ymd
-my <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
+my <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME")) {
   .parse_xxx(..., orders = "my", quiet = quiet, tz = tz, locale = locale, truncated = 0)
+}
 
 
 ##' Parse date-times with **y**ear, **m**onth, and **d**ay, **h**our,
@@ -205,64 +214,75 @@ my <- function(..., quiet = FALSE, tz = NULL, locale = Sys.getlocale("LC_TIME"))
 ##' \dontrun{
 ##' ymd_hm("20100201 07-01", "20100201 07-1", "20100201 7-01")}
 ##'
-ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0){
-  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ymd_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = c("ymdTz", "ymdT"), quiet = quiet, tz = tz, locale = locale, truncated = truncated)
 }
 
 #' @export
 #' @rdname ymd_hms
-ymd_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders =  "ymdR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ymd_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = "ymdR", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-ymd_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "ymdr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ymd_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = "ymdr", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-dmy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+dmy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = c("dmyTz", "dmyT"), quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-dmy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+dmy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = "dmyR", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "dmyr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+dmy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = "dmyr", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-mdy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+mdy_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = c("mdyTz", "mdyT"), quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-mdy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "mdyR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+mdy_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = "mdyR", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-mdy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "mdyr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+mdy_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = "mdyr", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-ydm_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT"), quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ydm_hms <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = c("ydmTz", "ydmT"), quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-ydm_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ydm_hm <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = "ydmR", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 #' @export
 #' @rdname ymd_hms
-ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"),  truncated = 0)
-  .parse_xxx_hms(..., orders = "ydmr", quiet = quiet, tz = tz, locale = locale,  truncated = truncated)
+ydm_h <- function(..., quiet = FALSE, tz = "UTC", locale = Sys.getlocale("LC_TIME"), truncated = 0) {
+  .parse_xxx_hms(..., orders = "ydmr", quiet = quiet, tz = tz, locale = locale, truncated = truncated)
+}
 
 
 ##' @rdname hms
@@ -331,7 +351,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
   }
 }
 
-.roll_hms <- function(hour = 0, min = 0, sec = 0){
+.roll_hms <- function(hour = 0, min = 0, sec = 0) {
   min <- min + sec %/% 60
   sec <- sec %% 60
   hour <- hour + min %/% 60
@@ -341,14 +361,16 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 
 .parse_hms <- function(..., order, quiet = FALSE) {
   ## wrapper for C level parse_hms
-  hms <- unlist(lapply(list(...), .num_to_date), use.names= FALSE)
+  hms <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
   out <- matrix(.Call(C_parse_hms, hms, order),
-                nrow = 3L, dimnames = list(c("H", "M", "S"), NULL))
+    nrow = 3L, dimnames = list(c("H", "M", "S"), NULL)
+  )
   if (!quiet) {
     ## fixme: this warning should be dropped to C and thrown only when there are
     ## real parsing errors #530
-    if (any(is.na(out[substr(order, ln <- nchar(order), ln), ])))
+    if (any(is.na(out[substr(order, ln <- nchar(order), ln), ]))) {
       warning("Some strings failed to parse, or all strings are NAs")
+    }
   }
   out
 }
@@ -604,16 +626,18 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   ## backward compatible hack
   if (is.null(tz)) tz <- ""
-  if (length(tz) != 1 || is.na(tz))
+  if (length(tz) != 1 || is.na(tz)) {
     stop("`tz` argument must be a character of length one")
+  }
 
   orig_locale <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", locale)
   on.exit(Sys.setlocale("LC_TIME", orig_locale))
 
   x <- as.character(.num_to_date(x))
-  if (truncated != 0)
+  if (truncated != 0) {
     orders <- .add_truncated(orders, truncated)
+  }
 
   .local_parse <- function(x, first = FALSE) {
     formats <-
@@ -654,8 +678,9 @@ parse_date_time <- function(x, orders, tz = "UTC", truncated = 0, quiet = FALSE,
 
   if (length(to_parse)) {
     out[to_parse] <- .local_parse(x[to_parse], TRUE)
-    if (failed > 0 && !quiet && !warned)
+    if (failed > 0 && !quiet && !warned) {
       warning(" ", failed, " failed to parse.", call. = FALSE)
+    }
   }
 
   out
@@ -676,12 +701,14 @@ parse_dt <- function(x, orders, is_format = FALSE, return_lt = FALSE, cutoff_200
 ##'    to `cutoff_2000` are parsed as though starting with `20`, otherwise parsed
 ##'    as though starting with `19`. Available only for functions relying on
 ##'    `lubridate`s internal parser.
-parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L){
-  if (length(tz) != 1 || is.na(tz))
+parse_date_time2 <- function(x, orders, tz = "UTC", exact = FALSE, lt = FALSE, cutoff_2000 = 68L) {
+  if (length(tz) != 1 || is.na(tz)) {
     stop("`tz` argument must be a character of length one")
+  }
   parse1 <- function(x, order) {
-    if (!exact)
+    if (!exact) {
       order <- gsub("[^[:alpha:]]+", "", as.character(order))
+    }
     if (lt) {
       .mklt(parse_dt(x, order, exact, TRUE, cutoff_2000), tz)
     } else {
@@ -713,7 +740,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   parse1 <- function(x, fmt) {
     if (lt) {
       .mklt(parse_dt(x, fmt, TRUE, TRUE, cutoff_2000), tz)
-    } else{
+    } else {
       if (is_utc(tz)) {
         .POSIXct(parse_dt(x, fmt, TRUE, FALSE, cutoff_2000), "UTC")
       } else {
@@ -731,9 +758,9 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 }
 
 
-
+
 ### INTERNAL
-.mklt <- function(dtlist, tz){
+.mklt <- function(dtlist, tz) {
   na_fill <- rep_len(NA_integer_, length(dtlist$sec))
   dtlist[["wday"]] <- na_fill
   dtlist[["yday"]] <- na_fill
@@ -741,7 +768,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   .POSIXlt(dtlist, tz = tz)
 }
 
-.parse_date_time <- function(x, formats, tz, quiet, locale){
+.parse_date_time <- function(x, formats, tz, quiet, locale) {
 
   ## print(formats) # for debugging
 
@@ -749,18 +776,20 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
   na <- is.na(out)
   newx <- x[na]
 
-  if (is_verbose())
-    message(" ", sum(!na) , " parsed with ", gsub("^@|@$", "", formats[[1]]))
+  if (is_verbose()) {
+    message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
+  }
 
   ## recursive parsing
-  if (length(formats) > 1 && length(newx) > 0)
+  if (length(formats) > 1 && length(newx) > 0) {
     out[na] <- .parse_date_time(newx, formats[-1], tz = tz, quiet = quiet, locale = locale)
+  }
 
   ## return POSIXlt
   out
 }
 
-.strptime <- function(x, fmt, tz = "UTC", quiet = FALSE, locale = NULL){
+.strptime <- function(x, fmt, tz = "UTC", quiet = FALSE, locale = NULL) {
 
   ## Depending on fmt we might need to preprocess x.
   ## ISO8601 and internal parser are the only cases so far.
@@ -780,9 +809,10 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 
     if (!is_utc(tz)) {
       out <-
-        if (zpos > 0){
-          if (!quiet)
-            message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
+        if (zpos > 0) {
+          if (!quiet) {
+            message("Date in ISO8601 format; converting timezone from UTC to \"", tz, "\".")
+          }
           with_tz(out, tzone = tz)
         } else {
           ## force_tz is very slow
@@ -791,39 +821,44 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
     }
 
     out
-
   } else {
     ## STRPTIME PARSER:
 
     ## strptime doesn't accept 'locale' argument; need a hard reset
     if (!is.null(locale)) {
       old_lc_time <- Sys.getlocale("LC_TIME")
-      if (old_lc_time != locale){
+      if (old_lc_time != locale) {
         Sys.setlocale("LC_TIME", locale)
         on.exit(Sys.setlocale("LC_TIME", old_lc_time))
       }
     }
 
-    if (zpos > 0){
+    if (zpos > 0) {
       ## If ISO8601 -> pre-process x and fmt
       capt <- attr(zpos, "capture.names")[attr(zpos, "capture.start") > 0][[2]] ## <- second subexp
       repl <- switch(capt,
-                     z = "%z",
-                     u ="Z",
-                     ## substitute +aa with +aa00
-                     o = { x <- sub("([+-]\\d{2}(?=\\D+)?$)", "\\100", x, perl = TRUE)
-                           "%z"},
-                     ## substitute +aa:bb with +aabb
-                     O = { x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = TRUE)
-                           "%z"},
-                     stop("Unrecognised capture detected; please report this bug"))
+        z = "%z",
+        u = "Z",
+        ## substitute +aa with +aa00
+        o = {
+          x <- sub("([+-]\\d{2}(?=\\D+)?$)", "\\100", x, perl = TRUE)
+          "%z"
+        },
+        ## substitute +aa:bb with +aabb
+        O = {
+          x <- sub("([+-]\\d{2}):(?=[^:]+$)", "\\1", x, perl = TRUE)
+          "%z"
+        },
+        stop("Unrecognised capture detected; please report this bug")
+      )
 
       fmt <- .str_sub(fmt, zpos, zpos + attr(zpos, "match.length") - 1, repl)
 
       ## user has supplied tz argument -> convert to tz
-      if (!is_utc(tz)){
-        if (!quiet)
-          message("Date in ISO8601 format; converting timezone from UTC to \"", tz,  "\".")
+      if (!is_utc(tz)) {
+        if (!quiet) {
+          message("Date in ISO8601 format; converting timezone from UTC to \"", tz, "\".")
+        }
         return(with_tz(strptime(.enclose(x), .enclose(fmt), "UTC"), tzone = tz))
       }
     }
@@ -837,21 +872,21 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 ## Get locations of letters as vector
 ## Choose the number at the n - truncated place in the vector
 ## return the substring created by 1 to tat number.
-.add_truncated <- function(orders, truncated){
+.add_truncated <- function(orders, truncated) {
   out <- orders
 
   if (truncated > 0) {
     trunc_one <- function(order) {
       alphas <- gregexpr("[a-zA-Z]", order)[[1]]
       start <- max(0, length(alphas) - truncated)
-      cut_points <- alphas[start:(length(alphas)-1)]
+      cut_points <- alphas[start:(length(alphas) - 1)]
 
       truncs <- c()
-      for (j in seq_along(cut_points))
+      for (j in seq_along(cut_points)) {
         truncs <- c(truncs, substr(order, 1, cut_points[j]))
+      }
       truncs
     }
-
   } else {
     trunc_one <- function(order) {
       alphas <- gregexpr("[a-zA-Z]", order)[[1]][-1]
@@ -859,8 +894,9 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
       cut_points <- alphas[1:end]
 
       truncs <- c()
-      for (j in seq_along(cut_points))
+      for (j in seq_along(cut_points)) {
         truncs <- c(truncs, substr(order, cut_points[j], nchar(order)))
+      }
       truncs
     }
   }
@@ -875,31 +911,36 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 
 .xxx_hms_truncations <- list(T = c("R", "r", ""), R = c("r", ""), r = "")
 
-.parse_xxx_hms <- function(..., orders, truncated, quiet, tz, locale){
+.parse_xxx_hms <- function(..., orders, truncated, quiet, tz, locale) {
   ## !!! NOTE: truncated operates on first element in ORDERS !
-  if (truncated > 0){
+  if (truncated > 0) {
     ## Take first 3 formats and append formats from .xxx_hms_truncations
     ## co responding to the 4th format letter in order[[1]] -- T, R or r.
     xxx <- substr(orders[[1]], 1, 3) ##
     add <- paste(xxx, .xxx_hms_truncations[[substr(orders[[1]], 4, 4)]], sep = "")
     rest <- length(add) - truncated
-    if (rest  < 0)
+    if (rest < 0) {
       orders <- c(orders, add, .add_truncated(xxx, abs(rest)))
-    else
+    } else {
       orders <- c(orders, add[1:truncated])
+    }
   }
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
   parse_date_time(dates, orders, tz = tz, quiet = quiet, locale = locale)
 }
 
-.parse_xxx <- function(..., orders, quiet, tz, locale,  truncated){
+.parse_xxx <- function(..., orders, quiet, tz, locale, truncated) {
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
   if (is.null(tz)) {
-    as.Date.POSIXct(parse_date_time(dates, orders, quiet = quiet, tz = "UTC",
-                                    locale = locale, truncated = truncated))
+    as.Date.POSIXct(parse_date_time(dates, orders,
+      quiet = quiet, tz = "UTC",
+      locale = locale, truncated = truncated
+    ))
   } else {
-    parse_date_time(dates, orders, quiet = quiet, tz = tz,
-                    locale = locale, truncated = truncated)
+    parse_date_time(dates, orders,
+      quiet = quiet, tz = tz,
+      locale = locale, truncated = truncated
+    )
   }
 }
 
@@ -922,14 +963,16 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 }
 
 as_POSIXct <- function(x, tz = tz(x)) {
-  if (is.character(x))
+  if (is.character(x)) {
     .parse_iso_dt(x, tz = tz)
-  else if (is.Date(x))
+  } else if (is.Date(x)) {
     ## as.POSIXct.Date assues UTC in computation but returns POSIXct with system TZ
     ## same as as_datetime Date method
     .POSIXct(as.numeric(x) * 86400, tz = "UTC")
-  else if (!is.POSIXct(x))
+  } else if (!is.POSIXct(x)) {
     as.POSIXct(x, tz = tz)
-  else x
+  } else {
+    x
+  }
 }
 ## parse.r ends here

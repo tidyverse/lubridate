@@ -26,7 +26,7 @@
 #' date <- ymd("2009-02-10")
 #' update(date, year = 2010, month = 1, mday = 1)
 #'
-#' update(date, year =2010, month = 13, mday = 1)
+#' update(date, year = 2010, month = 13, mday = 1)
 #'
 #' update(date, minute = 10, second = 3)
 #' @export
@@ -34,34 +34,41 @@ update.POSIXt <- function(object, ..., roll = FALSE,
                           week_start = getOption("lubridate.week.start", 7),
                           simple = NULL) {
   if (!is.null(simple)) roll <- simple
-  do.call(update_date_time, c(list(object, roll = roll, week_start = week_start),
-                              list(...)))
+  do.call(update_date_time, c(
+    list(object, roll = roll, week_start = week_start),
+    list(...)
+  ))
 }
 
 update_date_time <- function(object, years = integer(), months = integer(),
                              days = integer(), mdays = integer(), ydays = integer(), wdays = integer(),
                              hours = integer(), minutes = integer(), seconds = double(), tzs = NULL,
                              roll = FALSE, week_start = 7) {
+  if (!length(object)) {
+    return(object)
+  }
 
-  if (!length(object)) return(object)
-
-  if (length(days) > 0) mdays = days;
-  updates <- list(year = years, month = months,
-                  yday = ydays, mday = mdays, wday = wdays,
-                  hour = hours, minute = minutes, second = seconds)
+  if (length(days) > 0) mdays <- days
+  updates <- list(
+    year = years, month = months,
+    yday = ydays, mday = mdays, wday = wdays,
+    hour = hours, minute = minutes, second = seconds
+  )
   maxlen <- max(unlist(lapply(updates, length)))
 
   if (maxlen > 1) {
     for (nm in names(updates)) {
       len <- length(updates[[nm]])
       ## len == 1 is treated at C_level
-      if (len != maxlen && len > 1)
+      if (len != maxlen && len > 1) {
         updates[[nm]] <- rep_len(updates[[nm]], maxlen)
+      }
     }
   }
 
-  if (is.null(tzs))
+  if (is.null(tzs)) {
     tzs <- tz(object)
+  }
 
   ## todo: check if the following lines make any unnecessary copies
   updates[["dt"]] <- as.POSIXct(object)
@@ -73,8 +80,9 @@ update_date_time <- function(object, years = integer(), months = integer(),
 
 ## prior to v1.7.0
 update_posixt_old <- function(object, ..., simple = FALSE) {
-
-  if (!length(object)) return(object)
+  if (!length(object)) {
+    return(object)
+  }
   date <- as.POSIXlt(object)
 
   ## adjudicate units input
@@ -94,8 +102,9 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
     if (uname != "mday") {
       ## we compute everything with mdays (operating with ydays doesn't work)
       if (uname != "day") {
-        if (uname == "yday" & !is.null(units$year))
+        if (uname == "yday" & !is.null(units$year)) {
           warning("Updating on both 'year' and 'yday' can lead to wrong results. See bug #319.", call. = F)
+        }
         diff <- units[[uname]] - date[[uname]] - 1
         units[[uname]] <- diff + date$mday
       }
@@ -116,14 +125,17 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
   maxlen <- max(unlist(lapply(date, length)))
 
   if (maxlen > 1) {
-    for (nm in names(date))
- if (length(date[[nm]]) != maxlen)
+    for (nm in names(date)) {
+      if (length(date[[nm]]) != maxlen) {
         date[[nm]] <- rep_len(date[[nm]], maxlen)
+      }
+    }
   }
 
   class(date) <- c("POSIXlt", "POSIXt")
-  if (!is.null(new_tz))
+  if (!is.null(new_tz)) {
     attr(date, "tzone") <- new_tz
+  }
 
   ## fit to timeline
   ## POSIXct format avoids negative and NA elements in POSIXlt format
@@ -132,7 +144,6 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
 
 #' @export
 update.Date <- function(object, ...) {
-
   ct <- as_datetime(object, tz = "UTC")
   new <- update(ct, ...)
   ## fixme: figure out a way to avoid this, or write specialized update for Date
@@ -166,19 +177,24 @@ update.Date <- function(object, ...) {
 #' @examples
 #' \dontrun{
 #'
-#' tricky <- structure(list(sec   = c(5,    0,    0,    -1),
-#'                          min   = c(0L,   5L,   5L,   0L),
-#'                          hour  = c(2L,   0L,   2L,   2L),
-#'                          mday  = c(4L,   4L,   14L,  4L),
-#'                          mon   = c(10L,  10L,  2L,   10L),
-#'                          year  = c(112L, 112L, 110L, 112L),
-#'                          wday  = c(0L,   0L,   0L,   0L),
-#'                          yday  = c(308L, 308L, 72L,  308L),
-#'                          isdst = c(1L,   0L,   0L,   1L)),
-#'                     .Names = c("sec", "min", "hour", "mday", "mon",
-#'                                "year", "wday", "yday",  "isdst"),
-#'                     class = c("POSIXlt", "POSIXt"),
-#'                     tzone = c("America/Chicago", "CST", "CDT"))
+#' tricky <- structure(list(
+#'   sec = c(5, 0, 0, -1),
+#'   min = c(0L, 5L, 5L, 0L),
+#'   hour = c(2L, 0L, 2L, 2L),
+#'   mday = c(4L, 4L, 14L, 4L),
+#'   mon = c(10L, 10L, 2L, 10L),
+#'   year = c(112L, 112L, 110L, 112L),
+#'   wday = c(0L, 0L, 0L, 0L),
+#'   yday = c(308L, 308L, 72L, 308L),
+#'   isdst = c(1L, 0L, 0L, 1L)
+#' ),
+#' .Names = c(
+#'   "sec", "min", "hour", "mday", "mon",
+#'   "year", "wday", "yday", "isdst"
+#' ),
+#' class = c("POSIXlt", "POSIXt"),
+#' tzone = c("America/Chicago", "CST", "CDT")
+#' )
 #'
 #' tricky
 #' ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST
@@ -200,14 +216,16 @@ update.Date <- function(object, ...) {
 #' }
 #' @export
 fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
-  if (class != "POSIXlt" && class != "POSIXct")
+  if (class != "POSIXlt" && class != "POSIXct") {
     stop("class argument must be POSIXlt or POSIXct")
+  }
 
   if (simple) {
-
-    if (class == "POSIXct") as.POSIXct(lt)
-    else as.POSIXlt(as.POSIXct(lt))
-
+    if (class == "POSIXct") {
+      as.POSIXct(lt)
+    } else {
+      as.POSIXlt(as.POSIXct(lt))
+    }
   } else {
 
     ## fall break - DST only changes if it has to
@@ -216,7 +234,6 @@ fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
 
     dstdiff <- !is.na(ct) & (lt$isdst != lt2$isdst)
     if (any(dstdiff)) {
-
       dlt <- lt[dstdiff]
       dlt2 <- lt2[dstdiff]
       dlt$isdst <- dlt2$isdst
@@ -224,20 +241,22 @@ fit_to_timeline <- function(lt, class = "POSIXct", simple = FALSE) {
       dlt$gmtoff <- dlt2$gmtoff
       dct <- as.POSIXct(dlt) # should directly match if not in gap
 
-      if (class == "POSIXct")
+      if (class == "POSIXct") {
         ct[dstdiff] <- dct
-      else
+      } else {
         lt2[dstdiff] <- dlt
+      }
 
       chours <- format.POSIXlt(as.POSIXlt(dct), "%H", usetz = FALSE)
       lhours <- format.POSIXlt(dlt, "%H", usetz = FALSE)
 
       any <- any(hdiff <- chours != lhours)
       if (!is.na(any) && any) {
-        if (class == "POSIXct")
+        if (class == "POSIXct") {
           ct[dstdiff][hdiff] <- NA
-        else
+        } else {
           lt2[dstdiff][hdiff] <- NA
+        }
       }
     }
     if (class == "POSIXct") ct else lt2
