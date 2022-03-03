@@ -97,6 +97,12 @@ test_that("round_date works as expected with Date units", {
   expect_equal(round_date(y <- ymd("2010-01-01"), x), x[1])
 })
 
+test_that("round_date works on POSIXlt objects", {
+  x <- as.POSIXlt(ymd_hms(c("2012-11-01 23:41:00", "2012-11-01 00:44:10"), tz="America/New_York"))
+  expect_equal(round_date(x, "5 mins"),
+    as.POSIXlt(ymd_hms(c("2012-11-01 23:40:00", "2012-11-01 00:45:00"), tz="America/New_York")))
+})
+
 test_that("round_date fails with invalid date-time units", {
   expect_error(round_date(now(), .POSIXct(double())), "Zero")
   expect_error(floor_date(now(), .POSIXct(double())), "Zero")

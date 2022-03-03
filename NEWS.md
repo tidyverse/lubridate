@@ -11,6 +11,7 @@ Version 1.8.0.9000
 
 ### BUG FIXES
 
+* Fix rounding of POSIXlt objects
 * [#1007](https://github.com/tidyverse/lubridate/issues/1007) Internal lubridate formats are no longer propagated to stamp formater.
 * `train` argument in `parse_date_time` now takes effect. It was previously ignored.
 * [#1004](https://github.com/tidyverse/lubridate/issues/1004) Fix `c.POSIXct` and `c.Date` on empty single POSIXct and Date vectors.

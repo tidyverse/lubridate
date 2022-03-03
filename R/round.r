@@ -148,7 +148,7 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
   if (length(x) == 0)
     return(x)
 
-  xx <- as_datetime(x, tz = tz(x))
+  xx <- as.POSIXct(as_datetime(x, tz = tz(x)))
 
   .round <- function(below, above) {
     mid <- unclass(xx)
@@ -161,7 +161,7 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
     .POSIXct(new, tz = tz(x))
   }
 
-  if (is.POSIXct(unit) || is.Date(unit)) {
+  if (is.POSIXt(unit) || is.Date(unit)) {
 
     u <- as_datetime(unit, tz = tz(unit))
     below <- floor_to_posix(xx, u, TRUE)
