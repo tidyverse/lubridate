@@ -136,6 +136,9 @@ setClass("Period", contains = c("Timespan", "numeric"),
 #'   >,Duration,Period >,Period,Duration >,Period,Period >,Period,numeric
 #'   >,numeric,Period >=,Duration,Period >=,Period,Duration >=,Period,Period
 #'   >=,Period,numeric >=,numeric,Period
+#'   -,Period,Date-method -,Period,Duration-method -,Period,POSIXct-method
+#'   -,Period,POSIXlt-method -,Period,numeric-method -,Date,Period-method
+#'   -,numeric,Period-method -,POSIXlt,Period-method -,POSIXct,Period-method
 NULL
 
 setMethod("initialize", "Period", function(.Object, ...) {
