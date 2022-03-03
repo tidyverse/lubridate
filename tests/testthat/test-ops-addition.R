@@ -27,7 +27,7 @@ test_that("addition works as expected for instants", {
   expect_equal(z + years(1), as.Date("2009-01-01"))
 
   expect_equal(x + dyears(1), as.POSIXct("2008-12-31 06:00:00", tz = "UTC"))
-  expect_equal(y + dyears(1), as.POSIXct("2008-12-31 06:00:00", tz = "UTC"))
+  expect_equal(y + dyears(1), as.POSIXlt("2008-12-31 06:00:00", tz = "UTC"))
   expect_equal(z + dyears(1), as.POSIXct("2008-12-31 06:00:00", tz = "UTC"))
 
   time1 <- as.POSIXct("2008-08-02 13:01:59", tz = "UTC")
