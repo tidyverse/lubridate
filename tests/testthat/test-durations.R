@@ -178,7 +178,7 @@ test_that("is.duration works as expected", {
 
 test_that("format.Duration works as expected", {
   dur <- duration(seconds = c(5, NA, 10, -10, 1000, -1000))
-  expect_equivalent(format(dur),
+  expect_equal(format(dur),
                     c("5s", NA, "10s", "-10s",
                       "1000s (~16.67 minutes)",
                       "-1000s (~-16.67 minutes)"))

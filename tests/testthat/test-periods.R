@@ -167,7 +167,7 @@ test_that("format.Period works as expected", {
   per3 <- period(years = 1, days = NA)
   expect_match(format(per), "5M 90S")
   expect_match(format(per2), "0S")
-  expect_equivalent(format(per3), as.character(NA))
+  expect_equal(format(per3), as.character(NA))
 })
 
 test_that("as.numeric and as.duration correctly handle periods", {
