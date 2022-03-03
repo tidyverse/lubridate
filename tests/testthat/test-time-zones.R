@@ -52,8 +52,8 @@ test_that("force_tz handles data.frames", {
   x_out <- as.POSIXct(format(as.POSIXct(x)), tz = "UTC")
   df <- data.frame(x = x, y = as.POSIXlt(x), z = "blabla")
   df <- force_tz(df, "UTC")
-  expect_that(df$x, equals(x_out))
-  expect_that(df$y, equals(x_out))
+  expect_equal(df$x, x_out)
+  expect_equal(df$y, x_out)
 })
 
 
