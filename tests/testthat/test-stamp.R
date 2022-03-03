@@ -39,7 +39,7 @@ test_that("stamp selects the correct format", {
   D <- as.POSIXct("2012-08-13 11:37:53", tz = "UTC")
   for (i in seq_along(test_dates$date)) {
     ## print(i)
-    expect_equal(stamp(test_dates[[i, "date"]])(D), test_dates[[i, "expected"]])
+    expect_equal(stamp(test_dates[[i, "date"]], quiet = TRUE)(D), test_dates[[i, "expected"]])
   }
 
 })
@@ -93,10 +93,10 @@ test_that(".format_offset works as expected", {
 
 test_that("stamp works with ISO-8601 formats", {
 
-  stamp_Ou <- stamp("2013-01-01T06:00:00Z")
-  stamp_Oo <- stamp("2013-01-01T00:00:00-06")
-  stamp_Oz <- stamp("2013-01-01T00:00:00-0600")
-  stamp_OO <- stamp("2013-01-01T00:00:00-06:00")
+  stamp_Ou <- stamp("2013-01-01T06:00:00Z", quiet = TRUE)
+  stamp_Oo <- stamp("2013-01-01T00:00:00-06", quiet = TRUE)
+  stamp_Oz <- stamp("2013-01-01T00:00:00-0600", quiet = TRUE)
+  stamp_OO <- stamp("2013-01-01T00:00:00-06:00", quiet = TRUE)
 
 
   tz <- c("America/Chicago", "UTC", "Europe/Paris")

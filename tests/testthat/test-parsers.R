@@ -724,8 +724,10 @@ test_that("ymd_hms parses Ou format correctly ", {
   ## Correct usage
   expect_equal(ymd_hms("2012-03-04T05:06:07Z"),
               ymd_hms("2012-03-04 05:06:07", tz = "UTC"))
-  expect_equal(ymd_hms("2012-03-04T05:06:07Z", tz = "America/Chicago"),
-              ymd_hms("2012-03-03 23:06:07", tz = "America/Chicago"))
+  expect_message(expect_equal(
+    ymd_hms("2012-03-04T05:06:07Z", tz = "America/Chicago"),
+    ymd_hms("2012-03-03 23:06:07", tz = "America/Chicago")
+  ))
 
   ## check for message
   expect_message(ymd_hms("2012-03-04T05:06:07Z", tz = "America/Chicago"),
@@ -774,10 +776,9 @@ test_that("ymd parses mixed y an Y formats", {
 })
 
 test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats", {
-  expect_equal(ymd_hms(c("2012-03-04T05:06:07Z", "2001-02-03 04:05:06"),
-                      tz = "America/Chicago"),
-              ymd_hms(c("2012-03-03 23:06:07", "2001-02-03 04:05:06"),
-                             tz = "America/Chicago"))
+  suppressMessages(expect_equal(
+    ymd_hms(c("2012-03-04T05:06:07Z", "2001-02-03 04:05:06"), tz = "America/Chicago"),
+    ymd_hms(c("2012-03-03 23:06:07", "2001-02-03 04:05:06"), tz = "America/Chicago")))
 })
 
 test_that("parse_date_time2 and fast_strptime parse ISO8601 timezones", {

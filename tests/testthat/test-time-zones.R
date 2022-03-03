@@ -9,7 +9,7 @@ test_that("with_tz works as expected", {
   y_lt <- as.POSIXlt("2008-08-03 14:01:59", tz = "UTC")
 
   expect_equal(with_tz(x_lt, "UTC"), y_lt)
-  expect_equal(with_tz(y_lt, "America/New_York"), x_lt)
+  expect_equal(as.POSIXct(with_tz(y_lt, "America/New_York")), x_ct)
   expect_equal(x_ct, as.POSIXct(with_tz(y_lt, "America/New_York")))
   expect_s3_class(with_tz(y_lt, "UTC"), "POSIXlt")
 })
