@@ -112,7 +112,7 @@ test_that("addition with durations returns correct class", {
   expect_s4_class(dyears(1) + 1, "Duration")
   expect_s3_class(dyears(1) + ct, "POSIXct")
   expect_s3_class(dyears(1) + lt, "POSIXlt")
-  expect_s3_class(dyears(1) + dyears(1), "Duration")
+  expect_s4_class(dyears(1) + dyears(1), "Duration")
 })
 
 test_that("addition works as expected for intervals", {
