@@ -811,10 +811,10 @@ test_that("parse_date_time2 and fast_strptime correctly work with timezones", {
 })
 
 test_that("parse_date_time2 and fast_strptime correctly return lt objects", {
-  expect_is(parse_date_time2("12/03/16 12:00",  "dmy HM"), "POSIXct")
-  expect_is(parse_date_time2("12/03/16 12:00",  "dmy HM", lt = TRUE), "POSIXlt")
-  expect_is(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M"), "POSIXlt")
-  expect_is(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", lt = FALSE), "POSIXct")
+  expect_s3_class(parse_date_time2("12/03/16 12:00",  "dmy HM"), "POSIXct")
+  expect_s3_class(parse_date_time2("12/03/16 12:00",  "dmy HM", lt = TRUE), "POSIXlt")
+  expect_s3_class(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M"), "POSIXlt")
+  expect_s3_class(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", lt = FALSE), "POSIXct")
 })
 
 test_that("ymd_hms, parse_date_time2, fast_strptime and base:strptime give the same result", {

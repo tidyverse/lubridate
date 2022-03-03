@@ -2,16 +2,16 @@ test_that("modulo operations return correct class", {
         int <- ymd("2010-01-01") %--% ymd("2011-01-01")
 
         expect_error(int %% int)
-        expect_is(int %% months(1), "Interval")
-        expect_is(int %% ddays(10), "Interval")
+        expect_s4_class(int %% months(1), "Interval")
+        expect_s4_class(int %% ddays(10), "Interval")
 
         expect_error(months(3) %% int)
-        expect_is(days(3) %% hours(2), "Period")
+        expect_s4_class(days(3) %% hours(2), "Period")
         expect_error(days(5) %% dminutes(300))
 
         expect_error(dyears(3) %% int)
         expect_error(ddays(2) %% weeks(1))
-        expect_is(ddays(3) %% ddays(1), "Duration")
+        expect_s4_class(ddays(3) %% ddays(1), "Duration")
 
 })
 

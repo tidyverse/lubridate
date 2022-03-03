@@ -116,7 +116,7 @@ test_that("is.period works", {
 test_that("period works as expected", {
   per <- period(second = 90, minute = 5)
 
-  expect_is(per, "Period")
+  expect_s4_class(per, "Period")
   expect_equal(period(hours = 25), hours(25))
   expect_equal(per@year, 0)
   expect_equal(per@month, 0)
@@ -129,7 +129,7 @@ test_that("period works as expected", {
 test_that("period works as expected", {
   per <- period(c(90, 5), c("second", "minute"))
 
-  expect_is(per, "Period")
+  expect_s4_class(per, "Period")
   expect_equal(period(hours = 25), hours(25))
   expect_equal(per@year, 0)
   expect_equal(per@month, 0)
@@ -142,7 +142,7 @@ test_that("period works as expected", {
 test_that("period handles vector input", {
   per <- period(second = c(90, 60), minute = 5)
 
-  expect_is(per, "Period")
+  expect_s4_class(per, "Period")
   expect_equal(length(per), 2)
   expect_equal(per@year, c(0, 0))
   expect_equal(per@month, c(0, 0))

@@ -97,7 +97,7 @@ test_that("duration works as expected", {
     hour = 1, weeks = 2)
 
   expect_equal(dur@.Data, 1215005)
-  expect_is(dur, "Duration")
+  expect_s4_class(dur, "Duration")
 })
 
 test_that("duration handles vectors", {
@@ -108,8 +108,8 @@ test_that("duration handles vectors", {
 
   expect_equal(dur1@.Data, c(1215005, 262801))
   expect_equal(dur2@.Data, c(1215005, 1474205))
-  expect_is(dur1, "Duration")
-  expect_is(dur2, "Duration")
+  expect_s4_class(dur1, "Duration")
+  expect_s4_class(dur2, "Duration")
 
 })
 
@@ -142,7 +142,7 @@ test_that("as.duration handles intervals", {
     y <- as.numeric(time2 - time1, units = "secs")
 
   expect_equal(dur@.Data, y)
-  expect_is(dur, "Duration")
+  expect_s4_class(dur, "Duration")
 })
 
 test_that("as.duration handles difftimes", {
@@ -152,14 +152,14 @@ test_that("as.duration handles difftimes", {
   y <- as.numeric(x, units = "secs")
 
   expect_equal(dur@.Data, y)
-  expect_is(dur, "Duration")
+  expect_s4_class(dur, "Duration")
 })
 
 test_that("eobjects handle vectors", {
   dur <- dseconds(c(1, 3, 4))
 
   expect_equal(dur@.Data, c(1, 3, 4))
-  expect_is(dur, "Duration")
+  expect_s4_class(dur, "Duration")
 })
 
 test_that("is.duration works as expected", {

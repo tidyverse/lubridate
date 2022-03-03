@@ -45,9 +45,9 @@ test_that("addition with instants returns correct class", {
   y <- as.POSIXlt("2008-01-02 00:00:00", tz = "UTC")
   z <- as.Date("2008-01-01")
 
-  expect_is(x + years(1), "POSIXct")
-  expect_is(y + years(1), "POSIXlt")
-  expect_is(z + years(1), "Date")
+  expect_s3_class(x + years(1), "POSIXct")
+  expect_s3_class(y + years(1), "POSIXlt")
+  expect_s3_class(z + years(1), "Date")
 
   expect_that(x + dyears(1), is_a("POSIXct"))
   expect_that(y + dyears(1), is_a("POSIXlt"))
@@ -79,15 +79,15 @@ test_that("addition works as expected for periods", {
 
 test_that("addition with periods returns correct class", {
 
-  expect_is(years(1) + 1, "Period")
+  expect_s4_class(years(1) + 1, "Period")
 
-  expect_is(years(1) + as.POSIXct(
+  expect_s3_class(years(1) + as.POSIXct(
     "2008-01-01 00:00:00", tz = "UTC"), "POSIXt")
 
-  expect_is(years(1) + as.POSIXlt(
+  expect_s3_class(years(1) + as.POSIXlt(
     "2008-01-01 00:00:00", tz = "UTC"), "POSIXlt")
 
-  expect_is(years(1) + minutes(3), "Period")
+  expect_s4_class(years(1) + minutes(3), "Period")
 })
 
 
@@ -335,9 +335,9 @@ test_that("addition with durations containing NA", {
   ans_na1  <- add_duration_to_date(dd_na1, dt)
   ans_nana <- add_duration_to_date(dd_nana, dt)
 
-  expect_is(ans_1na, "Date")
-  expect_is(ans_na1, "Date")
-  expect_is(ans_nana, "Date")
+  expect_s3_class(ans_1na, "Date")
+  expect_s3_class(ans_na1, "Date")
+  expect_s3_class(ans_nana, "Date")
 
   expect_equal(ans_1na, c(dt_1, NA))
   expect_equal(ans_na1, rev(c(dt_1, NA)))

@@ -69,7 +69,7 @@ test_that("interval works as expected", {
 
   expect_equal(int@.Data, num)
   expect_equal(int@start, time1)
-  expect_is(int, "Interval")
+  expect_s4_class(int, "Interval")
 
 })
 
@@ -82,7 +82,7 @@ test_that("interval handles vector input", {
 
   expect_equal(int@.Data, num)
   expect_equal(int@start, c(time1, time2))
-  expect_is(int, "Interval")
+  expect_s4_class(int, "Interval")
 
   int2 <- interval(time1, c(time3, time2))
   num2 <- as.numeric(c(time3, time2)) - as.numeric(time1)
@@ -90,7 +90,7 @@ test_that("interval handles vector input", {
 
   expect_equal(int2@.Data, num2)
   expect_equal(int2@start, starts)
-  expect_is(int2, "Interval")
+  expect_s4_class(int2, "Interval")
 })
 
 

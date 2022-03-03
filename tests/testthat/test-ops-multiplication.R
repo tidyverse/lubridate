@@ -20,28 +20,28 @@ test_that("multiplication throws error for intervals", {
 test_that("multiplication works as expected for periods", {
 
   expect_equal(3*months(1), months(3))
-  expect_is(3*months(1), "Period")
+  expect_s4_class(3*months(1), "Period")
 
 })
 
 test_that("multiplying vectors works for periods", {
 
   expect_equal(c(2, 3)*months(1), months(2:3))
-  expect_is(c(2, 3)*months(1), "Period")
+  expect_s4_class(c(2, 3)*months(1), "Period")
 
 })
 
 test_that("multiplication works as expected for durations", {
 
   expect_equal(3*dhours(1), dhours(3))
-  expect_is(3*dhours(1), "Duration")
+  expect_s4_class(3*dhours(1), "Duration")
 
 })
 
 test_that("multiplying vectors works for durations", {
 
   expect_equal(c(2, 3)*dhours(1), dhours(2:3))
-  expect_is(c(2, 3)*dhours(1), "Duration")
+  expect_s4_class(c(2, 3)*dhours(1), "Duration")
 
 })
 
@@ -52,5 +52,5 @@ test_that("make_difftime makes a correct difftime object", {
   attr(y, "tzone") <- NULL
 
   expect_equal(make_difftime(3600), y)
-  expect_is(make_difftime(3600), "difftime")
+  expect_s3_class(make_difftime(3600), "difftime")
 })
