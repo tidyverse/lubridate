@@ -1,5 +1,3 @@
-context("POSIXt")
-
 test_that("is.POSIXt works as expected", {
   expect_false(is.POSIXt(234))
   expect_true(is.POSIXt(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))

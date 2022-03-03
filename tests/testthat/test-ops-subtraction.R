@@ -1,5 +1,3 @@
-context("Subtraction operations")
-
 ###### subtraction for everything
 
 test_that("subtraction works as expected for instants", {

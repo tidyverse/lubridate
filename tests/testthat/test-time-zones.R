@@ -1,5 +1,3 @@
-context("Time zones")
-
 test_that("with_tz works as expected", {
   x_ct <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
   y_ct <- as.POSIXct("2008-08-03 14:01:59", tz = "UTC")

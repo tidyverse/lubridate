@@ -1,5 +1,3 @@
-context("Accessors")
-
 test_that("seconds accessor extracts correct second", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
@@ -499,10 +497,6 @@ test_that("accessors handle Period objects", {
   expect_equal(pers@year, c(7, 8))
 
 })
-
-
-
-context("Test days_in_month")
 
 test_that(
   "days in month works for non leap years",

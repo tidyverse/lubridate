@@ -1,5 +1,3 @@
-context("Durations")
-
 test_that("duration() returns zero-length vector", {
   x <- duration()
   expect_s4_class(x, "Duration")

@@ -1,5 +1,3 @@
-context("format_ISO8601")
-
 test_that("Formatting a date works", {
   expect_equal(format_ISO8601(as.Date("02-01-2018", format="%m-%d-%Y")),
                "2018-02-01",

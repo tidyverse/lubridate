@@ -1,5 +1,3 @@
-context("Stamp")
-
 test_that("stamp selects the correct format", {
 
   test_dates <- read.table(header = T, stringsAsFactors=F,

@@ -1,5 +1,3 @@
-context("Division operators")
-
 test_that("division operations work for interval numerator", {
   int <- ymd("2009-02-03") %--% ymd("2010-01-01")
   smaller_int <- ymd("2009-12-01") %--% ymd("2010-01-01")

@@ -1,5 +1,3 @@
-context("Intervals")
-
 test_that("interval() returns zero-length vector", {
   x <- interval()
   expect_s4_class(x, "Interval")

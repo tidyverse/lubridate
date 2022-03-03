@@ -1,5 +1,3 @@
-context("Timespans")
-
 test_that("is.timespan works as expected", {
   expect_false(is.timespan(234))
   expect_false(is.timespan(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))

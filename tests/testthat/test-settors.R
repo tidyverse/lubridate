@@ -1,5 +1,3 @@
-context("Settors")
-
 test_that("seconds settor correctly performs simple updates", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")

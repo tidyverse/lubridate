@@ -1,6 +1,3 @@
-context("Multiplication operations")
-
-
 # multiplication for everything
 
 test_that("multiplication throws error for instants", {

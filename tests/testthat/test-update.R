@@ -1,5 +1,3 @@
-context("Updating dates")
-
 test_that("update.Date returns a date object", {
   date <- as.Date("05/05/2010", "%m/%d/%Y")
   expect_is(update(date, days = 1), "Date")

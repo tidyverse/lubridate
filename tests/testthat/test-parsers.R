@@ -1,4 +1,3 @@
-context("Parsing")
 Sys.setlocale("LC_TIME", "C")
 
 test_that("parsers throw on invalid tz argument", {

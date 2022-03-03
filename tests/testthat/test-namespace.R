@@ -1,5 +1,3 @@
-context("Namespace")
-
 if (file.exists("../../00check.log")) {
   # test was invoked by R CMD check -> package is already built
   R_test_lib <- normalizePath("../..")

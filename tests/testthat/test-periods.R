@@ -1,5 +1,3 @@
-context("Periods")
-
 test_that("period() returns zero-length vector", {
   x <- period()
   expect_s4_class(x, "Period")
