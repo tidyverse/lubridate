@@ -21,6 +21,7 @@ NULL
 #'   the first level of the returned factor. You can set `lubridate.week.start`
 #'   option to control this parameter globally.
 #' @param locale locale to use for day names. Default to current locale.
+#' @param ... optional arguments passed to methods.
 #' @return `wday()` returns the day of the week as a decimal number or an
 #'   ordered factor if label is `TRUE`.
 #' @keywords utilities manip chron methods
@@ -51,13 +52,13 @@ mday <- day
 #' @export
 wday <- function(x, label = FALSE, abbr = TRUE,
                  week_start = getOption("lubridate.week.start", 7),
-                 locale = Sys.getlocale("LC_TIME"))
+                 locale = Sys.getlocale("LC_TIME"), ...)
   UseMethod("wday")
 
 #' @export
 wday.default <- function(x, label = FALSE, abbr = TRUE,
                          week_start = getOption("lubridate.week.start", 7),
-                         locale = Sys.getlocale("LC_TIME")) {
+                         locale = Sys.getlocale("LC_TIME"), ...) {
   wday(as.POSIXlt(x, tz = tz(x))$wday + 1, label, abbr, locale = locale, week_start = week_start)
 }
 
@@ -69,27 +70,53 @@ wday.default <- function(x, label = FALSE, abbr = TRUE,
   }
 }
 
-#' @export
+## Option 1:
+if (FALSE) {
 wday.numeric <- function(x, label = FALSE, abbr = TRUE,
                          week_start = getOption("lubridate.week.start", 7),
-                         locale = Sys.getlocale("LC_TIME")) {
-
-  start <- as.integer(week_start)
-
-  if (start > 7 || start < 1)
-    stop("Invalid 'week_start' argument; must be between 1 and 7")
-
-  if (start != 7) {
-    x <- 1 + (x + (6 - start)) %% 7
+                         locale = Sys.getlocale("LC_TIME"),
+                         week_start_x = 7, ...) {
+  from <- as.integer(week_start_x)
+  if (from > 7L || from < 1L) {
+    stop("'week_start_x' must be a number from 1 to 7")
   }
-
+  to <- as.integer(week_start)
+  if (to > 7L || to < 1L) {
+    stop("'week_start' must be a number from 1 to 7")
+  }
+  x <- 1L + (x - (to - from + 1L)) %% 7L
   if (!label) {
     return(x)
   }
-
   names <- .get_locale_regs(locale)$wday_names
-  labels <- if (abbr) names$abr else names$full
-  ordered(x, levels = 1:7, labels = .shift_wday_names(labels, week_start = start))
+  names <- if (abbr) names$abr else names$full
+  labels <- .shift_wday_names(names, week_start = to)
+  gl(7L, 1L, labels = labels, ordered = TRUE)[x]
+}
+}
+
+## Option 2
+#' @export
+wday.numeric <- function(x, label = FALSE, abbr = TRUE,
+                         week_start = getOption("lubridate.week.start", 7),
+                         locale = Sys.getlocale("LC_TIME"),
+                         from_sunday = 1, to_sunday = 8 - week_start, ...) {
+  from <- as.integer(from_sunday)
+  if (from > 7L || from < 1L) {
+    stop("'from_sunday' must be a number from 1 to 7")
+  }
+  to <- as.integer(to_sunday)
+  if (to > 7L || to < 1L) {
+    stop("'to_sunday' must be a number from 1 to 7")
+  }
+  x <- 1L + (x + (to - from - 1L)) %% 7L
+  if (!label) {
+    return(x)
+  }
+  names <- .get_locale_regs(locale)$wday_names
+  names <- if (abbr) names$abr else names$full
+  labels <- .shift_wday_names(names, week_start = 8L - to)
+  gl(7L, 1L, labels = labels, ordered = TRUE)[x]
 }
 
 #' @export

@@ -22,7 +22,8 @@ wday(
   label = FALSE,
   abbr = TRUE,
   week_start = getOption("lubridate.week.start", 7),
-  locale = Sys.getlocale("LC_TIME")
+  locale = Sys.getlocale("LC_TIME"),
+  ...
 )
 
 qday(x)
@@ -58,6 +59,8 @@ the first level of the returned factor. You can set \code{lubridate.week.start}
 option to control this parameter globally.}
 
 \item{locale}{locale to use for day names. Default to current locale.}
+
+\item{...}{optional arguments passed to methods.}
 
 \item{value}{a numeric object}
 }
