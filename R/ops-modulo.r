@@ -35,3 +35,7 @@ setMethod("%%", signature(e1 = "Interval", e2 = "Period"),
 #' @export
 setMethod("%%", signature(e1 = "Period", e2 = "Period"),
           function(e1, e2) modulo_period_by_period(e1, e2))
+
+#' @export
+setMethod("%%", signature(e1 = "Period", e2 = "Interval"),
+          function(e1, e2) modulo_period_by_period(e1, e2))

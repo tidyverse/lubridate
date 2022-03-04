@@ -725,4 +725,5 @@ setMethod("Arith", signature(e1 = "ANY", e2 = "Interval"), function(e1, e2) {
 #'   %%,Interval,Period -,Date,Interval -,Duration,Interval -,Interval,Date
 #'   -,Interval,Interval -,Interval,POSIXct -,Interval,POSIXlt
 #'   -,Interval,numeric -,POSIXct,Interval -,POSIXlt,Interval -,numeric,Interval
+#'   -,Interval,Duration-method -,Interval,Period-method
 NULL

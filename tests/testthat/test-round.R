@@ -1,5 +1,3 @@
-context("Rounding")
-
 test_that("floor_date works as expected with POSIX units", {
   set.seed(11111)
   x <- ymd_hms(c("2020-01-03 00:01:03", "2020-02-04 00:01:03", "2020-03-05 00:00:00"), tz = "America/New_York")
@@ -95,6 +93,12 @@ test_that("round_date works as expected with Date units", {
   expect_equal(round_date(rev(b), x), rev(x[c(1, 2)]))
   expect_equal(round_date(y <- ymd("2030-01-01"), x), x[3])
   expect_equal(round_date(y <- ymd("2010-01-01"), x), x[1])
+})
+
+test_that("round_date works on POSIXlt objects", {
+  x <- as.POSIXlt(ymd_hms(c("2012-11-01 23:41:00", "2012-11-01 00:44:10"), tz="America/New_York"))
+  expect_equal(round_date(x, "5 mins"),
+    as.POSIXlt(ymd_hms(c("2012-11-01 23:40:00", "2012-11-01 00:45:00"), tz="America/New_York")))
 })
 
 test_that("round_date fails with invalid date-time units", {

@@ -71,6 +71,8 @@
 \alias{-,POSIXct,Interval}
 \alias{-,POSIXlt,Interval}
 \alias{-,numeric,Interval}
+\alias{-,Interval,Duration-method}
+\alias{-,Interval,Period-method}
 \alias{Compare,Duration,ANY-method}
 \alias{Compare,Duration,Duration-method}
 \alias{Compare,difftime,Duration-method}
@@ -122,6 +124,15 @@
 \alias{-,Duration,missing-method}
 \alias{-,ANY,Duration-method}
 \alias{-,Duration,Duration-method}
+\alias{-,Duration,Date-method}
+\alias{-,Duration,POSIXct-method}
+\alias{-,Duration,POSIXlt-method}
+\alias{-,Duration,Period-method}
+\alias{-,Duration,numeric-method}
+\alias{-,POSIXct,Duration-method}
+\alias{-,numeric,Duration-method}
+\alias{-,POSIXlt,Duration-method}
+\alias{-,Date,Duration-method}
 \alias{Arith,ANY,Period-method}
 \alias{Arith,Duration,Period-method}
 \alias{Arith,Period,Duration-method}
@@ -258,6 +269,15 @@
 \alias{>=,Period,Period}
 \alias{>=,Period,numeric}
 \alias{>=,numeric,Period}
+\alias{-,Period,Date-method}
+\alias{-,Period,Duration-method}
+\alias{-,Period,POSIXct-method}
+\alias{-,Period,POSIXlt-method}
+\alias{-,Period,numeric-method}
+\alias{-,Date,Period-method}
+\alias{-,numeric,Period-method}
+\alias{-,POSIXlt,Period-method}
+\alias{-,POSIXct,Period-method}
 \title{Internal page for hidden aliases}
 \description{
 For S4 methods that require a documentation entry but only clutter the index.

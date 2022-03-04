@@ -104,6 +104,10 @@ setMethod("+", signature(e1 = "Duration", e2 = "numeric"),
           function(e1, e2) add_number_to_duration(e2, e1))
 
 #' @export
+setMethod("+", signature(e1 = "Duration", e2 = "Interval"),
+          function(e1, e2) add_number_to_duration(e2, e1))
+
+#' @export
 setMethod("+", signature(e1 = "Duration", e2 = "POSIXct"),
           function(e1, e2) add_duration_to_date(e1, e2))
 
@@ -121,6 +125,10 @@ setMethod("+", signature(e1 = "Period", e2 = "Date"),
 
 #' @export
 setMethod("+", signature(e1 = "Period", e2 = "numeric"),
+          function(e1, e2) add_number_to_period(e2, e1))
+
+#' @export
+setMethod("+", signature(e1 = "Period", e2 = "Interval"),
           function(e1, e2) add_number_to_period(e2, e1))
 
 #' @export
@@ -149,6 +157,18 @@ setMethod("+", signature(e1 = "numeric", e2 = "Duration"),
 
 #' @export
 setMethod("+", signature(e1 = "numeric", e2 = "Period"),
+          function(e1, e2) add_number_to_period(e1, e2))
+
+#' @export
+setMethod("+", signature(e1 = "Interval", e2 = "Duration"),
+          function(e1, e2) add_number_to_duration(e1, e2))
+
+#' @export
+setMethod("+", signature(e1 = "Interval", e2 = "Period"),
+          function(e1, e2) add_number_to_period(e1, e2))
+
+#' @export
+setMethod("+", signature(e1 = "Interval", e2 = "Interval"),
           function(e1, e2) add_number_to_period(e1, e2))
 
 #' @export

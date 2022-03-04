@@ -1,5 +1,3 @@
-context("Division operators")
-
 test_that("division operations work for interval numerator", {
   int <- ymd("2009-02-03") %--% ymd("2010-01-01")
   smaller_int <- ymd("2009-12-01") %--% ymd("2010-01-01")
@@ -138,25 +136,25 @@ test_that("division works as expected for periods", {
   expect_error(3/months(1))
   expect_error(months(1)/3)
   expect_equal(months(9)/3, months(3))
-  expect_is(months(9)/3, "Period")
+  expect_s4_class(months(9)/3, "Period")
 })
 
 test_that("dividing vectors works for periods", {
   expect_error(c(2, 3)/months(1))
   expect_error(months(1)/c(2, 3))
   expect_equal(months(9)/c(3, 1), months(c(3, 9)))
-  expect_is(months(9)/c(3, 1), "Period")
+  expect_s4_class(months(9)/c(3, 1), "Period")
 })
 
 test_that("division works as expected for durations", {
   expect_error(3/dhours(1))
   expect_equal(dhours(9)/3, dhours(3))
-  expect_is(dhours(9)/3, "Duration")
+  expect_s4_class(dhours(9)/3, "Duration")
 
 })
 
 test_that("dividing vectors works for durations", {
   expect_error(c(2, 3)/dhours(1))
   expect_equal(dhours(9)/c(3, 1), dhours(c(3, 9)))
-  expect_is(dhours(9)/c(3, 1), "Duration")
+  expect_s4_class(dhours(9)/c(3, 1), "Duration")
 })

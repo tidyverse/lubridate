@@ -1,4 +1,3 @@
-context("Parsing")
 Sys.setlocale("LC_TIME", "C")
 
 test_that("parsers throw on invalid tz argument", {
@@ -449,7 +448,7 @@ test_that("AM/PM indicators are parsed correctly", {
                ymd_hms("1996-12-17 16:00:00", tz = "CET"))
   expect_equal(parse_date_time2("12/17/1996 04:00:00  TM", "mdYHMSp"),
                make_datetime(NA))
-  expect_equal(fast_strptime("1996-05-17 04:00:00 PM", "%Y-%m-%d %H:%M:%S %Op"),
+  expect_equal(as.POSIXct(fast_strptime("1996-05-17 04:00:00 PM", "%Y-%m-%d %H:%M:%S %Op")),
                ymd_hms("1996-05-17 16:00:00"))
   expect_equal(ymd_hms("1996-05-17 04:00:00 PM"), ymd_hms("1996-05-17 16:00:00"))
   expect_equal(ydm_hms("1996-17-05 04:00:00 PM"), ydm_hms("1996-17-05 16:00:00"))
@@ -699,10 +698,10 @@ test_that("ISO8601: %z format (aka lubridate %Ou, %OO and %Oo formats) is correc
     parse_date_time(c("2012-12-04 15:06:06.95-08", "2012-12-04 15:06:06.95+08:00"), "YmdHMOSz"),
     as.POSIXct(c("2012-12-04 23:06:06.95 UTC", "2012-12-04 07:06:06.95 UTC"), tz = "UTC"))
   expect_equal(
-    fast_strptime("2014-03-12T09:32:44Z", "%Y-%m-%dT%H:%M:%S%z"),
+    as.POSIXct(fast_strptime("2014-03-12T09:32:44Z", "%Y-%m-%dT%H:%M:%S%z")),
     as.POSIXct("2014-03-12 09:32:44 UTC", tz = "UTC"))
   expect_equal(
-    fast_strptime("2014-03-12T09:32:44.33Z", "%Y-%m-%dT%H:%M:%OS%z"),
+    as.POSIXct(fast_strptime("2014-03-12T09:32:44.33Z", "%Y-%m-%dT%H:%M:%OS%z")),
     as.POSIXct("2014-03-12 09:32:44.33 UTC", tz = "UTC"))
 })
 
@@ -725,8 +724,10 @@ test_that("ymd_hms parses Ou format correctly ", {
   ## Correct usage
   expect_equal(ymd_hms("2012-03-04T05:06:07Z"),
               ymd_hms("2012-03-04 05:06:07", tz = "UTC"))
-  expect_equal(ymd_hms("2012-03-04T05:06:07Z", tz = "America/Chicago"),
-              ymd_hms("2012-03-03 23:06:07", tz = "America/Chicago"))
+  expect_message(expect_equal(
+    ymd_hms("2012-03-04T05:06:07Z", tz = "America/Chicago"),
+    ymd_hms("2012-03-03 23:06:07", tz = "America/Chicago")
+  ))
 
   ## check for message
   expect_message(ymd_hms("2012-03-04T05:06:07Z", tz = "America/Chicago"),
@@ -775,26 +776,25 @@ test_that("ymd parses mixed y an Y formats", {
 })
 
 test_that("ymd_hms parses mixed ISO-8601/non-ISO-8601 formats", {
-  expect_equal(ymd_hms(c("2012-03-04T05:06:07Z", "2001-02-03 04:05:06"),
-                      tz = "America/Chicago"),
-              ymd_hms(c("2012-03-03 23:06:07", "2001-02-03 04:05:06"),
-                             tz = "America/Chicago"))
+  suppressMessages(expect_equal(
+    ymd_hms(c("2012-03-04T05:06:07Z", "2001-02-03 04:05:06"), tz = "America/Chicago"),
+    ymd_hms(c("2012-03-03 23:06:07", "2001-02-03 04:05:06"), tz = "America/Chicago")))
 })
 
 test_that("parse_date_time2 and fast_strptime parse ISO8601 timezones", {
     tm <- "2001-02-03 11:22:33-0630"
     ptm <- as.POSIXct("2001-02-03 17:52:33", tz = "UTC")
-    expect_equal(fast_strptime(tm, "%Y-%m-%d %H:%M:%S%Oz"), ptm)
-    expect_equal(fast_strptime(tm, "%Y-%m-%d %H:%M:%S%z"), ptm)
-    expect_equal(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%Oz"), ptm)
-    expect_equal(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%z"), ptm)
+    expect_equal(as.POSIXct(fast_strptime(tm, "%Y-%m-%d %H:%M:%S%Oz")), ptm)
+    expect_equal(as.POSIXct(fast_strptime(tm, "%Y-%m-%d %H:%M:%S%z")), ptm)
+    expect_equal(as.POSIXct(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%Oz")), ptm)
+    expect_equal(as.POSIXct(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%z")), ptm)
     expect_equal(parse_date_time2(tm, "YmdHMSz"), ptm)
     expect_equal(parse_date_time2(tm, "YmdHMSOz"), ptm)
     expect_equal(parse_date_time2(tm, "YmdHMOSz"), ptm)
     expect_equal(parse_date_time2(tm, "YmdHMOSOz"), ptm)
     tm <- "2001-02-03 11:22:33-06:30"
-    expect_equal(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%OO"), ptm)
-    expect_equal(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%z"), ptm)
+    expect_equal(as.POSIXct(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%OO")), ptm)
+    expect_equal(as.POSIXct(fast_strptime(tm, "%Y-%m-%d %H:%M:%OS%z")), ptm)
     expect_equal(parse_date_time2(tm, "YmdHMSz"), ptm)
     expect_equal(parse_date_time2(tm, "YmdHMSOO"), ptm)
 })
@@ -805,17 +805,21 @@ test_that("parse_date_time2 and fast_strptime correctly work with timezones", {
                parse_date_time2("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"))
   expect_equal(as.POSIXct(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich")),
                parse_date_time2("12/03/16 12:00",  "dmy HM", tz = "Europe/Zurich"))
-  expect_equal(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich"),
-               fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich"))
-  expect_equal(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York"),
-               fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York"))
+  expect_equal(
+    as.POSIXct(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich")),
+    as.POSIXct(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "Europe/Zurich"))
+  )
+  expect_equal(
+    as.POSIXct(strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York")),
+    as.POSIXct(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", tz = "America/New_York"))
+  )
 })
 
 test_that("parse_date_time2 and fast_strptime correctly return lt objects", {
-  expect_is(parse_date_time2("12/03/16 12:00",  "dmy HM"), "POSIXct")
-  expect_is(parse_date_time2("12/03/16 12:00",  "dmy HM", lt = TRUE), "POSIXlt")
-  expect_is(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M"), "POSIXlt")
-  expect_is(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", lt = FALSE), "POSIXct")
+  expect_s3_class(parse_date_time2("12/03/16 12:00",  "dmy HM"), "POSIXct")
+  expect_s3_class(parse_date_time2("12/03/16 12:00",  "dmy HM", lt = TRUE), "POSIXlt")
+  expect_s3_class(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M"), "POSIXlt")
+  expect_s3_class(fast_strptime("12/03/16 12:00",  "%d/%m/%y %H:%M", lt = FALSE), "POSIXct")
 })
 
 test_that("ymd_hms, parse_date_time2, fast_strptime and base:strptime give the same result", {
@@ -825,13 +829,13 @@ test_that("ymd_hms, parse_date_time2, fast_strptime and base:strptime give the s
   oposix <- as.POSIXct(X, tz = "UTC")
   opdt1 <- ymd_hms(X)
   opdt2 <- parse_date_time2(X, "YmdHMOS")
-  ofstrptime <- fast_strptime(X, "%Y-%m-%d %H:%M:%OS")
+  ofstrptime <- as.POSIXct(fast_strptime(X, "%Y-%m-%d %H:%M:%OS"))
   expect_equal(oposix, opdt1)
   expect_equal(oposix, opdt2)
   expect_equal(oposix, ofstrptime)
   tzs <- strptime(X, "%Y-%m-%d %H:%M:%OS", tz = "America/New_York")
   tzfs <- fast_strptime(X, "%Y-%m-%d %H:%M:%OS", tz = "America/New_York")
-  expect_equal(tzs, tzfs)
+  expect_equal(as.POSIXct(tzs), as.POSIXct(tzfs))
 })
 
 test_that("`parse_date_time2` parses formats with `exact=TRUE`", {
@@ -845,14 +849,22 @@ test_that("`parse_date_time2` parses formats with `exact=TRUE`", {
 
 
 test_that("fast_strptime and parse_date_time2 parse correctly verbose formats", {
-  expect_equal(fast_strptime("aa 2000 bbb10ccc 12 zzz", "aa %Y bbb%mccc %d zzz"),
-               as.POSIXct("2000-10-12", tz = "UTC"))
-  expect_equal(fast_strptime("aa 2000 5555 bbb10ccc 12 zzz", "aa %Y 5555 bbb%mccc %d zzz"),
-               as.POSIXct("2000-10-12", tz = "UTC"))
-  expect_equal(parse_date_time2("aa 2000 bbb10ccc 12 zzz", "Ymd"),
-               as.POSIXct("2000-10-12", tz = "UTC"))
-  expect_equal(parse_date_time2("aa 2000 5555 bbb10ccc 12 zzz", "Ymd"),
-               as.POSIXct(as.POSIXlt(NA, tz = "UTC")))
+  expect_equal(
+    as.POSIXct(fast_strptime("aa 2000 bbb10ccc 12 zzz", "aa %Y bbb%mccc %d zzz")),
+    as.POSIXct("2000-10-12", tz = "UTC")
+  )
+  expect_equal(
+    as.POSIXct(fast_strptime("aa 2000 5555 bbb10ccc 12 zzz", "aa %Y 5555 bbb%mccc %d zzz")),
+    as.POSIXct("2000-10-12", tz = "UTC")
+  )
+  expect_equal(
+    as.POSIXct(parse_date_time2("aa 2000 bbb10ccc 12 zzz", "Ymd")),
+    as.POSIXct("2000-10-12", tz = "UTC")
+  )
+  expect_equal(
+    as.POSIXct(parse_date_time2("aa 2000 5555 bbb10ccc 12 zzz", "Ymd")),
+    as.POSIXct(as.POSIXlt(NA, tz = "UTC"))
+  )
 })
 
 test_that("fast_strptime and parse_date_time2 deal correctly with leap years", {
@@ -863,21 +875,29 @@ test_that("fast_strptime and parse_date_time2 deal correctly with leap years", {
 test_that("fast_strptime and parse_date_time2 detect excesive days", {
   ## https://github.com/tidyverse/lubridate/issues/#289
   expect_equal(ymd(c("2000-01-32", "2000-02-30", "2100-03-32", "2400-12-32"), quiet = T),
-               as.Date(c(NA, NA, NA, NA)), tz = "UTC")
+               as.Date(c(NA, NA, NA, NA)))
 })
 
 test_that("fast_strptime and parse_date_time2 aggree with strptime", {
   date <- "1 7 97"
-  expect_equal(fast_strptime(date, "%d %m %y"),
-               strptime(date, "%d %m %y", tz = "UTC"))
+  expect_equal(
+    as.POSIXct(fast_strptime(date, "%d %m %y")),
+    as.POSIXct(strptime(date, "%d %m %y", tz = "UTC"))
+  )
   date <- "1 1 69"
-  expect_equal(fast_strptime(date, "%d %m %y"),
-               strptime(date, "%d %m %y", tz = "UTC"))
+  expect_equal(
+    as.POSIXct(fast_strptime(date, "%d %m %y")),
+    as.POSIXct(strptime(date, "%d %m %y", tz = "UTC"))
+  )
   date <- "1 1 68"
-  expect_equal(fast_strptime(date, "%d %m %y"),
-               strptime(date, "%d %m %y", tz = "UTC"))
-  expect_equal(parse_date_time2(date, "dmy"),
-               strptime(date, "%d %m %y", tz = "UTC"))
+  expect_equal(
+    as.POSIXct(fast_strptime(date, "%d %m %y")),
+    as.POSIXct(strptime(date, "%d %m %y", tz = "UTC"))
+  )
+  expect_equal(
+    as.POSIXct(parse_date_time2(date, "dmy")),
+    as.POSIXct(strptime(date, "%d %m %y", tz = "UTC"))
+  )
 })
 
 test_that("a and A formats are handled correctly (#254)", {

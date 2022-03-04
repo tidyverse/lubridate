@@ -1,5 +1,3 @@
-context("Time zones")
-
 test_that("with_tz works as expected", {
   x_ct <- as.POSIXct("2008-08-03 10:01:59", tz = "America/New_York")
   y_ct <- as.POSIXct("2008-08-03 14:01:59", tz = "UTC")
@@ -11,7 +9,7 @@ test_that("with_tz works as expected", {
   y_lt <- as.POSIXlt("2008-08-03 14:01:59", tz = "UTC")
 
   expect_equal(with_tz(x_lt, "UTC"), y_lt)
-  expect_equal(with_tz(y_lt, "America/New_York"), x_lt)
+  expect_equal(as.POSIXct(with_tz(y_lt, "America/New_York")), x_ct)
   expect_equal(x_ct, as.POSIXct(with_tz(y_lt, "America/New_York")))
   expect_s3_class(with_tz(y_lt, "UTC"), "POSIXlt")
 })
@@ -54,8 +52,8 @@ test_that("force_tz handles data.frames", {
   x_out <- as.POSIXct(format(as.POSIXct(x)), tz = "UTC")
   df <- data.frame(x = x, y = as.POSIXlt(x), z = "blabla")
   df <- force_tz(df, "UTC")
-  expect_that(df$x, equals(x_out))
-  expect_that(df$y, equals(x_out))
+  expect_equal(df$x, x_out)
+  expect_equal(df$y, x_out)
 })
 
 

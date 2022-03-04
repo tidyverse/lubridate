@@ -1,5 +1,3 @@
-context("Instants")
-
 test_that("is.instant/is.timepoint works as expected", {
   expect_false(is.instant(234))
   expect_true(is.instant(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))

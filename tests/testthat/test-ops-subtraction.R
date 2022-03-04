@@ -1,5 +1,3 @@
-context("Subtraction operations")
-
 ###### subtraction for everything
 
 test_that("subtraction works as expected for instants", {
@@ -31,11 +29,11 @@ test_that("subtraction with instants returns correct class", {
   y <- as.POSIXlt("2008-01-01 12:00:00", tz = "UTC")
   z <- as.Date("2008-01-01")
 
-  expect_is(x - years(1), "POSIXct")
-  expect_is(y - years(1), "POSIXlt")
-  expect_is(z - years(1), "Date")
-  expect_is(x - dyears(1), "POSIXct")
-  expect_is(y - dyears(1), "POSIXlt")
+  expect_s3_class(x - years(1), "POSIXct")
+  expect_s3_class(y - years(1), "POSIXlt")
+  expect_s3_class(z - years(1), "Date")
+  expect_s3_class(x - dyears(1), "POSIXct")
+  expect_s3_class(y - dyears(1), "POSIXlt")
 })
 
 
@@ -55,8 +53,8 @@ test_that("subtraction works as expected for periods", {
 
 test_that("subtraction with periods returns correct class", {
 
-  expect_is(years(1) - 1, "Period")
-  expect_is(years(1) - minutes(3), "Period")
+  expect_s4_class(years(1) - 1, "Period")
+  expect_s4_class(years(1) - minutes(3), "Period")
 
 })
 
@@ -75,8 +73,8 @@ test_that("subtraction works as expected for durations", {
 
 test_that("subtraction with durations returns correct class", {
 
-  expect_is(dyears(1) - 1, "Duration")
-  expect_is(dyears(1) - dyears(1), "Duration")
+  expect_s4_class(dyears(1) - 1, "Duration")
+  expect_s4_class(dyears(1) - dyears(1), "Duration")
 
 })
 

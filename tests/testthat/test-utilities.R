@@ -1,5 +1,3 @@
-context("Utilities")
-
 test_that("leap_year correctly identifies leap years", {
   x <- as.POSIXct("2009-08-03 12:01:59", tz = "UTC")
   y <- as.POSIXct("2008-08-03 12:01:59", tz = "UTC")

@@ -1,5 +1,3 @@
-context("POSIXt")
-
 test_that("is.POSIXt works as expected", {
   expect_false(is.POSIXt(234))
   expect_true(is.POSIXt(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))
@@ -82,7 +80,7 @@ test_that("converts character", {
   expect_s3_class(dt, "POSIXct")
   expect_equal(tz(dt), "UTC")
   expect_equal(dt, ymd_hms(chars))
-  expect_equal(as_datetime(chars, tz = "Europe/Amsterdam"), ymd_hms(chars, tz = "Europe/Amsterdam", quiet = TRUE))
+  expect_equal(suppressMessages(as_datetime(chars, tz = "Europe/Amsterdam")), ymd_hms(chars, tz = "Europe/Amsterdam", quiet = TRUE))
 })
 
 test_that("changes timezone of POSIXct", {
