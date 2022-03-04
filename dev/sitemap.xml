@@ -1,207 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://lubridate.tidyverse.org/index.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/DateCoercion.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/DateTimeUpdate.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/ISSUE_TEMPLATE.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/Deprecated.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/Duration-class.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/SUPPORT.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/Interval-class.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/Period-class.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/articles/lubridate.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/Timespan-class.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/authors.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/am.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/index.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/as.duration.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/news/index.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/as.interval.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/DateCoercion.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/as.period.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/DateTimeUpdate.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/as_date.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/Deprecated.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/cyclic_encoding.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/Duration-class.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/date.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/Interval-class.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/date_decimal.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/Period-class.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/date_utils.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/Timespan-class.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/day.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/am.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/days_in_month.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/as.duration.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/decimal_date.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/as.interval.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/dst.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/as.period.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/duration.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/as_date.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/fit_to_timeline.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/cyclic_encoding.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/force_tz.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/date.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/format_ISO8601.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/date_decimal.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/format_ISO8601_precision_check.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/date_utils.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/guess_formats.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/day.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/hidden_aliases.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/days_in_month.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/hms.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/decimal_date.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/hour.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/dst.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/interval.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/duration.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/is.difftime.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/fit_to_timeline.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/is.instant.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/force_tz.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/is.timespan.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/format_ISO8601.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/lakers.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/format_ISO8601_precision_check.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/leap_year.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/guess_formats.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/local_time.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/hidden_aliases.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/lubridate-package.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/hms.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/make_datetime.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/hour.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/make_difftime.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/minute.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/interval.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/month.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/is.difftime.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/mplus.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/is.instant.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/now.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/is.timespan.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/origin.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/lakers.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/parse_date_time.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/leap_year.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/period.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/local_time.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/period_to_seconds.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/lubridate-package.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/posix_utils.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/make_datetime.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/pretty_dates.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/make_difftime.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/quarter.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/minute.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/reclass_date.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/month.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/reclass_timespan.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/mplus.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/reexports.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/now.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/rollbackward.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/origin.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/round_date.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/parse_date_time.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/second.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/period.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/stamp.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/period_to_seconds.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/time_length.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/posix_utils.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/timespan.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/pretty_dates.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/tz.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/quarter.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/week.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/reclass_date.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/with_tz.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/reclass_timespan.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/within-interval.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/year.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/rollbackward.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/ymd.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/round_date.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/reference/ymd_hms.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/second.html</loc>
   </url>
   <url>
-    <loc>https://lubridate.tidyverse.org/articles/lubridate.html</loc>
+    <loc>https://lubridate.tidyverse.org/dev/reference/stamp.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/time_length.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/timespan.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/tz.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/week.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/with_tz.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/within-interval.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/year.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/ymd.html</loc>
+  </url>
+  <url>
+    <loc>https://lubridate.tidyverse.org/dev/reference/ymd_hms.html</loc>
   </url>
 </urlset>
