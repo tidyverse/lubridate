@@ -524,6 +524,9 @@ test_that("Interval objects can be ordered", {
 # Output
 
 test_that("vctrs methods have informative errors", {
+  # partial match warning from [<-.data.frame messes up snapshots
+  skip_if_not(getRversion() >= "3.6.0")
+
   expect_snapshot(error = TRUE, {
     "# no common type when mixing Period/Duration/Interval"
     vec_ptype2(period(), duration())

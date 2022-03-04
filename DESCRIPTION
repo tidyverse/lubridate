@@ -2,52 +2,29 @@ Type: Package
 Package: lubridate
 Title: Make Dealing with Dates a Little Easier
 Version: 1.8.0
-Authors@R:
-    c(person(given = "Vitalie",
-             family = "Spinu",
-             role = c("aut", "cre"),
-             email = "spinuvit@gmail.com"),
-      person(given = "Garrett",
-             family = "Grolemund",
-             role = "aut"),
-      person(given = "Hadley",
-             family = "Wickham",
-             role = "aut"),
-      person(given = "Davis",
-             family = "Vaughan",
-             role = "ctb"),
-      person(given = "Ian",
-             family = "Lyttle",
-             role = "ctb"),
-      person(given = "Imanuel",
-             family = "Costigan",
-             role = "ctb"),
-      person(given = "Jason",
-             family = "Law",
-             role = "ctb"),
-      person(given = "Doug",
-             family = "Mitarotonda",
-             role = "ctb"),
-      person(given = "Joseph",
-             family = "Larmarange",
-             role = "ctb"),
-      person(given = "Jonathan",
-             family = "Boiser",
-             role = "ctb"),
-      person(given = "Chel Hee",
-             family = "Lee",
-             role = "ctb"),
-      person("Google Inc.", role = c("ctb", "cph")))
+Authors@R: c(
+    person("Vitalie", "Spinu", , "spinuvit@gmail.com", role = c("aut", "cre")),
+    person("Garrett", "Grolemund", role = "aut"),
+    person("Hadley", "Wickham", role = "aut"),
+    person("Davis", "Vaughan", role = "ctb"),
+    person("Ian", "Lyttle", role = "ctb"),
+    person("Imanuel", "Costigan", role = "ctb"),
+    person("Jason", "Law", role = "ctb"),
+    person("Doug", "Mitarotonda", role = "ctb"),
+    person("Joseph", "Larmarange", role = "ctb"),
+    person("Jonathan", "Boiser", role = "ctb"),
+    person("Chel Hee", "Lee", role = "ctb"),
+    person("Google Inc.", role = c("ctb", "cph"))
+  )
 Maintainer: Vitalie Spinu <spinuvit@gmail.com>
-Description: Functions to work with date-times and time-spans:
-    fast and user friendly parsing of date-time data, extraction and
-    updating of components of a date-time (years, months, days, hours,
-    minutes, and seconds), algebraic manipulation on date-time and
-    time-span objects. The 'lubridate' package has a consistent and
-    memorable syntax that makes working with dates easy and fun.  Parts of
-    the 'CCTZ' source code, released under the Apache 2.0 License, are
-    included in this package. See <https://github.com/google/cctz> for
-    more details.
+Description: Functions to work with date-times and time-spans: fast and
+    user friendly parsing of date-time data, extraction and updating of
+    components of a date-time (years, months, days, hours, minutes, and
+    seconds), algebraic manipulation on date-time and time-span objects.
+    The 'lubridate' package has a consistent and memorable syntax that
+    makes working with dates easy and fun.  Parts of the 'CCTZ' source
+    code, released under the Apache 2.0 License, are included in this
+    package. See <https://github.com/google/cctz> for more details.
 License: GPL (>= 2)
 URL: https://lubridate.tidyverse.org,
     https://github.com/tidyverse/lubridate
@@ -60,9 +37,9 @@ Imports:
 Suggests:
     covr,
     knitr,
-    testthat (>= 3.0.0),
-    vctrs (>= 0.3.0),
-    rmarkdown
+    rmarkdown,
+    testthat (>= 2.1.0),
+    vctrs (>= 0.3.0)
 Enhances:
     chron,
     timeDate,
@@ -72,6 +49,8 @@ LinkingTo:
     cpp11 (>= 0.2.7)
 VignetteBuilder:
     knitr
+Config/Needs/website: tidyverse/tidytemplate
+Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -131,4 +110,3 @@ Collate:
     'update.r'
     'vctrs.R'
     'zzz.R'
-Config/testthat/edition: 3
