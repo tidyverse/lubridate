@@ -51,6 +51,10 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install French language package
+        if: runner.os == 'Linux'
+        run: sudo apt-get install language-pack-fr
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
