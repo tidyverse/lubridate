@@ -1,5 +1,3 @@
-context("Pretty formatting of dates")
-
 test_that("pretty_dates works for years", {
 
   ## skip anything that uses setenv(TZ) on CRAN for now

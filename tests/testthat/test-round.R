@@ -1,5 +1,3 @@
-context("Rounding")
-
 test_that("floor_date works as expected with POSIX units", {
   set.seed(11111)
   x <- ymd_hms(c("2020-01-03 00:01:03", "2020-02-04 00:01:03", "2020-03-05 00:00:00"), tz = "America/New_York")

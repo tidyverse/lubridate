@@ -79,8 +79,6 @@
 ## regexpr(reg[[1]], x, perl=T)
 
 
-context("Guessing format")
-
 test_that(".get_train_set can find non NA dates", {
   x <- suppressWarnings(suppressMessages(ymd(c(rep(NA, 199), 20130213))))
   expect_equal(x, as.Date(as.POSIXct(c(rep(NA, 199), "2013-02-13"), tz = "UTC")))

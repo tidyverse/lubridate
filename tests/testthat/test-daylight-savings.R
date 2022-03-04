@@ -1,5 +1,3 @@
-context("Daylight savings times")
-
 test_that("force_tz returns NA for a time that falls in the spring gap", {
   x <- structure(1268532305, class = c("POSIXct", "POSIXt"), tzone = "UTC")
   y <- structure(1268618705, class = c("POSIXct", "POSIXt"), tzone = "UTC")

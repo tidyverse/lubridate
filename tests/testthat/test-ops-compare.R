@@ -1,5 +1,3 @@
-context("Comparisons operations")
-
 test_that("Comparison operators work with POSIX and Date objects", {
   expect_true(ymd_hms("2016-01-03 00:00:00", tz = "") == "2016-01-03 00:00:00")
   expect_true(ymd_hms("2016-01-03 00:00:00", tz = "") == "2016-01-03")

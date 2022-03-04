@@ -1,5 +1,3 @@
-context("Settors")
-
 test_that("seconds settor correctly performs simple updates", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
      = "%Y-%m-%d %H:%M:%S")
@@ -247,7 +245,7 @@ test_that("minutes settor makes POSIXct from Date", {
 
   minute(date) <- 70
 
-  expect_is(date, "POSIXct")
+  expect_s3_class(date, "POSIXct")
 })
 
 
@@ -487,17 +485,17 @@ test_that("mdays settor retains object class", {
   mday(posct) <- 3
   mday(date) <- 3
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 
   mday(poslt) <- 32
   mday(posct) <- 32
   mday(date) <- 32
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 
 })
 
@@ -616,17 +614,17 @@ test_that("ydays settor retains object class", {
   yday(posct) <- 3
   yday(date) <- 3
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 
   yday(poslt) <- 366
   yday(posct) <- 366
   yday(date) <- 366
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 
 })
 
@@ -746,17 +744,17 @@ test_that("wdays settor retains object class", {
   wday(posct) <- 3
   wday(date) <- 3
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 
   wday(poslt) <- 8
   wday(posct) <- 8
   wday(date) <- 8
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 
 })
 
@@ -865,17 +863,17 @@ test_that("months settor retains object class", {
   month(posct) <- 1
   month(date) <- 1
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 
   month(poslt) <- 13
   month(posct) <- 13
   month(date) <- 13
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 
 })
 
@@ -936,9 +934,9 @@ test_that("years settor retains object class", {
   year(posct) <- 2000
   year(date) <- 2000
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 })
 
 
@@ -995,9 +993,9 @@ test_that("dates settor retains object class", {
   date(posct) <- as.Date("2000-01-01")
   date(date) <- as.Date("2000-01-01")
 
-  expect_is(poslt, "POSIXlt")
-  expect_is(posct, "POSIXct")
-  expect_is(date, "Date")
+  expect_s3_class(poslt, "POSIXlt")
+  expect_s3_class(posct, "POSIXct")
+  expect_s3_class(date, "Date")
 })
 
 

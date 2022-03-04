@@ -1,5 +1,3 @@
-context("vctrs")
-
 library(vctrs)
 
 # ------------------------------------------------------------------------------
@@ -526,7 +524,7 @@ test_that("Interval objects can be ordered", {
 # Output
 
 test_that("vctrs methods have informative errors", {
-  verify_output(test_path("output", "test-vctrs.txt"), {
+  expect_snapshot(error = TRUE, {
     "# no common type when mixing Period/Duration/Interval"
     vec_ptype2(period(), duration())
     vec_ptype2(duration(), period())

@@ -1,5 +1,3 @@
-context("Dates")
-
 test_that("is.Date works as expected", {
   expect_false(is.Date(234))
   expect_false(is.Date(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))

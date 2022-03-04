@@ -1,4 +1,4 @@
-if (packageVersion("testthat") >= "0.7.1.99") {
-  library(testthat)
-  test_check("lubridate")
-}
+library(testthat)
+library(lubridate)
+
+test_check("lubridate")

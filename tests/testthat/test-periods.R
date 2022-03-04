@@ -1,5 +1,3 @@
-context("Periods")
-
 test_that("period() returns zero-length vector", {
   x <- period()
   expect_s4_class(x, "Period")
@@ -118,7 +116,7 @@ test_that("is.period works", {
 test_that("period works as expected", {
   per <- period(second = 90, minute = 5)
 
-  expect_is(per, "Period")
+  expect_s4_class(per, "Period")
   expect_equal(period(hours = 25), hours(25))
   expect_equal(per@year, 0)
   expect_equal(per@month, 0)
@@ -131,7 +129,7 @@ test_that("period works as expected", {
 test_that("period works as expected", {
   per <- period(c(90, 5), c("second", "minute"))
 
-  expect_is(per, "Period")
+  expect_s4_class(per, "Period")
   expect_equal(period(hours = 25), hours(25))
   expect_equal(per@year, 0)
   expect_equal(per@month, 0)
@@ -144,7 +142,7 @@ test_that("period works as expected", {
 test_that("period handles vector input", {
   per <- period(second = c(90, 60), minute = 5)
 
-  expect_is(per, "Period")
+  expect_s4_class(per, "Period")
   expect_equal(length(per), 2)
   expect_equal(per@year, c(0, 0))
   expect_equal(per@month, c(0, 0))
@@ -169,7 +167,7 @@ test_that("format.Period works as expected", {
   per3 <- period(years = 1, days = NA)
   expect_match(format(per), "5M 90S")
   expect_match(format(per2), "0S")
-  expect_equivalent(format(per3), as.character(NA))
+  expect_equal(format(per3), as.character(NA))
 })
 
 test_that("as.numeric and as.duration correctly handle periods", {

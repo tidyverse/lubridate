@@ -1,5 +1,3 @@
-context("Decimal_date")
-
 test_that("decimal_date handles vectors", {
   x <- as.POSIXct(c("2008-08-03 13:01:59", "2009-08-03 10:01:59"), tz = "UTC")
   expect_equal(round(decimal_date(x), 3), c(2008.589, 2009.587))

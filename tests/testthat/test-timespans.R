@@ -1,5 +1,3 @@
-context("Timespans")
-
 test_that("is.timespan works as expected", {
   expect_false(is.timespan(234))
   expect_false(is.timespan(as.POSIXct("2008-08-03 13:01:59", tz = "UTC")))
@@ -14,37 +12,37 @@ test_that("is.timespan works as expected", {
 })
 
 test_that("time_length works as expected", {
-  expect_that(
+  expect_equal(
     time_length(period(1, "day")), # period
-    equals(86400)
+    86400
   )
-  expect_that(
+  expect_equal(
     time_length(ymd("2014-12-15") - ymd("2014-11-30"), "day"), # difftime
-    equals(15)
+    15
   )
-  expect_that(
+  expect_equal(
     time_length(ymd("2014-12-15") - ymd("2014-11-30"), "week"),
-    equals(15 / 7)
+    15 / 7
   )
-  expect_that(
+  expect_equal(
     time_length(duration(3, "months"), "month"), # duration
-    equals(3)
+    3
   )
-  expect_that(
+  expect_equal(
     time_length(interval(ymd("2014-11-30"), ymd("2014-12-15")), "weeks"), # interval
-    equals(15 / 7)
+    15 / 7
   )
-  expect_that(
+  expect_lt(
     time_length(interval(ymd("1900-01-01"), ymd("1999-12-31")), "years"),
-    is_less_than(100)
+    100
   )
-  expect_that(
+  expect_lt(
     time_length(as.duration(interval(ymd("1900-01-01"), ymd("1999-12-31"))), "years"),
-    is_less_than(100)
+    100
   )
-  expect_that(
+  expect_equal(
     -time_length(interval(ymd("1900-01-01"), ymd("2000-01-01")), "days"),
-    equals(time_length(int_flip(interval(ymd("1900-01-01"), ymd("2000-01-01"))), "days"))
+    time_length(int_flip(interval(ymd("1900-01-01"), ymd("2000-01-01"))), "days")
   )
 })
 
@@ -58,40 +56,40 @@ test_that("time_length works with missing intervals", {
 })
 
 test_that("time_length works with birth date 29 Feb ", {
-  expect_that(
+  expect_equal(
     round(time_length(interval(ymd("1992-02-29"), ymd("1999-02-28")), "years"), 4),
-    equals(6.9973)
+    6.9973
   )
-  expect_that(
+  expect_equal(
     round(time_length(interval(ymd("1992-02-29"), ymd("1999-03-31")), "years"), 4),
-    equals(7.0822)
+    7.0822
   )
-  expect_that(
+  expect_equal(
     time_length(interval(ymd("1992-02-29"), ymd("1999-03-01")), "years"),
-    equals(7)
+    7
   )
-  expect_that(
+  expect_equal(
     round(time_length(interval(ymd("1992-02-29"), ymd("2000-03-01")), "years"), 4),
-    equals(8.0027)
+    8.0027
   )
-  expect_that(
+  expect_equal(
     time_length(interval(ymd("1992-02-29"), ymd("2000-02-29")), "years"),
-    equals(8)
+    8
   )
-  expect_that(
+  expect_gt(
     time_length(interval(ymd_hms("1992-02-29 12:00:00"), ymd_hms("1999-03-01 05:00:00")), "years"),
-    is_more_than(7)
+    7
   )
 })
 
 test_that("time_length works with negative interals", {
-  expect_that(
+  expect_equal(
     -time_length(interval(ymd("1992-02-28"), ymd("2000-01-01")), "days"),
-    equals(time_length(int_flip(interval(ymd("1992-02-28"), ymd("2000-01-01"))), "days"))
+    time_length(int_flip(interval(ymd("1992-02-28"), ymd("2000-01-01"))), "days")
   )
-  expect_that(
+  expect_equal(
     -time_length(interval(ymd("1992-02-28"), ymd("2000-03-01")), "days"),
-    equals(time_length(int_flip(interval(ymd("1992-02-28"), ymd("2000-03-01"))), "days"))
+    time_length(int_flip(interval(ymd("1992-02-28"), ymd("2000-03-01"))), "days")
   )
 
   ## If both ends include leap years Febs, the lenths are not identical
@@ -108,17 +106,17 @@ test_that("time_length works with negative interals", {
 })
 
 test_that("time_length handles vectors", {
-  expect_that(
+  expect_equal(
     time_length(days(1:3), unit = "days"),
-    equals(1:3)
+    1:3
   )
-  expect_that(
+  expect_equal(
     time_length(as.interval(days(1:3), start = today()), unit = "days"),
-    equals(1:3)
+    1:3
   )
-  expect_that(
+  expect_equal(
     time_length(as.interval(days(c(1:3, NA)), start = today()), unit = "days"),
-    equals(c(1:3, NA))
+    c(1:3, NA)
   )
 
   ints <- new("Interval",
