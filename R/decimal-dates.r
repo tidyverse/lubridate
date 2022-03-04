@@ -6,27 +6,29 @@
 #' @keywords manip chron methods
 #' @examples
 #' date <- ymd("2009-02-10")
-#' decimal_date(date)  # 2009.11
-decimal_date <- function(date)
+#' decimal_date(date) # 2009.11
+decimal_date <- function(date) {
   UseMethod("decimal_date")
+}
 
 #' @export
 decimal_date.default <- function(date) {
-
-  if (any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date"))))
+  if (any(!inherits(date, c("POSIXt", "POSIXct", "POSIXlt", "Date")))) {
     stop("date(s) not in POSIXt or Date format")
+  }
 
   Y <- year(date)
   start <- make_datetime(Y, 1L, 1L, tz = tz(date))
   end <- make_datetime(Y + 1L, 1L, 1L, tz = tz(date))
   sofar <- as.numeric(difftime(date, start, units = "secs"))
   total <- as.numeric(difftime(end, start, units = "secs"))
-  Y + sofar/total
+  Y + sofar / total
 }
 
 #' @export
-decimal_date.zoo <- function(date)
+decimal_date.zoo <- function(date) {
   decimal_date(zoo::index(date))
+}
 
 ## #' @export
 ## decimal_date.its <- function(date)
@@ -45,7 +47,7 @@ decimal_date.zoo <- function(date)
 #' @keywords manip chron methods
 #' @examples
 #' date <- ymd("2009-02-10")
-#' decimal <- decimal_date(date)  # 2009.11
+#' decimal <- decimal_date(date) # 2009.11
 #' date_decimal(decimal) # "2009-02-10 UTC"
 date_decimal <- function(decimal, tz = "UTC") {
   Y <- trunc(decimal)
@@ -54,6 +56,6 @@ date_decimal <- function(decimal, tz = "UTC") {
   end <- make_datetime(Y + 1L, 1L, 1L, tz = tz)
   seconds <- as.numeric(difftime(end, start, units = "secs"))
   frac <- decimal - Y
-  end <- start + seconds*frac
+  end <- start + seconds * frac
   return(end)
 }

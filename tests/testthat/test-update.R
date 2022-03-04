@@ -31,8 +31,10 @@ test_that("update.POSIXlt returns a POSIXlt object", {
 })
 
 test_that("update.POSIXct returns a POSIXct object", {
-  posct <- as.POSIXct("2010-02-03 13:45:59", tz = "GMT", format
-     = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct("2010-02-03 13:45:59",
+    tz = "GMT", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   expect_s3_class(update(posct, seconds = 1), "POSIXct")
   expect_s3_class(update(posct, minutes = 1), "POSIXct")
   expect_s3_class(update(posct, hours = 1), "POSIXct")
@@ -100,7 +102,6 @@ test_that("update.POSIXt performs simple operation as expected", {
 })
 
 test_that("update.POSIXt works on wdays", {
-
   date <- ymd("2017-05-07") ## sunday
   ct <- as.POSIXct("2010-02-03 13:45:59", tz = "America/New_York", format = "%Y-%m-%d %H:%M:%S") ## Wednesday
   expect_equal(wday(update(ct, wdays = 1)), 1)
@@ -141,32 +142,50 @@ test_that("update.POSIXt works on wdays", {
   expect_equal(wday(update(date, wdays = 2, week_start = ws), week_start = ws), 2)
   expect_equal(wday(update(date, wdays = 5, week_start = ws), week_start = ws), 5)
   expect_equal(wday(update(date, wdays = 7, week_start = ws), week_start = ws), 7)
-
 })
 
 test_that("updates on ydays works correctly with leap years", {
-  expect_equal(update(ymd("15-02-03", tz = "UTC"), years = 2000, ydays = 1),
-               ymd("2000-01-01", tz = "UTC"))
-  expect_equal(update(ymd("15-02-03", tz = "UTC"), years = 2015, ydays = 1),
-               ymd("2015-01-01", tz = "UTC"))
-  expect_equal(update(ymd("15-02-03", tz = "UTC"), years = 2016, ydays = 10),
-               ymd("2016-01-10", tz = "UTC"))
-  expect_equal(update(ymd("15-02-03", tz = "America/New_York"), years = 2000, ydays = 1),
-               ymd("2000-01-01", tz = "America/New_York"))
-  expect_equal(update(ymd("15-02-03", tz = "America/New_York"), years = 2015, ydays = 1),
-               ymd("2015-01-01", tz = "America/New_York"))
-  expect_equal(update(ymd("15-02-03", tz = "America/New_York"), years = 2016, ydays = 10),
-               ymd("2016-01-10", tz = "America/New_York"))
+  expect_equal(
+    update(ymd("15-02-03", tz = "UTC"), years = 2000, ydays = 1),
+    ymd("2000-01-01", tz = "UTC")
+  )
+  expect_equal(
+    update(ymd("15-02-03", tz = "UTC"), years = 2015, ydays = 1),
+    ymd("2015-01-01", tz = "UTC")
+  )
+  expect_equal(
+    update(ymd("15-02-03", tz = "UTC"), years = 2016, ydays = 10),
+    ymd("2016-01-10", tz = "UTC")
+  )
+  expect_equal(
+    update(ymd("15-02-03", tz = "America/New_York"), years = 2000, ydays = 1),
+    ymd("2000-01-01", tz = "America/New_York")
+  )
+  expect_equal(
+    update(ymd("15-02-03", tz = "America/New_York"), years = 2015, ydays = 1),
+    ymd("2015-01-01", tz = "America/New_York")
+  )
+  expect_equal(
+    update(ymd("15-02-03", tz = "America/New_York"), years = 2016, ydays = 10),
+    ymd("2016-01-10", tz = "America/New_York")
+  )
 
-  expect_equal(update(ymd(c("2016-02-29", "2016-03-01")), ydays = 1),
-               ymd(c("2016-01-01", "2016-01-01")))
-  expect_equal(update(ymd(c("2016-02-29", "2016-03-01"), tz = "America/New_York"), ydays = 1),
-               ymd(c("2016-01-01", "2016-01-01"), tz = "America/New_York"))
-  expect_equal(update(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30")), ydays = 1),
-               ymd_hms(c("2016-01-01 1:2:3", "2016-01-01 10:20:30")))
-  expect_equal(update(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30"), tz = "America/New_York"), ydays = 1),
-               ymd_hms(c("2016-01-01 1:2:3", "2016-01-01 10:20:30"), tz = "America/New_York"))
-
+  expect_equal(
+    update(ymd(c("2016-02-29", "2016-03-01")), ydays = 1),
+    ymd(c("2016-01-01", "2016-01-01"))
+  )
+  expect_equal(
+    update(ymd(c("2016-02-29", "2016-03-01"), tz = "America/New_York"), ydays = 1),
+    ymd(c("2016-01-01", "2016-01-01"), tz = "America/New_York")
+  )
+  expect_equal(
+    update(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30")), ydays = 1),
+    ymd_hms(c("2016-01-01 1:2:3", "2016-01-01 10:20:30"))
+  )
+  expect_equal(
+    update(ymd_hms(c("2016-02-29 1:2:3", "2016-03-01 10:20:30"), tz = "America/New_York"), ydays = 1),
+    ymd_hms(c("2016-01-01 1:2:3", "2016-01-01 10:20:30"), tz = "America/New_York")
+  )
 })
 
 
@@ -237,7 +256,8 @@ test_that("update performs consecutive roll overs correctly for
   Date objects regardless of order", {
   date <- update(as.Date("11/01/2010", "%m/%d/%Y"),
     months = 13, days = 32, hours = 25, minutes = 61, seconds
-     = 61)
+    = 61
+  )
   expect_equal(second(date), 1)
   expect_equal(minute(date), 2)
   expect_equal(hour(date), 2)
@@ -248,7 +268,8 @@ test_that("update performs consecutive roll overs correctly for
   expect_equal(year(date), 2011)
   expect_match(tz(date), "UTC")
   date2 <- update(as.Date("11/01/2010", "%m/%d/%Y"),
-    seconds = 61, minutes = 61, hours = 25, days = 32, months = 13)
+    seconds = 61, minutes = 61, hours = 25, days = 32, months = 13
+  )
   expect_equal(second(date2), 1)
   expect_equal(minute(date2), 2)
   expect_equal(hour(date2), 2)
@@ -262,10 +283,14 @@ test_that("update performs consecutive roll overs correctly for
 
 test_that("update performs consecutive roll overs correctly for
   POSIXlt objects", {
-  posl <- as.POSIXlt("2010-11-01 00:00:00", tz = "GMT", format
-     = "%Y-%m-%d %H:%M:%S")
-  poslt <- update(posl, months = 13, days = 32, hours = 25,
-    minutes = 61, seconds = 61)
+  posl <- as.POSIXlt("2010-11-01 00:00:00",
+    tz = "GMT", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
+  poslt <- update(posl,
+    months = 13, days = 32, hours = 25,
+    minutes = 61, seconds = 61
+  )
 
   expect_equal(second(poslt), 1)
   expect_equal(minute(poslt), 2)
@@ -277,8 +302,10 @@ test_that("update performs consecutive roll overs correctly for
   expect_equal(year(poslt), 2011)
   expect_match(tz(poslt), "GMT")
 
-  poslt2 <- update(posl, seconds = 61, minutes = 61, hours = 25,
-    days = 32, months = 13)
+  poslt2 <- update(posl,
+    seconds = 61, minutes = 61, hours = 25,
+    days = 32, months = 13
+  )
 
   expect_equal(second(poslt2), 1)
   expect_equal(minute(poslt2), 2)
@@ -292,10 +319,14 @@ test_that("update performs consecutive roll overs correctly for
 })
 
 test_that("update performs consecutive roll overs correctly for POSIXct objects", {
-  posc <- as.POSIXct("2010-11-01 00:00:00", tz = "GMT", format
-     = "%Y-%m-%d %H:%M:%S")
-  posct <- update(posc, months = 13, days = 32, hours = 25,
-    minutes = 61, seconds = 61)
+  posc <- as.POSIXct("2010-11-01 00:00:00",
+    tz = "GMT", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
+  posct <- update(posc,
+    months = 13, days = 32, hours = 25,
+    minutes = 61, seconds = 61
+  )
 
   expect_equal(second(posct), 1)
   expect_equal(minute(posct), 2)
@@ -307,8 +338,10 @@ test_that("update performs consecutive roll overs correctly for POSIXct objects"
   expect_equal(year(posct), 2011)
   expect_match(tz(posct), "GMT")
 
-  posct2 <- update(posc, seconds = 61, minutes = 61, hours = 25,
-    days = 32, months = 13)
+  posct2 <- update(posc,
+    seconds = 61, minutes = 61, hours = 25,
+    days = 32, months = 13
+  )
 
   expect_equal(second(posct2), 1)
   expect_equal(minute(posct2), 2)
@@ -344,7 +377,8 @@ test_that("update returns NA for date-times in the spring dst gap", {
 
 test_that("update handles vectors of dates", {
   poslt <- as.POSIXlt(c("2010-02-14 01:59:59", "2010-02-15 01:59:59", "2010-02-16 01:59:59"),
-                      tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+    tz = "UTC", format = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
   expect_equal(second(update(poslt, seconds = 1)), c(1, 1, 1))
@@ -391,16 +425,26 @@ test_that("update.POSIXlt returns input of length zero when given input of lengt
 })
 
 test_that("update correctly handles 60 seconds on 59 minute (bug #313)", {
-  expect_equal(ymd_hms("2015-01-01 00:59:00") + seconds(60),
-               ymd_hms("2015-01-01 01:00:00"))
-  expect_equal(ymd_hms("2015-01-01 01:59:00") + seconds(60),
-               ymd_hms("2015-01-01 02:00:00"))
-  expect_equal(ymd_hms("2015-01-01 23:59:00") + seconds(60),
-               ymd_hms("2015-01-02 00:00:00"))
-  expect_equal(ymd_hms("2015-01-01 00:59:05") + seconds(55),
-               ymd_hms("2015-01-01 01:00:00"))
-  expect_equal(ymd_hms("2015-01-01 00:59:59") + seconds(1),
-               ymd_hms("2015-01-01 01:00:00"))
+  expect_equal(
+    ymd_hms("2015-01-01 00:59:00") + seconds(60),
+    ymd_hms("2015-01-01 01:00:00")
+  )
+  expect_equal(
+    ymd_hms("2015-01-01 01:59:00") + seconds(60),
+    ymd_hms("2015-01-01 02:00:00")
+  )
+  expect_equal(
+    ymd_hms("2015-01-01 23:59:00") + seconds(60),
+    ymd_hms("2015-01-02 00:00:00")
+  )
+  expect_equal(
+    ymd_hms("2015-01-01 00:59:05") + seconds(55),
+    ymd_hms("2015-01-01 01:00:00")
+  )
+  expect_equal(
+    ymd_hms("2015-01-01 00:59:59") + seconds(1),
+    ymd_hms("2015-01-01 01:00:00")
+  )
 })
 
 test_that("Updateing on seconds doesn't affect hours", {

@@ -12,7 +12,6 @@ test_that("is.difftime works as expected", {
 
   expect_true(is.difftime(make_difftime(1000)))
   expect_true(is.difftime(ct_time - lt_time))
-
 })
 
 test_that("is.difftime handle vectors", {

@@ -1,37 +1,40 @@
 test_that("seconds accessor extracts correct second", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59",
+    tz = "UTC", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
   expect_equal(second(poslt), 59)
   expect_equal(second(posct), 59)
   expect_equal(second(date), 0)
-
 })
 
 test_that("minutes accessor extracts correct minute", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59",
+    tz = "UTC", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
   expect_equal(minute(poslt), 45)
   expect_equal(minute(posct), 45)
   expect_equal(minute(date), 0)
-
 })
 
 test_that("hours accessor extracts correct hour", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59",
+    tz = "UTC", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
   expect_equal(hour(poslt), 13)
   expect_equal(hour(posct), 13)
   expect_equal(hour(date), 0)
-
 })
 
 test_that("days accessors extract correct days", {
@@ -74,26 +77,35 @@ test_that("day accessors work on character inputs", {
 })
 
 test_that("wday works with various start values", {
-
   days <- days2 <-
-    ymd(c("2005-01-01", "2005-01-02", "2005-12-31", "2007-01-01", "2007-12-30",
-          "2007-12-31", "2008-01-01", "2008-12-28", "2008-12-29", "2008-12-30",
-          "2008-12-31", "2009-01-01", "2009-12-31", "2010-01-01", "2010-01-02"))
+    ymd(c(
+      "2005-01-01", "2005-01-02", "2005-12-31", "2007-01-01", "2007-12-30",
+      "2007-12-31", "2008-01-01", "2008-12-28", "2008-12-29", "2008-12-30",
+      "2008-12-31", "2009-01-01", "2009-12-31", "2010-01-01", "2010-01-02"
+    ))
 
-  expect_equal(as.character(wday(days, label = T, week_start = 1)),
-               as.character(wday(days, label = T, week_start = 3)))
+  expect_equal(
+    as.character(wday(days, label = T, week_start = 1)),
+    as.character(wday(days, label = T, week_start = 3))
+  )
 
-  expect_equal(as.character(wday(days, label = T, week_start = 1)),
-               as.character(wday(days, label = T, week_start = 7)))
+  expect_equal(
+    as.character(wday(days, label = T, week_start = 1)),
+    as.character(wday(days, label = T, week_start = 7))
+  )
 
   expect_equal(as.character(wday(days, label = T, locale = "C"))[1], "Sat")
   expect_equal(as.character(wday(days, label = T, abbr = FALSE, locale = "C"))[1], "Saturday")
 
-  expect_equal(wday(days, label = F, week_start = 1),
-               c(6, 7, 6, 1, 7, 1, 2, 7, 1, 2, 3, 4, 4, 5, 6))
+  expect_equal(
+    wday(days, label = F, week_start = 1),
+    c(6, 7, 6, 1, 7, 1, 2, 7, 1, 2, 3, 4, 4, 5, 6)
+  )
 
-  expect_equal(wday(days, label = F, week_start = 7),
-               c(7, 1, 7, 2, 1, 2, 3, 1, 2, 3, 4, 5, 5, 6, 7))
+  expect_equal(
+    wday(days, label = F, week_start = 7),
+    c(7, 1, 7, 2, 1, 2, 3, 1, 2, 3, 4, 5, 5, 6, 7)
+  )
 
   set.seed(1000)
   new_days <- sample(1:7, length(days2), replace = T)
@@ -106,15 +118,16 @@ test_that("wday works with various start values", {
 })
 
 test_that("weeks accessor extracts correct week", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59",
+    tz = "UTC", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
   expect_equal(week(poslt), 5)
   expect_equal(week(posct), 5)
   expect_equal(week(date), 5)
-
 })
 
 test_that("isoweek accessor extracts correct ISO8601 week", {
@@ -142,8 +155,10 @@ test_that("isoweek accessor extracts correct ISO8601 week", {
      Thu 31 Dec 2009 	2009-12-31 	2009-W53-4 	ISO year 2009 has 53 weeks and ends three days into Gregorian year 2010.
      Fri 1 Jan 2010 	2010-01-01 	2009-W53-5
      Sat 2 Jan 2010 	2010-01-02 	2009-W53-6
-     Sun 3 Jan 2010 	2010-01-03 	2009-W53-7"),
-    sep = "\t", fill = T, stringsAsFactors = F, header = F)
+     Sun 3 Jan 2010 	2010-01-03 	2009-W53-7"
+  ),
+  sep = "\t", fill = T, stringsAsFactors = F, header = F
+  )
 
   names(df) <- c("Gregorian", "ymd", "iso", "note")
 
@@ -158,7 +173,6 @@ test_that("isoweek accessor extracts correct ISO8601 week", {
 })
 
 test_that("epiweek computes dates correctly", {
-
   df <- read.table(textConnection(
     "ew	date	year
      1	12/30/07	8
@@ -181,8 +195,10 @@ test_that("epiweek computes dates correctly", {
      52 	12/26/10	10
      50 	12/07/08	8
      51 	12/14/08	8
-     52 	12/21/08	8"),
-    header = T, sep = "\t", stringsAsFactors = F)
+     52 	12/21/08	8"
+  ),
+  header = T, sep = "\t", stringsAsFactors = F
+  )
 
   date <- mdy(df$date)
   expect_equal(epiweek(date), df$ew)
@@ -191,14 +207,16 @@ test_that("epiweek computes dates correctly", {
 
 test_that("isoweek returns correct value for non-UTC time zone (#311)", {
   cest <- ymd_hms("2015-04-14 16:45:00", tz = "Europe/Copenhagen")
-  utc <-  ymd_hms("2015-04-14 16:45:00", tz = "UTC")
+  utc <- ymd_hms("2015-04-14 16:45:00", tz = "UTC")
   expect_equal(isoweek(cest), 16L)
   expect_equal(isoweek(utc), 16L)
 })
 
 test_that("months accessor extracts correct month", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59",
+    tz = "UTC", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
@@ -207,9 +225,10 @@ test_that("months accessor extracts correct month", {
   expect_equal(month(date), 2)
 
   expect_equal(as.character(month(date, label = TRUE, locale = "C")), "Feb")
-  expect_equal(as.character(month(date, label = TRUE, abbr = FALSE, locale = "C")),
-              "February")
-
+  expect_equal(
+    as.character(month(date, label = TRUE, abbr = FALSE, locale = "C")),
+    "February"
+  )
 })
 
 test_that("month() on numeric input doesn't accept invalid values", {
@@ -272,105 +291,171 @@ test_that("quarters accessor extracts correct quarter", {
   expect_equal(quarter(x, TRUE, fiscal_start = 9), c(2012.3, 2012.3, 2012.3, 2013.1, 2013.2))
   expect_equal(quarter(x, TRUE, fiscal_start = 9), c(2012.3, 2012.3, 2012.3, 2013.1, 2013.2))
 
-  expect_equal(quarter(x, type = "quarter", fiscal_start = 4),
-               c(4, 4, 1, 2, 3))
-  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 4),
-               c(2012.4, 2012.4, 2013.1, 2013.2, 2013.3))
-  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 11),
-               c(2012.2, 2012.2, 2012.3, 2012.4, 2013.1))
-  expect_equal(quarter(x, type = "date_first", fiscal_start = 4),
-               ymd(c("2012-01-01", "2012-01-01", "2012-04-01", "2012-07-01", "2012-10-01")))
-  expect_equal(quarter(x, type = "date_first", fiscal_start = 11),
-               ymd(c("2012-02-01", "2012-02-01", "2012-05-01", "2012-08-01", "2012-11-01")))
-  expect_equal(quarter(x, type = "date_last", fiscal_start = 4),
-               ymd(c("2012-03-31", "2012-03-31", "2012-06-30", "2012-09-30", "2012-12-31")))
-  expect_equal(quarter(x, type = "date_last", fiscal_start = 11),
-               ymd(c("2012-04-30", "2012-04-30", "2012-07-31", "2012-10-31", "2013-01-31")))
+  expect_equal(
+    quarter(x, type = "quarter", fiscal_start = 4),
+    c(4, 4, 1, 2, 3)
+  )
+  expect_equal(
+    quarter(x, type = "year.quarter", fiscal_start = 4),
+    c(2012.4, 2012.4, 2013.1, 2013.2, 2013.3)
+  )
+  expect_equal(
+    quarter(x, type = "year.quarter", fiscal_start = 11),
+    c(2012.2, 2012.2, 2012.3, 2012.4, 2013.1)
+  )
+  expect_equal(
+    quarter(x, type = "date_first", fiscal_start = 4),
+    ymd(c("2012-01-01", "2012-01-01", "2012-04-01", "2012-07-01", "2012-10-01"))
+  )
+  expect_equal(
+    quarter(x, type = "date_first", fiscal_start = 11),
+    ymd(c("2012-02-01", "2012-02-01", "2012-05-01", "2012-08-01", "2012-11-01"))
+  )
+  expect_equal(
+    quarter(x, type = "date_last", fiscal_start = 4),
+    ymd(c("2012-03-31", "2012-03-31", "2012-06-30", "2012-09-30", "2012-12-31"))
+  )
+  expect_equal(
+    quarter(x, type = "date_last", fiscal_start = 11),
+    ymd(c("2012-04-30", "2012-04-30", "2012-07-31", "2012-10-31", "2013-01-31"))
+  )
 
   x <- ymd("2010-01-01") + months(0:11)
-  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 6),
-               c(2010.3, 2010.3, 2010.4, 2010.4, 2010.4, 2011.1, 2011.1, 2011.1,
-                 2011.2, 2011.2, 2011.2, 2011.3))
-  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 6),
-               quarter(x, type = "year.quarter", fiscal_start = -6))
-  expect_equal(quarter(x, type = "date_first", fiscal_start = 6),
-               ymd(c("2009-12-01", "2009-12-01", "2010-03-01", "2010-03-01",
-                     "2010-03-01", "2010-06-01", "2010-06-01", "2010-06-01",
-                     "2010-09-01", "2010-09-01", "2010-09-01", "2010-12-01")))
-  expect_equal(quarter(x, type = "date_first", fiscal_start = 6),
-               quarter(x, type = "date_first", fiscal_start = -6))
-  expect_equal(quarter(x, type = "date_last", fiscal_start = 6),
-               ymd(c("2010-02-28", "2010-02-28", "2010-05-31", "2010-05-31",
-                     "2010-05-31", "2010-08-31", "2010-08-31", "2010-08-31",
-                     "2010-11-30", "2010-11-30", "2010-11-30", "2011-02-28")))
-  expect_equal(quarter(x, type = "date_last", fiscal_start = 6),
-               quarter(x, type = "date_last", fiscal_start = -6))
+  expect_equal(
+    quarter(x, type = "year.quarter", fiscal_start = 6),
+    c(
+      2010.3, 2010.3, 2010.4, 2010.4, 2010.4, 2011.1, 2011.1, 2011.1,
+      2011.2, 2011.2, 2011.2, 2011.3
+    )
+  )
+  expect_equal(
+    quarter(x, type = "year.quarter", fiscal_start = 6),
+    quarter(x, type = "year.quarter", fiscal_start = -6)
+  )
+  expect_equal(
+    quarter(x, type = "date_first", fiscal_start = 6),
+    ymd(c(
+      "2009-12-01", "2009-12-01", "2010-03-01", "2010-03-01",
+      "2010-03-01", "2010-06-01", "2010-06-01", "2010-06-01",
+      "2010-09-01", "2010-09-01", "2010-09-01", "2010-12-01"
+    ))
+  )
+  expect_equal(
+    quarter(x, type = "date_first", fiscal_start = 6),
+    quarter(x, type = "date_first", fiscal_start = -6)
+  )
+  expect_equal(
+    quarter(x, type = "date_last", fiscal_start = 6),
+    ymd(c(
+      "2010-02-28", "2010-02-28", "2010-05-31", "2010-05-31",
+      "2010-05-31", "2010-08-31", "2010-08-31", "2010-08-31",
+      "2010-11-30", "2010-11-30", "2010-11-30", "2011-02-28"
+    ))
+  )
+  expect_equal(
+    quarter(x, type = "date_last", fiscal_start = 6),
+    quarter(x, type = "date_last", fiscal_start = -6)
+  )
 
   x <- ymd("2010-01-01") + months(seq(0, 23, by = 3))
-  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 10),
-               c(2010.2, 2010.3, 2010.4, 2011.1, 2011.2, 2011.3, 2011.4, 2012.1))
-  expect_equal(quarter(x, type = "year.quarter", fiscal_start = -2),
-               quarter(x, type = "year.quarter", fiscal_start = 10))
-  expect_equal(quarter(x, type = "date_first", fiscal_start = 10),
-               ymd(c("2010-01-01", "2010-04-01", "2010-07-01", "2010-10-01",
-                 "2011-01-01", "2011-04-01", "2011-07-01", "2011-10-01")))
-  expect_equal(quarter(x, type = "date_first", fiscal_start = -2),
-               quarter(x, type = "date_first", fiscal_start = 10))
-  expect_equal(quarter(x, type = "date_last", fiscal_start = 10),
-               ymd(c("2010-03-31", "2010-06-30", "2010-09-30", "2010-12-31",
-                 "2011-03-31", "2011-06-30", "2011-09-30", "2011-12-31")))
-  expect_equal(quarter(x, type = "date_last", fiscal_start = -2),
-               quarter(x, type = "date_last", fiscal_start = 10))
+  expect_equal(
+    quarter(x, type = "year.quarter", fiscal_start = 10),
+    c(2010.2, 2010.3, 2010.4, 2011.1, 2011.2, 2011.3, 2011.4, 2012.1)
+  )
+  expect_equal(
+    quarter(x, type = "year.quarter", fiscal_start = -2),
+    quarter(x, type = "year.quarter", fiscal_start = 10)
+  )
+  expect_equal(
+    quarter(x, type = "date_first", fiscal_start = 10),
+    ymd(c(
+      "2010-01-01", "2010-04-01", "2010-07-01", "2010-10-01",
+      "2011-01-01", "2011-04-01", "2011-07-01", "2011-10-01"
+    ))
+  )
+  expect_equal(
+    quarter(x, type = "date_first", fiscal_start = -2),
+    quarter(x, type = "date_first", fiscal_start = 10)
+  )
+  expect_equal(
+    quarter(x, type = "date_last", fiscal_start = 10),
+    ymd(c(
+      "2010-03-31", "2010-06-30", "2010-09-30", "2010-12-31",
+      "2011-03-31", "2011-06-30", "2011-09-30", "2011-12-31"
+    ))
+  )
+  expect_equal(
+    quarter(x, type = "date_last", fiscal_start = -2),
+    quarter(x, type = "date_last", fiscal_start = 10)
+  )
 
-  x <- ymd(c("2018-07-15", "2018-12-27", "2019-01-01",
-             "2019-06-01", "2019-07-01", "2019-10-16",
-             "2019-12-31", "2020-01-01", "2020-06-30",
-             "2020-07-01", "2020-11-09", "2021-01-19",
-             "2021-06-30", "2021-07-01"))
-  expect_equal(quarter(x, type = "year.quarter", fiscal_start = 7),
-               c(2019.1, 2019.2, 2019.3, 2019.4, 2020.1, 2020.2, 2020.2, 2020.3,
-                 2020.4, 2021.1, 2021.2, 2021.3, 2021.4, 2022.1))
+  x <- ymd(c(
+    "2018-07-15", "2018-12-27", "2019-01-01",
+    "2019-06-01", "2019-07-01", "2019-10-16",
+    "2019-12-31", "2020-01-01", "2020-06-30",
+    "2020-07-01", "2020-11-09", "2021-01-19",
+    "2021-06-30", "2021-07-01"
+  ))
+  expect_equal(
+    quarter(x, type = "year.quarter", fiscal_start = 7),
+    c(
+      2019.1, 2019.2, 2019.3, 2019.4, 2020.1, 2020.2, 2020.2, 2020.3,
+      2020.4, 2021.1, 2021.2, 2021.3, 2021.4, 2022.1
+    )
+  )
   out <- quarter(x, type = "date_first", fiscal_start = 7)
   expect_s3_class(out, "Date")
-  expect_equal(out,
-               ymd(c("2018-07-01", "2018-10-01", "2019-01-01", "2019-04-01",
-                     "2019-07-01", "2019-10-01", "2019-10-01", "2020-01-01",
-                     "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01",
-                     "2021-04-01", "2021-07-01")))
-  expect_equal(quarter(x, type = "date_last", fiscal_start = 7),
-               ymd(c("2018-09-30", "2018-12-31", "2019-03-31", "2019-06-30",
-                     "2019-09-30", "2019-12-31", "2019-12-31", "2020-03-31",
-                     "2020-06-30", "2020-09-30", "2020-12-31", "2021-03-31",
-                     "2021-06-30", "2021-09-30")))
+  expect_equal(
+    out,
+    ymd(c(
+      "2018-07-01", "2018-10-01", "2019-01-01", "2019-04-01",
+      "2019-07-01", "2019-10-01", "2019-10-01", "2020-01-01",
+      "2020-04-01", "2020-07-01", "2020-10-01", "2021-01-01",
+      "2021-04-01", "2021-07-01"
+    ))
+  )
+  expect_equal(
+    quarter(x, type = "date_last", fiscal_start = 7),
+    ymd(c(
+      "2018-09-30", "2018-12-31", "2019-03-31", "2019-06-30",
+      "2019-09-30", "2019-12-31", "2019-12-31", "2020-03-31",
+      "2020-06-30", "2020-09-30", "2020-12-31", "2021-03-31",
+      "2021-06-30", "2021-09-30"
+    ))
+  )
 })
 
 test_that("years accessor extracts correct year", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59",
+    tz = "UTC", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
   expect_equal(year(poslt), 2010)
   expect_equal(year(posct), 2010)
   expect_equal(year(date), 2010)
-
 })
 
 test_that("isoyear accessor extracts correct ISO8601 year", {
-  poslt <- c(as.POSIXlt("2014-12-28 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"),
-             as.POSIXlt("2014-12-29 01:12:08", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"))
+  poslt <- c(
+    as.POSIXlt("2014-12-28 13:45:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S"),
+    as.POSIXlt("2014-12-29 01:12:08", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
   expect_equal(isoyear(poslt), c(2014, 2015))
   expect_equal(isoyear(posct), c(2014, 2015))
   expect_equal(isoyear(date), c(2014, 2015))
-
 })
 
 test_that("date accessor extracts correct date", {
-  poslt <- as.POSIXlt("2010-02-03 23:45:59", tz = "Etc/GMT+8", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 23:45:59",
+    tz = "Etc/GMT+8", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
 
   date <- as.Date(poslt)
@@ -380,22 +465,26 @@ test_that("date accessor extracts correct date", {
 })
 
 test_that("timezone accessor extracts correct timezone", {
-  poslt <- as.POSIXlt("2010-02-03 13:45:59", tz = "UTC", format
-     = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt("2010-02-03 13:45:59",
+    tz = "UTC", format
+    = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
   expect_match(tz(poslt), "UTC")
   expect_match(tz(posct), "UTC")
   expect_match(tz(date), "UTC")
-
 })
 
 
 test_that("accessors handle vectors", {
-  poslt <- as.POSIXlt(c("2001-01-01 01:01:01",
-    "2002-02-02 02:02:02", "2003-03-03 03:03:03"),
-    tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+  poslt <- as.POSIXlt(c(
+    "2001-01-01 01:01:01",
+    "2002-02-02 02:02:02", "2003-03-03 03:03:03"
+  ),
+  tz = "UTC", format = "%Y-%m-%d %H:%M:%S"
+  )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
 
@@ -449,7 +538,7 @@ test_that("accessors handle vectors", {
 })
 
 test_that("accessors handle Period objects", {
-  per <- period(seconds = 1, minutes = 2, hours = 3, days = 4, months = 5,  years = 6)
+  per <- period(seconds = 1, minutes = 2, hours = 3, days = 4, months = 5, years = 6)
   pers <- c(per, per)
 
   expect_equal(second(per), 1)
@@ -495,33 +584,32 @@ test_that("accessors handle Period objects", {
   expect_equal(pers@day, c(5, 6))
   expect_equal(pers@month, c(6, 7))
   expect_equal(pers@year, c(7, 8))
-
 })
 
 test_that(
   "days in month works for non leap years",
-{
-  x <- seq(ymd("2011-01-01"), ymd("2011-12-01"), "1 month")
-  expected <- c(
-    Jan = 31L, Feb = 28L, Mar = 31L,
-    Apr = 30L, May = 31L, Jun = 30L,
-    Jul = 31L, Aug = 31L, Sep = 30L,
-    Oct = 31L, Nov = 30L, Dec = 31L
-  )
-  expect_equal(days_in_month(x), expected)
-}
+  {
+    x <- seq(ymd("2011-01-01"), ymd("2011-12-01"), "1 month")
+    expected <- c(
+      Jan = 31L, Feb = 28L, Mar = 31L,
+      Apr = 30L, May = 31L, Jun = 30L,
+      Jul = 31L, Aug = 31L, Sep = 30L,
+      Oct = 31L, Nov = 30L, Dec = 31L
+    )
+    expect_equal(days_in_month(x), expected)
+  }
 )
 
 test_that(
   "days in month works for leap years",
-{
-  x <- seq(ymd("2012-01-01"), ymd("2012-12-01"), "1 month")
-  expected <- c(
-    Jan = 31L, Feb = 29L, Mar = 31L,
-    Apr = 30L, May = 31L, Jun = 30L,
-    Jul = 31L, Aug = 31L, Sep = 30L,
-    Oct = 31L, Nov = 30L, Dec = 31L
-  )
-  expect_equal(days_in_month(x), expected)
-}
+  {
+    x <- seq(ymd("2012-01-01"), ymd("2012-12-01"), "1 month")
+    expected <- c(
+      Jan = 31L, Feb = 29L, Mar = 31L,
+      Apr = 30L, May = 31L, Jun = 30L,
+      Jul = 31L, Aug = 31L, Sep = 30L,
+      Oct = 31L, Nov = 30L, Dec = 31L
+    )
+    expect_equal(days_in_month(x), expected)
+  }
 )

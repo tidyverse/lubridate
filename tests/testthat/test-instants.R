@@ -6,7 +6,8 @@ test_that("is.instant/is.timepoint works as expected", {
   expect_false(is.instant(minutes(1)))
   expect_true(is.timespan(interval(
     as.POSIXct("2008-08-03 13:01:59", tz = "UTC"),
-    as.POSIXct("2009-08-03 13:01:59", tz = "UTC"))))
+    as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
+  )))
 })
 
 test_that("now() handles time zone input correctly", {
@@ -45,17 +46,28 @@ test_that("make_datetime returns same values as ISOdatetime", {
 })
 
 test_that("make_datetime replicates as expected", {
-  expect_equal(make_datetime(year = 1999, month = c(11, 12), day = 22, sec = c(10, 11)),
-               as.POSIXct(c("1999-11-22 00:00:10 UTC", "1999-12-22 00:00:11 UTC"), tz = "UTC"))
-  expect_equal(make_datetime(year = c(1999, 2000, 3000), month = c(11, 12), day = 22, sec = c(10, 11, 13, 13)),
-               ymd_hms(c("1999-11-22 00:00:10", "2000-12-22 00:00:11", "3000-11-22 00:00:13", "1999-12-22 00:00:13"), tz = "UTC"))
-  expect_equal(make_datetime(year = c(1999, 2000, 3000), month = c(11, 12), day = 22, sec = c(10, 11, 13, 13),
-                             tz = "America/New_York"),
-               ymd_hms(c("1999-11-22 00:00:10", "2000-12-22 00:00:11", "3000-11-22 00:00:13", "1999-12-22 00:00:13"),
-                       tz = "America/New_York"))
+  expect_equal(
+    make_datetime(year = 1999, month = c(11, 12), day = 22, sec = c(10, 11)),
+    as.POSIXct(c("1999-11-22 00:00:10 UTC", "1999-12-22 00:00:11 UTC"), tz = "UTC")
+  )
+  expect_equal(
+    make_datetime(year = c(1999, 2000, 3000), month = c(11, 12), day = 22, sec = c(10, 11, 13, 13)),
+    ymd_hms(c("1999-11-22 00:00:10", "2000-12-22 00:00:11", "3000-11-22 00:00:13", "1999-12-22 00:00:13"), tz = "UTC")
+  )
+  expect_equal(
+    make_datetime(
+      year = c(1999, 2000, 3000), month = c(11, 12), day = 22, sec = c(10, 11, 13, 13),
+      tz = "America/New_York"
+    ),
+    ymd_hms(c("1999-11-22 00:00:10", "2000-12-22 00:00:11", "3000-11-22 00:00:13", "1999-12-22 00:00:13"),
+      tz = "America/New_York"
+    )
+  )
 })
 
 test_that("make_datetime propagates NAs as expected", {
-  expect_equal(make_datetime(year = 1999, month = c(11, NA), day = 22, sec = c(10, 11, NA)),
-               as.POSIXct(c("1999-11-22 00:00:10 UTC", NA, NA), tz = "UTC"))
+  expect_equal(
+    make_datetime(year = 1999, month = c(11, NA), day = 22, sec = c(10, 11, NA)),
+    as.POSIXct(c("1999-11-22 00:00:10 UTC", NA, NA), tz = "UTC")
+  )
 })
