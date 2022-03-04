@@ -20,16 +20,19 @@ NULL
 #' year(x) <- 2001
 #' year(x) > 1995
 #' @export
-year <- function(x)
+year <- function(x) {
   UseMethod("year")
+}
 
 #' @export
-year.default <- function(x)
-    as.POSIXlt(x, tz = tz(x))$year + 1900
+year.default <- function(x) {
+  as.POSIXlt(x, tz = tz(x))$year + 1900
+}
 
 #' @export
-year.Period <- function(x)
+year.Period <- function(x) {
   slot(x, "year")
+}
 
 #' @rdname year
 #' @export

@@ -16,17 +16,19 @@
 #' x <- seq.Date(as.Date("2009-08-02"), by = "year", length.out = 2)
 #' pretty_dates(x, 12)
 pretty_dates <- function(x, n, ...) {
-
   otz <- Sys.getenv("TZ")
   if (Sys.getenv("TZ") == "") otz <- "unset"
   Sys.setenv(TZ = tz(x[1]))
-  on.exit(if (otz == "unset") Sys.unsetenv("TZ")
-          else  Sys.setenv(TZ = otz))
+  on.exit(if (otz == "unset") {
+    Sys.unsetenv("TZ")
+  } else {
+    Sys.setenv(TZ = otz)
+  })
 
   rng <- range(x)
   diff <- difftime(rng[2], rng[1], units = "secs")
 
-  binunits <- pretty_unit(diff/n)
+  binunits <- pretty_unit(diff / n)
 
   f <- get(paste("pretty", binunits, sep = "_"), mode = "function")
   binlength <- f(diff, n)
@@ -39,37 +41,42 @@ pretty_dates <- function(x, n, ...) {
 }
 
 pretty_unit <- function(x, ...) {
-  if (x > 3600*24*365)
+  if (x > 3600 * 24 * 365) {
     return("year")
-  if (x > 3600*24*30)
+  }
+  if (x > 3600 * 24 * 30) {
     return("month")
-  if (x > 3600*24)
+  }
+  if (x > 3600 * 24) {
     return("day")
-  if (x > 3600)
+  }
+  if (x > 3600) {
     return("hour")
-  if (x > 60)
+  }
+  if (x > 60) {
     return("min")
-  else
+  } else {
     return("sec")
+  }
 }
 
 pretty_sec <- function(x, n, ...) {
   lengths <- c(1, 2, 5, 10, 15, 30, 60)
-  fit <- abs(x - lengths*n)
+  fit <- abs(x - lengths * n)
   lengths[which.min(fit)]
 }
 
 pretty_min <- function(x, n, ...) {
-  span <- x/60
+  span <- x / 60
   lengths <- c(1, 2, 5, 10, 15, 30, 60)
-  fit <- abs(span - lengths*n)
+  fit <- abs(span - lengths * n)
   lengths[which.min(fit)]
 }
 
 pretty_hour <- function(x, n, ...) {
   span <- x / 3600
   lengths <- c(1, 2, 3, 4, 6, 8, 12, 24)
-  fit <- abs(span - lengths*n)
+  fit <- abs(span - lengths * n)
   lengths[which.min(fit)]
 }
 
@@ -81,7 +88,7 @@ pretty_day <- function(x, n, ...) {
 pretty_month <- function(x, n, ...) {
   span <- x / (3600 * 24 * 30)
   lengths <- c(1, 2, 3, 4, 6, 12)
-  fit <- abs(span - lengths*n)
+  fit <- abs(span - lengths * n)
   lengths[which.min(fit)]
 }
 
@@ -94,12 +101,12 @@ pretty_point <- function(x, units, length, start = TRUE, ...) {
   x <- as.POSIXct(x)
 
   if (units %in% c("day", "year")) {
-
-    if (start) return(floor_date(x, units))
-    else return(ceiling_date(x, units))
-
+    if (start) {
+      return(floor_date(x, units))
+    } else {
+      return(ceiling_date(x, units))
+    }
   } else {
-
     floors <- c("sec", "min", "hour", "day", "month", "year")
     floorto <- floors[match(units, floors) + 1L]
     lower <- floor_date(x, floorto)
@@ -107,10 +114,11 @@ pretty_point <- function(x, units, length, start = TRUE, ...) {
 
     points <- seq.POSIXt(lower, upper, paste(length, units))
 
-    if (start)
+    if (start) {
       points <- points[points <= x]
-    else
+    } else {
       points <- points[points >= x]
+    }
 
     fit <- as.duration(x - points)
     fit <- abs(as.double(fit, "secs"))

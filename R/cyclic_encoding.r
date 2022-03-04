@@ -26,24 +26,24 @@
 #' plot(cyclic_encoding(times, "1d"))
 #' plot(cyclic_encoding(times, "2d"), xlim = c(-1, 1))
 #' plot(cyclic_encoding(times, "4d"), xlim = c(-1, 1))
-#'
 #' @export
 cyclic_encoding <- function(x, periods, encoders = c("sin", "cos"),
-                             week_start = getOption("lubridate.week.start", 7)) {
+                            week_start = getOption("lubridate.week.start", 7)) {
   Ne <- length(encoders)
   Np <- length(periods)
   out <- matrix(0, nrow = length(x), ncol = Ne * Np)
   colnames(out) <- paste(rep.int(encoders, Np),
-                         rep(periods, each = Ne),
-                         sep = ".")
+    rep(periods, each = Ne),
+    sep = "."
+  )
   for (pix in seq_along(periods)) {
     p <- periods[[pix]]
     beg <- as.numeric(floor_date(x, unit = p, week_start = week_start))
     end <- as.numeric(ceiling_date(x, unit = p, week_start = week_start))
-    diff <- (2*pi)*(as.numeric(x) - beg)/(end - beg)
+    diff <- (2 * pi) * (as.numeric(x) - beg) / (end - beg)
     diff[end == beg] <- 0
     for (tix in seq_along(encoders)) {
-      out[, (pix - 1)*Ne + tix] <- do.call(encoders[[tix]], list(diff))
+      out[, (pix - 1) * Ne + tix] <- do.call(encoders[[tix]], list(diff))
     }
   }
   out

@@ -21,10 +21,12 @@ do_Rscript <- function(expr) {
   rscript <- sprintf("%s/bin/Rscript", Sys.getenv("R_HOME"))
   paste(
     system2(rscript,
-            args = c("--vanilla", "--default-packages=NULL", "-e", shQuote(expr)),
-            env = c("R_TESTS=", env),
-            stdout = TRUE, stderr = TRUE),
-    collapse = "\n")
+      args = c("--vanilla", "--default-packages=NULL", "-e", shQuote(expr)),
+      env = c("R_TESTS=", env),
+      stdout = TRUE, stderr = TRUE
+    ),
+    collapse = "\n"
+  )
 }
 
 test_that("methods is not attached", {
@@ -34,7 +36,8 @@ test_that("methods is not attached", {
   # If this fails, namespace tests may not be needed anymore!
   expect_match(
     do_Rscript("'package:methods' %in% search()"),
-    "FALSE")
+    "FALSE"
+  )
 })
 
 test_that("lubridate:: calls work when methods is not attached", {
@@ -42,15 +45,19 @@ test_that("lubridate:: calls work when methods is not attached", {
   skip_on_os("windows")
   expect_match( # https://github.com/tidyverse/lubridate/issues/314
     do_Rscript(
-      "lubridate::round_date(as.POSIXct('2017-10-03 03:01:13Z'), 'minute')"),
-    as.character(round_date(as.POSIXct('2017-10-03 03:01:13Z'), 'minute')),
-    fixed = TRUE)
+      "lubridate::round_date(as.POSIXct('2017-10-03 03:01:13Z'), 'minute')"
+    ),
+    as.character(round_date(as.POSIXct("2017-10-03 03:01:13Z"), "minute")),
+    fixed = TRUE
+  )
   expect_match( # https://github.com/tidyverse/lubridate/issues/407
     do_Rscript("lubridate::days(1)"),
     as.character(days(1)),
-    fixed = TRUE)
+    fixed = TRUE
+  )
   expect_match( # https://github.com/tidyverse/lubridate/issues/499
     do_Rscript("lubridate::dhours(22)"),
     as.character(dhours(22)),
-    fixed = TRUE)
+    fixed = TRUE
+  )
 })

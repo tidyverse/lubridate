@@ -13,9 +13,11 @@
 #' @examples
 #' x <- ymd("2012-03-26")
 #' dst(x)
-dst <- function(x)
+dst <- function(x) {
   UseMethod("dst")
+}
 
 #' @export
-dst.default <- function(x)
+dst.default <- function(x) {
   c(NA, FALSE, TRUE)[as.POSIXlt(x)$isdst + 2]
+}

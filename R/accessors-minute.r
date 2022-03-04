@@ -16,22 +16,26 @@ NULL
 #' minute(x) <- 1
 #' minute(x) <- 61
 #' minute(x) > 2
-minute <- function(x)
+minute <- function(x) {
   UseMethod("minute")
+}
 
 #' @export
-minute.default <- function(x)
+minute.default <- function(x) {
   as.POSIXlt(x, tz = tz(x))$min
+}
 
 #' @export
-minute.Period <- function(x)
+minute.Period <- function(x) {
   slot(x, "minute")
+}
 
 #' @rdname minute
 #' @param value numeric value to be assigned
 #' @export
-"minute<-" <- function(x, value)
+"minute<-" <- function(x, value) {
   x <- x + minutes(value - minute(x))
+}
 
 setGeneric("minute<-")
 

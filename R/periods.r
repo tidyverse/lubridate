@@ -7,8 +7,10 @@ check_period <- function(object) {
   errors <- character()
 
   length(object@.Data) -> n
-  lengths <- c(length(object@year), length(object@month),
-               length(object@day), length(object@hour), length(object@minute))
+  lengths <- c(
+    length(object@year), length(object@month),
+    length(object@day), length(object@hour), length(object@minute)
+  )
 
   if (any(lengths != n)) {
     msg <- paste("Inconsistent lengths: year = ", lengths[1],
@@ -17,7 +19,8 @@ check_period <- function(object) {
       ", hour = ", lengths[4],
       ", minute = ", lengths[5],
       ", second = ", n,
-      sep = "")
+      sep = ""
+    )
     errors <- c(errors, msg)
   }
 
@@ -28,10 +31,11 @@ check_period <- function(object) {
     errors <- c(errors, msg)
   }
 
-  if (length(errors) == 0)
+  if (length(errors) == 0) {
     TRUE
-  else
+  } else {
     errors
+  }
 }
 
 #' Period class
@@ -83,11 +87,15 @@ check_period <- function(object) {
 #'
 #' @export
 #' @keywords internal
-setClass("Period", contains = c("Timespan", "numeric"),
-  slots = c(year = "numeric", month = "numeric", day = "numeric",
-    hour = "numeric", minute = "numeric"),
+setClass("Period",
+  contains = c("Timespan", "numeric"),
+  slots = c(
+    year = "numeric", month = "numeric", day = "numeric",
+    hour = "numeric", minute = "numeric"
+  ),
   prototype = prototype(year = 0, month = 0, day = 0, hour = 0, minute = 0),
-  validity = check_period)
+  validity = check_period
+)
 
 #' @name hidden_aliases
 #' @aliases Arith,ANY,Period-method Arith,Duration,Period-method
@@ -148,8 +156,9 @@ setMethod("initialize", "Period", function(.Object, ...) {
 
   ## if any 0-length components, the entire object is 0-length
   if (any(lens == 0)) {
-    for (nm in slotNames(.Object))
+    for (nm in slotNames(.Object)) {
       slot(.Object, nm) <- numeric()
+    }
     validObject(.Object)
     return(.Object)
   }
@@ -161,8 +170,11 @@ setMethod("initialize", "Period", function(.Object, ...) {
       if (is.null(obj <- dots[[nm]])) {
         rep.int(0L, len)
       } else {
-        if (length(obj) < len) rep_len(obj, len)
-        else obj
+        if (length(obj) < len) {
+          rep_len(obj, len)
+        } else {
+          obj
+        }
       }
     nas <- nas | is.na(el)
     slot(.Object, nm) <- el
@@ -222,33 +234,46 @@ setMethod("c", signature(x = "Period"), function(x, ...) {
   days <- c(x@day, unlist(lapply(elements, slot, "day")))
   hours <- c(x@hour, unlist(lapply(elements, slot, "hour")))
   minutes <- c(x@minute, unlist(lapply(elements, slot, "minute")))
-  new("Period", seconds, year = years, month = months, day = days,
-    hour = hours, minute = minutes)
+  new("Period", seconds,
+    year = years, month = months, day = days,
+    hour = hours, minute = minutes
+  )
 })
 
 #' @export
 setMethod("rep", signature(x = "Period"), function(x, ...) {
-  new("Period", rep(x@.Data, ...), year = rep(x@year, ...),
+  new("Period", rep(x@.Data, ...),
+    year = rep(x@year, ...),
     month = rep(x@month, ...), day = rep(x@day, ...),
-    hour = rep(x@hour, ...), minute = rep(x@minute, ...))
+    hour = rep(x@hour, ...), minute = rep(x@minute, ...)
+  )
 })
 
 #' @export
-setMethod("[", signature(x = "Period"),
+setMethod(
+  "[", signature(x = "Period"),
   function(x, i, j, ..., drop = TRUE) {
-    new("Period", x@.Data[i], year = x@year[i], month = x@month[i],
-      day = x@day[i], hour = x@hour[i], minute = x@minute[i])
-})
+    new("Period", x@.Data[i],
+      year = x@year[i], month = x@month[i],
+      day = x@day[i], hour = x@hour[i], minute = x@minute[i]
+    )
+  }
+)
 
 #' @export
-setMethod("[[", signature(x = "Period"),
-          function(x, i, j, ..., exact = TRUE) {
-            new("Period", x@.Data[i], year = x@year[i], month = x@month[i],
-                day = x@day[i], hour = x@hour[i], minute = x@minute[i])
-})
+setMethod(
+  "[[", signature(x = "Period"),
+  function(x, i, j, ..., exact = TRUE) {
+    new("Period", x@.Data[i],
+      year = x@year[i], month = x@month[i],
+      day = x@day[i], hour = x@hour[i], minute = x@minute[i]
+    )
+  }
+)
 
 #' @export
-setMethod("[<-", signature(x = "Period", value = "Period"),
+setMethod(
+  "[<-", signature(x = "Period", value = "Period"),
   function(x, i, j, ..., value) {
     x@.Data[i] <- value@.Data
     x@year[i] <- value@year
@@ -257,31 +282,34 @@ setMethod("[<-", signature(x = "Period", value = "Period"),
     x@hour[i] <- value@hour
     x@minute[i] <- value@minute
     x
-})
+  }
+)
 
 #' @export
-setMethod("[[<-", signature(x = "Period", value = "Period"),
-          function(x, i, j, ..., value) {
-            x@.Data[i] <- value@.Data
-            x@year[i] <- value@year
-            x@month[i] <- value@month
-            x@day[i] <- value@day
-            x@hour[i] <- value@hour
-            x@minute[i] <- value@minute
-            x
-})
+setMethod(
+  "[[<-", signature(x = "Period", value = "Period"),
+  function(x, i, j, ..., value) {
+    x@.Data[i] <- value@.Data
+    x@year[i] <- value@year
+    x@month[i] <- value@month
+    x@day[i] <- value@day
+    x@hour[i] <- value@hour
+    x@minute[i] <- value@minute
+    x
+  }
+)
 
 #' @export
 setMethod("$", signature(x = "Period"), function(x, name) {
   if (name == "second") name <- ".Data"
-    slot(x, name)
+  slot(x, name)
 })
 
 #' @export
 setMethod("$<-", signature(x = "Period"), function(x, name, value) {
   if (name == "second") name <- ".Data"
-    slot(x, name) <- rep_len(value, length(x))
-    x
+  slot(x, name) <- rep_len(value, length(x))
+  x
 })
 
 #' Create or parse period objects
@@ -349,7 +377,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #'
 #' ### Units as arguments
 #'
-#' period (second = 90, minute = 5)
+#' period(second = 90, minute = 5)
 #' period(day = -1)
 #' period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
 #' period(hour = 1, minute = -60)
@@ -397,7 +425,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' y + months(0:11)
 #'
 #' # compare DST handling to durations
-#' boundary <- ymd_hms("2009-03-08 01:59:59", tz="America/Chicago")
+#' boundary <- ymd_hms("2009-03-08 01:59:59", tz = "America/Chicago")
 #' boundary + days(1) # period
 #' boundary + ddays(1) # duration
 #' @export
@@ -407,51 +435,64 @@ period <- function(num = NULL, units = "second", ...) {
   } else {
     out1 <- .period_from_num(num, units)
     out2 <- .period_from_units(list(...))
-    if (is.null(out1) && is.null(out2)) new("Period", numeric())
-    else if (is.null(out1)) out2
-    else if (is.null(out2)) out1
-    else c(out1, out2)
+    if (is.null(out1) && is.null(out2)) {
+      new("Period", numeric())
+    } else if (is.null(out1)) {
+      out2
+    } else if (is.null(out2)) {
+      out1
+    } else {
+      c(out1, out2)
+    }
   }
 }
 
 parse_period <- function(x) {
   out <- .Call(C_parse_period, as.character(x))
   new("Period",
-      out[1, ],
-      minute = out[2, ],
-      hour   = out[3, ],
-      day    = out[4, ] + 7L*out[5, ],
-      month  = out[6, ],
-      year   = out[7, ])
+    out[1, ],
+    minute = out[2, ],
+    hour   = out[3, ],
+    day    = out[4, ] + 7L * out[5, ],
+    month  = out[6, ],
+    year   = out[7, ]
+  )
 }
 
 .period_from_num <- function(num, units) {
-  if (length(num) == 0)
+  if (length(num) == 0) {
     return(NULL)
+  }
 
   if (!is.numeric(num)) {
     stop(sprintf("First argument to `period()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
   ## qucik check for common wrongdoings: #462
-  if (inherits(num, c("Interval", "Duration")))
+  if (inherits(num, c("Interval", "Duration"))) {
     stop("Interval or Durations objects cannot be used as input to 'period()' constructor. Plese use 'as.period()'.")
+  }
 
-  if (length(units) %% length(num) != 0)
+  if (length(units) %% length(num) != 0) {
     stop("Arguments `num` and `units` must have same length")
+  }
 
   .period_from_units(structure(num, names = units))
 }
 
 .period_from_units <- function(pieces) {
-  if (length(pieces) == 0)
+  if (length(pieces) == 0) {
     return(NULL)
+  }
 
-  if (!is.numeric(pieces))
+  if (!is.numeric(pieces)) {
     pieces <- lapply(pieces, as.numeric)
+  }
 
-  out <- list(second = 0, minute = 0, hour = 0, day = 0,
-              week = 0, month = 0, year = 0)
+  out <- list(
+    second = 0, minute = 0, hour = 0, day = 0,
+    week = 0, month = 0, year = 0
+  )
 
   unit <- standardise_date_names(names(pieces))
   for (i in seq_along(unit)) {
@@ -460,14 +501,16 @@ parse_period <- function(x) {
   }
   out$day <- out$day + 7 * out$week
 
-  new("Period", out$second, year = out$year, month = out$month,
-      day = out$day, hour = out$hour, minute = out$minute)
+  new("Period", out$second,
+    year = out$year, month = out$month,
+    day = out$day, hour = out$hour, minute = out$minute
+  )
 }
 
 #' @rdname period
 #' @examples
 #' is.period(as.Date("2009-08-03")) # FALSE
-#' is.period(period(months= 1, days = 15)) # TRUE
+#' is.period(period(months = 1, days = 15)) # TRUE
 #' @export
 is.period <- function(x) is(x, "Period")
 
@@ -485,13 +528,13 @@ weeks <- function(x = 1) period(week = x)
 #' @rdname period
 years <- function(x = 1) period(year = x)
 #' @rdname period
-milliseconds <- function(x = 1) seconds(x/1000)
+milliseconds <- function(x = 1) seconds(x / 1000)
 #' @rdname period
-microseconds <- function(x = 1) seconds(x/1000000)
+microseconds <- function(x = 1) seconds(x / 1000000)
 #' @rdname period
-nanoseconds <- function(x = 1) seconds(x/1e9)
+nanoseconds <- function(x = 1) seconds(x / 1e9)
 #' @rdname period
-picoseconds <- function(x = 1) seconds(x/1e12)
+picoseconds <- function(x = 1) seconds(x / 1e12)
 
 #' @rdname period
 #' @export
@@ -549,11 +592,15 @@ summary.Period <- function(object, ...) {
   qq <- c(qq[1L:3L], mean(persecs), qq[4L:5L])
   qq <- seconds_to_period(qq)
   qq <- as.character(qq)
-  names(qq) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.",
-                 "Max.")
-  if (any(nas))
+  names(qq) <- c(
+    "Min.", "1st Qu.", "Median", "Mean", "3rd Qu.",
+    "Max."
+  )
+  if (any(nas)) {
     c(qq, `NA's` = sum(nas))
-  else qq
+  } else {
+    qq
+  }
 }
 
 #' @export
@@ -578,55 +625,73 @@ setMethod("Arith", signature(e1 = "Period", e2 = "Duration"), function(e1, e2) {
 })
 
 #' @export
-setMethod("Compare", signature(e1 = "Period", e2 = "Period"),
-          function(e1, e2) {
-            callGeneric(period_to_seconds(e1), period_to_seconds(e2))
-          })
+setMethod(
+  "Compare", signature(e1 = "Period", e2 = "Period"),
+  function(e1, e2) {
+    callGeneric(period_to_seconds(e1), period_to_seconds(e2))
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "Period", e2 = "character"),
-          function(e1, e2) {
-            callGeneric(e1, as.period(e2))
-          })
+setMethod(
+  "Compare", signature(e1 = "Period", e2 = "character"),
+  function(e1, e2) {
+    callGeneric(e1, as.period(e2))
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "character", e2 = "Period"),
-          function(e1, e2) {
-            callGeneric(as.period(e1), e2)
-          })
+setMethod(
+  "Compare", signature(e1 = "character", e2 = "Period"),
+  function(e1, e2) {
+    callGeneric(as.period(e1), e2)
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "Period", e2 = "Duration"),
-          function(e1, e2) {
-            callGeneric(as.duration(e1), e2)
-          })
+setMethod(
+  "Compare", signature(e1 = "Period", e2 = "Duration"),
+  function(e1, e2) {
+    callGeneric(as.duration(e1), e2)
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "Duration", e2 = "Period"),
-          function(e1, e2) {
-            callGeneric(e1, as.duration(e2))
-          })
+setMethod(
+  "Compare", signature(e1 = "Duration", e2 = "Period"),
+  function(e1, e2) {
+    callGeneric(e1, as.duration(e2))
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "Period", e2 = "numeric"),
-          function(e1, e2) {
-            callGeneric(as.numeric(e1, "secs"), e2)
-          })
+setMethod(
+  "Compare", signature(e1 = "Period", e2 = "numeric"),
+  function(e1, e2) {
+    callGeneric(as.numeric(e1, "secs"), e2)
+  }
+)
 
 #' @export
-setMethod("Compare", signature(e1 = "numeric", e2 = "Period"),
-          function(e1, e2) {
-            callGeneric(e1, as.numeric(e2, "secs"))
-          })
+setMethod(
+  "Compare", signature(e1 = "numeric", e2 = "Period"),
+  function(e1, e2) {
+    callGeneric(e1, as.numeric(e2, "secs"))
+  }
+)
 
 #' @export
-setMethod("Compare", c(e1 = "Period", e2 = "difftime"),
-          function(e1, e2) {
-            callGeneric(as.numeric(e1, units = "secs"), as.numeric(e2, units = "secs"))
-          })
+setMethod(
+  "Compare", c(e1 = "Period", e2 = "difftime"),
+  function(e1, e2) {
+    callGeneric(as.numeric(e1, units = "secs"), as.numeric(e2, units = "secs"))
+  }
+)
 
 #' @export
-setMethod("Compare", c(e1 = "difftime", e2 = "Period"),
-          function(e1, e2) {
-            callGeneric(as.numeric(e1, units = "secs"), as.numeric(e2, units = "secs"))
-          })
+setMethod(
+  "Compare", c(e1 = "difftime", e2 = "Period"),
+  function(e1, e2) {
+    callGeneric(as.numeric(e1, units = "secs"), as.numeric(e2, units = "secs"))
+  }
+)

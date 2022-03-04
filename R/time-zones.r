@@ -20,8 +20,9 @@
 #' with_tz(x, "GMT")
 #' @export
 with_tz <- function(time, tzone = "") {
-  if (!C_valid_tz(tzone))
+  if (!C_valid_tz(tzone)) {
     warning(sprintf("Unrecognized time zone '%s'", tzone))
+  }
   if (is.data.frame(time)) {
     for (nm in names(time)) {
       if (is.POSIXt(time[[nm]])) {
@@ -76,8 +77,8 @@ with_tz <- function(time, tzone = "") {
 #' ## DST skip:
 #'
 #' y <- ymd_hms("2010-03-14 02:05:05 UTC")
-#' force_tz(y, "America/New_York", roll=FALSE)
-#' force_tz(y, "America/New_York", roll=TRUE)
+#' force_tz(y, "America/New_York", roll = FALSE)
+#' force_tz(y, "America/New_York", roll = TRUE)
 #' @export
 force_tz <- function(time, tzone = "", roll = FALSE) {
   tzone <- as.character(tzone)
@@ -89,11 +90,11 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
     }
     time
   } else {
-    if (is.POSIXct(time))
+    if (is.POSIXct(time)) {
       cpp_force_tz(time, tz = tzone, roll)
-    else if (is.Date(time))
+    } else if (is.Date(time)) {
       cpp_force_tz(date_to_posix(time), tz = tzone, roll)
-    else {
+    } else {
       out <- cpp_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll)
       reclass_date(out, time)
     }
@@ -117,9 +118,9 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
 #' force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"))
 #' @export
 force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
-  if (length(tzones) < length(time))
+  if (length(tzones) < length(time)) {
     tzones <- rep_len(tzones, length(time))
-  else if (length(tzones) > length(time)) {
+  } else if (length(tzones) > length(time)) {
     attr <- attributes(time)
     time <- rep_len(time, length(tzones))
     attributes(time) <- attr
@@ -149,11 +150,12 @@ force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
 #' local_time(x, c("America/New_York", "Europe/Amsterdam", "Asia/Shanghai"), unit = "hours")
 #' @export
 local_time <- function(dt, tz = NULL, units = "secs") {
-  if (is.null(tz))
+  if (is.null(tz)) {
     tz <- tz(dt)
-  if (length(tz) < length(dt))
+  }
+  if (length(tz) < length(dt)) {
     tz <- rep_len(tz, length(dt))
-  else if (length(tz) > length(dt)) {
+  } else if (length(tz) > length(dt)) {
     attr <- attributes(dt)
     dt <- rep_len(dt, length(tz))
     attributes(dt) <- attr

@@ -3,7 +3,9 @@ test_that("addition handles daylight savings time", {
   y <- as.POSIXct("2010-03-15 01:00:00", tz = "America/New_York")
 
   expect_equal(x + days(1), as.POSIXct(
-    "2010-03-15 00:00:00", tz = "America/New_York"))
+    "2010-03-15 00:00:00",
+    tz = "America/New_York"
+  ))
   expect_equal(x + ddays(1), y)
 })
 
@@ -12,12 +14,13 @@ test_that("subtraction handles daylight savings time", {
   y <- as.POSIXct("2010-03-13 23:00:00", tz = "America/New_York")
 
   expect_equal(x - days(1), as.POSIXct(
-    "2010-03-14 00:00:00", tz = "America/New_York"))
+    "2010-03-14 00:00:00",
+    tz = "America/New_York"
+  ))
   expect_equal(x - ddays(1), y)
 })
 
 test_that("addition works as expected for instants", {
-
   x <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
   y <- as.POSIXlt("2008-01-01 00:00:00", tz = "UTC")
   z <- as.Date("2008-01-01")
@@ -63,35 +66,43 @@ test_that("addition works as expected for periods", {
 
   expect_equal(years(1) + 1, period(seconds = 1, years = 1))
 
-  expect_equal(years(1) + as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
-    as.POSIXct("2009-01-01 00:00:00", tz = "UTC"))
+  expect_equal(
+    years(1) + as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
+    as.POSIXct("2009-01-01 00:00:00", tz = "UTC")
+  )
 
-  expect_equal(years(1) + as.POSIXlt("2008-01-01 00:00:00", tz = "UTC"),
-    as.POSIXlt("2009-01-01 00:00:00", tz = "UTC"))
+  expect_equal(
+    years(1) + as.POSIXlt("2008-01-01 00:00:00", tz = "UTC"),
+    as.POSIXlt("2009-01-01 00:00:00", tz = "UTC")
+  )
 
-  expect_equal(years(1) + minutes(3), period(minutes = 3,
-    years = 1))
+  expect_equal(years(1) + minutes(3), period(
+    minutes = 3,
+    years = 1
+  ))
 
   expect_error(years(1) + dyears(1))
   expect_error(years(1) + int)
 })
 
 test_that("addition with periods returns correct class", {
-
   expect_s4_class(years(1) + 1, "Period")
 
   expect_s3_class(years(1) + as.POSIXct(
-    "2008-01-01 00:00:00", tz = "UTC"), "POSIXt")
+    "2008-01-01 00:00:00",
+    tz = "UTC"
+  ), "POSIXt")
 
   expect_s3_class(years(1) + as.POSIXlt(
-    "2008-01-01 00:00:00", tz = "UTC"), "POSIXlt")
+    "2008-01-01 00:00:00",
+    tz = "UTC"
+  ), "POSIXlt")
 
   expect_s4_class(years(1) + minutes(3), "Period")
 })
 
 
 test_that("addition works as expected for durations", {
-
   x <- as.POSIXct("2008-01-01 00:00:00", tz = "UTC")
   y <- as.POSIXct("2008-12-31 06:00:00", tz = "UTC")
   time1 <- as.POSIXct("2008-01-02 00:00:00", tz = "UTC")
@@ -144,7 +155,7 @@ test_that("adding vectors works as expected for instants", {
   z <- c(as.Date("2008-01-01"), as.Date("2008-01-10"))
 
   expect_equal(x + years(1), ymd_hms(c("2009-01-01 00:00:00", "2010-01-01 00:00:00")))
-  expect_equal(y + years(1), as.POSIXlt(c( "2009-01-01 00:00:00", "2010-01-01 00:00:00"), tz = "UTC"))
+  expect_equal(y + years(1), as.POSIXlt(c("2009-01-01 00:00:00", "2010-01-01 00:00:00"), tz = "UTC"))
   expect_equal(z + years(1), as.Date(c("2009-01-01", "2009-01-10")))
 
   expect_equal(x + dyears(1), ymd_hms(c("2008-12-31 06:00:00", "2010-01-01 06:00:00")))
@@ -162,19 +173,24 @@ test_that("adding vectors works as expected for instants", {
 })
 
 test_that("adding vectors works as expected for periods", {
-
   expect_equal(years(1:2) + 1, period(seconds = 1, years = c(1, 2)))
 
-  expect_equal(years(1:2) + as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
-    as.POSIXct(c("2009-01-01 00:00:00", "2010-01-01 00:00:00"), tz = "UTC"))
+  expect_equal(
+    years(1:2) + as.POSIXct("2008-01-01 00:00:00", tz = "UTC"),
+    as.POSIXct(c("2009-01-01 00:00:00", "2010-01-01 00:00:00"), tz = "UTC")
+  )
 
   expect_equal(years(1:2) + as.POSIXlt("2008-01-01 00:00:00",
-    tz = "UTC"), as.POSIXlt(c("2009-01-01 00:00:00",
-    "2010-01-01 00:00:00"), tz = "UTC"))
+    tz = "UTC"
+  ), as.POSIXlt(c(
+    "2009-01-01 00:00:00",
+    "2010-01-01 00:00:00"
+  ), tz = "UTC"))
 
 
   expect_equal(years(1:2) + minutes(3), period(
-    minutes = 3, years = c(1, 2)))
+    minutes = 3, years = c(1, 2)
+  ))
 
   expect_error(years(1:2) + dyears(1))
 
@@ -215,7 +231,6 @@ test_that("adding vectors works as expected for intervals", {
   expect_error(int + minutes(3))
   expect_error(int + dyears(1))
   expect_error(int + int2)
-
 })
 
 test_that("%m+% correctly adds months without rollover", {
@@ -238,15 +253,19 @@ test_that("%m+% correctly adds years, months, days and HMS (#286)", {
   per_all <- period(years = 1, months = 1, days = 2, hours = 1, minutes = 20, seconds = 30)
   per_major <- period(years = 1, months = 1)
   per_minor <- period(days = 2, hours = 1, minutes = 20, seconds = 30)
-  expect_equal(date %m+% per_all,
-               date %m+% per_major + per_minor)
+  expect_equal(
+    date %m+% per_all,
+    date %m+% per_major + per_minor
+  )
 
   date <- ymd("2012-03-31")
   per_all <- period(months = 3, days = 30, hours = 1, minutes = 20, seconds = 30)
   per_major <- period(months = 3)
   per_minor <- period(days = 30, hours = 1, minutes = 20, seconds = 30)
-  expect_equal(date %m+% per_all,
-               date %m+% per_major + per_minor)
+  expect_equal(
+    date %m+% per_all,
+    date %m+% per_major + per_minor
+  )
 })
 
 test_that("add_with_rollback doesn't chock on DTS", {
@@ -280,16 +299,20 @@ test_that("addition with period months and years returns NA when appropriate", {
   mar <- ymd("2013-03-28", tz = "America/Chicago")
   leap <- ymd("2012-02-29", tz = "America/Chicago")
 
-  mos <- ymd(c("2013-01-31", NA, "2013-03-31", NA,
-               "2013-05-31", NA, "2013-07-31",
-               "2013-08-31", NA, "2013-10-31", NA,
-               "2013-12-31"), tz = "America/Chicago")
+  mos <- ymd(c(
+    "2013-01-31", NA, "2013-03-31", NA,
+    "2013-05-31", NA, "2013-07-31",
+    "2013-08-31", NA, "2013-10-31", NA,
+    "2013-12-31"
+  ), tz = "America/Chicago")
   yrs <- ymd(c("2012-02-29", NA, NA, NA, "2016-02-29"), tz = "America/Chicago")
 
-  mos2 <- ymd(c("2013-01-31", "2012-12-31", NA,
-               "2012-10-31", NA, "2012-08-31",
-               "2012-07-31", NA, "2012-05-31", NA,
-               "2012-03-31", NA), tz = "America/Chicago")
+  mos2 <- ymd(c(
+    "2013-01-31", "2012-12-31", NA,
+    "2012-10-31", NA, "2012-08-31",
+    "2012-07-31", NA, "2012-05-31", NA,
+    "2012-03-31", NA
+  ), tz = "America/Chicago")
   yrs2 <- ymd(c("2012-02-29", NA, NA, NA, "2008-02-29"), tz = "America/Chicago")
 
 
@@ -301,7 +324,6 @@ test_that("addition with period months and years returns NA when appropriate", {
   expect_equal(jan - months(0:11), mos2)
   expect_equal(mar - months(1), feb)
   expect_equal(leap - years(0:4), yrs2)
-
 })
 
 test_that("addition with singleton NAs periods work", {
@@ -324,12 +346,12 @@ test_that("addition with durations containing NA", {
   dt <- ymd(20161018)
   dt_1 <- ymd(20161019)
 
-  dd_1na  <- ddays(c(1, NA))
-  dd_na1  <- ddays(c(NA, 1))
+  dd_1na <- ddays(c(1, NA))
+  dd_na1 <- ddays(c(NA, 1))
   dd_nana <- ddays(c(NA, NA))
 
-  ans_1na  <- add_duration_to_date(dd_1na, dt)
-  ans_na1  <- add_duration_to_date(dd_na1, dt)
+  ans_1na <- add_duration_to_date(dd_1na, dt)
+  ans_na1 <- add_duration_to_date(dd_na1, dt)
   ans_nana <- add_duration_to_date(dd_nana, dt)
 
   expect_s3_class(ans_1na, "Date")

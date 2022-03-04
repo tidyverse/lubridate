@@ -21,7 +21,6 @@ test_that("subtraction works as expected for instants", {
   expect_error(x - int)
   expect_error(y - int)
   expect_error(z - int)
-
 })
 
 test_that("subtraction with instants returns correct class", {
@@ -48,14 +47,11 @@ test_that("subtraction works as expected for periods", {
   expect_equal(years(1) - minutes(3), period(minutes = -3, years = 1))
   expect_error(years(1) - dyears(1))
   expect_error(years(1) - int)
-
 })
 
 test_that("subtraction with periods returns correct class", {
-
   expect_s4_class(years(1) - 1, "Period")
   expect_s4_class(years(1) - minutes(3), "Period")
-
 })
 
 
@@ -72,10 +68,8 @@ test_that("subtraction works as expected for durations", {
 })
 
 test_that("subtraction with durations returns correct class", {
-
   expect_s4_class(dyears(1) - 1, "Duration")
   expect_s4_class(dyears(1) - dyears(1), "Duration")
-
 })
 
 
@@ -92,7 +86,6 @@ test_that("subtraction works as expected for intervals", {
   expect_error(int - minutes(3))
   expect_error(int - dminutes(3))
   expect_error(int - int2)
-
 })
 
 
@@ -130,5 +123,4 @@ test_that("%m-% correctly subtracts negative years without rollover", {
   expect_equal(leap %m-% years(-1), next1)
   expect_equal(leap %m-% period(years = -1, months = -1), next2)
   expect_equal(leap %m-% period(years = -1, months = 1), next3)
-
 })

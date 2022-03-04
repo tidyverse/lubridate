@@ -28,20 +28,22 @@ Date <- function(length = 0L) {
 NA_Date_ <- structure(NA_real_, class = "Date")
 
 .recursive_date_unclass <- function(x) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     Date()
-  else if (is.recursive(x))
+  } else if (is.recursive(x)) {
     lapply(x, .recursive_date_unclass)
-  else
+  } else {
     as_date(x)
+  }
 }
 
 #' @method c Date
 c.Date <- function(..., recursive = FALSE) {
   structure(c(unlist(lapply(list(...), .recursive_date_unclass))),
-            class = "Date")
+    class = "Date"
+  )
 }
 
 evalqOnLoad({
-    registerS3method("c", "Date", c.Date)
+  registerS3method("c", "Date", c.Date)
 })

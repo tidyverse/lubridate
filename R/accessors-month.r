@@ -29,17 +29,20 @@ NULL
 #' month(ymd(080101), label = TRUE, abbr = FALSE)
 #' month(ymd(080101) + months(0:11), label = TRUE)
 #' @export
-month <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
+month <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {
   UseMethod("month")
+}
 
 #' @export
-month.default <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
+month.default <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {
   month(as.POSIXlt(x, tz = tz(x))$mon + 1, label, abbr, locale = locale)
+}
 
 #' @export
 month.numeric <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {
-  if (!all(x[!is.na(x)] %in% 1:12))
+  if (!all(x[!is.na(x)] %in% 1:12)) {
     stop("Values are not in 1:12")
+  }
 
   if (!label) {
     return(x)
@@ -52,21 +55,26 @@ month.numeric <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale(
 }
 
 #' @export
-month.Period <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME"))
+month.Period <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("LC_TIME")) {
   slot(x, "month")
+}
 
 #' @rdname month
 #' @export
 "month<-" <- function(x, value) {
   ## FIXME: how to make this localized and preserve backward compatibility? Guesser?
   if (!is.numeric(value)) {
-    value <- pmatch(tolower(value),
-                    c("january", "february", "march",
-                      "june", "july", "august", "september",
-                      "october", "november", "december"))
+    value <- pmatch(
+      tolower(value),
+      c(
+        "january", "february", "march",
+        "june", "july", "august", "september",
+        "october", "november", "december"
+      )
+    )
   }
   x <- x + months(value - month(x))
- }
+}
 
 setGeneric("month<-")
 
