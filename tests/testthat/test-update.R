@@ -32,8 +32,8 @@ test_that("update.POSIXlt returns a POSIXlt object", {
 
 test_that("update.POSIXct returns a POSIXct object", {
   posct <- as.POSIXct("2010-02-03 13:45:59",
-    tz = "GMT", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "GMT",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   expect_s3_class(update(posct, seconds = 1), "POSIXct")
   expect_s3_class(update(posct, minutes = 1), "POSIXct")
@@ -255,8 +255,8 @@ test_that("update performs roll overs correctly for POSIXct objects", {
 test_that("update performs consecutive roll overs correctly for
   Date objects regardless of order", {
   date <- update(as.Date("11/01/2010", "%m/%d/%Y"),
-    months = 13, days = 32, hours = 25, minutes = 61, seconds
-    = 61
+    months = 13, days = 32, hours = 25, minutes = 61,
+    seconds = 61
   )
   expect_equal(second(date), 1)
   expect_equal(minute(date), 2)
@@ -284,8 +284,8 @@ test_that("update performs consecutive roll overs correctly for
 test_that("update performs consecutive roll overs correctly for
   POSIXlt objects", {
   posl <- as.POSIXlt("2010-11-01 00:00:00",
-    tz = "GMT", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "GMT",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   poslt <- update(posl,
     months = 13, days = 32, hours = 25,
@@ -320,8 +320,8 @@ test_that("update performs consecutive roll overs correctly for
 
 test_that("update performs consecutive roll overs correctly for POSIXct objects", {
   posc <- as.POSIXct("2010-11-01 00:00:00",
-    tz = "GMT", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "GMT",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- update(posc,
     months = 13, days = 32, hours = 25,

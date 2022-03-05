@@ -104,8 +104,8 @@ test_that("force_tzs is robusts against overflow", {
 
 test_that("force_tz doesn't return NA just because new time zone uses DST", {
   poslt <- as.POSIXlt("2009-03-14 02:59:59",
-    tz = "UTC", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "UTC",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   poslt2 <- force_tz(poslt, tzone = "America/New_York")
 

@@ -1,7 +1,7 @@
 test_that("seconds accessor extracts correct second", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59",
-    tz = "UTC", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "UTC",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
@@ -13,8 +13,8 @@ test_that("seconds accessor extracts correct second", {
 
 test_that("minutes accessor extracts correct minute", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59",
-    tz = "UTC", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "UTC",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
@@ -26,8 +26,8 @@ test_that("minutes accessor extracts correct minute", {
 
 test_that("hours accessor extracts correct hour", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59",
-    tz = "UTC", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "UTC",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
@@ -119,8 +119,8 @@ test_that("wday works with various start values", {
 
 test_that("weeks accessor extracts correct week", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59",
-    tz = "UTC", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "UTC",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
@@ -214,8 +214,8 @@ test_that("isoweek returns correct value for non-UTC time zone (#311)", {
 
 test_that("months accessor extracts correct month", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59",
-    tz = "UTC", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "UTC",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
@@ -427,8 +427,8 @@ test_that("quarters accessor extracts correct quarter", {
 
 test_that("years accessor extracts correct year", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59",
-    tz = "UTC", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "UTC",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
@@ -453,8 +453,8 @@ test_that("isoyear accessor extracts correct ISO8601 year", {
 
 test_that("date accessor extracts correct date", {
   poslt <- as.POSIXlt("2010-02-03 23:45:59",
-    tz = "Etc/GMT+8", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "Etc/GMT+8",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- as.POSIXct(poslt)
 
@@ -466,8 +466,8 @@ test_that("date accessor extracts correct date", {
 
 test_that("timezone accessor extracts correct timezone", {
   poslt <- as.POSIXlt("2010-02-03 13:45:59",
-    tz = "UTC", format
-    = "%Y-%m-%d %H:%M:%S"
+    tz = "UTC",
+    format = "%Y-%m-%d %H:%M:%S"
   )
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)

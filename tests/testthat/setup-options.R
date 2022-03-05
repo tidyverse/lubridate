@@ -3,4 +3,3 @@ options(
   warnPartialMatchAttr = TRUE,
   warnPartialMatchDollar = TRUE
 )
-
