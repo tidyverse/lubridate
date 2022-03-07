@@ -14,8 +14,9 @@
 #'   non-existent civil time instant (DST, 29th February, etc.) roll the date
 #'   till next valid point. When `FALSE`, the default, produce NA for non
 #'   existing date-times.
-#' @param week_start week starting day (Default is 7, Sunday). Set
-#'   `lubridate.week.start` option to control this.
+#' @param week_start week starting day (Default is 7, Sunday). String values
+#'   naming a day of the week are also accepted, either in English or with
+#'   names from the current locale. Set `lubridate.week.start` option to control this.
 #' @param simple logical. Deprecated. Same as `roll`.
 #' @return a date object with the requested elements updated. The object will
 #'   retain its original class unless an element is updated which the original
@@ -74,8 +75,36 @@ update_date_time <- function(object, years = integer(), months = integer(),
   updates[["dt"]] <- as.POSIXct(object)
   updates[["roll"]] <- roll
   updates[["tz"]] <- tzs
-  updates[["week_start"]] <- week_start
+  updates[["week_start"]] <- as_week_start(week_start)
   reclass_date(do.call(cpp_update_dt, updates), object)
+}
+
+as_week_start <- function(x) {
+  if (is.numeric(x)) return(x)
+
+  if (length(x) != 1L) stop("week_start should have length 1.")
+
+  if (!is.character(x)) stop(
+    "week_start should be a number from 1-7 giving the day of the Monday-based day-of-week index, ",
+    "or a string naming the day of the week."
+  )
+
+  # use pmatch to also capture abbreviations like Sun, Mon
+  english_idx <- pmatch(x, c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+  if (!is.na(english_idx)) {
+    return(english_idx)
+  }
+
+  # other locales might use abbreviations that are not so pmatch-friendly; try full first, then partial
+  native_full_idx <- match(x, .get_locale_regs()$wday_names$full)
+  if (!is.na(native_full_idx)) {
+    return(native_full_idx)
+  }
+
+  native_abbr_idx <- match(x, .get_locale_regs()$wday_names$abr)
+  if (!is.na(native_abbr_idx)) {
+    return(native_abbr_idx)
+  }
 }
 
 ## prior to v1.7.0

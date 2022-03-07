@@ -720,3 +720,17 @@ test_that("round on week respects week_start", {
   expect_equal(wday(round_date(date, "week", week_start = 5), week_start = 5), 1)
   expect_equal(wday(round_date(date, "week", week_start = 7), week_start = 7), 1)
 })
+
+test_that("rounding works when week_start = name of week day", {
+  date <- ymd("2017-05-07") ## sunday
+  ct <- as.POSIXct("2010-02-03 13:45:59", tz = "America/New_York", format = "%Y-%m-%d %H:%M:%S") ## Wednesday
+
+  expect_identical(floor_date(ct, "week", week_start = "Monday"), floor_date(ct, "week", week_start = 1))
+  expect_identical(floor_date(ct, "week", week_start = "Tuesday"), floor_date(ct, "week", week_start = 2))
+
+  expect_identical(ceiling_date(ct, "week", week_start = "Monday"), ceiling_date(ct, "week", week_start = 1))
+  expect_identical(ceiling_date(ct, "week", week_start = "Friday"), ceiling_date(ct, "week", week_start = 5))
+
+  expect_identical(round_date(ct, "week", week_start = "Monday"), round_date(ct, "week", week_start = 1))
+  expect_identical(round_date(ct, "week", week_start = "Sunday"), round_date(ct, "week", week_start = 7))
+})
