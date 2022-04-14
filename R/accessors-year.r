@@ -65,7 +65,7 @@ isoyear <- function(x) {
 
 #' @rdname year
 #' @description
-#' `epiyear()` returns years according to the epidemilogical week calendars.
+#' `epiyear()` returns years according to the epidemiological week calendars.
 #' @export
 epiyear <- function(x) {
   .other_year(x, 7)
