@@ -761,10 +761,15 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 
 ### INTERNAL
 .mklt <- function(dtlist, tz) {
-  na_fill <- rep_len(NA_integer_, length(dtlist$sec))
+  n <- length(dtlist$sec)
+
+  na_fill <- rep_len(NA_integer_, n)
   dtlist[["wday"]] <- na_fill
   dtlist[["yday"]] <- na_fill
-  dtlist[["isdst"]] <- -1L
+
+  dst_fill <- rep_len(-1L, n)
+  dtlist[["isdst"]] <- dst_fill
+
   .POSIXlt(dtlist, tz = tz)
 }
 
