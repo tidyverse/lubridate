@@ -974,6 +974,17 @@ test_that("parse_date_time2 and fast_strptime correctly return lt objects", {
   expect_s3_class(fast_strptime("12/03/16 12:00", "%d/%m/%y %H:%M", lt = FALSE), "POSIXct")
 })
 
+test_that("lt objects returned by parse_date_time2 and fast_strptime recycle the `isdst` field", {
+  ## https://github.com/tidyverse/lubridate/issues/1044
+  x <- c("12/03/16 12:00", "12/03/16 14:00")
+
+  out <- parse_date_time2(x, "dmy HM", lt = TRUE)
+  expect_identical(unclass(out)[["isdst"]], c(-1L, -1L))
+
+  out <- fast_strptime(x, "%d/%m/%y %H:%M")
+  expect_identical(unclass(out)[["isdst"]], c(-1L, -1L))
+})
+
 test_that("ymd_hms, parse_date_time2, fast_strptime and base:strptime give the same result", {
   ## random times between 1400 and 3000
   set.seed(1000)
