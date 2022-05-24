@@ -11,6 +11,7 @@ Version 1.8.0.9000
 
 ### BUG FIXES
 
+* [#1044](https://github.com/tidyverse/lubridate/issues/1044) POSIXlt results returned by `fast_strptime()` and `parse_date_time2()` now have a recycled `isdst` field.
 * Fix rounding of POSIXlt objects
 * [#1007](https://github.com/tidyverse/lubridate/issues/1007) Internal lubridate formats are no longer propagated to stamp formater.
 * `train` argument in `parse_date_time` now takes effect. It was previously ignored.
