@@ -96,17 +96,19 @@ of the intervals, i.e. <code>a %within% list(int1, int2)</code> is equivalent to
 <span class="r-in"><span class="co">## recycling (carefully note the difference between using a vector of</span></span>
 <span class="r-in"><span class="co">## intervals and list of intervals for the second argument)</span></span>
 <span class="r-in"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2014-12-20"</span>, <span class="st">"2014-12-30"</span>, <span class="st">"2015-01-01"</span>, <span class="st">"2015-01-03"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">blackout_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="interval.html">interval</a></span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-30"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-31"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              <span class="fu"><a href="interval.html">interval</a></span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-30"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2015-01-03"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">blackout_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="fu"><a href="interval.html">interval</a></span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-30"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-31"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span class="r-in">  <span class="fu"><a href="interval.html">interval</a></span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-30"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2015-01-03"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="va">dates</span> <span class="op">%within%</span> <span class="va">blackout_vector</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE  TRUE FALSE  TRUE</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## within ANY of the intervals of a list</span></span>
-<span class="r-in"> <span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2014-12-20"</span>, <span class="st">"2014-12-30"</span>, <span class="st">"2015-01-01"</span>, <span class="st">"2015-01-03"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"> <span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2014-12-20"</span>, <span class="st">"2014-12-30"</span>, <span class="st">"2015-01-01"</span>, <span class="st">"2015-01-03"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span class="r-in">  <span class="fu"><a href="interval.html">interval</a></span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-30"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-31"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span class="r-in">  <span class="fu"><a href="interval.html">interval</a></span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2014-12-30"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2015-01-03"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"> <span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="va">dates</span> <span class="op">%within%</span> <span class="va">lst</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE  TRUE  TRUE  TRUE</span>
 <span class="r-in"></span>
@@ -117,7 +119,6 @@ of the intervals, i.e. <code>a %within% list(int1, int2)</code> is equivalent to
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="va">int</span> <span class="op">%within%</span> <span class="va">lst</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE  TRUE</span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

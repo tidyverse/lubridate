@@ -128,7 +128,7 @@ year respectively. <code>day()</code> and <code>day&lt;-()</code> are aliases fo
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2009-09-02"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">wday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co">#4</span></span>
+<span class="r-in"><span class="fu">wday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">wday</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">080101</span><span class="op">)</span><span class="op">)</span></span>
@@ -144,12 +144,12 @@ year respectively. <code>day()</code> and <code>day&lt;-()</code> are aliases fo
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2009-09-02"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">yday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co">#245</span></span>
+<span class="r-in"><span class="fu">yday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># 245</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 245</span>
-<span class="r-in"><span class="fu">mday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co">#2</span></span>
+<span class="r-in"><span class="fu">mday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
-<span class="r-in"><span class="fu">yday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span>  <span class="co">#"2009-01-01"</span></span>
-<span class="r-in"><span class="fu">yday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">366</span> <span class="co">#"2010-01-01"</span></span>
+<span class="r-in"><span class="fu">yday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># "2009-01-01"</span></span>
+<span class="r-in"><span class="fu">yday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">366</span> <span class="co"># "2010-01-01"</span></span>
 <span class="r-in"><span class="fu">mday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 </code></pre></div>

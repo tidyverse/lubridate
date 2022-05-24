@@ -195,7 +195,7 @@ seems wrong to round a day to its lower boundary.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">## print fractional seconds</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>digits.secs<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>digits.secs <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.23"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".5s"</span><span class="op">)</span></span>
@@ -307,19 +307,18 @@ seems wrong to round a day to its lower boundary.</p>
 <span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01"</span>
 <span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-01-01 UTC"</span>
-<span class="r-in"> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01 UTC"</span>
 <span class="r-in"></span>
-<span class="r-in"> <span class="co">## For Date objects first day of the month is not on the</span></span>
-<span class="r-in"> <span class="co">## "boundary". change_on_boundary applies to instants only.</span></span>
-<span class="r-in"> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span class="co">## For Date objects first day of the month is not on the</span></span>
+<span class="r-in"><span class="co">## "boundary". change_on_boundary applies to instants only.</span></span>
+<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01"</span>
-<span class="r-in"> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01"</span>
 </code></pre></div>
     </div>
