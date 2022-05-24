@@ -38,13 +38,12 @@ sum to 365 days, or one normal year. For an exact transformation, first
 transform the period to an interval with \code{\link[=as.interval]{as.interval()}}.
 }
 \examples{
-span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) #interval
+span <- interval(ymd("2009-01-01"), ymd("2009-08-01")) # interval
 as.duration(span)
 as.duration(10) # numeric
 dur <- duration(hours = 10, minutes = 6)
 as.numeric(dur, "hours")
 as.numeric(dur, "minutes")
-
 }
 \seealso{
 \linkS4class{Duration}, \code{\link[=duration]{duration()}}

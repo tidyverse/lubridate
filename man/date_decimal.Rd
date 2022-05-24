@@ -22,7 +22,7 @@ Converts a decimal to a date
 }
 \examples{
 date <- ymd("2009-02-10")
-decimal <- decimal_date(date)  # 2009.11
+decimal <- decimal_date(date) # 2009.11
 date_decimal(decimal) # "2009-02-10 UTC"
 }
 \keyword{chron}

@@ -111,7 +111,7 @@ period(0, "second")
 
 ### Units as arguments
 
-period (second = 90, minute = 5)
+period(second = 90, minute = 5)
 period(day = -1)
 period(second = 3, minute = 1, hour = 2, day = 13, week = 1)
 period(hour = 1, minute = -60)
@@ -159,11 +159,11 @@ y <- ymd(090101) # "2009-01-01 CST"
 y + months(0:11)
 
 # compare DST handling to durations
-boundary <- ymd_hms("2009-03-08 01:59:59", tz="America/Chicago")
+boundary <- ymd_hms("2009-03-08 01:59:59", tz = "America/Chicago")
 boundary + days(1) # period
 boundary + ddays(1) # duration
 is.period(as.Date("2009-08-03")) # FALSE
-is.period(period(months= 1, days = 15)) # TRUE
+is.period(period(months = 1, days = 15)) # TRUE
 }
 \seealso{
 \linkS4class{Period}, \code{\link[=period]{period()}}, \code{\link{\%m+\%}},

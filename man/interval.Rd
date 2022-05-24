@@ -152,7 +152,7 @@ interval("2008-05-11/P2H30M")
 interval("2008 05 11/P2hours 30minutes")
 interval("08 05 11/P 2h 30m")
 
-is.interval(period(months= 1, days = 15)) # FALSE
+is.interval(period(months = 1, days = 15)) # FALSE
 is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
 int <- interval(ymd("2001-01-01"), ymd("2002-01-01"))
 int_start(int)
