@@ -35,7 +35,7 @@ date2 + years(1)
 date3 <- ymd_hms("2009-01-31 01:00:00")
 date3 + c(0:11) * months(1)
 
-span <- date2 \%--\% date  #creates interval
+span <- date2 \%--\% date # creates interval
 
 date <- ymd_hms("2009-01-01 00:00:00")
 date + years(1)

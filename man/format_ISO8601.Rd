@@ -31,9 +31,9 @@ A character vector of ISO8601-formatted text.
 Format in ISO8601 character format
 }
 \examples{
-format_ISO8601(as.Date("02-01-2018", format="\%m-\%d-\%Y"))
-format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), usetz=TRUE)
-format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), precision="ymdhm")
+format_ISO8601(as.Date("02-01-2018", format = "\%m-\%d-\%Y"))
+format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), usetz = TRUE)
+format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), precision = "ymdhm")
 }
 \references{
 \url{https://en.wikipedia.org/wiki/ISO_8601}

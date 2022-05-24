@@ -45,7 +45,7 @@ substitute them for the appropriate parts of the existing date.
 date <- ymd("2009-02-10")
 update(date, year = 2010, month = 1, mday = 1)
 
-update(date, year =2010, month = 13, mday = 1)
+update(date, year = 2010, month = 13, mday = 1)
 
 update(date, minute = 10, second = 3)
 }

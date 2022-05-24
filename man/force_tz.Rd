@@ -52,8 +52,8 @@ force_tz(x, "Europe/Amsterdam")
 ## DST skip:
 
 y <- ymd_hms("2010-03-14 02:05:05 UTC")
-force_tz(y, "America/New_York", roll=FALSE)
-force_tz(y, "America/New_York", roll=TRUE)
+force_tz(y, "America/New_York", roll = FALSE)
+force_tz(y, "America/New_York", roll = TRUE)
 
 ## Heterogeneous time-zones:
 

@@ -31,19 +31,24 @@ fit_to_timeline returns the instant with the correct combination.
 \examples{
 \dontrun{
 
-tricky <- structure(list(sec   = c(5,    0,    0,    -1),
-                         min   = c(0L,   5L,   5L,   0L),
-                         hour  = c(2L,   0L,   2L,   2L),
-                         mday  = c(4L,   4L,   14L,  4L),
-                         mon   = c(10L,  10L,  2L,   10L),
-                         year  = c(112L, 112L, 110L, 112L),
-                         wday  = c(0L,   0L,   0L,   0L),
-                         yday  = c(308L, 308L, 72L,  308L),
-                         isdst = c(1L,   0L,   0L,   1L)),
-                    .Names = c("sec", "min", "hour", "mday", "mon",
-                               "year", "wday", "yday",  "isdst"),
-                    class = c("POSIXlt", "POSIXt"),
-                    tzone = c("America/Chicago", "CST", "CDT"))
+tricky <- structure(list(
+  sec = c(5, 0, 0, -1),
+  min = c(0L, 5L, 5L, 0L),
+  hour = c(2L, 0L, 2L, 2L),
+  mday = c(4L, 4L, 14L, 4L),
+  mon = c(10L, 10L, 2L, 10L),
+  year = c(112L, 112L, 110L, 112L),
+  wday = c(0L, 0L, 0L, 0L),
+  yday = c(308L, 308L, 72L, 308L),
+  isdst = c(1L, 0L, 0L, 1L)
+),
+.Names = c(
+  "sec", "min", "hour", "mday", "mon",
+  "year", "wday", "yday", "isdst"
+),
+class = c("POSIXlt", "POSIXt"),
+tzone = c("America/Chicago", "CST", "CDT")
+)
 
 tricky
 ## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST

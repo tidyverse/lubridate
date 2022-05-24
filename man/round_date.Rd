@@ -110,7 +110,7 @@ Behavior on the boundary can be changed by setting
 \examples{
 
 ## print fractional seconds
-options(digits.secs=6)
+options(digits.secs = 6)
 
 x <- ymd_hms("2009-08-03 12:01:59.23")
 round_date(x, ".5s")
@@ -175,16 +175,15 @@ ceiling_date(ymd("2000-01-01"), "month")
 ceiling_date(ymd_hms("2000-01-01 00:00:00"), "month", change_on_boundary = FALSE)
 ceiling_date(ymd("2000-01-01"), "month")
 
+x <- ymd_hms("2000-01-01 00:00:00")
+ceiling_date(x, "month")
+ceiling_date(x, "month", change_on_boundary = TRUE)
 
- x <- ymd_hms("2000-01-01 00:00:00")
- ceiling_date(x, "month")
- ceiling_date(x, "month", change_on_boundary = TRUE)
-
- ## For Date objects first day of the month is not on the
- ## "boundary". change_on_boundary applies to instants only.
- x <- ymd("2000-01-01")
- ceiling_date(x, "month")
- ceiling_date(x, "month", change_on_boundary = TRUE)
+## For Date objects first day of the month is not on the
+## "boundary". change_on_boundary applies to instants only.
+x <- ymd("2000-01-01")
+ceiling_date(x, "month")
+ceiling_date(x, "month", change_on_boundary = TRUE)
 }
 \seealso{
 \code{\link[base:Round]{base::round()}}

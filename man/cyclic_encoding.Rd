@@ -44,5 +44,4 @@ cyclic_encoding(times, c("day", "week", "month"))
 plot(cyclic_encoding(times, "1d"))
 plot(cyclic_encoding(times, "2d"), xlim = c(-1, 1))
 plot(cyclic_encoding(times, "4d"), xlim = c(-1, 1))
-
 }
