@@ -39,7 +39,7 @@ setMethod("format_ISO8601",
     precision_format <-
       format_ISO8601_precision_check(precision = precision, max_precision = "ymdhms", usetz = usetz)
     # Note that the usetz argument to as.character is always FALSE because the time zone is handled in the precision argument.
-    as.character(x, format = precision_format, usetz = FALSE)
+    format(x, format = precision_format, usetz = FALSE)
   }
 )
 
@@ -52,8 +52,8 @@ setMethod("format_ISO8601",
     # Note that the usetz argument to as.character is always FALSE because the time zone is handled in the precision argument.
     sprintf(
       "%s/%s",
-      as.character(x@start, format = precision_format, usetz = FALSE),
-      as.character(x@start + x@.Data, format = precision_format, usetz = FALSE)
+      format(x@start,           format = precision_format, usetz = FALSE),
+      format(x@start + x@.Data, format = precision_format, usetz = FALSE)
     )
   }
 )
