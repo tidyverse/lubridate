@@ -14,9 +14,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.1/font.css" rel="stylesheet">
-<link href="../deps/_Source%20Code%20Pro-0.4.1/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Do more with dates and times in R">
@@ -85,7 +85,7 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Do more with dates and times in R</h1>
             
       
@@ -102,45 +102,45 @@
 </h2>
 <p>Getting R to agree that your data contains the dates and times you think it does can be tricky. Lubridate simplifies that. Identify the order in which the year, month, and day appears in your dates. Now arrange “y”, “m”, and “d” in the same order. This is the name of the function in lubridate that will parse your dates. For example,</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'lubridate'</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     date, intersect, setdiff, union</span>
-<span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"20110604"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2011-06-04"</span>
-<span class="fu"><a href="../reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"06-04-2011"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2011-06-04"</span>
-<span class="fu"><a href="../reference/ymd.html">dmy</a></span><span class="op">(</span><span class="st">"04/06/2011"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2011-06-04"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'lubridate'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     date, intersect, setdiff, union</span></span>
+<span><span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"20110604"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2011-06-04"</span></span>
+<span><span class="fu"><a href="../reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"06-04-2011"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2011-06-04"</span></span>
+<span><span class="fu"><a href="../reference/ymd.html">dmy</a></span><span class="op">(</span><span class="st">"04/06/2011"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2011-06-04"</span></span></code></pre></div>
 <p>Lubridate’s parse functions handle a wide variety of formats and separators, which simplifies the parsing process.</p>
 <p>If your date includes time information, add h, m, and/or s to the name of the function. <code>ymd_hms</code> is probably the most common date time format. To read the dates in with a certain time zone, supply the official name of that time zone in the <code>tz</code> argument.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">arrive</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2011-06-04 12:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span>
-<span class="va">arrive</span>
-<span class="co">#&gt; [1] "2011-06-04 12:00:00 NZST"</span>
-<span class="va">leave</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2011-08-10 14:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span>
-<span class="va">leave</span>
-<span class="co">#&gt; [1] "2011-08-10 14:00:00 NZST"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">arrive</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2011-06-04 12:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span></span>
+<span><span class="va">arrive</span></span>
+<span><span class="co">#&gt; [1] "2011-06-04 12:00:00 NZST"</span></span>
+<span><span class="va">leave</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2011-08-10 14:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span></span>
+<span><span class="va">leave</span></span>
+<span><span class="co">#&gt; [1] "2011-08-10 14:00:00 NZST"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="setting-and-extracting-information">Setting and Extracting information<a class="anchor" aria-label="anchor" href="#setting-and-extracting-information"></a>
 </h2>
 <p>Extract information from date times with the functions <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>wday</code>, <code>yday</code>, <code>week</code>, <code>month</code>, <code>year</code>, and <code>tz</code>. You can also use each of these to set (i.e, change) the given information. Notice that this will alter the date time. <code>wday</code> and <code>month</code> have an optional <code>label</code> argument, which replaces their numeric output with the name of the weekday or month.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/second.html">second</a></span><span class="op">(</span><span class="va">arrive</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="fu"><a href="../reference/second.html">second</a></span><span class="op">(</span><span class="va">arrive</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">25</span>
-<span class="va">arrive</span>
-<span class="co">#&gt; [1] "2011-06-04 12:00:25 NZST"</span>
-<span class="fu"><a href="../reference/second.html">second</a></span><span class="op">(</span><span class="va">arrive</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span>
-
-<span class="fu"><a href="../reference/day.html">wday</a></span><span class="op">(</span><span class="va">arrive</span><span class="op">)</span>
-<span class="co">#&gt; [1] 7</span>
-<span class="fu"><a href="../reference/day.html">wday</a></span><span class="op">(</span><span class="va">arrive</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] Sat</span>
-<span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/second.html">second</a></span><span class="op">(</span><span class="va">arrive</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="fu"><a href="../reference/second.html">second</a></span><span class="op">(</span><span class="va">arrive</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">25</span></span>
+<span><span class="va">arrive</span></span>
+<span><span class="co">#&gt; [1] "2011-06-04 12:00:25 NZST"</span></span>
+<span><span class="fu"><a href="../reference/second.html">second</a></span><span class="op">(</span><span class="va">arrive</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/day.html">wday</a></span><span class="op">(</span><span class="va">arrive</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 7</span></span>
+<span><span class="fu"><a href="../reference/day.html">wday</a></span><span class="op">(</span><span class="va">arrive</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Sat</span></span>
+<span><span class="co">#&gt; Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="time-zones">Time Zones<a class="anchor" aria-label="anchor" href="#time-zones"></a>
@@ -148,15 +148,15 @@
 <p>There are two very useful things to do with dates and time zones. First, display the same moment in a different time zone. Second, create a new moment by combining an existing clock time with a new time zone. These are accomplished by <code>with_tz</code> and <code>force_tz</code>.</p>
 <p>For example, a while ago I was in Auckland, New Zealand. I arranged to meet the co-author of lubridate, Hadley, over skype at 9:00 in the morning Auckland time. What time was that for Hadley who was back in Houston, TX?</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">meeting</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2011-07-01 09:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">meeting</span>, <span class="st">"America/Chicago"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2011-06-30 16:00:00 CDT"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">meeting</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2011-07-01 09:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">meeting</span>, <span class="st">"America/Chicago"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2011-06-30 16:00:00 CDT"</span></span></code></pre></div>
 <p>So the meetings occurred at 4:00 Hadley’s time (and the day before no less). Of course, this was the same actual moment of time as 9:00 in New Zealand. It just appears to be a different day due to the curvature of the Earth.</p>
 <p>What if Hadley made a mistake and signed on at 9:00 his time? What time would it then be my time?</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mistake</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/force_tz.html">force_tz</a></span><span class="op">(</span><span class="va">meeting</span>, <span class="st">"America/Chicago"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">mistake</span>, <span class="st">"Pacific/Auckland"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2011-07-02 02:00:00 NZST"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mistake</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/force_tz.html">force_tz</a></span><span class="op">(</span><span class="va">meeting</span>, <span class="st">"America/Chicago"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">mistake</span>, <span class="st">"Pacific/Auckland"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2011-07-02 02:00:00 NZST"</span></span></code></pre></div>
 <p>His call would arrive at 2:00 am my time! Luckily he never did that.</p>
 </div>
 <div class="section level2">
@@ -164,25 +164,25 @@
 </h2>
 <p>You can save an interval of time as an Interval class object with lubridate. This is quite useful! For example, my stay in Auckland lasted from June 4, 2011 to August 10, 2011 (which we’ve already saved as arrive and leave). We can create this interval in one of two ways:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">auckland</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/interval.html">interval</a></span><span class="op">(</span><span class="va">arrive</span>, <span class="va">leave</span><span class="op">)</span>
-<span class="va">auckland</span>
-<span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span>
-<span class="va">auckland</span> <span class="op">&lt;-</span> <span class="va">arrive</span> <span class="op"><a href="../reference/interval.html">%--%</a></span> <span class="va">leave</span>
-<span class="va">auckland</span>
-<span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">auckland</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/interval.html">interval</a></span><span class="op">(</span><span class="va">arrive</span>, <span class="va">leave</span><span class="op">)</span></span>
+<span><span class="va">auckland</span></span>
+<span><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></span>
+<span><span class="va">auckland</span> <span class="op">&lt;-</span> <span class="va">arrive</span> <span class="op"><a href="../reference/interval.html">%--%</a></span> <span class="va">leave</span></span>
+<span><span class="va">auckland</span></span>
+<span><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></span></code></pre></div>
 <p>My mentor at the University of Auckland, Chris, traveled to various conferences that year including the Joint Statistical Meetings (JSM). This took him out of the country from July 20 until the end of August.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">jsm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/interval.html">interval</a></span><span class="op">(</span><span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20110720</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span>, <span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20110831</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">jsm</span>
-<span class="co">#&gt; [1] 2011-07-20 NZST--2011-08-31 NZST</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">jsm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/interval.html">interval</a></span><span class="op">(</span><span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20110720</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span>, <span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20110831</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">jsm</span></span>
+<span><span class="co">#&gt; [1] 2011-07-20 NZST--2011-08-31 NZST</span></span></code></pre></div>
 <p>Will my visit overlap with and his travels? Yes.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/interval.html">int_overlaps</a></span><span class="op">(</span><span class="va">jsm</span>, <span class="va">auckland</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/interval.html">int_overlaps</a></span><span class="op">(</span><span class="va">jsm</span>, <span class="va">auckland</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <p>Then I better make hay while the sun shines! For what part of my visit will Chris be there?</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">auckland</span>, <span class="va">jsm</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-07-20 NZST</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">auckland</span>, <span class="va">jsm</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2011-06-04 12:00:00 NZST--2011-07-20 NZST</span></span></code></pre></div>
 <p>Other functions that work with intervals include <code>int_start</code>, <code>int_end</code>, <code>int_flip</code>, <code>int_shift</code>, <code>int_aligns</code>, <code>union</code>, <code>intersect</code>, <code>setdiff</code>, and <code>%within%</code>.</p>
 </div>
 <div class="section level2">
@@ -190,52 +190,52 @@
 </h2>
 <p>Intervals are specific time spans (because they are tied to specific dates), but lubridate also supplies two general time span classes: Durations and Periods. Helper functions for creating periods are named after the units of time (plural). Helper functions for creating durations follow the same format but begin with a “d” (for duration) or, if you prefer, and “e” (for exact).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co">## period</span>
-<span class="co">#&gt; [1] "2M 0S"</span>
-<span class="fu"><a href="../reference/duration.html">dminutes</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co">## duration</span>
-<span class="co">#&gt; [1] "120s (~2 minutes)"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co">## period</span></span>
+<span><span class="co">#&gt; [1] "2M 0S"</span></span>
+<span><span class="fu"><a href="../reference/duration.html">dminutes</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co">## duration</span></span>
+<span><span class="co">#&gt; [1] "120s (~2 minutes)"</span></span></code></pre></div>
 <p>Why two classes? Because the timeline is not as reliable as the number line. The Duration class will always supply mathematically precise results. A duration year will always equal 365 days. Periods, on the other hand, fluctuate the same way the timeline does to give intuitive results. This makes them useful for modeling clock times. For example, durations will be honest in the face of a leap year, but periods may return what you want:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/leap_year.html">leap_year</a></span><span class="op">(</span><span class="fl">2011</span><span class="op">)</span> <span class="co">## regular year</span>
-<span class="co">#&gt; [1] FALSE</span>
-<span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20110101</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2012-01-01 06:00:00 UTC"</span>
-<span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20110101</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2012-01-01"</span>
-
-<span class="fu"><a href="../reference/leap_year.html">leap_year</a></span><span class="op">(</span><span class="fl">2012</span><span class="op">)</span> <span class="co">## leap year</span>
-<span class="co">#&gt; [1] TRUE</span>
-<span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20120101</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2012-12-31 06:00:00 UTC"</span>
-<span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20120101</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2013-01-01"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/leap_year.html">leap_year</a></span><span class="op">(</span><span class="fl">2011</span><span class="op">)</span> <span class="co">## regular year</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20110101</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2012-01-01 06:00:00 UTC"</span></span>
+<span><span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20110101</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2012-01-01"</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/leap_year.html">leap_year</a></span><span class="op">(</span><span class="fl">2012</span><span class="op">)</span> <span class="co">## leap year</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20120101</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2012-12-31 06:00:00 UTC"</span></span>
+<span><span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20120101</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2013-01-01"</span></span></code></pre></div>
 <p>You can use periods and durations to do basic arithmetic with date times. For example, if I wanted to set up a reoccuring weekly skype meeting with Hadley, it would occur on:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">meetings</span> <span class="op">&lt;-</span> <span class="va">meeting</span> <span class="op">+</span> <span class="fu"><a href="../reference/period.html">weeks</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">meetings</span> <span class="op">&lt;-</span> <span class="va">meeting</span> <span class="op">+</span> <span class="fu"><a href="../reference/period.html">weeks</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p>Hadley travelled to conferences at the same time as Chris. Which of these meetings would be affected? The last two.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">meetings</span> <span class="op"><a href="../reference/within-interval.html">%within%</a></span> <span class="va">jsm</span>
-<span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">meetings</span> <span class="op"><a href="../reference/within-interval.html">%within%</a></span> <span class="va">jsm</span></span>
+<span><span class="co">#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE</span></span></code></pre></div>
 <p>How long was my stay in Auckland?</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">auckland</span> <span class="op">/</span> <span class="fu"><a href="../reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 67.08333</span>
-<span class="va">auckland</span> <span class="op">/</span> <span class="fu"><a href="../reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; [1] 33.54167</span>
-<span class="va">auckland</span> <span class="op">/</span> <span class="fu"><a href="../reference/duration.html">dminutes</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 96600</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">auckland</span> <span class="op">/</span> <span class="fu"><a href="../reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 67.08333</span></span>
+<span><span class="va">auckland</span> <span class="op">/</span> <span class="fu"><a href="../reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 33.54167</span></span>
+<span><span class="va">auckland</span> <span class="op">/</span> <span class="fu"><a href="../reference/duration.html">dminutes</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 96600</span></span></code></pre></div>
 <p>And so on. Alternatively, we can do modulo and integer division. Sometimes this is more sensible than division - it is not obvious how to express a remainder as a fraction of a month because the length of a month constantly changes.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">auckland</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="va">auckland</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2011-08-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">auckland</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%/%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="va">auckland</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2011-08-04 12:00:00 NZST--2011-08-10 14:00:00 NZST</span></span></code></pre></div>
 <p>Modulo with an timespan returns the remainder as a new (smaller) interval. You can turn this or any interval into a generalized time span with <code>as.period</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/as.period.html">as.period</a></span><span class="op">(</span><span class="va">auckland</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "6d 2H 0M 0S"</span>
-<span class="fu"><a href="../reference/as.period.html">as.period</a></span><span class="op">(</span><span class="va">auckland</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2m 6d 2H 0M 0S"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/as.period.html">as.period</a></span><span class="op">(</span><span class="va">auckland</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "6d 2H 0M 0S"</span></span>
+<span><span class="fu"><a href="../reference/as.period.html">as.period</a></span><span class="op">(</span><span class="va">auckland</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2m 6d 2H 0M 0S"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="if-anyone-drove-a-time-machine-they-would-crash">If anyone drove a time machine, they would crash<a class="anchor" aria-label="anchor" href="#if-anyone-drove-a-time-machine-they-would-crash"></a>
 </h3>
@@ -251,19 +251,19 @@
 <p>A basic property of arithmetic is that <code>a + b - b = a</code>. Only solution 1 obeys this property, but it is an invalid date. I’ve tried to make lubridate as consistent as possible by invoking the following rule <em>if adding or subtracting a month or a year creates an invalid date, lubridate will return an NA</em>. This is new with version 1.3.0, so if you’re an old hand with lubridate be sure to remember this!</p>
 <p>If you thought solution 2 or 3 was more useful, no problem. You can still get those results with clever arithmetic, or by using the special <code>%m+%</code> and <code>%m-%</code> operators. <code>%m+%</code> and <code>%m-%</code> automatically roll dates back to the last day of the month, should that be necessary.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">jan31</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2013-01-31"</span><span class="op">)</span>
-<span class="va">jan31</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "2013-01-31" NA           "2013-03-31" NA           "2013-05-31"</span>
-<span class="co">#&gt;  [6] NA           "2013-07-31" "2013-08-31" NA           "2013-10-31"</span>
-<span class="co">#&gt; [11] NA           "2013-12-31"</span>
-<span class="fu"><a href="../reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">jan31</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/period.html">days</a></span><span class="op">(</span><span class="fl">31</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "2013-02-01" "2013-03-04" "2013-04-01" "2013-05-02" "2013-06-01"</span>
-<span class="co">#&gt;  [6] "2013-07-02" "2013-08-01" "2013-09-01" "2013-10-02" "2013-11-01"</span>
-<span class="co">#&gt; [11] "2013-12-02" "2014-01-01"</span>
-<span class="va">jan31</span> <span class="op"><a href="../reference/mplus.html">%m+%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "2013-01-31" "2013-02-28" "2013-03-31" "2013-04-30" "2013-05-31"</span>
-<span class="co">#&gt;  [6] "2013-06-30" "2013-07-31" "2013-08-31" "2013-09-30" "2013-10-31"</span>
-<span class="co">#&gt; [11] "2013-11-30" "2013-12-31"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">jan31</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2013-01-31"</span><span class="op">)</span></span>
+<span><span class="va">jan31</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "2013-01-31" NA           "2013-03-31" NA           "2013-05-31"</span></span>
+<span><span class="co">#&gt;  [6] NA           "2013-07-31" "2013-08-31" NA           "2013-10-31"</span></span>
+<span><span class="co">#&gt; [11] NA           "2013-12-31"</span></span>
+<span><span class="fu"><a href="../reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">jan31</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/period.html">days</a></span><span class="op">(</span><span class="fl">31</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "2013-02-01" "2013-03-04" "2013-04-01" "2013-05-02" "2013-06-01"</span></span>
+<span><span class="co">#&gt;  [6] "2013-07-02" "2013-08-01" "2013-09-01" "2013-10-02" "2013-11-01"</span></span>
+<span><span class="co">#&gt; [11] "2013-12-02" "2014-01-01"</span></span>
+<span><span class="va">jan31</span> <span class="op"><a href="../reference/mplus.html">%m+%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "2013-01-31" "2013-02-28" "2013-03-31" "2013-04-30" "2013-05-31"</span></span>
+<span><span class="co">#&gt;  [6] "2013-06-30" "2013-07-31" "2013-08-31" "2013-09-30" "2013-10-31"</span></span>
+<span><span class="co">#&gt; [11] "2013-11-30" "2013-12-31"</span></span></code></pre></div>
 <p>Notice that this will only affect arithmetic with months (and arithmetic with years if your start date it Feb 29).</p>
 </div>
 </div>
@@ -272,9 +272,9 @@
 </h2>
 <p>The code in lubridate is vectorized and ready to be used in both interactive settings and within functions. As an example, I offer a function for advancing a date to the last day of the month</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">last_day</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/round_date.html">ceiling_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="../reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">last_day</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/round_date.html">ceiling_date</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="../reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="further-resources">Further Resources<a class="anchor" aria-label="anchor" href="#further-resources"></a>
@@ -296,7 +296,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer>
