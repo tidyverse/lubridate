@@ -28,7 +28,7 @@ setMethod("format_ISO8601",
   function(x, usetz = FALSE, precision = NULL, ...) {
     precision_format <-
       format_ISO8601_precision_check(precision = precision, max_precision = "ymd", usetz = FALSE)
-    as.character(x, format = precision_format, usetz = FALSE)
+    format(x, format = precision_format, usetz = FALSE)
   }
 )
 

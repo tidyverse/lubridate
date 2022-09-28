@@ -600,6 +600,9 @@ setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", .
 
 as.POSIXt <- function(x) as.POSIXlt(x)
 
+## TODO{MM}:  Do not confuse  as.character()  and  format()
+## -------   {originally were used interchangably in R for Date and POSIX?t}
+
 #' @export
 setMethod("as.character", signature(x = "Period"), function(x, ...) {
   format(x)
