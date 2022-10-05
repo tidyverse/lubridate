@@ -315,7 +315,23 @@ test_that("addition with period months and years returns NA when appropriate", {
   ), tz = "America/Chicago")
   yrs2 <- ymd(c("2012-02-29", NA, NA, NA, "2008-02-29"), tz = "America/Chicago")
 
+  expect_equal(jan + months(0:11), mos)
+  expect_equal(feb + months(1), mar)
+  expect_equal(leap + years(0:4), yrs)
 
+  expect_equal(jan - months(0:11), mos2)
+  expect_equal(mar - months(1), feb)
+  expect_equal(leap - years(0:4), yrs2)
+
+  # Again with Dates (#1069)
+  jan <- as.Date(jan)
+  feb <- as.Date(feb)
+  mar <- as.Date(mar)
+  leap <- as.Date(leap)
+  mos <- as.Date(mos)
+  yrs <- as.Date(yrs)
+  mos2 <- as.Date(mos2)
+  yrs2 <- as.Date(yrs2)
 
   expect_equal(jan + months(0:11), mos)
   expect_equal(feb + months(1), mar)
@@ -324,6 +340,56 @@ test_that("addition with period months and years returns NA when appropriate", {
   expect_equal(jan - months(0:11), mos2)
   expect_equal(mar - months(1), feb)
   expect_equal(leap - years(0:4), yrs2)
+})
+
+test_that("addition with period months recycles correctly", {
+  x <- as.Date(c("2019-01-01", "2019-01-02"))
+  y <- as.POSIXct(x, tz = "UTC")
+
+  period <- months(1)
+  x_expect <- as.Date(c("2019-02-01", "2019-02-02"))
+  y_expect <- as.POSIXct(x_expect, tz = "UTC")
+  expect_identical(x + period, x_expect)
+  expect_identical(y + period, y_expect)
+
+  period <- months(NA_integer_)
+  x_expect <- as.Date(c(NA, NA))
+  y_expect <- as.POSIXct(x_expect, tz = "UTC")
+  expect_identical(x + period, x_expect)
+  expect_identical(y + period, y_expect)
+
+  # TODO: Should be an error, see #1070
+  period <- months(integer())
+  x_expect <- x
+  y_expect <- y
+  expect_identical(x + period, x_expect)
+  expect_identical(y + period, y_expect)
+
+  # TODO: Should be an error, see #1070
+  period <- months(1:3)
+  x_expect <- as.Date(c("2019-02-01", "2019-03-02", "2019-04-01"))
+  y_expect <- as.POSIXct(x_expect, tz = "UTC")
+  expect_warning(expect_identical(x + period, x_expect))
+  expect_warning(expect_identical(y + period, y_expect))
+
+  # TODO: Should be an error, see #1070
+  period <- months(c(1, 2, NA))
+  x_expect <- as.Date(c("2019-02-01", "2019-03-02", NA))
+  y_expect <- as.POSIXct(x_expect, tz = "UTC")
+  expect_warning(expect_identical(x + period, x_expect))
+  expect_warning(expect_identical(y + period, y_expect))
+})
+
+test_that("`add_months()` POSIXlt helper recycles all fields (#1069)", {
+  x <- as.POSIXlt("2019-01-01", tz = "UTC")
+
+  out <- add_months(x, 1:2)
+  out <- unclass(out)
+
+  expect_identical(out$sec, c(0, 0))
+  expect_identical(out$min, c(0L, 0L))
+  expect_identical(out$mon, c(1L, 2L))
+  expect_identical(out$year, c(119L, 119L))
 })
 
 test_that("addition with singleton NAs periods work", {
