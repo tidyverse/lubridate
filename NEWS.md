@@ -11,6 +11,7 @@ Version 1.8.0.9000
 
 ### BUG FIXES
 
+* [#1069](https://github.com/tidyverse/lubridate/issues/1069) Internal code handling the addition of period months and years no longer generates partially recycled POSIXlt objects.
 * Fix rounding of POSIXlt objects
 * [#1007](https://github.com/tidyverse/lubridate/issues/1007) Internal lubridate formats are no longer propagated to stamp formater.
 * `train` argument in `parse_date_time` now takes effect. It was previously ignored.
