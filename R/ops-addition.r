@@ -77,9 +77,32 @@ add_months <- function(mt, mos) {
   if (all(mos[nnas] == 0L)) {
     return(mt)
   }
-  mt$mon <- mt$mon + mos
+
+  new_mon <- mt$mon + mos
+  new_length <- length(new_mon)
+
+  # "recycle" all fields of `mt` as needed according to base R rules.
+  # Partial recycling warning will be thrown on the `+` above.
+  # TODO: This should use tidyverse recycling rules (#1070).
+  if (new_length != length(mt$mon)) {
+    mt <- rep(mt, length.out = new_length)
+  }
+
+  if (anyNA(new_mon)) {
+    # Ensure missing value assignment propagates to all fields
+    mt[is.na(new_mon)] <- NA
+  }
+
+  mt$mon <- new_mon
+
   ndays <- as.numeric(format.POSIXlt(mt, "%d", usetz = FALSE))
-  mt$mon[mt$mday != ndays] <- NA
+  invalid <- mt$mday != ndays
+
+  if (any(invalid, na.rm = TRUE)) {
+    # Ensure missing value assignment propagates to all fields
+    mt[invalid] <- NA
+  }
+
   mt
 }
 
