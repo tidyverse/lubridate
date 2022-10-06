@@ -89,8 +89,9 @@ add_months <- function(mt, mos) {
   }
 
   if (anyNA(new_mon)) {
-    # Ensure missing value assignment propagates to all fields
-    mt[is.na(new_mon)] <- NA
+    # Ensure missing value assignment propagates to all fields.
+    # Can't just assign `NA` https://stat.ethz.ch/pipermail/r-devel/2022-October/082080.html.
+    mt[is.na(new_mon)] <- as.POSIXlt(NA, tz = tz(mt))
   }
 
   mt$mon <- new_mon
@@ -99,8 +100,9 @@ add_months <- function(mt, mos) {
   invalid <- mt$mday != ndays
 
   if (any(invalid, na.rm = TRUE)) {
-    # Ensure missing value assignment propagates to all fields
-    mt[invalid] <- NA
+    # Ensure missing value assignment propagates to all fields.
+    # Can't just assign `NA` https://stat.ethz.ch/pipermail/r-devel/2022-October/082080.html.
+    mt[invalid] <- as.POSIXlt(NA, tz = tz(mt))
   }
 
   mt
