@@ -324,14 +324,14 @@ test_that("addition with period months and years returns NA when appropriate", {
   expect_equal(leap - years(0:4), yrs2)
 
   # Again with Dates (#1069)
-  jan <- as.Date(jan)
-  feb <- as.Date(feb)
-  mar <- as.Date(mar)
-  leap <- as.Date(leap)
-  mos <- as.Date(mos)
-  yrs <- as.Date(yrs)
-  mos2 <- as.Date(mos2)
-  yrs2 <- as.Date(yrs2)
+  jan <- as_date(jan)
+  feb <- as_date(feb)
+  mar <- as_date(mar)
+  leap <- as_date(leap)
+  mos <- as_date(mos)
+  yrs <- as_date(yrs)
+  mos2 <- as_date(mos2)
+  yrs2 <- as_date(yrs2)
 
   expect_equal(jan + months(0:11), mos)
   expect_equal(feb + months(1), mar)
@@ -343,18 +343,18 @@ test_that("addition with period months and years returns NA when appropriate", {
 })
 
 test_that("addition with period months recycles correctly", {
-  x <- as.Date(c("2019-01-01", "2019-01-02"))
-  y <- as.POSIXct(x, tz = "UTC")
+  x <- as_date(c("2019-01-01", "2019-01-02"))
+  y <- as_datetime(x, tz = "UTC")
 
   period <- months(1)
-  x_expect <- as.Date(c("2019-02-01", "2019-02-02"))
-  y_expect <- as.POSIXct(x_expect, tz = "UTC")
+  x_expect <- as_date(c("2019-02-01", "2019-02-02"))
+  y_expect <- as_datetime(x_expect, tz = "UTC")
   expect_identical(x + period, x_expect)
   expect_identical(y + period, y_expect)
 
   period <- months(NA_integer_)
-  x_expect <- as.Date(c(NA, NA))
-  y_expect <- as.POSIXct(x_expect, tz = "UTC")
+  x_expect <- as_date(c(NA, NA))
+  y_expect <- as_datetime(x_expect, tz = "UTC")
   expect_identical(x + period, x_expect)
   expect_identical(y + period, y_expect)
 
@@ -367,15 +367,15 @@ test_that("addition with period months recycles correctly", {
 
   # TODO: Should be an error, see #1070
   period <- months(1:3)
-  x_expect <- as.Date(c("2019-02-01", "2019-03-02", "2019-04-01"))
-  y_expect <- as.POSIXct(x_expect, tz = "UTC")
+  x_expect <- as_date(c("2019-02-01", "2019-03-02", "2019-04-01"))
+  y_expect <- as_datetime(x_expect, tz = "UTC")
   expect_warning(expect_identical(x + period, x_expect))
   expect_warning(expect_identical(y + period, y_expect))
 
   # TODO: Should be an error, see #1070
   period <- months(c(1, 2, NA))
-  x_expect <- as.Date(c("2019-02-01", "2019-03-02", NA))
-  y_expect <- as.POSIXct(x_expect, tz = "UTC")
+  x_expect <- as_date(c("2019-02-01", "2019-03-02", NA))
+  y_expect <- as_datetime(x_expect, tz = "UTC")
   expect_warning(expect_identical(x + period, x_expect))
   expect_warning(expect_identical(y + period, y_expect))
 })
