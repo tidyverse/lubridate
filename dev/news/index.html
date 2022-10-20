@@ -72,7 +72,9 @@
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-1-8-0-9000">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-8-0-9000"></a></h4>
-<ul><li>Fix rounding of POSIXlt objects</li>
+<ul><li>
+<a href="https://github.com/tidyverse/lubridate/issues/1044" class="external-link">#1044</a> POSIXlt results returned by <code><a href="../reference/parse_date_time.html">fast_strptime()</a></code> and <code><a href="../reference/parse_date_time.html">parse_date_time2()</a></code> now have a recycled <code>isdst</code> field.</li>
+<li>Fix rounding of POSIXlt objects</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1007" class="external-link">#1007</a> Internal lubridate formats are no longer propagated to stamp formater.</li>
 <li>
