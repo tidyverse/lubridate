@@ -40,8 +40,10 @@ elements in \code{unit}. If range of \code{unit} vector does not cover the range
 \code{x} \code{ceiling_date()} and \code{floor_date()} round to the \code{max(x)} and \code{min(x)}
 for elements that fall outside of \code{range(unit)}.}
 
-\item{week_start}{when unit is \code{week}, specify the reference day.
-7 represents Sunday and 1 represents Monday.}
+\item{week_start}{week start day (Default is 7, Sunday. Set
+\code{lubridate.week.start} to override). Full or abbreviated names of
+the days of the week can be in English or as provided by the
+current locale.}
 
 \item{change_on_boundary}{if this is \code{NULL} (the default), instants on the
 boundary remain unchanged, but \code{Date} objects are rounded up to the next

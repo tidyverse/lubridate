@@ -59,7 +59,9 @@ option to control this parameter globally.}
 
 \item{locale}{locale to use for day names. Default to current locale.}
 
-\item{value}{a numeric object}
+\item{value}{(for \verb{wday<-}) a numeric or a string giving the name of the day in
+the current locale or in English. Can be abbreviated. When a
+string, the value of \code{week_start} is ignored.}
 }
 \value{
 \code{wday()} returns the day of the week as a decimal number or an
