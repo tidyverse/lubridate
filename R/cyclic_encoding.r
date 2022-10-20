@@ -16,7 +16,7 @@
 #' @param encoders names of functions to produce the encoding. Defaults to
 #'   "sin" and "cos". Names of any predefined functions accepting a numeric
 #'   input are allowed.
-#' @param week_start day starting a week (used for weekly periods).
+#' @inheritParams DateTimeUpdate
 #' @return a numeric matrix with number of columns equal `length(periods) *
 #'   length(types)`.
 #' @examples

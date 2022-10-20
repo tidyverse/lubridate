@@ -8,20 +8,21 @@
 #'
 #' @name DateTimeUpdate
 #' @param object a date-time object
-#' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours,
-#'   minutes, seconds, tzs (time zone component)
-#' @param roll logical. If `TRUE`, and the resulting date-time lands on a
-#'   non-existent civil time instant (DST, 29th February, etc.) roll the date
-#'   till next valid point. When `FALSE`, the default, produce NA for non
-#'   existing date-times.
-#' @param week_start week starting day (Default is 7, Sunday). String values
-#'   naming a day of the week are also accepted, either in English or with
-#'   names from the current locale. Set `lubridate.week.start` option to control this.
+#' @param ... named arguments: years, months, ydays, wdays, mdays,
+#'   days, hours, minutes, seconds, tzs (time zone component)
+#' @param roll logical. If `TRUE`, and the resulting date-time lands
+#'   on a non-existent civil time instant (DST, 29th February, etc.)
+#'   roll the date till next valid point. When `FALSE`, the default,
+#'   produce NA for non existing date-times.
+#' @param week_start week start day (Default is 7, Sunday. Set
+#'   `lubridate.week.start` to override). Full or abbreviated names of
+#'   the days of the week can be in English or as provided by the
+#'   current locale.
 #' @param simple logical. Deprecated. Same as `roll`.
-#' @return a date object with the requested elements updated. The object will
-#'   retain its original class unless an element is updated which the original
-#'   class does not support. In this case, the date returned will be a POSIXlt
-#'   date object.
+#' @return a date object with the requested elements updated. The
+#'   object will retain its original class unless an element is
+#'   updated which the original class does not support. In this case,
+#'   the date returned will be a POSIXlt date object.
 #' @keywords manip chron
 #' @examples
 #' date <- ymd("2009-02-10")
@@ -80,22 +81,26 @@ update_date_time <- function(object, years = integer(), months = integer(),
 }
 
 as_week_start <- function(x) {
-  if (is.numeric(x)) return(x)
+  if (is.numeric(x)) {
+    if (x > 7 || x < 1) {
+      stop("Invalid 'week_start' argument; must be between 1 and 7")
+    }
+    return(x)
+  }
 
-  if (length(x) != 1L) stop("week_start should have length 1.")
+  if (length(x) != 1L)
+    stop("Invalid `week_start` argument; must be of length 1")
 
-  if (!is.character(x)) stop(
-    "week_start should be a number from 1-7 giving the day of the Monday-based day-of-week index, ",
-    "or a string naming the day of the week."
-  )
+  if (!is.character(x))
+    stop("Invalid `week_start` argument; must be a number in 1-7 (Monday based) or string day of the week", call. = FALSE)
 
-  # use pmatch to also capture abbreviations like Sun, Mon
+  # Use pmatch to also capture abbreviations.
   english_idx <- pmatch(x, c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
   if (!is.na(english_idx)) {
     return(english_idx)
   }
 
-  # other locales might use abbreviations that are not so pmatch-friendly; try full first, then partial
+  # Other locales might use abbreviations that are not so pmatch-friendly; try full first, then partial.
   native_full_idx <- match(x, .get_locale_regs()$wday_names$full)
   if (!is.na(native_full_idx)) {
     return(native_full_idx)
@@ -174,7 +179,7 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
 #' @export
 update.Date <- function(object, ...) {
   ct <- as_datetime(object, tz = "UTC")
-  new <- update(ct, ...)
+  new <- update.POSIXt(ct, ...)
   ## fixme: figure out a way to avoid this, or write specialized update for Date
   new_lt <- as.POSIXlt(new, tz = "UTC")
   if (sum(c(new_lt$hour, new_lt$min, new_lt$sec), na.rm = TRUE)) {

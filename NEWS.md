@@ -3,6 +3,8 @@ Version 1.8.0.9000
 
 ### NEW FEATURES
 
+* [#1017](https://github.com/tidyverse/lubridate/issues/1017) `week_start` argument in all lubridate functions now accepts full and abbreviated names of the days of the week.
+* The assignment value `wday<-` can be a string either in English or as provided by the current locale.
 * Date rounding functions accept a date-time `unit` argument for rounding to a vector of date-times.
 * [#1005](https://github.com/tidyverse/lubridate/issues/1005) `as.duration` now allows for full roundtrip `duration -> as.character -> as.duration`
 * [#911](https://github.com/tidyverse/lubridate/issues/911) C parsers treat multiple spaces as one (just like strptime does)

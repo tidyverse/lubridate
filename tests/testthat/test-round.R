@@ -731,6 +731,45 @@ test_that("rounding works when week_start = name of week day", {
   expect_identical(ceiling_date(ct, "week", week_start = "Monday"), ceiling_date(ct, "week", week_start = 1))
   expect_identical(ceiling_date(ct, "week", week_start = "Friday"), ceiling_date(ct, "week", week_start = 5))
 
+  expect_identical(ceiling_date(ct, "week", week_start = "Mond"), ceiling_date(ct, "week", week_start = 1))
+  expect_identical(ceiling_date(ct, "week", week_start = "Fri"), ceiling_date(ct, "week", week_start = 5))
+
   expect_identical(round_date(ct, "week", week_start = "Monday"), round_date(ct, "week", week_start = 1))
   expect_identical(round_date(ct, "week", week_start = "Sunday"), round_date(ct, "week", week_start = 7))
+  expect_identical(round_date(ct, "week", week_start = "Mon"), round_date(ct, "week", week_start = 1))
+  expect_identical(round_date(ct, "week", week_start = "Sund"), round_date(ct, "week", week_start = 7))
+})
+
+
+test_that("wday extract and update: week_start can be a week day", {
+
+  d <- ymd("2017-01-02") # Monday
+  p <- as_datetime(d)
+
+  expect_identical(wday(d, week_start = "Tue"), 7)
+  expect_identical(wday(p, week_start = "Tue"), 7)
+  expect_identical(wday(d, week_start = "Monday"), 1)
+  expect_identical(wday(p, week_start = "Monday"), 1)
+  expect_identical(wday(2, week_start = "Monday"), 1)
+  expect_identical(wday(2, week_start = "Monday"), wday(2, week_start = 1))
+
+  wday(d) <- "Tue"
+  expect_identical(wday(d), 3)
+
+  # ignore week_start when value is a character
+  wday(d, week_start = 1) <- "Tue"
+  expect_identical(wday(d), 3)
+  wday(p, week_start = 2) <- "Sunday"
+  expect_identical(wday(p), 1)
+
+  wday(p) <- "Wednesday"
+  expect_identical(wday(p), 4)
+
+  wday(d) <- 4
+  expect_identical(wday(d), 4)
+  wday(d, week_start = 2) <- 4
+  expect_identical(wday(d, week_start = 2), 4)
+  wday(p) <- 5
+  expect_identical(wday(p), 5)
+
 })

@@ -65,9 +65,7 @@
 #'   all. This was the default for \pkg{lubridate} prior to `v1.6.0`. See
 #'   section `Rounding Up Date Objects` below for more details.
 #'
-#' @param week_start when unit is `week`, specify the reference day.
-#'   7 represents Sunday and 1 represents Monday.
-#'
+#' @inheritParams DateTimeUpdate
 #' @return When `unit` is a string, return a Date object if `x` is a Date and
 #'   `unit` is larger or equal than "day", otherwise a POSIXct object. When
 #'   `unit` is a date-time object, return a date-time object of the same class
