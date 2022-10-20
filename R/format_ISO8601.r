@@ -1,12 +1,7 @@
 #' Format in ISO8601 character format
 #'
 #' @param x An object to convert to ISO8601 character format.
-#' @param usetz Include the time zone in the formatting (of outputs including
-#'   time; date outputs never include time zone information).
-#' @param precision The amount of precision to represent with substrings of
-#'   "ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and "s"econd. (e.g.
-#'   "ymdhm" would show precision through minutes.  When \code{NULL}, full
-#'   precision for the object is shown.
+#' @inheritParams format_ISO8601_precision_check
 #' @param ... Additional arguments to methods.
 #' @return A character vector of ISO8601-formatted text.
 #' @references \url{https://en.wikipedia.org/wiki/ISO_8601}
@@ -37,8 +32,12 @@ setMethod("format_ISO8601",
   signature = "POSIXt",
   function(x, usetz = FALSE, precision = NULL, ...) {
     precision_format <-
-      format_ISO8601_precision_check(precision = precision, max_precision = "ymdhms", usetz = usetz)
-    # Note that the usetz argument to as.character is always FALSE because the time zone is handled in the precision argument.
+      format_ISO8601_precision_check(
+        precision = precision, max_precision = "ymdhms", usetz = usetz)
+    if (identical(usetz, "Z")) {
+      x <- with_tz(x, tzone="UTC")
+    }
+    # usetz argument is FALSE because the time zone is handled in the precision argument.
     format(x, format = precision_format, usetz = FALSE)
   }
 )
@@ -48,12 +47,19 @@ setMethod("format_ISO8601",
   signature = "Interval",
   function(x, usetz = FALSE, precision = NULL, ...) {
     precision_format <-
-      format_ISO8601_precision_check(precision = precision, max_precision = "ymdhms", usetz = usetz)
-    # Note that the usetz argument to as.character is always FALSE because the time zone is handled in the precision argument.
+      format_ISO8601_precision_check(
+        precision = precision, max_precision = "ymdhms", usetz = usetz)
+    x_start <- x@start
+    x_end <- x@start + x@.Data
+    if (identical(usetz, "Z")) {
+      x_start <- with_tz(x_start, tzone="UTC")
+      x_end <- with_tz(x_end, tzone="UTC")
+    }
+    # usetz argument is FALSE because the time zone is handled in the precision argument.
     sprintf(
       "%s/%s",
-      format(x@start,           format = precision_format, usetz = FALSE),
-      format(x@start + x@.Data, format = precision_format, usetz = FALSE)
+      format(x_start, format = precision_format, usetz = FALSE),
+      format(x_end, format = precision_format, usetz = FALSE)
     )
   }
 )
@@ -62,6 +68,7 @@ setMethod("format_ISO8601",
 setMethod("format_ISO8601",
   signature = "Duration",
   function(x, usetz = FALSE, precision = NULL, ...) {
+
     if (!is.null(precision)) {
       warning("precision is not used for Duration objects")
     }
@@ -127,13 +134,16 @@ ISO8601_precision_map <-
 
 #' Provide a format for ISO8601 dates and times with the requested precision.
 #'
-#' @param precision The amount of precision to represent with substrings of
-#'   "ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and
-#'   "s"econd. (e.g. "ymdhm" would show precision through minutes. When NULL,
-#'   `max_precision` is returned.  When `precision` is more precise than
-#'   `max_precision`, a warning is given and `max_precision` is returned.
+#' @param usetz Include the time zone in the formatting.  If
+#'   \code{usetz} is \code{TRUE}, the time zone is included. If
+#'   \code{usetz} is \code{"Z"}, the time is converted to "UTC" and
+#'   the time zone is indicated with "Z" ISO8601 notation.
+#' @param precision The amount of precision to represent with
+#'   substrings of "ymdhms", as "y"ear, "m"onth, "d"ay, "h"our,
+#'   "m"inute, and "s"econd. (e.g. "ymdhm" would show precision
+#'   through minutes.  When \code{NULL}, full precision for the object
+#'   is shown.
 #' @param max_precision The maximum precision allowed to be output.
-#' @param usetz Include the timezone in the output format
 #' @keywords internal
 format_ISO8601_precision_check <- function(precision, max_precision, usetz = FALSE) {
   if (!(max_precision %in% names(ISO8601_precision_map))) {
@@ -156,7 +166,9 @@ format_ISO8601_precision_check <- function(precision, max_precision, usetz = FAL
   if (is.null(ret <- ISO8601_precision_map[[precision]])) {
     stop("Invalid value for precision provided: ", precision)
   }
-  if (usetz) {
+  if (identical(usetz, "Z")) {
+    ret <- paste0(ret, "Z")
+  } else if (usetz) {
     ret <- paste0(ret, "%z")
   }
   ret

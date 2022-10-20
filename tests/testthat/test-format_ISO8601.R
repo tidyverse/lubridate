@@ -7,6 +7,9 @@ test_that("Formatting a date works", {
     "2018-02-01",
     info = "usetz is ignored with dates"
   )
+  expect_equal(format_ISO8601(as.Date("02-01-2018", format = "%m-%d-%Y"), usetz="Z"),
+               "2018-02-01",
+               info="usetz='Z' is ignored with dates")
   expect_equal(format_ISO8601(as.Date("02-01-2018", format = "%m-%d-%Y"), precision = "y"),
     "2018",
     info = "precision is respected (y)"
@@ -37,6 +40,9 @@ test_that("Formatting a datetime works", {
     "2018-02-01T03:04:05-0500",
     info = "usetz is respected with datetimes"
   )
+  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), usetz="Z"),
+               "2018-02-01T08:04:05Z",
+               info="usetz='Z' is respected with datetimes")
   expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), precision = "y"),
     "2018",
     info = "precision is respected (y)"
@@ -123,6 +129,9 @@ test_that("Formatting an Interval works", {
     "2018-02-01T00:00:00-0500/2018-03-04T00:00:00-0500",
     info = "interval formatting respects timezone"
   )
+  expect_equal(format_ISO8601(interval(start="2018-02-01", end="2018-03-04", tzone="EST"), usetz="Z"),
+               "2018-02-01T05:00:00Z/2018-03-04T05:00:00Z",
+               info="interval formatting respects usetz='Z'")
 })
 
 test_that("formatting precision provides accurate format strings", {
