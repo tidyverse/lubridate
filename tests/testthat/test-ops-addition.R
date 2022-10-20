@@ -369,15 +369,15 @@ test_that("addition with period months recycles correctly", {
   period <- months(1:3)
   x_expect <- as_date(c("2019-02-01", "2019-03-02", "2019-04-01"))
   y_expect <- as_datetime(x_expect, tz = "UTC")
-  expect_warning(expect_identical(x + period, x_expect))
-  expect_warning(expect_identical(y + period, y_expect))
+  suppressWarnings(expect_identical(x + period, x_expect))
+  suppressWarnings(expect_identical(y + period, y_expect))
 
   # TODO: Should be an error, see #1070
   period <- months(c(1, 2, NA))
   x_expect <- as_date(c("2019-02-01", "2019-03-02", NA))
   y_expect <- as_datetime(x_expect, tz = "UTC")
-  expect_warning(expect_identical(x + period, x_expect))
-  expect_warning(expect_identical(y + period, y_expect))
+  suppressWarnings(expect_identical(x + period, x_expect))
+  suppressWarnings(expect_identical(y + period, y_expect))
 })
 
 test_that("`add_months()` POSIXlt helper recycles all fields (#1069)", {
