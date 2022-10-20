@@ -179,13 +179,13 @@ exact <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link"
 
 
 <dt>train</dt>
-<dd><p>logical, default <code>TRUE</code>. Whether to train formats on a subset
-of the input vector. The result of this is that supplied orders are sorted
-according to performance on this training set, which commonly results in
-increased performance. Please note that even when <code>train = FALSE</code> (and
-<code>exact = FALSE</code>) guessing of the actual formats is still performed on a
-pseudo-random subset of the original input vector. This might result in
-<code>All formats failed to parse</code> error. See notes below.</p></dd>
+<dd><p>logical, default <code>TRUE</code>. Whether to train formats on a subset of the
+input vector. As a result the supplied orders are sorted according to performance
+on this training set, which commonly results in increased performance. Please note
+that even when <code>train = FALSE</code> (and <code>exact = FALSE</code>) guessing of the actual
+formats is still performed on the training set (a pseudo-random subset of the
+original input vector). This might result in <code>All formats failed to parse</code>
+error. See notes below.</p></dd>
 
 
 <dt>drop</dt>
