@@ -7,18 +7,18 @@
 format_ISO8601_precision_check(precision, max_precision, usetz = FALSE)
 }
 \arguments{
-\item{precision}{The amount of precision to represent with substrings of
-"ymdhms", as "y"ear, "m"onth, "d"ay, "h"our, "m"inute, and "s"econd. (e.g.
-"ymdhm" would show precision through minutes.  When \code{NULL}, full
-precision for the object is shown.}
+\item{precision}{The amount of precision to represent with
+substrings of "ymdhms", as "y"ear, "m"onth, "d"ay, "h"our,
+"m"inute, and "s"econd. (e.g. "ymdhm" would show precision
+through minutes.  When \code{NULL}, full precision for the object
+is shown.}
 
 \item{max_precision}{The maximum precision allowed to be output.}
 
-\item{usetz}{Include the time zone in the formatting (of outputs including
-time; date outputs never include time zone information).  If \code{usetz}
-is \code{TRUE}, the time zone is included.  If \code{usetz} is
-\code{FALSE}, the time zone is excluded.  If \code{usetz} is \code{"Z"},
-the time is converted to "UTC" and the time zone is indicated as "Z".}
+\item{usetz}{Include the time zone in the formatting.  If
+\code{usetz} is \code{TRUE}, the time zone is included. If
+\code{usetz} is \code{"Z"}, the time is converted to "UTC" and
+the time zone is indicated with "Z" ISO8601 notation.}
 }
 \description{
 Provide a format for ISO8601 dates and times with the requested precision.

@@ -521,13 +521,13 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##' @param exact logical. If `TRUE`, the `orders` parameter is interpreted as an
 ##'   exact [base::strptime()] format and no training or guessing are performed
 ##'   (i.e. `train`, `drop` parameters are ignored).
-##' @param train logical, default `TRUE`. Whether to train formats on a subset
-##'   of the input vector. The result of this is that supplied orders are sorted
-##'   according to performance on this training set, which commonly results in
-##'   increased performance. Please note that even when `train = FALSE` (and
-##'   `exact = FALSE`) guessing of the actual formats is still performed on a
-##'   pseudo-random subset of the original input vector. This might result in
-##'   `All formats failed to parse` error. See notes below.
+##' @param train logical, default `TRUE`. Whether to train formats on a subset of the
+##'   input vector. As a result the supplied orders are sorted according to performance
+##'   on this training set, which commonly results in increased performance. Please note
+##'   that even when `train = FALSE` (and `exact = FALSE`) guessing of the actual
+##'   formats is still performed on the training set (a pseudo-random subset of the
+##'   original input vector). This might result in `All formats failed to parse`
+##'   error. See notes below.
 ##' @param drop logical, default `FALSE`. Whether to drop formats that didn't
 ##'   match on the training set. If `FALSE`, unmatched on the training set
 ##'   formats are tried as a last resort at the end of the parsing
@@ -931,7 +931,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
     }
   }
   dates <- unlist(lapply(list(...), .num_to_date), use.names = FALSE)
-  parse_date_time(dates, orders, tz = tz, quiet = quiet, locale = locale)
+  parse_date_time(dates, orders, tz = tz, quiet = quiet, locale = locale, )
 }
 
 .parse_xxx <- function(..., orders, quiet, tz, locale, truncated) {

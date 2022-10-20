@@ -90,7 +90,7 @@ add_months <- function(mt, mos) {
 
   if (anyNA(new_mon)) {
     # Ensure missing value assignment propagates to all fields
-    mt[is.na(new_mon)] <- NA
+    mt[is.na(new_mon)] <- as.POSIXlt(NA, tz = tz(mt))
   }
 
   mt$mon <- new_mon
@@ -100,7 +100,7 @@ add_months <- function(mt, mos) {
 
   if (any(invalid, na.rm = TRUE)) {
     # Ensure missing value assignment propagates to all fields
-    mt[invalid] <- NA
+    mt[invalid] <- as.POSIXlt(NA, tz = tz(mt))
   }
 
   mt

@@ -29,7 +29,7 @@ convertible to POSIXlt.
 
 \code{isoyear()} returns years according to the ISO 8601 week calendar.
 
-\code{epiyear()} returns years according to the epidemilogical week calendars.
+\code{epiyear()} returns years according to the epidemiological week calendars.
 }
 \details{
 year does not yet support years before 0 C.E.

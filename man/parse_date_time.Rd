@@ -77,13 +77,13 @@ selected and \verb{\%Y} counts as 2.5 tokens (so that it has a priority over
 exact \code{\link[base:strptime]{base::strptime()}} format and no training or guessing are performed
 (i.e. \code{train}, \code{drop} parameters are ignored).}
 
-\item{train}{logical, default \code{TRUE}. Whether to train formats on a subset
-of the input vector. The result of this is that supplied orders are sorted
-according to performance on this training set, which commonly results in
-increased performance. Please note that even when \code{train = FALSE} (and
-\code{exact = FALSE}) guessing of the actual formats is still performed on a
-pseudo-random subset of the original input vector. This might result in
-\verb{All formats failed to parse} error. See notes below.}
+\item{train}{logical, default \code{TRUE}. Whether to train formats on a subset of the
+input vector. As a result the supplied orders are sorted according to performance
+on this training set, which commonly results in increased performance. Please note
+that even when \code{train = FALSE} (and \code{exact = FALSE}) guessing of the actual
+formats is still performed on the training set (a pseudo-random subset of the
+original input vector). This might result in \verb{All formats failed to parse}
+error. See notes below.}
 
 \item{drop}{logical, default \code{FALSE}. Whether to drop formats that didn't
 match on the training set. If \code{FALSE}, unmatched on the training set
