@@ -120,10 +120,13 @@ format.Duration <- function(x, ...) {
 }
 
 #' @export
-setMethod("c", signature(x = "Duration"), function(x, ...) {
-  durs <- c(x@.Data, unlist(list(...)))
+c.Duration <- function(...) {
+  dots <- list(...)
+  x <- dots[[1]]
+  dots <- dots[-1]
+  durs <- c(x@.Data, unlist(dots))
   new("Duration", durs)
-})
+}
 
 #' @export
 setMethod("rep", signature(x = "Duration"), function(x, ...) {

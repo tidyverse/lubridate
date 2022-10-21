@@ -224,8 +224,10 @@ xtfrm.Period <- function(x) {
 }
 
 #' @export
-setMethod("c", signature(x = "Period"), function(x, ...) {
+c.Period <- function(...) {
   dots <- list(...)
+  x <- dots[[1]]
+  dots <- dots[-1]
   nempty <- sapply(dots, length) != 0
   elements <- lapply(dots[nempty], as.period)
   seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
@@ -238,7 +240,7 @@ setMethod("c", signature(x = "Period"), function(x, ...) {
     year = years, month = months, day = days,
     hour = hours, minute = minutes
   )
-})
+}
 
 #' @export
 setMethod("rep", signature(x = "Period"), function(x, ...) {

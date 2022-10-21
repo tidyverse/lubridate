@@ -91,12 +91,15 @@ format.Interval <- function(x, ...) {
 }
 
 #' @export
-setMethod("c", signature(x = "Interval"), function(x, ...) {
-  elements <- lapply(list(...), as.interval)
+c.Interval <- function(...) {
+  dots <- list(...)
+  x <- dots[[1]]
+  dots <- dots[-1]
+  elements <- lapply(dots, as.interval)
   spans <- c(x@.Data, unlist(elements@.Data))
   starts <- c(x@start, lapply(elements, int_start))
   new("Interval", spans, start = starts, tzone = x@tzone)
-})
+}
 
 #' @export
 setMethod("rep", signature(x = "Interval"), function(x, ...) {
