@@ -140,9 +140,9 @@ the object to return the same date as indicated by the printed representation
 of the object. This differs from as.Date, which ignores the attribute and
 uses only the tz argument to <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date()</a></code> ("UTC" by default).</p></li>
 <li><p>Both functions provide a default origin argument for numeric vectors.</p></li>
-<li><p>Both functions will generate NAs for
-invalid date format. A warning message will provide a count of the elements
-that were not converted</p></li>
+<li><p>Both functions will generate NAs for invalid date format. Valid formats are
+those described by ISO8601 standard. A warning message will provide a count of the
+elements that were not converted.</p></li>
 <li><p><code>as_datetime()</code> defaults to using UTC.</p></li>
 </ul></div>
 
