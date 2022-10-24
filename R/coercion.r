@@ -636,9 +636,9 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #'
 #' \item Both functions provide a default origin argument for numeric vectors.
 #'
-#' \item Both functions will generate NAs for
-#'   invalid date format. A warning message will provide a count of the elements
-#'   that were not converted
+#' \item Both functions will generate NAs for invalid date format. Valid formats are
+#'   those described by ISO8601 standard. A warning message will provide a count of the
+#'   elements that were not converted.
 #'
 #' \item `as_datetime()` defaults to using UTC.
 #'
