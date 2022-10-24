@@ -78,6 +78,8 @@
 <div class="section level4">
 <h4 id="bug-fixes-1-8-0-9000">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-8-0-9000"></a></h4>
 <ul><li>
+<a href="https://github.com/tidyverse/lubridate/issues/1074" class="external-link">#1074</a> Fix concatination of named Period, Interval and Duration vectors.</li>
+<li>
 <a href="https://github.com/tidyverse/lubridate/issues/1044" class="external-link">#1044</a> POSIXlt results returned by <code><a href="../reference/parse_date_time.html">fast_strptime()</a></code> and <code><a href="../reference/parse_date_time.html">parse_date_time2()</a></code> now have a recycled <code>isdst</code> field.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1069" class="external-link">#1069</a> Internal code handling the addition of period months and years no longer generates partially recycled POSIXlt objects.</li>
@@ -93,6 +95,9 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1002" class="external-link">#1002</a> Parsing only with format <code>j</code> now works on numeric inputs.</li>
 </ul></div>
+<div class="section level4">
+<h4 id="internals-1-8-0-9000">INTERNALS<a class="anchor" aria-label="anchor" href="#internals-1-8-0-9000"></a></h4>
+<ul><li>Change implementation of <code>c.Period</code>, <code>c.Duration</code> and <code>c.Interval</code> from S4 to S3.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.8.0" id="version-180">Version 1.8.0<a class="anchor" aria-label="anchor" href="#version-180"></a></h2><p class="text-muted">CRAN release: 2021-10-07</p>
