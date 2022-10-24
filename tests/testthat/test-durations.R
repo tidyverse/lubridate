@@ -280,3 +280,22 @@ test_that("as.duration handles NA objects", {
   na.dur <- dseconds(NA)
   expect_equal(as.duration(NA), na.dur)
 })
+
+
+test_that("c.duration works with named elements", {
+  nmd <- c(a = dhours(1), b = dminutes(30))
+  umd <- c(dhours(1), dminutes(30))
+  names(umd) <- c("a", "b")
+  expect_equal(nmd, umd)
+
+  nmd <- c(a = dhours(c(1, 1)), b = dminutes(c(30, 31)))
+  umd <- c(dhours(1), dhours(1), dminutes(30), dminutes(31))
+  names(umd) <- c("a1", "a2", "b1", "b2")
+  expect_equal(nmd, umd)
+
+  ## empty elements
+  nmd <- c(a = dhours(1), NULL, b = dminutes(30), seconds(10))
+  umd <- c(dhours(1), dminutes(30), seconds(10))
+  names(umd) <- c("a", "b", "")
+  expect_equal(nmd, umd)
+})

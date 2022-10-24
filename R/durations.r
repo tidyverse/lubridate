@@ -122,10 +122,7 @@ format.Duration <- function(x, ...) {
 #' @export
 c.Duration <- function(...) {
   dots <- list(...)
-  x <- dots[[1]]
-  dots <- dots[-1]
-  durs <- c(x@.Data, unlist(dots))
-  new("Duration", durs)
+  new("Duration", unlist(dots))
 }
 
 #' @export

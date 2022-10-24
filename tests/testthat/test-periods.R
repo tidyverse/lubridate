@@ -559,6 +559,24 @@ test_that("c.Period doesn't fail with empty elements", {
   )
 })
 
+test_that("c.Period works with named elements", {
+  nmd <- c(a = hours(1), b = minutes(30))
+  umd <- c(hours(1), minutes(30))
+  names(umd) <- c("a", "b")
+  expect_equal(nmd, umd)
+
+  nmd <- c(a = hours(c(1, 1)), b = minutes(c(30, 31)))
+  umd <- c(hours(1), hours(1), minutes(30), minutes(31))
+  names(umd) <- c("a1", "a2", "b1", "b2")
+  expect_equal(nmd, umd)
+
+  ## empty elements
+  nmd <- c(a = hours(1), NULL, b = minutes(30), seconds(10))
+  umd <- c(hours(1), minutes(30), seconds(10))
+  names(umd) <- c("a", "b", "")
+  expect_equal(nmd, umd)
+})
+
 test_that("summary.Period creates useful summary", {
   per <- period(minutes = 5)
   text <- c(rep("5M 0S", 6), 1)
@@ -566,6 +584,8 @@ test_that("summary.Period creates useful summary", {
 
   expect_equal(summary(c(per, NA)), text)
 })
+
+
 
 test_that("idempotentcy between period_to_seconds and seconds_to_period holds", {
   period <- period(years = 2, months = 3, days = 4, hour = 5, minutes = 6, seconds = 7)

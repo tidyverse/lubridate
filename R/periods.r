@@ -226,19 +226,19 @@ xtfrm.Period <- function(x) {
 #' @export
 c.Period <- function(...) {
   dots <- list(...)
-  x <- dots[[1]]
-  dots <- dots[-1]
   nempty <- sapply(dots, length) != 0
   elements <- lapply(dots[nempty], as.period)
-  seconds <- c(x@.Data, unlist(lapply(elements, slot, ".Data")))
-  years <- c(x@year, unlist(lapply(elements, slot, "year")))
-  months <- c(x@month, unlist(lapply(elements, slot, "month")))
-  days <- c(x@day, unlist(lapply(elements, slot, "day")))
-  hours <- c(x@hour, unlist(lapply(elements, slot, "hour")))
-  minutes <- c(x@minute, unlist(lapply(elements, slot, "minute")))
-  new("Period", seconds,
-    year = years, month = months, day = days,
-    hour = hours, minute = minutes
+  seconds <- unlist(lapply(elements, slot, ".Data"))
+  # don't keep names for slots
+  elements <- unname(elements)
+  years <- unlist(lapply(elements, slot, "year"))
+  months <- unlist(lapply(elements, slot, "month"))
+  days <- unlist(lapply(elements, slot, "day"))
+  hours <- unlist(lapply(elements, slot,  "hour"))
+  minutes <- unlist(lapply(elements, slot, "minute"))
+  new("Period",
+    seconds, year = years, month = months,
+    day = days, hour = hours, minute = minutes
   )
 }
 

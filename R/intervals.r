@@ -93,12 +93,10 @@ format.Interval <- function(x, ...) {
 #' @export
 c.Interval <- function(...) {
   dots <- list(...)
-  x <- dots[[1]]
-  dots <- dots[-1]
   elements <- lapply(dots, as.interval)
-  spans <- c(x@.Data, unlist(elements@.Data))
-  starts <- c(x@start, lapply(elements, int_start))
-  new("Interval", spans, start = starts, tzone = x@tzone)
+  spans <- unlist(elements@.Data)
+  starts <- do.call(c, unname(lapply(elements, int_start)))
+  new("Interval", spans, start = starts, tzone = elements[[1]]@tzone)
 }
 
 #' @export

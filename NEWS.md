@@ -14,6 +14,7 @@ Version 1.8.0.9000
 
 ### BUG FIXES
 
+* [#1074](https://github.com/tidyverse/lubridate/issues/1074) Fix concatination of named Period, Interval and Duration vectors.
 * [#1044](https://github.com/tidyverse/lubridate/issues/1044) POSIXlt results returned by `fast_strptime()` and `parse_date_time2()` now have a recycled `isdst` field.
 * [#1069](https://github.com/tidyverse/lubridate/issues/1069) Internal code handling the addition of period months and years no longer generates partially recycled POSIXlt objects.
 * Fix rounding of POSIXlt objects
@@ -22,6 +23,11 @@ Version 1.8.0.9000
 * [#1004](https://github.com/tidyverse/lubridate/issues/1004) Fix `c.POSIXct` and `c.Date` on empty single POSIXct and Date vectors.
 * [#1013](https://github.com/tidyverse/lubridate/issues/1013) Fix c(`POSIXct`,`POSIXlt`) heterogeneous concatenation.
 * [#1002](https://github.com/tidyverse/lubridate/issues/1002) Parsing only with format `j` now works on numeric inputs.
+
+
+### INTERNALS
+
+* Change implementation of `c.Period`, `c.Duration` and `c.Interval` from S4 to S3.
 
 Version 1.8.0
 =============

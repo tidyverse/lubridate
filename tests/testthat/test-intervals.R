@@ -245,6 +245,31 @@ test_that("c.interval works as expected", {
   expect_equal(c(int, NA), nants)
 })
 
+test_that("c.interval works with named elements", {
+  time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
+  time2 <- as.POSIXct("2009-08-03 15:03:39", tz = "UTC")
+  time3 <- as.POSIXct("2009-09-03 15:03:39", tz = "UTC")
+  a <- interval(time1, time2)
+  b <- interval(time1, time2)
+  c <- interval(time2, time3)
+
+  nmd <- c(a = a, b = b)
+  umd <- c(a, b)
+  names(umd) <- c("a", "b")
+  expect_equal(nmd, umd)
+
+  nmd <- c(a = c(a, a), b = b)
+  umd <- c(a, a, b)
+  names(umd) <- c("a1", "a2", "b")
+  expect_equal(nmd, umd)
+
+  ## empty elements
+  nmd <- c(a = a, NULL, b = b, c)
+  umd <- c(a, b, c)
+  names(umd) <- c("a", "b", "")
+  expect_equal(nmd, umd)
+})
+
 test_that("%--% works as expected", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 15:03:39", tz = "UTC")
