@@ -60,6 +60,10 @@
 <div class="section level4">
 <h4 id="new-features-1-8-0-9000">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-8-0-9000"></a></h4>
 <ul><li>
+<a href="https://github.com/tidyverse/lubridate/issues/1061" class="external-link">#1061</a> Make <code>year&lt;-</code>, <code>month&lt;-</code> etc. accessors truly generic. In order to make them work with arbitrary class XYZ, it’s enough to define a <code>reclass_date.XYZ</code> method.</li>
+<li>
+<a href="https://github.com/tidyverse/lubridate/issues/1061" class="external-link">#1061</a> Add support for <code>year&lt;-</code>, <code>month&lt;-</code> etc. accessors for <code>data.table</code>’s IDate and ITime objects.</li>
+<li>
 <a href="https://github.com/tidyverse/lubridate/issues/1017" class="external-link">#1017</a> <code>week_start</code> argument in all lubridate functions now accepts full and abbreviated names of the days of the week.</li>
 <li>The assignment value <code>wday&lt;-</code> can be a string either in English or as provided by the current locale.</li>
 <li>Date rounding functions accept a date-time <code>unit</code> argument for rounding to a vector of date-times.</li>
