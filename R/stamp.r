@@ -60,7 +60,8 @@ stamp <- function(x, orders = lubridate_formats,
     fmts <- unique(guess_formats(x, orders, locale))
     ## remove internal lubridate formats except of the ISO8601 time zone formats
     fmts <- grep("%O[^oOzudHImMUVwWy]", fmts, value = TRUE, invert = TRUE)
-    if (is.null(fmts)) stop("Couldn't guess formats of: ", x)
+    if (length(fmts) == 0)
+      stop(sprintf("Couldn't guess formats for: %s. Wrong locale? Consider using `exact = TRUE`.", x[[1]]))
   }
   if (length(fmts) == 1L) {
     FMT <- fmts[[1]]

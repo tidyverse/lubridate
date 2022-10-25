@@ -162,6 +162,9 @@ test_that("stamp recognizes correctly B orders", {
   expect_equal(formater(x), c("Friday, January 20, 15:15", "Saturday, February 11, 10:10"))
 })
 
+test_that("stamp errors on no-formats", {
+  expect_error(stamp("Blabla 2022", orders = "%B %Y"))
+})
 
 
 ## ## Don't delete this. We need it for interactive testing
