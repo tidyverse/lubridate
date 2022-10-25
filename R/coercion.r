@@ -241,7 +241,12 @@ setMethod("as.duration", signature(x = "Period"), function(x) {
 as.interval <- function(x, start, ...) standardGeneric("as.interval")
 
 #' @export
-setGeneric("as.interval")
+setGeneric("as.interval",
+  function(x, start, ...) standardGeneric("as.interval"),
+  useAsDefault = function(x, start, ...) {
+    stop(sprintf("as.interval is not defined for class '%s'", class(x)))
+  }
+)
 
 setMethod("as.interval", signature(x = "numeric"), function(x, start, ...) {
   .number_to_interval(x, start, ...)
