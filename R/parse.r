@@ -775,14 +775,12 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 
 .parse_date_time <- function(x, formats, tz, quiet, locale) {
 
-  ## print(formats) # for debugging
-
   out <- .strptime(x, formats[[1]], tz = tz, quiet = quiet, locale = locale)
   na <- is.na(out)
   newx <- x[na]
 
   if (is_verbose()) {
-    message(" ", sum(!na), " parsed with ", gsub("^@|@$", "", formats[[1]]))
+    message(" ", sum(!na), " parsed with ", formats[[1]])
   }
 
   ## recursive parsing
@@ -790,7 +788,6 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
     out[na] <- .parse_date_time(newx, formats[-1], tz = tz, quiet = quiet, locale = locale)
   }
 
-  ## return POSIXlt
   out
 }
 

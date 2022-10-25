@@ -121,15 +121,17 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   flex_regs <- c(reg$alpha_flex, reg$num_flex, .c_parser_reg_flex)
   exact_regs <- c(reg$alpha_exact, reg$num_exact, .c_parser_reg_exact)
 
+  all_format_names <- c(
+    names(reg$alpha_flex),
+    names(reg$num_flex),
+    names(.c_parser_reg_exact)
+  )
+
   REGS <- unlist(lapply(osplits, function(fnames) {
     ## fnames are names of smalest valid formats, like a, A, b, z, OS, OZ ...
-    which <- !fnames %in% c(
-      names(reg$alpha_flex),
-      names(reg$num_flex),
-      names(.c_parser_reg_exact)
-    )
-    if (any(which)) {
-      stop("Unknown formats supplied: ", paste(fnames[which], sep = ", "))
+    invalid <- !fnames %in% all_format_names
+    if (any(invalid)) {
+      stop("Unknown formats supplied: ", paste(fnames[invalid], sep = ", "))
     }
 
     ## restriction: no numbers before or after
@@ -154,8 +156,10 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     out <- mapply(
       function(reg, name) {
         out <- .substitute_formats(reg, x)
-        if (!is.null(out)) names(out) <- rep.int(name, length(out))
-        out
+        if (!is.null(out)) {
+          names(out) <- rep.int(name, length(out))
+          out
+        }
       }, REGS, orders,
       SIMPLIFY = F, USE.NAMES = F
     )
@@ -235,8 +239,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 }
 
 .get_train_set <- function(x) {
-  ## the best irregular guesser I could come up with
-  x <- x[!.enclosed.na(x)]
+  ## Use first 501 primes to retrieve a subset of the original vector for training of
+  ## which formats should come first.
   len <- length(x)
   if (len < 100) {
     x
@@ -262,7 +266,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   ## return a vector of formats that matched X at least once.
   ## Can be zero length vector, if none matched
 
-  fmts <- unique(guess_formats(x, orders, locale = locale, preproc_wday = TRUE)) # orders as names
+  fmts <- unique(guess_formats(x, orders, locale = locale, preproc_wday = TRUE))
   if (train && length(fmts)) {
     trained <- .train_formats(x, fmts, locale = locale)
 
