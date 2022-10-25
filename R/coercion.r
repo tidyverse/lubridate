@@ -105,7 +105,7 @@ reclass_timespan <- function(new, orig) standardGeneric("reclass_timespan")
 
 #' @export
 setGeneric("reclass_timespan",
-  useAsDefault = function(x, unit, ...) {
+  useAsDefault = function(new, orig) {
     stop(sprintf("reclass_timespan is not defined for class '%s'", class(x)))
   }
 )
