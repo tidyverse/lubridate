@@ -104,7 +104,11 @@ period_to_difftime <- function(per) {
 reclass_timespan <- function(new, orig) standardGeneric("reclass_timespan")
 
 #' @export
-setGeneric("reclass_timespan")
+setGeneric("reclass_timespan",
+  useAsDefault = function(x, unit, ...) {
+    stop(sprintf("reclass_timespan is not defined for class '%s'", class(x)))
+  }
+)
 
 #' @export
 setMethod("reclass_timespan", signature(orig = "difftime"), function(new, orig) {
@@ -553,7 +557,9 @@ setMethod("as.period", signature("logical"), function(x, unit = NULL, ...) {
   as.period(as.numeric(x), unit, ...)
 })
 
-setGeneric("as.difftime")
+#' @importFrom generics as.difftime
+#' @export
+generics::as.difftime
 
 #' @export
 setMethod("as.difftime", signature(tim = "Interval"), function(tim, format = "%X", units = "secs") {
@@ -672,15 +678,13 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' dt_wrong <- c("2009-09-29", "2012-11-29", "2015-29-12")
 #' as_date(dt_wrong)
 #' @export
-setGeneric(
-  name = "as_date",
+setGeneric("as_date",
   def = function(x, ...) standardGeneric("as_date")
 )
 
 #' @rdname as_date
 #' @export
-setMethod(
-  "as_date", "ANY",
+setMethod("as_date", "ANY",
   function(x, ...) {
     ## From: Kurt Hornik <Kurt.Hornik@wu.ac.at>
     ## Date: Tue, 3 Apr 2018 18:53:19
@@ -703,8 +707,7 @@ setMethod(
 
 #' @rdname as_date
 #' @export
-setMethod(
-  f = "as_date", signature = "POSIXt",
+setMethod("as_date", "POSIXt",
   function(x, tz = NULL) {
     tz <- if (is.null(tz)) tz(x) else tz
     as.Date(x, tz = tz)
@@ -712,23 +715,19 @@ setMethod(
 )
 
 #' @rdname as_date
-setMethod(
-  f = "as_date", signature = "numeric",
+setMethod("as_date", "numeric",
   function(x, origin = lubridate::origin) {
     as.Date(x, origin = origin)
   }
 )
 
-
 #' @rdname as_date
 #' @export
-setMethod(
-  "as_date", "character",
+setMethod("as_date", "character",
   function(x, tz = NULL, format = NULL) {
     if (!is.null(tz)) {
       warning("`tz` argument is ignored by `as_date()`", call. = FALSE)
     }
-
     if (is.null(format)) {
       as_date(.parse_iso_dt(x, tz = "UTC"))
     } else {
@@ -739,17 +738,21 @@ setMethod(
 
 #' @rdname as_date
 #' @export
-setGeneric(
-  "as_datetime",
-  function(x, ...) {
-    standardGeneric("as_datetime")
+setGeneric("as_datetime",
+  function(x, ...) standardGeneric("as_datetime")
+)
+
+#' @rdname as_date
+#' @export
+setMethod("as_datetime", "ANY",
+  function(x, tz = "UTC") {
+    with_tz(as.POSIXct(x, tz = tz), tzone = tz)
   }
 )
 
 #' @rdname as_date
 #' @export
-setMethod(
-  "as_datetime", "POSIXt",
+setMethod("as_datetime", "POSIXt",
   function(x, tz = "UTC") {
     with_tz(x, tz)
   }
@@ -757,18 +760,15 @@ setMethod(
 
 #' @rdname as_date
 #' @export
-setMethod(
-  "as_datetime", "numeric",
+setMethod("as_datetime", "numeric",
   function(x, origin = lubridate::origin, tz = "UTC") {
     as.POSIXct(x, origin = origin, tz = tz)
   }
 )
 
-
 #' @rdname as_date
 #' @export
-setMethod(
-  "as_datetime", "character",
+setMethod("as_datetime", "character",
   function(x, tz = "UTC", format = NULL) {
     if (is.null(format)) {
       .parse_iso_dt(x, tz)
@@ -778,11 +778,9 @@ setMethod(
   }
 )
 
-
 #' @rdname as_date
 #' @export
-setMethod(
-  "as_datetime", "Date",
+setMethod("as_datetime", "Date",
   function(x, tz = "UTC") {
     dt <- .POSIXct(as.numeric(x) * 86400, tz = "UTC")
     if (is_utc(tz)) {
@@ -790,15 +788,5 @@ setMethod(
     } else {
       force_tz(dt, tzone = tz)
     }
-  }
-)
-
-
-#' @rdname as_date
-#' @export
-setMethod(
-  "as_datetime", "ANY",
-  function(x, tz = "UTC") {
-    with_tz(as.POSIXct(x, tz = tz), tzone = tz)
   }
 )
