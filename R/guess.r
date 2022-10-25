@@ -102,8 +102,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   }
 
   ## We split into characterst first and then paste together formats that start
-  ## with O. If perl style lookahead would have worked we wouldn't need this,
-  ## but it doesn't.
+  ## with O.
   osplits <- strsplit(orders, "", fixed = TRUE)
   osplits <- lapply(
     osplits,
@@ -382,8 +381,9 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
 
   p <- unique(mat[, "p"])
   p <- p[nzchar(p)]
+  no_p <- length(p) == 0L
   alpha["p"] <-
-    if (length(p) == 0L) {
+    if (no_p) {
       ""
     } else {
       sprintf("(?<p>%s)(?![[:alpha:]])", paste(p, collapse = "|"))
@@ -423,8 +423,8 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   if (length(p) == 0L) {
     num <- c(num,
       T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]),
-      R = sprintf("(%s\\D+%s)", num[["H"]], num[["M"]]),
-      r = sprintf("(%s\\D+)", num[["H"]])
+      R = sprintf(if (no_p) "(%s%s)" else "(%s\\D+%s)", num[["H"]], num[["M"]]),
+      r = sprintf(if (no_p) "(%s)"   else "(%s\\D+)",   num[["H"]])
     )
   } else {
     num <- c(num,

@@ -1132,6 +1132,16 @@ test_that("parsing with j format works correctly", {
   expect_equal(yday(parse_date_time(c(1, 150, 330), "j")), c(1, 150, 330))
 })
 
+test_that("parsing with r and R formats works in non-english locale", {
+  skip_on_cran()
+  suppressWarnings(testthat::skip_if(Sys.setlocale("LC_TIME", "fr_FR.utf8") == ""))
+  on.exit(Sys.setlocale("LC_TIME", "C"))
+  expect_equal(ymd_h("2021-10-26 0"), ymd("2021-10-26", tz = "UTC"))
+  expect_equal(parse_date_time("2021-10-26 0", "Ymdr"), ymd("2021-10-26", tz = "UTC"))
+  expect_equal(parse_date_time("2021-10-26 0001", "YmdR"), ymd_hms("2021-10-26 0:1:0"))
+})
+
+
 ## library(microbenchmark)
 ## library(lubridate)
 
