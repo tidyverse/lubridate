@@ -3,6 +3,8 @@ Version 1.8.0.9000
 
 ### NEW FEATURES
 
+* [#1061](https://github.com/tidyverse/lubridate/issues/1061) Make `year<-`, `month<-` etc. accessors truly generic. In order to make them work with arbitrary class XYZ, it's enough to define a `reclass_date.XYZ` method.
+* [#1061](https://github.com/tidyverse/lubridate/issues/1061) Add support for `year<-`, `month<-` etc. accessors for `data.table`'s IDate and ITime objects.
 * [#1017](https://github.com/tidyverse/lubridate/issues/1017) `week_start` argument in all lubridate functions now accepts full and abbreviated names of the days of the week.
 * The assignment value `wday<-` can be a string either in English or as provided by the current locale.
 * Date rounding functions accept a date-time `unit` argument for rounding to a vector of date-times.

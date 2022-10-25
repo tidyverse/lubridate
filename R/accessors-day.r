@@ -135,7 +135,39 @@ yday.default <- function(x) {
 
 #' @rdname day
 #' @export
-`day<-` <- function(x, value) standardGeneric("day<-")
+setGeneric("day<-",
+  function (x, value) standardGeneric("day<-"),
+  useAsDefault = function(x, value) {
+    y <- update_date_time(as.POSIXct(x), days = value)
+    reclass_date(y, x)
+  }
+)
+
+#' @export
+setMethod("day<-", "Duration", function(x, value) {
+  x <- x + days(value - day(x))
+})
+
+#' @export
+setMethod("day<-", signature("Period"), function(x, value) {
+  slot(x, "day") <- value
+  x
+})
+
+#' @export
+setMethod("day<-", "Interval", function(x, value) {
+  x <- x + days(value - day(x))
+})
+
+#' @export
+setMethod("day<-", "POSIXt", function(x, value) {
+  update.POSIXt(x, days = value)
+})
+
+#' @export
+setMethod("day<-", "Date", function(x, value) {
+  update.Date(x, days = value)
+})
 
 #' @rdname day
 #' @export
@@ -148,20 +180,10 @@ yday.default <- function(x) {
 #' @export
 `qday<-` <- function(x, value) standardGeneric("qday<-")
 
+#' @rdname day
 #' @export
 setGeneric("qday<-", useAsDefault = function(x, value) {
   x <- x + days(value - qday(x))
-})
-
-#' @export
-setGeneric("day<-", useAsDefault = function(x, value) {
-  x <- x + days(value - mday(x))
-})
-
-#' @export
-setMethod("day<-", signature("Period"), function(x, value) {
-  slot(x, "day") <- value
-  x
 })
 
 #' @rdname day

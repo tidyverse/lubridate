@@ -36,16 +36,38 @@ year.Period <- function(x) {
 
 #' @rdname year
 #' @export
-"year<-" <- function(x, value) {
-  x <- x + years(value - year(x))
-}
+setGeneric("year<-",
+  function (x, value) standardGeneric("year<-"),
+  useAsDefault = function(x, value) {
+    y <- update_date_time(as.POSIXct(x), years = value)
+    reclass_date(y, x)
+  }
+)
 
-setGeneric("year<-")
+#' @export
+setMethod("year<-", "Duration", function(x, value) {
+  x <- x + years(value - year(x))
+})
 
 #' @export
 setMethod("year<-", signature("Period"), function(x, value) {
   slot(x, "year") <- value
   x
+})
+
+#' @export
+setMethod("year<-", signature("Interval"), function(x, value) {
+  x <- x + years(value - year(x))
+})
+
+#' @export
+setMethod("year<-", "POSIXt", function(x, value) {
+  update.POSIXt(x, years = value)
+})
+
+#' @export
+setMethod("year<-", "Date", function(x, value) {
+  update.Date(x, years = value)
 })
 
 .other_year <- function(x, week_start = 1) {

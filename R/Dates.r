@@ -47,3 +47,9 @@ c.Date <- function(..., recursive = FALSE) {
 evalqOnLoad({
   registerS3method("c", "Date", c.Date)
 })
+
+#' @name hidden_aliases
+#' @aliases
+#'   day<-,Date-method hour<-,Date-method minute<-,Date-method
+#'   month<-,Date-method second<-,Date-method year<-,Date-method
+NULL

@@ -35,6 +35,8 @@ mday(x) <- value
 
 qday(x) <- value
 
+qday(x) <- value
+
 wday(x, week_start = getOption("lubridate.week.start", 7)) <- value
 
 yday(x) <- value

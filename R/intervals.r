@@ -724,30 +724,27 @@ setMethod("Arith", signature(e1 = "ANY", e2 = "Interval"), function(e1, e2) {
 #' @name hidden_aliases
 #' @aliases Arith,Interval,ANY-method Arith,ANY,Interval-method
 #'   intersect,Interval,Interval-method union,Interval,Interval-method
-#'   setdiff,Interval,Interval-method as.numeric,Interval-method
-#'   show,Interval-method c,Interval-method rep,Interval-method
-#'   [,Interval-method [<-,Interval,ANY,ANY,ANY-method [[,Interval-method
-#'   [[<-,Interval,ANY,ANY,ANY-method $,Interval-method $<-,Interval-method
-#'   as.difftime,Interval-method as.character,Interval-method
-#'   +,Interval,Duration-method +,Interval,Interval-method
+#'   setdiff,Interval,Interval-method as.numeric,Interval-method show,Interval-method
+#'   c,Interval-method rep,Interval-method [,Interval-method
+#'   [<-,Interval,ANY,ANY,ANY-method [[,Interval-method [[<-,Interval,ANY,ANY,ANY-method
+#'   $,Interval-method $<-,Interval-method as.difftime,Interval-method
+#'   as.character,Interval-method day<-,Interval-method hour<-,Interval-method
+#'   minute<-,Interval-method month<-,Interval-method second<-,Interval-method
+#'   year<-,Interval-method +,Interval,Duration-method +,Interval,Interval-method
 #'   +,Interval,Period-method +,Interval,Date-method +,Date,Interval-method
-#'   +,Interval,difftime-method +,difftime,Interval-method
-#'   +,Interval,numeric-method +,numeric,Interval-method
-#'   +,Interval,POSIXct-method +,POSIXct,Interval-method
-#'   +,Interval,POSIXlt-method +,POSIXlt,Interval-method
-#'   /,Interval,Duration-method /,Interval,Interval-method
-#'   /,Interval,Period-method /,Interval,difftime-method
-#'   /,difftime,Interval-method /,Interval,numeric-method
-#'   /,numeric,Interval-method *,Interval,ANY-method *,ANY,Interval-method
-#'   -,Interval,missing-method -,Interval,Interval-method -,Date,Interval-method
-#'   -,POSIXct,Interval-method -,POSIXlt,Interval-method
-#'   -,numeric,Interval-method -,Interval,Date-method -,Interval,POSIXct-method
-#'   -,Interval,POSIXlt-method -,Interval,numeric-method
-#'   -,Duration,Interval-method -,Period,Interval-method
-#'   %%,Interval,Duration-method %%,Interval,Interval-method
-#'   %%,Interval,Period-method %%,Interval,Duration %%,Interval,Interval
-#'   %%,Interval,Period -,Date,Interval -,Duration,Interval -,Interval,Date
-#'   -,Interval,Interval -,Interval,POSIXct -,Interval,POSIXlt
+#'   +,Interval,difftime-method +,difftime,Interval-method +,Interval,numeric-method
+#'   +,numeric,Interval-method +,Interval,POSIXct-method +,POSIXct,Interval-method
+#'   +,Interval,POSIXlt-method +,POSIXlt,Interval-method /,Interval,Duration-method
+#'   /,Interval,Interval-method /,Interval,Period-method /,Interval,difftime-method
+#'   /,difftime,Interval-method /,Interval,numeric-method /,numeric,Interval-method
+#'   *,Interval,ANY-method *,ANY,Interval-method -,Interval,missing-method
+#'   -,Interval,Interval-method -,Date,Interval-method -,POSIXct,Interval-method
+#'   -,POSIXlt,Interval-method -,numeric,Interval-method -,Interval,Date-method
+#'   -,Interval,POSIXct-method -,Interval,POSIXlt-method -,Interval,numeric-method
+#'   -,Duration,Interval-method -,Period,Interval-method %%,Interval,Duration-method
+#'   %%,Interval,Interval-method %%,Interval,Period-method %%,Interval,Duration
+#'   %%,Interval,Interval %%,Interval,Period -,Date,Interval -,Duration,Interval
+#'   -,Interval,Date -,Interval,Interval -,Interval,POSIXct -,Interval,POSIXlt
 #'   -,Interval,numeric -,POSIXct,Interval -,POSIXlt,Interval -,numeric,Interval
 #'   -,Interval,Duration-method -,Interval,Period-method
 NULL

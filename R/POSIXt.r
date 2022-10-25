@@ -70,3 +70,8 @@ evalqOnLoad({
   registerS3method("c", "POSIXct", c.POSIXct)
   ## registerS3method("c", "POSIXlt", c.POSIXlt)
 })
+
+#' @name hidden_aliases
+#' @aliases day<-,POSIXt-method hour<-,POSIXt-method minute<-,POSIXt-method
+#'   month<-,POSIXt-method second<-,POSIXt-method year<-,POSIXt-method
+NULL

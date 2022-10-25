@@ -8,6 +8,7 @@ NULL
 #'
 #' @export
 #' @param x a date-time object
+#' @param value numeric value to be assigned to the `hour` component
 #' @keywords utilities manip chron methods
 #' @return the hours element of x as a decimal number
 #' @examples
@@ -30,17 +31,39 @@ hour.Period <- function(x) {
   slot(x, "hour")
 }
 
-#' @export
-#' @param value numeric value to be assigned to the `hour` component
-#' @rdname hour
-"hour<-" <- function(x, value) {
-  x <- x + hours(value - hour(x))
-}
 
-setGeneric("hour<-")
+#' @rdname hour
+#' @export
+setGeneric("hour<-",
+  function (x, value) standardGeneric("hour<-"),
+  useAsDefault = function(x, value) {
+    y <- update_date_time(as.POSIXct(x), hours = value)
+    reclass_date(y, x)
+  }
+)
+
+#' @export
+setMethod("hour<-", "Duration", function(x, value) {
+  x <- x + hours(value - hour(x))
+})
 
 #' @export
 setMethod("hour<-", signature("Period"), function(x, value) {
   slot(x, "hour") <- value
   x
+})
+
+#' @export
+setMethod("hour<-", "Interval", function(x, value) {
+  x <- x + hours(value - hour(x))
+})
+
+#' @export
+setMethod("hour<-", "POSIXt", function(x, value) {
+  update.POSIXt(x, hours = value)
+})
+
+#' @export
+setMethod("hour<-", "Date", function(x, value) {
+  update.Date(x, hours = value)
 })

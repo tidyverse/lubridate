@@ -42,23 +42,21 @@ setClass("Duration", contains = c("Timespan", "numeric"), validity = check_durat
 #'   as.numeric,Duration-method show,Duration-method c,Duration-method
 #'   rep,Duration-method [,Duration-method [<-,Duration,ANY,ANY,ANY-method
 #'   [[,Duration-method [[<-,Duration,ANY,ANY,ANY-method $,Duration-method
-#'   $<-,Duration-method as.difftime,Duration-method
-#'   as.character,Duration-method +,Duration,Duration-method
-#'   +,Duration,Interval-method +,Duration,Period-method +,Duration,Date-method
-#'   +,Date,Duration-method +,Duration,difftime-method
-#'   +,difftime,Duration-method +,Duration,numeric-method
-#'   +,numeric,Duration-method +,Duration,POSIXct-method
-#'   +,POSIXct,Duration-method +,Duration,POSIXlt-method
+#'   $<-,Duration-method as.difftime,Duration-method day<-,Duration-method
+#'   hour<-,Duration-method minute<-,Duration-method month<-,Duration-method
+#'   second<-,Duration-method year<-,Duration-method as.character,Duration-method
+#'   +,Duration,Duration-method +,Duration,Interval-method +,Duration,Period-method
+#'   +,Duration,Date-method +,Date,Duration-method +,Duration,difftime-method
+#'   +,difftime,Duration-method +,Duration,numeric-method +,numeric,Duration-method
+#'   +,Duration,POSIXct-method +,POSIXct,Duration-method +,Duration,POSIXlt-method
 #'   +,POSIXlt,Duration-method -,Duration,ANY-method /,Duration,Duration-method
-#'   /,Duration,Interval-method /,Duration,Period-method
-#'   /,Duration,difftime-method /,difftime,Duration-method
-#'   /,Duration,numeric-method /,numeric,Duration-method *,Duration,ANY-method
-#'   *,ANY,Duration-method %%,Duration,Duration-method
-#'   %%,Duration,Interval-method %%,Duration,Period-method
-#'   -,Duration,missing-method -,ANY,Duration-method -,Duration,Duration-method
-#'   -,Duration,Date-method -,Duration,POSIXct-method -,Duration,POSIXlt-method
-#'   -,Duration,Period-method -,Duration,numeric-method
-#'   -,POSIXct,Duration-method -,numeric,Duration-method
+#'   /,Duration,Interval-method /,Duration,Period-method /,Duration,difftime-method
+#'   /,difftime,Duration-method /,Duration,numeric-method /,numeric,Duration-method
+#'   *,Duration,ANY-method *,ANY,Duration-method %%,Duration,Duration-method
+#'   %%,Duration,Interval-method %%,Duration,Period-method -,Duration,missing-method
+#'   -,ANY,Duration-method -,Duration,Duration-method -,Duration,Date-method
+#'   -,Duration,POSIXct-method -,Duration,POSIXlt-method -,Duration,Period-method
+#'   -,Duration,numeric-method -,POSIXct,Duration-method -,numeric,Duration-method
 #'   -,POSIXlt,Duration-method -,Date,Duration-method
 NULL
 

@@ -8,6 +8,7 @@ NULL
 #'
 #' @export
 #' @param x a date-time object
+#' @param value numeric value to be assigned
 #' @keywords utilities manip chron methods
 #' @return the minutes element of x as a decimal number
 #' @examples
@@ -31,16 +32,37 @@ minute.Period <- function(x) {
 }
 
 #' @rdname minute
-#' @param value numeric value to be assigned
 #' @export
-"minute<-" <- function(x, value) {
-  x <- x + minutes(value - minute(x))
-}
+setGeneric("minute<-",
+  function (x, value) standardGeneric("minute<-"),
+  useAsDefault = function(x, value) {
+    y <- update_date_time(as.POSIXct(x), minutes = value)
+    reclass_date(y, x)
+  }
+)
 
-setGeneric("minute<-")
+#' @export
+setMethod("minute<-", "Duration", function(x, value) {
+  x <- x + minutes(value - minute(x))
+})
 
 #' @export
 setMethod("minute<-", signature("Period"), function(x, value) {
   slot(x, "minute") <- value
   x
+})
+
+#' @export
+setMethod("minute<-", "Interval", function(x, value) {
+  x <- x + minutes(value - minute(x))
+})
+
+#' @export
+setMethod("minute<-", "POSIXt", function(x, value) {
+  update.POSIXt(x, minutes = value)
+})
+
+#' @export
+setMethod("minute<-", "Date", function(x, value) {
+  update.Date(x, minutes = value)
 })

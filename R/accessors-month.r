@@ -59,11 +59,9 @@ month.Period <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("
   slot(x, "month")
 }
 
-#' @rdname month
-#' @export
-"month<-" <- function(x, value) {
-  ## FIXME: how to make this localized and preserve backward compatibility? Guesser?
-  if (!is.numeric(value)) {
+as_month <- function(value) {
+  ## FIXME: use same technique as in as_week_start to localize this
+  if (is.character(value)) {
     value <- pmatch(
       tolower(value),
       c(
@@ -73,15 +71,43 @@ month.Period <- function(x, label = FALSE, abbr = TRUE, locale = Sys.getlocale("
       )
     )
   }
-  x <- x + months(value - month(x))
+  value
 }
 
-setGeneric("month<-")
+#' @rdname month
+#' @export
+setGeneric("month<-",
+  function (x, value) standardGeneric("month<-"),
+  useAsDefault = function(x, value) {
+    y <- update_date_time(as.POSIXct(x), months = value)
+    reclass_date(y, x)
+  }
+)
+
+#' @export
+setMethod("month<-", "Duration", function(x, value) {
+  x <- x + months(as_month(value) - month(x))
+})
 
 #' @export
 setMethod("month<-", signature("Period"), function(x, value) {
-  slot(x, "month") <- value
+  slot(x, "month") <- as_month(value)
   x
+})
+
+#' @export
+setMethod("month<-", "Interval", function(x, value) {
+  x <- x + months(as_month(value) - month(x))
+})
+
+#' @export
+setMethod("month<-", "POSIXt", function(x, value) {
+  update.POSIXt(x, months = as_month(value))
+})
+
+#' @export
+setMethod("month<-", "Date", function(x, value) {
+  update.Date(x, months = as_month(value))
 })
 
 #' Get the number of days in the month of a date-time

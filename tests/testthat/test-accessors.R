@@ -535,6 +535,81 @@ test_that("accessors handle vectors", {
   expect_match(tz(poslt), "UTC")
   expect_match(tz(posct), "UTC")
   expect_match(tz(date), "UTC")
+
+})
+
+test_that("accessors<- handle vectors", {
+  poslt <- as.POSIXlt(c(
+    "1999-01-01 00:00:00",
+    "1999-01-01 00:00:00",
+    "1999-01-01 00:00:00"
+  ), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
+  posct <- as.POSIXct(poslt)
+  date <- as.Date(poslt)
+
+  second(poslt) <- 1:3
+  second(posct) <- 1:3
+  second(date) <- 1:3
+  expect_equal(second(poslt), c(1, 2, 3))
+  expect_equal(second(posct), c(1, 2, 3))
+  expect_equal(second(date), c(1, 2, 3))
+
+  minute(poslt) <- 1:3
+  minute(posct) <- 1:3
+  minute(date) <- 1:3
+  expect_equal(minute(poslt), c(1, 2, 3))
+  expect_equal(minute(posct), c(1, 2, 3))
+  expect_equal(minute(date), c(1, 2, 3))
+
+  hour(poslt) <- 1:3
+  hour(posct) <- 1:3
+  hour(date) <- 1:3
+  expect_equal(hour(poslt), c(1, 2, 3))
+  expect_equal(hour(posct), c(1, 2, 3))
+  expect_equal(hour(date), c(1, 2, 3))
+
+  mday(poslt) <- 1:3
+  mday(posct) <- 1:3
+  mday(date) <- 1:3
+  expect_equal(mday(poslt), c(1, 2, 3))
+  expect_equal(mday(posct), c(1, 2, 3))
+  expect_equal(mday(date), c(1, 2, 3))
+
+  wday(poslt) <- c(2, 7, 2)
+  wday(posct) <- c(2, 7, 2)
+  wday(date) <- c(2, 7, 2)
+  expect_equal(wday(poslt), c(2, 7, 2))
+  expect_equal(wday(posct), c(2, 7, 2))
+  expect_equal(wday(date), c(2, 7, 2))
+
+  yday(poslt) <- c(1, 33, 62)
+  yday(posct) <- c(1, 33, 62)
+  yday(date) <- c(1, 33, 62)
+  expect_equal(yday(poslt), c(1, 33, 62))
+  expect_equal(yday(posct), c(1, 33, 62))
+  expect_equal(yday(date), c(1, 33, 62))
+
+  week(poslt) <- c(1, 5, 9)
+  week(posct) <- c(1, 5, 9)
+  week(date) <- c(1, 5, 9)
+  expect_equal(week(poslt), c(1, 5, 9))
+  expect_equal(week(posct), c(1, 5, 9))
+  expect_equal(week(date), c(1, 5, 9))
+
+  month(poslt) <- c(1, 2, 3)
+  month(posct) <- c(1, 2, 3)
+  month(date) <- c(1, 2, 3)
+  expect_equal(month(poslt), c(1, 2, 3))
+  expect_equal(month(posct), c(1, 2, 3))
+  expect_equal(month(date), c(1, 2, 3))
+
+  year(poslt) <- c(2001, 2002, 2003)
+  year(posct) <- c(2001, 2002, 2003)
+  year(date) <- c(2001, 2002, 2003)
+  expect_equal(year(poslt), c(2001, 2002, 2003))
+  expect_equal(year(posct), c(2001, 2002, 2003))
+  expect_equal(year(date), c(2001, 2002, 2003))
+
 })
 
 test_that("accessors handle Period objects", {

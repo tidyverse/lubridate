@@ -89,6 +89,14 @@ reclass_date.ti <- function(new, orig) {
 reclass_date.Date <- function(new, orig) {
   as_date(new)
 }
+#' @export
+reclass_date.IDate <- function(new, orig) {
+  data.table::as.IDate(new)
+}
+#' @export
+reclass_date.ITime <- function(new, orig) {
+  data.table::as.ITime(new)
+}
 
 
 period_to_difftime <- function(per) {

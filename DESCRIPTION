@@ -42,6 +42,7 @@ Suggests:
     vctrs (>= 0.4.1)
 Enhances:
     chron,
+    data.table,
     timeDate,
     tis,
     zoo
