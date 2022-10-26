@@ -104,46 +104,42 @@ setClass("Period",
 #'   Compare,Period,difftime-method Compare,Period,Period-method
 #'   Compare,Period,character-method Compare,Period,numeric-method
 #'   Compare,character,Period-method second,Period-method second<-,Period-method
-#'   minute,Period-method minute<-,Period-method hour,Period-method
-#'   hour<-,Period-method Arith,Period,ANY-method day,Period-method
-#'   day<-,Period-method month,Period-method month<-,Period-method
-#'   year,Period-method year<-,Period-method date,Period-method
-#'   date<-,Period-method as.numeric,Period-method show,Period-method
-#'   c,Period-method rep,Period-method [,Period-method
-#'   [<-,Period,ANY,ANY,Period-method [[,Period-method
-#'   [[<-,Period,ANY,ANY,Period-method $,Period-method $<-,Period-method
-#'   as.difftime,Period-method as.character,Period-method
-#'   +,Period,Duration-method +,Period,Interval-method +,Period,Period-method
-#'   +,Period,Date-method +,Date,Period-method +,Period,difftime-method
-#'   +,difftime,Period-method +,Period,numeric-method +,numeric,Period-method
-#'   +,Period,POSIXct-method +,POSIXct,Period-method +,Period,POSIXlt-method
-#'   +,POSIXlt,Period-method /,Period,Duration-method /,Period,Interval-method
-#'   /,Period,Period-method /,Period,difftime-method /,difftime,Period-method
-#'   /,Period,numeric-method /,numeric,Period-method *,Period,ANY-method
-#'   *,ANY,Period-method -,Period,ANY-method -,Period,missing-method
+#'   minute,Period-method minute<-,Period-method hour,Period-method hour<-,Period-method
+#'   Arith,Period,ANY-method day,Period-method day<-,Period-method month,Period-method
+#'   month<-,Period-method year,Period-method year<-,Period-method date,Period-method
+#'   date<-,Period-method as.numeric,Period-method as.integer,Period-method
+#'   show,Period-method c,Period-method rep,Period-method [,Period-method
+#'   [<-,Period,ANY,ANY,Period-method [[,Period-method [[<-,Period,ANY,ANY,Period-method
+#'   $,Period-method $<-,Period-method as.difftime,Period-method
+#'   as.character,Period-method +,Period,Duration-method +,Period,Interval-method
+#'   +,Period,Period-method +,Period,Date-method +,Date,Period-method
+#'   +,Period,difftime-method +,difftime,Period-method +,Period,numeric-method
+#'   +,numeric,Period-method +,Period,POSIXct-method +,POSIXct,Period-method
+#'   +,Period,POSIXlt-method +,POSIXlt,Period-method /,Period,Duration-method
+#'   /,Period,Interval-method /,Period,Period-method /,Period,difftime-method
+#'   /,difftime,Period-method /,Period,numeric-method /,numeric,Period-method
+#'   *,Period,ANY-method *,ANY,Period-method -,Period,ANY-method -,Period,missing-method
 #'   -,ANY,Period-method -,Period,Period-method %%,Period,Duration-method
 #'   %%,Period,Interval-method %%,Period,Period-method >,Period,Period-method
 #'   >=,Period,Period-method ==,Period,Period-method !=,Period,Period-method
 #'   <=,Period,Period-method <,Period,Period-method >,Period,Duration-method
-#'   >=,Period,Duration-method ==,Period,Duration-method
-#'   !=,Period,Duration-method <=,Period,Duration-method
-#'   <,Period,Duration-method >,Duration,Period-method >=,Duration,Period-method
-#'   ==,Duration,Period-method !=,Duration,Period-method
+#'   >=,Period,Duration-method ==,Period,Duration-method !=,Period,Duration-method
+#'   <=,Period,Duration-method <,Period,Duration-method >,Duration,Period-method
+#'   >=,Duration,Period-method ==,Duration,Period-method !=,Duration,Period-method
 #'   <=,Duration,Period-method <,Duration,Period-method >,Period,numeric-method
 #'   >=,Period,numeric-method ==,Period,numeric-method !=,Period,numeric-method
 #'   <=,Period,numeric-method <,Period,numeric-method >,numeric,Period-method
 #'   >=,numeric,Period-method ==,numeric,Period-method !=,numeric,Period-method
 #'   <=,numeric,Period-method <,numeric,Period-method !=,Duration,Period
 #'   !=,Period,Duration !=,Period,Period !=,Period,numeric !=,numeric,Period
-#'   %%,Period,Duration %%,Period,Interval %%,Period,Period *,ANY,Period
-#'   *,Period,ANY -,ANY,Period -,Period,Interval -,Period,missing
-#'   /,numeric,Period <,Duration,Period <,Period,Duration <,Period,Period
-#'   <,Period,numeric <,numeric,Period <=,Duration,Period <=,Period,Duration
-#'   <=,Period,Period <=,Period,numeric <=,numeric,Period ==,Duration,Period
-#'   ==,Period,Duration ==,Period,Period ==,Period,numeric ==,numeric,Period
-#'   >,Duration,Period >,Period,Duration >,Period,Period >,Period,numeric
-#'   >,numeric,Period >=,Duration,Period >=,Period,Duration >=,Period,Period
-#'   >=,Period,numeric >=,numeric,Period
+#'   %%,Period,Duration %%,Period,Interval %%,Period,Period *,ANY,Period *,Period,ANY
+#'   -,ANY,Period -,Period,Interval -,Period,missing /,numeric,Period <,Duration,Period
+#'   <,Period,Duration <,Period,Period <,Period,numeric <,numeric,Period
+#'   <=,Duration,Period <=,Period,Duration <=,Period,Period <=,Period,numeric
+#'   <=,numeric,Period ==,Duration,Period ==,Period,Duration ==,Period,Period
+#'   ==,Period,numeric ==,numeric,Period >,Duration,Period >,Period,Duration
+#'   >,Period,Period >,Period,numeric >,numeric,Period >=,Duration,Period
+#'   >=,Period,Duration >=,Period,Period >=,Period,numeric >=,numeric,Period
 #'   -,Period,Date-method -,Period,Duration-method -,Period,POSIXct-method
 #'   -,Period,POSIXlt-method -,Period,numeric-method -,Date,Period-method
 #'   -,numeric,Period-method -,POSIXlt,Period-method -,POSIXct,Period-method

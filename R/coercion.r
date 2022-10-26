@@ -585,8 +585,6 @@ setMethod("as.difftime", signature(tim = "Period"), function(tim, format = "%X",
   as.difftime(period_to_seconds(tim), format, units)
 })
 
-setGeneric("as.numeric")
-
 seconds_to_unit <- function(secs, unit = "second") {
   switch(unit,
     second = secs,
@@ -599,6 +597,8 @@ seconds_to_unit <- function(secs, unit = "second") {
     stop("invalid unit ", unit)
   )
 }
+
+setGeneric("as.numeric")
 
 #' @export
 setMethod("as.numeric", signature("Duration"), function(x, units = "secs", ...) {
@@ -615,6 +615,25 @@ setMethod("as.numeric", signature(x = "Interval"), function(x, units = "secs", .
 setMethod("as.numeric", signature(x = "Period"), function(x, units = "second", ...) {
   unit <- standardise_period_names(units)
   as.numeric(seconds_to_unit(period_to_seconds(x), unit = unit), ...)
+})
+
+setGeneric("as.integer")
+
+#' @export
+setMethod("as.integer", signature("Duration"), function(x, units = "secs", ...) {
+  unit <- standardise_period_names(units)
+  as.integer(seconds_to_unit(x@.Data, unit), ...)
+})
+
+#' @export
+setMethod("as.integer", signature(x = "Interval"), function(x, units = "secs", ...) {
+  as.integer(as.duration(x), units, ...)
+})
+
+#' @export
+setMethod("as.integer", signature(x = "Period"), function(x, units = "second", ...) {
+  unit <- standardise_period_names(units)
+  as.integer(seconds_to_unit(period_to_seconds(x), unit = unit), ...)
 })
 
 as.POSIXt <- function(x) as.POSIXlt(x)

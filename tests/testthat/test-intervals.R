@@ -98,6 +98,17 @@ test_that("interval works as expected", {
   expect_s4_class(int, "Interval")
 })
 
+test_that("as.integer works with intervals", {
+  time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
+  time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")
+  int <- interval(time1, time2)
+  expect_equal(as.integer(int, unit = "minute"), as.integer(as.numeric(int, unit = "minute")))
+  expect_equal(as.integer(int, unit = "hour"), as.integer(as.numeric(int, unit = "hour")))
+  expect_equal(as.integer(int), as.numeric(int))
+  expect_type(as.integer(int), "integer")
+})
+
+
 test_that("interval handles vector input", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")

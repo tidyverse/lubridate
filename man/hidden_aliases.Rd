@@ -22,6 +22,7 @@
 \alias{union,Interval,Interval-method}
 \alias{setdiff,Interval,Interval-method}
 \alias{as.numeric,Interval-method}
+\alias{as.integer,Interval-method}
 \alias{show,Interval-method}
 \alias{c,Interval-method}
 \alias{rep,Interval-method}
@@ -102,6 +103,7 @@
 \alias{Compare,numeric,Duration-method}
 \alias{Compare,Duration,numeric-method}
 \alias{as.numeric,Duration-method}
+\alias{as.integer,Duration-method}
 \alias{show,Duration-method}
 \alias{c,Duration-method}
 \alias{rep,Duration-method}
@@ -184,6 +186,7 @@
 \alias{date,Period-method}
 \alias{date<-,Period-method}
 \alias{as.numeric,Period-method}
+\alias{as.integer,Period-method}
 \alias{show,Period-method}
 \alias{c,Period-method}
 \alias{rep,Period-method}
