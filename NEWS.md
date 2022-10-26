@@ -15,6 +15,7 @@ Version 1.8.0.9000
 * `stamp` gained new argument `exact=FALSE` to indicate whether `orders` argument is an exact strptime formats string or not.
 * [#1001](https://github.com/tidyverse/lubridate/issues/1001) Add `%within` method with signature (Interval, list), which was documented but not implemented.
 * [#941](https://github.com/tidyverse/lubridate/issues/941) `format_ISO8601()` gained a new option `usetz="Z"` to format time zones with a "Z" and convert the time to the UTC time zone.
+* [#931](https://github.com/tidyverse/lubridate/issues/931) Usage of `Period` objects in rounding functions is explicitly documented.
 
 ### BUG FIXES
 

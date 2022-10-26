@@ -47,12 +47,14 @@
 #'
 #' @rdname round_date
 #' @param x a vector of date-time objects
-#' @param unit a string or a date-time object. When a singleton string, it
-#'   specifies a time unit or a multiple of a unit to be rounded to. Valid base
-#'   units are `second`, `minute`, `hour`, `day`, `week`, `month`, `bimonth`,
-#'   `quarter`, `season`, `halfyear` and `year`. Arbitrary unique English
-#'   abbreviations as in the [period()] constructor are allowed. Rounding to
-#'   multiples of units (except weeks) is supported.
+#' @param unit a string, `Period` object or a date-time object. When a singleton string,
+#'   it specifies a time unit or a multiple of a unit to be rounded to. Valid base units
+#'   are `second`, `minute`, `hour`, `day`, `week`, `month`, `bimonth`, `quarter`,
+#'   `season`, `halfyear` and `year`. Arbitrary unique English abbreviations as in the
+#'   [period()] constructor are allowed. Rounding to multiples of units (except weeks)
+#'   is supported. When `unit` is a `Period` object, units of the period objects are
+#'   used. This is equivalent to converting the period object to its string
+#'   representation and passing as `unit` argument.
 #'
 #'   When `unit` is a date-time object rounding is done to the nearest of the
 #'   elements in `unit`. If range of `unit` vector does not cover the range of
@@ -121,6 +123,10 @@
 #' ceiling_date(x, "season")
 #' ceiling_date(x, "halfyear")
 #' ceiling_date(x, "year")
+#'
+#' ## Period unit argument
+#' floor_date(x, days(2))
+#' floor_date(x, years(1))
 #'
 #' ## As of R 3.4.2 POSIXct printing of fractional numbers is wrong
 #' as.POSIXct("2009-08-03 12:01:59.3") ## -> "2009-08-03 12:01:59.2 CEST"
