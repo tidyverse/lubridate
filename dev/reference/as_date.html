@@ -110,16 +110,15 @@
 
 
 <dt>origin</dt>
-<dd><p>a Date object, or something which can be coerced by
-<code>as.Date(origin, ...)</code> to such an object (default: the Unix epoch of
-"1970-01-01"). Note that in this instance, <code>x</code> is assumed to reflect the
-number of days since <code>origin</code> at <code>"UTC"</code>.</p></dd>
+<dd><p>a Date object, or something which can be coerced by <code>as.Date(origin, ...)</code> to such an object (default: the Unix epoch of "1970-01-01"). Note that in
+this instance, <code>x</code> is assumed to reflect the number of days since <code>origin</code> at
+<code>"UTC"</code>.</p></dd>
 
 
 <dt>format</dt>
 <dd><p>format argument for character methods. When supplied parsing is
-performed by <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime()</a></code>. For this reason consider using specialized
-parsing functions in lubridate.</p></dd>
+performed by parse_date_time(x, orders = formats, exact = TRUE). Thus, multiple
+formats are supported and are tried in turn.</p></dd>
 
 </dl></div>
     <div class="section level2">
