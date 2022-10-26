@@ -561,8 +561,8 @@ test_that("c.Period doesn't fail with empty elements", {
 
 test_that("as.integer works with periods", {
   p <- period("2d 0H 2M 1s")
-  expect_equal(as.integer(p, unit = "minute"), as.integer(as.numeric(p, unit = "minute")))
-  expect_equal(as.integer(p, unit = "hour"), as.integer(as.numeric(p, unit = "hour")))
+  expect_equal(as.integer(p, units = "minute"), as.integer(as.numeric(p, units = "minute")))
+  expect_equal(as.integer(p, units = "hour"), as.integer(as.numeric(p, units = "hour")))
   expect_equal(as.integer(p), as.numeric(p))
   expect_type(as.integer(p), "integer")
 })

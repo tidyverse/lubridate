@@ -683,15 +683,15 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' }
 #'
 #' @param x a vector of [POSIXt], numeric or character objects
-#' @param origin a Date object, or something which can be coerced by
-#'   `as.Date(origin, ...)` to such an object (default: the Unix epoch of
-#'   "1970-01-01"). Note that in this instance, `x` is assumed to reflect the
-#'   number of days since `origin` at `"UTC"`.
+#' @param origin a Date object, or something which can be coerced by `as.Date(origin,
+#'   ...)` to such an object (default: the Unix epoch of "1970-01-01"). Note that in
+#'   this instance, `x` is assumed to reflect the number of days since `origin` at
+#'   `"UTC"`.
 #' @param tz a time zone name (default: time zone of the POSIXt object `x`). See
 #'   [OlsonNames()].
 #' @param format format argument for character methods. When supplied parsing is
-#'   performed by [strptime()]. For this reason consider using specialized
-#'   parsing functions in lubridate.
+#'   performed by [parse_date_time(x, orders = formats, exact = TRUE)]. Thus, multiple
+#'   `formats` are supported and are tried in turn.
 #' @param ... further arguments to be passed to specific methods (see above).
 #' @return a vector of [Date] objects corresponding to `x`.
 #' @examples
@@ -758,7 +758,7 @@ setMethod("as_date", "character",
     if (is.null(format)) {
       as_date(.parse_iso_dt(x, tz = "UTC"))
     } else {
-      as_date(strptime(x, format, tz = "UTC"))
+      as_date(parse_date_time(x, format, tz = "UTC"))
     }
   }
 )

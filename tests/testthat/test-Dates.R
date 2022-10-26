@@ -42,6 +42,12 @@ test_that("as_date works", {
   expect_equal(as_date("2010-08-03 00:59:59.23Z+08"), as_date("2010-08-02"))
 })
 
+test_that("as_date works with multiple formats", {
+  date <- c("2020-10-02", "03/10/2020")
+  expect_warning(expect_equal(as_date(date, format = "%Y-%m-%d"), c(as.Date(date[1]), NA)))
+  expect_equal(as_date(date, format = c("%Y-%m-%d", "%d/%m/%Y")), as.Date(c("2020-10-02", "2020-10-03")))
+})
+
 test_that("c.Date deals correctly with empty vectors", {
   expect_equal(c(Date()), Date())
   expect_equal(c(Date(), Date()), Date())

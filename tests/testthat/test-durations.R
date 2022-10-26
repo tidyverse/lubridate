@@ -93,8 +93,8 @@ test_that("parsing with 0 units works as expected", {
 
 test_that("as.integer works with durrations", {
   d1 <- duration("2d 0H 2M 1s")
-  expect_equal(as.integer(d1, unit = "minute"), as.integer(as.numeric(d1, unit = "minute")))
-  expect_equal(as.integer(d1, unit = "hour"), as.integer(as.numeric(d1, unit = "hour")))
+  expect_equal(as.integer(d1, units = "minute"), as.integer(as.numeric(d1, units = "minute")))
+  expect_equal(as.integer(d1, units = "hour"), as.integer(as.numeric(d1, units = "hour")))
   expect_equal(as.integer(d1), as.numeric(d1))
   expect_type(as.integer(d1), "integer")
 })
