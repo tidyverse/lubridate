@@ -60,6 +60,8 @@
 <div class="section level4">
 <h4 id="new-features-1-8-0-9000">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-8-0-9000"></a></h4>
 <ul><li>
+<a href="https://github.com/tidyverse/lubridate/issues/1055" class="external-link">#1055</a> Implement <code>as.integer</code> method for Duration, Period and Interval classes.</li>
+<li>
 <a href="https://github.com/tidyverse/lubridate/issues/1061" class="external-link">#1061</a> Make <code>year&lt;-</code>, <code>month&lt;-</code> etc. accessors truly generic. In order to make them work with arbitrary class XYZ, it’s enough to define a <code>reclass_date.XYZ</code> method.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1061" class="external-link">#1061</a> Add support for <code>year&lt;-</code>, <code>month&lt;-</code> etc. accessors for <code>data.table</code>’s IDate and ITime objects.</li>
@@ -105,14 +107,16 @@
 </ul></div>
 <div class="section level4">
 <h4 id="internals-1-8-0-9000">INTERNALS<a class="anchor" aria-label="anchor" href="#internals-1-8-0-9000"></a></h4>
-<ul><li>Change implementation of <code>c.Period</code>, <code>c.Duration</code> and <code>c.Interval</code> from S4 to S3.</li></ul></div>
+<ul><li>Change implementation of <code>c.Period</code>, <code>c.Duration</code> and <code>c.Interval</code> from S4 to S3.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.8.0" id="version-180">Version 1.8.0<a class="anchor" aria-label="anchor" href="#version-180"></a></h2><p class="text-muted">CRAN release: 2021-10-07</p>
 <div class="section level4">
 <h4 id="new-features-1-8-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-8-0"></a></h4>
 <ul><li>
-<a href="https://github.com/tidyverse/lubridate/issues/960" class="external-link">#960</a> <code>c.POSIXct</code> and <code>c.Date</code> can deal with heterogeneous object types (e.g <code>c(date, datetime)</code> works as expected)</li></ul></div>
+<a href="https://github.com/tidyverse/lubridate/issues/960" class="external-link">#960</a> <code>c.POSIXct</code> and <code>c.Date</code> can deal with heterogeneous object types (e.g <code>c(date, datetime)</code> works as expected)</li>
+</ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-1-8-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-8-0"></a></h4>
 <ul><li><p><a href="https://github.com/tidyverse/lubridate/issues/994" class="external-link">#994</a> Subtracting two duration or two period objects no longer results in an ambiguous dispatch note.</p></li>
@@ -122,7 +126,8 @@
 <div class="section level4">
 <h4 id="changes-1-8-0">CHANGES<a class="anchor" aria-label="anchor" href="#changes-1-8-0"></a></h4>
 <ul><li>
-<a href="https://github.com/tidyverse/lubridate/pull/966" class="external-link">#966</a> Lubridate is now built with cpp11 (contribution of <a href="https://github.com/DavisVaughan" class="external-link">@DavisVaughan</a>)</li></ul></div>
+<a href="https://github.com/tidyverse/lubridate/pull/966" class="external-link">#966</a> Lubridate is now built with cpp11 (contribution of <a href="https://github.com/DavisVaughan" class="external-link">@DavisVaughan</a>)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.7.10" id="version-1710">Version 1.7.10<a class="anchor" aria-label="anchor" href="#version-1710"></a></h2><p class="text-muted">CRAN release: 2021-02-26</p>
@@ -155,14 +160,16 @@
 <div class="section level4">
 <h4 id="bug-fixes-1-7-9-2">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-7-9-2"></a></h4>
 <ul><li>
-<a href="https://github.com/tidyverse/lubridate/issues/930" class="external-link">#930</a> <code><a href="../reference/as.period.html">as.period()</a></code> on intervals now returns valid Periods with double fields (not integers)</li></ul></div>
+<a href="https://github.com/tidyverse/lubridate/issues/930" class="external-link">#930</a> <code><a href="../reference/as.period.html">as.period()</a></code> on intervals now returns valid Periods with double fields (not integers)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.7.9" id="version-179">Version 1.7.9<a class="anchor" aria-label="anchor" href="#version-179"></a></h2><p class="text-muted">CRAN release: 2020-06-08</p>
 <div class="section level4">
 <h4 id="new-features-1-7-9">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-7-9"></a></h4>
 <ul><li>
-<a href="https://github.com/tidyverse/lubridate/issues/893" class="external-link">#871</a> Add <code>vctrs</code> support</li></ul></div>
+<a href="https://github.com/tidyverse/lubridate/issues/893" class="external-link">#871</a> Add <code>vctrs</code> support</li>
+</ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-1-7-9">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-7-9"></a></h4>
 <ul><li>
@@ -237,7 +244,8 @@
 <div class="section level4">
 <h4 id="new-features-1-7-4">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-7-4"></a></h4>
 <ul><li>
-<a href="https://github.com/tidyverse/lubridate/issues/658" class="external-link">#658</a> <code>%within%</code> now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.</li></ul></div>
+<a href="https://github.com/tidyverse/lubridate/issues/658" class="external-link">#658</a> <code>%within%</code> now accepts a list of intervals, in which case an instant is checked if it occurs within any of the supplied intervals.</li>
+</ul></div>
 <div class="section level4">
 <h4 id="changes-1-7-4">CHANGES<a class="anchor" aria-label="anchor" href="#changes-1-7-4"></a></h4>
 <ul><li>
@@ -261,7 +269,8 @@
 <div class="section level4">
 <h4 id="bug-fixes-1-7-3">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-7-3"></a></h4>
 <ul><li>
-<a href="https://github.com/tidyverse/lubridate/issues/643" class="external-link">#643</a>, <a href="https://github.com/tidyverse/lubridate/issues/640" class="external-link">#640</a>, <a href="https://github.com/tidyverse/lubridate/issues/645" class="external-link">#645</a> Fix faulty caching of system timezone.</li></ul></div>
+<a href="https://github.com/tidyverse/lubridate/issues/643" class="external-link">#643</a>, <a href="https://github.com/tidyverse/lubridate/issues/640" class="external-link">#640</a>, <a href="https://github.com/tidyverse/lubridate/issues/645" class="external-link">#645</a> Fix faulty caching of system timezone.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.7.2" id="version-172">Version 1.7.2<a class="anchor" aria-label="anchor" href="#version-172"></a></h2><p class="text-muted">CRAN release: 2018-02-06</p>
@@ -277,7 +286,8 @@
 </ul></div>
 <div class="section level4">
 <h4 id="changes-1-7-2">CHANGES<a class="anchor" aria-label="anchor" href="#changes-1-7-2"></a></h4>
-<ul><li>Correct license to the originally intended GPL (&gt;= 2)</li></ul></div>
+<ul><li>Correct license to the originally intended GPL (&gt;= 2)</li>
+</ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-1-7-2">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-7-2"></a></h4>
 <ul><li>
@@ -632,7 +642,8 @@
 <ul><li>
 <p>New low level C parser for numeric formats and two new front-end R functions parse_date_time2 and fast_strptime. The achieved speed up is 50-100x as compared to standard as.POSIXct and strptime functions.</p>
 <p>The user level parser functions of ymd_hms family drop to these C routines whenever plain numeric formats are detected.</p>
-</li></ul></div>
+</li>
+</ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-1-3-3">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-3-3"></a></h4>
 <ul><li>olson_time_zones now supports Solaris OS</li>
@@ -641,7 +652,8 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.2" id="version-132">Version 1.3.2<a class="anchor" aria-label="anchor" href="#version-132"></a></h2><p class="text-muted">CRAN release: 2013-12-05</p>
-<ul><li>Lubridate’s s4 methods no longer use the representation argument, which has been deprecated in R 3.0.0 (see ?setClass). As a result, lubridate is no longer backwards compatible with R &lt;3.0.0.</li></ul></div>
+<ul><li>Lubridate’s s4 methods no longer use the representation argument, which has been deprecated in R 3.0.0 (see ?setClass). As a result, lubridate is no longer backwards compatible with R &lt;3.0.0.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.0" id="version-130">Version 1.3.0<a class="anchor" aria-label="anchor" href="#version-130"></a></h2><p class="text-muted">CRAN release: 2013-09-20</p>
 <div class="section level4">
@@ -755,7 +767,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.5" id="version-025">Version 0.2.5<a class="anchor" aria-label="anchor" href="#version-025"></a></h2><p class="text-muted">CRAN release: 2011-05-12</p>
-<ul><li>added ymdThms() for parsing ISO 8061 formatted combned dates and times</li></ul><div class="section level4">
+<ul><li>added ymdThms() for parsing ISO 8061 formatted combned dates and times</li>
+</ul><div class="section level4">
 <h4 id="bug-fixes-0-2-5">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-5"></a></h4>
 <ul><li><p>removed bug in parsing dates with “T” in them</p></li>
 <li><p>modified as.period.interval() to display periods in positive units</p></li>
@@ -763,7 +776,8 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.4" id="version-024">Version 0.2.4<a class="anchor" aria-label="anchor" href="#version-024"></a></h2><p class="text-muted">CRAN release: 2011-04-05</p>
-<ul><li>Add citations to JSS article</li></ul></div>
+<ul><li>Add citations to JSS article</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.3" id="version-023">Version 0.2.3<a class="anchor" aria-label="anchor" href="#version-023"></a></h2><p class="text-muted">CRAN release: 2010-12-09</p>
 <div class="section level4">
@@ -786,16 +800,19 @@
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-0-2-2">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-2"></a></h4>
-<ul><li>fixed bug in division, modulo, and integer operations with timespans</li></ul></div>
+<ul><li>fixed bug in division, modulo, and integer operations with timespans</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="version-021">Version 0.2.1<a class="anchor" aria-label="anchor" href="#version-021"></a></h2><p class="text-muted">CRAN release: 2010-11-03</p>
 <div class="section level4">
 <h4 id="new-features-0-2-1">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-0-2-1"></a></h4>
-<ul><li>created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().</li></ul></div>
+<ul><li>created parsing functions ymd_hm ymd_h dmy_hms dmy_hm dmy_h mdy_hms mdy_hm mdy_h ydm_hms ydm_hm ydm_h, which operate in the same way as ymd_hms().</li>
+</ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-0-2-1">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-1"></a></h4>
-<ul><li>fixed bug in add_dates(). duration objects can now be successfully added to numeric objects.</li></ul><hr></div>
+<ul><li>fixed bug in add_dates(). duration objects can now be successfully added to numeric objects.</li>
+</ul><hr></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2" id="version-02">Version 0.2<a class="anchor" aria-label="anchor" href="#version-02"></a></h2><p class="text-muted">CRAN release: 2010-10-26</p>
