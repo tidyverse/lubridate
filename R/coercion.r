@@ -691,7 +691,7 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #'   [OlsonNames()].
 #' @param format format argument for character methods. When supplied parsing is
 #'   performed by [parse_date_time(x, orders = formats, exact = TRUE)]. Thus, multiple
-#'   `formats` are supported and are tried in turn.
+#'   formats are supported and are tried in turn.
 #' @param ... further arguments to be passed to specific methods (see above).
 #' @return a vector of [Date] objects corresponding to `x`.
 #' @examples

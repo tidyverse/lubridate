@@ -44,14 +44,13 @@ as_datetime(x, ...)
 \item{tz}{a time zone name (default: time zone of the POSIXt object \code{x}). See
 \code{\link[=OlsonNames]{OlsonNames()}}.}
 
-\item{origin}{a Date object, or something which can be coerced by
-\code{as.Date(origin, ...)} to such an object (default: the Unix epoch of
-"1970-01-01"). Note that in this instance, \code{x} is assumed to reflect the
-number of days since \code{origin} at \code{"UTC"}.}
+\item{origin}{a Date object, or something which can be coerced by \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of "1970-01-01"). Note that in
+this instance, \code{x} is assumed to reflect the number of days since \code{origin} at
+\code{"UTC"}.}
 
 \item{format}{format argument for character methods. When supplied parsing is
-performed by \code{\link[=strptime]{strptime()}}. For this reason consider using specialized
-parsing functions in lubridate.}
+performed by \link{parse_date_time(x, orders = formats, exact = TRUE)}. Thus, multiple
+formats are supported and are tried in turn.}
 }
 \value{
 a vector of \link{Date} objects corresponding to \code{x}.
