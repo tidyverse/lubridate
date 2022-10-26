@@ -60,6 +60,8 @@
 <div class="section level4">
 <h4 id="new-features-1-8-0-9000">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-8-0-9000"></a></h4>
 <ul><li>
+<a href="https://github.com/tidyverse/lubridate/issues/1042" class="external-link">#1042</a> <code>as_date</code> with character inputs accepts multiple formats in <code>format</code> argument. When <code>format</code> is supplied, the input string is parsed with <code>parse_date_time</code> instead of the old <code>strptime</code>.</li>
+<li>
 <a href="https://github.com/tidyverse/lubridate/issues/1055" class="external-link">#1055</a> Implement <code>as.integer</code> method for Duration, Period and Interval classes.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1061" class="external-link">#1061</a> Make <code>year&lt;-</code>, <code>month&lt;-</code> etc. accessors truly generic. In order to make them work with arbitrary class XYZ, it’s enough to define a <code>reclass_date.XYZ</code> method.</li>
