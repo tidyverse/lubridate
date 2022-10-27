@@ -49,7 +49,7 @@ this instance, \code{x} is assumed to reflect the number of days since \code{ori
 \code{"UTC"}.}
 
 \item{format}{format argument for character methods. When supplied parsing is
-performed by \link{parse_date_time(x, orders = formats, exact = TRUE)}. Thus, multiple
+performed by \code{parse_date_time(x, orders = formats, exact = TRUE)}. Thus, multiple
 formats are supported and are tried in turn.}
 }
 \value{
