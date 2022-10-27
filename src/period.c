@@ -131,7 +131,7 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
   }
 }
 
-SEXP period_names() {
+SEXP period_names(void) {
   SEXP names = PROTECT(allocVector(STRSXP, N_PERIOD_UNITS));
   for (int i = 0; i < N_PERIOD_UNITS; i++) {
      SET_STRING_ELT(names, i, mkChar(PERIOD_UNITS[i]));
