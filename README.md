@@ -4,17 +4,11 @@
 # lubridate <img src="man/figures/logo.png" align="right" />
 
 <!-- badges: start -->
-
-[![CRAN
-version](http://www.r-pkg.org/badges/version/lubridate)](https://cran.r-project.org/package=lubridate)
-[![R build
-status](https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/lubridate/actions)
-[![Coverage
-Status](https://codecov.io/gh/tidyverse/lubridate/branch/main/graph/badge.svg)](https://codecov.io/gh/tidyverse/lubridate)
-[![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/lubridate)](https://cran.r-project.org/package=lubridate)
-[![Development
-version](https://img.shields.io/badge/devel-1.7.4.9000-orange.svg)](https://github.com/tidyverse/lubridate)
+[![CRAN version](http://www.r-pkg.org/badges/version/lubridate)](https://cran.r-project.org/package=lubridate)
+[![R build status](https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/lubridate/actions)
+[![Coverage Status](https://app.codecov.io/gh/tidyverse/lubridate/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidyverse/lubridate)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/lubridate)](https://cran.r-project.org/package=lubridate)
+[![Development version](https://img.shields.io/badge/devel-1.7.4.9000-orange.svg)](https://github.com/tidyverse/lubridate)
 <!-- badges: end -->
 
 ## Overview
