@@ -1141,6 +1141,10 @@ test_that("parsing with r and R formats works in non-english locale", {
   expect_equal(parse_date_time("2021-10-26 0001", "YmdR"), ymd_hms("2021-10-26 0:1:0"))
 })
 
+test_that("NA_real_ propagates in parsing functions", {
+  expect_equal(ymd_hms(NA_real_), as_datetime(NA))
+  expect_equal(ymd_hms(c(20000101210101, NA_real_)), as_datetime(c("2000-01-01 21:01:01", NA)))
+})
 
 ## library(microbenchmark)
 ## library(lubridate)
