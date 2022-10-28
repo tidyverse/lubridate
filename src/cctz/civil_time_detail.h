@@ -79,14 +79,13 @@ CONSTEXPR_F bool is_leap_year(year_t y) noexcept {
   return y % 4 == 0 && (y % 100 != 0 || y % 400 == 0);
 }
 CONSTEXPR_F int year_index(year_t y, month_t m) noexcept {
-  return (static_cast<int>((y + (m > 2)) % 400) + 400) % 400;
+  const int yi = static_cast<int>((y + (m > 2)) % 400);
+  return yi < 0 ? yi + 400 : yi;
 }
-CONSTEXPR_F int days_per_century(year_t y, month_t m) noexcept {
-  const int yi = year_index(y, m);
+CONSTEXPR_F int days_per_century(int yi) noexcept {
   return 36524 + (yi == 0 || yi > 300);
 }
-CONSTEXPR_F int days_per_4years(year_t y, month_t m) noexcept {
-  const int yi = year_index(y, m);
+CONSTEXPR_F int days_per_4years(int yi) noexcept {
   return 1460 + (yi == 0 || yi > 300 || (yi - 1) % 100 < 96);
 }
 CONSTEXPR_F int days_per_year(year_t y, month_t m) noexcept {
@@ -128,17 +127,22 @@ CONSTEXPR_F fields n_day(year_t y, month_t m, diff_t d, diff_t cd,
     }
   }
   if (d > 365) {
+    int yi = year_index(ey, m);  // Index into Gregorian 400 year cycle.
     for (;;) {
-      int n = days_per_century(ey, m);
+      int n = days_per_century(yi);
       if (d <= n) break;
       d -= n;
       ey += 100;
+      yi += 100;
+      if (yi >= 400) yi -= 400;
     }
     for (;;) {
-      int n = days_per_4years(ey, m);
+      int n = days_per_4years(yi);
       if (d <= n) break;
       d -= n;
       ey += 4;
+      yi += 4;
+      if (yi >= 400) yi -= 400;
     }
     for (;;) {
       int n = days_per_year(ey, m);
@@ -382,16 +386,10 @@ class civil_time {
 
   // Assigning arithmetic.
   CONSTEXPR_M civil_time& operator+=(diff_t n) noexcept {
-    f_ = step(T{}, f_, n);
-    return *this;
+    return *this = *this + n;
   }
   CONSTEXPR_M civil_time& operator-=(diff_t n) noexcept {
-    if (n != (std::numeric_limits<diff_t>::min)()) {
-      f_ = step(T{}, f_, -n);
-    } else {
-      f_ = step(T{}, step(T{}, f_, -(n + 1)), 1);
-    }
-    return *this;
+    return *this = *this - n;
   }
   CONSTEXPR_M civil_time& operator++() noexcept {
     return *this += 1;
@@ -412,13 +410,15 @@ class civil_time {
 
   // Binary arithmetic operators.
   friend CONSTEXPR_F civil_time operator+(civil_time a, diff_t n) noexcept {
-    return a += n;
+    return civil_time(step(T{}, a.f_, n));
   }
   friend CONSTEXPR_F civil_time operator+(diff_t n, civil_time a) noexcept {
-    return a += n;
+    return a + n;
   }
   friend CONSTEXPR_F civil_time operator-(civil_time a, diff_t n) noexcept {
-    return a -= n;
+    return n != (std::numeric_limits<diff_t>::min)()
+               ? civil_time(step(T{}, a.f_, -n))
+               : civil_time(step(T{}, step(T{}, a.f_, -(n + 1)), 1));
   }
   friend CONSTEXPR_F diff_t operator-(civil_time lhs, civil_time rhs) noexcept {
     return difference(T{}, lhs.f_, rhs.f_);

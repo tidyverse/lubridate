@@ -1,7 +1,12 @@
+#include <cstdio>
+#include <iostream>
+
 #include <cstdint>
 #include <limits>
 #include <unordered_map>
 #include <vector>
+#include "R_ext/Arith.h"
+#include "R_ext/Print.h"
 #include "cctz/civil_time.h"
 #include "cctz/time_zone.h"
 #include <cpp11.hpp>
@@ -166,23 +171,22 @@ double get_secs_from_civil_lookup(const cctz::time_zone::civil_lookup& cl_new, /
     // SKIPPED
     if (roll)
       tp_new = cl_new.trans;
-    else {
+    else
       return NA_REAL;
-    }
   } else {
     // REPEATED
     // match pre or post time of original time
     const cctz::time_zone::civil_lookup cl_old = tz_orig.lookup(cs_orig);
-    if (tp_orig >= cl_old.trans){
+    if (tp_orig >= cl_old.trans)
       tp_new = cl_new.post;
-    } else {
+    else
       tp_new = cl_new.pre;
-    }
-    /* std::cout << cctz::format("tp:%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl; */
-    /* std::cout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl1.pre, tz1) << std::endl; */
-    /* std::cout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl1.trans, tz1) << std::endl; */
-    /* std::cout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl1.post, tz1) << std::endl; */
   }
+
+  /* std::cout << cctz::format("tp_new:%Y-%m-%d %H:%M:%S %z", tp_new, tz_orig) << std::endl; */
+  /* std::cout << cctz::format("pre:%Y-%m-%d %H:%M:%S %z", cl_new.pre, tz_orig) << std::endl; */
+  /* std::cout << cctz::format("trans:%Y-%m-%d %H:%M:%S %z", cl_new.trans, tz_orig) << std::endl; */
+  /* std::cout << cctz::format("post:%Y-%m-%d %H:%M:%S %z", cl_new.post, tz_orig) << std::endl; */
 
   return tp_new.time_since_epoch().count() + remainder;
 }
@@ -293,14 +297,31 @@ cpp11::writable::doubles C_update_dt(const cpp11::doubles& dt,
       if (do_mday) {
         d = loop_mday ? mday[i] : mday[0];
         if (d == NA_INT32) {out[i] = NA_REAL; continue; }
+        /* if (!roll) { */
+        /*   cctz::civil_day cd = cctz::civil_day(y, m, d); */
+        /*   if (cd.day() != d) { out[i] = NA_REAL; continue; } */
+        /* } */
       }
+      if (do_yday) {
+        // yday and d are 1 based
+        d = d - cctz::get_yearday(cctz::civil_day(ct1));
+        /* if (IS_LEAP(y) && ct1.month() > 2) d -= 1; */
+        if (loop_yday) d += yday[i]; else d += yday[0];
+      }
+      if (do_wday) {
+        // wday is 1 based and starts on week_start
+        int cur_wday = (static_cast<int>(cctz::get_weekday(cctz::civil_day(ct1))) + 8 - week_start) % 7;
+        d = d - cur_wday - 1;
+        if (loop_wday) d += wday[i]; else d += wday[0];
+      }
+
       if (do_hour) {
         H = loop_hour ? hour[i] : hour[0];
-        if (H == NA_INT32) {out[i] = NA_REAL; continue; }
+        if (H == NA_INT32) { out[i] = NA_REAL; continue; }
       }
       if (do_minute) {
         M = loop_minute ? minute[i] : minute[0];
-        if (M == NA_INT32) {out[i] = NA_REAL; continue; }
+        if (M == NA_INT32) { out[i] = NA_REAL; continue; }
       }
       if (do_second) {
         if (loop_second) {
@@ -310,22 +331,9 @@ cpp11::writable::doubles C_update_dt(const cpp11::doubles& dt,
           S = floor_to_int64(second[0]);
           rem = second[0] - S;
         }
-        if (S == NA_INT64) {out[i] = NA_REAL; continue; }
+        if (S == NA_INT64) { out[i] = NA_REAL; continue; }
       }
 
-      if (do_yday) {
-        // yday and d are 1 based
-        d = d - cctz::get_yearday(cctz::civil_day(ct1));
-        /* if (IS_LEAP(y) && ct1.month() > 2) d -= 1; */
-        if (loop_yday) d += yday[i]; else d += yday[0];
-      }
-
-      if (do_wday) {
-        // wday is 1 based and starts on week_start
-        int cur_wday = (static_cast<int>(cctz::get_weekday(cctz::civil_day(ct1))) + 8 - week_start) % 7;
-        d = d - cur_wday - 1;
-        if (loop_wday) d += wday[i]; else d += wday[0];
-      }
 
       const cctz::civil_second cs2(y, m, d, H, M, S);
       const cctz::time_zone::civil_lookup cl2 = tzone2.lookup(cs2);
