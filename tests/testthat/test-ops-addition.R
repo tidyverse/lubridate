@@ -380,6 +380,15 @@ test_that("addition with period months recycles correctly", {
   suppressWarnings(expect_identical(y + period, y_expect))
 })
 
+test_that("adding multi unit periods produces NAs on intermediate computation", {
+  expect_equal(ymd("2021-01-31") + period("1m1d"), NA_Date_)
+  expect_equal(ymd("2020-02-29") + period("1y1d"), NA_Date_)
+  expect_equal(ymd("2020-01-29") + period("1y1m1d"), NA_Date_)
+  expect_equal(ymd("2021-01-31", tz = "UTC") + period("1m1d"), NA_POSIXct_)
+  expect_equal(ymd("2020-02-29", tz = "UTC") + period("1y1d"), NA_POSIXct_)
+  expect_equal(ymd("2020-01-29", tz = "UTC") + period("1y1m1d"), NA_POSIXct_)
+})
+
 test_that("`add_months()` POSIXlt helper recycles all fields (#1069)", {
   x <- as.POSIXlt("2019-01-01", tz = "UTC")
 

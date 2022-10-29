@@ -77,6 +77,7 @@ test_that("day accessors work on character inputs", {
 })
 
 test_that("wday works with various start values", {
+
   days <- days2 <-
     ymd(c(
       "2005-01-01", "2005-01-02", "2005-12-31", "2007-01-01", "2007-12-30",
@@ -108,6 +109,7 @@ test_that("wday works with various start values", {
   )
 
   set.seed(1000)
+  days2 <- days
   new_days <- sample(1:7, length(days2), replace = T)
   wday(days2, week_start = 1) <- new_days
   expect_equal(wday(days2, week_start = 1), new_days)
@@ -539,6 +541,7 @@ test_that("accessors handle vectors", {
 })
 
 test_that("accessors<- handle vectors", {
+
   poslt <- as.POSIXlt(c(
     "1999-01-01 00:00:00",
     "1999-01-01 00:00:00",
@@ -546,6 +549,13 @@ test_that("accessors<- handle vectors", {
   ), tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
+
+  wday(poslt) <- c(2, 7, 2)
+  wday(posct) <- c(2, 7, 2)
+  wday(date) <- c(2, 7, 2)
+  expect_equal(wday(poslt), c(2, 7, 2))
+  expect_equal(wday(posct), c(2, 7, 2))
+  expect_equal(wday(date), c(2, 7, 2))
 
   second(poslt) <- 1:3
   second(posct) <- 1:3
