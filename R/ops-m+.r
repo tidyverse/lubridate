@@ -131,7 +131,7 @@ add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE
   new <- .quick_month_add(e1, e2@month)
   roll <- day(new) < day(e1)
   roll <- !is.na(roll) & roll
-  new[roll] <- rollback(new[roll], roll_to_first = roll_to_first, preserve_hms = preserve_hms)
+  new[roll] <- rollbackward(new[roll], roll_to_first = roll_to_first, preserve_hms = preserve_hms)
 
   if (!is.na(any_HMS) && any_HMS) {
     e2$month <- 0L

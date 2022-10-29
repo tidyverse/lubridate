@@ -631,6 +631,8 @@ test_that("round_date and ceiling_date skip day time gap", {
   tz = tz
   )
 
+  ## force_tz(ymd_hms("2014-11-02 01:35:00"), tzone = "America/Chicago")
+  ## round_date(ymd_hms("2014-11-02 01:35:00", tz = "America/Chicago"), "hour")
   expect_equal(round_date(x, "hour"), y)
 })
 
