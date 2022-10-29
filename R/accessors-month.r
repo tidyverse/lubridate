@@ -102,12 +102,12 @@ setMethod("month<-", "Interval", function(x, value) {
 
 #' @export
 setMethod("month<-", "POSIXt", function(x, value) {
-  update.POSIXt(x, months = as_month(value))
+  update_datetime(x, months = value, roll_month = "NAym", roll_dst = "NA")
 })
 
 #' @export
 setMethod("month<-", "Date", function(x, value) {
-  update.Date(x, months = as_month(value))
+  update_datetime(x, months = value, roll_month = "NAym", roll_dst = "NA")
 })
 
 #' Get the number of days in the month of a date-time

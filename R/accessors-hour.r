@@ -60,10 +60,10 @@ setMethod("hour<-", "Interval", function(x, value) {
 
 #' @export
 setMethod("hour<-", "POSIXt", function(x, value) {
-  update.POSIXt(x, hours = value)
+  update_datetime(x, hours = value, roll_dst = "NA")
 })
 
 #' @export
 setMethod("hour<-", "Date", function(x, value) {
-  update.Date(x, hours = value)
+  update_datetime(x, hours = value, roll_dst = "NA")
 })

@@ -50,7 +50,11 @@ date.Period <- function(x) {
 #' @rdname date
 #' @export
 "date<-" <- function(x, value) {
-  x <- x + days(date(value) - date(x))
+  update(x,
+    years = year(value),
+    months = month(value),
+    days = day(value),
+    roll = FALSE)
 }
 
 setGeneric("date<-")

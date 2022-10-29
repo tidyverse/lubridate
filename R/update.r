@@ -36,11 +36,31 @@ update.POSIXt <- function(object, ..., roll = FALSE,
                           week_start = getOption("lubridate.week.start", 7),
                           simple = NULL) {
   if (!is.null(simple)) roll <- simple
-  do.call(update_date_time, c(
-    list(object, roll = roll, week_start = week_start),
+  do.call(update_datetime, c(
+    list(object, week_start = week_start, roll = roll),
     list(...)
   ))
 }
+
+update_datetime <- function(object, years = NULL, months = NULL,
+                            days = NULL, mdays = NULL, ydays = NULL, wdays = NULL,
+                            hours = NULL, minutes = NULL, seconds = NULL, tzs = NULL,
+                            roll_month = "full",
+                            roll_dst = if (roll) "full" else "NA",
+                            roll = FALSE,
+                            week_start = 7, exact = FALSE) {
+  week_start <- as_week_start(week_start)
+
+  timechange::time_update(object,
+    year = years, month = months,
+    day = days, mday = mdays, wday = wdays, yday = ydays,
+    hour = hours, minute = minutes, second = seconds, tz = tzs,
+    roll_dst = roll_dst, roll_month = roll_month,
+    week_start = as_week_start(week_start),
+    exact = exact
+  )
+}
+
 
 update_date_time <- function(object, years = integer(), months = integer(),
                              days = integer(), mdays = integer(), ydays = integer(), wdays = integer(),
@@ -176,17 +196,22 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
   fit_to_timeline(date, class(object)[[1]], simple = simple)
 }
 
+is_zero_hms <- function(hours = NULL, minutes = NULL, seconds = NULL, tzs = NULL, ...) {
+  is.null(tzs) &&
+    (is.null(hours) || sum(hours, na.rm = TRUE) == 0) &&
+    (is.null(minutes) || sum(minutes, na.rm = TRUE) == 0) &&
+    (is.null(seconds) || sum(seconds, na.rm = TRUE) == 0)
+}
+
 #' @export
 update.Date <- function(object, ...) {
-  ct <- as_datetime(object, tz = "UTC")
-  new <- update.POSIXt(ct, ...)
-  ## fixme: figure out a way to avoid this, or write specialized update for Date
-  new_lt <- as.POSIXlt(new, tz = "UTC")
-  if (sum(c(new_lt$hour, new_lt$min, new_lt$sec), na.rm = TRUE)) {
-    new
-  } else {
-    make_date(new_lt$year + 1900, new_lt$mon + 1, new_lt$mday)
-  }
+  out <- update_datetime(object, ...)
+  ## lubridate's missing hms component checks for actual zeros. Not a great idea as the
+  ## return type is unpredictable but we are stuck with it.
+  if (is.POSIXct(out) && is_zero_hms(...))
+    as_date(out)
+  else
+    out
 }
 
 #' Fit a POSIXlt date-time to the timeline

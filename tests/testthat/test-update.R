@@ -6,7 +6,9 @@ test_that("update.Date returns a date object", {
   expect_s3_class(update(date, wdays = 1), "Date")
   expect_s3_class(update(date, months = 1), "Date")
   expect_s3_class(update(date, years = 2001), "Date")
-  expect_s3_class(update(date, tzs = "UTC"), "Date")
+  expect_s3_class(update(date, tzs = "UTC"), "POSIXct")
+  tz(date) <- "UTC"
+  expect_s3_class(date, "POSIXct")
 })
 
 test_that("update.Date returns a posix object if time is manipulated", {

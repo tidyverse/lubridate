@@ -1242,23 +1242,23 @@ test_that("year<- and month<- roll but produce NAs on invalid days",  {
 
   # update recycles instead of producing NAs
   expect_equal(
-    update(dd, month = 4, roll = FALSE),
+    update(dd, months = 4),
     ymd(c("2020-04-29", "2020-05-01")))
   expect_equal(
-    update(dd, day = 31, roll = FALSE),
+    update(dd, days = 31),
     ymd(c("2020-03-02", "2020-03-31")))
   expect_equal(
-    update(dd, month = 4, day = 32, roll = FALSE),
+    update(dd, months = 4, days = 32),
     ymd(c("2020-05-02", "2020-05-02")))
 
   expect_equal(
-    update(pp, month = 4, roll = FALSE),
+    update(pp, months = 4),
     ymd(c("2020-04-29", "2020-05-01"), tz = "America/New_York"))
   expect_equal(
-    update(pp, day = 31, roll = FALSE),
+    update(pp, days = 31),
     ymd(c("2020-03-02", "2020-03-31"), tz = "America/New_York"))
   expect_equal(
-    update(pp, month = 4, day = 32, roll = FALSE),
+    update(pp, months = 4, days = 32),
     ymd(c("2020-05-02", "2020-05-02"), tz = "America/New_York"))
 
 })

@@ -62,12 +62,12 @@ setMethod("year<-", signature("Interval"), function(x, value) {
 
 #' @export
 setMethod("year<-", "POSIXt", function(x, value) {
-  update.POSIXt(x, years = value)
+  update_datetime(x, years = value, roll_month = "NAym", roll_dst = "NA")
 })
 
 #' @export
 setMethod("year<-", "Date", function(x, value) {
-  update.Date(x, years = value)
+  update_datetime(x, years = value, roll_month = "NAym", roll_dst = "NA")
 })
 
 .other_year <- function(x, week_start = 1) {

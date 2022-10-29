@@ -161,12 +161,12 @@ setMethod("day<-", "Interval", function(x, value) {
 
 #' @export
 setMethod("day<-", "POSIXt", function(x, value) {
-  update.POSIXt(x, days = value)
+  update_datetime(x, days = value, roll_dst = "NA")
 })
 
 #' @export
 setMethod("day<-", "Date", function(x, value) {
-  update.Date(x, days = value)
+  update_datetime(x, days = value, roll_dst = "NA")
 })
 
 #' @rdname day
@@ -192,14 +192,14 @@ setGeneric("qday<-", useAsDefault = function(x, value) {
   week_start <- as_week_start(week_start)
   if (is.character(value)) {
     value <- as_week_start(value)
-    update(x, wdays = value, week_start = 1)
+    update(x, wdays = value, week_start = 1, roll = FALSE)
   } else {
-    x + days(value - wday(x, week_start = week_start))
+    update(x, wdays = value, week_start = week_start, roll = FALSE)
   }
 }
 
 #' @rdname day
 #' @export
 "yday<-" <- function(x, value) {
-  x <- x + days(value - yday(x))
+  update(x, ydays = value, roll = FALSE)
 }

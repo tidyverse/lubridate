@@ -358,12 +358,9 @@ test_that("addition with period months recycles correctly", {
   expect_identical(x + period, x_expect)
   expect_identical(y + period, y_expect)
 
-  # TODO: Should be an error, see #1070
   period <- months(integer())
-  x_expect <- x
-  y_expect <- y
-  expect_identical(x + period, x_expect)
-  expect_identical(y + period, y_expect)
+  expect_error(x + period)
+  expect_error(y + period)
 
   # TODO: Should be an error, see #1070
   period <- months(1:3)

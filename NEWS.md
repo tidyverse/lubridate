@@ -30,9 +30,11 @@ Version 1.8.0.9000
 * [#1013](https://github.com/tidyverse/lubridate/issues/1013) Fix c(`POSIXct`,`POSIXlt`) heterogeneous concatenation.
 * [#1002](https://github.com/tidyverse/lubridate/issues/1002) Parsing only with format `j` now works on numeric inputs.
 * `stamp()` now correctly errors when no formats could be guessed.
+* Updating a date with timezone (e.g. `tzs = "UTC"`) now returns a POSIXct.
 
 ### INTERNALS
 
+* `lubridate`'s updating logic is now built on top of `timechange` package.
 * Change implementation of `c.Period`, `c.Duration` and `c.Interval` from S4 to S3.
 
 Version 1.8.0
