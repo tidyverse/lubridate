@@ -31,7 +31,7 @@ URL: https://lubridate.tidyverse.org,
 BugReports: https://github.com/tidyverse/lubridate/issues
 Depends:
     methods,
-    timechange (>= 0.0.3)
+    timechange (>= 0.0.3),
     R (>= 3.2)
 Imports:
     generics

@@ -138,7 +138,7 @@ yday.default <- function(x) {
 setGeneric("day<-",
   function (x, value) standardGeneric("day<-"),
   useAsDefault = function(x, value) {
-    y <- update_date_time(as.POSIXct(x), days = value)
+    y <- update_datetime(as.POSIXct(x), days = value)
     reclass_date(y, x)
   }
 )
@@ -192,14 +192,14 @@ setGeneric("qday<-", useAsDefault = function(x, value) {
   week_start <- as_week_start(week_start)
   if (is.character(value)) {
     value <- as_week_start(value)
-    update(x, wdays = value, week_start = 1, roll = FALSE)
+    update(x, wdays = value, week_start = 1)
   } else {
-    update(x, wdays = value, week_start = week_start, roll = FALSE)
+    update(x, wdays = value, week_start = week_start)
   }
 }
 
 #' @rdname day
 #' @export
 "yday<-" <- function(x, value) {
-  update(x, ydays = value, roll = FALSE)
+  update(x, ydays = value)
 }

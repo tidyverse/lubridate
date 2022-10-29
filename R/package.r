@@ -157,7 +157,7 @@
 #' @importFrom methods setClass setGeneric new show allNames callGeneric is slot slot<- slotNames validObject Compare Arith initialize coerce<-
 #' @importFrom utils packageVersion read.delim
 #' @importFrom stats na.omit setNames update
-#' @importFrom timechange time_update time_add time_get
+#' @importFrom timechange time_update time_add time_get time_force_tz
 #' @useDynLib lubridate, .registration=TRUE
 #' @keywords internal
 "_PACKAGE"

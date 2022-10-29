@@ -95,7 +95,7 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
     } else if (is.Date(time)) {
       cpp_force_tz(date_to_posix(time), tz = tzone, roll)
     } else {
-      out <- cpp_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll)
+      out <- cpp_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll = roll)
       reclass_date(out, time)
     }
   }

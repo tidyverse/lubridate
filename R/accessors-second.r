@@ -36,7 +36,7 @@ second.Period <- function(x) {
 setGeneric("second<-",
   function (x, value) standardGeneric("second<-"),
   useAsDefault = function(x, value) {
-    y <- update_date_time(as.POSIXct(x), seconds = value)
+    y <- update_datetime(as.POSIXct(x), seconds = value)
     reclass_date(y, x)
   }
 )

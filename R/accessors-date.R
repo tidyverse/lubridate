@@ -53,8 +53,7 @@ date.Period <- function(x) {
   update(x,
     years = year(value),
     months = month(value),
-    days = day(value),
-    roll = FALSE)
+    days = day(value))
 }
 
 setGeneric("date<-")

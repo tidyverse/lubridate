@@ -8,21 +8,18 @@
 #'
 #' @name DateTimeUpdate
 #' @param object a date-time object
-#' @param ... named arguments: years, months, ydays, wdays, mdays,
-#'   days, hours, minutes, seconds, tzs (time zone component)
-#' @param roll logical. If `TRUE`, and the resulting date-time lands
-#'   on a non-existent civil time instant (DST, 29th February, etc.)
-#'   roll the date till next valid point. When `FALSE`, the default,
-#'   produce NA for non existing date-times.
-#' @param week_start week start day (Default is 7, Sunday. Set
-#'   `lubridate.week.start` to override). Full or abbreviated names of
-#'   the days of the week can be in English or as provided by the
-#'   current locale.
+#' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours, minutes,
+#'   seconds, tzs (time zone component)
+#' @param roll logical. If `TRUE`, and the resulting date-time lands on a non-existent
+#'   DST civil time instant roll the date till next valid point. When `FALSE`, the
+#'   default, produce NA for non existing date-times.
+#' @param week_start week start day (Default is 7, Sunday. Set `lubridate.week.start` to
+#'   override). Full or abbreviated names of the days of the week can be in English or
+#'   as provided by the current locale.
 #' @param simple logical. Deprecated. Same as `roll`.
-#' @return a date object with the requested elements updated. The
-#'   object will retain its original class unless an element is
-#'   updated which the original class does not support. In this case,
-#'   the date returned will be a POSIXlt date object.
+#' @return a date object with the requested elements updated. The object will retain its
+#'   original class unless an element is updated which the original class does not
+#'   support. In this case, the date returned will be a POSIXlt date object.
 #' @keywords manip chron
 #' @examples
 #' date <- ymd("2009-02-10")
@@ -59,45 +56,6 @@ update_datetime <- function(object, years = NULL, months = NULL,
     week_start = as_week_start(week_start),
     exact = exact
   )
-}
-
-
-update_date_time <- function(object, years = integer(), months = integer(),
-                             days = integer(), mdays = integer(), ydays = integer(), wdays = integer(),
-                             hours = integer(), minutes = integer(), seconds = double(), tzs = NULL,
-                             roll = FALSE, week_start = 7) {
-  if (!length(object)) {
-    return(object)
-  }
-
-  if (length(days) > 0) mdays <- days
-  updates <- list(
-    year = years, month = months,
-    yday = ydays, mday = mdays, wday = wdays,
-    hour = hours, minute = minutes, second = seconds
-  )
-  maxlen <- max(unlist(lapply(updates, length)))
-
-  if (maxlen > 1) {
-    for (nm in names(updates)) {
-      len <- length(updates[[nm]])
-      ## len == 1 is treated at C_level
-      if (len != maxlen && len > 1) {
-        updates[[nm]] <- rep_len(updates[[nm]], maxlen)
-      }
-    }
-  }
-
-  if (is.null(tzs)) {
-    tzs <- tz(object)
-  }
-
-  ## todo: check if the following lines make any unnecessary copies
-  updates[["dt"]] <- as.POSIXct(object)
-  updates[["roll"]] <- roll
-  updates[["tz"]] <- tzs
-  updates[["week_start"]] <- as_week_start(week_start)
-  reclass_date(do.call(cpp_update_dt, updates), object)
 }
 
 as_week_start <- function(x) {

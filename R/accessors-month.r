@@ -79,7 +79,7 @@ as_month <- function(value) {
 setGeneric("month<-",
   function (x, value) standardGeneric("month<-"),
   useAsDefault = function(x, value) {
-    y <- update_date_time(as.POSIXct(x), months = value)
+    y <- update_datetime(as.POSIXct(x), months = value)
     reclass_date(y, x)
   }
 )

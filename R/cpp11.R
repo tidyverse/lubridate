@@ -8,10 +8,6 @@ C_valid_tz <- function(tz_name) {
   .Call(`_lubridate_C_valid_tz`, tz_name)
 }
 
-C_update_dt <- function(dt, year, month, yday, mday, wday, hour, minute, second, tz, roll, week_start) {
-  .Call(`_lubridate_C_update_dt`, dt, year, month, yday, mday, wday, hour, minute, second, tz, roll, week_start)
-}
-
 C_force_tz <- function(dt, tz, roll) {
   .Call(`_lubridate_C_force_tz`, dt, tz, roll)
 }

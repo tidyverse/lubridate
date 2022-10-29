@@ -37,7 +37,7 @@ hour.Period <- function(x) {
 setGeneric("hour<-",
   function (x, value) standardGeneric("hour<-"),
   useAsDefault = function(x, value) {
-    y <- update_date_time(as.POSIXct(x), hours = value)
+    y <- update_datetime(as.POSIXct(x), hours = value)
     reclass_date(y, x)
   }
 )

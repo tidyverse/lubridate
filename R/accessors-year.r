@@ -39,7 +39,7 @@ year.Period <- function(x) {
 setGeneric("year<-",
   function (x, value) standardGeneric("year<-"),
   useAsDefault = function(x, value) {
-    y <- update_date_time(as.POSIXct(x), years = value)
+    y <- update_datetime(as.POSIXct(x), years = value)
     reclass_date(y, x)
   }
 )

@@ -16,26 +16,23 @@
 \arguments{
 \item{object}{a date-time object}
 
-\item{...}{named arguments: years, months, ydays, wdays, mdays,
-days, hours, minutes, seconds, tzs (time zone component)}
+\item{...}{named arguments: years, months, ydays, wdays, mdays, days, hours, minutes,
+seconds, tzs (time zone component)}
 
-\item{roll}{logical. If \code{TRUE}, and the resulting date-time lands
-on a non-existent civil time instant (DST, 29th February, etc.)
-roll the date till next valid point. When \code{FALSE}, the default,
-produce NA for non existing date-times.}
+\item{roll}{logical. If \code{TRUE}, and the resulting date-time lands on a non-existent
+DST civil time instant roll the date till next valid point. When \code{FALSE}, the
+default, produce NA for non existing date-times.}
 
-\item{week_start}{week start day (Default is 7, Sunday. Set
-\code{lubridate.week.start} to override). Full or abbreviated names of
-the days of the week can be in English or as provided by the
-current locale.}
+\item{week_start}{week start day (Default is 7, Sunday. Set \code{lubridate.week.start} to
+override). Full or abbreviated names of the days of the week can be in English or
+as provided by the current locale.}
 
 \item{simple}{logical. Deprecated. Same as \code{roll}.}
 }
 \value{
-a date object with the requested elements updated. The
-object will retain its original class unless an element is
-updated which the original class does not support. In this case,
-the date returned will be a POSIXlt date object.
+a date object with the requested elements updated. The object will retain its
+original class unless an element is updated which the original class does not
+support. In this case, the date returned will be a POSIXlt date object.
 }
 \description{
 \code{update.Date()} and \code{update.POSIXt()} return a date with the specified
