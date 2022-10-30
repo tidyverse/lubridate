@@ -3,6 +3,7 @@ Version 1.8.0.9000
 
 ### NEW FEATURES
 
+* `roll` argument to updating and time-zone manipulation functions is deprecated in favor of a new `roll_dst` parameter.
 * [#1042](https://github.com/tidyverse/lubridate/issues/1042) `as_date` with character inputs accepts multiple formats in `format` argument. When `format` is supplied, the input string is parsed with `parse_date_time` instead of the old `strptime`.
 * [#1055](https://github.com/tidyverse/lubridate/issues/1055) Implement `as.integer` method for Duration, Period and Interval classes.
 * [#1061](https://github.com/tidyverse/lubridate/issues/1061) Make `year<-`, `month<-` etc. accessors truly generic. In order to make them work with arbitrary class XYZ, it's enough to define a `reclass_date.XYZ` method.
@@ -34,6 +35,7 @@ Version 1.8.0.9000
 
 ### INTERNALS
 
+* `lubridate` is now relying on `timechange` package for update and time-zone computation. Google's CCTZ code is no longer part of the package.
 * `lubridate`'s updating logic is now built on top of `timechange` package.
 * Change implementation of `c.Period`, `c.Duration` and `c.Interval` from S4 to S3.
 

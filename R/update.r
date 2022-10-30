@@ -10,16 +10,14 @@
 #' @param object a date-time object
 #' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours, minutes,
 #'   seconds, tzs (time zone component)
-#' @param roll logical. If `TRUE`, and the resulting date-time lands on a non-existent
-#'   DST civil time instant roll the date till next valid point. When `FALSE`, the
-#'   default, produce NA for non existing date-times.
 #' @param week_start week start day (Default is 7, Sunday. Set `lubridate.week.start` to
 #'   override). Full or abbreviated names of the days of the week can be in English or
 #'   as provided by the current locale.
-#' @param simple logical. Deprecated. Same as `roll`.
+#' @param simple,roll deprecated
 #' @return a date object with the requested elements updated. The object will retain its
 #'   original class unless an element is updated which the original class does not
 #'   support. In this case, the date returned will be a POSIXlt date object.
+#' @inheritParams timechange::time_add
 #' @keywords manip chron
 #' @examples
 #' date <- ymd("2009-02-10")
@@ -29,12 +27,13 @@
 #'
 #' update(date, minute = 10, second = 3)
 #' @export
-update.POSIXt <- function(object, ..., roll = FALSE,
+update.POSIXt <- function(object, ...,
+                          roll_dst = c("NA", "post"),
                           week_start = getOption("lubridate.week.start", 7),
-                          simple = NULL) {
+                          roll = NULL, simple = NULL) {
   if (!is.null(simple)) roll <- simple
   do.call(update_datetime, c(
-    list(object, week_start = week_start, roll = roll),
+    list(object, week_start = week_start, roll_dst = roll_dst, roll = roll),
     list(...)
   ))
 }
@@ -43,9 +42,10 @@ update_datetime <- function(object, years = NULL, months = NULL,
                             days = NULL, mdays = NULL, ydays = NULL, wdays = NULL,
                             hours = NULL, minutes = NULL, seconds = NULL, tzs = NULL,
                             roll_month = "full",
-                            roll_dst = c("pre", "NA"),
-                            roll = FALSE,
-                            week_start = 7, exact = FALSE) {
+                            roll_dst = c("NA", "post"),
+                            roll = NULL,
+                            week_start = 7,
+                            exact = FALSE) {
   roll_dst <- normalize_roll_dst(roll_dst, roll, 1)
   week_start <- as_week_start(week_start)
 

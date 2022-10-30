@@ -8,8 +8,9 @@
 \method{update}{POSIXt}(
   object,
   ...,
-  roll = FALSE,
+  roll_dst = c("boundary", "NA"),
   week_start = getOption("lubridate.week.start", 7),
+  roll = NULL,
   simple = NULL
 )
 }
@@ -19,15 +20,25 @@
 \item{...}{named arguments: years, months, ydays, wdays, mdays, days, hours, minutes,
 seconds, tzs (time zone component)}
 
-\item{roll}{logical. If \code{TRUE}, and the resulting date-time lands on a non-existent
-DST civil time instant roll the date till next valid point. When \code{FALSE}, the
-default, produce NA for non existing date-times.}
+\item{roll_dst}{is a string vector of length one or two. When two values are
+supplied they specify how to roll date-times when they fall into "skipped" and
+"repeated" DST transitions respectively. Singleton strings is replicated to the
+length of two. Possible values are:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* `pre` - Use the time before the transition boundary.
+* `boundary` - Use the time exactly at the boundary transition.
+* `post` - Use the time after the boundary transition.
+* `NA` - Produce NAs when the resulting time falls inside the problematic interval.
+}\if{html}{\out{</div>}}
+
+For example `roll_dst = c("pre", "NA") indicates that for repeated intervals
+return the time in the earlier interval and for skipped intervals return NA.}
 
 \item{week_start}{week start day (Default is 7, Sunday. Set \code{lubridate.week.start} to
 override). Full or abbreviated names of the days of the week can be in English or
 as provided by the current locale.}
 
-\item{simple}{logical. Deprecated. Same as \code{roll}.}
+\item{simple, roll}{deprecated}
 }
 \value{
 a date object with the requested elements updated. The object will retain its

@@ -39,7 +39,7 @@ year.Period <- function(x) {
 setGeneric("year<-",
   function (x, value) standardGeneric("year<-"),
   useAsDefault = function(x, value) {
-    y <- update_datetime(as.POSIXct(x), years = value)
+    y <- update_datetime(as.POSIXct(x), years = value, roll_month = "NAym")
     reclass_date(y, x)
   }
 )
@@ -62,12 +62,12 @@ setMethod("year<-", signature("Interval"), function(x, value) {
 
 #' @export
 setMethod("year<-", "POSIXt", function(x, value) {
-  update_datetime(x, years = value, roll_month = "NAym", roll_dst = "NA")
+  update_datetime(x, years = value, roll_month = "NAym")
 })
 
 #' @export
 setMethod("year<-", "Date", function(x, value) {
-  update_datetime(x, years = value, roll_month = "NAym", roll_dst = "NA")
+  update_datetime(x, years = value, roll_month = "NAym")
 })
 
 .other_year <- function(x, week_start = 1) {

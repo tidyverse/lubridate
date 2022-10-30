@@ -79,7 +79,7 @@ as_month <- function(value) {
 setGeneric("month<-",
   function (x, value) standardGeneric("month<-"),
   useAsDefault = function(x, value) {
-    y <- update_datetime(as.POSIXct(x), months = value)
+    y <- update_datetime(as.POSIXct(x), months = value, roll_month = "NAym")
     reclass_date(y, x)
   }
 )
@@ -102,12 +102,12 @@ setMethod("month<-", "Interval", function(x, value) {
 
 #' @export
 setMethod("month<-", "POSIXt", function(x, value) {
-  update_datetime(x, months = value, roll_month = "NAym", roll_dst = "NA")
+  update_datetime(x, months = value, roll_month = "NAym")
 })
 
 #' @export
 setMethod("month<-", "Date", function(x, value) {
-  update_datetime(x, months = value, roll_month = "NAym", roll_dst = "NA")
+  update_datetime(x, months = value, roll_month = "NAym")
 })
 
 #' Get the number of days in the month of a date-time

@@ -161,12 +161,12 @@ setMethod("day<-", "Interval", function(x, value) {
 
 #' @export
 setMethod("day<-", "POSIXt", function(x, value) {
-  update_datetime(x, days = value, roll_dst = "NA")
+  update_datetime(x, days = value)
 })
 
 #' @export
 setMethod("day<-", "Date", function(x, value) {
-  update_datetime(x, days = value, roll_dst = "NA")
+  update_datetime(x, days = value)
 })
 
 #' @rdname day

@@ -116,6 +116,17 @@ test_that("force_tz works within repeated DST", {
   ## "2014-11-02 00:00:00 CST"
   ch <- ymd_hms("2014-11-02 00:00:00", tz = "America/Chicago")
   eu <- ymd_hms("2014-11-02 00:00:00", tz = "Europe/Berlin")
+
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "pre"),
+    ch + dminutes(95))
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "post"),
+    ch + dminutes(155))
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "boundary"),
+    ch + dminutes(120))
+
   expect_equal(
     force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "post"),
     ch + dminutes(155))
@@ -135,9 +146,18 @@ test_that("force_tz works within repeated DST", {
   expect_equal(
     force_tz(ch + dminutes(95), "Europe/Berlin", roll_dst = "boundary"),
     eu + dminutes(95))
+
+  ## default roll_dst is "post"
   expect_equal(
-    force_tz(ch + dminutes(155), "Europe/Berlin", roll_dst = "post"),
+    force_tz(eu + dminutes(95), "America/Chicago"),
+    ch + dminutes(155))
+  expect_equal(
+    force_tz(ch + dminutes(95), "Europe/Berlin"),
     eu + dminutes(95))
+  expect_equal(
+    force_tz(ch + dminutes(155), "Europe/Berlin"),
+    eu + dminutes(95))
+
 })
 
 # local_time --------------------------------------------------------------

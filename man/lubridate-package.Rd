@@ -210,7 +210,6 @@ Other contributors:
   \item Joseph Larmarange [contributor]
   \item Jonathan Boiser [contributor]
   \item Chel Hee Lee [contributor]
-  \item Google Inc. [contributor, copyright holder]
 }
 
 }

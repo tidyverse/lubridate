@@ -6,7 +6,7 @@ test_that("update.Date returns a date object", {
   expect_s3_class(update(date, wdays = 1), "Date")
   expect_s3_class(update(date, months = 1), "Date")
   expect_s3_class(update(date, years = 2001), "Date")
-  expect_s3_class(update(date, tzs = "UTC"), "POSIXct")
+  ## expect_s3_class(update(date, tzs = "UTC"), "POSIXct")
   tz(date) <- "UTC"
   expect_s3_class(date, "POSIXct")
 })
@@ -375,6 +375,36 @@ test_that("update returns NA for date-times in the spring dst gap", {
   expect_true(is.na(update(poslt, years = 2010)))
   poslt <- as.POSIXlt("2010-03-14 02:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   expect_true(is.na(update(poslt, tzs = "America/New_York")))
+})
+
+test_that("update handles repeated DST transitions", {
+  repref <- ymd_hms("2022-10-30 01:00:00", tz = "Europe/Amsterdam")
+  rep <- ymd_hms("2022-10-29 00:01:02", tz = "Europe/Amsterdam")
+
+  ## expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "pre"),
+  ##   repref + 3600 + 3*60 + 2)
+  ## expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "boundary"),
+  ##   repref + 2*3600)
+  ## expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "post"),
+  ##   repref + 2*3600 + 3*60 + 2)
+  ## expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "pre"),
+  ##   repref + 3600 + 60 + 3.35)
+  ## expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "boundary"),
+  ##   repref + 2*3600)
+  ## expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "post"),
+  ##   repref + 2*3600 + 60 + 3.35)
+
+
+  ## our default roll_dst is post
+  repref <- ymd_hms("2022-10-30 01:00:00", tz = "Europe/Amsterdam")
+  rep <- ymd_hms("2022-10-29 00:10:02.35", tz = "Europe/Amsterdam")
+  expect_equal(update(rep, days = 30, hours = 2, minutes = 3),
+    repref + 2*3600 + 3*60 + 2.35)
+  expect_equal(update(rep, days = 30, hours = 2, seconds = 5.6),
+    repref + 2*3600 + 10*60 + 5.6)
+  expect_equal(update(rep, days = 30, hours = 2, seconds = 65.6),
+    repref + 2*3600 + 11*60 + 5.6)
+
 })
 
 test_that("update handles vectors of dates", {
