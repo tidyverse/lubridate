@@ -43,9 +43,10 @@ update_datetime <- function(object, years = NULL, months = NULL,
                             days = NULL, mdays = NULL, ydays = NULL, wdays = NULL,
                             hours = NULL, minutes = NULL, seconds = NULL, tzs = NULL,
                             roll_month = "full",
-                            roll_dst = if (roll) "full" else "NA",
+                            roll_dst = c("pre", "NA"),
                             roll = FALSE,
                             week_start = 7, exact = FALSE) {
+  roll_dst <- normalize_roll_dst(roll_dst, roll, 1)
   week_start <- as_week_start(week_start)
 
   timechange::time_update(object,

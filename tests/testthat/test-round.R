@@ -586,6 +586,7 @@ test_that("round_date behaves correctly on 60th second", {
 })
 
 test_that("round_date and ceiling_date skip day time gap", {
+
   ##  (#240)
   tz <- "Europe/Amsterdam"
   times <- ymd_hms("2013-03-31 01:00:00 CET", "2013-03-31 01:15:00 CEST",
@@ -631,9 +632,31 @@ test_that("round_date and ceiling_date skip day time gap", {
   tz = tz
   )
 
+  ## ymd_hms("2014-11-02 01:35:00", tz = tz)
   ## force_tz(ymd_hms("2014-11-02 01:35:00"), tzone = "America/Chicago")
   ## round_date(ymd_hms("2014-11-02 01:35:00", tz = "America/Chicago"), "hour")
   expect_equal(round_date(x, "hour"), y)
+
+
+})
+
+test_that("rounding works within repeated DST", {
+  ## "2014-11-02 01:00:00 CST"
+  ref <- ymd_hms("2014-11-02 01:00:00", tz = "America/Chicago")
+  expect_equal(round_date(ref + dminutes(25), "hour"), ref)
+  expect_equal(round_date(ref + dminutes(35), "hour"), ref + dhours(1))
+  expect_equal(round_date(ref + dhours(1) + dminutes(20), "hour"), ref + dhours(1))
+  expect_equal(round_date(ref + dhours(1) + dminutes(35), "hour"), ref + dhours(2))
+  expect_equal(round_date(ref + dhours(1) + dminutes(35), "hour"), ref + dhours(2))
+
+  expect_equal(
+    round_date(ref + dminutes(35) + dseconds(20), "minute"),
+    ref + dminutes(35))
+
+  expect_equal(
+    round_date(ref + dminutes(35) + dseconds(35), "minute"),
+    ref + dminutes(36))
+
 })
 
 test_that("ceiling_date, round_date and floor_date behave correctly with NA", {

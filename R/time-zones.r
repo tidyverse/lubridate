@@ -20,7 +20,7 @@
 #' with_tz(x, "GMT")
 #' @export
 with_tz <- function(time, tzone = "") {
-  if (!C_valid_tz(tzone)) {
+  if (!timechange:::C_valid_tz(tzone)) {
     warning(sprintf("Unrecognized time zone '%s'", tzone))
   }
   if (is.data.frame(time)) {
@@ -64,11 +64,11 @@ with_tz <- function(time, tzone = "") {
 #' @param tzone a character string containing the time zone to convert to. R
 #'   must recognize the name contained in the string as a time zone on your
 #'   system.
-#' @param roll logical. If TRUE, and `time` falls into the DST-break, assume
-#'   the next valid civil time, otherwise return NA. See examples.
+#' @param roll deprecated, same as `roll_dst` parameter.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
 #' @seealso [with_tz()], [local_time()]
+#' @inheritParams timechange::time_add
 #' @examples
 #' x <- ymd_hms("2009-08-07 00:00:01", tz = "America/New_York")
 #' force_tz(x, "UTC")
@@ -80,7 +80,7 @@ with_tz <- function(time, tzone = "") {
 #' force_tz(y, "America/New_York", roll = FALSE)
 #' force_tz(y, "America/New_York", roll = TRUE)
 #' @export
-force_tz <- function(time, tzone = "", roll = FALSE) {
+force_tz <- function(time, tzone = "", roll_dst = c("NA", "post"), roll = NULL) {
   tzone <- as.character(tzone)
   if (is.data.frame(time)) {
     for (nm in names(time)) {
@@ -90,12 +90,13 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
     }
     time
   } else {
+    roll_dst <- normalize_roll_dst(roll_dst, roll)
     if (is.POSIXct(time)) {
-      cpp_force_tz(time, tz = tzone, roll)
+      timechange::time_force_tz(time, tz = tzone, roll_dst = roll_dst)
     } else if (is.Date(time)) {
-      cpp_force_tz(date_to_posix(time), tz = tzone, roll)
+      timechange::time_force_tz(date_to_posix(time), tz = tzone, roll_dst = roll_dst)
     } else {
-      out <- cpp_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll = roll)
+      out <- timechange::time_force_tz(as.POSIXct(time, tz = tz(time)), tz = tzone, roll_dst = roll_dst)
       reclass_date(out, time)
     }
   }
@@ -117,7 +118,7 @@ force_tz <- function(time, tzone = "", roll = FALSE) {
 #' x <- ymd_hms("2009-08-07 00:00:01")
 #' force_tzs(x, tzones = c("America/New_York", "Europe/Amsterdam"))
 #' @export
-force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
+force_tzs <- function(time, tzones, tzone_out = "UTC", roll_dst = c("NA", "post"), roll = NULL) {
   if (length(tzones) < length(time)) {
     tzones <- rep_len(tzones, length(time))
   } else if (length(tzones) > length(time)) {
@@ -125,7 +126,8 @@ force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
     time <- rep_len(time, length(tzones))
     attributes(time) <- attr
   }
-  out <- cpp_force_tzs(as.POSIXct(time), tzones, tzone_out, roll)
+  roll_dst <- normalize_roll_dst(roll_dst, roll)
+  out <- timechange::time_force_tz(as.POSIXct(time), tzones, tzone_out, roll_dst)
   reclass_date(out, time)
 }
 
@@ -150,18 +152,5 @@ force_tzs <- function(time, tzones, tzone_out = "UTC", roll = FALSE) {
 #' local_time(x, c("America/New_York", "Europe/Amsterdam", "Asia/Shanghai"), unit = "hours")
 #' @export
 local_time <- function(dt, tz = NULL, units = "secs") {
-  if (is.null(tz)) {
-    tz <- tz(dt)
-  }
-  if (length(tz) < length(dt)) {
-    tz <- rep_len(tz, length(dt))
-  } else if (length(tz) > length(dt)) {
-    attr <- attributes(dt)
-    dt <- rep_len(dt, length(tz))
-    attributes(dt) <- attr
-  }
-  secs <- cpp_local_time(as.POSIXct(dt), tz)
-  out <- structure(secs, units = "secs", class = "difftime")
-  units(out) <- units
-  out
+  timechange::time_clock_at_tz(dt, tz, units)
 }

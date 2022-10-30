@@ -47,8 +47,6 @@ Enhances:
     timeDate,
     tis,
     zoo
-LinkingTo:
-    cpp11 (>= 0.2.7)
 VignetteBuilder:
     knitr
 Config/Needs/website: tidyverse/tidytemplate
@@ -85,8 +83,6 @@ Collate:
     'numeric.r'
     'coercion.r'
     'constants.r'
-    'cpp11-wrappers.R'
-    'cpp11.R'
     'cyclic_encoding.r'
     'data.r'
     'decimal-dates.r'
