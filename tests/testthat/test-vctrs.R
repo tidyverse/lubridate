@@ -143,6 +143,13 @@ test_that("can combine Period objects", {
   expect_identical(vec_c(days(1), days(2)), days(1:2))
 })
 
+test_that("can combine Period objects when some are named (#1072)", {
+  skip_if_cant_set_s4_names()
+  x <- days(1)
+  y <- stats::setNames(days(2), "y")
+  expect_named(vec_c(x, y), c("", "y"))
+})
+
 test_that("can row bind Period objects", {
   skip_if_cant_set_s4_names()
   x <- stats::setNames(days(1), "x")
@@ -283,6 +290,13 @@ test_that("slicing preserves names", {
 
 test_that("can combine Duration objects", {
   expect_identical(vec_c(ddays(1), ddays(2)), ddays(1:2))
+})
+
+test_that("can combine Duration objects when some are named (#1072)", {
+  skip_if_cant_set_s4_names()
+  x <- ddays(1)
+  y <- stats::setNames(ddays(2), "y")
+  expect_named(vec_c(x, y), c("", "y"))
 })
 
 test_that("can row bind Duration objects", {
@@ -469,6 +483,13 @@ test_that("can combine Interval objects", {
   y <- interval("1970-01-02")
   expect <- interval(c("1970-01-01", "1970-01-02"))
   expect_identical(vec_c(x, y), expect)
+})
+
+test_that("can combine Interval objects when some are named (#1072)", {
+  skip_if_cant_set_s4_names()
+  x <- interval("1970-01-01")
+  y <- stats::setNames(interval("1970-01-02"), "y")
+  expect_named(vec_c(x, y), c("", "y"))
 })
 
 test_that("can row bind Interval objects", {
