@@ -17,26 +17,24 @@ new_empty_interval <- function(tzone) {
 
 # Method registered in `.onLoad()`
 vec_proxy.Period <- function(x, ...) {
-  out <- vec_proxy_period(x)
+  out <- list(
+    year = x@year,
+    month = x@month,
+    day = x@day,
+    hour = x@hour,
+    minute = x@minute,
+    second = x@.Data
+  )
 
-  # Track vector names as an extra column since data frame
-  # row names must be unique
+  # Push names onto the `second` column (i.e. `.Data`) so they get sliced and restored
   names <- names(x)
   if (!is.null(names)) {
-    out[["rcrd_names"]] <- names
+    names(out$second) <- names
   }
 
-  out
-}
+  n <- length(out$year)
 
-# Method registered in `.onLoad()`
-vec_proxy_compare.Period <- function(x, ...) {
-  vec_proxy_period(x)
-}
-
-# Method registered in `.onLoad()`
-vec_proxy_equal.Period <- function(x, ...) {
-  vec_proxy_period(x)
+  vctrs::new_data_frame(out, n = n)
 }
 
 # Method registered in `.onLoad()`
@@ -50,27 +48,12 @@ vec_restore.Period <- function(x, to, ...) {
     second = x$second
   )
 
-  names <- x$rcrd_names
+  names <- names(x$second)
   if (!is.null(names)) {
     names(out) <- names
   }
 
   out
-}
-
-vec_proxy_period <- function(x) {
-  cols <- list(
-    year = x@year,
-    month = x@month,
-    day = x@day,
-    hour = x@hour,
-    minute = x@minute,
-    second = x@.Data
-  )
-
-  n <- length(x@year)
-
-  vctrs::new_data_frame(cols, n = n)
 }
 
 # ------------------------------------------------------------------------------
@@ -94,30 +77,26 @@ vec_cast.Period.Period <- function(x, to, ...) {
 
 # Method registered in `.onLoad()`
 vec_proxy.Duration <- function(x, ...) {
-  out <- vec_proxy_duration(x)
-  names(out) <- names(x)
+  out <- x@.Data
+
+  names <- names(x)
+  if (!is.null(names)) {
+    names(out) <- names
+  }
+
   out
-}
-
-# Method registered in `.onLoad()`
-vec_proxy_compare.Duration <- function(x, ...) {
-  vec_proxy_duration(x)
-}
-
-# Method registered in `.onLoad()`
-vec_proxy_equal.Duration <- function(x, ...) {
-  vec_proxy_duration(x)
 }
 
 # Method registered in `.onLoad()`
 vec_restore.Duration <- function(x, to, ...) {
   out <- duration(x, units = "seconds")
-  names(out) <- names(x)
-  out
-}
 
-vec_proxy_duration <- function(x) {
-  x@.Data
+  names <- names(x)
+  if (!is.null(names)) {
+    names(out) <- names
+  }
+
+  out
 }
 
 # ------------------------------------------------------------------------------
@@ -161,64 +140,39 @@ vec_cast.difftime.Duration <- function(x, to, ...) {
 
 # Method registered in `.onLoad()`
 vec_proxy.Interval <- function(x, ...) {
-  out <- vec_proxy_interval(x, vctrs::vec_proxy)
+  # Ordered in such a way that the start date controls interval ordering.
+  # Ties in the start date are resolved by placing shorter intervals first.
+  out <- list(
+    start = x@start,
+    span = x@.Data
+  )
 
-  # Track vector names as an extra column since data frame
-  # row names must be unique
+  # Push names onto the `span` column (i.e. `.Data`) so they get sliced and restored
   names <- names(x)
   if (!is.null(names)) {
-    out[["rcrd_names"]] <- names
+    names(out$span) <- names
   }
 
-  out
-}
+  n <- length(out$start)
 
-# Method registered in `.onLoad()`
-vec_proxy_compare.Interval <- function(x, ...) {
-  vec_proxy_interval(x, vctrs::vec_proxy_compare)
-}
-
-# Method registered in `.onLoad()`
-vec_proxy_equal.Interval <- function(x, ...) {
-  vec_proxy_interval(x, vctrs::vec_proxy_equal)
+  vctrs::new_data_frame(out, n = n)
 }
 
 # Method registered in `.onLoad()`
 vec_restore.Interval <- function(x, to, ...) {
-  tzone <- to@tzone
+  out <- new(
+    "Interval",
+    x$span,
+    start = x$start,
+    tzone = tz(x$start)
+  )
 
-  span <- x$span
-
-  start <- x$start
-  start <- vctrs::new_datetime(start, tzone = tzone)
-
-  out <- new("Interval", span, start = start, tzone = tzone)
-
-  names <- x$rcrd_names
+  names <- names(x$span)
   if (!is.null(names)) {
     names(out) <- names
   }
 
   out
-}
-
-vec_proxy_interval <- function(x, proxy_fn) {
-  start <- x@start
-  span <- x@.Data
-
-  # Proxy the underlying POSIXct as well
-  start <- proxy_fn(start)
-
-  # Ordered in such a way that the start date controls interval ordering.
-  # Ties in the start date are resolved by placing shorter intervals first.
-  cols <- list(
-    start = start,
-    span = span
-  )
-
-  n <- length(start)
-
-  vctrs::new_data_frame(cols, n = n)
 }
 
 # ------------------------------------------------------------------------------
