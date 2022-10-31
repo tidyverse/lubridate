@@ -146,7 +146,7 @@ add_with_rollback <- function(e1, e2, roll_to_first = FALSE, preserve_hms = TRUE
   utc <- as.POSIXlt(force_tz(object, tzone = "UTC"))
   utc$mon <- utc$mon + mval
   utc <- as.POSIXct(utc)
-  new <- force_tz(utc, tzone = tzs, roll = TRUE)
+  new <- force_tz(utc, tzone = tzs, roll_dst = c("boundary", "post"))
   reclass_date(new, object)
 }
 

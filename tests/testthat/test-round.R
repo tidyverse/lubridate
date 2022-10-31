@@ -641,22 +641,19 @@ test_that("round_date and ceiling_date skip day time gap", {
 })
 
 test_that("rounding works within repeated DST", {
-  ## "2014-11-02 01:00:00 CST"
-  ref <- ymd_hms("2014-11-02 01:00:00", tz = "America/Chicago")
+  ## "2014-11-02 00:00:00 CDT"
+  ref <- ymd_hms("2014-11-02 00:00:00", tz = "America/Chicago")
+
   expect_equal(round_date(ref + dminutes(25), "hour"), ref)
   expect_equal(round_date(ref + dminutes(35), "hour"), ref + dhours(1))
-  expect_equal(round_date(ref + dhours(1) + dminutes(20), "hour"), ref + dhours(1))
+  expect_equal(round_date(ref + dhours(1) + dminutes(25), "hour"), ref + dhours(1))
   expect_equal(round_date(ref + dhours(1) + dminutes(35), "hour"), ref + dhours(2))
-  expect_equal(round_date(ref + dhours(1) + dminutes(35), "hour"), ref + dhours(2))
+  expect_equal(round_date(ref + dhours(2) + dminutes(20), "hour"), ref + dhours(2))
+  expect_equal(round_date(ref + dhours(2) + dminutes(35), "hour"), ref + dhours(3))
 
-  expect_equal(
-    round_date(ref + dminutes(35) + dseconds(20), "minute"),
-    ref + dminutes(35))
-
-  expect_equal(
-    round_date(ref + dminutes(35) + dseconds(35), "minute"),
-    ref + dminutes(36))
-
+  expect_equal(round_date(ref + duration("1H 35M 2S"), "minute"), ref + duration("1H 35M"))
+  expect_equal(round_date(ref + duration("1H 35M 35S"), "minute"), ref + duration("1H 36M"))
+  expect_equal(round_date(ref + duration("2H 35M 2S"), "minute"), ref + duration("2H 35M"))
 })
 
 test_that("ceiling_date, round_date and floor_date behave correctly with NA", {

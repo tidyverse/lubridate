@@ -8,7 +8,7 @@
 \method{update}{POSIXt}(
   object,
   ...,
-  roll_dst = c("boundary", "NA"),
+  roll_dst = c("NA", "post"),
   week_start = getOption("lubridate.week.start", 7),
   roll = NULL,
   simple = NULL

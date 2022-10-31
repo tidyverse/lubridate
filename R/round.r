@@ -303,6 +303,8 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
     change_on_boundary <- is.Date(x)
   }
 
+  roll_dst <- c("boundary", "pre")
+
   if (unit == "second") {
     new <- as_datetime(x, tz = tz(x))
     sec <- second(new)
@@ -313,7 +315,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
         csec[wsec] <- sec[wsec]
       }
     }
-    update(new, seconds = csec, roll = TRUE)
+    update(new, seconds = csec, roll_dst = roll_dst)
   } else if (unit %in% c("minute", "hour")) {
 
     ## as_datetime converts Date to POSIXct with tz=UTC
@@ -342,7 +344,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
       if (change_on_boundary) {
         xx
       } else {
-        update(xx, seconds = second(xx) - 0.00001, roll = TRUE)
+        update(xx, seconds = second(xx) - 0.00001, roll_dst = roll_dst)
       }
 
     if (unit %in% c("month", "bimonth", "quarter", "halfyear", "season")) {
@@ -358,8 +360,8 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_st
     }
 
     new <- switch(unit,
-      minute = update(new, minutes = ceil_multi_unit(minute(new), n), seconds = 0, roll = TRUE),
-      hour   = update(new, hours = ceil_multi_unit(hour(new), n), minutes = 0, seconds = 0, roll = TRUE),
+      minute = update(new, minutes = ceil_multi_unit(minute(new), n), seconds = 0, roll_dst = roll_dst),
+      hour   = update(new, hours = ceil_multi_unit(hour(new), n), minutes = 0, seconds = 0, roll_dst = roll_dst),
       day    = update(new, days = ceil_multi_unit1(day(new), n), hours = 0, minutes = 0, seconds = 0),
       week   = update(new, wdays = 8, hours = 0, minutes = 0, seconds = 0, week_start = week_start),
       month  = update(new, months = new_month, mdays = 1, hours = 0, minutes = 0, seconds = 0),
