@@ -46,66 +46,19 @@ add_period_to_period <- function(per2, per1) {
 }
 
 add_period_to_date <- function(per, date) {
-  lt <- as.POSIXlt(date)
-
-  ## add months and years with no backwards rollover
-  ms <- month(per) + year(per) * 12
-  lt <- add_months(lt, ms)
-
-  if (is.Date(date)) {
-    new <-
-      update.Date(as.Date(lt),
-        days = mday(lt) + per@day,
-        hours = per@hour,
-        minutes = per@minute,
-        seconds = per@.Data
-      )
-    return(new)
-  }
-
-  new <-
-    update.POSIXt(lt,
-      days = mday(lt) + per@day,
-      hours = hour(lt) + per@hour,
-      minutes = minute(lt) + per@minute,
-      seconds = second(lt) + per@.Data
-    )
-
-  reclass_date(new, date)
-}
-
-add_months <- function(mt, mos) {
-  nnas <- !is.na(mos)
-  if (all(mos[nnas] == 0L)) {
-    return(mt)
-  }
-
-  new_mon <- mt$mon + mos
-  new_length <- length(new_mon)
-
-  # "recycle" all fields of `mt` as needed according to base R rules.
-  # Partial recycling warning will be thrown on the `+` above.
-  # TODO: This should use tidyverse recycling rules (#1070).
-  if (new_length != length(mt$mon)) {
-    mt <- rep(mt, length.out = new_length)
-  }
-
-  if (anyNA(new_mon)) {
-    # Ensure missing value assignment propagates to all fields
-    mt[is.na(new_mon)] <- as.POSIXlt(NA, tz = tz(mt))
-  }
-
-  mt$mon <- new_mon
-
-  ndays <- as.numeric(format.POSIXlt(mt, "%d", usetz = FALSE))
-  invalid <- mt$mday != ndays
-
-  if (any(invalid, na.rm = TRUE)) {
-    # Ensure missing value assignment propagates to all fields
-    mt[invalid] <- as.POSIXlt(NA, tz = tz(mt))
-  }
-
-  mt
+  out <-
+    timechange::time_add(date,
+      years = per@year,
+      months = per@month,
+      days = per@day,
+      hours = per@hour,
+      minutes = per@minute,
+      seconds = per@.Data,
+      roll_month = "NA",
+      roll_dst = c("post", "pre"))
+  if (is.Date(date) && is_zero_hms(per@hour, per@minute, per@.Data))
+    out <- as_date(out)
+  out
 }
 
 add_number_to_duration <- function(num, dur) {

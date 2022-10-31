@@ -487,6 +487,17 @@ test_that("Updateing on seconds doesn't affect hours", {
   expect_equal(hour(tt), hour(tt2))
 })
 
+test_that("Subtracting months to March 1 produces correct results", {
+  ## #1037
+  time <- ymd("2022-04-01", tz = "America/New_York")
+  expect_equal(time - months(1), ymd("2022-03-01", tz = "America/New_York"))
+  time <- ymd("2021-04-01", tz = "America/New_York")
+  expect_equal(time - months(1), ymd("2021-03-01", tz = "America/New_York"))
+  time <- ymd("2022-05-01", tz = "America/New_York")
+  expect_equal(time - months(2), ymd("2022-03-01", tz = "America/New_York"))
+  time <- ymd_hms("2022-04-02 04:01:01", tz = "America/New_York")
+  expect_equal(time - period("1m 1d 4H 1M 1S"), ymd("2022-03-01", tz = "America/New_York"))
+})
 
 ## ## bug #319
 ## x <- structure(list(sec = 0, min = 0, hour = 0, mday = -212, mon = 7L,
