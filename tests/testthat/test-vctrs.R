@@ -45,24 +45,23 @@ test_that("proxy is a data frame", {
   expect_identical(vec_proxy(x), expect)
 })
 
-test_that("proxy can optionally store vector names in the last column (allowing duplicates)", {
+test_that("proxy stores names on the `$second` column (allowing duplicates)", {
   skip_if_cant_set_s4_names()
 
   x <- stats::setNames(days(1:3), c("x", "y", "x"))
 
   proxy <- vec_proxy(x)
 
-  expect_identical(proxy$rcrd_names, names(x))
-  expect_identical(match("rcrd_names", names(proxy)), ncol(proxy))
+  expect_named(proxy$second, names(x))
 })
 
-test_that("comparison / equality proxies don't have the names column", {
+test_that("comparison / equality proxies have the names too", {
   skip_if_cant_set_s4_names()
 
   x <- stats::setNames(days(1:3), c("x", "y", "x"))
 
-  expect_null(vec_proxy_compare(x)$rcrd_names)
-  expect_null(vec_proxy_equal(x)$rcrd_names)
+  expect_named(vec_proxy_compare(x)$second, names(x))
+  expect_named(vec_proxy_equal(x)$second, names(x))
 })
 
 test_that("restore method works", {
@@ -144,6 +143,13 @@ test_that("can combine Period objects", {
   expect_identical(vec_c(days(1), days(2)), days(1:2))
 })
 
+test_that("can combine Period objects when some are named (#1072)", {
+  skip_if_cant_set_s4_names()
+  x <- days(1)
+  y <- stats::setNames(days(2), "y")
+  expect_named(vec_c(x, y), c("", "y"))
+})
+
 test_that("can row bind Period objects", {
   skip_if_cant_set_s4_names()
   x <- stats::setNames(days(1), "x")
@@ -190,11 +196,11 @@ test_that("proxy stores the names", {
   expect_named(vec_proxy(x), c("x", "y", "x"))
 })
 
-test_that("comparison / equality proxies don't store names", {
+test_that("comparison / equality proxies store names too", {
   skip_if_cant_set_s4_names()
   x <- stats::setNames(ddays(1:3), c("x", "y", "x"))
-  expect_named(vec_proxy_compare(x), NULL)
-  expect_named(vec_proxy_equal(x), NULL)
+  expect_named(vec_proxy_compare(x), names(x))
+  expect_named(vec_proxy_equal(x), names(x))
 })
 
 test_that("restore method works", {
@@ -286,6 +292,13 @@ test_that("can combine Duration objects", {
   expect_identical(vec_c(ddays(1), ddays(2)), ddays(1:2))
 })
 
+test_that("can combine Duration objects when some are named (#1072)", {
+  skip_if_cant_set_s4_names()
+  x <- ddays(1)
+  y <- stats::setNames(ddays(2), "y")
+  expect_named(vec_c(x, y), c("", "y"))
+})
+
 test_that("can row bind Duration objects", {
   skip_if_cant_set_s4_names()
   x <- ddays(1)
@@ -326,7 +339,7 @@ test_that("proxy is a data frame", {
   expect_identical(vec_proxy(x), expect)
 })
 
-test_that("proxy can optionally store vector names in the last column (allowing duplicates)", {
+test_that("proxy stores names on the `$span` column (allowing duplicates)", {
   skip_if_cant_set_s4_names()
 
   x <- c("2019-01-01", "2019-01-02", "2019-01-03")
@@ -334,18 +347,17 @@ test_that("proxy can optionally store vector names in the last column (allowing 
 
   proxy <- vec_proxy(x)
 
-  expect_identical(proxy$rcrd_names, names(x))
-  expect_identical(match("rcrd_names", names(proxy)), ncol(proxy))
+  expect_named(proxy$span, names(x))
 })
 
-test_that("comparison / equality proxies don't have the names column", {
+test_that("comparison / equality proxies have the names too", {
   skip_if_cant_set_s4_names()
 
   x <- c("2019-01-01", "2019-01-02", "2019-01-03")
   x <- stats::setNames(interval(x), c("x", "y", "x"))
 
-  expect_null(vec_proxy_compare(x)$rcrd_names)
-  expect_null(vec_proxy_equal(x)$rcrd_names)
+  expect_named(vec_proxy_compare(x)$span, names(x))
+  expect_named(vec_proxy_equal(x)$span, names(x))
 })
 
 test_that("restore method works", {
@@ -471,6 +483,13 @@ test_that("can combine Interval objects", {
   y <- interval("1970-01-02")
   expect <- interval(c("1970-01-01", "1970-01-02"))
   expect_identical(vec_c(x, y), expect)
+})
+
+test_that("can combine Interval objects when some are named (#1072)", {
+  skip_if_cant_set_s4_names()
+  x <- interval("1970-01-01")
+  y <- stats::setNames(interval("1970-01-02"), "y")
+  expect_named(vec_c(x, y), c("", "y"))
 })
 
 test_that("can row bind Interval objects", {

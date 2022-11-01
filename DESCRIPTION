@@ -39,7 +39,7 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 2.1.0),
-    vctrs (>= 0.4.1)
+    vctrs (>= 0.5.0)
 Enhances:
     chron,
     data.table,
