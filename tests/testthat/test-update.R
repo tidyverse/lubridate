@@ -381,19 +381,18 @@ test_that("update handles repeated DST transitions", {
   repref <- ymd_hms("2022-10-30 01:00:00", tz = "Europe/Amsterdam")
   rep <- ymd_hms("2022-10-29 00:01:02", tz = "Europe/Amsterdam")
 
-  ## expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "pre"),
-  ##   repref + 3600 + 3*60 + 2)
-  ## expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "boundary"),
-  ##   repref + 2*3600)
-  ## expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "post"),
-  ##   repref + 2*3600 + 3*60 + 2)
-  ## expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "pre"),
-  ##   repref + 3600 + 60 + 3.35)
-  ## expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "boundary"),
-  ##   repref + 2*3600)
-  ## expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "post"),
-  ##   repref + 2*3600 + 60 + 3.35)
-
+  expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "pre"),
+    repref + 3600 + 3*60 + 2)
+  expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "boundary"),
+    repref + 2*3600)
+  expect_equal(update(rep, days = 30, hours = 2, minutes = 3, roll_dst = "post"),
+    repref + 2*3600 + 3*60 + 2)
+  expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "pre"),
+    repref + 3600 + 60 + 3.35)
+  expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "boundary"),
+    repref + 2*3600)
+  expect_equal(update(rep, days = 30, hours = 2, seconds = 3.35, roll_dst = "post"),
+    repref + 2*3600 + 60 + 3.35)
 
   ## our default roll_dst is post
   repref <- ymd_hms("2022-10-30 01:00:00", tz = "Europe/Amsterdam")

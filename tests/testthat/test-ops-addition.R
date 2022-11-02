@@ -416,3 +416,13 @@ test_that("addition with durations containing NA", {
   expect_equal(ans_na1, rev(c(dt_1, NA)))
   expect_equal(ans_nana, as.Date(c(NA, NA)))
 })
+
+
+test_that("addition works correctly for DST transitions", {
+  ref <- ymd("2017-10-01", tz = "Australia/Melbourne")
+  expect_equal(ref + hours(1:3), ref + dhours(c(1, NA, 2)))
+  ref <- ymd_hms("2022-10-30 00:00:00", tz = "Europe/Amsterdam")
+  expect_equal(ref + hours(1:3), ref + dhours(c(1, 2, 4)))
+  ref <- ymd_hms("2022-03-27 00:00:00", tz = "Europe/Amsterdam")
+  expect_equal(ref + hours(1:3), ref + dhours(c(1, NA, 2)))
+})
