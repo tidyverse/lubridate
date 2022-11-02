@@ -1,3 +1,13 @@
+
+normalize_roll_dst <- function(roll_dst, roll = NULL, n_call = 1) {
+  if (!is.null(roll)) {
+    .deprecated_arg("roll", "1.8.4")
+    roll <- as.logical(roll)
+    roll_dst <- if (roll) c("boundary", "post") else c("NA", "post")
+  }
+  roll_dst
+}
+
 match_lengths <- function(x, y) {
   n.x <- length(x)
   n.y <- length(y)

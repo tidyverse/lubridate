@@ -13,8 +13,7 @@ Authors@R: c(
     person("Doug", "Mitarotonda", role = "ctb"),
     person("Joseph", "Larmarange", role = "ctb"),
     person("Jonathan", "Boiser", role = "ctb"),
-    person("Chel Hee", "Lee", role = "ctb"),
-    person("Google Inc.", role = c("ctb", "cph"))
+    person("Chel Hee", "Lee", role = "ctb")
   )
 Maintainer: Vitalie Spinu <spinuvit@gmail.com>
 Description: Functions to work with date-times and time-spans: fast and
@@ -22,15 +21,14 @@ Description: Functions to work with date-times and time-spans: fast and
     components of a date-time (years, months, days, hours, minutes, and
     seconds), algebraic manipulation on date-time and time-span objects.
     The 'lubridate' package has a consistent and memorable syntax that
-    makes working with dates easy and fun.  Parts of the 'CCTZ' source
-    code, released under the Apache 2.0 License, are included in this
-    package. See <https://github.com/google/cctz> for more details.
+    makes working with dates easy and fun.
 License: GPL (>= 2)
 URL: https://lubridate.tidyverse.org,
     https://github.com/tidyverse/lubridate
 BugReports: https://github.com/tidyverse/lubridate/issues
 Depends:
     methods,
+    timechange (>= 0.0.3),
     R (>= 3.2)
 Imports:
     generics
@@ -46,8 +44,6 @@ Enhances:
     timeDate,
     tis,
     zoo
-LinkingTo:
-    cpp11 (>= 0.2.7)
 VignetteBuilder:
     knitr
 Config/Needs/website: tidyverse/tidytemplate
@@ -84,8 +80,6 @@ Collate:
     'numeric.r'
     'coercion.r'
     'constants.r'
-    'cpp11-wrappers.R'
-    'cpp11.R'
     'cyclic_encoding.r'
     'data.r'
     'decimal-dates.r'

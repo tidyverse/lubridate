@@ -37,7 +37,7 @@ hour.Period <- function(x) {
 setGeneric("hour<-",
   function (x, value) standardGeneric("hour<-"),
   useAsDefault = function(x, value) {
-    y <- update_date_time(as.POSIXct(x), hours = value)
+    y <- update_datetime(as.POSIXct(x), hours = value)
     reclass_date(y, x)
   }
 )
@@ -60,10 +60,10 @@ setMethod("hour<-", "Interval", function(x, value) {
 
 #' @export
 setMethod("hour<-", "POSIXt", function(x, value) {
-  update.POSIXt(x, hours = value)
+  update_datetime(x, hours = value)
 })
 
 #' @export
 setMethod("hour<-", "Date", function(x, value) {
-  update.Date(x, hours = value)
+  update_datetime(x, hours = value)
 })

@@ -358,38 +358,26 @@ test_that("addition with period months recycles correctly", {
   expect_identical(x + period, x_expect)
   expect_identical(y + period, y_expect)
 
-  # TODO: Should be an error, see #1070
   period <- months(integer())
-  x_expect <- x
-  y_expect <- y
-  expect_identical(x + period, x_expect)
-  expect_identical(y + period, y_expect)
+  expect_error(x + period)
+  expect_error(y + period)
 
-  # TODO: Should be an error, see #1070
   period <- months(1:3)
-  x_expect <- as_date(c("2019-02-01", "2019-03-02", "2019-04-01"))
-  y_expect <- as_datetime(x_expect, tz = "UTC")
-  suppressWarnings(expect_identical(x + period, x_expect))
-  suppressWarnings(expect_identical(y + period, y_expect))
+  expect_error(x + period)
+  expect_error(y + period)
 
-  # TODO: Should be an error, see #1070
   period <- months(c(1, 2, NA))
-  x_expect <- as_date(c("2019-02-01", "2019-03-02", NA))
-  y_expect <- as_datetime(x_expect, tz = "UTC")
-  suppressWarnings(expect_identical(x + period, x_expect))
-  suppressWarnings(expect_identical(y + period, y_expect))
+  expect_error(x + period)
+  expect_error(y + period)
 })
 
-test_that("`add_months()` POSIXlt helper recycles all fields (#1069)", {
-  x <- as.POSIXlt("2019-01-01", tz = "UTC")
-
-  out <- add_months(x, 1:2)
-  out <- unclass(out)
-
-  expect_identical(out$sec, c(0, 0))
-  expect_identical(out$min, c(0L, 0L))
-  expect_identical(out$mon, c(1L, 2L))
-  expect_identical(out$year, c(119L, 119L))
+test_that("adding multi unit periods produces NAs on intermediate computation", {
+  expect_equal(ymd("2021-01-31") + period("1m1d"), NA_Date_)
+  expect_equal(ymd("2020-02-29") + period("1y1d"), NA_Date_)
+  expect_equal(ymd("2020-01-29") + period("1y1m1d"), NA_Date_)
+  expect_equal(ymd("2021-01-31", tz = "UTC") + period("1m1d"), NA_POSIXct_)
+  expect_equal(ymd("2020-02-29", tz = "UTC") + period("1y1d"), NA_POSIXct_)
+  expect_equal(ymd("2020-01-29", tz = "UTC") + period("1y1m1d"), NA_POSIXct_)
 })
 
 test_that("addition with singleton NAs periods work", {

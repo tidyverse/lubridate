@@ -138,7 +138,7 @@ yday.default <- function(x) {
 setGeneric("day<-",
   function (x, value) standardGeneric("day<-"),
   useAsDefault = function(x, value) {
-    y <- update_date_time(as.POSIXct(x), days = value)
+    y <- update_datetime(as.POSIXct(x), days = value)
     reclass_date(y, x)
   }
 )
@@ -161,12 +161,12 @@ setMethod("day<-", "Interval", function(x, value) {
 
 #' @export
 setMethod("day<-", "POSIXt", function(x, value) {
-  update.POSIXt(x, days = value)
+  update_datetime(x, days = value)
 })
 
 #' @export
 setMethod("day<-", "Date", function(x, value) {
-  update.Date(x, days = value)
+  update_datetime(x, days = value)
 })
 
 #' @rdname day
@@ -194,12 +194,12 @@ setGeneric("qday<-", useAsDefault = function(x, value) {
     value <- as_week_start(value)
     update(x, wdays = value, week_start = 1)
   } else {
-    x + days(value - wday(x, week_start = week_start))
+    update(x, wdays = value, week_start = week_start)
   }
 }
 
 #' @rdname day
 #' @export
 "yday<-" <- function(x, value) {
-  x <- x + days(value - yday(x))
+  update(x, ydays = value)
 }

@@ -8,21 +8,16 @@
 #'
 #' @name DateTimeUpdate
 #' @param object a date-time object
-#' @param ... named arguments: years, months, ydays, wdays, mdays,
-#'   days, hours, minutes, seconds, tzs (time zone component)
-#' @param roll logical. If `TRUE`, and the resulting date-time lands
-#'   on a non-existent civil time instant (DST, 29th February, etc.)
-#'   roll the date till next valid point. When `FALSE`, the default,
-#'   produce NA for non existing date-times.
-#' @param week_start week start day (Default is 7, Sunday. Set
-#'   `lubridate.week.start` to override). Full or abbreviated names of
-#'   the days of the week can be in English or as provided by the
-#'   current locale.
-#' @param simple logical. Deprecated. Same as `roll`.
-#' @return a date object with the requested elements updated. The
-#'   object will retain its original class unless an element is
-#'   updated which the original class does not support. In this case,
-#'   the date returned will be a POSIXlt date object.
+#' @param ... named arguments: years, months, ydays, wdays, mdays, days, hours, minutes,
+#'   seconds, tzs (time zone component)
+#' @param week_start week start day (Default is 7, Sunday. Set `lubridate.week.start` to
+#'   override). Full or abbreviated names of the days of the week can be in English or
+#'   as provided by the current locale.
+#' @param simple,roll deprecated
+#' @return a date object with the requested elements updated. The object will retain its
+#'   original class unless an element is updated which the original class does not
+#'   support. In this case, the date returned will be a POSIXlt date object.
+#' @inheritParams timechange::time_add
 #' @keywords manip chron
 #' @examples
 #' date <- ymd("2009-02-10")
@@ -32,52 +27,36 @@
 #'
 #' update(date, minute = 10, second = 3)
 #' @export
-update.POSIXt <- function(object, ..., roll = FALSE,
+update.POSIXt <- function(object, ...,
+                          roll_dst = c("NA", "post"),
                           week_start = getOption("lubridate.week.start", 7),
-                          simple = NULL) {
+                          roll = NULL, simple = NULL) {
   if (!is.null(simple)) roll <- simple
-  do.call(update_date_time, c(
-    list(object, roll = roll, week_start = week_start),
+  do.call(update_datetime, c(
+    list(object, week_start = week_start, roll_dst = roll_dst, roll = roll),
     list(...)
   ))
 }
 
-update_date_time <- function(object, years = integer(), months = integer(),
-                             days = integer(), mdays = integer(), ydays = integer(), wdays = integer(),
-                             hours = integer(), minutes = integer(), seconds = double(), tzs = NULL,
-                             roll = FALSE, week_start = 7) {
-  if (!length(object)) {
-    return(object)
-  }
+update_datetime <- function(object, years = NULL, months = NULL,
+                            days = NULL, mdays = NULL, ydays = NULL, wdays = NULL,
+                            hours = NULL, minutes = NULL, seconds = NULL, tzs = NULL,
+                            roll_month = "full",
+                            roll_dst = c("NA", "post"),
+                            roll = NULL,
+                            week_start = 7,
+                            exact = FALSE) {
+  roll_dst <- normalize_roll_dst(roll_dst, roll, 1)
+  week_start <- as_week_start(week_start)
 
-  if (length(days) > 0) mdays <- days
-  updates <- list(
+  timechange::time_update(object,
     year = years, month = months,
-    yday = ydays, mday = mdays, wday = wdays,
-    hour = hours, minute = minutes, second = seconds
+    day = days, mday = mdays, wday = wdays, yday = ydays,
+    hour = hours, minute = minutes, second = seconds, tz = tzs,
+    roll_dst = roll_dst, roll_month = roll_month,
+    week_start = as_week_start(week_start),
+    exact = exact
   )
-  maxlen <- max(unlist(lapply(updates, length)))
-
-  if (maxlen > 1) {
-    for (nm in names(updates)) {
-      len <- length(updates[[nm]])
-      ## len == 1 is treated at C_level
-      if (len != maxlen && len > 1) {
-        updates[[nm]] <- rep_len(updates[[nm]], maxlen)
-      }
-    }
-  }
-
-  if (is.null(tzs)) {
-    tzs <- tz(object)
-  }
-
-  ## todo: check if the following lines make any unnecessary copies
-  updates[["dt"]] <- as.POSIXct(object)
-  updates[["roll"]] <- roll
-  updates[["tz"]] <- tzs
-  updates[["week_start"]] <- as_week_start(week_start)
-  reclass_date(do.call(cpp_update_dt, updates), object)
 }
 
 as_week_start <- function(x) {
@@ -176,17 +155,22 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
   fit_to_timeline(date, class(object)[[1]], simple = simple)
 }
 
+is_zero_hms <- function(hours = NULL, minutes = NULL, seconds = NULL, tzs = NULL, ...) {
+  is.null(tzs) &&
+    (is.null(hours) || sum(hours, na.rm = TRUE) == 0) &&
+    (is.null(minutes) || sum(minutes, na.rm = TRUE) == 0) &&
+    (is.null(seconds) || sum(seconds, na.rm = TRUE) == 0)
+}
+
 #' @export
 update.Date <- function(object, ...) {
-  ct <- as_datetime(object, tz = "UTC")
-  new <- update.POSIXt(ct, ...)
-  ## fixme: figure out a way to avoid this, or write specialized update for Date
-  new_lt <- as.POSIXlt(new, tz = "UTC")
-  if (sum(c(new_lt$hour, new_lt$min, new_lt$sec), na.rm = TRUE)) {
-    new
-  } else {
-    make_date(new_lt$year + 1900, new_lt$mon + 1, new_lt$mday)
-  }
+  out <- update_datetime(object, ...)
+  ## lubridate's missing hms component checks for actual zeros. Not a great idea as the
+  ## return type is unpredictable but we are stuck with it.
+  if (is.POSIXct(out) && is_zero_hms(...))
+    as_date(out)
+  else
+    out
 }
 
 #' Fit a POSIXlt date-time to the timeline

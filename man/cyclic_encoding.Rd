@@ -21,10 +21,9 @@ cyclic_encoding(
 "sin" and "cos". Names of any predefined functions accepting a numeric
 input are allowed.}
 
-\item{week_start}{week start day (Default is 7, Sunday. Set
-\code{lubridate.week.start} to override). Full or abbreviated names of
-the days of the week can be in English or as provided by the
-current locale.}
+\item{week_start}{week start day (Default is 7, Sunday. Set \code{lubridate.week.start} to
+override). Full or abbreviated names of the days of the week can be in English or
+as provided by the current locale.}
 }
 \value{
 a numeric matrix with number of columns equal \code{length(periods) * length(types)}.

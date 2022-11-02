@@ -46,9 +46,19 @@ test_that("time_length works as expected", {
   )
 })
 
-test_that("time_length works with intervals on DTS", {
+test_that("time_length works with intervals on DST", {
   times <- ymd_hms(c("2019-03-29 02:03:00", "2019-03-29 02:10:00"), tz = "Europe/Paris")
   expect_equal(time_length(interval(times[[1]], times[[2]]), "years"), 1.32818e-05)
+})
+
+test_that("time_length works with intervals on DST (2)", {
+  skip("FIXME: time_length should be same on sides of DST?")
+  expect_equal(
+    time_length(interval(times[[1]], times[[2]]), "years"),
+    time_length(interval(times2[[1]], times2[[2]]), "years"))
+  expect_equal(
+    time_length(interval(times[[1]], times[[2]]), "years"),
+    time_length(interval(times3[[1]], times3[[2]]), "years"))
 })
 
 test_that("time_length works with missing intervals", {

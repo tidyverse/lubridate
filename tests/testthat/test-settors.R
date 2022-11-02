@@ -1210,3 +1210,91 @@ test_that("qdays settors correctly performs simple updates and rolls over as exp
   expect_equal(year(posct), c(2010, 2010, 2011))
   expect_equal(year(date), c(2010, 2010, 2011))
 })
+
+
+test_that("year<- and month<- roll but produce NAs on invalid days",  {
+  dd <- ymd(c("2020-02-29", "2020-03-31"))
+  pp <- ymd(c("2020-02-29", "2020-03-31"), tz = "America/New_York")
+
+  dd1 <- dd
+  year(dd1) <- 2021
+  expect_equal(dd1, ymd(c(NA, "2021-03-31")))
+
+  dd1 <- dd
+  month(dd1) <- 4
+  expect_equal(dd1, ymd(c("2020-04-29", NA)))
+
+  dd1 <- dd
+  month(dd1) <- 15
+  expect_equal(dd1, ymd(c("2021-03-29", "2021-03-31")))
+
+  dd1 <- dd
+  month(dd1) <- 14
+  expect_equal(dd1, ymd(c(NA, NA)))
+
+  dd1 <- dd
+  yday(dd1) <- 370
+  expect_equal(dd1, ymd(c("2021-01-04", "2021-01-04")))
+
+  dd1 <- dd
+  day(dd1) <- c(30, 32)
+  expect_equal(dd1, ymd(c("2020-03-01", "2020-04-01")))
+
+  # update recycles instead of producing NAs
+  expect_equal(
+    update(dd, months = 4),
+    ymd(c("2020-04-29", "2020-05-01")))
+  expect_equal(
+    update(dd, days = 31),
+    ymd(c("2020-03-02", "2020-03-31")))
+  expect_equal(
+    update(dd, months = 4, days = 32),
+    ymd(c("2020-05-02", "2020-05-02")))
+
+  expect_equal(
+    update(pp, months = 4),
+    ymd(c("2020-04-29", "2020-05-01"), tz = "America/New_York"))
+  expect_equal(
+    update(pp, days = 31),
+    ymd(c("2020-03-02", "2020-03-31"), tz = "America/New_York"))
+  expect_equal(
+    update(pp, months = 4, days = 32),
+    ymd(c("2020-05-02", "2020-05-02"), tz = "America/New_York"))
+
+})
+
+test_that("year<- update rolls over dates but not update", {
+
+  x <- ymd("2020-02-29")
+  expect_equal(update(x, years = 2019), ymd("2019-03-01"))
+  year(x) <- 2017
+  expect_equal(x, NA_Date_)
+
+  x <- ymd("2020-02-29", tz = "America/New_York")
+  expect_equal(update(x, years = 2019), ymd("2019-03-01", tz = "America/New_York"))
+  year(x) <- 2017
+  expect_equal(x, with_tz(NA_POSIXct_, "America/New_York"))
+
+})
+
+test_that("day<- rolls over", {
+
+  x <- ymd("2017-02-20")
+  expect_equal(update(x, days = 29), ymd("2017-03-01"))
+  expect_equal(update(x, days = 100), ymd("2017-05-11"))
+  day(x) <- 29
+  expect_equal(x, ymd("2017-03-01"))
+  x <- ymd("2017-02-20")
+  day(x) <- 100
+  expect_equal(x, ymd("2017-05-11"))
+
+  x <- ymd("2017-02-20", tz = "America/New_York")
+  expect_equal(update(x, mdays = 29), ymd("2017-03-01", tz = "America/New_York"))
+  expect_equal(update(x, mdays = 100), ymd("2017-05-11", tz = "America/New_York"))
+  day(x) <- 29
+  expect_equal(x, ymd("2017-03-01", tz = "America/New_York"))
+  x <- ymd("2017-02-20", tz = "America/New_York")
+  day(x) <- 100
+  expect_equal(x, ymd("2017-05-11", tz = "America/New_York"))
+
+})

@@ -15,9 +15,13 @@ NULL
   .deprecated(name, replacement, version)
 }
 
-.deprecated_arg <- function(arg, version, n_call = 1) {
-  name <- as.character(sys.call(-n_call)[[1]])
-  mes <- sprintf("Argument '%s' of '%s'", arg, name)
+.deprecated_arg <- function(arg, version, n_call = NULL) {
+  if (!is.null(n_call)) {
+    name <- as.character(sys.call(n_call)[[1]])
+    mes <- sprintf("Argument '%s' of '%s'", arg, name)
+  } else {
+    mes <- sprintf("Argument '%s'", arg)
+  }
   .deprecated(mes, "", version)
 }
 

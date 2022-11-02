@@ -112,6 +112,54 @@ test_that("force_tz doesn't return NA just because new time zone uses DST", {
   expect_true(!is.na(poslt2))
 })
 
+test_that("force_tz works within repeated DST", {
+  ## "2014-11-02 00:00:00 CST"
+  ch <- ymd_hms("2014-11-02 00:00:00", tz = "America/Chicago")
+  eu <- ymd_hms("2014-11-02 00:00:00", tz = "Europe/Berlin")
+
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "pre"),
+    ch + dminutes(95))
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "post"),
+    ch + dminutes(155))
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "boundary"),
+    ch + dminutes(120))
+
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "post"),
+    ch + dminutes(155))
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "pre"),
+    ch + dminutes(95))
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago", roll_dst = "boundary"),
+    ch + dminutes(120))
+
+  expect_equal(
+    force_tz(ch + dminutes(95), "Europe/Berlin", roll_dst = "post"),
+    eu + dminutes(95))
+  expect_equal(
+    force_tz(ch + dminutes(95), "Europe/Berlin", roll_dst = "pre"),
+    eu + dminutes(95))
+  expect_equal(
+    force_tz(ch + dminutes(95), "Europe/Berlin", roll_dst = "boundary"),
+    eu + dminutes(95))
+
+  ## default roll_dst is "post"
+  expect_equal(
+    force_tz(eu + dminutes(95), "America/Chicago"),
+    ch + dminutes(155))
+  expect_equal(
+    force_tz(ch + dminutes(95), "Europe/Berlin"),
+    eu + dminutes(95))
+  expect_equal(
+    force_tz(ch + dminutes(155), "Europe/Berlin"),
+    eu + dminutes(95))
+
+})
+
 # local_time --------------------------------------------------------------
 
 test_that("local_time works as expected", {
@@ -145,4 +193,65 @@ test_that("tz() returns UTC on special objects", {
   expect_equal(tz(today()), "UTC")
   expect_equal(tz(POSIXct()), "UTC")
   expect_equal(tz(Date()), "UTC")
+})
+
+
+test_that("If original post/pre is known, ignore roll_DST", {
+
+  tt <- ymd_hms("2014-11-02 01:35:00")
+  chpst <- force_tz(tt, "America/Chicago", roll_dst = "post")
+  chpdt <- force_tz(tt, "America/Chicago", roll_dst = "pre")
+  lapst <- force_tz(tt, "America/Los_Angeles", roll_dst = "post")
+  lapdt <- force_tz(tt, "America/Los_Angeles", roll_dst = "pre")
+
+  expect_equal(lapst, force_tz(chpst, "America/Los_Angeles", roll_dst = "pre"))
+  expect_equal(lapst, force_tz(chpst, "America/Los_Angeles", roll_dst = "post"))
+  expect_equal(lapst, force_tz(chpst, "America/Los_Angeles", roll_dst = "boundary"))
+
+  expect_equal(lapdt, force_tz(chpdt, "America/Los_Angeles", roll_dst = "pre"))
+  expect_equal(lapdt, force_tz(chpdt, "America/Los_Angeles", roll_dst = "post"))
+  expect_equal(lapdt, force_tz(chpdt, "America/Los_Angeles", roll_dst = "boundary"))
+
+  expect_equal(lapst, force_tzs(chpst, "America/Los_Angeles", "America/Los_Angeles", roll_dst = "pre"))
+  expect_equal(lapst, force_tzs(chpst, "America/Los_Angeles", "America/Los_Angeles", roll_dst = "post"))
+  expect_equal(lapst, force_tzs(chpst, "America/Los_Angeles", "America/Los_Angeles", roll_dst = "boundary"))
+  expect_equal(lapst, force_tzs(chpst, "America/Los_Angeles", "America/Los_Angeles", roll_dst = "pre"))
+  expect_equal(lapst, force_tzs(chpst, "America/Los_Angeles", "America/Los_Angeles", roll_dst = "post"))
+  expect_equal(lapst, force_tzs(chpst, "America/Los_Angeles", "America/Los_Angeles", roll_dst = "boundary"))
+
+  expect_equal(with_tz(c(tt, chpdt, lapdt), "America/Chicago"),
+    force_tzs(tt,  #c(tt, chpdt, lapdt),
+      c("UTC", "America/Chicago", "America/Los_Angeles"),
+      tzone_out = "America/Chicago",
+      roll_dst = "pre"))
+
+  expect_equal(with_tz(c(tt, chpst, lapst), "America/Chicago"),
+    force_tzs(tt,  #c(tt, chpdt, lapdt),
+      c("UTC", "America/Chicago", "America/Los_Angeles"),
+      tzone_out = "America/Chicago",
+      roll_dst = "post"))
+
+  expect_equal(with_tz(c(tt, chpdt, lapdt), "America/Chicago"),
+    force_tzs(chpdt,
+      c("UTC", "America/Chicago", "America/Los_Angeles"),
+      tzone_out = "America/Chicago",
+      roll_dst = "pre"))
+
+  expect_equal(with_tz(c(tt, chpdt, lapdt), "America/Chicago"),
+    force_tzs(chpdt,
+      c("UTC", "America/Chicago", "America/Los_Angeles"),
+      tzone_out = "America/Chicago",
+      roll_dst = "post"))
+
+  expect_equal(with_tz(c(tt, chpst, lapst), "America/Chicago"),
+    force_tzs(chpst,
+      c("UTC", "America/Chicago", "America/Los_Angeles"),
+      tzone_out = "America/Chicago",
+      roll_dst = "post"))
+
+  expect_equal(with_tz(c(tt, chpst + 100, chpst + 3600), "America/Chicago"),
+    force_tzs(with_tz(c(chpst, chpst + 100, chpdt), "America/Chicago"),
+      c("UTC", "America/Chicago", "America/Los_Angeles"),
+      tzone_out = "America/Chicago",
+      roll_dst = "post"))
 })

@@ -5,9 +5,15 @@
 \alias{force_tzs}
 \title{Replace time zone to create new date-time}
 \usage{
-force_tz(time, tzone = "", roll = FALSE)
+force_tz(time, tzone = "", roll_dst = c("NA", "post"), roll = NULL)
 
-force_tzs(time, tzones, tzone_out = "UTC", roll = FALSE)
+force_tzs(
+  time,
+  tzones,
+  tzone_out = "UTC",
+  roll_dst = c("NA", "post"),
+  roll = NULL
+)
 }
 \arguments{
 \item{time}{a POSIXct, POSIXlt, Date, chron date-time object, or a data.frame
@@ -18,8 +24,21 @@ with \code{force_tz()} and new data.frame is returned.}
 must recognize the name contained in the string as a time zone on your
 system.}
 
-\item{roll}{logical. If TRUE, and \code{time} falls into the DST-break, assume
-the next valid civil time, otherwise return NA. See examples.}
+\item{roll_dst}{is a string vector of length one or two. When two values are
+supplied they specify how to roll date-times when they fall into "skipped" and
+"repeated" DST transitions respectively. Singleton strings is replicated to the
+length of two. Possible values are:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{* `pre` - Use the time before the transition boundary.
+* `boundary` - Use the time exactly at the boundary transition.
+* `post` - Use the time after the boundary transition.
+* `NA` - Produce NAs when the resulting time falls inside the problematic interval.
+}\if{html}{\out{</div>}}
+
+For example `roll_dst = c("pre", "NA") indicates that for repeated intervals
+return the time in the earlier interval and for skipped intervals return NA.}
+
+\item{roll}{deprecated, same as \code{roll_dst} parameter.}
 
 \item{tzones}{character vector of timezones to be "enforced" on \code{time} time
 stamps. If \code{time} and \code{tzones} lengths differ, the smaller one is recycled
@@ -50,10 +69,24 @@ force_tz(x, "UTC")
 force_tz(x, "Europe/Amsterdam")
 
 ## DST skip:
-
 y <- ymd_hms("2010-03-14 02:05:05 UTC")
-force_tz(y, "America/New_York", roll = FALSE)
-force_tz(y, "America/New_York", roll = TRUE)
+force_tz(y, "America/New_York", roll_dst = "NA")
+force_tz(y, "America/New_York", roll_dst = "pre")
+force_tz(y, "America/New_York", roll_dst = "boundary")
+force_tz(y, "America/New_York", roll_dst = "post")
+
+## DST repeat
+y <- ymd_hms("2014-11-02 01:35:00", tz = "UTC")
+force_tz(y, "America/New_York", roll_dst = "NA")
+force_tz(y, "America/New_York", roll_dst = "pre")
+force_tz(y, "America/New_York", roll_dst = "boundary")
+force_tz(y, "America/New_York", roll_dst = "post")
+
+## DST skipped and repeated
+y <- ymd_hms("2010-03-14 02:05:05 UTC", "2014-11-02 01:35:00", tz = "UTC")
+force_tz(y, "America/New_York", roll_dst = c("NA", "pre"))
+force_tz(y, "America/New_York", roll_dst = c("boundary", "post"))
+
 
 ## Heterogeneous time-zones:
 

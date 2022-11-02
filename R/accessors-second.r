@@ -36,7 +36,7 @@ second.Period <- function(x) {
 setGeneric("second<-",
   function (x, value) standardGeneric("second<-"),
   useAsDefault = function(x, value) {
-    y <- update_date_time(as.POSIXct(x), seconds = value)
+    y <- update_datetime(as.POSIXct(x), seconds = value)
     reclass_date(y, x)
   }
 )
@@ -59,10 +59,10 @@ setMethod("second<-", "Interval", function(x, value) {
 
 #' @export
 setMethod("second<-", "POSIXt", function(x, value) {
-  update.POSIXt(x, seconds = value)
+  update_datetime(x, seconds = value)
 })
 
 #' @export
 setMethod("second<-", "Date", function(x, value) {
-  update.Date(x, seconds = value)
+  update_datetime(x, seconds = value)
 })
