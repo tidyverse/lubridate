@@ -2,10 +2,13 @@
 % Please edit documentation in R/time-zones.r
 \name{force_tz}
 \alias{force_tz}
+\alias{force_tz.default}
 \alias{force_tzs}
 \title{Replace time zone to create new date-time}
 \usage{
-force_tz(time, tzone = "", roll_dst = c("NA", "post"), roll = NULL)
+force_tz(time, tzone = "", ...)
+
+\method{force_tz}{default}(time, tzone = "", roll_dst = c("NA", "post"), roll = NULL, ...)
 
 force_tzs(
   time,
@@ -23,6 +26,8 @@ with \code{force_tz()} and new data.frame is returned.}
 \item{tzone}{a character string containing the time zone to convert to. R
 must recognize the name contained in the string as a time zone on your
 system.}
+
+\item{...}{Parameters passed to other methods.}
 
 \item{roll_dst}{is a string vector of length one or two. When two values are
 supplied they specify how to roll date-times when they fall into "skipped" and

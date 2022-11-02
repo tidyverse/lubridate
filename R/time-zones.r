@@ -65,6 +65,7 @@ with_tz <- function(time, tzone = "") {
 #'   must recognize the name contained in the string as a time zone on your
 #'   system.
 #' @param roll deprecated, same as `roll_dst` parameter.
+#' @param ... Parameters passed to other methods.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
 #' @seealso [with_tz()], [local_time()]
@@ -92,9 +93,14 @@ with_tz <- function(time, tzone = "") {
 #' y <- ymd_hms("2010-03-14 02:05:05 UTC", "2014-11-02 01:35:00", tz = "UTC")
 #' force_tz(y, "America/New_York", roll_dst = c("NA", "pre"))
 #' force_tz(y, "America/New_York", roll_dst = c("boundary", "post"))
-#'
 #' @export
-force_tz <- function(time, tzone = "", roll_dst = c("NA", "post"), roll = NULL) {
+force_tz <- function(time, tzone = "", ...) {
+    UseMethod("force_tz")
+}
+
+#' @rdname force_tz
+#' @export
+force_tz.default <- function(time, tzone = "", roll_dst = c("NA", "post"), roll = NULL, ...) {
   tzone <- as.character(tzone)
   if (is.data.frame(time)) {
     for (nm in names(time)) {
