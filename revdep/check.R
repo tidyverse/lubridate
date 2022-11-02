@@ -3,13 +3,14 @@ devtools::install_github("r-lib/revdepcheck")
 
 library(revdepcheck)
 
-revdep_reset()
-revdep_check(num_workers = 4)
+#' revdep_reset()
+
+revdep_check(num_workers = 5)
 
 revdep_summary()
 revdep_todo()
 
-revdep_add_broken(install_failures = F, timeout_failures = T)
+revdep_add_broken(install_failures = F, timeout_failures = F)
 revdep_check(num_workers = 4)
 
 ## revdep_rm(packages = "xROI")

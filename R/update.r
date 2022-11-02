@@ -49,14 +49,38 @@ update_datetime <- function(object, years = NULL, months = NULL,
   roll_dst <- normalize_roll_dst(roll_dst, roll, 1)
   week_start <- as_week_start(week_start)
 
-  timechange::time_update(object,
+  if (!is.null(days)) {
+    if (!is.null(mdays)) {
+      stop("Only one of `days` and `mdays` must be supplied")
+    }
+    mdays <- days
+  }
+
+  updates <- list(
     year = years, month = months,
-    day = days, mday = mdays, wday = wdays, yday = ydays,
-    hour = hours, minute = minutes, second = seconds, tz = tzs,
+    mday = mdays, wday = wdays, yday = ydays,
+    hour = hours, minute = minutes, second = seconds
+  )
+  timechange::time_update(
+    object, updates = normalize_units_length(updates), tz = tzs,
     roll_dst = roll_dst, roll_month = roll_month,
     week_start = as_week_start(week_start),
     exact = exact
   )
+}
+
+normalize_units_length <- function(units) {
+  if (length(units) == 0)
+    return(units)
+  maxlen <- max(unlist(lapply(units, length)))
+  if (maxlen > 1) {
+    for (nm in names(units)) {
+      len <- length(units[[nm]])
+      if (len != maxlen && len > 1)
+        units[[nm]] <- rep_len(units[[nm]], maxlen)
+    }
+  }
+  units
 }
 
 as_week_start <- function(x) {
