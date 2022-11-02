@@ -799,3 +799,25 @@ test_that("wday extract and update: week_start can be a week day", {
   expect_identical(wday(p), 5)
 
 })
+
+test_that("rounding works for dates < 1970", {
+  expect_equal(round_date(ymd_hms("1957-12-01 14:00:00 UTC"), "month"),
+               ymd("1957-12-01", tz = "UTC"))
+  expect_equal(round_date(ymd_hms("1958-01-31 09:59:59 UTC"), "month"),
+               ymd("1958-02-01", tz = "UTC"))
+})
+
+test_that("rounding of fractional second works around origin", {
+  ## #789
+  seq <- seq(0, 500, 33)/1000
+
+  time <- lubridate::origin - seq
+  rnd <- round_date(time, ".033s")
+  expect_true(all(unclass(rnd) > -.52))
+
+  time <- lubridate::origin + seq
+  rnd <- round_date(time, ".033s")
+  expect_true(all(unclass(rnd) < .5))
+
+  ## plot(time, rnd)
+})
