@@ -71,9 +71,15 @@ corresponding time zone in <code>tzones</code> argument.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">time</span>, tzone <span class="op">=</span> <span class="st">""</span>, roll <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">time</span>, tzone <span class="op">=</span> <span class="st">""</span>, roll_dst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"post"</span><span class="op">)</span>, roll <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">force_tzs</span><span class="op">(</span><span class="va">time</span>, <span class="va">tzones</span>, tzone_out <span class="op">=</span> <span class="st">"UTC"</span>, roll <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">force_tzs</span><span class="op">(</span></span>
+<span>  <span class="va">time</span>,</span>
+<span>  <span class="va">tzones</span>,</span>
+<span>  tzone_out <span class="op">=</span> <span class="st">"UTC"</span>,</span>
+<span>  roll_dst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"post"</span><span class="op">)</span>,</span>
+<span>  roll <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -90,9 +96,21 @@ must recognize the name contained in the string as a time zone on your
 system.</p></dd>
 
 
+<dt>roll_dst</dt>
+<dd><p>is a string vector of length one or two. When two values are
+supplied they specify how to roll date-times when they fall into "skipped" and
+"repeated" DST transitions respectively. Singleton strings is replicated to the
+length of two. Possible values are:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">pre</span><span class="st">`</span> <span class="sc">-</span> Use the time before the transition boundary.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">boundary</span><span class="st">`</span> <span class="sc">-</span> Use the time exactly at the boundary transition.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">post</span><span class="st">`</span> <span class="sc">-</span> Use the time after the boundary transition.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">NA</span><span class="st">`</span> <span class="sc">-</span> Produce NAs when the resulting time falls inside the problematic interval.</span></code></pre><p></p></div>
+<p>For example `roll_dst = c("pre", "NA") indicates that for repeated intervals
+return the time in the earlier interval and for skipped intervals return NA.</p></dd>
+
+
 <dt>roll</dt>
-<dd><p>logical. If TRUE, and <code>time</code> falls into the DST-break, assume
-the next valid civil time, otherwise return NA. See examples.</p></dd>
+<dd><p>deprecated, same as <code>roll_dst</code> parameter.</p></dd>
 
 
 <dt>tzones</dt>
@@ -133,12 +151,34 @@ the input date-time.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-07 00:00:01 CEST"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## DST skip:</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2010-03-14 02:05:05 UTC"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="st">"NA"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="st">"pre"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-03-14 01:05:05 EST"</span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="st">"boundary"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-03-14 03:00:00 EDT"</span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="st">"post"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-03-14 03:05:05 EDT"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## DST repeat</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2014-11-02 01:35:00"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="st">"NA"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="st">"pre"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2014-11-02 01:35:00 EDT"</span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="st">"boundary"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2014-11-02 01:00:00 EST"</span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="st">"post"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2014-11-02 01:35:00 EST"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## DST skipped and repeated</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2010-03-14 02:05:05 UTC"</span>, <span class="st">"2014-11-02 01:35:00"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"pre"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA                        "2014-11-02 01:35:00 EDT"</span>
+<span class="r-in"><span><span class="fu">force_tz</span><span class="op">(</span><span class="va">y</span>, <span class="st">"America/New_York"</span>, roll_dst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"boundary"</span>, <span class="st">"post"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-03-14 03:00:00 EDT" "2014-11-02 01:35:00 EST"</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Heterogeneous time-zones:</span></span></span>
 <span class="r-in"><span></span></span>

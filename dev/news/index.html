@@ -60,6 +60,8 @@
 <div class="section level4">
 <h4 id="new-features-1-8-0-9000">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-8-0-9000"></a></h4>
 <ul><li>
+<code>roll</code> argument to updating and time-zone manipulation functions is deprecated in favor of a new <code>roll_dst</code> parameter.</li>
+<li>
 <a href="https://github.com/tidyverse/lubridate/issues/1042" class="external-link">#1042</a> <code>as_date</code> with character inputs accepts multiple formats in <code>format</code> argument. When <code>format</code> is supplied, the input string is parsed with <code>parse_date_time</code> instead of the old <code>strptime</code>.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1055" class="external-link">#1055</a> Implement <code>as.integer</code> method for Duration, Period and Interval classes.</li>
@@ -110,10 +112,15 @@
 <a href="https://github.com/tidyverse/lubridate/issues/1002" class="external-link">#1002</a> Parsing only with format <code>j</code> now works on numeric inputs.</li>
 <li>
 <code><a href="../reference/stamp.html">stamp()</a></code> now correctly errors when no formats could be guessed.</li>
+<li>Updating a date with timezone (e.g. <code>tzs = "UTC"</code>) now returns a POSIXct.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="internals-1-8-0-9000">INTERNALS<a class="anchor" aria-label="anchor" href="#internals-1-8-0-9000"></a></h4>
-<ul><li>Change implementation of <code>c.Period</code>, <code>c.Duration</code> and <code>c.Interval</code> from S4 to S3.</li>
+<ul><li>
+<code>lubridate</code> is now relying on <code>timechange</code> package for update and time-zone computation. Google’s CCTZ code is no longer part of the package.</li>
+<li>
+<code>lubridate</code>’s updating logic is now built on top of <code>timechange</code> package.</li>
+<li>Change implementation of <code>c.Period</code>, <code>c.Duration</code> and <code>c.Interval</code> from S4 to S3.</li>
 </ul></div>
 </div>
     <div class="section level2">

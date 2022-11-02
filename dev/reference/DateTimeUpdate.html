@@ -75,8 +75,9 @@ substitute them for the appropriate parts of the existing date.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  roll <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  roll_dst <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>, <span class="st">"post"</span><span class="op">)</span>,</span>
 <span>  week_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"lubridate.week.start"</span>, <span class="fl">7</span><span class="op">)</span>,</span>
+<span>  roll <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  simple <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -88,36 +89,40 @@ substitute them for the appropriate parts of the existing date.</p>
 
 
 <dt>...</dt>
-<dd><p>named arguments: years, months, ydays, wdays, mdays,
-days, hours, minutes, seconds, tzs (time zone component)</p></dd>
+<dd><p>named arguments: years, months, ydays, wdays, mdays, days, hours, minutes,
+seconds, tzs (time zone component)</p></dd>
 
 
-<dt>roll</dt>
-<dd><p>logical. If <code>TRUE</code>, and the resulting date-time lands
-on a non-existent civil time instant (DST, 29th February, etc.)
-roll the date till next valid point. When <code>FALSE</code>, the default,
-produce NA for non existing date-times.</p></dd>
+<dt>roll_dst</dt>
+<dd><p>is a string vector of length one or two. When two values are
+supplied they specify how to roll date-times when they fall into "skipped" and
+"repeated" DST transitions respectively. Singleton strings is replicated to the
+length of two. Possible values are:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">pre</span><span class="st">`</span> <span class="sc">-</span> Use the time before the transition boundary.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">boundary</span><span class="st">`</span> <span class="sc">-</span> Use the time exactly at the boundary transition.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">post</span><span class="st">`</span> <span class="sc">-</span> Use the time after the boundary transition.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">NA</span><span class="st">`</span> <span class="sc">-</span> Produce NAs when the resulting time falls inside the problematic interval.</span></code></pre><p></p></div>
+<p>For example `roll_dst = c("pre", "NA") indicates that for repeated intervals
+return the time in the earlier interval and for skipped intervals return NA.</p></dd>
 
 
 <dt>week_start</dt>
-<dd><p>week start day (Default is 7, Sunday. Set
-<code>lubridate.week.start</code> to override). Full or abbreviated names of
-the days of the week can be in English or as provided by the
-current locale.</p></dd>
+<dd><p>week start day (Default is 7, Sunday. Set <code>lubridate.week.start</code> to
+override). Full or abbreviated names of the days of the week can be in English or
+as provided by the current locale.</p></dd>
 
 
-<dt>simple</dt>
-<dd><p>logical. Deprecated. Same as <code>roll</code>.</p></dd>
+<dt>simple, roll</dt>
+<dd><p>deprecated</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>a date object with the requested elements updated. The
-object will retain its original class unless an element is
-updated which the original class does not support. In this case,
-the date returned will be a POSIXlt date object.</p>
+<p>a date object with the requested elements updated. The object will retain its
+original class unless an element is updated which the original class does not
+support. In this case, the date returned will be a POSIXlt date object.</p>
     </div>
 
     <div class="section level2">
