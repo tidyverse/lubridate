@@ -109,6 +109,7 @@ test_that("update returns NA for date-times in the spring dst gap", {
   .Names = c("sec", "min", "hour", "mday", "mon", "year", "wday", "yday", "isdst"),
   class = c("POSIXlt", "POSIXt"), tzone = "UTC"
   )
+
   expect_true(is.na(update(poslt, seconds = 61)))
   expect_true(is.na(update(poslt, minutes = 61)))
   expect_true(is.na(update(poslt, hours = 2)))

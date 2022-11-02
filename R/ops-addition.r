@@ -55,7 +55,7 @@ add_period_to_date <- function(per, date) {
       minutes = per@minute,
       seconds = per@.Data,
       roll_month = "NA",
-      roll_dst = c("post", "pre"))
+      roll_dst = c("NA", "pre"))
   if (is.Date(date) && is_zero_hms(per@hour, per@minute, per@.Data))
     out <- as_date(out)
   out

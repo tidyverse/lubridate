@@ -437,6 +437,7 @@ test_that("update handles single vector of inputs", {
 })
 
 test_that("update handles conformable vectors of inputs", {
+  ## FIXME: these actually should be an error in conformance with vctrs semantics
   poslt <- as.POSIXlt("2010-03-10 01:59:59", tz = "UTC", format = "%Y-%m-%d %H:%M:%S")
   posct <- as.POSIXct(poslt)
   date <- as.Date(poslt)
