@@ -151,47 +151,29 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
     return(x)
   }
 
-  xx <- as.POSIXct(as_datetime(x, tz = tz(x)))
-
-  .round <- function(below, above) {
-    mid <- unclass(xx)
-    below <- unclass(below)
-    above <- unclass(above)
-    wabove <- (above - mid) <= (mid - below)
-    wabove <- !is.na(wabove) & wabove
-    new <- below
-    new[wabove] <- above[wabove]
-    .POSIXct(new, tz = tz(x))
-  }
-
   if (is.POSIXt(unit) || is.Date(unit)) {
+    .round <- function(below, above) {
+      mid <- unclass(xx)
+      below <- unclass(below)
+      above <- unclass(above)
+      wabove <- (above - mid) <= (mid - below)
+      wabove <- !is.na(wabove) & wabove
+      new <- below
+      new[wabove] <- above[wabove]
+      .POSIXct(new, tz = tz(x))
+    }
+
+    xx <- as.POSIXct(as_datetime(x, tz = tz(x)))
     u <- as_datetime(unit, tz = tz(unit))
     below <- floor_to_posix(xx, u, TRUE)
     above <- ceil_to_posix(xx, u, TRUE)
     reclass_date(.round(below, above), unit)
-  } else {
-    parsed_unit <- parse_period_unit(unit)
-    n <- parsed_unit$n
-    basic_unit <- standardise_period_names(parsed_unit$unit)
 
-    new <-
-      if (n == 1 && basic_unit %in% c("second", "minute", "hour", "day")) {
-        ## special case for fast rounding
-        round.POSIXt(xx, units = lub2base_units[[basic_unit]])
-      } else {
-        below <- as.POSIXct(floor_date(xx, unit = unit, week_start = week_start))
-        above <- as.POSIXct(ceiling_date(xx, unit = unit, week_start = week_start))
-        .round(below, above)
-      }
-    reclass_date_maybe(new, x, unit)
-  }
-}
-
-reclass_date_maybe <- function(new, orig, unit) {
-  if (is.Date(orig) && !unit %in% c("day", "week", "month", "year")) {
-    as.POSIXct(new)
   } else {
-    reclass_date(new, orig)
+
+    out <- timechange::time_round(x, unit = unit, week_start = as_week_start(week_start))
+    return(out)
+
   }
 }
 
@@ -200,71 +182,19 @@ reclass_date_maybe <- function(new, orig, unit) {
 #' boundary of the specified time unit.
 #' @rdname round_date
 #' @export
-floor_date <- function(x, unit = "seconds", week_start = getOption("lubridate.week.start", 7)) {
+floor_date <- function(x, unit = "seconds",
+                       week_start = getOption("lubridate.week.start", 7)) {
   if (length(x) == 0) {
     return(x)
   }
 
-  xx <- as_datetime(x, tz = tz(x))
-
   if (is.POSIXct(unit) || is.Date(unit)) {
+    xx <- as_datetime(x, tz = tz(x))
     new <- floor_to_posix(xx, as_datetime(unit, tz = tz(unit)))
     return(reclass_date(new, unit))
   }
 
-  parsed_unit <- parse_period_unit(unit)
-  n <- parsed_unit$n
-  unit <- standardise_period_names(parsed_unit$unit)
-
-  if (unit %in% c("second", "minute", "hour", "day")) {
-
-    # as_datetime is necesary for correct tz = UTC when x is Date
-    out <- trunc_multi_unit(xx, unit, n)
-    reclass_date_maybe(out, x, unit)
-  } else {
-    if (n > 1 && unit == "week") {
-      ## fixme:
-      warning("Multi-unit not supported for weeks. Ignoring.")
-    }
-
-    if (unit %in% c("bimonth", "quarter", "halfyear", "season") ||
-      (n > 1 && unit == "month")) {
-      new_months <-
-        switch(unit,
-          month    = floor_multi_unit1(month(xx), n),
-          bimonth  = floor_multi_unit1(month(xx), 2 * n),
-          quarter  = floor_multi_unit1(month(xx), 3 * n),
-          halfyear = floor_multi_unit1(month(xx), 6 * n),
-          season   = floor_multi_unit(month(xx), 3 * n)
-        )
-      n <- Inf
-      unit <- "month"
-    }
-
-    new <-
-      switch(unit,
-        week = update(xx, wdays = 1, hours = 0, minutes = 0, seconds = 0, week_start = week_start),
-        month = {
-          if (n > 1) {
-            update(xx, months = new_months, mdays = 1, hours = 0, minutes = 0, seconds = 0)
-          } else {
-            update(xx, mdays = 1, hours = 0, minutes = 0, seconds = 0)
-          }
-        },
-        year = {
-          ## due to bug https://github.com/tidyverse/lubridate/issues/319 we
-          ## need to do it in two steps
-          if (n > 1) {
-            y <- update(xx, ydays = 1, hours = 0, minutes = 0, seconds = 0)
-            update(y, years = floor_multi_unit(year(y), n))
-          } else {
-            update(xx, ydays = 1, hours = 0, minutes = 0, seconds = 0)
-          }
-        }
-      )
-
-    reclass_date_maybe(new, x, unit)
-  }
+  timechange::time_floor(x, unit = unit, week_start = as_week_start(week_start))
 }
 
 #' @description
@@ -283,142 +213,25 @@ floor_date <- function(x, unit = "seconds", week_start = getOption("lubridate.we
 #' x <- ymd("2000-01-01")
 #' ceiling_date(x, "month")
 #' ceiling_date(x, "month", change_on_boundary = TRUE)
-ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL, week_start = getOption("lubridate.week.start", 7)) {
+ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL,
+                         week_start = getOption("lubridate.week.start", 7)) {
   if (length(x) == 0) {
     return(x)
   }
 
-  xx <- as_datetime(x, tz = tz(x))
+  if (is.null(change_on_boundary)) {
+    change_on_boundary <- inherits(x, "Date")
+  }
 
   if (is.POSIXct(unit) || is.Date(unit)) {
+    xx <- as_datetime(x, tz = tz(x))
     new <- ceil_to_posix(xx, as_datetime(unit, tz = tz(unit)))
     return(reclass_date(new, unit))
   }
 
-  parsed_unit <- parse_period_unit(unit)
-  n <- parsed_unit$n
-  unit <- standardise_period_names(parsed_unit$unit)
-
-  if (is.null(change_on_boundary)) {
-    change_on_boundary <- is.Date(x)
-  }
-
-  roll_dst <- c("boundary", "pre")
-
-  if (unit == "second") {
-    new <- as_datetime(x, tz = tz(x))
-    sec <- second(new)
-    csec <- ceil_multi_unit(sec, n)
-    if (!change_on_boundary) {
-      wsec <- which(csec - n == sec)
-      if (length(wsec)) {
-        csec[wsec] <- sec[wsec]
-      }
-    }
-    update(new, seconds = csec, roll_dst = roll_dst)
-  } else if (unit %in% c("minute", "hour")) {
-
-    ## as_datetime converts Date to POSIXct with tz=UTC
-    delta <- switch(unit,
-      minute = 60,
-      hour = 3600,
-      day = 86400
-    ) * n
-    new <-
-      if (change_on_boundary) {
-        trunc_multi_unit(xx, unit, n) + delta
-      } else {
-        new1 <- trunc_multi_unit(xx, unit, n)
-        not_same <- which(new1 != xx)
-        new1[not_same] <- new1[not_same] + delta
-        new1
-      }
-    reclass_date_maybe(new, x, unit)
-  } else {
-    if (n > 1 && unit == "week") {
-      warning("Multi-unit not supported for weeks. Ignoring.")
-    }
-
-    ## need this to accomodate the case when date is on a boundary
-    new <-
-      if (change_on_boundary) {
-        xx
-      } else {
-        update(xx, seconds = second(xx) - 0.00001, roll_dst = roll_dst)
-      }
-
-    if (unit %in% c("month", "bimonth", "quarter", "halfyear", "season")) {
-      new_month <-
-        switch(unit,
-          month    = ceil_multi_unit1(month(new), n),
-          bimonth  = ceil_multi_unit1(month(new), 2 * n),
-          quarter  = ceil_multi_unit1(month(new), 3 * n),
-          halfyear = ceil_multi_unit1(month(new), 6 * n),
-          season   = ceil_multi_unit(month(new), 3 * n)
-        )
-      unit <- "month"
-    }
-
-    new <- switch(unit,
-      minute = update(new, minutes = ceil_multi_unit(minute(new), n), seconds = 0, roll_dst = roll_dst),
-      hour   = update(new, hours = ceil_multi_unit(hour(new), n), minutes = 0, seconds = 0, roll_dst = roll_dst),
-      day    = update(new, days = ceil_multi_unit1(day(new), n), hours = 0, minutes = 0, seconds = 0),
-      week   = update(new, wdays = 8, hours = 0, minutes = 0, seconds = 0, week_start = week_start),
-      month  = update(new, months = new_month, mdays = 1, hours = 0, minutes = 0, seconds = 0),
-      year   = update(new, years = ceil_multi_unit(year(new), n), months = 1, mdays = 1, hours = 0, minutes = 0, seconds = 0)
-    )
-
-    reclass_date_maybe(new, x, unit)
-  }
-}
-
-trunc_multi_limits <- c(second = 60L, minute = 60L, hour = 24, day = 31)
-
-trunc_multi_unit <- function(x, unit, n) {
-  x <- as.POSIXlt(x)
-  if (n > trunc_multi_limits[[unit]]) {
-    stop(sprintf("Rounding with %s > %d is not supported", unit, trunc_multi_limits[[unit]]))
-  }
-
-  switch(unit,
-    second = {
-      x$sec <- if (n == 1) trunc(x$sec) else floor_multi_unit(x$sec, n)
-    },
-    minute = {
-      x$sec[] <- 0
-      x$min <- floor_multi_unit(x$min, n)
-    },
-    hour = {
-      x$sec[] <- 0
-      x$min[] <- 0L
-      x$hour <- floor_multi_unit(x$hour, n)
-    },
-    day = {
-      x$sec[] <- 0
-      x$min[] <- 0L
-      x$hour[] <- 0L
-      x$isdst[] <- -1L
-      x$mday <- floor_multi_unit1(x$mday, n)
-    },
-    stop("Invalid unit ", unit)
-  )
-  x
-}
-
-floor_multi_unit <- function(x, n) {
-  (x %/% n) * n
-}
-
-floor_multi_unit1 <- function(x, n) {
-  (((x - 1) %/% n) * n) + 1L
-}
-
-ceil_multi_unit <- function(x, n) {
-  (x %/% n) * n + n
-}
-
-ceil_multi_unit1 <- function(x, n) {
-  (((x - 1) %/% n) * n) + n + 1L
+  timechange::time_ceiling(x, unit = unit,
+    change_on_boundary = change_on_boundary,
+    week_start = as_week_start(week_start))
 }
 
 check_round_endpoints <- function(unit) {
