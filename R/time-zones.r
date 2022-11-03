@@ -12,6 +12,7 @@
 #' @param tzone a character string containing the time zone to convert to. R
 #'   must recognize the name contained in the string as a time zone on your
 #'   system.
+#' @param ... Parameters passed to other methods.
 #' @return a POSIXct object in the updated time zone
 #' @keywords chron manip
 #' @seealso [force_tz()]
@@ -19,7 +20,13 @@
 #' x <- ymd_hms("2009-08-07 00:00:01", tz = "America/New_York")
 #' with_tz(x, "GMT")
 #' @export
-with_tz <- function(time, tzone = "") {
+with_tz <- function(time, tzone = "", ...) {
+    UseMethod("with_tz")
+}
+
+#' @rdname with_tz
+#' @export
+with_tz.default <- function(time, tzone = "", ...) {
   if (!timechange:::C_valid_tz(tzone)) {
     warning(sprintf("Unrecognized time zone '%s'", tzone))
   }
