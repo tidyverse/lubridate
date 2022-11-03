@@ -92,7 +92,6 @@ y <- ymd_hms("2010-03-14 02:05:05 UTC", "2014-11-02 01:35:00", tz = "UTC")
 force_tz(y, "America/New_York", roll_dst = c("NA", "pre"))
 force_tz(y, "America/New_York", roll_dst = c("boundary", "post"))
 
-
 ## Heterogeneous time-zones:
 
 x <- ymd_hms(c("2009-08-07 00:00:01", "2009-08-07 01:02:03"))

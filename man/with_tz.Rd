@@ -2,9 +2,12 @@
 % Please edit documentation in R/time-zones.r
 \name{with_tz}
 \alias{with_tz}
+\alias{with_tz.default}
 \title{Get date-time in a different time zone}
 \usage{
-with_tz(time, tzone = "")
+with_tz(time, tzone = "", ...)
+
+\method{with_tz}{default}(time, tzone = "", ...)
 }
 \arguments{
 \item{time}{a POSIXct, POSIXlt, Date, chron date-time object or a data.frame
@@ -14,6 +17,8 @@ with \code{with_tz()} and new data.frame is returned.}
 \item{tzone}{a character string containing the time zone to convert to. R
 must recognize the name contained in the string as a time zone on your
 system.}
+
+\item{...}{Parameters passed to other methods.}
 }
 \value{
 a POSIXct object in the updated time zone
