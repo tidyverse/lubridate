@@ -470,7 +470,11 @@ test_that("round_date works for a variety of formats", {
   x <- as.POSIXct("2009-08-03 12:01:59", tz = "UTC")
   expect_equal(round_date(x, "minute"), as.POSIXct("2009-08-03 12:02:00", tz = "UTC"))
   expect_equal(round_date(as.Date(x), "month"), as.Date("2009-08-01"))
-  expect_equal(round_date(as.POSIXlt(x), "minute"), as.POSIXlt(as.POSIXct("2009-08-03 12:02:00", tz = "UTC")))
+
+  expect_equal(
+    # Workaround for https://github.com/r-lib/testthat/issues/1710
+    structure(round_date(as.POSIXlt(x), "minute"), balanced = TRUE),
+    as.POSIXlt(as.POSIXct("2009-08-03 12:02:00", tz = "UTC")))
 
   ## https://github.com/tidyverse/lubridate/issues/1008
   y <- as.Date("2021-01-31")
