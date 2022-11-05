@@ -471,11 +471,12 @@ parse_period <- function(x) {
     stop("Interval or Durations objects cannot be used as input to 'period()' constructor. Plese use 'as.period()'.")
   }
 
-  if (length(units) %% length(num) != 0) {
-    stop("Arguments `num` and `units` must have same length")
+  stop_incompatible_size(num, units)
+  if (length(units) > length(num)) {
+    num <- rep_len(num, length(units))
   }
 
-  .period_from_units(structure(num, names = units))
+  .period_from_units(structure(num, names = rep_len(units, length(num))))
 }
 
 .period_from_units <- function(pieces) {

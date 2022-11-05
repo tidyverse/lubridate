@@ -166,3 +166,16 @@ stop_incompatible_classes <- function(x, y, method) {
     "Incompatible classes: <", is(x)[[1]], "> ", method, " <", is(y)[[1]], ">\n"
   ), call. = FALSE)
 }
+
+stop_incompatible_size <- function(x, y, msg = NULL) {
+  lx <- length(x)
+  ly <- length(y)
+  if (!(lx == ly || lx == 1 || ly == 1)) {
+    if (is.null(msg)) {
+      msg <- sprintf("Incompatible size of '%s'(%s) and '%s'(%s)",
+        deparse(substitute(x)), lx, deparse(substitute(y)), ly
+      )
+    }
+    stop(msg, call. = FALSE)
+  }
+}

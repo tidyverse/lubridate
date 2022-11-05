@@ -304,6 +304,11 @@ test_that("as.period with different units handles interval objects", {
   expect_equal(as.period(int, "second") + start, end)
 })
 
+test_that("period constructor works num-unit args", {
+  expect_equal(period(1, c("sec", "hour")), period("1H 1S"))
+  expect_equal(period(1:3, c("sec", "hour", "min")), period("2H 1S 3M"))
+  expect_error(period(1:3, c("sec", "hour")), "Incompatible")
+})
 
 test_that("as.period with different units handles negative interval objects", {
   end <- ymd("1992-02-29", tz = "UTC")
