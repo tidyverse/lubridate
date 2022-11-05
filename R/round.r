@@ -152,6 +152,7 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
   }
 
   if (is.POSIXt(unit) || is.Date(unit)) {
+
     .round <- function(below, above) {
       mid <- unclass(xx)
       below <- unclass(below)
@@ -171,8 +172,10 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
 
   } else {
 
-    out <- timechange::time_round(x, unit = unit, week_start = as_week_start(week_start))
-    return(out)
+    unit <- as.character(unit)
+    ## FIXME: remove when multi-unit week is implemented in timechange
+    unit <- .normalize_multi_week_unit(unit)
+    timechange::time_round(x, unit = unit, week_start = as_week_start(week_start))
 
   }
 }
@@ -194,7 +197,21 @@ floor_date <- function(x, unit = "seconds",
     return(reclass_date(new, unit))
   }
 
+  unit <- as.character(unit)
+  ## FIXME: remove when multi-unit week is implemented in timechange
+  unit <- .normalize_multi_week_unit(unit)
   timechange::time_floor(x, unit = unit, week_start = as_week_start(week_start))
+}
+
+.normalize_multi_week_unit <- function(unit) {
+  ## temp workaround not to throw an error on multi-unit weeks
+  unit <- as.character(unit)
+  parsed <- timechange:::parse_units(unit)
+  if (timechange:::standardise_unit_name(parsed$unit) == "week" && parsed$n > 1) {
+    warning("Multi-week unit is not supported. Ignoring.")
+    unit <- "week"
+  }
+  unit
 }
 
 #' @description
@@ -228,6 +245,10 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL,
     new <- ceil_to_posix(xx, as_datetime(unit, tz = tz(unit)))
     return(reclass_date(new, unit))
   }
+
+  unit <- as.character(unit)
+  ## FIXME: remove when multi-unit week is implemented in timechange
+  unit <- .normalize_multi_week_unit(unit)
 
   timechange::time_ceiling(x, unit = unit,
     change_on_boundary = change_on_boundary,
