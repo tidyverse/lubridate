@@ -39,7 +39,7 @@
 * GitHub: NA
 * Source code: https://github.com/cran/audrex
 * Date/Publication: 2022-03-23 10:10:14 UTC
-* Number of recursive dependencies: 99
+* Number of recursive dependencies: 98
 
 Run `revdep_details(, "audrex")` for more info
 
@@ -345,15 +345,15 @@ Run `revdep_details(, "crawl")` for more info
 ** package ‘crawl’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWN2LL.cpp -o CTCRWN2LL.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWN2LL_DRIFT.cpp -o CTCRWN2LL_DRIFT.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWPREDICT.cpp -o CTCRWPREDICT.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWPREDICT_DRIFT.cpp -o CTCRWPREDICT_DRIFT.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWSAMPLE.cpp -o CTCRWSAMPLE.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWSAMPLE_DRIFT.cpp -o CTCRWSAMPLE_DRIFT.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c SMM_MATS.cpp -o SMM_MATS.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -Wall -pedantic -c init.c -o init.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWN2LL.cpp -o CTCRWN2LL.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWN2LL_DRIFT.cpp -o CTCRWN2LL_DRIFT.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWPREDICT.cpp -o CTCRWPREDICT.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWPREDICT_DRIFT.cpp -o CTCRWPREDICT_DRIFT.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWSAMPLE.cpp -o CTCRWSAMPLE.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c CTCRWSAMPLE_DRIFT.cpp -o CTCRWSAMPLE_DRIFT.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c SMM_MATS.cpp -o SMM_MATS.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/crawl/RcppArmadillo/include' -Wall -pedantic   -fpic  -Wall -pedantic -c init.c -o init.o
 g++ -std=gnu++14 -shared -L/usr/local/lib -o crawl.so CTCRWN2LL.o CTCRWN2LL_DRIFT.o CTCRWPREDICT.o CTCRWPREDICT_DRIFT.o CTCRWSAMPLE.o CTCRWSAMPLE_DRIFT.o RcppExports.o SMM_MATS.o init.o -L/home/vspinu/bin/R-4.2.1-bin/lib -lRlapack -L/home/vspinu/bin/R-4.2.1-bin/lib -lRblas -lgfortran -lm -lquadmath
 /usr/bin/ld: cannot find -lgfortran: No such file or directory
 collect2: error: ld returned 1 exit status
@@ -396,7 +396,7 @@ ERROR: compilation failed for package ‘crawl’
 * GitHub: https://github.com/tvganesh/cricketr
 * Source code: https://github.com/cran/cricketr
 * Date/Publication: 2021-03-23 05:30:15 UTC
-* Number of recursive dependencies: 58
+* Number of recursive dependencies: 57
 
 Run `revdep_details(, "cricketr")` for more info
 
@@ -445,6 +445,39 @@ Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWith
 Execution halted
 ERROR: lazy loading failed for package ‘cricketr’
 * removing ‘/home/vspinu/Dropbox/dev/lubridate/revdep/checks/cricketr/old/cricketr.Rcheck/cricketr’
+
+
+```
+# dataversionr
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
 
 
 ```
@@ -680,25 +713,6 @@ ERROR: lazy loading failed for package ‘Ecfun’
 
 
 ```
-# excluder
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/ropensci/excluder
-* Source code: https://github.com/cran/excluder
-* Date/Publication: 2022-06-22 15:20:02 UTC
-* Number of recursive dependencies: 81
-
-Run `revdep_details(, "excluder")` for more info
-
-</details>
-
-## In both
-
-*   R CMD check timed out
-    
-
 # exuber
 
 <details>
@@ -735,8 +749,8 @@ Run `revdep_details(, "exuber")` for more info
 ** package ‘exuber’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/exuber/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/exuber/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c rls_gsadf.cpp -o rls_gsadf.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/exuber/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/exuber/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/exuber/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/exuber/RcppArmadillo/include' -Wall -pedantic   -fpic  -g -O2  -c rls_gsadf.cpp -o rls_gsadf.o
 g++ -std=gnu++11 -shared -L/usr/local/lib -o exuber.so RcppExports.o rls_gsadf.o -L/home/vspinu/bin/R-4.2.1-bin/lib -lRlapack -L/home/vspinu/bin/R-4.2.1-bin/lib -lRblas -lgfortran -lm -lquadmath
 /usr/bin/ld: cannot find -lgfortran: No such file or directory
 collect2: error: ld returned 1 exit status
@@ -1022,10 +1036,10 @@ ERROR: lazy loading failed for package ‘garma’
 
 <details>
 
-* Version: 0.99.42
+* Version: 1.0.0
 * GitHub: https://github.com/PavlidisLab/gemma.R
 * Source code: https://github.com/cran/gemma.R
-* Date/Publication: 2022-10-25
+* Date/Publication: 2022-11-01
 * Number of recursive dependencies: 107
 
 Run `revdep_details(, "gemma.R")` for more info
@@ -1056,6 +1070,39 @@ Run `revdep_details(, "gemma.R")` for more info
       experimental.factorValue
     ```
 
+# healthyR.ts
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # heatwaveR
 
 <details>
@@ -1087,8 +1134,8 @@ Run `revdep_details(, "heatwaveR")` for more info
 ** package ‘heatwaveR’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/heatwaveR/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/heatwaveR/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c clim_calc.cpp -o clim_calc.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/heatwaveR/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/heatwaveR/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/heatwaveR/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/heatwaveR/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c clim_calc.cpp -o clim_calc.o
 g++ -std=gnu++11 -shared -L/usr/local/lib -o heatwaveR.so RcppExports.o clim_calc.o -fopenmp -L/home/vspinu/bin/R-4.2.1-bin/lib -lRlapack -L/home/vspinu/bin/R-4.2.1-bin/lib -lRblas -lgfortran -lm -lquadmath
 /usr/bin/ld: cannot find -lgfortran: No such file or directory
 collect2: error: ld returned 1 exit status
@@ -1246,6 +1293,25 @@ ERROR: lazy loading failed for package ‘iClick’
 
 
 ```
+# iglu
+
+<details>
+
+* Version: 3.3.2
+* GitHub: NA
+* Source code: https://github.com/cran/iglu
+* Date/Publication: 2022-10-19 15:35:08 UTC
+* Number of recursive dependencies: 111
+
+Run `revdep_details(, "iglu")` for more info
+
+</details>
+
+## Newly broken
+
+*   R CMD check timed out
+    
+
 # lambdaTS
 
 <details>
@@ -1448,6 +1514,105 @@ ERROR: lazy loading failed for package ‘midasr’
 
 
 ```
+# modeltime
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# modeltime.ensemble
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# modeltime.resample
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # npphen
 
 <details>
@@ -1554,17 +1719,17 @@ Run `revdep_details(, "oce")` for more info
 ** package ‘oce’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c ad2cp_ahrs.cpp -o ad2cp_ahrs.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c adv_vector_time.cpp -o adv_vector_time.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c amsr.cpp -o amsr.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c approx.cpp -o approx.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c bilinear_interp.cpp -o bilinear_interp.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c ad2cp_ahrs.cpp -o ad2cp_ahrs.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c adv_vector_time.cpp -o adv_vector_time.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c amsr.cpp -o amsr.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c approx.cpp -o approx.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c bilinear_interp.cpp -o bilinear_interp.o
 ...
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c sw.c -o sw.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c time.cpp -o time.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c trap.cpp -o trap.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c trim.cpp -o trim.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c sw.c -o sw.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c time.cpp -o time.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c trap.cpp -o trap.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -DSTRICT_R_HEADERS -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/oce/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c trim.cpp -o trim.o
 g++ -std=gnu++14 -shared -L/usr/local/lib -o oce.so RcppExports.o ad2cp_ahrs.o adv_vector_time.o amsr.o approx.o bilinear_interp.o bin.o bin_average.o binmap.o bitwise.o coastline.o curl.o echosounder.o fillgap.o gappy_index.o geod.o get_bit.o gradient.o igrf12.o igrf13.o interp_barnes.o landsat.o ldc_ad2cp_in_file.o ldc_rdi_in_buffer.o ldc_rdi_in_file.o magdec.o map.o matrix_smooth.o oce_approx.o oce_convolve.o oce_filter.o ocecp.o registerDynamicSymbol.o run.o sfm_enu.o sontek_adp.o sw.o time.o trap.o trim.o -lgfortran -lm -lquadmath
 /usr/bin/ld: cannot find -lgfortran: No such file or directory
 collect2: error: ld returned 1 exit status
@@ -1632,9 +1797,9 @@ Run `revdep_details(, "openair")` for more info
 ** package ‘openair’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c cluster.cpp -o cluster.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c init.c -o init.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c rolling.cpp -o rolling.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/openair/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c cluster.cpp -o cluster.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/openair/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c init.c -o init.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/openair/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c rolling.cpp -o rolling.o
 g++ -std=gnu++14 -shared -L/usr/local/lib -o openair.so cluster.o init.o rolling.o -L/home/vspinu/bin/R-4.2.1-bin/lib -lRlapack -L/home/vspinu/bin/R-4.2.1-bin/lib -lRblas -lgfortran -lm -lquadmath
 /usr/bin/ld: cannot find -lgfortran: No such file or directory
 collect2: error: ld returned 1 exit status
@@ -1667,11 +1832,11 @@ ERROR: compilation failed for package ‘openair’
 
 <details>
 
-* Version: 0.3.2
+* Version: 0.3.6
 * GitHub: https://github.com/eco-hydro/phenofit
 * Source code: https://github.com/cran/phenofit
-* Date/Publication: 2021-10-15 10:50:02 UTC
-* Number of recursive dependencies: 84
+* Date/Publication: 2022-11-03 08:26:39 UTC
+* Number of recursive dependencies: 82
 
 Run `revdep_details(, "phenofit")` for more info
 
@@ -1694,14 +1859,14 @@ Run `revdep_details(, "phenofit")` for more info
 ** package ‘phenofit’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c doubleLogistics.cpp -o doubleLogistics.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c f_goal.cpp -o f_goal.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic   -fpic  -Wall -pedantic -c register_routines.c -o register_routines.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c season_filter.cpp -o season_filter.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c smooth_wSG.cpp -o smooth_wSG.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic   -fpic  -Wall -pedantic -c smooth_whit.c -o smooth_whit.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c wTSM.cpp -o wTSM.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c doubleLogistics.cpp -o doubleLogistics.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c f_goal.cpp -o f_goal.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic   -fpic  -Wall -pedantic -c register_routines.c -o register_routines.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c season_filter.cpp -o season_filter.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c smooth_wSG.cpp -o smooth_wSG.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic   -fpic  -Wall -pedantic -c smooth_whit.c -o smooth_whit.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/phenofit/RcppArmadillo/include' -Wall -pedantic  -fopenmp  -fpic  -g -O2  -c wTSM.cpp -o wTSM.o
 g++ -std=gnu++11 -shared -L/usr/local/lib -o phenofit.so RcppExports.o doubleLogistics.o f_goal.o register_routines.o season_filter.o smooth_wSG.o smooth_whit.o wTSM.o -fopenmp -L/home/vspinu/bin/R-4.2.1-bin/lib -lRlapack -L/home/vspinu/bin/R-4.2.1-bin/lib -lRblas -lgfortran -lm -lquadmath
 /usr/bin/ld: cannot find -lgfortran: No such file or directory
 collect2: error: ld returned 1 exit status
@@ -1875,7 +2040,7 @@ ERROR: compilation failed for package ‘phenofit’
 * GitHub: NA
 * Source code: https://github.com/cran/rcrimeanalysis
 * Date/Publication: 2020-05-20 05:10:08 UTC
-* Number of recursive dependencies: 104
+* Number of recursive dependencies: 103
 
 Run `revdep_details(, "rcrimeanalysis")` for more info
 
@@ -1951,22 +2116,16 @@ ERROR: lazy loading failed for package ‘rcrimeanalysis’
 
 
 Error in download.file(url, destfile, method, mode = "wb", ...) : 
-  download from 'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/msdata_0.36.0.tar.gz' failed
+  download from 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz' failed
 In addition: Warning messages:
 1: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 137821797 != reported length 447124112
+  downloaded length 437840969 != reported length 529395641
 2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 137821797 != reported length 447124112
+  downloaded length 437840969 != reported length 529395641
 3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/msdata_0.36.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz': Timeout of 60 seconds was reached
 4: In download.file(url, destfile, method, mode = "wb", ...) :
-...
-2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 117694924 != reported length 529395609
-3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/pRolocdata_1.34.0.tar.gz': Timeout of 60 seconds was reached
-4: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/pRolocdata_1.34.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz': Timeout of 60 seconds was reached
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
   download of package ‘pRolocdata’ failed
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
@@ -1981,22 +2140,16 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 Error in download.file(url, destfile, method, mode = "wb", ...) : 
-  download from 'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/msdata_0.36.0.tar.gz' failed
+  download from 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz' failed
 In addition: Warning messages:
 1: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 137821797 != reported length 447124112
+  downloaded length 437840969 != reported length 529395641
 2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 137821797 != reported length 447124112
+  downloaded length 437840969 != reported length 529395641
 3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/msdata_0.36.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz': Timeout of 60 seconds was reached
 4: In download.file(url, destfile, method, mode = "wb", ...) :
-...
-2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 117694924 != reported length 529395609
-3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/pRolocdata_1.34.0.tar.gz': Timeout of 60 seconds was reached
-4: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/pRolocdata_1.34.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz': Timeout of 60 seconds was reached
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
   download of package ‘pRolocdata’ failed
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
@@ -2037,6 +2190,25 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
+# rols
+
+<details>
+
+* Version: 2.26.0
+* GitHub: https://github.com/lgatto/rols
+* Source code: https://github.com/cran/rols
+* Date/Publication: 2022-11-01
+* Number of recursive dependencies: 91
+
+Run `revdep_details(, "rols")` for more info
+
+</details>
+
+## In both
+
+*   R CMD check timed out
+    
+
 # rts2
 
 <details>
@@ -2101,17 +2273,17 @@ Run `revdep_details(, "sits")` for more info
 ** package ‘sits’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c bayesian_smoothing.cpp -o bayesian_smoothing.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c entropy_probs.cpp -o entropy_probs.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c kernel_functions.cpp -o kernel_functions.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c least_probs.cpp -o least_probs.o
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c linear_interp.cpp -o linear_interp.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c bayesian_smoothing.cpp -o bayesian_smoothing.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c entropy_probs.cpp -o entropy_probs.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c kernel_functions.cpp -o kernel_functions.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c least_probs.cpp -o least_probs.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c linear_interp.cpp -o linear_interp.o
 ...
 smooth_sgp.cpp:18:9: warning: unused variable ‘len_ext’ [-Wunused-variable]
    18 |     int len_ext  = x.n_rows + len_init;
       |         ^~~~~~~
-g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c smooth_whit.cpp -o smooth_whit.o
+g++ -std=gnu++11 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/Rcpp/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/sits/RcppArmadillo/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c smooth_whit.cpp -o smooth_whit.o
 g++ -std=gnu++11 -shared -L/usr/local/lib -o sits.so RcppExports.o bayesian_smoothing.o entropy_probs.o kernel_functions.o least_probs.o linear_interp.o margin_probs.o nnls_solver.o normalize_data.o ratio_probs.o sampling_window.o smooth_sgp.o smooth_whit.o -fopenmp -L/home/vspinu/bin/R-4.2.1-bin/lib -lRlapack -L/home/vspinu/bin/R-4.2.1-bin/lib -lRblas -lgfortran -lm -lquadmath
 /usr/bin/ld: cannot find -lgfortran: No such file or directory
 collect2: error: ld returned 1 exit status
@@ -2179,9 +2351,9 @@ Run `revdep_details(, "SPARSEMODr")` for more info
 ** package ‘SPARSEMODr’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c Nrutil.cpp -o Nrutil.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c covid19_model.cpp -o covid19_model.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c Nrutil.cpp -o Nrutil.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -pedantic   -fpic  -g -O2  -c covid19_model.cpp -o covid19_model.o
 covid19_model.cpp:8:10: fatal error: gsl/gsl_rng.h: No such file or directory
     8 | #include <gsl/gsl_rng.h>
       |          ^~~~~~~~~~~~~~~
@@ -2499,17 +2671,17 @@ Run `revdep_details(, "VIC5")` for more info
 ** package ‘VIC5’ successfully unpacked and MD5 sums checked
 ** using staged installation
 ** libs
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/advected_sensible_heat.c -o vic/vic_run/src/advected_sensible_heat.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/alloc_and_free.c -o vic/vic_run/src/alloc_and_free.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/arno_evap.c -o vic/vic_run/src/arno_evap.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/calc_atmos_energy_bal.c -o vic/vic_run/src/calc_atmos_energy_bal.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/calc_gridcell_avg_albedo.c -o vic/vic_run/src/calc_gridcell_avg_albedo.o
-gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/calc_Nscale_factors.c -o vic/vic_run/src/calc_Nscale_factors.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/advected_sensible_heat.c -o vic/vic_run/src/advected_sensible_heat.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/alloc_and_free.c -o vic/vic_run/src/alloc_and_free.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/arno_evap.c -o vic/vic_run/src/arno_evap.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/calc_atmos_energy_bal.c -o vic/vic_run/src/calc_atmos_energy_bal.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/calc_gridcell_avg_albedo.c -o vic/vic_run/src/calc_gridcell_avg_albedo.o
+gcc -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic   -fpic  -Wall -pedantic -c vic/vic_run/src/calc_Nscale_factors.c -o vic/vic_run/src/calc_Nscale_factors.o
 ...
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c vic_run_cell.cpp -o vic_run_cell.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c vic_version.cpp -o vic_version.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c vic_run_cells_all.cpp -o vic_run_cells_all.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/lubridate/new/Rcpp/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c XAJ.cpp -o XAJ.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c vic_run_cell.cpp -o vic_run_cell.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c vic_version.cpp -o vic_version.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c vic_run_cells_all.cpp -o vic_run_cells_all.o
+g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG -I "./vic/vic_run/include" -I "./vic/drivers/shared_all/include" -I "." -DLOG_LVL=25 -D_DEFAULT_SOURCE -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/RcppArmadillo/include' -I'/home/vspinu/Dropbox/dev/lubridate/revdep/library/VIC5/Rcpp/include' -Wall -pedantic  -fopenmp -fpic  -g -O2  -c XAJ.cpp -o XAJ.o
 g++ -std=gnu++14 -shared -L/usr/local/lib -o VIC5.so vic/vic_run/src/advected_sensible_heat.o vic/vic_run/src/alloc_and_free.o vic/vic_run/src/arno_evap.o vic/vic_run/src/calc_atmos_energy_bal.o vic/vic_run/src/calc_gridcell_avg_albedo.o vic/vic_run/src/calc_Nscale_factors.o vic/vic_run/src/calc_rainonly.o vic/vic_run/src/calc_snow_coverage.o vic/vic_run/src/calc_surf_energy_bal.o vic/vic_run/src/calc_veg_params.o vic/vic_run/src/CalcAerodynamic.o vic/vic_run/src/CalcBlowingSnow.o vic/vic_run/src/canopy_assimilation.o vic/vic_run/src/canopy_evap.o vic/vic_run/src/comparisons.o vic/vic_run/src/compute_coszen.o vic/vic_run/src/compute_derived_lake_dimensions.o vic/vic_run/src/compute_pot_evap.o vic/vic_run/src/compute_soil_resp.o vic/vic_run/src/compute_zwt.o vic/vic_run/src/correct_precip.o vic/vic_run/src/estimate_T1.o vic/vic_run/src/faparl.o vic/vic_run/src/frozen_soil.o vic/vic_run/src/func_atmos_energy_bal.o vic/vic_run/src/func_atmos_moist_bal.o vic/vic_run/src/func_canopy_energy_bal.o vic/vic_run/src/func_surf_energy_bal.o vic/vic_run/src/ice_melt.o vic/vic_run/src/IceEnergyBalance.o vic/vic_run/src/initialize_lake.o vic/vic_run/src/interpoloation.o vic/vic_run/src/lake_utils.o vic/vic_run/src/lakes.eb.o vic/vic_run/src/latent_heat_from_snow.o vic/vic_run/src/massrelease.o vic/vic_run/src/newt_raph_func_fast.o vic/vic_run/src/penman.o vic/vic_run/src/photosynth.o vic/vic_run/src/physics.o vic/vic_run/src/prepare_full_energy.o vic/vic_run/src/root_brent.o vic/vic_run/src/runoff.o vic/vic_run/src/snow_intercept.o vic/vic_run/src/snow_melt.o vic/vic_run/src/snow_utility.o vic/vic_run/src/SnowPackEnergyBalance.o vic/vic_run/src/soil_carbon_balance.o vic/vic_run/src/soil_conduction.o vic/vic_run/src/soil_thermal_eqn.o vic/vic_run/src/solve_snow.o vic/vic_run/src/StabilityCorrection.o vic/vic_run/src/surface_fluxes.o vic/vic_run/src/svp.o vic/vic_run/src/vic_run.o vic/vic_run/src/water_energy_balance.o vic/vic_run/src/water_under_ice.o vic/vic_run/src/write_layer.o vic/vic_run/src/write_vegvar.o vic/drivers/shared_all/src/agg_data.o vic/drivers/shared_all/src/alarms.o vic/drivers/shared_all/src/calc_root_fraction.o vic/drivers/shared_all/src/cmd_proc.o vic/drivers/shared_all/src/compress_files.o vic/drivers/shared_all/src/compute_derived_state_vars.o vic/drivers/shared_all/src/compute_lake_params.o vic/drivers/shared_all/src/compute_treeline.o vic/drivers/shared_all/src/forcing_utils.o vic/drivers/shared_all/src/free_all_vars.o vic/drivers/shared_all/src/free_vegcon.o vic/drivers/shared_all/src/generate_default_lake_state.o vic/drivers/shared_all/src/generate_default_state.o vic/drivers/shared_all/src/get_parameters.o vic/drivers/shared_all/src/history_metadata.o vic/drivers/shared_all/src/initialize_energy.o vic/drivers/shared_all/src/initialize_global.o vic/drivers/shared_all/src/initialize_options.o vic/drivers/shared_all/src/initialize_parameters.o vic/drivers/shared_all/src/initialize_snow.o vic/drivers/shared_all/src/initialize_soil.o vic/drivers/shared_all/src/initialize_veg.o vic/drivers/shared_all/src/input_tools.o vic/drivers/shared_all/src/make_all_vars.o vic/drivers/shared_all/src/make_cell_data.o vic/drivers/shared_all/src/make_dmy.o vic/drivers/shared_all/src/make_energy_bal.o vic/drivers/shared_all/src/make_snow_data.o vic/drivers/shared_all/src/make_veg_var.o vic/drivers/shared_all/src/open_file.o vic/drivers/shared_all/src/print_library_shared.o vic/drivers/shared_all/src/put_data.o vic/drivers/shared_all/src/set_output_defaults.o vic/drivers/shared_all/src/soil_moisture_from_water_table.o vic/drivers/shared_all/src/timing.o vic/drivers/shared_all/src/update_step_vars.o vic/drivers/shared_all/src/vic_history.o vic/drivers/shared_all/src/vic_log.o vic/drivers/shared_all/src/vic_time.o vic/drivers/shared_all/src/zero_output_list.o ./conv.o ./display_current_settings.o ./force.o ./get_options.o ./globals.o ./initiate.o ./make_output_info.o ./make_params.o ./RcppExports.o ./vic_run_cell.o ./vic_version.o vic_run_cells_all.o XAJ.o -fopenmp -L/home/vspinu/bin/R-4.2.1-bin/lib -lRlapack -L/home/vspinu/bin/R-4.2.1-bin/lib -lRblas -lgfortran -lm -lquadmath
 /usr/bin/ld: cannot find -lgfortran: No such file or directory
 collect2: error: ld returned 1 exit status
@@ -2614,8 +2786,6 @@ Run `revdep_details(, "WRTDStidal")` for more info
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Warning message:
-package ‘ggplot2’ was built under R version 4.3.0 
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   there is no package called ‘fracdiff’
 Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
@@ -2636,8 +2806,6 @@ ERROR: lazy loading failed for package ‘WRTDStidal’
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Warning message:
-package ‘ggplot2’ was built under R version 4.3.0 
 Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
   there is no package called ‘fracdiff’
 Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
