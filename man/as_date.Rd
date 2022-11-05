@@ -26,9 +26,9 @@ as_date(x, ...)
 
 as_datetime(x, ...)
 
-\S4method{as_datetime}{ANY}(x, tz = "UTC")
+\S4method{as_datetime}{ANY}(x, tz = lubridate::tz(x))
 
-\S4method{as_datetime}{POSIXt}(x, tz = "UTC")
+\S4method{as_datetime}{POSIXt}(x, tz = lubridate::tz(x))
 
 \S4method{as_datetime}{numeric}(x, origin = lubridate::origin, tz = "UTC")
 
