@@ -251,7 +251,7 @@ ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL,
   unit <- .normalize_multi_week_unit(unit)
 
   timechange::time_ceiling(x, unit = unit,
-    change_on_boundary = change_on_boundary,
+    change_on_boundary = as.logical(change_on_boundary), # FIXME: remove this protection with devel timechange
     week_start = as_week_start(week_start))
 }
 
