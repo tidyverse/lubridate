@@ -20,6 +20,7 @@ Version 1.8.0.9000
 
 ### BUG FIXES
 
+* [#1036](https://github.com/tidyverse/lubridate/issues/1036) `%within%` now correctly works with flipped intervals
 * [#1085](https://github.com/tidyverse/lubridate/issues/1085) `as_datetime()` now preserves the time zone of the POSIXt input.
 * [#1072](https://github.com/tidyverse/lubridate/issues/1072) Names are now handled correctly when combining multiple Period or Interval objects.
 * [#1003](https://github.com/tidyverse/lubridate/issues/1003) Correctly handle r and R formats in locales which have no p format

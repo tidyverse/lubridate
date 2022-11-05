@@ -734,6 +734,18 @@ test_that("%within% works as expected", {
   expect_false(nolap %within% base)
 })
 
+test_that("%within% works with inverted intervals", {
+  int <- interval(as.Date("2021-01-01"), as.Date("2021-12-31"))
+  x <- as.Date("2021-06-15")
+  expect_true(x %within% int)
+  flip <- int_flip(int)
+  expect_true(x %within% flip)
+  int2 <- interval(as.Date("2021-02-01"), as.Date("2021-10-31"))
+  expect_true(int2 %within% int)
+  expect_true(int_flip(int2) %within% int)
+  expect_true(int2 %within% int_flip(int))
+})
+
 
 test_that("%with% recycles both arguments", {
   blackouts <- c(

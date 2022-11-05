@@ -605,21 +605,15 @@ setGeneric("%within%", useAsDefault = function(a, b) {
 })
 
 .within <- function(a, int) {
+  int <- int_standardize(int)
   as.numeric(a) - as.numeric(int@start) <= int@.Data & as.numeric(a) - as.numeric(int@start) >= 0
 }
 
 setMethod("%within%", signature(b = "Interval"), function(a, b) {
-  if (!is.instant(a)) stop("Argument 1 is not a recognized date-time")
+  if (!is.instant(a))
+    stop("Argument 1 is not a recognized datetime")
   a <- as.POSIXct(a)
   .within(a, b)
-})
-
-setMethod("%within%", signature(a = "Interval", b = "Interval"), function(a, b) {
-  a <- int_standardize(a)
-  b <- int_standardize(b)
-  start.in <- as.numeric(a@start) >= as.numeric(b@start)
-  end.in <- (as.numeric(a@start) + a@.Data) <= (as.numeric(b@start) + b@.Data)
-  start.in & end.in
 })
 
 .within_interval <- function(a, b) {
