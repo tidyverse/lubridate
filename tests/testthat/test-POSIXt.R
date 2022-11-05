@@ -95,7 +95,7 @@ test_that("converts character", {
 })
 
 test_that("changes timezone of POSIXct", {
-  dt <- as_datetime(make_datetime(tz = "America/Chicago"))
+  dt <- as_datetime(make_datetime(tz = "America/Chicago"), tz = "UTC")
   expect_equal(tz(dt), "UTC")
 })
 

@@ -74,12 +74,10 @@ tz.logical <- function(x) {
 
 #' @export
 tz.default <- function(x) {
-  ### FIXME: make this `stop` in next major release
-  ## VS[21-03-2020]: v.1.7.8 already sent notification to broken packages
   warning(
     "tz(): Don't know how to compute timezone for object of class ",
     paste0(class(x), collapse = "/"),
-    "; returning \"UTC\". This warning will become an error in the next major version of lubridate.",
+    "; returning \"UTC\".",
     call. = FALSE
   )
   "UTC"

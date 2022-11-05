@@ -772,7 +772,7 @@ setGeneric("as_datetime",
 #' @rdname as_date
 #' @export
 setMethod("as_datetime", "ANY",
-  function(x, tz = "UTC") {
+  function(x, tz = lubridate::tz(x)) {
     with_tz(as.POSIXct(x, tz = tz), tzone = tz)
   }
 )
@@ -780,7 +780,7 @@ setMethod("as_datetime", "ANY",
 #' @rdname as_date
 #' @export
 setMethod("as_datetime", "POSIXt",
-  function(x, tz = "UTC") {
+  function(x, tz = lubridate::tz(x)) {
     with_tz(x, tz)
   }
 )

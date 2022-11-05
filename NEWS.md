@@ -20,6 +20,7 @@ Version 1.8.0.9000
 
 ### BUG FIXES
 
+* [#1085](https://github.com/tidyverse/lubridate/issues/1085) `as_datetime()` now preserves the time zone of the POSIXt input.
 * [#1072](https://github.com/tidyverse/lubridate/issues/1072) Names are now handled correctly when combining multiple Period or Interval objects.
 * [#1003](https://github.com/tidyverse/lubridate/issues/1003) Correctly handle r and R formats in locales which have no p format
 * [#1074](https://github.com/tidyverse/lubridate/issues/1074) Fix concatination of named Period, Interval and Duration vectors.
