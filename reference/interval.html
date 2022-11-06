@@ -23,7 +23,7 @@ moments of each interval occur at the same time.
 int_diff() returns the intervals that occur between the elements of a
 vector of date-times. int_diff() is similar to the POSIXt and Date
 methods of diff(), but returns an Interval object instead
-of a difftime object.'><title>Utilities for creation and manipulation of Interval objects — interval • lubridate</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Utilities for creation and manipulation of Interval objects — interval"><meta property="og:description" content='interval() creates an Interval object with the specified start and
+of a difftime object.'><title>Utilities for creation and manipulation of Interval objects — interval • lubridate</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Utilities for creation and manipulation of Interval objects — interval"><meta property="og:description" content='interval() creates an Interval object with the specified start and
 end dates. If the start date occurs before the end date, the interval will be
 positive. Otherwise, it will be negative. Character vectors in ISO 8601
 format are supported from v1.7.2.
@@ -58,7 +58,7 @@ of a difftime object.'><meta property="og:image" content="https://lubridate.tidy
     
     <a class="navbar-brand me-2" href="../index.html">lubridate</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,33 +134,33 @@ of a difftime object.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">interval</span><span class="op">(</span>start <span class="op">=</span> <span class="cn">NULL</span>, end <span class="op">=</span> <span class="cn">NULL</span>, tzone <span class="op">=</span> <span class="fu"><a href="tz.html">tz</a></span><span class="op">(</span><span class="va">start</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">start</span> <span class="op">%--%</span> <span class="va">end</span>
-
-<span class="fu">is.interval</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">int_start</span><span class="op">(</span><span class="va">int</span><span class="op">)</span>
-
-<span class="fu">int_start</span><span class="op">(</span><span class="va">int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="fu">int_end</span><span class="op">(</span><span class="va">int</span><span class="op">)</span>
-
-<span class="fu">int_end</span><span class="op">(</span><span class="va">int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="fu">int_length</span><span class="op">(</span><span class="va">int</span><span class="op">)</span>
-
-<span class="fu">int_flip</span><span class="op">(</span><span class="va">int</span><span class="op">)</span>
-
-<span class="fu">int_shift</span><span class="op">(</span><span class="va">int</span>, <span class="va">by</span><span class="op">)</span>
-
-<span class="fu">int_overlaps</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int2</span><span class="op">)</span>
-
-<span class="fu">int_standardize</span><span class="op">(</span><span class="va">int</span><span class="op">)</span>
-
-<span class="fu">int_aligns</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int2</span><span class="op">)</span>
-
-<span class="fu">int_diff</span><span class="op">(</span><span class="va">times</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">interval</span><span class="op">(</span>start <span class="op">=</span> <span class="cn">NULL</span>, end <span class="op">=</span> <span class="cn">NULL</span>, tzone <span class="op">=</span> <span class="fu"><a href="tz.html">tz</a></span><span class="op">(</span><span class="va">start</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">start</span> <span class="op">%--%</span> <span class="va">end</span></span>
+<span></span>
+<span><span class="fu">is.interval</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_start</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_start</span><span class="op">(</span><span class="va">int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">int_end</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_end</span><span class="op">(</span><span class="va">int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">int_length</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_flip</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_shift</span><span class="op">(</span><span class="va">int</span>, <span class="va">by</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_overlaps</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_standardize</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_aligns</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">int_diff</span><span class="op">(</span><span class="va">times</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -170,38 +170,71 @@ of a difftime object.</p>
 character vector and end is <code>NULL</code>, ISO 8601 specification is assumed but
 with much more permisive lubridate style parsing both for dates and periods
 (see examples).</p></dd>
+
+
 <dt>tzone</dt>
 <dd><p>a recognized timezone to display the interval in</p></dd>
+
+
 <dt>x</dt>
 <dd><p>an R object</p></dd>
+
+
 <dt>int</dt>
 <dd><p>an interval object</p></dd>
+
+
 <dt>value</dt>
 <dd><p>interval's start/end to be assigned to <code>int</code></p></dd>
+
+
 <dt>by</dt>
 <dd><p>A period or duration object to shift by (for <code>int_shift</code>)</p></dd>
+
+
 <dt>int1</dt>
 <dd><p>an Interval object (for <code>int_overlaps()</code>, <code>int_aligns()</code>)</p></dd>
+
+
 <dt>int2</dt>
 <dd><p>an Interval object (for <code>int_overlaps()</code>, <code>int_aligns()</code>)</p></dd>
+
+
 <dt>times</dt>
 <dd><p>A vector of POSIXct, POSIXlt or Date class date-times (for
 <code>int_diff()</code>)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>interval()</code> -- <a href="Interval-class.html">Interval</a> object.
-<code>int_start()</code> and <code>int_end()</code> return a POSIXct date object when
-used as an accessor. Nothing when used as a setter.
-<code>int_length()</code> -- numeric length of the interval in
-seconds. A negative number connotes a negative interval.
-<code>int_flip()</code> -- flipped interval object
-<code>int_shift()</code> -- an Interval object
-<code>int_overlaps()</code> -- logical, TRUE if int1 and int2 overlap by at
-least one second. FALSE otherwise
-<code>int_aligns()</code> -- logical, TRUE if int1 and int2 begin or end on the
-same moment. FALSE otherwise
-<code>int_diff()</code> -- interval object that contains the n-1 intervals
+    
+
+<p><code>interval()</code> -- <a href="Interval-class.html">Interval</a> object.</p>
+
+
+<p><code>int_start()</code> and <code>int_end()</code> return a POSIXct date object when
+used as an accessor. Nothing when used as a setter.</p>
+
+
+<p><code>int_length()</code> -- numeric length of the interval in
+seconds. A negative number connotes a negative interval.</p>
+
+
+<p><code>int_flip()</code> -- flipped interval object</p>
+
+
+<p><code>int_shift()</code> -- an Interval object</p>
+
+
+<p><code>int_overlaps()</code> -- logical, TRUE if int1 and int2 overlap by at
+least one second. FALSE otherwise</p>
+
+
+<p><code>int_aligns()</code> -- logical, TRUE if int1 and int2 begin or end on the
+same moment. FALSE otherwise</p>
+
+
+<p><code>int_diff()</code> -- interval object that contains the n-1 intervals
 between the n date-time in times</p>
     </div>
     <div class="section level2">
@@ -220,92 +253,92 @@ calculated.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090201</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090101</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090201</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090101</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2009-02-01 UTC--2009-01-01 UTC</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">date1</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-03-08 01:59:59"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">date2</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-02-29 12:00:00"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="va">date2</span>, <span class="va">date1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">date1</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-03-08 01:59:59"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">date2</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-02-29 12:00:00"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="va">date2</span>, <span class="va">date1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2000-02-29 12:00:00 UTC--2009-03-08 01:59:59 UTC</span>
-<span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="va">date1</span>, <span class="va">date2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="va">date1</span>, <span class="va">date2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2009-03-08 01:59:59 UTC--2000-02-29 12:00:00 UTC</span>
-<span class="r-in"><span class="va">span</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090101</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090201</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### ISO Intervals</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="st">"2007-03-01T13:00:00Z/2008-05-11T15:30:00Z"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">span</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090101</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090201</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### ISO Intervals</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"2007-03-01T13:00:00Z/2008-05-11T15:30:00Z"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</span>
-<span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="st">"2007-03-01T13:00:00Z/P1Y2M10DT2H30M"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"2007-03-01T13:00:00Z/P1Y2M10DT2H30M"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</span>
-<span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="st">"P1Y2M10DT2H30M/2008-05-11T15:30:00Z"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"P1Y2M10DT2H30M/2008-05-11T15:30:00Z"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2007-03-01 13:00:00 UTC--2008-05-11 15:30:00 UTC</span>
-<span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="st">"2008-05-11/P2H30M"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"2008-05-11/P2H30M"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2008-05-11 UTC--2010-11-11 02:00:00 UTC</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">### More permisive parsing (as long as there are no intermittent / characters)</span></span>
-<span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="st">"2008 05 11/P2hours 30minutes"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">### More permisive parsing (as long as there are no intermittent / characters)</span></span></span>
+<span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"2008 05 11/P2hours 30minutes"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2008-05-11 UTC--2008-05-11 02:30:00 UTC</span>
-<span class="r-in"><span class="fu">interval</span><span class="op">(</span><span class="st">"08 05 11/P 2h 30m"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"08 05 11/P 2h 30m"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2008-05-11 UTC--2010-11-11 02:00:00 UTC</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">is.interval</span><span class="op">(</span><span class="fu"><a href="period.html">period</a></span><span class="op">(</span>months<span class="op">=</span> <span class="fl">1</span>, days <span class="op">=</span> <span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="co"># FALSE</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">is.interval</span><span class="op">(</span><span class="fu"><a href="period.html">period</a></span><span class="op">(</span>months <span class="op">=</span> <span class="fl">1</span>, days <span class="op">=</span> <span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="co"># FALSE</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="fu">is.interval</span><span class="op">(</span><span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090801</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090809</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># TRUE</span></span>
+<span class="r-in"><span><span class="fu">is.interval</span><span class="op">(</span><span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090801</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20090809</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># TRUE</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">int_start</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">int_start</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2001-01-01 UTC"</span>
-<span class="r-in"><span class="fu">int_start</span><span class="op">(</span><span class="va">int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-06-01"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">int</span></span>
+<span class="r-in"><span><span class="fu">int_start</span><span class="op">(</span><span class="va">int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-06-01"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">int</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2001-06-01 UTC--2002-01-01 UTC</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">int_end</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">int_end</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2002-01-01 UTC"</span>
-<span class="r-in"><span class="fu">int_end</span><span class="op">(</span><span class="va">int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-06-01"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">int</span></span>
+<span class="r-in"><span><span class="fu">int_end</span><span class="op">(</span><span class="va">int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-06-01"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">int</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2001-01-01 UTC--2002-06-01 UTC</span>
-<span class="r-in"><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">int_length</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">int_length</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 31536000</span>
-<span class="r-in"><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">int_flip</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">int_flip</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2002-01-01 UTC--2001-01-01 UTC</span>
-<span class="r-in"><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">int_shift</span><span class="op">(</span><span class="va">int</span>, <span class="fu"><a href="duration.html">duration</a></span><span class="op">(</span>days <span class="op">=</span> <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">int_shift</span><span class="op">(</span><span class="va">int</span>, <span class="fu"><a href="duration.html">duration</a></span><span class="op">(</span>days <span class="op">=</span> <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2001-01-12 UTC--2002-01-12 UTC</span>
-<span class="r-in"><span class="fu">int_shift</span><span class="op">(</span><span class="va">int</span>, <span class="fu"><a href="duration.html">duration</a></span><span class="op">(</span>hours <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">int_shift</span><span class="op">(</span><span class="va">int</span>, <span class="fu"><a href="duration.html">duration</a></span><span class="op">(</span>hours <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2000-12-31 23:00:00 UTC--2001-12-31 23:00:00 UTC</span>
-<span class="r-in"><span class="va">int1</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">int2</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-06-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-06-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">int3</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2003-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2004-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">int_overlaps</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int2</span><span class="op">)</span> <span class="co"># TRUE</span></span>
+<span class="r-in"><span><span class="va">int1</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">int2</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-06-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-06-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">int3</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2003-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2004-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">int_overlaps</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int2</span><span class="op">)</span> <span class="co"># TRUE</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">int_overlaps</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int3</span><span class="op">)</span> <span class="co"># FALSE</span></span>
+<span class="r-in"><span><span class="fu">int_overlaps</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int3</span><span class="op">)</span> <span class="co"># FALSE</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">int_standardize</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">int</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">int_standardize</span><span class="op">(</span><span class="va">int</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2001-01-01 UTC--2002-01-01 UTC</span>
-<span class="r-in"><span class="va">int1</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">int2</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-06-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">int3</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2003-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2004-01-01"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">int_aligns</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int2</span><span class="op">)</span> <span class="co"># TRUE</span></span>
+<span class="r-in"><span><span class="va">int1</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">int2</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2001-06-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2002-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">int3</span> <span class="op">&lt;-</span> <span class="fu">interval</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2003-01-01"</span><span class="op">)</span>, <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2004-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">int_aligns</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int2</span><span class="op">)</span> <span class="co"># TRUE</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">int_aligns</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int3</span><span class="op">)</span> <span class="co"># FALSE</span></span>
+<span class="r-in"><span><span class="fu">int_aligns</span><span class="op">(</span><span class="va">int1</span>, <span class="va">int3</span><span class="op">)</span> <span class="co"># FALSE</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="now.html">now</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">int_diff</span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2022-03-05 14:35:03 UTC--2022-03-06 14:35:03 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 2022-03-06 14:35:03 UTC--2022-03-07 14:35:03 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] 2022-03-07 14:35:03 UTC--2022-03-08 14:35:03 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4] 2022-03-08 14:35:03 UTC--2022-03-09 14:35:03 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5] 2022-03-09 14:35:03 UTC--2022-03-10 14:35:03 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6] 2022-03-10 14:35:03 UTC--2022-03-11 14:35:03 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [7] 2022-03-11 14:35:03 UTC--2022-03-12 14:35:03 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 2022-03-12 14:35:03 UTC--2022-03-13 14:35:03 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [9] 2022-03-13 14:35:03 UTC--2022-03-14 14:35:03 UTC</span>
+<span class="r-in"><span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="now.html">now</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">int_diff</span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2022-11-07 13:43:51 UTC--2022-11-08 13:43:51 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 2022-11-08 13:43:51 UTC--2022-11-09 13:43:51 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] 2022-11-09 13:43:51 UTC--2022-11-10 13:43:51 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] 2022-11-10 13:43:51 UTC--2022-11-11 13:43:51 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] 2022-11-11 13:43:51 UTC--2022-11-12 13:43:51 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] 2022-11-12 13:43:51 UTC--2022-11-13 13:43:51 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [7] 2022-11-13 13:43:51 UTC--2022-11-14 13:43:51 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 2022-11-14 13:43:51 UTC--2022-11-15 13:43:51 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [9] 2022-11-15 13:43:51 UTC--2022-11-16 13:43:51 UTC</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -319,7 +352,7 @@ calculated.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer></body></html>

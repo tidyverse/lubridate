@@ -14,7 +14,7 @@ floating point representation of the POSIXct objects. See examples.
 floor_date() takes a date-time object and rounds it down to the nearest
 boundary of the specified time unit.
 ceiling_date() takes a date-time object and rounds it up to the nearest
-boundary of the specified time unit."><title>Round, floor and ceiling methods for date-time objects — round_date • lubridate</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Round, floor and ceiling methods for date-time objects — round_date"><meta property="og:description" content="round_date() takes a date-time object and time unit, and rounds it to the nearest value
+boundary of the specified time unit."><title>Round, floor and ceiling methods for date-time objects — round_date • lubridate</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Round, floor and ceiling methods for date-time objects — round_date"><meta property="og:description" content="round_date() takes a date-time object and time unit, and rounds it to the nearest value
 of the specified time unit. For rounding date-times which are exactly halfway
 between two consecutive units, the convention is to round up. Note that this
 is in line with the behavior of R's base::round.POSIXt() function
@@ -40,7 +40,7 @@ boundary of the specified time unit."><meta property="og:image" content="https:/
     
     <a class="navbar-brand me-2" href="../index.html">lubridate</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,44 +107,53 @@ boundary of the specified time unit.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">round_date</span><span class="op">(</span>
-  <span class="va">x</span>,
-  unit <span class="op">=</span> <span class="st">"second"</span>,
-  week_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"lubridate.week.start"</span>, <span class="fl">7</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">floor_date</span><span class="op">(</span>
-  <span class="va">x</span>,
-  unit <span class="op">=</span> <span class="st">"seconds"</span>,
-  week_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"lubridate.week.start"</span>, <span class="fl">7</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">ceiling_date</span><span class="op">(</span>
-  <span class="va">x</span>,
-  unit <span class="op">=</span> <span class="st">"seconds"</span>,
-  change_on_boundary <span class="op">=</span> <span class="cn">NULL</span>,
-  week_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"lubridate.week.start"</span>, <span class="fl">7</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">round_date</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"second"</span>,</span>
+<span>  week_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"lubridate.week.start"</span>, <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">floor_date</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"seconds"</span>,</span>
+<span>  week_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"lubridate.week.start"</span>, <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ceiling_date</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"seconds"</span>,</span>
+<span>  change_on_boundary <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  week_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"lubridate.week.start"</span>, <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>a vector of date-time objects</p></dd>
+
+
 <dt>unit</dt>
-<dd><p>a string or a date-time object. When a singleton string, it
-specifies a time unit or a multiple of a unit to be rounded to. Valid base
-units are <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>week</code>, <code>month</code>, <code>bimonth</code>,
-<code>quarter</code>, <code>season</code>, <code>halfyear</code> and <code>year</code>. Arbitrary unique English
-abbreviations as in the <code><a href="period.html">period()</a></code> constructor are allowed. Rounding to
-multiples of units (except weeks) is supported.</p>
+<dd><p>a string, <code>Period</code> object or a date-time object. When a singleton string,
+it specifies a time unit or a multiple of a unit to be rounded to. Valid base units
+are <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>week</code>, <code>month</code>, <code>bimonth</code>, <code>quarter</code>,
+<code>season</code>, <code>halfyear</code> and <code>year</code>. Arbitrary unique English abbreviations as in the
+<code><a href="period.html">period()</a></code> constructor are allowed. Rounding to multiples of units (except weeks)
+is supported. When <code>unit</code> is a <code>Period</code> object, units of the period objects are
+used. This is equivalent to converting the period object to its string
+representation and passing as <code>unit</code> argument.</p>
 <p>When <code>unit</code> is a date-time object rounding is done to the nearest of the
 elements in <code>unit</code>. If range of <code>unit</code> vector does not cover the range of
 <code>x</code> <code>ceiling_date()</code> and <code>floor_date()</code> round to the <code>max(x)</code> and <code>min(x)</code>
 for elements that fall outside of <code>range(unit)</code>.</p></dd>
+
+
 <dt>week_start</dt>
-<dd><p>when unit is <code>week</code>, specify the reference day.
-7 represents Sunday and 1 represents Monday.</p></dd>
+<dd><p>week start day (Default is 7, Sunday. Set <code>lubridate.week.start</code> to
+override). Full or abbreviated names of the days of the week can be in English or
+as provided by the current locale.</p></dd>
+
+
 <dt>change_on_boundary</dt>
 <dd><p>if this is <code>NULL</code> (the default), instants on the
 boundary remain unchanged, but <code>Date</code> objects are rounded up to the next
@@ -152,10 +161,13 @@ boundary. If this is <code>TRUE</code>, instants on the boundary are rounded up 
 next boundary. If this is <code>FALSE</code>, nothing on the boundary is rounded up at
 all. This was the default for <span class="pkg">lubridate</span> prior to <code>v1.6.0</code>. See
 section <code>Rounding Up Date Objects</code> below for more details.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>When <code>unit</code> is a string, return a Date object if <code>x</code> is a Date and
+    
+
+<p>When <code>unit</code> is a string, return a Date object if <code>x</code> is a Date and
 <code>unit</code> is larger or equal than "day", otherwise a POSIXct object. When
 <code>unit</code> is a date-time object, return a date-time object of the same class
 and same time zone as <code>unit</code>.</p>
@@ -193,133 +205,138 @@ seems wrong to round a day to its lower boundary.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## print fractional seconds</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>digits.secs<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.23"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".5s"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## print fractional seconds</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>digits.secs <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.23"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".5s"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:59 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"sec"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"sec"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:59 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"second"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"second"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:59 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"minute"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"minute"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:02:00 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"5 mins"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"5 mins"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:00:00 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"hour"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"hour"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:00:00 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"2 hours"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"2 hours"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:00:00 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"day"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"day"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-04 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"week"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"week"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-02 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-01 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"bimonth"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"bimonth"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-09-01 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"quarter"</span><span class="op">)</span> <span class="op">==</span> <span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"3 months"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"quarter"</span><span class="op">)</span> <span class="op">==</span> <span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"3 months"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"halfyear"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"halfyear"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-07-01 UTC"</span>
-<span class="r-in"><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"year"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">round_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"year"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-01-01 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.23"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".1s"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.23"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".1s"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:59.2 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"second"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"second"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:59 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"minute"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"minute"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:00 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"hour"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"hour"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:00:00 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"day"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"day"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"week"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"week"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-02 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-01 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"bimonth"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"bimonth"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-07-01 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"quarter"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"quarter"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-07-01 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"season"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"season"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-06-01 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"halfyear"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"halfyear"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-07-01 UTC"</span>
-<span class="r-in"><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"year"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"year"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-01-01 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.23"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".1 sec"</span><span class="op">)</span> <span class="co"># imprecise representation at 0.1 sec !!!</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.23"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".1 sec"</span><span class="op">)</span> <span class="co"># imprecise representation at 0.1 sec !!!</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:59.2 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"second"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"second"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:02:00 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"minute"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"minute"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:02:00 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"5 mins"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"5 mins"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:05:00 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"hour"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"hour"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 13:00:00 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"day"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"day"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-04 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"week"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"week"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-09 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-09-01 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"bimonth"</span><span class="op">)</span> <span class="op">==</span> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"2 months"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"bimonth"</span><span class="op">)</span> <span class="op">==</span> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"2 months"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"quarter"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"quarter"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-10-01 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"season"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"season"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-09-01 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"halfyear"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"halfyear"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-01-01 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"year"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"year"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-01-01 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## As of R 3.4.2 POSIXct printing of fractional numbers is wrong</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.3"</span><span class="op">)</span> <span class="co">## -&gt; "2009-08-03 12:01:59.2 CEST"</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Period unit argument</span></span></span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="period.html">days</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 UTC"</span>
+<span class="r-in"><span><span class="fu">floor_date</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-01-01 UTC"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## As of R 3.4.2 POSIXct printing of fractional numbers is wrong</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2009-08-03 12:01:59.3"</span><span class="op">)</span> <span class="co">## -&gt; "2009-08-03 12:01:59.2 CEST"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:59.2 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".1 sec"</span><span class="op">)</span> <span class="co">## -&gt; "2009-08-03 12:01:59.2 CEST"</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">".1 sec"</span><span class="op">)</span> <span class="co">## -&gt; "2009-08-03 12:01:59.2 CEST"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-08-03 12:01:59.2 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## behaviour of `change_on_boundary`</span></span>
-<span class="r-in"><span class="co">## As per default behaviour `NULL`, instants on the boundary remain the</span></span>
-<span class="r-in"><span class="co">## same but dates are rounded up</span></span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## behaviour of `change_on_boundary`</span></span></span>
+<span class="r-in"><span><span class="co">## As per default behaviour `NULL`, instants on the boundary remain the</span></span></span>
+<span class="r-in"><span><span class="co">## same but dates are rounded up</span></span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-01-01 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## If `TRUE`, both instants and dates on the boundary are rounded up</span></span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## If `TRUE`, both instants and dates on the boundary are rounded up</span></span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## If `FALSE`, both instants and dates on the boundary remain the same</span></span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## If `FALSE`, both instants and dates on the boundary remain the same</span></span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-01-01 UTC"</span>
-<span class="r-in"><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01"</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2000-01-01 00:00:00"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-01-01 UTC"</span>
-<span class="r-in"> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"> <span class="co">## For Date objects first day of the month is not on the</span></span>
-<span class="r-in"> <span class="co">## "boundary". change_on_boundary applies to instants only.</span></span>
-<span class="r-in"> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## For Date objects first day of the month is not on the</span></span></span>
+<span class="r-in"><span><span class="co">## "boundary". change_on_boundary applies to instants only.</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01"</span>
-<span class="r-in"> <span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span>, change_on_boundary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-02-01"</span>
 </code></pre></div>
     </div>
@@ -334,7 +351,7 @@ seems wrong to round a day to its lower boundary.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer></body></html>

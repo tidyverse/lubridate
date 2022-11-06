@@ -8,7 +8,7 @@ format-orders to handle heterogeneous date-time character
 representations.
 parse_date_time2() is a fast C parser of numeric orders.
 fast_strptime() is a fast C parser of numeric formats only
-that accepts explicit format arguments, just like base::strptime().'><title>User friendly date-time parsing functions — parse_date_time • lubridate</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="User friendly date-time parsing functions — parse_date_time"><meta property="og:description" content='parse_date_time() parses an input vector into POSIXct date-time
+that accepts explicit format arguments, just like base::strptime().'><title>User friendly date-time parsing functions — parse_date_time • lubridate</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="User friendly date-time parsing functions — parse_date_time"><meta property="og:description" content='parse_date_time() parses an input vector into POSIXct date-time
 object. It differs from base::strptime() in two respects. First,
 it allows specification of the order in which the formats occur without the
 need to include separators and the % prefix. Such a formatting argument is
@@ -28,7 +28,7 @@ that accepts explicit format arguments, just like base::strptime().'><meta prope
     
     <a class="navbar-brand me-2" href="../index.html">lubridate</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,35 +89,37 @@ that accepts explicit format arguments, just like <code><a href="https://rdrr.io
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">parse_date_time</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">orders</span>,
-  tz <span class="op">=</span> <span class="st">"UTC"</span>,
-  truncated <span class="op">=</span> <span class="fl">0</span>,
-  quiet <span class="op">=</span> <span class="cn">FALSE</span>,
-  locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/locales.html" class="external-link">Sys.getlocale</a></span><span class="op">(</span><span class="st">"LC_TIME"</span><span class="op">)</span>,
-  select_formats <span class="op">=</span> <span class="va">.select_formats</span>,
-  exact <span class="op">=</span> <span class="cn">FALSE</span>,
-  train <span class="op">=</span> <span class="cn">TRUE</span>,
-  drop <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">parse_date_time2</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">orders</span>,
-  tz <span class="op">=</span> <span class="st">"UTC"</span>,
-  exact <span class="op">=</span> <span class="cn">FALSE</span>,
-  lt <span class="op">=</span> <span class="cn">FALSE</span>,
-  cutoff_2000 <span class="op">=</span> <span class="fl">68L</span>
-<span class="op">)</span>
-
-<span class="fu">fast_strptime</span><span class="op">(</span><span class="va">x</span>, <span class="va">format</span>, tz <span class="op">=</span> <span class="st">"UTC"</span>, lt <span class="op">=</span> <span class="cn">TRUE</span>, cutoff_2000 <span class="op">=</span> <span class="fl">68L</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">parse_date_time</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">orders</span>,</span>
+<span>  tz <span class="op">=</span> <span class="st">"UTC"</span>,</span>
+<span>  truncated <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/locales.html" class="external-link">Sys.getlocale</a></span><span class="op">(</span><span class="st">"LC_TIME"</span><span class="op">)</span>,</span>
+<span>  select_formats <span class="op">=</span> <span class="va">.select_formats</span>,</span>
+<span>  exact <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  train <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  drop <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">parse_date_time2</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">orders</span>,</span>
+<span>  tz <span class="op">=</span> <span class="st">"UTC"</span>,</span>
+<span>  exact <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  lt <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cutoff_2000 <span class="op">=</span> <span class="fl">68L</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">fast_strptime</span><span class="op">(</span><span class="va">x</span>, <span class="va">format</span>, tz <span class="op">=</span> <span class="st">"UTC"</span>, lt <span class="op">=</span> <span class="cn">TRUE</span>, cutoff_2000 <span class="op">=</span> <span class="fl">68L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>a character or numeric vector of dates</p></dd>
+
+
 <dt>orders</dt>
 <dd><p>a character vector of date-time formats. Each order string is
 a series of formatting characters as listed in <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">base::strptime()</a></code> but
@@ -127,9 +129,13 @@ arbitrary separators. These are discarded. See details for the implemented
 formats. If multiple order strings are supplied, they are applied in turn
 for <code>parse_date_time2()</code> and <code>fast_strptime()</code>. For <code>parse_date_time()</code>
 the order of applied formats is determined by <code>select_formats</code> parameter.</p></dd>
+
+
 <dt>tz</dt>
 <dd><p>a character string that specifies the time zone with which to
 parse the dates</p></dd>
+
+
 <dt>truncated</dt>
 <dd><p>integer, number of formats that can be missing. The most
 common type of irregularity in date-time data is the truncation due to
@@ -140,13 +146,19 @@ example,  if the format order is "ymdHMS" and <code>truncated = 3</code>,
 <code>2012-06-01 12:23</code>, <code>2012-06-01 12</code> and <code>2012-06-01</code>. <b>NOTE:</b> The
 <code><a href="ymd.html">ymd()</a></code> family of functions is based on <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">base::strptime()</a></code> which currently
 fails to parse <code>%Y-%m</code> formats.</p></dd>
+
+
 <dt>quiet</dt>
 <dd><p>logical. If <code>TRUE</code>, progress messages are not printed, and <code>No formats found</code> error is suppressed and the function simply returns a
 vector of NAs.  This mirrors the behavior of base R functions
 <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">base::strptime()</a></code> and <code><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">base::as.POSIXct()</a></code>.</p></dd>
+
+
 <dt>locale</dt>
 <dd><p>locale to be used, see <a href="https://rdrr.io/r/base/locales.html" class="external-link">locales</a>. On Linux systems you
 can use <code>system("locale -a")</code> to list all the installed locales.</p></dd>
+
+
 <dt>select_formats</dt>
 <dd><p>A function to select actual formats for parsing from a
 set of formats which matched a training subset of <code>x</code>. It receives a named
@@ -158,18 +170,24 @@ default selection method fails to select the formats in the right
 order. By default the formats with most formatting tokens (<code>%</code>) are
 selected and <code>%Y</code> counts as 2.5 tokens (so that it has a priority over
 <code>%y%m</code>). See examples.</p></dd>
+
+
 <dt>exact</dt>
 <dd><p>logical. If <code>TRUE</code>, the <code>orders</code> parameter is interpreted as an
 exact <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">base::strptime()</a></code> format and no training or guessing are performed
 (i.e. <code>train</code>, <code>drop</code> parameters are ignored).</p></dd>
+
+
 <dt>train</dt>
-<dd><p>logical, default <code>TRUE</code>. Whether to train formats on a subset
-of the input vector. The result of this is that supplied orders are sorted
-according to performance on this training set, which commonly results in
-increased performance. Please note that even when <code>train = FALSE</code> (and
-<code>exact = FALSE</code>) guessing of the actual formats is still performed on a
-pseudo-random subset of the original input vector. This might result in
-<code>All formats failed to parse</code> error. See notes below.</p></dd>
+<dd><p>logical, default <code>TRUE</code>. Whether to train formats on a subset of the
+input vector. As a result the supplied orders are sorted according to performance
+on this training set, which commonly results in increased performance. Please note
+that even when <code>train = FALSE</code> (and <code>exact = FALSE</code>) guessing of the actual
+formats is still performed on the training set (a pseudo-random subset of the
+original input vector). This might result in <code>All formats failed to parse</code>
+error. See notes below.</p></dd>
+
+
 <dt>drop</dt>
 <dd><p>logical, default <code>FALSE</code>. Whether to drop formats that didn't
 match on the training set. If <code>FALSE</code>, unmatched on the training set
@@ -179,24 +197,33 @@ might slightly speed up parsing in situations involving many
 formats. Prior to v1.7.0 this parameter was implicitly <code>TRUE</code>, which
 resulted in occasional surprising behavior when rare patterns where not
 present in the training set.</p></dd>
+
+
 <dt>lt</dt>
 <dd><p>logical. If <code>TRUE</code>, returned object is of class POSIXlt, and POSIXct
 otherwise. For compatibility with <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">base::strptime()</a></code> the default is <code>TRUE</code>
 for <code>fast_strptime()</code> and <code>FALSE</code> for <code>parse_date_time2()</code>.</p></dd>
+
+
 <dt>cutoff_2000</dt>
 <dd><p>integer. For <code>y</code> format,  two-digit numbers smaller or equal
 to <code>cutoff_2000</code> are parsed as though starting with <code>20</code>, otherwise parsed
 as though starting with <code>19</code>. Available only for functions relying on
 <code>lubridate</code>s internal parser.</p></dd>
+
+
 <dt>format</dt>
 <dd><p>a vector of formats. If multiple formats supplied they are
 applied in turn till success. The formats should include all the
 separators and each format letter must be prefixed with %, just as in the
 format argument of <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">base::strptime()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a vector of POSIXct date-time objects</p>
+    
+
+<p>a vector of POSIXct date-time objects</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -365,88 +392,88 @@ get NA for invalid date-times use <code><a href="fit_to_timeline.html">fit_to_ti
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">## ** orders are much easier to write **</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"09-01-01"</span>, <span class="st">"09-01-02"</span>, <span class="st">"09-01-03"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="st">"ymd"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** orders are much easier to write **</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"09-01-01"</span>, <span class="st">"09-01-02"</span>, <span class="st">"09-01-03"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="st">"ymd"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="st">"y m d"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="st">"y m d"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="st">"%y%m%d"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="st">"%y%m%d"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span>
-<span class="r-in"><span class="co">#  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ** heterogeneous date-times **</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"09-01-01"</span>, <span class="st">"090102"</span>, <span class="st">"09-01 03"</span>, <span class="st">"09-01-03 12:02"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ymd"</span>, <span class="st">"ymd HM"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#  "2009-01-01 UTC" "2009-01-02 UTC" "2009-01-03 UTC"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** heterogeneous date-times **</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"09-01-01"</span>, <span class="st">"090102"</span>, <span class="st">"09-01 03"</span>, <span class="st">"09-01-03 12:02"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ymd"</span>, <span class="st">"ymd HM"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-01-01 00:00:00 UTC" "2009-01-02 00:00:00 UTC"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "2009-01-03 00:00:00 UTC" "2009-01-03 12:02:00 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ** different ymd orders **</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009-01-01"</span>, <span class="st">"02022010"</span>, <span class="st">"02-02-2010"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dmY"</span>, <span class="st">"ymd"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** different ymd orders **</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009-01-01"</span>, <span class="st">"02022010"</span>, <span class="st">"02-02-2010"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dmY"</span>, <span class="st">"ymd"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</span>
-<span class="r-in"><span class="co">##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ** truncated time-dates **</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2011-12-31 12:59:59"</span>, <span class="st">"2010-01-01 12:11"</span>, <span class="st">"2010-01-01 12"</span>, <span class="st">"2010-01-01"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="st">"Ymd HMS"</span>, truncated <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">##  "2009-01-01 UTC" "2010-02-02 UTC" "2010-02-02 UTC"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** truncated time-dates **</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2011-12-31 12:59:59"</span>, <span class="st">"2010-01-01 12:11"</span>, <span class="st">"2010-01-01 12"</span>, <span class="st">"2010-01-01"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="st">"Ymd HMS"</span>, truncated <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2011-12-31 12:59:59 UTC" "2010-01-01 12:11:00 UTC"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "2010-01-01 12:00:00 UTC" "2010-01-01 00:00:00 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ** specifying exact formats and avoiding training and guessing **</span></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"%m-%d-%y"</span>, <span class="st">"%m%d%y"</span>, <span class="st">"%m-%d-%y %H:%M"</span><span class="op">)</span>, exact <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** specifying exact formats and avoiding training and guessing **</span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"%m-%d-%y"</span>, <span class="st">"%m%d%y"</span>, <span class="st">"%m-%d-%y %H:%M"</span><span class="op">)</span>, exact <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> 4 failed to parse.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA NA NA NA</span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'12/17/1996 04:00:00'</span>,<span class="st">'4/18/1950 0130'</span><span class="op">)</span>,</span>
-<span class="r-in">                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'%m/%d/%Y %I:%M:%S'</span>,<span class="st">'%m/%d/%Y %H%M'</span><span class="op">)</span>, exact <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'12/17/1996 04:00:00'</span>,<span class="st">'4/18/1950 0130'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'%m/%d/%Y %I:%M:%S'</span>,<span class="st">'%m/%d/%Y %H%M'</span><span class="op">)</span>, exact <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1996-12-17 04:00:00 UTC" "1950-04-18 01:30:00 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ** quarters and partial dates **</span></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016.2"</span>, <span class="st">"2016-04"</span><span class="op">)</span>, orders <span class="op">=</span> <span class="st">"Yq"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** quarters and partial dates **</span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016.2"</span>, <span class="st">"2016-04"</span><span class="op">)</span>, orders <span class="op">=</span> <span class="st">"Yq"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-04-01 UTC" "2016-10-01 UTC"</span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016"</span>, <span class="st">"2016-04"</span><span class="op">)</span>, orders <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Y"</span>, <span class="st">"Ym"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016"</span>, <span class="st">"2016-04"</span><span class="op">)</span>, orders <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Y"</span>, <span class="st">"Ym"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-01-01 UTC" "2016-04-01 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ** fast parsing **</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>digits.secs <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in">  <span class="co">## random times between 1400 and 3000</span></span>
-<span class="r-in">  <span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/base-internal.html" class="external-link">.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="op">-</span><span class="fl">17987443200</span>, <span class="fl">32503680000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep.int</a></span><span class="op">(</span><span class="va">tt</span>, <span class="fl">1000</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="va">tt</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span><span class="op">)</span> <span class="co"># constant overhead on long vectors</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu">parse_date_time2</span><span class="op">(</span><span class="va">tt</span>, <span class="st">"YmdHMOS"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">out3</span> <span class="op">&lt;-</span> <span class="fu">fast_strptime</span><span class="op">(</span><span class="va">tt</span>, <span class="st">"%Y-%m-%d %H:%M:%OS"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">out1</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">out2</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">out3</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ** how to use `select_formats` argument **</span></span>
-<span class="r-in"><span class="co">## By default %Y has precedence:</span></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"27-09-13"</span>, <span class="st">"27-09-2013"</span><span class="op">)</span>, <span class="st">"dmy"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** fast parsing **</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>digits.secs <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co">## random times between 1400 and 3000</span></span></span>
+<span class="r-in"><span>  <span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/base-internal.html" class="external-link">.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="op">-</span><span class="fl">17987443200</span>, <span class="fl">32503680000</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep.int</a></span><span class="op">(</span><span class="va">tt</span>, <span class="fl">1000</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="va">tt</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span><span class="op">)</span> <span class="co"># constant overhead on long vectors</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu">parse_date_time2</span><span class="op">(</span><span class="va">tt</span>, <span class="st">"YmdHMOS"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">out3</span> <span class="op">&lt;-</span> <span class="fu">fast_strptime</span><span class="op">(</span><span class="va">tt</span>, <span class="st">"%Y-%m-%d %H:%M:%OS"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">out1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">out2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">out3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** how to use `select_formats` argument **</span></span></span>
+<span class="r-in"><span><span class="co">## By default %Y has precedence:</span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"27-09-13"</span>, <span class="st">"27-09-2013"</span><span class="op">)</span>, <span class="st">"dmy"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2013-09-27 UTC" "2013-09-27 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## to give priority to %y format, define your own select_format function:</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">my_select</span> <span class="op">&lt;-</span>   <span class="kw">function</span><span class="op">(</span><span class="va">trained</span>, <span class="va">drop</span><span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">   <span class="va">n_fmts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"[^%]"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trained</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"%y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trained</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="fl">1.5</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trained</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">n_fmts</span><span class="op">)</span> <span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"27-09-13"</span>, <span class="st">"27-09-2013"</span><span class="op">)</span>, <span class="st">"dmy"</span>, select_formats <span class="op">=</span> <span class="va">my_select</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## to give priority to %y format, define your own select_format function:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">my_select</span> <span class="op">&lt;-</span>   <span class="kw">function</span><span class="op">(</span><span class="va">trained</span>, <span class="va">drop</span><span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>   <span class="va">n_fmts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"[^%]"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trained</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"%y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trained</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="fl">1.5</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trained</span><span class="op">[</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">n_fmts</span><span class="op">)</span> <span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"27-09-13"</span>, <span class="st">"27-09-2013"</span><span class="op">)</span>, <span class="st">"dmy"</span>, select_formats <span class="op">=</span> <span class="va">my_select</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2013-09-27 UTC" "2013-09-27 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## ** invalid times with "fast" parsing **</span></span>
-<span class="r-in"><span class="fu">parse_date_time</span><span class="op">(</span><span class="st">"2010-03-14 02:05:06"</span>,  <span class="st">"YmdHMS"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## ** invalid times with "fast" parsing **</span></span></span>
+<span class="r-in"><span><span class="fu">parse_date_time</span><span class="op">(</span><span class="st">"2010-03-14 02:05:06"</span>,  <span class="st">"YmdHMS"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span> 1 failed to parse.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"><span class="fu">parse_date_time2</span><span class="op">(</span><span class="st">"2010-03-14 02:05:06"</span>,  <span class="st">"YmdHMS"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">parse_date_time2</span><span class="op">(</span><span class="st">"2010-03-14 02:05:06"</span>,  <span class="st">"YmdHMS"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-03-14 03:05:06 EDT"</span>
-<span class="r-in"><span class="fu">parse_date_time2</span><span class="op">(</span><span class="st">"2010-03-14 02:05:06"</span>,  <span class="st">"YmdHMS"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span>, lt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">parse_date_time2</span><span class="op">(</span><span class="st">"2010-03-14 02:05:06"</span>,  <span class="st">"YmdHMS"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span>, lt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2010-03-14 02:05:06 America/New_York"</span>
 </code></pre></div>
     </div>
@@ -461,7 +488,7 @@ get NA for invalid date-times use <code><a href="fit_to_timeline.html">fit_to_ti
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer></body></html>
