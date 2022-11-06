@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">lubridate</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.8.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,9 +56,12 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.8.0.9000" id="version-1809000">Version 1.8.0.9000<a class="anchor" aria-label="anchor" href="#version-1809000"></a></h2>
+<h2 class="pkg-version" data-toc-text="development version" id="lubridate-development-version">lubridate (development version)<a class="anchor" aria-label="anchor" href="#lubridate-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.9.0" id="version-190">Version 1.9.0<a class="anchor" aria-label="anchor" href="#version-190"></a></h2><p class="text-muted">CRAN release: 2022-11-06</p>
 <div class="section level4">
-<h4 id="new-features-1-8-0-9000">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-8-0-9000"></a></h4>
+<h4 id="new-features-1-9-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-9-0"></a></h4>
 <ul><li>
 <code>roll</code> argument to updating and time-zone manipulation functions is deprecated in favor of a new <code>roll_dst</code> parameter.</li>
 <li>
@@ -88,7 +91,7 @@
 <a href="https://github.com/tidyverse/lubridate/issues/931" class="external-link">#931</a> Usage of <code>Period</code> objects in rounding functions is explicitly documented.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="bug-fixes-1-8-0-9000">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-8-0-9000"></a></h4>
+<h4 id="bug-fixes-1-9-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-9-0"></a></h4>
 <ul><li>
 <a href="https://github.com/tidyverse/lubridate/issues/1036" class="external-link">#1036</a> <code>%within%</code> now correctly works with flipped intervals</li>
 <li>
@@ -119,7 +122,7 @@
 <li>Updating a date with timezone (e.g. <code>tzs = "UTC"</code>) now returns a POSIXct.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="internals-1-8-0-9000">INTERNALS<a class="anchor" aria-label="anchor" href="#internals-1-8-0-9000"></a></h4>
+<h4 id="internals-1-9-0">INTERNALS<a class="anchor" aria-label="anchor" href="#internals-1-9-0"></a></h4>
 <ul><li>
 <code>lubridate</code> is now relying on <code>timechange</code> package for update and time-zone computation. Google’s CCTZ code is no longer part of the package.</li>
 <li>
