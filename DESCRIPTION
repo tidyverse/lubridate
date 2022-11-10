@@ -28,10 +28,10 @@ URL: https://lubridate.tidyverse.org,
 BugReports: https://github.com/tidyverse/lubridate/issues
 Depends:
     methods,
-    timechange (>= 0.1.1),
     R (>= 3.2)
 Imports:
-    generics
+    generics,
+    timechange (>= 0.1.1)
 Suggests:
     covr,
     knitr,
