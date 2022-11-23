@@ -71,3 +71,11 @@ test_that("make_datetime propagates NAs as expected", {
     as.POSIXct(c("1999-11-22 00:00:10 UTC", NA, NA), tz = "UTC")
   )
 })
+
+
+test_that("make_datetime rolls over month boundary", {
+  expect_equal(make_datetime(month = 1, day = 31, hour = 24), ymd("1970-02-01", tz = "UTC"))
+  expect_equal(
+    make_datetime(month = 1, day = 31, hour = 25, min = 61, sec = 61),
+    ymd_hms("1970-02-01 02:02:01", tz = "UTC"))
+})

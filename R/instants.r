@@ -111,7 +111,8 @@ make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0
       hour = .rep_maybe(hour, N),
       minute = .rep_maybe(min, N),
       second = .rep_maybe(sec, N),
-      tz = tz
+      tz = tz,
+      roll_month = "full"
     )
   }
 }

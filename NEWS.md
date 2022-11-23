@@ -1,8 +1,9 @@
 Version 1.9.0.9000
-=============
+==================
 
 ### BUG FIXES
 
+* [#1098](https://github.com/tidyverse/lubridate/issues/1098) Roll over the month boundary in `make_dateime()` when units exceed their maximal values.
 * [#1090](https://github.com/tidyverse/lubridate/issues/1090) timechange has been moved from Depends to Imports.
 
 Version 1.9.0
