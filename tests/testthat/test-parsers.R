@@ -1151,6 +1151,13 @@ test_that("NA_real_ propagates in parsing functions", {
   expect_equal(ymd_hms(c(20000101210101, NA_real_)), as_datetime(c("2000-01-01 21:01:01", NA)))
 })
 
+test_that("fractional qY dates are parsed correctly", {
+  ## #1091
+  expect_equal(
+    parse_date_time(c(3.2007, 2.1970, 1.2020, 4.2009, 1.1975, NA), "qY"),
+    ymd(c("2007-07-01 UTC", "1970-04-01 UTC", "2020-01-01 UTC", "2009-10-01 UTC", "1975-01-01 UTC", NA), tz = "UTC"))
+})
+
 ## library(microbenchmark)
 ## library(lubridate)
 

@@ -89,7 +89,7 @@ test_that("c.Date deals correctly with heterogeneous date-time classes", {
 })
 
 
-test_that("as_datet parsers with exact formats", {
+test_that("as_date parsers with exact formats", {
   ## #1097
   expect_equal(
     as_date("blabla2022-xyz01-03", format = "blabla%Y-xyz%m-%d"),
