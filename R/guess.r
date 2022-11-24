@@ -423,26 +423,28 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   ## special lubridate formats
   nms <- c("T", "R", "r")
 
-  ## in some locales %p = ""
-  if (length(p) == 0L) {
+  if (no_p) {
     num <- c(num,
       T = sprintf("(%s\\D+%s\\D+%s)", num[["H"]], num[["M"]], num[["S"]]),
-      R = sprintf(if (no_p) "(%s%s)" else "(%s\\D+%s)", num[["H"]], num[["M"]]),
-      r = sprintf(if (no_p) "(%s)"   else "(%s\\D+)",   num[["H"]])
+      R = sprintf("(%s\\D+%s)", num[["H"]], num[["M"]]),
+      r = sprintf("(%s)",   num[["H"]])
     )
   } else {
     num <- c(num,
       T = sprintf(
         "((%s\\D+%s\\D+%s\\D*%s)|(%s\\D+%s\\D+%s))",
-        num[["I"]], num[["M"]], num[["S"]], alpha[["p"]], num[["H"]], num[["M"]], num[["S"]]
+        num[["I"]], num[["M"]], num[["S"]], alpha[["p"]],
+        num[["H"]], num[["M"]], num[["S"]]
       ),
       R = sprintf(
         "((%s\\D+%s\\D*%s)|(%s\\D+%s))",
-        num[["I"]], num[["M"]], alpha[["p"]], num[["H"]], num[["M"]]
+        num[["I"]], num[["M"]], alpha[["p"]],
+        num[["H"]], num[["M"]]
       ),
       r = sprintf(
         "((%s\\D*%s)|%s)",
-        num[["I"]], alpha[["p"]], num[["H"]]
+        num[["I"]], alpha[["p"]],
+        num[["H"]]
       )
     )
 

@@ -1137,8 +1137,13 @@ test_that("parsing with r and R formats works in non-english locale", {
   suppressWarnings(testthat::skip_if(Sys.setlocale("LC_TIME", "fr_FR.utf8") == ""))
   on.exit(Sys.setlocale("LC_TIME", "C"))
   expect_equal(ymd_h("2021-10-26 0"), ymd("2021-10-26", tz = "UTC"))
+  expect_equal(ymd_hm("2022-11-05 12:00", tz = "GMT"),  ymd_hms("2022-11-05 12:00:00", tz = "GMT"))
+  expect_equal(ymd_hm("2022-11-05 12:00", tz = "GMT"),  ymd_hms("2022-11-05 12:00", tz = "GMT", truncated = 1))
+  expect_equal(dmy_hm("05-11-2022 12:00", tz = "GMT"),  ymd_hms("2022-11-05 12:00", tz = "GMT", truncated = 1))
+  expect_equal(ymd_h("2021-10-26 0"), ymd("2021-10-26", tz = "UTC"))
   expect_equal(parse_date_time("2021-10-26 0", "Ymdr"), ymd("2021-10-26", tz = "UTC"))
   expect_equal(parse_date_time("2021-10-26 0001", "YmdR"), ymd_hms("2021-10-26 0:1:0"))
+  expect_equal(parse_date_time("2021-10-26 00  01", "YmdR"), ymd_hms("2021-10-26 0:1:0"))
 })
 
 test_that("NA_real_ propagates in parsing functions", {
