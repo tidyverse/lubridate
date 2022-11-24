@@ -58,8 +58,15 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.9.0.9000" id="version-1909000">Version 1.9.0.9000<a class="anchor" aria-label="anchor" href="#version-1909000"></a></h2>
 <div class="section level4">
+<h4 id="new-features-1-9-0-9000">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-9-0-9000"></a></h4>
+<ul><li>
+<code><a href="../reference/as_date.html">as_datetime()</a></code> accepts multiple formats in format argument, just like <code><a href="../reference/as_date.html">as_date()</a></code> does.</li>
+</ul></div>
+<div class="section level4">
 <h4 id="bug-fixes-1-9-0-9000">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-9-0-9000"></a></h4>
 <ul><li>
+<a href="https://github.com/tidyverse/lubridate/issues/1097" class="external-link">#1097</a> Fix <code>as_date("character")</code> to work correctly with formats that include extra characters.</li>
+<li>
 <a href="https://github.com/tidyverse/lubridate/issues/1098" class="external-link">#1098</a> Roll over the month boundary in <code>make_dateime()</code> when units exceed their maximal values.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1090" class="external-link">#1090</a> timechange has been moved from Depends to Imports.</li>
