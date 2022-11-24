@@ -266,3 +266,13 @@ test_that("as_datetime does not loose time zone", {
   expect_identical(x, as_datetime(x))
   expect_identical(with_tz(x, "Europe/Amsterdam"), as_datetime(x, tz = "Europe/Amsterdam"))
 })
+
+test_that("as_datetime parsers with exact formats", {
+  ## #1097
+  expect_equal(
+    as_datetime("blabla2022-xyz01-03", format = "blabla%Y-xyz%m-%d"),
+    ymd("2022-01-03", tz = "UTC"))
+  expect_equal(
+    as_datetime(c("2022-01-01", "blabla2022-xyz01-03"), format = c("%Y-%m-%d", "blabla%Y-xyz%m-%d")),
+    ymd(c("2022-01-01", "2022-01-03"), tz = "UTC"))
+})

@@ -87,3 +87,14 @@ test_that("c.Date deals correctly with heterogeneous date-time classes", {
   dt <- make_datetime(2000, 1, 1, tz = "UTC")
   expect_equal(c(d, list(dt)), make_date(c(2000, 2000), 1, 1))
 })
+
+
+test_that("as_datet parsers with exact formats", {
+  ## #1097
+  expect_equal(
+    as_date("blabla2022-xyz01-03", format = "blabla%Y-xyz%m-%d"),
+    ymd("2022-01-03"))
+  expect_equal(
+    as_date(c("2022-01-01", "blabla2022-xyz01-03"), format = c("%Y-%m-%d", "blabla%Y-xyz%m-%d")),
+    ymd(c("2022-01-01", "2022-01-03")))
+})

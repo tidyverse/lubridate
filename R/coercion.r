@@ -758,7 +758,7 @@ setMethod("as_date", "character",
     if (is.null(format)) {
       as_date(.parse_iso_dt(x, tz = "UTC"))
     } else {
-      as_date(parse_date_time(x, format, tz = "UTC"))
+      as_date(parse_date_time(x, format, tz = "UTC", exact = TRUE))
     }
   }
 )
@@ -800,7 +800,7 @@ setMethod("as_datetime", "character",
     if (is.null(format)) {
       .parse_iso_dt(x, tz)
     } else {
-      as.POSIXct(strptime(x, format = format, tz = tz))
+      parse_date_time(x, format, tz = tz, exact = TRUE)
     }
   }
 )
