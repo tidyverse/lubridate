@@ -3,32 +3,40 @@ NULL
 
 #' Get/set days component of a date-time
 #'
-#' @details `mday()` and `yday()` return the day of the month and day of the
-#'   year respectively. `day()` and `day<-()` are aliases for `mday()` and
-#'   `mday<-()`.
-#' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
-#'   timeDate, xts, its, ti, jul, timeSeries, or fts object.
-#' @param label logical. Only available for wday. TRUE will display the day of
-#'   the week as an ordered factor of character strings, such as "Sunday." FALSE
-#'   will display the day of the week as a number.
-#' @param abbr logical. Only available for wday. FALSE will display the day of
-#'   the week as an ordered factor of character strings, such as "Sunday." TRUE
-#'   will display an abbreviated version of the label, such as "Sun". abbr is
-#'   disregarded if label = FALSE.
-#' @param value (for `wday<-`) a numeric or a string giving the name of the day in
-#'   the current locale or in English. Can be abbreviated. When a
-#'   string, the value of `week_start` is ignored.
-#' @param week_start day on which week starts following ISO conventions - 1
-#'   means Monday, 7 means Sunday (default). When `label = TRUE`, this will be
-#'   the first level of the returned factor. You can set `lubridate.week.start`
-#'   option to control this parameter globally.
+#' @details `mday()` and `yday()` return the day of the month and day of the year
+#'   respectively. `day()` and `day<-()` are aliases for `mday()` and `mday<-()`.
+#' @param x a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate,
+#'   xts, its, ti, jul, timeSeries, or fts object.
+#' @param label logical. Only available for wday. TRUE will display the day of the week
+#'   as an ordered factor of character strings, such as "Sunday." FALSE will display the
+#'   day of the week as a number.
+#' @param abbr logical. Only available for wday. FALSE will display the day of the week
+#'   as an ordered factor of character strings, such as "Sunday." TRUE will display an
+#'   abbreviated version of the label, such as "Sun". abbr is disregarded if label =
+#'   FALSE.
+#' @param value (for `wday<-`) a numeric or a string giving the name of the day in the
+#'   current locale or in English. Can be abbreviated. When a string, the value of
+#'   `week_start` is ignored.
+#' @param week_start day on which week starts following ISO conventions: 1 means Monday
+#'   and 7 means Sunday (default). When `label = FALSE` and `week_start = 7`, the number
+#'   returned for Sunday is 1, for Monday is 2, etc. When `label = TRUE`, the returned
+#'   value is a factor with the first level being the week start (e.g. Sunday if
+#'   `week_start = 7`). You can set `lubridate.week.start` option to control this
+#'   parameter globally.
 #' @param locale locale to use for day names. Default to current locale.
-#' @return `wday()` returns the day of the week as a decimal number or an
-#'   ordered factor if label is `TRUE`.
+#' @return `wday()` returns the day of the week as a decimal number or an ordered factor
+#'   if label is `TRUE`.
 #' @keywords utilities manip chron methods
 #' @examples
 #' x <- as.Date("2009-09-02")
 #' wday(x) # 4
+#' wday(x, label = TRUE) # Wed
+#'
+#' wday(x, week_start = 1) # 3
+#' wday(x, week_start = 7) # 4
+#'
+#' wday(x, label = TRUE, week_start = 7) # Wed (Sun is the first level)
+#' wday(x, label = TRUE, week_start = 1) # Wed (Mon is the first level)
 #'
 #' wday(ymd(080101))
 #' wday(ymd(080101), label = TRUE, abbr = FALSE)
