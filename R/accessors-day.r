@@ -31,6 +31,9 @@ NULL
 #' wday(x) # 4
 #' wday(x, label = TRUE) # Wed (Wednesday)
 #'
+#' wday(x, week_start = 1) # 3
+#' wday(x, week_start = 7) # 4
+#'
 #' wday(ymd(080101))
 #' wday(ymd(080101), label = TRUE, abbr = FALSE)
 #' wday(ymd(080101), label = TRUE, abbr = TRUE)
