@@ -18,10 +18,13 @@ NULL
 #' @param value (for `wday<-`) a numeric or a string giving the name of the day in
 #'   the current locale or in English. Can be abbreviated. When a
 #'   string, the value of `week_start` is ignored.
-#' @param week_start day on which week starts following ISO conventions - 1
-#'   means Monday, 7 means Sunday (default). When `label = TRUE`, this will be
-#'   the first level of the returned factor. You can set `lubridate.week.start`
-#'   option to control this parameter globally.
+#' @param week_start day on which week starts following ISO conventions:
+#'   1 means Monday and 7 means Sunday (default). When `label = FALSE` and
+#'   `week_start = 7`(default), the number returned for Sunday is 1, for
+#'   Monday is 2, etc. When `label = TRUE`, the returned value for the first
+#'   day of the week will be the first level of the returned factor.
+#'   You can set `lubridate.week.start` option to control this parameter
+#'   globally.
 #' @param locale locale to use for day names. Default to current locale.
 #' @return `wday()` returns the day of the week as a decimal number or an
 #'   ordered factor if label is `TRUE`.
