@@ -29,6 +29,7 @@ NULL
 #' @examples
 #' x <- as.Date("2009-09-02")
 #' wday(x) # 4
+#' wday(x, label = TRUE) # Wed (Wednesday)
 #'
 #' wday(ymd(080101))
 #' wday(ymd(080101), label = TRUE, abbr = FALSE)
