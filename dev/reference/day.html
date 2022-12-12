@@ -94,28 +94,30 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
-<dd><p>a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg,
-timeDate, xts, its, ti, jul, timeSeries, or fts object.</p></dd>
+<dd><p>a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate,
+xts, its, ti, jul, timeSeries, or fts object.</p></dd>
 
 
 <dt>label</dt>
-<dd><p>logical. Only available for wday. TRUE will display the day of
-the week as an ordered factor of character strings, such as "Sunday." FALSE
-will display the day of the week as a number.</p></dd>
+<dd><p>logical. Only available for wday. TRUE will display the day of the week
+as an ordered factor of character strings, such as "Sunday." FALSE will display the
+day of the week as a number.</p></dd>
 
 
 <dt>abbr</dt>
-<dd><p>logical. Only available for wday. FALSE will display the day of
-the week as an ordered factor of character strings, such as "Sunday." TRUE
-will display an abbreviated version of the label, such as "Sun". abbr is
-disregarded if label = FALSE.</p></dd>
+<dd><p>logical. Only available for wday. FALSE will display the day of the week
+as an ordered factor of character strings, such as "Sunday." TRUE will display an
+abbreviated version of the label, such as "Sun". abbr is disregarded if label =
+FALSE.</p></dd>
 
 
 <dt>week_start</dt>
-<dd><p>day on which week starts following ISO conventions - 1
-means Monday, 7 means Sunday (default). When <code>label = TRUE</code>, this will be
-the first level of the returned factor. You can set <code>lubridate.week.start</code>
-option to control this parameter globally.</p></dd>
+<dd><p>day on which week starts following ISO conventions: 1 means Monday
+and 7 means Sunday (default). When <code>label = FALSE</code> and <code>week_start = 7</code>, the number
+returned for Sunday is 1, for Monday is 2, etc. When <code>label = TRUE</code>, the returned
+value is a factor with the first level being the week start (e.g. Sunday if
+<code>week_start = 7</code>). You can set <code>lubridate.week.start</code> option to control this
+parameter globally.</p></dd>
 
 
 <dt>locale</dt>
@@ -123,23 +125,22 @@ option to control this parameter globally.</p></dd>
 
 
 <dt>value</dt>
-<dd><p>(for <code>wday&lt;-</code>) a numeric or a string giving the name of the day in
-the current locale or in English. Can be abbreviated. When a
-string, the value of <code>week_start</code> is ignored.</p></dd>
+<dd><p>(for <code>wday&lt;-</code>) a numeric or a string giving the name of the day in the
+current locale or in English. Can be abbreviated. When a string, the value of
+<code>week_start</code> is ignored.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p><code>wday()</code> returns the day of the week as a decimal number or an
-ordered factor if label is <code>TRUE</code>.</p>
+<p><code>wday()</code> returns the day of the week as a decimal number or an ordered factor
+if label is <code>TRUE</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>mday()</code> and <code>yday()</code> return the day of the month and day of the
-year respectively. <code>day()</code> and <code>day&lt;-()</code> are aliases for <code>mday()</code> and
-<code>mday&lt;-()</code>.</p>
+    <p><code>mday()</code> and <code>yday()</code> return the day of the month and day of the year
+respectively. <code>day()</code> and <code>day&lt;-()</code> are aliases for <code>mday()</code> and <code>mday&lt;-()</code>.</p>
     </div>
 
     <div class="section level2">
@@ -147,6 +148,21 @@ year respectively. <code>day()</code> and <code>day&lt;-()</code> are aliases fo
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2009-09-02"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">wday</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># 4</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-in"><span><span class="fu">wday</span><span class="op">(</span><span class="va">x</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Wed</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Wed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">wday</span><span class="op">(</span><span class="va">x</span>, week_start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># 3</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-in"><span><span class="fu">wday</span><span class="op">(</span><span class="va">x</span>, week_start <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="co"># 4</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">wday</span><span class="op">(</span><span class="va">x</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, week_start <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="co"># Wed (Sun is the first level)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Wed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</span>
+<span class="r-in"><span><span class="fu">wday</span><span class="op">(</span><span class="va">x</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, week_start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># Wed (Mon is the first level)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Wed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat &lt; Sun</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">wday</span><span class="op">(</span><span class="fu"><a href="ymd.html">ymd</a></span><span class="op">(</span><span class="fl">080101</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
