@@ -823,3 +823,11 @@ test_that("rounding of fractional second works around origin", {
 
   ## plot(time, rnd)
 })
+
+
+test_that("ceiling of dates works correctly before 1970", {
+  #1107
+  dates <- ymd('1969-01-01') + years(c(0:2))
+  expect_equal(ceiling_date(dates, 'month', change_on_boundary = FALSE), dates)
+  expect_equal(ceiling_date(dates, unit = 'month', change_on_boundary = TRUE), dates + months(1))
+})
