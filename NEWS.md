@@ -7,6 +7,7 @@ Version 1.9.0.9000
 
 ### BUG FIXES
 
+* [#1104](https://github.com/tidyverse/lubridate/issues/1104) Fix incorrect parsing of months when %a format is present.
 * [#1091](https://github.com/tidyverse/lubridate/issues/1091) Fix formatting of numeric inputs to parse_date_time.
 * [#1092](https://github.com/tidyverse/lubridate/issues/1092) Fix regression in `ymd_hm` on locales where `p` format is not defined.
 * [#1097](https://github.com/tidyverse/lubridate/issues/1097) Fix `as_date("character")` to work correctly with formats that include extra characters.
