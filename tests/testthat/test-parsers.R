@@ -1158,6 +1158,14 @@ test_that("fractional qY dates are parsed correctly", {
     ymd(c("2007-07-01 UTC", "1970-04-01 UTC", "2020-01-01 UTC", "2009-10-01 UTC", "1975-01-01 UTC", NA), tz = "UTC"))
 })
 
+test_that("%a order parsers correctly", {
+  x <- c("Wed Apr 24 13:45:07 GMT-0500 2019", "Wednesday Apr 24 13:45:07 GMT-0500 2019")
+  y <- ymd_hms(c("2019-04-24 18:45:07", "2019-04-24 18:45:07"))
+  expect_equal(parse_date_time(x, "abdHMSzY"), y)
+  expect_equal(parse_date_time(x, "abdHMSzY"), y)
+  expect_equal(parse_date_time(x, "bdHMSzY"), y)
+})
+
 ## library(microbenchmark)
 ## library(lubridate)
 
