@@ -96,14 +96,25 @@ seconds, tzs (time zone component)</p></dd>
 <dt>roll_dst</dt>
 <dd><p>is a string vector of length one or two. When two values are
 supplied they specify how to roll date-times when they fall into "skipped" and
-"repeated" DST transitions respectively. Singleton strings is replicated to the
+"repeated" DST transitions respectively. A single value is replicated to the
 length of two. Possible values are:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">pre</span><span class="st">`</span> <span class="sc">-</span> Use the time before the transition boundary.</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">boundary</span><span class="st">`</span> <span class="sc">-</span> Use the time exactly at the boundary transition.</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">post</span><span class="st">`</span> <span class="sc">-</span> Use the time after the boundary transition.</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">NA</span><span class="st">`</span> <span class="sc">-</span> Produce NAs when the resulting time falls inside the problematic interval.</span></code></pre><p></p></div>
-<p>For example `roll_dst = c("pre", "NA") indicates that for repeated intervals
-return the time in the earlier interval and for skipped intervals return NA.</p></dd>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">xfirst</span><span class="st">`</span> <span class="sc">-</span> crossed<span class="sc">-</span>first<span class="sc">:</span> First time which occurred when crossing the</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   boundary. For addition with positive units pre interval is crossed first and</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   post interval last. With negative units post interval is crossed first, pre <span class="sc">-</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   last. For subtraction the logic is reversed.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">xlast</span><span class="st">`</span> <span class="sc">-</span> crossed<span class="sc">-</span>last.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="st">`</span><span class="at">NA</span><span class="st">`</span> <span class="sc">-</span> Produce NAs when the resulting time falls inside the problematic interval.</span></code></pre><p></p></div>
+<p>For example `roll_dst = c("NA", "pre") indicates that for skiped intervals
+return NA and for repeated times return the earlier time.</p>
+<p>When multiple units are supplied the meaning of "negative period" is determined by
+the largest unit. For example <code>time_add(t, days = -1, hours = 2, roll_dst = "xfirst")</code> would operate as if with negative period, thus crossing the boundary
+from the "post" to "pre" side and "xfirst" and hence resolving to "post"
+time. As this might result in confusing behavior. See examples.</p>
+<p>"xfirst" and "xlast" make sense for addition and subtraction only. An error is
+raised if an attempt is made to use them with other functions.</p></dd>
 
 
 <dt>week_start</dt>
