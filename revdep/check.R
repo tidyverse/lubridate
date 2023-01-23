@@ -1,33 +1,33 @@
 
-devtools::install_github("r-lib/revdepcheck")
+#' devtools::install_github("r-lib/revdepcheck")
 
 library(revdepcheck)
 
-#' revdep_reset()
+# revdep_reset()
 
-revdep_check(num_workers = 5)
+revdepcheck::revdep_check(num_workers = 6)
 
-revdep_summary()
-revdep_todo()
+revdepcheck::revdep_summary()
+revdepcheck::revdep_todo()
 
-revdep_add_broken(install_failures = F, timeout_failures = F)
-revdep_check(num_workers = 4)
+revdepcheck::revdep_add_broken(install_failures = T, timeout_failures = T)
+revdepcheck::revdep_check(num_workers = 6)
 
-## revdep_rm(packages = "xROI")
+revdepcheck::revdep_rm(packages = c("CDMConnector"))
 ## revdep_add(packages = "GenEst")
-revdep_check()
+
 
 (smr <- revdep_summary())
 revdep_details(revdep = "GenEst")
 
 ## in another process
-revdep_report_summary()
-revdep_report_problems()
-revdep_summary()
-revdep_maintainers()
+revdepcheck::revdep_report_summary()
+revdepcheck::revdep_report_problems()
+revdepcheck::revdep_summary()
+revdepcheck::revdep_maintainers()
 
 ## finally
-revdep_report()
+revdepcheck::revdep_report()
 
 
 db_delete <- function(pkgdir, package) {
