@@ -22,30 +22,17 @@ seconds, tzs (time zone component)}
 
 \item{roll_dst}{is a string vector of length one or two. When two values are
 supplied they specify how to roll date-times when they fall into "skipped" and
-"repeated" DST transitions respectively. A single value is replicated to the
+"repeated" DST transitions respectively. Singleton strings is replicated to the
 length of two. Possible values are:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{* `pre` - Use the time before the transition boundary.
 * `boundary` - Use the time exactly at the boundary transition.
 * `post` - Use the time after the boundary transition.
-* `xfirst` - crossed-first: First time which occurred when crossing the
-   boundary. For addition with positive units pre interval is crossed first and
-   post interval last. With negative units post interval is crossed first, pre -
-   last. For subtraction the logic is reversed.
-* `xlast` - crossed-last.
 * `NA` - Produce NAs when the resulting time falls inside the problematic interval.
 }\if{html}{\out{</div>}}
 
-For example `roll_dst = c("NA", "pre") indicates that for skiped intervals
-return NA and for repeated times return the earlier time.
-
-When multiple units are supplied the meaning of "negative period" is determined by
-the largest unit. For example \code{time_add(t, days = -1, hours = 2, roll_dst = "xfirst")} would operate as if with negative period, thus crossing the boundary
-from the "post" to "pre" side and "xfirst" and hence resolving to "post"
-time. As this might result in confusing behavior. See examples.
-
-"xfirst" and "xlast" make sense for addition and subtraction only. An error is
-raised if an attempt is made to use them with other functions.}
+For example `roll_dst = c("pre", "NA") indicates that for repeated intervals
+return the time in the earlier interval and for skipped intervals return NA.}
 
 \item{week_start}{week start day (Default is 7, Sunday. Set \code{lubridate.week.start} to
 override). Full or abbreviated names of the days of the week can be in English or

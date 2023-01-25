@@ -865,10 +865,6 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
       }
     }
 
-    ## Replace any remaining %Ob formats which strptime does not understand. Can happen
-    ## when fmt contains %a which are not currently handled in c_parser. #1104
-    fmt <- gsub("%O([Bb])", "%\\1", fmt)
-
     strptime(.enclose(x), .enclose(fmt), tz)
   }
 }
