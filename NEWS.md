@@ -1,9 +1,13 @@
-Version 1.9.1.9000 (dev)
-========================
+Version 1.9.2
+=============
 
 ### BUG FIXES
 
 * [#1104](https://github.com/tidyverse/lubridate/issues/1104) Fix incorrect parsing of months when %a format is present.
+
+### OTHER
+
+* Adapt to internal name changes in R-devel
 
 Version 1.9.1
 =============
