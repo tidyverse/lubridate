@@ -167,7 +167,7 @@ stop_incompatible_classes <- function(x, y, method) {
   ), call. = FALSE)
 }
 
-stop_incompatible_size <- function(x, y, msg = NULL) {
+stop_incompatible_sizes <- function(x, y, msg = NULL) {
   lx <- length(x)
   ly <- length(y)
   if (!(lx == ly || lx == 1 || ly == 1)) {

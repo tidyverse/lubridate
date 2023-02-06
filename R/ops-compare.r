@@ -47,10 +47,10 @@ comp_posix_date <- function(e1, e2) {
 
   if (is.POSIXct(e1) && is.Date(e2)) {
     e2 <- date_to_posix(e2, tz(e1))
-    base::check_tzones(e1, e2)
+    check_tzones(e1, e2)
   } else if (is.Date(e1) && is.POSIXct(e2)) {
     e1 <- date_to_posix(e1, tz = tz(e2))
-    base::check_tzones(e1, e2)
+    check_tzones(e1, e2)
   }
   NextMethod(.Generic)
 }
@@ -62,3 +62,7 @@ evalqOnLoad({
     registerS3method(op, "POSIXt", comp_posix_date)
   }
 })
+
+
+check_tzones <-
+  tryCatch(base::.check_tzones, error = function(...) base::check_tzones)
