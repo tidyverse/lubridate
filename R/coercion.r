@@ -407,10 +407,8 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   switch(unit,
     year = .int_to_period(x),
     month = {
-      pers <- .int_to_period(x)
-      month(pers) <- month(pers) + year(pers) * 12
-      year(pers) <- 0
-      pers
+      x <- .int_to_period(x)
+      as.period(x, unit = unit)
     },
     ## fixme: add note to the docs that unit <= days results in much faster conversion
     ## fixme: add week
@@ -544,9 +542,17 @@ setMethod(
       switch(unit,
         year = x,
         month = {
-          month(x) <- month(x) + year(x) * 12
-          year(x) <- 0
-          x
+          years <- 0
+          months <- month(x) + year(x) * 12
+          new(
+            "Period",
+            x$second,
+            year = years,
+            month = months,
+            day = x$day,
+            hour = x$hour,
+            minute = x$minute
+          )
         },
         day = ,
         hour = ,
