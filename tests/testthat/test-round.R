@@ -652,7 +652,7 @@ test_that("rounding works within repeated DST", {
   expect_equal(round_date(ref + dminutes(35), "hour"), ref + dhours(1))
   expect_equal(round_date(ref + dhours(1) + dminutes(25), "hour"), ref + dhours(1))
 
-  expect_equal(round_date(ref + dhours(1) + dminutes(35), "hour"), ref + dhours(2))
+  expect_equal(round_date(ref + dhours(1) + dminutes(35), "ahour"), ref + dhours(2))
 
   expect_equal(round_date(ref + dhours(2) + dminutes(20), "hour"), ref + dhours(2))
   expect_equal(round_date(ref + dhours(2) + dminutes(35), "hour"), ref + dhours(3))
