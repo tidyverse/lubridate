@@ -31,6 +31,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install French language package
+        if: runner.os == 'Linux'
+        run: sudo apt-get install language-pack-fr
+
       - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
