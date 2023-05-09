@@ -390,7 +390,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #' period("2days 2hours 2mins 2secs")
 #' period("2 days, 2 hours, 2 mins, 2 secs")
 #' # Missing numerals default to 1. Repeated units are added up.
-#' duration("day day")
+#' period("day day")
 #'
 #' ### ISO 8601 parsing
 #'
@@ -401,7 +401,7 @@ setMethod("$<-", signature(x = "Period"), function(x, name, value) {
 #'
 #' ### Comparison with characters (from v1.6.0)
 #'
-#' duration("day 2 sec") > "day 1sec"
+#' period("day 2 sec") > "day 1sec"
 #'
 #' ### Elementary Constructors
 #'
