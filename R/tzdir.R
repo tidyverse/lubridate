@@ -29,21 +29,29 @@ tzdir_get <- function() {
 
 ## adapted from Syz.timezone and OlsonNames function
 tzdir_find <- function() {
-  if (.Platform$OS.type == "windows") {
-    return(tzdir_internal())
+  tzdirs <- c()
+
+  conda_prefix <- Sys.getenv("CONDA_PREFIX")
+  if (conda_prefix != "") {
+    tzdirs <- c(tzdirs, file.path(conda_prefix, "share", "zoneinfo"))
   }
 
-  tzdirs <- c(
-    "/usr/share/zoneinfo",
-    "/usr/share/lib/zoneinfo",
-    "/usr/lib/zoneinfo",
-    "/usr/local/etc/zoneinfo",
-    "/etc/zoneinfo",
-    "/usr/etc/zoneinfo",
-    "/usr/share/zoneinfo.default",
-    "/var/db/timezone/zoneinfo",
-    tzdir_internal()
-  )
+  if (.Platform$OS.type != "windows") {
+    tzdirs <- c(
+      tzdirs,
+      "/usr/share/zoneinfo",
+      "/usr/share/lib/zoneinfo",
+      "/usr/lib/zoneinfo",
+      "/usr/local/etc/zoneinfo",
+      "/etc/zoneinfo",
+      "/usr/etc/zoneinfo",
+      "/usr/share/zoneinfo.default",
+      "/var/db/timezone/zoneinfo"
+    )
+  }
+
+  tzdirs <- c(tzdirs, tzdir_internal())
+
   tzdirs <- tzdirs[file.exists(tzdirs)]
   if (length(tzdirs)) {
     tzdirs[[1]]
