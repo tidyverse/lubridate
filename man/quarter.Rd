@@ -22,7 +22,7 @@ anything else that can be converted with as.POSIXlt}
 \item{type}{the format to be returned for the quarter. Can be one one of
 "quarter" - return numeric quarter (default), "year.quarter" return
 fractional numeric year.quarter, "date_first" or "date_last" which return
-the date at the quarter's start end end.}
+the date at the quarter's start and end.}
 
 \item{fiscal_start}{numeric indicating the starting month of a fiscal year.}
 

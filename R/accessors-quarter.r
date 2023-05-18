@@ -11,7 +11,7 @@ NULL
 #' @param type the format to be returned for the quarter. Can be one one of
 #'   "quarter" - return numeric quarter (default), "year.quarter" return
 #'   fractional numeric year.quarter, "date_first" or "date_last" which return
-#'   the date at the quarter's start end end.
+#'   the date at the quarter's start and end.
 #' @param fiscal_start numeric indicating the starting month of a fiscal year.
 #' @param with_year logical indicating whether or not to include the quarter or
 #'   semester's year (deprecated; use the `type` parameter instead).
