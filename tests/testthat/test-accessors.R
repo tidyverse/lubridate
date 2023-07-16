@@ -253,6 +253,7 @@ test_that("quarters accessor extracts correct quarter", {
   expect_equal(quarter(posct, type = "year.quarter"), 2010.4)
   expect_equal(quarter(posct, type = "date_first"), ymd("2010-10-01"))
   expect_equal(quarter(posct, type = "date_last"), ymd("2010-12-31"))
+  expect_equal(quarter(posct, type = "year_start/end"), "2009/10 Q4")
   expect_equal(quarter(posct, with_year = TRUE), 2010.4)
   expect_equal(quarter(posct, fiscal_start = 11), 1)
   expect_equal(quarter(posct, fiscal_start = -2), 1)
@@ -266,6 +267,7 @@ test_that("quarters accessor extracts correct quarter", {
   expect_equal(quarter(poslt, type = "year.quarter"), 2010.4)
   expect_equal(quarter(poslt, type = "date_first"), ymd("2010-10-01"))
   expect_equal(quarter(poslt, type = "date_last"), ymd("2010-12-31"))
+  expect_equal(quarter(poslt, type = "year_start/end"), "2009/10 Q4")
   expect_equal(quarter(poslt, with_year = TRUE), 2010.4)
   expect_equal(quarter(poslt, fiscal_start = 11), 1)
   expect_equal(quarter(poslt, fiscal_start = -2), 1)
@@ -279,6 +281,7 @@ test_that("quarters accessor extracts correct quarter", {
   expect_equal(quarter(date, type = "year.quarter"), 2010.4)
   expect_equal(quarter(date, type = "date_first"), ymd("2010-10-01"))
   expect_equal(quarter(date, type = "date_last"), ymd("2010-12-31"))
+  expect_equal(quarter(date, type = "year_start/end"), "2009/10 Q4")
   expect_equal(quarter(date, with_year = TRUE), 2010.4)
   expect_equal(quarter(date, fiscal_start = 11), 1)
   expect_equal(quarter(date, fiscal_start = -2), 1)
@@ -306,8 +309,20 @@ test_that("quarters accessor extracts correct quarter", {
     c(2012.2, 2012.2, 2012.3, 2012.4, 2013.1)
   )
   expect_equal(
-    quarter(x, type = "date_first", fiscal_start = 4),
-    ymd(c("2012-01-01", "2012-01-01", "2012-04-01", "2012-07-01", "2012-10-01"))
+    quarter(x, type = "year.quarter", fiscal_start = 11),
+    c(2012.2, 2012.2, 2012.3, 2012.4, 2013.1)
+  )
+  expect_equal(
+    quarter(x, type = "year_start/end", fiscal_start = 11),
+    c("2011/12 Q2", "2011/12 Q2", "2011/12 Q3", "2011/12 Q4", "2012/13 Q1")
+  )
+  expect_equal(
+    quarter(x, type = "year.quarter", fiscal_start = 4),
+    c(2012.4, 2012.4, 2013.1, 2013.2, 2013.3)
+  )
+  expect_equal(
+    quarter(x, type = "year_start/end", fiscal_start = 4),
+    c("2011/12 Q4", "2011/12 Q4", "2012/13 Q1", "2012/13 Q2", "2012/13 Q3")
   )
   expect_equal(
     quarter(x, type = "date_first", fiscal_start = 11),

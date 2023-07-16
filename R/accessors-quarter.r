@@ -5,18 +5,20 @@ NULL
 #'
 #' Quarters divide the year into fourths. Semesters divide the year into halfs.
 #'
-#' @param x a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon,
-#'   yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or
-#'   anything else that can be converted with as.POSIXlt
-#' @param type the format to be returned for the quarter. Can be one one of
-#'   "quarter" - return numeric quarter (default), "year.quarter" return
-#'   fractional numeric year.quarter, "date_first" or "date_last" which return
-#'   the date at the quarter's start and end.
+#' @param x a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon, yearqtr,
+#'   zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can
+#'   be converted with as.POSIXlt
+#' @param type the format to be returned for the quarter. Can be one one of "quarter" -
+#'   return numeric quarter (default), "year.quarter" - return fractional numeric
+#'   year.quarter, "date_first" or "date_last" - return the date at the quarter's start
+#'   or end, "year_start/end" - return a full description of the quarter as a string
+#'   which includes the start and end of the year (ex. "2020/21 Q1").
 #' @param fiscal_start numeric indicating the starting month of a fiscal year.
 #' @param with_year logical indicating whether or not to include the quarter or
 #'   semester's year (deprecated; use the `type` parameter instead).
-#' @return numeric or a vector of class POSIXct if `type` argument is
-#'   `date_first` or `date_last`
+#' @return numeric or a vector of class POSIXct if `type` argument is `date_first` or
+#'   `date_last`. When `type` is `year.quarter` the year returned is the end year of the
+#'   financial year.
 #' @examples
 #' x <- ymd(c("2012-03-26", "2012-05-04", "2012-09-23", "2012-12-31"))
 #' quarter(x)
@@ -49,9 +51,15 @@ quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = identical
 
   switch(type,
     "quarter" = q,
+    "year_start/end" = ,
     "year.quarter" = {
       nxt_year_months <- if (fs != 0) (fs + 1):12
-      year(x) + (m %in% nxt_year_months) + (q / 10)
+      y =  year(x) + (m %in% nxt_year_months)
+      out = y + (q / 10)
+      if (type == "year_start/end") {
+        out = sprintf("%d/%d Q%d",  y - 1, y %% 100, q)
+      }
+      out
     },
     "date_first" = ,
     "date_last" = {
