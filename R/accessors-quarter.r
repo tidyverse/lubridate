@@ -9,10 +9,11 @@ NULL
 #'   zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can
 #'   be converted with as.POSIXlt
 #' @param type the format to be returned for the quarter. Can be one one of "quarter" -
-#'   return numeric quarter (default), "year.quarter" - return fractional numeric
-#'   year.quarter, "date_first" or "date_last" - return the date at the quarter's start
-#'   or end, "year_start/end" - return a full description of the quarter as a string
-#'   which includes the start and end of the year (ex. "2020/21 Q1").
+#'   return numeric quarter (default), "year.quarter" return the ending year and quarter
+#'   as a number of the form year.quarter, "date_first" or "date_last" - return the date
+#'   at the quarter's start or end, "year_start/end" - return a full description of the
+#'   quarter as a string which includes the start and end of the year
+#'   (ex. "2020/21 Q1").
 #' @param fiscal_start numeric indicating the starting month of a fiscal year.
 #' @param with_year logical indicating whether or not to include the quarter or
 #'   semester's year (deprecated; use the `type` parameter instead).
