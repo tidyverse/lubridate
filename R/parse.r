@@ -368,8 +368,9 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
   if (!quiet) {
     ## fixme: this warning should be dropped to C and thrown only when there are
     ## real parsing errors #530
-    if (any(is.na(out[substr(order, ln <- nchar(order), ln), ]))) {
-      warning("Some strings failed to parse, or all strings are NAs")
+    sym <- substr(order, ln <- nchar(order), ln)
+    if (any(is.na(out[sym, ]) & !is.na(hms))) {
+      warning("Some strings failed to parse")
     }
   }
   out

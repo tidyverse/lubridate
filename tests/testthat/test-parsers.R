@@ -728,19 +728,24 @@ test_that("fractional formats are correctly parsed", {
   expect_equal(hms("3:0:3.34"), hours(3) + minutes(0) + seconds(3.34))
 })
 
-test_that("NA's are parsed as NA's", {
+test_that("hm correctly warns on un-parsed values", {
+  x <- c("05:00", "10:57", "10:58", "16:50", "21:59", NA)
+  expect_no_warning(hm(x))
+  x[3] <- ""
+  expect_warning(hm(x))
+
   expect_silent(ymd(NA, "2001-01-01"))
   expect_warning(ymd(NA, "2001-01-01 01"))
   expect_true(is.na(ymd(NA, quiet = TRUE)))
   expect_silent(ymd_hms(NA))
-  expect_true(is.na(ymd_hms(NA, quiet = TRUE)))
+  expect_true(is.na(ymd_hms(NA)))
   expect_silent(ymd_hm(NA, "01-01-01 0:0"))
   expect_warning(ymd_hm(NA, "01-01-01 0"))
   expect_true(is.na(ymd_hm(NA, quiet = TRUE)))
-  expect_warning(hms(NA))
-  expect_true(is.na(hms(NA, quiet = TRUE)))
-  expect_warning(ms(NA))
-  expect_true(is.na(ms(NA, quiet = TRUE)))
+  expect_no_warning(hms(NA))
+  expect_true(is.na(hms(NA)))
+  expect_no_warning(ms(NA))
+  expect_true(is.na(ms(NA)))
 })
 
 test_that("Quarters are parsed correctly", {
@@ -786,9 +791,9 @@ test_that("Vectors of NA's are parsed as vectors of NA's", {
   expect_equal(ymd_hms(NA, NA, NA, quiet = TRUE), mna)
   expect_silent(ymd_hm(NA, NA, NA))
   expect_equal(ymd_hm(NA, NA, NA, quiet = TRUE), mna)
-  expect_warning(hms(NA, NA, NA))
+  expect_no_warning(hms(NA, NA, NA))
   expect_equal(hms(NA, NA, NA, quiet = TRUE), pna)
-  expect_warning(ms(NA, NA, NA))
+  expect_no_warning(ms(NA, NA, NA))
   expect_equal(ms(NA, NA, NA, quiet = TRUE), pna2)
   expect_silent(ymd(c(NA, NA, NA)))
   expect_equal(ymd(c(NA, NA, NA), quiet = TRUE), as.Date(mna))
@@ -796,9 +801,9 @@ test_that("Vectors of NA's are parsed as vectors of NA's", {
   expect_equal(ymd_hms(c(NA, NA, NA), quiet = TRUE), mna)
   expect_silent(ymd_hm(c(NA, NA, NA)))
   expect_equal(ymd_hm(c(NA, NA, NA), quiet = TRUE), mna)
-  expect_warning(hms(c(NA, NA, NA)))
+  expect_no_warning(hms(c(NA, NA, NA)))
   expect_equal(hms(c(NA, NA, NA), quiet = TRUE), pna)
-  expect_warning(ms(c(NA, NA, NA)))
+  expect_no_warning(ms(c(NA, NA, NA)))
   expect_equal(ms(c(NA, NA, NA), quiet = TRUE), pna2)
 })
 
