@@ -33,9 +33,12 @@ it specifies a time unit or a multiple of a unit to be rounded to. Valid base un
 are \code{second}, \code{minute}, \code{hour}, \code{day}, \code{week}, \code{month}, \code{bimonth}, \code{quarter},
 \code{season}, \code{halfyear} and \code{year}. Arbitrary unique English abbreviations as in the
 \code{\link[=period]{period()}} constructor are allowed. Rounding to multiples of units (except weeks)
-is supported. When \code{unit} is a \code{Period} object, units of the period objects are
-used. This is equivalent to converting the period object to its string
-representation and passing as \code{unit} argument.
+is supported.
+
+When \code{unit} is a \code{Period} object, it is first converted to a string representation
+which might not be in the same units as the constructor. For example \code{weeks(1)} is
+converted to "7d 0H 0M 0S". Thus, always check the string representation of the
+period before passing to this function.
 
 When \code{unit} is a date-time object rounding is done to the nearest of the
 elements in \code{unit}. If range of \code{unit} vector does not cover the range of

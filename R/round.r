@@ -52,9 +52,12 @@
 #'   are `second`, `minute`, `hour`, `day`, `week`, `month`, `bimonth`, `quarter`,
 #'   `season`, `halfyear` and `year`. Arbitrary unique English abbreviations as in the
 #'   [period()] constructor are allowed. Rounding to multiples of units (except weeks)
-#'   is supported. When `unit` is a `Period` object, units of the period objects are
-#'   used. This is equivalent to converting the period object to its string
-#'   representation and passing as `unit` argument.
+#'   is supported.
+#'
+#'   When `unit` is a `Period` object, it is first converted to a string representation
+#'   which might not be in the same units as the constructor. For example `weeks(1)` is
+#'   converted to "7d 0H 0M 0S". Thus, always check the string representation of the
+#'   period before passing to this function.
 #'
 #'   When `unit` is a date-time object rounding is done to the nearest of the
 #'   elements in `unit`. If range of `unit` vector does not cover the range of
