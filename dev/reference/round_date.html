@@ -139,9 +139,11 @@ it specifies a time unit or a multiple of a unit to be rounded to. Valid base un
 are <code>second</code>, <code>minute</code>, <code>hour</code>, <code>day</code>, <code>week</code>, <code>month</code>, <code>bimonth</code>, <code>quarter</code>,
 <code>season</code>, <code>halfyear</code> and <code>year</code>. Arbitrary unique English abbreviations as in the
 <code><a href="period.html">period()</a></code> constructor are allowed. Rounding to multiples of units (except weeks)
-is supported. When <code>unit</code> is a <code>Period</code> object, units of the period objects are
-used. This is equivalent to converting the period object to its string
-representation and passing as <code>unit</code> argument.</p>
+is supported.</p>
+<p>When <code>unit</code> is a <code>Period</code> object, it is first converted to a string representation
+which might not be in the same units as the constructor. For example <code>weeks(1)</code> is
+converted to "7d 0H 0M 0S". Thus, always check the string representation of the
+period before passing to this function.</p>
 <p>When <code>unit</code> is a date-time object rounding is done to the nearest of the
 elements in <code>unit</code>. If range of <code>unit</code> vector does not cover the range of
 <code>x</code> <code>ceiling_date()</code> and <code>floor_date()</code> round to the <code>max(x)</code> and <code>min(x)</code>
