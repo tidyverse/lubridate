@@ -25,8 +25,9 @@ check_period <- function(object) {
   }
 
   values <- c(object@year, object@month, object@day, object@hour, object@minute)
-  values <- na.omit(values)
-  if (sum(values - trunc(values))) {
+  values <- values[is.finite(values)]
+  diff <- sum(values - trunc(values))
+  if (diff != 0) {
     msg <- "periods must have integer values"
     errors <- c(errors, msg)
   }

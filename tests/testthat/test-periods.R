@@ -643,3 +643,16 @@ test_that("direct reation of periods works as expected", {
     period(seconds = 1:4, days = 1:2)
   )
 })
+
+
+test_that("period arithmetics works with infinite times", {
+  #1113
+  skip("FIXME: activate when timechange#29 isfixed")
+  date <- ymd("2023-01-01")
+  expect_equal(date + Inf, date + days(Inf))
+  expect_equal(date + Inf, date + days(Inf))
+
+  ime <- ymd("2023-01-01", tz = "America/New_York")
+  expect_equal(date + Inf, date + days(Inf))
+  expect_equal(date + Inf, date + days(Inf))
+})
