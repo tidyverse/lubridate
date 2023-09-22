@@ -259,7 +259,7 @@ test_that("If original post/pre is known, ignore roll_DST", {
 
 test_that("as_datetime does not loose time zone", {
   ## #1085
-  x <- ymd_hms("2022-01-01 23:40:36", tz = "US/Pacific")
+  x <- ymd_hms("2022-01-01 23:40:36", tz = "America/New_York")
   expect_identical(x, as_datetime(x))
   expect_identical(with_tz(x, "Europe/Amsterdam"), as_datetime(x, tz = "Europe/Amsterdam"))
   x <- as.POSIXlt(x)
