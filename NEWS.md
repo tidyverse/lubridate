@@ -1,5 +1,5 @@
-Version 1.9.2.9000
-==================
+Version 1.9.3
+=============
 
 ### NEW FEATURES
 
@@ -8,6 +8,7 @@ Version 1.9.2.9000
 ### BUG FIXES
 
 * [#1109](https://github.com/tidyverse/lubridate/issues/1109) Fix recycling of the year slot in `as.period(unit = "month")` with Periods and Intervals.
+* [#1133](https://github.com/tidyverse/lubridate/issues/1133) Don't error on addition on infinite periods.
 
 Version 1.9.2
 =============
