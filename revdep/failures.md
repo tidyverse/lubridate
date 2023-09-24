@@ -1,3 +1,432 @@
+# academictwitteR
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# accrualPlot
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# Achilles
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# ActiSleep
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# activAnalyzer
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# activatr
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# activPAL
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# actogrammr
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# actxps
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# adept
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# AdhereR
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# admiralvaccine
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# aire.zmvm
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # AirMonitor
 
 <details>
@@ -196,6 +625,39 @@
 
 
 ```
+# AquaBEHER
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # argoFloats
 
 <details>
@@ -328,6 +790,39 @@
 
 
 ```
+# AtmChile
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # audrex
 
 <details>
@@ -362,6 +857,171 @@
 
 ```
 # autostats
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# autoTS
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# avfintools
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# babsim.hospital
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# baseballr
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# basictabler
 
 <details>
 
@@ -460,7 +1120,106 @@
 
 
 ```
+# BeeBDC
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# BiocPkgTools
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # bioRad
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# bitmexr
 
 <details>
 
@@ -559,6 +1318,72 @@
 
 
 ```
+# card
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# CAST
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # CDMConnector
 
 <details>
@@ -592,7 +1417,304 @@
 
 
 ```
+# cft
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# ChillModels
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# cleanTS
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# climaemet
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# CodelistGenerator
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# constructive
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# covatest
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # covid19sf
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# covidmx
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# crawl
 
 <details>
 
@@ -757,6 +1879,39 @@
 
 
 ```
+# ctrdata
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # cubble
 
 <details>
@@ -827,46 +1982,35 @@
 
 <details>
 
-* Version: 2.10.0
-* GitHub: NA
-* Source code: https://github.com/cran/DaMiRseq
-* Date/Publication: 2022-11-01
-* Number of recursive dependencies: 245
-
-Run `revdepcheck::revdep_details(, "DaMiRseq")` for more info
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
 
 </details>
 
-## In both
+## Error before installation
 
-*   R CMD check timed out
-    
+### Devel
 
-*   checking R code for possible problems ... NOTE
-    ```
-    DaMiR.Clustplot: warning in pheatmap(count_data,
-      clustering_distance_rows = d_r, clustering_distance_cols = d_c, scale
-      = "row", col = colors, annotation_col = df): partial argument match
-      of 'col' to 'color'
-    DaMiR.Allplot: no visible binding for global variable ‘X1’
-    DaMiR.Allplot: no visible binding for global variable ‘X2’
-    DaMiR.Allplot: no visible binding for global variable ‘PC1’
-    DaMiR.Allplot: no visible binding for global variable ‘PC2’
-    DaMiR.Allplot: no visible binding for global variable ‘value’
-    DaMiR.Allplot: no visible binding for global variable ‘variable’
-    ...
-    DaMiR.ModelSelect: no visible binding for global variable
-      ‘N.predictors’
-    DaMiR.ModelSelect: no visible binding for global variable ‘Counts’
-    DaMiR.iTSadjust: no visible binding for global variable ‘value’
-    DaMiR.iTSadjust: no visible binding for global variable ‘variable’
-    DaMiR.iTSnorm: no visible binding for global variable ‘value’
-    DaMiR.iTSnorm: no visible binding for global variable ‘variable’
-    Undefined global functions or variables:
-      Accuracy Classifiers Counts MCC Metrics N.predictors NPV PC1 PC2 PPV
-      Sensitivity Specificity X1 X2 colSds value variable
-    ```
+```
 
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # dataRetrieval
 
 <details>
@@ -999,84 +2143,6 @@ Run `revdepcheck::revdep_details(, "DaMiRseq")` for more info
 
 
 ```
-# diversitree
-
-<details>
-
-* Version: 0.9-16
-* GitHub: NA
-* Source code: https://github.com/cran/diversitree
-* Date/Publication: 2021-06-11 15:00:10 UTC
-* Number of recursive dependencies: 37
-
-Run `revdepcheck::revdep_details(, "diversitree")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘diversitree’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/diversitree/new/diversitree.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘diversitree’ ...
-** package ‘diversitree’ successfully unpacked and MD5 sums checked
-** using staged installation
-checking for gcc... gcc
-checking whether the C compiler works... yes
-checking for C compiler default output file name... a.out
-checking for suffix of executables... 
-checking whether we are cross compiling... no
-checking for suffix of object files... o
-checking whether we are using the GNU C compiler... yes
-...
-checking for stdint.h... yes
-checking for unistd.h... yes
-checking fftw3.h usability... no
-checking fftw3.h presence... no
-checking for fftw3.h... no
-configure: WARNING: No fftw found - QuaSSE/fftC will not be available
-checking for gsl-config... no
-configure: error: gsl-config not found, is GSL installed?
-ERROR: configuration failed for package ‘diversitree’
-* removing ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/diversitree/new/diversitree.Rcheck/diversitree’
-
-
-```
-### CRAN
-
-```
-* installing *source* package ‘diversitree’ ...
-** package ‘diversitree’ successfully unpacked and MD5 sums checked
-** using staged installation
-checking for gcc... gcc
-checking whether the C compiler works... yes
-checking for C compiler default output file name... a.out
-checking for suffix of executables... 
-checking whether we are cross compiling... no
-checking for suffix of object files... o
-checking whether we are using the GNU C compiler... yes
-...
-checking for stdint.h... yes
-checking for unistd.h... yes
-checking fftw3.h usability... no
-checking fftw3.h presence... no
-checking for fftw3.h... no
-configure: WARNING: No fftw found - QuaSSE/fftC will not be available
-checking for gsl-config... no
-configure: error: gsl-config not found, is GSL installed?
-ERROR: configuration failed for package ‘diversitree’
-* removing ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/diversitree/old/diversitree.Rcheck/diversitree’
-
-
-```
 # drake
 
 <details>
@@ -1110,7 +2176,73 @@ ERROR: configuration failed for package ‘diversitree’
 
 
 ```
-# dtwSat
+# DrugExposureDiagnostics
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# DrugUtilisation
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# duckplyr
 
 <details>
 
@@ -1176,6 +2308,72 @@ ERROR: configuration failed for package ‘diversitree’
 
 
 ```
+# dymo
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# dynamicSDM
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # Ecfun
 
 <details>
@@ -1209,7 +2407,106 @@ ERROR: configuration failed for package ‘diversitree’
 
 
 ```
+# ecocomDP
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# EEAaq
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # eph
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# EpiNow2
 
 <details>
 
@@ -1341,25 +2638,6 @@ ERROR: configuration failed for package ‘diversitree’
 
 
 ```
-# excluder
-
-<details>
-
-* Version: 0.4.0
-* GitHub: https://github.com/ropensci/excluder
-* Source code: https://github.com/cran/excluder
-* Date/Publication: 2022-06-22 15:20:02 UTC
-* Number of recursive dependencies: 82
-
-Run `revdepcheck::revdep_details(, "excluder")` for more info
-
-</details>
-
-## In both
-
-*   R CMD check timed out
-    
-
 # fable.prophet
 
 <details>
@@ -1393,7 +2671,7 @@ Run `revdepcheck::revdep_details(, "excluder")` for more info
 
 
 ```
-# fastverse
+# fakir
 
 <details>
 
@@ -1591,6 +2869,72 @@ Run `revdepcheck::revdep_details(, "excluder")` for more info
 
 
 ```
+# forecastML
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# gbm.auto
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # gdalcubes
 
 <details>
@@ -1628,34 +2972,15 @@ Run `revdepcheck::revdep_details(, "excluder")` for more info
 
 <details>
 
-* Version: 1.0.0
+* Version: 1.99.0
 * GitHub: https://github.com/PavlidisLab/gemma.R
 * Source code: https://github.com/cran/gemma.R
-* Date/Publication: 2022-11-01
-* Number of recursive dependencies: 108
+* Date/Publication: 2023-09-22
+* Number of recursive dependencies: 117
 
 Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 </details>
-
-## In both
-
-*   R CMD check timed out
-    
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Unexported object imported by a ':::' call: ‘jsonlite:::simplify’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    processDEA : <anonymous> : <anonymous>: no visible binding for global
-      variable ‘experimental.factorValue’
-    Undefined global functions or variables:
-      experimental.factorValue
-    ```
 
 # geomerge
 
@@ -1888,6 +3213,39 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 
 ```
+# healthcareai
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # healthyR.ts
 
 <details>
@@ -1987,7 +3345,106 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 
 ```
+# hubeau
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # IceSat2R
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# ie2miscdata
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# iemisc
 
 <details>
 
@@ -2053,7 +3510,205 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 
 ```
+# IncidencePrevalence
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# injurytools
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # janitor
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# jmastats
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# lambdaTS
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# lazytrade
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# lterdatasampler
 
 <details>
 
@@ -2284,6 +3939,237 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 
 ```
+# meteoland
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# meteospain
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# metR
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# mmaqshiny
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# modeltime
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# modeltime.ensemble
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# modeltime.resample
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # momentuHMM
 
 <details>
@@ -2317,7 +4203,7 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 
 ```
-# mosaic
+# move
 
 <details>
 
@@ -2350,7 +4236,7 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 
 ```
-# move
+# move2
 
 <details>
 
@@ -2417,6 +4303,53 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 ```
 # mudata2
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# NEONiso
+
+<details>
+
+* Version: 0.6.4
+* GitHub: https://github.com/lanl/NEONiso
+* Source code: https://github.com/cran/NEONiso
+* Date/Publication: 2023-09-20 04:10:02 UTC
+* Number of recursive dependencies: 130
+
+Run `revdepcheck::revdep_details(, "NEONiso")` for more info
+
+</details>
+
+# neotoma2
 
 <details>
 
@@ -2680,7 +4613,73 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 
 ```
+# opensensmapr
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # osmdata
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# PatientProfiles
 
 <details>
 
@@ -2733,16 +4732,16 @@ Run `revdepcheck::revdep_details(, "gemma.R")` for more info
 
 
 Error in download.file(url, destfile, method, mode = "wb", ...) : 
-  download from 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz' failed
+  download from 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz' failed
 In addition: Warning messages:
 1: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 115435743 != reported length 447124147
+  downloaded length 0 != reported length 0
 2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 115435743 != reported length 447124147
+  downloaded length 0 != reported length 0
 3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz': Timeout of 60 seconds was reached
 4: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz': Timeout of 60 seconds was reached
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
   download of package ‘msdata’ failed
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
@@ -2757,16 +4756,16 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 Error in download.file(url, destfile, method, mode = "wb", ...) : 
-  download from 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz' failed
+  download from 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz' failed
 In addition: Warning messages:
 1: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 115435743 != reported length 447124147
+  downloaded length 0 != reported length 0
 2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 115435743 != reported length 447124147
+  downloaded length 0 != reported length 0
 3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz': Timeout of 60 seconds was reached
 4: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz': Timeout of 60 seconds was reached
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
   download of package ‘msdata’ failed
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
@@ -2906,6 +4905,53 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
+# portalr
+
+<details>
+
+* Version: 0.4.1
+* GitHub: https://github.com/weecology/portalr
+* Source code: https://github.com/cran/portalr
+* Date/Publication: 2023-08-23 16:50:02 UTC
+* Number of recursive dependencies: 109
+
+Run `revdepcheck::revdep_details(, "portalr")` for more info
+
+</details>
+
+# pRecipe
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # prism
 
 <details>
@@ -2939,6 +4985,20 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
+# proBatch
+
+<details>
+
+* Version: 1.13.0
+* GitHub: https://github.com/symbioticMe/proBatch
+* Source code: https://github.com/cran/proBatch
+* Date/Publication: 2022-08-24
+* Number of recursive dependencies: 212
+
+Run `revdepcheck::revdep_details(, "proBatch")` for more info
+
+</details>
+
 # prophet
 
 <details>
@@ -2972,7 +5032,172 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
+# proteus
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # PWFSLSmoke
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# radiant.basics
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# radiant.data
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# radiant.model
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# radiant.multivariate
 
 <details>
 
@@ -3104,6 +5329,72 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
+# RchivalTag
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# rcontroll
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # rcrimeanalysis
 
 <details>
@@ -3137,6 +5428,20 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
+# respR
+
+<details>
+
+* Version: 2.3.1
+* GitHub: https://github.com/januarharianto/respr
+* Source code: https://github.com/cran/respR
+* Date/Publication: 2023-06-29 14:30:06 UTC
+* Number of recursive dependencies: 102
+
+Run `revdepcheck::revdep_details(, "respR")` for more info
+
+</details>
+
 # rfars
 
 <details>
@@ -3190,22 +5495,22 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 Error in download.file(url, destfile, method, mode = "wb", ...) : 
-  download from 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz' failed
+  download from 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz' failed
 In addition: Warning messages:
 1: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 122832052 != reported length 447124147
+  downloaded length 0 != reported length 0
 2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 122832052 != reported length 447124147
+  downloaded length 0 != reported length 0
 3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz': Timeout of 60 seconds was reached
 4: In download.file(url, destfile, method, mode = "wb", ...) :
 ...
 2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 124493898 != reported length 529395641
+  downloaded length 0 != reported length 0
 3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/pRolocdata_1.39.0.tar.gz': Timeout of 60 seconds was reached
 4: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/pRolocdata_1.39.0.tar.gz': Timeout of 60 seconds was reached
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
   download of package ‘pRolocdata’ failed
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
@@ -3220,22 +5525,22 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 Error in download.file(url, destfile, method, mode = "wb", ...) : 
-  download from 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz' failed
+  download from 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz' failed
 In addition: Warning messages:
 1: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 122832052 != reported length 447124147
+  downloaded length 0 != reported length 0
 2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 122832052 != reported length 447124147
+  downloaded length 0 != reported length 0
 3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/msdata_0.38.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/msdata_0.41.0.tar.gz': Timeout of 60 seconds was reached
 4: In download.file(url, destfile, method, mode = "wb", ...) :
 ...
 2: In download.file(url, destfile, method, mode = "wb", ...) :
-  downloaded length 124493898 != reported length 529395641
+  downloaded length 0 != reported length 0
 3: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/pRolocdata_1.39.0.tar.gz': Timeout of 60 seconds was reached
 4: In download.file(url, destfile, method, mode = "wb", ...) :
-  URL 'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/pRolocdata_1.36.0.tar.gz': Timeout of 60 seconds was reached
+  URL 'https://bioconductor.org/packages/3.18/data/experiment/src/contrib/pRolocdata_1.39.0.tar.gz': Timeout of 60 seconds was reached
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
   download of package ‘pRolocdata’ failed
 Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
@@ -3441,6 +5746,20 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
+# rols
+
+<details>
+
+* Version: 2.29.0
+* GitHub: https://github.com/lgatto/rols
+* Source code: https://github.com/cran/rols
+* Date/Publication: 2023-04-26
+* Number of recursive dependencies: 95
+
+Run `revdepcheck::revdep_details(, "rols")` for more info
+
+</details>
+
 # RSAlgaeR
 
 <details>
@@ -3475,6 +5794,39 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 ```
 # rsinaica
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# rtrek
 
 <details>
 
@@ -3705,7 +6057,7 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
-# simplevis
+# shinyML
 
 <details>
 
@@ -3804,67 +6156,50 @@ Warning in download.packages(pkgs, destdir = tmpd, available = available,  :
 
 
 ```
-# SPARSEMODr
+# snvecR
 
 <details>
 
-* Version: 1.2.0
-* GitHub: https://github.com/NAU-CCL/SPARSEMODr
-* Source code: https://github.com/cran/SPARSEMODr
-* Date/Publication: 2022-07-19 20:50:02 UTC
-* Number of recursive dependencies: 122
+* Version: 3.7.7
+* GitHub: NA
+* Source code: https://github.com/cran/snvecR
+* Date/Publication: 2023-06-09 04:00:02 UTC
+* Number of recursive dependencies: 90
 
-Run `revdepcheck::revdep_details(, "SPARSEMODr")` for more info
+Run `revdepcheck::revdep_details(, "snvecR")` for more info
 
 </details>
 
-## In both
+# sorvi
 
-*   checking whether package ‘SPARSEMODr’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/SPARSEMODr/new/SPARSEMODr.Rcheck/00install.out’ for details.
-    ```
+<details>
 
-## Installation
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘SPARSEMODr’ ...
-** package ‘SPARSEMODr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/media/vspinu/store/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -Wno-cast-function-type -pedantic   -fpic  -g -O2  -c Nrutil.cpp -o Nrutil.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/media/vspinu/store/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -Wno-cast-function-type -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/media/vspinu/store/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -Wno-cast-function-type -pedantic   -fpic  -g -O2  -c covid19_model.cpp -o covid19_model.o
-covid19_model.cpp:8:10: fatal error: gsl/gsl_rng.h: No such file or directory
-    8 | #include <gsl/gsl_rng.h>
-      |          ^~~~~~~~~~~~~~~
-compilation terminated.
-make: *** [/home/vspinu/bin/R-4.2.1-bin/etc/Makeconf:177: covid19_model.o] Error 1
-ERROR: compilation failed for package ‘SPARSEMODr’
-* removing ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/SPARSEMODr/new/SPARSEMODr.Rcheck/SPARSEMODr’
+
+
+
+
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘SPARSEMODr’ ...
-** package ‘SPARSEMODr’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/media/vspinu/store/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -Wno-cast-function-type -pedantic   -fpic  -g -O2  -c Nrutil.cpp -o Nrutil.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/media/vspinu/store/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -Wno-cast-function-type -pedantic   -fpic  -g -O2  -c RcppExports.cpp -o RcppExports.o
-g++ -std=gnu++14 -I"/home/vspinu/bin/R-4.2.1-bin/include" -DNDEBUG  -I'/media/vspinu/store/Dropbox/dev/lubridate/revdep/library/SPARSEMODr/Rcpp/include' -Wall -Wno-cast-function-type -pedantic   -fpic  -g -O2  -c covid19_model.cpp -o covid19_model.o
-covid19_model.cpp:8:10: fatal error: gsl/gsl_rng.h: No such file or directory
-    8 | #include <gsl/gsl_rng.h>
-      |          ^~~~~~~~~~~~~~~
-compilation terminated.
-make: *** [/home/vspinu/bin/R-4.2.1-bin/etc/Makeconf:177: covid19_model.o] Error 1
-ERROR: compilation failed for package ‘SPARSEMODr’
-* removing ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/SPARSEMODr/old/SPARSEMODr.Rcheck/SPARSEMODr’
+
+
+
+
 
 
 ```
@@ -3901,7 +6236,7 @@ ERROR: compilation failed for package ‘SPARSEMODr’
 
 
 ```
-# spatsurv
+# spectator
 
 <details>
 
@@ -3934,7 +6269,40 @@ ERROR: compilation failed for package ‘SPARSEMODr’
 
 
 ```
-# spectator
+# spinner
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# spocc
 
 <details>
 
@@ -4066,6 +6434,39 @@ ERROR: compilation failed for package ‘SPARSEMODr’
 
 
 ```
+# stxplore
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
 # swfscAirDAS
 
 <details>
@@ -4099,67 +6500,135 @@ ERROR: compilation failed for package ‘SPARSEMODr’
 
 
 ```
-# tbrf
+# swfscDAS
 
 <details>
 
-* Version: 0.1.5
-* GitHub: https://github.com/mps9506/tbrf
-* Source code: https://github.com/cran/tbrf
-* Date/Publication: 2020-04-09 04:40:02 UTC
-* Number of recursive dependencies: 100
-
-Run `revdepcheck::revdep_details(, "tbrf")` for more info
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
 
 </details>
 
-## In both
-
-*   checking whether package ‘tbrf’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/tbrf/new/tbrf.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
+## Error before installation
 
 ### Devel
 
 ```
-* installing *source* package ‘tbrf’ ...
-** package ‘tbrf’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘R6’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘tbrf’
-* removing ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/tbrf/new/tbrf.Rcheck/tbrf’
+
+
+
+
 
 
 ```
 ### CRAN
 
 ```
-* installing *source* package ‘tbrf’ ...
-** package ‘tbrf’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘R6’
-Calls: <Anonymous> ... loadNamespace -> withRestarts -> withOneRestart -> doWithOneRestart
-Execution halted
-ERROR: lazy loading failed for package ‘tbrf’
-* removing ‘/media/vspinu/store/Dropbox/dev/lubridate/revdep/checks/tbrf/old/tbrf.Rcheck/tbrf’
+
+
+
+
+
+
+```
+# SWMPrExtension
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# SWTools
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# synoptReg
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
 
 
 ```
@@ -4427,39 +6896,6 @@ ERROR: lazy loading failed for package ‘tbrf’
 
 
 ```
-# trip
-
-<details>
-
-* Version: 
-* GitHub: https://github.com/tidyverse/lubridate
-* Source code: NA
-* Number of recursive dependencies: 0
-
-</details>
-
-## Error before installation
-
-### Devel
-
-```
-
-
-
-
-
-
-```
-### CRAN
-
-```
-
-
-
-
-
-
-```
 # TUFLOWR
 
 <details>
@@ -4526,7 +6962,40 @@ ERROR: lazy loading failed for package ‘tbrf’
 
 
 ```
-# wearables
+# vprr
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# walkboutr
 
 <details>
 
@@ -4560,6 +7029,39 @@ ERROR: lazy loading failed for package ‘tbrf’
 
 ```
 # winfapReader
+
+<details>
+
+* Version: 
+* GitHub: https://github.com/tidyverse/lubridate
+* Source code: NA
+* Number of recursive dependencies: 0
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+
+
+
+
+
+
+```
+### CRAN
+
+```
+
+
+
+
+
+
+```
+# zoomGroupStats
 
 <details>
 
