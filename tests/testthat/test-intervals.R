@@ -883,3 +883,12 @@ test_that("Intervals handles missing numbers", {
 
   expect_equal(intersect(int, int), int)
 })
+
+test_that("Equality operator checks for matching start and end", {
+  int1 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+  int2 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+  int3 <- interval(as.Date("2021-01-02"), as.Date("2021-12-31"))
+
+  expect_true(int1 == int2)
+  expect_false(int1 == int3)
+})
