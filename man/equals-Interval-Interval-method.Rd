@@ -24,4 +24,7 @@ int3 <- interval(as.Date("2021-01-02"), as.Date("2021-12-31"))
 
 int1 == int2 # TRUE
 int1 == int3 # FALSE
+c(int1, int2) == c(int2, int3) # TRUE FALSE
+int1 == c(int1, int2, int3) # TRUE TRUE FALSE
+c(int1, int2, int3) == int1 # TRUE TRUE FALSE
 }
