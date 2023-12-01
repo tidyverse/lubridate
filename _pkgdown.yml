@@ -80,6 +80,8 @@ reference:
   - as.interval
   - "`%within%`"
   - Interval-class
+  - "`==`"
+  - "`!=`"
 
 - title: Timespans
   desc: >
