@@ -672,8 +672,11 @@ setMethod("%within%", signature(a = "Interval", b = "list"), function(a, b) {
 #'
 #' int1 == int2 # TRUE
 #' int1 == int3 # FALSE
+#' c(int1, int2) == c(int2, int3) # TRUE FALSE
+#' int1 == c(int1, int2, int3) # TRUE TRUE FALSE
+#' c(int1, int2, int3) == int1 # TRUE TRUE FALSE
 setMethod("==", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
-  int_start(e1) == int_start(e2) && int_end(e1) == int_end(e2)
+  int_start(e1) == int_start(e2) & int_end(e1) == int_end(e2)
 })
 
 #' Inequality check for Interval objects
@@ -692,8 +695,11 @@ setMethod("==", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
 #'
 #' int1 != int2 # FALSE
 #' int1 != int3 # TRUE
+#' c(int1, int2) != c(int2, int3) # FALSE TRUE
+#' int1 != c(int1, int2, int3) # FALSE FALSE TRUE
+#' c(int1, int2, int3) != int1 # FALSE FALSE TRUE
 setMethod("!=", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
-  int_start(e1) != int_start(e2) || int_end(e1) != int_end(e2)
+  int_start(e1) != int_start(e2) | int_end(e1) != int_end(e2)
 })
 
 #' @export
