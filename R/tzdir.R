@@ -52,10 +52,12 @@ tzdir_find <- function() {
 
   tzdirs <- c(tzdirs, tzdir_internal())
 
-  for (tzdir in tzdirs) {
-    if (file.exists(tzdir)) return(tzdir)
+  tzdirs <- tzdirs[file.exists(tzdirs)]
+  if (length(tzdirs)) {
+    tzdirs[[1]]
+  } else {
+    NULL
   }
-  NULL
 }
 
 tzdir_internal <- function() {
