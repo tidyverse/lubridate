@@ -107,7 +107,7 @@ Other functions that work with intervals include `int_start`, `int_end`, `int_fl
 
 ## Arithmetic with date times
 
-Intervals are specific time spans (because they are tied to specific dates), but lubridate also supplies two general time span classes: Durations and Periods. Helper functions for creating periods are named after the units of time (plural). Helper functions for creating durations follow the same format but begin with a "d" (for duration) or, if you prefer, and "e" (for exact).
+Intervals are specific time spans (because they are tied to specific dates), but lubridate also supplies two general time span classes: Durations and Periods. Helper functions for creating periods are named after the units of time (plural). Helper functions for creating durations follow the same format but begin with a "d" (for duration).
 
 ```{r}
 minutes(2) ## period
