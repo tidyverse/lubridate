@@ -153,18 +153,24 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   }
 
   .build_formats <- function(regs, orders, x) {
-    out <- mapply(
-      function(reg, name) {
-        out <- .substitute_formats(reg, x)
-        if (!is.null(out)) {
-          names(out) <- rep.int(name, length(out))
-          out
-        }
-      }, REGS, orders,
-      SIMPLIFY = F, USE.NAMES = F
-    )
-    names(out) <- NULL
-    unlist(out)
+    if (length(x) > 1) {
+      subs <- lapply(REGS, .substitute_formats, x, fmts_only = FALSE)
+      names(subs) <- orders
+      do.call(cbind, c('x' = list(x), subs))
+    } else {
+      out <- mapply(
+        function(reg, name) {
+          out <- .substitute_formats(reg, x)
+          if (!is.null(out)) {
+            names(out) <- rep.int(name, length(out))
+            out
+          }
+        }, REGS, orders,
+        SIMPLIFY = F, USE.NAMES = F
+      )
+      names(out) <- NULL
+      unlist(out)
+    }
   }
 
   if (preproc_wday && !any(grepl("[aA]", orders))) {
