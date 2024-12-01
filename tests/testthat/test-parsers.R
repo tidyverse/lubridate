@@ -517,8 +517,8 @@ test_that("AM/PM indicators are parsed correctly", {
     ymd_hms("1996-12-17 04:00:00")
   )
   expect_equal(
-    parse_date_time2("12/17/1996 04:00:00  PM", "mdYHMSp", tz = "CET"),
-    ymd_hms("1996-12-17 16:00:00", tz = "CET")
+    parse_date_time2("12/17/1996 04:00:00  PM", "mdYHMSp", tz = "Europe/Berlin"),
+    ymd_hms("1996-12-17 16:00:00", tz = "Europe/Berlin")
   )
   expect_equal(
     parse_date_time2("12/17/1996 04:00:00  TM", "mdYHMSp"),

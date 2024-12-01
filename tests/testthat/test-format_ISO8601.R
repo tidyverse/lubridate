@@ -32,28 +32,28 @@ test_that("Formatting a date works", {
 })
 
 test_that("Formatting a datetime works", {
-  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST")),
+  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "America/New_York")),
     "2018-02-01T03:04:05",
     info = "Standard datetime formatting works"
   )
-  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), usetz = TRUE),
+  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "America/New_York"), usetz = TRUE),
     "2018-02-01T03:04:05-0500",
     info = "usetz is respected with datetimes"
   )
-  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="EST"), usetz="Z"),
+  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz="America/New_York"), usetz="Z"),
                "2018-02-01T08:04:05Z",
                info="usetz='Z' is respected with datetimes")
-  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), precision = "y"),
+  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "America/New_York"), precision = "y"),
     "2018",
     info = "precision is respected (y)"
   )
   # Uncertain if this is the best result; including a test so that if it changes
   # the change is caught.
-  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), precision = "y", usetz = TRUE),
+  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "America/New_York"), precision = "y", usetz = TRUE),
     "2018-0500",
     info = "precision is respected (y) with timezone"
   )
-  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), precision = "ymdhm"),
+  expect_equal(format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "America/New_York"), precision = "ymdhm"),
     "2018-02-01T03:04",
     info = "precision is respected (ymdhm)"
   )
@@ -125,11 +125,11 @@ test_that("Formatting an Interval works", {
     "2018-02-01/2018-03-04",
     info = "interval formatting respects precision (ymd)"
   )
-  expect_equal(format_ISO8601(interval(start = "2018-02-01", end = "2018-03-04", tzone = "EST"), usetz = TRUE),
+  expect_equal(format_ISO8601(interval(start = "2018-02-01", end = "2018-03-04", tzone = "America/New_York"), usetz = TRUE),
     "2018-02-01T00:00:00-0500/2018-03-04T00:00:00-0500",
     info = "interval formatting respects timezone"
   )
-  expect_equal(format_ISO8601(interval(start="2018-02-01", end="2018-03-04", tzone="EST"), usetz="Z"),
+  expect_equal(format_ISO8601(interval(start="2018-02-01", end="2018-03-04", tzone="America/New_York"), usetz="Z"),
                "2018-02-01T05:00:00Z/2018-03-04T05:00:00Z",
                info="interval formatting respects usetz='Z'")
 })

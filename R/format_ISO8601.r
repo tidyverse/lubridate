@@ -7,8 +7,8 @@
 #' @references \url{https://en.wikipedia.org/wiki/ISO_8601}
 #' @examples
 #' format_ISO8601(as.Date("02-01-2018", format = "%m-%d-%Y"))
-#' format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), usetz = TRUE)
-#' format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "EST"), precision = "ymdhm")
+#' format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "America/New_York"), usetz = TRUE)
+#' format_ISO8601(as.POSIXct("2018-02-01 03:04:05", tz = "America/New_York"), precision = "ymdhm")
 #' @aliases format_ISO8601,Date-method format_ISO8601,POSIXt-method format_ISO8601,Interval-method
 #' format_ISO8601,Duration-method format_ISO8601,Period-method
 #' @export
