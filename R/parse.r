@@ -969,7 +969,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 }
 
 .parse_iso_dt <- function(x, tz) {
-  parse_date_time(x, orders = c("ymdTz", "ymdT", "ymd"), tz = tz, train = FALSE)
+  parse_date_time(x, orders = c("ymd", "ymdH", "ymdHM", "ymdTz", "ymdT"), tz = tz, train = FALSE)
 }
 
 as_POSIXct <- function(x, tz = tz(x)) {

@@ -269,7 +269,6 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   fmts <- unique(guess_formats(x, orders, locale = locale, preproc_wday = TRUE))
   if (train && length(fmts)) {
     trained <- .train_formats(x, fmts, locale = locale)
-
     if (drop) {
       trained <- trained[trained > 0]
     }
