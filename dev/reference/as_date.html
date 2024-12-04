@@ -128,6 +128,10 @@ uses only the tz argument to <code><a href="https://rdrr.io/r/base/as.Date.html"
 those described by ISO8601 standard. A warning message will provide a count of the
 elements that were not converted.</p></li>
 <li><p><code>as_datetime()</code> defaults to using UTC.</p></li>
+<li><p>For historical reasons, <code>as_date()</code> and <code>as_datetime()</code> will parse the truncated
+YY-MM-DD as year 20YY, while <code>as.POSIXct</code> parses it as 00YY. This was allowed by ISO
+8601:2000 but superseded by ISO 8601:2004. Be advised not to rely on this behavior,
+as it's likely to change in future versions of <code>lubridate</code>.</p></li>
 </ul></div>
 
     <div class="section level2">
