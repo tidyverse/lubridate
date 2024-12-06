@@ -17,7 +17,7 @@ and Daylight Savings Time.
 \details{
 Durations provide a method for measuring generalized timespans when we wish to
 treat time as a mathematical quantity that increases in a uniform, monotone manner
-along a continuous numberline. They allow exact comparisons with other durations.
+along a continuous number line. They allow exact comparisons with other durations.
 See \linkS4class{Period} for an alternative way to measure timespans that better
 preserves clock times.
 

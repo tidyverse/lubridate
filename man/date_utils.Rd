@@ -23,7 +23,7 @@ NA_Date_
 an argument of length other than one is an error.}
 }
 \description{
-\code{\link[=Date]{Date()}} mirrors primitive contructors in base R (\code{\link[=double]{double()}}, \code{\link[=character]{character()}}
+\code{\link[=Date]{Date()}} mirrors primitive constructors in base R (\code{\link[=double]{double()}}, \code{\link[=character]{character()}}
 etc.)
 }
 \examples{

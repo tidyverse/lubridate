@@ -2,7 +2,7 @@ setOldClass("Date")
 
 #' Various date utilities
 #'
-#' [Date()] mirrors primitive contructors in base R ([double()], [character()]
+#' [Date()] mirrors primitive constructors in base R ([double()], [character()]
 #' etc.)
 #'
 #' @rdname date_utils

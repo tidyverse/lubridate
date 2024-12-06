@@ -132,7 +132,7 @@ You can use periods and durations to do basic arithmetic with date times. For ex
 meetings <- meeting + weeks(0:5)
 ```
 
-Hadley travelled to conferences at the same time as Chris. Which of these meetings would be affected? The last two.
+Hadley traveled to conferences at the same time as Chris. Which of these meetings would be affected? The last two.
 
 ```{r}
 meetings %within% jsm

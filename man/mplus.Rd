@@ -57,7 +57,7 @@ date in the nth month before Date.
 }
 \details{
 \code{\%m+\%} and \code{\%m-\%} handle periods with components less than a month by first
-adding/subtracting months and then performing usual arithmetics with smaller
+adding/subtracting months and then performing usual arithmetic with smaller
 units.
 
 \code{\%m+\%} and \code{\%m-\%} should be used with caution as they are not one-to-one
