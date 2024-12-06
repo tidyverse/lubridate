@@ -155,7 +155,7 @@ of a difftime object.</p>
 <dl><dt id="arg-start-end">start, end<a class="anchor" aria-label="anchor" href="#arg-start-end"></a></dt>
 <dd><p>POSIXt, Date or a character vectors. When <code>start</code> is a
 character vector and end is <code>NULL</code>, ISO 8601 specification is assumed but
-with much more permisive lubridate style parsing both for dates and periods
+with much more permissive lubridate style parsing both for dates and periods
 (see examples).</p></dd>
 
 
@@ -246,7 +246,7 @@ calculated.</p>
 <span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"2008-05-11/P2H30M"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2008-05-11 UTC--2010-11-11 02:00:00 UTC</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">### More permisive parsing (as long as there are no intermittent / characters)</span></span></span>
+<span class="r-in"><span><span class="co">### More permissive parsing (as long as there are no intermittent / characters)</span></span></span>
 <span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"2008 05 11/P2hours 30minutes"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2008-05-11 UTC--2008-05-11 02:30:00 UTC</span>
 <span class="r-in"><span><span class="fu">interval</span><span class="op">(</span><span class="st">"08 05 11/P 2h 30m"</span><span class="op">)</span></span></span>
@@ -301,15 +301,15 @@ calculated.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="now.html">now</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">int_diff</span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2024-12-05 22:40:54 UTC--2024-12-06 22:40:54 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 2024-12-06 22:40:54 UTC--2024-12-07 22:40:54 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] 2024-12-07 22:40:54 UTC--2024-12-08 22:40:54 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4] 2024-12-08 22:40:54 UTC--2024-12-09 22:40:54 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5] 2024-12-09 22:40:54 UTC--2024-12-10 22:40:54 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6] 2024-12-10 22:40:54 UTC--2024-12-11 22:40:54 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [7] 2024-12-11 22:40:54 UTC--2024-12-12 22:40:54 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 2024-12-12 22:40:54 UTC--2024-12-13 22:40:54 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [9] 2024-12-13 22:40:54 UTC--2024-12-14 22:40:54 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2024-12-07 23:29:26 UTC--2024-12-08 23:29:26 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 2024-12-08 23:29:26 UTC--2024-12-09 23:29:26 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] 2024-12-09 23:29:26 UTC--2024-12-10 23:29:26 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] 2024-12-10 23:29:26 UTC--2024-12-11 23:29:26 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] 2024-12-11 23:29:26 UTC--2024-12-12 23:29:26 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] 2024-12-12 23:29:26 UTC--2024-12-13 23:29:26 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [7] 2024-12-13 23:29:26 UTC--2024-12-14 23:29:26 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 2024-12-14 23:29:26 UTC--2024-12-15 23:29:26 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [9] 2024-12-15 23:29:26 UTC--2024-12-16 23:29:26 UTC</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

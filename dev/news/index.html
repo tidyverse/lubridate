@@ -44,7 +44,7 @@
 <h2 class="pkg-version" data-toc-text="1.9.3.9000" id="version-1939000-development">Version 1.9.3.9000 (development)<a class="anchor" aria-label="anchor" href="#version-1939000-development"></a></h2>
 <div class="section level4">
 <h4 id="changes-1-9-3-9000">Changes<a class="anchor" aria-label="anchor" href="#changes-1-9-3-9000"></a></h4>
-<ul><li>Don’t use CET and EST as timezones to accomodate the upgrade of tzdata in the R-devel</li>
+<ul><li>Don’t use CET and EST as timezones to accommodate the upgrade of tzdata in the R-devel</li>
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-1-9-3-9000">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-9-3-9000"></a></h4>
@@ -143,7 +143,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1003" class="external-link">#1003</a> Correctly handle r and R formats in locales which have no p format</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/1074" class="external-link">#1074</a> Fix concatination of named Period, Interval and Duration vectors.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/1074" class="external-link">#1074</a> Fix concatenation of named Period, Interval and Duration vectors.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/1044" class="external-link">#1044</a> POSIXlt results returned by <code><a href="../reference/parse_date_time.html">fast_strptime()</a></code> and <code><a href="../reference/parse_date_time.html">parse_date_time2()</a></code> now have a recycled <code>isdst</code> field.</li>
 <li>
@@ -423,7 +423,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/543" class="external-link">#543</a> Make <code>wday</code> work on character inputs as it is the case with all other day accessors.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/566" class="external-link">#566</a> Comparing durations and periods no-longer infloops.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/566" class="external-link">#566</a> Comparing durations and periods no-longer inf-loops.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/556" class="external-link">#556</a> Fix incorrect scoring of <code>y</code> format when it’s the last in format order (as in <code>mdy</code>).</li>
 <li>
@@ -457,7 +457,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/530" class="external-link">#530</a> <code>parse_date_time</code> now throw warnings only for actual parsing errors (input with all NAs are silent)</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/534" class="external-link">#534</a> Fix arithmetics with large numbers</li>
+<a href="https://github.com/tidyverse/lubridate/issues/534" class="external-link">#534</a> Fix arithmetic with large numbers</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/pull/554" class="external-link">#554</a> Fix tests when running in non-English locales</li>
 </ul></div>
@@ -503,7 +503,7 @@
 <h4 id="changes-1-6-0">CHANGES<a class="anchor" aria-label="anchor" href="#changes-1-6-0"></a></h4>
 <ul><li>Low letter specs for HMS (hms,hm,ms) in <code>parse_date_time</code> and related functions are now deprecated.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/445" class="external-link">#445</a> No more warning on occasional imprecise period length conversions. Imprecise arithmetics with periods is extensively documented.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/445" class="external-link">#445</a> No more warning on occasional imprecise period length conversions. Imprecise arithmetic with periods is extensively documented.</li>
 <li>
 <code>pretty.*</code> family of functions were renamed and are no longer exported. If you need to use them, use <code>lubridate:::pretty_*</code> versions.</li>
 <li>
@@ -538,7 +538,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/450" class="external-link">#450</a> Fix incorrect handling of DST gaps in <code>date_decimal</code> and <code>decimal_date</code>.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/420" class="external-link">#420</a> <code>as.numeric</code> correctly converts periods to (aproximate) numeric time lengths.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/420" class="external-link">#420</a> <code>as.numeric</code> correctly converts periods to (approximate) numeric time lengths.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -606,14 +606,14 @@
 <div class="section level4">
 <h4 id="changes-1-5-0">CHANGES<a class="anchor" aria-label="anchor" href="#changes-1-5-0"></a></h4>
 <ul><li>New maintainer Vitalie Spinu (<a href="https://github.com/vspinu" class="external-link">@vspinu</a>)</li>
-<li>Time span constructors were re-factored; <code>new_interval</code>, <code>new_period</code>, <code>new_duration</code>, <code>new_difftime</code> were deprecated in favour of the more powerful <code>interval</code>, <code>period</code>, <code>duration</code> and <code>make_difftime</code> functions.</li>
+<li>Time span constructors were re-factored; <code>new_interval</code>, <code>new_period</code>, <code>new_duration</code>, <code>new_difftime</code> were deprecated in favor of the more powerful <code>interval</code>, <code>period</code>, <code>duration</code> and <code>make_difftime</code> functions.</li>
 <li>
-<code>eseconds</code>, <code>eminutes</code> etc. were deprecated in favour of <code>dsecons</code>, <code>dminutes</code> etc.</li>
+<code>eseconds</code>, <code>eminutes</code> etc. were deprecated in favor of <code>dsecons</code>, <code>dminutes</code> etc.</li>
 <li>Many documentation improvements.</li>
 <li>New testthat conventions are adopted. Tests are now in <code>test/testthat</code>.</li>
 <li>Internally <code>isodate</code> was replaced with a much faster <code>parse_date_time2(paste(...))</code> alternative</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/325" class="external-link">#325</a> <code>Lubridate</code>’s <code>trunc</code>, <code>ceiling</code> and <code>floor</code> functions have been optimised and now are relying on R’s <code>trunc.POSIXct</code> whenever possible.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/325" class="external-link">#325</a> <code>Lubridate</code>’s <code>trunc</code>, <code>ceiling</code> and <code>floor</code> functions have been optimized and now are relying on R’s <code>trunc.POSIXct</code> whenever possible.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/285" class="external-link">#285</a> Algebraic computations with negative periods are behaving asymmetrically with respect to their positive counterparts.</li>
 <li>Made necessary changes to accommodate new zoo-based <code>fst</code> objects.</li>
@@ -650,7 +650,7 @@
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/306" class="external-link">#306</a> When needed double guess with <code>preproc_wday=T</code>.</li>
 <li>
-<a href="https://github.com/tidyverse/lubridate/issues/308" class="external-link">#308</a> Document sparce format guessing in <code>parse_date_time</code>.</li>
+<a href="https://github.com/tidyverse/lubridate/issues/308" class="external-link">#308</a> Document sparse format guessing in <code>parse_date_time</code>.</li>
 <li>
 <a href="https://github.com/tidyverse/lubridate/issues/313" class="external-link">#313</a> Fixed and optimized <code>fit_to_timeline</code> function.</li>
 <li>
@@ -735,7 +735,7 @@
 <li>added [[ and [[&lt;- methods for INterval, Period and Duration class objects</li>
 <li>added <code>%m+%</code> and <code>%m-%</code> methods for Interval and Duration class objects that throw useful errors.</li>
 <li>
-<code>olson_time_zones</code> retreives a character vector is Olson-style time zone names to use in lubridate</li>
+<code>olson_time_zones</code> retrieves a character vector is Olson-style time zone names to use in lubridate</li>
 <li>summary methods for Interval, Period, and Duration classes</li>
 <li>date_decimal converts a date written as a decimal of a year into a POSIXct date-time</li>
 </ul></div>
@@ -743,9 +743,9 @@
 <h4 id="bug-fixes-1-3-0">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-1-3-0"></a></h4>
 <ul><li>fixed bug in way update.POSIXct and update.POSIXlt handle dates that occur in the fall daylight savings overlap. update will choose the date-time closest to the original date time (on the timeline) when two identical clock times exist due to the DST overlap.</li>
 <li>fixed bugs that created unintuitive results for <code>as.interval</code>, <code>int_overlaps</code>, <code>%within%</code> and the interval methods of <code>c</code>, <code>intersect</code>, <code>union</code>, <code>setdiff</code>, and <code>summary</code>.</li>
-<li>parse functions, <code>as.interval</code>, <code>as.period</code> and <code>as.duration</code> now handlevectors of NA’s without returning errors.</li>
+<li>parse functions, <code>as.interval</code>, <code>as.period</code> and <code>as.duration</code> now handle vectors of NA’s without returning errors.</li>
 <li>parsers better handle vectors of input that have more than 100 elements and many NAs</li>
-<li>data frames that contain timespan objects with NAs in thme no longer fail toprint</li>
+<li>data frames that contain timespan objects containing NAs no longer fail to print</li>
 <li>
 <code>round_date</code>, <code>ceiling_date</code> and <code>update</code> now correctly handle input of length zero</li>
 <li>
@@ -813,7 +813,7 @@
 <h4 id="new-features-1-1-0">NEW FEATURES<a class="anchor" aria-label="anchor" href="#new-features-1-1-0"></a></h4>
 <ul><li><p>intervals are now more useful and lubridate has more ways to manipulate them. Intervals can be created with %–%; modified with int_shift(), int_flip(), and int_standardize(); manipulated with intersect(), union(), and setdiff(); and used in logical tests with int_aligns(), int_overlaps(), and %within%. lubridate will no longer perform arithmetic between two intervals because the correct results of such operations is no more obvious than the correct result of adding two dates. Instead users are encouraged to use the new set operations or to directly modify intervals with int_start() and int_end(), which can also be used as settors. lubridate now supports negative intervals as well as positive intervals. Intervals also now display with a time zone.</p></li>
 <li><p>Modulo methods for timespans have been changed to return a timespan. this allows modulo methods to be used with integer division in an intuitive manner, e.g. <code>a = a %/% b * b + a %% b</code></p></li>
-</ul><p>Users can still acheive a numerical result by using as.numeric() on input before performing modulo.</p>
+</ul><p>Users can still achieve a numerical result by using as.numeric() on input before performing modulo.</p>
 <ul><li><p>Periods, durations, and intervals can now all be put into a data frame.</p></li>
 <li><p>Periods, durations, and intervals can be intuitively subset with $ and []. These operations also can be used as settors with &lt;-.</p></li>
 <li><p>The parsing functions and the as.period method for intervals are now slightly faster.</p></li>
@@ -829,7 +829,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.5" id="version-025">Version 0.2.5<a class="anchor" aria-label="anchor" href="#version-025"></a></h2><p class="text-muted">CRAN release: 2011-05-12</p>
-<ul><li>added ymdThms() for parsing ISO 8061 formatted combned dates and times</li>
+<ul><li>added ymdThms() for parsing ISO 8061 formatted combined dates and times</li>
 </ul><div class="section level4">
 <h4 id="bug-fixes-0-2-5">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-5"></a></h4>
 <ul><li><p>removed bug in parsing dates with “T” in them</p></li>
@@ -899,7 +899,7 @@
 <h4 id="bug-fixes-0-2">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2"></a></h4>
 <ul><li><p>rewrote as.period() to create only positive periods.</p></li>
 <li><p>fixed rollover bug in update.POSIXct()</p></li>
-<li><p>edited make_diff() to display in days when approporiate, not weeks</p></li>
+<li><p>edited make_diff() to display in days when appropriate, not weeks</p></li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
