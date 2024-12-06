@@ -36,7 +36,7 @@ length of two. Possible values are:
 * `NA` - Produce NAs when the resulting time falls inside the problematic interval.
 }\if{html}{\out{</div>}}
 
-For example `roll_dst = c("NA", "pre") indicates that for skiped intervals
+For example `roll_dst = c("NA", "pre") indicates that for skipped intervals
 return NA and for repeated times return the earlier time.
 
 When multiple units are supplied the meaning of "negative period" is determined by

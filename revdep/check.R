@@ -22,7 +22,7 @@ revdepcheck::revdep_rm(packages = c("CDMConnector"))
 
 
 (smr <- revdep_summary())
-revdep_details(revdep = "GenEst")
+revdep_details(revdep = "ARUtools")
 
 ## in another process
 revdepcheck::revdep_report_summary()

@@ -1,5 +1,5 @@
-Version 1.9.3.9000 (development)
-==============================
+Version 1.9.4
+=============
 
 ### Changes
 * Don't use CET and EST as timezones to accommodate the upgrade of tzdata in the R-devel
