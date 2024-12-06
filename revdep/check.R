@@ -6,7 +6,7 @@ library(revdepcheck)
 # revdepcheck::revdep_reset()
 
 ## Don't flood my OS partition
-Sys.setenv(TMPDIR = "/home/vspinu/vs_revdep_cache")
+Sys.setenv(TMPDIR = "~/vs_revdep_cache")
 dir.create(Sys.getenv("TMPDIR"), showWarnings = F)
 
 revdepcheck::revdep_check(num_workers = 6)
