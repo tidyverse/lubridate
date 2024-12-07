@@ -686,11 +686,6 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #'
 #' \item `as_datetime()` defaults to using UTC.
 #'
-#' \item For historical reasons, `as_date()` and `as_datetime()` will parse the truncated
-#'   YY-MM-DD as year 20YY, while `as.POSIXct` parses it as 00YY. This was allowed by ISO
-#'   8601:2000 but superseded by ISO 8601:2004. Be advised not to rely on this behavior,
-#'   as it's likely to change in future versions of `lubridate`.
-#'
 #' }
 #'
 #' @param x a vector of [POSIXt], numeric or character objects
