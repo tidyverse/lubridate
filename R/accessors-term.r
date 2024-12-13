@@ -1,75 +1,124 @@
-#' Get the fiscal term of a date-time
+#' Get create a term data frame
 #'
-#' Quarters divide the year into fourths. Trimesters divide the year into thirds. Semesters divide the year into halfs.
-#'
-#' @param x a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon, yearqtr,
-#'   zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can
-#'   be converted with as.POSIXlt
-#' @param term the way you are dividing the year, be it semesters, trimesters, or quarters.
-#' @param type the format to be returned for the quarter. Can be one one of "quarter" -
-#'   return numeric quarter (default), "year.quarter" return the ending year and quarter
-#'   as a number of the form year.quarter, "date_first" or "date_last" - return the date
-#'   at the quarter's start or end, "year_start/end" - return a full description of the
-#'   quarter as a string which includes the start and end of the year
-#'   (ex. "2020/21 Q1").
-#' @param fiscal_start numeric indicating the starting month of a fiscal year.
+#' @param start_date The first day of the term in year month day format.
+#' @param weeks The length of the term in weeks. Must be a singular numeric value,
+#'  automates to 10
+#' @param skip list of dates for which there may not be school, and pushes the end of the term back
+#' @param holidays list of dates indicating major holidays, marks it in the final
+#'  data frame as a holiday, but does not add length to the term.
+#' @param class_days To indicate which days of the week there are class.
+#' For example, if Tuesday and Friday are class days the input must be written
+#' like c(2, 5), c('Tue', 'Fri'), c('Tu', 'F'), c('Tuesday', 'Friday'),
+#'  or c('Tue', 'Friday'), etc
 #' @param holidays list of dates indicating major holidays
-#' @param split_count should you want to split up the year in your own number you can
-#'   use an "other" and theninput your own division count as a numeric to split_count
+#' @param exams list of exam dates
 
-term <- function(x, term = "quarter", type = "term", fiscal_start = 1, holidays = NULL, split_count = NULL){
-  if (length(fiscal_start) > 1) {
-    stop("`fiscal_start` must be a singleton", call. = FALSE)
-  }
-  fs <- (fiscal_start - 1) %% 12
-  shifted <- seq(fs, 11 + fs) %% 12 + 1
-  m <- month(x)
-  s <- match(m, shifted)
-  
-  num_divisions <- switch(term,
-                          "quarter" = 4,
-                          "trimester" = 3,
-                          "semester" = 2,
-                          "other" = split_count,
-                          stop("Unsupported type: ", term))
-  
-  divisions <- rep(1:num_divisions, each = 12 / num_divisions)
-  q <- divisions[s]
 
-  if (is.logical(type)) {
-    type <- if (type) "year.term" else "term"
-  }
-  
-  
-  if (!is.null(holidays)) {
-    is_holiday <- as.Date(x) %in% as.Date(holidays)
-    return(list(division = current_division, holiday = is_holiday))
+set_term <- function(start_date= "2025-01-01",
+                     weeks = 10,
+                     skip= NULL,
+                     holidays= NULL,
+                     class_days = NULL,
+                     exams = NULL){
+
+  class_days <- clean_class_days(class_days)
+  total_skip <- 0
+
+  if (is.null(weeks)||!is.numeric(weeks)) {
+    stop("weeks parameter must contain a numeric value")
   }
 
-  switch(type,
-    "term" = q,
-    "year_start/end" = ,
-    "year.term" = {
-      nxt_year_months <- if (fs != 0) (fs + 1):12
-      y =  year(x) + (m %in% nxt_year_months)
-      out = y + (q / 10)
-      if (type == "year_start/end") {
-        out = sprintf("%d/%d Q%d",  y - 1, y %% 100, q)
-      }
-      out
-    },
-    "date_first" = ,
-    "date_last" = {
-      starting_months <- shifted[seq(1, length(shifted), 3)]
-      final_years <- year(x) - (starting_months[q] > m)
-      quarter_starting_dates <-
-        make_date(year = final_years, month = starting_months[q], day = 1L)
-      if (type == "date_first") {
-        quarter_starting_dates
-      } else if (type == "date_last") {
-        add_with_rollback(quarter_starting_dates, months(3)) - days(1)
-      }
-    },
-    stop("Unsupported type ", type)
+  if (is.null(start_date)) {
+    stop("start_date parameter must contain a date in year-month-day form")
+  }
+  all_skip_dates <- c()
+  if (!is.null(skip)) {
+    if (!all(c("start", "end") %in% names(skip))) {
+      stop("`skip` data frame must contain `start` and `end` columns.")
+    }
+
+    skip$end <- ymd(skip$'end')
+    skip$start <- ymd(skip$'start')
+    for(i in 1:nrow(skip)){
+      skip_range <- seq(ymd(skip$start[i]),
+                        ymd(skip$end[i]),
+                        by='days')
+
+      all_skip_dates <- unique(c(all_skip_dates,
+                                 skip_range))
+    }
+    total_skip <- length(all_skip_dates)
+
+
+  }
+
+  start_date <- ymd(start_date)
+  total_days <- weeks*7 + total_skip
+  end_date <- start_date +days(total_days)
+  date_range <- seq(start_date, end_date, by='days')
+
+  term <- data.frame(
+    date = date_range,
+    day = weekdays(date_range),
+    status = "no class",
+    stringsAsFactors = FALSE,
+    class = FALSE
   )
+
+  term$status[term$day %in% class_days] <- "class"
+  term$status[term$date %in% all_skip_dates] <-"skip"
+  term$status[term$date %in% ymd(holidays)] <- "holiday"
+  term$status[term$date %in% ymd(exams)] <- "exam"
+  term$class[term$status %in% c("class", "exam")] <- TRUE
+  return(term)
 }
+
+
+clean_class_days <- function(class_days) {
+  week_days <- c()
+  valid_days <- c("Monday", "Tuesday", "Wednesday",
+                  "Thursday", "Friday", "Saturday", "Sunday")
+  short_days <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+  letter_days <- c("M", "Tu", "W", "Tr", "F", "Sa", "Su")
+
+
+  if (is.null(class_days)) {
+    return(c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"))
+  }
+
+  for (i in seq_along(class_days)) {
+    day <- class_days[i]
+
+    #numeric input
+    if (is.numeric(day)) {
+      if (day >= 1 && day <= 7) {
+        week_days <- c(week_days, valid_days[day])
+      } else {
+        stop("Numeric `class_days` values must be between 1 and 7.")
+      }
+    }
+    #short names like "Mon", "Tue"
+    else if (day %in% short_days) {
+      week_days <- c(week_days, valid_days[match(day, short_days)])
+    }
+    #single-letter abbreviations like "M", "Tu"
+    else if (day %in% letter_days) {
+      week_days <- c(week_days, valid_days[match(day, letter_days)])
+    }
+    #full names like "Monday", "Tuesday"
+    else if (day %in% valid_days) {
+      week_days <- c(week_days, day)
+    }
+    #invalid input
+    else {
+      stop("Invalid `class_days` value. Must be a valid day of the week.
+           For example, if Tuesday, must be written like c(2),
+           c('Tue'), c('Tu'), or c('Tuesday')")
+    }
+  }
+
+  return(unique(week_days))
+}
+
+#' @rdname set_term
+#' @export
