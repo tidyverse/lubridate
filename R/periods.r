@@ -61,7 +61,7 @@ check_period <- function(object) {
 #' other events happen during the period.
 #'
 #' Because Period represents imprecise amount of time it cannot be compared to
-#' precise timestamps as Durations and Intervals are. You need to explicitely
+#' precise timestamps as Durations and Intervals are. You need to explicitly
 #' convert to durations. See [Duration-class].
 #'
 #' The logic that guides arithmetic with periods can be unintuitive. Starting

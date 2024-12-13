@@ -181,7 +181,7 @@ unique.Interval <- function(x, ...) {
 #' @export
 #' @param start,end POSIXt, Date or a character vectors. When `start` is a
 #'   character vector and end is `NULL`, ISO 8601 specification is assumed but
-#'   with much more permisive lubridate style parsing both for dates and periods
+#'   with much more permissive lubridate style parsing both for dates and periods
 #'   (see examples).
 #' @param tzone a recognized timezone to display the interval in
 #' @param x an R object
@@ -203,7 +203,7 @@ unique.Interval <- function(x, ...) {
 #' interval("P1Y2M10DT2H30M/2008-05-11T15:30:00Z")
 #' interval("2008-05-11/P2H30M")
 #'
-#' ### More permisive parsing (as long as there are no intermittent / characters)
+#' ### More permissive parsing (as long as there are no intermittent / characters)
 #' interval("2008 05 11/P2hours 30minutes")
 #' interval("08 05 11/P 2h 30m")
 #'

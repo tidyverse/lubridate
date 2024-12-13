@@ -28,7 +28,7 @@ Also \code{date()} is not defined for Period objects.
 \section{Base compatibility}{
 
 \code{date()} can be called without any arguments to return a string representing
-the current date-time. This provides compatiblity with \code{base:date()} which
+the current date-time. This provides compatibility with \code{base:date()} which
 it overrides.
 }
 

@@ -94,40 +94,6 @@ test_that("converts character", {
   expect_equal(suppressMessages(as_datetime(chars, tz = "Europe/Amsterdam")), ymd_hms(chars, tz = "Europe/Amsterdam", quiet = TRUE))
 })
 
-test_that("as_datetime parses partial time-dates identically as as.POSIXct would", {
-
-  expected <- c(
-    as.POSIXct(c("2009-05-10", "2009-05-10"), tz="UTC"),
-    as.POSIXct(c("2009-05-10 23:00:00", "2009-05-10 23:00:00"), tz="UTC"),
-    as.POSIXct(c("2009-05-10 23:59:00", "2009-05-10 23:59:00"), tz="UTC"),
-    as.POSIXct(c("2009-05-10 23:59:20", "2009-05-10 23:59:20"), tz="UTC"),
-    as.POSIXct(c("2009-05-10 20:59:20", "2009-05-10 20:59:20"), tz="UTC"))
-
-    actual <- as_datetime(
-      c("09-05-10", "2009-05-10",
-        "09-05-10 23", "2009-05-10 23",
-        "09-05-10 23:59", "2009-05-10 23:59",
-        "09-05-10 23:59:20", "2009-05-10 23:59:20",
-        "09-05-10 23:59:20+0300", "2009-05-10 23:59:20+0300"))
-    expect_equal(actual, expected)
-
-
-
-  expected2 <- force_tz(expected, tzone = "America/New_York")
-
-  actual2 <- suppressMessages(as_datetime(
-      c("09-05-10", "2009-05-10",
-        "09-05-10 23", "2009-05-10 23",
-        "09-05-10 23:59", "2009-05-10 23:59",
-        "09-05-10 23:59:20", "2009-05-10 23:59:20",
-        "09-05-10 23:59:20-0100", "2009-05-10 23:59:20-0100"),
-      tz="America/New_York"))
-
-  expect_equal(actual2, expected2)
-
-})
-
-
 test_that("changes timezone of POSIXct", {
   dt <- as_datetime(make_datetime(tz = "America/Chicago"), tz = "UTC")
   expect_equal(tz(dt), "UTC")

@@ -34,7 +34,7 @@ an argument of length other than one is an error.}
 TRUE if x is a POSIXct or POSIXlt object, FALSE otherwise.
 }
 \description{
-\code{\link[=POSIXct]{POSIXct()}} mirrors primitive contructors in base R (\code{\link[=double]{double()}},
+\code{\link[=POSIXct]{POSIXct()}} mirrors primitive constructors in base R (\code{\link[=double]{double()}},
 \code{\link[=character]{character()}} etc.)
 }
 \examples{

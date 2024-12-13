@@ -1,11 +1,9 @@
-Version 1.9.3.9000 (development)
-==============================
+Version 1.9.4
+=============
 
 ### Changes
-* Don't use CET and EST as timezones to accomodate the upgrade of tzdata in the R-devel
+* Don't use CET and EST as timezones to accommodate the upgrade of tzdata in the R-devel
 
-### BUG FIXES
-* [#1170](https://github.com/tidyverse/lubridate/issues/1170) Fix `as_datetime` to parse partial timestamps (ex. "2009-01-01 20:30") just as as.POSIXct does.
 
 Version 1.9.3
 =============
@@ -71,7 +69,7 @@ Version 1.9.0
 * [#1085](https://github.com/tidyverse/lubridate/issues/1085) `as_datetime()` now preserves the time zone of the POSIXt input.
 * [#1072](https://github.com/tidyverse/lubridate/issues/1072) Names are now handled correctly when combining multiple Period or Interval objects.
 * [#1003](https://github.com/tidyverse/lubridate/issues/1003) Correctly handle r and R formats in locales which have no p format
-* [#1074](https://github.com/tidyverse/lubridate/issues/1074) Fix concatination of named Period, Interval and Duration vectors.
+* [#1074](https://github.com/tidyverse/lubridate/issues/1074) Fix concatenation of named Period, Interval and Duration vectors.
 * [#1044](https://github.com/tidyverse/lubridate/issues/1044) POSIXlt results returned by `fast_strptime()` and `parse_date_time2()` now have a recycled `isdst` field.
 * [#1069](https://github.com/tidyverse/lubridate/issues/1069) Internal code handling the addition of period months and years no longer generates partially recycled POSIXlt objects.
 * Fix rounding of POSIXlt objects
@@ -271,7 +269,7 @@ Version 1.7.0
 
 * [#314](https://github.com/tidyverse/lubridate/issues/314), [#407](https://github.com/tidyverse/lubridate/issues/407), [#499](https://github.com/tidyverse/lubridate/issues/499) Make `days`, `dhours`, `round_date` work when the methods package is not loaded.
 * [#543](https://github.com/tidyverse/lubridate/issues/543) Make `wday` work on character inputs as it is the case with all other day accessors.
-* [#566](https://github.com/tidyverse/lubridate/issues/566) Comparing durations and periods no-longer infloops.
+* [#566](https://github.com/tidyverse/lubridate/issues/566) Comparing durations and periods no-longer inf-loops.
 * [#556](https://github.com/tidyverse/lubridate/issues/556) Fix incorrect scoring of `y` format when it's the last in format order (as in `mdy`).
 * [#584](https://github.com/tidyverse/lubridate/issues/584) Fix interval by period division.
 * [#559](https://github.com/tidyverse/lubridate/issues/559) Parsing of alpha-months in English locales now drops correctly to low level C parsing. Thus, parsing with multiple orders containing `m` and `b` formats now works correctly.
@@ -288,7 +286,7 @@ Version 1.7.0
 * [#524](https://github.com/tidyverse/lubridate/pull/524) Correctly compute length of period in months (issue #490)
 * [#525](https://github.com/tidyverse/lubridate/pull/525) Fix to prevent `day<-`, `minute<-`, etc. from producing an error when length(x) is 0 (issue #517)
 * [#530](https://github.com/tidyverse/lubridate/issues/530) `parse_date_time` now throw warnings only for actual parsing errors (input with all NAs are silent)
-* [#534](https://github.com/tidyverse/lubridate/issues/534) Fix arithmetics with large numbers
+* [#534](https://github.com/tidyverse/lubridate/issues/534) Fix arithmetic with large numbers
 * [#554](https://github.com/tidyverse/lubridate/pull/554) Fix tests when running in non-English locales
 
 Version 1.6.0
@@ -316,7 +314,7 @@ Version 1.6.0
 ### CHANGES
 
 * Low letter specs for HMS (hms,hm,ms) in `parse_date_time` and related functions are now deprecated.
-* [#445](https://github.com/tidyverse/lubridate/issues/445) No more warning on occasional imprecise period length conversions. Imprecise arithmetics with periods is extensively documented.
+* [#445](https://github.com/tidyverse/lubridate/issues/445) No more warning on occasional imprecise period length conversions. Imprecise arithmetic with periods is extensively documented.
 * `pretty.*` family of functions were renamed and are no longer exported. If you need to use them, use `lubridate:::pretty_*` versions.
 * `change_on_boundary` argument in `ceiling_date` does not allow for global option anymore.
 * `as.duration`, `as.numeric` don't show "only estimate" messages on conversion from periods. The occasional approximate conversion is documented and deemed common knowledge.
@@ -335,7 +333,7 @@ Version 1.6.0
 * [#458](https://github.com/tidyverse/lubridate/issues/458) When year is missing in parsing, return consistently year 0.
 * [#448](https://github.com/tidyverse/lubridate/issues/448) Correctly handle missing months and days in C parser.
 * [#450](https://github.com/tidyverse/lubridate/issues/450) Fix incorrect handling of DST gaps in `date_decimal` and `decimal_date`.
-* [#420](https://github.com/tidyverse/lubridate/issues/420) `as.numeric` correctly converts periods to (aproximate) numeric time lengths.
+* [#420](https://github.com/tidyverse/lubridate/issues/420) `as.numeric` correctly converts periods to (approximate) numeric time lengths.
 
 Version 1.5.6
 ============
@@ -383,12 +381,12 @@ Version 1.5.0
 ### CHANGES
 
 * New maintainer Vitalie Spinu (@vspinu)
-* Time span constructors were re-factored; `new_interval`, `new_period`, `new_duration`, `new_difftime` were deprecated in favour of the more powerful `interval`, `period`, `duration` and `make_difftime` functions.
-* `eseconds`, `eminutes` etc. were deprecated in favour of `dsecons`, `dminutes` etc.
+* Time span constructors were re-factored; `new_interval`, `new_period`, `new_duration`, `new_difftime` were deprecated in favor of the more powerful `interval`, `period`, `duration` and `make_difftime` functions.
+* `eseconds`, `eminutes` etc. were deprecated in favor of `dsecons`, `dminutes` etc.
 * Many documentation improvements.
 * New testthat conventions are adopted. Tests are now in `test/testthat`.
 * Internally `isodate` was replaced with a much faster `parse_date_time2(paste(...))` alternative
-* [#325](https://github.com/tidyverse/lubridate/issues/325) `Lubridate`'s `trunc`, `ceiling` and `floor` functions have been optimised and now are relying on R's `trunc.POSIXct` whenever possible.
+* [#325](https://github.com/tidyverse/lubridate/issues/325) `Lubridate`'s `trunc`, `ceiling` and `floor` functions have been optimized and now are relying on R's `trunc.POSIXct` whenever possible.
 * [#285](https://github.com/tidyverse/lubridate/issues/285) Algebraic computations with negative periods are behaving asymmetrically with respect to their positive counterparts.
 * Made necessary changes to accommodate new zoo-based `fst` objects.
 
@@ -408,7 +406,7 @@ Version 1.5.0
 * [#254](https://github.com/tidyverse/lubridate/issues/254) Don't preprocess a/A formats if expressly specified by the user.
 * [#289](https://github.com/tidyverse/lubridate/issues/289) Check for valid day-months combinations in C parser.
 * [#306](https://github.com/tidyverse/lubridate/issues/306) When needed double guess with `preproc_wday=T`.
-* [#308](https://github.com/tidyverse/lubridate/issues/308) Document sparce format guessing in `parse_date_time`.
+* [#308](https://github.com/tidyverse/lubridate/issues/308) Document sparse format guessing in `parse_date_time`.
 * [#313](https://github.com/tidyverse/lubridate/issues/313) Fixed and optimized `fit_to_timeline` function.
 * [#311](https://github.com/tidyverse/lubridate/issues/311) Always use UTC in `isoweek` computation
 * [#294](https://github.com/tidyverse/lubridate/issues/294) Don't use years in `seconds_to_period`.
@@ -482,7 +480,7 @@ Version 1.3.0
 * lubridate parser functions now propagate NA's just as as.POSIXct, strptime and other functions do. Previously lubridate's parse functions would only return an error.
 * added [[ and [[<- methods for INterval, Period and Duration class objects
 * added `%m+%` and `%m-%` methods for Interval and Duration class objects that throw useful errors.
-* `olson_time_zones` retreives a character vector is Olson-style time zone names to use in lubridate
+* `olson_time_zones` retrieves a character vector is Olson-style time zone names to use in lubridate
 * summary methods for Interval, Period, and Duration classes
 * date_decimal converts a date written as a decimal of a year into a POSIXct date-time
 
@@ -490,9 +488,9 @@ Version 1.3.0
 
 * fixed bug in way update.POSIXct and update.POSIXlt handle dates that occur in the fall daylight savings overlap. update will choose the date-time closest to the original date time (on the timeline) when two identical clock times exist due to the DST overlap.
 * fixed bugs that created unintuitive results for `as.interval`, `int_overlaps`, `%within%` and the interval methods of `c`, `intersect`, `union`, `setdiff`, and `summary`.
-* parse functions, `as.interval`, `as.period` and `as.duration` now handlevectors of NA's without returning errors.
+* parse functions, `as.interval`, `as.period` and `as.duration` now handle vectors of NA's without returning errors.
 * parsers better handle vectors of input that have more than 100 elements and many NAs
-* data frames that contain timespan objects with NAs in thme no longer fail toprint
+* data frames that contain timespan objects containing NAs no longer fail to print
 * `round_date`, `ceiling_date` and `update` now correctly handle input of length zero
 * `decimal_date` no longer returns NaN for first second of the year
 
@@ -638,7 +636,7 @@ as well as positive intervals. Intervals also now display with a time zone.
 allows modulo methods to be used with integer division in an intuitive manner,
 e.g. `a = a %/% b * b + a %% b`
 
-Users can still acheive a numerical result by using as.numeric() on input
+Users can still achieve a numerical result by using as.numeric() on input
 before performing modulo.
 
 * Periods, durations, and intervals can now all be put into a data frame.
@@ -670,7 +668,7 @@ Version 0.2.6
 Version 0.2.5
 =============
 
-* added ymdThms() for parsing ISO 8061 formatted combned dates and times
+* added ymdThms() for parsing ISO 8061 formatted combined dates and times
 
 ### BUG FIXES
 
@@ -786,4 +784,4 @@ make it easier to remember they are duration objects.
 
 * fixed rollover bug in update.POSIXct()
 
-* edited make_diff() to display in days when approporiate, not weeks
+* edited make_diff() to display in days when appropriate, not weeks

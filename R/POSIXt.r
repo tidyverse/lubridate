@@ -4,7 +4,7 @@ setOldClass("POSIXlt")
 
 #' Various POSIX utilities
 #'
-#' [POSIXct()] mirrors primitive contructors in base R ([double()],
+#' [POSIXct()] mirrors primitive constructors in base R ([double()],
 #' [character()] etc.)
 #'
 #' @rdname posix_utils

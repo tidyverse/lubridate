@@ -1,248 +1,113 @@
 # Platform
 
-|field    |value                                              |
-|:--------|:--------------------------------------------------|
-|version  |R Under development (unstable) (2023-09-19 r85177) |
-|os       |Ubuntu 22.04.2 LTS                                 |
-|system   |x86_64, linux-gnu                                  |
-|ui       |X11                                                |
-|language |(EN)                                               |
-|collate  |en_US.UTF-8                                        |
-|ctype    |en_US.UTF-8                                        |
-|tz       |Europe/Amsterdam                                   |
-|date     |2023-09-24                                         |
-|pandoc   |2.9.2.1 @ /usr/bin/pandoc                          |
+|field    |value                        |
+|:--------|:----------------------------|
+|version  |R version 4.3.1 (2023-06-16) |
+|os       |macOS 15.1                   |
+|system   |aarch64, darwin20            |
+|ui       |X11                          |
+|language |(EN)                         |
+|collate  |en_US.UTF-8                  |
+|ctype    |en_US.UTF-8                  |
+|tz       |Europe/Amsterdam             |
+|date     |2024-12-06                   |
+|pandoc   |3.4 @ /usr/local/bin/pandoc  |
 
 # Dependencies
 
-|package    |old   |new   |Δ  |
-|:----------|:-----|:-----|:--|
-|lubridate  |1.9.2 |1.9.3 |*  |
-|cpp11      |0.4.6 |0.4.6 |   |
-|generics   |0.1.3 |0.1.3 |   |
-|timechange |0.2.0 |0.2.0 |   |
+|package    |old   |new        |Δ  |
+|:----------|:-----|:----------|:--|
+|lubridate  |1.9.3 |1.9.3.9000 |*  |
+|cpp11      |0.5.1 |0.5.1      |   |
+|generics   |0.1.3 |0.1.3      |   |
+|timechange |0.3.0 |0.3.0      |   |
 
 # Revdeps
 
-## Failed to check (217)
+## Failed to check (74)
 
-|package                 |version |error |warning |note |
-|:-----------------------|:-------|:-----|:-------|:----|
-|academictwitteR         |?       |      |        |     |
-|accrualPlot             |?       |      |        |     |
-|Achilles                |?       |      |        |     |
-|ActiSleep               |?       |      |        |     |
-|activAnalyzer           |?       |      |        |     |
-|activatr                |?       |      |        |     |
-|activPAL                |?       |      |        |     |
-|actogrammr              |?       |      |        |     |
-|actxps                  |?       |      |        |     |
-|adept                   |?       |      |        |     |
-|AdhereR                 |?       |      |        |     |
-|admiralvaccine          |?       |      |        |     |
-|aire.zmvm               |?       |      |        |     |
-|AirMonitor              |?       |      |        |     |
-|amt                     |?       |      |        |     |
-|animaltracker           |?       |      |        |     |
-|anipaths                |?       |      |        |     |
-|antaresViz              |?       |      |        |     |
-|AQEval                  |?       |      |        |     |
-|AquaBEHER               |?       |      |        |     |
-|argoFloats              |?       |      |        |     |
-|ARPALData               |?       |      |        |     |
-|arrow                   |?       |      |        |     |
-|ascotraceR              |?       |      |        |     |
-|AtmChile                |?       |      |        |     |
-|audrex                  |?       |      |        |     |
-|autostats               |?       |      |        |     |
-|autoTS                  |?       |      |        |     |
-|avfintools              |?       |      |        |     |
-|babsim.hospital         |?       |      |        |     |
-|baseballr               |?       |      |        |     |
-|basictabler             |?       |      |        |     |
-|bayesforecast           |?       |      |        |     |
-|bayesmove               |?       |      |        |     |
-|BeeBDC                  |?       |      |        |     |
-|BiocPkgTools            |?       |      |        |     |
-|bioRad                  |?       |      |        |     |
-|bitmexr                 |?       |      |        |     |
-|bluebike                |?       |      |        |     |
-|camtrapR                |?       |      |        |     |
-|card                    |?       |      |        |     |
-|CAST                    |?       |      |        |     |
-|CDMConnector            |?       |      |        |     |
-|cft                     |?       |      |        |     |
-|ChillModels             |?       |      |        |     |
-|cleanTS                 |?       |      |        |     |
-|climaemet               |?       |      |        |     |
-|CodelistGenerator       |?       |      |        |     |
-|constructive            |?       |      |        |     |
-|covatest                |?       |      |        |     |
-|covid19sf               |?       |      |        |     |
-|covidmx                 |?       |      |        |     |
-|crawl                   |?       |      |        |     |
-|cruts                   |?       |      |        |     |
-|csdata                  |?       |      |        |     |
-|CSHShydRology           |?       |      |        |     |
-|csodata                 |?       |      |        |     |
-|ctrdata                 |?       |      |        |     |
-|cubble                  |?       |      |        |     |
-|dafishr                 |?       |      |        |     |
-|DaMiRseq                |?       |      |        |     |
-|dataRetrieval           |?       |      |        |     |
-|dataversionr            |?       |      |        |     |
-|datazoom.amazonia       |?       |      |        |     |
-|demcon                  |?       |      |        |     |
-|drake                   |?       |      |        |     |
-|DrugExposureDiagnostics |?       |      |        |     |
-|DrugUtilisation         |?       |      |        |     |
-|duckplyr                |?       |      |        |     |
-|dycdtools               |?       |      |        |     |
-|dymo                    |?       |      |        |     |
-|dynamicSDM              |?       |      |        |     |
-|Ecfun                   |?       |      |        |     |
-|ecocomDP                |?       |      |        |     |
-|EEAaq                   |?       |      |        |     |
-|eph                     |?       |      |        |     |
-|EpiNow2                 |?       |      |        |     |
-|epiR                    |?       |      |        |     |
-|eurostat                |?       |      |        |     |
-|excessmort              |?       |      |        |     |
-|fable.prophet           |?       |      |        |     |
-|fakir                   |?       |      |        |     |
-|FedData                 |?       |      |        |     |
-|finnts                  |?       |      |        |     |
-|fitbitViz               |?       |      |        |     |
-|flexrsurv               |?       |      |        |     |
-|foieGras                |?       |      |        |     |
-|forecastML              |?       |      |        |     |
-|gbm.auto                |?       |      |        |     |
-|gdalcubes               |?       |      |        |     |
-|gemma.R                 |1.99.0  |      |        |     |
-|geomerge                |?       |      |        |     |
-|ggblanket               |?       |      |        |     |
-|ggformula               |?       |      |        |     |
-|grwat                   |?       |      |        |     |
-|gtfsrouter              |?       |      |        |     |
-|gumboot                 |?       |      |        |     |
-|GWSDAT                  |?       |      |        |     |
-|healthcareai            |?       |      |        |     |
-|healthyR.ts             |?       |      |        |     |
-|highcharter             |?       |      |        |     |
-|htsr                    |?       |      |        |     |
-|hubeau                  |?       |      |        |     |
-|IceSat2R                |?       |      |        |     |
-|ie2miscdata             |?       |      |        |     |
-|iemisc                  |?       |      |        |     |
-|IGoRRR                  |?       |      |        |     |
-|IncidencePrevalence     |?       |      |        |     |
-|injurytools             |?       |      |        |     |
-|janitor                 |?       |      |        |     |
-|jmastats                |?       |      |        |     |
-|lambdaTS                |?       |      |        |     |
-|lazytrade               |?       |      |        |     |
-|lterdatasampler         |?       |      |        |     |
-|lutz                    |?       |      |        |     |
-|macleish                |?       |      |        |     |
-|maskRangeR              |?       |      |        |     |
-|MassWateR               |?       |      |        |     |
-|MazamaLocationUtils     |?       |      |        |     |
-|mdsr                    |?       |      |        |     |
-|meteoland               |?       |      |        |     |
-|meteospain              |?       |      |        |     |
-|metR                    |?       |      |        |     |
-|mmaqshiny               |?       |      |        |     |
-|modeltime               |?       |      |        |     |
-|modeltime.ensemble      |?       |      |        |     |
-|modeltime.resample      |?       |      |        |     |
-|momentuHMM              |?       |      |        |     |
-|move                    |?       |      |        |     |
-|move2                   |?       |      |        |     |
-|moveVis                 |?       |      |        |     |
-|mudata2                 |?       |      |        |     |
-|NEONiso                 |0.6.4   |      |        |     |
-|neotoma2                |?       |      |        |     |
-|noaastormevents         |?       |      |        |     |
-|npphen                  |?       |      |        |     |
-|occCite                 |?       |      |        |     |
-|oce                     |?       |      |        |     |
-|oceanmap                |?       |      |        |     |
-|openairmaps             |?       |      |        |     |
-|openeo                  |?       |      |        |     |
-|opensensmapr            |?       |      |        |     |
-|osmdata                 |?       |      |        |     |
-|PatientProfiles         |?       |      |        |     |
-|peakPantheR             |?       |      |        |     |
-|pinochet                |?       |      |        |     |
-|plotdap                 |?       |      |        |     |
-|pointblank              |?       |      |        |     |
-|popstudy                |?       |      |        |     |
-|portalr                 |0.4.1   |      |        |     |
-|pRecipe                 |?       |      |        |     |
-|prism                   |?       |      |        |     |
-|proBatch                |1.13.0  |      |        |     |
-|prophet                 |?       |      |        |     |
-|proteus                 |?       |      |        |     |
-|PWFSLSmoke              |?       |      |        |     |
-|radiant.basics          |?       |      |        |     |
-|radiant.data            |?       |      |        |     |
-|radiant.model           |?       |      |        |     |
-|radiant.multivariate    |?       |      |        |     |
-|rasterList              |?       |      |        |     |
-|rbenvo                  |?       |      |        |     |
-|rbmi                    |?       |      |        |     |
-|RchivalTag              |?       |      |        |     |
-|rcontroll               |?       |      |        |     |
-|rcrimeanalysis          |?       |      |        |     |
-|respR                   |2.3.1   |      |        |     |
-|rfars                   |?       |      |        |     |
-|RforProteomics          |?       |      |        |     |
-|RGENERATEPREC           |?       |      |        |     |
-|rinat                   |?       |      |        |     |
-|RmarineHeatWaves        |?       |      |        |     |
-|rnoaa                   |?       |      |        |     |
-|rnrfa                   |?       |      |        |     |
-|Robyn                   |?       |      |        |     |
-|rols                    |2.29.0  |      |        |     |
-|RSAlgaeR                |?       |      |        |     |
-|rsinaica                |?       |      |        |     |
-|rtrek                   |?       |      |        |     |
-|rtrend                  |?       |      |        |     |
-|rts2                    |?       |      |        |     |
-|rWind                   |?       |      |        |     |
-|SDLfilter               |?       |      |        |     |
-|semnar                  |?       |      |        |     |
-|sfhotspot               |?       |      |        |     |
-|shinyML                 |?       |      |        |     |
-|simulariatools          |?       |      |        |     |
-|sits                    |?       |      |        |     |
-|snvecR                  |3.7.7   |      |        |     |
-|sorvi                   |?       |      |        |     |
-|spatialrisk             |?       |      |        |     |
-|spectator               |?       |      |        |     |
-|spinner                 |?       |      |        |     |
-|spocc                   |?       |      |        |     |
-|stats19                 |?       |      |        |     |
-|stppSim                 |?       |      |        |     |
-|strand                  |?       |      |        |     |
-|stxplore                |?       |      |        |     |
-|swfscAirDAS             |?       |      |        |     |
-|swfscDAS                |?       |      |        |     |
-|SWMPrExtension          |?       |      |        |     |
-|SWTools                 |?       |      |        |     |
-|synoptReg               |?       |      |        |     |
-|tidybins                |?       |      |        |     |
-|tidyfit                 |?       |      |        |     |
-|tidyquery               |?       |      |        |     |
-|tidyrgee                |?       |      |        |     |
-|tidytransit             |?       |      |        |     |
-|timetk                  |?       |      |        |     |
-|track2KBA               |?       |      |        |     |
-|trackdf                 |?       |      |        |     |
-|TUFLOWR                 |?       |      |        |     |
-|VicmapR                 |?       |      |        |     |
-|vprr                    |?       |      |        |     |
-|walkboutr               |?       |      |        |     |
-|winfapReader            |?       |      |        |     |
-|zoomGroupStats          |?       |      |        |     |
+|package          |version |error |warning |note |
+|:----------------|:-------|:-----|:-------|:----|
+|admiralonco      |?       |      |        |     |
+|anipaths         |?       |      |        |     |
+|arrow            |18.1.0  |1     |        |     |
+|AutoPlots        |?       |      |        |     |
+|baytrends        |?       |      |        |     |
+|BeeBDC           |1.2.1   |1 -1  |        |1    |
+|BEKKs            |1.4.5   |1     |        |     |
+|bsam             |1.1.3   |1     |        |     |
+|cgmanalysis      |?       |      |        |     |
+|cleanTS          |?       |      |        |     |
+|CLVTools         |0.11.2  |1     |        |     |
+|completejourney  |?       |      |        |     |
+|crawl            |2.3.0   |1     |        |     |
+|cricketdata      |?       |      |        |     |
+|CSTools          |5.2.0   |1     |        |     |
+|ctrdata          |?       |      |        |     |
+|diversitree      |0.10-1  |1     |        |     |
+|doublIn          |?       |      |        |     |
+|duckplyr         |?       |      |        |     |
+|EBASE            |1.1.0   |1     |        |     |
+|eurostat         |?       |      |        |     |
+|exuber           |1.0.2   |1     |        |1    |
+|fable.ata        |0.0.6   |1     |        |     |
+|farr             |?       |      |        |     |
+|fastcpd          |0.14.6  |1     |        |     |
+|fixtuRes         |?       |      |        |     |
+|fmpcloudr        |?       |      |        |     |
+|garma            |?       |      |        |     |
+|gdalcubes        |0.7.0   |1     |        |     |
+|ggpp             |?       |      |        |     |
+|gk               |?       |      |        |     |
+|heatwaveR        |0.4.6   |1     |        |     |
+|highcharter      |?       |      |        |     |
+|HMDHFDplus       |?       |      |        |     |
+|hystReet         |?       |      |        |     |
+|iClick           |1.5     |1     |        |     |
+|ie2misc          |0.9.1   |1     |        |     |
+|ie2miscdata      |?       |      |        |     |
+|insee            |?       |      |        |     |
+|iNZightPlots     |2.15.3  |1     |        |     |
+|linelistBayes    |1.0     |1     |        |     |
+|MazamaCoreUtils  |?       |      |        |     |
+|midasml          |0.1.10  |1     |        |     |
+|midasr           |0.8     |1     |        |     |
+|MixviR           |?       |      |        |     |
+|momentuHMM       |1.5.5   |1     |        |     |
+|moodleR          |?       |      |        |     |
+|mvgam            |1.1.3   |1     |        |3    |
+|oce              |1.8-3   |1     |        |     |
+|openair          |2.18-2  |1     |        |     |
+|PAMmisc          |1.12.1  |1     |        |     |
+|PAMpal           |1.2.1   |1     |        |     |
+|PAMscapes        |0.7.0   |1     |        |     |
+|phenofit         |0.3.9   |1     |        |     |
+|popstudy         |1.0.1   |1     |        |     |
+|portalr          |?       |      |        |     |
+|puls             |?       |      |        |     |
+|rcontroll        |?       |      |        |     |
+|robservable      |?       |      |        |     |
+|rtrend           |0.1.5   |1     |        |     |
+|RtsEva           |?       |      |        |     |
+|simET            |?       |      |        |     |
+|sits             |1.5.1   |1     |        |     |
+|SPARSEMODr       |1.2.0   |1     |        |     |
+|stppSim          |1.3.4   |1     |        |     |
+|summarytools     |1.0.1   |1     |        |     |
+|suncalc          |?       |      |        |     |
+|topdowntimeratio |?       |      |        |     |
+|tsmarch          |1.0.0   |1     |        |     |
+|VIC5             |0.2.6   |1     |        |     |
+|whomds           |?       |      |        |     |
+|wqtrends         |?       |      |        |     |
+|WRTDStidal       |1.1.4   |1     |        |     |
+|ycevo            |0.2.1   |1     |        |     |
+
+## New problems (3)
+
+|package         |version |error    |warning |note |
+|:---------------|:-------|:--------|:-------|:----|
+|[CohortGenerator](problems.md#cohortgenerator)|0.11.2  |__+1__   |        |     |
+|[ntdr](problems.md#ntdr)|0.4.0   |__+1__   |        |     |
+|[tntpr](problems.md#tntpr)|1.2.1   |1 __+1__ |        |     |
 

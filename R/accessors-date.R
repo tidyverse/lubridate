@@ -11,7 +11,7 @@ NULL
 #'
 #' @section Base compatibility:
 #' `date()` can be called without any arguments to return a string representing
-#' the current date-time. This provides compatiblity with `base:date()` which
+#' the current date-time. This provides compatibility with `base:date()` which
 #' it overrides.
 #'
 #' @param x a date-time object
