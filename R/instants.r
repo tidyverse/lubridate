@@ -120,11 +120,11 @@ make_datetime <- function(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0
 ##' @rdname make_datetime
 ##' @export
 make_date <- function(year = 1970L, month = 1L, day = 1L) {
-  lengths <- vapply(list(year, month, day), length, 1, USE.NAMES = FALSE)
-  if (min(lengths) == 0L) {
+  lens <- lengths(list(year, month, day), use.names = FALSE)
+  if (min(lens) == 0L) {
     as.Date(integer(), origin = origin)
   } else {
-    N <- max(lengths)
+    N <- max(lens)
     secs <- .Call(
       C_make_d,
       rep_len(as.integer(year), N),
