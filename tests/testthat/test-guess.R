@@ -118,7 +118,7 @@ test_that("b/B give complete and equivalent results for trained parsing", {
     parse_date_time(short, "Bdy")
   )
 
-  expect_false(any(is.na(parse_date_time(full, "bdy"))))
-  expect_false(any(is.na(parse_date_time(mixed, "bdy"))))
-  expect_false(any(is.na(parse_date_time(short, "bdy"))))
+  expect_false(anyNA(parse_date_time(full, "bdy")))
+  expect_false(anyNA(parse_date_time(mixed, "bdy")))
+  expect_false(anyNA(parse_date_time(short, "bdy")))
 })

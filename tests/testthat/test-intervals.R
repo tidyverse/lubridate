@@ -803,7 +803,7 @@ test_that("%% on interval uses m+ arithmetic", {
   x <- as.POSIXct(start)
   int <- interval(x, end)
   n <- int %/% months(1)
-  expect_true(!any(is.na(int %% months(1))))
+  expect_false(anyNA(int %% months(1)))
 })
 
 test_that("summary.Interval creates useful summary", {

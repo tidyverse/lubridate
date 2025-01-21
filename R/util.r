@@ -29,7 +29,7 @@ standardise_date_names <- function(x) {
   dates <- c("second", "minute", "hour", "mday", "wday", "yday", "day", "week", "month", "year", "tz")
   y <- gsub("(.)s$", "\\1", x)
   res <- dates[pmatch(y, dates, duplicates.ok = TRUE)]
-  if (any(is.na(res))) {
+  if (anyNA(res)) {
     stop("Invalid unit name: ", paste(x[is.na(res)], collapse = ", "),
       call. = FALSE
     )
@@ -42,7 +42,7 @@ standardise_difftime_names <- function(x) {
   y <- gsub("(.)s$", "\\1", x)
   y <- substr(y, 1, 3)
   res <- dates[pmatch(y, dates, duplicates.ok = TRUE)]
-  if (any(is.na(res))) {
+  if (anyNA(res)) {
     stop("Invalid difftime name: ", paste(x[is.na(res)], collapse = ", "),
       call. = FALSE
     )
@@ -59,7 +59,7 @@ standardise_period_names <- function(x) {
   y <- gsub("(.)s$", "\\1", x)
   y <- substr(y, 1, 3)
   res <- dates[pmatch(y, dates)]
-  if (any(is.na(res))) {
+  if (anyNA(res)) {
     stop("Invalid period name: ", paste(x[is.na(res)], collapse = ", "),
       call. = FALSE
     )
@@ -75,7 +75,7 @@ standardise_lt_names <- function(x) {
   y <- gsub("(.)s$", "\\1", x)
   y <- substr(y, 1, 3)
   res <- dates[pmatch(y, dates)]
-  if (any(is.na(res))) {
+  if (anyNA(res)) {
     stop("Invalid unit name: ", paste(x[is.na(res)], collapse = ", "),
       call. = FALSE
     )
