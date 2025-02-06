@@ -14,7 +14,7 @@ development:
 home:
   links:
   - text: Learn more
-    href: https://r4ds.had.co.nz/dates-and-times.html
+    href: https://r4ds.hadley.nz/datetimes.html
 
 reference:
 - title: Date/time parsing
