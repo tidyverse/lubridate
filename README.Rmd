@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.
 
 If you are new to lubridate, the best place to start is the
-[date and times chapter](https://r4ds.had.co.nz/dates-and-times.html) in R
+[date and times chapter](https://r4ds.hadley.nz/datetimes.html) in R
 for data science.
 
 

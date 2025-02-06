@@ -1,31 +1,34 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-
 
 # lubridate <img src="man/figures/logo.png" align="right" />
 
 <!-- badges: start -->
-[![CRAN version](http://www.r-pkg.org/badges/version/lubridate)](https://cran.r-project.org/package=lubridate)
-[![R build status](https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/lubridate/actions)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/lubridate)](https://cran.r-project.org/package=lubridate)
+
+[![CRAN
+version](http://www.r-pkg.org/badges/version/lubridate)](https://cran.r-project.org/package=lubridate)
+[![R build
+status](https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/lubridate/actions)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/lubridate)](https://cran.r-project.org/package=lubridate)
 [![R-CMD-check](https://github.com/tidyverse/lubridate/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/tidyverse/lubridate/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Overview
 
-Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.
+Date-time data can be frustrating to work with in R. R commands for
+date-times are generally unintuitive and change depending on the type of
+date-time object being used. Moreover, the methods we use with
+date-times must be robust to time zones, leap days, daylight savings
+times, and other time related quirks, and R lacks these capabilities in
+some situations. Lubridate makes it easier to do the things R does with
+date-times and possible to do the things R does not.
 
-If you are new to lubridate, the best place to start is the
-[date and times chapter](https://r4ds.had.co.nz/dates-and-times.html) in R
-for data science.
-
+If you are new to lubridate, the best place to start is the [date and
+times chapter](https://r4ds.hadley.nz/datetimes.html) in R for data
+science.
 
 ## Installation
-
 
 ``` r
 # The easiest way to get lubridate is to install the whole tidyverse:
@@ -45,66 +48,67 @@ devtools::install_github("tidyverse/lubridate")
 
 ## Features
 
-
 ``` r
 library(lubridate, warn.conflicts = FALSE)
 ```
 
-*   Easy and fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`, `dmy_hms`,
-    `mdy()`, ...
+- Easy and fast parsing of date-times: `ymd()`, `ymd_hms`, `dmy()`,
+  `dmy_hms`, `mdy()`, …
 
-    
-    ``` r
-    ymd(20101215)
-    #> [1] "2010-12-15"
-    mdy("4/1/17")
-    #> [1] "2017-04-01"
-    ```
+  ``` r
+  ymd(20101215)
+  #> [1] "2010-12-15"
+  mdy("4/1/17")
+  #> [1] "2017-04-01"
+  ```
 
-*   Simple functions to get and set components of a date-time, such as `year()`,
-    `month()`, `mday()`, `hour()`, `minute()` and `second()`:
+- Simple functions to get and set components of a date-time, such as
+  `year()`, `month()`, `mday()`, `hour()`, `minute()` and `second()`:
 
-    
-    ``` r
-    bday <- dmy("14/10/1979")
-    month(bday)
-    #> [1] 10
-    wday(bday, label = TRUE)
-    #> [1] Sun
-    #> Levels: Sun < Mon < Tue < Wed < Thu < Fri < Sat
-    
-    year(bday) <- 2016
-    wday(bday, label = TRUE)
-    #> [1] Fri
-    #> Levels: Sun < Mon < Tue < Wed < Thu < Fri < Sat
-    ```
+  ``` r
+  bday <- dmy("14/10/1979")
+  month(bday)
+  #> [1] 10
+  wday(bday, label = TRUE)
+  #> [1] Sun
+  #> Levels: Sun < Mon < Tue < Wed < Thu < Fri < Sat
 
-*   Helper functions for handling time zones: `with_tz()`, `force_tz()`
+  year(bday) <- 2016
+  wday(bday, label = TRUE)
+  #> [1] Fri
+  #> Levels: Sun < Mon < Tue < Wed < Thu < Fri < Sat
+  ```
 
-    
-    ``` r
-    time <- ymd_hms("2010-12-13 15:30:30")
-    time
-    #> [1] "2010-12-13 15:30:30 UTC"
-    
-    # Changes printing
-    with_tz(time, "America/Chicago")
-    #> [1] "2010-12-13 09:30:30 CST"
-    
-    # Changes time
-    force_tz(time, "America/Chicago")
-    #> [1] "2010-12-13 15:30:30 CST"
-    ```
+- Helper functions for handling time zones: `with_tz()`, `force_tz()`
 
-Lubridate also expands the type of mathematical operations that can be performed with date-time objects. It introduces three new time span classes borrowed from https://www.joda.org.
+  ``` r
+  time <- ymd_hms("2010-12-13 15:30:30")
+  time
+  #> [1] "2010-12-13 15:30:30 UTC"
 
-* `durations`, which measure the exact amount of time between two points
+  # Changes printing
+  with_tz(time, "America/Chicago")
+  #> [1] "2010-12-13 09:30:30 CST"
 
-* `periods`, which accurately track clock times despite leap years, leap
+  # Changes time
+  force_tz(time, "America/Chicago")
+  #> [1] "2010-12-13 15:30:30 CST"
+  ```
+
+Lubridate also expands the type of mathematical operations that can be
+performed with date-time objects. It introduces three new time span
+classes borrowed from <https://www.joda.org>.
+
+- `durations`, which measure the exact amount of time between two points
+
+- `periods`, which accurately track clock times despite leap years, leap
   seconds, and day light savings time
 
-* `intervals`, a protean summary of the time information between two points
+- `intervals`, a protean summary of the time information between two
+  points
 
 ## Code of Conduct
 
-Please note that the lubridate project is released with a [Contributor Code of Conduct](https://lubridate.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the lubridate project is released with a [Contributor
+Code of Conduct](https://lubridate.tidyverse.org/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
