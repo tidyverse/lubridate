@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   lubridate: lubridate.html
-last_built: 2024-12-10T09:34Z
+last_built: 2025-04-01T21:14Z
 urls:
   reference: https://lubridate.tidyverse.org/reference
   article: https://lubridate.tidyverse.org/articles
