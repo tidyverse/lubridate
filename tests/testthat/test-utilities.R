@@ -6,6 +6,10 @@ test_that("leap_year correctly identifies leap years", {
   expect_true(leap_year(y))
 })
 
+test_that("leap_year handles missing values", {
+  expect_equal(leap_year(NA), NA)
+})
+
 test_that("leap_year handles various date-time vectors", {
   x <- as.POSIXct(c("2008-08-03 12:01:59", "2009-08-03 12:01:59"), tz = "UTC")
 

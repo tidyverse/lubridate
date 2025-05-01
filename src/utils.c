@@ -27,6 +27,27 @@
 #include <ctype.h>
 #include <Rinternals.h>
 
+SEXP C_is_leap_year(SEXP year) {
+  if(!isInteger(year)) error("year must be integer");
+
+  R_len_t n = LENGTH(year);
+  int* pyear = INTEGER(year);
+
+  SEXP res = allocVector(LGLSXP, n);
+  int *data = LOGICAL(res);
+
+  for(int i = 0; i < n; i++) {
+    int y = pyear[i];
+    if(y == NA_INTEGER) {
+      data[i] = NA_LOGICAL;
+    } else {
+      data[i] = IS_LEAP(y);
+    }
+  }
+
+  return res;
+}
+
 // return adjustment (in seconds) due to leap years
 // y: years after (positive) or before (negative) 2000-01-01 00:00:00
 int adjust_leap_years(int y, int m, int is_leap){
