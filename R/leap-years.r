@@ -21,5 +21,5 @@ leap_year <- function(date) {
   } else {
     year <- year(date)
   }
-  (year %% 4 == 0) & ((year %% 100 != 0) | (year %% 400 == 0))
+  .Call(C_is_leap_year, as.integer(year))
 }

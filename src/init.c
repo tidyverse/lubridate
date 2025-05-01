@@ -8,12 +8,14 @@ extern SEXP C_make_d(SEXP, SEXP, SEXP);
 extern SEXP C_parse_dt(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP C_parse_hms(SEXP, SEXP);
 extern SEXP C_parse_period(SEXP);
+extern SEXP C_is_leap_year(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
   {"C_make_d",              (DL_FUNC) &C_make_d,              3},
   {"C_parse_dt",            (DL_FUNC) &C_parse_dt,            5},
   {"C_parse_hms",           (DL_FUNC) &C_parse_hms,           2},
   {"C_parse_period",        (DL_FUNC) &C_parse_period,        1},
+  {"C_is_leap_year",        (DL_FUNC) &C_is_leap_year,        1},
   {NULL, NULL, 0}
 };
 
