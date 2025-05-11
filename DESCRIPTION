@@ -31,6 +31,7 @@ Depends:
     R (>= 3.2)
 Imports:
     generics,
+    purrr,
     timechange (>= 0.3.0)
 Suggests:
     covr,
@@ -51,7 +52,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 SystemRequirements: C++11, A system with zoneinfo data (e.g.
     /usr/share/zoneinfo). On Windows the zoneinfo included with R is used.
 Collate:
@@ -101,6 +102,7 @@ Collate:
     'pretty.r'
     'round.r'
     'stamp.r'
+    'sum.Duration.R'
     'tzdir.R'
     'update.r'
     'vctrs.R'
