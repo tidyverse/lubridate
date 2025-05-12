@@ -188,7 +188,7 @@ round_date <- function(x, unit = "second", week_start = getOption("lubridate.wee
 #' boundary of the specified time unit.
 #' @rdname round_date
 #' @export
-floor_date <- function(x, unit = "seconds",
+floor_date <- function(x, unit = "second",
                        week_start = getOption("lubridate.week.start", 7)) {
   if (length(x) == 0) {
     return(x)
@@ -233,7 +233,7 @@ floor_date <- function(x, unit = "seconds",
 #' x <- ymd("2000-01-01")
 #' ceiling_date(x, "month")
 #' ceiling_date(x, "month", change_on_boundary = TRUE)
-ceiling_date <- function(x, unit = "seconds", change_on_boundary = NULL,
+ceiling_date <- function(x, unit = "second", change_on_boundary = NULL,
                          week_start = getOption("lubridate.week.start", 7)) {
   if (length(x) == 0) {
     return(x)
