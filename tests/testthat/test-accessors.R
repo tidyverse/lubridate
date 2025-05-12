@@ -713,3 +713,57 @@ test_that(
     expect_equal(days_in_month(x), expected)
   }
 )
+test_that("set term function generates data frame", {
+  skip_df <- data.frame(
+    start = c("2025-01-01", "2025-01-07"),
+    end = c("2025-01-02", "2025-01-09")
+  )
+  term_first <- set_term(
+    start_date = "2025-01-01",
+    weeks = 1,
+    skip = skip_df,
+    holidays = "2025-01-06",
+    class_days = c("Monday", "Wednesday", "Friday"),
+    exams = "2025-01-03"
+  )
+
+  test_first <-data.frame(
+    date = seq(ymd("2025-01-01"), ymd("2025-01-13"), by='days'),
+    day = weekdays(seq(ymd("2025-01-01"), ymd("2025-01-13"), by='days')),
+    status = c("skip", "skip", "exam", "no class", "no class", "holiday",
+               "skip", "skip", "skip", "class", "no class", "no class", "class" ),
+    class = c(FALSE, FALSE,  TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,
+              FALSE,  TRUE, FALSE, FALSE,  TRUE))
+
+  term_sec <- set_term(
+    start_date = "2025-09-01",
+    weeks = 1
+  )
+  test_sec <-data.frame(
+    date = seq(ymd("2025-09-01"), ymd("2025-09-08"), by='days'),
+    day = weekdays(seq(ymd("2025-09-01"), ymd("2025-09-08"), by='days')),
+    status = c("class", "class", "class", "class", "class",
+               "no class",  "no class", "class"),
+    class = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)
+  )
+
+  expect_equal(term_first, test_first)
+  expect_equal(term_sec, test_sec)
+})
+
+test_that("clean class days function outputs correct values", {
+  none <- clean_class_days(NULL)
+  weekdays <- (c("Monday", "Tuesday", "Wednesday",
+                 "Thursday", "Friday"))
+
+  mixed <- clean_class_days(c("M", "Mon", "Tu", "F", "Wed", "Thursday", "Su",
+                              "Sat"))
+  mixed_out <- c("Monday", "Tuesday", "Friday", "Wednesday", "Thursday",
+                 "Sunday", "Saturday")
+
+  multiple <- clean_class_days(c("Thursday", "Thu", "Tr"))
+
+  expect_equal(none, weekdays)
+  expect_equal(mixed, mixed_out)
+  expect_equal(multiple, "Thursday")
+})
