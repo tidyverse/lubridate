@@ -228,7 +228,7 @@ stamp_date <- function(x, locale = Sys.getlocale("LC_TIME"), quiet = FALSE) {
 ##' @export
 stamp_time <- function(x, locale = Sys.getlocale("LC_TIME"), quiet = FALSE) {
   stamp(x,
-    orders = c("hms", "hm", "ms", "h", "m", "s"),
+    orders = c("T", "R", "MS", "r", "M", "S"),
     locale = locale, quiet = quiet
   )
 }
