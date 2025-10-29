@@ -1,9 +1,9 @@
 pandoc: 3.1.11
-pkgdown: 2.1.2
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   lubridate: lubridate.html
-last_built: 2025-05-11T14:08Z
+last_built: 2025-10-29T11:38Z
 urls:
   reference: https://lubridate.tidyverse.org/reference
   article: https://lubridate.tidyverse.org/articles
