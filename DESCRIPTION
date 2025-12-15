@@ -22,7 +22,7 @@ Description: Functions to work with date-times and time-spans: fast and
     seconds), algebraic manipulation on date-time and time-span objects.
     The 'lubridate' package has a consistent and memorable syntax that
     makes working with dates easy and fun.
-License: GPL (>= 2)
+License: MIT + file LICENSE
 URL: https://lubridate.tidyverse.org,
     https://github.com/tidyverse/lubridate
 BugReports: https://github.com/tidyverse/lubridate/issues
