@@ -2,8 +2,8 @@ Version 1.9.4
 =============
 
 ### Changes
+* lubridate is now MIT licensed (#968).
 * Don't use CET and EST as timezones to accommodate the upgrade of tzdata in the R-devel
-
 
 Version 1.9.3
 =============
