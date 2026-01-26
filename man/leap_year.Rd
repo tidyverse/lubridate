@@ -13,9 +13,9 @@ leap_year(date)
 TRUE if x is a leap year, FALSE otherwise
 }
 \description{
-If x is a recognized date-time object, leap_year will return whether x
-occurs during a leap year. If x is a number, leap_year returns whether it
-would be a leap year under the Gregorian calendar.
+If x is a recognized date-time object, leap_year will return whether x occurs during
+a leap year. If x is a number, it is interpreted as a year in the Gregorian calendar
+and \code{leap_year} returns \code{TRUE} if it is a leap year.
 }
 \examples{
 x <- as.Date("2009-08-02")
