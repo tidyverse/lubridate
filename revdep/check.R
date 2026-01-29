@@ -3,13 +3,12 @@
 
 library(revdepcheck)
 
-# revdepcheck::revdep_reset()
+usethis::use_dev_package("timechange", remote = "vspinu/timechange")
+usethis::use_dev_package("timechange", remote = "local::~/dev/timechange")
 
-## Don't flood my OS partition
-Sys.setenv(TMPDIR = "~/vs_revdep_cache")
-dir.create(Sys.getenv("TMPDIR"), showWarnings = F)
+revdep_reset()
 
-revdepcheck::revdep_check(num_workers = 6)
+revdepcheck::revdep_check(num_workers = 8,  quiet = FALSE)
 
 revdepcheck::revdep_summary()
 revdepcheck::revdep_todo()

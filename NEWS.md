@@ -1,9 +1,16 @@
-Version 1.9.4
+Version 1.9.5
 =============
 
 ### Changes
 * lubridate is now MIT licensed (#968).
+* Fix time stamp orders (#1198).
+
+Version 1.9.4
+=============
+
+### Changes
 * Don't use CET and EST as timezones to accommodate the upgrade of tzdata in the R-devel
+* Fix #1170 Make as_datetime parse partial datetimes just as as.POSIXct does
 
 Version 1.9.3
 =============

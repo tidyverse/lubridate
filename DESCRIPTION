@@ -1,7 +1,7 @@
 Type: Package
 Package: lubridate
 Title: Make Dealing with Dates a Little Easier
-Version: 1.9.4
+Version: 1.9.5
 Authors@R: c(
     person("Vitalie", "Spinu", , "spinuvit@gmail.com", role = c("aut", "cre")),
     person("Garrett", "Grolemund", role = "aut"),
@@ -31,7 +31,7 @@ Depends:
     R (>= 3.2)
 Imports:
     generics,
-    timechange (>= 0.3.0)
+    timechange (>= 0.4.0)
 Suggests:
     covr,
     knitr,
@@ -51,7 +51,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
 SystemRequirements: A system with zoneinfo data (e.g.
     /usr/share/zoneinfo). On Windows the zoneinfo included with R is used.
 Collate:
