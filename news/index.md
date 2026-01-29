@@ -6,8 +6,6 @@ CRAN release: 2024-12-08
 
 #### Changes
 
-- lubridate is now MIT licensed
-  ([\#968](https://github.com/tidyverse/lubridate/issues/968)).
 - Don’t use CET and EST as timezones to accommodate the upgrade of
   tzdata in the R-devel
 

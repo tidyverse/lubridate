@@ -27,7 +27,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/tidyverse/lubridate/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/tidyverse/lubridate/blob/v1.9.4/inst/CITATION)
 
 Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made Easy with
 lubridate. Journal of Statistical Software, 40(3), 1-25. URL

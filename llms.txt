@@ -11,8 +11,8 @@ some situations. Lubridate makes it easier to do the things R does with
 date-times and possible to do the things R does not.
 
 If you are new to lubridate, the best place to start is the [date and
-times chapter](https://r4ds.hadley.nz/datetimes.html) in R for data
-science.
+times chapter](https://r4ds.had.co.nz/dates-and-times.html) in R for
+data science.
 
 ## Installation
 
