@@ -10,8 +10,8 @@
 |collate  |en_US.UTF-8                                        |
 |ctype    |en_US.UTF-8                                        |
 |tz       |Europe/Amsterdam                                   |
-|date     |2026-01-29                                         |
-|pandoc   |NA                                                 |
+|date     |2026-02-04                                         |
+|pandoc   |3.8.3 @ /opt/homebrew/bin/pandoc                   |
 |quarto   |NA                                                 |
 
 # Dependencies
@@ -33,3 +33,4 @@
 |gemma.R     |3.7.1   |      |        |     |
 |peakPantheR |1.25.0  |      |        |     |
 |pgxRpi      |1.7.0   |      |        |     |
+

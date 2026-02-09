@@ -4,7 +4,7 @@
 library(revdepcheck)
 
 usethis::use_dev_package("timechange", remote = "vspinu/timechange")
-usethis::use_dev_package("timechange", remote = "local::~/dev/timechange")
+## usethis::use_dev_package("timechange", remote = "local::~/dev/timechange")
 
 revdep_reset()
 
