@@ -6,16 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Make Dealing with Dates a Little Easier • lubridate</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Make Dealing with Dates a Little Easier">
@@ -23,7 +22,7 @@
 <meta property="og:description" content="Functions to work with date-times and time-spans: fast and user friendly parsing of date-time data, extraction and updating of components of a date-time (years, months, days, hours, minutes, and seconds), algebraic manipulation on date-time and time-span objects. The lubridate package has a consistent and memorable syntax that makes working with dates easy and fun.">
 <meta property="og:image" content="https://lubridate.tidyverse.org/logo.png">
 <meta name="robots" content="noindex">
-<script defer data-domain="lubridate.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="lubridate.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -33,7 +32,7 @@
 
     <a class="navbar-brand me-2" href="index.html">lubridate</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9.3.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.9.5.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +78,7 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.</p>
-<p>If you are new to lubridate, the best place to start is the <a href="https://r4ds.had.co.nz/dates-and-times.html" class="external-link">date and times chapter</a> in R for data science.</p>
+<p>If you are new to lubridate, the best place to start is the <a href="https://r4ds.hadley.nz/datetimes.html" class="external-link">date and times chapter</a> in R for data science.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -91,14 +90,14 @@
 <span><span class="co"># Alternatively, install just lubridate:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"lubridate"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Or the the development version from GitHub:</span></span>
+<span><span class="co"># Or the development version from GitHub:</span></span>
 <span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidyverse/lubridate"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="cheatsheet">Cheatsheet<a class="anchor" aria-label="anchor" href="#cheatsheet"></a>
 </h2>
-<p><a href="https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf" class="external-link"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"></a></p>
+<p><a href="https://github.com/rstudio/cheatsheets/blob/main/lubridate.pdf" class="external-link"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/lubridate-cheatsheet-thumbs.png" width="630" height="252"></a></p>
 </div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
@@ -164,7 +163,7 @@
 <li><a href="https://cloud.r-project.org/package=lubridate" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/tidyverse/lubridate/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/tidyverse/lubridate/issues" class="external-link">Report a bug</a></li>
-<li><a href="https://r4ds.had.co.nz/dates-and-times.html" class="external-link">Learn more</a></li>
+<li><a href="https://r4ds.hadley.nz/datetimes.html" class="external-link">Learn more</a></li>
 </ul>
 </div>
 
@@ -172,7 +171,7 @@
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small>GPL (&gt;= 2)</small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
@@ -195,10 +194,10 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Vitalie Spinu <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Garrett Grolemund <br><small class="roles"> Author </small>  </li>
+<li>Vitalie Spinu <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Garrett Grolemund <br><small class="roles"> Author </small>   </li>
 <li>
-<a href="https://hadley.nz" class="external-link">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://hadley.nz" class="external-link">Hadley Wickham</a> <br><small class="roles"> Author </small>   </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -208,9 +207,8 @@
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=lubridate" class="external-link"><img src="http://www.r-pkg.org/badges/version/lubridate" alt="CRAN version"></a></li>
 <li><a href="https://github.com/tidyverse/lubridate/actions" class="external-link"><img src="https://github.com/tidyverse/lubridate/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://app.codecov.io/gh/tidyverse/lubridate" class="external-link"><img src="https://app.codecov.io/gh/tidyverse/lubridate/branch/main/graph/badge.svg" alt="Coverage Status"></a></li>
 <li><a href="https://cran.r-project.org/package=lubridate" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/lubridate" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="https://github.com/tidyverse/lubridate" class="external-link"><img src="https://img.shields.io/badge/devel-1.7.4.9000-orange.svg" alt="Development version"></a></li>
+<li><a href="https://github.com/tidyverse/lubridate/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tidyverse/lubridate/actions/workflows/check-standard.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
@@ -225,7 +223,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>

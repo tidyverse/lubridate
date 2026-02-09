@@ -1,0 +1,81 @@
+# Fit a POSIXlt date-time to the timeline
+
+The POSIXlt format allows you to create instants that do not exist in
+real life due to daylight savings time and other conventions.
+fit_to_timeline matches POSIXlt date-times to a real times. If an
+instant does not exist, fit to timeline will replace it with an NA. If
+an instant does exist, but has been paired with an incorrect
+timezone/daylight savings time combination, fit_to_timeline returns the
+instant with the correct combination.
+
+## Usage
+
+``` r
+fit_to_timeline(lt, class = "POSIXct", simple = FALSE)
+```
+
+## Arguments
+
+- lt:
+
+  a POSIXlt date-time object.
+
+- class:
+
+  a character string that describes what type of object to return,
+  POSIXlt or POSIXct. Defaults to POSIXct. This is an optimization to
+  avoid needless conversions.
+
+- simple:
+
+  if TRUE, lubridate makes no attempt to detect meaningless time-dates
+  or to correct time zones. No NAs are produced and the most meaningful
+  valid dates are returned instead. See examples.
+
+## Value
+
+a POSIXct or POSIXlt object that contains no illusory date-times
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+
+tricky <- structure(list(
+  sec = c(5, 0, 0, -1),
+  min = c(0L, 5L, 5L, 0L),
+  hour = c(2L, 0L, 2L, 2L),
+  mday = c(4L, 4L, 14L, 4L),
+  mon = c(10L, 10L, 2L, 10L),
+  year = c(112L, 112L, 110L, 112L),
+  wday = c(0L, 0L, 0L, 0L),
+  yday = c(308L, 308L, 72L, 308L),
+  isdst = c(1L, 0L, 0L, 1L)
+),
+.Names = c(
+  "sec", "min", "hour", "mday", "mon",
+  "year", "wday", "yday", "isdst"
+),
+class = c("POSIXlt", "POSIXt"),
+tzone = c("America/Chicago", "CST", "CDT")
+)
+
+tricky
+## [1] "2012-11-04 02:00:00 CDT" Doesn't exist because clocks "fall back" to 1:00 CST
+## [2] "2012-11-04 00:05:00 CST" Times are still CDT, not CST at this instant
+## [3] "2010-03-14 02:00:00 CDT" DST gap
+## [4] "2012-11-04 01:59:59 CDT" Does exist, but has deceptive internal structure
+
+fit_to_timeline(tricky)
+## Returns:
+## [1] "2012-11-04 02:00:00 CST" instant paired with correct tz & DST combination
+## [2] "2012-11-04 00:05:00 CDT" instant paired with correct tz & DST combination
+## [3] NA - fake time changed to NA (compare to as.POSIXct(tricky))
+## [4] "2012-11-04 01:59:59 CDT" -real instant, left as is
+
+fit_to_timeline(tricky, simple = TRUE)
+## Returns valid time-dates by extrapolating CDT and CST zones:
+## [1] "2012-11-04 01:00:05 CST" "2012-11-04 01:05:00 CDT"
+## [3] "2010-03-14 03:05:00 CDT" "2012-11-04 01:59:59 CDT"
+} # }
+```

@@ -1,0 +1,405 @@
+# lubridate
+
+## Overview
+
+Date-time data can be frustrating to work with in R. R commands for
+date-times are generally unintuitive and change depending on the type of
+date-time object being used. Moreover, the methods we use with
+date-times must be robust to time zones, leap days, daylight savings
+times, and other time related quirks, and R lacks these capabilities in
+some situations. Lubridate makes it easier to do the things R does with
+date-times and possible to do the things R does not.
+
+If you are new to lubridate, the best place to start is the [date and
+times chapter](https://r4ds.hadley.nz/datetimes.html) in R for data
+science.
+
+## Installation
+
+``` r
+# The easiest way to get lubridate is to install the whole tidyverse:
+install.packages("tidyverse")
+
+# Alternatively, install just lubridate:
+install.packages("lubridate")
+
+# Or the development version from GitHub:
+# install.packages("devtools")
+devtools::install_github("tidyverse/lubridate")
+```
+
+## Cheatsheet
+
+[![](https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/lubridate-cheatsheet-thumbs.png)](https://github.com/rstudio/cheatsheets/blob/main/lubridate.pdf)
+
+## Features
+
+``` r
+library(lubridate, warn.conflicts = FALSE)
+```
+
+- Easy and fast parsing of date-times:
+  [`ymd()`](https://lubridate.tidyverse.org/dev/reference/ymd.md),
+  `ymd_hms`,
+  [`dmy()`](https://lubridate.tidyverse.org/dev/reference/ymd.md),
+  `dmy_hms`,
+  [`mdy()`](https://lubridate.tidyverse.org/dev/reference/ymd.md), …
+
+  ``` r
+  ymd(20101215)
+  #> [1] "2010-12-15"
+  mdy("4/1/17")
+  #> [1] "2017-04-01"
+  ```
+
+- Simple functions to get and set components of a date-time, such as
+  [`year()`](https://lubridate.tidyverse.org/dev/reference/year.md),
+  [`month()`](https://lubridate.tidyverse.org/dev/reference/month.md),
+  [`mday()`](https://lubridate.tidyverse.org/dev/reference/day.md),
+  [`hour()`](https://lubridate.tidyverse.org/dev/reference/hour.md),
+  [`minute()`](https://lubridate.tidyverse.org/dev/reference/minute.md)
+  and
+  [`second()`](https://lubridate.tidyverse.org/dev/reference/second.md):
+
+  ``` r
+  bday <- dmy("14/10/1979")
+  month(bday)
+  #> [1] 10
+  wday(bday, label = TRUE)
+  #> [1] Sun
+  #> Levels: Sun < Mon < Tue < Wed < Thu < Fri < Sat
+
+  year(bday) <- 2016
+  wday(bday, label = TRUE)
+  #> [1] Fri
+  #> Levels: Sun < Mon < Tue < Wed < Thu < Fri < Sat
+  ```
+
+- Helper functions for handling time zones:
+  [`with_tz()`](https://lubridate.tidyverse.org/dev/reference/with_tz.md),
+  [`force_tz()`](https://lubridate.tidyverse.org/dev/reference/force_tz.md)
+
+  ``` r
+  time <- ymd_hms("2010-12-13 15:30:30")
+  time
+  #> [1] "2010-12-13 15:30:30 UTC"
+
+  # Changes printing
+  with_tz(time, "America/Chicago")
+  #> [1] "2010-12-13 09:30:30 CST"
+
+  # Changes time
+  force_tz(time, "America/Chicago")
+  #> [1] "2010-12-13 15:30:30 CST"
+  ```
+
+Lubridate also expands the type of mathematical operations that can be
+performed with date-time objects. It introduces three new time span
+classes borrowed from <https://www.joda.org>.
+
+- `durations`, which measure the exact amount of time between two points
+
+- `periods`, which accurately track clock times despite leap years, leap
+  seconds, and day light savings time
+
+- `intervals`, a protean summary of the time information between two
+  points
+
+## Code of Conduct
+
+Please note that the lubridate project is released with a [Contributor
+Code of Conduct](https://lubridate.tidyverse.org/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+# Package index
+
+## Date/time parsing
+
+- [`ymd()`](https://lubridate.tidyverse.org/dev/reference/ymd.md)
+  [`ydm()`](https://lubridate.tidyverse.org/dev/reference/ymd.md)
+  [`mdy()`](https://lubridate.tidyverse.org/dev/reference/ymd.md)
+  [`myd()`](https://lubridate.tidyverse.org/dev/reference/ymd.md)
+  [`dmy()`](https://lubridate.tidyverse.org/dev/reference/ymd.md)
+  [`dym()`](https://lubridate.tidyverse.org/dev/reference/ymd.md)
+  [`yq()`](https://lubridate.tidyverse.org/dev/reference/ymd.md)
+  [`ym()`](https://lubridate.tidyverse.org/dev/reference/ymd.md)
+  [`my()`](https://lubridate.tidyverse.org/dev/reference/ymd.md) :
+
+  Parse dates with **y**ear, **m**onth, and **d**ay components
+
+- [`ymd_hms()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`ymd_hm()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`ymd_h()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`dmy_hms()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`dmy_hm()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`dmy_h()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`mdy_hms()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`mdy_hm()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`mdy_h()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`ydm_hms()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`ydm_hm()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  [`ydm_h()`](https://lubridate.tidyverse.org/dev/reference/ymd_hms.md)
+  :
+
+  Parse date-times with **y**ear, **m**onth, and **d**ay, **h**our,
+  **m**inute, and **s**econd components.
+
+- [`ms()`](https://lubridate.tidyverse.org/dev/reference/hms.md)
+  [`hm()`](https://lubridate.tidyverse.org/dev/reference/hms.md)
+  [`hms()`](https://lubridate.tidyverse.org/dev/reference/hms.md) :
+
+  Parse periods with **h**our, **m**inute, and **s**econd components
+
+- [`parse_date_time()`](https://lubridate.tidyverse.org/dev/reference/parse_date_time.md)
+  [`parse_date_time2()`](https://lubridate.tidyverse.org/dev/reference/parse_date_time.md)
+  [`fast_strptime()`](https://lubridate.tidyverse.org/dev/reference/parse_date_time.md)
+  : User friendly date-time parsing functions
+
+- [`guess_formats()`](https://lubridate.tidyverse.org/dev/reference/guess_formats.md)
+  : Guess possible date-times formats from a character vector
+
+## Setting, getting, and rounding
+
+- [`year()`](https://lubridate.tidyverse.org/dev/reference/year.md)
+  [`` `year<-`() ``](https://lubridate.tidyverse.org/dev/reference/year.md)
+  [`isoyear()`](https://lubridate.tidyverse.org/dev/reference/year.md)
+  [`epiyear()`](https://lubridate.tidyverse.org/dev/reference/year.md) :
+  Get/set years component of a date-time
+- [`quarter()`](https://lubridate.tidyverse.org/dev/reference/quarter.md)
+  [`semester()`](https://lubridate.tidyverse.org/dev/reference/quarter.md)
+  : Get the fiscal quarter and semester of a date-time
+- [`month()`](https://lubridate.tidyverse.org/dev/reference/month.md)
+  [`` `month<-`() ``](https://lubridate.tidyverse.org/dev/reference/month.md)
+  : Get/set months component of a date-time
+- [`week()`](https://lubridate.tidyverse.org/dev/reference/week.md)
+  [`` `week<-`() ``](https://lubridate.tidyverse.org/dev/reference/week.md)
+  [`isoweek()`](https://lubridate.tidyverse.org/dev/reference/week.md)
+  [`epiweek()`](https://lubridate.tidyverse.org/dev/reference/week.md) :
+  Get/set weeks component of a date-time
+- [`day()`](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`mday()`](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`wday()`](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`qday()`](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`yday()`](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`` `day<-`() ``](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`` `mday<-`() ``](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`` `qday<-`() ``](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`` `wday<-`() ``](https://lubridate.tidyverse.org/dev/reference/day.md)
+  [`` `yday<-`() ``](https://lubridate.tidyverse.org/dev/reference/day.md)
+  : Get/set days component of a date-time
+- [`hour()`](https://lubridate.tidyverse.org/dev/reference/hour.md)
+  [`` `hour<-`() ``](https://lubridate.tidyverse.org/dev/reference/hour.md)
+  : Get/set hours component of a date-time
+- [`minute()`](https://lubridate.tidyverse.org/dev/reference/minute.md)
+  [`` `minute<-`() ``](https://lubridate.tidyverse.org/dev/reference/minute.md)
+  : Get/set minutes component of a date-time
+- [`second()`](https://lubridate.tidyverse.org/dev/reference/second.md)
+  [`` `second<-`() ``](https://lubridate.tidyverse.org/dev/reference/second.md)
+  : Get/set seconds component of a date-time
+- [`tz()`](https://lubridate.tidyverse.org/dev/reference/tz.md)
+  [`` `tz<-`() ``](https://lubridate.tidyverse.org/dev/reference/tz.md)
+  : Get/set time zone component of a date-time
+
+## Date-time helpers
+
+- [`as_date()`](https://lubridate.tidyverse.org/dev/reference/as_date.md)
+  [`as_datetime()`](https://lubridate.tidyverse.org/dev/reference/as_date.md)
+  : Convert an object to a date or date-time
+- [`cyclic_encoding()`](https://lubridate.tidyverse.org/dev/reference/cyclic_encoding.md)
+  : Cyclic encoding of date-times
+- [`date()`](https://lubridate.tidyverse.org/dev/reference/date.md)
+  [`` `date<-`() ``](https://lubridate.tidyverse.org/dev/reference/date.md)
+  : Get/set date component of a date-time
+- [`decimal_date()`](https://lubridate.tidyverse.org/dev/reference/decimal_date.md)
+  : Converts a date to a decimal of its year
+- [`is.Date()`](https://lubridate.tidyverse.org/dev/reference/date_utils.md)
+  [`Date()`](https://lubridate.tidyverse.org/dev/reference/date_utils.md)
+  [`NA_Date_`](https://lubridate.tidyverse.org/dev/reference/date_utils.md)
+  : Various date utilities
+- [`is.POSIXt()`](https://lubridate.tidyverse.org/dev/reference/posix_utils.md)
+  [`is.POSIXlt()`](https://lubridate.tidyverse.org/dev/reference/posix_utils.md)
+  [`is.POSIXct()`](https://lubridate.tidyverse.org/dev/reference/posix_utils.md)
+  [`POSIXct()`](https://lubridate.tidyverse.org/dev/reference/posix_utils.md)
+  [`NA_POSIXct_`](https://lubridate.tidyverse.org/dev/reference/posix_utils.md)
+  : Various POSIX utilities
+- [`is.instant()`](https://lubridate.tidyverse.org/dev/reference/is.instant.md)
+  [`is.timepoint()`](https://lubridate.tidyverse.org/dev/reference/is.instant.md)
+  : Is x a date-time object?
+- [`make_datetime()`](https://lubridate.tidyverse.org/dev/reference/make_datetime.md)
+  [`make_date()`](https://lubridate.tidyverse.org/dev/reference/make_datetime.md)
+  : Efficient creation of date-times from numeric representations
+- [`now()`](https://lubridate.tidyverse.org/dev/reference/now.md)
+  [`today()`](https://lubridate.tidyverse.org/dev/reference/now.md) :
+  The current day and time
+- [`origin`](https://lubridate.tidyverse.org/dev/reference/origin.md) :
+  1970-01-01 UTC
+
+## Durations
+
+A ‘duration’ is a timespan measured in seconds.
+
+- [`duration()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dseconds()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dminutes()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dhours()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`ddays()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dweeks()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dmonths()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dyears()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dmilliseconds()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dmicroseconds()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dnanoseconds()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`dpicoseconds()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  [`is.duration()`](https://lubridate.tidyverse.org/dev/reference/duration.md)
+  : Create a duration object.
+- [`is.difftime()`](https://lubridate.tidyverse.org/dev/reference/is.difftime.md)
+  : Is x a difftime object?
+- [`make_difftime()`](https://lubridate.tidyverse.org/dev/reference/make_difftime.md)
+  : Create a difftime object.
+- [`as.duration()`](https://lubridate.tidyverse.org/dev/reference/as.duration.md)
+  : Change an object to a duration
+- [`Duration-class`](https://lubridate.tidyverse.org/dev/reference/Duration-class.md)
+  [`durations`](https://lubridate.tidyverse.org/dev/reference/Duration-class.md)
+  : Duration class
+
+## Periods
+
+A ‘period’ is a timespan defined in civil time (human) units like years,
+months, and days.
+
+- [`period()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`is.period()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`seconds()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`minutes()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`hours()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`days()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`weeks()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`years()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`milliseconds()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`microseconds()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`nanoseconds()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`picoseconds()`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  [`months(`*`<numeric>`*`)`](https://lubridate.tidyverse.org/dev/reference/period.md)
+  : Create or parse period objects
+- [`period_to_seconds()`](https://lubridate.tidyverse.org/dev/reference/period_to_seconds.md)
+  [`seconds_to_period()`](https://lubridate.tidyverse.org/dev/reference/period_to_seconds.md)
+  : Contrive a period to/from a given number of seconds
+- [`as.period()`](https://lubridate.tidyverse.org/dev/reference/as.period.md)
+  : Change an object to a period
+- [`Period-class`](https://lubridate.tidyverse.org/dev/reference/Period-class.md)
+  : Period class
+
+## Intervals
+
+An `interval` is a timespan defined by two date-times.
+
+- [`interval()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`` `%--%` ``](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`is.interval()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_start()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`` `int_start<-`() ``](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_end()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`` `int_end<-`() ``](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_length()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_flip()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_shift()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_overlaps()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_standardize()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_aligns()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  [`int_diff()`](https://lubridate.tidyverse.org/dev/reference/interval.md)
+  :
+
+  Utilities for creation and manipulation of `Interval` objects
+
+- [`as.interval()`](https://lubridate.tidyverse.org/dev/reference/as.interval.md)
+  :
+
+  Change an object to an `interval`
+
+- [`` `%within%` ``](https://lubridate.tidyverse.org/dev/reference/within-interval.md)
+  : Does a date (or interval) fall within an interval?
+
+- [`Interval-class`](https://lubridate.tidyverse.org/dev/reference/Interval-class.md)
+  [`intervals`](https://lubridate.tidyverse.org/dev/reference/Interval-class.md)
+  : Interval class
+
+## Timespans
+
+Timespans are the generic concept that underlies durations, periods, and
+intervals.
+
+- [`timespan`](https://lubridate.tidyverse.org/dev/reference/timespan.md)
+  [`timespans`](https://lubridate.tidyverse.org/dev/reference/timespan.md)
+  : Description of time span classes in lubridate
+- [`time_length()`](https://lubridate.tidyverse.org/dev/reference/time_length.md)
+  : Compute the exact length of a time span
+- [`is.timespan()`](https://lubridate.tidyverse.org/dev/reference/is.timespan.md)
+  : Is x a length of time?
+
+## Formatters
+
+- [`stamp()`](https://lubridate.tidyverse.org/dev/reference/stamp.md)
+  [`stamp_date()`](https://lubridate.tidyverse.org/dev/reference/stamp.md)
+  [`stamp_time()`](https://lubridate.tidyverse.org/dev/reference/stamp.md)
+  : Format dates and times based on human-friendly templates
+- [`format_ISO8601()`](https://lubridate.tidyverse.org/dev/reference/format_ISO8601.md)
+  : Format in ISO8601 character format
+
+## Other modification functions
+
+- [`update(`*`<POSIXt>`*`)`](https://lubridate.tidyverse.org/dev/reference/DateTimeUpdate.md)
+  : Changes the components of a date object
+- [`fit_to_timeline()`](https://lubridate.tidyverse.org/dev/reference/fit_to_timeline.md)
+  : Fit a POSIXlt date-time to the timeline
+- [`with_tz()`](https://lubridate.tidyverse.org/dev/reference/with_tz.md)
+  : Get date-time in a different time zone
+- [`force_tz()`](https://lubridate.tidyverse.org/dev/reference/force_tz.md)
+  [`force_tzs()`](https://lubridate.tidyverse.org/dev/reference/force_tz.md)
+  : Replace time zone to create new date-time
+- [`round_date()`](https://lubridate.tidyverse.org/dev/reference/round_date.md)
+  [`floor_date()`](https://lubridate.tidyverse.org/dev/reference/round_date.md)
+  [`ceiling_date()`](https://lubridate.tidyverse.org/dev/reference/round_date.md)
+  : Round, floor and ceiling methods for date-time objects
+- [`pretty_dates()`](https://lubridate.tidyverse.org/dev/reference/pretty_dates.md)
+  : Computes attractive axis breaks for date-time data
+- [`rollbackward()`](https://lubridate.tidyverse.org/dev/reference/rollbackward.md)
+  [`rollback()`](https://lubridate.tidyverse.org/dev/reference/rollbackward.md)
+  [`rollforward()`](https://lubridate.tidyverse.org/dev/reference/rollbackward.md)
+  : Roll backward or forward a date the previous, current or next month
+- [`` `%m+%` ``](https://lubridate.tidyverse.org/dev/reference/mplus.md)
+  [`add_with_rollback()`](https://lubridate.tidyverse.org/dev/reference/mplus.md)
+  : Add and subtract months to a date without exceeding the last day of
+  the new month
+- [`local_time()`](https://lubridate.tidyverse.org/dev/reference/local_time.md)
+  : Get local time from a date-time vector.
+
+## Other date-time components
+
+- [`am()`](https://lubridate.tidyverse.org/dev/reference/am.md)
+  [`pm()`](https://lubridate.tidyverse.org/dev/reference/am.md) : Does
+  date time occur in the am or pm?
+
+- [`days_in_month()`](https://lubridate.tidyverse.org/dev/reference/days_in_month.md)
+  : Get the number of days in the month of a date-time
+
+- [`dst()`](https://lubridate.tidyverse.org/dev/reference/dst.md) :
+
+  Get **d**aylight **s**avings **t**ime indicator of a date-time
+
+- [`leap_year()`](https://lubridate.tidyverse.org/dev/reference/leap_year.md)
+  : Is a year a leap year?
+
+- [`date_decimal()`](https://lubridate.tidyverse.org/dev/reference/date_decimal.md)
+  : Converts a decimal to a date
+
+## Data
+
+- [`lakers`](https://lubridate.tidyverse.org/dev/reference/lakers.md) :
+  Lakers 2008-2009 basketball data set
+
+# Articles
+
+### All vignettes
+
+- [Do more with dates and times in
+  R](https://lubridate.tidyverse.org/dev/articles/lubridate.md):
