@@ -27,11 +27,11 @@ today(tzone = "")
 
 ``` r
 now()
-#> [1] "2026-02-09 09:39:38 UTC"
+#> [1] "2026-02-09 09:48:20 UTC"
 now("GMT")
-#> [1] "2026-02-09 09:39:38 GMT"
+#> [1] "2026-02-09 09:48:20 GMT"
 now("")
-#> [1] "2026-02-09 09:39:38 UTC"
+#> [1] "2026-02-09 09:48:21 UTC"
 now() == now() # would be TRUE if computer processed both at the same instant
 #> [1] FALSE
 now() < now() # TRUE
