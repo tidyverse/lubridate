@@ -11,8 +11,8 @@ some situations. Lubridate makes it easier to do the things R does with
 date-times and possible to do the things R does not.
 
 If you are new to lubridate, the best place to start is the [date and
-times chapter](https://r4ds.had.co.nz/dates-and-times.html) in R for
-data science.
+times chapter](https://r4ds.hadley.nz/datetimes.html) in R for data
+science.
 
 ## Installation
 
@@ -30,7 +30,7 @@ devtools::install_github("tidyverse/lubridate")
 
 ## Cheatsheet
 
-[![](https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/lubridate-cheatsheet-thumbs.png)](https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf)
+[![](https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/lubridate-cheatsheet-thumbs.png)](https://github.com/rstudio/cheatsheets/blob/main/lubridate.pdf)
 
 ## Features
 

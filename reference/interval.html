@@ -47,7 +47,7 @@ moments of each interval occur at the same time.
 int_diff() returns the intervals that occur between the elements of a
 vector of date-times. int_diff() is similar to the POSIXt and Date
 methods of diff(), but returns an Interval object instead
-of a difftime object.'><meta property="og:image" content="https://lubridate.tidyverse.org/logo.png"><script defer data-domain="lubridate.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+of a difftime object.'><meta property="og:image" content="https://lubridate.tidyverse.org/logo.png"><script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="lubridate.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
 
@@ -55,7 +55,7 @@ of a difftime object.'><meta property="og:image" content="https://lubridate.tidy
 
     <a class="navbar-brand me-2" href="../index.html">lubridate</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.9.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.9.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +85,7 @@ of a difftime object.'><meta property="og:image" content="https://lubridate.tidy
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Utilities for creation and manipulation of <code>Interval</code> objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/lubridate/blob/v1.9.4/R/intervals.r" class="external-link"><code>R/intervals.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/lubridate/blob/v1.9.5/R/intervals.r" class="external-link"><code>R/intervals.r</code></a></small>
       <div class="d-none name"><code>interval.Rd</code></div>
     </div>
 
@@ -301,15 +301,15 @@ calculated.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="now.html">now</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">int_diff</span><span class="op">(</span><span class="va">dates</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2026-01-30 20:40:15 UTC--2026-01-31 20:40:15 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 2026-01-31 20:40:15 UTC--2026-02-01 20:40:15 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] 2026-02-01 20:40:15 UTC--2026-02-02 20:40:15 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4] 2026-02-02 20:40:15 UTC--2026-02-03 20:40:15 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5] 2026-02-03 20:40:15 UTC--2026-02-04 20:40:15 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6] 2026-02-04 20:40:15 UTC--2026-02-05 20:40:15 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [7] 2026-02-05 20:40:15 UTC--2026-02-06 20:40:15 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 2026-02-06 20:40:15 UTC--2026-02-07 20:40:15 UTC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [9] 2026-02-07 20:40:15 UTC--2026-02-08 20:40:15 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2026-02-10 09:41:35 UTC--2026-02-11 09:41:35 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 2026-02-11 09:41:35 UTC--2026-02-12 09:41:35 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] 2026-02-12 09:41:35 UTC--2026-02-13 09:41:35 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] 2026-02-13 09:41:35 UTC--2026-02-14 09:41:35 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] 2026-02-14 09:41:35 UTC--2026-02-15 09:41:35 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] 2026-02-15 09:41:35 UTC--2026-02-16 09:41:35 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [7] 2026-02-16 09:41:35 UTC--2026-02-17 09:41:35 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [8] 2026-02-17 09:41:35 UTC--2026-02-18 09:41:35 UTC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [9] 2026-02-18 09:41:35 UTC--2026-02-19 09:41:35 UTC</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

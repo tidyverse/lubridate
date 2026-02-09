@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 1.9.5
+
+CRAN release: 2026-02-04
+
+#### Changes
+
+- lubridate is now MIT licensed
+  ([\#968](https://github.com/tidyverse/lubridate/issues/968)).
+- Fix time stamp orders
+  ([\#1198](https://github.com/tidyverse/lubridate/issues/1198)).
+
 ## Version 1.9.4
 
 CRAN release: 2024-12-08
@@ -8,6 +19,8 @@ CRAN release: 2024-12-08
 
 - Don’t use CET and EST as timezones to accommodate the upgrade of
   tzdata in the R-devel
+- Fix [\#1170](https://github.com/tidyverse/lubridate/issues/1170) Make
+  as_datetime parse partial datetimes just as as.POSIXct does
 
 ## Version 1.9.3
 
