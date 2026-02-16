@@ -81,6 +81,8 @@ reference:
   - as.interval
   - "`%within%`"
   - Interval-class
+  - "`==,Interval,Interval-method`"
+  - "`!=,Interval,Interval-method`"
 
 - title: Timespans
   desc: >
