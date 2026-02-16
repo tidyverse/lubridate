@@ -48,7 +48,7 @@ now <- function(tzone = "") {
 #' today() < as.Date("2999-01-01") # TRUE  (so far)
 #' @export
 today <- function(tzone = "") {
-  as_date(now(tzone))
+  force_tz(as_date(now()),tzone)
 }
 
 #' 1970-01-01 UTC
