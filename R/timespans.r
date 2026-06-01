@@ -81,7 +81,7 @@ NULL
 #'
 #'
 #' @param x a duration, period, difftime or interval
-#' @param unit a character string that specifies with time units to use
+#' @param unit a character string that specifies which time units to use
 #' @return the length of the interval in the specified unit. A negative number
 #' connotes a negative interval or duration
 #'

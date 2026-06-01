@@ -101,7 +101,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
     orders <- c(sub("r", "HOp", orders[wr], fixed = T), orders)
   }
 
-  ## We split into characterst first and then paste together formats that start
+  ## We split into characters first and then paste together formats that start
   ## with O.
   osplits <- strsplit(orders, "", fixed = TRUE)
   osplits <- lapply(
@@ -487,7 +487,7 @@ guess_formats <- function(x, orders, locale = Sys.getlocale("LC_TIME"),
   num_flex["m"] <- sprintf("((?<m>1[0-2]|0?[1-9](?!\\d))|(%s))", gsub("_[bB]", "\\1_m", alpha[["b"]]))
   num_exact["m"] <- sprintf("((?<m_e>1[0-2]|0[1-9])|(%s))", gsub("_[bB]", "\\1_m_e", alpha[["b"]]))
 
-  ## canoot be in num above because gsub("+", "*") messes it up
+  ## cannot be in num above because gsub("+", "*") messes it up
   num_flex["OS"] <- "(?<OS_f>[0-5]\\d\\.\\d+)"
   num_exact["OS"] <- "(?<OS_e>[0-5]\\d\\.\\d+)"
   num_flex["z"] <- sprintf("(%s|%s|%s|%s)", alpha_flex[["Ou"]], num_flex[["Oz"]], num_flex[["OO"]], num_flex[["Oo"]])

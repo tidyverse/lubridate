@@ -99,7 +99,7 @@ parse_period_unit <- function(unit) {
     if (length(wp) > 1) {
       ## Fractional units are actually supported but only when it leads to one
       ## final unit.
-      stop("Cannot't parse heterogenuous or fractional units larger than one minute.")
+      stop("Cannot parse heterogeneous or fractional units larger than one minute.")
     }
 
     list(n = p[wp], unit = period_units[wp])

@@ -263,7 +263,7 @@ check_round_endpoints <- function(unit) {
     stop("Zero length `unit` argument", call. = FALSE)
   }
   if (anyNA(unit)) {
-    stop("NAs in `unit` argument`", call. = FALSE)
+    stop("NAs in `unit` argument", call. = FALSE)
   }
 }
 

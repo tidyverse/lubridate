@@ -114,7 +114,7 @@ reclass_timespan <- function(new, orig) standardGeneric("reclass_timespan")
 #' @export
 setGeneric("reclass_timespan",
   useAsDefault = function(new, orig) {
-    stop(sprintf("reclass_timespan is not defined for class '%s'", class(x)))
+    stop(sprintf("reclass_timespan is not defined for class '%s'", class(orig)))
   }
 )
 
@@ -390,10 +390,10 @@ setMethod("as.period", signature(x = "difftime"), function(x, unit = NULL, ...) 
 setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) {
   ## fixme: document this in the manual
 
-  ## SEMANTICS: for postitive intervals all units of the period will be
-  ## positive, and the oposite for negatve intervals.
+  ## SEMANTICS: for positive intervals all units of the period will be
+  ## positive, and the opposite for negative intervals.
 
-  ## Periods are not symetric in the sense that as.period(int) might not be the
+  ## Periods are not symmetric in the sense that as.period(int) might not be the
   ## same as -as.period(int_flip(int)). See
   ## https://github.com/tidyverse/lubridate/issues/285 for motivation.
 
@@ -423,7 +423,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
       pers[negs] <- -pers[negs]
       pers
     },
-    stop("Unsuported unit ", unit)
+    stop("Unsupported unit ", unit)
   )
 })
 
@@ -493,7 +493,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
     per$month[ndays] <- per$month[ndays] - add_months
   }
 
-  ## substract only after the day computation to capture intervals like:
+  ## subtract only after the day computation to capture intervals like:
   ## as.period(interval(ymd_hms("1985-12-31 5:0:0"), ymd_hms("1986-02-01 3:0:0")))
   per$day[nhous] <- per$day[nhous] - 1
   per$day[negs] <- -per$day[negs]
@@ -561,7 +561,7 @@ setMethod(
           N <- .units_within_seconds(period_to_seconds(x), unit)
           do.call("new", c("Period", N))
         },
-        stop("Unsuported unit ", unit)
+        stop("Unsupported unit ", unit)
       )
     }
   }

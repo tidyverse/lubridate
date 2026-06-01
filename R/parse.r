@@ -476,7 +476,7 @@ hms <- function(..., quiet = FALSE, roll = FALSE) {
 ##'
 ##' \item{`r` (*)}{Matches `Ip` and `H` orders.}
 ##'
-##' \item{`R` (*)}{Matches `HM` and`IMp` orders.}
+##' \item{`R` (*)}{Matches `HM` and `IMp` orders.}
 ##'
 ##' \item{`T` (*)}{Matches `IMSp`, `HMS`, and `HMOS` orders.}
 ##' }
@@ -878,7 +878,7 @@ fast_strptime <- function(x, format, tz = "UTC", lt = TRUE, cutoff_2000 = 68L) {
 ## Expand format strings to also include truncated formats
 ## Get locations of letters as vector
 ## Choose the number at the n - truncated place in the vector
-## return the substring created by 1 to tat number.
+## return the substring created by 1 to that number.
 .add_truncated <- function(orders, truncated) {
   out <- orders
 
@@ -976,7 +976,7 @@ as_POSIXct <- function(x, tz = tz(x)) {
   if (is.character(x)) {
     .parse_iso_dt(x, tz = tz)
   } else if (is.Date(x)) {
-    ## as.POSIXct.Date assues UTC in computation but returns POSIXct with system TZ
+    ## as.POSIXct.Date assumes UTC in computation but returns POSIXct with system TZ
     ## same as as_datetime Date method
     .POSIXct(as.numeric(x) * 86400, tz = "UTC")
   } else if (!is.POSIXct(x)) {

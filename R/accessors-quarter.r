@@ -3,12 +3,12 @@ NULL
 
 #' Get the fiscal quarter and semester of a date-time
 #'
-#' Quarters divide the year into fourths. Semesters divide the year into halfs.
+#' Quarters divide the year into fourths. Semesters divide the year into halves.
 #'
 #' @param x a date-time object of class POSIXct, POSIXlt, Date, chron, yearmon, yearqtr,
 #'   zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can
 #'   be converted with as.POSIXlt
-#' @param type the format to be returned for the quarter. Can be one one of "quarter" -
+#' @param type the format to be returned for the quarter. Can be one of "quarter" -
 #'   return numeric quarter (default), "year.quarter" return the ending year and quarter
 #'   as a number of the form year.quarter, "date_first" or "date_last" - return the date
 #'   at the quarter's start or end, "year_start/end" - return a full description of the
@@ -74,7 +74,7 @@ quarter <- function(x, type = "quarter", fiscal_start = 1, with_year = identical
         add_with_rollback(quarter_starting_dates, months(3)) - days(1)
       }
     },
-    stop("Unsuported type ", type)
+    stop("Unsupported type ", type)
   )
 }
 

@@ -21,7 +21,7 @@
 #'   For backward compatibility, the time zone of a date, `NA`, or
 #'   character vector is `"UTC"`.
 #' @seealso See [DateTimeClasses] for a description of the underlying
-#'   `tzone` attribute..
+#'   `tzone` attribute.
 #' @keywords utilities manip chron methods
 #' @examples
 #' x <- y <- ymd_hms("2012-03-26 10:10:00", tz = "UTC")
