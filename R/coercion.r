@@ -282,7 +282,7 @@ setMethod("as.interval", signature("logical"), function(x, start, ...) {
 })
 
 .number_to_interval <- function(x, start, ...) {
-  if (missing(start) & all(is.na(x))) {
+  if (missing(start) && all(is.na(x))) {
     start <- .POSIXct(NA_real_, tz = "UTC")
   } else {
     stopifnot(is.instant(start))

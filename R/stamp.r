@@ -201,7 +201,7 @@ stamp <- function(x, orders = lubridate_formats,
   .min <- floor((offset_duration - dhours(.hr)) / dminutes(1))
 
   ## warning if we need minutes, but are using format without minutes
-  if (any(.min > 0) & fmt == "%Oo") {
+  if (any(.min > 0) && fmt == "%Oo") {
     warning("timezone offset-minutes are non-zero - changing format to %Oz")
     fmt <- "%Oz"
   }
