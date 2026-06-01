@@ -139,7 +139,7 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
     if (uname != "mday") {
       ## we compute everything with mdays (operating with ydays doesn't work)
       if (uname != "day") {
-        if (uname == "yday" & !is.null(units$year)) {
+        if (uname == "yday" && !is.null(units$year)) {
           warning("Updating on both 'year' and 'yday' can lead to wrong results. See bug #319.", call. = F)
         }
         diff <- units[[uname]] - date[[uname]] - 1
