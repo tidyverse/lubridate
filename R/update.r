@@ -72,7 +72,7 @@ update_datetime <- function(object, years = NULL, months = NULL,
 normalize_units_length <- function(units) {
   if (length(units) == 0)
     return(units)
-  maxlen <- max(unlist(lapply(units, length)))
+  maxlen <- max(lengths(units))
   if (maxlen > 1) {
     for (nm in names(units)) {
       len <- length(units[[nm]])
@@ -159,7 +159,7 @@ update_posixt_old <- function(object, ..., simple = FALSE) {
   date[c("wday", "yday")] <- list(wday = NA, yday = NA)
 
   ## unbalanced POSIXlt often results in R crashes
-  maxlen <- max(unlist(lapply(date, length)))
+  maxlen <- max(lengths(date))
 
   if (maxlen > 1) {
     for (nm in names(date)) {
