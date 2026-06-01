@@ -125,7 +125,7 @@ days_in_month <- function(x) {
   n_days
 }
 
-## fixme: integrate with above, this oen is needed internally
+## fixme: integrate with above, this one is needed internally
 .days_in_month <- function(m, y) {
   n_days <- N_DAYS_IN_MONTHS[m]
   n_days[m == 2L & leap_year(y)] <- 29L

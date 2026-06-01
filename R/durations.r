@@ -296,7 +296,7 @@ average_durations <- c(
     stop(sprintf("First argument to `duration()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
-  ## qucik check for common wrongdoings: #462
+  ## quick check for common wrongdoings: #462
   if (inherits(num, c("Interval", "Period"))) {
     stop("Interval or Period objects cannot be used as input to `duration()` constructor. Use `as.duration()` instead.", call. = FALSE)
   }

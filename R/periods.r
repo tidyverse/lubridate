@@ -467,9 +467,9 @@ parse_period <- function(x) {
     stop(sprintf("First argument to `period()` constructor must be character or numeric. Supplied object of class '%s'", class(num)))
   }
 
-  ## qucik check for common wrongdoings: #462
+  ## quick check for common wrongdoings: #462
   if (inherits(num, c("Interval", "Duration"))) {
-    stop("Interval or Durations objects cannot be used as input to 'period()' constructor. Plese use 'as.period()'.")
+    stop("Interval or Durations objects cannot be used as input to 'period()' constructor. Please use 'as.period()'.")
   }
 
   stop_incompatible_sizes(num, units)

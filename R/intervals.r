@@ -42,7 +42,7 @@ check_interval <- function(object) {
         .units_within_seconds(secs %% 86400, "hour"),
         list(day = secs %/% 86400)
       ),
-    stop("Unsuported unit ", unit)
+    stop("Unsupported unit ", unit)
   )
 }
 

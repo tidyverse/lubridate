@@ -66,7 +66,7 @@ origin <- structure(0, class = c("POSIXct", "POSIXt"), tzone = "UTC")
 .rep_maybe <- function(x, N) {
   if (N > 1 && length(x) > 1 && length(x) != N) {
     out <- rep_len(x, N)
-    ## repl_len doesn't preserve attributes
+    ## rep_len doesn't preserve attributes
     if (is.POSIXct(x)) {
       attributes(out) <- attributes(x)
     }

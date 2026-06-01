@@ -27,7 +27,7 @@ tzdir_get <- function() {
   Sys.getenv("TZDIR")
 }
 
-## adapted from Syz.timezone and OlsonNames function
+## adapted from Sys.timezone and OlsonNames function
 tzdir_find <- function() {
   tzdirs <- c()
 
