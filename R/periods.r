@@ -149,7 +149,7 @@ NULL
 setMethod("initialize", "Period", function(.Object, ...) {
   dots <- list(...)
   names(dots)[!nzchar(allNames(dots))] <- ".Data"
-  lens <- unlist(lapply(dots, length), F, F)
+  lens <- lengths(dots)
 
   ## if any 0-length components, the entire object is 0-length
   if (any(lens == 0)) {
@@ -223,7 +223,7 @@ xtfrm.Period <- function(x) {
 #' @export
 c.Period <- function(...) {
   dots <- list(...)
-  nempty <- sapply(dots, length) != 0
+  nempty <- lengths(dots) != 0
   elements <- lapply(dots[nempty], as.period)
   seconds <- unlist(lapply(elements, slot, ".Data"))
   # don't keep names for slots

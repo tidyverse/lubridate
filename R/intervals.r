@@ -93,7 +93,7 @@ format.Interval <- function(x, ...) {
 #' @export
 c.Interval <- function(...) {
   dots <- list(...)
-  nempty <- sapply(dots, length) != 0
+  nempty <- lengths(dots) != 0
   elements <- lapply(dots[nempty], as.interval)
   spans <- unlist(elements@.Data)
   starts <- do.call(c, unname(lapply(elements, int_start)))
