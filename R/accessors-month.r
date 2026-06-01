@@ -65,7 +65,7 @@ as_month <- function(value) {
     value <- pmatch(
       tolower(value),
       c(
-        "january", "february", "march",
+        "january", "february", "march", "april", "may",
         "june", "july", "august", "september",
         "october", "november", "december"
       )

@@ -2,6 +2,9 @@ Version 1.9.5.9999 (dev)
 =======================
 
 ### Changes
+* Fix `month<-` assignment by month name. "April" and "May" were missing from
+  the lookup table, which produced `NA` for those names and incorrect month
+  numbers for June through December.
 
 
 Version 1.9.5
