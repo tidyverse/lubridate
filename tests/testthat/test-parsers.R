@@ -1121,6 +1121,8 @@ test_that("parser ignores case", {
 test_that("parsing months with dots works in French linux locale", {
   skip_on_cran()
   skip_on_os(c("mac", "solaris", "windows"))
+  suppressWarnings(testthat::skip_if(Sys.setlocale("LC_TIME", "fr_FR.utf8") == ""))
+  on.exit(Sys.setlocale("LC_TIME", "C"))
   expect_equal(
     parse_date_time("02 janv. 2015 12:48", "dbYHM", locale = "fr_FR.utf8"),
     ymd_hms("2015-01-02 12:48:00 UTC")
