@@ -92,6 +92,7 @@ similar to object oriented programming.
 ## Examples
 
 ``` r
+
 ### Separate period and units vectors
 
 duration(90, "seconds")

@@ -113,6 +113,7 @@ for alternative operations.
 ## Examples
 
 ``` r
+
 ### Separate period and units vectors
 
 period(c(90, 5), c("second", "minute"))

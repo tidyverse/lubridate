@@ -134,6 +134,7 @@ By default, rounding up `Date` objects follows 3 steps:
 ## Examples
 
 ``` r
+
 ## print fractional seconds
 options(digits.secs = 6)
 

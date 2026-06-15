@@ -17,6 +17,7 @@ which the year, month, and day appears in your dates. Now arrange “y”,
 lubridate that will parse your dates. For example,
 
 ``` r
+
 library(lubridate)
 #> 
 #> Attaching package: 'lubridate'
@@ -40,6 +41,7 @@ To read the dates in with a certain time zone, supply the official name
 of that time zone in the `tz` argument.
 
 ``` r
+
 arrive <- ymd_hms("2011-06-04 12:00:00", tz = "Pacific/Auckland")
 arrive
 #> [1] "2011-06-04 12:00:00 NZST"
@@ -58,6 +60,7 @@ information. Notice that this will alter the date time. `wday` and
 output with the name of the weekday or month.
 
 ``` r
+
 second(arrive)
 #> [1] 0
 second(arrive) <- 25
@@ -85,6 +88,7 @@ morning Auckland time. What time was that for Hadley who was back in
 Houston, TX?
 
 ``` r
+
 meeting <- ymd_hms("2011-07-01 09:00:00", tz = "Pacific/Auckland")
 with_tz(meeting, "America/Chicago")
 #> [1] "2011-06-30 16:00:00 CDT"
@@ -99,6 +103,7 @@ What if Hadley made a mistake and signed on at 9:00 his time? What time
 would it then be my time?
 
 ``` r
+
 mistake <- force_tz(meeting, "America/Chicago")
 with_tz(mistake, "Pacific/Auckland")
 #> [1] "2011-07-02 02:00:00 NZST"
@@ -114,6 +119,7 @@ from June 4, 2011 to August 10, 2011 (which we’ve already saved as
 arrive and leave). We can create this interval in one of two ways:
 
 ``` r
+
 auckland <- interval(arrive, leave)
 auckland
 #> [1] 2011-06-04 12:00:00 NZST--2011-08-10 14:00:00 NZST
@@ -127,6 +133,7 @@ conferences that year including the Joint Statistical Meetings (JSM).
 This took him out of the country from July 20 until the end of August.
 
 ``` r
+
 jsm <- interval(ymd(20110720, tz = "Pacific/Auckland"), ymd(20110831, tz = "Pacific/Auckland"))
 jsm
 #> [1] 2011-07-20 NZST--2011-08-31 NZST
@@ -135,6 +142,7 @@ jsm
 Will my visit overlap with and his travels? Yes.
 
 ``` r
+
 int_overlaps(jsm, auckland)
 #> [1] TRUE
 ```
@@ -143,6 +151,7 @@ Then I better make hay while the sun shines! For what part of my visit
 will Chris be there?
 
 ``` r
+
 setdiff(auckland, jsm)
 #> [1] 2011-06-04 12:00:00 NZST--2011-07-20 NZST
 ```
@@ -160,6 +169,7 @@ after the units of time (plural). Helper functions for creating
 durations follow the same format but begin with a “d” (for duration).
 
 ``` r
+
 minutes(2) ## period
 #> [1] "2M 0S"
 dminutes(2) ## duration
@@ -175,6 +185,7 @@ durations will be honest in the face of a leap year, but periods may
 return what you want:
 
 ``` r
+
 leap_year(2011) ## regular year
 #> [1] FALSE
 ymd(20110101) + dyears(1)
@@ -195,6 +206,7 @@ times. For example, if I wanted to set up a reoccuring weekly skype
 meeting with Hadley, it would occur on:
 
 ``` r
+
 meetings <- meeting + weeks(0:5)
 ```
 
@@ -202,6 +214,7 @@ Hadley traveled to conferences at the same time as Chris. Which of these
 meetings would be affected? The last two.
 
 ``` r
+
 meetings %within% jsm
 #> [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE
 ```
@@ -209,6 +222,7 @@ meetings %within% jsm
 How long was my stay in Auckland?
 
 ``` r
+
 auckland / ddays(1)
 #> [1] 67.08333
 auckland / ddays(2)
@@ -223,6 +237,7 @@ express a remainder as a fraction of a month because the length of a
 month constantly changes.
 
 ``` r
+
 auckland %/% months(1)
 #> [1] 2
 auckland %% months(1)
@@ -234,6 +249,7 @@ interval. You can turn this or any interval into a generalized time span
 with `as.period`.
 
 ``` r
+
 as.period(auckland %% months(1))
 #> [1] "6d 2H 0M 0S"
 as.period(auckland)
@@ -263,6 +279,7 @@ still get those results with clever arithmetic, or by using the special
 back to the last day of the month, should that be necessary.
 
 ``` r
+
 jan31 <- ymd("2013-01-31")
 jan31 + months(0:11)
 #>  [1] "2013-01-31" NA           "2013-03-31" NA           "2013-05-31"
@@ -288,6 +305,7 @@ interactive settings and within functions. As an example, I offer a
 function for advancing a date to the last day of the month
 
 ``` r
+
 last_day <- function(date) {
   ceiling_date(date, "month") - days(1)
 }

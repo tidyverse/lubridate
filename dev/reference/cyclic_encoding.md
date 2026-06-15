@@ -55,6 +55,7 @@ mapping the dates onto the circle.
 ## Examples
 
 ``` r
+
 times <- ymd_hms("2019-01-01 00:00:00") + hours(0:23)
 cyclic_encoding(times, c("day", "week", "month"))
 #>             sin.day       cos.day  sin.week   cos.week   sin.month

@@ -183,6 +183,7 @@ can change this by setting the `lubridate.verbose` option to `TRUE` with
 ## Examples
 
 ``` r
+
 x <- c("2010-04-14-04-35-59", "2010-04-01-12-00-00")
 ymd_hms(x)
 #> [1] "2010-04-14 04:35:59 UTC" "2010-04-01 12:00:00 UTC"

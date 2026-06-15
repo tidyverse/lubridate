@@ -28,6 +28,7 @@ local_time(dt, tz = NULL, units = "secs")
 ## Examples
 
 ``` r
+
 x <- ymd_hms(c("2009-08-07 01:02:03", "2009-08-07 10:20:30"))
 local_time(x, units = "secs")
 #> Time differences in secs

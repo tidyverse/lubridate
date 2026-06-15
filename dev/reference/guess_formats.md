@@ -48,6 +48,7 @@ a vector of matched formats
 ## Examples
 
 ``` r
+
 x <- c('February 20th 1973',
        "february  14, 2004",
        "Sunday, May 1, 2000",

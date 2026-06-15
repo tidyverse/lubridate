@@ -17,6 +17,7 @@ science.
 ## Installation
 
 ``` r
+
 # The easiest way to get lubridate is to install the whole tidyverse:
 install.packages("tidyverse")
 
@@ -35,6 +36,7 @@ devtools::install_github("tidyverse/lubridate")
 ## Features
 
 ``` r
+
 library(lubridate, warn.conflicts = FALSE)
 ```
 
@@ -46,6 +48,7 @@ library(lubridate, warn.conflicts = FALSE)
   [`mdy()`](https://lubridate.tidyverse.org/dev/reference/ymd.md), …
 
   ``` r
+
   ymd(20101215)
   #> [1] "2010-12-15"
   mdy("4/1/17")
@@ -62,6 +65,7 @@ library(lubridate, warn.conflicts = FALSE)
   [`second()`](https://lubridate.tidyverse.org/dev/reference/second.md):
 
   ``` r
+
   bday <- dmy("14/10/1979")
   month(bday)
   #> [1] 10
@@ -80,6 +84,7 @@ library(lubridate, warn.conflicts = FALSE)
   [`force_tz()`](https://lubridate.tidyverse.org/dev/reference/force_tz.md)
 
   ``` r
+
   time <- ymd_hms("2010-12-13 15:30:30")
   time
   #> [1] "2010-12-13 15:30:30 UTC"
