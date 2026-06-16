@@ -72,6 +72,7 @@ Collate:
     'accessors-month.r'
     'accessors-quarter.r'
     'accessors-second.r'
+    'accessors-term.r'
     'accessors-tz.r'
     'accessors-week.r'
     'accessors-year.r'
