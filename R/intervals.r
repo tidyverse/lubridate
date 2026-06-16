@@ -656,6 +656,51 @@ setMethod("%within%", signature(a = "Interval", b = "list"), function(a, b) {
   out
 })
 
+#' Equality check for Interval objects
+#'
+#' Check whether `e1` and `e2` have the same start and end date-time objects.
+#'
+#' @param e1 An Interval object
+#' @param e2 Another Interval object
+#' @return TRUE if the start and end of `e1` match the start and end of `e1`, otherwise FALSE
+#' @method == Interval
+#' @export
+#' @examples
+#' int1 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+#' int2 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+#' int3 <- interval(as.Date("2021-01-02"), as.Date("2021-12-31"))
+#'
+#' int1 == int2 # TRUE
+#' int1 == int3 # FALSE
+#' c(int1, int2) == c(int2, int3) # TRUE FALSE
+#' int1 == c(int1, int2, int3) # TRUE TRUE FALSE
+#' c(int1, int2, int3) == int1 # TRUE TRUE FALSE
+setMethod("==", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
+  int_start(e1) == int_start(e2) & int_end(e1) == int_end(e2)
+})
+
+#' Inequality check for Interval objects
+#'
+#' Check whether `e1` and `e2` have different start or end date-time objects.
+#'
+#' @param e1 An Interval object
+#' @param e2 Another Interval object
+#' @return TRUE if the start and end of `e1` do not match the start and end of `e1`, otherwise FALSE
+#' @method != Interval
+#' @export
+#' @examples
+#' int1 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+#' int2 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+#' int3 <- interval(as.Date("2021-01-02"), as.Date("2021-12-31"))
+#'
+#' int1 != int2 # FALSE
+#' int1 != int3 # TRUE
+#' c(int1, int2) != c(int2, int3) # FALSE TRUE
+#' int1 != c(int1, int2, int3) # FALSE FALSE TRUE
+#' c(int1, int2, int3) != int1 # FALSE FALSE TRUE
+setMethod("!=", signature(e1 = "Interval", e2 = "Interval"), function(e1, e2) {
+  int_start(e1) != int_start(e2) | int_end(e1) != int_end(e2)
+})
 
 #' @export
 as.list.Interval <- function(x, ...) {

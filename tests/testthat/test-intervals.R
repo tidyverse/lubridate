@@ -883,3 +883,35 @@ test_that("Intervals handles missing numbers", {
 
   expect_equal(intersect(int, int), int)
 })
+
+test_that("Equality operator checks for matching start and end", {
+  int1 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+  int2 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+  int3 <- interval(as.Date("2021-01-02"), as.Date("2021-12-31"))
+  int4 <- interval(as.Date("2020-12-31"), as.Date("2021-12-30"))
+
+  expect_true(int1 == int2)
+  expect_false(int1 == int3)
+
+  expect_equal(c(int1, int2) == c(int2, int1), c(TRUE, TRUE))
+  expect_equal(c(int1, int2) == c(int3, int4), c(FALSE, FALSE))
+  expect_equal(c(int1, int2) == c(int2, int3), c(TRUE, FALSE))
+  expect_equal(int1 == c(int1, int2, int3), c(TRUE, TRUE, FALSE))
+  expect_equal(c(int1, int2, int3) == int1, c(TRUE, TRUE, FALSE))
+})
+
+test_that("Inequality operator checks for non matching start and end", {
+  int1 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+  int2 <- interval(as.Date("2021-01-01"), as.Date("2021-12-30"))
+  int3 <- interval(as.Date("2021-01-02"), as.Date("2021-12-31"))
+  int4 <- interval(as.Date("2020-12-31"), as.Date("2021-12-30"))
+
+  expect_false(int1 != int2)
+  expect_true(int1 != int3)
+
+  expect_equal(c(int1, int2) != c(int2, int1), c(FALSE, FALSE))
+  expect_equal(c(int1, int2) != c(int3, int4), c(TRUE, TRUE))
+  expect_equal(c(int1, int2) != c(int2, int3), c(FALSE, TRUE))
+  expect_equal(int1 != c(int1, int2, int3), c(FALSE, FALSE, TRUE))
+  expect_equal(c(int1, int2, int3) != int1, c(FALSE, FALSE, TRUE))
+})
