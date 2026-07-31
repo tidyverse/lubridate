@@ -5,6 +5,8 @@ Version 1.9.5.9999 (dev)
 * Fix `month<-` assignment by month name. "April" and "May" were missing from
   the lookup table, which produced `NA` for those names and incorrect month
   numbers for June through December.
+* `as_week_start()` now rejects a non-scalar `week_start` with a clear error
+  instead of crashing with an opaque coercion error when checking its range.
 
 
 Version 1.9.5

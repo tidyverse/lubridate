@@ -499,6 +499,35 @@ test_that("Subtracting months to March 1 produces correct results", {
   expect_equal(time - period("1m 1d 4H 1M 1S"), ymd("2022-03-01", tz = "America/New_York"))
 })
 
+test_that("as_week_start rejects non-scalar week_start", {
+  ## A length > 1 numeric week_start previously crashed inside the scalar
+  ## `||` with an opaque R coercion error; it must now fail cleanly.
+  expect_error(
+    as_week_start(c(1, 2)),
+    "must be of length 1"
+  )
+  expect_error(
+    as_week_start(numeric(0)),
+    "must be of length 1"
+  )
+
+  ## The same guard is reachable through the public API.
+  expect_error(
+    wday(as.Date("2020-01-01"), week_start = c(1, 2)),
+    "must be of length 1"
+  )
+  expect_error(
+    update(as.Date("2020-01-01"), wdays = 3, week_start = c(1, 2)),
+    "must be of length 1"
+  )
+
+  ## Valid scalar inputs are unaffected.
+  expect_equal(as_week_start(1), 1)
+  expect_equal(as_week_start(7), 7)
+  expect_error(as_week_start(0), "between 1 and 7")
+  expect_error(as_week_start(8), "between 1 and 7")
+})
+
 ## ## bug #319
 ## x <- structure(list(sec = 0, min = 0, hour = 0, mday = -212, mon = 7L,
 ##                         year = 108L, wday = NA_integer_, yday = NA_integer_, isdst = 0L,
