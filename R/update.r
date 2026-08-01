@@ -84,15 +84,16 @@ normalize_units_length <- function(units) {
 }
 
 as_week_start <- function(x) {
+  if (length(x) != 1L) {
+    stop("Invalid `week_start` argument; must be of length 1")
+  }
+
   if (is.numeric(x)) {
     if (x > 7 || x < 1) {
       stop("Invalid 'week_start' argument; must be between 1 and 7")
     }
     return(x)
   }
-
-  if (length(x) != 1L)
-    stop("Invalid `week_start` argument; must be of length 1")
 
   if (!is.character(x))
     stop("Invalid `week_start` argument; must be a number in 1-7 (Monday based) or string day of the week", call. = FALSE)
