@@ -31,7 +31,7 @@ adjust_estimate <- function(est, int, per) {
   up_date <- add_with_rollback(start, est * per)
   while (length(which <- which(up_date < end))) {
     est[which] <- est[which] + 1
-    up_date[which] <- add_with_rollback(up_date[which], est[which] * per[which])
+    up_date[which] <- add_with_rollback(start[which], est[which] * per[which])
   }
 
   low_date <- up_date
