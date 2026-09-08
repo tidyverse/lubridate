@@ -7,6 +7,10 @@ Version 1.9.5.9999 (dev)
   numbers for June through December.
 * `%/%` and `%%` between a Period/Duration and an Interval now report the
   correct operator in the "Incompatible classes" error instead of `/`.
+* `setdiff()` on intervals no longer errors when the inputs contain `NA`.
+* `.int_to_period()` now uses the correct calendar year when computing month
+  lengths, fixing off-by-one-day results for periods crossing a February in
+  century years such as 1900 and 2000.
 
 
 Version 1.9.5
