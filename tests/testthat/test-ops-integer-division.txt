@@ -19,7 +19,7 @@ Duration numerator
 ==================
 
 > dur %/% int
-Error: Incompatible classes: <Duration> / <Interval>
+Error: Incompatible classes: <Duration> %/% <Interval>
 
 > dur %/% dur
 [1] 1
@@ -32,7 +32,7 @@ Period numeric
 ==============
 
 > per %/% int
-Error: Incompatible classes: <Period> / <Interval>
+Error: Incompatible classes: <Period> %/% <Interval>
 
 > per %/% dur
 Error: Incompatible classes: <Period> %/% <Duration>

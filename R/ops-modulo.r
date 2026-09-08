@@ -53,5 +53,5 @@ setMethod(
 #' @export
 setMethod(
   "%%", signature(e1 = "Period", e2 = "Interval"),
-  function(e1, e2) modulo_period_by_period(e1, e2)
+  function(e1, e2) stop_incompatible_classes(e1, e2, "%%")
 )

@@ -18,9 +18,13 @@ setMethod("%/%", signature("Period", "Period"), trunc_divide)
 #' @export
 setMethod("%/%", signature("Interval", "Duration"), trunc_divide)
 #' @export
-setMethod("%/%", signature("Duration", "Interval"), trunc_divide)
+setMethod("%/%", signature(e1 = "Duration", e2 = "Interval"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, "%/%")
+})
 
 #' @export
 setMethod("%/%", signature("Interval", "Period"), trunc_divide)
 #' @export
-setMethod("%/%", signature("Period", "Interval"), trunc_divide)
+setMethod("%/%", signature(e1 = "Period", e2 = "Interval"), function(e1, e2) {
+  stop_incompatible_classes(e1, e2, "%/%")
+})

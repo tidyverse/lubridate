@@ -5,6 +5,8 @@ Version 1.9.5.9999 (dev)
 * Fix `month<-` assignment by month name. "April" and "May" were missing from
   the lookup table, which produced `NA` for those names and incorrect month
   numbers for June through December.
+* `%/%` and `%%` between a Period/Duration and an Interval now report the
+  correct operator in the "Incompatible classes" error instead of `/`.
 
 
 Version 1.9.5

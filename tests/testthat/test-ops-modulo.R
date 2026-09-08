@@ -5,7 +5,7 @@ test_that("modulo operations return correct class", {
   expect_s4_class(int %% months(1), "Interval")
   expect_s4_class(int %% ddays(10), "Interval")
 
-  expect_error(months(3) %% int)
+  expect_error(months(3) %% int, "%%")
   expect_s4_class(days(3) %% hours(2), "Period")
   expect_error(days(5) %% dminutes(300))
 
