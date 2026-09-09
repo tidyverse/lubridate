@@ -473,7 +473,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
 
     pmonth <- end$mon[ndays]
     pmonth[pmonth == 0] <- 1 # dec == jan == 31 days
-    prev_month_days <- .days_in_month(pmonth, end$year[ndays])
+    prev_month_days <- .days_in_month(pmonth, end$year[ndays] + 1900)
 
     ## difference in days:
     ## /need pmax to capture as.period(interval(ymd("1985-01-31"), ymd("1986-03-28")))/
@@ -485,7 +485,7 @@ setMethod("as.period", signature(x = "Interval"), function(x, unit = NULL, ...) 
   ndays <- negs & per$day < 0 & !is.na(per$day)
   if (any(ndays)) {
     add_months <- rep.int(1, sum(ndays))
-    this_month_days <- .days_in_month(end$mon[ndays] + 1, end$year[ndays])
+    this_month_days <- .days_in_month(end$mon[ndays] + 1, end$year[ndays] + 1900)
 
     ## Compute nr of days:
     ## /need pmax to capture as.period(interval(ymd("1985-01-31"), ymd("1986-03-28")))/

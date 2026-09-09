@@ -521,6 +521,7 @@ setdiff.Interval <- function(x, y, ...) {
   aligned <- int_aligns(x, y)
   inside <- y %within% x
   makes2 <- !aligned & inside
+  makes2[is.na(makes2)] <- FALSE
 
   if (sum(makes2)) {
     stop(paste(
