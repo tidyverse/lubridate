@@ -5,6 +5,10 @@ Version 1.9.5.9999 (dev)
 * Fix `month<-` assignment by month name. "April" and "May" were missing from
   the lookup table, which produced `NA` for those names and incorrect month
   numbers for June through December.
+* Fix an out-of-bounds read in the period and duration string parser when the
+  input contains an opening `(` without a closing `)`. Such strings, for
+  example `period("   1d (")`, could return `NA` depending on the string
+  length.
 
 
 Version 1.9.5

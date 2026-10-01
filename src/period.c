@@ -119,7 +119,7 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
         // skip till closing ')' to allow for as.duration round-trip #1005
         while (**c && **c != ')')
           (*c)++;
-        (*c)++;
+        if (**c) (*c)++; // step over ')' but never past the terminator
       } else {
         (*c)++;
       }

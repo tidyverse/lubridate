@@ -179,6 +179,20 @@ test_that("parsing duration's allows for a full roundtrip", {
   expect_equal(durs, as.duration(as.character(durs)))
 })
 
+test_that("an unclosed parenthesis ends parsing at the end of the string", {
+  # The parser skips "(...)" so format() output round-trips. Without a closing
+  # ")" it must stop at the terminator; reading past it gave NA for some
+  # string lengths (e.g. 7 characters).
+  for (k in 0:40) {
+    s <- paste0(strrep(" ", k), "1d (")
+    expect_equal(period(s), period(days = 1), info = s)
+    expect_equal(duration(paste0(s, "~")), ddays(1), info = s)
+  }
+  expect_equal(period("2 hours (~2 hours"), period(hours = 2))
+  expect_equal(period("(")@.Data, NA_real_)
+  expect_equal(period("1d (2h) 3M"), period(days = 1, minutes = 3))
+})
+
 test_that("as.duration handles intervals", {
   time1 <- as.POSIXct("2009-01-02 12:24:03", tz = "UTC")
   time2 <- as.POSIXct("2010-02-03 14:31:42", tz = "UTC")
