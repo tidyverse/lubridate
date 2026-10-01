@@ -45,6 +45,19 @@ static const char *PERIOD_UNITS[] = {"seconds", "minutes", "hours",
                                      "days", "weeks", "months", "years"};
 #define N_PERIOD_UNITS 7
 
+// Parse a run of digits as a double so that counts beyond INT_MAX, such as
+// the seconds in format() of a duration longer than 68 years, do not
+// overflow. Exact up to 2^53. Returns -1 if *c is not at a digit.
+static double parse_digits(const char **c) {
+  if (!DIGIT(**c)) return -1;
+  double out = 0;
+  while (DIGIT(**c)) {
+    out = out * 10 + (**c - '0');
+    (*c)++;
+  }
+  return out;
+}
+
 fractionUnit parse_period_unit(const char **c) {
   // assumes we are at the beg of a alpha-numeric input
   // units: invalid=-1, S=0,  M=1, H=2, d=3, w=4, m=5, y=6
@@ -53,7 +66,7 @@ fractionUnit parse_period_unit(const char **c) {
   fractionUnit out;
   out.unit = -1;
   if (**c) {
-    out.val = parse_int(c, 100, FALSE);
+    out.val = parse_digits(c);
     if (**c == '.') {
       (*c)++;
       // allow fractions without leading 0

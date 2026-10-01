@@ -29,7 +29,7 @@ typedef struct {
 } intUnit;
 
 typedef struct {
-  int  val;
+  double val; // integer part; -1 when no digits were given
   double fraction;
   int unit;
 } fractionUnit;

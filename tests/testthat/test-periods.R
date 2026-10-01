@@ -107,6 +107,14 @@ test_that("ISO ISO 8601 period parsing works", {
   )
 })
 
+test_that("period components above INT_MAX parse without overflow", {
+  expect_equal(period("2147483647S"), period(seconds = 2147483647))
+  expect_equal(period("2147483648S"), period(seconds = 2147483648))
+  expect_equal(period("3000000000 days"), period(days = 3000000000))
+  expect_equal(period("P3000000000Y"), period(years = 3000000000))
+  expect_equal(period("PT3000000000.5H"), period(hours = 3000000000, seconds = 1800))
+})
+
 test_that("fractional parsing works as expected", {
   expect_equal(
     period("1.1min 2.3sec 2.3secs 1.0H 2.2M 1.5d"),

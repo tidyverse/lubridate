@@ -179,6 +179,19 @@ test_that("parsing duration's allows for a full roundtrip", {
   expect_equal(durs, as.duration(as.character(durs)))
 })
 
+test_that("numbers above INT_MAX parse without overflow", {
+  expect_equal(as.duration("2147483647s"), dseconds(2147483647))
+  expect_equal(as.duration("2147483648s"), dseconds(2147483648))
+  expect_equal(as.duration("2222222222s"), dseconds(2222222222))
+  expect_equal(as.duration("10000000001s"), dseconds(10000000001))
+  expect_equal(as.duration("9007199254740992s"), dseconds(2^53))
+  expect_equal(as.duration("2222222222.25s"), dseconds(2222222222.25))
+  expect_equal(as.duration("3000000000.5 minutes"), dminutes(3000000000.5))
+  # format() writes such durations in full and they parse back unchanged
+  durs <- dseconds(c(2147483648, 2222222222, 3123456789, 10000000001))
+  expect_equal(as.duration(format(durs)), durs)
+})
+
 test_that("as.duration handles intervals", {
   time1 <- as.POSIXct("2009-01-02 12:24:03", tz = "UTC")
   time2 <- as.POSIXct("2010-02-03 14:31:42", tz = "UTC")

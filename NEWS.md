@@ -5,6 +5,10 @@ Version 1.9.5.9999 (dev)
 * Fix `month<-` assignment by month name. "April" and "May" were missing from
   the lookup table, which produced `NA` for those names and incorrect month
   numbers for June through December.
+* Fix integer overflow in the period and duration string parser. Numbers
+  above 2147483647 wrapped around, so `as.duration("3000000000s")` gave a
+  negative duration and `format()` of durations longer than about 68 years did
+  not parse back.
 
 
 Version 1.9.5
