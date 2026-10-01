@@ -69,7 +69,7 @@ with much more permissive lubridate style parsing both for dates and periods
 \code{int_diff()})}
 }
 \value{
-\code{interval()} -- \linkS4class{Interval} object.
+\code{interval()} -- \link[=Interval-class]{Interval} object.
 
 \code{int_start()} and \code{int_end()} return a POSIXct date object when
 used as an accessor. Nothing when used as a setter.
@@ -91,7 +91,7 @@ same moment. FALSE otherwise
 between the n date-time in times
 }
 \description{
-\code{interval()} creates an \linkS4class{Interval} object with the specified start and
+\code{interval()} creates an \link[=Interval-class]{Interval} object with the specified start and
 end dates. If the start date occurs before the end date, the interval will be
 positive. Otherwise, it will be negative. Character vectors in ISO 8601
 format are supported from v1.7.2.
@@ -121,7 +121,7 @@ moments of each interval occur at the same time.
 
 \code{int_diff()} returns the intervals that occur between the elements of a
 vector of date-times. \code{int_diff()} is similar to the POSIXt and Date
-methods of \code{\link[=diff]{diff()}}, but returns an \linkS4class{Interval} object instead
+methods of \code{\link[=diff]{diff()}}, but returns an \link[=Interval-class]{Interval} object instead
 of a difftime object.
 }
 \details{
@@ -146,11 +146,11 @@ span <- interval(ymd(20090101), ymd(20090201))
 interval("2007-03-01T13:00:00Z/2008-05-11T15:30:00Z")
 interval("2007-03-01T13:00:00Z/P1Y2M10DT2H30M")
 interval("P1Y2M10DT2H30M/2008-05-11T15:30:00Z")
-interval("2008-05-11/P2H30M")
+interval("2008-05-11/PT2H30M")
 
 ### More permissive parsing (as long as there are no intermittent / characters)
 interval("2008 05 11/P2hours 30minutes")
-interval("08 05 11/P 2h 30m")
+interval("08 05 11/P 2h 30min")
 
 is.interval(period(months = 1, days = 15)) # FALSE
 is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE
@@ -188,5 +188,5 @@ dates <- now() + days(1:10)
 int_diff(dates)
 }
 \seealso{
-\linkS4class{Interval}, \code{\link[=as.interval]{as.interval()}}, \code{\link{\%within\%}}
+\link[=Interval-class]{Interval}, \code{\link[=as.interval]{as.interval()}}, \code{\link{\%within\%}}
 }

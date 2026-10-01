@@ -268,32 +268,42 @@ exportMethods(format_ISO8601)
 exportMethods(reclass_timespan)
 exportMethods(rep)
 exportMethods(show)
-importFrom(generics,as.difftime)
-importFrom(generics,intersect)
-importFrom(generics,setdiff)
-importFrom(generics,union)
-importFrom(methods,"coerce<-")
-importFrom(methods,"slot<-")
-importFrom(methods,Arith)
-importFrom(methods,Compare)
-importFrom(methods,allNames)
-importFrom(methods,callGeneric)
-importFrom(methods,initialize)
-importFrom(methods,is)
-importFrom(methods,new)
-importFrom(methods,setClass)
-importFrom(methods,setGeneric)
-importFrom(methods,show)
-importFrom(methods,slot)
-importFrom(methods,slotNames)
-importFrom(methods,validObject)
-importFrom(stats,na.omit)
-importFrom(stats,setNames)
-importFrom(stats,update)
-importFrom(timechange,time_add)
-importFrom(timechange,time_force_tz)
-importFrom(timechange,time_get)
-importFrom(timechange,time_update)
-importFrom(utils,packageVersion)
-importFrom(utils,read.delim)
+importFrom(generics,
+  as.difftime,
+  intersect,
+  setdiff,
+  union
+)
+importFrom(methods,
+  "coerce<-",
+  "slot<-",
+  Arith,
+  Compare,
+  allNames,
+  callGeneric,
+  initialize,
+  is,
+  new,
+  setClass,
+  setGeneric,
+  show,
+  slot,
+  slotNames,
+  validObject
+)
+importFrom(stats,
+  na.omit,
+  setNames,
+  update
+)
+importFrom(timechange,
+  time_add,
+  time_force_tz,
+  time_get,
+  time_update
+)
+importFrom(utils,
+  packageVersion,
+  read.delim
+)
 useDynLib(lubridate, .registration=TRUE)

@@ -15,7 +15,7 @@
 \title{Timespan class}
 \description{
 Timespan is an S4 class with no slots. It is extended by the
-\linkS4class{Interval}, \linkS4class{Period}, and \linkS4class{Duration}
+\link[=Interval-class]{Interval}, \link[=Period-class]{Period}, and \link[=Duration-class]{Duration}
 classes.
 }
 \keyword{internal}

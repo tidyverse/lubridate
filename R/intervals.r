@@ -201,11 +201,11 @@ unique.Interval <- function(x, ...) {
 #' interval("2007-03-01T13:00:00Z/2008-05-11T15:30:00Z")
 #' interval("2007-03-01T13:00:00Z/P1Y2M10DT2H30M")
 #' interval("P1Y2M10DT2H30M/2008-05-11T15:30:00Z")
-#' interval("2008-05-11/P2H30M")
+#' interval("2008-05-11/PT2H30M")
 #'
 #' ### More permissive parsing (as long as there are no intermittent / characters)
 #' interval("2008 05 11/P2hours 30minutes")
-#' interval("08 05 11/P 2h 30m")
+#' interval("08 05 11/P 2h 30min")
 #'
 #' is.interval(period(months = 1, days = 15)) # FALSE
 #' is.interval(interval(ymd(20090801), ymd(20090809))) # TRUE

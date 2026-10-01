@@ -150,7 +150,7 @@ is.duration(as.Date("2009-08-03")) # FALSE
 is.duration(duration(days = 12.4)) # TRUE
 }
 \seealso{
-\code{\link[=as.duration]{as.duration()}} \linkS4class{Duration}
+\code{\link[=as.duration]{as.duration()}} \link[=Duration-class]{Duration}
 }
 \keyword{chron}
 \keyword{classes}

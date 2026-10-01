@@ -24,7 +24,7 @@ models the order in which the year ('y'), month ('m') and day
 is provided by \code{\link[=parse_date_time]{parse_date_time()}}.
 
 Lubridate can also parse partial dates from strings into
-\linkS4class{Period} objects with the functions
+\link[=Period-class]{Period} objects with the functions
 \code{\link[=hm]{hm()}}, \code{\link[=hms]{hms()}} and \code{\link[=ms]{ms()}}.
 
 Lubridate has an inbuilt very fast POSIX parser. Most of the \code{\link[=strptime]{strptime()}}
@@ -37,9 +37,9 @@ formats and various extensions are supported for English locales. See
 
 Lubridate distinguishes between moments in time (known as
 \code{\link[=instants]{instants()}}) and spans of time (known as time spans, see
-\linkS4class{Timespan}). Time spans are further separated into
-\linkS4class{Duration}, \linkS4class{Period} and
-\linkS4class{Interval} objects.
+\link[=Timespan-class]{Timespan}). Time spans are further separated into
+\link[=Duration-class]{Duration}, \link[=Period-class]{Period} and
+\link[=Interval-class]{Interval} objects.
 }
 
 \section{Instants}{
@@ -108,8 +108,8 @@ follow complex conventions and rules so that the clock times we see reflect what
 we expect to observe in terms of daylight, season, and congruence with the
 atomic clock. To better navigate the nuances of time, \pkg{lubridate} creates three
 additional timespan classes, each with its own specific and consistent behavior:
-\linkS4class{Interval}, \linkS4class{Period} and
-\linkS4class{Duration}.
+\link[=Interval-class]{Interval}, \link[=Period-class]{Period} and
+\link[=Duration-class]{Duration}.
 
 \code{\link[=is.difftime]{is.difftime()}} tests whether an object
 inherits from the difftime class. \code{\link[=is.timespan]{is.timespan()}}
@@ -196,6 +196,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Vitalie Spinu \email{spinuvit@gmail.com}
   \item Garrett Grolemund
   \item Hadley Wickham
 }

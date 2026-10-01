@@ -95,7 +95,7 @@ oriented programming.
 
 Note: Arithmetic with periods can result in undefined behavior when
 non-existent dates are involved (such as February 29th in non-leap years).
-Please see \linkS4class{Period} for more details and \code{\link{\%m+\%}} and
+Please see \link[=Period-class]{Period} for more details and \code{\link{\%m+\%}} and
 \code{\link[=add_with_rollback]{add_with_rollback()}} for alternative operations.
 }
 \examples{
@@ -166,7 +166,7 @@ is.period(as.Date("2009-08-03")) # FALSE
 is.period(period(months = 1, days = 15)) # TRUE
 }
 \seealso{
-\linkS4class{Period}, \code{\link[=period]{period()}}, \code{\link{\%m+\%}},
+\link[=Period-class]{Period}, \code{\link[=period]{period()}}, \code{\link{\%m+\%}},
 \code{\link[=add_with_rollback]{add_with_rollback()}}
 }
 \keyword{chron}

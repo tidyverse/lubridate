@@ -87,6 +87,13 @@ test_that("Parsing of iso 8601 intervals works", {
   )
 })
 
+test_that("documented ISO interval examples span 2.5 hours", {
+  start <- ymd("2008-05-11", tz = "UTC")
+  for (x in c("2008-05-11/PT2H30M", "2008 05 11/P2hours 30minutes", "08 05 11/P 2h 30min")) {
+    expect_equal(int_end(interval(x)), start + hours(2) + minutes(30), info = x)
+  }
+})
+
 test_that("interval works as expected", {
   time1 <- as.POSIXct("2008-08-03 13:01:59", tz = "UTC")
   time2 <- as.POSIXct("2009-08-03 13:01:59", tz = "UTC")

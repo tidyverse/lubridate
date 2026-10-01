@@ -19,7 +19,7 @@ semester(x, with_year = FALSE)
 zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, fts or anything else that can
 be converted with as.POSIXlt}
 
-\item{type}{the format to be returned for the quarter. Can be one one of "quarter" -
+\item{type}{the format to be returned for the quarter. Can be one of "quarter" -
 return numeric quarter (default), "year.quarter" return the ending year and quarter
 as a number of the form year.quarter, "date_first" or "date_last" - return the date
 at the quarter's start or end, "year_start/end" - return a full description of the
@@ -37,7 +37,7 @@ numeric or a vector of class POSIXct if \code{type} argument is \code{date_first
 financial year.
 }
 \description{
-Quarters divide the year into fourths. Semesters divide the year into halfs.
+Quarters divide the year into fourths. Semesters divide the year into halves.
 }
 \examples{
 x <- ymd(c("2012-03-26", "2012-05-04", "2012-09-23", "2012-12-31"))

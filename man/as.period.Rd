@@ -33,7 +33,7 @@ to Period class objects with the specified units.
 \details{
 Users must specify which time units to measure the period in. The exact length of
 each time unit in a period will depend on when it occurs. See
-\linkS4class{Period} and \code{\link[=period]{period()}}.
+\link[=Period-class]{Period} and \code{\link[=period]{period()}}.
 The choice of units is not trivial; units that are
 normally equal may differ in length depending on when the time period
 occurs. For example, when a leap second occurs one minute is longer than 60
@@ -41,7 +41,7 @@ seconds.
 
 Because periods do not have a fixed length, they can not be accurately
 converted to and from Duration objects. Duration objects measure time spans
-in exact numbers of seconds, see \linkS4class{Duration}. Hence, a one to one
+in exact numbers of seconds, see \link[=Duration-class]{Duration}. Hence, a one to one
 mapping does not exist between durations and periods. When used with a
 Duration object, as.period provides an inexact estimate; the duration is
 broken into time units based on the most common lengths of time units, in
@@ -80,7 +80,7 @@ as.numeric(per, "hours")
 as.numeric(per, "minutes")
 }
 \seealso{
-\linkS4class{Period}, \code{\link[=period]{period()}}
+\link[=Period-class]{Period}, \code{\link[=period]{period()}}
 }
 \keyword{chron}
 \keyword{classes}

@@ -45,6 +45,13 @@ static const char *PERIOD_UNITS[] = {"seconds", "minutes", "hours",
                                      "days", "weeks", "months", "years"};
 #define N_PERIOD_UNITS 7
 
+// Single-letter ISO 8601 designators, as indices into EN_UNITS: S, M, H, D, W,
+// M, Y and the ambiguous M (16).
+static inline int is_designator(int i) {
+  return i == 0 || i == 3 || i == 6 || i == 8 || i == 10 || i == 12 ||
+         i == 14 || i == 16;
+}
+
 fractionUnit parse_period_unit(const char **c) {
   // assumes we are at the beg of a alpha-numeric input
   // units: invalid=-1, S=0,  M=1, H=2, d=3, w=4, m=5, y=6
@@ -52,14 +59,22 @@ fractionUnit parse_period_unit(const char **c) {
 
   fractionUnit out;
   out.unit = -1;
+  out.has_num = 0;
+  out.designator = 0;
   if (**c) {
     out.val = parse_int(c, 100, FALSE);
+    out.has_num = out.val != -1;
     if (**c == '.') {
       (*c)++;
       // allow fractions without leading 0
       if (out.val == -1)
         out.val = 0;
+      const char *frac = *c;
       out.fraction = parse_fractional(c);
+      // "1." and ".5" are numbers, a lone "." (as in ".h") is not
+      if (*c == frac && !out.has_num)
+        return out;
+      out.has_num = 1;
     } else {
       out.fraction = 0.0;
     }
@@ -70,6 +85,7 @@ fractionUnit parse_period_unit(const char **c) {
     if (out.unit < 0 || out.unit > 16) {
       return out;
     } else {
+      out.designator = is_designator(out.unit);
       // if only unit name supplied, default to 1 units
       if (out.val == -1)
         out.val = 1;
@@ -87,7 +103,10 @@ fractionUnit parse_period_unit(const char **c) {
 }
 
 void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
-  int P = 0; // ISO period flag
+  int P = 0; // in the ISO date part, where M is months
+  int iso = 0; // an ISO 'P' has been seen
+  int T = 0; // an ISO 'T' still awaits its first component
+  int seen = 0; // bit per unit: ISO designators used so far
   int parsed1 = 0;
   while (**c) {
     fractionUnit fu = parse_period_unit(c);
@@ -95,13 +114,35 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
     if (fu.unit >= 0) {
       if (fu.unit == 17) { // ISO P
         P = 1;
+        iso = 1;
       } else if (fu.unit == 18) { // ISO T
+        // T follows a P or a component ("PT1H", "10DT10M"), never another T,
+        // and must be followed by a component
+        if (T || (!iso && !parsed1)) {
+          ret[0] = NA_REAL;
+          return;
+        }
         P = 0;
+        T = 1;
       } else {
         if (fu.unit == 16) { // month or minute
           fu.unit = P ? 5 : 1;
         }
+        if (iso && fu.designator) {
+          // an ISO designator needs a number and may occur only once
+          int bit = 1 << fu.unit;
+          if (!fu.has_num || (seen & bit)) {
+            ret[0] = NA_REAL;
+            return;
+          }
+          seen |= bit;
+          // an hours or seconds designator before 'T' ("P2H30M") starts the
+          // time part, so a later M is minutes, not months
+          if (P && (fu.unit == 2 || fu.unit == 0))
+            P = 0;
+        }
         parsed1 = 1;
+        T = 0;
         ret[fu.unit] += fu.val;
         if (fu.fraction > 0) {
           if (fu.unit == 0) ret[fu.unit] += fu.fraction;
@@ -116,17 +157,24 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
     while (**c && !(ALPHA(**c) || DIGIT(**c) || **c == '.')) {
       /* Rprintf("c=%c\n", **c); */
       if (**c == '(') {
-        // skip till closing ')' to allow for as.duration round-trip #1005
-        while (**c && **c != ')')
-          (*c)++;
+        // skip till closing ')' to allow for as.duration round-trip #1005;
+        // nothing nests there, so a second '(' is malformed
         (*c)++;
+        while (**c && **c != ')') {
+          if (**c == '(') {
+            ret[0] = NA_REAL;
+            return;
+          }
+          (*c)++;
+        }
+        if (**c) (*c)++; // step over ')' but never past the terminator
       } else {
         (*c)++;
       }
     }
   }
 
-  if (!parsed1) {
+  if (!parsed1 || T) {
     ret[0] = NA_REAL;
   }
 }

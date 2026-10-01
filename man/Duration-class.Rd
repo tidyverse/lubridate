@@ -6,7 +6,7 @@
 \alias{durations}
 \title{Duration class}
 \description{
-Duration is an S4 class that extends the \linkS4class{Timespan} class.
+Duration is an S4 class that extends the \link[=Timespan-class]{Timespan} class.
 Durations record the exact number of seconds in a time span. They measure the
 exact passage of time but do not always align with measurements
 made in larger units of time such as hours, months and years.
@@ -18,7 +18,7 @@ and Daylight Savings Time.
 Durations provide a method for measuring generalized timespans when we wish to
 treat time as a mathematical quantity that increases in a uniform, monotone manner
 along a continuous number line. They allow exact comparisons with other durations.
-See \linkS4class{Period} for an alternative way to measure timespans that better
+See \link[=Period-class]{Period} for an alternative way to measure timespans that better
 preserves clock times.
 
 Durations class objects have one slot: .Data, a numeric object equal to the number

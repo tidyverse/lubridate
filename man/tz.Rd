@@ -55,7 +55,7 @@ with_tz(x, "Pacific/Auckland")
 }
 \seealso{
 See \link{DateTimeClasses} for a description of the underlying
-\code{tzone} attribute..
+\code{tzone} attribute.
 }
 \keyword{chron}
 \keyword{manip}

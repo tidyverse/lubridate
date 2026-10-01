@@ -32,6 +32,8 @@ typedef struct {
   int  val;
   double fraction;
   int unit;
+  int has_num;    // a number was written before the unit
+  int designator; // the unit was a single-letter ISO 8601 designator
 } fractionUnit;
 
 // leap year every 400 years; no leap every 100 years
