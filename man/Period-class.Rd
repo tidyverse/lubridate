@@ -5,7 +5,7 @@
 \alias{Period-class}
 \title{Period class}
 \description{
-Period is an S4 class that extends the \linkS4class{Timespan} class.
+Period is an S4 class that extends the \link[=Timespan-class]{Timespan} class.
 Periods track the change in the "clock time" between two date-times. They
 are measured in common time related units: years, months, days, hours,
 minutes, and seconds. Each unit except for seconds must be expressed in
@@ -17,7 +17,7 @@ specific moment of time. This is because the precise length of one year,
 month, day, etc. can change depending on when it occurs due to daylight savings,
 leap years, and other conventions. A period can be
 associated with a specific moment in time by coercing it to an
-\linkS4class{Interval} object with \code{\link[=as.interval]{as.interval()}} or by adding
+\link[=Interval-class]{Interval} object with \code{\link[=as.interval]{as.interval()}} or by adding
 it to a date-time with "+".
 
 Periods provide a method for measuring generalized timespans when we wish to
@@ -27,7 +27,7 @@ other events happen during the period.
 
 Because Period represents imprecise amount of time it cannot be compared to
 precise timestamps as Durations and Intervals are. You need to explicitly
-convert to durations. See \linkS4class{Duration}.
+convert to durations. See \link[=Duration-class]{Duration}.
 
 The logic that guides arithmetic with periods can be unintuitive. Starting
 with version 1.3.0, \pkg{lubridate} enforces the reversible property of arithmetic

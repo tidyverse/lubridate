@@ -5,6 +5,15 @@ Version 1.9.5.9999 (dev)
 * Fix `month<-` assignment by month name. "April" and "May" were missing from
   the lookup table, which produced `NA` for those names and incorrect month
   numbers for June through December.
+* `period()`, `as.period()`, `duration()` and `as.duration()` now honour the
+  sign of character input instead of silently dropping it. A `-` or `+`
+  directly before the ISO 8601 "P" negates every component (`"-PT30M"` is
+  -30 minutes), and one directly before a number negates that component only
+  (`"P1DT-2H"` is one day minus two hours). This also makes the output of
+  `format()` for negative periods and durations parse back to the same value,
+  and gives shorthand strings such as `"-1 day"` their sign. A dash followed by
+  a space or a letter is still a separator. U+2212 MINUS SIGN, which ISO 8601
+  uses, is accepted wherever `-` is.
 
 
 Version 1.9.5

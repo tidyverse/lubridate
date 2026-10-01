@@ -32,6 +32,7 @@ typedef struct {
   int  val;
   double fraction;
   int unit;
+  int sign; // -1 or 1
 } fractionUnit;
 
 // leap year every 400 years; no leap every 100 years

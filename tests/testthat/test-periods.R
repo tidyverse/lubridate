@@ -107,6 +107,81 @@ test_that("ISO ISO 8601 period parsing works", {
   )
 })
 
+test_that("signed ISO 8601 periods parse with their sign", {
+  # leading sign negates every component, as in SDTM elapsed times ("-PT15M")
+  expect_equal(period("-PT30M"), period(minutes = -30))
+  expect_equal(period("+PT30M"), period(minutes = 30))
+  expect_equal(
+    period("-P1Y2M3DT4H5M6S"),
+    period(years = -1, months = -2, days = -3, hours = -4, minutes = -5, seconds = -6)
+  )
+  expect_equal(period("-P2W"), period(days = -14))
+  # sign on a single component applies to that component only
+  expect_equal(period("PT-30M"), period(minutes = -30))
+  expect_equal(period("P1DT-2H"), period(days = 1, hours = -2))
+  expect_equal(period("P-1DT2H"), period(days = -1, hours = 2))
+  # leading and component signs multiply
+  expect_equal(period("-PT-30M"), period(minutes = 30))
+  expect_equal(period("-P1DT-2H"), period(days = -1, hours = 2))
+  # fractional components keep the sign on both the integer and fractional part
+  expect_equal(period("-PT0.5H"), period(seconds = -1800))
+  expect_equal(period("PT-0.5H"), period(seconds = -1800))
+  expect_equal(period("-PT1.5H"), period(hours = -1, seconds = -1800))
+  expect_equal(period("PT-.5H"), period(seconds = -1800))
+  expect_equal(period("-P1.5D"), period(days = -1, seconds = -43200))
+  # vectorised, with the sign independent per element
+  expect_equal(
+    period(c("-PT15M", "PT15M", "-P1D", NA)),
+    period(minutes = c(-15, 15, 0, NA), days = c(0, 0, -1, NA))
+  )
+  expect_equal(as.period("-PT30M"), period(minutes = -30))
+})
+
+test_that("signs in shorthand periods apply to the following number", {
+  expect_equal(period("-1 day"), period(days = -1))
+  expect_equal(period("1d -2H"), period(days = 1, hours = -2))
+  expect_equal(period("1d-2h"), period(days = 1, hours = -2))
+  expect_equal(period("-1.5 hours"), period(hours = -1, seconds = -1800))
+  # format() output of negative periods parses back to the same period
+  p <- period(days = c(-2, -1, 1), hours = c(0, 3, -3), minutes = c(-5, 0, 0))
+  expect_equal(period(format(p)), p)
+})
+
+test_that("U+2212 MINUS SIGN is a sign wherever \"-\" is", {
+  minus <- "\u2212"
+  expect_equal(period(paste0(minus, "PT30M")), period(minutes = -30))
+  expect_equal(period(paste0("PT", minus, "0.5H")), period(seconds = -1800))
+  expect_equal(period(paste0("P1DT", minus, "2H")), period(days = 1, hours = -2))
+  expect_equal(period(paste0(minus, "PT", minus, "30M")), period(minutes = 30))
+  expect_equal(period(paste0(minus, "1 day")), period(days = -1))
+  expect_equal(period(paste0(minus, ".5 hours")), period(seconds = -1800))
+  expect_equal(as.duration(paste0(minus, "PT15M")), dminutes(-15))
+  # like "-", it is a separator when not directly before a number or "P"
+  expect_equal(period(paste0("1 day ", minus, " 2 hours")), period(days = 1, hours = 2))
+  expect_equal(period(paste0(minus, "X"))@.Data, NA_real_)
+  # other dashes are not signs
+  for (dash in c("\u2010", "\u2013", "\u2014", "\ufe63", "\uff0d")) {
+    expect_equal(period(paste0(dash, "PT30M")), period(minutes = 30), info = dash)
+  }
+})
+
+test_that("unsigned period strings and dash-space separators are unchanged", {
+  expect_equal(period("PT30M"), period(minutes = 30))
+  expect_equal(period("PT0.5H"), period(seconds = 1800))
+  expect_equal(
+    period("P3Y6M4DT12H30M5S"),
+    period(years = 3, months = 6, days = 4, hours = 12, minutes = 30, seconds = 5)
+  )
+  # a dash followed by a space, or by a letter, is a separator, not a sign
+  expect_equal(period("1 day - 2 hours"), period(days = 1, hours = 2))
+  expect_equal(period("- 1 day"), period(days = 1))
+  expect_equal(period("1day -hour"), period(days = 1, hours = 1))
+  # a sign before something that is not a number or "P" is a parse failure, as before
+  expect_equal(period("-")@.Data, NA_real_)
+  expect_equal(period("-P")@.Data, NA_real_)
+  expect_equal(period("-X")@.Data, NA_real_)
+})
+
 test_that("fractional parsing works as expected", {
   expect_equal(
     period("1.1min 2.3sec 2.3secs 1.0H 2.2M 1.5d"),

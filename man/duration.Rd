@@ -47,7 +47,8 @@ is.duration(x)
 representation all unambiguous name units and abbreviations and ISO 8601
 formats are supported; 'm' stands for month and 'M' for minutes unless ISO
 8601 "P" modifier is present (see examples). Fractional units are
-supported.}
+supported. A \code{-} or \code{+} directly before a number or before the ISO 8601
+"P" is a sign, as described in \code{\link[=period]{period()}}.}
 
 \item{units}{a character string that specifies the type of units that \code{num}
 refers to. When \code{num} is character, this argument is ignored.}
@@ -119,6 +120,7 @@ duration("P3Y6M4DT12H30M5S")
 duration("P23DT23H") # M stands for months
 duration("10DT10M") # M stands for minutes
 duration("P23DT60H 20min 100 sec") # mixing ISO and lubridate style parsing
+duration("-PT30M") # negative, e.g. 30 minutes before a reference time
 
 # Comparison with characters (from v1.6.0)
 
@@ -150,7 +152,7 @@ is.duration(as.Date("2009-08-03")) # FALSE
 is.duration(duration(days = 12.4)) # TRUE
 }
 \seealso{
-\code{\link[=as.duration]{as.duration()}} \linkS4class{Duration}
+\code{\link[=as.duration]{as.duration()}} \link[=Duration-class]{Duration}
 }
 \keyword{chron}
 \keyword{classes}

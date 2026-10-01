@@ -69,7 +69,7 @@ with much more permissive lubridate style parsing both for dates and periods
 \code{int_diff()})}
 }
 \value{
-\code{interval()} -- \linkS4class{Interval} object.
+\code{interval()} -- \link[=Interval-class]{Interval} object.
 
 \code{int_start()} and \code{int_end()} return a POSIXct date object when
 used as an accessor. Nothing when used as a setter.
@@ -91,7 +91,7 @@ same moment. FALSE otherwise
 between the n date-time in times
 }
 \description{
-\code{interval()} creates an \linkS4class{Interval} object with the specified start and
+\code{interval()} creates an \link[=Interval-class]{Interval} object with the specified start and
 end dates. If the start date occurs before the end date, the interval will be
 positive. Otherwise, it will be negative. Character vectors in ISO 8601
 format are supported from v1.7.2.
@@ -121,7 +121,7 @@ moments of each interval occur at the same time.
 
 \code{int_diff()} returns the intervals that occur between the elements of a
 vector of date-times. \code{int_diff()} is similar to the POSIXt and Date
-methods of \code{\link[=diff]{diff()}}, but returns an \linkS4class{Interval} object instead
+methods of \code{\link[=diff]{diff()}}, but returns an \link[=Interval-class]{Interval} object instead
 of a difftime object.
 }
 \details{
@@ -188,5 +188,5 @@ dates <- now() + days(1:10)
 int_diff(dates)
 }
 \seealso{
-\linkS4class{Interval}, \code{\link[=as.interval]{as.interval()}}, \code{\link{\%within\%}}
+\link[=Interval-class]{Interval}, \code{\link[=as.interval]{as.interval()}}, \code{\link{\%within\%}}
 }

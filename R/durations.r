@@ -191,7 +191,8 @@ setMethod(
 #'   representation all unambiguous name units and abbreviations and ISO 8601
 #'   formats are supported; 'm' stands for month and 'M' for minutes unless ISO
 #'   8601 "P" modifier is present (see examples). Fractional units are
-#'   supported.
+#'   supported. A `-` or `+` directly before a number or before the ISO 8601
+#'   "P" is a sign, as described in [period()].
 #' @param units a character string that specifies the type of units that `num`
 #'   refers to. When `num` is character, this argument is ignored.
 #' @param ... a list of time units to be included in the duration and their
@@ -235,6 +236,7 @@ setMethod(
 #' duration("P23DT23H") # M stands for months
 #' duration("10DT10M") # M stands for minutes
 #' duration("P23DT60H 20min 100 sec") # mixing ISO and lubridate style parsing
+#' duration("-PT30M") # negative, e.g. 30 minutes before a reference time
 #'
 #' # Comparison with characters (from v1.6.0)
 #'

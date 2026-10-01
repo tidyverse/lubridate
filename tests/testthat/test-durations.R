@@ -179,6 +179,27 @@ test_that("parsing duration's allows for a full roundtrip", {
   expect_equal(durs, as.duration(as.character(durs)))
 })
 
+test_that("signed ISO 8601 durations parse with their sign", {
+  expect_equal(as.duration("-PT30M"), dminutes(-30))
+  expect_equal(duration("-PT30M"), dminutes(-30))
+  expect_equal(as.duration("-PT0.5H"), dseconds(-1800))
+  expect_equal(duration("PT-0.5H"), dseconds(-1800))
+  expect_equal(duration("P1DT-2H"), ddays(1) - dhours(2))
+  expect_equal(duration("-P1DT2H"), -(ddays(1) + dhours(2)))
+  expect_equal(as.duration("+PT15M"), dminutes(15))
+  expect_equal(as.duration("PT15M"), dminutes(15))
+  expect_equal(
+    as.duration(c("-PT15M", "PT15M", NA)),
+    dminutes(c(-15, 15, NA))
+  )
+})
+
+test_that("negative durations round-trip through format()", {
+  durs <- duration(seconds = c(-10, -1000, -31557600, 0, 1000))
+  expect_equal(as.duration(format(durs)), durs)
+  expect_equal(as.duration("-1800s (~-30 minutes)"), dseconds(-1800))
+})
+
 test_that("as.duration handles intervals", {
   time1 <- as.POSIXct("2009-01-02 12:24:03", tz = "UTC")
   time2 <- as.POSIXct("2010-02-03 14:31:42", tz = "UTC")

@@ -45,13 +45,43 @@ static const char *PERIOD_UNITS[] = {"seconds", "minutes", "hours",
                                      "days", "weeks", "months", "years"};
 #define N_PERIOD_UNITS 7
 
+// A '-', '+' or U+2212 MINUS SIGN (UTF-8 E2 88 92, which ISO 8601 uses) is a
+// sign only when it immediately precedes a number or the ISO 'P' designator
+// ("-PT30M", "PT-0.5H", "-1 day"). Elsewhere it is a separator. Returns the
+// sign's length in bytes, or 0.
+static inline int sign_len(const char *c) {
+  int len = 0;
+  if (*c == '-' || *c == '+')
+    len = 1;
+  else if ((unsigned char)c[0] == 0xE2 && (unsigned char)c[1] == 0x88 &&
+           (unsigned char)c[2] == 0x92)
+    len = 3;
+  if (len && (DIGIT(c[len]) || c[len] == '.' || c[len] == 'P'))
+    return len;
+  return 0;
+}
+
+static inline int is_sign(const char *c) {
+  return sign_len(c) > 0;
+}
+
+static inline int at_token(const char *c) {
+  return ALPHA(*c) || DIGIT(*c) || *c == '.' || is_sign(c);
+}
+
 fractionUnit parse_period_unit(const char **c) {
   // assumes we are at the beg of a alpha-numeric input
   // units: invalid=-1, S=0,  M=1, H=2, d=3, w=4, m=5, y=6
-  while(**c && !(ALPHA(**c) || DIGIT(**c) || **c == '.')) (*c)++;
+  while(**c && !at_token(*c)) (*c)++;
 
   fractionUnit out;
   out.unit = -1;
+  out.sign = 1;
+  int slen = sign_len(*c);
+  if (slen) {
+    if (**c != '+') out.sign = -1;
+    *c += slen;
+  }
   if (**c) {
     out.val = parse_int(c, 100, FALSE);
     if (**c == '.') {
@@ -88,6 +118,10 @@ fractionUnit parse_period_unit(const char **c) {
 
 void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
   int P = 0; // ISO period flag
+  // A sign before the ISO 'P' ("-P1DT2H") negates every component after it; a
+  // sign on one component ("P1DT-2H") negates that component only. The two
+  // multiply, so "-PT-30M" is +30 minutes.
+  int Psign = 1;
   int parsed1 = 0;
   while (**c) {
     fractionUnit fu = parse_period_unit(c);
@@ -95,6 +129,7 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
     if (fu.unit >= 0) {
       if (fu.unit == 17) { // ISO P
         P = 1;
+        Psign = fu.sign;
       } else if (fu.unit == 18) { // ISO T
         P = 0;
       } else {
@@ -102,10 +137,11 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
           fu.unit = P ? 5 : 1;
         }
         parsed1 = 1;
-        ret[fu.unit] += fu.val;
+        int sign = Psign * fu.sign;
+        ret[fu.unit] += sign * fu.val;
         if (fu.fraction > 0) {
-          if (fu.unit == 0) ret[fu.unit] += fu.fraction;
-          else ret[0] += fu.fraction * SECONDS_IN_ONE[fu.unit];
+          if (fu.unit == 0) ret[fu.unit] += sign * fu.fraction;
+          else ret[0] += sign * fu.fraction * SECONDS_IN_ONE[fu.unit];
         }
       }
     } else {
@@ -113,7 +149,7 @@ void parse_period_1 (const char **c, double ret[N_PERIOD_UNITS]){
       break;
     }
 
-    while (**c && !(ALPHA(**c) || DIGIT(**c) || **c == '.')) {
+    while (**c && !at_token(*c)) {
       /* Rprintf("c=%c\n", **c); */
       if (**c == '(') {
         // skip till closing ')' to allow for as.duration round-trip #1005
@@ -151,7 +187,8 @@ SEXP C_parse_period(SEXP str) {
   double *data = REAL(out);
 
   for (int i = 0; i < n; i++) {
-    const char *c = CHAR(STRING_ELT(str, i));
+    // UTF-8 so that U+2212 is recognised whatever the input encoding
+    const char *c = translateCharUTF8(STRING_ELT(str, i));
     double ret[N_PERIOD_UNITS] = {0};
     parse_period_1(&c, ret);
     int j = i * N_PERIOD_UNITS;

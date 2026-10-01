@@ -14,6 +14,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{generics}{\code{\link[generics:coercion-time-difference]{as.difftime}}, \code{\link[generics:setops]{intersect}}, \code{\link[generics:setops]{setdiff}}, \code{\link[generics:setops]{union}}}
+  \item{generics}{\code{\link[generics:as.difftime]{as.difftime()}}, \code{\link[generics:intersect]{intersect()}}, \code{\link[generics:setdiff]{setdiff()}}, \code{\link[generics:union]{union()}}}
 }}
 

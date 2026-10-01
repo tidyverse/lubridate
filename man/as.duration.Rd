@@ -28,7 +28,7 @@ with the seconds unit equal to the numeric value.
 }
 \details{
 Durations are exact time measurements, whereas periods are relative time
-measurements. See \linkS4class{Period}. The length of a period depends
+measurements. See \link[=Period-class]{Period}. The length of a period depends
 on when it occurs. Hence, a one to one mapping does not exist between
 durations and periods. When used with a period object, as.duration provides
 an inexact estimate of the length of the period; each time unit is assigned
@@ -46,7 +46,7 @@ as.numeric(dur, "hours")
 as.numeric(dur, "minutes")
 }
 \seealso{
-\linkS4class{Duration}, \code{\link[=duration]{duration()}}
+\link[=Duration-class]{Duration}, \code{\link[=duration]{duration()}}
 }
 \keyword{chron}
 \keyword{classes}

@@ -12,7 +12,7 @@ time_length(x, unit = "second")
 \arguments{
 \item{x}{a duration, period, difftime or interval}
 
-\item{unit}{a character string that specifies with time units to use}
+\item{unit}{a character string that specifies which time units to use}
 }
 \value{
 the length of the interval in the specified unit. A negative number
@@ -22,11 +22,11 @@ connotes a negative interval or duration
 Compute the exact length of a time span
 }
 \details{
-When \code{x} is an \linkS4class{Interval} object and
+When \code{x} is an \link[=Interval-class]{Interval} object and
 \code{unit} are years or months, \code{time_length()} takes into account
 the fact that all months and years don't have the same number of days.
 
-When \code{x} is a \linkS4class{Duration}, \linkS4class{Period}
+When \code{x} is a \link[=Duration-class]{Duration}, \link[=Period-class]{Period}
 or \code{\link[=difftime]{difftime()}} object, length in months or years is based on their
 most common lengths in seconds (see \code{\link[=timespan]{timespan()}}).
 }
