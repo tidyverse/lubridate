@@ -44,9 +44,11 @@ as_datetime(x, ...)
 \item{tz}{a time zone name (default: time zone of the POSIXt object \code{x}). See
 \code{\link[=OlsonNames]{OlsonNames()}}.}
 
-\item{origin}{a Date object, or something which can be coerced by \code{as.Date(origin, ...)} to such an object (default: the Unix epoch of "1970-01-01"). Note that in
-this instance, \code{x} is assumed to reflect the number of days since \code{origin} at
-\code{"UTC"}.}
+\item{origin}{The origin for numeric inputs, defaulting to the Unix epoch
+("1970-01-01"). \code{as_date()} interprets \code{x} as days since \code{origin} and
+accepts an origin that \code{\link[=as.Date]{as.Date()}} can interpret. \code{as_datetime()}
+interprets \code{x} as seconds since \code{origin} and accepts an origin that
+\code{\link[=as.POSIXct]{as.POSIXct()}} can interpret.}
 
 \item{format}{format argument for character methods. When supplied parsing is
 performed by \code{parse_date_time(x, orders = formats, exact = TRUE)}. Thus, multiple
@@ -89,6 +91,9 @@ c(as_date(dt_utc), as.Date(dt_utc))
 c(as_date(dt_europe), as.Date(dt_europe))
 ## need not supply origin
 as_date(10)
+## Numeric dates use days and numeric date-times use seconds
+as_date(1, origin = "2000-01-01")
+as_datetime(1, origin = "2000-01-01")
 ## Will replace invalid date format with NA
 dt_wrong <- c("2009-09-29", "2012-11-29", "2015-29-12")
 as_date(dt_wrong)

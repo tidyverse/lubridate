@@ -689,10 +689,11 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' }
 #'
 #' @param x a vector of [POSIXt], numeric or character objects
-#' @param origin a Date object, or something which can be coerced by `as.Date(origin,
-#'   ...)` to such an object (default: the Unix epoch of "1970-01-01"). Note that in
-#'   this instance, `x` is assumed to reflect the number of days since `origin` at
-#'   `"UTC"`.
+#' @param origin The origin for numeric inputs, defaulting to the Unix epoch
+#'   ("1970-01-01"). `as_date()` interprets `x` as days since `origin` and
+#'   accepts an origin that [as.Date()] can interpret. `as_datetime()`
+#'   interprets `x` as seconds since `origin` and accepts an origin that
+#'   [as.POSIXct()] can interpret.
 #' @param tz a time zone name (default: time zone of the POSIXt object `x`). See
 #'   [OlsonNames()].
 #' @param format format argument for character methods. When supplied parsing is
@@ -707,6 +708,9 @@ setMethod("as.character", signature(x = "Interval"), function(x, ...) {
 #' c(as_date(dt_europe), as.Date(dt_europe))
 #' ## need not supply origin
 #' as_date(10)
+#' ## Numeric dates use days and numeric date-times use seconds
+#' as_date(1, origin = "2000-01-01")
+#' as_datetime(1, origin = "2000-01-01")
 #' ## Will replace invalid date format with NA
 #' dt_wrong <- c("2009-09-29", "2012-11-29", "2015-29-12")
 #' as_date(dt_wrong)
