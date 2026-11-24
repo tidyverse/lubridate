@@ -2,6 +2,8 @@ Version 1.9.5.9999 (dev)
 =======================
 
 ### Changes
+* `format_ISO8601()` formats periods and durations as fixed-point decimals
+  independently of R's numeric print options (#1218).
 * Fix `month<-` assignment by month name. "April" and "May" were missing from
   the lookup table, which produced `NA` for those names and incorrect month
   numbers for June through December.

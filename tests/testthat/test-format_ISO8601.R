@@ -116,6 +116,25 @@ test_that("Formatting a Period works", {
   )
 })
 
+test_that("ISO8601 timespans ignore numeric print options", {
+  old <- options(scipen = -9L, OutDec = ",", digits = 3L)
+  on.exit(options(old), add = TRUE)
+
+  values <- c(1e6, 1.23456789012345, -2.5e-7, 0)
+  expected <- c("PT1000000S", "PT1.23456789012345S", "PT-0.00000025S", "PT0S")
+  expect_identical(format_ISO8601(seconds(values)), expected)
+  expect_identical(format_ISO8601(dseconds(values)), expected)
+
+  components <- period(
+    year = 1e6, month = 1e6, day = 1e6,
+    hour = 1e6, minute = 1e6, second = 1.25
+  )
+  expect_identical(
+    format_ISO8601(components),
+    "P1000000Y1000000M1000000DT1000000H1000000M1.25S"
+  )
+})
+
 test_that("Formatting an Interval works", {
   expect_equal(format_ISO8601(interval(start = "2018-02-01", end = "2018-03-04")),
     "2018-02-01T00:00:00/2018-03-04T00:00:00",

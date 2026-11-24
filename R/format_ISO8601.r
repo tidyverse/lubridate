@@ -72,7 +72,7 @@ setMethod("format_ISO8601",
     if (!is.null(precision)) {
       warning("precision is not used for Duration objects")
     }
-    sprintf("PT%sS", format(x@.Data))
+    sprintf("PT%sS", format_ISO8601_number(x@.Data))
   }
 )
 
@@ -86,30 +86,30 @@ setMethod("format_ISO8601",
     date_part <-
       paste0(
         ifelse(x@year != 0,
-          paste0(x@year, "Y"),
+          paste0(format_ISO8601_number(x@year), "Y"),
           ""
         ),
         ifelse(x@month != 0,
-          paste0(x@month, "M"),
+          paste0(format_ISO8601_number(x@month), "M"),
           ""
         ),
         ifelse(x@day != 0,
-          paste0(x@day, "D"),
+          paste0(format_ISO8601_number(x@day), "D"),
           ""
         )
       )
     time_part <-
       paste0(
         ifelse(x@hour != 0,
-          paste0(x@hour, "H"),
+          paste0(format_ISO8601_number(x@hour), "H"),
           ""
         ),
         ifelse(x@minute != 0,
-          paste0(x@minute, "M"),
+          paste0(format_ISO8601_number(x@minute), "M"),
           ""
         ),
         ifelse(x@.Data != 0,
-          paste0(x@.Data, "S"),
+          paste0(format_ISO8601_number(x@.Data), "S"),
           ""
         )
       )
@@ -121,6 +121,17 @@ setMethod("format_ISO8601",
     )
   }
 )
+
+format_ISO8601_number <- function(x) {
+  trimws(formatC(
+    x,
+    digits = 15L,
+    width = 1L,
+    format = "fg",
+    decimal.mark = ".",
+    drop0trailing = TRUE
+  ))
+}
 
 ISO8601_precision_map <-
   list(
